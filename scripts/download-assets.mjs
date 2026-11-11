@@ -1,8 +1,8 @@
 import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import path from 'node:path';
 const root = path.resolve(import.meta.dirname, '../dist/assets/pokemon');
-const ids = [1, 4, 6, 7, 9, 25, 26, 41, 52, 68, 94, 95, 133, 143];
-const special = { 1: 'Shoot', 4: 'Shoot', 6: 'Shoot', 7: 'Shoot', 9: 'Shoot', 25: 'Shock', 26: 'Shock', 41: 'Attack', 52: 'Shoot', 68: 'Double', 94: 'Attack', 95: 'Shoot', 133: 'Attack', 143: 'Stomp' };
+const ids = [1, 4, 6, 7, 9, 25, 26, 37, 41, 52, 54, 65, 68, 74, 81, 94, 95, 123, 131, 133, 143, 150];
+const special = { 1: 'Shoot', 4: 'Shoot', 6: 'Shoot', 7: 'Shoot', 9: 'Shoot', 25: 'Shock', 26: 'Shock', 37: 'Shoot', 41: 'Attack', 52: 'Shoot', 54: 'Shoot', 65: 'Shoot', 68: 'Double', 74: 'Attack', 81: 'Shoot', 94: 'Attack', 95: 'Shoot', 123: 'Double', 131: 'Shoot', 133: 'Attack', 143: 'Stomp', 150: 'Shoot' };
 const base = 'https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master/sprite';
 const manifest = {};
 async function download(id) {

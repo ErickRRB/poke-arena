@@ -1,0 +1,4 @@
+Pokémon cries: https://github.com/PokeAPI/cries (original Pokémon audio).
+Foley: Kenney Impact Sounds and RPG Audio, CC0. https://kenney.nl/assets/impact-sounds https://kenney.nl/assets/rpg-audio
+Download mirror: https://github.com/receptron/mulmocast-media/tree/main/soundeffects/kenney
+Water recording: receptron, CC0, water-drop-s4.wav. https://github.com/receptron/jinglescript/blob/main/samples/sfx/SOURCES.md

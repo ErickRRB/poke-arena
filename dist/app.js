@@ -1,10 +1,18 @@
-import { Game, CARDS, DEFAULT_DECK, W, H } from './engine.js?v=2';
-import { Renderer } from './render.js?v=2';
-import { SoundSystem } from './audio.js?v=2';
+import { Game, CARDS, DEFAULT_DECK, W, H } from './engine.js?v=3';
+import { Renderer } from './render.js?v=3';
+import { SoundSystem } from './audio.js?v=3';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
 const renderer = new Renderer(canvas);
+function fitDesktop(){
+  const root=document.documentElement;
+  if(innerWidth<=760){root.style.removeProperty('--arena-h');root.style.setProperty('--ui-scale','1');root.style.removeProperty('--battle-gap');return;}
+  const scale=Math.max(1,Math.min(2.15,(innerHeight-136)/760)),gap=Math.round(28*scale);
+  const width=innerWidth-48-294*scale-gap,height=Math.max(200,Math.min(innerHeight-136,width/.75));
+  root.style.setProperty('--arena-h',`${height}px`);root.style.setProperty('--ui-scale',String(scale));root.style.setProperty('--battle-gap',`${gap}px`);
+}
+fitDesktop();addEventListener('resize',fitDesktop,{passive:true});
 const store = {
   get(key, fallback) { try { const v = JSON.parse(localStorage.getItem(`poke-arena:${key}`)); return v ?? fallback; } catch { return fallback; } },
   set(key, value) { try { localStorage.setItem(`poke-arena:${key}`, JSON.stringify(value)); } catch { /* Storage can be disabled in private browsing. */ } },
@@ -189,6 +197,7 @@ document.querySelectorAll('dialog').forEach(dialog=>{
 });
 
 function renderCollection() {
+  renderDeckStrip();
   $('collection').innerHTML=Object.keys(CARDS).map(k=>`<div class="collection-entry">${cardMarkup(k,0,true)}<button class="deck-toggle" data-toggle="${k}" ${!deckEditable?'disabled':''}>${deckDraft.includes(k)?'✓ En mazo':'+ Agregar'}</button></div>`).join('');
   for(const el of $('collection').querySelectorAll('[data-collection]')){const included=deckDraft.includes(el.dataset.collection);el.classList.toggle('selected',included);el.removeAttribute('aria-pressed');el.setAttribute('aria-haspopup','dialog');el.setAttribute('aria-label',`${CARDS[el.dataset.collection].name}, ver detalles`);}
   $('deck-count').textContent=`${deckDraft.length}/8`;
@@ -196,6 +205,14 @@ function renderCollection() {
   $('save-deck-btn').disabled=deckDraft.length!==8||!deckEditable;
   $('reset-deck-btn').disabled=!deckEditable;
 }
+function renderDeckStrip(){
+  $('deck-strip').innerHTML=Array.from({length:8},(_,i)=>{
+    const key=deckDraft[i],c=CARDS[key];
+    if(!c)return`<span class="deck-slot empty" aria-label="Espacio ${i+1} vacío">+</span>`;
+    return`<button class="deck-slot" data-deck-info="${key}" aria-label="${c.name}, ver detalles" title="${c.name}">${c.id?`<img src="assets/pokemon/${c.id}/card.png" alt="" draggable="false">`:spellIcon(key)}<span>${c.cost}</span></button>`;
+  }).join('');
+}
+$('deck-strip').addEventListener('click',e=>{const el=e.target.closest('[data-deck-info]');if(el){renderCardInfo(el.dataset.deckInfo);openModal('card-dialog');}});
 function openDeck() {
   deckEditable=!['playing','paused'].includes(game.state);deckDraft=[...deck];
   $('deck-edit-hint').textContent=deckEditable?'':'En batalla';
@@ -210,6 +227,7 @@ function toggleDeckCard(key){
 }
 function renderCardInfo(key){
   const c=CARDS[key];inspectedCard=key;
+  audioInit();sfx.cry(c.id);
   $('card-info-name').textContent=c.name;$('card-info-type').textContent=c.label;$('card-info-role').textContent=c.role;$('card-info-cost').textContent=c.cost;
   $('card-info-art').innerHTML=c.id?`<img src="assets/pokemon/${c.id}/card.png" alt="${c.name}">`:spellIcon(key);
   $('card-info-art').style.setProperty('--card-tint',c.color);

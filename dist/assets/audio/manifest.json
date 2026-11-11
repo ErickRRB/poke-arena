@@ -1,0 +1,41 @@
+{
+  "cries": {
+    "1": "assets/audio/cries/1.ogg",
+    "4": "assets/audio/cries/4.ogg",
+    "6": "assets/audio/cries/6.ogg",
+    "7": "assets/audio/cries/7.ogg",
+    "9": "assets/audio/cries/9.ogg",
+    "25": "assets/audio/cries/25.mp3",
+    "26": "assets/audio/cries/26.ogg",
+    "37": "assets/audio/cries/37.ogg",
+    "41": "assets/audio/cries/41.ogg",
+    "52": "assets/audio/cries/52.ogg",
+    "54": "assets/audio/cries/54.ogg",
+    "65": "assets/audio/cries/65.ogg",
+    "68": "assets/audio/cries/68.ogg",
+    "74": "assets/audio/cries/74.ogg",
+    "81": "assets/audio/cries/81.ogg",
+    "94": "assets/audio/cries/94.ogg",
+    "95": "assets/audio/cries/95.ogg",
+    "123": "assets/audio/cries/123.ogg",
+    "131": "assets/audio/cries/131.ogg",
+    "133": "assets/audio/cries/133.ogg",
+    "143": "assets/audio/cries/143.ogg",
+    "150": "assets/audio/cries/150.ogg"
+  },
+  "foley": {
+    "punch-3": "assets/audio/foley/punch-3.ogg",
+    "stone": "assets/audio/foley/stone.ogg",
+    "punch-1": "assets/audio/foley/punch-1.ogg",
+    "punch-2": "assets/audio/foley/punch-2.ogg",
+    "coin": "assets/audio/foley/coin.ogg",
+    "swish-1": "assets/audio/foley/swish-1.ogg",
+    "bell": "assets/audio/foley/bell.ogg",
+    "swish-2": "assets/audio/foley/swish-2.ogg",
+    "metal": "assets/audio/foley/metal.ogg",
+    "heavy": "assets/audio/foley/heavy.ogg",
+    "water": "assets/audio/foley/water.wav",
+    "cloth": "assets/audio/foley/cloth.ogg",
+    "glass": "assets/audio/foley/glass.ogg"
+  }
+}
