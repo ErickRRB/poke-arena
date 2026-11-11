@@ -1,4 +1,4 @@
-import { W, H, LANES, RIVER, CARDS, directionRow } from './engine.js?v=4';
+import { W, H, LANES, RIVER, CARDS, DEFAULT_DECK, directionRow } from './engine.js?v=5';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -21,18 +21,24 @@ export class Renderer {
     this.sprites = new Map(); this.metadata = {};
     this.anchors = new Map(); this.bodyHeights = new Map(); this.effects = [];
     this.particles = []; this.rings = []; this.numbers = [];
+    this.healthStates=new Map();this.speciesLoads=new Map();this.imageLoads=new Map();
     this.t = 0; this.reduced = false; this.pointer = null; this.selection = null; this.tutorialSpot = false;
     this.buildBackground();
   }
-  async load() {
-    const response = await fetch('assets/pokemon/manifest.json?v=3');
+  async load(keys=DEFAULT_DECK) {
+    const response = await fetch('assets/pokemon/manifest.json?v=5');
     if (!response.ok) throw new Error('No se pudo cargar el archivo de sprites.');
     this.metadata = await response.json();
-    await Promise.all(Object.entries(this.metadata).flatMap(([id, anims]) => Object.entries(anims).map(async ([name, meta]) => {
-      const img = new Image(); img.src = meta.file;
-      await img.decode();
+    await this.ensureSpecies([...keys.map(k=>CARDS[k]?.id),26,52].filter(Boolean));
+  }
+  ensureSpecies(ids){if(!Object.keys(this.metadata).length)return Promise.resolve();return Promise.all([...new Set(ids)].map(id=>{
+    if(this.speciesLoads.has(id))return this.speciesLoads.get(id);
+    const names=new Set(['Walk','Idle','Attack','Hurt',...Object.values(CARDS).filter(c=>c.id===Number(id)).map(c=>c.attackAnim)]);
+    const pending=Promise.all(Object.entries(this.metadata[id]||{}).filter(([name])=>names.has(name)).map(async([name,meta])=>{
+      const loadImage=file=>{if(!this.imageLoads.has(file)){const image=new Image();image.src=file;this.imageLoads.set(file,image.decode().then(()=>image));}return this.imageLoads.get(file);};
+      const img=await loadImage(meta.file);
       this.sprites.set(`${id}-${name}`, img);
-      const shadow=new Image();shadow.src=meta.shadow;await shadow.decode();
+      const shadow=await loadImage(meta.shadow);
       const surface=document.createElement('canvas');surface.width=shadow.width;surface.height=shadow.height;
       const ctx=surface.getContext('2d',{willReadFrequently:true});ctx.drawImage(shadow,0,0);
       const pixels=ctx.getImageData(0,0,shadow.width,shadow.height).data,anchors=[];
@@ -50,7 +56,8 @@ export class Renderer {
         for(let y=0;y<meta.height;y++)for(let x=0;x<meta.width;x++)if(data[(y*img.width+x)*4+3]>0)top=Math.min(top,y);
         this.bodyHeights.set(Number(id),(anchors[0]?.[0]?.y||meta.height*.7)-top);
       }
-    })));
+    }));this.speciesLoads.set(id,pending);return pending;
+  }));
   }
   rng(seed) { let s = seed; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
   tree(c, x, y, scale = 1, variant = 0) {
@@ -178,11 +185,12 @@ export class Renderer {
   }
   sprite(c, unit, idle = false) {
     const id = unit.card.id;
+    if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
     let anim = unit.attack > 0 ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving ? 'Walk' : unit.hit>0?'Hurt':'Idle';
     if (!this.sprites.has(`${id}-${anim}`)) anim = 'Walk';
     const meta = this.metadata[id]?.[anim], img = this.sprites.get(`${id}-${anim}`);
     if (!meta || !img) return;
-    const scale = unit.scale || (id === 95 ? 1.2 : id === 6 ? 1.8 : id === 143 ? 2 : 2.05);
+    const scale = unit.scale || (id === 95 ? 1.2 : id === 6 ? 1.8 : id === 143 ? 2 : 2.05),vertical=this.verticalScale||1;
     let frame = 0;
     const attacking=unit.attack>0;
     const duration = meta.durations.reduce((a,b)=>a+b,0);
@@ -206,20 +214,33 @@ export class Renderer {
     c.save();
     if(unit.spawn>0) { c.globalAlpha=.5; }
     if(unit.hit>0) c.filter='brightness(1.8)';
-    const px=x+unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge-lift-anchor.y*scale;
-    if(unit.card.charge&&unit.charge>=unit.card.charge&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9),meta.width*scale,meta.height*scale);}c.globalAlpha=1;}
-    c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px),Math.round(py),meta.width*scale,meta.height*scale);
+    const px=x+unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge-lift-anchor.y*scale/vertical;
+    if(unit.card.charge&&unit.charge>=unit.card.charge&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
+    c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px),Math.round(py),meta.width*scale,meta.height*scale/vertical);
     c.restore();
     if(idle)return;
     if(unit.spawn>0){
       const progress=1-unit.spawn/.75;
       c.strokeStyle='#ecdfae';c.lineWidth=2;c.beginPath();c.arc(x,y-5,17,-Math.PI/2,-Math.PI/2+Math.PI*2*progress);c.stroke();
     }
-    const by=y-lift-(this.bodyHeights.get(id)||22)*scale-9;
-    rect(c,'#172b20',x-15,by,30,5);rect(c,unit.team?'#df9177':'#91c8d6',x-14,by+1,28*(unit.hp/unit.maxHp),3);
+    const by=y-lift-((this.bodyHeights.get(id)||22)*scale+9)/vertical;
+    this.healthBar(c,unit,x,by,unit.maxHp>=1800?52:44);
+    if(unit.card.ability&&!unit.abilityUsed){ellipse(c,'#382448',x+27,by+4,6,6);text(c,'◆',x+27,by+4,'#e9beff',10,800);}
     if(unit.stun>0){text(c,'ϟ',x,by-10,'#fff3a4',15,800);}
     else if(unit.slow>0){text(c,'↓',x,by-10,'#bae2a2',12);}
     if(unit.burn){for(let i=0;i<3;i++){const phase=(this.t*4+i*.3)%1;ellipse(c,i%2?'#e9b66c':'#e58449',x-8+i*7,y-6-phase*13,3*(1-phase)+1,5*(1-phase)+2);}}
+  }
+  healthBar(c,unit,x,y,width){
+    const ratio=Math.max(0,unit.hp/unit.maxHp);let h=this.healthStates.get(unit.id);
+    if(!h){h={chip:ratio,last:ratio,at:-10};this.healthStates.set(unit.id,h);}
+    if(ratio<h.last-.001){h.at=this.t;h.chip=Math.max(h.chip,h.last);}if(ratio>h.chip)h.chip=ratio;h.last=ratio;
+    if(this.t-h.at>.35)h.chip=Math.max(ratio,h.chip-(this.drawDt||0)*.9);
+    rect(c,'#09170f',x-width/2-2,y-2,width+4,12);rect(c,'#32413b',x-width/2,y,width,8);
+    if(h.chip>ratio)rect(c,'#ffe2a2',x-width/2,y,width*h.chip,8);
+    rect(c,unit.team?'#ef615a':'#43baf1',x-width/2,y,width*ratio,8);rect(c,unit.team?'#ffaaa0':'#a3e5ff',x-width/2,y,width*ratio,2);
+    for(let i=1;i<4;i++)rect(c,'#061a243d',x-width/2+width*i/4,y,1,8);
+    if(unit.hit>.12){c.save();c.globalAlpha=(unit.hit-.12)/.12;rect(c,'#fff5cf',x-width/2,y,width*ratio,3);c.restore();}
+    if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
   }
   platform(c,u){
     const {x,y,team}=u,pal=team?'#bb7e65':'#74aab6';
@@ -243,9 +264,10 @@ export class Renderer {
       this.burst(event.from.x,event.from.y-10,'#aa80d1',18,65);this.burst(event.to.x,event.to.y-10,'#bb99e0',18,55);
       this.effects.push({kind:'blink',from:event.from,to:event.to,life:.35,max:.35});
     }
-    if(type==='damage'&&event.amount>0)this.floatingNumber(event.target,event.amount,event.dot?'dot':'damage');
+    if(type==='damage'&&event.amount>0){this.floatingNumber(event.target,event.amount,event.dot?'dot':'damage');const target=event.target,old=this.healthStates.get(target.id);this.healthStates.set(target.id,{chip:Math.max(old?.chip||0,Math.min(1,(target.hp+event.amount)/target.maxHp)),last:target.hp/target.maxHp,at:this.t});}
     if(type==='heal'&&event.amount>0)this.floatingNumber(event.unit,event.amount,'heal');
-    if(type==='spawn')this.rings.push({x:event.unit.x,y:event.unit.y,color:event.unit.team?'#e89a78':'#96d5df',life:.7,max:.7,radius:24});
+    if(type==='spawn'){this.ensureSpecies([event.unit.card.id]).catch(()=>{});this.rings.push({x:event.unit.x,y:event.unit.y,color:event.unit.team?'#e89a78':'#96d5df',life:.7,max:.7,radius:24});}
+    if(type==='ability'||type==='deathBurst'){this.burst(event.unit.x,event.unit.y-15,type==='ability'?'#d7adff':'#d9c794',25,100);this.rings.push({x:event.unit.x,y:event.unit.y,spell:'pulse',color:type==='ability'?'#deb8ff':'#e4cca0',life:.7,max:.7,radius:event.radius});}
     if(type==='hit'){
       const color=CARDS[event.key]?.color||'#eee8bc';
       this.burst(event.x,event.y,color,5,35);
@@ -300,6 +322,8 @@ export class Renderer {
     c.globalAlpha=1;
     if(p.style==='coin'){
       const rx=1.5+Math.abs(Math.cos(this.t*22))*3;ellipse(c,'#836342',x+1,y+1,rx+1,5);ellipse(c,'#f1cf6e',x,y,rx,4);line(c,'#fff0b2',x,y-2,x,y+2,1);
+    }else if(p.style==='leaf'){
+      c.save();c.translate(x,y);c.rotate(this.t*12);ellipse(c,'#bcdf80',0,0,8,3);line(c,'#4d853d',-6,0,6,0,1);c.restore();
     }else if(p.style==='bubble'){
       ellipse(c,'#83d3d57a',x,y,6,6);c.strokeStyle='#b6edf1';c.lineWidth=1.5;c.beginPath();c.arc(x,y,6,0,Math.PI*2);c.stroke();ellipse(c,'#eefef4',x-2,y-2,1.5,1.5);
     }else if(p.style==='hydro'){
@@ -396,26 +420,27 @@ export class Renderer {
       const placement=game.resolveDeployment(0,key,p.x,p.y),point=placement||p;
       const valid=!!placement&&game.energy[0]>=card.cost;
       const color=valid?'#e9dc9e':'#e7947b';
-      if(placement&&Math.hypot(point.x-p.x,point.y-p.y)>4)line(c,color,p.x,p.y,point.x,point.y,1);
+      if(card.rolling){c.fillStyle='#f3d38925';c.fillRect(point.x-45,point.y-345,90,345);}
       if(card.structure){c.strokeStyle='#aad8db88';c.lineWidth=1;c.setLineDash([4,6]);c.beginPath();c.arc(point.x,point.y,card.range,0,Math.PI*2);c.stroke();c.setLineDash([]);}
       c.globalAlpha=.12;ellipse(c,color,point.x,point.y,card.spell?card.splash:27,card.spell?card.splash:18);c.globalAlpha=1;
       c.strokeStyle=color;c.lineWidth=2;c.setLineDash([5,4]);c.beginPath();c.ellipse(point.x,point.y,card.spell?card.splash:27,card.spell?card.splash:18,0,0,Math.PI*2);c.stroke();c.setLineDash([]);
       if(!card.spell&&valid){c.globalAlpha=.6;this.sprite(c,{x:point.x,y:point.y,card,team:0,dx:0,dy:-1,anim:this.t,id:-1,lifetime:card.lifetime},true);c.globalAlpha=1;}
-      else if(card.spell)text(c,card.name,p.x,p.y-card.splash-13,color,12);
       if(!valid){line(c,color,p.x-5,p.y-5,p.x+5,p.y+5,2);line(c,color,p.x+5,p.y-5,p.x-5,p.y+5,2);}
     }
     c.restore();
   }
   draw(game, dt = .016) {
-    const c=this.ctx;this.t+=dt;
+    const c=this.ctx;this.t+=dt;this.drawDt=dt;const bounds=this.canvas.getBoundingClientRect();this.verticalScale=bounds.width?bounds.height/bounds.width*W/H:1;
     c.imageSmoothingEnabled=false;c.drawImage(this.background,0,0);this.drawWater(c);
     // Forest shade falls softly over the far edge; the play area stays readable.
     const shade=c.createLinearGradient(0,0,0,180);shade.addColorStop(0,'#142c2733');shade.addColorStop(1,'#142c2700');c.fillStyle=shade;c.fillRect(0,0,W,180);
+    for(const field of game.fields||[]){ellipse(c,'#845aa640',field.x,field.y,field.radius,field.radius*.65);c.strokeStyle='#ce9bdd77';c.lineWidth=2;c.beginPath();c.ellipse(field.x,field.y,field.radius,field.radius*.65,0,0,Math.PI*2);c.stroke();for(let i=0;i<4;i++)ellipse(c,'#c7a0d65a',field.x+Math.sin(i*2+this.t)*field.radius*.6,field.y-((this.t*25+i*13)%40),3,5);}
     for(const spell of game.spells){
+      if(spell.card.rolling){c.save();c.translate(spell.x,spell.y);c.rotate(Math.sin(this.t*16)*.04);ellipse(c,'#233b2966',0,8,50,12);rect(c,'#68472e',-43,-13,86,25);rect(c,'#ae7c43',-42,-13,84,18);line(c,'#dcaf68',-35,-8,35,-8,3);for(const x of[-43,43]){ellipse(c,'#c6a16b',x,0,8,13);ellipse(c,'#815932',x,0,4,8);}for(const x of[-24,0,24]){rect(c,'#634b35',x,-20,4,11);}c.restore();continue;}
       c.strokeStyle=spell.team?'#ed9e78':'#d4e8aa';c.lineWidth=2;c.setLineDash([5,5]);c.beginPath();c.arc(spell.x,spell.y,spell.card.splash,0,Math.PI*2);c.stroke();c.setLineDash([]);
     }
     // Sort by feet position so sprites and towers overlap naturally.
-    const objects=[...game.towers.map(t=>({y:t.y,kind:'tower',value:t})),...game.units.map(u=>({y:u.y,kind:'unit',value:u}))].sort((a,b)=>a.y-b.y);
+    const objects=[...game.towers.map(t=>({y:t.y,kind:'tower',value:t})),...game.units.map(u=>({y:u.drawY??u.y,kind:'unit',value:u.drawX===undefined?u:{...u,x:u.drawX,y:u.drawY}}))].sort((a,b)=>a.y-b.y);
     for(const o of objects){if(o.kind==='tower')this.tower(c,o.value);else this.sprite(c,o.value);}
     if(game.state==='ready'){
       for(const [key,x,y,team] of [['pikachu',217,286,1],['squirtle',393,290,1],['charmander',210,554,0],['bulbasaur',390,550,0]])this.sprite(c,{id:x,card:CARDS[key],x,y,team,anim:this.t,dx:0,dy:team?1:-1},true);
@@ -423,6 +448,7 @@ export class Renderer {
     for(const p of game.projectiles)this.projectile(c,p);
     this.drawEffects(c,dt);
     this.drawPlacement(c,game);
+    if(this.healthStates.size>300){const ids=new Set(game.units.map(u=>u.id));for(const id of this.healthStates.keys())if(!ids.has(id))this.healthStates.delete(id);}
     for(const r of this.rings){
       r.life-=dt;const progress=1-r.life/r.max;
       c.globalAlpha=Math.max(0,r.life/r.max);c.strokeStyle=r.color;c.lineWidth=r.spell?3:2;c.beginPath();c.ellipse(r.x,r.y,r.radius*(.35+progress*.9),r.radius*(r.spell?1:.45)*(.35+progress*.9),0,0,Math.PI*2);c.stroke();

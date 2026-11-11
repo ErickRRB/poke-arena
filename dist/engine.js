@@ -1,3 +1,4 @@
+import { EXTRA_CARDS } from './catalog.js?v=5';
 export const W = 600, H = 800;
 export const RIVER = { top: 375, bottom: 425 };
 export const LANES = [158, 442];
@@ -52,6 +53,20 @@ const arenaBalance={
   lapras:{hp:2000,damage:68},mewtwo:{hp:1280,damage:145}
 };
 for(const[key,stats]of Object.entries(arenaBalance))Object.assign(CARDS[key],stats);
+for(const c of Object.values(CARDS))if(!c.spell)c.damage=Math.round(c.damage*1.06);
+CARDS.treecko={name:'Treecko',id:252,cost:3,type:'grass',label:'Planta',role:'Pareja · a distancia',move:'Semilladora',style:'leaf',attackAnim:'Shoot',attackDuration:.7,hp:370,damage:55,range:145,speed:45,interval:1.25,count:2,air:true,muzzleHeight:24,color:'#a5d577',description:'Dos tiradores que atacan a tierra y aire. Vulnerables al daño de área.'};
+CARDS.golem={name:'Golem',id:76,cost:8,type:'rock',label:'Roca',role:'Tanque · división',move:'Demolición',style:'slam',attackAnim:'Attack',attackDuration:1,hp:4600,damage:190,range:30,speed:21,interval:2.3,building:true,radius:23,muzzleHeight:35,deathDamage:130,split:true,color:'#b9ad92',description:'Tanque que solo ataca estructuras. Al caer explota y deja dos Geodude pequeños.'};
+CARDS.log={name:'Tronco',cost:2,type:'rock',label:'Terrestre',role:'Hechizo · empuje',spell:true,rolling:true,damage:200,towerDamage:55,splash:45,knockback:28,color:'#b99462',description:'Rueda desde tu lado, daña y empuja a los enemigos terrestres.'};
+CARDS.mewtwo.ability={name:'Onda psíquica',cost:2,damage:240,radius:135,stun:1};
+CARDS.mewtwo.description='Esfera de daño en área. Onda psíquica: 2 de elixir, daña y aturde alrededor; un uso por despliegue.';
+CARDS.pikachu.description='Rayo que salta a otros dos rivales. Aturde, interrumpe el ataque y hace buscar el objetivo más cercano.';
+CARDS.magnemite.description='Volador eléctrico. Aturde, interrumpe el ataque y hace buscar el objetivo más cercano.';
+CARDS.thunder.description='Daña, aturde 0,75 s y reinicia el objetivo enemigo. Daño reducido a torres.';
+const rarityGroups={comun:['squirtle','zubat','eevee','geodude','treecko','bulbasaur'],especial:['pikachu','charmander','vulpix','psyduck','magnemite','lapras'],epica:['snorlax','machamp','onix','blastoise','gengar','scyther','golem','thunder','fireball'],legendaria:['charizard','mewtwo','log']};
+export const RARITIES={comun:'Común',especial:'Especial',epica:'Épica',legendaria:'Legendaria'};
+for(const[rarity,keys]of Object.entries(rarityGroups))for(const key of keys)CARDS[key].rarity=rarity;
+CARDS.alakazam.rarity='epica';
+Object.assign(CARDS,EXTRA_CARDS);
 export const DEFAULT_DECK = ['pikachu', 'snorlax', 'machamp', 'blastoise', 'zubat', 'thunder', 'charizard', 'fireball'];
 // PMD sheets run south, southeast, east, northeast, north, northwest, west, southwest.
 export function directionRow(dx, dy) { return (2 - Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8; }
@@ -61,7 +76,7 @@ const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 
 export class Game {
   constructor({ deck = DEFAULT_DECK, difficulty = 'normal', seed = Date.now(), onEvent = () => {}, tutorial = false, animations = {} } = {}) {
-    const valid = Array.isArray(deck) && deck.length === 8 && new Set(deck).size === 8 && deck.every(k => CARDS[k]);
+    const valid = Array.isArray(deck) && deck.length === 8 && new Set(deck).size === 8 && deck.every(k => CARDS[k]&&!CARDS[k].token);
     if (!valid) throw new Error('El mazo necesita ocho cartas diferentes.');
     this.seed = seed >>> 0 || 1;
     this.difficulty = difficulty;
@@ -73,6 +88,7 @@ export class Game {
     this.time = 180;
     this.elapsed = 0;
     this.overtime = false;
+    this.tiebreaker = false;
     this.winner = null;
     this.reason = '';
     this.energy = [6, 6];
@@ -82,6 +98,7 @@ export class Game {
     this.projectiles = [];
     this.spells = [];
     this.attacks = [];
+    this.fields = [];
     this.towers = [];
     this.nextId = 1;
     this.aiClock = 3.5;
@@ -90,7 +107,7 @@ export class Game {
       for (let lane = 0; lane < 2; lane++) this.towers.push({ id: this.nextId++, team, lane, x: LANES[lane], y: team ? 188 : 612, hp: 3000, maxHp: 3000, king: false, active: true, radius: 29, range: 180, damage: 52, interval: .9, cooldown: .3, stun: 0, hit: 0 });
       this.towers.push({ id: this.nextId++, team, lane: -1, x: 300, y: team ? 82 : 718, hp: 4800, maxHp: 4800, king: true, active: false, radius: 34, range: 185, damage: 60, interval: 1, cooldown: .5, stun: 0, hit: 0 });
     }
-    for (const tower of this.towers) Object.assign(tower, {interval:Math.round(tower.interval*1.18*100)/100,guard: { id: tower.king ? 26 : 52, style: tower.king ? 'lightning' : 'coin', attackAnim: tower.king ? 'Shock' : 'Shoot' }, dx: 0, dy: tower.team ? 1 : -1, attack: 0, attackDuration: .6, attackSeq: 0, anim: this.random(), target: null });
+    for (const tower of this.towers) Object.assign(tower, {interval:Math.round(tower.interval*1.18*100)/100,guard: { id: tower.king ? 26 : 52, style: tower.king ? 'lightning' : 'coin', stun:tower.king?.18:0,attackAnim: tower.king ? 'Shock' : 'Shoot' }, dx: 0, dy: tower.team ? 1 : -1, attack: 0, attackDuration: .6, attackSeq: 0, anim: this.random(), target: null });
   }
   random() {
     let n = this.seed;
@@ -102,7 +119,7 @@ export class Game {
   start() { if (this.state === 'ready') { this.state = 'playing'; this.emit('start'); } }
   pause() { if (this.state === 'playing') { this.state = 'paused'; return true; } return false; }
   resume() { if (this.state === 'paused') this.state = 'playing'; }
-  get multiplier() { return this.overtime && this.elapsed >= 240 ? 3 : this.time <= 60 || this.overtime ? 2 : 1; }
+  get multiplier() { return this.overtime && (this.time <= 60 || this.tiebreaker) ? 3 : this.time <= 60 || this.overtime ? 2 : 1; }
   crowns(team) {
     if (this.towers.some(t => t.team !== team && t.king && t.hp <= 0)) return 3;
     return this.towers.filter(t => t.team !== team && !t.king && t.hp <= 0).length;
@@ -121,21 +138,23 @@ export class Game {
   resolveDeployment(team,key,x,y){
     const card=CARDS[key];
     if(!card||!Number.isFinite(x)||!Number.isFinite(y))return null;
-    if(card.spell)return this.canDeploy(team,key,x,y)?{x,y}:null;
+    if(card.spell)return this.canDeploy(team,key,x,y)?{x,y:card.rolling?(team?Math.min(y,356):Math.max(y,444)):y}:null;
     if(x<15||x>585||y<15||y>785)return null;
-    const origin={x:clamp(x,44,556),y:clamp(y,44,756)};
-    const lane=x<300?0:1,captured=this.towers.some(t=>t.team!==team&&!t.king&&t.lane===lane&&t.hp<=0);
-    if(!(team===0?y>=444:y<=356)&&!(captured&&(team===0?y>=252&&y<=356:y>=444&&y<=548)))return null;
+    // Project onto the closest unlocked rectangle, including the river and enemy half.
+    const zones=[{left:44,right:556,top:team?44:444,bottom:team?356:756}];
+    for(const lane of[0,1])if(this.towers.some(t=>t.team!==team&&!t.king&&t.lane===lane&&t.hp<=0))zones.push({left:lane?300:44,right:lane?556:300,top:team?444:252,bottom:team?548:356});
+    const points=zones.map(z=>({x:clamp(x,z.left,z.right),y:clamp(y,z.top,z.bottom)})).sort((a,b)=>distance(a,{x,y})-distance(b,{x,y}));
+    const origin=points[0];
     if(this.canDeploy(team,key,origin.x,origin.y))return origin;
     // Search outwards from the drop point, so obstructed drops settle at the nearest free edge.
     for(let radius=3;radius<=96;radius+=3)for(let i=0;i<48;i++){
-      const angle=i*Math.PI/24-Math.PI/2,px=x+Math.cos(angle)*radius,py=y+Math.sin(angle)*radius;
+      const angle=i*Math.PI/24-Math.PI/2,px=origin.x+Math.cos(angle)*radius,py=origin.y+Math.sin(angle)*radius;
       if(this.canDeploy(team,key,px,py))return{x:px,y:py};
     }
     return null;
   }
   deploy(team, handIndex, x, y) {
-    if (this.state !== 'playing') return { ok: false, reason: 'La partida no está en marcha.' };
+    if (this.state !== 'playing'||this.tiebreaker) return { ok: false, reason: this.tiebreaker?'Desempate en curso.':'La partida no está en marcha.' };
     const key = this.hands[team]?.[handIndex];
     const card = CARDS[key];
     if (!card) return { ok: false, reason: 'Elegí una carta.' };
@@ -148,7 +167,8 @@ export class Game {
     this.hands[team][handIndex] = this.queues[team].shift();
     this.queues[team].push(key);
     if (card.spell) {
-      this.spells.push({ key, card, team, x, y, delay: .4 });
+      if(card.rolling)y=team?Math.min(y,356):Math.max(y,444);
+      this.spells.push({ key, card, team, x, y, delay:card.rolling?0:.4,remaining:card.rolling?1.7:0,hitIds:[] });
       this.emit('cast', { key, team, x, y, radius: card.splash });
     } else {
       const count = card.count || 1;
@@ -163,23 +183,29 @@ export class Game {
   }
   spawn(key, team, x, y, delay = .75) {
     const card = CARDS[key];
-    const u = { id: this.nextId++, key, card, team, x, y, hp: card.hp, maxHp: card.hp, radius: card.radius || 12, lane: x < 300 ? 0 : 1, cooldown: .4, spawn: delay, stun: 0, slow: 0, hit: 0, attack: 0, attackDuration: 0, attackSeq: 0, anim: this.random() * 2, dx: 0, dy: team ? 1 : -1, moving: false, target: null, engaged:false,charge: 0, blinkCooldown: 0, stepClock: .2, burn: null, lifetime: card.lifetime || 0 };
+    const u = { id: this.nextId++, key, card, team, x, y, hp: card.hp, maxHp: card.hp, radius: card.radius || 12, lane: x < 300 ? 0 : 1, cooldown: .4, spawn: delay, stun: 0, slow: 0, hit: 0, attack: 0, attackDuration: 0, attackSeq: 0, anim: this.random() * 2, dx: 0, dy: team ? 1 : -1, moving: false, target: null, engaged:false,charge: 0, blinkCooldown: 0, stepClock: .2, burn: null, lifetime: card.lifetime || 0,abilityUsed:false };
     this.units.push(u);
+    u.shield=card.shield||0;u.maxShield=u.shield;u.summonClock=card.summonEvery||0;u.healClock=card.healEvery||0;u.ttl=card.ttl||0;if(card.scale)u.scale=card.scale;
     this.stats[team].deployed++;
     this.emit('spawn', { unit: u });
+    if(card.entryShield)for(const ally of this.units)if(ally.team===team&&ally!==u&&ally.hp>0&&distance(ally,u)<100){ally.shield=Math.max(ally.shield||0,card.entryShield);ally.maxShield=Math.max(ally.maxShield||0,ally.shield);}
+    if(card.spawnWith){const baby=this.spawn(card.spawnWith,team,clamp(x+24,44,556),y+12,delay);baby.parentId=u.id;}
     return u;
   }
-  damage(target, amount, team, { stun = 0, slow = 0, burn = 0, dot = false } = {}) {
+  damage(target, amount, team, { stun = 0, slow = 0, burn = 0, dot = false, sourceId = 0, reflected = false, poisonField = 0 } = {}) {
     if (target.hp <= 0 || this.state !== 'playing') return;
-    const actual = Math.min(target.hp, amount);
+    amount*=1-(target.card?.armor||0);const absorbed=Math.min(target.shield||0,amount);target.shield=Math.max(0,(target.shield||0)-absorbed);amount-=absorbed;
+    const actual = Math.min(target.hp, amount)+absorbed;
     target.hp = Math.max(0, target.hp - amount);
-    target.hit = .15;
+    target.hit = .24;
     target.stun = Math.max(target.stun, stun);
     target.slow = Math.max(target.slow || 0, slow);
-    if (stun > 0) { target.attackSeq++; target.attack = 0; target.charge = 0; }
+    if (stun > 0) { target.attackSeq++; target.attack = 0; target.charge = 0; target.target=null;target.engaged=false;target.cooldown=Math.max(target.cooldown,stun+.18); }
     if (burn > 0) target.burn = { remaining: 3, tick: .5, damage: burn, team };
     this.stats[team].damage += actual;
     this.emit('damage', { target, amount: actual, dot });
+    if(poisonField&&!dot)this.addField(target.x,target.y,team,poisonField,sourceId);
+    if(target.card?.reflect&&sourceId&&!reflected&&!dot){const attacker=this.units.find(u=>u.id===sourceId)||this.towers.find(t=>t.id===sourceId);if(attacker?.hp>0)this.damage(attacker,actual*target.card.reflect,target.team,{reflected:true});}
     if (target.king) target.active = true;
     if (target.hp <= 0) {
       if ('king' in target) {
@@ -187,7 +213,18 @@ export class Game {
         king.active = true;
         this.emit('towerDown', { tower: target, team, crowns: this.crowns(team) });
         if (target.king || this.overtime) this.finish(team, target.king ? 'Torre central destruida' : 'Primera torre en tiempo extra');
-      } else { this.stats[team].defeated++; this.emit(target.card.structure ? 'structureDown' : 'faint', { unit: target }); }
+      } else {
+        this.stats[team].defeated++; this.emit(target.card.structure ? 'structureDown' : 'faint', { unit: target });
+        if(target.card.split){
+          this.emit('deathBurst',{unit:target,radius:64});
+          for(const other of[...this.units,...this.towers])if(other.team!==target.team&&other.hp>0&&!other.card?.flying&&distance(other,target)<64+other.radius)this.damage(other,target.card.deathDamage,target.team);
+          for(const offset of[-20,20]){const small=this.spawn('geodude',target.team,clamp(target.x+offset,44,556),target.y,.4);small.card={...CARDS.geodude,damage:52,building:true,splash:0,speed:28};small.hp=small.maxHp=900;small.scale=1.45;}
+        }
+        if(target.card.deathSpawn)for(let i=0;i<(target.card.deathCount||1);i++)this.spawn(target.card.deathSpawn,target.team,clamp(target.x+(i-.5)*25,44,556),target.y,.4);
+        if(target.card.deathField)this.addField(target.x,target.y,target.team,target.card.deathField,target.id);
+        if(target.card.deathHeal)this.healNearby(target,target.card.deathHeal,125,true);
+        if(target.card.deathStun)for(const other of this.units)if(other.team!==target.team&&other.hp>0&&distance(other,target)<100)this.damage(other,1,target.team,{stun:target.card.deathStun});
+      }
     }
   }
   finish(winner, reason) {
@@ -199,13 +236,35 @@ export class Game {
     const a = this.crowns(0), b = this.crowns(1);
     if (a !== b) { this.finish(a > b ? 0 : 1, 'Más torres destruidas'); return; }
     if (!this.overtime) {
-      this.overtime = true; this.time = 60; this.emit('overtime');
+      this.overtime = true; this.time = 120; this.emit('overtime');
     } else {
-      // As in a tower tiebreaker, the lowest surviving tower decides the result.
-      const lowest = team => Math.min(...this.towers.filter(t => t.team === team && t.hp > 0).map(t => t.hp));
-      const p = lowest(0), e = lowest(1);
-      this.finish(p === e ? -1 : p > e ? 0 : 1, p === e ? 'Empate en vida de las torres' : 'Desempate por vida de la torre más dañada');
+      this.tiebreaker=true;this.time=0;this.attacks=[];this.projectiles=[];this.spells=[];this.fields=[];for(const unit of this.units){unit.attack=0;unit.moving=false;}this.emit('tiebreaker');
     }
+  }
+  activateAbility(team,id){
+    const unit=this.units.find(u=>u.id===id&&u.team===team&&u.hp>0&&u.spawn<=0),ability=unit?.card.ability;
+    if(this.state!=='playing'||this.tiebreaker||!ability||unit.abilityUsed)return{ok:false,reason:'Habilidad no disponible.'};
+    if(this.energy[team]<ability.cost)return{ok:false,reason:`Necesitás ${ability.cost} de elixir.`};
+    this.energy[team]-=ability.cost;this.stats[team].energy+=ability.cost;unit.abilityUsed=true;
+    if(ability.dash){const target=this.acquire(unit);if(target){this.face(unit,target);unit.x=clamp(unit.x+unit.dx*ability.dash,44,556);unit.y=clamp(unit.y+unit.dy*ability.dash,44,756);}}
+    if(ability.effect==='restore'){const amount=Math.min(unit.maxHp-unit.hp,ability.heal);unit.hp+=amount;if(amount)this.emit('heal',{unit,amount});}
+    if(ability.effect==='healingFire')this.healNearby(unit,ability.heal,ability.radius,true);
+    if(ability.effect==='shield')for(const ally of this.units)if(ally.team===team&&ally.hp>0&&distance(unit,ally)<=ability.radius){ally.shield=Math.max(ally.shield||0,ability.shield);ally.maxShield=Math.max(ally.maxShield||0,ally.shield);}
+    for(const target of[...this.units,...this.towers])if(target.team!==team&&target.hp>0&&(!ability.groundOnly||!target.card?.flying)&&distance(unit,target)<=ability.radius+target.radius){
+      if(ability.damage)this.damage(target,'king'in target?Math.round(ability.damage*.28):ability.damage,team,{stun:ability.stun,slow:ability.slow,burn:ability.burn,sourceId:unit.id});
+      if(ability.knockback&&target.card&&!target.card.structure){const d=distance(unit,target)||1;target.x=clamp(target.x+(target.x-unit.x)/d*ability.knockback,44,556);target.y=clamp(target.y+(target.y-unit.y)/d*ability.knockback,44,756);target.target=null;target.engaged=false;target.attackSeq++;}
+    }
+    this.emit('ability',{unit,radius:ability.radius});return{ok:true};
+  }
+  healNearby(unit,amount,radius,all=false){
+    let allies=this.units.filter(u=>u!==unit&&u.team===unit.team&&u.hp>0&&u.hp<u.maxHp&&!u.card.structure&&distance(u,unit)<=radius).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp);
+    if(!all)allies=allies.slice(0,1);
+    for(const ally of allies){const restored=Math.min(amount,ally.maxHp-ally.hp);ally.hp+=restored;if(unit.card.cleanse){ally.burn=null;ally.slow=0;}this.emit('heal',{unit:ally,amount:restored});}
+  }
+  addField(x,y,team,damage,sourceId){
+    const existing=this.fields.find(f=>f.team===team&&f.sourceId===sourceId&&Math.hypot(f.x-x,f.y-y)<50);
+    if(existing){existing.life=3;return;}if(this.fields.length>=24)this.fields.shift();
+    const owner=this.units.find(u=>u.id===sourceId);this.fields.push({x,y,team,damage,sourceId,air:!!(owner?.card.air||owner?.card.flying),life:3,tick:.5,radius:48});
   }
   validTarget(unit, target) {
     return !!(target && target.hp > 0 && target.team !== unit.team && (!target.card?.flying || unit.card.air) && (!unit.card.building || 'king' in target || target.card?.structure) && (target.spawn === undefined || target.spawn <= 0));
@@ -298,7 +357,9 @@ export class Game {
   }
   strike(actor, target, amount, profile) {
     const hp = target.hp;
-    this.damage(target, amount, actor.team, profile);
+    if(actor.card?.execute&&target.card&&target.hp/target.maxHp<actor.card.execute)amount*=1.6;
+    if(actor.card?.enrage&&actor.hp<actor.maxHp*.5)amount*=1.25;
+    this.damage(target, amount, actor.team, {...profile,sourceId:actor.id});
     if (actor.card?.lifesteal && target.card && hp > target.hp && actor.hp > 0) {
       const healed = Math.min(actor.maxHp-actor.hp, actor.card.lifesteal);
       actor.hp += healed;
@@ -323,7 +384,7 @@ export class Game {
       }
       this.emit('beam',{from,to:{x:from.x+dx*(card.range+10),y:from.y+dy*(card.range+10)},style,key:a.key,team:a.team});
     }else if(style==='lightning'||style==='vine') {
-      this.strike(a,target,amount,card||{});
+      this.strike(a,target,amount,card||{stun:a.guard?.stun||0});
       this.emit('beam',{from,to,style,key:a.key,team:a.team});
       let last=target;
       const hit=new Set([target.id]);
@@ -347,8 +408,9 @@ export class Game {
       this.emit('melee',{from,to,style,team:a.team,shot,charged});
       this.emit('hit',{x:to.x,y:to.y,key:a.key,style,team:a.team});
     } else {
-      this.projectiles.push({ x:from.x,y:from.y,startX:from.x,startY:from.y,totalDistance:Math.hypot(to.x-from.x,to.y-from.y),travelled:0,target,team:a.team,damage:amount,speed:card?.projectileSpeed||(style==='bubble'?270:style==='rock'?235:style==='hydro'?420:style==='coin'?470:310),key:a.key||'tower',style,splash:card?.splash||0,stun:card?.stun||0,slow:card?.slow||0,burn:card?.burn||0,air:!card||!!card.air,life:3,arc:style==='rock'?65:style==='ember'?38:0,trace:[] });
+      this.projectiles.push({ x:from.x,y:from.y,startX:from.x,startY:from.y,totalDistance:Math.hypot(to.x-from.x,to.y-from.y),travelled:0,target,team:a.team,sourceId:a.id,damage:amount,speed:card?.projectileSpeed||(style==='bubble'?270:style==='rock'?235:style==='hydro'?420:style==='coin'?470:310),key:a.key||'tower',style,splash:card?.splash||0,stun:card?.stun||0,slow:card?.slow||0,burn:card?.burn||0,poisonField:card?.poisonField||0,air:!card||!!card.air,life:3,arc:style==='rock'?65:style==='ember'?38:0,trace:[] });
     }
+    if(card?.suicide)this.damage(a,a.maxHp*10,1-a.team);
   }
   ai(dt) {
     if (!this.aiEnabled) return;
@@ -356,6 +418,8 @@ export class Game {
     if (this.aiClock > 0) return;
     const level = this.difficulty === 'easy' ? .7 : this.difficulty === 'hard' ? 1.3 : 1;
     this.aiClock = (1.3 + this.random() * 1.5) / level;
+    const hero=this.units.find(u=>u.team===1&&u.spawn<=0&&u.card.ability&&!u.abilityUsed&&u.hp>0&&this.energy[1]>=u.card.ability.cost&&this.units.some(e=>e.team===0&&e.hp>0&&distance(e,u)<u.card.ability.radius));
+    if(hero)this.activateAbility(1,hero.id);
     const hand = this.hands[1];
     const threats = this.units.filter(u => u.team === 0 && u.hp > 0 && u.y < 380);
     const affordable = hand.map((key, i) => ({ key, i, card: CARDS[key] })).filter(c => c.card.cost <= this.energy[1]);
@@ -398,11 +462,28 @@ export class Game {
     dt = clamp(dt, 0, .1);
     const oldMultiplier = this.multiplier;
     this.time = Math.max(0, this.time - dt); this.elapsed += dt;
+    if(this.tiebreaker){
+      const towers=this.towers.filter(t=>t.hp>0),lowest=[0,1].map(team=>Math.min(...towers.filter(t=>t.team===team).map(t=>t.hp))),drain=Math.min(350*dt,...lowest);
+      for(const tower of towers){tower.hp=Math.max(0,tower.hp-drain);tower.hit=.1;}
+      if(Math.min(...lowest)<=350*dt){const tie=Math.abs(lowest[0]-lowest[1])<1e-7;this.finish(tie?-1:lowest[0]<lowest[1]?1:0,tie?'Empate':'Desempate de torres');}
+      return;
+    }
     if (oldMultiplier !== this.multiplier) this.emit('energyBoost', { multiplier: this.multiplier });
     const regen = this.multiplier / 2.8;
     for (let team = 0; team < 2; team++) this.energy[team] = Math.min(10, this.energy[team] + regen * dt);
+    for(const field of this.fields){field.life-=dt;field.tick-=dt;if(field.tick<=0){field.tick+=.5;for(const enemy of this.units)if(enemy.team!==field.team&&enemy.hp>0&&enemy.spawn<=0&&(!enemy.card.flying||field.air)&&distance(enemy,field)<field.radius+enemy.radius)this.damage(enemy,field.damage*.5,field.team,{dot:true});}}
+    this.fields=this.fields.filter(f=>f.life>0);
     this.ai(dt);
     for (const spell of this.spells) {
+      if(spell.card.rolling){
+        spell.y+=(spell.team?1:-1)*205*dt;spell.remaining-=dt;
+        for(const target of[...this.units,...this.towers])if(target.team!==spell.team&&target.hp>0&&!target.card?.flying&&!spell.hitIds.includes(target.id)&&Math.abs(target.x-spell.x)<45+target.radius&&Math.abs(target.y-spell.y)<18+target.radius){
+          spell.hitIds.push(target.id);this.damage(target,'king'in target?spell.card.towerDamage:spell.card.damage,spell.team);
+          if(target.card&&!target.card.structure){target.y=clamp(target.y+(spell.team?1:-1)*spell.card.knockback,42,758);target.attackSeq++;target.attack=0;target.target=null;target.engaged=false;}
+          this.emit('hit',{x:target.x,y:target.y,key:spell.key,style:'rock',team:spell.team});
+        }
+        if(spell.remaining<=0)spell.done=true;continue;
+      }
       spell.delay -= dt;
       if (spell.delay > 0 || spell.done) continue;
       spell.done = true;
@@ -439,6 +520,9 @@ export class Game {
         if(unit.lifetime<=0||unit.hp<=0){unit.hp=0;this.emit('structureDown',{unit});continue;}
       }
       if (unit.spawn > 0 || unit.stun > 0) continue;
+      if(unit.ttl>0){unit.ttl-=dt;if(unit.ttl<=0){this.damage(unit,unit.maxHp*10,1-unit.team);continue;}}
+      if(unit.card.summon){unit.summonClock-=dt;if(unit.summonClock<=0){unit.summonClock=unit.card.summonEvery;const count=this.units.filter(u=>u.parentId===unit.id&&u.hp>0).length;if(count<(unit.card.summonMax||3)&&this.units.length<160){const child=this.spawn(unit.card.summon,unit.team,clamp(unit.x+(count%2?20:-20),44,556),unit.y+(unit.team?20:-20),.5);child.parentId=unit.id;}}}
+      if(unit.card.heal){unit.healClock-=dt;if(unit.healClock<=0){unit.healClock=unit.card.healEvery;this.healNearby(unit,unit.card.heal,unit.card.healRadius,unit.card.healAll);}}
       if(!this.validTarget(unit,unit.target)||(unit.target?.card&&distance(unit,unit.target)>240)){unit.target=null;unit.engaged=false;}
       if(unit.target&&unit.engaged&&unit.attack<=0&&distance(unit,unit.target)>unit.card.range+unit.target.radius+45)unit.engaged=false;
       if(!unit.engaged){
@@ -447,6 +531,7 @@ export class Game {
       }
       const target = unit.target;
       if (!target) continue;
+      if(unit.card.copy&&target.card&&!target.card.structure&&!target.card.token){const copied={};for(const key of['damage','range','interval','style','burst','burstSpacing','stun','slow','burn','splash','air','chain','cone','pierce','projectileSpeed','lifesteal','poisonField','attackDuration'])if(key in target.card)copied[key]=target.card[key];unit.card={...unit.card,...copied,damage:Math.round(target.card.damage*.85),copy:false,attackAnim:'Attack'};this.emit('transform',{unit});}
       this.blink(unit,target);
       const reach = unit.card.range + target.radius;
       if (distance(unit, target) <= reach) { this.face(unit,target);if (unit.cooldown <= 0) this.attack(unit, target); }

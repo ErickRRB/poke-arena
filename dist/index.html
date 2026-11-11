@@ -7,9 +7,9 @@
   <meta name="description" content="Batallas de Pokémon en tiempo real: elegí tus cartas, defendé tus torres y conquistá la arena.">
   <title>Poké Arena · Batalla de torres</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
-<body>
+<body class="menu-mode">
   <svg class="svg-defs" aria-hidden="true"><defs>
     <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h6m6 0h6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
     <symbol id="i-sound" viewBox="0 0 24 24"><path d="m11 5-6 4H2v6h3l6 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -36,45 +36,51 @@
     </nav>
   </header>
 
+  <section id="main-menu" class="main-menu" aria-label="Menú principal">
+    <div class="menu-scene" aria-hidden="true"><div class="menu-sun"></div><div class="menu-mountain mountain-back"></div><div class="menu-mountain mountain-front"></div><div class="menu-river"></div><div class="scene-tower tower-red"><i></i><b></b></div><div class="scene-tower tower-blue"><i></i><b></b></div><img class="menu-charizard" src="assets/pokemon/6/art.png" alt=""><img class="menu-blastoise" src="assets/pokemon/9/art.png" alt=""><img class="menu-pikachu" src="assets/pokemon/25/art.png" alt=""><img class="menu-meowth" src="assets/pokemon/52/art.png" alt=""></div>
+    <div id="ready-overlay" class="menu-panel">
+      <h1>Poké Arena</h1>
+      <div id="menu-deck-preview" class="menu-deck-preview" aria-label="Tu mazo"></div>
+      <label class="name-field" for="trainer-name">Nombre<input id="trainer-name" maxlength="20" autocomplete="nickname" placeholder="Entrenador"></label>
+      <button id="online-btn" class="primary-btn" disabled>Buscar partida <svg><use href="#i-arrow"/></svg></button>
+      <button id="start-btn" class="secondary-btn" disabled>Jugar contra CPU</button>
+      <div class="menu-options"><button id="menu-deck-btn" class="secondary-btn"><svg><use href="#i-deck"/></svg>Mazo</button><button id="practice-btn" class="secondary-btn" disabled><svg><use href="#i-help"/></svg>Tutorial</button></div>
+      <span id="menu-loading" class="menu-loading">Cargando…</span>
+      <div id="search-panel" class="search-panel" hidden><span class="search-spinner"></span><strong id="search-status">Buscando rival…</strong><span id="search-time">0:00</span><button id="cancel-search" class="secondary-btn">Cancelar</button></div>
+    </div>
+  </section>
   <main class="battle-layout">
     <section class="battle-stage" aria-label="Arena de batalla">
       <div class="trainer-bar enemy-bar">
-        <div class="trainer-id"><span class="trainer-avatar rival-avatar">R</span><div><strong>Rival</strong><span id="difficulty-label">Entrenador · CPU</span></div></div>
-        <div class="battle-clock" id="battle-clock"><span id="boost" hidden>×2</span><span id="timer">3:00</span></div>
-        <div class="crowns enemy-crowns" aria-label="Torres del rival"><svg><use href="#i-crown"/></svg><strong id="enemy-score">0</strong></div>
+        <div class="trainer-id"><strong id="enemy-name">Entrenador</strong><span id="online-status" class="online-status" hidden></span></div>
+        <div class="battle-clock" id="battle-clock"><span id="phase-label" hidden>Extra</span><span id="boost" hidden>×2</span><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar"><svg><use href="#i-pause"/></svg></button>
       </div>
       <div class="arena-frame" id="arena-frame">
         <canvas id="arena" width="600" height="800" tabindex="0" role="application" aria-label="Arena. Seleccioná una carta con las teclas 1 a 4 y usá las flechas para elegir dónde desplegar. Confirmá con Enter. En pantalla táctil, tocá una carta y después tu mitad de la arena."></canvas>
         <div class="arena-corner corner-tl"></div><div class="arena-corner corner-tr"></div><div class="arena-corner corner-bl"></div><div class="arena-corner corner-br"></div>
         <div id="loading" class="loading-overlay"><span class="brand-ball"></span><span>Cargando sprites…</span></div>
-        <div id="arena-announcement" class="arena-announcement" aria-live="polite"></div>
         <div id="guide" class="guide" hidden><div><span id="guide-step">1 / 3</span><strong id="guide-text">Elegí una carta.</strong></div><button id="skip-guide" class="text-btn">Omitir</button></div>
-        <div id="ready-overlay" class="ready-overlay" hidden>
-          <h1>Poké Arena</h1>
-          <button id="start-btn" class="primary-btn">Jugar <svg><use href="#i-arrow"/></svg></button>
-          <div class="menu-options"><button id="menu-deck-btn" class="secondary-btn"><svg><use href="#i-deck"/></svg>Mazo</button><button id="practice-btn" class="secondary-btn"><svg><use href="#i-help"/></svg>Tutorial</button></div>
-        </div>
         <div id="pause-overlay" class="pause-overlay" hidden><div><svg class="pause-symbol"><use href="#i-pause"/></svg><h2>En pausa</h2><button id="resume-btn" class="primary-btn">Continuar<svg><use href="#i-play"/></svg></button><button id="pause-menu-btn" class="text-btn">Menú principal</button></div></div>
         <div id="result-overlay" class="result-overlay" hidden>
           <div class="result-content"><svg class="result-crown"><use href="#i-crown"/></svg><span class="eyebrow" id="result-eyebrow">BATALLA TERMINADA</span><h2 id="result-title">Victoria</h2><div class="result-score"><span id="result-player">1</span><span>—</span><span id="result-enemy">0</span></div><p id="result-reason"></p><div class="result-stats"><div><strong id="result-deployed">0</strong><span>Desplegados</span></div><div><strong id="result-damage">0</strong><span>Daño total</span></div></div><button id="again-btn" class="primary-btn">Volver a jugar<svg><use href="#i-arrow"/></svg></button><button id="result-deck-btn" class="text-btn">Cambiar mazo</button></div>
         </div>
         <div class="toast" id="toast" role="status"></div>
       </div>
-      <div class="trainer-bar player-bar"><div class="trainer-id"><span class="trainer-avatar player-avatar">V</span><div><strong>Vos</strong><span id="player-record">Entrenador</span></div></div><div class="crowns player-crowns" aria-label="Tus torres"><svg><use href="#i-crown"/></svg><strong id="player-score">0</strong></div></div>
     </section>
 
     <aside class="battle-console" aria-label="Cartas y controles">
       <div class="console-heading"><h2>Mano</h2><button id="deck-btn" class="deck-btn" title="Ver y editar mazo"><svg><use href="#i-deck"/></svg>Mazo</button></div>
       <div class="hand" id="hand" aria-label="Tus cuatro cartas"></div>
       <div class="next-card"><span>PRÓXIMA</span><div id="next-preview"></div><strong id="next-name">Zubat</strong></div>
-      <div class="energy-section"><div class="energy-title"><span><svg><use href="#i-energy"/></svg>Energía</span><strong><span id="energy-value">6</span><span class="energy-max"> / 10</span></strong></div><div class="energy-bar" id="energy-bar" role="progressbar" aria-label="Energía disponible" aria-valuemin="0" aria-valuemax="10" aria-valuenow="6"></div></div>
+      <div class="energy-section"><div class="energy-title"><span><svg><use href="#i-energy"/></svg>Elixir</span><strong><span id="energy-value">6</span><span class="energy-max"> / 10</span></strong></div><div class="energy-bar" id="energy-bar" role="progressbar" aria-label="Elixir disponible" aria-valuemin="0" aria-valuemax="10" aria-valuenow="6"></div></div>
       <div id="selected-detail" hidden></div>
+      <div id="abilities" class="abilities" aria-label="Habilidades disponibles" hidden></div>
       <div class="battle-controls"><button id="pause-btn" class="secondary-btn" disabled><svg><use href="#i-pause"/></svg>Pausar<span class="shortcut">ESPACIO</span></button><button id="restart-btn" class="icon-btn" title="Reiniciar batalla" aria-label="Reiniciar batalla">↻</button></div>
       <div class="console-footer"><button id="credits-btn" class="text-btn">Créditos</button></div>
     </aside>
   </main>
 
-  <dialog id="help-dialog" class="modal"><div class="modal-heading"><div><h2>Tutorial</h2></div><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><div class="how-diagram"><div><span class="how-card"><img src="assets/pokemon/25/card.png" alt="Pikachu"><b>3</b></span><strong>Elegí</strong></div><svg><use href="#i-arrow"/></svg><div><span class="how-field"><i></i><b>+</b></span><strong>Desplegá</strong></div><svg><use href="#i-arrow"/></svg><div><svg class="how-crown"><use href="#i-crown"/></svg><strong>Avanzá</strong></div></div><p>Elegí una carta que puedas pagar y tocá tu mitad de la arena. Tus Pokémon avanzan y atacan solos.</p><p>La energía llega hasta 10. Los Pokémon terrestres cruzan por los puentes; los voladores pasan sobre el río. Los hechizos se pueden lanzar en cualquier lado.</p><p>Ganá destruyendo la torre central o más torres que tu rival en 3 minutos. En el último minuto, la energía se recarga al doble. Si empatan, hay un minuto extra con muerte súbita y desempate por la torre con menos vida.</p><p>Las torres laterales están defendidas por Meowth. Raichu se activa en la central cuando pierde una torre lateral o recibe daño. Blastoise es una estructura que podés desplegar: atrae tanques y dispara sin moverse. En Mazo, tocá una carta para consultar su ataque y sus estadísticas.</p><p>Mientras avanzan, los Pokémon cambian a un objetivo válido más cercano que entre en su zona de detección. Una vez que empiezan a atacar, mantienen el objetivo. Los que solo atacan estructuras ignoran a los demás Pokémon.</p><p>Si soltás una carta sobre una torre o una estructura, se acomoda al punto libre más cercano. La vista previa marca dónde va a aparecer.</p><div class="help-keys"><span><kbd>1–4</kbd> Carta</span><span><kbd>← ↑ ↓ →</kbd> Apuntar</span><span><kbd>Enter</kbd> Desplegar</span><span><kbd>Espacio</kbd> Pausa</span></div><button id="help-practice-btn" class="primary-btn">Practicar<svg><use href="#i-arrow"/></svg></button></dialog>
+  <dialog id="help-dialog" class="modal"><div class="modal-heading"><h2>Tutorial</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><p>Elegí una carta y tocá o arrastrá en la arena. La vista previa marca el punto permitido más cercano.</p><p>Ganá destruyendo la torre central o más torres que tu rival en 3 minutos. Si empatan: 2 minutos extra; gana la primera torre destruida. Después, las torres pierden vida hasta el desempate.</p><p>Elixir ×2 en el último minuto y al comenzar el tiempo extra; ×3 en el último minuto extra.</p><p>Los eléctricos interrumpen el ataque y reinician el objetivo. Los atacantes de estructuras siguen ignorando tropas.</p><p>Los legendarios con habilidad tienen un botón junto a la mano. Cuesta elixir y se usa una vez por despliegue. Consultá cada ataque en Mazo.</p><div class="help-keys"><span><kbd>1–4</kbd> Carta</span><span><kbd>↑ ↓ ← →</kbd> Apuntar</span><span><kbd>Enter</kbd> Desplegar</span><span><kbd>Espacio</kbd> Pausa CPU</span></div><button id="help-practice-btn" class="primary-btn">Práctica guiada<svg><use href="#i-arrow"/></svg></button></dialog>
 
   <dialog id="settings-dialog" class="modal small-modal"><div class="modal-heading"><h2>Ajustes</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><label class="setting-row" for="difficulty"><span><strong>Rival</strong></span><select id="difficulty"><option value="easy">Principiante</option><option value="normal" selected>Entrenador</option><option value="hard">Líder de gimnasio</option></select></label><label class="setting-row" for="sound-setting"><span><strong>Sonido</strong></span><input type="checkbox" id="sound-setting" class="switch"></label><label class="setting-row" for="motion-setting"><span><strong>Reducir movimiento</strong></span><input type="checkbox" id="motion-setting" class="switch"></label><button id="settings-credits-btn" class="text-btn" style="margin-top:15px">Sprites y créditos</button></dialog>
 
@@ -86,6 +92,6 @@
 
   <dialog id="restart-dialog" class="modal small-modal"><div class="modal-heading"><h2>¿Empezar de nuevo?</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><div class="confirm-actions"><button class="secondary-btn" data-close>Seguir esta partida</button><button id="confirm-restart-btn" class="primary-btn">Reiniciar</button></div></dialog>
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
-  <script type="module" src="app.js?v=4"></script>
+  <script type="module" src="app.js?v=5"></script>
 </body>
 </html>

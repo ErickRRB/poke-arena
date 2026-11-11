@@ -2,7 +2,7 @@
 export class SoundSystem {
   constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.ready=this.preload().catch(()=>false); }
   async preload(){
-    const response=await fetch('assets/audio/manifest.json?v=3');if(!response.ok)throw Error('Audio manifest unavailable');
+    const response=await fetch('assets/audio/manifest.json?v=5');if(!response.ok)throw Error('Audio manifest unavailable');
     const manifest=await response.json();
     await Promise.all(Object.entries(manifest).flatMap(([group,entries])=>Object.entries(entries).map(async([id,file])=>{const r=await fetch(file);if(!r.ok)throw Error(`Audio unavailable: ${file}`);this.encoded.set(`${group}:${id}`,await r.arrayBuffer());})));
     this.bytesReady=true;if(this.ctx)await this.decodeSamples();return true;
@@ -49,8 +49,8 @@ export class SoundSystem {
   cry(id,x=300){
     if(!id||!this.enabled||!this.ctx)return;
     const now=this.ctx.currentTime,key=`cry:${id}`;this.voiceSlots=this.voiceSlots.filter(t=>t>now);
-    if(this.voiceSlots.length>=2||now-(this.last.get(key)??-100)<8)return;
-    if(this.sample(`cries:${id}`,x,{volume:.115,maxDuration:.9})){this.last.set(key,now);this.voiceSlots.push(now+.9);}
+    if(this.voiceSlots.length>=3||now-(this.last.get(key)??-100)<5)return;
+    if(this.sample(`cries:${id}`,x,{volume:.135,maxDuration:.9})){this.last.set(key,now);this.voiceSlots.push(now+.9);}
   }
   recorded(style,x,impact,shot,id){
     if(!this.buffers.has('foley:punch-1'))return false;
@@ -66,7 +66,7 @@ export class SoundSystem {
     else if(style==='ice'){play('glass',{volume:.28,rate:1.2,maxDuration:.42});this.noise(.1,3400,.02,pan);}
     else if(style==='coin'){play('coin',{volume:.2,rate:1.65,maxDuration:.28});}
     else if(style==='slash'){play(shot%2?'swish-1':'swish-2',{volume:.28,rate:1.13,maxDuration:.25});}
-    else if(style==='vine'){play('swish-1',{volume:.24,rate:.72,maxDuration:.35});play('heavy',{volume:.06,rate:1.7,maxDuration:.12});}
+    else if(style==='vine'||style==='leaf'){play(style==='leaf'?'swish-2':'swish-1',{volume:.24,rate:style==='leaf'?1.5:.72,maxDuration:.35});play('heavy',{volume:.06,rate:1.7,maxDuration:.12});}
     else if(style==='bite'){play('punch-3',{volume:.2,rate:1.65,maxDuration:.13});play('swish-2',{volume:.1,rate:1.5,maxDuration:.1});}
     else if(style==='dash'){play('cloth',{volume:.16,rate:1.5,maxDuration:.17});play('punch-3',{volume:.2,rate:1.3,maxDuration:.16});}
     else if(style==='shadow'){play('cloth',{volume:.2,rate:.7,reverse:true,maxDuration:.35});play('bell',{volume:.08,rate:.6,reverse:true,maxDuration:.4});}
@@ -130,6 +130,9 @@ export class SoundSystem {
   }
   event(e) {
     if(e.type==='spawn')this.cry(e.unit.card.id,e.unit.x);
+    if(e.type==='ability'){this.cry(e.unit.card.id,e.unit.x);this.play(e.unit.card.style,e.unit.x,true,0,e.unit.card.id);this.sample('foley:bell',e.unit.x,{volume:.2,rate:.65,maxDuration:.75});}
+    if(e.type==='faint'){this.sample(`cries:${e.unit.card.id}`,e.unit.x,{volume:.07,rate:.85,maxDuration:.35});}
+    if(e.type==='transform'){this.play('shadow',e.unit.x);this.cry(132,e.unit.x);}
     if(e.type==='attackRelease'){const id=e.attacker.card?.id||e.attacker.guard?.id;this.play(e.style,e.from.x,false,e.shot,id);if(e.shot===0)this.cry(id,e.from.x);}
     if(e.type==='hit'&&['bubble','hydro','rock','ember','coin','magnet','ice','confusion','aura'].includes(e.style))this.play(e.style,e.x,true);
     if(e.type==='blink')this.play('shadow',e.from.x);
