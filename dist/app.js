@@ -1,6 +1,6 @@
-import { Game, CARDS, DEFAULT_DECK, W, H } from './engine.js?v=3';
-import { Renderer } from './render.js?v=3';
-import { SoundSystem } from './audio.js?v=3';
+import { Game, CARDS, DEFAULT_DECK, W, H } from './engine.js?v=4';
+import { Renderer } from './render.js?v=4';
+import { SoundSystem } from './audio.js?v=4';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');

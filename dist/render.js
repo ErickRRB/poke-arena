@@ -1,4 +1,4 @@
-import { W, H, LANES, RIVER, CARDS, directionRow } from './engine.js?v=3';
+import { W, H, LANES, RIVER, CARDS, directionRow } from './engine.js?v=4';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -243,8 +243,8 @@ export class Renderer {
       this.burst(event.from.x,event.from.y-10,'#aa80d1',18,65);this.burst(event.to.x,event.to.y-10,'#bb99e0',18,55);
       this.effects.push({kind:'blink',from:event.from,to:event.to,life:.35,max:.35});
     }
-    if(type==='damage'&&!event.dot&&this.numbers.length<35)this.numbers.push({x:event.target.x+(Math.random()-.5)*14,y:event.target.y-30,amount:Math.round(event.amount),color:event.target.team?'#ffdfb7':'#e5f4e9',life:.7,max:.7});
-    if(type==='heal')this.numbers.push({x:event.unit.x,y:event.unit.y-27,amount:`+${event.amount}`,color:'#b6e6a2',life:.7,max:.7});
+    if(type==='damage'&&event.amount>0)this.floatingNumber(event.target,event.amount,event.dot?'dot':'damage');
+    if(type==='heal'&&event.amount>0)this.floatingNumber(event.unit,event.amount,'heal');
     if(type==='spawn')this.rings.push({x:event.unit.x,y:event.unit.y,color:event.unit.team?'#e89a78':'#96d5df',life:.7,max:.7,radius:24});
     if(type==='hit'){
       const color=CARDS[event.key]?.color||'#eee8bc';
@@ -266,6 +266,29 @@ export class Renderer {
   burst(x,y,color,count,speed) {
     if(this.reduced)count=Math.min(count,3);
     for(let i=0;i<count&&this.particles.length<350;i++)this.particles.push({x,y,vx:(Math.random()-.5)*speed,vy:(Math.random()-.5)*speed-20,color,life:.3+Math.random()*.4,max:.7,gravity:65,size:2+Math.random()*3});
+  }
+  floatingNumber(target,amount,kind='damage'){
+    const combined=this.numbers.find(n=>n.targetId===target.id&&n.kind===kind&&this.t-n.lastAt<.22);
+    if(combined){combined.amount+=amount;combined.life=combined.max;combined.lastAt=this.t;return;}
+    const id=target.card?.id,scale=target.scale||(id===95?1.2:id===6?1.8:id===143?2:2.05);
+    const height='king'in target?(target.king?83:72):(this.bodyHeights.get(id)||23)*scale+(target.card.structure?23:target.card.flying?16:0)+13;
+    const life=kind==='dot'?.95:1.15;
+    if(this.numbers.length>=32)this.numbers.shift();
+    this.numbers.push({targetId:target.id,kind,x:Math.max(24,Math.min(W-24,target.x+(target.id%3-1)*7+(kind==='dot'?15:kind==='heal'?-15:0))),y:Math.max(27,Math.min(H-27,target.y-height+(kind==='dot'?12:0))),amount,color:kind==='heal'?'#baf3a2':kind==='dot'?'#ffc27d':target.team?'#ffe8a0':'#ffd2c8',life,max:life,lastAt:this.t});
+  }
+  drawNumbers(c,dt){
+    for(const n of this.numbers){
+      n.life-=dt;if(n.life<=0)continue;
+      const age=n.max-n.life,progress=age/n.max,size=n.kind==='dot'?17:n.amount>=160?23:20;
+      const scale=this.reduced?1:age<.1?.8+age*3.2:age<.22?1.12-(age-.1):1;
+      const value=`${n.kind==='heal'?'+':''}${Math.round(n.amount)}`;
+      c.save();c.globalAlpha=progress<.62?1:(1-progress)/.38;
+      c.translate(n.x,n.y-(this.reduced?0:progress*30));c.scale(scale,scale);
+      c.font=`800 ${size}px "Barlow Condensed", "Segoe UI", sans-serif`;c.textAlign='center';c.textBaseline='middle';c.lineJoin='round';
+      c.strokeStyle='#0c180f';c.lineWidth=4.5;c.shadowColor='#08110d';c.shadowBlur=3;c.shadowOffsetY=2;c.strokeText(value,0,0);
+      c.shadowBlur=0;c.shadowOffsetY=0;c.fillStyle=n.color;c.fillText(value,0,0);c.restore();
+    }
+    this.numbers=this.numbers.filter(n=>n.life>0);
   }
   projectile(c,p){
     const progress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),height=Math.sin(progress*Math.PI)*p.arc;
@@ -340,8 +363,7 @@ export class Renderer {
       c.restore();
     }
     this.effects=this.effects.filter(e=>e.life>0);
-    for(const n of this.numbers){n.life-=dt;c.globalAlpha=Math.max(0,n.life/n.max);text(c,String(n.amount),n.x,n.y-(1-n.life/n.max)*20,n.color,11,800);}
-    this.numbers=this.numbers.filter(n=>n.life>0);c.globalAlpha=1;
+    this.drawNumbers(c,dt);c.globalAlpha=1;
   }
   drawWater(c) {
     c.save();c.beginPath();c.rect(0,377,W,46);c.clip();

@@ -8,8 +8,8 @@ export const CARDS = {
   snorlax: { name: 'Snorlax', id: 143, cost: 5, type: 'normal', label: 'Normal', role: 'Tanque · torres', hp: 1720, damage: 135, range: 29, speed: 27, interval: 1.5, building: true, radius: 20, color: '#86b6ab', description: 'Ignora a los Pokémon y avanza hacia las torres. Tiene mucha vida y camina lento.' },
   zubat: { name: 'Zubat', id: 41, cost: 2, type: 'flying', label: 'Volador', role: 'Enjambre · ×3', hp: 115, damage: 32, range: 27, speed: 66, interval: .9, air: true, flying: true, count: 3, color: '#ad9be4', description: 'Despliega tres Zubat. Vuelan sobre el río, pero son vulnerables al daño de área.' },
   charizard: { name: 'Charizard', id: 6, cost: 5, type: 'fire', label: 'Fuego / volador', role: 'Volador · área', hp: 760, damage: 98, range: 120, speed: 40, interval: 1.4, air: true, flying: true, splash: 45, radius: 18, color: '#f19c6b', description: 'Cruza el río volando y lanza fuego en área contra objetivos terrestres y aéreos.' },
-  thunder: { name: 'Impactrueno', cost: 3, type: 'electric', label: 'Eléctrico', role: 'Hechizo · aturde', spell: true, damage: 215, towerDamage: 100, splash: 70, stun: 1.5, color: '#f8d66d', description: 'Golpea cualquier zona de la arena y aturde a sus objetivos durante 1,5 segundos.' },
-  fireball: { name: 'Bola de fuego', cost: 4, type: 'fire', label: 'Fuego', role: 'Hechizo · área', spell: true, damage: 320, towerDamage: 165, splash: 82, knockback: 22, color: '#f19c6b', description: 'Daña y empuja a los Pokémon en un área. También puede rematar una torre.' },
+  thunder: { name: 'Impactrueno', cost: 3, type: 'electric', label: 'Eléctrico', role: 'Hechizo · aturde', spell: true, damage: 155, towerDamage: 43, splash: 70, stun: .75, color: '#f8d66d', description: 'Elimina enjambres y aturde durante 0,75 segundos. Hace daño reducido a las torres.' },
+  fireball: { name: 'Bola de fuego', cost: 4, type: 'fire', label: 'Fuego', role: 'Hechizo · área', spell: true, damage: 400, towerDamage: 110, splash: 82, knockback: 22, color: '#f19c6b', description: 'Daña y empuja en área. Elimina apoyos frágiles; los más resistentes sobreviven. Hace daño reducido a las torres.' },
   bulbasaur: { name: 'Bulbasaur', id: 1, cost: 3, type: 'grass', label: 'Planta', role: 'Apoyo · ralentiza', hp: 420, damage: 58, range: 122, speed: 40, interval: 1.1, slow: 1.3, air: true, color: '#9ad69c', description: 'Látigo cepa ralentiza a su objetivo. Combina bien con Pokémon de ataque a distancia.' },
   gengar: { name: 'Gengar', id: 94, cost: 4, type: 'ghost', label: 'Fantasma', role: 'Cuerpo a cuerpo · área', hp: 650, damage: 100, range: 32, speed: 65, interval: 1.1, splash: 35, color: '#b9a0e6', description: 'Se acerca rápido y golpea en área. Es eficaz contra grupos terrestres.' },
   machamp: { name: 'Machamp', id: 68, cost: 4, type: 'fighting', label: 'Lucha', role: 'Cuerpo a cuerpo', hp: 940, damage: 122, range: 28, speed: 44, interval: 1.0, radius: 17, color: '#c1b4a1', description: 'Sus golpes fuertes y rápidos eliminan tanques. Necesita apoyo contra voladores.' },
@@ -40,7 +40,18 @@ Object.assign(CARDS,{
   mewtwo:{name:'Mewtwo',id:150,cost:6,type:'psychic',label:'Psíquico',role:'Área · carga lenta',move:'Esfera aural',style:'aura',attackAnim:'Shoot',attackDuration:1.2,hp:730,damage:149,range:158,speed:38,interval:2.2,splash:45,projectileSpeed:225,air:true,muzzleHeight:37,color:'#cfb9ed',description:'Prepara una esfera de energía lenta que explota en área. Tiene gran alcance y necesita protección durante la carga.'}
 });
 // A slightly longer cadence makes windups and counterplay easier to read.
-for(const card of Object.values(CARDS))if(!card.spell){card.damage=Math.round(card.damage*1.04);card.interval=Math.round(card.interval*1.18*100)/100;}
+for(const card of Object.values(CARDS))if(!card.spell)card.interval=Math.round(card.interval*1.18*100)/100;
+// Health is tuned by role. Concentrated melee and building attacks remain useful against tanks/towers.
+const arenaBalance={
+  pikachu:{hp:520,damage:70},squirtle:{hp:680,damage:23},charmander:{hp:540,damage:48,burn:9},
+  snorlax:{hp:3000,damage:180},zubat:{hp:145,damage:28},charizard:{hp:1280,damage:32},
+  bulbasaur:{hp:720,damage:54},gengar:{hp:1100,damage:96},machamp:{hp:1580,damage:45},
+  eevee:{hp:500,damage:60},onix:{hp:1780,damage:170},blastoise:{hp:1650,damage:62},
+  vulpix:{hp:390,damage:25,burn:7},psyduck:{hp:800,damage:61},alakazam:{hp:560,damage:82},
+  geodude:{hp:1750,damage:84},magnemite:{hp:620,damage:55},scyther:{hp:950,damage:42},
+  lapras:{hp:2000,damage:68},mewtwo:{hp:1280,damage:145}
+};
+for(const[key,stats]of Object.entries(arenaBalance))Object.assign(CARDS[key],stats);
 export const DEFAULT_DECK = ['pikachu', 'snorlax', 'machamp', 'blastoise', 'zubat', 'thunder', 'charizard', 'fireball'];
 // PMD sheets run south, southeast, east, northeast, north, northwest, west, southwest.
 export function directionRow(dx, dy) { return (2 - Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8; }
@@ -76,10 +87,10 @@ export class Game {
     this.aiClock = 3.5;
     this.stats = [{ deployed: 0, damage: 0, energy: 0, defeated: 0 }, { deployed: 0, damage: 0, energy: 0, defeated: 0 }];
     for (let team = 0; team < 2; team++) {
-      for (let lane = 0; lane < 2; lane++) this.towers.push({ id: this.nextId++, team, lane, x: LANES[lane], y: team ? 188 : 612, hp: 1900, maxHp: 1900, king: false, active: true, radius: 29, range: 180, damage: 54, interval: .9, cooldown: .3, stun: 0, hit: 0 });
-      this.towers.push({ id: this.nextId++, team, lane: -1, x: 300, y: team ? 82 : 718, hp: 3000, maxHp: 3000, king: true, active: false, radius: 34, range: 185, damage: 62, interval: 1, cooldown: .5, stun: 0, hit: 0 });
+      for (let lane = 0; lane < 2; lane++) this.towers.push({ id: this.nextId++, team, lane, x: LANES[lane], y: team ? 188 : 612, hp: 3000, maxHp: 3000, king: false, active: true, radius: 29, range: 180, damage: 52, interval: .9, cooldown: .3, stun: 0, hit: 0 });
+      this.towers.push({ id: this.nextId++, team, lane: -1, x: 300, y: team ? 82 : 718, hp: 4800, maxHp: 4800, king: true, active: false, radius: 34, range: 185, damage: 60, interval: 1, cooldown: .5, stun: 0, hit: 0 });
     }
-    for (const tower of this.towers) Object.assign(tower, { damage:Math.round(tower.damage*1.04),interval:Math.round(tower.interval*1.18*100)/100,guard: { id: tower.king ? 26 : 52, style: tower.king ? 'lightning' : 'coin', attackAnim: tower.king ? 'Shock' : 'Shoot' }, dx: 0, dy: tower.team ? 1 : -1, attack: 0, attackDuration: .6, attackSeq: 0, anim: this.random(), target: null });
+    for (const tower of this.towers) Object.assign(tower, {interval:Math.round(tower.interval*1.18*100)/100,guard: { id: tower.king ? 26 : 52, style: tower.king ? 'lightning' : 'coin', attackAnim: tower.king ? 'Shock' : 'Shoot' }, dx: 0, dy: tower.team ? 1 : -1, attack: 0, attackDuration: .6, attackSeq: 0, anim: this.random(), target: null });
   }
   random() {
     let n = this.seed;

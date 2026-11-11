@@ -8,7 +8,11 @@ Las explicaciones están en Tutorial y en las fichas de las cartas. En Mazo, el 
 
 La colección tiene 20 Pokémon y dos hechizos. El mazo de ocho cartas se ve en una fila de iconos fija sobre la colección. Los menús tienen fondos opacos. En escritorio, la arena utiliza la altura disponible y los controles crecen con ella, sin el límite anterior de 800 píxeles.
 
-Las tropas que están avanzando recalculan el objetivo válido más cercano; una vez que comienzan a atacar, lo mantienen hasta que deja de ser válido o se aleja. Las estructuras desplegadas atraen a los atacantes que pasan cerca, incluidos los que buscan edificios. Soltar una carta sobre un obstáculo la acomoda en el punto libre más cercano y la vista previa muestra ese punto. El intervalo entre ataques de Pokémon y defensores aumentó alrededor de un 18 %, con aproximadamente un 4 % más de daño por golpe; los hechizos no cambiaron.
+Las tropas que están avanzando recalculan el objetivo válido más cercano; una vez que comienzan a atacar, lo mantienen hasta que deja de ser válido o se aleja. Las estructuras desplegadas atraen a los atacantes que pasan cerca, incluidos los que buscan edificios. Soltar una carta sobre un obstáculo la acomoda en el punto libre más cercano y la vista previa muestra ese punto.
+
+El balance da más resistencia a apoyos y tanques, mantiene frágiles los enjambres y conserva el ritmo de ataque más lento. Las torres laterales tienen 3000 de vida y la central 4800. La mayoría de los apoyos hacen menos daño; Machamp y los atacantes de edificios conservan suficiente daño concentrado para cumplir su función. Bola de fuego hace 400 de daño a tropas y 110 a torres; Impactrueno hace 155 y 43, y aturde durante 0,75 segundos. La distinción entre daño a tropas y torres sigue el criterio de las [notas oficiales de balance de Supercell de junio de 2026](https://supercell.com/en/games/clashroyale/blog/release-notes/june-balance-changes-2026/), con valores propios para esta arena.
+
+Los números de impacto usan texto de 20–23 píxeles con contorno oscuro, permanecen hasta 1,15 segundos y suman los golpes consecutivos de una ráfaga en una sola cifra. Las quemaduras y la curación tienen colores distintos.
 
 Las partidas duran tres minutos. Destruir la torre central gana inmediatamente; al agotarse el tiempo gana quien haya destruido más torres. Un empate inicia un minuto extra con muerte súbita. Si continúa el empate, decide la torre superviviente con menos vida. El juego tiene tres dificultades, práctica guiada, pausa, sonido y controles de teclado o pantalla táctil. No incluye multijugador en línea.
 
@@ -38,7 +42,7 @@ Abrí [la vista local](http://127.0.0.1:4173). Los recursos se sirven desde `dis
 node --test tests/*.test.mjs
 ```
 
-Las 49 pruebas cubren costes, rotación de cartas, zonas de despliegue, puentes, vuelo, selección de objetivos, ataques específicos, estructuras, hechizos, pausa, torres, muerte súbita, colocación junto a obstáculos y partidas completas. Las comprobaciones en Chrome cubren 31 recorridos de interfaz, 480 poses, 256 anclajes de suelo y 19 perfiles de audio con muestras reales. Incluyen escritorio hasta 3831 × 1956 y móvil.
+Las 57 pruebas cubren costes, rotación de cartas, zonas de despliegue, puentes, vuelo, selección de objetivos, ataques específicos, estructuras, hechizos, pausa, torres, muerte súbita, colocación junto a obstáculos, tiempos de supervivencia por rol y partidas completas. Las comprobaciones en Chrome cubren 31 recorridos de interfaz, 480 poses, 256 anclajes de suelo y 19 perfiles de audio con muestras reales. Incluyen escritorio hasta 3831 × 1956 y móvil. Otros 12 controles verifican las estadísticas actualizadas, los números de daño, despliegue táctil, una partida completa y la revancha sin errores del navegador.
 
 ## Recursos
 
