@@ -1,9 +1,10 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=10';
-import { Renderer } from './render.js?v=10';
-import { SoundSystem } from './audio.js?v=10';
-import { OnlineClient } from './online.js?v=10';
-import { unpackGame, perspective } from './snapshot.js?v=10';
-import { cardArtMarkup } from './card-art.js?v=10';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=11';
+import { Renderer } from './render.js?v=11';
+import { SoundSystem } from './audio.js?v=11';
+import { OnlineClient } from './online.js?v=11';
+import { unpackGame, perspective } from './snapshot.js?v=11';
+import { cardArtMarkup } from './card-art.js?v=11';
+import { loadDeck, saveDeck } from './deck-storage.js?v=11';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -23,11 +24,7 @@ const store = {
   get(key, fallback) { try { const v = JSON.parse(localStorage.getItem(`poke-arena:${key}`)); return v ?? fallback; } catch { return fallback; } },
   set(key, value) { try { localStorage.setItem(`poke-arena:${key}`, JSON.stringify(value)); } catch { /* Storage can be disabled in private browsing. */ } },
 };
-const replacements={shuppet:'diglett',shuppetSwarm:'diglettHorde',nidoranScouts:'raltsTrio',nidoranPack:'poochyenaPack'};
-const savedDeck=store.get('deck', DEFAULT_DECK);
-const storedDeck=Array.isArray(savedDeck)?savedDeck.map(key=>replacements[key]||key):savedDeck;
-let deck = Array.isArray(storedDeck) && storedDeck.length <= 8 && new Set(storedDeck).size === storedDeck.length && storedDeck.every(k => CARDS[k]&&!CARDS[k].token) ? storedDeck : [...DEFAULT_DECK];
-if(deck.join(',')==='pikachu,snorlax,squirtle,charmander,zubat,thunder,charizard,fireball')deck=[...DEFAULT_DECK];
+let deck=loadDeck();
 const storedDifficulty = store.get('difficulty', 'normal');
 let difficulty = ['easy', 'normal', 'hard'].includes(storedDifficulty) ? storedDifficulty : 'normal';
 let sound = store.get('sound', true) === true;
@@ -71,7 +68,7 @@ function renderMenuDeck(){
   $('start-btn').disabled=$('online-btn').disabled=!ready||deck.length!==8;
 }
 function applyDeckChanges(){
-  deck=[...deckDraft];store.set('deck',deck);renderMenuDeck();
+  deck=[...deckDraft];saveDeck(deck);renderMenuDeck();
   $('deck-edit-hint').textContent=deck.length===8?'Mazo completo · Quitá una carta para agregar otra.':`${deck.length}/8 · Elegí ${8-deck.length} más`;
 }
 function syncHand() {
@@ -281,23 +278,28 @@ function renderCardInfo(key){
   const targets=c.passive?'Contraataca':c.building?'Estructuras':c.rolling?'Tierra':c.spell||c.air?'Tierra y aire':'Tierra';
   const stats=[],extraStats=[],traits=[];
   if(c.hp)stats.push(['Puntos de vida',number(c.hp),'heart']);
-  stats.push([c.burst?'Daño por ráfaga':'Daño por golpe',c.burst?`${number(c.damage)} × ${c.burst}`:number(c.damage),'damage']);
+  const impacts=c.bolts||c.burst||1;
+  stats.push([c.bolts?'Daño de los rayos':c.burst?'Daño por ráfaga':'Daño por golpe',impacts>1?`${number(c.damage)} × ${impacts}`:number(c.damage),'damage']);
   if(!c.spell&&c.interval){
-    stats.push(['Daño por segundo',number(c.damage*(c.burst||1)/c.interval),'dps']);
+    stats.push(['Daño por segundo',number(c.damage*impacts/c.interval),'dps']);
     stats.push(['Ataque cada',seconds(c.interval),'attack-speed']);
   }
   if(c.spell&&c.towerDamage)stats.push(['Daño a torres',number(c.towerDamage),'tower']);
   stats.push(['Objetivos',targets,'target']);
-  if(c.speed!==undefined)stats.push(['Movimiento',c.structure||c.speed===0?'Inmóvil':c.speed<=18?'Muy lento':c.speed<=26?'Lento':c.speed<=32?'Medio':'Rápido','move']);
+  if(c.speed!==undefined)stats.push(['Movimiento',c.structure||c.speed===0?'Inmóvil':c.speed<=18?'Lento':c.speed<=26?'Medio':c.speed<=32?'Rápido':'Muy rápido','move']);
   if(c.range)stats.push(['Alcance',c.range<50?'Cuerpo a cuerpo':tiles(c.range),'range']);
-  if(c.spell)stats.push([c.rolling?'Recorrido':'Radio',tiles(c.rolling?348:c.splash),'range']);
-  stats.push(['Despliegue',seconds(c.spell?(c.rolling?0:.4):.75),'deploy']);
+  if(c.spell)stats.push([c.rolling?'Recorrido':'Radio',tiles(c.rolling?c.travelDistance:c.splash),'range']);
+  stats.push([c.travelSpeed&&!c.rolling?'Lanzamiento':'Despliegue',seconds(c.spell?(c.rolling?0:c.castDelay??.4):.75),'deploy']);
   if(c.count>1)traits.push(['Unidades',`×${c.count}`,'units']);
   if(c.shield)traits.push(['Escudo',number(c.shield),'shield']);
   if(c.flying)traits.push(['Desplazamiento','Vuela','move']);
   if(c.lifetime)extraStats.push(['Duración',seconds(c.lifetime),'duration']);
   if(c.burn)extraStats.push([c.burnKind==='poison'?'Veneno':'Quemadura',`${number(c.burn)} / s`,'effect']);
   if(c.stun)extraStats.push(['Aturdimiento',seconds(c.stun),'effect']);
+  if(c.entryDamage)extraStats.push(['Daño al aparecer',number(c.entryDamage),'damage']);
+  if(c.entryRadius)extraStats.push(['Área al aparecer',tiles(c.entryRadius),'range']);
+  if(c.entryStun)extraStats.push(['Aturdimiento al aparecer',seconds(c.entryStun),'effect']);
+  if(c.travelSpeed&&!c.rolling)extraStats.push(['Viaje',`${number(c.travelSpeed/TILE)} casillas / s`,'move']);
   if(c.slow)extraStats.push(['Ralentización',seconds(c.slow),'effect']);
   if(c.lifesteal)extraStats.push(['Curación por golpe',number(c.lifesteal),'heart']);
   if(c.summon)extraStats.push(['Invocación',`${CARDS[c.summon].name} · ${seconds(c.summonEvery)}`,'units']);
@@ -349,7 +351,7 @@ document.addEventListener('keydown',e=>{
   if(selected>=0&&game.state==='playing'){
     if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){
       e.preventDefault();renderer.pointer||={x:158,y:520};
-      if(e.key==='ArrowUp')renderer.pointer.y-=20;if(e.key==='ArrowDown')renderer.pointer.y+=20;if(e.key==='ArrowLeft')renderer.pointer.x-=20;if(e.key==='ArrowRight')renderer.pointer.x+=20;
+      if(e.key==='ArrowUp')renderer.pointer.y-=TILE;if(e.key==='ArrowDown')renderer.pointer.y+=TILE;if(e.key==='ArrowLeft')renderer.pointer.x-=TILE;if(e.key==='ArrowRight')renderer.pointer.x+=TILE;
       renderer.pointer.x=Math.max(45,Math.min(555,renderer.pointer.x));renderer.pointer.y=Math.max(45,Math.min(755,renderer.pointer.y));
       live(`Posición ${Math.round(renderer.pointer.x)}, ${Math.round(renderer.pointer.y)}.`);
     }else if(e.key==='Enter'&&renderer.pointer){e.preventDefault();attemptDeploy(renderer.pointer);}

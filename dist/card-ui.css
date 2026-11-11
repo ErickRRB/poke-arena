@@ -88,6 +88,13 @@ html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden;
 .card-more-stats summary:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; border-radius: 4px; }
 .card-dialog #card-extra-stats dd { font-size: 14px; }
 .card-dialog > .primary-btn { margin-top: 14px; min-height: 48px; }
+.battle-overlays { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+#battle-overlays .abilities { position: absolute; right: 8px; bottom: 8px; display: flex; flex-wrap: nowrap; gap: 9px; width: max-content; max-width: calc(100% - 16px); margin: 0; padding: 10px 7px 6px; overflow-x: auto; overflow-y: hidden; justify-content: flex-start; pointer-events: auto; scrollbar-width: thin; overscroll-behavior-x: contain; touch-action: pan-x; }
+#battle-overlays .ability-btn { flex: 0 0 auto; width: auto; height: 46px; min-height: 46px; max-width: 195px; padding: 3px 19px 3px 5px; gap: 7px; border-radius: 10px; background: #38244af5; box-shadow: 0 3px 10px #09171099; }
+#battle-overlays .ability-btn > span { display: block; max-width: 130px; white-space: nowrap; font-size: 11px; }
+#battle-overlays .ability-btn img { width: 34px; height: 34px; }
+#battle-overlays .ability-btn .card-cost { right: -6px; top: -7px; width: 22px; height: 27px; font-size: 22px; }
+#battle-overlays .ability-btn:focus-visible { outline: 3px solid #ffeb9b; outline-offset: 2px; }
 @media(max-width: 940px) {
   .menu-scene .menu-background { height: 67%; object-position: 30% 38%; }
   .menu-scene:after { background: linear-gradient(0deg, #10251f 30%, #10251f05 80%); }
@@ -99,6 +106,7 @@ html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden;
   .name-field input, .collection-tools input { font-size: 16px; }
   .menu-panel .menu-options { margin-top: 10px; }
   .battle-layout { height: calc(var(--app-height, 100dvh) - 44px); }
+  .energy-section { grid-row: 2; }
   .collection-tools { grid-template-columns: 1fr 1fr; padding: 10px 14px; gap: 7px; }
   .collection-tools input { grid-column: 1 / -1; }
   .collection-tools input, .collection-tools select { width: 100%; min-height: 35px; font-size: 12px; }

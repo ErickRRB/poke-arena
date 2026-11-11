@@ -19,7 +19,7 @@ function step(game, seconds) { for (let i = 0; i < seconds * 60; i++) game.step(
 
 test('active troops follow their stronger base attack stat; equal stats keep their role', () => {
   for (const [key, card] of Object.entries(CARDS)) {
-    if (card.spell || card.structure || card.suicide || card.passive) continue;
+    if (card.spell || card.structure || card.suicide || card.passive || card.attackRoleOverride) continue;
     const base = POKEMON_STATS[card.id];
     if (base.attack > base.specialAttack) assert.ok(card.range < 50, key);
     if (base.specialAttack > base.attack) assert.ok(card.range >= 50, key);
@@ -27,7 +27,7 @@ test('active troops follow their stronger base attack stat; equal stats keep the
 });
 
 test('physical replacements must reach contact distance before dealing damage', () => {
-  for (const key of ['pikachu', 'onix', 'grimer', 'koffing', 'dragonite', 'umbreon', 'hooh', 'flygon', 'salamence', 'diglett', 'poochyenaPack']) {
+  for (const key of ['onix', 'grimer', 'koffing', 'dragonite', 'umbreon', 'hooh', 'flygon', 'salamence', 'diglett', 'poochyenaPack']) {
     const { game, attacker, target } = setup(key, 140);
     game.attack(attacker, target); attacker.cooldown = 100;
     step(game, 1.2);

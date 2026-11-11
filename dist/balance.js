@@ -1,100 +1,101 @@
 import { POKEMON_STATS } from './pokemon-stats.js';
+import { UNIT_SCALES } from './unit-sizes.js';
 
 // Shared by browser, CPU and online server. Values are per body / per hit.
-export const THRESHOLDS = Object.freeze({ tower: 109, towerInterval: .8, fragile: 1, scout: 81, meleeSwarm: 180, archers: 304, fireball: 400, log: 218 });
+export const THRESHOLDS = Object.freeze({ tower: 109, towerInterval: .8, fragile: 81, scout: 133, meleeSwarm: 202, archers: 304, fireball: 689, log: 290 });
 
 // Explicit health, damage, cadence and speed for every body. No global multipliers.
 export const CARD_BALANCE = {
-  pikachu: { hp: 450, damage: 109, interval: 1.3, speed: 32 },
-  squirtle: { hp: 400, damage: 28, interval: 1.45, speed: 26 },
-  charmander: { hp: 360, damage: 81, interval: 1.5, speed: 32, burn: 9 },
-  snorlax: { hp: 3400, damage: 300, interval: 2, speed: 18, windup: .55, attackDuration: 1.1, splash: 0, charge: 0 },
-  zubat: { hp: 180, damage: 40, interval: 1.1, speed: 30 },
-  charizard: { hp: 1000, damage: 42, interval: 1.65, speed: 26 },
-  thunder: { cost: 2, damage: 109, towerDamage: 30 },
-  fireball: { damage: 400, towerDamage: 110 },
-  bulbasaur: { hp: 450, damage: 81, interval: 1.3, speed: 26 },
-  gengar: { hp: 650, damage: 125, interval: 1.45, speed: 40, blink: 5 },
-  machamp: { hp: 1150, damage: 65, interval: 1.45, speed: 26 },
-  eevee: { hp: 300, damage: 90, interval: .95, speed: 40 },
-  onix: { hp: 1400, damage: 180, interval: 2.1, speed: 18 },
-  blastoise: { hp: 1200, damage: 85, interval: 1.8, speed: 0 },
-  vulpix: { hp: 280, damage: 42, interval: 1.45, speed: 32, burn: 7 },
-  psyduck: { hp: 450, damage: 81, interval: 1.55, speed: 26 },
-  alakazam: { hp: 400, damage: 120, interval: 1.65, speed: 26 },
-  geodude: { hp: 1450, damage: 175, interval: 1.6, speed: 18, splash: 0 },
-  magnemite: { hp: 400, damage: 81, interval: 1.8, speed: 26 },
-  scyther: { hp: 650, damage: 65, interval: 1.2, speed: 40 },
-  lapras: { hp: 1500, damage: 109, interval: 1.75, speed: 18 },
-  mewtwo: { hp: 950, damage: 180, interval: 2.2, speed: 26, windup: .65 },
-  treecko: { hp: 304, damage: 81, interval: 1.2, speed: 26 },
-  golem: { hp: 3600, damage: 240, interval: 2.3, speed: 18, windup: .5 },
-  log: { damage: 218, towerDamage: 55 },
-  venusaur: { hp: 1450, damage: 90, interval: 1.9, speed: 18 },
-  butterfree: { hp: 304, damage: 40, interval: 1.7, speed: 26, style: 'powder', color: '#c9ace9', move: 'Paralizador' },
-  beedrill: { hp: 180, damage: 42, interval: 1.35, speed: 40 },
-  pidgeot: { hp: 720, damage: 109, interval: 1.55, speed: 40 },
-  ekans: { hp: 180, damage: 40, interval: 1.25, speed: 32, burn: 8, burnKind: 'poison' },
-  sandshrew: { hp: 180, shield: 109, damage: 65, interval: 1.4, speed: 32 },
-  nidoqueen: { hp: 2000, damage: 109, interval: 1.8, speed: 18 },
-  nidoking: { hp: 1450, damage: 75, interval: 1.6, speed: 26, burn: 8, burnKind: 'poison', deathSpawn: null, deathCount: 0 },
-  mankey: { hp: 109, damage: 42, interval: 1.2, speed: 40 },
-  arcanine: { hp: 850, damage: 109, interval: 1.5, speed: 40 },
-  slowbro: { hp: 1130, damage: 65, interval: 1.8, speed: 18 },
-  grimer: { hp: 610, damage: 45, interval: 1.4, speed: 18, style: 'poison', range: 85, color: '#b686c8' },
-  cloyster: { hp: 865, damage: 28, interval: 2.6, speed: 0 },
-  gastly: { hp: 81, damage: 35, interval: 1.3, speed: 32, count: 4, deathField: 6, style: 'lick' },
-  voltorb: { hp: 218, damage: 180, interval: 1.4, speed: 40 },
-  electrode: { hp: 790, damage: 400, interval: 1.6, speed: 32, windup: .5 },
-  exeggutor: { hp: 1250, damage: 150, interval: 2.1, speed: 18, style: 'egg', splash: 55, summon: null, summonMax: 0, move: 'Bomba huevo' },
-  koffing: { hp: 400, damage: 50, interval: 1.9, speed: 26, style: 'poison', burnKind: 'poison', color: '#b49bcf' },
-  chansey: { hp: 618, damage: 18, interval: 1.8, speed: 26, heal: 75, style: 'egg' },
-  kangaskhan: { hp: 1450, damage: 109, interval: 1.6, speed: 26 },
-  starmie: { hp: 450, damage: 42, interval: 2.15, speed: 32 },
-  mrmime: { hp: 400, shield: 109, entryShield: 180, damage: 65, interval: 1.5, speed: 26 },
-  gyarados: { hp: 1800, damage: 150, interval: 1.9, speed: 26 },
-  ditto: { hp: 508, damage: 35, interval: 1.4, speed: 32 },
-  articuno: { hp: 1250, damage: 90, interval: 1.8, speed: 26 },
-  zapdos: { hp: 1090, damage: 109, interval: 1.8, speed: 26 },
-  moltres: { hp: 1170, damage: 109, interval: 1.8, speed: 26 },
-  dragonite: { hp: 1210, damage: 50, interval: 1.9, speed: 26 },
-  meganium: { hp: 1640, damage: 65, interval: 1.7, speed: 18 },
-  typhlosion: { hp: 1130, damage: 150, interval: 1.8, speed: 26, style: 'eruption', air: false },
-  feraligatr: { hp: 1210, damage: 160, interval: 1.55, speed: 26, lifesteal: 0 },
-  crobat: { hp: 610, damage: 50, interval: 1.55, speed: 40 },
-  ampharos: { hp: 1130, damage: 90, interval: 1.65, speed: 0 },
-  espeon: { hp: 450, damage: 65, interval: 1.1, speed: 32 },
-  umbreon: { hp: 1360, damage: 65, interval: 1.7, speed: 26, reflect: 0, burn: 10, burnKind: 'poison', style: 'poison', range: 100, label: 'Siniestro', color: '#b5a4d3', move: 'Tóxico' },
-  wobbuffet: { hp: 1900, damage: 0, interval: 2, speed: 0, passive: true, reflect: .5, windup: 0 },
-  steelix: { hp: 2700, damage: 180, interval: 2.2, speed: 18 },
-  scizor: { hp: 720, damage: 65, interval: 1.3, speed: 32 },
-  skarmory: { hp: 560, damage: 81, interval: 1.5, speed: 32 },
-  blissey: { hp: 1405, damage: 25, interval: 2, speed: 18, heal: 75, style: 'egg' },
-  lugia: { hp: 2050, damage: 109, interval: 1.9, speed: 26 },
-  hooh: { hp: 1680, damage: 109, interval: 1.9, speed: 26 },
-  sceptile: { hp: 508, damage: 55, interval: 1.4, speed: 40 },
-  blaziken: { hp: 830, damage: 55, interval: 1.7, speed: 32 },
-  swampert: { hp: 1885, damage: 130, interval: 1.9, speed: 18 },
-  gardevoir: { hp: 509, damage: 125, interval: 2.3, speed: 26, fieldStyle: 'psychic', windup: .6 },
-  sableye: { hp: 508, damage: 81, interval: 1.25, speed: 40, lifesteal: 0, label: 'Siniestro / fantasma' },
-  aggron: { hp: 2335, damage: 150, interval: 1.9, speed: 18 },
-  sharpedo: { hp: 508, damage: 130, interval: 1.65, speed: 40 },
-  flygon: { hp: 970, damage: 90, interval: 1.9, speed: 32 },
-  altaria: { hp: 618, damage: 55, interval: 1.7, speed: 26, style: 'song', move: 'Voz cautivadora' },
-  absol: { hp: 650, damage: 109, interval: 1.4, speed: 40, label: 'Siniestro', move: 'Tajo umbrío' },
-  salamence: { hp: 1480, damage: 50, interval: 2.5, speed: 26 },
-  metagross: { hp: 2050, damage: 175, interval: 2.1, speed: 18 },
-  kyogre: { hp: 2460, damage: 81, interval: 2.25, speed: 18 },
-  groudon: { hp: 3200, damage: 260, interval: 2.4, speed: 18, windup: .55 },
-  rayquaza: { hp: 2090, damage: 175, interval: 2.1, speed: 32 },
-  nidoranF: { hp: 81, damage: 35, interval: 1.4, speed: 32, burnKind: 'poison' },
-  nidoranM: { hp: 180, damage: 45, interval: 1.4, speed: 32 },
-  exeggcute: { hp: 81, damage: 35, interval: 1.4, speed: 26, suicide: false, splash: 0, style: 'confusion', range: 100, air: true },
-  babyKangaskhan: { hp: 218, damage: 35, interval: 1.4, speed: 40 },
-  diglett: { hp: 1, damage: 35, interval: 1.2, speed: 32, scale: 1.5 },
-  diglettHorde: { hp: 1, damage: 35, interval: 1.2, speed: 32, scale: 1.5 },
-  raltsTrio: { hp: 81, damage: 45, interval: 1.3, speed: 26, scale: 1.65 },
-  poochyenaPack: { hp: 180, damage: 75, interval: 1.3, speed: 32, scale: 1.65 },
+  pikachu: {"cost":4,"hp":714,"damage":115,"interval":1.8,"speed":32,"bolts":2,"range":120,"air":true,"style":"lightning","attackAnim":"Shock","chain":0,"stun":0.5,"entryDamage":192,"entryRadius":72,"entryStun":0.5,"attackRoleOverride":true},
+  squirtle: {"cost":2,"hp":400,"damage":28,"interval":1.45,"speed":26},
+  charmander: {"cost":3,"hp":440,"damage":135,"interval":1.5,"speed":32,"burn":9},
+  snorlax: {"cost":5,"hp":4091,"damage":254,"interval":1.5,"speed":18,"windup":0.55,"attackDuration":1.1,"splash":0,"charge":0},
+  zubat: {"cost":2,"hp":180,"damage":65,"interval":1.3,"speed":30},
+  charizard: {"cost":5,"hp":1526,"damage":72,"interval":1.8,"speed":26},
+  thunder: {"cost":2,"damage":192,"towerDamage":58,"splash":60,"stun":0.5},
+  fireball: {"cost":4,"damage":689,"towerDamage":207,"splash":60,"travelSpeed":420,"castDelay":0.15},
+  bulbasaur: {"cost":2,"hp":400,"damage":85,"interval":1.3,"speed":26},
+  gengar: {"cost":4,"hp":650,"damage":125,"interval":1.45,"speed":40,"blink":5},
+  machamp: {"cost":4,"hp":1361,"damage":180,"interval":1.8,"speed":26},
+  eevee: {"cost":2,"hp":300,"damage":90,"interval":0.95,"speed":40},
+  onix: {"cost":5,"hp":1400,"damage":180,"interval":2.1,"speed":18},
+  blastoise: {"cost":4,"hp":1200,"damage":85,"interval":1.8,"speed":0},
+  vulpix: {"cost":3,"hp":440,"damage":75,"interval":1.4,"speed":32,"burn":7},
+  psyduck: {"cost":3,"hp":560,"damage":110,"interval":1.4,"speed":26},
+  alakazam: {"cost":4,"hp":590,"damage":133,"interval":1.1,"speed":26,"range":168},
+  geodude: {"cost":3,"hp":1766,"damage":202,"interval":1.2,"speed":18,"splash":0},
+  magnemite: {"cost":3,"hp":400,"damage":81,"interval":1.8,"speed":26},
+  scyther: {"cost":4,"hp":650,"damage":65,"interval":1.2,"speed":40},
+  lapras: {"cost":5,"hp":1500,"damage":109,"interval":1.75,"speed":18},
+  mewtwo: {"cost":6,"hp":1452,"damage":440,"interval":2.8,"speed":26,"windup":0.65,"range":144,"splash":45},
+  treecko: {"cost":3,"hp":304,"damage":112,"interval":0.9,"speed":26,"range":120},
+  golem: {"cost":8,"hp":5120,"damage":312,"interval":2.5,"speed":18,"windup":0.5,"deathDamage":312},
+  log: {"cost":2,"damage":290,"towerDamage":58,"travelDistance":242.4,"travelSpeed":205},
+  venusaur: {"cost":5,"hp":1900,"damage":140,"interval":1.9,"speed":18},
+  butterfree: {"cost":3,"hp":440,"damage":72,"interval":1.6,"speed":26,"style":"powder","color":"#c9ace9","move":"Paralizador"},
+  beedrill: {"cost":3,"hp":260,"damage":85,"interval":1.3,"speed":40},
+  pidgeot: {"cost":4,"hp":1052,"damage":165,"interval":1.3,"speed":40},
+  ekans: {"cost":2,"hp":250,"damage":60,"interval":1.2,"speed":32,"burn":12,"burnKind":"poison"},
+  sandshrew: {"cost":3,"hp":220,"shield":240,"damage":121,"interval":1.1,"speed":32},
+  nidoqueen: {"cost":6,"hp":2800,"damage":165,"interval":1.6,"speed":18},
+  nidoking: {"cost":5,"hp":2200,"damage":150,"interval":1.6,"speed":26,"burn":8,"burnKind":"poison","deathSpawn":null,"deathCount":0},
+  mankey: {"cost":2,"hp":150,"damage":80,"interval":1.2,"speed":40},
+  arcanine: {"cost":4,"hp":1400,"damage":220,"interval":1.4,"speed":40},
+  slowbro: {"cost":3,"hp":688,"damage":90,"interval":1.7,"speed":18,"shield":0,"range":132,"slow":2,"style":"ice","entryDamage":83,"entryRadius":72,"entrySlow":1,"splash":36},
+  grimer: {"cost":2,"hp":900,"damage":55,"interval":1.5,"speed":18,"style":"poison","range":85,"color":"#b686c8"},
+  cloyster: {"cost":4,"hp":865,"damage":28,"interval":2.6,"speed":0},
+  gastly: {"cost":2,"hp":81,"damage":35,"interval":1.3,"speed":32,"count":4,"deathField":6,"style":"lick"},
+  voltorb: {"cost":1,"hp":230,"damage":115,"interval":1.4,"speed":40,"stun":0.75,"air":true},
+  electrode: {"cost":4,"hp":1200,"damage":600,"interval":1.6,"speed":32,"windup":0.5,"splash":60},
+  exeggutor: {"cost":5,"hp":1750,"damage":230,"interval":1.9,"speed":18,"style":"egg","splash":55,"summon":null,"summonMax":0,"move":"Bomba huevo"},
+  koffing: {"cost":3,"hp":700,"damage":90,"interval":1.7,"speed":26,"style":"poison","burnKind":"poison","color":"#b49bcf"},
+  chansey: {"cost":3,"hp":800,"damage":18,"interval":1.8,"speed":26,"heal":75,"style":"egg"},
+  kangaskhan: {"cost":5,"hp":2400,"damage":225,"interval":1.5,"speed":26},
+  starmie: {"cost":4,"hp":550,"damage":90,"interval":1.8,"speed":32},
+  mrmime: {"cost":4,"hp":590,"shield":200,"entryShield":240,"damage":90,"interval":1.5,"speed":26},
+  gyarados: {"cost":6,"hp":2600,"damage":240,"interval":1.8,"speed":26},
+  ditto: {"cost":3,"hp":508,"damage":35,"interval":1.4,"speed":32},
+  articuno: {"cost":6,"hp":1250,"damage":90,"interval":1.8,"speed":26},
+  zapdos: {"cost":6,"hp":1090,"damage":109,"interval":1.8,"speed":26},
+  moltres: {"cost":6,"hp":1170,"damage":109,"interval":1.8,"speed":26},
+  dragonite: {"cost":5,"hp":2000,"damage":85,"interval":1.9,"speed":26},
+  meganium: {"cost":5,"hp":2400,"damage":105,"interval":1.7,"speed":18},
+  typhlosion: {"cost":5,"hp":1130,"damage":150,"interval":1.8,"speed":26,"style":"eruption","air":false},
+  feraligatr: {"cost":4,"hp":1900,"damage":300,"interval":1.55,"speed":26,"lifesteal":0},
+  crobat: {"cost":4,"hp":900,"damage":75,"interval":1.5,"speed":40},
+  ampharos: {"cost":5,"hp":1600,"damage":140,"interval":1.65,"speed":0},
+  espeon: {"cost":3,"hp":460,"damage":110,"interval":1,"speed":32},
+  umbreon: {"cost":3,"hp":2100,"damage":120,"interval":1.7,"speed":26,"reflect":0,"burn":10,"burnKind":"poison","style":"poison","range":100,"label":"Siniestro","color":"#b5a4d3","move":"Tóxico"},
+  wobbuffet: {"cost":4,"hp":1900,"damage":0,"interval":2,"speed":0,"passive":true,"reflect":0.5,"windup":0},
+  steelix: {"cost":6,"hp":4500,"damage":310,"interval":2.2,"speed":18},
+  scizor: {"cost":4,"hp":1200,"damage":135,"interval":1.3,"speed":32,"shield":240},
+  skarmory: {"cost":4,"hp":560,"damage":81,"interval":1.5,"speed":32},
+  blissey: {"cost":5,"hp":1800,"damage":35,"interval":2,"speed":18,"heal":95,"style":"egg"},
+  lugia: {"cost":7,"hp":3300,"damage":120,"interval":1.6,"speed":26},
+  hooh: {"cost":7,"hp":2900,"damage":150,"interval":1.6,"speed":26},
+  sceptile: {"cost":4,"hp":600,"damage":115,"interval":1.2,"speed":40},
+  blaziken: {"cost":4,"hp":1200,"damage":100,"interval":1.7,"speed":32},
+  swampert: {"cost":5,"hp":2800,"damage":190,"interval":1.8,"speed":18},
+  gardevoir: {"cost":5,"hp":720,"damage":230,"interval":1.8,"speed":26,"fieldStyle":"psychic","windup":0.6,"range":132,"splash":42},
+  sableye: {"cost":3,"hp":800,"damage":160,"interval":1.2,"speed":40,"lifesteal":0,"label":"Siniestro / fantasma"},
+  aggron: {"cost":6,"hp":3000,"damage":220,"interval":1.7,"speed":18},
+  sharpedo: {"cost":3,"hp":907,"damage":193,"interval":1,"speed":40},
+  flygon: {"cost":5,"hp":1650,"damage":165,"interval":1.8,"speed":32},
+  altaria: {"cost":4,"hp":900,"damage":75,"interval":1.6,"speed":26,"style":"song","move":"Voz cautivadora","heal":75},
+  absol: {"cost":4,"hp":1100,"damage":200,"interval":1.4,"speed":40,"label":"Siniestro","move":"Tajo umbrío"},
+  salamence: {"cost":6,"hp":2200,"damage":95,"interval":2.2,"speed":26},
+  metagross: {"cost":6,"hp":2800,"damage":260,"interval":2.1,"speed":18,"shield":400},
+  kyogre: {"cost":8,"hp":3300,"damage":150,"interval":2.25,"speed":18},
+  groudon: {"cost":8,"hp":4500,"damage":320,"interval":2.4,"speed":18,"windup":0.55},
+  rayquaza: {"cost":8,"hp":3000,"damage":230,"interval":1.8,"speed":32},
+  nidoranF: {"cost":0,"hp":81,"damage":35,"interval":1.4,"speed":32,"burnKind":"poison"},
+  nidoranM: {"cost":0,"hp":180,"damage":45,"interval":1.4,"speed":32},
+  exeggcute: {"cost":0,"hp":81,"damage":35,"interval":1.4,"speed":26,"suicide":false,"splash":0,"style":"confusion","range":100,"air":true},
+  babyKangaskhan: {"cost":0,"hp":400,"damage":80,"interval":1.3,"speed":40},
+  diglett: {"cost":1,"hp":81,"damage":81,"interval":1,"speed":32,"scale":1.5},
+  diglettHorde: {"cost":3,"hp":81,"damage":81,"interval":1,"speed":32,"scale":1.5},
+  raltsTrio: {"cost":2,"hp":133,"damage":81,"interval":1.7,"speed":26,"scale":1.65,"range":120},
+  poochyenaPack: {"cost":2,"hp":202,"damage":120,"interval":1.1,"speed":32,"scale":1.65},
 };
 
 const descriptions = {
@@ -123,6 +124,7 @@ export function applyBalance(cards) {
   for (const [key, card] of Object.entries(cards)) {
     if (!CARD_BALANCE[key]) throw new Error(`Missing balance for ${key}`);
     Object.assign(card, CARD_BALANCE[key]);
+    if(card.id)card.scale=UNIT_SCALES[card.id]*(key==='babyKangaskhan'?.55:1);
     if (card.building) card.pullRange = 300;
     if (!card.spell) {
       card.windup ??= Math.min(.3, card.attackDuration * .4);
@@ -146,6 +148,18 @@ export function applyBalance(cards) {
   for (const [key, move] of Object.entries(moves)) cards[key].move = move;
   cards.venusaur.label = 'Planta / veneno';
   applyAttackRoles(cards);
+  Object.assign(cards.pikachu,{role:'Mago · control eléctrico',move:'Doble Impactrueno',description:'Al aparecer, descarga electricidad en área. Lanza dos rayos que aturden y reinician ataques; puede repartirlos entre dos rivales.'});
+  cards.treecko.role='Arqueros · dúo';
+  cards.geodude.role='Defensor · objetivo único';
+  cards.machamp.role='Luchador · antitanques';
+  Object.assign(cards.slowbro,{role:'Mago · ralentiza',move:'Rayo hielo',description:'Al aparecer, libera una onda fría. Sus proyectiles de hielo ralentizan a los enemigos de tierra y aire.'});
+  cards.gardevoir.role='Mago · daño en área';
+  cards.gardevoir.description='Lanza energía psíquica que explota en área y deja una zona dañina.';
+  cards.mewtwo.role='Mago · explosión';
+  cards.fireball.description='Sale desde tu torre del rey y viaja hasta la zona elegida. Al impactar, daña y empuja a tierra y aire.';
+  cards.log.description='Rueda en línea recta desde donde lo soltás. Empuja a los enemigos terrestres a su paso.';
+  cards.zubat.description='Tres murciélagos pequeños atacan a corta distancia y recuperan vida con sus mordidas.';
+
 }
 
 // Physical attackers approach their target; special attackers fire from range.
@@ -170,7 +184,7 @@ function applyAttackRoles(cards) {
     if (card.spell) continue;
     const base = POKEMON_STATS[card.id];
     if (!base) throw Error(`Missing Pokémon base stats for ${key}`);
-    if (card.structure || card.suicide || card.passive) continue;
+    if (card.structure || card.suicide || card.passive || card.attackRoleOverride) continue;
     const ranged = base.specialAttack > base.attack;
     const physical = base.attack > base.specialAttack;
     if (!ranged && !physical) continue;
@@ -187,10 +201,11 @@ function applyAttackRoles(cards) {
 
 export function cardThresholds(card) {
   if (card.spell) return [];
-  const armor = 1 - (card.armor || 0), pool = card.hp + (card.shield || 0);
-  const hits = amount => Math.max(0,Math.ceil((pool - amount * armor - 1e-7) / (THRESHOLDS.tower * armor)));
+  const armor = 1 - (card.armor || 0), shield = card.shield || 0;
+  const towerHits=(hp,remainingShield)=>Math.max(0,Math.ceil((hp-1e-7)/(THRESHOLDS.tower*armor)))+Math.max(0,Math.ceil((remainingShield-1e-7)/(THRESHOLDS.tower*armor)));
+  const hits = amount => towerHits(shield?card.hp:Math.max(0,card.hp-amount*armor),Math.max(0,shield-amount*armor));
   return [
-    ['Tiros de torre', Math.ceil(pool / (THRESHOLDS.tower * armor))],
+    ['Tiros de torre', towerHits(card.hp,shield)],
     ['Bola de fuego', hits(THRESHOLDS.fireball) ? `+ ${hits(THRESHOLDS.fireball)} tiro${hits(THRESHOLDS.fireball)>1?'s':''}` : 'Lo elimina'],
     ['Impactrueno', hits(THRESHOLDS.tower) === 0 ? 'Lo elimina' : 'Sobrevive'],
   ];

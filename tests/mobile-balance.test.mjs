@@ -19,7 +19,7 @@ test('both teams can deploy directly behind their king and the troop walks aroun
   for(const team of[0,1]){
     const g=fresh(),y=team?48:752,king=g.towers.find(t=>t.team===team&&t.king);
     assert.ok(g.canDeploy(team,'pikachu',300,y));
-    const p=g.resolveDeployment(team,'pikachu',300,y);assert.deepEqual(p,{x:300,y});
+    const p=g.resolveDeployment(team,'pikachu',300,y);assert.deepEqual(p,{x:300,y:team?40:760});
     const result=g.deploy(team,0,300,y);assert.equal(result.ok,true);const troop=g.units[0];
     run(g,6);assert.ok(team?troop.y>king.y:troop.y<king.y,`still behind king at ${troop.x},${troop.y}`);
   }
@@ -38,7 +38,7 @@ test('danger preview uses the resolved placement and respects air and building t
 test('edge assistance reaches the bridge but rejects deep enemy territory without spending elixir',()=>{
   for(const team of[0,1]){
     const g=fresh(),energy=g.energy[team],hand=[...g.hands[team]];
-    assert.deepEqual(g.resolveDeployment(team,'pikachu',158,team?BRIDGE.bottom:BRIDGE.top),{x:158,y:team?356:444});
+    assert.deepEqual(g.resolveDeployment(team,'pikachu',158,team?BRIDGE.bottom:BRIDGE.top),{x:156,y:team?352:448});
     assert.equal(g.resolveDeployment(team,'pikachu',158,team?BRIDGE.bottom+5:BRIDGE.top-5),null);
     const tower=g.towers.find(t=>t.team!==team&&!t.king);
     assert.equal(g.resolveDeployment(team,'pikachu',tower.x,tower.y),null);

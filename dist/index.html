@@ -7,8 +7,8 @@
   <meta name="description" content="Batallas de Pokémon en tiempo real: elegí tus cartas, defendé tus torres y conquistá la arena.">
   <title>Poké Arena · Batalla de torres</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=10">
-  <link rel="stylesheet" href="card-ui.css?v=10">
+  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="card-ui.css?v=11">
 </head>
 <body class="menu-mode">
   <svg class="svg-defs" aria-hidden="true"><defs>
@@ -80,6 +80,7 @@
           <div class="result-content"><svg class="result-crown"><use href="#i-crown"/></svg><span class="eyebrow" id="result-eyebrow">BATALLA TERMINADA</span><h2 id="result-title">Victoria</h2><div class="result-score"><span id="result-player">1</span><span>—</span><span id="result-enemy">0</span></div><p id="result-reason"></p><div class="result-stats"><div><strong id="result-deployed">0</strong><span>Desplegados</span></div><div><strong id="result-damage">0</strong><span>Daño total</span></div></div><button id="again-btn" class="primary-btn">Volver a jugar<svg><use href="#i-arrow"/></svg></button><button id="result-deck-btn" class="text-btn">Cambiar mazo</button></div>
         </div>
         <div class="toast" id="toast" role="status"></div>
+        <div id="battle-overlays" class="battle-overlays"><div id="abilities" class="abilities" aria-label="Habilidades disponibles" hidden></div></div>
       </div>
     </section>
 
@@ -89,13 +90,12 @@
       <div class="next-card"><span>PRÓXIMA</span><div id="next-preview"></div><strong id="next-name">Zubat</strong></div>
       <div class="energy-section"><div class="energy-title"><span><svg><use href="#i-energy"/></svg>Elixir</span><strong><span id="energy-value">6</span><span class="energy-max"> / 10</span></strong></div><div class="energy-bar" id="energy-bar" role="progressbar" aria-label="Elixir disponible" aria-valuemin="0" aria-valuemax="10" aria-valuenow="6"></div></div>
       <div id="selected-detail" hidden></div>
-      <div id="abilities" class="abilities" aria-label="Habilidades disponibles" hidden></div>
       <div class="battle-controls"><button id="pause-btn" class="secondary-btn" disabled><svg><use href="#i-pause"/></svg>Pausar<span class="shortcut">ESPACIO</span></button><button id="restart-btn" class="icon-btn" title="Reiniciar batalla" aria-label="Reiniciar batalla">↻</button></div>
       <div class="console-footer"><button id="credits-btn" class="text-btn">Créditos</button></div>
     </aside>
   </main>
 
-  <dialog id="help-dialog" class="modal"><div class="modal-heading"><h2>Tutorial</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><p>Elegí una carta y tocá o arrastrá en la arena. Cerca del puente se ajusta a tu zona. Si la soltás muy lejos de tu zona o la devolvés a la mano, se cancela. El círculo muestra su alcance; las exclamaciones rojas marcan enemigos que pueden atacarla.</p><p>Ganá destruyendo la torre central o más torres que tu rival en 3 minutos. Si empatan: 2 minutos extra; gana la primera torre destruida. Después, las torres pierden vida hasta el desempate.</p><p>Elixir ×2 en el último minuto y al comenzar el tiempo extra; ×3 en el último minuto extra.</p><p>Los eléctricos interrumpen el ataque y reinician el objetivo. Los atacantes de estructuras siguen ignorando tropas; un Blastoise central puede atraerlos mientras avanzan.</p><p>Los legendarios con habilidad tienen un botón junto a la mano. Cuesta elixir y se usa una vez por despliegue. Consultá cada ataque en Mazo.</p><div class="help-keys"><span><kbd>1–4</kbd> Carta</span><span><kbd>↑ ↓ ← →</kbd> Apuntar</span><span><kbd>Enter</kbd> Desplegar</span><span><kbd>Espacio</kbd> Pausa CPU</span></div><button id="help-practice-btn" class="primary-btn">Práctica guiada<svg><use href="#i-arrow"/></svg></button></dialog>
+  <dialog id="help-dialog" class="modal"><div class="modal-heading"><h2>Tutorial</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><p>Elegí una carta y tocá o arrastrá en la arena. Cerca del puente se ajusta a tu zona. Si la soltás muy lejos de tu zona o la devolvés a la mano, se cancela. El círculo muestra su alcance; las exclamaciones rojas marcan enemigos que pueden atacarla.</p><p>Ganá destruyendo la torre central o más torres que tu rival en 3 minutos. Si empatan: 2 minutos extra; gana la primera torre destruida. Después, las torres pierden vida hasta el desempate.</p><p>Elixir ×2 en el último minuto y al comenzar el tiempo extra; ×3 en el último minuto extra.</p><p>Los eléctricos interrumpen el ataque y reinician el objetivo. Los atacantes de estructuras siguen ignorando tropas; un Blastoise central puede atraerlos mientras avanzan.</p><p>Las habilidades flotan sobre la arena, encima de las cartas. Cuesta elixir y se usa una vez por despliegue. Consultá cada ataque en Mazo.</p><div class="help-keys"><span><kbd>1–4</kbd> Carta</span><span><kbd>↑ ↓ ← →</kbd> Apuntar</span><span><kbd>Enter</kbd> Desplegar</span><span><kbd>Espacio</kbd> Pausa CPU</span></div><button id="help-practice-btn" class="primary-btn">Práctica guiada<svg><use href="#i-arrow"/></svg></button></dialog>
 
   <dialog id="settings-dialog" class="modal small-modal"><div class="modal-heading"><h2>Ajustes</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><label class="setting-row" for="difficulty"><span><strong>Rival</strong></span><select id="difficulty"><option value="easy">Principiante</option><option value="normal" selected>Entrenador</option><option value="hard">Líder de gimnasio</option></select></label><label class="setting-row" for="sound-setting"><span><strong>Sonido</strong></span><input type="checkbox" id="sound-setting" class="switch"></label><label class="setting-row" for="motion-setting"><span><strong>Reducir movimiento</strong></span><input type="checkbox" id="motion-setting" class="switch"></label><button id="settings-credits-btn" class="text-btn" style="margin-top:15px">Sprites y créditos</button></dialog>
 
@@ -117,6 +117,6 @@
 
   <dialog id="restart-dialog" class="modal small-modal"><div class="modal-heading"><h2>¿Empezar de nuevo?</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><div class="confirm-actions"><button class="secondary-btn" data-close>Seguir esta partida</button><button id="confirm-restart-btn" class="primary-btn">Reiniciar</button></div></dialog>
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
-  <script type="module" src="app.js?v=10"></script>
+  <script type="module" src="app.js?v=11"></script>
 </body>
 </html>

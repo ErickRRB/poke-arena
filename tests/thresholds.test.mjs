@@ -26,36 +26,31 @@ test('every playable card has an individual review, explicit stats and visible a
   }
 });
 
-test('the minimum body dies to every damaging card and to damage over time',()=>{
-  for(const c of Object.values(CARDS).filter(c=>c.damage>0)){const g=fresh(),u=g.spawn('diglett',0,300,500,0);g.damage(u,c.damage,1);assert.equal(u.hp,0,c.name);}
-  const g=fresh(),u=g.spawn('diglett',0,300,500,0);g.damage(u,.1,1,{burn:3,burnKind:'poison'});run(g,.6);assert.equal(u.hp,0);
+test('the skeleton analogue dies to one princess shot or either damage spell, and poison ticks remain real damage',()=>{
+  for(const damage of[THRESHOLDS.tower,CARDS.thunder.damage,CARDS.fireball.damage]){const g=fresh(),u=g.spawn('diglett',0,300,500,0);g.damage(u,damage,1);assert.equal(u.hp,0);}
+  const g=fresh(),u=g.spawn('diglett',0,300,500,0);g.damage(u,.1,1,{burn:100,burnKind:'poison'});run(g,1.1);assert.equal(u.hp,0);
 });
 
-test('one-shot and two-shot bodies sit on opposite sides of tower and zap thresholds',()=>{
-  for(const[key,hits]of[['diglett',1],['gastly',1],['mankey',1],['raltsTrio',1],['poochyenaPack',2],['ekans',2],['beedrill',2],['zubat',2],['treecko',3]]){
+test('light troops, goblins and archers retain distinct princess-shot health tiers',()=>{
+  for(const[key,hits]of[['diglett',1],['gastly',1],['mankey',2],['raltsTrio',2],['poochyenaPack',2],['ekans',3],['beedrill',3],['zubat',2],['treecko',3]]){
     const g=fresh(),u=g.spawn(key,0,300,500,0),tower=g.towers.find(t=>!t.king);
-    for(let i=1;i<=hits;i++){g.damage(u,tower.damage,1);assert.equal(u.hp<=0,i===hits,`${key}, shot ${i}`);}
+    for(let i=1;i<=hits;i++){g.damage(u,tower.damage,1);assert.equal(u.hp<=0,i===hits,key);}
   }
-  assert.equal(CARDS.thunder.cost,2);assert.equal(CARDS.thunder.damage,THRESHOLDS.tower);
-  assert.equal(CARDS.pikachu.damage,THRESHOLDS.tower);
+  assert.equal(CARDS.thunder.cost,2);assert.equal(CARDS.thunder.damage,192);assert.equal(CARDS.pikachu.cost,4);
 });
 
-test('a real zap clears light troops while melee Nidoran and Zubat survive',()=>{
+test('zap clears skeletons, bats and spear casters while goblins barely survive',()=>{
   const g=fresh({deck:['thunder',...DEFAULT_DECK.filter(k=>k!=='thunder')]}),units=['diglett','gastly','raltsTrio','poochyenaPack','zubat'].map((key,i)=>freeze(g.spawn(key,1,260+i*15,300,0)));
-  assert.ok(g.deploy(0,0,290,300).ok);run(g,.5);
-  assert.deepEqual(units.map(u=>u.hp),[0,0,0,71,71]);assert.ok(units.slice(3).every(u=>u.stun>0));
+  assert.ok(g.deploy(0,0,290,300).ok);run(g,.5);assert.deepEqual(units.map(u=>u.hp),[0,0,0,10,0]);assert.ok(units[3].stun>0);
 });
 
-test('fireball removes ordinary support of four or five or leaves one or two actual tower hits',()=>{
-  for(const key of['alakazam','starmie','mrmime','espeon','sceptile','gardevoir','crobat','altaria']){
-    const g=fresh({deck:['fireball',...DEFAULT_DECK.filter(k=>k!=='fireball')]}),u=freeze(g.spawn(key,1,300,300,0));
-    g.deploy(0,0,300,300);run(g,.5);
-    if(key==='alakazam'){assert.equal(u.hp,0);continue;}
-    assert.ok(u.hp>0,key);g.damage(u,109,0);
-    if(['crobat','altaria'].includes(key)){assert.ok(u.hp>0,key);g.damage(u,109,0);}
-    assert.equal(u.hp,0,key);
+test('fireball removes ordinary unshielded support, leaves the electric mage at one shot and preserves heavy tanks',()=>{
+  for(const key of['alakazam','starmie','espeon','sceptile','gardevoir','pikachu','crobat','altaria']){
+    const g=fresh({deck:['fireball',...DEFAULT_DECK.filter(k=>k!=='fireball')]}),u=freeze(g.spawn(key,1,300,300,0));u.entryPending=false;
+    g.deploy(0,0,300,300);run(g,1.5);assert.equal(u.hp,Math.max(0,CARDS[key].hp-CARDS.fireball.damage),key);
+    if(key==='pikachu'||key==='gardevoir'){assert.ok(u.hp>0);g.damage(u,THRESHOLDS.tower,0);assert.equal(u.hp,0,key);}
   }
-  const g=fresh(),tank=g.spawn('snorlax',1,300,300,0);g.damage(tank,400,0);g.damage(tank,218,0);assert.ok(tank.hp>0);
+  const g=fresh(),tank=g.spawn('snorlax',1,300,300,0);g.damage(tank,CARDS.fireball.damage,0);g.damage(tank,CARDS.log.damage,0);assert.ok(tank.hp>0);
 });
 
 test('rolling log clears the full melee pack once and leaves flying swarms intact',()=>{
@@ -63,11 +58,9 @@ test('rolling log clears the full melee pack once and leaves flying swarms intac
   g.deploy(0,0,158,500);run(g,1.8);assert.ok(pack.every(u=>u.hp===0));assert.equal(air.hp,air.maxHp);
 });
 
-test('Geodude wins ordinary single-target duels but loses to the tank counter and ground swarms',()=>{
-  for(const enemy of['pikachu','psyduck','alakazam','gengar','feraligatr','arcanine','scizor','sableye','sharpedo','espeon'])assert.ok(duel('geodude',enemy).defender.hp>0,enemy);
-  for(const[enemy,count]of[['machamp',1],['diglett',9],['poochyenaPack',4]]){
-    const result=duel('geodude',enemy,count);assert.equal(result.defender.hp,0,enemy);assert.ok(result.attackers.some(u=>u.hp>0),enemy);
-  }
+test('the knight defender beats fragile ranged support but loses to anti-tank fighters and a skeleton horde',()=>{
+  for(const enemy of['psyduck','alakazam','gengar','espeon'])assert.ok(duel('geodude',enemy).defender.hp>0,enemy);
+  for(const[enemy,count]of[['machamp',1],['diglett',9]]){const result=duel('geodude',enemy,count);assert.equal(result.defender.hp,0,enemy);assert.ok(result.attackers.some(u=>u.hp>0),enemy);}
 });
 
 test('swarms use compact mirrored formations and deploy every distinct body legally',()=>{
@@ -85,7 +78,7 @@ test('swarms use compact mirrored formations and deploy every distinct body lega
 test('fireball and zap each clear a deployed nine-body horde in a single cast',()=>{
   for(const spell of['fireball','thunder']){
     const g=fresh({deck:[spell,...DEFAULT_DECK.filter(k=>k!==spell).slice(0,7)]}),units=formationOffsets(CARDS.diglettHorde).map(p=>freeze(g.spawn('diglettHorde',1,300+p.x,300+p.y,0)));
-    g.energy[0]=10;g.deploy(0,0,300,300);run(g,.5);assert.ok(units.every(u=>u.hp===0),spell);
+    g.energy[0]=10;g.deploy(0,0,300,300);run(g,1.5);assert.ok(units.every(u=>u.hp===0),spell);
   }
 });
 

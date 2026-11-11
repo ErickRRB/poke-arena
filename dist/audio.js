@@ -1,10 +1,10 @@
 // Recorded foley and Pokémon voices follow release/impact events; synthesis is a loading fallback.
-import { BattleMusic } from './music.js?v=10';
-import { CARDS } from './engine.js?v=10';
+import { BattleMusic } from './music.js?v=11';
+import { CARDS } from './engine.js?v=11';
 export class SoundSystem {
   constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.ready=this.preload().catch(()=>false); }
   async preload(){
-    const response=await fetch('assets/audio/manifest.json?v=10');if(!response.ok)throw Error('Audio manifest unavailable');
+    const response=await fetch('assets/audio/manifest.json?v=11');if(!response.ok)throw Error('Audio manifest unavailable');
     const manifest=await response.json();
     await Promise.all(Object.entries(manifest).flatMap(([group,entries])=>Object.entries(entries).map(async([id,file])=>{const r=await fetch(file);if(!r.ok)throw Error(`Audio unavailable: ${file}`);this.encoded.set(`${group}:${id}`,await r.arrayBuffer());})));
     this.bytesReady=true;if(this.ctx)await this.decodeSamples();return true;
@@ -136,6 +136,7 @@ export class SoundSystem {
     }
   }
   event(e) {
+    if(e.type==='entry')this.play(e.style,e.x,true,0,e.unit.card.id);
     if(e.type==='ability'){this.play(e.unit.card.style,e.unit.x,true,0,e.unit.card.id);this.sample('foley:bell',e.unit.x,{volume:.2,rate:.65,maxDuration:.75});}
     if(e.type==='transform')this.play('shadow',e.unit.x);
     if(e.type==='attackRelease'){const id=e.attacker.card?.id||e.attacker.guard?.id;this.play(e.style,e.from.x,false,e.shot,id);}

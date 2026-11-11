@@ -1,9 +1,10 @@
-import { W, H, TILE, LANES, RIVER, BRIDGE, PRINCESS_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=10';
+import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=11';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
 function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.lineWidth = width; c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); }
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
+const visualScale = unit => unit.scale ?? unit.card?.scale ?? 1.5;
 function ball(c, x, y, r, color) {
   c.fillStyle = '#26382f'; c.beginPath(); c.arc(x, y, r + 2, 0, Math.PI * 2); c.fill();
   c.fillStyle = '#e1d9b9'; c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.fill();
@@ -26,7 +27,7 @@ export class Renderer {
     this.buildBackground();
   }
   async load(keys=DEFAULT_DECK) {
-    const response = await fetch('assets/pokemon/manifest.json?v=5');
+    const response = await fetch('assets/pokemon/manifest.json?v=11');
     if (!response.ok) throw new Error('No se pudo cargar el archivo de sprites.');
     this.metadata = await response.json();
     await this.ensureSpecies([...keys.map(k=>CARDS[k]?.id),31,34,52].filter(Boolean));
@@ -91,7 +92,7 @@ export class Renderer {
     c.imageSmoothingEnabled = false;
     const rnd = this.rng(8318);
     rect(c, '#466d3e', 0, 0, W, H);
-    for (let y = 0; y < H; y += TILE) for (let x = 0; x < W; x += TILE) rect(c, (x/TILE + y/TILE) % 2 ? '#527e45' : '#568348', x, y, TILE, TILE);
+    for (let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++)rect(c,(row+col)%2?'#527e45':'#568348',col*TILE,DEPLOY_GRID.top+row*TILE,TILE,TILE);
     // Inset field, worn edges, and fine pixel texture.
     for (let i = 0; i < 4200; i++) {
       const x = Math.floor(rnd() * W), y = Math.floor(rnd() * H);
@@ -182,7 +183,7 @@ export class Renderer {
       if (!tower.active) { ellipse(c, '#1a322785',x,y+22,13,7);text(c,'z',x,y+21,'#cbd6b7',10); }
     }
     // Guardians use the same feet anchors and aiming as units on the arena floor.
-    if(tower.guard)this.sprite(c,{...tower,card:{id:tower.guard.id},scale:king?1.15:1.3,x,y:y-hh+4,mounted:true,attackAnim:tower.guard.attackAnim,moving:false},true);
+    if(tower.guard)this.sprite(c,{...tower,attack:!tower.active?0:tower.attack,card:{id:tower.guard.id},scale:king?1.15:1.3,x,y:y-hh+4,mounted:true,attackAnim:tower.guard.attackAnim,moving:false},true);
     if (tower.stun > 0) { c.globalAlpha = .5 + Math.sin(this.t*25)*.3; ellipse(c,'#fff3a48a',x,y-35,ww*.6,30);c.globalAlpha=1; }
     const bw = king ? 64 : 58, by = y + 26;
     rect(c,'#20352ad9',x-bw/2-2,by-2,bw+4,10);rect(c,'#435845',x-bw/2,by,bw,6);rect(c,pal[1],x-bw/2,by,bw*(tower.hp/tower.maxHp),6);rect(c,pal[2],x-bw/2,by,bw*(tower.hp/tower.maxHp),2);
@@ -197,7 +198,7 @@ export class Renderer {
     if (!this.sprites.has(`${id}-${anim}`)) anim = 'Walk';
     const meta = this.metadata[id]?.[anim], img = this.sprites.get(`${id}-${anim}`);
     if (!meta || !img) return;
-    const scale = unit.scale || (id === 95 ? 1.2 : id === 6 ? 1.8 : id === 143 ? 2 : 2.05),vertical=this.verticalScale||1;
+    const scale = visualScale(unit),vertical=this.verticalScale||1;
     let frame = 0;
     const attacking=unit.attack>0;
     const duration = meta.durations.reduce((a,b)=>a+b,0);
@@ -282,6 +283,7 @@ export class Renderer {
     if(type==='damage'&&event.amount>0){this.floatingNumber(event.target,event.amount,event.dot?'dot':'damage');const target=event.target,old=this.healthStates.get(target.id);this.healthStates.set(target.id,{chip:Math.max(old?.chip||0,Math.min(1,(target.hp+event.amount)/target.maxHp)),last:target.hp/target.maxHp,at:this.t});}
     if(type==='heal'&&event.amount>0){this.floatingNumber(event.unit,event.amount,'heal');this.rings.push({x:event.unit.x,y:event.unit.y-7,color:'#a5e4a5',life:.4,max:.4,radius:22});}
     if(type==='spawn'){this.ensureSpecies([event.unit.card.id]).catch(()=>{});this.rings.push({x:event.unit.x,y:event.unit.y,color:event.unit.team?'#e89a78':'#96d5df',life:.7,max:.7,radius:24});}
+    if(type==='entry'){this.burst(event.x,event.y-10,event.style==='lightning'?'#f8e78d':'#a7e4ed',18,80);this.rings.push({x:event.x,y:event.y,color:event.style==='lightning'?'#fff1b3':'#a7e4ed',life:.55,max:.55,radius:event.radius,spell:event.style==='lightning'?'thunder':'ice'});}
     if(type==='ability'||type==='deathBurst'){this.burst(event.unit.x,event.unit.y-15,type==='ability'?'#d7adff':'#d9c794',25,100);this.rings.push({x:event.unit.x,y:event.unit.y,spell:'pulse',color:type==='ability'?'#deb8ff':'#e4cca0',life:.7,max:.7,radius:event.radius});}
     if(type==='hit'){
       const color=CARDS[event.key]?.color||'#eee8bc';
@@ -308,7 +310,7 @@ export class Renderer {
   floatingNumber(target,amount,kind='damage'){
     const combined=this.numbers.find(n=>n.targetId===target.id&&n.kind===kind&&this.t-n.lastAt<.22);
     if(combined){combined.amount+=amount;combined.life=combined.max;combined.lastAt=this.t;return;}
-    const id=target.card?.id,scale=target.scale||(id===95?1.2:id===6?1.8:id===143?2:2.05);
+    const id=target.card?.id,scale=visualScale(target);
     const height='king'in target?(target.king?83:72):(this.bodyHeights.get(id)||23)*scale+(target.card.structure?23:target.card.flying?16:0)+13;
     const life=kind==='dot'?.95:1.15;
     if(this.numbers.length>=32)this.numbers.shift();
@@ -441,12 +443,16 @@ export class Renderer {
     const key=this.selection||recent?.key,card=CARDS[key];
     if(!card||game.state!=='playing')return;
     c.save();
-    if(!card.spell&&this.selection){
+    if((!card.spell||card.rolling)&&this.selection){
       rect(c,'#132e2570',35,36,530,339);
       for(const lane of [0,1]){
         if(game.towers.some(t=>t.team===1&&t.lane===lane&&t.hp<=0))rect(c,'#8ed2a018',lane?300:36,252,264,104);
       }
-      c.strokeStyle='#d9ebbc55';c.lineWidth=1;c.setLineDash([5,6]);c.strokeRect(42,445,516,305);c.setLineDash([]);
+      c.strokeStyle='#d9ebbc35';c.lineWidth=.7;
+      for(let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++){
+        const x=col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
+        if(game.canDeploy(0,key,x,y))c.strokeRect(x-TILE/2,y-TILE/2,TILE,TILE);
+      }
       if(this.tutorialSpot)text(c,'D E S P L E G Á  A C Á',300,480,'#e0ecc7aa',10,500);
     }
     if(this.tutorialSpot&&!card.spell){
@@ -459,11 +465,11 @@ export class Renderer {
       const placement=placed?recent:game.resolveDeployment(0,key,p.x,p.y),point=placement||p;
       const valid=!!placement&&(placed||game.energy[0]>=card.cost);
       const color=valid?'#e9dc9e':'#e7947b';
-      if(card.rolling){c.fillStyle='#f3d38925';c.fillRect(point.x-45,point.y-345,90,345);}
+      if(card.rolling){const length=card.travelDistance;c.fillStyle='#f3d38930';c.fillRect(point.x-card.splash,point.y-length,card.splash*2,length);c.strokeStyle=color;c.lineWidth=2;line(c,color,point.x-card.splash,point.y-length,point.x+card.splash,point.y-length,2);}
       if(!card.spell){
         c.fillStyle='#9fe4e415';c.strokeStyle='#b7ededbb';c.lineWidth=1.5;c.setLineDash([5,6]);c.beginPath();c.arc(point.x,point.y,card.range,0,Math.PI*2);c.fill();c.stroke();c.setLineDash([]);
         for(const enemy of game.deploymentThreats(0,key,point.x,point.y,placed)){
-          const id=enemy.card?.id,scale=enemy.scale||(id===143?2:id===6?1.8:2.05);
+          const id=enemy.card?.id,scale=visualScale(enemy);
           const height='king'in enemy?(enemy.king?106:96):(this.bodyHeights.get(id)||23)*scale+(enemy.card.structure?24:enemy.card.flying?16:0)+25;
           const bx=enemy.x+18,by=Math.max(22,enemy.y-height/(this.verticalScale||1));
           ellipse(c,'#ef554944',enemy.x,enemy.y,enemy.radius+7,9);
@@ -474,10 +480,26 @@ export class Renderer {
       }
       c.globalAlpha=.12;ellipse(c,color,point.x,point.y,card.spell?card.splash:27,card.spell?card.splash:18);c.globalAlpha=1;
       c.strokeStyle=color;c.lineWidth=2;c.setLineDash([5,4]);c.beginPath();c.ellipse(point.x,point.y,card.spell?card.splash:27,card.spell?card.splash:18,0,0,Math.PI*2);c.stroke();c.setLineDash([]);
-      if(!card.spell&&valid&&this.selection){c.globalAlpha=.6;this.sprite(c,{x:point.x,y:point.y,card,team:0,dx:0,dy:-1,anim:this.t,id:-1,lifetime:card.lifetime},true);c.globalAlpha=1;}
+      if((!card.spell||card.rolling)&&valid&&this.selection){
+        const positions=card.rolling?[point]:game.deploymentPositions(0,key,point.x,point.y);
+        for(const [index,position]of positions.entries()){
+          c.fillStyle='#b6f1ec30';c.strokeStyle='#c2f4ed';c.lineWidth=1.5;c.fillRect(position.x-TILE/2,position.y-TILE/2,TILE,TILE);c.strokeRect(position.x-TILE/2,position.y-TILE/2,TILE,TILE);
+          if(!card.spell){c.globalAlpha=.55;this.sprite(c,{...position,card,team:0,dx:0,dy:-1,anim:this.t,id:-1-index,lifetime:card.lifetime},true);c.globalAlpha=1;}
+        }
+      }
       if(!valid){line(c,color,p.x-5,p.y-5,p.x+5,p.y+5,2);line(c,color,p.x+5,p.y-5,p.x-5,p.y+5,2);}
     }
     c.restore();
+  }
+  fireball(c,spell){
+    if(spell.delay>0||spell.done)return;
+    const progress=Math.min(1,spell.flightElapsed/Math.max(.001,spell.flightTime));
+    const distance=Math.hypot(spell.x-spell.startX,spell.y-spell.startY),arc=Math.min(120,40+distance*.18);
+    const position=t=>({x:spell.startX+(spell.x-spell.startX)*t,y:spell.startY+(spell.y-spell.startY)*t-60*(1-t)-Math.sin(Math.PI*t)*arc});
+    const point=position(progress);
+    ellipse(c,'#251d1940',point.x,spell.startY+(spell.y-spell.startY)*progress,15,6);
+    for(let i=8;i>0;i--){const tail=position(Math.max(0,progress-i*.012));c.globalAlpha=(1-i/10)*.65;ellipse(c,i>4?'#e96330':'#ffc35e',tail.x,tail.y,Math.max(3,14-i),Math.max(3,12-i));}
+    c.globalAlpha=1;c.save();c.shadowColor='#ff9a36';c.shadowBlur=18;ellipse(c,'#e95125',point.x,point.y,14,14);ellipse(c,'#ffbf50',point.x-2,point.y-2,10,11);ellipse(c,'#fff1b0',point.x-3,point.y-3,5,7);c.restore();
   }
   draw(game, dt = .016) {
     const c=this.ctx;this.t+=dt;this.drawDt=dt;const bounds=this.canvas.getBoundingClientRect();this.verticalScale=bounds.width?bounds.height/bounds.width*W/H:1;
@@ -499,6 +521,7 @@ export class Renderer {
       for(const [key,x,y,team] of [['pikachu',217,286,1],['squirtle',393,290,1],['charmander',210,554,0],['bulbasaur',390,550,0]])this.sprite(c,{id:x,card:CARDS[key],x,y,team,anim:this.t,dx:0,dy:team?1:-1},true);
     }
     for(const p of game.projectiles)this.projectile(c,p);
+    for(const spell of game.spells)if(spell.card.travelSpeed&&!spell.card.rolling)this.fireball(c,spell);
     this.drawEffects(c,dt);
     this.drawPlacement(c,game);
     if(this.healthStates.size>300){const ids=new Set(game.units.map(u=>u.id));for(const id of this.healthStates.keys())if(!ids.has(id))this.healthStates.delete(id);}
