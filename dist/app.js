@@ -1,8 +1,9 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H } from './engine.js?v=5';
-import { Renderer } from './render.js?v=5';
-import { SoundSystem } from './audio.js?v=5';
-import { OnlineClient } from './online.js?v=5';
-import { unpackGame, perspective } from './snapshot.js?v=5';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H } from './engine.js?v=7';
+import { Renderer } from './render.js?v=7';
+import { SoundSystem } from './audio.js?v=7';
+import { OnlineClient } from './online.js?v=7';
+import { unpackGame, perspective } from './snapshot.js?v=7';
+import { cardArtMarkup } from './card-art.js?v=7';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -15,12 +16,15 @@ function fitDesktop(){
   root.style.setProperty('--arena-h',`${height}px`);root.style.setProperty('--ui-scale',String(scale));root.style.setProperty('--battle-gap',`${gap}px`);
 }
 fitDesktop();addEventListener('resize',fitDesktop,{passive:true});
+function fitViewport(){document.documentElement.style.setProperty('--app-height',`${window.visualViewport?.height || innerHeight}px`);}
+fitViewport();addEventListener('resize',fitViewport,{passive:true});
+window.visualViewport?.addEventListener('resize',fitViewport,{passive:true});
 const store = {
   get(key, fallback) { try { const v = JSON.parse(localStorage.getItem(`poke-arena:${key}`)); return v ?? fallback; } catch { return fallback; } },
   set(key, value) { try { localStorage.setItem(`poke-arena:${key}`, JSON.stringify(value)); } catch { /* Storage can be disabled in private browsing. */ } },
 };
 const storedDeck = store.get('deck', DEFAULT_DECK);
-let deck = Array.isArray(storedDeck) && storedDeck.length === 8 && new Set(storedDeck).size === 8 && storedDeck.every(k => CARDS[k]) ? storedDeck : [...DEFAULT_DECK];
+let deck = Array.isArray(storedDeck) && storedDeck.length <= 8 && new Set(storedDeck).size === storedDeck.length && storedDeck.every(k => CARDS[k]&&!CARDS[k].token) ? storedDeck : [...DEFAULT_DECK];
 if(deck.join(',')==='pikachu,snorlax,squirtle,charmander,zubat,thunder,charizard,fireball')deck=[...DEFAULT_DECK];
 const storedDifficulty = store.get('difficulty', 'normal');
 let difficulty = ['easy', 'normal', 'hard'].includes(storedDifficulty) ? storedDifficulty : 'normal';
@@ -53,14 +57,20 @@ function toast(message) {
 }
 function live(message) { $('live-status').textContent = message; }
 
-function spellIcon(key) {
-  if(key==='log')return '<svg class="spell-image log-icon" viewBox="0 0 80 80" aria-hidden="true"><path d="m16 55 38-39 16 15-39 39Z" fill="#90603c" stroke="#e1bc77" stroke-width="3"/><ellipse cx="23" cy="62" rx="13" ry="10" transform="rotate(40 23 62)" fill="#d4af72" stroke="#67472e" stroke-width="3"/><path d="m28 44-5-12m22-3-4-12m5 32 12 4" stroke="#754c31" stroke-width="6" stroke-linecap="round"/></svg>';
-  if (key === 'thunder') return '<svg class="spell-image" viewBox="0 0 80 80" aria-hidden="true"><path d="M44 4 16 45h20l-6 31 34-44H43l9-28Z" fill="#e8c66c" stroke="#fff0b3" stroke-width="2"/><path d="m19 12-4 6m47 33 5 5M9 45H4m57-33 4-5" stroke="#d0b764" stroke-width="3" stroke-linecap="round"/></svg>';
-  return '<svg class="spell-image" viewBox="0 0 80 80" aria-hidden="true"><path d="M67 6c-8 22 8 22-4 43C49 76 17 78 10 57 2 34 31 28 34 10c8 8 6 18 6 18C46 20 54 21 67 6Z" fill="#dd8951" stroke="#eab06b" stroke-width="2"/><path d="M42 37c9 8 14 16 6 25-8 9-23 8-27-2-4-11 10-14 12-27 4 5 3 12 3 12l6-8Z" fill="#f4d183"/><path d="m60 11 6-6m4 19 6-6M20 15l-4 8" stroke="#ebbd75" stroke-width="3" stroke-linecap="round"/></svg>';
-}
 function cardMarkup(key, index, collection = false) {
   const c = CARDS[key];
-  return `<button class="pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-${collection ? 'collection' : 'card'}="${collection ? key : index}" aria-label="${c.name}, ${RARITIES[c.rarity]}, ${c.cost} de elixir, ${c.role}" aria-pressed="false"><span class="card-cost">${c.cost}</span>${!collection ? `<span class="card-key">${index + 1}</span>` : ''}${c.id ? `<img class="card-image" src="assets/pokemon/${c.id}/art.png" alt="" draggable="false" decoding="async" ${collection?'loading="lazy"':''}>` : spellIcon(key)}<span class="card-name">${c.name}</span><span class="card-role">${c.role}</span></button>`;
+  return `<button class="pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-${collection ? 'collection' : 'card'}="${collection ? key : index}" aria-label="${c.name}, ${RARITIES[c.rarity]}, ${c.cost} de elixir, ${c.role}" aria-pressed="false"><span class="card-cost">${c.cost}</span>${!collection ? `<span class="card-key">${index + 1}</span>` : ''}${cardArtMarkup(key)}<span class="card-name">${c.name}</span><span class="card-role">${c.role}</span></button>`;
+}
+function renderMenuDeck(){
+  $('menu-deck-preview').innerHTML=Array.from({length:8},(_,i)=>{const key=deck[i],c=CARDS[key];return c?`<button class="menu-card pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-menu-card="${key}" aria-label="${c.name}, ${c.cost} de elixir, ver detalles"><span class="card-cost">${c.cost}</span>${cardArtMarkup(key)}<span class="card-name">${c.name}</span></button>`:`<button class="menu-card pokemon-card empty" data-menu-empty aria-label="Elegir carta para el espacio ${i+1}">+</button>`;}).join('');
+  $('menu-deck-average').textContent=deck.length?(deck.reduce((sum,key)=>sum+CARDS[key].cost,0)/deck.length).toFixed(1).replace('.',','):'—';
+  $('menu-deck-status').hidden=deck.length===8;
+  $('menu-deck-status').textContent=`Elegí ${8-deck.length} ${deck.length===7?'carta más':'cartas más'} para jugar.`;
+  $('start-btn').disabled=$('online-btn').disabled=!ready||deck.length!==8;
+}
+function applyDeckChanges(){
+  deck=[...deckDraft];store.set('deck',deck);renderMenuDeck();
+  $('deck-edit-hint').textContent=deck.length===8?'':`${deck.length}/8 · Elegí ${8-deck.length} más`;
 }
 function syncHand() {
   const signature = game.hands[0].join(',');
@@ -68,7 +78,7 @@ function syncHand() {
     handSignature = signature;
     $('hand').innerHTML = game.hands[0].map((key,i) => cardMarkup(key,i)).join('');
     const key = game.queues[0][0], c = CARDS[key];
-    $('next-preview').innerHTML = c.id ? `<img src="assets/pokemon/${c.id}/art.png" alt="${c.name}">` : spellIcon(key);
+    $('next-preview').innerHTML = cardArtMarkup(key);
     $('next-name').textContent = c.name;
   }
   for (const el of $('hand').querySelectorAll('[data-card]')) {
@@ -85,17 +95,17 @@ function updateDetail() {
 }
 function choose(index) {
   if (!ready || index < 0 || index > 3 || game.state === 'ended' || game.state === 'paused') return;
-  if (selected !== index) { audioInit(); tone(420+index*70,.06,'sine',.03); }
+  if (selected !== index) audioInit();
   selected = index;
   renderer.pointer = null;
   if (walkthrough?.step === 1) setGuideStep(2);
   updateDetail(); syncHand();
   const c = CARDS[game.hands[0][selected]];
-  sfx.cry(c.id);
   live(`${c.name}. ${c.cost} de energía. ${c.spell ? 'Apuntá en cualquier lado.' : 'Apuntá en tu lado de la arena.'}`);
 }
 function cancelSelection() { selected = -1; renderer.pointer = null; renderer.selection = null; updateDetail(); syncHand(); }
 function updateUi() {
+  sfx.setBattleState(game.state==='playing'&&!document.hidden&&!document.body.classList.contains('menu-mode')&&!document.querySelector('dialog[open]'),game.overtime||game.time<=60);
   const energy = game.energy[0];
   $('energy-value').textContent = String(Math.floor(energy));
   $('energy-bar').setAttribute('aria-valuenow', energy.toFixed(1));
@@ -129,14 +139,16 @@ function handleEvent(e) {
   if (e.type === 'end') showResult(e);
 }
 function newGame({ start = false, tutorial = false } = {}) {
+  sfx.resetMusic();
   $('result-overlay').hidden = true; $('pause-overlay').hidden = true; $('guide').hidden = true;
   walkthrough = null; selected = -1; handSignature = ''; renderer.pointer = null; renderer.selection = null; renderer.tutorialSpot = false;
   renderer.particles = []; renderer.rings = [];renderer.effects=[];renderer.numbers=[];
-  game = new Game({ deck: tutorial ? DEFAULT_DECK : deck, difficulty, tutorial, onEvent: handleEvent, animations:renderer.metadata });
+  renderer.deploymentPreview=null;
+  game = new Game({ deck: tutorial||deck.length!==8 ? DEFAULT_DECK : deck, difficulty, tutorial, onEvent: handleEvent, animations:renderer.metadata });
   if(!tutorial){const pool=Object.keys(CARDS).filter(k=>!CARDS[k].token&&!CARDS[k].spell&&CARDS[k].cost<=6&&k!=='snorlax').sort(()=>Math.random()-.5),bot=['snorlax','log',...pool.slice(0,6)];game.hands[1]=bot.slice(0,4);game.queues[1]=bot.slice(4);}
   $('enemy-name').textContent = `${{easy:'Principiante',normal:'Entrenador',hard:'Líder de gimnasio'}[difficulty]} · CPU`;
   document.body.classList.toggle('menu-mode',!start);$('main-menu').hidden=start;
-  $('menu-deck-preview').innerHTML=deck.map(k=>CARDS[k].id?`<img src="assets/pokemon/${CARDS[k].id}/art.png" alt="${CARDS[k].name}">`:`<span>${spellIcon(k)}</span>`).join('');
+  renderMenuDeck();
   renderer.ensureSpecies(deck.map(k=>CARDS[k]?.id).filter(Boolean)).catch(()=>{});
   if (start) {
     audioInit(); game.start();
@@ -180,6 +192,7 @@ async function attemptDeploy(point) {
   const index=selected,key=game.hands[0][index];
   const result=onlineMode?await online.send({kind:'deploy',handIndex:index,key,x:online.team?W-point.x:point.x,y:online.team?H-point.y:point.y}):game.deploy(0,index,point.x,point.y);
   if(!result.ok){toast(result.reason);tone(150,.12,'triangle',.02);return;}
+  renderer.deploymentPreview={key:result.key,x:result.x,y:result.y,until:renderer.t+1.5};
   live(`${CARDS[result.key].name} desplegado. ${Math.floor(game.energy[0])} de energía.`);
   cancelSelection();updateUi();
 }
@@ -202,25 +215,31 @@ document.querySelectorAll('dialog').forEach(dialog=>{
 
 function renderCollection() {
   renderDeckStrip();
-  const term=($('collection-search')?.value||'').toLowerCase(),rarity=$('rarity-filter')?.value||'';
-  $('collection').innerHTML=Object.keys(CARDS).filter(k=>!CARDS[k].token&&(!rarity||CARDS[k].rarity===rarity)&&CARDS[k].name.toLowerCase().includes(term)).map(k=>`<div class="collection-entry">${cardMarkup(k,0,true)}<button class="deck-toggle" data-toggle="${k}" ${!deckEditable?'disabled':''}>${deckDraft.includes(k)?'✓ En mazo':'+ Agregar'}</button></div>`).join('');
-  for(const el of $('collection').querySelectorAll('[data-collection]')){const included=deckDraft.includes(el.dataset.collection);el.classList.toggle('selected',included);el.removeAttribute('aria-pressed');el.setAttribute('aria-haspopup','dialog');el.setAttribute('aria-label',`${CARDS[el.dataset.collection].name}, ver detalles`);}
+  const term=($('collection-search')?.value||'').toLowerCase(),rarity=$('rarity-filter')?.value||'',order=$('collection-sort').value;
+  const keys=Object.keys(CARDS).filter(k=>!CARDS[k].token&&(!rarity||CARDS[k].rarity===rarity)&&CARDS[k].name.toLowerCase().includes(term));
+  const byName=(a,b)=>CARDS[a].name.localeCompare(CARDS[b].name,'es');
+  if(order==='elixir-asc')keys.sort((a,b)=>CARDS[a].cost-CARDS[b].cost||byName(a,b));
+  else if(order==='elixir-desc')keys.sort((a,b)=>CARDS[b].cost-CARDS[a].cost||byName(a,b));
+  else if(order==='name')keys.sort(byName);
+  $('collection').innerHTML=keys.map(k=>`<div class="collection-entry">${cardMarkup(k,0,true)}<button class="deck-toggle" data-toggle="${k}" ${!deckEditable?'disabled':''}>${deckDraft.includes(k)?'✓ En mazo':'+ Agregar'}</button></div>`).join('');
+  for(const el of $('collection').querySelectorAll('[data-collection]')){const c=CARDS[el.dataset.collection],included=deckDraft.includes(el.dataset.collection);el.classList.toggle('selected',included);el.removeAttribute('aria-pressed');el.setAttribute('aria-haspopup','dialog');el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir, ${c.role}, ver detalles`);}
   $('deck-count').textContent=`${deckDraft.length}/8`;
   $('deck-average').textContent=deckDraft.length?(deckDraft.reduce((a,k)=>a+CARDS[k].cost,0)/deckDraft.length).toFixed(1).replace('.',','):'—';
-  $('save-deck-btn').disabled=deckDraft.length!==8||!deckEditable;
+  $('save-deck-btn').disabled=false;
   $('reset-deck-btn').disabled=!deckEditable;
 }
 function renderDeckStrip(){
   $('deck-strip').innerHTML=Array.from({length:8},(_,i)=>{
     const key=deckDraft[i],c=CARDS[key];
     if(!c)return`<span class="deck-slot empty" aria-label="Espacio ${i+1} vacío">+</span>`;
-    return`<button class="deck-slot" data-rarity="${c.rarity}" data-deck-info="${key}" aria-label="${c.name}, ver detalles" title="${c.name}">${c.id?`<img src="assets/pokemon/${c.id}/art.png" alt="" draggable="false">`:spellIcon(key)}<span>${c.cost}</span></button>`;
+    return`<button class="deck-slot" data-rarity="${c.rarity}" data-deck-info="${key}" aria-label="${c.name}, ${c.cost} de elixir, ver detalles" title="${c.name}">${cardArtMarkup(key)}<span class="slot-cost">${c.cost}</span></button>`;
   }).join('');
 }
 $('deck-strip').addEventListener('click',e=>{const el=e.target.closest('[data-deck-info]');if(el){renderCardInfo(el.dataset.deckInfo);openModal('card-dialog');}});
+$('menu-deck-preview').addEventListener('click',e=>{if(e.target.closest('[data-menu-empty]')){openDeck();return;}const el=e.target.closest('[data-menu-card]');if(el){deckEditable=true;deckDraft=[...deck];renderCardInfo(el.dataset.menuCard);openModal('card-dialog');}});
 function openDeck() {
   deckEditable=!['playing','paused'].includes(game.state);deckDraft=[...deck];
-  $('deck-edit-hint').textContent=deckEditable?'':'En batalla';
+  $('deck-edit-hint').textContent=!deckEditable?'En batalla':deck.length===8?'':`${deck.length}/8 · Elegí ${8-deck.length} más`;
   renderCollection();openModal('deck-dialog');
 }
 function toggleDeckCard(key){
@@ -228,13 +247,13 @@ function toggleDeckCard(key){
   if(deckDraft.includes(key))deckDraft=deckDraft.filter(k=>k!==key);
   else if(deckDraft.length<8)deckDraft.push(key);
   else { $('deck-edit-hint').textContent='Mazo completo';return; }
-  $('deck-edit-hint').textContent='';renderCollection();
+  applyDeckChanges();renderCollection();
 }
 function renderCardInfo(key){
   const c=CARDS[key];inspectedCard=key;
-  audioInit();sfx.cry(c.id);
+  audioInit();
   $('card-info-name').textContent=c.name;$('card-info-type').textContent=`${c.label} · ${RARITIES[c.rarity]}`;$('card-info-role').textContent=c.role;$('card-info-cost').textContent=c.cost;
-  $('card-info-art').innerHTML=c.id?`<img src="assets/pokemon/${c.id}/art.png" alt="${c.name}">`:spellIcon(key);$('card-dialog').dataset.rarity=c.rarity;
+  $('card-info-art').innerHTML=cardArtMarkup(key);$('card-dialog').dataset.rarity=c.rarity;
   $('card-info-art').style.setProperty('--card-tint',c.color);
   $('card-info-move').textContent=c.move||c.name;$('card-info-description').textContent=c.description;
   const stats=[];
@@ -251,7 +270,12 @@ function renderCardInfo(key){
   if(c.ability?.damage)stats.push(['Daño de habilidad',c.ability.damage]);if(c.ability?.stun)stats.push(['Aturdimiento',`${c.ability.stun} s`]);
   if(c.heal)stats.push(['Curación',`${c.heal} / ${c.healEvery} s`]);if(c.reflect)stats.push(['Reflejo',`${Math.round(c.reflect*100)} %`]);if(c.armor)stats.push(['Reducción de daño',`${Math.round(c.armor*100)} %`]);
   if(c.spell)stats.push([c.rolling?'Recorrido':'Radio',`${((c.rolling?348:c.splash)/30).toFixed(1).replace('.',',')} casillas`]);
-  $('card-info-stats').innerHTML=stats.map(([label,value])=>`<div><dt>${label}</dt><dd>${value}</dd></div>`).join('');
+  const mainStats=stats.filter(([label])=>['Vida','Daño','Objetivos',c.count?'Unidades':'Alcance'].includes(label)),extraStats=stats.filter(stat=>!mainStats.includes(stat));
+  const statMarkup=items=>items.map(([label,value])=>`<div><dt>${label}</dt><dd>${value}</dd></div>`).join('');
+  $('card-info-stats').innerHTML=statMarkup(mainStats);
+  $('card-extra-stats').innerHTML=statMarkup(extraStats);
+  $('card-more-stats').hidden=!extraStats.length;
+  if($('card-dialog').open===false)$('card-more-stats').open=false;
   const included=deckDraft.includes(key);$('card-info-toggle').textContent=included?'Quitar del mazo':deckDraft.length===8?'Mazo completo':'Agregar al mazo';
   $('card-info-toggle').disabled=!deckEditable||(!included&&deckDraft.length===8);
 }
@@ -259,9 +283,9 @@ $('collection').addEventListener('click',e=>{
   const toggle=e.target.closest('[data-toggle]');if(toggle){toggleDeckCard(toggle.dataset.toggle);return;}
   const el=e.target.closest('[data-collection]');if(el){renderCardInfo(el.dataset.collection);openModal('card-dialog');}
 });
-$('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){toggleDeckCard(inspectedCard);renderCardInfo(inspectedCard);}});
-$('save-deck-btn').addEventListener('click',()=>{if(deckDraft.length!==8||!deckEditable)return;deck=[...deckDraft];store.set('deck',deck);closeModal($('deck-dialog'),false);newGame();toast('Mazo guardado.');});
-$('reset-deck-btn').addEventListener('click',()=>{deckDraft=[...DEFAULT_DECK];renderCollection();});
+$('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){toggleDeckCard(inspectedCard);if(!$('deck-dialog').open){closeModal($('card-dialog'),false);openModal('deck-dialog');}else renderCardInfo(inspectedCard);}});
+$('save-deck-btn').addEventListener('click',()=>closeModal($('deck-dialog')));
+$('reset-deck-btn').addEventListener('click',()=>{deckDraft=[...DEFAULT_DECK];applyDeckChanges();renderCollection();});
 
 $('hand').addEventListener('click',e=>{const el=e.target.closest('[data-card]');if(el&&performance.now()>ignoreClickUntil)choose(Number(el.dataset.card));});
 $('hand').addEventListener('pointerdown',e=>{const el=e.target.closest('[data-card]');if(!el||e.button!==0)return;drag={index:Number(el.dataset.card),x:e.clientX,y:e.clientY,active:false};});
@@ -272,10 +296,10 @@ document.addEventListener('pointermove',e=>{
 },{passive:false});
 document.addEventListener('pointerup',e=>{
   if(!drag)return;
-  if(drag.active){ignoreClickUntil=performance.now()+350;const p=arenaPoint(e.clientX,e.clientY);if(p.inside)attemptDeploy(p);renderer.pointer=null;}
+  if(drag.active){ignoreClickUntil=performance.now()+350;const p=arenaPoint(e.clientX,e.clientY),key=game.hands[0][drag.index];if(p.inside&&game.resolveDeployment(0,key,p.x,p.y))attemptDeploy(p);else cancelSelection();renderer.pointer=null;}
   drag=null;
 });
-document.addEventListener('pointercancel',()=>{drag=null;renderer.pointer=null;});
+document.addEventListener('pointercancel',()=>{if(drag?.active)cancelSelection();drag=null;renderer.pointer=null;});
 canvas.addEventListener('pointermove',e=>{if(e.pointerType!=='touch'&&!drag&&selected>=0)renderer.pointer=arenaPoint(e.clientX,e.clientY);});
 canvas.addEventListener('pointerleave',()=>{if(!drag)renderer.pointer=null;});
 canvas.addEventListener('pointerdown',e=>{if(e.button!==0||drag?.active)return;audioInit();canvas.focus({preventScroll:true});attemptDeploy(arenaPoint(e.clientX,e.clientY));});
@@ -293,7 +317,7 @@ document.addEventListener('keydown',e=>{
     }else if(e.key==='Enter'&&renderer.pointer){e.preventDefault();attemptDeploy(renderer.pointer);}
   }
 });
-document.addEventListener('visibilitychange',()=>{if(document.hidden&&game.state==='playing'&&!onlineMode){game.pause();$('pause-overlay').hidden=false;}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)sfx.setBattleState(false);if(document.hidden&&game.state==='playing'&&!onlineMode){game.pause();$('pause-overlay').hidden=false;}});
 
 $('start-btn').addEventListener('click',()=>{online?.close();onlineMode=false;newGame({start:true});});
 $('practice-btn').addEventListener('click',()=>{online?.close();onlineMode=false;newGame({start:true,tutorial:true});});
@@ -323,10 +347,11 @@ $('confirm-restart-btn').addEventListener('click',()=>{closeModal($('restart-dia
 
 for(let i=0;i<10;i++){const el=document.createElement('div');el.className='energy-segment';el.innerHTML='<div class="energy-fill"></div>';$('energy-bar').append(el);}
 $('trainer-name').value=store.get('name','');$('trainer-name').addEventListener('change',()=>store.set('name',$('trainer-name').value));
-const filters=document.createElement('div');filters.className='collection-tools';filters.innerHTML='<input id="collection-search" type="search" placeholder="Buscar Pokémon" aria-label="Buscar carta"><select id="rarity-filter" aria-label="Filtrar rareza"><option value="">Todas</option>'+Object.entries(RARITIES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')+'</select>';$('collection').before(filters);$('collection-search').addEventListener('input',renderCollection);$('rarity-filter').addEventListener('change',renderCollection);
+const filters=document.createElement('div');filters.className='collection-tools';filters.innerHTML='<input id="collection-search" type="search" placeholder="Buscar carta" aria-label="Buscar carta"><select id="rarity-filter" aria-label="Filtrar rareza"><option value="">Todas las rarezas</option>'+Object.entries(RARITIES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')+'</select><select id="collection-sort" aria-label="Ordenar cartas"><option value="elixir-asc">Menor elixir</option><option value="elixir-desc">Mayor elixir</option><option value="name">Nombre A–Z</option><option value="original">Orden original</option></select>';$('collection').before(filters);$('collection-search').addEventListener('input',renderCollection);$('rarity-filter').addEventListener('change',renderCollection);$('collection-sort').value=store.get('collection-order','elixir-asc');if(!$('collection-sort').value)$('collection-sort').value='elixir-asc';$('collection-sort').addEventListener('change',()=>{store.set('collection-order',$('collection-sort').value);renderCollection();});
 $('online-btn').addEventListener('click',beginOnline);$('cancel-search').addEventListener('click',mainMenu);
 $('abilities').addEventListener('click',async e=>{const button=e.target.closest('[data-ability]');if(!button)return;const id=Number(button.dataset.ability);button.disabled=true;const result=onlineMode?await online.send({kind:'ability',unitId:id}):game.activateAbility(0,id);if(!result.ok)live(result.reason);updateUi();});
 async function beginOnline(){
+  if(deck.length!==8)return;
   await closingOnline;await online?.close();onlineMode=false;newGame();audioInit();$('search-panel').hidden=false;$('ready-overlay').classList.add('searching');$('search-status').textContent='Buscando rival…';$('search-time').textContent='0:00';
   online=new OnlineClient({onSearch:ms=>{const sec=Math.floor(ms/1000);$('search-time').textContent=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;},onConnection:status=>{$('online-status').hidden=!status;$('online-status').textContent=status;if(!onlineMode)$('search-status').textContent=status||'Buscando rival…';},onSnapshot:packet=>{
     online.team=packet.team;onlineMode=true;document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('enemy-name').textContent=packet.opponent;
@@ -356,7 +381,7 @@ function frame(now){
 }
 requestAnimationFrame(frame);
 try{
-  await renderer.load(deck);ready=true;$('loading').hidden=true;$('menu-loading').hidden=true;for(const id of['start-btn','online-btn','practice-btn'])$(id).disabled=false;
+  await renderer.load(deck.length===8?deck:DEFAULT_DECK);ready=true;$('loading').hidden=true;$('menu-loading').hidden=true;$('practice-btn').disabled=false;renderMenuDeck();
 }catch(error){
   console.error(error);$('menu-loading').innerHTML='<p>No se pudieron cargar los sprites.</p><button class="secondary-btn" id="retry-load">Volver a intentar</button>';
   $('retry-load').addEventListener('click',()=>location.reload());

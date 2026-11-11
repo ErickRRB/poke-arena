@@ -1,4 +1,4 @@
-import { W, H, LANES, RIVER, CARDS, DEFAULT_DECK, directionRow } from './engine.js?v=5';
+import { W, H, LANES, RIVER, CARDS, DEFAULT_DECK, directionRow } from './engine.js?v=7';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -111,9 +111,14 @@ export class Renderer {
         rect(c, '#729553', x + s * 29 - 3, y, 8, 10); rect(c, '#587f45', x + s * 34 - 2, y + 5, 7, 8);
       }
     }
-    for (const yy of [70, 705]) {
+    for (const yy of [106, 669]) {
       rect(c, '#789553', 227, yy - 15, 147, 61); rect(c, '#879958', 236, yy - 10, 128, 48);
       for (let y = yy - 10; y < yy + 38; y += 16) for (let x = 237; x < 363; x += 20) { rect(c, '#96a367', x, y, 18, 14); rect(c, '#b8bb7d44', x+1, y, 16, 2); }
+    }
+    // Small deployment pockets behind each central tower, mirrored for both teams.
+    for(const yy of [44,747]){
+      rect(c,'#68894a',248,yy-5,104,20);
+      for(let x=253;x<350;x+=18){rect(c,'#94a56655',x,yy-2,13,13);rect(c,'#b6bf7e33',x,yy-2,13,2);}
     }
     // River banks are deliberately jagged at pixel scale.
     rect(c, '#365c36', 0, 359, 600, 86); rect(c, '#7f9e57', 0, 365, 600, 8);
@@ -400,10 +405,11 @@ export class Renderer {
     for(const x of LANES)this.bridge(c,x);
   }
   drawPlacement(c, game) {
-    const key=this.selection,card=CARDS[key];
+    const recent=this.deploymentPreview&&this.deploymentPreview.until>this.t?this.deploymentPreview:null;
+    const key=this.selection||recent?.key,card=CARDS[key];
     if(!card||game.state!=='playing')return;
     c.save();
-    if(!card.spell){
+    if(!card.spell&&this.selection){
       rect(c,'#132e2570',35,36,530,339);
       for(const lane of [0,1]){
         if(game.towers.some(t=>t.team===1&&t.lane===lane&&t.hp<=0))rect(c,'#8ed2a018',lane?300:36,252,264,104);
@@ -415,16 +421,28 @@ export class Renderer {
       const r=29+(this.reduced?0:Math.sin(this.t*4)*4);
       ellipse(c,'#e3d48a25',158,520,r,r*.6);c.strokeStyle='#e6d790';c.lineWidth=2;c.setLineDash([4,4]);c.beginPath();c.ellipse(158,520,r,r*.6,0,0,Math.PI*2);c.stroke();c.setLineDash([]);text(c,'↓',158,482,'#eee2a3',24);
     }
-    const p=this.pointer;
+    const p=this.pointer||(!this.selection?recent:null);
     if(p){
-      const placement=game.resolveDeployment(0,key,p.x,p.y),point=placement||p;
-      const valid=!!placement&&game.energy[0]>=card.cost;
+      const placed=!!recent&&!this.selection;
+      const placement=placed?recent:game.resolveDeployment(0,key,p.x,p.y),point=placement||p;
+      const valid=!!placement&&(placed||game.energy[0]>=card.cost);
       const color=valid?'#e9dc9e':'#e7947b';
       if(card.rolling){c.fillStyle='#f3d38925';c.fillRect(point.x-45,point.y-345,90,345);}
-      if(card.structure){c.strokeStyle='#aad8db88';c.lineWidth=1;c.setLineDash([4,6]);c.beginPath();c.arc(point.x,point.y,card.range,0,Math.PI*2);c.stroke();c.setLineDash([]);}
+      if(!card.spell){
+        c.fillStyle='#9fe4e415';c.strokeStyle='#b7ededbb';c.lineWidth=1.5;c.setLineDash([5,6]);c.beginPath();c.arc(point.x,point.y,card.range,0,Math.PI*2);c.fill();c.stroke();c.setLineDash([]);
+        for(const enemy of game.deploymentThreats(0,key,point.x,point.y,placed)){
+          const id=enemy.card?.id,scale=enemy.scale||(id===143?2:id===6?1.8:2.05);
+          const height='king'in enemy?(enemy.king?106:96):(this.bodyHeights.get(id)||23)*scale+(enemy.card.structure?24:enemy.card.flying?16:0)+25;
+          const bx=enemy.x+18,by=Math.max(22,enemy.y-height/(this.verticalScale||1));
+          ellipse(c,'#ef554944',enemy.x,enemy.y,enemy.radius+7,9);
+          c.save();c.translate(bx,by);c.scale(1,1/(this.verticalScale||1));
+          ellipse(c,'#b9202e',0,0,12,14);c.strokeStyle='#ffe7cd';c.lineWidth=2;c.beginPath();c.ellipse(0,0,12,14,0,0,Math.PI*2);c.stroke();
+          text(c,'!',0,0,'#fff7e9',22,900);c.restore();
+        }
+      }
       c.globalAlpha=.12;ellipse(c,color,point.x,point.y,card.spell?card.splash:27,card.spell?card.splash:18);c.globalAlpha=1;
       c.strokeStyle=color;c.lineWidth=2;c.setLineDash([5,4]);c.beginPath();c.ellipse(point.x,point.y,card.spell?card.splash:27,card.spell?card.splash:18,0,0,Math.PI*2);c.stroke();c.setLineDash([]);
-      if(!card.spell&&valid){c.globalAlpha=.6;this.sprite(c,{x:point.x,y:point.y,card,team:0,dx:0,dy:-1,anim:this.t,id:-1,lifetime:card.lifetime},true);c.globalAlpha=1;}
+      if(!card.spell&&valid&&this.selection){c.globalAlpha=.6;this.sprite(c,{x:point.x,y:point.y,card,team:0,dx:0,dy:-1,anim:this.t,id:-1,lifetime:card.lifetime},true);c.globalAlpha=1;}
       if(!valid){line(c,color,p.x-5,p.y-5,p.x+5,p.y+5,2);line(c,color,p.x+5,p.y-5,p.x-5,p.y+5,2);}
     }
     c.restore();

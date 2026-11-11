@@ -1,4 +1,5 @@
-import { EXTRA_CARDS } from './catalog.js?v=5';
+import { EXTRA_CARDS } from './catalog.js?v=7';
+import { applyBalance } from './balance.js?v=7';
 export const W = 600, H = 800;
 export const RIVER = { top: 375, bottom: 425 };
 export const LANES = [158, 442];
@@ -67,6 +68,7 @@ export const RARITIES={comun:'Común',especial:'Especial',epica:'Épica',legenda
 for(const[rarity,keys]of Object.entries(rarityGroups))for(const key of keys)CARDS[key].rarity=rarity;
 CARDS.alakazam.rarity='epica';
 Object.assign(CARDS,EXTRA_CARDS);
+applyBalance(CARDS);
 export const DEFAULT_DECK = ['pikachu', 'snorlax', 'machamp', 'blastoise', 'zubat', 'thunder', 'charizard', 'fireball'];
 // PMD sheets run south, southeast, east, northeast, north, northwest, west, southwest.
 export function directionRow(dx, dy) { return (2 - Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8; }
@@ -104,10 +106,10 @@ export class Game {
     this.aiClock = 3.5;
     this.stats = [{ deployed: 0, damage: 0, energy: 0, defeated: 0 }, { deployed: 0, damage: 0, energy: 0, defeated: 0 }];
     for (let team = 0; team < 2; team++) {
-      for (let lane = 0; lane < 2; lane++) this.towers.push({ id: this.nextId++, team, lane, x: LANES[lane], y: team ? 188 : 612, hp: 3000, maxHp: 3000, king: false, active: true, radius: 29, range: 180, damage: 52, interval: .9, cooldown: .3, stun: 0, hit: 0 });
-      this.towers.push({ id: this.nextId++, team, lane: -1, x: 300, y: team ? 82 : 718, hp: 4800, maxHp: 4800, king: true, active: false, radius: 34, range: 185, damage: 60, interval: 1, cooldown: .5, stun: 0, hit: 0 });
+      for (let lane = 0; lane < 2; lane++) this.towers.push({ id: this.nextId++, team, lane, x: LANES[lane], y: team ? 188 : 612, hp: 3000, maxHp: 3000, king: false, active: true, radius: 29, range: 225, damage: 109, interval: .8, cooldown: .3, stun: 0, hit: 0 });
+      this.towers.push({ id: this.nextId++, team, lane: -1, x: 300, y: team ? 118 : 682, hp: 4800, maxHp: 4800, king: true, active: false, radius: 34, range: 210, damage: 109, interval: 1, cooldown: .5, stun: 0, hit: 0 });
     }
-    for (const tower of this.towers) Object.assign(tower, {interval:Math.round(tower.interval*1.18*100)/100,guard: { id: tower.king ? 26 : 52, style: tower.king ? 'lightning' : 'coin', stun:tower.king?.18:0,attackAnim: tower.king ? 'Shock' : 'Shoot' }, dx: 0, dy: tower.team ? 1 : -1, attack: 0, attackDuration: .6, attackSeq: 0, anim: this.random(), target: null });
+    for (const tower of this.towers) Object.assign(tower, {guard: { id: tower.king ? 26 : 52, style: tower.king ? 'lightning' : 'coin', stun:tower.king?.18:0,attackAnim: tower.king ? 'Shock' : 'Shoot' }, dx: 0, dy: tower.team ? 1 : -1, attack: 0, attackDuration: .6, attackSeq: 0, anim: this.random(), target: null });
   }
   random() {
     let n = this.seed;
@@ -140,10 +142,13 @@ export class Game {
     if(!card||!Number.isFinite(x)||!Number.isFinite(y))return null;
     if(card.spell)return this.canDeploy(team,key,x,y)?{x,y:card.rolling?(team?Math.min(y,356):Math.max(y,444)):y}:null;
     if(x<15||x>585||y<15||y>785)return null;
-    // Project onto the closest unlocked rectangle, including the river and enemy half.
+    // Only assist near a legal edge. The far bank of a bridge is the maximum
+    // assisted drop before a side tower falls; deep enemy territory cancels.
     const zones=[{left:44,right:556,top:team?44:444,bottom:team?356:756}];
     for(const lane of[0,1])if(this.towers.some(t=>t.team!==team&&!t.king&&t.lane===lane&&t.hp<=0))zones.push({left:lane?300:44,right:lane?556:300,top:team?444:252,bottom:team?548:356});
-    const points=zones.map(z=>({x:clamp(x,z.left,z.right),y:clamp(y,z.top,z.bottom)})).sort((a,b)=>distance(a,{x,y})-distance(b,{x,y}));
+    const overBridge=y>=RIVER.top&&y<=RIVER.bottom&&LANES.some(lane=>Math.abs(x-lane)<=44);
+    const points=zones.map(z=>({x:clamp(x,z.left,z.right),y:clamp(y,z.top,z.bottom)})).filter(p=>distance(p,{x,y})<=(overBridge?72:32)).sort((a,b)=>distance(a,{x,y})-distance(b,{x,y}));
+    if(!points.length)return null;
     const origin=points[0];
     if(this.canDeploy(team,key,origin.x,origin.y))return origin;
     // Search outwards from the drop point, so obstructed drops settle at the nearest free edge.
@@ -152,6 +157,19 @@ export class Game {
       if(this.canDeploy(team,key,px,py))return{x:px,y:py};
     }
     return null;
+  }
+  deploymentThreats(team,key,x,y,placed=false){
+    const card=CARDS[key],point=placed?{x,y}:this.resolveDeployment(team,key,x,y);
+    if(!point||card.spell)return[];
+    const previews=Array.from({length:card.count||1},(_,i)=>{
+      const offset=card.count?(i-(card.count-1)/2)*22:0;
+      const p=placed?{x:point.x+offset,y:point.y+(i%2)*15}:this.resolveDeployment(team,key,clamp(point.x+offset,48,552),point.y+(i%2)*15)||point;
+      return{...p,team,card,hp:card.hp,radius:card.radius||12,spawn:0};
+    });
+    return [...this.towers,...this.units].filter(enemy=>enemy.team!==team&&enemy.hp>0&&(enemy.spawn===undefined||enemy.spawn<=0)&&previews.some(preview=>{
+      if('king'in enemy)return enemy.active&&distance(enemy,preview)<=enemy.range;
+      return this.validTarget(enemy,preview)&&distance(enemy,preview)<=enemy.card.range+preview.radius;
+    }));
   }
   deploy(team, handIndex, x, y) {
     if (this.state !== 'playing'||this.tiebreaker) return { ok: false, reason: this.tiebreaker?'Desempate en curso.':'La partida no está en marcha.' };
@@ -270,18 +288,22 @@ export class Game {
     return !!(target && target.hp > 0 && target.team !== unit.team && (!target.card?.flying || unit.card.air) && (!unit.card.building || 'king' in target || target.card?.structure) && (target.spawn === undefined || target.spawn <= 0));
   }
   acquire(unit) {
+    if(unit.card.building&&!unit.engaged){
+      const pull=this.units.filter(t=>t.card.structure&&this.validTarget(unit,t)&&distance(unit,t)<=(unit.card.pullRange||300)&&(unit.team?t.y>=unit.y-48:t.y<=unit.y+48)).sort((a,b)=>distance(unit,a)-distance(unit,b));
+      if(pull.length)return pull[0];
+    }
     const candidates=[...this.towers,...this.units].filter(t=>{
       if(!this.validTarget(unit,t))return false;
       if(unit.card.structure)return distance(unit,t)<=unit.card.range+t.radius;
-      return 'king'in t||distance(unit,t)<=(t.card.structure?220:165);
+      return 'king'in t||distance(unit,t)<=(t.card.structure?(unit.card.building?unit.card.pullRange||300:220):165);
     });
     candidates.sort((a,b)=>distance(unit,a)-distance(unit,b));return candidates[0]||null;
   }
   waypoint(unit, target) {
     if (unit.card.flying) return target;
     const bridge = LANES[unit.lane];
-    if (unit.y > RIVER.bottom && target.y < RIVER.bottom) return Math.abs(unit.x - bridge) > 20 ? { x: bridge, y: RIVER.bottom + 20 } : { x: bridge, y: RIVER.top - 20 };
-    if (unit.y < RIVER.top && target.y > RIVER.top) return Math.abs(unit.x - bridge) > 20 ? { x: bridge, y: RIVER.top - 20 } : { x: bridge, y: RIVER.bottom + 20 };
+    if (unit.y > RIVER.bottom && target.y < RIVER.bottom) return Math.abs(unit.x - bridge) > 29 ? { x: bridge, y: RIVER.bottom + 20 } : { x: bridge, y: RIVER.top - 20 };
+    if (unit.y < RIVER.top && target.y > RIVER.top) return Math.abs(unit.x - bridge) > 29 ? { x: bridge, y: RIVER.top - 20 } : { x: bridge, y: RIVER.bottom + 20 };
     if (unit.y >= RIVER.top && unit.y <= RIVER.bottom) return { x: bridge, y: target.y < unit.y ? RIVER.top - 20 : RIVER.bottom + 20 };
     return target;
   }
@@ -292,6 +314,29 @@ export class Game {
     if (d < 1) return;
     dx /= d; dy /= d;
     const speed = unit.card.speed * (unit.slow > 0 ? .58 : 1) * (unit.card.charge && unit.charge >= unit.card.charge ? 1.65 : 1);
+    if(speed<=0)return;
+    // Steer around bodies before separating overlaps. Pure backward repulsion can
+    // cancel a slow tank's entire movement when another body occupies its lane.
+    const obstacles=[...this.units.filter(other=>other!==unit&&other.hp>0&&other.spawn<=0&&!!other.card.flying===!!unit.card.flying),...(!unit.card.flying?this.towers.filter(t=>t.hp>0):[])];
+    const blocking=obstacles.filter(other=>other!==target).map(other=>{
+      const ox=other.x-unit.x,oy=other.y-unit.y,solid='king'in other||other.card.structure;
+      return{other,forward:ox*dx+oy*dy,side:ox*(-dy)+oy*dx,gap:solid?other.radius+unit.radius*.7:(unit.radius+other.radius)*.7};
+    }).filter(o=>o.forward>0&&o.forward<o.gap+30&&Math.abs(o.side)<o.gap+3).sort((a,b)=>a.forward-b.forward)[0];
+    if(blocking){
+      let side=unit.avoidId===blocking.other.id?unit.avoidSide:Math.abs(blocking.side)>2?-Math.sign(blocking.side):unit.id%2?1:-1;
+      if(!unit.card.flying&&unit.y>RIVER.top-35&&unit.y<RIVER.bottom+35){
+        const bridge=LANES[unit.lane];
+        const preferred=blocking.other.x-dy*side*(blocking.gap+2),opposite=blocking.other.x+dy*side*(blocking.gap+2);
+        if(Math.abs(preferred-bridge)>29&&Math.abs(opposite-bridge)<=29)side=-side;
+        if(blocking.other.card&&!blocking.other.card.structure&&blocking.forward<blocking.gap+15&&unit.radius>=blocking.other.radius){
+          blocking.other.x=clamp(blocking.other.x+dy*side*16*dt,bridge-29,bridge+29);
+        }
+      }
+      unit.avoidId=blocking.other.id;unit.avoidSide=side;
+      const weight=Math.max(.6,1-blocking.forward/(blocking.gap+30))*1.8;
+      const sx=dx-dy*side*weight,sy=dy+dx*side*weight,length=Math.hypot(sx,sy);
+      dx=sx/length;dy=sy/length;
+    }else{unit.avoidId=null;unit.avoidSide=0;}
     let nx = unit.x + dx * Math.min(d, speed * dt), ny = unit.y + dy * Math.min(d, speed * dt);
     // Give crowds space without allowing ground units to step off a bridge.
     for (const other of this.units) {
@@ -315,7 +360,8 @@ export class Game {
         }
       }
       if (ny >= RIVER.top - 3 && ny <= RIVER.bottom + 3 && Math.min(...LANES.map(x => Math.abs(nx - x))) > 29) {
-        ny = unit.y > 400 ? RIVER.bottom + 4 : RIVER.top - 4;
+        if(Math.abs(unit.x-LANES[unit.lane])<=29)nx=clamp(nx,LANES[unit.lane]-29,LANES[unit.lane]+29);
+        else ny = unit.y > 400 ? RIVER.bottom + 4 : RIVER.top - 4;
       }
     }
     unit.x = clamp(nx, 46, 554); unit.y = clamp(ny, 42, 758);
@@ -523,11 +569,12 @@ export class Game {
       if(unit.ttl>0){unit.ttl-=dt;if(unit.ttl<=0){this.damage(unit,unit.maxHp*10,1-unit.team);continue;}}
       if(unit.card.summon){unit.summonClock-=dt;if(unit.summonClock<=0){unit.summonClock=unit.card.summonEvery;const count=this.units.filter(u=>u.parentId===unit.id&&u.hp>0).length;if(count<(unit.card.summonMax||3)&&this.units.length<160){const child=this.spawn(unit.card.summon,unit.team,clamp(unit.x+(count%2?20:-20),44,556),unit.y+(unit.team?20:-20),.5);child.parentId=unit.id;}}}
       if(unit.card.heal){unit.healClock-=dt;if(unit.healClock<=0){unit.healClock=unit.card.healEvery;this.healNearby(unit,unit.card.heal,unit.card.healRadius,unit.card.healAll);}}
-      if(!this.validTarget(unit,unit.target)||(unit.target?.card&&distance(unit,unit.target)>240)){unit.target=null;unit.engaged=false;}
+      if(!this.validTarget(unit,unit.target)||(unit.target?.card&&distance(unit,unit.target)>(unit.card.building?unit.card.pullRange||300:240))){unit.target=null;unit.engaged=false;}
       if(unit.target&&unit.engaged&&unit.attack<=0&&distance(unit,unit.target)>unit.card.range+unit.target.radius+45)unit.engaged=false;
       if(!unit.engaged){
         const nearest=this.acquire(unit);
-        if(nearest&&(!unit.target||distance(unit,nearest)+2<distance(unit,unit.target))){unit.target=nearest;unit.attackSeq++;unit.attack=0;}
+        const pulled=unit.card.building&&nearest?.card?.structure&&!unit.target?.card?.structure;
+        if(nearest&&(!unit.target||pulled||distance(unit,nearest)+2<distance(unit,unit.target))){unit.target=nearest;unit.attackSeq++;unit.attack=0;}
       }
       const target = unit.target;
       if (!target) continue;

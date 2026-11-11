@@ -1,0 +1,88 @@
+html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden; overscroll-behavior: none; }
+.main-menu { height: calc(var(--app-height, 100dvh) - 56px); min-height: 0; }
+.menu-panel { width: 440px; max-height: 100%; padding: 22px; overflow-y: auto; overscroll-behavior: contain; }
+.menu-deck-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+.menu-panel .menu-deck-heading h1 { margin: 0; font-size: 30px; text-align: left; letter-spacing: 0; }
+.menu-deck-heading > span { display: flex; align-items: center; gap: 5px; color: #b9cbbd; font-size: 10px; white-space: nowrap; }
+.menu-deck-heading strong { color: #e4bdff; font-size: 13px; }
+.menu-deck-heading svg { color: #cb8bf1; width: 13px; height: 16px; }
+.menu-panel .menu-deck-preview { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 10px; margin: 0 0 17px; }
+.pokemon-card { padding: 7px 5px 8px; }
+.card-art { display: block; position: absolute; inset: 0; border-radius: inherit; background-repeat: no-repeat; pointer-events: none; }
+.pokemon-card > .card-art:after { content: ''; position: absolute; inset: 45% 0 0; border-radius: inherit; background: linear-gradient(transparent, #081911df 82%, #081911f5); }
+.pokemon-card .card-name { max-width: 100%; color: #fff8e5; line-height: 1.15; text-shadow: 0 1px 3px #000, 0 0 5px #0008; }
+.pokemon-card .card-role { color: #e2e7d8; text-align: center; line-height: 1.25; }
+.card-key { z-index: 2; color: #fff; text-shadow: 0 1px 3px #000; }
+.menu-panel .menu-card { width: 100%; height: auto; aspect-ratio: 4 / 5; border-radius: 7px; touch-action: manipulation; padding: 5px 3px 6px; }
+.menu-card .card-name { font-size: 10px; }
+.menu-card .card-cost { left: -5px; top: -6px; width: 24px; height: 29px; font-size: 23px; }
+.menu-card.empty { border-style: dashed; display: grid; place-items: center; font-size: 24px; color: #a4b4a0; }
+.menu-deck-status { color: #f0cf86; margin: -5px 0 12px; font-size: 11px; }
+.menu-panel.searching > .menu-deck-heading, .menu-panel.searching > .menu-deck-status { display: none; }
+.deck-slot > .card-art { inset: 0; width: auto; height: auto; padding: 0; border-radius: inherit; }
+.deck-slot > .slot-cost { right: 2px; bottom: 2px; z-index: 1; min-width: 15px; font-size: 11px; line-height: 16px; background: #783a9e; border: 1px solid #e0a5ff; padding: 0 3px; }
+.next-card #next-preview { padding: 0; }
+.modal { zoom: 1; max-width: calc(100vw - 24px); max-height: calc(var(--app-height, 100dvh) - 24px); overscroll-behavior: contain; }
+.deck-modal[open] { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; height: min(860px, calc(var(--app-height, 100dvh) - 24px)); padding: 0; overflow: hidden; }
+.deck-top { position: static; margin: 0; padding: 17px 18px 0; }
+.deck-top .modal-heading { margin-bottom: 14px; }
+.deck-top .deck-summary { margin: 0 0 10px; align-items: center; }
+.deck-top .deck-strip { margin-bottom: 9px; }
+.deck-top .deck-slot { height: 61px; border-width: 2px; }
+.collection-tools { display: grid; grid-template-columns: minmax(0, 1fr) 135px 135px; gap: 8px; padding: 12px 18px; margin: 0; }
+.collection-tools input, .collection-tools select { width: 100%; min-height: 38px; font-size: 12px; padding: 8px; }
+.deck-modal .collection { min-height: 0; overflow-y: auto; overscroll-behavior: contain; align-content: start; padding: 10px 20px 18px; scroll-padding-block: 10px; }
+.collection .pokemon-card { touch-action: pan-y; }
+.deck-save-row { position: static; margin: 0; padding: 12px 18px max(12px, env(safe-area-inset-bottom)); gap: 12px; }
+.deck-save-row .primary-btn { min-width: 108px; justify-content: center; }
+.card-dialog[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; padding: 18px; overflow: hidden; }
+.card-dialog .modal-heading { margin: 0 0 14px; }
+.card-info-content { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.card-overview { display: grid; grid-template-columns: 120px minmax(0, 1fr); align-items: start; gap: 14px; margin-bottom: 12px; }
+.card-dialog .card-hero { position: relative; width: 100%; height: auto; aspect-ratio: 4 / 5; border-radius: 8px; overflow: hidden; }
+.card-copy { min-width: 0; }
+.card-dialog .card-identity { margin: 0; align-items: flex-start; font-size: 10px; gap: 7px; line-height: 1.3; }
+.card-dialog .card-identity > span:last-child { font-size: 18px; color: #e0b7ff; }
+.card-dialog h3 { font-size: 21px; line-height: 1.1; margin: 12px 0 0; }
+.card-dialog #card-info-description { font-size: 12px; line-height: 1.5; margin: 7px 0 0; color: #d0ddcc; }
+.card-dialog .card-stats { gap: 0 16px; }
+.card-dialog .card-stats > div { padding: 8px 0; align-items: center; }
+.card-dialog .card-stats dt { font-size: 10px; }
+.card-dialog .card-stats dd { font-size: 11px; text-align: right; }
+.card-more-stats { border-top: 1px solid var(--line); margin-top: 4px; }
+.card-more-stats summary { padding: 10px 0; cursor: pointer; font-size: 11px; color: #d2b4ee; }
+.card-dialog > .primary-btn { margin-top: 12px; min-height: 44px; }
+@media(max-width: 940px) {
+  .main-menu { height: calc(var(--app-height, 100dvh) - 44px); min-height: 0; padding: 14px 16px max(16px, env(safe-area-inset-bottom)); }
+  .menu-panel { width: 400px; padding: 18px; }
+  .menu-panel .menu-deck-heading h1 { font-size: 28px; }
+  .menu-panel .menu-deck-preview { gap: 11px 9px; margin-bottom: 14px; }
+  .menu-panel .name-field { margin-bottom: 7px; }
+  .name-field input, .collection-tools input { font-size: 16px; }
+  .menu-panel .menu-options { margin-top: 10px; }
+  .battle-layout { height: calc(var(--app-height, 100dvh) - 44px); }
+  .collection-tools { grid-template-columns: 1fr 1fr; padding: 10px 14px; gap: 7px; }
+  .collection-tools input { grid-column: 1 / -1; }
+  .collection-tools input, .collection-tools select { width: 100%; min-height: 35px; font-size: 12px; }
+  .deck-top { padding: 14px 14px 0; }
+  .deck-top .deck-slot { height: 48px; }
+  .deck-modal .collection { padding: 9px 16px 16px; gap: 16px 11px; }
+  .deck-save-row { padding-left: 14px; padding-right: 14px; }
+  .collection .pokemon-card { height: 127px; padding-bottom: 9px; }
+  .collection .card-name { font-size: 11px; }
+  .collection .card-role { font-size: 8px; }
+  .card-dialog[open] { padding: 15px; }
+  .card-overview { grid-template-columns: 105px minmax(0, 1fr); gap: 11px; }
+  .card-dialog .eyebrow { font-size: 9px; letter-spacing: 1px; }
+  .card-dialog h3 { font-size: 19px; }
+  .card-dialog #card-info-description { font-size: 11px; }
+}
+@media(max-height: 650px) and (max-width: 940px) {
+  .main-menu { padding-top: 10px; padding-bottom: 10px; }
+  .menu-panel { padding: 13px 16px; }
+  .menu-panel .menu-deck-heading { margin-bottom: 11px; }
+  .menu-panel .menu-deck-preview { gap: 9px; margin-bottom: 11px; }
+  .menu-panel .menu-card { aspect-ratio: 1; }
+  .menu-panel > .primary-btn, .menu-panel > .secondary-btn { min-height: 38px; margin-top: 8px; }
+  .menu-panel .menu-options button { min-height: 36px; }
+}

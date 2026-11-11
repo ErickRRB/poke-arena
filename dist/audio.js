@@ -1,8 +1,10 @@
 // Recorded foley and Pokémon voices follow release/impact events; synthesis is a loading fallback.
+import { BattleMusic } from './music.js?v=7';
+import { CARDS } from './engine.js?v=7';
 export class SoundSystem {
   constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.ready=this.preload().catch(()=>false); }
   async preload(){
-    const response=await fetch('assets/audio/manifest.json?v=5');if(!response.ok)throw Error('Audio manifest unavailable');
+    const response=await fetch('assets/audio/manifest.json?v=7');if(!response.ok)throw Error('Audio manifest unavailable');
     const manifest=await response.json();
     await Promise.all(Object.entries(manifest).flatMap(([group,entries])=>Object.entries(entries).map(async([id,file])=>{const r=await fetch(file);if(!r.ok)throw Error(`Audio unavailable: ${file}`);this.encoded.set(`${group}:${id}`,await r.arrayBuffer());})));
     this.bytesReady=true;if(this.ctx)await this.decodeSamples();return true;
@@ -30,6 +32,7 @@ export class SoundSystem {
         this.master=this.ctx.createGain();this.master.gain.value=.7;
         const compressor=this.ctx.createDynamicsCompressor();compressor.threshold.value=-18;compressor.ratio.value=5;
         this.master.connect(compressor);compressor.connect(this.ctx.destination);
+        this.music=new BattleMusic(this.ctx,this.master);
         this.noiseBuffer=this.ctx.createBuffer(1,this.ctx.sampleRate,this.ctx.sampleRate);
         const data=this.noiseBuffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;
         this.decodeSamples();
@@ -37,7 +40,9 @@ export class SoundSystem {
       if(this.ctx.state==='suspended')this.ctx.resume();
     }catch{this.ctx=null;}
   }
-  setEnabled(value) { this.enabled=value;if(this.master)this.master.gain.setTargetAtTime(value?.7:0,this.ctx.currentTime,.02);if(value)this.unlock(); }
+  setEnabled(value) { this.enabled=value;if(this.master)this.master.gain.setTargetAtTime(value?.7:0,this.ctx.currentTime,.02);if(value)this.unlock();else this.music?.setPlaying(false); }
+  setBattleState(playing,intense=false){if(this.music){this.music.intense=intense;this.music.setPlaying(!!playing&&this.enabled);}}
+  resetMusic(){this.music?.reset();}
   sample(key,x=300,{volume=.25,rate=1,maxDuration=.65,reverse=false,delay=0}={}){
     if(!this.enabled||!this.ctx||this.ctx.state!=='running')return false;
     let buffer=this.buffers.get(key);if(!buffer)return false;
@@ -49,8 +54,8 @@ export class SoundSystem {
   cry(id,x=300){
     if(!id||!this.enabled||!this.ctx)return;
     const now=this.ctx.currentTime,key=`cry:${id}`;this.voiceSlots=this.voiceSlots.filter(t=>t>now);
-    if(this.voiceSlots.length>=3||now-(this.last.get(key)??-100)<5)return;
-    if(this.sample(`cries:${id}`,x,{volume:.135,maxDuration:.9})){this.last.set(key,now);this.voiceSlots.push(now+.9);}
+    if(this.voiceSlots.length>=3||now-(this.last.get(key)??-100)<.6)return;
+    if(this.sample(`cries:${id}`,x,{volume:.22,maxDuration:2.5})){this.last.set(key,now);this.voiceSlots.push(now+Math.min(2.5,this.buffers.get(`cries:${id}`).duration));}
   }
   recorded(style,x,impact,shot,id){
     if(!this.buffers.has('foley:punch-1'))return false;
@@ -129,14 +134,12 @@ export class SoundSystem {
     }
   }
   event(e) {
-    if(e.type==='spawn')this.cry(e.unit.card.id,e.unit.x);
-    if(e.type==='ability'){this.cry(e.unit.card.id,e.unit.x);this.play(e.unit.card.style,e.unit.x,true,0,e.unit.card.id);this.sample('foley:bell',e.unit.x,{volume:.2,rate:.65,maxDuration:.75});}
-    if(e.type==='faint'){this.sample(`cries:${e.unit.card.id}`,e.unit.x,{volume:.07,rate:.85,maxDuration:.35});}
-    if(e.type==='transform'){this.play('shadow',e.unit.x);this.cry(132,e.unit.x);}
-    if(e.type==='attackRelease'){const id=e.attacker.card?.id||e.attacker.guard?.id;this.play(e.style,e.from.x,false,e.shot,id);if(e.shot===0)this.cry(id,e.from.x);}
+    if(e.type==='ability'){this.play(e.unit.card.style,e.unit.x,true,0,e.unit.card.id);this.sample('foley:bell',e.unit.x,{volume:.2,rate:.65,maxDuration:.75});}
+    if(e.type==='transform')this.play('shadow',e.unit.x);
+    if(e.type==='attackRelease'){const id=e.attacker.card?.id||e.attacker.guard?.id;this.play(e.style,e.from.x,false,e.shot,id);}
     if(e.type==='hit'&&['bubble','hydro','rock','ember','coin','magnet','ice','confusion','aura'].includes(e.style))this.play(e.style,e.x,true);
     if(e.type==='blink')this.play('shadow',e.from.x);
-    if(e.type==='deploy'){this.tone(440,.13,'sine',.055,240);this.tone(880,.12,'sine',.025,120,0,.05);}
+    if(e.type==='deploy'){this.cry(CARDS[e.key]?.id,e.x);this.tone(440,.13,'sine',.025,240);this.tone(880,.12,'sine',.012,120,0,.05);}
     if(e.type==='structureDown'||e.type==='towerDown'){this.noise(.5,480,.12);this.tone(80,.5,'triangle',.09,-45);}
     if(e.type==='spellHit')this.play(e.key==='thunder'?'lightning':'ember',e.x,true);
     if(e.type==='step'&&e.unit.key==='snorlax'&&this.ctx){const now=this.ctx.currentTime;if(now-(this.last.get('step')??-1)>.25){this.last.set('step',now);this.tone(60,.07,'sine',.035,-20,(e.unit.x-300)/500);}}

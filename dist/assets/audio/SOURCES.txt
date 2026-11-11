@@ -2,3 +2,8 @@ Pokémon cries: https://github.com/PokeAPI/cries (original Pokémon audio).
 Foley: Kenney Impact Sounds and RPG Audio, CC0. https://kenney.nl/assets/impact-sounds https://kenney.nl/assets/rpg-audio
 Download mirror: https://github.com/receptron/mulmocast-media/tree/main/soundeffects/kenney
 Water recording: receptron, CC0, water-drop-s4.wav. https://github.com/receptron/jinglescript/blob/main/samples/sfx/SOURCES.md
+
+Anime deployment voices: HQ Pokemon Anime Cries Gen 1-5, Galladito/RojoY, public fan compilation.
+https://forums.pokemmo.com/index.php?/topic/86447-mod-hq-pokemon-anime-cries-gen-1-5/
+https://www.mediafire.com/file/bwtoaxbvt2fnage/RealCries.zip/file
+Only the 94 numbered WAVs needed by this project are converted to mono MP3 for browser playback. Original Pokemon character recordings belong to their respective owners.
