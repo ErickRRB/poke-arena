@@ -13,11 +13,11 @@ export class OnlineClient{
   apply(packet){
     if(packet.status!=='matched'||packet.version<this.version)return;
     this.mode='battle';this.version=packet.version;const events=packet.events.filter(e=>e.seq>this.seq);this.seq=packet.seq;
-    this.onSnapshot({...packet,events});this.onConnection('');
+    this.onConnection('');this.onSnapshot({...packet,events});
   }
   async tick(generation=this.generation){
     if(!this.active||generation!==this.generation)return;
-    try{const packet=await this.request(this.mode==='search'?'/api/queue':'/api/battle',this.mode==='search'?{name:this.name,deck:this.deck}:{after:this.seq});if(!this.active||generation!==this.generation)return;if(packet.status==='searching')this.onSearch(Date.now()-this.started);else this.apply(packet);this.onConnection('');}
+    try{const packet=await this.request(this.mode==='search'?'/api/queue':'/api/battle',this.mode==='search'?{name:this.name,deck:this.deck}:{after:this.seq});if(!this.active||generation!==this.generation)return;if(packet.status==='searching'){this.onSearch(Date.now()-this.started);this.onConnection('');}else this.apply(packet);}
     catch(error){if(!this.active||generation!==this.generation)return;if(error.status===401){this.token=null;sessionStorage.removeItem('poke-arena:online-token');this.active=false;this.onConnection('La búsqueda expiró. Volvé a intentar.');return;}this.onConnection('Reconectando…');}
     if(this.active&&generation===this.generation)this.timer=setTimeout(()=>this.tick(generation),this.mode==='search'?950:200);
   }

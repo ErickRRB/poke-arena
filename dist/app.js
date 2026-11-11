@@ -76,7 +76,7 @@ function syncHand() {
     el.classList.toggle('selected', selected === i);
     el.classList.toggle('unaffordable', game.energy[0] + .001 < c.cost);
     el.classList.toggle('guide-target', !!walkthrough && walkthrough.step === 1 && i === 0);
-    el.disabled=game.tiebreaker;
+    el.disabled=game.tiebreaker||(onlineMode&&game.state==='ready');
     el.setAttribute('aria-pressed', String(selected === i));
   }
 }

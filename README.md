@@ -46,13 +46,13 @@ npm test
 npm run build
 ```
 
-Las 86 pruebas cubren combate, colocación, retarget, todas las cartas, habilidades, invocaciones, curación, escudos, reflejo, muerte súbita, drenaje, serialización y servidor. Incluyen búsquedas concurrentes, acciones repetidas, cancelación y desconexiones. La comprobación en dos sesiones de Chrome verificó matchmaking, nombres, despliegues, rotación, abandono y revancha. Otras comprobaciones verificaron barras de daño, habilidad de Mewtwo, filtros y tamaños desde 320 × 667 hasta 3831 × 1956. También se comprobó el Worker compilado y sus rutas de medios y base de datos.
+Las 87 pruebas cubren combate, colocación, retarget, todas las cartas, habilidades, invocaciones, curación, escudos, reflejo, muerte súbita, drenaje, serialización y servidor. Incluyen búsquedas concurrentes, acciones repetidas, cancelación y desconexiones. La comprobación en dos sesiones de Chrome verificó matchmaking, nombres, despliegues, rotación, abandono y revancha. Otras comprobaciones verificaron barras de daño, habilidad de Mewtwo, filtros y tamaños desde 320 × 667 hasta 3831 × 1956. También se comprobó el Worker compilado y sus rutas de medios y base de datos.
 
 ## Recursos
 
 Los sprites de la arena son originales de CHUNSOFT para Pokémon Mystery Dungeon, distribuidos por [PMDCollab / SpriteCollab](https://github.com/PMDCollab/SpriteCollab). Cada carpeta incluye atribución y `AnimData.xml`; se resuelven alias sin modificar imágenes. Hay recursos para 94 especies, incluidas invocaciones y defensores. Los artworks no pixelados y retratos de cartas provienen de [PokéAPI / sprites](https://github.com/PokeAPI/sprites). El menú compone estas ilustraciones con una escena de torres. `scripts/download-assets.mjs` conserva caché local.
 
-Para mantener bajo el uso de memoria del Worker, las animaciones básicas y recursos iniciales quedan embebidos; los otros PNG se sirven mediante caché desde commits fijados de los repositorios originales. Todas las copias originales siguen en el proyecto. El cliente carga las animaciones según el mazo y los Pokémon que aparecen.
+Para mantener bajo el uso de memoria del Worker, las animaciones básicas y recursos iniciales quedan embebidos; los otros PNG se sirven desde commits fijados con caché del navegador de los repositorios originales. Todas las copias originales siguen en el proyecto. El cliente carga las animaciones según el mazo y los Pokémon que aparecen.
 
 Las fuentes son Barlow Condensed y DM Sans de Google Fonts. `scripts/download-fonts.mjs` permite volver a obtenerlas.
 
