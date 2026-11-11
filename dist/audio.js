@@ -1,10 +1,10 @@
 // Recorded foley and Pokémon voices follow release/impact events; synthesis is a loading fallback.
-import { BattleMusic } from './music.js?v=7';
-import { CARDS } from './engine.js?v=7';
+import { BattleMusic } from './music.js?v=8';
+import { CARDS } from './engine.js?v=8';
 export class SoundSystem {
   constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.ready=this.preload().catch(()=>false); }
   async preload(){
-    const response=await fetch('assets/audio/manifest.json?v=7');if(!response.ok)throw Error('Audio manifest unavailable');
+    const response=await fetch('assets/audio/manifest.json?v=8');if(!response.ok)throw Error('Audio manifest unavailable');
     const manifest=await response.json();
     await Promise.all(Object.entries(manifest).flatMap(([group,entries])=>Object.entries(entries).map(async([id,file])=>{const r=await fetch(file);if(!r.ok)throw Error(`Audio unavailable: ${file}`);this.encoded.set(`${group}:${id}`,await r.arrayBuffer());})));
     this.bytesReady=true;if(this.ctx)await this.decodeSamples();return true;
@@ -58,6 +58,7 @@ export class SoundSystem {
     if(this.sample(`cries:${id}`,x,{volume:.22,maxDuration:2.5})){this.last.set(key,now);this.voiceSlots.push(now+Math.min(2.5,this.buffers.get(`cries:${id}`).duration));}
   }
   recorded(style,x,impact,shot,id){
+    style = ({powder:'leaf',poison:'confusion',egg:'rock',song:'confusion',eruption:'flame',horn:'punch',lick:'shadow'})[style] || style;
     if(!this.buffers.has('foley:punch-1'))return false;
     const play=(key,options={})=>this.sample(`foley:${key}`,x,options),pan=Math.max(-.65,Math.min(.65,(x-300)/400));
     if(style==='punch'){play(`punch-${shot%3+1}`,{volume:.34,rate:1+shot*.045,maxDuration:.2});}
@@ -100,6 +101,7 @@ export class SoundSystem {
     source.connect(filter);const now=this.output(filter,volume,duration,pan,delay);source.start(now);source.stop(now+duration+.01);
   }
   play(style,x=300,impact=false,shot=0,id=0) {
+    style = ({powder:'leaf',poison:'confusion',egg:'rock',song:'confusion',eruption:'flame',horn:'punch',lick:'shadow'})[style] || style;
     if(!this.enabled||!this.ctx)return;
     const now=this.ctx.currentTime,key=`${style}:${impact}`;
     if(now-(this.last.get(key)??-100)<.035)return;this.last.set(key,now);

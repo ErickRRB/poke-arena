@@ -1,9 +1,11 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H } from './engine.js?v=7';
-import { Renderer } from './render.js?v=7';
-import { SoundSystem } from './audio.js?v=7';
-import { OnlineClient } from './online.js?v=7';
-import { unpackGame, perspective } from './snapshot.js?v=7';
-import { cardArtMarkup } from './card-art.js?v=7';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H } from './engine.js?v=8';
+import { Renderer } from './render.js?v=8';
+import { SoundSystem } from './audio.js?v=8';
+import { OnlineClient } from './online.js?v=8';
+import { unpackGame, perspective } from './snapshot.js?v=8';
+import { cardArtMarkup } from './card-art.js?v=8';
+import { cardThresholds } from './balance.js?v=8';
+import { CARD_REVIEW } from './card-review.js?v=8';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -260,20 +262,23 @@ function renderCardInfo(key){
   if(c.hp)stats.push(['Vida',c.hp]);stats.push(['Daño',c.burst?`${c.damage} × ${c.burst}`:c.damage]);
   if(c.range)stats.push(['Alcance',c.range<50?'Melee':`${(c.range/30).toFixed(1).replace('.',',')} casillas`]);
   if(c.interval)stats.push(['Cadencia',`${String(c.interval).replace('.',',')} s`]);
-  if(c.speed!==undefined)stats.push(['Velocidad',c.structure?'Inmóvil':c.speed<=33?'Lenta':c.speed<=52?'Media':'Rápida']);
-  stats.push(['Objetivos',c.building?'Estructuras':c.spell||c.air?'Tierra y aire':'Tierra']);
+  if(c.speed!==undefined)stats.push(['Velocidad',c.structure?'Inmóvil':c.speed<=18?'Muy lenta':c.speed<=26?'Lenta':c.speed<=32?'Media':'Rápida']);
+  stats.push(['Objetivos',c.passive?'Solo contraataca':c.building?'Estructuras':c.rolling?'Tierra':c.spell||c.air?'Tierra y aire':'Tierra']);
   if(c.lifetime)stats.push(['Duración',`${c.lifetime} s`]);if(c.count)stats.push(['Unidades',c.count]);
-  if(c.burn)stats.push(['Quemadura',`${c.burn} / s`]);if(c.lifesteal)stats.push(['Curación',`${c.lifesteal} / golpe`]);
+  if(c.burn)stats.push([c.burnKind==='poison'?'Veneno':'Quemadura',`${c.burn} / s`]);if(c.lifesteal)stats.push(['Curación',`${c.lifesteal} / golpe`]);
   if(c.towerDamage)stats.push(['Daño a torres',c.towerDamage]);
   if(c.shield)stats.push(['Escudo',c.shield]);if(c.summon)stats.push(['Invocación',`${CARDS[c.summon].name} · ${c.summonEvery} s`]);
   if(c.ability)stats.push(['Habilidad',`${c.ability.cost} elixir · 1 uso`]);
   if(c.ability?.damage)stats.push(['Daño de habilidad',c.ability.damage]);if(c.ability?.stun)stats.push(['Aturdimiento',`${c.ability.stun} s`]);
   if(c.heal)stats.push(['Curación',`${c.heal} / ${c.healEvery} s`]);if(c.reflect)stats.push(['Reflejo',`${Math.round(c.reflect*100)} %`]);if(c.armor)stats.push(['Reducción de daño',`${Math.round(c.armor*100)} %`]);
   if(c.spell)stats.push([c.rolling?'Recorrido':'Radio',`${((c.rolling?348:c.splash)/30).toFixed(1).replace('.',',')} casillas`]);
+  stats.push(...cardThresholds(c));
   const mainStats=stats.filter(([label])=>['Vida','Daño','Objetivos',c.count?'Unidades':'Alcance'].includes(label)),extraStats=stats.filter(stat=>!mainStats.includes(stat));
   const statMarkup=items=>items.map(([label,value])=>`<div><dt>${label}</dt><dd>${value}</dd></div>`).join('');
   $('card-info-stats').innerHTML=statMarkup(mainStats);
   $('card-extra-stats').innerHTML=statMarkup(extraStats);
+  let note=$('card-balance-note');if(!note){note=document.createElement('p');note.id='card-balance-note';$('card-extra-stats').after(note);}
+  note.textContent=`${c.spell?'':'Umbrales por unidad al aparecer, sin curación ni escudos de aliados. '}${c.structure?'No incluyen desgaste. ':''}${CARD_REVIEW[key]||''}`;
   $('card-more-stats').hidden=!extraStats.length;
   if($('card-dialog').open===false)$('card-more-stats').open=false;
   const included=deckDraft.includes(key);$('card-info-toggle').textContent=included?'Quitar del mazo':deckDraft.length===8?'Mazo completo':'Agregar al mazo';

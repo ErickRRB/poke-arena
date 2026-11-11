@@ -1,5 +1,5 @@
-import { EXTRA_CARDS } from './catalog.js?v=7';
-import { applyBalance } from './balance.js?v=7';
+import { EXTRA_CARDS } from './catalog.js?v=8';
+import { applyBalance, THRESHOLDS } from './balance.js?v=8';
 export const W = 600, H = 800;
 export const RIVER = { top: 375, bottom: 425 };
 export const LANES = [158, 442];
@@ -41,20 +41,6 @@ Object.assign(CARDS,{
   lapras:{name:'Lapras',id:131,cost:5,type:'water',label:'Agua / hielo',role:'Tanque · ralentiza',move:'Rayo hielo',style:'ice',attackAnim:'Shoot',attackDuration:.95,hp:1190,damage:72,range:138,speed:25,interval:1.75,slow:2,air:true,radius:20,muzzleHeight:43,color:'#a2deeb',description:'Un tanque a distancia. Sus cristales de hielo ralentizan a su objetivo durante dos segundos.'},
   mewtwo:{name:'Mewtwo',id:150,cost:6,type:'psychic',label:'Psíquico',role:'Área · carga lenta',move:'Esfera aural',style:'aura',attackAnim:'Shoot',attackDuration:1.2,hp:730,damage:149,range:158,speed:38,interval:2.2,splash:45,projectileSpeed:225,air:true,muzzleHeight:37,color:'#cfb9ed',description:'Prepara una esfera de energía lenta que explota en área. Tiene gran alcance y necesita protección durante la carga.'}
 });
-// A slightly longer cadence makes windups and counterplay easier to read.
-for(const card of Object.values(CARDS))if(!card.spell)card.interval=Math.round(card.interval*1.18*100)/100;
-// Health is tuned by role. Concentrated melee and building attacks remain useful against tanks/towers.
-const arenaBalance={
-  pikachu:{hp:520,damage:70},squirtle:{hp:680,damage:23},charmander:{hp:540,damage:48,burn:9},
-  snorlax:{hp:3000,damage:180},zubat:{hp:145,damage:28},charizard:{hp:1280,damage:32},
-  bulbasaur:{hp:720,damage:54},gengar:{hp:1100,damage:96},machamp:{hp:1580,damage:45},
-  eevee:{hp:500,damage:60},onix:{hp:1780,damage:170},blastoise:{hp:1650,damage:62},
-  vulpix:{hp:390,damage:25,burn:7},psyduck:{hp:800,damage:61},alakazam:{hp:560,damage:82},
-  geodude:{hp:1750,damage:84},magnemite:{hp:620,damage:55},scyther:{hp:950,damage:42},
-  lapras:{hp:2000,damage:68},mewtwo:{hp:1280,damage:145}
-};
-for(const[key,stats]of Object.entries(arenaBalance))Object.assign(CARDS[key],stats);
-for(const c of Object.values(CARDS))if(!c.spell)c.damage=Math.round(c.damage*1.06);
 CARDS.treecko={name:'Treecko',id:252,cost:3,type:'grass',label:'Planta',role:'Pareja · a distancia',move:'Semilladora',style:'leaf',attackAnim:'Shoot',attackDuration:.7,hp:370,damage:55,range:145,speed:45,interval:1.25,count:2,air:true,muzzleHeight:24,color:'#a5d577',description:'Dos tiradores que atacan a tierra y aire. Vulnerables al daño de área.'};
 CARDS.golem={name:'Golem',id:76,cost:8,type:'rock',label:'Roca',role:'Tanque · división',move:'Demolición',style:'slam',attackAnim:'Attack',attackDuration:1,hp:4600,damage:190,range:30,speed:21,interval:2.3,building:true,radius:23,muzzleHeight:35,deathDamage:130,split:true,color:'#b9ad92',description:'Tanque que solo ataca estructuras. Al caer explota y deja dos Geodude pequeños.'};
 CARDS.log={name:'Tronco',cost:2,type:'rock',label:'Terrestre',role:'Hechizo · empuje',spell:true,rolling:true,damage:200,towerDamage:55,splash:45,knockback:28,color:'#b99462',description:'Rueda desde tu lado, daña y empuja a los enemigos terrestres.'};
@@ -73,6 +59,20 @@ export const DEFAULT_DECK = ['pikachu', 'snorlax', 'machamp', 'blastoise', 'zuba
 // PMD sheets run south, southeast, east, northeast, north, northwest, west, southwest.
 export function directionRow(dx, dy) { return (2 - Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8; }
 export function aimPoint(target) { return { x: target.x, y: target.y - ('king' in target ? 27 : target.card?.structure ? 43 : target.card?.flying ? 27 : 15) }; }
+// Compress/extend the original windup so its hit frame coincides with the shared release time.
+export function attackPoseProgress(meta, elapsed, duration, windup) {
+  const total = meta.durations.reduce((a,b)=>a+b,0);
+  const hit = meta.hitFrame || Math.max(1, Math.floor(meta.durations.length * .3));
+  const ratio = meta.durations.slice(0,hit).reduce((a,b)=>a+b,0) / total;
+  const progress = elapsed <= windup ? ratio * elapsed / Math.max(.001,windup) : ratio + (1-ratio) * (elapsed-windup) / Math.max(.001,duration-windup);
+  return Math.max(0,Math.min(.999,progress));
+}
+export function formationOffsets(card, team = 0) {
+  const count = card.count || 1;
+  return Array.from({length:count},(_,i)=> count > 4
+    ? { x: (i % 3 - 1) * 25 * (team ? -1 : 1), y: (Math.floor(i / 3) - (Math.ceil(count / 3)-1)/2) * 25 * (team ? -1 : 1) }
+    : { x: (i-(count-1)/2)*24*(team ? -1 : 1), y: (i%2)*15*(team ? -1 : 1) });
+}
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 
@@ -106,7 +106,7 @@ export class Game {
     this.aiClock = 3.5;
     this.stats = [{ deployed: 0, damage: 0, energy: 0, defeated: 0 }, { deployed: 0, damage: 0, energy: 0, defeated: 0 }];
     for (let team = 0; team < 2; team++) {
-      for (let lane = 0; lane < 2; lane++) this.towers.push({ id: this.nextId++, team, lane, x: LANES[lane], y: team ? 188 : 612, hp: 3000, maxHp: 3000, king: false, active: true, radius: 29, range: 225, damage: 109, interval: .8, cooldown: .3, stun: 0, hit: 0 });
+      for (let lane = 0; lane < 2; lane++) this.towers.push({ id: this.nextId++, team, lane, x: LANES[lane], y: team ? 188 : 612, hp: 3000, maxHp: 3000, king: false, active: true, radius: 29, range: 225, damage: THRESHOLDS.tower, interval: THRESHOLDS.towerInterval, cooldown: .3, stun: 0, hit: 0 });
       this.towers.push({ id: this.nextId++, team, lane: -1, x: 300, y: team ? 118 : 682, hp: 4800, maxHp: 4800, king: true, active: false, radius: 34, range: 210, damage: 109, interval: 1, cooldown: .5, stun: 0, hit: 0 });
     }
     for (const tower of this.towers) Object.assign(tower, {guard: { id: tower.king ? 26 : 52, style: tower.king ? 'lightning' : 'coin', stun:tower.king?.18:0,attackAnim: tower.king ? 'Shock' : 'Shoot' }, dx: 0, dy: tower.team ? 1 : -1, attack: 0, attackDuration: .6, attackSeq: 0, anim: this.random(), target: null });
@@ -161,9 +161,8 @@ export class Game {
   deploymentThreats(team,key,x,y,placed=false){
     const card=CARDS[key],point=placed?{x,y}:this.resolveDeployment(team,key,x,y);
     if(!point||card.spell)return[];
-    const previews=Array.from({length:card.count||1},(_,i)=>{
-      const offset=card.count?(i-(card.count-1)/2)*22:0;
-      const p=placed?{x:point.x+offset,y:point.y+(i%2)*15}:this.resolveDeployment(team,key,clamp(point.x+offset,48,552),point.y+(i%2)*15)||point;
+    const previews=formationOffsets(card,team).map(offset=>{
+      const p=placed?{x:point.x+offset.x,y:point.y+offset.y}:this.resolveDeployment(team,key,clamp(point.x+offset.x,48,552),point.y+offset.y)||point;
       return{...p,team,card,hp:card.hp,radius:card.radius||12,spawn:0};
     });
     return [...this.towers,...this.units].filter(enemy=>enemy.team!==team&&enemy.hp>0&&(enemy.spawn===undefined||enemy.spawn<=0)&&previews.some(preview=>{
@@ -189,10 +188,8 @@ export class Game {
       this.spells.push({ key, card, team, x, y, delay:card.rolling?0:.4,remaining:card.rolling?1.7:0,hitIds:[] });
       this.emit('cast', { key, team, x, y, radius: card.splash });
     } else {
-      const count = card.count || 1;
-      for (let i = 0; i < count; i++) {
-        const offset = count > 1 ? (i - (count - 1) / 2) * 22 : 0;
-        const point=this.resolveDeployment(team,key,clamp(x+offset,48,552),y+(i%2)*15)||placement;
+      for (const offset of formationOffsets(card,team)) {
+        const point=this.resolveDeployment(team,key,clamp(x+offset.x,48,552),y+offset.y)||placement;
         this.spawn(key,team,point.x,point.y);
       }
     }
@@ -210,7 +207,7 @@ export class Game {
     if(card.spawnWith){const baby=this.spawn(card.spawnWith,team,clamp(x+24,44,556),y+12,delay);baby.parentId=u.id;}
     return u;
   }
-  damage(target, amount, team, { stun = 0, slow = 0, burn = 0, dot = false, sourceId = 0, reflected = false, poisonField = 0 } = {}) {
+  damage(target, amount, team, { stun = 0, slow = 0, burn = 0, burnKind = 'fire', dot = false, sourceId = 0, reflected = false, poisonField = 0 } = {}) {
     if (target.hp <= 0 || this.state !== 'playing') return;
     amount*=1-(target.card?.armor||0);const absorbed=Math.min(target.shield||0,amount);target.shield=Math.max(0,(target.shield||0)-absorbed);amount-=absorbed;
     const actual = Math.min(target.hp, amount)+absorbed;
@@ -219,11 +216,11 @@ export class Game {
     target.stun = Math.max(target.stun, stun);
     target.slow = Math.max(target.slow || 0, slow);
     if (stun > 0) { target.attackSeq++; target.attack = 0; target.charge = 0; target.target=null;target.engaged=false;target.cooldown=Math.max(target.cooldown,stun+.18); }
-    if (burn > 0) target.burn = { remaining: 3, tick: .5, damage: burn, team };
+    if (burn > 0) target.burn = { remaining: 3, tick: .5, damage: burn, team, kind: burnKind };
     this.stats[team].damage += actual;
     this.emit('damage', { target, amount: actual, dot });
     if(poisonField&&!dot)this.addField(target.x,target.y,team,poisonField,sourceId);
-    if(target.card?.reflect&&sourceId&&!reflected&&!dot){const attacker=this.units.find(u=>u.id===sourceId)||this.towers.find(t=>t.id===sourceId);if(attacker?.hp>0)this.damage(attacker,actual*target.card.reflect,target.team,{reflected:true});}
+    if(target.card?.reflect&&sourceId&&!reflected&&!dot){const attacker=this.units.find(u=>u.id===sourceId)||this.towers.find(t=>t.id===sourceId);if(attacker?.hp>0){this.emit('counter',{unit:target,from:aimPoint(target),to:aimPoint(attacker)});this.damage(attacker,actual*target.card.reflect,target.team,{reflected:true});}}
     if (target.king) target.active = true;
     if (target.hp <= 0) {
       if ('king' in target) {
@@ -282,7 +279,7 @@ export class Game {
   addField(x,y,team,damage,sourceId){
     const existing=this.fields.find(f=>f.team===team&&f.sourceId===sourceId&&Math.hypot(f.x-x,f.y-y)<50);
     if(existing){existing.life=3;return;}if(this.fields.length>=24)this.fields.shift();
-    const owner=this.units.find(u=>u.id===sourceId);this.fields.push({x,y,team,damage,sourceId,air:!!(owner?.card.air||owner?.card.flying),life:3,tick:.5,radius:48});
+    const owner=this.units.find(u=>u.id===sourceId);this.fields.push({x,y,team,damage,sourceId,style:owner?.card.fieldStyle||'poison',air:!!(owner?.card.air||owner?.card.flying),life:3,tick:.5,radius:48});
   }
   validTarget(unit, target) {
     return !!(target && target.hp > 0 && target.team !== unit.team && (!target.card?.flying || unit.card.air) && (!unit.card.building || 'king' in target || target.card?.structure) && (target.spawn === undefined || target.spawn <= 0));
@@ -379,21 +376,20 @@ export class Game {
   }
   attack(attacker, target) {
     const card = attacker.card, profile = card || attacker.guard;
+    if (card?.passive) return;
     const duration = card?.attackDuration || .6;
-    const meta = this.animations[profile.id]?.[profile.attackAnim] || this.animations[profile.id]?.Attack;
-    const total = meta?.durations.reduce((a,b)=>a+b,0) || 0;
-    const ratio = total && meta.hitFrame ? meta.durations.slice(0,meta.hitFrame).reduce((a,b)=>a+b,0)/total : .3;
-    const windup = Math.max(.08, duration * ratio);
+    // Simulation timing is independent of which images have finished loading.
+    const windup = card?.windup ?? .18;
     this.face(attacker,target);
     attacker.target=target;
     attacker.engaged=true;
     attacker.cooldown = card?.interval || attacker.interval;
-    attacker.attack = duration; attacker.attackDuration = duration; attacker.attackAnim = profile.attackAnim;
+    attacker.attack = duration; attacker.attackDuration = duration; attacker.attackWindup = windup; attacker.attackAnim = profile.attackAnim;
     const seq = ++attacker.attackSeq;
     const charged = !!(card?.charge && attacker.charge >= card.charge);
     attacker.charge = 0;
     for (let shot=0;shot<(card?.burst || 1);shot++) this.attacks.push({ attacker, target, seq, shot, charged, delay: windup + shot*(card?.burstSpacing || 0) });
-    this.emit('attackStart', { attacker, target, style: profile.style, duration });
+    this.emit('attackStart', { attacker, target, style: profile.style, duration, windup });
   }
   muzzle(actor, shot = 0) {
     const tower = 'king' in actor;
@@ -451,10 +447,10 @@ export class Game {
     } else if(card&&card.range<50) {
       this.strike(a,target,amount,card);
       if(card.splash)for(const u of this.units)if(u!==target&&this.validTarget(a,u)&&distance(u,target)<card.splash)this.strike(a,u,amount,card);
-      this.emit('melee',{from,to,style,team:a.team,shot,charged});
+      this.emit('melee',{from,to,style,team:a.team,shot,charged,radius:card.splash||0});
       this.emit('hit',{x:to.x,y:to.y,key:a.key,style,team:a.team});
     } else {
-      this.projectiles.push({ x:from.x,y:from.y,startX:from.x,startY:from.y,totalDistance:Math.hypot(to.x-from.x,to.y-from.y),travelled:0,target,team:a.team,sourceId:a.id,damage:amount,speed:card?.projectileSpeed||(style==='bubble'?270:style==='rock'?235:style==='hydro'?420:style==='coin'?470:310),key:a.key||'tower',style,splash:card?.splash||0,stun:card?.stun||0,slow:card?.slow||0,burn:card?.burn||0,poisonField:card?.poisonField||0,air:!card||!!card.air,life:3,arc:style==='rock'?65:style==='ember'?38:0,trace:[] });
+      this.projectiles.push({ x:from.x,y:from.y,startX:from.x,startY:from.y,totalDistance:Math.hypot(to.x-from.x,to.y-from.y),travelled:0,target,team:a.team,sourceId:a.id,damage:amount,speed:card?.projectileSpeed||(style==='bubble'?270:style==='rock'||style==='egg'?235:style==='hydro'?420:style==='coin'?470:310),key:a.key||'tower',style,splash:card?.splash||0,stun:card?.stun||0,slow:card?.slow||0,burn:card?.burn||0,burnKind:card?.burnKind||'fire',poisonField:card?.poisonField||0,air:!card||!!card.air,life:3,arc:style==='rock'?65:style==='egg'?55:style==='ember'?38:0,trace:[] });
     }
     if(card?.suicide)this.damage(a,a.maxHp*10,1-a.team);
   }

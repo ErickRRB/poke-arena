@@ -12,6 +12,11 @@ export const CARD_ART = Object.fromEntries(sheets.flatMap((keys, sheet) => keys.
   return [key, { file: `assets/cards/battle-${sheet + 1}.webp`, columns, rows, x: index % columns, y: Math.floor(index / columns) }];
 })));
 export function cardArtMarkup(key) {
+  const groups={shuppet:[353,3],shuppetSwarm:[353,9],nidoranScouts:[29,3],nidoranPack:[32,4]};
+  if(groups[key]){
+    const[id,count]=groups[key];
+    return `<span class="card-art swarm-art swarm-art-${count}" data-art="${key}" aria-hidden="true">${Array.from({length:count},(_,i)=>`<img class="swarm-portrait" src="assets/pokemon/${id}/art.png" alt="" style="--member:${i};--members:${count}">`).join('')}</span>`;
+  }
   const art = CARD_ART[key];
   if (!art) return '';
   const x = art.x * 100 / (art.columns - 1), y = art.rows === 1 ? 0 : art.y * 100 / (art.rows - 1);

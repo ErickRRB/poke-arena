@@ -1,4 +1,4 @@
-import { Game, CARDS, W, H } from './engine.js?v=7';
+import { Game, CARDS, W, H } from './engine.js?v=8';
 
 // Entity references are IDs on the wire; full cards preserve summoned forms.
 const entityCopy=e=>{const{target,...copy}=e;return{...copy,targetId:target?.id??null};};

@@ -3,6 +3,10 @@ function card(name,id,cost,type,role,stats,description){return{name,id,cost,type
 const ranged=(style,range=135)=>({style,range,attackAnim:'Shoot',air:true});
 const active=(name,cost,damage,radius,effect,extra={})=>({name,cost,damage,radius,effect,...extra});
 export const EXTRA_CARDS={
+shuppet:card('Shuppet',353,1,'ghost','Distracción · ×3',{hp:1,damage:35,count:3,range:26,style:'shadow',speed:32,interval:1.2,muzzleHeight:20,color:'#a79acb'},'Tres fantasmas terrestres de 1 PV. Distraen ataques de objetivo único; cualquier daño los elimina.'),
+shuppetSwarm:card('Horda Shuppet',353,3,'ghost','Enjambre terrestre · ×9',{hp:1,damage:35,count:9,range:26,style:'shadow',speed:32,interval:1.2,muzzleHeight:20,color:'#a79acb'},'Nueve fantasmas rodean a un rival terrestre. El daño en área elimina a todo el grupo.'),
+nidoranScouts:card('Nidoran tiradores',29,2,'poison','Enjambre a distancia · ×3',{hp:81,damage:45,count:3,...ranged('poison',130),speed:26,interval:1.3,burn:3,muzzleHeight:16,color:'#a9c5dc',move:'Picotazo venenoso'},'Tres tiradores de 81 PV. Caen con un tiro de torre o Impactrueno; atacan a tierra y aire.'),
+nidoranPack:card('Manada Nidoran',32,3,'poison','Enjambre melee · ×4',{hp:180,damage:65,count:4,range:27,style:'horn',speed:32,interval:1.3,muzzleHeight:18,color:'#c19fc8',move:'Cornada'},'Cuatro atacantes terrestres de 180 PV. Resisten un tiro o Impactrueno; Tronco elimina al grupo.'),
 venusaur:card('Venusaur',3,5,'grass','Tanque · veneno',{hp:1600,damage:85,speed:28,interval:1.9,...ranged('leaf'),splash:35,poisonField:18},'Resiste y dispara semillas que dejan veneno durante 3 s.'),
 butterfree:card('Butterfree',12,3,'flying','Volador · control',{hp:430,damage:32,flying:true,...ranged('magnet',115),splash:48,slow:1.8,interval:1.7},'Vuela y ralentiza en área. Daño bajo.'),
 beedrill:card('Beedrill',15,3,'flying','Dúo · doble aguijón',{hp:290,damage:38,count:2,burst:2,burstSpacing:.16,flying:true,air:true,speed:65,style:'slash',interval:1.35},'Dos voladores. Cada uno pica dos veces a un objetivo.'),
