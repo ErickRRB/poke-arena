@@ -7,7 +7,7 @@ const assets={},remoteAssets={},spriteCommit='576a7f13b5b7f6ad09a5877d5ae6b2d334
 const audioManifest=JSON.parse(await readFile(path.join(dist,'assets/audio/manifest.json'),'utf8'));
 const usedAudio=new Set(Object.values(audioManifest).flatMap(group=>Object.values(group)).map(file=>'/'+file));
 const animations=JSON.parse(await readFile(path.join(dist,'assets/pokemon/manifest.json'),'utf8'));
-const defaultIds=new Set([...DEFAULT_DECK.map(k=>CARDS[k]?.id),26,52].filter(Boolean)),embedded=new Set();
+const defaultIds=new Set([...DEFAULT_DECK.map(k=>CARDS[k]?.id),31,34,52].filter(Boolean)),embedded=new Set();
 for(const[id,anims]of Object.entries(animations))for(const[name,meta]of Object.entries(anims))if(defaultIds.has(Number(id))||['Walk','Idle'].includes(name)){embedded.add('/'+meta.file);embedded.add('/'+meta.shadow);}
 async function visit(dir){
   for(const entry of await readdir(dir,{withFileTypes:true})){

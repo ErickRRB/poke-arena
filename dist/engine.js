@@ -1,7 +1,10 @@
-import { EXTRA_CARDS } from './catalog.js?v=8';
-import { applyBalance, THRESHOLDS } from './balance.js?v=8';
+import { EXTRA_CARDS } from './catalog.js?v=9';
+import { applyBalance, THRESHOLDS } from './balance.js?v=9';
 export const W = 600, H = 800;
-export const RIVER = { top: 375, bottom: 425 };
+export const TILE = 24;
+export const RIVER = { top: 388, bottom: 412 };
+export const BRIDGE = { top: RIVER.top - 12, bottom: RIVER.bottom + 12 };
+export const PRINCESS_Y = [628, 172];
 export const LANES = [158, 442];
 export const CARDS = {
   pikachu: { name: 'Pikachu', id: 25, cost: 3, type: 'electric', label: 'Eléctrico', role: 'A distancia', hp: 310, damage: 76, range: 128, speed: 52, interval: 1.05, air: true, stun: .18, color: '#f8d66d', description: 'Impactrueno alcanza a rivales terrestres y aéreos, y los frena un instante.' },
@@ -106,10 +109,12 @@ export class Game {
     this.aiClock = 3.5;
     this.stats = [{ deployed: 0, damage: 0, energy: 0, defeated: 0 }, { deployed: 0, damage: 0, energy: 0, defeated: 0 }];
     for (let team = 0; team < 2; team++) {
-      for (let lane = 0; lane < 2; lane++) this.towers.push({ id: this.nextId++, team, lane, x: LANES[lane], y: team ? 188 : 612, hp: 3000, maxHp: 3000, king: false, active: true, radius: 29, range: 225, damage: THRESHOLDS.tower, interval: THRESHOLDS.towerInterval, cooldown: .3, stun: 0, hit: 0 });
+      for (let lane = 0; lane < 2; lane++) this.towers.push({ id: this.nextId++, team, lane, x: LANES[lane], y: PRINCESS_Y[team], hp: 3000, maxHp: 3000, king: false, active: true, radius: 29, range: 7.5 * TILE, damage: THRESHOLDS.tower, interval: THRESHOLDS.towerInterval, cooldown: .3, stun: 0, hit: 0 });
       this.towers.push({ id: this.nextId++, team, lane: -1, x: 300, y: team ? 118 : 682, hp: 4800, maxHp: 4800, king: true, active: false, radius: 34, range: 210, damage: 109, interval: 1, cooldown: .5, stun: 0, hit: 0 });
     }
-    for (const tower of this.towers) Object.assign(tower, {guard: { id: tower.king ? 26 : 52, style: tower.king ? 'lightning' : 'coin', stun:tower.king?.18:0,attackAnim: tower.king ? 'Shock' : 'Shoot' }, dx: 0, dy: tower.team ? 1 : -1, attack: 0, attackDuration: .6, attackSeq: 0, anim: this.random(), target: null });
+    for (const tower of this.towers) Object.assign(tower, {guard: { id: 52, style: 'coin', attackAnim: 'Shoot' }, dx: 0, dy: tower.team ? 1 : -1, attack: 0, attackDuration: .6, attackSeq: 0, anim: this.random(), target: null });
+    const royalGuards = this.random() < .5 ? [34, 31] : [31, 34];
+    for (const tower of this.towers) if (tower.king) tower.guard = { id: royalGuards[tower.team], style: 'poison', attackAnim: 'Shoot' };
   }
   random() {
     let n = this.seed;
@@ -146,7 +151,7 @@ export class Game {
     // assisted drop before a side tower falls; deep enemy territory cancels.
     const zones=[{left:44,right:556,top:team?44:444,bottom:team?356:756}];
     for(const lane of[0,1])if(this.towers.some(t=>t.team!==team&&!t.king&&t.lane===lane&&t.hp<=0))zones.push({left:lane?300:44,right:lane?556:300,top:team?444:252,bottom:team?548:356});
-    const overBridge=y>=RIVER.top&&y<=RIVER.bottom&&LANES.some(lane=>Math.abs(x-lane)<=44);
+    const overBridge=y>=BRIDGE.top&&y<=BRIDGE.bottom&&LANES.some(lane=>Math.abs(x-lane)<=44);
     const points=zones.map(z=>({x:clamp(x,z.left,z.right),y:clamp(y,z.top,z.bottom)})).filter(p=>distance(p,{x,y})<=(overBridge?72:32)).sort((a,b)=>distance(a,{x,y})-distance(b,{x,y}));
     if(!points.length)return null;
     const origin=points[0];
@@ -413,7 +418,7 @@ export class Game {
     if(a.hp<=0||a.stun>0||a.attackSeq!==job.seq||target.hp<=0)return;
     const card=a.card, profile=card||a.guard, style=profile.style;
     const reach=(card?.range||a.range)+target.radius;
-    if(distance(a,target)>reach+(card&&card.range<50?12:55))return;
+    if(card ? distance(a,target)>reach+(card.range<50?12:55) : distance(a,target)>a.range)return;
     this.face(a,target);
     const from=this.muzzle(a,shot),to=aimPoint(target),amount=(card?.damage||a.damage)*(charged?2:1);
     this.emit('attackRelease',{attacker:a,target,key:a.key||a.guard.id,style,from,to,shot,charged});

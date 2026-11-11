@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, CARDS, DEFAULT_DECK, LANES, RIVER } from '../dist/engine.js';
+import { Game, CARDS, DEFAULT_DECK, LANES, RIVER, BRIDGE } from '../dist/engine.js';
 const fresh=()=>{const g=new Game({seed:18});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);return g;};
 const run=(g,seconds)=>{for(let i=0;i<Math.ceil(seconds*60);i++)g.step(1/60);};
 
@@ -38,8 +38,8 @@ test('danger preview uses the resolved placement and respects air and building t
 test('edge assistance reaches the bridge but rejects deep enemy territory without spending elixir',()=>{
   for(const team of[0,1]){
     const g=fresh(),energy=g.energy[team],hand=[...g.hands[team]];
-    assert.deepEqual(g.resolveDeployment(team,'pikachu',158,team?425:375),{x:158,y:team?356:444});
-    assert.equal(g.resolveDeployment(team,'pikachu',158,team?430:370),null);
+    assert.deepEqual(g.resolveDeployment(team,'pikachu',158,team?BRIDGE.bottom:BRIDGE.top),{x:158,y:team?356:444});
+    assert.equal(g.resolveDeployment(team,'pikachu',158,team?BRIDGE.bottom+5:BRIDGE.top-5),null);
     const tower=g.towers.find(t=>t.team!==team&&!t.king);
     assert.equal(g.resolveDeployment(team,'pikachu',tower.x,tower.y),null);
     assert.equal(g.deploy(team,0,tower.x,tower.y).ok,false);assert.equal(g.energy[team],energy);assert.deepEqual(g.hands[team],hand);

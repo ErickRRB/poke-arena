@@ -1,4 +1,4 @@
-import { W, H, LANES, RIVER, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=8';
+import { W, H, TILE, LANES, RIVER, BRIDGE, PRINCESS_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=9';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -29,11 +29,11 @@ export class Renderer {
     const response = await fetch('assets/pokemon/manifest.json?v=5');
     if (!response.ok) throw new Error('No se pudo cargar el archivo de sprites.');
     this.metadata = await response.json();
-    await this.ensureSpecies([...keys.map(k=>CARDS[k]?.id),26,52].filter(Boolean));
+    await this.ensureSpecies([...keys.map(k=>CARDS[k]?.id),31,34,52].filter(Boolean));
   }
   ensureSpecies(ids){if(!Object.keys(this.metadata).length)return Promise.resolve();return Promise.all([...new Set(ids)].map(id=>{
     if(this.speciesLoads.has(id))return this.speciesLoads.get(id);
-    const names=new Set(['Walk','Idle','Attack','Hurt',...Object.values(CARDS).filter(c=>c.id===Number(id)).map(c=>c.attackAnim)]);
+    const names=new Set(['Walk','Idle','Attack','Hurt',...([31,34,52].includes(Number(id))?['Shoot']:[]),...Object.values(CARDS).filter(c=>c.id===Number(id)).map(c=>c.attackAnim)]);
     const pending=Promise.all(Object.entries(this.metadata[id]||{}).filter(([name])=>names.has(name)).map(async([name,meta])=>{
       const loadImage=file=>{if(!this.imageLoads.has(file)){const image=new Image();image.src=file;this.imageLoads.set(file,image.decode().then(()=>image));}return this.imageLoads.get(file);};
       const img=await loadImage(meta.file);
@@ -76,13 +76,14 @@ export class Renderer {
   }
   flower(c, x, y, color) { rect(c, '#3f733a', x, y, 2, 6); rect(c, color, x - 2, y - 1, 6, 2); rect(c, color, x, y - 3, 2, 6); rect(c, '#e8d591', x, y - 1, 2, 2); }
   bridge(c, x) {
-    rect(c, '#174f475e', x - 45, 366, 99, 78);
-    rect(c, '#513f2a', x - 41, 362, 82, 79);
-    for (let y = 362; y < 441; y += 10) { rect(c, y % 20 === 2 ? '#a18a53' : '#b0985c', x - 39, y, 78, 8); rect(c, '#c2a56a', x - 37, y + 1, 72, 2); rect(c, '#76613c', x - 37, y + 8, 72, 2); rect(c, '#897447', x - 15 + (y % 3) * 10, y + 4, 17, 1); }
+    const {top,bottom}=BRIDGE,height=bottom-top;
+    rect(c, '#174f475e', x - 45, top + 4, 99, height + 4);
+    rect(c, '#513f2a', x - 41, top, 82, height);
+    for (let y = top; y < bottom; y += 8) { rect(c, (y-top) % 16 ? '#a18a53' : '#b0985c', x - 39, y, 78, 6); rect(c, '#c2a56a', x - 37, y + 1, 72, 2); rect(c, '#76613c', x - 37, y + 6, 72, 2); rect(c, '#897447', x - 15 + (y % 3) * 10, y + 4, 17, 1); }
     for (const side of [-1,1]) {
       const xx = x + side * 42;
-      rect(c, '#4e432d', xx - 3, 350, 7, 92); rect(c, '#c0a56e', xx - 2, 350, 3, 92);
-      for (const yy of [355,393,433]) { rect(c, '#5e4f33', xx - 5, yy - 9, 10, 17); rect(c, '#bc9d66', xx - 3, yy - 10, 6, 14); rect(c, '#dfc387', xx - 4, yy - 11, 8, 3); }
+      rect(c, '#4e432d', xx - 3, top - 5, 7, height + 10); rect(c, '#c0a56e', xx - 2, top - 5, 3, height + 10);
+      for (const yy of [top+6,bottom-6]) { rect(c, '#5e4f33', xx - 5, yy - 9, 10, 17); rect(c, '#bc9d66', xx - 3, yy - 10, 6, 14); rect(c, '#dfc387', xx - 4, yy - 11, 8, 3); }
     }
   }
   buildBackground() {
@@ -90,23 +91,23 @@ export class Renderer {
     c.imageSmoothingEnabled = false;
     const rnd = this.rng(8318);
     rect(c, '#466d3e', 0, 0, W, H);
-    for (let y = 0; y < H; y += 24) for (let x = 0; x < W; x += 24) rect(c, (x/24 + y/24) % 2 ? '#527e45' : '#568348', x, y, 24, 24);
+    for (let y = 0; y < H; y += TILE) for (let x = 0; x < W; x += TILE) rect(c, (x/TILE + y/TILE) % 2 ? '#527e45' : '#568348', x, y, TILE, TILE);
     // Inset field, worn edges, and fine pixel texture.
     for (let i = 0; i < 4200; i++) {
       const x = Math.floor(rnd() * W), y = Math.floor(rnd() * H);
       rect(c, rnd() > .5 ? '#82a75b28' : '#284d3024', x, y, 2 + rnd() * 3, 2);
     }
     for (const x of LANES) {
-      rect(c, '#738d4b', x - 40, 172, 80, 456);
-      rect(c, '#a4a067', x - 28, 188, 56, 425);
-      for (let y = 190; y < 616; y += 22) {
+      rect(c, '#738d4b', x - 40, PRINCESS_Y[1]-16, 80, PRINCESS_Y[0]-PRINCESS_Y[1]+32);
+      rect(c, '#a4a067', x - 28, PRINCESS_Y[1], 56, PRINCESS_Y[0]-PRINCESS_Y[1]);
+      for (let y = PRINCESS_Y[1]+2; y < PRINCESS_Y[0]; y += 22) {
         for (let col = 0; col < 3; col++) {
           const xx = x - 27 + col * 18 + (Math.floor(y / 22) % 2) * 2;
           rect(c, '#7e8b50', xx, y, 17, 19); rect(c, rnd() > .6 ? '#abb078' : '#a2a66e', xx, y, 15, 16); rect(c, '#bec08644', xx + 1, y + 1, 12, 2);
         }
       }
       // Irregular grass at the paths keeps the arena from looking tiled flat.
-      for (let y = 212; y < 600; y += 18) {
+      for (let y = PRINCESS_Y[1]+24; y < PRINCESS_Y[0]-12; y += 18) {
         const s = rnd() > .5 ? 1 : -1;
         rect(c, '#729553', x + s * 29 - 3, y, 8, 10); rect(c, '#587f45', x + s * 34 - 2, y + 5, 7, 8);
       }
@@ -121,18 +122,19 @@ export class Renderer {
       for(let x=253;x<350;x+=18){rect(c,'#94a56655',x,yy-2,13,13);rect(c,'#b6bf7e33',x,yy-2,13,2);}
     }
     // River banks are deliberately jagged at pixel scale.
-    rect(c, '#365c36', 0, 359, 600, 86); rect(c, '#7f9e57', 0, 365, 600, 8);
-    rect(c, '#bfd18b', 0, 371, 600, 4); rect(c, '#326e64', 0, 375, 600, 50);
-    rect(c, '#438e81', 0, 380, 600, 39); rect(c, '#5aa291', 0, 386, 600, 26);
-    rect(c, '#a7c785', 0, 425, 600, 5); rect(c, '#7d9e56', 0, 430, 600, 9);
-    for (let i = 0; i < 45; i++) { const x = i * 14 + rnd() * 8; rect(c, '#b4c883', x, 369 + rnd() * 5, 7, 3); rect(c, '#d0dba3', x + 3, 426, 4, 2); }
+    const {top,bottom}=RIVER,riverHeight=bottom-top;
+    rect(c, '#365c36', 0, top-10, W, riverHeight+20); rect(c, '#7f9e57', 0, top-8, W, 5);
+    rect(c, '#bfd18b', 0, top-3, W, 3); rect(c, '#326e64', 0, top, W, riverHeight);
+    rect(c, '#438e81', 0, top+3, W, riverHeight-6); rect(c, '#5aa291', 0, top+6, W, riverHeight-12);
+    rect(c, '#a7c785', 0, bottom, W, 3); rect(c, '#7d9e56', 0, bottom+3, W, 5);
+    for (let i = 0; i < 45; i++) { const x = i * 14 + rnd() * 8; rect(c, '#b4c883', x, top-6 + rnd() * 3, 7, 2); rect(c, '#d0dba3', x + 3, bottom+1, 4, 2); }
     // Side stone walls and thick forest enclose the actual battlefield.
     for (const side of [0,1]) {
       const x = side ? 566 : 16;
       for (let y = 28; y < H - 18; y += 24) { rect(c, '#3b593b', x + 2, y + 3, 19, 24); rect(c, '#798463', x, y, 17, 21); rect(c, '#9aa17d', x + 1, y + 1, 14, 4); rect(c, '#5a7350', x + 12, y + 6, 5, 14); }
     }
     for (let x = 24; x < W - 24; x += 25) { rect(c, '#6f7f58', x, 18, 24, 15); rect(c, '#98a06e', x + 1, 18, 21, 4); rect(c, '#6f7f58', x, 775, 24, 15); rect(c, '#98a06e', x + 1, 775, 21, 4); }
-    for (const x of LANES) for (const y of [188,612]) {
+    for (const x of LANES) for (const y of PRINCESS_Y) {
       ellipse(c, '#3f663832', x + 5, y + 8, 55, 40);
       for (let j = 0; j < 8; j++) { const a = j * Math.PI / 4; const xx = x + Math.cos(a) * 42, yy = y + Math.sin(a) * 32; rect(c, '#879568', xx - 8, yy - 5, 16, 12); rect(c, '#a6b080', xx - 7, yy - 5, 13, 3); }
     }
@@ -148,8 +150,8 @@ export class Renderer {
     for (const p of [[5,65,1.15],[62,48,.9],[118,34,.8],[480,33,.83],[544,49,.97],[600,76,1.15],[-6,196,.8],[602,234,.85],[0,342,.9],[603,358,.9],[-5,515,.85],[605,556,.85],[0,695,.85],[42,782,.98],[99,803,.9],[499,808,.9],[557,783,1.05],[609,701,.85]]) this.tree(c,...p,Math.floor(rnd()*2));
     for (const x of LANES) this.bridge(c, x);
     // Small lily pads and reeds, outside the routes across the river.
-    for (const [x,y] of [[71,392],[310,410],[527,402]]) { ellipse(c, '#487b4c', x, y, 9, 4); rect(c, '#91b465', x - 5, y - 2, 7, 2); }
-    for (const x of [38,260,365,553]) { rect(c, '#477a43', x, 359, 2, 14); rect(c, '#a2af64', x, 357, 2, 5); rect(c, '#477a43', x + 5, 364, 2, 10); }
+    for (const [x,y] of [[71,396],[310,404],[527,400]]) { ellipse(c, '#487b4c', x, y, 9, 4); rect(c, '#91b465', x - 5, y - 2, 7, 2); }
+    for (const x of [38,260,365,553]) { rect(c, '#477a43', x, top-14, 2, 14); rect(c, '#a2af64', x, top-16, 2, 5); rect(c, '#477a43', x + 5, top-9, 2, 10); }
   }
   tower(c, tower) {
     const { x,y,team,king } = tower;
@@ -424,10 +426,11 @@ export class Renderer {
     this.drawNumbers(c,dt);c.globalAlpha=1;
   }
   drawWater(c) {
-    c.save();c.beginPath();c.rect(0,377,W,46);c.clip();
+    const height=RIVER.bottom-RIVER.top;
+    c.save();c.beginPath();c.rect(0,RIVER.top+2,W,height-4);c.clip();
     for(let i=0;i<25;i++){
       const x=(i*97+this.t*(i%2?9:14))%640-20;
-      const y=382+(i*13)%35;
+      const y=RIVER.top+4+(i*13)%(height-8);
       rect(c,i%3?'#a2d0b947':'#d8e8c34a',x,y,10+(i%4)*7,2);
     }
     c.restore();
