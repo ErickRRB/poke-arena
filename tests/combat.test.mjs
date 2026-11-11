@@ -1,0 +1,29 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { Game, CARDS, directionRow } from '../dist/engine.js';
+import {readFileSync}from'node:fs';
+const animations=JSON.parse(readFileSync(new URL('../dist/assets/pokemon/manifest.json',import.meta.url)));
+function fresh(){const events=[],g=new Game({seed:21,animations,onEvent:e=>events.push(e)});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);return{g,events};}
+function run(g,seconds){for(let i=0;i<Math.ceil(seconds*60);i++)g.step(1/60);}
+function dummy(g,x,y){const u=g.spawn('snorlax',1,x,y,0);u.card={...CARDS.snorlax,speed:0,damage:0};return u;}
+function attackOnce(g,key,target,x=158,y=520){const u=g.spawn(key,0,x,y,0);g.attack(u,target);u.cooldown=100;return u;}
+test('all eight PMD direction rows match the visually checked original sheets',()=>{
+  for(const[dx,dy,row]of[[0,1,0],[1,1,1],[1,0,2],[1,-1,3],[0,-1,4],[-1,-1,5],[-1,0,6],[-1,1,7]])assert.equal(directionRow(dx,dy),row);
+});
+test('ranged units keep tracking their target between shots',()=>{const{g}=fresh(),t=dummy(g,210,490),u=attackOnce(g,'pikachu',t);t.x=105;run(g,.05);assert.ok(u.dx<0);t.x=245;run(g,.05);assert.ok(u.dx>0);assert.equal(directionRow(u.dx,u.dy),2);});
+test('damage waits for the original animation hit frame',()=>{const{g,events}=fresh(),t=dummy(g,158,430);attackOnce(g,'pikachu',t);const hp=t.hp;run(g,.25);assert.equal(t.hp,hp);run(g,.25);assert.equal(t.hp,hp-CARDS.pikachu.damage);assert.equal(events.filter(e=>e.type==='attackRelease').length,1);});
+test('stun interrupts a queued attack before its hit frame',()=>{const{g}=fresh(),t=dummy(g,158,430),u=attackOnce(g,'pikachu',t);g.damage(u,1,1,{stun:1});run(g,.7);assert.equal(t.hp,t.maxHp);});
+test('Machamp delivers four separate melee punches',()=>{const{g,events}=fresh(),t=dummy(g,158,485);attackOnce(g,'machamp',t);run(g,1);assert.equal(t.maxHp-t.hp,4*CARDS.machamp.damage);assert.equal(events.filter(e=>e.type==='attackRelease'&&e.style==='punch').length,4);});
+test('Pikachu chain lightning reaches two additional nearby enemies',()=>{const{g}=fresh(),a=dummy(g,158,430),b=dummy(g,194,425),c=dummy(g,225,430);attackOnce(g,'pikachu',a);run(g,.6);assert.equal(a.maxHp-a.hp,76);assert.ok(Math.abs(b.maxHp-b.hp-45.6)<.001);assert.ok(Math.abs(c.maxHp-c.hp-27.36)<.001);});
+test('Squirtle fires three damaging bubbles',()=>{const{g,events}=fresh(),t=dummy(g,158,440);attackOnce(g,'squirtle',t);run(g,1.2);assert.equal(t.maxHp-t.hp,72);assert.equal(events.filter(e=>e.type==='attackRelease'&&e.style==='bubble').length,3);});
+test('Charizard breath hits a cone and leaves enemies behind it untouched',()=>{const{g}=fresh(),a=dummy(g,158,430),b=dummy(g,181,420),behind=dummy(g,158,560);attackOnce(g,'charizard',a);run(g,1);assert.equal(a.maxHp-a.hp,105);assert.equal(b.maxHp-b.hp,105);assert.equal(behind.hp,behind.maxHp);});
+test('Charmander embers apply burning damage over time',()=>{const{g}=fresh(),t=dummy(g,158,440);attackOnce(g,'charmander',t);run(g,1.3);assert.ok(t.burn?.remaining>0);assert.ok(t.maxHp-t.hp>CARDS.charmander.damage);});
+test('Zubat heals through its bite instead of using a generic melee hit',()=>{const{g}=fresh(),t=dummy(g,158,485),u=attackOnce(g,'zubat',t);u.hp=60;run(g,.5);assert.equal(u.hp,70);});
+test('Gengar blinks on land without teleporting into the river',()=>{const{g,events}=fresh(),t=dummy(g,250,490),u=g.spawn('gengar',0,158,520,0);u.target=t;run(g,.05);assert.ok(u.blinkCooldown>0);assert.ok(events.some(e=>e.type==='blink'));u.blinkCooldown=0;u.y=450;t.y=350;assert.equal(g.blink(u,t),false);});
+test('Eevee charged attack doubles the next melee hit',()=>{const{g}=fresh(),t=dummy(g,158,485),u=g.spawn('eevee',0,158,520,0);u.charge=2;g.attack(u,t);u.cooldown=100;run(g,.6);assert.equal(t.maxHp-t.hp,130);assert.equal(u.charge,0);});
+test('Onix attacks a structure from siege range',()=>{const{g,events}=fresh(),target=g.towers.find(t=>t.team===1&&t.lane===0);attackOnce(g,'onix',target,158,350);run(g,1.8);assert.equal(target.maxHp-target.hp,165);assert.ok(events.some(e=>e.type==='attackRelease'&&e.style==='rock'));});
+test('Blastoise stays on its platform and fires both cannons',()=>{const{g,events}=fresh(),t=dummy(g,158,380),u=attackOnce(g,'blastoise',t);run(g,1.2);assert.equal(u.x,158);assert.equal(u.y,520);assert.equal(t.maxHp-t.hp,140);const shots=events.filter(e=>e.type==='attackRelease'&&e.style==='hydro');assert.equal(shots.length,2);assert.notEqual(shots[0].from.x,shots[1].from.x);});
+test('tanks target the deployed bastion without awarding a crown for destroying it',()=>{const{g}=fresh(),b=g.spawn('blastoise',1,158,450,0),tank=g.spawn('snorlax',0,158,510,0);assert.equal(g.acquire(tank),b);g.damage(b,2000,0);assert.equal(g.crowns(0),0);assert.equal(g.state,'playing');});
+test('structures expire and cannot be stacked on towers or other structures',()=>{const{g,events}=fresh(),u=g.spawn('blastoise',0,300,500,0);assert.equal(g.canDeploy(0,'blastoise',300,500),false);run(g,36);assert.equal(u.hp,0);assert.ok(events.some(e=>e.type==='structureDown'));assert.equal(g.crowns(1),0);});
+test('Meowth fires coins from the top of a side tower and follows its target',()=>{const{g,events}=fresh(),tower=g.towers.find(t=>t.team===1&&!t.king);tower.active=true;const u=g.spawn('snorlax',0,tower.x,290,0);u.card={...u.card,speed:0};run(g,.8);const shot=events.find(e=>e.type==='attackRelease'&&e.attacker===tower);assert.equal(shot.style,'coin');assert.ok(shot.from.y<tower.y-45);assert.equal(directionRow(tower.dx,tower.dy),0);});
+test('Raichu on the central tower attacks only after activation',()=>{const{g,events}=fresh(),tower=g.towers.find(t=>t.team===1&&t.king);g.spawn('snorlax',0,300,205,0);run(g,.5);assert.ok(!events.some(e=>e.type==='attackRelease'&&e.attacker===tower));g.damage(tower,1,0);run(g,1);assert.ok(events.some(e=>e.type==='attackRelease'&&e.attacker===tower&&e.style==='lightning'));});

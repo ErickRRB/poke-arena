@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/serve.mjs",
-    "test": "node --test tests/engine.test.mjs",
-    "check": "node --check dist/engine.js && node --check dist/render.js && node --check dist/app.js"
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check dist/engine.js && node --check dist/render.js && node --check dist/app.js && node --check dist/audio.js"
   }
 }

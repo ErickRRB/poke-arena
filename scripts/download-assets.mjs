@@ -1,7 +1,8 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import path from 'node:path';
 const root = path.resolve(import.meta.dirname, '../dist/assets/pokemon');
-const ids = [1, 4, 6, 7, 25, 41, 68, 94, 95, 133, 143];
+const ids = [1, 4, 6, 7, 9, 25, 26, 41, 52, 68, 94, 95, 133, 143];
+const special = { 1: 'Shoot', 4: 'Shoot', 6: 'Shoot', 7: 'Shoot', 9: 'Shoot', 25: 'Shock', 26: 'Shock', 41: 'Attack', 52: 'Shoot', 68: 'Double', 94: 'Attack', 95: 'Shoot', 133: 'Attack', 143: 'Stomp' };
 const base = 'https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master/sprite';
 const manifest = {};
 async function download(id) {
@@ -9,6 +10,7 @@ async function download(id) {
   const folder = path.join(root, String(id));
   await mkdir(folder, { recursive: true });
   async function get(file, binary = false) {
+    try { return await readFile(path.join(folder, file), binary ? undefined : 'utf8'); } catch {}
     const response = await fetch(`${base}/${dex}/${file}`);
     if (!response.ok) throw new Error(`${dex}/${file}: ${response.status}`);
     const data = binary ? Buffer.from(await response.arrayBuffer()) : await response.text();
@@ -18,14 +20,16 @@ async function download(id) {
   const xml = await get('AnimData.xml');
   await get('credits.txt');
   const animations = {};
-  for (const name of ['Walk', 'Idle', 'Attack']) {
+  for (const name of new Set(['Walk', 'Idle', 'Attack', 'Hurt', special[id]])) {
     const block = [...xml.matchAll(/<Anim>([\s\S]*?)<\/Anim>/g)].map(m => m[1]).find(b => b.includes(`<Name>${name}</Name>`));
     if (!block || block.includes('<CopyOf>')) continue;
     const width = Number(block.match(/<FrameWidth>(\d+)/)?.[1]);
     const height = Number(block.match(/<FrameHeight>(\d+)/)?.[1]);
     const durations = [...block.matchAll(/<Duration>(\d+)<\/Duration>/g)].map(m => Number(m[1]));
+    const hitFrame = Number(block.match(/<HitFrame>(\d+)/)?.[1] || 0);
     await get(`${name}-Anim.png`, true);
-    animations[name] = { width, height, durations, file: `assets/pokemon/${id}/${name}-Anim.png` };
+    await get(`${name}-Shadow.png`, true);
+    animations[name] = { width, height, durations, hitFrame, file: `assets/pokemon/${id}/${name}-Anim.png`, shadow: `assets/pokemon/${id}/${name}-Shadow.png` };
   }
   if (!animations.Walk) throw new Error(`Missing Walk for ${id}`);
   // Original battle sprites are used only on cards; the arena uses PMD sheets.

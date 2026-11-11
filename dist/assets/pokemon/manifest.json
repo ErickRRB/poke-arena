@@ -11,7 +11,9 @@
         4,
         4
       ],
-      "file": "assets/pokemon/1/Walk-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/1/Walk-Anim.png",
+      "shadow": "assets/pokemon/1/Walk-Shadow.png"
     },
     "Idle": {
       "width": 32,
@@ -21,7 +23,9 @@
         6,
         6
       ],
-      "file": "assets/pokemon/1/Idle-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/1/Idle-Anim.png",
+      "shadow": "assets/pokemon/1/Idle-Shadow.png"
     },
     "Attack": {
       "width": 64,
@@ -39,7 +43,35 @@
         2,
         4
       ],
-      "file": "assets/pokemon/1/Attack-Anim.png"
+      "hitFrame": 5,
+      "file": "assets/pokemon/1/Attack-Anim.png",
+      "shadow": "assets/pokemon/1/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 40,
+      "height": 56,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/1/Hurt-Anim.png",
+      "shadow": "assets/pokemon/1/Hurt-Shadow.png"
+    },
+    "Shoot": {
+      "width": 32,
+      "height": 32,
+      "durations": [
+        12,
+        4,
+        4,
+        4,
+        2,
+        2
+      ],
+      "hitFrame": 2,
+      "file": "assets/pokemon/1/Shoot-Anim.png",
+      "shadow": "assets/pokemon/1/Shoot-Shadow.png"
     }
   },
   "4": {
@@ -52,7 +84,9 @@
         6,
         8
       ],
-      "file": "assets/pokemon/4/Walk-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/4/Walk-Anim.png",
+      "shadow": "assets/pokemon/4/Walk-Shadow.png"
     },
     "Idle": {
       "width": 32,
@@ -63,7 +97,9 @@
         8,
         8
       ],
-      "file": "assets/pokemon/4/Idle-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/4/Idle-Anim.png",
+      "shadow": "assets/pokemon/4/Idle-Shadow.png"
     },
     "Attack": {
       "width": 64,
@@ -81,7 +117,20 @@
         2,
         2
       ],
-      "file": "assets/pokemon/4/Attack-Anim.png"
+      "hitFrame": 6,
+      "file": "assets/pokemon/4/Attack-Anim.png",
+      "shadow": "assets/pokemon/4/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 48,
+      "height": 56,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/4/Hurt-Anim.png",
+      "shadow": "assets/pokemon/4/Hurt-Shadow.png"
     }
   },
   "6": {
@@ -94,7 +143,9 @@
         8,
         10
       ],
-      "file": "assets/pokemon/6/Walk-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/6/Walk-Anim.png",
+      "shadow": "assets/pokemon/6/Walk-Shadow.png"
     },
     "Idle": {
       "width": 40,
@@ -105,7 +156,9 @@
         15,
         15
       ],
-      "file": "assets/pokemon/6/Idle-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/6/Idle-Anim.png",
+      "shadow": "assets/pokemon/6/Idle-Shadow.png"
     },
     "Attack": {
       "width": 80,
@@ -126,7 +179,40 @@
         2,
         2
       ],
-      "file": "assets/pokemon/6/Attack-Anim.png"
+      "hitFrame": 5,
+      "file": "assets/pokemon/6/Attack-Anim.png",
+      "shadow": "assets/pokemon/6/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 64,
+      "height": 64,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/6/Hurt-Anim.png",
+      "shadow": "assets/pokemon/6/Hurt-Shadow.png"
+    },
+    "Shoot": {
+      "width": 56,
+      "height": 56,
+      "durations": [
+        4,
+        6,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 2,
+      "file": "assets/pokemon/6/Shoot-Anim.png",
+      "shadow": "assets/pokemon/6/Shoot-Shadow.png"
     }
   },
   "7": {
@@ -139,7 +225,9 @@
         12,
         8
       ],
-      "file": "assets/pokemon/7/Walk-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/7/Walk-Anim.png",
+      "shadow": "assets/pokemon/7/Walk-Shadow.png"
     },
     "Idle": {
       "width": 32,
@@ -154,7 +242,9 @@
         2,
         2
       ],
-      "file": "assets/pokemon/7/Idle-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/7/Idle-Anim.png",
+      "shadow": "assets/pokemon/7/Idle-Shadow.png"
     },
     "Attack": {
       "width": 64,
@@ -171,7 +261,120 @@
         2,
         2
       ],
-      "file": "assets/pokemon/7/Attack-Anim.png"
+      "hitFrame": 3,
+      "file": "assets/pokemon/7/Attack-Anim.png",
+      "shadow": "assets/pokemon/7/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 40,
+      "height": 56,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/7/Hurt-Anim.png",
+      "shadow": "assets/pokemon/7/Hurt-Shadow.png"
+    },
+    "Shoot": {
+      "width": 40,
+      "height": 32,
+      "durations": [
+        2,
+        6,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 4,
+      "file": "assets/pokemon/7/Shoot-Anim.png",
+      "shadow": "assets/pokemon/7/Shoot-Shadow.png"
+    }
+  },
+  "9": {
+    "Walk": {
+      "width": 32,
+      "height": 40,
+      "durations": [
+        8,
+        14,
+        8,
+        14
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/9/Walk-Anim.png",
+      "shadow": "assets/pokemon/9/Walk-Shadow.png"
+    },
+    "Idle": {
+      "width": 40,
+      "height": 40,
+      "durations": [
+        32,
+        12,
+        4,
+        4,
+        4,
+        4,
+        4,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/9/Idle-Anim.png",
+      "shadow": "assets/pokemon/9/Idle-Shadow.png"
+    },
+    "Attack": {
+      "width": 64,
+      "height": 72,
+      "durations": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        2,
+        4
+      ],
+      "hitFrame": 7,
+      "file": "assets/pokemon/9/Attack-Anim.png",
+      "shadow": "assets/pokemon/9/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 40,
+      "height": 40,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/9/Hurt-Anim.png",
+      "shadow": "assets/pokemon/9/Hurt-Shadow.png"
+    },
+    "Shoot": {
+      "width": 48,
+      "height": 56,
+      "durations": [
+        4,
+        2,
+        6,
+        2,
+        2,
+        4
+      ],
+      "hitFrame": 1,
+      "file": "assets/pokemon/9/Shoot-Anim.png",
+      "shadow": "assets/pokemon/9/Shoot-Shadow.png"
     }
   },
   "25": {
@@ -184,7 +387,9 @@
         8,
         10
       ],
-      "file": "assets/pokemon/25/Walk-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/25/Walk-Anim.png",
+      "shadow": "assets/pokemon/25/Walk-Shadow.png"
     },
     "Idle": {
       "width": 40,
@@ -197,7 +402,9 @@
         3,
         2
       ],
-      "file": "assets/pokemon/25/Idle-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/25/Idle-Anim.png",
+      "shadow": "assets/pokemon/25/Idle-Shadow.png"
     },
     "Attack": {
       "width": 80,
@@ -214,7 +421,124 @@
         2,
         4
       ],
-      "file": "assets/pokemon/25/Attack-Anim.png"
+      "hitFrame": 3,
+      "file": "assets/pokemon/25/Attack-Anim.png",
+      "shadow": "assets/pokemon/25/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 48,
+      "height": 64,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/25/Hurt-Anim.png",
+      "shadow": "assets/pokemon/25/Hurt-Shadow.png"
+    },
+    "Shock": {
+      "width": 48,
+      "height": 64,
+      "durations": [
+        8,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "hitFrame": 6,
+      "file": "assets/pokemon/25/Shock-Anim.png",
+      "shadow": "assets/pokemon/25/Shock-Shadow.png"
+    }
+  },
+  "26": {
+    "Walk": {
+      "width": 40,
+      "height": 48,
+      "durations": [
+        8,
+        10,
+        8,
+        10
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/26/Walk-Anim.png",
+      "shadow": "assets/pokemon/26/Walk-Shadow.png"
+    },
+    "Idle": {
+      "width": 40,
+      "height": 56,
+      "durations": [
+        40,
+        2,
+        4,
+        4,
+        4,
+        2
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/26/Idle-Anim.png",
+      "shadow": "assets/pokemon/26/Idle-Shadow.png"
+    },
+    "Attack": {
+      "width": 72,
+      "height": 80,
+      "durations": [
+        2,
+        4,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 3,
+      "file": "assets/pokemon/26/Attack-Anim.png",
+      "shadow": "assets/pokemon/26/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 56,
+      "height": 64,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/26/Hurt-Anim.png",
+      "shadow": "assets/pokemon/26/Hurt-Shadow.png"
+    },
+    "Shock": {
+      "width": 56,
+      "height": 64,
+      "durations": [
+        8,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "hitFrame": 6,
+      "file": "assets/pokemon/26/Shock-Anim.png",
+      "shadow": "assets/pokemon/26/Shock-Shadow.png"
     }
   },
   "41": {
@@ -231,7 +555,9 @@
         6,
         6
       ],
-      "file": "assets/pokemon/41/Walk-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/41/Walk-Anim.png",
+      "shadow": "assets/pokemon/41/Walk-Shadow.png"
     },
     "Idle": {
       "width": 32,
@@ -246,7 +572,9 @@
         6,
         8
       ],
-      "file": "assets/pokemon/41/Idle-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/41/Idle-Anim.png",
+      "shadow": "assets/pokemon/41/Idle-Shadow.png"
     },
     "Attack": {
       "width": 72,
@@ -264,7 +592,99 @@
         2,
         2
       ],
-      "file": "assets/pokemon/41/Attack-Anim.png"
+      "hitFrame": 4,
+      "file": "assets/pokemon/41/Attack-Anim.png",
+      "shadow": "assets/pokemon/41/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 40,
+      "height": 48,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/41/Hurt-Anim.png",
+      "shadow": "assets/pokemon/41/Hurt-Shadow.png"
+    }
+  },
+  "52": {
+    "Walk": {
+      "width": 24,
+      "height": 32,
+      "durations": [
+        6,
+        10,
+        6,
+        10
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/52/Walk-Anim.png",
+      "shadow": "assets/pokemon/52/Walk-Shadow.png"
+    },
+    "Idle": {
+      "width": 32,
+      "height": 32,
+      "durations": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/52/Idle-Anim.png",
+      "shadow": "assets/pokemon/52/Idle-Shadow.png"
+    },
+    "Attack": {
+      "width": 64,
+      "height": 80,
+      "durations": [
+        2,
+        4,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 3,
+      "file": "assets/pokemon/52/Attack-Anim.png",
+      "shadow": "assets/pokemon/52/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 40,
+      "height": 56,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/52/Hurt-Anim.png",
+      "shadow": "assets/pokemon/52/Hurt-Shadow.png"
+    },
+    "Shoot": {
+      "width": 24,
+      "height": 40,
+      "durations": [
+        2,
+        1,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 3,
+      "file": "assets/pokemon/52/Shoot-Anim.png",
+      "shadow": "assets/pokemon/52/Shoot-Shadow.png"
     }
   },
   "68": {
@@ -277,7 +697,9 @@
         8,
         10
       ],
-      "file": "assets/pokemon/68/Walk-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/68/Walk-Anim.png",
+      "shadow": "assets/pokemon/68/Walk-Shadow.png"
     },
     "Idle": {
       "width": 40,
@@ -294,7 +716,9 @@
         2,
         12
       ],
-      "file": "assets/pokemon/68/Idle-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/68/Idle-Anim.png",
+      "shadow": "assets/pokemon/68/Idle-Shadow.png"
     },
     "Attack": {
       "width": 72,
@@ -314,7 +738,45 @@
         2,
         2
       ],
-      "file": "assets/pokemon/68/Attack-Anim.png"
+      "hitFrame": 6,
+      "file": "assets/pokemon/68/Attack-Anim.png",
+      "shadow": "assets/pokemon/68/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 48,
+      "height": 64,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/68/Hurt-Anim.png",
+      "shadow": "assets/pokemon/68/Hurt-Shadow.png"
+    },
+    "Double": {
+      "width": 64,
+      "height": 72,
+      "durations": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/68/Double-Anim.png",
+      "shadow": "assets/pokemon/68/Double-Shadow.png"
     }
   },
   "94": {
@@ -327,7 +789,9 @@
         8,
         10
       ],
-      "file": "assets/pokemon/94/Walk-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/94/Walk-Anim.png",
+      "shadow": "assets/pokemon/94/Walk-Shadow.png"
     },
     "Idle": {
       "width": 32,
@@ -342,7 +806,9 @@
         3,
         4
       ],
-      "file": "assets/pokemon/94/Idle-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/94/Idle-Anim.png",
+      "shadow": "assets/pokemon/94/Idle-Shadow.png"
     },
     "Attack": {
       "width": 72,
@@ -360,7 +826,20 @@
         2,
         4
       ],
-      "file": "assets/pokemon/94/Attack-Anim.png"
+      "hitFrame": 4,
+      "file": "assets/pokemon/94/Attack-Anim.png",
+      "shadow": "assets/pokemon/94/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 48,
+      "height": 56,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/94/Hurt-Anim.png",
+      "shadow": "assets/pokemon/94/Hurt-Shadow.png"
     }
   },
   "95": {
@@ -373,7 +852,9 @@
         10,
         14
       ],
-      "file": "assets/pokemon/95/Walk-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/95/Walk-Anim.png",
+      "shadow": "assets/pokemon/95/Walk-Shadow.png"
     },
     "Idle": {
       "width": 96,
@@ -384,7 +865,9 @@
         16,
         16
       ],
-      "file": "assets/pokemon/95/Idle-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/95/Idle-Anim.png",
+      "shadow": "assets/pokemon/95/Idle-Shadow.png"
     },
     "Attack": {
       "width": 128,
@@ -402,7 +885,39 @@
         2,
         2
       ],
-      "file": "assets/pokemon/95/Attack-Anim.png"
+      "hitFrame": 3,
+      "file": "assets/pokemon/95/Attack-Anim.png",
+      "shadow": "assets/pokemon/95/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 80,
+      "height": 88,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/95/Hurt-Anim.png",
+      "shadow": "assets/pokemon/95/Hurt-Shadow.png"
+    },
+    "Shoot": {
+      "width": 96,
+      "height": 112,
+      "durations": [
+        2,
+        2,
+        6,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 2,
+      "file": "assets/pokemon/95/Shoot-Anim.png",
+      "shadow": "assets/pokemon/95/Shoot-Shadow.png"
     }
   },
   "133": {
@@ -418,7 +933,9 @@
         2,
         2
       ],
-      "file": "assets/pokemon/133/Walk-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/133/Walk-Anim.png",
+      "shadow": "assets/pokemon/133/Walk-Shadow.png"
     },
     "Idle": {
       "width": 24,
@@ -427,7 +944,9 @@
         16,
         16
       ],
-      "file": "assets/pokemon/133/Idle-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/133/Idle-Anim.png",
+      "shadow": "assets/pokemon/133/Idle-Shadow.png"
     },
     "Attack": {
       "width": 64,
@@ -445,7 +964,20 @@
         4,
         4
       ],
-      "file": "assets/pokemon/133/Attack-Anim.png"
+      "hitFrame": 3,
+      "file": "assets/pokemon/133/Attack-Anim.png",
+      "shadow": "assets/pokemon/133/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 48,
+      "height": 48,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/133/Hurt-Anim.png",
+      "shadow": "assets/pokemon/133/Hurt-Shadow.png"
     }
   },
   "143": {
@@ -458,7 +990,9 @@
         8,
         10
       ],
-      "file": "assets/pokemon/143/Walk-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/143/Walk-Anim.png",
+      "shadow": "assets/pokemon/143/Walk-Shadow.png"
     },
     "Idle": {
       "width": 32,
@@ -471,7 +1005,9 @@
         3,
         1
       ],
-      "file": "assets/pokemon/143/Idle-Anim.png"
+      "hitFrame": 0,
+      "file": "assets/pokemon/143/Idle-Anim.png",
+      "shadow": "assets/pokemon/143/Idle-Shadow.png"
     },
     "Attack": {
       "width": 64,
@@ -488,7 +1024,43 @@
         2,
         2
       ],
-      "file": "assets/pokemon/143/Attack-Anim.png"
+      "hitFrame": 3,
+      "file": "assets/pokemon/143/Attack-Anim.png",
+      "shadow": "assets/pokemon/143/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 48,
+      "height": 64,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/143/Hurt-Anim.png",
+      "shadow": "assets/pokemon/143/Hurt-Shadow.png"
+    },
+    "Stomp": {
+      "width": 80,
+      "height": 104,
+      "durations": [
+        6,
+        2,
+        2,
+        3,
+        2,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 4,
+      "file": "assets/pokemon/143/Stomp-Anim.png",
+      "shadow": "assets/pokemon/143/Stomp-Shadow.png"
     }
   }
 }

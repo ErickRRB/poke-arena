@@ -2,6 +2,10 @@
 
 Juego web de batallas de torres contra la computadora, inspirado en las mecánicas de Clash Royale. Incluye dos carriles, puentes, tres torres por equipo, mazo editable de ocho cartas, mano de cuatro y cola rotativa. La energía se recarga hasta diez, se duplica en el último minuto y permite desplegar Pokémon o lanzar hechizos. Los Pokémon tienen roles de tanque, ataque a distancia, vuelo, enjambre y daño de área.
 
+Meowth defiende las torres laterales con monedas y Raichu dispara rayos desde la central cuando se activa. Blastoise es una estructura desplegable: permanece sobre un bastión durante 35 segundos y dispara dos cañones. Los ataques incluyen combos de Machamp, rayos encadenados de Pikachu, burbujas de Squirtle, fuego en cono de Charizard, quemaduras de Charmander, teletransporte de Gengar, curación de Zubat, cargas de Eevee y rocas de asedio de Onix. El daño y los sonidos se sincronizan con los fotogramas de impacto.
+
+Las explicaciones están en Tutorial y en las fichas de las cartas. En Mazo, el retrato abre el detalle y el botón separado agrega o quita la carta. Menú principal permite abandonar la batalla y volver a editar. Los sprites se anclan con los puntos originales de `Shadow.png`; solo los voladores tienen elevación sobre el suelo.
+
 Las partidas duran tres minutos. Destruir la torre central gana inmediatamente; al agotarse el tiempo gana quien haya destruido más torres. Un empate inicia un minuto extra con muerte súbita. Si continúa el empate, decide la torre superviviente con menos vida. El juego tiene tres dificultades, práctica guiada, pausa, sonido y controles de teclado o pantalla táctil. No incluye multijugador en línea.
 
 ## Ejecutar
@@ -27,10 +31,10 @@ Abrí [la vista local](http://127.0.0.1:4173). Los recursos se sirven desde `dis
 `dist/engine.js` contiene la simulación sin dependencias del navegador. `dist/render.js` dibuja la arena y reproduce las hojas originales en ocho direcciones. `dist/app.js` conecta controles, accesibilidad, audio y persistencia. Para comprobar el motor:
 
 ```powershell
-node --test tests/engine.test.mjs
+node --test tests/*.test.mjs
 ```
 
-Las pruebas cubren costes, rotación de cartas, zonas de despliegue, puentes, vuelo, selección de objetivos, hechizos, pausa, torres, muerte súbita y partidas completas. Las pruebas visuales se ejecutaron en Chrome con Playwright, en escritorio y móvil.
+Las 36 pruebas cubren costes, rotación de cartas, zonas de despliegue, puentes, vuelo, selección de objetivos, ataques específicos, estructuras, hechizos, pausa, torres, muerte súbita y partidas completas. Las comprobaciones en Chrome cubren 28 recorridos de interfaz, 288 poses, 160 anclajes de suelo y 13 perfiles de audio. Incluyen escritorio y móvil.
 
 ## Recursos
 

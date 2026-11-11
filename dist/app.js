@@ -1,5 +1,6 @@
-import { Game, CARDS, DEFAULT_DECK, W, H } from './engine.js';
-import { Renderer } from './render.js';
+import { Game, CARDS, DEFAULT_DECK, W, H } from './engine.js?v=2';
+import { Renderer } from './render.js?v=2';
+import { SoundSystem } from './audio.js?v=2';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -10,33 +11,23 @@ const store = {
 };
 const storedDeck = store.get('deck', DEFAULT_DECK);
 let deck = Array.isArray(storedDeck) && storedDeck.length === 8 && new Set(storedDeck).size === 8 && storedDeck.every(k => CARDS[k]) ? storedDeck : [...DEFAULT_DECK];
+if(deck.join(',')==='pikachu,snorlax,squirtle,charmander,zubat,thunder,charizard,fireball')deck=[...DEFAULT_DECK];
 const storedDifficulty = store.get('difficulty', 'normal');
 let difficulty = ['easy', 'normal', 'hard'].includes(storedDifficulty) ? storedDifficulty : 'normal';
-let sound = store.get('sound', false) === true;
+let sound = store.get('sound', true) === true;
 let reduced = store.get('reduced', matchMedia('(prefers-reduced-motion: reduce)').matches) === true;
 const savedRecord = store.get('record', { wins: 0, losses: 0 });
 let record = { wins: Math.max(0, Number(savedRecord?.wins) || 0), losses: Math.max(0, Number(savedRecord?.losses) || 0) };
 let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true;
 let toastTimer, announcementTimer, lastUi = 0, drag = null, ignoreClickUntil = 0;
-let audio;
+const sfx=new SoundSystem(sound);
+let inspectedCard=null;
 
 function audioInit() {
-  if (!sound) return;
-  try { audio ||= new (window.AudioContext || window.webkitAudioContext)(); if (audio.state === 'suspended') audio.resume(); } catch { /* Audio is optional. */ }
+  sfx.setEnabled(sound);sfx.unlock();
 }
 function tone(freq = 440, duration = .08, wave = 'sine', volume = .035, slide = 0) {
-  if (!sound || !audio || audio.state !== 'running') return;
-  const o = audio.createOscillator(), gain = audio.createGain();
-  o.type = wave; o.frequency.setValueAtTime(freq, audio.currentTime);
-  if (slide) o.frequency.exponentialRampToValueAtTime(Math.max(30, freq + slide), audio.currentTime + duration);
-  gain.gain.setValueAtTime(volume, audio.currentTime); gain.gain.exponentialRampToValueAtTime(.001, audio.currentTime + duration);
-  o.connect(gain); gain.connect(audio.destination); o.start(); o.stop(audio.currentTime + duration);
-}
-function soundEffect(type) {
-  if (type === 'deploy') tone(530,.16,'sine',.05,310);
-  if (type === 'hit' && Math.random() < .12) tone(180,.035,'triangle',.012,80);
-  if (type === 'towerDown') { tone(120,.4,'sawtooth',.025,-60); setTimeout(() => tone(220,.25,'triangle',.04),120); }
-  if (type === 'spellHit') tone(700,.27,'triangle',.035,-500);
+  sfx.tone(freq,duration,wave,volume,slide);
 }
 function updateSound() {
   $('sound-btn').setAttribute('aria-pressed', String(sound));
@@ -83,14 +74,7 @@ function syncHand() {
   }
 }
 function updateDetail() {
-  const c = CARDS[game.hands[0][selected]];
-  if (!c) {
-    $('selected-detail').innerHTML = '<span class="detail-marker"><svg><use href="#i-ball"/></svg></span><div><strong>Elegí una carta</strong><p>Después, tocá tu lado de la arena.</p></div>';
-    renderer.selection = null; return;
-  }
-  renderer.selection = game.hands[0][selected];
-  $('selected-detail').innerHTML = `<span class="detail-marker" style="color:${c.color}"><svg><use href="${c.spell ? '#i-energy' : '#i-ball'}"/></svg></span><div><strong>${c.name}</strong><span class="detail-role">${c.role}</span><p>${c.spell ? 'Tocá cualquier punto de la arena.' : 'Tocá tu lado de la arena para desplegar.'}</p><p class="detail-stats">${c.hp ? `<span>♥ ${c.hp} vida</span>` : `<span>◉ ${c.splash} de área</span>`}<span>⚔ ${c.damage} daño</span><span>♦ ${c.cost} energía</span></p></div>`;
-  $('selected-detail').title = c.description;
+  renderer.selection=game.hands[0][selected]||null;
 }
 function choose(index) {
   if (!ready || index < 0 || index > 3 || game.state === 'ended' || game.state === 'paused') return;
@@ -108,8 +92,6 @@ function updateUi() {
   $('energy-value').textContent = String(Math.floor(energy));
   $('energy-bar').setAttribute('aria-valuenow', energy.toFixed(1));
   [...$('energy-bar').children].forEach((el,i) => el.firstElementChild.style.width = `${Math.max(0,Math.min(1,energy-i))*100}%`);
-  $('energy-caption').textContent = energy >= 9.99 ? 'Energía al máximo · desplegá una carta' : 'Se recarga automáticamente';
-  $('energy-speed').textContent = game.multiplier === 1 ? '+1 / 2,8 s' : '+1 / 1,4 s';
   $('boost').hidden = game.multiplier === 1; $('boost').textContent = `×${game.multiplier}`;
   const total = Math.ceil(game.time); $('timer').textContent = `${Math.floor(total/60)}:${String(total%60).padStart(2,'0')}`;
   $('battle-clock').classList.toggle('urgent', game.time <= 30 || game.overtime);
@@ -121,7 +103,7 @@ function updateUi() {
 }
 function updateRecord() { $('player-record').textContent = record.wins || record.losses ? `${record.wins} ${record.wins === 1 ? 'victoria' : 'victorias'} · ${record.losses} derrotas` : 'Entrenador'; }
 function handleEvent(e) {
-  renderer.onEvent(e); soundEffect(e.type);
+  renderer.onEvent(e); sfx.event(e);
   if (e.type === 'deploy' && e.team === 0) {
     if (walkthrough?.step === 2) {
       setGuideStep(3); walkthrough.start = game.elapsed;
@@ -141,14 +123,13 @@ function newGame({ start = false, tutorial = false } = {}) {
   clearTimeout(announcementTimer); $('arena-announcement').classList.remove('show');
   $('result-overlay').hidden = true; $('pause-overlay').hidden = true; $('guide').hidden = true;
   walkthrough = null; selected = -1; handSignature = ''; renderer.pointer = null; renderer.selection = null; renderer.tutorialSpot = false;
-  renderer.particles = []; renderer.rings = [];
-  game = new Game({ deck: tutorial ? DEFAULT_DECK : deck, difficulty, tutorial, onEvent: handleEvent });
+  renderer.particles = []; renderer.rings = [];renderer.effects=[];renderer.numbers=[];
+  game = new Game({ deck: tutorial ? DEFAULT_DECK : deck, difficulty, tutorial, onEvent: handleEvent, animations:renderer.metadata });
   $('difficulty-label').textContent = `${{easy:'Principiante',normal:'Entrenador',hard:'Líder de gimnasio'}[difficulty]} · CPU`;
   $('ready-overlay').hidden = start || !ready;
   if (start) {
     audioInit(); game.start();
     if (tutorial) { game.energy = [10,6]; walkthrough = { step: 1, start: 0 }; setGuideStep(1); }
-    else announce('¡A BATALLAR!',1300);
     live(tutorial ? 'Práctica guiada. Elegí un Pokémon de tu mano.' : 'Empieza la batalla. Elegí una carta y tocá tu lado de la arena.');
     canvas.focus({preventScroll:true});
   }
@@ -185,7 +166,7 @@ function arenaPoint(clientX,clientY) {
 }
 function attemptDeploy(point) {
   if(game.state!=='playing')return;
-  if(selected<0){toast('Elegí una carta primero.');return;}
+  if(selected<0)return;
   const result=game.deploy(0,selected,point.x,point.y);
   if(!result.ok){toast(result.reason);tone(150,.12,'triangle',.02);return;}
   live(`${CARDS[result.key].name} desplegado. ${Math.floor(game.energy[0])} de energía.`);
@@ -208,8 +189,8 @@ document.querySelectorAll('dialog').forEach(dialog=>{
 });
 
 function renderCollection() {
-  $('collection').innerHTML=Object.keys(CARDS).map(k=>cardMarkup(k,0,true)).join('');
-  for(const el of $('collection').children){const included=deckDraft.includes(el.dataset.collection);el.classList.toggle('selected',included);el.setAttribute('aria-pressed',String(included));el.disabled=!deckEditable;}
+  $('collection').innerHTML=Object.keys(CARDS).map(k=>`<div class="collection-entry">${cardMarkup(k,0,true)}<button class="deck-toggle" data-toggle="${k}" ${!deckEditable?'disabled':''}>${deckDraft.includes(k)?'✓ En mazo':'+ Agregar'}</button></div>`).join('');
+  for(const el of $('collection').querySelectorAll('[data-collection]')){const included=deckDraft.includes(el.dataset.collection);el.classList.toggle('selected',included);el.removeAttribute('aria-pressed');el.setAttribute('aria-haspopup','dialog');el.setAttribute('aria-label',`${CARDS[el.dataset.collection].name}, ver detalles`);}
   $('deck-count').textContent=`${deckDraft.length}/8`;
   $('deck-average').textContent=deckDraft.length?(deckDraft.reduce((a,k)=>a+CARDS[k].cost,0)/deckDraft.length).toFixed(1).replace('.',','):'—';
   $('save-deck-btn').disabled=deckDraft.length!==8||!deckEditable;
@@ -217,17 +198,41 @@ function renderCollection() {
 }
 function openDeck() {
   deckEditable=!['playing','paused'].includes(game.state);deckDraft=[...deck];
-  $('deck-edit-hint').textContent=deckEditable?'Elegí 8 cartas para la próxima batalla.':'Podés editarlo al terminar esta batalla.';
+  $('deck-edit-hint').textContent=deckEditable?'':'En batalla';
   renderCollection();openModal('deck-dialog');
 }
-$('collection').addEventListener('click',e=>{
-  const el=e.target.closest('[data-collection]');if(!el||!deckEditable)return;
-  const key=el.dataset.collection;
+function toggleDeckCard(key){
+  if(!deckEditable)return;
   if(deckDraft.includes(key))deckDraft=deckDraft.filter(k=>k!==key);
   else if(deckDraft.length<8)deckDraft.push(key);
-  else { $('deck-edit-hint').textContent='Quitá una carta para agregar otra.';return; }
-  $('deck-edit-hint').textContent='Elegí 8 cartas para la próxima batalla.';renderCollection();
+  else { $('deck-edit-hint').textContent='Mazo completo';return; }
+  $('deck-edit-hint').textContent='';renderCollection();
+}
+function renderCardInfo(key){
+  const c=CARDS[key];inspectedCard=key;
+  $('card-info-name').textContent=c.name;$('card-info-type').textContent=c.label;$('card-info-role').textContent=c.role;$('card-info-cost').textContent=c.cost;
+  $('card-info-art').innerHTML=c.id?`<img src="assets/pokemon/${c.id}/card.png" alt="${c.name}">`:spellIcon(key);
+  $('card-info-art').style.setProperty('--card-tint',c.color);
+  $('card-info-move').textContent=c.move||c.name;$('card-info-description').textContent=c.description;
+  const stats=[];
+  if(c.hp)stats.push(['Vida',c.hp]);stats.push(['Daño',c.burst?`${c.damage} × ${c.burst}`:c.damage]);
+  if(c.range)stats.push(['Alcance',c.range<50?'Melee':`${(c.range/30).toFixed(1).replace('.',',')} casillas`]);
+  if(c.interval)stats.push(['Cadencia',`${String(c.interval).replace('.',',')} s`]);
+  if(c.speed!==undefined)stats.push(['Velocidad',c.structure?'Inmóvil':c.speed<=33?'Lenta':c.speed<=52?'Media':'Rápida']);
+  stats.push(['Objetivos',c.building?'Estructuras':c.spell||c.air?'Tierra y aire':'Tierra']);
+  if(c.lifetime)stats.push(['Duración',`${c.lifetime} s`]);if(c.count)stats.push(['Unidades',c.count]);
+  if(c.burn)stats.push(['Quemadura',`${c.burn} / s`]);if(c.lifesteal)stats.push(['Curación',`${c.lifesteal} / golpe`]);
+  if(c.towerDamage)stats.push(['Daño a torres',c.towerDamage]);
+  if(c.spell)stats.push(['Radio',`${(c.splash/30).toFixed(1).replace('.',',')} casillas`]);
+  $('card-info-stats').innerHTML=stats.map(([label,value])=>`<div><dt>${label}</dt><dd>${value}</dd></div>`).join('');
+  const included=deckDraft.includes(key);$('card-info-toggle').textContent=included?'Quitar del mazo':deckDraft.length===8?'Mazo completo':'Agregar al mazo';
+  $('card-info-toggle').disabled=!deckEditable||(!included&&deckDraft.length===8);
+}
+$('collection').addEventListener('click',e=>{
+  const toggle=e.target.closest('[data-toggle]');if(toggle){toggleDeckCard(toggle.dataset.toggle);return;}
+  const el=e.target.closest('[data-collection]');if(el){renderCardInfo(el.dataset.collection);openModal('card-dialog');}
 });
+$('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){toggleDeckCard(inspectedCard);renderCardInfo(inspectedCard);}});
 $('save-deck-btn').addEventListener('click',()=>{if(deckDraft.length!==8||!deckEditable)return;deck=[...deckDraft];store.set('deck',deck);closeModal($('deck-dialog'),false);newGame();toast('Mazo guardado.');});
 $('reset-deck-btn').addEventListener('click',()=>{deckDraft=[...DEFAULT_DECK];renderCollection();});
 
@@ -269,6 +274,10 @@ $('skip-guide').addEventListener('click',finishGuide);
 $('again-btn').addEventListener('click',()=>newGame({start:true}));
 $('result-deck-btn').addEventListener('click',openDeck);
 $('deck-btn').addEventListener('click',openDeck);
+$('menu-deck-btn').addEventListener('click',openDeck);
+function mainMenu(){for(const dialog of document.querySelectorAll('dialog[open]'))closeModal(dialog,false);newGame();canvas.blur();}
+$('menu-btn').addEventListener('click',mainMenu);
+$('pause-menu-btn').addEventListener('click',mainMenu);
 $('pause-btn').addEventListener('click',togglePause);
 $('resume-btn').addEventListener('click',togglePause);
 $('help-btn').addEventListener('click',()=>openModal('help-dialog'));
@@ -292,7 +301,7 @@ function frame(now){
   if(game.state==='playing'&&!(walkthrough&&walkthrough.step<3)){
     accumulator+=dt;
     while(accumulator>=1/30){game.step(1/30);accumulator-=1/30;}
-    if(walkthrough?.step===3&&game.elapsed-walkthrough.start>8){finishGuide();toast('La guía terminó. ¡Seguí defendiendo tus torres!');}
+    if(walkthrough?.step===3&&game.elapsed-walkthrough.start>8)finishGuide();
   }else accumulator=0;
   renderer.draw(game,game.state==='paused'?0:dt);
   if(now-lastUi>80){lastUi=now;updateUi();}
