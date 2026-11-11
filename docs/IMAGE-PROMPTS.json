@@ -1,0 +1,32 @@
+{
+  "tool": "Built-in ImageGen",
+  "date": "2026-11-11",
+  "processing": "PNG to WebP format conversion only; complete generated compositions preserved.",
+  "images": [
+    {
+      "key": "home",
+      "destination": "dist/assets/home-arena.webp",
+      "prompt": "Use case: illustration-story. Asset type: wide full-bleed background illustration for the home menu of Poké Arena, a Pokémon tower battle game. Generate one cohesive high-quality hand-painted anime game illustration, 16:10 wide framing. Scene: a beautiful grassy Pokémon battle arena split by a sparkling teal river with two small stone bridges and stout medieval arena towers, lush trees, hills, warm late afternoon light. Subject: Pikachu in the lower left foreground preparing a close electric strike, Charizard sweeping in from the upper left above a tower, Blastoise braced near the middle riverbank aiming its cannons across the arena. Keep the Pokémon accurate and expressive, in action within the same perspective, with believable shared lighting, cast shadows and environmental effects. Composition: the detailed battle is concentrated in the left two thirds; the right third is quieter dark emerald foliage and atmospheric shadows to support an existing menu panel overlay. Low viewpoint, rich painted textures, crisp appealing character silhouettes, soft distant scenery. The image itself must contain no UI, cards, text, letters, logos, watermark, borders, split panels or pasted cutouts. This replaces an unattractive collage of transparent character artworks over geometric mountains. It must read as ONE professional illustrated scene."
+    },
+    {
+      "key": "diglett",
+      "destination": "dist/assets/cards/diglett.webp",
+      "prompt": "Use case: illustration-story. Square full-bleed Pokémon troop card illustration: exactly THREE cute healthy Diglett, each emerging from its own little mound of dirt in a beautiful grassy stone arena. One Diglett foreground, two behind, small brown cylindrical moles with black oval eyes and pink noses, correct recognizable Pokémon appearance. All three are cheerful and unharmed, smooth brown skin without scratches or wounds. Painted grass, mossy ruins, trees and a small stone bridge in the background, warm afternoon sunshine, one continuous scene with shared shadows and perspective. High-quality hand-painted anime game art matching the existing Poké Arena cards. Keep all three entirely in frame, dark grass breathing room at the bottom. No text, no letters, no panels, no frame, no UI, no cutout collage."
+    },
+    {
+      "key": "diglettHorde",
+      "destination": "dist/assets/cards/diglettHorde.webp",
+      "prompt": "Use case: illustration-story. A square illustrated Pokémon game card showing exactly nine cute Diglett, each one in its own small mound of earth, grouped in a grassy arena with stone bridges and trees. Keep all nine creatures in view, one unified scene, cheerful expressive faces, warm afternoon light, shared shadows and painted natural background. Small brown mole Pokémon with pink noses, no legs, separate individuals rather than Dugtrio. Polished hand-painted anime game art, consistent with the existing Poké Arena cards. Single continuous full-bleed square illustration with a detailed environment. Keep characters centered and leave some dark grass at the bottom for a later name overlay. No text, no frame, no panels, no UI, no cutout collage. All characters unharmed."
+    },
+    {
+      "key": "raltsTrio",
+      "destination": "dist/assets/cards/raltsTrio.webp",
+      "prompt": "Use case: illustration-story. A square illustrated Pokémon game card showing exactly three cute Ralts in a lush garden arena, with green helmet hair, red head horns, and white bodies. One in foreground, two farther behind, casting soft purple Confusion waves. Shared shadows, consistent perspective, painted grass, ivy and stone ruins in the background, warm afternoon sunlight. Polished hand-painted anime game art, consistent with the existing Poké Arena cards. Single continuous full-bleed square illustration with a detailed environment. Keep characters centered and leave some dark grass at the bottom for a later name overlay. No text, no frame, no panels, no UI, no cutout collage. All characters unharmed."
+    },
+    {
+      "key": "poochyenaPack",
+      "destination": "dist/assets/cards/poochyenaPack.webp",
+      "prompt": "Use case: illustration-story. A square illustrated Pokémon game card showing exactly four Poochyena running together down a grassy stone arena path. Accurate cute black and gray small canine Pokémon with shaggy manes, red eyes, and cream fangs. One foreground, three behind, distinct readable silhouettes, shared shadows and perspective, trees and stone walls in the background, warm sunlight. Polished hand-painted anime game art, consistent with the existing Poké Arena cards. Single continuous full-bleed square illustration with a detailed environment. Keep characters centered and leave some dark grass at the bottom for a later name overlay. No text, no frame, no panels, no UI, no cutout collage. All characters unharmed."
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+import { POKEMON_STATS } from './pokemon-stats.js';
+
 // Shared by browser, CPU and online server. Values are per body / per hit.
 export const THRESHOLDS = Object.freeze({ tower: 109, towerInterval: .8, fragile: 1, scout: 81, meleeSwarm: 180, archers: 304, fireball: 400, log: 218 });
 
@@ -89,20 +91,20 @@ export const CARD_BALANCE = {
   nidoranM: { hp: 180, damage: 45, interval: 1.4, speed: 32 },
   exeggcute: { hp: 81, damage: 35, interval: 1.4, speed: 26, suicide: false, splash: 0, style: 'confusion', range: 100, air: true },
   babyKangaskhan: { hp: 218, damage: 35, interval: 1.4, speed: 40 },
-  shuppet: { hp: 1, damage: 35, interval: 1.2, speed: 32, scale: 1.5 },
-  shuppetSwarm: { hp: 1, damage: 35, interval: 1.2, speed: 32, scale: 1.5 },
-  nidoranScouts: { hp: 81, damage: 45, interval: 1.3, speed: 26, burnKind: 'poison', scale: 1.65 },
-  nidoranPack: { hp: 180, damage: 75, interval: 1.3, speed: 32, scale: 1.65 },
+  diglett: { hp: 1, damage: 35, interval: 1.2, speed: 32, scale: 1.5 },
+  diglettHorde: { hp: 1, damage: 35, interval: 1.2, speed: 32, scale: 1.5 },
+  raltsTrio: { hp: 81, damage: 45, interval: 1.3, speed: 26, scale: 1.65 },
+  poochyenaPack: { hp: 180, damage: 75, interval: 1.3, speed: 32, scale: 1.65 },
 };
 
 const descriptions = {
   snorlax: ['Tanque · estructuras', 'Tanque muy lento. Ignora tropas y golpea una estructura cada 2 s; los enjambres lo rodean.'],
   geodude: ['Defensor · objetivo único', 'Defensor de 3 de elixir. Resiste y golpea fuerte a un solo rival terrestre; necesita ayuda contra enjambres.'],
-  thunder: ['Hechizo · aturde', '109 de daño y 0,75 s de aturdimiento. Elimina Gastly y Nidoran tiradores; los Nidoran melee y Zubat sobreviven.'],
-  log: ['Hechizo · empuje', '218 de daño terrestre. Elimina Nidoran melee y empuja; no alcanza voladores.'],
-  zubat: ['Trío · absorción', 'Tres voladores de 180 PV. Cada uno cae con dos tiros; sobreviven a Impactrueno y necesitan un tanque delante.'],
-  gastly: ['Enjambre aéreo · ×4', 'Cuatro fantasmas voladores de 81 PV. Caen con un tiro o Impactrueno y dejan una niebla débil.'],
-  butterfree: ['Volador · polvo', 'Esparce polvo que ralentiza en área. Hace poco daño y cae ante Bola de fuego.'],
+  thunder: ['Hechizo · aturde', 'Daña y aturde a los enemigos en el área. Interrumpe sus ataques.'],
+  log: ['Hechizo · empuje', 'Rueda desde tu lado y empuja a los enemigos terrestres a su paso.'],
+  zubat: ['Trío · absorción', 'Tres murciélagos atacan a corta distancia y recuperan vida con sus mordidas.'],
+  gastly: ['Enjambre aéreo · ×4', 'Cuatro fantasmas voladores atacan a distancia. Dejan niebla dañina al caer.'],
+  butterfree: ['Volador · polvo', 'Esparce polvo que ralentiza en área. Ataca a tierra y aire.'],
   nidoking: ['Melee · veneno', 'Dos puñetazos venenosos. Su fuerza castiga cuerpos grandes; no alcanza voladores.'],
   grimer: ['Defensa · lodo tóxico', 'Lanza lodo a corta distancia. Al caer deja un charco que daña a tropas terrestres.'],
   exeggutor: ['Tanque · bomba huevo', 'Lanza huevos que explotan en área. Su ataque es lento y se puede interrumpir antes del lanzamiento.'],
@@ -113,7 +115,7 @@ const descriptions = {
   typhlosion: ['Melee · erupción', 'Libera fuego en un área amplia alrededor del objetivo. Quema a los enemigos terrestres.'],
   sableye: ['Salto · hostigamiento', 'Se acerca con Amago cada 3 s y golpea con sus garras. Tiene poca vida y no alcanza voladores.'],
   altaria: ['Volador · canto', 'Ataca con ondas de voz y cura a un aliado cercano. Su canto elimina veneno y ralentización.'],
-  gardevoir: ['Apoyo · zona psíquica', 'Carga una esfera que explota y deja energía psíquica. Bola de fuego la deja a un tiro de torre.'],
+  gardevoir: ['Apoyo · zona psíquica', 'Carga una esfera que explota y deja una zona de energía psíquica que daña a los enemigos.'],
   absol: ['Melee · críticos', 'Tajo umbrío hace un 60 % más de daño a Pokémon por debajo del 35 % de vida. Ataca a un solo objetivo terrestre.'],
 };
 
@@ -139,10 +141,48 @@ export function applyBalance(cards) {
     skarmory:'Ala de acero',blissey:'Bomba huevo',lugia:'Hidrobomba',hooh:'Ascuas',sceptile:'Hojas gemelas',blaziken:'Puño fuego',
     swampert:'Golpe de barro',gardevoir:'Psíquico',aggron:'Cuerpo pesado',sharpedo:'Triturar',flygon:'Tormenta de arena',
     salamence:'Lanzallamas',metagross:'Puño meteoro',kyogre:'Doble hidrobomba',groudon:'Pisotón',rayquaza:'Pulso dragón',
-    shuppet:'Impresionar',shuppetSwarm:'Impresionar',
+    diglett:'Arañazo',diglettHorde:'Arañazo',raltsTrio:'Confusión',poochyenaPack:'Mordisco',
   };
   for (const [key, move] of Object.entries(moves)) cards[key].move = move;
   cards.venusaur.label = 'Planta / veneno';
+  applyAttackRoles(cards);
+}
+
+// Physical attackers approach their target; special attackers fire from range.
+// Structures, self-destruct units and passive defenders retain their distinct jobs.
+// Equal base stats retain their existing attack, including Ditto's transformation.
+function applyAttackRoles(cards) {
+  const attacks = {
+    pikachu: { move: 'Chispa', style: 'lightning', role: 'Melee · descarga', description: 'Se acerca y descarga electricidad que salta entre rivales cercanos. Aturde e interrumpe sus ataques.' },
+    gengar: { move: 'Bola sombra', style: 'shadow', role: 'Rango · teletransporte', description: 'Se teletransporta para reposicionarse y lanza bolas de sombra a tierra y aire.' },
+    onix: { move: 'Cola férrea', style: 'slam', role: 'Asedio · estructuras', description: 'Avanza hacia las estructuras y las golpea con su cola. Ignora a las tropas.' },
+    grimer: { move: 'Puño veneno', style: 'punch', description: 'Defensor terrestre que golpea a corta distancia. Al caer deja un charco venenoso.' },
+    gastly: { move: 'Bola sombra', style: 'shadow' },
+    koffing: { move: 'Placaje', style: 'poison', role: 'Volador · contacto', description: 'Choca contra rivales de tierra y aire y libera gas venenoso alrededor del impacto.' },
+    dragonite: { move: 'Garra dragón', style: 'slash', description: 'Se acerca volando y encadena tres zarpazos al mismo objetivo de tierra o aire.' },
+    typhlosion: { move: 'Erupción', style: 'ember', role: 'Rango · fuego en área', description: 'Lanza fuego que explota en área y deja quemadura. Ataca a tierra y aire.' },
+    umbreon: { move: 'Mordisco', style: 'bite', description: 'Muerde a corta distancia y envenena a su objetivo. Avanza junto a la primera línea.' },
+    hooh: { move: 'Pájaro osado', style: 'dash', description: 'Ataca con picadas a corta distancia y cura a un aliado cercano. Fuego sagrado cura y quema alrededor.' },
+    flygon: { move: 'Garra dragón', style: 'slash', description: 'Golpea con sus garras y levanta arena que ralentiza a los enemigos cercanos.' },
+    salamence: { move: 'Garra dragón', style: 'slash', cone: 0, description: 'Encadena tres zarpazos cuerpo a cuerpo. Aumenta su daño al perder la mitad de su vida.' },
+  };
+  for (const [key, card] of Object.entries(cards)) {
+    if (card.spell) continue;
+    const base = POKEMON_STATS[card.id];
+    if (!base) throw Error(`Missing Pokémon base stats for ${key}`);
+    if (card.structure || card.suicide || card.passive) continue;
+    const ranged = base.specialAttack > base.attack;
+    const physical = base.attack > base.specialAttack;
+    if (!ranged && !physical) continue;
+    const changed = ranged !== (card.range >= 50);
+    card.attackKind = ranged ? 'ranged' : 'melee';
+    if (changed) {
+      card.range = ranged ? 130 : key === 'onix' ? 38 : 30;
+      card.air = ranged || !!card.flying;
+      card.attackAnim = ranged ? 'Shoot' : 'Attack';
+      Object.assign(card, attacks[key]);
+    }
+  }
 }
 
 export function cardThresholds(card) {

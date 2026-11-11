@@ -26,7 +26,7 @@ test('both teams can deploy directly behind their king and the troop walks aroun
 });
 
 test('danger preview uses the resolved placement and respects air and building targeting',()=>{
-  const g=fresh(),ranged=g.spawn('pikachu',1,158,420,0),melee=g.spawn('machamp',1,158,465,0),tank=g.spawn('snorlax',1,158,465,0);
+  const g=fresh(),ranged=g.spawn('squirtle',1,158,420,0),melee=g.spawn('machamp',1,158,465,0),tank=g.spawn('snorlax',1,158,465,0);
   const ground=g.deploymentThreats(0,'pikachu',158,400);
   assert.ok(ground.includes(ranged));assert.ok(ground.includes(melee));assert.ok(!ground.includes(tank));
   const flying=g.deploymentThreats(0,'zubat',158,400);assert.ok(flying.includes(ranged));assert.ok(!flying.includes(melee));

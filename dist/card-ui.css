@@ -1,6 +1,10 @@
 html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden; overscroll-behavior: none; }
 .main-menu { height: calc(var(--app-height, 100dvh) - 56px); min-height: 0; }
+.menu-scene { background: #10251f; }
+.menu-scene .menu-background { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left center; filter: none; }
+.menu-scene:after { background: linear-gradient(90deg, transparent 40%, #10251f18 62%, #10251f55), linear-gradient(0deg, #10251f44, transparent 28%); }
 .menu-panel { width: 440px; max-height: 100%; padding: 22px; overflow-y: auto; overscroll-behavior: contain; }
+.menu-panel { background: #152c26f2; border-color: #7a8f657a; box-shadow: 0 18px 70px #06170e66; backdrop-filter: blur(12px); }
 .menu-deck-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
 .menu-panel .menu-deck-heading h1 { margin: 0; font-size: 30px; text-align: left; letter-spacing: 0; }
 .menu-deck-heading > span { display: flex; align-items: center; gap: 5px; color: #b9cbbd; font-size: 10px; white-space: nowrap; }
@@ -9,11 +13,6 @@ html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden;
 .menu-panel .menu-deck-preview { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 10px; margin: 0 0 17px; }
 .pokemon-card { padding: 7px 5px 8px; }
 .card-art { display: block; position: absolute; inset: 0; border-radius: inherit; background-repeat: no-repeat; pointer-events: none; }
-.swarm-art { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: center; padding: 12% 5% 25%; gap: 0; overflow: hidden; background: radial-gradient(ellipse at 40% 30%, #816e9d, #263e36 65%, #102c25); }
-.swarm-art-9 { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 8% 3% 22%; }
-.swarm-art .swarm-portrait { position: static; display: block; width: 135%; height: auto; max-width: none; margin: -8% -17%; object-fit: contain; filter: drop-shadow(2px 3px 2px #10152788); transform: rotate(calc((var(--member) - 1) * 3deg)); }
-.swarm-art-3 .swarm-portrait:last-child { grid-column: 1 / 3; width: 70%; justify-self: center; margin-top: -20%; }
-#card-balance-note { color: #c3cdbd; font-size: 12px; line-height: 1.5; margin: 12px 0 0; }
 .pokemon-card > .card-art:after { content: ''; position: absolute; inset: 45% 0 0; border-radius: inherit; background: linear-gradient(transparent, #081911df 82%, #081911f5); }
 .pokemon-card .card-name { max-width: 100%; color: #fff8e5; line-height: 1.15; text-shadow: 0 1px 3px #000, 0 0 5px #0008; }
 .pokemon-card .card-role { color: #e2e7d8; text-align: center; line-height: 1.25; }
@@ -37,27 +36,61 @@ html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden;
 .collection-tools { display: grid; grid-template-columns: minmax(0, 1fr) 135px 135px; gap: 8px; padding: 12px 18px; margin: 0; }
 .collection-tools input, .collection-tools select { width: 100%; min-height: 38px; font-size: 12px; padding: 8px; }
 .deck-modal .collection { min-height: 0; overflow-y: auto; overscroll-behavior: contain; align-content: start; padding: 10px 20px 18px; scroll-padding-block: 10px; }
-.collection .pokemon-card { touch-action: pan-y; }
+.collection .pokemon-card { height: 154px; touch-action: pan-y; }
+.collection .card-name { font-size: 13px; }
+.collection .card-role { font-size: 10px; margin-top: 4px; }
+.collection .pokemon-card.selected:after { display: none; }
+.card-quantity { position: absolute; z-index: 2; top: 6px; right: 6px; display: flex; align-items: center; gap: 3px; padding: 4px 6px; border: 1px solid #d4dec966; border-radius: 5px; background: #10281edb; color: #fff7df; font-size: 12px; font-weight: 700; }
+.card-quantity svg { width: 13px; height: 13px; }
+.deck-toggle { min-height: 44px; padding: 7px 5px; border-radius: 6px; font-size: 12px; }
+.deck-toggle[aria-pressed="true"] { color: #f4dda3; border-color: #a28e57; background: #364832; }
+.deck-modal .deck-toggle:disabled { color: #a0b09a; background: #203326; border-color: #40573c; }
 .deck-save-row { position: static; margin: 0; padding: 12px 18px max(12px, env(safe-area-inset-bottom)); gap: 12px; }
 .deck-save-row .primary-btn { min-width: 108px; justify-content: center; }
-.card-dialog[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; padding: 18px; overflow: hidden; }
-.card-dialog .modal-heading { margin: 0 0 14px; }
-.card-info-content { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
-.card-overview { display: grid; grid-template-columns: 120px minmax(0, 1fr); align-items: start; gap: 14px; margin-bottom: 12px; }
-.card-dialog .card-hero { position: relative; width: 100%; height: auto; aspect-ratio: 4 / 5; border-radius: 8px; overflow: hidden; }
+.card-dialog { width: 540px; }
+.card-dialog[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; padding: 20px; overflow: hidden; }
+.card-dialog .modal-heading { margin: 0 0 16px; }
+.card-dialog .modal-heading .icon-btn { min-width: 44px; min-height: 44px; }
+.card-info-content { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 2px 2px; scrollbar-gutter: stable; }
+.card-overview { display: grid; grid-template-columns: 132px minmax(0, 1fr); align-items: start; gap: 16px; margin-bottom: 15px; }
+.card-dialog .card-hero { position: relative; width: 100%; height: auto; aspect-ratio: 4 / 5; margin-top: 0; border: 2px solid #95a787; border-radius: 9px; overflow: hidden; }
 .card-copy { min-width: 0; }
-.card-dialog .card-identity { margin: 0; align-items: flex-start; font-size: 10px; gap: 7px; line-height: 1.3; }
-.card-dialog .card-identity > span:last-child { font-size: 18px; color: #e0b7ff; }
-.card-dialog h3 { font-size: 21px; line-height: 1.1; margin: 12px 0 0; }
-.card-dialog #card-info-description { font-size: 12px; line-height: 1.5; margin: 7px 0 0; color: #d0ddcc; }
-.card-dialog .card-stats { gap: 0 16px; }
-.card-dialog .card-stats > div { padding: 8px 0; align-items: center; }
-.card-dialog .card-stats dt { font-size: 10px; }
-.card-dialog .card-stats dd { font-size: 11px; text-align: right; }
-.card-more-stats { border-top: 1px solid var(--line); margin-top: 4px; }
-.card-more-stats summary { padding: 10px 0; cursor: pointer; font-size: 11px; color: #d2b4ee; }
-.card-dialog > .primary-btn { margin-top: 12px; min-height: 44px; }
+.card-dialog .card-identity { margin: 0; align-items: flex-start; font-size: 12px; gap: 10px; line-height: 1.4; }
+.card-dialog .card-identity > span:last-child { font-size: 22px; color: #e0b7ff; }
+.card-dialog h3 { font-size: 24px; line-height: 1.1; margin: 13px 0 0; }
+.card-dialog #card-info-description { font-size: 13px; line-height: 1.55; margin: 8px 0 0; color: #dce5d5; }
+.card-traits { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 14px; }
+.card-traits > div { display: flex; align-items: center; gap: 8px; padding: 7px 10px; background: #304433; border: 1px solid #536549; border-radius: 6px; }
+.card-traits dt { display: flex; align-items: center; gap: 6px; color: #cddac3; font-size: 11px; }
+.card-traits dt svg { width: 18px; height: 18px; }
+.card-traits dd { margin: 0; color: #fff3d5; font-size: 15px; font-weight: 700; }
+.card-stats-heading { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px; color: #d8e4d0; font-size: 12px; font-weight: 600; }
+.card-stats-heading > span:last-child { color: #a8b99f; font-size: 11px; font-weight: 400; }
+.card-dialog .card-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.card-dialog .card-stats > div { display: block; min-width: 0; padding: 10px 11px; background: #263d30; border: 1px solid #41563e; border-radius: 7px; }
+.card-dialog .card-stats dt { display: flex; align-items: center; gap: 7px; min-height: 26px; color: #c8d6bf; font-size: 11px; line-height: 1.25; }
+.card-stats dt svg { width: 22px; height: 22px; }
+.card-dialog .card-stats dd { margin: 4px 0 0 29px; color: #fff4d8; font-size: 18px; line-height: 1.2; text-align: left; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.card-dialog .card-stats .stat-target dd, .card-dialog .card-stats .stat-range dd { font-size: 14px; }
+.stat-heart svg { color: #ec8d99; }
+.stat-damage svg { color: #f0be76; }
+.stat-dps svg { color: #f2d579; }
+.stat-attack-speed svg, .stat-effect svg { color: #c7b8f2; }
+.stat-target svg { color: #97cbd4; }
+.stat-move svg { color: #9ad6bb; }
+.stat-range svg { color: #c1d59c; }
+.stat-deploy svg, .stat-duration svg { color: #a8c5ef; }
+.stat-shield svg { color: #91bff0; }
+.stat-units svg { color: #d8b9ed; }
+.stat-tower svg { color: #d1c899; }
+.card-more-stats { margin-top: 12px; }
+.card-more-stats summary { min-height: 44px; padding: 13px 2px; cursor: pointer; font-size: 12px; color: #d7bff0; }
+.card-more-stats summary:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; border-radius: 4px; }
+.card-dialog #card-extra-stats dd { font-size: 14px; }
+.card-dialog > .primary-btn { margin-top: 14px; min-height: 48px; }
 @media(max-width: 940px) {
+  .menu-scene .menu-background { height: 67%; object-position: 30% 38%; }
+  .menu-scene:after { background: linear-gradient(0deg, #10251f 30%, #10251f05 80%); }
   .main-menu { height: calc(var(--app-height, 100dvh) - 44px); min-height: 0; padding: 14px 16px max(16px, env(safe-area-inset-bottom)); }
   .menu-panel { width: 400px; padding: 18px; }
   .menu-panel .menu-deck-heading h1 { font-size: 28px; }
@@ -73,14 +106,27 @@ html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden;
   .deck-top .deck-slot { height: 48px; }
   .deck-modal .collection { padding: 9px 16px 16px; gap: 16px 11px; }
   .deck-save-row { padding-left: 14px; padding-right: 14px; }
-  .collection .pokemon-card { height: 127px; padding-bottom: 9px; }
-  .collection .card-name { font-size: 11px; }
-  .collection .card-role { font-size: 8px; }
+  .collection .pokemon-card { height: 140px; padding-bottom: 9px; }
+  .collection .card-name { font-size: 12px; }
+  .collection .card-role { font-size: 9px; }
   .card-dialog[open] { padding: 15px; }
-  .card-overview { grid-template-columns: 105px minmax(0, 1fr); gap: 11px; }
-  .card-dialog .eyebrow { font-size: 9px; letter-spacing: 1px; }
-  .card-dialog h3 { font-size: 19px; }
-  .card-dialog #card-info-description { font-size: 11px; }
+  .card-overview { grid-template-columns: 105px minmax(0, 1fr); gap: 12px; }
+  .card-dialog .eyebrow { font-size: 10px; letter-spacing: 1px; }
+  .card-dialog .card-identity { font-size: 11px; }
+  .card-dialog h3 { font-size: 22px; }
+  .card-dialog #card-info-description { font-size: 12px; }
+}
+@media(max-width: 600px) {
+  .deck-modal .collection { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .card-info-content { scrollbar-gutter: auto; padding-right: 3px; }
+}
+@media(max-width: 360px) {
+  .deck-modal .collection { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .card-overview { grid-template-columns: 85px minmax(0, 1fr); gap: 10px; }
+  .card-dialog .card-stats > div { padding: 9px 8px; }
+  .card-dialog .card-stats dt { font-size: 10px; }
+  .card-dialog .card-stats dd { font-size: 17px; }
+  .card-dialog .card-stats .stat-target dd, .card-dialog .card-stats .stat-range dd { font-size: 13px; }
 }
 @media(max-height: 650px) and (max-width: 940px) {
   .main-menu { padding-top: 10px; padding-bottom: 10px; }

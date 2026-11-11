@@ -16,7 +16,7 @@ function duel(enemy,count=1){
   return {enemy:CARDS[enemy].name,count,seconds:Number(g.elapsed.toFixed(2)),geodudeHp:Math.round(unit.hp),survivors:foes.filter(u=>u.hp>0).length};
 }
 const duels=['pikachu','psyduck','alakazam','gengar','feraligatr','arcanine','scizor','sableye','sharpedo','espeon','machamp'].map(key=>duel(key));
-duels.push(duel('shuppet',9),duel('nidoranPack',4));
+duels.push(duel('diglett',9),duel('poochyenaPack',4));
 const tankGame=fresh(),tower=tankGame.towers.find(t=>t.team===1&&t.lane===0);tower.active=true;
 const tank=tankGame.spawn('snorlax',0,158,340,0);run(tankGame,()=>tower.hp>0&&tank.hp>0);
 const rows=playable.map(([key,c])=>{
@@ -35,11 +35,11 @@ Revisión del 11 de noviembre de 2026. ${playable.length} cartas jugables. Se ge
 
 | Referencia | Coste | Vida por cuerpo | Interacción |
 | --- | --- | --- | --- |
-| Shuppet ×3 | 1 | 1 | Cualquier daño lo elimina; tres distracciones terrestres. |
-| Horda Shuppet ×9 | 3 | 1 | Rodea al objetivo único; cualquier hechizo de área limpia los cuerpos alcanzados. |
-| Nidoran tiradores ×3 | 2 | 81 | Un tiro de torre o Impactrueno por cuerpo. |
+| Diglett ×3 | 1 | 1 | Cualquier daño lo elimina; tres distracciones terrestres. |
+| Horda Diglett ×9 | 3 | 1 | Rodea al objetivo único; cualquier hechizo de área limpia los cuerpos alcanzados. |
+| Trío Ralts ×3 | 2 | 81 | Un tiro de torre o Impactrueno por cuerpo. |
 | Gastly ×4 | 2 | 81 | Enjambre aéreo de un tiro; Tronco no lo alcanza. |
-| Manada Nidoran ×4 | 3 | 180 | Dos tiros; Impactrueno deja 71 PV y Tronco los elimina. |
+| Manada Poochyena ×4 | 3 | 180 | Dos tiros; Impactrueno deja 71 PV y Tronco los elimina. |
 | Zubat ×3 | 2 | 180 | Variante aérea de dos tiros, con Chupavidas. |
 | Treecko ×2 | 3 | 304 | Tres tiros por cuerpo; Bola de fuego lo elimina. |
 | Torre lateral | — | 3000 | ${THRESHOLDS.tower} de daño cada ${THRESHOLDS.towerInterval} s. |
@@ -85,7 +85,7 @@ Nidoqueen conserva hasta tres Nidoran hembra por madre, con 81 PV y vida limitad
 
 ## Referencias de lore y adaptaciones
 
-La [Pokédex oficial de Snorlax](https://ph.portal-pokemon.com/pokedex/0143/) describe su cuerpo de 460 kg y su costumbre de comer y dormir; el rol de tanque es una adaptación de esos rasgos. La [entrada oficial de Wobbuffet](https://ph.portal-pokemon.com/pokedex/0202/) describe su respuesta al ser atacado, usada para reemplazar los puñetazos por contraataque. [Shuppet](https://ph.portal-pokemon.com/play/pokedex/0353) se alimenta de emociones oscuras; su clasificación terrestre, los grupos y el mínimo de 1 PV son decisiones de este juego. El [tipo y las habilidades de Umbreon](https://ph.portal-pokemon.com/pokedex/0197/) sirven como referencia de especie; Tóxico se usa como adaptación de control sostenido. Las estructuras Pokémon, los escudos, las habilidades pagadas y los fragmentos de Golem también son adaptaciones al combate de torres.
+La [Pokédex oficial de Snorlax](https://ph.portal-pokemon.com/pokedex/0143/) describe su cuerpo de 460 kg y su costumbre de comer y dormir; el rol de tanque es una adaptación de esos rasgos. La [entrada oficial de Wobbuffet](https://ph.portal-pokemon.com/pokedex/0202/) describe su respuesta al ser atacado, usada para reemplazar los puñetazos por contraataque. Los [datos base de PokéAPI](https://github.com/PokeAPI/pokeapi/blob/master/data/v2/csv/pokemon_stats.csv) definen la regla ATK > SpA para cuerpo a cuerpo y SpA > ATK para rango. Los empates conservan el ataque previo; las estructuras, los autodestructivos y los defensores pasivos conservan su mecánica. Diglett tiene 10 PV base y es terrestre; los grupos de tres o nueve con 1 PV son una adaptación de su fragilidad para este juego. El [tipo y las habilidades de Umbreon](https://ph.portal-pokemon.com/pokedex/0197/) sirven como referencia de especie; Tóxico se usa como adaptación de control sostenido. Las estructuras Pokémon, los escudos, las habilidades pagadas y los fragmentos de Golem también son adaptaciones al combate de torres.
 `;
 await mkdir(new URL('../docs/',import.meta.url),{recursive:true});
 await writeFile(new URL('../docs/BALANCE.md',import.meta.url),content);

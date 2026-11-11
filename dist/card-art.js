@@ -11,15 +11,13 @@ export const CARD_ART = Object.fromEntries(sheets.flatMap((keys, sheet) => keys.
   const columns = sheet === 5 ? 2 : 4, rows = sheet === 5 ? 1 : 4;
   return [key, { file: `assets/cards/battle-${sheet + 1}.webp`, columns, rows, x: index % columns, y: Math.floor(index / columns) }];
 })));
+for (const key of ['diglett', 'diglettHorde', 'raltsTrio', 'poochyenaPack']) {
+  CARD_ART[key] = { file: `assets/cards/${key}.webp`, columns: 1, rows: 1, x: 0, y: 0 };
+}
 export function cardArtMarkup(key) {
-  const groups={shuppet:[353,3],shuppetSwarm:[353,9],nidoranScouts:[29,3],nidoranPack:[32,4]};
-  if(groups[key]){
-    const[id,count]=groups[key];
-    return `<span class="card-art swarm-art swarm-art-${count}" data-art="${key}" aria-hidden="true">${Array.from({length:count},(_,i)=>`<img class="swarm-portrait" src="assets/pokemon/${id}/art.png" alt="" style="--member:${i};--members:${count}">`).join('')}</span>`;
-  }
   const art = CARD_ART[key];
   if (!art) return '';
-  const x = art.x * 100 / (art.columns - 1), y = art.rows === 1 ? 0 : art.y * 100 / (art.rows - 1);
+  const x = art.columns === 1 ? 0 : art.x * 100 / (art.columns - 1), y = art.rows === 1 ? 0 : art.y * 100 / (art.rows - 1);
   const flip = ['pikachu','charizard','treecko','eevee','vulpix','alakazam','scyther','beedrill','ekans','arcanine','cloyster','starmie','dragonite','feraligatr','espeon','scizor','sceptile','gardevoir','sharpedo','salamence','rayquaza'].includes(key);
   return `<span class="card-art" data-art="${key}" aria-hidden="true" style="background-image:url('${art.file}');background-size:${art.columns * 100}% ${art.rows * 100}%;background-position:${x}% ${y}%;${flip?'transform:scaleX(-1)':''}"></span>`;
 }
