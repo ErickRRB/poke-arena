@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111c1b">
+  <meta name="description" content="Batallas de Pokémon en tiempo real: elegí tus cartas, defendé tus torres y conquistá la arena.">
+  <title>Poké Arena · Batalla de torres</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true"><defs>
+    <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h6m6 0h6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="m11 5-6 4H2v6h3l6 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="m11 5-6 4H2v6h3l6 4V5Zm5 4 6 6m0-6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 9a2.5 2.5 0 0 1 5 .5c0 1.5-2.5 1.5-2.5 3.5m0 3h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="m9 3-.6 2.3-2 .9-2.2-.6-2 3.4 1.7 1.7v2.6L2.2 15l2 3.4 2.2-.6 2 .9L9 21h4l.6-2.3 2-.9 2.2.6 2-3.4-1.7-1.7v-2.6l1.7-1.7-2-3.4-2.2.6-2-.9L13 3H9Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="11" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="i-crown" viewBox="0 0 24 24"><path d="m3 6 5 5 4-7 4 7 5-5-2 12H5L3 6Z" fill="currentColor"/><path d="M5 21h14" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-energy" viewBox="0 0 24 24"><path d="M12 2s-7 8-7 13a7 7 0 0 0 14 0c0-5-7-13-7-13Z" fill="currentColor"/><path d="m13 9-4 6h3l-1 5 5-7h-3l1-4Z" fill="#fff"/></symbol>
+    <symbol id="i-deck" viewBox="0 0 24 24"><rect x="8" y="4" width="12" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5 17H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m14 9 3 3-3 3-3-3 3-3Z" fill="currentColor"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 6v12m8-12v12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z" fill="currentColor"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  </defs></svg>
+
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Poké Arena, inicio"><span class="brand-ball"></span><span>POKÉ<span class="brand-light">ARENA</span></span><span class="beta">FAN GAME</span></a>
+    <div class="arena-title"><span class="status-dot"></span>BOSQUE VERDE<span class="title-separator">/</span><span class="dim">ARENA 01</span></div>
+    <nav class="top-actions" aria-label="Opciones del juego">
+      <button id="help-btn" class="icon-btn" title="Cómo jugar" aria-label="Cómo jugar"><svg><use href="#i-help"/></svg></button>
+      <button id="sound-btn" class="icon-btn" title="Activar sonido" aria-label="Activar sonido" aria-pressed="false"><svg><use href="#i-mute"/></svg></button>
+      <button id="settings-btn" class="icon-btn" title="Ajustes" aria-label="Ajustes"><svg><use href="#i-settings"/></svg></button>
+    </nav>
+  </header>
+
+  <main class="battle-layout">
+    <section class="battle-stage" aria-label="Arena de batalla">
+      <div class="trainer-bar enemy-bar">
+        <div class="trainer-id"><span class="trainer-avatar rival-avatar">R</span><div><strong>Rival</strong><span id="difficulty-label">Entrenador · CPU</span></div></div>
+        <div class="battle-clock" id="battle-clock"><span id="boost" hidden>×2</span><span id="timer">3:00</span></div>
+        <div class="crowns enemy-crowns" aria-label="Torres del rival"><svg><use href="#i-crown"/></svg><strong id="enemy-score">0</strong></div>
+      </div>
+      <div class="arena-frame" id="arena-frame">
+        <canvas id="arena" width="600" height="800" tabindex="0" role="application" aria-label="Arena. Seleccioná una carta con las teclas 1 a 4 y usá las flechas para elegir dónde desplegar. Confirmá con Enter. En pantalla táctil, tocá una carta y después tu mitad de la arena."></canvas>
+        <div class="arena-corner corner-tl"></div><div class="arena-corner corner-tr"></div><div class="arena-corner corner-bl"></div><div class="arena-corner corner-br"></div>
+        <div id="loading" class="loading-overlay"><span class="brand-ball"></span><span>Cargando sprites…</span></div>
+        <div id="arena-announcement" class="arena-announcement" aria-live="polite"></div>
+        <div id="guide" class="guide" hidden><div><span id="guide-step">1 / 3</span><strong id="guide-text">Elegí una carta.</strong></div><button id="skip-guide" class="text-btn">Omitir</button></div>
+        <div id="ready-overlay" class="ready-overlay" hidden>
+          <div class="ready-badge"><svg><use href="#i-ball"/></svg>3 MINUTOS · VS. CPU</div>
+          <h1>Batalla<br>de torres</h1>
+          <p>Destruí las torres rivales<br>y defendé las tuyas.</p>
+          <button id="start-btn" class="primary-btn">Jugar <svg><use href="#i-arrow"/></svg></button>
+          <button id="practice-btn" class="practice-btn">Primera vez · Practicar <span>↗</span></button>
+        </div>
+        <div id="pause-overlay" class="pause-overlay" hidden><div><svg class="pause-symbol"><use href="#i-pause"/></svg><h2>En pausa</h2><button id="resume-btn" class="primary-btn">Seguir jugando<svg><use href="#i-play"/></svg></button></div></div>
+        <div id="result-overlay" class="result-overlay" hidden>
+          <div class="result-content"><svg class="result-crown"><use href="#i-crown"/></svg><span class="eyebrow" id="result-eyebrow">BATALLA TERMINADA</span><h2 id="result-title">Victoria</h2><div class="result-score"><span id="result-player">1</span><span>—</span><span id="result-enemy">0</span></div><p id="result-reason"></p><div class="result-stats"><div><strong id="result-deployed">0</strong><span>Desplegados</span></div><div><strong id="result-damage">0</strong><span>Daño total</span></div></div><button id="again-btn" class="primary-btn">Volver a jugar<svg><use href="#i-arrow"/></svg></button><button id="result-deck-btn" class="text-btn">Cambiar mazo</button></div>
+        </div>
+        <div class="toast" id="toast" role="status"></div>
+      </div>
+      <div class="trainer-bar player-bar"><div class="trainer-id"><span class="trainer-avatar player-avatar">V</span><div><strong>Vos</strong><span id="player-record">Entrenador</span></div></div><span class="deployment-hint" id="deployment-hint"><span class="blue-dot"></span>TU LADO DE LA ARENA</span><div class="crowns player-crowns" aria-label="Tus torres"><svg><use href="#i-crown"/></svg><strong id="player-score">0</strong></div></div>
+    </section>
+
+    <aside class="battle-console" aria-label="Cartas y controles">
+      <div class="console-heading"><div><span class="eyebrow">LISTO PARA DESPLEGAR</span><h2>Tu mano<span>04</span></h2></div><button id="deck-btn" class="deck-btn" title="Ver y editar mazo"><svg><use href="#i-deck"/></svg>Mazo</button></div>
+      <div class="hand" id="hand" aria-label="Tus cuatro cartas"></div>
+      <div class="next-card"><span>PRÓXIMA</span><div id="next-preview"></div><div class="cycle-note"><strong id="next-name">Zubat</strong><span>El mazo rota con cada jugada</span></div><span class="cycle-icon">↻</span></div>
+      <div class="energy-section"><div class="energy-title"><span><svg><use href="#i-energy"/></svg>Energía</span><strong><span id="energy-value">6</span><span class="energy-max"> / 10</span></strong></div><div class="energy-bar" id="energy-bar" role="progressbar" aria-label="Energía disponible" aria-valuemin="0" aria-valuemax="10" aria-valuenow="6"></div><div class="energy-caption"><span id="energy-caption">Se recarga automáticamente</span><span id="energy-speed">+1 / 2,8 s</span></div></div>
+      <div class="selected-detail" id="selected-detail"><span class="detail-marker"><svg><use href="#i-ball"/></svg></span><div><strong>Elegí una carta</strong><p>Después, tocá tu lado de la arena.</p></div></div>
+      <div class="battle-controls"><button id="pause-btn" class="secondary-btn" disabled><svg><use href="#i-pause"/></svg>Pausar<span class="shortcut">ESPACIO</span></button><button id="restart-btn" class="icon-btn" title="Reiniciar batalla" aria-label="Reiniciar batalla">↻</button></div>
+      <div class="keyboard-hint"><span><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> elegir carta</span><span><kbd>esc</kbd> cancelar</span></div>
+      <div class="console-footer"><span class="status-dot"></span>Contra la computadora<button id="credits-btn" class="text-btn">Créditos</button></div>
+    </aside>
+  </main>
+
+  <dialog id="help-dialog" class="modal"><div class="modal-heading"><div><span class="eyebrow">CÓMO JUGAR</span><h2>Elegí dónde desplegar</h2></div><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><div class="how-diagram"><div><span class="how-card"><img src="assets/pokemon/25/card.png" alt="Pikachu"><b>3</b></span><strong>Elegí</strong></div><svg><use href="#i-arrow"/></svg><div><span class="how-field"><i></i><b>+</b></span><strong>Desplegá</strong></div><svg><use href="#i-arrow"/></svg><div><svg class="how-crown"><use href="#i-crown"/></svg><strong>Avanzá</strong></div></div><p>Elegí una carta que puedas pagar y tocá tu mitad de la arena. Tus Pokémon avanzan y atacan solos.</p><p>La energía llega hasta 10. Los Pokémon terrestres cruzan por los puentes; los voladores pasan sobre el río. Los hechizos se pueden lanzar en cualquier lado.</p><p>Ganá destruyendo la torre central o más torres que tu rival en 3 minutos. En el último minuto, la energía se recarga al doble. Si empatan, hay un minuto extra con muerte súbita y desempate por la torre con menos vida.</p><div class="help-keys"><span><kbd>1–4</kbd> Carta</span><span><kbd>← ↑ ↓ →</kbd> Apuntar</span><span><kbd>Enter</kbd> Desplegar</span><span><kbd>Espacio</kbd> Pausa</span></div><button id="help-practice-btn" class="primary-btn">Probar con una guía<svg><use href="#i-arrow"/></svg></button></dialog>
+
+  <dialog id="settings-dialog" class="modal small-modal"><div class="modal-heading"><h2>Ajustes</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><label class="setting-row" for="difficulty"><span><strong>Rival</strong><small>Se aplica en la próxima batalla</small></span><select id="difficulty"><option value="easy">Principiante</option><option value="normal" selected>Entrenador</option><option value="hard">Líder de gimnasio</option></select></label><label class="setting-row" for="sound-setting"><span><strong>Efectos de sonido</strong><small>Ataques, despliegues y torres</small></span><input type="checkbox" id="sound-setting" class="switch"></label><label class="setting-row" for="motion-setting"><span><strong>Reducir movimiento</strong><small>Reduce efectos y sacudidas</small></span><input type="checkbox" id="motion-setting" class="switch"></label><p class="settings-footnote">Tu mazo y tus victorias se guardan en este navegador.</p><button id="settings-credits-btn" class="text-btn" style="margin-top:15px">Sprites y créditos</button></dialog>
+
+  <dialog id="deck-dialog" class="modal deck-modal"><div class="modal-heading"><div><span class="eyebrow">ARMÁ TU ESTRATEGIA</span><h2>Tu mazo <span id="deck-count">8/8</span></h2></div><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><div class="deck-summary"><span id="deck-edit-hint">Elegí 8 cartas para la próxima batalla.</span><span>Coste medio <strong id="deck-average">3,4</strong><svg><use href="#i-energy"/></svg></span></div><div class="collection" id="collection"></div><div class="deck-save-row"><button id="reset-deck-btn" class="text-btn">Restablecer mazo</button><button id="save-deck-btn" class="primary-btn">Guardar mazo<svg><use href="#i-arrow"/></svg></button></div></dialog>
+
+  <dialog id="credits-dialog" class="modal small-modal"><div class="modal-heading"><h2>Sprites y créditos</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><p>Los Pokémon de la arena usan sprites de <strong>Pokémon Mystery Dungeon</strong>, con sus vistas y animaciones originales de CHUNSOFT, conservados por <a href="https://github.com/PMDCollab/SpriteCollab" target="_blank" rel="noopener">PMDCollab / SpriteCollab</a>.</p><p>Los retratos de las cartas provienen del <a href="https://github.com/PokeAPI/sprites" target="_blank" rel="noopener">repositorio de sprites de PokéAPI</a>. Los archivos de atribución de cada Pokémon están incluidos con los recursos.</p><p>Pokémon pertenece a Nintendo, Creatures y GAME FREAK. Este es un juego de fans sin afiliación oficial.</p></dialog>
+
+  <dialog id="restart-dialog" class="modal small-modal"><div class="modal-heading"><h2>¿Empezar de nuevo?</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><p>La batalla actual se reinicia con tu mazo guardado.</p><div class="confirm-actions"><button class="secondary-btn" data-close>Seguir esta partida</button><button id="confirm-restart-btn" class="primary-btn">Reiniciar</button></div></dialog>
+  <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
