@@ -12,23 +12,25 @@ function arena(team=0,lane=0){
 }
 function run(game,seconds){for(let i=0;i<Math.ceil(seconds*60);i++)game.step(1/60);}
 
-test('neither princess tower acquires ground or flying enemies anywhere on either bridge',()=>{
-  for(const team of[0,1])for(const lane of[0,1])for(const key of['snorlax','zubat']){
-    const{game,tower,events}=arena(team,lane),unit=game.spawn(key,1-team,LANES[lane],400,0);
+test('princess towers acquire and damage ground and flying enemies across their bridge',()=>{
+  for(const team of[0,1])for(const lane of[0,1])for(const key of['snorlax','zubat'])for(const y of[BRIDGE.top,400,BRIDGE.bottom]){
+    const{game,tower,events}=arena(team,lane),unit=game.spawn(key,1-team,LANES[lane],y,0);
     unit.card={...unit.card,speed:0,damage:0};
-    for(let y=BRIDGE.top;y<=BRIDGE.bottom;y+=2){unit.y=y;game.step(1/60);assert.equal(tower.target,null,`${team}/${lane}/${key} at ${y}`);}
-    assert.ok(!events.some(e=>e.type==='attackStart'&&e.attacker===tower));
+    game.step(1/60);assert.equal(tower.target,unit,`${team}/${lane}/${key} at ${y}`);
+    run(game,.85);
+    assert.ok(events.some(e=>e.type==='attackRelease'&&e.attacker===tower&&e.target===unit));
+    assert.ok(unit.hp<unit.maxHp,`${team}/${lane}/${key} took no damage at ${y}`);
   }
 });
 
-test('the first princess shot waits until a moving tank has fully left the bridge in both directions',()=>{
+test('the first princess shot starts and releases while an approaching tank is on the bridge',()=>{
   for(const team of[0,1])for(const lane of[0,1]){
     const{game,tower,events}=arena(team,lane),unit=game.spawn('snorlax',1-team,LANES[lane],team?460:340,0);
     const positions=[];game.onEvent=event=>{events.push(event);if(['attackStart','attackRelease'].includes(event.type)&&event.attacker===tower)positions.push({type:event.type,y:unit.y});};
     run(game,12);
     for(const type of['attackStart','attackRelease']){
       const first=positions.find(p=>p.type===type);assert.ok(first,`${type} never happened`);
-      assert.ok(team?first.y+unit.radius<BRIDGE.top:first.y-unit.radius>BRIDGE.bottom,JSON.stringify({team,lane,first}));
+      assert.ok(first.y>=BRIDGE.top&&first.y<=BRIDGE.bottom,JSON.stringify({team,lane,first}));
     }
   }
 });
@@ -43,12 +45,16 @@ test('a princess cancels its pending shot when the victim retreats beyond its ra
   }
 });
 
-test('danger previews agree with tower acquisition at the bridge and in range',()=>{
-  for(const team of[0,1]){
-    const{game,tower}=arena(team),enemy=1-team,bank=team?BRIDGE.top:BRIDGE.bottom;
-    assert.ok(!game.deploymentThreats(enemy,'pikachu',tower.x,bank,true).includes(tower));
-    const y=tower.y+(team?1:-1)*(tower.range-5);
-    assert.ok(game.deploymentThreats(enemy,'pikachu',tower.x,y,true).includes(tower));
+test('danger previews agree with tower acquisition on the bridge and beyond its far bank',()=>{
+  for(const team of[0,1])for(const lane of[0,1])for(const key of['pikachu','charizard']){
+    const{game,tower}=arena(team,lane),enemy=1-team,farBank=team?BRIDGE.bottom:BRIDGE.top;
+    const beyond=farBank+(team?1:-1);
+    for(const y of[BRIDGE.top,400,BRIDGE.bottom,beyond]){
+      const unit=game.spawn(key,enemy,tower.x,y,0);unit.card={...unit.card,speed:0,damage:0};
+      game.step(1/60);
+      assert.equal(game.deploymentThreats(enemy,key,tower.x,y,true).includes(tower),y!==beyond);
+      assert.equal(tower.target===unit,y!==beyond);unit.hp=0;
+    }
   }
 });
 
