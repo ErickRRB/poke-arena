@@ -39,7 +39,7 @@ test('edge assistance reaches the bridge but rejects deep enemy territory withou
   for(const team of[0,1]){
     const g=fresh(),energy=g.energy[team],hand=[...g.hands[team]];
     assert.deepEqual(g.resolveDeployment(team,'pikachu',158,team?BRIDGE.bottom:BRIDGE.top),{x:156,y:team?352:448});
-    assert.equal(g.resolveDeployment(team,'pikachu',158,team?BRIDGE.bottom+5:BRIDGE.top-5),null);
+    assert.equal(g.resolveDeployment(team,'pikachu',158,team?460:340),null);
     const tower=g.towers.find(t=>t.team!==team&&!t.king);
     assert.equal(g.resolveDeployment(team,'pikachu',tower.x,tower.y),null);
     assert.equal(g.deploy(team,0,tower.x,tower.y).ok,false);assert.equal(g.energy[team],energy);assert.deepEqual(g.hands[team],hand);

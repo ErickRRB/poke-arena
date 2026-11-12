@@ -1,10 +1,10 @@
 // Recorded foley and Pokémon voices follow release/impact events; synthesis is a loading fallback.
-import { BattleMusic } from './music.js?v=11';
-import { CARDS } from './engine.js?v=13';
+import { BattleMusic } from './music.js?v=14';
+import { CARDS } from './engine.js?v=14';
 export class SoundSystem {
   constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.ready=this.preload().catch(()=>false); }
   async preload(){
-    const response=await fetch('assets/audio/manifest.json?v=11');if(!response.ok)throw Error('Audio manifest unavailable');
+    const response=await fetch('assets/audio/manifest.json?v=14');if(!response.ok)throw Error('Audio manifest unavailable');
     const manifest=await response.json();
     await Promise.all(Object.entries(manifest).flatMap(([group,entries])=>Object.entries(entries).map(async([id,file])=>{const r=await fetch(file);if(!r.ok)throw Error(`Audio unavailable: ${file}`);this.encoded.set(`${group}:${id}`,await r.arrayBuffer());})));
     this.bytesReady=true;if(this.ctx)await this.decodeSamples();return true;
@@ -142,9 +142,13 @@ export class SoundSystem {
     if(e.type==='attackRelease'){const id=e.attacker.card?.id||e.attacker.guard?.id;this.play(e.style,e.from.x,false,e.shot,id);}
     if(e.type==='hit'&&['bubble','hydro','rock','ember','coin','magnet','ice','confusion','aura'].includes(e.style))this.play(e.style,e.x,true);
     if(e.type==='blink')this.play('shadow',e.from.x);
+    if(e.type==='leap')this.play('dash',e.unit.x);
     if(e.type==='deploy'){this.cry(CARDS[e.key]?.id,e.x);this.tone(440,.13,'sine',.025,240);this.tone(880,.12,'sine',.012,120,0,.05);}
     if(e.type==='structureDown'||e.type==='towerDown'){this.noise(.5,480,.12);this.tone(80,.5,'triangle',.09,-45);}
-    if(e.type==='spellHit')this.play(e.key==='thunder'?'lightning':'ember',e.x,true);
+    if(e.type==='spellHit'){
+      const style={pinMissile:'leaf',lightning:'lightning',hyperBeam:'aura',blizzard:'ice',spikes:'rock',stealthRock:'rock',whirlpool:'hydro',nightmare:'shadow',earthquake:'slam',thunder:'lightning'}[e.key]||'ember';
+      this.play(style,e.x,true);
+    }
     if(e.type==='step'&&e.unit.key==='snorlax'&&this.ctx){const now=this.ctx.currentTime;if(now-(this.last.get('step')??-1)>.25){this.last.set('step',now);this.tone(60,.07,'sine',.035,-20,(e.unit.x-300)/500);}}
   }
 }

@@ -45,7 +45,7 @@ export const CARD_BALANCE = {
   grimer: {"cost":2,"hp":900,"damage":55,"interval":1.5,"speed":18,"style":"poison","range":85,"color":"#b686c8"},
   cloyster: {"cost":4,"hp":865,"damage":28,"interval":2.6,"speed":0},
   gastly: {"cost":2,"hp":81,"damage":35,"interval":1.3,"speed":32,"count":4,"deathField":6,"style":"lick"},
-  voltorb: {"cost":1,"hp":230,"damage":115,"interval":1.4,"speed":40,"stun":0.75,"air":true},
+  voltorb: {"cost":1,"hp":230,"damage":115,"interval":1.4,"speed":40,"stun":0.75,"air":true,"jumpRange":78,"jumpDuration":0.42,"windup":0.1},
   electrode: {"cost":4,"hp":1200,"damage":600,"interval":1.6,"speed":32,"windup":0.5,"splash":60},
   exeggutor: {"cost":5,"hp":1750,"damage":230,"interval":1.9,"speed":18,"style":"egg","splash":55,"summon":null,"summonMax":0,"move":"Bomba huevo"},
   koffing: {"cost":3,"hp":700,"damage":90,"interval":1.7,"speed":26,"style":"poison","burnKind":"poison","color":"#b49bcf"},
@@ -96,6 +96,28 @@ export const CARD_BALANCE = {
   diglettHorde: {"cost":3,"hp":81,"damage":81,"interval":1,"speed":32,"scale":1.5},
   raltsTrio: {"cost":2,"hp":133,"damage":81,"interval":1.7,"speed":26,"scale":1.65,"range":120},
   poochyenaPack: {"cost":2,"hp":202,"damage":120,"interval":1.1,"speed":32,"scale":1.65},
+  centralElectrode: {cost:5,hp:1000,damage:0,interval:2,speed:0,color:'#ffe18b'},
+  madriguera: {cost:5,hp:1200,damage:0,interval:2,speed:0,color:'#d0b0e5'},
+  vivero: {cost:4,hp:900,damage:0,interval:2,speed:0,color:'#bedb87'},
+  regice: {cost:4,hp:1000,damage:75,interval:1.8,speed:0,color:'#a5eafa',muzzleHeight:45},
+  duskull: {cost:5,hp:598,damage:90,interval:1.6,speed:26,color:'#b9a4e7',muzzleHeight:22},
+  raichu: {cost:3,hp:640,damage:700,interval:2.4,speed:32,color:'#ffd491',muzzleHeight:28},
+  registeel: {cost:7,hp:3200,damage:1080,interval:3.1,speed:18,color:'#b9d1dc',muzzleHeight:35},
+  regirock: {cost:7,hp:5700,damage:220,interval:2.2,speed:18,armor:.2,color:'#dbb38d',muzzleHeight:35},
+  celebi: {cost:4,hp:950,damage:220,interval:1.8,speed:32,color:'#c4e8aa',muzzleHeight:24},
+  pandilla: {cost:3,hp:202,damage:120,interval:1.1,speed:32},
+  shuppetToken: {cost:0,hp:81,damage:65,interval:1.2,speed:32},
+  poochyenaToken: {cost:0,hp:202,damage:120,interval:1.1,speed:32},
+  raltsToken: {cost:0,hp:133,damage:81,interval:1.7,speed:26},
+  pinMissile: {cost:3,damage:366,towerDamage:110},
+  lightning: {cost:6,damage:1056,towerDamage:317},
+  hyperBeam: {cost:6,damage:1484,towerDamage:371},
+  blizzard: {cost:4,damage:45,towerDamage:14},
+  spikes: {cost:3,damage:0,towerDamage:0},
+  stealthRock: {cost:3,damage:0,towerDamage:0},
+  whirlpool: {cost:3,damage:0,towerDamage:0},
+  nightmare: {cost:5,damage:0,towerDamage:0},
+  earthquake: {cost:3,damage:0,towerDamage:0},
 };
 
 const descriptions = {
@@ -159,7 +181,35 @@ export function applyBalance(cards) {
   cards.fireball.description='Sale desde tu torre del rey y viaja hasta la zona elegida. Al impactar, daña y empuja a tierra y aire.';
   cards.log.description='Rueda en línea recta desde donde lo soltás. Empuja a los enemigos terrestres a su paso.';
   cards.zubat.description='Tres murciélagos pequeños atacan a corta distancia y recuperan vida con sus mordidas.';
+  cards.voltorb.description='Se lanza de un salto hacia un enemigo cercano y explota al aterrizar. Daña en área a tierra y aire, aturde y se consume. Puede morir antes de llegar.';
+  Object.assign(cards.fireball,{name:'Bomba ígnea',move:'Bomba ígnea'});
+  Object.assign(cards.log,{name:'Mazazo',move:'Mazazo'});
+  applyRoles(cards);
+}
 
+// Labels describe the job and target profile; attacks and rarity have their own fields.
+function applyRoles(cards) {
+  const roles={pikachu:'Control · antiaéreo',machamp:'Antitanques · terrestre',raichu:'Antitanques · frágil',registeel:'Antitanques · pesado',
+    feraligatr:'Antitanques · terrestre',nidoking:'Antitanques · terrestre',geodude:'Mini tanque · terrestre',
+    snorlax:'Win condition · tanque',golem:'Win condition · tanque',steelix:'Win condition · tanque',groudon:'Win condition · tanque',regirock:'Win condition · tanque',
+    onix:'Win condition · terrestre',electrode:'Win condition · explosiva',celebi:'Win condition · aérea',voltorb:'Ciclo · antienjambre',
+    exeggutor:'Mini tanque · área',swampert:'Tanque · control',meganium:'Tanque · curación',blissey:'Mini tanque · curación',
+    kangaskhan:'Mini tanque · refuerzos',nidoqueen:'Tanque · invocadora',duskull:'Invocador · apoyo',pandilla:'Enjambre · mixto',
+    articuno:'Volador · control',zapdos:'Volador · control',moltres:'Volador · área',lugia:'Tanque aéreo · apoyo',hooh:'Tanque aéreo · curación',
+    kyogre:'Tanque · área',rayquaza:'Tanque aéreo · apoyo',dragonite:'Volador · antitanques',salamence:'Volador · antitanques',
+    absol:'Asesino · rematador',sableye:'Asesino · terrestre',ditto:'Apoyo · copia',mrmime:'Apoyo · escudos',chansey:'Apoyo · curación',
+    umbreon:'Mini tanque · terrestre',grimer:'Mini tanque · zona',gengar:'Tirador · área',eevee:'Ciclo · presión',
+    treecko:'Tiradores · dúo',raltsTrio:'Enjambre · antiaéreo',diglett:'Ciclo · distracción',diglettHorde:'Enjambre · terrestre'};
+  for(const [key,c] of Object.entries(cards)){
+    if(c.spell||c.token)continue;
+    if(c.structure)c.role=`Estructura · ${c.summon?'invocadora':c.passive?'reflejo':c.slow||c.stun?'control':c.splash?'área':c.air?'antiaérea':'defensa'}`;
+    else if(roles[key])c.role=roles[key];
+    else if(c.count>1)c.role=`Enjambre · ${c.flying?'aéreo':c.air?'antiaéreo':'terrestre'}`;
+    else if(c.heal)c.role=c.flying?'Volador · curación':'Apoyo · curación';
+    else if(c.hp>=2500)c.role=`Tanque · ${c.splash?'área':'terrestre'}`;
+    else if(c.hp>=1500)c.role=`Mini tanque · ${c.flying?'aéreo':c.splash?'área':c.slow?'control':'terrestre'}`;
+    else c.role=`${c.flying?'Volador':c.range>=50?'Tirador':'Luchador'} · ${c.slow||c.stun?'control':c.splash||c.pierce?'área':c.air?'antiaéreo':'terrestre'}`;
+  }
 }
 
 // Physical attackers approach their target; special attackers fire from range.
@@ -182,9 +232,9 @@ function applyAttackRoles(cards) {
   };
   for (const [key, card] of Object.entries(cards)) {
     if (card.spell) continue;
+    if (card.structure || card.suicide || card.passive || card.attackRoleOverride) continue;
     const base = POKEMON_STATS[card.id];
     if (!base) throw Error(`Missing Pokémon base stats for ${key}`);
-    if (card.structure || card.suicide || card.passive || card.attackRoleOverride) continue;
     const ranged = base.specialAttack > base.attack;
     const physical = base.attack > base.specialAttack;
     if (!ranged && !physical) continue;

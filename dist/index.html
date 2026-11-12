@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#111c1b">
+  <meta name="theme-color" content="#101d36">
   <meta name="description" content="Batallas de Pokémon en tiempo real: elegí tus cartas, defendé tus torres y conquistá la arena.">
   <title>Poké Arena · Batalla de torres</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=11">
-  <link rel="stylesheet" href="card-ui.css?v=11">
+  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="card-ui.css?v=14">
+  <link rel="stylesheet" href="theme.css?v=14">
 </head>
 <body class="menu-mode">
   <svg class="svg-defs" aria-hidden="true"><defs>
@@ -54,6 +55,7 @@
     <div class="menu-scene" aria-hidden="true"><img class="menu-background" src="assets/home-arena.webp" alt="" fetchpriority="high" decoding="async"></div>
     <div id="ready-overlay" class="menu-panel">
       <div class="menu-deck-heading"><h1>Tu mazo</h1><span>Elixir medio <strong id="menu-deck-average"></strong><svg aria-hidden="true"><use href="#i-energy"/></svg></span></div>
+      <div id="menu-deck-slots" class="deck-presets" role="group" aria-label="Mazos guardados"></div>
       <div id="menu-deck-preview" class="menu-deck-preview" aria-label="Tu mazo"></div>
       <p id="menu-deck-status" class="menu-deck-status" hidden></p>
       <label class="name-field" for="trainer-name">Nombre<input id="trainer-name" maxlength="20" autocomplete="nickname" placeholder="Entrenador"></label>
@@ -99,7 +101,7 @@
 
   <dialog id="settings-dialog" class="modal small-modal"><div class="modal-heading"><h2>Ajustes</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><label class="setting-row" for="difficulty"><span><strong>Rival</strong></span><select id="difficulty"><option value="easy">Principiante</option><option value="normal" selected>Entrenador</option><option value="hard">Líder de gimnasio</option></select></label><label class="setting-row" for="sound-setting"><span><strong>Sonido</strong></span><input type="checkbox" id="sound-setting" class="switch"></label><label class="setting-row" for="motion-setting"><span><strong>Reducir movimiento</strong></span><input type="checkbox" id="motion-setting" class="switch"></label><button id="settings-credits-btn" class="text-btn" style="margin-top:15px">Sprites y créditos</button></dialog>
 
-  <dialog id="deck-dialog" class="modal deck-modal" aria-label="Editar mazo"><div class="deck-top"><div class="modal-heading"><div><h2>Tu mazo <span id="deck-count">8/8</span></h2></div><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><div class="deck-strip" id="deck-strip" role="group" aria-label="Las ocho cartas de tu mazo"></div><div class="deck-summary"><span id="deck-edit-hint" aria-live="polite"></span><span>Coste medio <strong id="deck-average">3,4</strong><svg><use href="#i-energy"/></svg></span></div></div><div class="collection" id="collection"></div><div class="deck-save-row"><button id="reset-deck-btn" class="text-btn">Restablecer mazo</button><button id="save-deck-btn" class="primary-btn">Listo</button></div></dialog>
+  <dialog id="deck-dialog" class="modal deck-modal" aria-label="Editar mazo"><div class="deck-top"><div class="modal-heading"><div><h2>Tu mazo <span id="deck-count">8/8</span></h2></div><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><div id="deck-slots" class="deck-presets" role="group" aria-label="Mazos guardados"></div><div class="deck-strip" id="deck-strip" role="group" aria-label="Las ocho cartas de tu mazo"></div><div class="deck-summary"><span>Coste medio <strong id="deck-average">3,4</strong><svg><use href="#i-energy"/></svg></span></div></div><div class="collection" id="collection"></div><div class="deck-save-row"><button id="save-deck-btn" class="primary-btn">Listo</button></div></dialog>
 
   <dialog id="credits-dialog" class="modal small-modal"><div class="modal-heading"><h2>Sprites y créditos</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><p>Los Pokémon de la arena usan sprites de <strong>Pokémon Mystery Dungeon</strong>, con sus vistas y animaciones originales de CHUNSOFT, conservados por <a href="https://github.com/PMDCollab/SpriteCollab" target="_blank" rel="noopener">PMDCollab / SpriteCollab</a>.</p><p>La ilustración de inicio y las escenas de las cartas se generaron para Poké Arena. Los archivos de atribución de cada sprite están incluidos con los recursos.</p><p>Las voces de despliegue provienen del pack <a href="https://forums.pokemmo.com/index.php?/topic/86447-mod-hq-pokemon-anime-cries-gen-1-5/" target="_blank" rel="noopener">HQ Pokémon Anime Cries Gen 1–5, de Galladito/RojoY</a>. La música de fondo es original y varía durante la partida. Los efectos combinan muestras de <a href="https://kenney.nl/assets/impact-sounds" target="_blank" rel="noopener">Kenney</a> y receptron, bajo CC0. Sus fuentes y licencias están incluidas en los recursos de audio.</p><p>Pokémon pertenece a Nintendo, Creatures y GAME FREAK. Este es un juego de fans sin afiliación oficial.</p></dialog>
 
@@ -117,6 +119,6 @@
 
   <dialog id="restart-dialog" class="modal small-modal"><div class="modal-heading"><h2>¿Empezar de nuevo?</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><div class="confirm-actions"><button class="secondary-btn" data-close>Seguir esta partida</button><button id="confirm-restart-btn" class="primary-btn">Reiniciar</button></div></dialog>
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
-  <script type="module" src="app.js?v=13"></script>
+  <script type="module" src="app.js?v=14"></script>
 </body>
 </html>

@@ -14,8 +14,8 @@ const scales=playable.filter(([,c])=>c.id).map(([,c])=>'| '+[c.name,c.id,c.scale
 const simulations=[];
 for(const [key,count]of[['machamp',1],['diglett',9],['treecko',2],['pikachu',1]]){
   const g=new Game({seed:611});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);
-  const tank=g.spawn('snorlax',1,300,400,0);tank.card={...tank.card,passive:true,speed:0};
-  for(let i=0;i<count;i++)g.spawn(key,0,276+i%3*24,450+Math.floor(i/3)*24,0);
+  const tank=g.spawn('snorlax',1,300,460,0);tank.card={...tank.card,passive:true,speed:0};
+  for(let i=0;i<count;i++)g.spawn(key,0,276+i%3*24,510+Math.floor(i/3)*24,0);
   for(let i=0;i<45*60&&tank.hp>0;i++)g.step(1/60);
   simulations.push({attacker:CARDS[key].name,count,seconds:Number(g.elapsed.toFixed(2)),tankHp:Math.round(tank.hp)});
 }

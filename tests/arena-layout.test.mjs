@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, W, H, TILE, LANES, RIVER, BRIDGE, snapToCell } from '../dist/engine.js';
+import { Game, DEFAULT_DECK, W, H, TILE, LANES, RIVER, BRIDGE, snapToCell } from '../dist/engine.js';
 import { packGame, unpackGame, perspective } from '../dist/snapshot.js';
 
 function arena(team=0,lane=0){
-  const events=[],game=new Game({seed:9182,onEvent:event=>events.push(event)});
+  const events=[],game=new Game({seed:9182,cpuDeck:DEFAULT_DECK,onEvent:event=>events.push(event)});
   game.start();game.aiEnabled=false;
   const tower=game.towers.find(t=>t.team===team&&t.lane===lane);
   game.towers.forEach(t=>t.active=t===tower);tower.cooldown=0;

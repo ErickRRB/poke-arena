@@ -1,10 +1,10 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=13';
-import { Renderer } from './render.js?v=13';
-import { SoundSystem } from './audio.js?v=13';
-import { OnlineClient } from './online.js?v=11';
-import { unpackGame, perspective } from './snapshot.js?v=13';
-import { cardArtMarkup } from './card-art.js?v=11';
-import { loadDeck, saveDeck } from './deck-storage.js?v=13';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=14';
+import { Renderer } from './render.js?v=14';
+import { SoundSystem } from './audio.js?v=14';
+import { OnlineClient } from './online.js?v=14';
+import { unpackGame, perspective } from './snapshot.js?v=14';
+import { cardArtMarkup } from './card-art.js?v=14';
+import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=14';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -24,13 +24,13 @@ const store = {
   get(key, fallback) { try { const v = JSON.parse(localStorage.getItem(`poke-arena:${key}`)); return v ?? fallback; } catch { return fallback; } },
   set(key, value) { try { localStorage.setItem(`poke-arena:${key}`, JSON.stringify(value)); } catch { /* Storage can be disabled in private browsing. */ } },
 };
-let deck=loadDeck();
+let deckLibrary=loadDeckLibrary(),deck=[...deckLibrary.slots[deckLibrary.active]];
 const storedDifficulty = store.get('difficulty', 'normal');
 let difficulty = ['easy', 'normal', 'hard'].includes(storedDifficulty) ? storedDifficulty : 'normal';
 let sound = store.get('sound', true) === true;
 let reduced = store.get('reduced', matchMedia('(prefers-reduced-motion: reduce)').matches) === true;
 let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true;
-let toastTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve();
+let toastTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
 const sfx=new SoundSystem(sound);
 let inspectedCard=null;
 
@@ -61,16 +61,24 @@ function cardMarkup(key, index, collection = false) {
   return `<button class="pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-${collection ? 'collection' : 'card'}="${collection ? key : index}" aria-label="${c.name}, ${RARITIES[c.rarity]}, ${c.cost} de elixir, ${c.role}" aria-pressed="false"><span class="card-cost">${c.cost}</span>${!collection ? `<span class="card-key">${index + 1}</span>` : ''}${cardArtMarkup(key)}${collection&&c.count>1?`<span class="card-quantity" aria-hidden="true"><svg><use href="#i-units"/></svg>×${c.count}</span>`:''}<span class="card-name">${c.name}</span><span class="card-role">${c.role}</span></button>`;
 }
 function renderMenuDeck(){
+  renderDeckSlots();
   $('menu-deck-preview').innerHTML=Array.from({length:8},(_,i)=>{const key=deck[i],c=CARDS[key];return c?`<button class="menu-card pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-menu-card="${key}" aria-label="${c.name}, ${c.cost} de elixir, ver detalles"><span class="card-cost">${c.cost}</span>${cardArtMarkup(key)}<span class="card-name">${c.name}</span></button>`:`<button class="menu-card pokemon-card empty" data-menu-empty aria-label="Elegir carta para el espacio ${i+1}">+</button>`;}).join('');
   $('menu-deck-average').textContent=deck.length?(deck.reduce((sum,key)=>sum+CARDS[key].cost,0)/deck.length).toFixed(1).replace('.',','):'—';
-  $('menu-deck-status').hidden=deck.length===8;
-  $('menu-deck-status').textContent=`Elegí ${8-deck.length} ${deck.length===7?'carta más':'cartas más'} para jugar.`;
+  $('menu-deck-status').hidden=true;
   $('start-btn').disabled=$('online-btn').disabled=!ready||deck.length!==8;
 }
 function applyDeckChanges(){
-  deck=[...deckDraft];saveDeck(deck);renderMenuDeck();
-  $('deck-edit-hint').textContent=deck.length===8?'Mazo completo · Quitá una carta para agregar otra.':`${deck.length}/8 · Elegí ${8-deck.length} más`;
+  deck=[...deckDraft];deckLibrary.slots[deckLibrary.active]=[...deck];saveDeck(deck);saveDeckLibrary(deckLibrary);renderMenuDeck();
 }
+function renderDeckSlots(){
+  for(const id of['menu-deck-slots','deck-slots'])$(id).innerHTML=deckLibrary.slots.map((cards,i)=>`<button class="deck-preset" data-deck-slot="${i}" aria-pressed="${i===deckLibrary.active}" aria-label="Mazo ${i+1}, ${cards?.length??0} de 8 cartas" ${id==='deck-slots'&&!deckEditable?'disabled':''}><svg aria-hidden="true"><use href="#i-deck"/></svg><span>${i+1}</span><small>${cards?.length?`${cards.length}/8`:'+'}</small></button>`).join('');
+}
+for(const id of['menu-deck-slots','deck-slots'])$(id).addEventListener('click',event=>{
+  const button=event.target.closest('[data-deck-slot]');if(!button||(!deckEditable&&id==='deck-slots'))return;
+  deckLibrary.active=Number(button.dataset.deckSlot);deckDraft=[...(deckLibrary.slots[deckLibrary.active]||[])];applyDeckChanges();
+  if($('deck-dialog').open)renderCollection();
+  $(id).querySelector(`[data-deck-slot="${deckLibrary.active}"]`).focus({preventScroll:true});
+});
 function syncHand() {
   const signature = game.hands[0].join(',');
   if (signature !== handSignature) {
@@ -85,7 +93,7 @@ function syncHand() {
     el.classList.toggle('selected', selected === i);
     el.classList.toggle('unaffordable', game.energy[0] + .001 < c.cost);
     el.classList.toggle('guide-target', !!walkthrough && walkthrough.step === 1 && i === 0);
-    el.disabled=game.tiebreaker||(onlineMode&&game.state==='ready');
+    el.disabled=deploying||game.tiebreaker||(onlineMode&&game.state==='ready');
     el.setAttribute('aria-pressed', String(selected === i));
   }
 }
@@ -93,7 +101,7 @@ function updateDetail() {
   renderer.selection=game.hands[0][selected]||null;
 }
 function choose(index) {
-  if (!ready || index < 0 || index > 3 || game.state === 'ended' || game.state === 'paused') return;
+  if (!ready || deploying || index < 0 || index > 3 || game.state === 'ended' || game.state === 'paused') return;
   if (selected !== index) audioInit();
   selected = index;
   renderer.pointer = null;
@@ -138,13 +146,12 @@ function handleEvent(e) {
   if (e.type === 'end') showResult(e);
 }
 function newGame({ start = false, tutorial = false } = {}) {
+  deploying=false;deploymentSerial++;
   sfx.resetMusic();
   $('result-overlay').hidden = true; $('pause-overlay').hidden = true; $('guide').hidden = true;
   walkthrough = null; selected = -1; handSignature = ''; renderer.pointer = null; renderer.selection = null; renderer.tutorialSpot = false;
   renderer.particles = []; renderer.rings = [];renderer.effects=[];renderer.numbers=[];
-  renderer.deploymentPreview=null;
   game = new Game({ deck: tutorial||deck.length!==8 ? DEFAULT_DECK : deck, difficulty, tutorial, onEvent: handleEvent, animations:renderer.metadata });
-  if(!tutorial){const pool=Object.keys(CARDS).filter(k=>!CARDS[k].token&&!CARDS[k].spell&&CARDS[k].cost<=6&&k!=='snorlax').sort(()=>Math.random()-.5),bot=['snorlax','log',...pool.slice(0,6)];game.hands[1]=bot.slice(0,4);game.queues[1]=bot.slice(4);}
   $('enemy-name').textContent = `${{easy:'Principiante',normal:'Entrenador',hard:'Líder de gimnasio'}[difficulty]} · CPU`;
   document.body.classList.toggle('menu-mode',!start);$('main-menu').hidden=start;
   renderMenuDeck();
@@ -186,19 +193,22 @@ function arenaPoint(clientX,clientY) {
   return {x:(clientX-r.left)/r.width*W,y:(clientY-r.top)/r.height*H,inside:clientX>=r.left&&clientX<=r.right&&clientY>=r.top&&clientY<=r.bottom};
 }
 async function attemptDeploy(point) {
-  if(game.state!=='playing')return;
+  if(game.state!=='playing'||deploying)return;
   if(selected<0)return;
-  const index=selected,key=game.hands[0][index];
-  const result=onlineMode?await online.send({kind:'deploy',handIndex:index,key,x:online.team?W-point.x:point.x,y:online.team?H-point.y:point.y}):game.deploy(0,index,point.x,point.y);
-  if(!result.ok){toast(result.reason);tone(150,.12,'triangle',.02);return;}
-  renderer.deploymentPreview={key:result.key,x:result.x,y:result.y,until:renderer.t+1.5};
-  live(`${CARDS[result.key].name} desplegado. ${Math.floor(game.energy[0])} de energía.`);
-  cancelSelection();updateUi();
+  const index=selected,key=game.hands[0][index],client=online,isOnline=onlineMode,serial=++deploymentSerial;
+  deploying=true;cancelSelection();
+  try{
+    const result=isOnline?await client.send({kind:'deploy',handIndex:index,key,x:client.team?W-point.x:point.x,y:client.team?H-point.y:point.y}):game.deploy(0,index,point.x,point.y);
+    if(serial!==deploymentSerial||isOnline&&client!==online)return;
+    if(!result?.ok){toast(result?.reason||'No se pudo colocar la carta.');tone(150,.12,'triangle',.02);return;}
+    live(`${CARDS[result.key].name} desplegado. ${Math.floor(game.energy[0])} de energía.`);updateUi();
+  }catch(error){toast(error.message||'No se pudo colocar la carta.');}
+  finally{if(serial===deploymentSerial){deploying=false;syncHand();}}
 }
 function togglePause() {
   if(onlineMode)return;
   if(document.querySelector('dialog[open]'))return;
-  if(game.state==='playing'){game.pause();$('pause-overlay').hidden=false;$('resume-btn').focus({preventScroll:true});live('Partida en pausa.');}
+  if(game.state==='playing'){cancelSelection();game.pause();$('pause-overlay').hidden=false;$('resume-btn').focus({preventScroll:true});live('Partida en pausa.');}
   else if(game.state==='paused'){game.resume();$('pause-overlay').hidden=true;canvas.focus({preventScroll:true});live('Partida reanudada.');}
 }
 const modalFocus = new WeakMap();
@@ -227,8 +237,8 @@ document.querySelectorAll('dialog').forEach(dialog=>{
 function renderCollection() {
   const focused=document.activeElement,reference=$('collection').contains(focused)||$('deck-strip').contains(focused)?focusReference(focused):null;
   renderDeckStrip();
-  const term=($('collection-search')?.value||'').toLowerCase(),rarity=$('rarity-filter')?.value||'',order=$('collection-sort').value;
-  const keys=Object.keys(CARDS).filter(k=>!CARDS[k].token&&(!rarity||CARDS[k].rarity===rarity)&&CARDS[k].name.toLowerCase().includes(term));
+  const term=($('collection-search')?.value||'').toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,''),rarity=$('rarity-filter')?.value||'',role=$('role-filter')?.value||'',order=$('collection-sort').value;
+  const keys=Object.keys(CARDS).filter(k=>{const c=CARDS[k],text=`${c.name} ${c.role} ${c.move}`.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');return !c.token&&(!rarity||c.rarity===rarity)&&(!role||(role==='spell'?c.spell:role==='structure'?c.structure:role==='building'?c.building:role==='summon'?c.summon||c.deathSpawn:!c.spell&&!c.structure))&&text.includes(term);});
   const byName=(a,b)=>CARDS[a].name.localeCompare(CARDS[b].name,'es');
   if(order==='elixir-asc')keys.sort((a,b)=>CARDS[a].cost-CARDS[b].cost||byName(a,b));
   else if(order==='elixir-desc')keys.sort((a,b)=>CARDS[b].cost-CARDS[a].cost||byName(a,b));
@@ -241,7 +251,6 @@ function renderCollection() {
   $('deck-count').textContent=`${deckDraft.length}/8`;
   $('deck-average').textContent=deckDraft.length?(deckDraft.reduce((a,k)=>a+CARDS[k].cost,0)/deckDraft.length).toFixed(1).replace('.',','):'—';
   $('save-deck-btn').disabled=false;
-  $('reset-deck-btn').disabled=!deckEditable;
   if(reference?.attribute==='data-toggle'&&$('collection').querySelector(`[data-toggle="${CSS.escape(reference.value)}"]`)?.disabled)reference.attribute='data-collection';
   restoreFocus(reference);
 }
@@ -256,14 +265,13 @@ $('deck-strip').addEventListener('click',e=>{const el=e.target.closest('[data-de
 $('menu-deck-preview').addEventListener('click',e=>{if(e.target.closest('[data-menu-empty]')){openDeck();return;}const el=e.target.closest('[data-menu-card]');if(el){deckEditable=true;deckDraft=[...deck];renderCardInfo(el.dataset.menuCard);openModal('card-dialog');}});
 function openDeck() {
   deckEditable=!['playing','paused'].includes(game.state);deckDraft=[...deck];
-  $('deck-edit-hint').textContent=!deckEditable?'En batalla':deck.length===8?'Mazo completo · Quitá una carta para agregar otra.':`${deck.length}/8 · Elegí ${8-deck.length} más`;
-  renderCollection();openModal('deck-dialog');
+  renderDeckSlots();renderCollection();openModal('deck-dialog');
 }
 function toggleDeckCard(key){
   if(!deckEditable)return;
   if(deckDraft.includes(key))deckDraft=deckDraft.filter(k=>k!==key);
   else if(deckDraft.length<8)deckDraft.push(key);
-  else { $('deck-edit-hint').textContent='Mazo completo';return; }
+  else return;
   applyDeckChanges();renderCollection();
 }
 function renderCardInfo(key){
@@ -275,12 +283,13 @@ function renderCardInfo(key){
   $('card-info-move').textContent=c.move||c.name;$('card-info-description').textContent=c.description;
   const number=value=>Number(value).toLocaleString('es-AR',{maximumFractionDigits:1});
   const seconds=value=>`${Number(value).toLocaleString('es-AR',{maximumFractionDigits:2})} s`,tiles=value=>`${number(value/TILE)} casillas`;
-  const targets=c.passive?'Contraataca':c.building?'Estructuras':c.rolling?'Tierra':c.spell||c.air?'Tierra y aire':'Tierra';
+  const targets=c.summon&&c.passive?'Invoca tropas':c.passive?'Contraataca':c.building?'Estructuras':c.rolling||c.groundOnly?'Tierra':c.spell||c.air||c.squad?'Tierra y aire':'Tierra';
   const stats=[],extraStats=[],traits=[];
   if(c.hp)stats.push(['Puntos de vida',number(c.hp),'heart']);
   const impacts=c.bolts||c.burst||1;
-  stats.push([c.bolts?'Daño de los rayos':c.burst?'Daño por ráfaga':'Daño por golpe',impacts>1?`${number(c.damage)} × ${impacts}`:number(c.damage),'damage']);
-  if(!c.spell&&c.interval){
+  if(c.fieldDamage)stats.push(['Daño por segundo',number(c.fieldDamage),'dps']);
+  else if(c.damage>0)stats.push([c.bolts?'Daño de los rayos':c.burst?'Daño por ráfaga':'Daño por golpe',impacts>1?`${number(c.damage)} × ${impacts}`:number(c.damage),'damage']);
+  if(!c.spell&&c.interval&&!c.passive){
     stats.push(['Daño por segundo',number(c.damage*impacts/c.interval),'dps']);
     stats.push(['Ataque cada',seconds(c.interval),'attack-speed']);
   }
@@ -291,41 +300,56 @@ function renderCardInfo(key){
   if(c.spell)stats.push([c.rolling?'Recorrido':'Radio',tiles(c.rolling?c.travelDistance:c.splash),'range']);
   stats.push([c.travelSpeed&&!c.rolling?'Lanzamiento':'Despliegue',seconds(c.spell?(c.rolling?0:c.castDelay??.4):.75),'deploy']);
   if(c.count>1)traits.push(['Unidades',`×${c.count}`,'units']);
+  if(c.spawnKey)stats.push(['Invocaciones',`${c.spawnTotal} ${CARDS[c.spawnKey].name}`,'units']);
+  if(c.fieldDuration)stats.push(['Duración',seconds(c.fieldDuration),'duration']);
   if(c.shield)traits.push(['Escudo',number(c.shield),'shield']);
   if(c.flying)traits.push(['Desplazamiento','Vuela','move']);
   if(c.lifetime)extraStats.push(['Duración',seconds(c.lifetime),'duration']);
   if(c.burn)extraStats.push([c.burnKind==='poison'?'Veneno':'Quemadura',`${number(c.burn)} / s`,'effect']);
-  if(c.stun)extraStats.push(['Aturdimiento',seconds(c.stun),'effect']);
+  if(c.stun)extraStats.push([c.freeze?'Congelación':'Aturdimiento',seconds(c.stun),'effect']);
   if(c.entryDamage)extraStats.push(['Daño al aparecer',number(c.entryDamage),'damage']);
   if(c.entryRadius)extraStats.push(['Área al aparecer',tiles(c.entryRadius),'range']);
   if(c.entryStun)extraStats.push(['Aturdimiento al aparecer',seconds(c.entryStun),'effect']);
   if(c.travelSpeed&&!c.rolling)extraStats.push(['Viaje',`${number(c.travelSpeed/TILE)} casillas / s`,'move']);
   if(c.slow)extraStats.push(['Ralentización',seconds(c.slow),'effect']);
   if(c.lifesteal)extraStats.push(['Curación por golpe',number(c.lifesteal),'heart']);
-  if(c.summon)extraStats.push(['Invocación',`${CARDS[c.summon].name} · ${seconds(c.summonEvery)}`,'units']);
+  if(c.summon)stats.push(['Invocación',`${c.summonCount||1} ${CARDS[c.summon].name} / ${seconds(c.summonEvery)}`,'units']);
+  if(c.deathSpawn)extraStats.push(['Al caer',`${c.deathCount||1} ${CARDS[c.deathSpawn].name}`,'units']);
+  if(c.targetLimit)extraStats.push(['Objetivos máximos',c.targetLimit,'target']);
+  if(c.airMultiplier)extraStats.push(['Daño a voladores',`${number(c.fieldDamage*c.airMultiplier)} / s`,'damage']);
+  if(c.buildingMultiplier)extraStats.push(['Daño a estructuras',`${number(c.fieldDamage*c.buildingMultiplier)} / s`,'damage']);
   if(c.ability)extraStats.push(['Habilidad',`${c.ability.cost} elixir · 1 uso`,'effect']);
   if(c.ability?.damage)extraStats.push(['Daño de habilidad',number(c.ability.damage),'damage']);
   if(c.ability?.stun)extraStats.push(['Aturdimiento de habilidad',seconds(c.ability.stun),'effect']);
   if(c.heal)extraStats.push(['Curación',`${number(c.heal)} / ${seconds(c.healEvery)}`,'heart']);
   if(c.reflect)extraStats.push(['Daño reflejado',`${Math.round(c.reflect*100)} %`,'shield']);
   if(c.armor)extraStats.push(['Reducción de daño',`${Math.round(c.armor*100)} %`,'shield']);
+  if(c.squad){
+    const bodies=[...new Set(c.squad)].map(k=>CARDS[k]);
+    for(const stat of stats){
+      if(stat[2]==='heart')stat[1]=bodies.map(b=>number(b.hp)).join(' / ');
+      if(stat[2]==='damage')stat[1]=bodies.map(b=>number(b.damage)).join(' / ');
+      if(stat[2]==='dps')stat[1]=bodies.map(b=>number(b.damage/b.interval)).join(' / ');
+      if(stat[2]==='attack-speed')stat[1]=bodies.map(b=>seconds(b.interval)).join(' / ');
+      if(stat[2]==='range')stat[1]=bodies.map(b=>b.range<50?'Contacto':tiles(b.range)).join(' / ');
+    }
+  }
   const statMarkup=items=>items.map(([label,value,icon])=>`<div class="stat-item stat-${icon}"><dt><svg aria-hidden="true"><use href="#i-${icon}"/></svg><span>${label}</span></dt><dd>${value}</dd></div>`).join('');
   $('card-info-stats').innerHTML=statMarkup(stats);
   $('card-info-traits').innerHTML=statMarkup(traits);$('card-info-traits').hidden=!traits.length;
-  $('card-stats-unit').textContent=c.count>1?'Por unidad':'';
+  $('card-stats-unit').textContent=c.squad?[...new Set(c.squad)].map(k=>CARDS[k].name).join(' / '):c.count>1?'Por unidad':'';
   $('card-extra-stats').innerHTML=statMarkup(extraStats);
   $('card-more-stats').hidden=!extraStats.length;
   if($('card-dialog').open===false)$('card-more-stats').open=false;
-  const included=deckDraft.includes(key);$('card-info-toggle').textContent=included?'Quitar del mazo':deckDraft.length===8?'Mazo completo':'Agregar al mazo';
+  const included=deckDraft.includes(key);$('card-info-toggle').textContent=included?'Quitar del mazo':'Agregar al mazo';
   $('card-info-toggle').disabled=!deckEditable||(!included&&deckDraft.length===8);
 }
 $('collection').addEventListener('click',e=>{
   const toggle=e.target.closest('[data-toggle]');if(toggle){toggleDeckCard(toggle.dataset.toggle);return;}
   const el=e.target.closest('[data-collection]');if(el){renderCardInfo(el.dataset.collection);openModal('card-dialog');}
 });
-$('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){toggleDeckCard(inspectedCard);if(!$('deck-dialog').open){closeModal($('card-dialog'),false);openModal('deck-dialog');}else renderCardInfo(inspectedCard);}});
+$('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){toggleDeckCard(inspectedCard);closeModal($('card-dialog'),false);}});
 $('save-deck-btn').addEventListener('click',()=>closeModal($('deck-dialog')));
-$('reset-deck-btn').addEventListener('click',()=>{deckDraft=[...DEFAULT_DECK];applyDeckChanges();renderCollection();});
 
 $('hand').addEventListener('click',e=>{const el=e.target.closest('[data-card]');if(el&&performance.now()>ignoreClickUntil)choose(Number(el.dataset.card));});
 $('hand').addEventListener('pointerdown',e=>{const el=e.target.closest('[data-card]');if(!el||e.button!==0)return;drag={index:Number(el.dataset.card),x:e.clientX,y:e.clientY,active:false};});
@@ -387,7 +411,7 @@ $('confirm-restart-btn').addEventListener('click',()=>{closeModal($('restart-dia
 
 for(let i=0;i<10;i++){const el=document.createElement('div');el.className='energy-segment';el.innerHTML='<div class="energy-fill"></div>';$('energy-bar').append(el);}
 $('trainer-name').value=store.get('name','');$('trainer-name').addEventListener('change',()=>store.set('name',$('trainer-name').value));
-const filters=document.createElement('div');filters.className='collection-tools';filters.innerHTML='<input id="collection-search" type="search" placeholder="Buscar carta" aria-label="Buscar carta"><select id="rarity-filter" aria-label="Filtrar rareza"><option value="">Todas las rarezas</option>'+Object.entries(RARITIES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')+'</select><select id="collection-sort" aria-label="Ordenar cartas"><option value="elixir-asc">Menor elixir</option><option value="elixir-desc">Mayor elixir</option><option value="name">Nombre A–Z</option><option value="original">Orden original</option></select>';$('collection').before(filters);$('collection-search').addEventListener('input',renderCollection);$('rarity-filter').addEventListener('change',renderCollection);$('collection-sort').value=store.get('collection-order','elixir-asc');if(!$('collection-sort').value)$('collection-sort').value='elixir-asc';$('collection-sort').addEventListener('change',()=>{store.set('collection-order',$('collection-sort').value);renderCollection();});
+const filters=document.createElement('div');filters.className='collection-tools';filters.innerHTML='<input id="collection-search" type="search" placeholder="Buscar carta" aria-label="Buscar carta"><select id="rarity-filter" aria-label="Filtrar rareza"><option value="">Todas las rarezas</option>'+Object.entries(RARITIES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')+'</select><select id="role-filter" aria-label="Filtrar rol"><option value="">Todos los roles</option><option value="building">Win conditions</option><option value="structure">Estructuras</option><option value="spell">Hechizos</option><option value="summon">Invocadores</option><option value="troop">Tropas</option></select><select id="collection-sort" aria-label="Ordenar cartas"><option value="elixir-asc">Menor elixir</option><option value="elixir-desc">Mayor elixir</option><option value="name">Nombre A–Z</option><option value="original">Orden original</option></select>';$('collection').before(filters);$('collection-search').addEventListener('input',renderCollection);$('rarity-filter').addEventListener('change',renderCollection);$('role-filter').addEventListener('change',renderCollection);$('collection-sort').value=store.get('collection-order','elixir-asc');if(!$('collection-sort').value)$('collection-sort').value='elixir-asc';$('collection-sort').addEventListener('change',()=>{store.set('collection-order',$('collection-sort').value);renderCollection();});
 $('online-btn').addEventListener('click',beginOnline);$('cancel-search').addEventListener('click',mainMenu);
 $('abilities').addEventListener('click',async e=>{const button=e.target.closest('[data-ability]');if(!button)return;const id=Number(button.dataset.ability);button.disabled=true;const result=onlineMode?await online.send({kind:'ability',unitId:id}):game.activateAbility(0,id);if(!result.ok)live(result.reason);updateUi();});
 async function beginOnline(){

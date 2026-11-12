@@ -1,4 +1,4 @@
-import { Game, CARDS, W, H, PRINCESS_RANGE } from './engine.js?v=13';
+import { Game, CARDS, W, H, PRINCESS_RANGE } from './engine.js?v=14';
 
 // Entity references are IDs on the wire; full cards preserve summoned forms.
 const entityCopy=e=>{const{target,...copy}=e;return{...copy,targetId:target?.id??null};};
@@ -24,6 +24,7 @@ function turn(value){
   const copy={};for(const[key,item]of Object.entries(value))copy[key]=['card','guard','stats'].includes(key)?structuredClone(item):turn(item);
   if(typeof copy.x==='number')copy.x=W-copy.x;if(typeof copy.y==='number')copy.y=H-copy.y;
   if(typeof copy.startX==='number')copy.startX=W-copy.startX;if(typeof copy.startY==='number')copy.startY=H-copy.startY;
+  if(typeof copy.endX==='number')copy.endX=W-copy.endX;if(typeof copy.endY==='number')copy.endY=H-copy.endY;
   if(typeof copy.dx==='number')copy.dx=-copy.dx;if(typeof copy.dy==='number')copy.dy=-copy.dy;
   if(typeof copy.angle==='number')copy.angle+=Math.PI;
   if(copy.team===0||copy.team===1)copy.team=1-copy.team;

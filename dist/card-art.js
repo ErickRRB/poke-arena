@@ -1,3 +1,4 @@
+import { CARDS } from './engine.js?v=14';
 // Each atlas contains opaque, full-bleed battle scenes in row-major order.
 const sheets = [
   ['pikachu','snorlax','machamp','blastoise','zubat','thunder','charizard','fireball','treecko','log','squirtle','charmander','bulbasaur','gengar','eevee','onix'],
@@ -14,10 +15,13 @@ export const CARD_ART = Object.fromEntries(sheets.flatMap((keys, sheet) => keys.
 for (const key of ['diglett', 'diglettHorde', 'raltsTrio', 'poochyenaPack']) {
   CARD_ART[key] = { file: `assets/cards/${key}.webp`, columns: 1, rows: 1, x: 0, y: 0 };
 }
+for(const key of ['centralElectrode','madriguera','vivero','regice','duskull','raichu','registeel','regirock','celebi','pandilla','pinMissile','lightning','hyperBeam','blizzard','spikes','stealthRock','whirlpool','nightmare','earthquake']){
+  CARD_ART[key]={file:`assets/cards/${key}.svg`,columns:1,rows:1,x:0,y:0};
+}
 export function cardArtMarkup(key) {
   const art = CARD_ART[key];
   if (!art) return '';
   const x = art.columns === 1 ? 0 : art.x * 100 / (art.columns - 1), y = art.rows === 1 ? 0 : art.y * 100 / (art.rows - 1);
   const flip = ['pikachu','charizard','treecko','eevee','vulpix','alakazam','scyther','beedrill','ekans','arcanine','cloyster','starmie','dragonite','feraligatr','espeon','scizor','sceptile','gardevoir','sharpedo','salamence','rayquaza'].includes(key);
-  return `<span class="card-art" data-art="${key}" aria-hidden="true" style="background-image:url('${art.file}');background-size:${art.columns * 100}% ${art.rows * 100}%;background-position:${x}% ${y}%;${flip?'transform:scaleX(-1)':''}"></span>`;
+  return `<span class="card-art" data-art="${key}" aria-hidden="true" style="background-image:url('${art.file}');background-size:${art.columns * 100}% ${art.rows * 100}%;background-position:${x}% ${y}%;${flip?'transform:scaleX(-1)':''}"></span>${CARDS[key]?.rarity==='legendaria'?'<span class="legend-frame" aria-hidden="true"></span>':''}`;
 }

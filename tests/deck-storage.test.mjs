@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { loadDeck,saveDeck,normalizeDeck } from '../dist/deck-storage.js';
+import { loadDeck,saveDeck,normalizeDeck,loadDeckLibrary,saveDeckLibrary } from '../dist/deck-storage.js';
 import { DEFAULT_DECK } from '../dist/engine.js';
 const memory=()=>{const values=new Map();return{getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v)};};
 const chosen=['gastly','exeggutor','kyogre','ditto','hooh','treecko','log','sandshrew'];
@@ -34,4 +34,17 @@ test('corrupt data can fall back to the backup without discarding a valid saved 
   const storage=memory();let cookie='';saveDeck(chosen,{storage,cookie,writeCookie:v=>cookie=v,now:100});
   storage.setItem('poke-arena:deck','broken-json');assert.deepEqual(loadDeck({storage,cookie}),chosen);
   storage.setItem('poke-arena:deck',JSON.stringify(chosen));assert.deepEqual(loadDeck({storage,cookie:'poke_arena_deck=broken-json'}),chosen);
+});
+
+test('the four-slot library migrates an existing incomplete deck into slot one',()=>{
+  const storage=memory();saveDeck(chosen.slice(0,5),{storage,cookie:'',writeCookie:()=>{}});const library=loadDeckLibrary({storage,cookie:''});assert.equal(library.active,0);assert.deepEqual(library.slots,[chosen.slice(0,5),null,null,null]);
+});
+test('four deck selections, empty slots and the active slot persist independently',()=>{
+  const storage=memory(),library={version:1,active:2,slots:[chosen,[],DEFAULT_DECK.slice(0,6),null]};let cookie='';assert.ok(saveDeckLibrary(library,{storage,cookie,writeCookie:v=>cookie=v,now:100}));const loaded=loadDeckLibrary({storage,cookie});assert.equal(loaded.active,2);assert.deepEqual(loaded.slots,library.slots);loaded.slots[2].pop();saveDeckLibrary(loaded,{storage,cookie,writeCookie:v=>cookie=v,now:101});assert.deepEqual(loadDeckLibrary({storage,cookie}).slots[0],chosen);
+});
+test('slot cookies restore all four decks if browser storage fails',()=>{
+  const blocked={getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}},library={version:1,active:3,slots:[chosen,DEFAULT_DECK,[],['shuppet','gastly']]};let cookie='';saveDeckLibrary(library,{storage:blocked,cookie,writeCookie:v=>cookie=v});const loaded=loadDeckLibrary({storage:blocked,cookie});assert.equal(loaded.active,3);assert.deepEqual(loaded.slots[3],['diglett','gastly']);assert.deepEqual(loaded.slots[2],[]);
+});
+test('a newer slot backup beats older data and corrupt libraries preserve the legacy deck',()=>{
+  const storage=memory();saveDeck(chosen,{storage,cookie:'',writeCookie:()=>{}});storage.setItem('poke-arena:deck-slots','invalid');assert.deepEqual(loadDeckLibrary({storage,cookie:''}).slots[0],chosen);let cookie='';saveDeckLibrary({version:1,active:0,slots:[DEFAULT_DECK,null,null,null]},{storage,cookie,writeCookie:v=>cookie=v,now:100});saveDeckLibrary({version:1,active:1,slots:[DEFAULT_DECK,chosen,null,null]},{storage:{getItem:k=>storage.getItem(k),setItem(){throw Error('blocked');}},cookie,writeCookie:v=>cookie=v,now:200});assert.deepEqual(loadDeckLibrary({storage,cookie}).slots[1],chosen);
 });

@@ -1,0 +1,116 @@
+/* Arena menus: blue enamel, metal rims and warm battle buttons. */
+:root{--bg:#0c1428;--panel:#1b2c4b;--line:#435a7e;--text:#f5f6ff;--muted:#b0bed7;--gold:#ffd475;--green:#8fa9d0;color-scheme:dark}
+body{background:radial-gradient(ellipse at 35% 30%,#29446a66,transparent 65%),#0c1428}
+body:before{opacity:.035}
+.topbar{background:linear-gradient(#253859,#152440);border-bottom:2px solid #62779b;box-shadow:0 2px 0 #070e20;z-index:2}
+.brand{color:#fff8dc;text-shadow:0 2px 0 #061027}
+.brand-ball{border-color:#edf2ff;background:linear-gradient(#ec5b55 0 44%,#202c43 44% 56%,#ecf2fc 56%)}
+.brand-ball:before{border-color:#202c43;background:#fff5d8}
+.icon-btn{color:#c2cfe7}
+.icon-btn:hover{background:#607ea333;border-color:#8197bd66}
+.main-menu{background:#111e37}
+.menu-scene{background:#14223d}
+.menu-scene:after{background:linear-gradient(90deg,#101c3200 25%,#101c3266 55%,#101c32f5 85%),linear-gradient(0deg,#101c32dd,transparent 65%)}
+.menu-panel{background:linear-gradient(135deg,#293d60,#182944 60%,#14213b);border:2px solid #8095b8;border-radius:13px;box-shadow:inset 0 2px 0 #c9dcff38,inset 0 -4px 0 #0b152b,0 5px 0 #070f20,0 20px 50px #050a1680;padding:24px}
+.menu-panel h1,.modal h2{color:#fff2ce;text-shadow:0 2px 0 #09142c}
+.menu-deck-heading h1{font-size:32px;letter-spacing:.3px}
+.menu-deck-heading>span{color:#c3cfe1}
+.menu-panel .name-field{color:#c3cfe1;margin-bottom:10px}
+input,select,.name-field input,.collection-tools input,.collection-tools select{color:#f6f8ff;background:#101f38;border:1px solid #6c82a7;border-radius:6px;box-shadow:inset 0 2px 3px #050c1e77}
+input::placeholder{color:#a9b9d2;opacity:1}
+.primary-btn{background:linear-gradient(#ffe399,#f7bb4c);color:#34230f;border:1px solid #fff0bc;box-shadow:0 4px 0 #976025,inset 0 1px 0 #fff4c5;border-radius:8px;font-weight:800;text-shadow:0 1px 0 #fff6cf70}
+.primary-btn:active:not(:disabled){box-shadow:0 1px 0 #976025}
+.primary-btn:disabled{box-shadow:none}
+.card-dialog>.primary-btn:disabled,.primary-btn:disabled{background:#263852;color:#c0cbe0;border-color:#667b9c;box-shadow:none;text-shadow:none}
+.secondary-btn,.deck-btn{background:linear-gradient(#344f78,#263e64);border:1px solid #8099c0;border-radius:7px;color:#ecf3ff;box-shadow:inset 0 1px 0 #ffffff17,0 2px 0 #09162c}
+.menu-panel>#start-btn{background:linear-gradient(#4475b6,#315d99);border-color:#98c5ff;box-shadow:0 3px 0 #102744,inset 0 1px 0 #b9d8ff44}
+.menu-panel .menu-options button{background:linear-gradient(#344f78,#263e64);border:1px solid #8099c0;color:#ecf3ff}
+.text-btn{color:#c3cee6}
+.modal{background:linear-gradient(130deg,#243857,#16253f 70%);border:2px solid #8295b6;border-radius:12px;box-shadow:inset 0 2px 0 #ffffff18,0 6px 0 #080e20,0 25px 100px #020715bb;color:var(--text)}
+.modal::backdrop{background:#03091ccc;backdrop-filter:blur(3px)}
+.deck-top,.deck-save-row{background:#1f3251;border-color:#536b91}
+.deck-save-row{justify-content:flex-end}
+.deck-top .deck-summary{justify-content:flex-end;margin-bottom:6px;color:#c1cde1}
+.deck-modal .modal-heading{margin-bottom:10px}
+.deck-presets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:0 0 12px}
+.deck-preset{display:flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:5px 7px;background:linear-gradient(#172944,#112139);border:1px solid #607699;border-radius:6px;box-shadow:inset 0 1px 0 #ffffff0c,0 2px 0 #080f22;color:#b3c5e1;font-weight:700}
+.deck-preset svg{width:16px;height:16px}
+.deck-preset>span{font-size:17px}
+.deck-preset small{font-size:10px;color:#bacbe5;min-width:17px}
+.deck-preset[aria-pressed=true]{background:linear-gradient(#466ba1,#2a4a78);border-color:#ffe399;color:#fff3c4;box-shadow:inset 0 2px 0 #ffffff26,0 2px 0 #0a1730}
+.deck-preset[aria-pressed=true] small{color:#fff0c9}
+.menu-panel .deck-presets{margin-bottom:15px}
+.menu-panel .deck-preset{min-height:35px}
+.menu-panel.searching>.deck-presets{display:none}
+.deck-slot.empty,.menu-card.empty{background:#12233d;color:#abbcd9;border-color:#6b81a3}
+.deck-toggle{background:linear-gradient(#2c446a,#233857);border-color:#7185a8;color:#eaf1ff}
+.deck-toggle[aria-pressed=true]{background:#3b4e66;color:#ffe3a1;border-color:#cba466}
+.deck-modal .deck-toggle:disabled{color:#bac7dc;background:#243754;border-color:#576b8e}
+.collection-tools{grid-template-columns:minmax(130px,1.2fr) repeat(3,minmax(0,1fr));padding-top:10px;padding-bottom:10px;gap:7px}
+.collection .pokemon-card>.card-art:after,.pokemon-card>.card-art:after{background:linear-gradient(transparent,#081327e8 80%,#081327f8)}
+.collection .card-role{color:#edf0fc;font-size:10px;max-width:100%;white-space:normal;line-height:1.2}
+.legend-frame{position:absolute;inset:-9px -5px -6px;z-index:2;pointer-events:none;background:url('assets/legend-frame.svg') center/100% 100% no-repeat;filter:drop-shadow(0 1px 2px #050919) drop-shadow(0 0 4px #edcba43b)}
+.pokemon-card[data-rarity=legendaria]{border:0;background:transparent;box-shadow:none;border-radius:13px 13px 12px 12px}
+.pokemon-card[data-rarity=legendaria]>.card-art{inset:1px;clip-path:polygon(10% 0,90% 0,100% 9%,100% 91%,90% 100%,10% 100%,0 91%,0 9%)}
+.pokemon-card[data-rarity=legendaria]>.card-name,.pokemon-card[data-rarity=legendaria]>.card-role{padding-inline:4px}
+.pokemon-card[data-rarity=legendaria]>.legend-frame:after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 34%,#fff7d533 49%,transparent 61%);mask:url('assets/legend-frame.svg') center/100% 100%;animation:legend-glow 6s ease-in-out infinite}
+.deck-slot[data-rarity=legendaria]{border:0;background:transparent}
+.deck-slot>.legend-frame{inset:-4px -2px -3px;padding:0;border-radius:0;filter:none;background:transparent url('assets/legend-frame.svg') center/100% 100% no-repeat}
+.deck-slot[data-rarity=legendaria]{overflow:visible}
+.deck-slot[data-rarity=legendaria]>.card-art{clip-path:polygon(10% 0,90% 0,100% 9%,100% 91%,90% 100%,10% 100%,0 91%,0 9%)}
+.card-dialog[data-rarity=legendaria]{border-color:#d3b677;box-shadow:inset 0 2px 0 #fff0c138,0 5px 0 #0a1024,0 0 25px #d1b38224,0 25px 100px #020715bb}
+.card-dialog[data-rarity=legendaria] .card-hero{border:0;background:transparent;overflow:visible}
+.card-dialog[data-rarity=legendaria] .card-hero>.card-art{clip-path:polygon(10% 0,90% 0,100% 9%,100% 91%,90% 100%,10% 100%,0 91%,0 9%)}
+.card-dialog[data-rarity=legendaria] .card-overview{padding-top:8px}
+.next-card .legend-frame{display:none}
+@keyframes legend-glow{0%,65%,100%{opacity:.1}35%{opacity:.8}}
+@media(prefers-reduced-motion:reduce){.pokemon-card[data-rarity=legendaria]>.legend-frame:after{animation:none}}
+.reduced-motion .legend-frame:after{animation:none!important}
+.card-quantity{background:#162b4be8;border-color:#c3d8ff88}
+.card-dialog .card-hero{border-color:#8da6cf;background:#14223c}
+.card-dialog #card-info-description{color:#e0e8f6}
+.card-dialog .card-stats>div,.card-traits>div{background:#132640;border-color:#4c6487}
+.card-dialog .card-stats dt,.card-traits dt,.card-stats-heading{color:#bccce5}
+.card-dialog .card-stats dd,.card-traits dd{color:#fff1cc}
+.card-dialog .card-identity{color:#c3cfe8}
+.card-more-stats summary{color:#d6c1ff}
+.setting-row{border-color:#455c7e}
+.battle-console{background:linear-gradient(#283f5b,#182d48);border-color:#7283a4;box-shadow:inset 0 2px 0 #ffffff16}
+.next-card,.console-footer,.console-heading,.energy-section{border-color:#5b6e91}
+.battle-clock,.trainer-id{color:#f5f2e5}
+.pause-overlay,.result-overlay{background:#081429dc}
+.guide{background:#203759f5;border-color:#8eafd7}
+@media(max-width:940px){
+  .menu-scene:after{background:linear-gradient(0deg,#111f39 16%,#111f3966 57%,#111f3900 90%)}
+  .main-menu{padding-bottom:18px}
+  .menu-panel{padding:17px 20px;border-radius:12px}
+  .menu-panel h1{font-size:30px}
+  .menu-panel .menu-deck-preview{margin-bottom:12px}
+  .menu-panel .deck-presets{margin-bottom:12px}
+  .collection-tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .collection-tools input{grid-column:auto}
+  .deck-modal .deck-top{padding-top:12px}
+  .deck-presets{gap:6px;margin-bottom:10px}
+  .deck-preset{min-height:36px;padding:5px;gap:5px}
+}
+@media(max-height:700px) and (max-width:940px){
+  .menu-panel{padding:13px 18px}
+  .menu-panel .deck-presets{margin-bottom:9px}
+  .menu-panel .deck-preset{min-height:31px}
+  .menu-panel .menu-card{aspect-ratio:1/1.08}
+  .deck-modal .deck-top .deck-slot{height:43px}
+  .deck-modal .modal-heading{margin-bottom:8px}
+}
+@media(max-height:500px) and (min-width:600px) and (max-width:940px){
+  .main-menu{align-items:center}
+  .menu-panel{width:660px;display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;padding:18px;max-height:none}
+  .menu-panel .menu-deck-heading{grid-column:1;grid-row:1;margin:0}
+  .menu-panel .deck-presets{grid-column:1;grid-row:2;margin:0}
+  .menu-panel .menu-deck-preview{grid-column:1;grid-row:3 / 7;margin:0;align-self:start}
+  .menu-panel .name-field{grid-column:2;grid-row:1 / 3;margin:0;align-self:center}
+  .menu-panel>.primary-btn{grid-column:2;grid-row:3;margin:0;min-height:42px}
+  .menu-panel>#start-btn{grid-column:2;grid-row:4;margin:0;min-height:42px}
+  .menu-panel .menu-options{grid-column:2;grid-row:5;margin:0;align-self:start}
+  .menu-panel .menu-loading{grid-column:2;grid-row:6}
+  .menu-panel.searching{display:block;width:360px}
+}
