@@ -1,5 +1,5 @@
-import { EXTRA_CARDS } from './catalog.js?v=14';
-import { applyBalance, THRESHOLDS } from './balance.js?v=14';
+import { EXTRA_CARDS } from './catalog.js?v=15';
+import { applyBalance, THRESHOLDS } from './balance.js?v=15';
 export const W = 600, H = 800;
 export const TILE = 24;
 export const DEPLOY_GRID = Object.freeze({ size: TILE, left: 0, top: (H % TILE) / 2, columns: W / TILE, rows: Math.floor(H / TILE) });
@@ -439,41 +439,72 @@ export class Game {
     const d = Math.hypot(dx, dy);
     if (d < 1) return;
     dx /= d; dy /= d;
-    const speed = unit.card.speed * (unit.slow > 0 ? .58 : 1) * (unit.card.charge && unit.charge >= unit.card.charge ? 1.65 : 1);
+    let speed = unit.card.speed * (unit.slow > 0 ? .58 : 1) * (unit.card.charge && unit.charge >= unit.card.charge ? 1.65 : 1);
     if(speed<=0)return;
     // Steer around bodies before separating overlaps. Pure backward repulsion can
     // cancel a slow tank's entire movement when another body occupies its lane.
     const obstacles=[...this.units.filter(other=>other!==unit&&other.hp>0&&other.spawn<=0&&!!other.card.flying===!!unit.card.flying),...(!unit.card.flying?this.towers.filter(t=>t.hp>0):[])];
-    const blocking=obstacles.filter(other=>other!==target).map(other=>{
+    const ahead=obstacles.filter(other=>other!==target).map(other=>{
       const ox=other.x-unit.x,oy=other.y-unit.y,solid='king'in other||other.card.structure;
       return{other,forward:ox*dx+oy*dy,side:ox*(-dy)+oy*dx,gap:solid?other.radius+unit.radius*.7:(unit.radius+other.radius)*.7};
-    }).filter(o=>o.forward>0&&o.forward<o.gap+30&&Math.abs(o.side)<o.gap+3).sort((a,b)=>a.forward-b.forward)[0];
+    }).filter(o=>o.forward>0&&o.forward<o.gap+30&&Math.abs(o.side)<o.gap+3).sort((a,b)=>a.forward-b.forward);
+    const blocking=ahead[0],forwardX=dx,forwardY=dy;
+    const crowd=ahead.filter(o=>o.other.card&&!o.other.card.structure&&o.forward<o.gap+14).length;
+    speed*=Math.max(.38,1-crowd*.14);
     if(blocking){
-      let side=unit.avoidId===blocking.other.id?unit.avoidSide:Math.abs(blocking.side)>2?-Math.sign(blocking.side):unit.id%2?1:-1;
+      // Hold the passing side across neighboring bodies in the same crowd.
+      // Picking a new side for every nearest-body change caused frame-rate zigzags.
+      let side=unit.avoidSide|| (Math.abs(blocking.side)>3?-Math.sign(blocking.side):unit.id%2?1:-1);
       if(!unit.card.flying&&unit.y>RIVER.top-35&&unit.y<RIVER.bottom+35){
         const bridge=LANES[unit.lane];
         const preferred=blocking.other.x-dy*side*(blocking.gap+2),opposite=blocking.other.x+dy*side*(blocking.gap+2);
-        if(Math.abs(preferred-bridge)>29&&Math.abs(opposite-bridge)<=29)side=-side;
-        if(blocking.other.card&&!blocking.other.card.structure&&blocking.forward<blocking.gap+15&&unit.radius>=blocking.other.radius){
-          blocking.other.x=clamp(blocking.other.x+dy*side*16*dt,bridge-29,bridge+29);
-        }
+        if(!unit.avoidSide&&Math.abs(preferred-bridge)>29&&Math.abs(opposite-bridge)<=29)side=-side;
       }
-      unit.avoidId=blocking.other.id;unit.avoidSide=side;
-      const weight=Math.max(.6,1-blocking.forward/(blocking.gap+30))*1.8;
+      unit.avoidId=blocking.other.id;unit.avoidSide=side;unit.avoidClear=0;
+      const weight=Math.max(.4,1-blocking.forward/(blocking.gap+30))*1.35;
       const sx=dx-dy*side*weight,sy=dy+dx*side*weight,length=Math.hypot(sx,sy);
       dx=sx/length;dy=sy/length;
-    }else{unit.avoidId=null;unit.avoidSide=0;}
+    }else{unit.avoidClear=(unit.avoidClear||0)+dt;if(unit.avoidClear>.45){unit.avoidId=null;unit.avoidSide=0;}}
+    const blend=1-Math.exp(-9*dt),sameTarget=unit.steerTarget===target.id;
+    const sx=sameTarget&&Number.isFinite(unit.steerX)?unit.steerX:dx,sy=sameTarget&&Number.isFinite(unit.steerY)?unit.steerY:dy;
+    dx=sx+(dx-sx)*blend;dy=sy+(dy-sy)*blend;
+    const heading=Math.hypot(dx,dy)||1;dx/=heading;dy/=heading;
+    unit.steerX=dx;unit.steerY=dy;unit.steerTarget=target.id;
     let nx = unit.x + dx * Math.min(d, speed * dt), ny = unit.y + dy * Math.min(d, speed * dt);
-    // Give crowds space without allowing ground units to step off a bridge.
+    let separateX=0,separateY=0;
+    // Body separation is a bounded velocity, not an independent positional jump
+    // for every neighbor. Large bodies can gently displace smaller defenders.
     for (const other of this.units) {
-      if (other === unit || other.hp <= 0 || other.spawn > 0 || !!other.card.flying !== !!unit.card.flying) continue;
+      if (other === unit || other.hp <= 0 || other.spawn > 0 || other.card.structure || !!other.card.flying !== !!unit.card.flying) continue;
       const ox = nx - other.x, oy = ny - other.y, od = Math.hypot(ox, oy);
       const gap = (unit.radius + other.radius) * .7;
       if (od > .1 && od < gap) {
-        const push = Math.min((gap - od) * .25, 35 * dt);
-        nx += ox / od * push; ny += oy / od * push;
+        const share=other.radius**2/(unit.radius**2+other.radius**2),push=Math.min((gap-od)*4,24);
+        separateX+=ox/od*push*share;separateY+=oy/od*push*share;
+        if(unit.radius>other.radius*1.12){
+          const shifted=this.constrainMovement(other,other.x-ox/od*push*(1-share)*dt,other.y-oy/od*push*(1-share)*dt);
+          other.x=shifted.x;other.y=shifted.y;
+        }
       }
     }
+    unit.separateX=(unit.separateX||0)+(separateX-(unit.separateX||0))*blend;
+    unit.separateY=(unit.separateY||0)+(separateY-(unit.separateY||0))*blend;
+    const separation=Math.hypot(unit.separateX,unit.separateY)||1,limit=Math.min(1,speed*.7/separation);
+    let pushX=unit.separateX*limit*dt,pushY=unit.separateY*limit*dt;
+    const retreat=pushX*forwardX+pushY*forwardY,advance=(nx-unit.x)*forwardX+(ny-unit.y)*forwardY;
+    if(retreat < -Math.max(0,advance)*.65){const excess=-Math.max(0,advance)*.65-retreat;pushX+=forwardX*excess;pushY+=forwardY*excess;}
+    nx+=pushX;ny+=pushY;
+    const placed=this.constrainMovement(unit,nx,ny);
+    unit.x=placed.x;unit.y=placed.y;
+    unit.dx = dx; unit.dy = dy; unit.moving = true;
+    unit.charge += dt;
+    unit.stepClock -= dt;
+    if (!unit.card.flying && unit.stepClock <= 0) {
+      unit.stepClock = unit.key === 'snorlax' ? .65 : unit.key === 'eevee' ? .22 : .38;
+      this.emit('step', { unit });
+    }
+  }
+  constrainMovement(unit,nx,ny){
     if (!unit.card.flying) {
       for (const tower of [...this.towers, ...this.units.filter(u => u !== unit && u.card.structure)]) {
         if (tower.hp <= 0) continue;
@@ -490,14 +521,7 @@ export class Game {
         else ny = unit.y > 400 ? RIVER.bottom + 4 : RIVER.top - 4;
       }
     }
-    unit.x = clamp(nx, 46, 554); unit.y = clamp(ny, 42, 758);
-    unit.dx = dx; unit.dy = dy; unit.moving = true;
-    unit.charge += dt;
-    unit.stepClock -= dt;
-    if (!unit.card.flying && unit.stepClock <= 0) {
-      unit.stepClock = unit.key === 'snorlax' ? .65 : unit.key === 'eevee' ? .22 : .38;
-      this.emit('step', { unit });
-    }
+    return{x:clamp(nx,46,554),y:clamp(ny,42,758)};
   }
   face(attacker, target) {
     const dx = target.x - attacker.x, dy = target.y - attacker.y, d = Math.hypot(dx,dy) || 1;

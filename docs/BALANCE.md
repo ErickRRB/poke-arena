@@ -217,6 +217,6 @@ Multiplicadores aplicados a los sprites originales después de medir sus silueta
 Ataque contra un Snorlax inmóvil, sin disparos de torres. Cada escenario registra el resultado de esa colocación y no establece por sí solo balance competitivo.
 
 - Machamp ×1: 10.05 s; tanque con 0 PV.
-- Diglett ×9: 10.97 s; tanque con 0 PV.
+- Diglett ×9: 8.68 s; tanque con 0 PV.
 - Treecko ×2: 16.97 s; tanque con 0 PV.
 - Pikachu ×1: 29.73 s; tanque con 0 PV.

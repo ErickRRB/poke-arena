@@ -1,4 +1,4 @@
-import { CARDS } from './engine.js?v=14';
+import { CARDS } from './engine.js?v=15';
 // Each atlas contains opaque, full-bleed battle scenes in row-major order.
 const sheets = [
   ['pikachu','snorlax','machamp','blastoise','zubat','thunder','charizard','fireball','treecko','log','squirtle','charmander','bulbasaur','gengar','eevee','onix'],
@@ -16,7 +16,7 @@ for (const key of ['diglett', 'diglettHorde', 'raltsTrio', 'poochyenaPack']) {
   CARD_ART[key] = { file: `assets/cards/${key}.webp`, columns: 1, rows: 1, x: 0, y: 0 };
 }
 for(const key of ['centralElectrode','madriguera','vivero','regice','duskull','raichu','registeel','regirock','celebi','pandilla','pinMissile','lightning','hyperBeam','blizzard','spikes','stealthRock','whirlpool','nightmare','earthquake']){
-  CARD_ART[key]={file:`assets/cards/${key}.svg`,columns:1,rows:1,x:0,y:0};
+  CARD_ART[key]={file:`assets/cards/${key}.webp`,columns:1,rows:1,x:0,y:0};
 }
 export function cardArtMarkup(key) {
   const art = CARD_ART[key];

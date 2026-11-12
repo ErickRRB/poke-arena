@@ -1,10 +1,10 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=14';
-import { Renderer } from './render.js?v=14';
-import { SoundSystem } from './audio.js?v=14';
-import { OnlineClient } from './online.js?v=14';
-import { unpackGame, perspective } from './snapshot.js?v=14';
-import { cardArtMarkup } from './card-art.js?v=14';
-import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=14';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=15';
+import { Renderer } from './render.js?v=15';
+import { SoundSystem } from './audio.js?v=15';
+import { OnlineClient } from './online.js?v=15';
+import { unpackGame, perspective } from './snapshot.js?v=15';
+import { cardArtMarkup } from './card-art.js?v=15';
+import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=15';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -248,7 +248,6 @@ function renderCollection() {
     return `<div class="collection-entry">${cardMarkup(k,0,true)}<button class="deck-toggle" data-toggle="${k}" aria-pressed="${included}" aria-label="${included?'Quitar':'Agregar'} ${c.name} ${included?'del':'al'} mazo${full?', mazo completo':''}" ${!deckEditable||full?'disabled':''}>${included?'✓ En mazo':'+ Agregar'}</button></div>`;
   }).join('');
   for(const el of $('collection').querySelectorAll('[data-collection]')){const c=CARDS[el.dataset.collection],included=deckDraft.includes(el.dataset.collection);el.classList.toggle('selected',included);el.removeAttribute('aria-pressed');el.setAttribute('aria-haspopup','dialog');el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir, ${c.role}${included?', en mazo':''}, ver detalles`);}
-  $('deck-count').textContent=`${deckDraft.length}/8`;
   $('deck-average').textContent=deckDraft.length?(deckDraft.reduce((a,k)=>a+CARDS[k].cost,0)/deckDraft.length).toFixed(1).replace('.',','):'—';
   $('save-deck-btn').disabled=false;
   if(reference?.attribute==='data-toggle'&&$('collection').querySelector(`[data-toggle="${CSS.escape(reference.value)}"]`)?.disabled)reference.attribute='data-collection';
