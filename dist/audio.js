@@ -1,6 +1,6 @@
 // Recorded foley and Pokémon voices follow release/impact events; synthesis is a loading fallback.
 import { BattleMusic } from './music.js?v=11';
-import { CARDS } from './engine.js?v=11';
+import { CARDS } from './engine.js?v=13';
 export class SoundSystem {
   constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.ready=this.preload().catch(()=>false); }
   async preload(){

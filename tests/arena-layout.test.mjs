@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, LANES, RIVER, BRIDGE } from '../dist/engine.js';
+import { Game, W, H, TILE, LANES, RIVER, BRIDGE, snapToCell } from '../dist/engine.js';
 import { packGame, unpackGame, perspective } from '../dist/snapshot.js';
 
 function arena(team=0,lane=0){
@@ -12,9 +12,9 @@ function arena(team=0,lane=0){
 }
 function run(game,seconds){for(let i=0;i<Math.ceil(seconds*60);i++)game.step(1/60);}
 
-test('princess towers acquire and damage ground and flying enemies across their bridge',()=>{
-  for(const team of[0,1])for(const lane of[0,1])for(const key of['snorlax','zubat'])for(const y of[BRIDGE.top,400,BRIDGE.bottom]){
-    const{game,tower,events}=arena(team,lane),unit=game.spawn(key,1-team,LANES[lane],y,0);
+test('princess towers damage enemies from the bridge midpoint through their own bank on the real grid',()=>{
+  for(const team of[0,1])for(const lane of[0,1])for(const key of['snorlax','zubat'])for(const offset of[-TILE,0,TILE])for(const y of[H/2,team?RIVER.top:RIVER.bottom,team?BRIDGE.top:BRIDGE.bottom]){
+    const{game,tower,events}=arena(team,lane),point=snapToCell(1-team,LANES[lane]+offset,y),unit=game.spawn(key,1-team,point.x,y,0);
     unit.card={...unit.card,speed:0,damage:0};
     game.step(1/60);assert.equal(tower.target,unit,`${team}/${lane}/${key} at ${y}`);
     run(game,.85);
@@ -23,14 +23,15 @@ test('princess towers acquire and damage ground and flying enemies across their 
   }
 });
 
-test('the first princess shot starts and releases while an approaching tank is on the bridge',()=>{
-  for(const team of[0,1])for(const lane of[0,1]){
-    const{game,tower,events}=arena(team,lane),unit=game.spawn('snorlax',1-team,LANES[lane],team?460:340,0);
+test('a normally deployed tank draws its first princess shot at the bridge midpoint',()=>{
+  for(const team of[0,1])for(const lane of[0,1])for(const offset of[-TILE,0,TILE]){
+    const{game,tower,events}=arena(team,lane),deployment=game.deploy(1-team,1,LANES[lane]+offset,H/2);
+    assert.ok(deployment.ok);const unit=game.units[0];
     const positions=[];game.onEvent=event=>{events.push(event);if(['attackStart','attackRelease'].includes(event.type)&&event.attacker===tower)positions.push({type:event.type,y:unit.y});};
     run(game,12);
     for(const type of['attackStart','attackRelease']){
       const first=positions.find(p=>p.type===type);assert.ok(first,`${type} never happened`);
-      assert.ok(first.y>=BRIDGE.top&&first.y<=BRIDGE.bottom,JSON.stringify({team,lane,first}));
+      assert.ok(Math.abs(first.y-H/2)<=6,JSON.stringify({team,lane,offset,first}));
     }
   }
 });
@@ -45,16 +46,31 @@ test('a princess cancels its pending shot when the victim retreats beyond its ra
   }
 });
 
-test('danger previews agree with tower acquisition on the bridge and beyond its far bank',()=>{
+test('danger previews and targeting start at midbridge and exclude the approaching half',()=>{
   for(const team of[0,1])for(const lane of[0,1])for(const key of['pikachu','charizard']){
-    const{game,tower}=arena(team,lane),enemy=1-team,farBank=team?BRIDGE.bottom:BRIDGE.top;
-    const beyond=farBank+(team?1:-1);
-    for(const y of[BRIDGE.top,400,BRIDGE.bottom,beyond]){
-      const unit=game.spawn(key,enemy,tower.x,y,0);unit.card={...unit.card,speed:0,damage:0};
+    const{game,tower}=arena(team,lane),enemy=1-team,direction=team?1:-1;
+    const point=game.resolveDeployment(team,key,LANES[lane],H/2);
+    for(const y of[point.y+direction*TILE,H/2,H/2+direction*4,H/2+direction*TILE]){
+      const covered=direction*(y-H/2)<=0;
+      const unit=game.spawn(key,enemy,point.x,y,0);unit.card={...unit.card,speed:0,damage:0};
       game.step(1/60);
-      assert.equal(game.deploymentThreats(enemy,key,tower.x,y,true).includes(tower),y!==beyond);
-      assert.equal(tower.target===unit,y!==beyond);unit.hp=0;
+      assert.equal(game.deploymentThreats(enemy,key,point.x,y,true).includes(tower),covered);
+      assert.equal(tower.target===unit,covered);unit.hp=0;
     }
+  }
+});
+
+test('old online matches use the current princess reach after reconnecting or reversing perspective',()=>{
+  for(const oldRange of[180,252])for(const team of[0,1])for(const view of[0,1]){
+    const{game,tower}=arena(team),point=snapToCell(1-team,LANES[0],H/2),unit=game.spawn('snorlax',1-team,point.x,point.y,0);
+    unit.card={...unit.card,speed:0,damage:0};tower.hp=2100;
+    const saved=packGame(game);for(const t of saved.towers)if(!t.king)t.range=oldRange;
+    const restored=unpackGame(perspective(saved,view)),defender=restored.towers.find(t=>t.id===tower.id),victim=restored.units[0];
+    assert.equal(defender.hp,2100);assert.equal(victim.x,view?W-point.x:point.x);
+    run(restored,.85);assert.ok(victim.hp<victim.maxHp);
+    victim.y=H/2+(defender.team?1:-1)*TILE;restored.step(1/60);
+    assert.equal(defender.target,null);
+    assert.deepEqual(restored.towers.filter(t=>t.king).map(t=>t.range),game.towers.filter(t=>t.king).map(t=>t.range));
   }
 });
 

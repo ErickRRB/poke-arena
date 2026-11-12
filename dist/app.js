@@ -1,10 +1,10 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=11';
-import { Renderer } from './render.js?v=11';
-import { SoundSystem } from './audio.js?v=11';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=13';
+import { Renderer } from './render.js?v=13';
+import { SoundSystem } from './audio.js?v=13';
 import { OnlineClient } from './online.js?v=11';
-import { unpackGame, perspective } from './snapshot.js?v=11';
+import { unpackGame, perspective } from './snapshot.js?v=13';
 import { cardArtMarkup } from './card-art.js?v=11';
-import { loadDeck, saveDeck } from './deck-storage.js?v=11';
+import { loadDeck, saveDeck } from './deck-storage.js?v=13';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
