@@ -444,10 +444,11 @@ export class Renderer {
     if(!card||game.state!=='playing')return;
     c.save();
     if((!card.spell||card.rolling)&&this.selection){
-      rect(c,'#132e2570',35,36,530,339);
-      for(const lane of [0,1]){
-        if(game.towers.some(t=>t.team===1&&t.lane===lane&&t.hp<=0))rect(c,'#8ed2a018',lane?300:36,252,264,104);
+      c.fillStyle='#132e2570';c.beginPath();c.rect(35,36,530,339);
+      if(!card.rolling)for(const lane of[0,1]){
+        if(game.towers.some(t=>t.team===1&&!t.king&&t.lane===lane&&t.hp<=0))c.rect(lane?300:44,252,256,104);
       }
+      c.fill('evenodd');
       c.strokeStyle='#d9ebbc19';c.lineWidth=.55;
       for(let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++){
         const x=col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
