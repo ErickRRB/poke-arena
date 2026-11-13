@@ -11,7 +11,7 @@ const url=process.argv[2]||'http://127.0.0.1:4173',browser=await playwright.chro
 try{
  const{page,context,errors}=await openPage(browser,{width:1366,height:900});page.setDefaultTimeout(60000);await page.goto(url);await ready(page);
  const result=await page.evaluate(async()=>{
-  const query=new URL([...document.scripts].find(s=>s.type==='module').src).search,{CARDS}=await import('/engine.js'+query),{emitterPart}=await import('/sprite-motion.js'+query),{flightPose}=await import('/flight-motion.js'+query),renderer=__qa.renderer;
+  const query=new URL([...document.scripts].find(s=>s.type==='module').src).search,{CARDS}=await import('/engine.js'+query),{emitterPart}=await import('/sprite-motion.js'+query),{combatVisual}=await import('/combat-visuals.js'+query),renderer=__qa.renderer;
   const cards=Object.entries(CARDS).filter(([,card])=>!card.spell);await renderer.ensureSpecies([...new Set(cards.map(([,c])=>c.id))]);renderer.verticalScale=1;renderer.reduced=false;
   const test=document.createElement('canvas');test.width=400;test.height=400;const ctx=test.getContext('2d'),nativeDraw=ctx.drawImage.bind(ctx),sheetHashes=new Map();let captureImage,captureMeta,drawn=[];
   ctx.drawImage=(image,...args)=>{if(image===captureImage)drawn.push({frame:Math.round(args[0]/captureMeta.width)+(captureMeta.grid?Math.round(args[1]/captureMeta.height)*captureMeta.columns:0),direction:captureMeta.grid?0:Math.round(args[1]/captureMeta.height)});nativeDraw(image,...args);};
@@ -26,18 +26,17 @@ try{
    const moveImage=renderer.sprites.get(card.id+'-'+moveName),attackImage=renderer.sprites.get(card.id+'-'+attackName),directions=[];
    for(let direction=0;direction<8;direction++){
     const angle=(2-direction)*Math.PI/4,actor={id:1000+index,key,card,x:200,y:270,dx:Math.cos(angle),dy:Math.sin(angle),team:0,spawn:0,hit:0,attack:0,moving:!card.structure,preview:true,lifetime:card.lifetime||0,maxHp:card.hp,hp:card.hp,radius:card.radius};
-    const movement=new Set(),attacks=new Set(),flight=flightPose(actor,0);let emptyFrames=0;
-    const motionImage=flight?renderer.sprites.get(flight.key):moveImage,motionMeta=flight?{...flight,grid:true}:moveMeta;
+    const movement=new Set(),attacks=new Set();let emptyFrames=0;
+    const motionImage=moveImage,motionMeta=moveMeta;
     captureImage=motionImage;captureMeta=motionMeta;
     for(let phase=0;phase<16;phase++){drawn=[];renderer.t=phase*.11;ctx.clearRect(0,0,400,400);renderer.sprite(ctx,actor,true);for(const pose of drawn){const pixel=pixelHash(motionImage,motionMeta,pose.frame,pose.direction);movement.add(pixel.hash);if(!pixel.opaque)emptyFrames++;}}
-    if(!card.passive){captureImage=flight?motionImage:attackImage;captureMeta=flight?motionMeta:attackMeta;actor.moving=false;actor.attackDuration=card.attackDuration;actor.attackWindup=card.windup;actor.attackAnim=attackName;
+    if(!card.passive){captureImage=attackImage;captureMeta=attackMeta;actor.moving=false;actor.attackDuration=card.attackDuration;actor.attackWindup=card.windup;actor.attackAnim=attackName;
      for(let phase=0;phase<12;phase++){renderer.t=phase*.11;actor.attack=actor.attackDuration*(1-phase/12);drawn=[];ctx.clearRect(0,0,400,400);renderer.sprite(ctx,actor,true);const point=renderer.visualEmission(actor);if(!Number.isFinite(point.x)||!Number.isFinite(point.y))throw Error('Invalid emitter: '+key);
       for(const pose of drawn){const pixel=pixelHash(captureImage,captureMeta,pose.frame,pose.direction);attacks.add(pixel.hash);if(!pixel.opaque)emptyFrames++;}}
     }
     directions.push({direction,movementPoses:movement.size,attackPoses:attacks.size,emptyFrames});
    }
-   const fullFlight=!!flightPose({card},0);
-   rows.push({key,name:card.name,species:card.id,kind:card.structure?'structure':card.flying?'air':'ground',movement:fullFlight?'Showdown flight':moveName,attack:card.passive?null:fullFlight?'Showdown flight':attackName,emitter:emitterPart(card),customLoop:fullFlight?null:card.moveFrames||null,directions,warnings:directions.some(d=>d.emptyFrames)?['Empty original frame']:directions.some(d=>!card.structure&&d.movementPoses<2)?['Movement needs visual review']:[]});
+   rows.push({key,name:card.name,species:card.id,kind:card.structure?'structure':card.flying?'air':'ground',movement:moveName,attack:card.passive?null:attackName,emitter:emitterPart(card),customLoop:card.moveFrames||null,visual:combatVisual(card),directions,warnings:directions.some(d=>d.emptyFrames)?['Empty original frame']:directions.some(d=>!card.structure&&d.movementPoses<2)?['Movement needs visual review']:[]});
   }
   captureImage=null;const sheets=[];
   for(const mode of['movement','attack'])for(let start=0;start<cards.length;start+=24){
@@ -51,6 +50,6 @@ try{
  if(errors.length)throw Error(errors.join('\n'));
  await mkdir('docs/motion-review',{recursive:true});
  for(const sheet of result.sheets)await writeFile('docs/motion-review/'+sheet.file,Buffer.from(sheet.data.split(',')[1],'base64'));
- const report={date:new Date().toISOString().slice(0,10),protocol:{directions:8,movementSamples:16,attackSamples:12,source:'Original PMDCollab and Showdown sprite sheets rendered by the actual game renderer'},species:new Set(result.rows.map(r=>r.species)).size,pokemonCards:result.rows.length,rows:result.rows};
+ const report={date:new Date().toISOString().slice(0,10),protocol:{directions:8,movementSamples:16,attackSamples:12,source:'Original PMDCollab eight-direction pixel sheets rendered by the actual game renderer'},species:new Set(result.rows.map(r=>r.species)).size,pokemonCards:result.rows.length,rows:result.rows};
  await writeFile('docs/POKEMON-MOTION-REVIEW.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({species:report.species,pokemonCards:report.pokemonCards,warnings:report.rows.filter(r=>r.warnings.length).map(r=>({key:r.key,warnings:r.warnings}))}));await context.close();
 }finally{await browser.close();}

@@ -431,6 +431,46 @@
       "columns": 1,
       "rows": 1,
       "fps": 1
+    },
+    "fireOrb": {
+      "file": "assets/battle/Particle__Weather_Ball_Fire_1.None.png",
+      "width": 32,
+      "height": 32,
+      "columns": 2,
+      "rows": 1,
+      "fps": 8
+    },
+    "fireTrail": {
+      "file": "assets/battle/Particle__Weather_Ball_Fire_3.Flip.png",
+      "width": 32,
+      "height": 32,
+      "columns": 10,
+      "rows": 1,
+      "fps": 8
+    },
+    "hydroShot": {
+      "file": "assets/battle/Particle__Hydro_Cannon.None.png",
+      "width": 32,
+      "height": 32,
+      "columns": 5,
+      "rows": 1,
+      "fps": 8
+    },
+    "emberShot": {
+      "file": "assets/battle/Particle__Ember.None.png",
+      "width": 24,
+      "height": 24,
+      "columns": 9,
+      "rows": 1,
+      "fps": 8
+    },
+    "songShot": {
+      "file": "assets/battle/Particle__Music_Notes.None.png",
+      "width": 16,
+      "height": 16,
+      "columns": 44,
+      "rows": 1,
+      "fps": 8
     }
   },
   "sources": [
@@ -757,6 +797,36 @@
       "file": "assets/battle/poke-ball.png",
       "source": "https://raw.githubusercontent.com/PokeAPI/sprites/1b3b7c0a538dd2226ae08d0d2f8955125075bbd4/sprites/items/poke-ball.png",
       "sha256": "a4c7b9e8ff5727d10e6f679bcf16a963a95b2a36480d3bd9156d9808bdf54dff"
+    },
+    {
+      "key": "fireOrb",
+      "file": "assets/battle/Particle__Weather_Ball_Fire_1.None.png",
+      "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Weather_Ball_Fire_1.None.png",
+      "sha256": "e0b0c2bdf99d1b406e0b300a688088a82ce906bb726caf1ef8b892766fe25f37"
+    },
+    {
+      "key": "fireTrail",
+      "file": "assets/battle/Particle__Weather_Ball_Fire_3.Flip.png",
+      "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Weather_Ball_Fire_3.Flip.png",
+      "sha256": "7af08ca82cc0942f44efc5d88c034ab092b84783fee63c0e05b085691fbd7b26"
+    },
+    {
+      "key": "hydroShot",
+      "file": "assets/battle/Particle__Hydro_Cannon.None.png",
+      "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Hydro_Cannon.None.png",
+      "sha256": "1ef2d00af95c39861f274b0acf238e21618afc16d8414fc9485fdb120bbb1bb3"
+    },
+    {
+      "key": "emberShot",
+      "file": "assets/battle/Particle__Ember.None.png",
+      "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Ember.None.png",
+      "sha256": "2875d15af0d787a2185f359679f5a120d14cc63687c5a88e4a3811e2145ad76d"
+    },
+    {
+      "key": "songShot",
+      "file": "assets/battle/Particle__Music_Notes.None.png",
+      "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Music_Notes.None.png",
+      "sha256": "5e5b0db6023b959fb32ffff9a473d3b8a2b54b5cd778ef2eccd2b4afb1936fc8"
     }
   ]
 }

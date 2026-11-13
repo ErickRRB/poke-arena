@@ -1,18 +1,19 @@
-// Recorded foley and Pokémon voices follow release/impact events; synthesis is a loading fallback.
+// Recorded foley and PokÃ©mon voices follow release/impact events; synthesis is a loading fallback.
 import { BattleMusic } from './music.js?v=26';
 import { CARDS } from './engine.js?v=26';
 export class SoundSystem {
   constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.battlePlaying=false;this.intense=false;this.ready=this.preload().catch(()=>false); }
   async preload(){
-    const response=await fetch('assets/audio/manifest.json?v=26');if(!response.ok)throw Error('Audio manifest unavailable');
+    const response=await fetch('assets/audio/manifest.json?v=29');if(!response.ok)throw Error('Audio manifest unavailable');
     const manifest=await response.json();
-    await Promise.all(Object.entries(manifest).flatMap(([group,entries])=>Object.entries(entries).map(async([id,file])=>{const r=await fetch(file);if(!r.ok)throw Error(`Audio unavailable: ${file}`);this.encoded.set(`${group}:${id}`,await r.arrayBuffer());})));
-    this.bytesReady=true;if(this.ctx)await this.decodeSamples();return true;
+    const results=await Promise.allSettled(Object.entries(manifest).flatMap(([group,entries])=>Object.entries(entries).map(async([id,file])=>{const r=await fetch(file);if(!r.ok)throw Error(`Audio unavailable: ${file}`);this.encoded.set(`${group}:${id}`,await r.arrayBuffer());})));
+    this.failedAssets=results.filter(result=>result.status==='rejected').length;
+    this.bytesReady=true;if(this.ctx)await this.decodeSamples();return this.failedAssets===0;
   }
   decodeSamples(){
     if(!this.ctx||!this.bytesReady)return;
     const ctx=this.ctx;
-    this.decoded||=Promise.all([...this.encoded].filter(([key])=>!this.buffers.has(key)).map(async([key,bytes])=>{
+    this.decoded||=Promise.allSettled([...this.encoded].filter(([key])=>!this.buffers.has(key)).map(async([key,bytes])=>{
       let buffer=await ctx.decodeAudioData(bytes.slice(0));let peak=0;
       for(let channel=0;channel<buffer.numberOfChannels;channel++){const data=buffer.getChannelData(channel);for(let i=0;i<data.length;i++)peak=Math.max(peak,Math.abs(data[i]));}
       const data=buffer.getChannelData(0),threshold=peak*.015;let first=0,last=data.length-1;
@@ -166,7 +167,7 @@ export class SoundSystem {
     if(e.type==='hit'&&['bubble','hydro','rock','ember','coin','magnet','ice','confusion','aura'].includes(e.style))this.play(e.style,e.x,true);
     if(e.type==='blink')this.play('shadow',e.from.x);
     if(e.type==='leap')this.play('dash',e.unit.x);
-    if(e.type==='deploy'){this.cry(CARDS[e.key]?.id,e.x);this.tone(440,.13,'sine',.025,240);this.tone(880,.12,'sine',.012,120,0,.05);}
+    if(e.type==='deploy'){this.cry(CARDS[e.key]?.id,e.x);this.sample('foley:cloth',e.x,{volume:.06,rate:1,maxDuration:.15});}
     if(e.type==='structureDown'||e.type==='towerDown'){this.noise(.5,480,.12);this.tone(80,.5,'triangle',.09,-45);}
     if(e.type==='spellHit'){
       const style={pinMissile:'leaf',lightning:'lightning',hyperBeam:'aura',blizzard:'ice',spikes:'rock',stealthRock:'rock',whirlpool:'hydro',nightmare:'shadow',earthquake:'slam',thunder:'lightning'}[e.key]||'ember';

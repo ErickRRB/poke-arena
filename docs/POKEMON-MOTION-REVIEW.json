@@ -4,7 +4,7 @@
     "directions": 8,
     "movementSamples": 16,
     "attackSamples": 12,
-    "source": "Original PMDCollab and Showdown sprite sheets rendered by the actual game renderer"
+    "source": "Original PMDCollab eight-direction pixel sheets rendered by the actual game renderer"
   },
   "species": 93,
   "pokemonCards": 101,
@@ -18,6 +18,13 @@
       "attack": "Shock",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 34.2009,
+        "projectile": 12.996341999999999,
+        "impact": 20.520539999999997,
+        "beam": 5.472143999999999,
+        "charge": 13.68036
+      },
       "directions": [
         {
           "direction": 0,
@@ -79,6 +86,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 31.9999,
+        "projectile": 10.879966000000001,
+        "impact": 19.199939999999998,
+        "beam": 5.1199840000000005,
+        "charge": 12.79996
+      },
       "directions": [
         {
           "direction": 0,
@@ -140,6 +154,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 33.5236,
+        "projectile": 13.409440000000002,
+        "impact": 20.114160000000002,
+        "beam": 5.3637760000000005,
+        "charge": 13.409440000000002
+      },
       "directions": [
         {
           "direction": 0,
@@ -201,6 +222,13 @@
       "attack": "Stomp",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 76.8,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
       "directions": [
         {
           "direction": 0,
@@ -262,6 +290,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 36,
+        "projectile": 13.68,
+        "impact": 21.599999999999998,
+        "beam": 5.76,
+        "charge": 14.4
+      },
       "directions": [
         {
           "direction": 0,
@@ -319,57 +354,73 @@
       "name": "Charizard",
       "species": 6,
       "kind": "air",
-      "movement": "Showdown flight",
-      "attack": "Showdown flight",
+      "movement": "Hop",
+      "attack": "Shoot",
       "emitter": "head",
-      "customLoop": null,
+      "customLoop": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        4,
+        3,
+        2
+      ],
+      "visual": {
+        "body": 56.2426,
+        "projectile": 21.372188,
+        "impact": 33.74556,
+        "beam": 8.998816000000001,
+        "charge": 22.497040000000002
+      },
       "directions": [
         {
           "direction": 0,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 6,
           "emptyFrames": 0
         },
         {
           "direction": 1,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 6,
           "emptyFrames": 0
         },
         {
           "direction": 2,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 6,
           "emptyFrames": 0
         },
         {
           "direction": 3,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 6,
           "emptyFrames": 0
         },
         {
           "direction": 4,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 6,
           "emptyFrames": 0
         },
         {
           "direction": 5,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 6,
           "emptyFrames": 0
         },
         {
           "direction": 6,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 6,
           "emptyFrames": 0
         },
         {
           "direction": 7,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 6,
           "emptyFrames": 0
         }
       ],
@@ -384,6 +435,13 @@
       "attack": "Shoot",
       "emitter": "body",
       "customLoop": null,
+      "visual": {
+        "body": 29.750700000000002,
+        "projectile": 11.305266000000001,
+        "impact": 17.85042,
+        "beam": 4.760112,
+        "charge": 12
+      },
       "directions": [
         {
           "direction": 0,
@@ -445,6 +503,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 40.739999999999995,
+        "projectile": 17.110799999999998,
+        "impact": 24.443999999999996,
+        "beam": 6.5184,
+        "charge": 16.296
+      },
       "directions": [
         {
           "direction": 0,
@@ -506,6 +571,13 @@
       "attack": "Double",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 48.0004,
+        "projectile": 18.240152,
+        "impact": 28.80024,
+        "beam": 7.680064,
+        "charge": 19.20016
+      },
       "directions": [
         {
           "direction": 0,
@@ -567,6 +639,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 33.999,
+        "projectile": 12.919620000000002,
+        "impact": 20.3994,
+        "beam": 5.43984,
+        "charge": 13.599600000000002
+      },
       "directions": [
         {
           "direction": 0,
@@ -628,6 +707,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 64.35600000000001,
+        "projectile": 24.455280000000002,
+        "impact": 38.613600000000005,
+        "beam": 10.296960000000002,
+        "charge": 25.742400000000004
+      },
       "directions": [
         {
           "direction": 0,
@@ -689,6 +775,13 @@
       "attack": "Shoot",
       "emitter": "cannons",
       "customLoop": null,
+      "visual": {
+        "body": 49.9989,
+        "projectile": 16.999626,
+        "impact": 29.999339999999997,
+        "beam": 7.999824,
+        "charge": 19.999560000000002
+      },
       "directions": [
         {
           "direction": 0,
@@ -750,6 +843,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 37.7146,
+        "projectile": 15.08584,
+        "impact": 22.628759999999996,
+        "beam": 6.034336,
+        "charge": 15.08584
+      },
       "directions": [
         {
           "direction": 0,
@@ -811,6 +911,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 40,
+        "projectile": 14.399999999999999,
+        "impact": 24,
+        "beam": 6.4,
+        "charge": 16
+      },
       "directions": [
         {
           "direction": 0,
@@ -872,6 +979,13 @@
       "attack": "Shoot",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 41.9988,
+        "projectile": 15.119568000000001,
+        "impact": 25.19928,
+        "beam": 6.7198080000000004,
+        "charge": 16.79952
+      },
       "directions": [
         {
           "direction": 0,
@@ -933,6 +1047,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 43.9992,
+        "projectile": 16.719696000000003,
+        "impact": 26.39952,
+        "beam": 7.039872000000001,
+        "charge": 17.599680000000003
+      },
       "directions": [
         {
           "direction": 0,
@@ -994,6 +1115,13 @@
       "attack": "Shoot",
       "emitter": "body",
       "customLoop": null,
+      "visual": {
+        "body": 28.9522,
+        "projectile": 10.422792,
+        "impact": 17.37132,
+        "beam": 4.632352,
+        "charge": 12
+      },
       "directions": [
         {
           "direction": 0,
@@ -1062,6 +1190,13 @@
         6,
         5
       ],
+      "visual": {
+        "body": 48,
+        "projectile": 18.240000000000002,
+        "impact": 28.799999999999997,
+        "beam": 7.68,
+        "charge": 19.200000000000003
+      },
       "directions": [
         {
           "direction": 0,
@@ -1123,6 +1258,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 57.9984,
+        "projectile": 19.719456,
+        "impact": 34.79904,
+        "beam": 9.279743999999999,
+        "charge": 23.19936
+      },
       "directions": [
         {
           "direction": 0,
@@ -1184,6 +1326,13 @@
       "attack": "Shoot",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 46.0009,
+        "projectile": 22.080432,
+        "impact": 27.60054,
+        "beam": 7.360144,
+        "charge": 18.400360000000003
+      },
       "directions": [
         {
           "direction": 0,
@@ -1245,6 +1394,13 @@
       "attack": "Shoot",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 34.0008,
+        "projectile": 11.560272,
+        "impact": 20.400479999999998,
+        "beam": 5.440128,
+        "charge": 13.60032
+      },
       "directions": [
         {
           "direction": 0,
@@ -1306,6 +1462,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 56.5704,
+        "projectile": 21.496752,
+        "impact": 33.94224,
+        "beam": 9.051264,
+        "charge": 22.62816
+      },
       "directions": [
         {
           "direction": 0,
@@ -1367,6 +1530,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 23.9998,
+        "projectile": 9.119924000000001,
+        "impact": 16,
+        "beam": 4,
+        "charge": 12
+      },
       "directions": [
         {
           "direction": 0,
@@ -1428,6 +1598,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 23.9998,
+        "projectile": 9.119924000000001,
+        "impact": 16,
+        "beam": 4,
+        "charge": 12
+      },
       "directions": [
         {
           "direction": 0,
@@ -1489,6 +1666,13 @@
       "attack": "Shoot",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 31.999,
+        "projectile": 11.519639999999999,
+        "impact": 19.199399999999997,
+        "beam": 5.11984,
+        "charge": 12.7996
+      },
       "directions": [
         {
           "direction": 0,
@@ -1550,6 +1734,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 34.0011,
+        "projectile": 12.920418,
+        "impact": 20.40066,
+        "beam": 5.440176,
+        "charge": 13.60044
+      },
       "directions": [
         {
           "direction": 0,
@@ -1611,6 +1802,13 @@
       "attack": "Shoot",
       "emitter": "body",
       "customLoop": null,
+      "visual": {
+        "body": 59.786100000000005,
+        "projectile": 20.327274000000003,
+        "impact": 35.87166,
+        "beam": 9.565776000000001,
+        "charge": 23.914440000000003
+      },
       "directions": [
         {
           "direction": 0,
@@ -1672,6 +1870,13 @@
       "attack": "Shoot",
       "emitter": "body",
       "customLoop": null,
+      "visual": {
+        "body": 31.667499999999997,
+        "projectile": 13.300349999999998,
+        "impact": 19.0005,
+        "beam": 5.0668,
+        "charge": 12.667
+      },
       "directions": [
         {
           "direction": 0,
@@ -1733,6 +1938,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 36.0006,
+        "projectile": 13.680228,
+        "impact": 21.60036,
+        "beam": 5.760096,
+        "charge": 14.40024
+      },
       "directions": [
         {
           "direction": 0,
@@ -1790,57 +2002,73 @@
       "name": "Pidgeot",
       "species": 18,
       "kind": "air",
-      "movement": "Showdown flight",
-      "attack": "Showdown flight",
+      "movement": "Hop",
+      "attack": "Attack",
       "emitter": "head",
-      "customLoop": null,
+      "customLoop": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        6,
+        5,
+        4
+      ],
+      "visual": {
+        "body": 52,
+        "projectile": 19.76,
+        "impact": 31.2,
+        "beam": 8.32,
+        "charge": 20.8
+      },
       "directions": [
         {
           "direction": 0,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 8,
           "emptyFrames": 0
         },
         {
           "direction": 1,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 8,
           "emptyFrames": 0
         },
         {
           "direction": 2,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 8,
           "emptyFrames": 0
         },
         {
           "direction": 3,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 8,
           "emptyFrames": 0
         },
         {
           "direction": 4,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 8,
           "emptyFrames": 0
         },
         {
           "direction": 5,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 8,
           "emptyFrames": 0
         },
         {
           "direction": 6,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 8,
           "emptyFrames": 0
         },
         {
           "direction": 7,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 5,
+          "attackPoses": 8,
           "emptyFrames": 0
         }
       ],
@@ -1855,6 +2083,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 38.6657,
+        "projectile": 14.692966,
+        "impact": 23.19942,
+        "beam": 6.1865120000000005,
+        "charge": 15.466280000000001
+      },
       "directions": [
         {
           "direction": 0,
@@ -1916,6 +2151,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 34.001000000000005,
+        "projectile": 12.920380000000002,
+        "impact": 20.4006,
+        "beam": 5.4401600000000006,
+        "charge": 13.600400000000002
+      },
       "directions": [
         {
           "direction": 0,
@@ -1977,6 +2219,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 56.00000000000001,
+        "projectile": 21.280000000000005,
+        "impact": 33.6,
+        "beam": 8.96,
+        "charge": 22.400000000000006
+      },
       "directions": [
         {
           "direction": 0,
@@ -2038,6 +2287,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 56,
+        "projectile": 21.28,
+        "impact": 33.6,
+        "beam": 8.96,
+        "charge": 22.400000000000002
+      },
       "directions": [
         {
           "direction": 0,
@@ -2099,6 +2355,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 32.0008,
+        "projectile": 12.160304,
+        "impact": 19.20048,
+        "beam": 5.120128,
+        "charge": 12.80032
+      },
       "directions": [
         {
           "direction": 0,
@@ -2160,6 +2423,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 48,
+        "projectile": 18.240000000000002,
+        "impact": 28.799999999999997,
+        "beam": 7.68,
+        "charge": 19.200000000000003
+      },
       "directions": [
         {
           "direction": 0,
@@ -2221,6 +2491,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 41.1626,
+        "projectile": 13.995284,
+        "impact": 24.69756,
+        "beam": 6.586016,
+        "charge": 16.46504
+      },
       "directions": [
         {
           "direction": 0,
@@ -2282,6 +2559,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 30.6086,
+        "projectile": 11.631268,
+        "impact": 18.36516,
+        "beam": 4.897376,
+        "charge": 12.24344
+      },
       "directions": [
         {
           "direction": 0,
@@ -2343,6 +2627,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 42.001200000000004,
+        "projectile": 14.280408000000003,
+        "impact": 25.20072,
+        "beam": 6.720192000000001,
+        "charge": 16.800480000000004
+      },
       "directions": [
         {
           "direction": 0,
@@ -2404,6 +2695,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 31,
+        "projectile": 11.78,
+        "impact": 18.599999999999998,
+        "beam": 4.96,
+        "charge": 12.4
+      },
       "directions": [
         {
           "direction": 0,
@@ -2465,6 +2763,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 28,
+        "projectile": 10.64,
+        "impact": 16.8,
+        "beam": 4.48,
+        "charge": 12
+      },
       "directions": [
         {
           "direction": 0,
@@ -2526,6 +2831,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 47.6658,
+        "projectile": 18.113004,
+        "impact": 28.599479999999996,
+        "beam": 7.6265279999999995,
+        "charge": 19.06632
+      },
       "directions": [
         {
           "direction": 0,
@@ -2587,6 +2899,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 44.0002,
+        "projectile": 16.720076,
+        "impact": 26.400119999999998,
+        "beam": 7.040032,
+        "charge": 17.600080000000002
+      },
       "directions": [
         {
           "direction": 0,
@@ -2648,6 +2967,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 58,
+        "projectile": 18.56,
+        "impact": 34.8,
+        "beam": 9.28,
+        "charge": 23.200000000000003
+      },
       "directions": [
         {
           "direction": 0,
@@ -2709,6 +3035,13 @@
       "attack": "Attack",
       "emitter": "body",
       "customLoop": null,
+      "visual": {
+        "body": 30.1938,
+        "projectile": 11.473644,
+        "impact": 18.11628,
+        "beam": 4.831008,
+        "charge": 12.07752
+      },
       "directions": [
         {
           "direction": 0,
@@ -2770,6 +3103,13 @@
       "attack": "Shoot",
       "emitter": "body",
       "customLoop": null,
+      "visual": {
+        "body": 42,
+        "projectile": 13.44,
+        "impact": 25.2,
+        "beam": 6.72,
+        "charge": 16.8
+      },
       "directions": [
         {
           "direction": 0,
@@ -2831,6 +3171,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 56.25,
+        "projectile": 21.375,
+        "impact": 33.75,
+        "beam": 9,
+        "charge": 22.5
+      },
       "directions": [
         {
           "direction": 0,
@@ -2892,6 +3239,13 @@
       "attack": "Shoot",
       "emitter": "body",
       "customLoop": null,
+      "visual": {
+        "body": 41.618500000000004,
+        "projectile": 14.982660000000001,
+        "impact": 24.971100000000003,
+        "beam": 6.65896,
+        "charge": 16.6474
+      },
       "directions": [
         {
           "direction": 0,
@@ -2953,6 +3307,13 @@
       "attack": "Shoot",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 46.0012,
+        "projectile": 16.560432,
+        "impact": 27.60072,
+        "beam": 7.360192,
+        "charge": 18.400479999999998
+      },
       "directions": [
         {
           "direction": 0,
@@ -3014,6 +3375,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 84,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
       "directions": [
         {
           "direction": 0,
@@ -3075,6 +3443,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 26.0001,
+        "projectile": 10.920041999999999,
+        "impact": 16,
+        "beam": 4.160016,
+        "charge": 12
+      },
       "directions": [
         {
           "direction": 0,
@@ -3136,6 +3511,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 60.0894,
+        "projectile": 20.430396000000002,
+        "impact": 36.053639999999994,
+        "beam": 9.614304,
+        "charge": 24.03576
+      },
       "directions": [
         {
           "direction": 0,
@@ -3197,6 +3579,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 61.2765,
+        "projectile": 23.28507,
+        "impact": 36.765899999999995,
+        "beam": 9.80424,
+        "charge": 24.5106
+      },
       "directions": [
         {
           "direction": 0,
@@ -3258,6 +3647,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 63.9979,
+        "projectile": 25.59916,
+        "impact": 38.39874,
+        "beam": 10.239664000000001,
+        "charge": 25.59916
+      },
       "directions": [
         {
           "direction": 0,
@@ -3315,57 +3711,71 @@
       "name": "Dragonite",
       "species": 149,
       "kind": "air",
-      "movement": "Showdown flight",
-      "attack": "Showdown flight",
+      "movement": "Hop",
+      "attack": "Attack",
       "emitter": "hands",
-      "customLoop": null,
+      "customLoop": [
+        3,
+        4,
+        5,
+        6,
+        5,
+        4
+      ],
+      "visual": {
+        "body": 65.9995,
+        "projectile": 25.07981,
+        "impact": 39.5997,
+        "beam": 10.55992,
+        "charge": 26
+      },
       "directions": [
         {
           "direction": 0,
-          "movementPoses": 15,
-          "attackPoses": 12,
+          "movementPoses": 4,
+          "attackPoses": 7,
           "emptyFrames": 0
         },
         {
           "direction": 1,
-          "movementPoses": 15,
-          "attackPoses": 12,
+          "movementPoses": 4,
+          "attackPoses": 7,
           "emptyFrames": 0
         },
         {
           "direction": 2,
-          "movementPoses": 15,
-          "attackPoses": 12,
+          "movementPoses": 4,
+          "attackPoses": 7,
           "emptyFrames": 0
         },
         {
           "direction": 3,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 4,
+          "attackPoses": 7,
           "emptyFrames": 0
         },
         {
           "direction": 4,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 4,
+          "attackPoses": 7,
           "emptyFrames": 0
         },
         {
           "direction": 5,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 4,
+          "attackPoses": 7,
           "emptyFrames": 0
         },
         {
           "direction": 6,
-          "movementPoses": 15,
-          "attackPoses": 12,
+          "movementPoses": 4,
+          "attackPoses": 7,
           "emptyFrames": 0
         },
         {
           "direction": 7,
-          "movementPoses": 15,
-          "attackPoses": 12,
+          "movementPoses": 4,
+          "attackPoses": 7,
           "emptyFrames": 0
         }
       ],
@@ -3380,6 +3790,13 @@
       "attack": "Attack",
       "emitter": "body",
       "customLoop": null,
+      "visual": {
+        "body": 58.1824,
+        "projectile": 22.109312,
+        "impact": 34.90944,
+        "beam": 9.309184,
+        "charge": 23.27296
+      },
       "directions": [
         {
           "direction": 0,
@@ -3441,6 +3858,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 55.999,
+        "projectile": 21.27962,
+        "impact": 33.5994,
+        "beam": 8.95984,
+        "charge": 22.399600000000003
+      },
       "directions": [
         {
           "direction": 0,
@@ -3502,6 +3926,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 44.4448,
+        "projectile": 16.889024,
+        "impact": 26.66688,
+        "beam": 7.111168,
+        "charge": 17.77792
+      },
       "directions": [
         {
           "direction": 0,
@@ -3563,6 +3994,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 44,
+        "projectile": 16.72,
+        "impact": 26.4,
+        "beam": 7.04,
+        "charge": 17.6
+      },
       "directions": [
         {
           "direction": 0,
@@ -3624,6 +4062,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 40.625,
+        "projectile": 15.4375,
+        "impact": 24.375,
+        "beam": 6.5,
+        "charge": 16.25
+      },
       "directions": [
         {
           "direction": 0,
@@ -3685,6 +4130,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 37.9988,
+        "projectile": 13.679568,
+        "impact": 22.79928,
+        "beam": 6.079808000000001,
+        "charge": 15.199520000000001
+      },
       "directions": [
         {
           "direction": 0,
@@ -3746,6 +4198,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 37.8,
+        "projectile": 14.363999999999999,
+        "impact": 22.679999999999996,
+        "beam": 6.048,
+        "charge": 15.12
+      },
       "directions": [
         {
           "direction": 0,
@@ -3807,6 +4266,13 @@
       "attack": null,
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 50,
+        "projectile": 19,
+        "impact": 30,
+        "beam": 8,
+        "charge": 20
+      },
       "directions": [
         {
           "direction": 0,
@@ -3868,6 +4334,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 80.00150000000001,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
       "directions": [
         {
           "direction": 0,
@@ -3929,6 +4402,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 46.0009,
+        "projectile": 17.480342,
+        "impact": 27.60054,
+        "beam": 7.360144,
+        "charge": 18.400360000000003
+      },
       "directions": [
         {
           "direction": 0,
@@ -3990,6 +4470,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 43.8848,
+        "projectile": 16.676224,
+        "impact": 26.330879999999997,
+        "beam": 7.021568,
+        "charge": 17.55392
+      },
       "directions": [
         {
           "direction": 0,
@@ -4051,6 +4538,13 @@
       "attack": "Shoot",
       "emitter": "body",
       "customLoop": null,
+      "visual": {
+        "body": 50.0006,
+        "projectile": 16.000192,
+        "impact": 30.000359999999997,
+        "beam": 8.000096,
+        "charge": 20.00024
+      },
       "directions": [
         {
           "direction": 0,
@@ -4108,57 +4602,64 @@
       "name": "Lugia",
       "species": 249,
       "kind": "air",
-      "movement": "Showdown flight",
-      "attack": "Showdown flight",
+      "movement": "Walk",
+      "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 84,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
       "directions": [
         {
           "direction": 0,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 2,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 1,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 2,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 2,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 2,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 3,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 2,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 4,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 2,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 5,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 2,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 6,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 2,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 7,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 2,
+          "attackPoses": 5,
           "emptyFrames": 0
         }
       ],
@@ -4173,6 +4674,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 71.21520000000001,
+        "projectile": 27.061776000000005,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
       "directions": [
         {
           "direction": 0,
@@ -4234,6 +4742,13 @@
       "attack": "Shoot",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 44.4136,
+        "projectile": 15.100624000000002,
+        "impact": 26.64816,
+        "beam": 7.1061760000000005,
+        "charge": 17.76544
+      },
       "directions": [
         {
           "direction": 0,
@@ -4295,6 +4810,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 49.7792,
+        "projectile": 18.916096000000003,
+        "impact": 29.86752,
+        "beam": 7.964672000000001,
+        "charge": 19.911680000000004
+      },
       "directions": [
         {
           "direction": 0,
@@ -4356,6 +4878,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 52.5625,
+        "projectile": 19.97375,
+        "impact": 31.537499999999998,
+        "beam": 8.41,
+        "charge": 21.025000000000002
+      },
       "directions": [
         {
           "direction": 0,
@@ -4417,6 +4946,13 @@
       "attack": "Shoot",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 45.7152,
+        "projectile": 21.943296,
+        "impact": 27.42912,
+        "beam": 7.314432000000001,
+        "charge": 18.286080000000002
+      },
       "directions": [
         {
           "direction": 0,
@@ -4478,6 +5014,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 27.7775,
+        "projectile": 11.666549999999999,
+        "impact": 16.6665,
+        "beam": 4.4444,
+        "charge": 12
+      },
       "directions": [
         {
           "direction": 0,
@@ -4539,6 +5082,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 62,
+        "projectile": 23.56,
+        "impact": 37.199999999999996,
+        "beam": 9.92,
+        "charge": 24.8
+      },
       "directions": [
         {
           "direction": 0,
@@ -4600,6 +5150,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 41.9988,
+        "projectile": 15.959544000000001,
+        "impact": 25.19928,
+        "beam": 6.7198080000000004,
+        "charge": 16.79952
+      },
       "directions": [
         {
           "direction": 0,
@@ -4657,57 +5214,64 @@
       "name": "Flygon",
       "species": 330,
       "kind": "air",
-      "movement": "Showdown flight",
-      "attack": "Showdown flight",
+      "movement": "Walk",
+      "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 60.1216,
+        "projectile": 22.846208,
+        "impact": 36.07296,
+        "beam": 9.619456,
+        "charge": 24.048640000000002
+      },
       "directions": [
         {
           "direction": 0,
-          "movementPoses": 14,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 9,
           "emptyFrames": 0
         },
         {
           "direction": 1,
-          "movementPoses": 14,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 9,
           "emptyFrames": 0
         },
         {
           "direction": 2,
-          "movementPoses": 14,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 9,
           "emptyFrames": 0
         },
         {
           "direction": 3,
-          "movementPoses": 15,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 9,
           "emptyFrames": 0
         },
         {
           "direction": 4,
-          "movementPoses": 15,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 9,
           "emptyFrames": 0
         },
         {
           "direction": 5,
-          "movementPoses": 15,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 9,
           "emptyFrames": 0
         },
         {
           "direction": 6,
-          "movementPoses": 14,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 9,
           "emptyFrames": 0
         },
         {
           "direction": 7,
-          "movementPoses": 14,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 9,
           "emptyFrames": 0
         }
       ],
@@ -4718,57 +5282,64 @@
       "name": "Altaria",
       "species": 334,
       "kind": "air",
-      "movement": "Showdown flight",
-      "attack": "Showdown flight",
+      "movement": "Walk",
+      "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 31.024200000000004,
+        "projectile": 14.891616,
+        "impact": 18.614520000000002,
+        "beam": 4.963872000000001,
+        "charge": 12.409680000000002
+      },
       "directions": [
         {
           "direction": 0,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 1,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 2,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 3,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 4,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 5,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 6,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 5,
           "emptyFrames": 0
         },
         {
           "direction": 7,
-          "movementPoses": 16,
-          "attackPoses": 12,
+          "movementPoses": 3,
+          "attackPoses": 5,
           "emptyFrames": 0
         }
       ],
@@ -4783,6 +5354,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 44,
+        "projectile": 16.72,
+        "impact": 26.4,
+        "beam": 7.04,
+        "charge": 17.6
+      },
       "directions": [
         {
           "direction": 0,
@@ -4853,6 +5431,13 @@
         5,
         4
       ],
+      "visual": {
+        "body": 69.3316,
+        "projectile": 26.346007999999998,
+        "impact": 41.59896,
+        "beam": 11,
+        "charge": 26
+      },
       "directions": [
         {
           "direction": 0,
@@ -4914,6 +5499,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 63.9989,
+        "projectile": 24.319582,
+        "impact": 38.399339999999995,
+        "beam": 10.239824,
+        "charge": 25.59956
+      },
       "directions": [
         {
           "direction": 0,
@@ -4975,6 +5567,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 87.9984,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
       "directions": [
         {
           "direction": 0,
@@ -5036,6 +5635,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 78.57300000000001,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
       "directions": [
         {
           "direction": 0,
@@ -5097,6 +5703,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 87.9375,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
       "directions": [
         {
           "direction": 0,
@@ -5158,6 +5771,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 28.0002,
+        "projectile": 10.640076,
+        "impact": 16.80012,
+        "beam": 4.4800320000000005,
+        "charge": 12
+      },
       "directions": [
         {
           "direction": 0,
@@ -5219,6 +5839,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 24,
+        "projectile": 9.120000000000001,
+        "impact": 16,
+        "beam": 4,
+        "charge": 12
+      },
       "directions": [
         {
           "direction": 0,
@@ -5280,6 +5907,13 @@
       "attack": "Attack",
       "emitter": "body",
       "customLoop": null,
+      "visual": {
+        "body": 22.284599999999998,
+        "projectile": 8.022455999999998,
+        "impact": 16,
+        "beam": 4,
+        "charge": 12
+      },
       "directions": [
         {
           "direction": 0,
@@ -5341,6 +5975,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 30.9375,
+        "projectile": 11.75625,
+        "impact": 18.5625,
+        "beam": 4.95,
+        "charge": 12.375
+      },
       "directions": [
         {
           "direction": 0,
@@ -5402,6 +6043,13 @@
       "attack": null,
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 44.0002,
+        "projectile": 16.720076,
+        "impact": 26.400119999999998,
+        "beam": 7.040032,
+        "charge": 17.600080000000002
+      },
       "directions": [
         {
           "direction": 0,
@@ -5463,6 +6111,13 @@
       "attack": null,
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 56.00000000000001,
+        "projectile": 21.280000000000005,
+        "impact": 33.6,
+        "beam": 8.96,
+        "charge": 22.400000000000006
+      },
       "directions": [
         {
           "direction": 0,
@@ -5524,6 +6179,13 @@
       "attack": null,
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 58,
+        "projectile": 22.04,
+        "impact": 34.8,
+        "beam": 9.28,
+        "charge": 23.200000000000003
+      },
       "directions": [
         {
           "direction": 0,
@@ -5585,6 +6247,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 44.0014,
+        "projectile": 14.960476,
+        "impact": 26.40084,
+        "beam": 7.040223999999999,
+        "charge": 17.600559999999998
+      },
       "directions": [
         {
           "direction": 0,
@@ -5646,6 +6315,13 @@
       "attack": "Shoot",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 45.76,
+        "projectile": 19.219199999999997,
+        "impact": 27.456,
+        "beam": 7.3216,
+        "charge": 18.304
+      },
       "directions": [
         {
           "direction": 0,
@@ -5707,6 +6383,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 44.001,
+        "projectile": 16.72038,
+        "impact": 26.400599999999997,
+        "beam": 7.04016,
+        "charge": 17.6004
+      },
       "directions": [
         {
           "direction": 0,
@@ -5768,6 +6451,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 38.9701,
+        "projectile": 14.808638,
+        "impact": 23.38206,
+        "beam": 6.235216,
+        "charge": 15.588040000000001
+      },
       "directions": [
         {
           "direction": 0,
@@ -5829,6 +6519,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 44,
+        "projectile": 16.72,
+        "impact": 26.4,
+        "beam": 7.04,
+        "charge": 17.6
+      },
       "directions": [
         {
           "direction": 0,
@@ -5890,6 +6587,13 @@
       "attack": "Shoot",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 46.155,
+        "projectile": 15.692700000000002,
+        "impact": 27.693,
+        "beam": 7.3848,
+        "charge": 18.462
+      },
       "directions": [
         {
           "direction": 0,
@@ -5951,6 +6655,13 @@
       "attack": "Attack",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 34.0011,
+        "projectile": 12.920418,
+        "impact": 20.40066,
+        "beam": 5.440176,
+        "charge": 13.60044
+      },
       "directions": [
         {
           "direction": 0,
@@ -6012,6 +6723,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 46.315999999999995,
+        "projectile": 19.452719999999996,
+        "impact": 27.789599999999997,
+        "beam": 7.410559999999999,
+        "charge": 18.5264
+      },
       "directions": [
         {
           "direction": 0,
@@ -6073,6 +6791,13 @@
       "attack": "Attack",
       "emitter": "head",
       "customLoop": null,
+      "visual": {
+        "body": 34.0011,
+        "projectile": 12.920418,
+        "impact": 20.40066,
+        "beam": 5.440176,
+        "charge": 13.60044
+      },
       "directions": [
         {
           "direction": 0,
@@ -6134,6 +6859,13 @@
       "attack": "Shoot",
       "emitter": "hands",
       "customLoop": null,
+      "visual": {
+        "body": 31.999,
+        "projectile": 11.519639999999999,
+        "impact": 19.199399999999997,
+        "beam": 5.11984,
+        "charge": 12.7996
+      },
       "directions": [
         {
           "direction": 0,

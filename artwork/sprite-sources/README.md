@@ -1,13 +1,9 @@
-# Sprites de vuelo
+# Archivo de sprites de vuelo
 
-Las carpetas `charizard`, `dragonite`, `pidgeot`, `lugia`, `altaria` y `flygon` conservan los GIF originales de Pokémon Showdown, descargados el 13 de noviembre de 2026.
+Las carpetas `charizard`, `dragonite`, `pidgeot`, `lugia`, `altaria` y `flygon` conservan los GIF originales de [Pokémon Showdown / Smogon Sprites](https://github.com/smogon/sprites), descargados el 13 de noviembre de 2026. `front.gif` proviene de `https://play.pokemonshowdown.com/sprites/ani/<especie>.gif` y `back.gif` de `https://play.pokemonshowdown.com/sprites/ani-back/<especie>.gif`.
 
-Origen: [Pokémon Showdown / Smogon Sprites](https://github.com/smogon/sprites).
+Las láminas PNG retiradas están en `retired-atlases`, junto con sus metadatos, checksums de origen y el perfil que las utilizaba. `charizard-showdown-demo.gif` conserva la demostración anterior. El juego utiliza los sprites de ocho direcciones de PMDCollab.
 
-Por especie, `front.gif` corresponde a `https://play.pokemonshowdown.com/sprites/ani/<especie>.gif` y `back.gif` a `https://play.pokemonshowdown.com/sprites/ani-back/<especie>.gif`.
+`python scripts/import-flight-sprites.py` vuelve a desempaquetar los cuadros originales en esa carpeta de archivo. Conserva sus píxeles y sus secuencias, sin modificar los recursos activos del juego.
 
-Los gráficos originales de Pokémon pertenecen a Nintendo, Creatures y GAME FREAK. La atribución del repositorio de sprites se conserva mediante el enlace anterior.
-
-`python scripts/import-flight-sprites.py` copia cada cuadro completo a una lámina PNG con ocho columnas, sin dibujar, interpolar, filtrar ni modificar sus píxeles. Los checksums de los GIF, las dimensiones y la cantidad de cuadros quedan en `dist/assets/battle/flight-atlases.js`.
-
-El juego usa las vistas frontal y posterior originales y sus reflejos horizontales para las cuatro orientaciones visuales. Las ocho direcciones de movimiento del motor se mantienen. El aleteo continúa durante movimiento, espera, golpes y ataques. Los perfiles de `dist/flight-motion.js` fijan la escala y la posición de la boca en esas láminas.
+Los gráficos de Pokémon pertenecen a Nintendo, Creatures y GAME FREAK. Las ilustraciones antiguas de cartas se conservan por separado en `artwork/imagenes-viejas`.

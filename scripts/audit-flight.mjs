@@ -11,7 +11,7 @@ try{
  const {page,context,errors}=await openPage(browser,{width:1440,height:980});await page.goto(url);await ready(page);
  const result=await page.evaluate(async()=>{
   const query=new URL([...document.scripts].find(s=>s.type==='module').src).search;
-  const {CARDS}=await import('/engine.js'+query),{flightPose}=await import('/flight-motion.js'+query),renderer=__qa.renderer;
+  const {CARDS}=await import('/engine.js'+query),renderer=__qa.renderer;
   const cards=Object.entries(CARDS).filter(([,card])=>card.flying);await renderer.ensureSpecies([...new Set(cards.map(([,card])=>card.id))]);renderer.verticalScale=1;renderer.reduced=false;
   const surface=document.createElement('canvas');surface.width=400;surface.height=400;
   const c=surface.getContext('2d',{willReadFrequently:true}),draw=c.drawImage.bind(c),cache=new Map();let poseCapture=[];
@@ -38,7 +38,7 @@ try{
     const point=renderer.visualEmission(actor);
     directions.push({direction,poses:poses.size,empty,missing,emitter:point});
    }
-   rows.push({key,name:card.name,source:flightPose(actor,0)?'Showdown flight':'PMD original',directions});
+   rows.push({key,name:card.name,source:'PMD original',directions});
   }
   const strips=[];
   for(let start=0;start<cards.length;start+=6){
@@ -53,7 +53,7 @@ try{
   return{rows,strips};
  });
  assert.deepEqual(errors,[]);
- for(const row of result.rows)for(const direction of row.directions){assert.equal(direction.empty,0,row.key);assert.equal(direction.missing,0,row.key);assert.ok(direction.poses>1,row.key);if(row.source==='Showdown flight')assert.ok(direction.poses>=40,row.key);}
+ for(const row of result.rows)for(const direction of row.directions){assert.equal(direction.empty,0,row.key);assert.equal(direction.missing,0,row.key);assert.ok(direction.poses>1,row.key);}
  await mkdir('docs/flight-review',{recursive:true});
  for(const[index,data]of result.strips.entries())await writeFile(`docs/flight-review/fliers-${index+1}.png`,Buffer.from(data.split(',')[1],'base64'));
  const report={date:new Date().toISOString().slice(0,10),directions:8,samples:120,seconds:2,rows:result.rows};

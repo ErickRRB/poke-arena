@@ -1,0 +1,2585 @@
+{
+  "date": "2026-11-13",
+  "rows": [
+    {
+      "key": "pikachu",
+      "name": "Pikachu",
+      "species": 25,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 34.2009,
+        "projectile": 12.996341999999999,
+        "impact": 20.520539999999997,
+        "beam": 5.472143999999999,
+        "charge": 13.68036
+      },
+      "projectileRaster": "lightning",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 40,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "squirtle",
+      "name": "Squirtle",
+      "species": 7,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 31.9999,
+        "projectile": 10.879966000000001,
+        "impact": 19.199939999999998,
+        "beam": 5.1199840000000005,
+        "charge": 12.79996
+      },
+      "projectileRaster": "bubble",
+      "releaseEvents": 2,
+      "travellingSamples": 14,
+      "maxEffectSize": 10.879966000000001,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "charmander",
+      "name": "Charmander",
+      "species": 4,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 33.5236,
+        "projectile": 13.409440000000002,
+        "impact": 20.114160000000002,
+        "beam": 5.3637760000000005,
+        "charge": 13.409440000000002
+      },
+      "projectileRaster": "emberShot",
+      "releaseEvents": 1,
+      "travellingSamples": 12,
+      "maxEffectSize": 13.409440000000002,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "snorlax",
+      "name": "Snorlax",
+      "species": 143,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 76.8,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 42,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "zubat",
+      "name": "Zubat",
+      "species": 41,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 36,
+        "projectile": 13.68,
+        "impact": 21.599999999999998,
+        "beam": 5.76,
+        "charge": 14.4
+      },
+      "projectileRaster": "bite",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 21.599999999999998,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "charizard",
+      "name": "Charizard",
+      "species": 6,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 56.2426,
+        "projectile": 21.372188,
+        "impact": 33.74556,
+        "beam": 8.998816000000001,
+        "charge": 22.497040000000002
+      },
+      "projectileRaster": "flame",
+      "releaseEvents": 2,
+      "travellingSamples": 0,
+      "maxEffectSize": 36.55769,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "bulbasaur",
+      "name": "Bulbasaur",
+      "species": 1,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "body",
+      "visual": {
+        "body": 29.750700000000002,
+        "projectile": 11.305266000000001,
+        "impact": 17.85042,
+        "beam": 4.760112,
+        "charge": 12
+      },
+      "projectileRaster": "vine",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 117.85956412451219,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "gengar",
+      "name": "Gengar",
+      "species": 94,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 40.739999999999995,
+        "projectile": 17.110799999999998,
+        "impact": 24.443999999999996,
+        "beam": 6.5184,
+        "charge": 16.296
+      },
+      "projectileRaster": "shadow",
+      "releaseEvents": 1,
+      "travellingSamples": 12,
+      "maxEffectSize": 48,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "machamp",
+      "name": "Machamp",
+      "species": 68,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 48.0004,
+        "projectile": 18.240152,
+        "impact": 28.80024,
+        "beam": 7.680064,
+        "charge": 19.20016
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 2,
+      "travellingSamples": 0,
+      "maxEffectSize": 28.80024,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "eevee",
+      "name": "Eevee",
+      "species": 133,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 33.999,
+        "projectile": 12.919620000000002,
+        "impact": 20.3994,
+        "beam": 5.43984,
+        "charge": 13.599600000000002
+      },
+      "projectileRaster": "dash",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 20.3994,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "onix",
+      "name": "Onix",
+      "species": 95,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 64.35600000000001,
+        "projectile": 24.455280000000002,
+        "impact": 38.613600000000005,
+        "beam": 10.296960000000002,
+        "charge": 25.742400000000004
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 38.613600000000005,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "blastoise",
+      "name": "Blastoise",
+      "species": 9,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "cannons",
+      "visual": {
+        "body": 49.9989,
+        "projectile": 16.999626,
+        "impact": 29.999339999999997,
+        "beam": 7.999824,
+        "charge": 19.999560000000002
+      },
+      "projectileRaster": "hydroShot",
+      "releaseEvents": 2,
+      "travellingSamples": 13,
+      "maxEffectSize": 16.999626,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "vulpix",
+      "name": "Vulpix",
+      "species": 37,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 37.7146,
+        "projectile": 15.08584,
+        "impact": 22.628759999999996,
+        "beam": 6.034336,
+        "charge": 15.08584
+      },
+      "projectileRaster": "emberShot",
+      "releaseEvents": 2,
+      "travellingSamples": 12,
+      "maxEffectSize": 15.08584,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "psyduck",
+      "name": "Psyduck",
+      "species": 54,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 40,
+        "projectile": 14.399999999999999,
+        "impact": 24,
+        "beam": 6.4,
+        "charge": 16
+      },
+      "projectileRaster": "psychic",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 14.399999999999999,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "alakazam",
+      "name": "Alakazam",
+      "species": 65,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 41.9988,
+        "projectile": 15.119568000000001,
+        "impact": 25.19928,
+        "beam": 6.7198080000000004,
+        "charge": 16.79952
+      },
+      "projectileRaster": "psychic",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 16.79952,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "geodude",
+      "name": "Geodude",
+      "species": 74,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 43.9992,
+        "projectile": 16.719696000000003,
+        "impact": 26.39952,
+        "beam": 7.039872000000001,
+        "charge": 17.599680000000003
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 26.39952,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "magnemite",
+      "name": "Magnemite",
+      "species": 81,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "body",
+      "visual": {
+        "body": 28.9522,
+        "projectile": 10.422792,
+        "impact": 17.37132,
+        "beam": 4.632352,
+        "charge": 12
+      },
+      "projectileRaster": "lightningHead",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 10.422792,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "scyther",
+      "name": "Scyther",
+      "species": 123,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 48,
+        "projectile": 18.240000000000002,
+        "impact": 28.799999999999997,
+        "beam": 7.68,
+        "charge": 19.200000000000003
+      },
+      "projectileRaster": "slash",
+      "releaseEvents": 2,
+      "travellingSamples": 0,
+      "maxEffectSize": 28.799999999999997,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "lapras",
+      "name": "Lapras",
+      "species": 131,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 57.9984,
+        "projectile": 19.719456,
+        "impact": 34.79904,
+        "beam": 9.279743999999999,
+        "charge": 23.19936
+      },
+      "projectileRaster": "snow",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 19.719456,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "mewtwo",
+      "name": "Mewtwo",
+      "species": 150,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 46.0009,
+        "projectile": 22.080432,
+        "impact": 27.60054,
+        "beam": 7.360144,
+        "charge": 18.400360000000003
+      },
+      "projectileRaster": "psychic",
+      "releaseEvents": 1,
+      "travellingSamples": 12,
+      "maxEffectSize": 22.080432,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "treecko",
+      "name": "Treecko",
+      "species": 252,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 34.0008,
+        "projectile": 11.560272,
+        "impact": 20.400479999999998,
+        "beam": 5.440128,
+        "charge": 13.60032
+      },
+      "projectileRaster": "leaf",
+      "releaseEvents": 1,
+      "travellingSamples": 12,
+      "maxEffectSize": 11.560272,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "golem",
+      "name": "Golem",
+      "species": 76,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 56.5704,
+        "projectile": 21.496752,
+        "impact": 33.94224,
+        "beam": 9.051264,
+        "charge": 22.62816
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 33.94224,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "diglett",
+      "name": "Diglett",
+      "species": 50,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 23.9998,
+        "projectile": 9.119924000000001,
+        "impact": 16,
+        "beam": 4,
+        "charge": 12
+      },
+      "projectileRaster": "slash",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 16,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "diglettHorde",
+      "name": "Horda Diglett",
+      "species": 50,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 23.9998,
+        "projectile": 9.119924000000001,
+        "impact": 16,
+        "beam": 4,
+        "charge": 12
+      },
+      "projectileRaster": "slash",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 16,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "raltsTrio",
+      "name": "Trío Ralts",
+      "species": 280,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 31.999,
+        "projectile": 11.519639999999999,
+        "impact": 19.199399999999997,
+        "beam": 5.11984,
+        "charge": 12.7996
+      },
+      "projectileRaster": "psychic",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 11.519639999999999,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "poochyenaPack",
+      "name": "Manada Poochyena",
+      "species": 261,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 34.0011,
+        "projectile": 12.920418,
+        "impact": 20.40066,
+        "beam": 5.440176,
+        "charge": 13.60044
+      },
+      "projectileRaster": "bite",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 20.40066,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "venusaur",
+      "name": "Venusaur",
+      "species": 3,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "body",
+      "visual": {
+        "body": 59.786100000000005,
+        "projectile": 20.327274000000003,
+        "impact": 35.87166,
+        "beam": 9.565776000000001,
+        "charge": 23.914440000000003
+      },
+      "projectileRaster": "leaf",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 20.327274000000003,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "butterfree",
+      "name": "Butterfree",
+      "species": 12,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "body",
+      "visual": {
+        "body": 31.667499999999997,
+        "projectile": 13.300349999999998,
+        "impact": 19.0005,
+        "beam": 5.0668,
+        "charge": 12.667
+      },
+      "projectileRaster": "poison",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 13.300349999999998,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "beedrill",
+      "name": "Beedrill",
+      "species": 15,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 36.0006,
+        "projectile": 13.680228,
+        "impact": 21.60036,
+        "beam": 5.760096,
+        "charge": 14.40024
+      },
+      "projectileRaster": "slash",
+      "releaseEvents": 2,
+      "travellingSamples": 0,
+      "maxEffectSize": 21.60036,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "pidgeot",
+      "name": "Pidgeot",
+      "species": 18,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 52,
+        "projectile": 19.76,
+        "impact": 31.2,
+        "beam": 8.32,
+        "charge": 20.8
+      },
+      "projectileRaster": "dash",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 31.2,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "ekans",
+      "name": "Ekans",
+      "species": 23,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 38.6657,
+        "projectile": 14.692966,
+        "impact": 23.19942,
+        "beam": 6.1865120000000005,
+        "charge": 15.466280000000001
+      },
+      "projectileRaster": "bite",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 23.19942,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "sandshrew",
+      "name": "Sandshrew",
+      "species": 27,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 34.001000000000005,
+        "projectile": 12.920380000000002,
+        "impact": 20.4006,
+        "beam": 5.4401600000000006,
+        "charge": 13.600400000000002
+      },
+      "projectileRaster": "slash",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 40,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "nidoqueen",
+      "name": "Nidoqueen",
+      "species": 31,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 56.00000000000001,
+        "projectile": 21.280000000000005,
+        "impact": 33.6,
+        "beam": 8.96,
+        "charge": 22.400000000000006
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 33.6,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "nidoking",
+      "name": "Nidoking",
+      "species": 34,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 56,
+        "projectile": 21.28,
+        "impact": 33.6,
+        "beam": 8.96,
+        "charge": 22.400000000000002
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 33.6,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "mankey",
+      "name": "Mankey",
+      "species": 56,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 32.0008,
+        "projectile": 12.160304,
+        "impact": 19.20048,
+        "beam": 5.120128,
+        "charge": 12.80032
+      },
+      "projectileRaster": "dash",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 19.20048,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "arcanine",
+      "name": "Arcanine",
+      "species": 59,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 48,
+        "projectile": 18.240000000000002,
+        "impact": 28.799999999999997,
+        "beam": 7.68,
+        "charge": 19.200000000000003
+      },
+      "projectileRaster": "dash",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 28.799999999999997,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "slowbro",
+      "name": "Slowbro",
+      "species": 80,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 41.1626,
+        "projectile": 13.995284,
+        "impact": 24.69756,
+        "beam": 6.586016,
+        "charge": 16.46504
+      },
+      "projectileRaster": "snow",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 144,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "grimer",
+      "name": "Grimer",
+      "species": 88,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 30.6086,
+        "projectile": 11.631268,
+        "impact": 18.36516,
+        "beam": 4.897376,
+        "charge": 12.24344
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 18.36516,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "cloyster",
+      "name": "Cloyster",
+      "species": 91,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 42.001200000000004,
+        "projectile": 14.280408000000003,
+        "impact": 25.20072,
+        "beam": 6.720192000000001,
+        "charge": 16.800480000000004
+      },
+      "projectileRaster": "snow",
+      "releaseEvents": 2,
+      "travellingSamples": 16,
+      "maxEffectSize": 75,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "gastly",
+      "name": "Gastly",
+      "species": 92,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 31,
+        "projectile": 13.02,
+        "impact": 18.599999999999998,
+        "beam": 4.96,
+        "charge": 12.4
+      },
+      "projectileRaster": "shadow",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 13.02,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "voltorb",
+      "name": "Voltorb",
+      "species": 100,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 28,
+        "projectile": 10.64,
+        "impact": 16.8,
+        "beam": 4.48,
+        "charge": 12
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 21.599999999999998,
+      "passive": false,
+      "suicide": true
+    },
+    {
+      "key": "forretress",
+      "name": "Forretress",
+      "species": 205,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 47.6658,
+        "projectile": 18.113004,
+        "impact": 28.599479999999996,
+        "beam": 7.6265279999999995,
+        "charge": 19.06632
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 160,
+      "passive": false,
+      "suicide": true
+    },
+    {
+      "key": "electrode",
+      "name": "Electrode",
+      "species": 101,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 44.0002,
+        "projectile": 16.720076,
+        "impact": 26.400119999999998,
+        "beam": 7.040032,
+        "charge": 17.600080000000002
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 160,
+      "passive": false,
+      "suicide": true
+    },
+    {
+      "key": "exeggutor",
+      "name": "Exeggutor",
+      "species": 103,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 58,
+        "projectile": 18.56,
+        "impact": 34.8,
+        "beam": 9.28,
+        "charge": 23.200000000000003
+      },
+      "projectileRaster": "egg",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 18.56,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "koffing",
+      "name": "Koffing",
+      "species": 109,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "body",
+      "visual": {
+        "body": 30.1938,
+        "projectile": 11.473644,
+        "impact": 18.11628,
+        "beam": 4.831008,
+        "charge": 12.07752
+      },
+      "projectileRaster": "poison",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 18.11628,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "chansey",
+      "name": "Chansey",
+      "species": 113,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "body",
+      "visual": {
+        "body": 42,
+        "projectile": 13.44,
+        "impact": 25.2,
+        "beam": 6.72,
+        "charge": 16.8
+      },
+      "projectileRaster": "egg",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 13.44,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "kangaskhan",
+      "name": "Kangaskhan",
+      "species": 115,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 56.25,
+        "projectile": 21.375,
+        "impact": 33.75,
+        "beam": 9,
+        "charge": 22.5
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 33.75,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "starmie",
+      "name": "Starmie",
+      "species": 121,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "body",
+      "visual": {
+        "body": 41.618500000000004,
+        "projectile": 14.982660000000001,
+        "impact": 24.971100000000003,
+        "beam": 6.65896,
+        "charge": 16.6474
+      },
+      "projectileRaster": "psychic",
+      "releaseEvents": 2,
+      "travellingSamples": 0,
+      "maxEffectSize": 16.6474,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "mrmime",
+      "name": "Mr. Mime",
+      "species": 122,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 46.0012,
+        "projectile": 16.560432,
+        "impact": 27.60072,
+        "beam": 7.360192,
+        "charge": 18.400479999999998
+      },
+      "projectileRaster": "psychic",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 40,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "gyarados",
+      "name": "Gyarados",
+      "species": 130,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 84,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
+      "projectileRaster": "bite",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 42,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "ditto",
+      "name": "Ditto",
+      "species": 132,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 26.0001,
+        "projectile": 10.920041999999999,
+        "impact": 16,
+        "beam": 4.160016,
+        "charge": 12
+      },
+      "projectileRaster": "shadow",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 16,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "articuno",
+      "name": "Articuno",
+      "species": 144,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 60.0894,
+        "projectile": 20.430396000000002,
+        "impact": 36.053639999999994,
+        "beam": 9.614304,
+        "charge": 24.03576
+      },
+      "projectileRaster": "snow",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 20.430396000000002,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "zapdos",
+      "name": "Zapdos",
+      "species": 145,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 61.2765,
+        "projectile": 23.28507,
+        "impact": 36.765899999999995,
+        "beam": 9.80424,
+        "charge": 24.5106
+      },
+      "projectileRaster": "lightning",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 24.5106,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "moltres",
+      "name": "Moltres",
+      "species": 146,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 63.9979,
+        "projectile": 25.59916,
+        "impact": 38.39874,
+        "beam": 10.239664000000001,
+        "charge": 25.59916
+      },
+      "projectileRaster": "emberShot",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 25.59916,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "dragonite",
+      "name": "Dragonite",
+      "species": 149,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 65.9995,
+        "projectile": 25.07981,
+        "impact": 39.5997,
+        "beam": 10.55992,
+        "charge": 26
+      },
+      "projectileRaster": "slash",
+      "releaseEvents": 2,
+      "travellingSamples": 0,
+      "maxEffectSize": 39.5997,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "meganium",
+      "name": "Meganium",
+      "species": 154,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "body",
+      "visual": {
+        "body": 58.1824,
+        "projectile": 22.109312,
+        "impact": 34.90944,
+        "beam": 9.309184,
+        "charge": 23.27296
+      },
+      "projectileRaster": "vine",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 93.20950896770135,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "typhlosion",
+      "name": "Typhlosion",
+      "species": 157,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 55.999,
+        "projectile": 22.399600000000003,
+        "impact": 33.5994,
+        "beam": 8.95984,
+        "charge": 22.399600000000003
+      },
+      "projectileRaster": "emberShot",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 22.399600000000003,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "feraligatr",
+      "name": "Feraligatr",
+      "species": 160,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 44.4448,
+        "projectile": 16.889024,
+        "impact": 26.66688,
+        "beam": 7.111168,
+        "charge": 17.77792
+      },
+      "projectileRaster": "bite",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 26.66688,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "crobat",
+      "name": "Crobat",
+      "species": 169,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 44,
+        "projectile": 16.72,
+        "impact": 26.4,
+        "beam": 7.04,
+        "charge": 17.6
+      },
+      "projectileRaster": "bite",
+      "releaseEvents": 2,
+      "travellingSamples": 0,
+      "maxEffectSize": 26.4,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "ampharos",
+      "name": "Ampharos",
+      "species": 181,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 40.625,
+        "projectile": 15.4375,
+        "impact": 24.375,
+        "beam": 6.5,
+        "charge": 16.25
+      },
+      "projectileRaster": "lightning",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 16.25,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "espeon",
+      "name": "Espeon",
+      "species": 196,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 37.9988,
+        "projectile": 13.679568,
+        "impact": 22.79928,
+        "beam": 6.079808000000001,
+        "charge": 15.199520000000001
+      },
+      "projectileRaster": "psychic",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 15.199520000000001,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "umbreon",
+      "name": "Umbreon",
+      "species": 197,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 37.8,
+        "projectile": 14.363999999999999,
+        "impact": 22.679999999999996,
+        "beam": 6.048,
+        "charge": 15.12
+      },
+      "projectileRaster": "bite",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 22.679999999999996,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "wobbuffet",
+      "name": "Wobbuffet",
+      "species": 202,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 50,
+        "projectile": 19,
+        "impact": 30,
+        "beam": 8,
+        "charge": 20
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 0,
+      "travellingSamples": 0,
+      "maxEffectSize": 0,
+      "passive": true,
+      "suicide": false
+    },
+    {
+      "key": "steelix",
+      "name": "Steelix",
+      "species": 208,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 80.00150000000001,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 42,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "scizor",
+      "name": "Scizor",
+      "species": 212,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 46.0009,
+        "projectile": 17.480342,
+        "impact": 27.60054,
+        "beam": 7.360144,
+        "charge": 18.400360000000003
+      },
+      "projectileRaster": "slash",
+      "releaseEvents": 2,
+      "travellingSamples": 0,
+      "maxEffectSize": 40,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "skarmory",
+      "name": "Skarmory",
+      "species": 227,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 43.8848,
+        "projectile": 16.676224,
+        "impact": 26.330879999999997,
+        "beam": 7.021568,
+        "charge": 17.55392
+      },
+      "projectileRaster": "slash",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 40,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "blissey",
+      "name": "Blissey",
+      "species": 242,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "body",
+      "visual": {
+        "body": 50.0006,
+        "projectile": 16.000192,
+        "impact": 30.000359999999997,
+        "beam": 8.000096,
+        "charge": 20.00024
+      },
+      "projectileRaster": "egg",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 16.000192,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "lugia",
+      "name": "Lugia",
+      "species": 249,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 84,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
+      "projectileRaster": "hydroShot",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 28,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "hooh",
+      "name": "Ho-Oh",
+      "species": 250,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 71.21520000000001,
+        "projectile": 27.061776000000005,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
+      "projectileRaster": "dash",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 42,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "sceptile",
+      "name": "Sceptile",
+      "species": 254,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 44.4136,
+        "projectile": 15.100624000000002,
+        "impact": 26.64816,
+        "beam": 7.1061760000000005,
+        "charge": 17.76544
+      },
+      "projectileRaster": "leaf",
+      "releaseEvents": 2,
+      "travellingSamples": 15,
+      "maxEffectSize": 15.100624000000002,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "blaziken",
+      "name": "Blaziken",
+      "species": 257,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 49.7792,
+        "projectile": 18.916096000000003,
+        "impact": 29.86752,
+        "beam": 7.964672000000001,
+        "charge": 19.911680000000004
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 2,
+      "travellingSamples": 0,
+      "maxEffectSize": 29.86752,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "swampert",
+      "name": "Swampert",
+      "species": 260,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 52.5625,
+        "projectile": 19.97375,
+        "impact": 31.537499999999998,
+        "beam": 8.41,
+        "charge": 21.025000000000002
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 31.537499999999998,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "gardevoir",
+      "name": "Gardevoir",
+      "species": 282,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 45.7152,
+        "projectile": 21.943296,
+        "impact": 27.42912,
+        "beam": 7.314432000000001,
+        "charge": 18.286080000000002
+      },
+      "projectileRaster": "psychic",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 21.943296,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "sableye",
+      "name": "Sableye",
+      "species": 302,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 27.7775,
+        "projectile": 11.666549999999999,
+        "impact": 16.6665,
+        "beam": 4.4444,
+        "charge": 12
+      },
+      "projectileRaster": "shadow",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 16.6665,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "aggron",
+      "name": "Aggron",
+      "species": 306,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 62,
+        "projectile": 23.56,
+        "impact": 37.199999999999996,
+        "beam": 9.92,
+        "charge": 24.8
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 37.199999999999996,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "sharpedo",
+      "name": "Sharpedo",
+      "species": 319,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 41.9988,
+        "projectile": 15.959544000000001,
+        "impact": 25.19928,
+        "beam": 6.7198080000000004,
+        "charge": 16.79952
+      },
+      "projectileRaster": "bite",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 25.19928,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "flygon",
+      "name": "Flygon",
+      "species": 330,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 60.1216,
+        "projectile": 22.846208,
+        "impact": 36.07296,
+        "beam": 9.619456,
+        "charge": 24.048640000000002
+      },
+      "projectileRaster": "slash",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 36.07296,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "altaria",
+      "name": "Altaria",
+      "species": 334,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 31.024200000000004,
+        "projectile": 14.891616,
+        "impact": 18.614520000000002,
+        "beam": 4.963872000000001,
+        "charge": 12.409680000000002
+      },
+      "projectileRaster": "songShot",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 14.891616,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "absol",
+      "name": "Absol",
+      "species": 359,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 44,
+        "projectile": 16.72,
+        "impact": 26.4,
+        "beam": 7.04,
+        "charge": 17.6
+      },
+      "projectileRaster": "slash",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 26.4,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "salamence",
+      "name": "Salamence",
+      "species": 373,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 69.3316,
+        "projectile": 26.346007999999998,
+        "impact": 41.59896,
+        "beam": 11,
+        "charge": 26
+      },
+      "projectileRaster": "slash",
+      "releaseEvents": 2,
+      "travellingSamples": 0,
+      "maxEffectSize": 41.59896,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "metagross",
+      "name": "Metagross",
+      "species": 376,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 63.9989,
+        "projectile": 24.319582,
+        "impact": 38.399339999999995,
+        "beam": 10.239824,
+        "charge": 25.59956
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 66,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "kyogre",
+      "name": "Kyogre",
+      "species": 382,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 87.9984,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
+      "projectileRaster": "hydroShot",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 28,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "groudon",
+      "name": "Groudon",
+      "species": 383,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 78.57300000000001,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 42,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "rayquaza",
+      "name": "Rayquaza",
+      "species": 384,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 87.9375,
+        "projectile": 28,
+        "impact": 42,
+        "beam": 11,
+        "charge": 26
+      },
+      "projectileRaster": "psychic",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 26,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "nidoranF",
+      "name": "Nidoran♀",
+      "species": 29,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 28.0002,
+        "projectile": 10.640076,
+        "impact": 16.80012,
+        "beam": 4.4800320000000005,
+        "charge": 12
+      },
+      "projectileRaster": "bite",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 16.80012,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "nidoranM",
+      "name": "Nidoran♂",
+      "species": 32,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 24,
+        "projectile": 9.120000000000001,
+        "impact": 16,
+        "beam": 4,
+        "charge": 12
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 16,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "exeggcute",
+      "name": "Exeggcute",
+      "species": 102,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "body",
+      "visual": {
+        "body": 22.284599999999998,
+        "projectile": 8.022455999999998,
+        "impact": 16,
+        "beam": 4,
+        "charge": 12
+      },
+      "projectileRaster": "psychic",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 8.022455999999998,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "babyKangaskhan",
+      "name": "Cría",
+      "species": 115,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 30.9375,
+        "projectile": 11.75625,
+        "impact": 18.5625,
+        "beam": 4.95,
+        "charge": 12.375
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 18.5625,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "centralElectrode",
+      "name": "Central Electrode",
+      "species": 101,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 44.0002,
+        "projectile": 16.720076,
+        "impact": 26.400119999999998,
+        "beam": 7.040032,
+        "charge": 17.600080000000002
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 0,
+      "travellingSamples": 0,
+      "maxEffectSize": 26,
+      "passive": true,
+      "suicide": false
+    },
+    {
+      "key": "madriguera",
+      "name": "Madriguera Nidoqueen",
+      "species": 31,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 56.00000000000001,
+        "projectile": 21.280000000000005,
+        "impact": 33.6,
+        "beam": 8.96,
+        "charge": 22.400000000000006
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 0,
+      "travellingSamples": 0,
+      "maxEffectSize": 26,
+      "passive": true,
+      "suicide": false
+    },
+    {
+      "key": "vivero",
+      "name": "Vivero Exeggutor",
+      "species": 103,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 58,
+        "projectile": 22.04,
+        "impact": 34.8,
+        "beam": 9.28,
+        "charge": 23.200000000000003
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 0,
+      "travellingSamples": 0,
+      "maxEffectSize": 26,
+      "passive": true,
+      "suicide": false
+    },
+    {
+      "key": "regice",
+      "name": "Regice",
+      "species": 378,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 44.0014,
+        "projectile": 14.960476,
+        "impact": 26.40084,
+        "beam": 7.040223999999999,
+        "charge": 17.600559999999998
+      },
+      "projectileRaster": "snow",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 14.960476,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "duskull",
+      "name": "Duskull",
+      "species": 355,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 45.76,
+        "projectile": 19.219199999999997,
+        "impact": 27.456,
+        "beam": 7.3216,
+        "charge": 18.304
+      },
+      "projectileRaster": "shadow",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 19.219199999999997,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "raichu",
+      "name": "Raichu",
+      "species": 26,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 44.001,
+        "projectile": 16.72038,
+        "impact": 26.400599999999997,
+        "beam": 7.04016,
+        "charge": 17.6004
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 26.400599999999997,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "registeel",
+      "name": "Registeel",
+      "species": 379,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 38.9701,
+        "projectile": 14.808638,
+        "impact": 23.38206,
+        "beam": 6.235216,
+        "charge": 15.588040000000001
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 23.38206,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "regirock",
+      "name": "Regirock",
+      "species": 377,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 44,
+        "projectile": 16.72,
+        "impact": 26.4,
+        "beam": 7.04,
+        "charge": 17.6
+      },
+      "projectileRaster": "slam",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 26.4,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "celebi",
+      "name": "Celebi",
+      "species": 251,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 46.155,
+        "projectile": 15.692700000000002,
+        "impact": 27.693,
+        "beam": 7.3848,
+        "charge": 18.462
+      },
+      "projectileRaster": "leaf",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 15.692700000000002,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "pandilla",
+      "name": "Pandilla Rocket",
+      "species": 261,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 34.0011,
+        "projectile": 12.920418,
+        "impact": 20.40066,
+        "beam": 5.440176,
+        "charge": 13.60044
+      },
+      "projectileRaster": "punch",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 20.40066,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "shuppetToken",
+      "name": "Shuppet",
+      "species": 353,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 46.315999999999995,
+        "projectile": 19.452719999999996,
+        "impact": 27.789599999999997,
+        "beam": 7.410559999999999,
+        "charge": 18.5264
+      },
+      "projectileRaster": "shadow",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 27.789599999999997,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "poochyenaToken",
+      "name": "Poochyena",
+      "species": 261,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "head",
+      "visual": {
+        "body": 34.0011,
+        "projectile": 12.920418,
+        "impact": 20.40066,
+        "beam": 5.440176,
+        "charge": 13.60044
+      },
+      "projectileRaster": "bite",
+      "releaseEvents": 1,
+      "travellingSamples": 0,
+      "maxEffectSize": 20.40066,
+      "passive": false,
+      "suicide": false
+    },
+    {
+      "key": "raltsToken",
+      "name": "Ralts",
+      "species": 280,
+      "source": "PMDCollab original, eight directions",
+      "emitter": "hands",
+      "visual": {
+        "body": 31.999,
+        "projectile": 11.519639999999999,
+        "impact": 19.199399999999997,
+        "beam": 5.11984,
+        "charge": 12.7996
+      },
+      "projectileRaster": "psychic",
+      "releaseEvents": 1,
+      "travellingSamples": 11,
+      "maxEffectSize": 11.519639999999999,
+      "passive": false,
+      "suicide": false
+    }
+  ],
+  "voices": [
+    {
+      "id": 25,
+      "seconds": 0.962358276643991,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 7,
+      "seconds": 1.433968253968254,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 4,
+      "seconds": 1.2753287981859411,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 143,
+      "seconds": 1.9756009070294784,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 41,
+      "seconds": 0.6492517006802722,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 6,
+      "seconds": 1.9974603174603174,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 1,
+      "seconds": 1.1777777777777778,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 94,
+      "seconds": 2.5,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 68,
+      "seconds": 1.2998639455782313,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 133,
+      "seconds": 0.6560090702947846,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 95,
+      "seconds": 1.027437641723356,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 9,
+      "seconds": 1.8830385487528345,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 37,
+      "seconds": 0.9077551020408163,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 54,
+      "seconds": 1.3504761904761904,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 65,
+      "seconds": 1.441859410430839,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 74,
+      "seconds": 0.6648526077097505,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 81,
+      "seconds": 1.4863492063492063,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 123,
+      "seconds": 1.187482993197279,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 131,
+      "seconds": 1.013968253968254,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 150,
+      "seconds": 0.7645804988662132,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 252,
+      "seconds": 0.6815873015873016,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 76,
+      "seconds": 2.2829931972789117,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 50,
+      "seconds": 0.6238095238095238,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 280,
+      "seconds": 1.0682993197278912,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 261,
+      "seconds": 0.72140589569161,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 3,
+      "seconds": 1.5072108843537415,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 12,
+      "seconds": 0.8127437641723356,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 15,
+      "seconds": 0.6393650793650794,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 18,
+      "seconds": 0.39396825396825397,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 23,
+      "seconds": 1.0322902494331065,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 27,
+      "seconds": 0.9715646258503401,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 31,
+      "seconds": 0.5006349206349207,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 34,
+      "seconds": 0.9712018140589569,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 56,
+      "seconds": 0.8096145124716553,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 59,
+      "seconds": 0.5518367346938775,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 80,
+      "seconds": 1.483265306122449,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 88,
+      "seconds": 1.3714285714285714,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 91,
+      "seconds": 0.9811791383219954,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 92,
+      "seconds": 2.1733786848072563,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 100,
+      "seconds": 0.8920181405895692,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 205,
+      "seconds": 0.8055328798185941,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 101,
+      "seconds": 1.1085260770975056,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 103,
+      "seconds": 2.31859410430839,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 109,
+      "seconds": 1.0915646258503402,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 113,
+      "seconds": 1.088843537414966,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 115,
+      "seconds": 1.0513378684807255,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 121,
+      "seconds": 0.2686167800453515,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 122,
+      "seconds": 1.555328798185941,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 130,
+      "seconds": 1.6396371882086167,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 132,
+      "seconds": 0.6002721088435374,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 144,
+      "seconds": 1.4014965986394559,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 145,
+      "seconds": 1.3200907029478457,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 146,
+      "seconds": 1.5614965986394558,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 149,
+      "seconds": 0.9086621315192743,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 154,
+      "seconds": 0.7169614512471655,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 157,
+      "seconds": 1.0638548752834467,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 160,
+      "seconds": 1.6308390022675736,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 169,
+      "seconds": 0.5892517006802721,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 181,
+      "seconds": 0.8732879818594105,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 196,
+      "seconds": 0.6590022675736962,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 197,
+      "seconds": 0.7286621315192744,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 202,
+      "seconds": 1.4649886621315193,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 208,
+      "seconds": 1.9300226757369614,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 212,
+      "seconds": 0.9812244897959184,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 227,
+      "seconds": 0.6175056689342404,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 242,
+      "seconds": 0.6324263038548753,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 249,
+      "seconds": 2.2663038548752836,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 250,
+      "seconds": 1.1941496598639456,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 254,
+      "seconds": 1.7262131519274377,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 257,
+      "seconds": 0.8327891156462585,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 260,
+      "seconds": 1.2956009070294785,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 282,
+      "seconds": 1.50562358276644,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 302,
+      "seconds": 0.7119727891156462,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 306,
+      "seconds": 2.1365986394557823,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 319,
+      "seconds": 1.2076190476190476,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 330,
+      "seconds": 0.9982766439909297,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 334,
+      "seconds": 1.4522902494331065,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 359,
+      "seconds": 0.960498866213152,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 373,
+      "seconds": 1.517233560090703,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 376,
+      "seconds": 1.21437641723356,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 382,
+      "seconds": 2.5,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 383,
+      "seconds": 2.5,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 384,
+      "seconds": 2.5,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 29,
+      "seconds": 0.7137868480725623,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 32,
+      "seconds": 0.6486621315192744,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 102,
+      "seconds": 0.9788208616780045,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 378,
+      "seconds": 1.2099773242630385,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 355,
+      "seconds": 1.5905215419501133,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 26,
+      "seconds": 0.6844897959183673,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 379,
+      "seconds": 1.2470294784580498,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 377,
+      "seconds": 0.8867120181405895,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 251,
+      "seconds": 2.0624943310657597,
+      "channels": 1,
+      "sampleRate": 44100
+    },
+    {
+      "id": 353,
+      "seconds": 0.5571882086167801,
+      "channels": 1,
+      "sampleRate": 44100
+    }
+  ]
+}
