@@ -1,5 +1,5 @@
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=26';
-import { Renderer } from './render.js?v=27';
+import { Renderer } from './render.js?v=28';
 import { SoundSystem } from './audio.js?v=26';
 import { OnlineClient, hasSavedOnlineSession } from './online.js?v=26';
 import { unpackGame, perspective } from './snapshot.js?v=26';

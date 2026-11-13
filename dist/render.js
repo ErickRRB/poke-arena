@@ -1,7 +1,8 @@
 import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, KING_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=26';
-import { BattleArt } from './battle-art.js?v=26';
+import { BattleArt } from './battle-art.js?v=28';
 import { emissionPoint, emitterPart, animationFrame, movementAnchor, TOWER_MOUNTS } from './sprite-motion.js?v=26';
 import { flightSheets, flightPose, flightEmission } from './flight-motion.js?v=26';
+import { spellPreviewTargets } from './spell-preview.js?v=28';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -132,11 +133,27 @@ export class Renderer {
     const actor=this.frameActors?.get(effect.sourceId||effect.actor?.id);
     return actor?this.visualEmission(actor,effect.shot||0):effect.from;
   }
+  updateSpellTargets(game){
+    const card=CARDS[this.selection],point=game.state==='playing'&&card?.spell&&this.pointer?game.resolveDeployment(0,this.selection,this.pointer.x,this.pointer.y):null;
+    this.spellTargets=new Set(spellPreviewTargets(game,card,point).map(target=>target.id));
+  }
+  tintTarget(c,image,sx,sy,sw,sh,dx,dy,dw,dh){
+    const cache=this.targetTintCache??=new Map(),key=image.src+':'+[sx,sy,sw,sh].join(':');
+    let tint=cache.get(key);
+    if(!tint){
+      tint=document.createElement('canvas');tint.width=sw;tint.height=sh;
+      const mask=tint.getContext('2d');mask.imageSmoothingEnabled=false;mask.drawImage(image,sx,sy,sw,sh,0,0,sw,sh);
+      mask.globalCompositeOperation='source-in';mask.fillStyle='#ff3048';mask.fillRect(0,0,sw,sh);
+    }
+    cache.delete(key);cache.set(key,tint);if(cache.size>48)cache.delete(cache.keys().next().value);
+    c.save();c.filter='none';c.globalAlpha*=this.reduced?.48:.32+.28*(.5+.5*Math.sin(this.t*Math.PI*2));c.drawImage(tint,0,0,sw,sh,dx,dy,dw,dh);c.restore();
+  }
+  targetTint(actor){return this.spellTargets?.has(actor.id)?(...args)=>this.tintTarget(...args):undefined;}
   tower(c,tower){
     const {x,y,team,king}=tower,vertical=this.verticalScale||1;
     if(tower.hp<=0){for(let i=0;i<3;i++)this.battleArt.draw(c,'rubble',x+(i-1)*15,y-3+(i%2)*5,32,24,{frame:5+i});return;}
     c.save();
-    if(!this.battleArt.structure(c,king?'king':'princess',team,x,y,king?102:72,vertical))text(c,'PLACEHOLDER',x,y-25,'#ffe3a0',9);
+    if(!this.battleArt.structure(c,king?'king':'princess',team,x,y,king?102:72,vertical,this.targetTint(tower)))text(c,'PLACEHOLDER',x,y-25,'#ffe3a0',9);
     if(tower.guard)this.sprite(c,{...tower,attack:!tower.active?0:tower.attack,card:{id:tower.guard.id},scale:king?1.15:1.3,x,y:y-TOWER_MOUNTS[king?'king':'princess']/vertical,mounted:true,attackAnim:tower.guard.attackAnim,moving:false},true);
     if(king&&!tower.active)text(c,'z',x+24,y-30/vertical,'#fff5cd',10);
     if(tower.stun>0)this.combatArt(c,'lightning',x,y-55/vertical,26);
@@ -186,7 +203,9 @@ export class Renderer {
     const px=x+(flight?.flip?-1:1)*unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge-lift-(this.reduced?0:(1-spawnProgress)*12/vertical)-anchor.y*scale/vertical;
     if(flight?.flip){c.translate(x*2,0);c.scale(-1,1);}
     if(unit.card.charge&&unit.charge>=unit.card.charge&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
-    c.drawImage(img,flight?.sx??frame*meta.width,flight?.sy??direction*meta.height,meta.width,meta.height,Math.round(px),Math.round(py),meta.width*scale,meta.height*scale/vertical);
+    const spriteFrame=[flight?.sx??frame*meta.width,flight?.sy??direction*meta.height,meta.width,meta.height,Math.round(px),Math.round(py),meta.width*scale,meta.height*scale/vertical];
+    c.drawImage(img,...spriteFrame);
+    if(!unit.preview&&this.spellTargets?.has(unit.id))this.tintTarget(c,img,...spriteFrame);
     c.restore();
     if(unit.shield>0&&!unit.mounted){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
     if(idle)return;
@@ -248,7 +267,7 @@ export class Renderer {
     if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
   }
   platform(c,unit){
-    if(!this.battleArt.structure(c,'platform',unit.team,unit.x,unit.y+4,74,this.verticalScale||1))text(c,'PLACEHOLDER',unit.x,unit.y-15,'#ffe3a0',8);
+    if(!this.battleArt.structure(c,'platform',unit.team,unit.x,unit.y+4,74,this.verticalScale||1,this.targetTint(unit)))text(c,'PLACEHOLDER',unit.x,unit.y-15,'#ffe3a0',8);
   }
   onEvent(event) {
     const {type}=event;
@@ -557,6 +576,7 @@ export class Renderer {
   }
   draw(game,dt=.016){
     const c=this.ctx;this.t+=dt;this.drawDt=dt;this.battleArt.time=this.reduced?0:this.t;
+    this.updateSpellTargets(game);
     c.imageSmoothingEnabled=false;c.drawImage(this.background,0,0);this.drawWater(c);
     this.frameActors=new Map([...game.towers,...game.units].map(actor=>{
       const pose=this.visualActor(actor,dt);pose.logicalX=actor.x;pose.logicalY=actor.y;return[actor.id,pose];

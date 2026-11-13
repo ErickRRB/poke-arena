@@ -40,10 +40,11 @@ export class BattleArt {
     c.drawImage(image,frame*body.width,0,body.width,body.height,-width/2,0,width,distance);
     c.restore();this.draw(c,prefix+'Head',to.x,to.y,width*2,width*2,{age});return true;
   }
-  structure(c,kind,team,x,y,width,vertical=1){
+  structure(c,kind,team,x,y,width,vertical=1,afterDraw){
     const image=this.images.get('assets/battle/structures-v1.png');if(!image)return false;
     const [sx,sy,sw,sh]=STRUCTURES[kind][team],height=sh/sw*width/vertical;
-    c.drawImage(image,sx,sy,sw,sh,x-width/2,y-height,width,height);return true;
+    const frame=[sx,sy,sw,sh,x-width/2,y-height,width,height];
+    c.drawImage(image,...frame);afterDraw?.(c,image,...frame);return true;
   }
   tile(c,name,sx,sy,sw,sh,x,y,width,height){const image=this.image(name);if(!image)return false;c.drawImage(image,sx,sy,sw,sh,x,y,width,height);return true;}
 }
