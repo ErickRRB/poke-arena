@@ -1,4 +1,4 @@
-"""Losslessly unpack the original animated GIFs into runtime PNG atlases.
+"""Losslessly unpack archived GIFs for comparison, outside the shipped game.
 
 This only changes the container and frame layout, not the sprite artwork.
 """
@@ -9,7 +9,8 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT/'artwork/sprite-sources'
-OUTPUT = ROOT/'dist/assets/battle'
+OUTPUT = ROOT/'artwork/sprite-sources/retired-atlases'
+OUTPUT.mkdir(exist_ok=True)
 report = {}
 for species, name in [(6,'charizard'),(149,'dragonite'),(18,'pidgeot'),(249,'lugia'),(334,'altaria'),(330,'flygon')]:
   report[species] = {}

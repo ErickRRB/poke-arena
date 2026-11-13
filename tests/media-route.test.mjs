@@ -1,6 +1,6 @@
 import{test}from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';import worker from'../dist/server/index.js';
 test('the hosted Worker serves the same bytes from its separate resource modules',async()=>{
-  for(const file of['index.html','engine.js','spell-preview.js','battle-art.js','flight-motion.js','assets/battle/flight-atlases.js','assets/battle/charizard-flight-front-v1.png','assets/battle/charizard-flight-back-v1.png','assets/battle/lugia-flight-front-v1.png','assets/battle/lugia-flight-back-v1.png','assets/cards/flame-wheel-v1.png','assets/battle/Particle__Flame_Wheel.None.png','assets/cards/battle-1.webp','assets/battle/structures-v1.png','assets/battle/Particle__Gust_Blue.None.png','assets/ui/menu-icons-v1.webp']){
+  for(const file of['index.html','engine.js','spell-preview.js','battle-art.js','combat-visuals.js','pokemon-silhouettes.js','assets/battle/projectile-bounds.js','assets/battle/Particle__Weather_Ball_Fire_1.None.png','assets/battle/Particle__Weather_Ball_Fire_3.Flip.png','assets/audio/voices/205.mp3','assets/cards/flame-wheel-v1.png','assets/battle/Particle__Flame_Wheel.None.png','assets/cards/battle-1.webp','assets/battle/structures-v1.png','assets/battle/Particle__Gust_Blue.None.png','assets/ui/menu-icons-v1.webp']){
     const response=await worker.fetch(new Request('https://arena.test/'+file),{});assert.equal(response.status,200,file);
     assert.deepEqual(Buffer.from(await response.arrayBuffer()),readFileSync(new URL('../dist/'+file,import.meta.url)),file);
   }

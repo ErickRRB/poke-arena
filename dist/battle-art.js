@@ -1,4 +1,5 @@
 import {BATTLE_ASSETS} from './assets/battle/manifest.js';
+import {PROJECTILE_BOUNDS} from './assets/battle/projectile-bounds.js';
 import {WHIRLPOOL_BOUNDS} from './assets/battle/frame-bounds.js';
 
 export const CARD_PLACEHOLDERS=Object.freeze({});
@@ -16,8 +17,8 @@ export class BattleArt {
     const meta=BATTLE_ASSETS[ALIASES[name]||name];if(!meta)return false;
     const image=this.images.get(meta.file);if(!image)return false;
     const clock=options.age===undefined?this.time:options.age;
-    const phase=options.progress===undefined?clock*meta.fps:Math.max(0,Math.min(1,options.progress))*(meta.columns-1);
-    const at=options.frame??Math.floor(phase)%meta.columns,frame=Math.max(0,Math.min(meta.columns-1,at));
+    const phase=options.progress===undefined?clock*(options.fps??meta.fps):Math.max(0,Math.min(1,options.progress))*(meta.columns-1);
+    const at=options.frame??options.frames?.[Math.floor(phase)%options.frames.length]??Math.floor(phase)%meta.columns,frame=Math.max(0,Math.min(meta.columns-1,at));
     let row=options.direction||0,flip=false;
     if(meta.rows===1)row=0;else if(meta.rows===5&&row>4){row=8-row;flip=true;}else row%=meta.rows;
     c.save();c.translate(x,y);if(options.angle)c.rotate(options.angle);if(flip)c.scale(-1,1);
@@ -26,6 +27,9 @@ export class BattleArt {
         const [left,top,right,bottom]=WHIRLPOOL_BOUNDS[index],scale=width/(right-left),visibleHeight=(bottom-top)*scale;
         c.drawImage(image,index*meta.width+left,top,right-left,bottom-top,-width/2,-visibleHeight/2,width,visibleHeight);return;
       }
+      const bounds=options.trim&&PROJECTILE_BOUNDS[ALIASES[name]||name];
+      if(bounds){const [left,top,right,bottom]=bounds,scale=width/Math.max(right-left,bottom-top),w=(right-left)*scale,h=(bottom-top)*scale*height/width;
+        c.drawImage(image,index*meta.width+left,row*meta.height+top,right-left,bottom-top,-w/2,-h/2,w,h);return;}
       c.drawImage(image,index*meta.width,row*meta.height,meta.width,meta.height,-width/2,-height/2,width,height);
     };
     const alpha=Number.isFinite(c.globalAlpha)?c.globalAlpha:1,mix=options.blend?phase-Math.floor(phase):0;

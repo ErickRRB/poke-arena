@@ -5,7 +5,8 @@ import {Game,CARDS} from '../dist/engine.js';
 import {SPRITE_GEOMETRY} from '../dist/sprite-geometry.js';
 import {emissionPoint,animationFrame,attackPoseProgress} from '../dist/sprite-motion.js';
 import {Renderer} from '../dist/render.js';
-import {flightSheets,flightPose,flightEmission} from '../dist/flight-motion.js';
+import {combatVisual,projectileVisual,fireballVisual} from '../dist/combat-visuals.js';
+import {POKEMON_SILHOUETTES} from '../dist/pokemon-silhouettes.js';
 import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js';
 
 test('native emission markers cover every playable attack in all eight directions',()=>{
@@ -53,51 +54,59 @@ test('airborne movement uses changing original poses instead of a repeated charg
  for(const key of['charizard','pidgeot','scyther','dragonite','salamence']){const card=CARDS[key],meta=manifest[card.id][card.moveAnim];assert.ok(meta);assert.ok(new Set(card.moveFrames).size>=4);assert.ok(card.moveFrames.every(frame=>frame>=0&&frame<meta.durations.length));}
 });
 
-test('full flight cycles continue through attack, hurt, idle and rebuilt online actors',()=>{
- for(const key of['charizard','dragonite','pidgeot','lugia','altaria','flygon']){
-  const game=new Game({seed:22}),unit=game.spawn(key,0,300,500,0),seen=new Set();
-  for(let i=0;i<240;i++){
-   const time=i/120,baseline=flightPose(unit,time);
-   const attack=flightPose({...unit,moving:false,attack:.8,hit:.2,attackSeq:3},time);
-   assert.equal(attack.frame,baseline.frame);assert.equal(attack.key,baseline.key);
-   seen.add(baseline.frame);
-   assert.ok(baseline.sx>=0&&baseline.sx+baseline.width<=baseline.columns*baseline.width);
-   assert.ok(baseline.frame<baseline.frames);
-  }
-  assert.ok(seen.size>=40,key+' needs a complete wing cycle');
-  const height=flightPose(unit,0).healthHeight;
-  for(let direction=0;direction<8;direction++){
-   const angle=(2-direction)*Math.PI/4,turned={...unit,dx:Math.cos(angle),dy:Math.sin(angle)};
-   assert.equal(flightPose(turned,1).healthHeight,height,'turning must not jump the health bar');
-   assert.equal(flightPose(turned,0,true).frame,flightPose(turned,120,true).frame);
+test('every Pokemon uses the matching original view for all eight directions, including attacks',()=>{
+ const metadata=JSON.parse(readFileSync(new URL('../dist/assets/pokemon/manifest.json',import.meta.url)));
+ const draws=[],ctx=new Proxy({}, {get:(o,k)=>o[k]??((...args)=>{if(k==='drawImage')draws.push(args)}),set:(o,k,v)=>(o[k]=v,true)});
+ const sprites=new Map(Object.entries(metadata).flatMap(([id,animations])=>Object.keys(animations).map(name=>[id+'-'+name,{height:animations[name].height*8}])));
+ const renderer=Object.assign(Object.create(Renderer.prototype),{metadata,sprites,speciesLoads:new Map(Object.keys(metadata).map(id=>[Number(id),Promise.resolve()])),anchors:new Map(),bodyHeights:new Map(),reduced:false,verticalScale:1,t:.35,platform(){}});
+ for(const [key,card] of Object.entries(CARDS).filter(([,c])=>!c.spell)){
+  for(let direction=0;direction<8;direction++)for(const attacking of[false,true]){
+   const angle=(2-direction)*Math.PI/4,unit={id:8,key,card,x:300,y:500,dx:Math.cos(angle),dy:Math.sin(angle),attack:attacking?card.attackDuration*.6:0,attackDuration:card.attackDuration,attackWindup:card.windup,moving:true,preview:true};
+   draws.length=0;renderer.sprite(ctx,unit,true);
+   const animation=attacking?card.attackAnim:card.moveAnim||'Walk',meta=metadata[card.id][animation];
+   assert.ok(draws.length,key);const main=draws.at(-1);
+   assert.equal(main[0],sprites.get(card.id+'-'+animation),key+' original art');
+   assert.equal(main[2],direction*meta.height,key+' facing '+direction);
+   if(card.flying&&!attacking){
+    renderer.sprite(ctx,{...unit,moving:false,hit:.15},true);
+    assert.deepEqual(draws.at(-1).slice(0,5),main.slice(0,5),key+' flap phase must continue while idle or hurt');
+   }
   }
  }
 });
 
-test('flight raster frames are actually drawn during attacks instead of falling back to the rigid shoot pose',()=>{
- const unit={id:7,card:CARDS.charizard,x:300,y:500,dx:0,dy:-1,attack:.7,attackDuration:.95,hit:.2,moving:false,preview:true};
- const images=new Map(flightSheets(6).map(sheet=>[sheet.key,{}])),draws=[],ctx=new Proxy({}, {get:(o,k)=>o[k]??((...args)=>{if(k==='drawImage')draws.push(args)}),set:(o,k,v)=>(o[k]=v,true)});
- const renderer=Object.assign(Object.create(Renderer.prototype),{sprites:images,metadata:{},speciesLoads:new Map([[6,Promise.resolve()]]),anchors:new Map(),bodyHeights:new Map(),reduced:false,verticalScale:1});
- for(let i=0;i<120;i++){renderer.t=i/60;renderer.sprite(ctx,unit,true);}
- assert.equal(draws.length,120,'one opaque original pose per render');
- assert.ok(new Set(draws.map(args=>args[1]+':'+args[2])).size>=40);
- assert.ok(draws.every(args=>[...images.values()].includes(args[0])));
+test('projectiles, contact effects and beams fit every individual Pokemon silhouette',()=>{
+ for(const [key,card] of Object.entries(CARDS).filter(([,c])=>!c.spell)){
+  assert.ok(POKEMON_SILHOUETTES[card.id],key+' measured silhouette');
+  const v=combatVisual(card);assert.ok(v.projectile>=8&&v.projectile<=v.body*.55,key+' projectile');
+  assert.ok(v.impact<=v.body*.8,key+' contact effect');assert.ok(v.beam<v.body*.25,key+' beam');
+ }
+ assert.ok(combatVisual(CARDS.squirtle).projectile<combatVisual(CARDS.blastoise).projectile);
+ assert.ok(combatVisual(CARDS.raltsToken).projectile<combatVisual(CARDS.gardevoir).projectile);
+ assert.equal(projectileVisual('hydro').name,'hydroShot','a moving shot must use the original water orb');
+ assert.equal(projectileVisual('hydro').frame,0,'do not loop water impact disappearance during flight');
+ assert.equal(projectileVisual('song').name,'songShot','singing must use notes');
+ assert.ok(projectileVisual('bubble').frames.every(frame=>frame>=2&&frame<=4));
+ assert.ok(projectileVisual('shadow').fps<=8);assert.equal(projectileVisual('bubble',100,true).age,0);
 });
 
-test('flight attacks use the visible mouth or alternating claws and mirror with the raster',()=>{
- const actor={id:7,card:CARDS.charizard,x:300,y:500,dx:-1,dy:0};
- const left=flightEmission(actor,flightPose(actor,.3)),rightActor={...actor,dx:1},right=flightEmission(rightActor,flightPose(rightActor,.3));
- assert.ok(left.x<actor.x&&right.x>actor.x);assert.equal(left.y,right.y);
- assert.ok(Math.abs(actor.x-left.x-(right.x-actor.x))<1e-6);
- const dragon={...actor,card:CARDS.dragonite},pose=flightPose(dragon,.4);
- const first=flightEmission(dragon,pose,'hands',0),second=flightEmission(dragon,pose,'hands',1);
- assert.notEqual(first.x,second.x);assert.ok(first.y>flightEmission(dragon,pose).y);
-});
-
-test('projectiles from new flight sprites launch at the visible mouth',()=>{
+test('native projectile launch uses its saved mouth position and does not jump after the source turns',()=>{
  const game=new Game({seed:36}),actor=game.spawn('lugia',0,300,500,0),target=game.spawn('snorlax',1,300,400,0);game.face(actor,target);
- const native=game.muzzle(actor),calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{sprites:new Map(flightSheets(249).map(sheet=>[sheet.key,{}])),frameActors:new Map([[actor.id,actor],[target.id,target]]),visualProjectiles:new Map(),t:.4,drawDt:1/60,verticalScale:1,reduced:false,combatArt:(_,name,x,y)=>calls.push({name,x,y})});
- renderer.projectile({}, {id:'flight-launch',sourceId:actor.id,target,style:'hydro',x:native.x,y:native.y,startX:native.x,startY:native.y,totalDistance:100,travelled:0});
- const visible=renderer.visualEmission(actor);assert.equal(calls.length,1);assert.equal(calls[0].x,visible.x);assert.equal(calls[0].y,visible.y);
- assert.notDeepEqual(visible,native,'the new raster has its own mouth attachment');
+ const native=game.muzzle(actor),calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{frameActors:new Map([[actor.id,actor],[target.id,target]]),visualProjectiles:new Map(),t:.4,drawDt:1/60,verticalScale:1,reduced:false,combatArt:(_,name,x,y,size)=>calls.push({name,x,y,size})});
+ renderer.projectile({}, {id:'native-launch',key:'lugia',sourceId:actor.id,target,style:'hydro',x:native.x,y:native.y,startX:native.x,startY:native.y,totalDistance:100,travelled:0});
+ assert.equal(calls[0].x,native.x);assert.equal(calls[0].y,native.y);assert.equal(calls[0].size,combatVisual(actor.card).projectile);
+});
+
+test('fireball has a continuous arc and tangent, a spaced trail, and reaches the real impact position',()=>{
+ const spell={x:160,y:240,startX:300,startY:700,flightTime:1.2};let prior;
+ for(let frame=0;frame<=120;frame++){
+  const pose=fireballVisual({...spell,flightElapsed:frame/100});
+  if(prior)assert.ok(Math.hypot(pose.point.x-prior.x,pose.point.y-prior.y)<12,'smooth flight');prior=pose.point;
+  assert.ok(pose.tail.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)));assert.ok(Number.isFinite(pose.angle));
+ }
+ assert.ok(Math.hypot(prior.x-spell.x,prior.y-spell.y)<1e-9);
+ const calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{verticalScale:1,reduced:false,combatArt:(_,name,x,y,size,angle,h,options)=>calls.push({name,size,options})}),ctx={save(){},restore(){}};
+ renderer.fireball(ctx,{...spell,flightElapsed:.6});const head=calls.at(-1);
+ assert.equal(head.name,'fireOrb');assert.ok(head.size>=56);assert.equal(head.options.frame,1,'steady original orb instead of cycling ignition/disappearance frames');
+ assert.deepEqual(calls.slice(0,3).map(c=>c.name),['fireTrail','fireTrail','fireTrail']);
 });

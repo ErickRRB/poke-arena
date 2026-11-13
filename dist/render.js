@@ -1,7 +1,7 @@
 import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, KING_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=26';
-import { BattleArt } from './battle-art.js?v=28';
-import { emissionPoint, emitterPart, animationFrame, movementAnchor, TOWER_MOUNTS } from './sprite-motion.js?v=26';
-import { flightSheets, flightPose, flightEmission } from './flight-motion.js?v=26';
+import { BattleArt } from './battle-art.js?v=29';
+import { emissionPoint, animationFrame, movementAnchor, TOWER_MOUNTS } from './sprite-motion.js?v=26';
+import {combatVisual,projectileVisual,movementVisual,fireballVisual} from './combat-visuals.js?v=29';
 import { spellPreviewTargets } from './spell-preview.js?v=28';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
@@ -41,7 +41,7 @@ export class Renderer {
     if (!response.ok) throw new Error('No se pudo cargar el archivo de sprites.');
     this.metadata = await response.json();
     const ids=[...new Set([...keys.map(k=>CARDS[k]?.id),31,34,52].filter(Boolean))];
-    const files=new Set(ids.flatMap(id=>[...this.animationEntries(id).flatMap(([,meta])=>[meta.file,meta.shadow]),...flightSheets(id).map(meta=>meta.file)]));
+    const files=new Set(ids.flatMap(id=>[...this.animationEntries(id).flatMap(([,meta])=>[meta.file,meta.shadow])]));
     const total=files.size+this.battleArt.files().length;let loaded=0;
     const track=pending=>pending.then(value=>{onProgress(++loaded,total);return value;});
     onProgress(0,total);
@@ -59,7 +59,7 @@ export class Renderer {
   ensureSpecies(ids){if(!Object.keys(this.metadata).length)return Promise.resolve();return Promise.all([...new Set(ids)].map(id=>{
     if(this.speciesLoads.has(id))return this.speciesLoads.get(id);
     this.pendingSpecies.add(id);
-    const pending=Promise.all([...flightSheets(id).map(async meta=>this.sprites.set(meta.key,await this.loadImage(meta.file))),...this.animationEntries(id).map(async([name,meta])=>{
+    const pending=Promise.all([...this.animationEntries(id).map(async([name,meta])=>{
       const [img,shadow]=await Promise.all([this.loadImage(meta.file),this.loadImage(meta.shadow)]);
       this.sprites.set(`${id}-${name}`, img);
       const surface=document.createElement('canvas');surface.width=shadow.width;surface.height=shadow.height;
@@ -120,13 +120,9 @@ export class Renderer {
   }
   visualEmission(actor,shot=0){
     if(!actor)return null;
-    const flight=flightPose(actor,this.t,this.reduced);
-    if(flight&&this.sprites?.has(flight.key)){
-      const lunge=attackLunge(actor,this.reduced),point=flightEmission({...actor,x:actor.x+(actor.dx||0)*lunge,y:actor.y+(actor.dy||0)*lunge},flight,emitterPart(actor.card),shot);
-      return{x:point.x,y:actor.y+(point.y-actor.y)/(this.verticalScale||1)};
-    }
     const point=emissionPoint(actor,shot),bob=actor.card?.flying&&!this.reduced?Math.sin(this.t*2.6+actor.id)*1.5:0;
-    return{x:point.x,y:actor.y+(point.y-actor.y-bob)/(this.verticalScale||1)};
+    const lunge=attackLunge(actor,this.reduced);
+    return{x:point.x+(actor.dx||0)*lunge,y:actor.y+(point.y-actor.y-bob+(actor.dy||0)*lunge)/(this.verticalScale||1)};
   }
   effectSource(effect){
     if(effect.chainFromId){const actor=this.frameActors.get(effect.chainFromId);return actor?this.effectTarget({to:effect.from,targetId:actor.id}):effect.from;}
@@ -166,30 +162,31 @@ export class Renderer {
   sprite(c, unit, idle = false) {
     const id = unit.card.id;
     if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
-    const candidate=flightPose(unit,this.t,this.reduced),flight=candidate&&this.sprites.has(candidate.key)?candidate:null;
-    let anim = unit.attack > 0 ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving ? (unit.card.moveAnim||'Walk') : unit.hit>0?'Hurt':unit.card.idleAnim||(unit.card.flying?'Walk':'Idle');
+    const movement=movementVisual(unit.card);
+    let anim = unit.attack > 0 ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving||unit.card.flying ? movement.animation : unit.hit>0?'Hurt':unit.card.idleAnim||'Idle';
     if (!this.sprites.has(`${id}-${anim}`)) anim = 'Walk';
-    const meta = flight?{...flight,durations:[1]}:this.metadata[id]?.[anim], img = this.sprites.get(flight?.key||`${id}-${anim}`);
+    const meta = this.metadata[id]?.[anim], img = this.sprites.get(`${id}-${anim}`);
     if (!meta || !img) return;
-    const scale = flight?.scale??visualScale(unit),vertical=this.verticalScale||1;
+    const scale = visualScale(unit),vertical=this.verticalScale||1;
     let frame = 0;
     const attacking=unit.attack>0;
     const duration = meta.durations.reduce((a,b)=>a+b,0);
     const elapsed = (unit.attackDuration || .6) - unit.attack;
     const windup = unit.attackWindup ?? unit.card.windup ?? .18;
     const progress=attacking?attackPoseProgress(meta,elapsed,unit.attackDuration||.6,windup):0;
-    const loopFrames=!attacking&&anim===unit.card.moveAnim?unit.card.moveFrames:null;
-    const loopMeta=loopFrames?{durations:loopFrames.map(()=>unit.card.moveFrameDuration||8)}:meta;
-    const clock=attacking?progress*duration:this.reduced?0:anim==='Hurt'?Math.max(0,.24-unit.hit)*60:(this.t+unit.id*.173)*60*(loopFrames?1:unit.moving?.85:.75);
+    const loopFrames=!attacking&&anim===movement.animation?movement.frames:null;
+    const loopMeta=loopFrames?{durations:loopFrames.map(()=>movement.frameDuration)}:meta;
+    const speed=loopFrames?1:(unit.card.flying||unit.moving)?.85:.75;
+    const clock=attacking?progress*duration:this.reduced?0:anim==='Hurt'?Math.max(0,.24-unit.hit)*60:(this.t+unit.id*.173)*60*speed;
     frame=animationFrame(attacking?meta:loopMeta,clock,{loop:!attacking});
     if(loopFrames)frame=loopFrames[frame];
     let direction = directionRow(unit.dx,unit.dy);
     if(img.height/meta.height<8)direction=0;
     const {x,y}=unit;
     const nativeAnchor=this.anchors.get(`${id}-${anim}`)?.[direction]?.[frame]||{x:meta.width/2,y:meta.height*.65};
-    const anchor=flight?.anchor||(loopFrames&&unit.card.movementAnchor==='body'?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor);
+    const anchor=loopFrames&&movement.bodyAnchor?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor;
     const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:48):0;
-    const lift=(leapLift+(unit.card.structure?23:unit.card.flying?16+(this.reduced||flight?0:Math.sin(this.t*2.6+unit.id)*1.5):0))/vertical;
+    const lift=(leapLift+(unit.card.structure?23:unit.card.flying?16+(this.reduced?0:Math.sin(this.t*2.6+unit.id)*1.5):0))/vertical;
     const lunge=attackLunge(unit,this.reduced);
     const radius=unit.radius||12;
     if(!unit.mounted&&!unit.preview){
@@ -200,16 +197,15 @@ export class Renderer {
     const spawnProgress=unit.spawn>0?Math.max(0,1-unit.spawn/Math.max(.001,unit.spawnGroup?.duration??.75)):1;
     if(unit.spawn>0)c.globalAlpha=.2+.8*spawnProgress;
     if(unit.hit>0&&!this.reduced) c.filter=`brightness(${1+.35*unit.hit/.24})`;
-    const px=x+(flight?.flip?-1:1)*unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge-lift-(this.reduced?0:(1-spawnProgress)*12/vertical)-anchor.y*scale/vertical;
-    if(flight?.flip){c.translate(x*2,0);c.scale(-1,1);}
+    const px=x+unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge/vertical-lift-(this.reduced?0:(1-spawnProgress)*12/vertical)-anchor.y*scale/vertical;
     if(unit.card.charge&&unit.charge>=unit.card.charge&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
-    const spriteFrame=[flight?.sx??frame*meta.width,flight?.sy??direction*meta.height,meta.width,meta.height,Math.round(px),Math.round(py),meta.width*scale,meta.height*scale/vertical];
+    const spriteFrame=[frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px),Math.round(py),meta.width*scale,meta.height*scale/vertical];
     c.drawImage(img,...spriteFrame);
     if(!unit.preview&&this.spellTargets?.has(unit.id))this.tintTarget(c,img,...spriteFrame);
     c.restore();
     if(unit.shield>0&&!unit.mounted){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
     if(idle)return;
-    const by=y-lift-((flight?flight.healthHeight:(this.bodyHeights.get(id)||22)*scale)+9)/vertical;
+    const by=y-lift-((this.bodyHeights.get(id)||22)*scale+9)/vertical;
     this.healthBar(c,unit,x,by,unit.maxHp<=1?18:unit.card.count?30:unit.maxHp>=1800?52:44);
     if(unit.card.ability&&!unit.abilityUsed){ellipse(c,'#382448',x+27,by+4,6,6);text(c,'◆',x+27,by+4,'#e9beff',10,800);}
     if(unit.card.summon&&unit.spawn<=0)this.summonIndicator(c,unit,x,by-(unit.shield>0?13:12)/vertical);
@@ -303,7 +299,7 @@ export class Renderer {
     if(type==='hit'){
       const color=CARDS[event.key]?.color||'#eee8bc';
       const art={ember:'explosion',hydro:'hydro',bubble:'bubble',leaf:'leaf',poison:'poison',powder:'poison',shadow:'shadow',confusion:'psychic',aura:'psychic',ice:'ice',rock:'dust'}[event.style];
-      if(art)this.effects.push({kind:'artImpact',art,x:event.x,y:event.y,radius:28,life:art==='ice'?1.1:.6,max:art==='ice'?1.1:.6});
+      if(art)this.effects.push({kind:'artImpact',art,x:event.x,y:event.y,visualSize:combatVisual(CARDS[event.key]).impact,radius:28,life:art==='ice'?1.1:.6,max:art==='ice'?1.1:.6});
       else this.burst(event.x,event.y,color,4,30);
       if(['egg','song'].includes(event.style))this.effects.push({...event,kind:'impact',life:.4,max:.4,radius:CARDS[event.key]?.splash||18});
     }
@@ -360,17 +356,15 @@ export class Renderer {
   }
   projectile(c,p){
     const progress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),source=this.frameActors.get(p.sourceId),target=this.frameActors.get(p.target.id)||p.target;
-    const flight=source&&flightPose(source,this.t,this.reduced);
-    const start=flight&&this.sprites?.has(flight.key)?this.visualEmission(source):this.projected({x:p.startX,y:p.startY},source),end=this.projected({x:p.target.x,y:p.target.y-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15)},target);
+    const start=this.projected({x:p.startX,y:p.startY},source),end=this.projected({x:p.target.x,y:p.target.y-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15)},target);
     const logicalEnd={x:p.target.x,y:p.target.y-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15)};
     const desired={x:p.x+(start.x-p.startX)*(1-progress)+(end.x-logicalEnd.x)*progress,y:p.y+(start.y-p.startY)*(1-progress)+(end.y-logicalEnd.y)*progress};
     const key=p.id||p;let pose=this.visualProjectiles.get(key);
     if(!pose){pose={...desired,at:this.t};this.visualProjectiles.set(key,pose);}
     const blend=1-Math.exp(-this.drawDt*35);pose.x+=(desired.x-pose.x)*blend;pose.y+=(desired.y-pose.y)*blend;pose.at=this.t;
     const x=pose.x,y=pose.y-Math.sin(progress*Math.PI)*(p.arc||0)/(this.verticalScale||1),angle=Math.atan2((end.y-y)*(this.verticalScale||1),end.x-x);
-    const name={powder:'poison',ember:'flame',ice:'snow',aura:'psychic',confusion:'psychic',magnet:'lightning'}[p.style]||p.style;
-    const size={hydro:40,bubble:24,shadow:34,aura:34,confusion:28,poison:28,powder:32,rock:34,leaf:28,ice:32,ember:34,magnet:28,coin:20,egg:23,song:38}[p.style]||28;
-    this.combatArt(c,name,x,y,size,['rock','egg'].includes(p.style)?(this.reduced?0:progress*3):['leaf','hydro','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:this.reduced?0:this.t});
+    const visual=combatVisual(source?.card||CARDS[p.key]),motion=projectileVisual(p.style,this.t,this.reduced),size=visual.projectile;
+    this.combatArt(c,motion.name,x,y,size,['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true});
   }
   drawMissiles(c,e){
     const age=e.max-e.life,after=age-e.hitAt,count=this.reduced?9:18;
@@ -409,7 +403,7 @@ export class Renderer {
       if(e.kind==='missiles')this.drawMissiles(c,e);
       else if(e.kind==='entry')this.entryEffect(c,e,progress);
       else if(e.kind==='artImpact'){
-        const size=Math.max(24,Math.min(160,(e.radius||30)*1.7));
+        const size=e.visualSize??Math.max(24,Math.min(160,(e.radius||30)*1.7));
         this.combatArt(c,e.art,e.x,e.y,size,0,size,{progress:this.reduced?.45:progress});
       }else if(e.kind==='release'){
         this.combatArt(c,'puff',e.x,e.y-12,45,0,45,{progress:this.reduced?.4:progress});
@@ -419,27 +413,29 @@ export class Renderer {
         if(e.style==='vine'){
           const length=Math.hypot(to.x-from.x,to.y-from.y),angle=Math.atan2(to.y-from.y,to.x-from.x);
           this.combatArt(c,'vine',(from.x+to.x)/2,(from.y+to.y)/2,Math.max(35,length),angle,32,{progress});
-        }else this.battleArt.beam(c,name,from,to,e.kind==='counter'?10:e.style==='psychic'?14:13,age);
+        }else this.battleArt.beam(c,name,from,to,e.kind==='counter'?8:combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).beam,age);
       }else if(e.kind==='windup'||e.kind==='charge'){
         const actor=this.frameActors.get(e.actor.id)||e.actor,from=this.visualEmission(actor);
-        this.combatArt(c,e.style==='eruption'?'flame':e.style==='lightning'?'lightning':'psychic',from.x,from.y,28,0,28,{age});
+        const size=combatVisual(actor.card).charge;
+        this.combatArt(c,e.style==='eruption'?'flame':e.style==='lightning'?'lightning':'psychic',from.x,from.y,size,0,size,{age:age*.6,trim:true});
       }else if(e.kind==='impact'){
         this.combatArt(c,e.style==='song'?'song':'impact',e.x,e.y,Math.max(30,(e.radius||18)*2),0,40,{progress});
       }else if(e.kind==='flame'){
         const from=this.effectSource(e),to=this.effectTarget(e);
         if(!from||!to){c.restore();continue;}
         const dx=to.x-from.x,dy=(to.y-from.y)*(this.verticalScale||1),distance=Math.hypot(dx,dy),angle=Math.atan2(dy,dx);
-        const length=Math.min(190,distance+15),head=Math.min(1,age/.09);
+        const length=Math.min(190,distance+10),head=Math.min(1,age/.16),body=combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).body;
         const count=this.reduced?3:7;
         for(let i=0;i<count;i++){
-          const phase=i/Math.max(1,count-1)*head,size=20+phase*43;
+          const phase=i/Math.max(1,count-1)*head,size=Math.min(16,body*.25)+phase*Math.min(24,body*.4);
           const x=from.x+Math.cos(angle)*length*phase,y=from.y+Math.sin(angle)*length*phase/(this.verticalScale||1);
-          this.combatArt(c,'flame',x,y,size,angle,size,{progress:(progress+i*.06)%1});
+          this.combatArt(c,'flame',x,y,size,angle,size,{age:age+i*.07,fps:9,trim:true});
         }
       }else if(e.kind==='melee'){
         const to=this.effectTarget(e),from=this.effectSource(e)||e.from;
         const name={punch:'impact',dash:'impact',slam:'dust',eruption:'explosion'}[e.style]||e.style;
-        this.combatArt(c,name,to.x,to.y,e.charged?66:48,0,e.charged?66:48,{progress,direction:directionRow(to.x-from.x,to.y-from.y)});
+        const size=combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).impact*(e.charged?1.2:1);
+        this.combatArt(c,name,to.x,to.y,size,0,size,{progress,direction:directionRow(to.x-from.x,to.y-from.y)});
       }else if(e.kind==='spell'){
         if(e.key==='hyperBeam')this.battleArt.beam(c,'hyper',{x:e.x-45,y:e.y-330/(this.verticalScale||1)},{x:e.x,y:e.y},34*(1-progress*.4),age);
         else this.combatArt(c,'snow',e.x,e.y,e.radius*2.4,0,e.radius*2.4,{direction:0,progress});
@@ -559,12 +555,11 @@ export class Renderer {
   }
   fireball(c,spell){
     if(spell.delay>0||spell.done)return;
-    const progress=Math.min(1,spell.flightElapsed/Math.max(.001,spell.flightTime));
-    const distance=Math.hypot(spell.x-spell.startX,spell.y-spell.startY),arc=Math.min(120,40+distance*.18);
-    const position=t=>({x:spell.startX+(spell.x-spell.startX)*t,y:spell.startY+(spell.y-spell.startY)*t-(60*(1-t)+Math.sin(Math.PI*t)*arc)/(this.verticalScale||1)});
-    const point=position(progress),angle=Math.atan2(spell.y-spell.startY,spell.x-spell.startX);
-    for(let i=3;i>0;i--){const tail=position(Math.max(0,progress-i*.015));c.save();c.globalAlpha=(1-i/4)*.6;this.combatArt(c,'flame',tail.x,tail.y,35,angle,35);c.restore();}
-    this.combatArt(c,'ember',point.x,point.y,48,angle,48);
+    const {point,tail,angle}=fireballVisual(spell,this.verticalScale||1),age=this.reduced?0:spell.flightElapsed;
+    for(let i=tail.length-1;i>=0;i--){c.save();c.globalAlpha=.45-i*.1;const size=36-i*7;
+      this.combatArt(c,'fireTrail',tail[i].x,tail[i].y,size,angle-Math.PI/2,size,{age:age+i*.09,fps:8,trim:true});c.restore();}
+    const size=this.reduced?58:58+Math.sin(age*5)*2;
+    this.combatArt(c,'fireOrb',point.x,point.y,size,angle-Math.PI/2,size,{frame:1,trim:true});
   }
   rollingSpell(c,spell){
     const travelled=Math.max(0,spell.card.travelDistance-(spell.travelRemaining??spell.card.travelDistance)),direction=spell.team?1:-1;

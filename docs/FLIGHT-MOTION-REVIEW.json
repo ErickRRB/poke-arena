@@ -94,86 +94,86 @@
     {
       "key": "charizard",
       "name": "Charizard",
-      "source": "Showdown flight",
+      "source": "PMD original",
       "directions": [
         {
           "direction": 0,
-          "poses": 47,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 185.881168,
-            "y": 247.821752
+            "x": 198.0606,
+            "y": 252.51654698343117
           }
         },
         {
           "direction": 1,
-          "poses": 47,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 214.118832,
-            "y": 247.821752
+            "x": 216.31852578286637,
+            "y": 247.50167276629753
           }
         },
         {
           "direction": 2,
-          "poses": 47,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 214.118832,
-            "y": 247.821752
+            "x": 221.3334,
+            "y": 242.81954698343117
           }
         },
         {
           "direction": 3,
-          "poses": 49,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 211.810946,
-            "y": 247.414478
+            "x": 220.1973257828664,
+            "y": 230.37982120056478
           }
         },
         {
           "direction": 4,
-          "poses": 49,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 211.810946,
-            "y": 247.414478
+            "x": 198.0606,
+            "y": 223.42554698343116
           }
         },
         {
           "direction": 5,
-          "poses": 49,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 188.189054,
-            "y": 247.414478
+            "x": 175.92387421713363,
+            "y": 230.37982120056478
           }
         },
         {
           "direction": 6,
-          "poses": 47,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 185.881168,
-            "y": 247.821752
+            "x": 174.7878,
+            "y": 242.81954698343117
           }
         },
         {
           "direction": 7,
-          "poses": 47,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 185.881168,
-            "y": 247.821752
+            "x": 179.8026742171336,
+            "y": 247.50167276629753
           }
         }
       ]
@@ -529,86 +529,86 @@
     {
       "key": "pidgeot",
       "name": "Pidgeot",
-      "source": "Showdown flight",
+      "source": "PMD original",
       "directions": [
         {
           "direction": 0,
-          "poses": 53,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 192.46,
-            "y": 245.8
+            "x": 198,
+            "y": 253.6267632836474
           }
         },
         {
           "direction": 1,
-          "poses": 53,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 207.54,
-            "y": 245.8
+            "x": 216.82842712474618,
+            "y": 246.45519040839358
           }
         },
         {
           "direction": 2,
-          "poses": 53,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 207.54,
-            "y": 245.8
+            "x": 224,
+            "y": 231.6267632836474
           }
         },
         {
           "direction": 3,
-          "poses": 54,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 208.06,
-            "y": 243.58
+            "x": 214.82842712474618,
+            "y": 228.7983361589012
           }
         },
         {
           "direction": 4,
-          "poses": 54,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 208.06,
-            "y": 243.58
+            "x": 198,
+            "y": 225.6267632836474
           }
         },
         {
           "direction": 5,
-          "poses": 54,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 191.94,
-            "y": 243.58
+            "x": 181.17157287525382,
+            "y": 228.7983361589012
           }
         },
         {
           "direction": 6,
-          "poses": 53,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 192.46,
-            "y": 245.8
+            "x": 172,
+            "y": 231.6267632836474
           }
         },
         {
           "direction": 7,
-          "poses": 53,
+          "poses": 5,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 192.46,
-            "y": 245.8
+            "x": 179.17157287525382,
+            "y": 246.45519040839358
           }
         }
       ]
@@ -1138,86 +1138,86 @@
     {
       "key": "dragonite",
       "name": "Dragonite",
-      "source": "Showdown flight",
+      "source": "PMD original",
       "directions": [
         {
           "direction": 0,
-          "poses": 44,
+          "poses": 4,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 189.477794,
-            "y": 245.61732
+            "x": 181.143,
+            "y": 250.59691761182788
           }
         },
         {
           "direction": 1,
-          "poses": 44,
+          "poses": 4,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 210.522206,
-            "y": 245.61732
+            "x": 214.53329125728348,
+            "y": 248.15890886911134
           }
         },
         {
           "direction": 2,
-          "poses": 44,
+          "poses": 4,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 210.522206,
-            "y": 245.61732
+            "x": 201.88569999999999,
+            "y": 248.71121761182786
           }
         },
         {
           "direction": 3,
-          "poses": 45,
+          "poses": 4,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 200,
-            "y": 247.955588
+            "x": 188.13349125728348,
+            "y": 243.6064263545444
           }
         },
         {
           "direction": 4,
-          "poses": 45,
+          "poses": 4,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 200,
-            "y": 247.955588
+            "x": 213.1999,
+            "y": 248.71121761182786
           }
         },
         {
           "direction": 5,
-          "poses": 45,
+          "poses": 4,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 200,
-            "y": 247.955588
+            "x": 209.98080874271653,
+            "y": 243.6064263545444
           }
         },
         {
           "direction": 6,
-          "poses": 44,
+          "poses": 4,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 189.477794,
-            "y": 245.61732
+            "x": 196.2286,
+            "y": 248.71121761182786
           }
         },
         {
           "direction": 7,
-          "poses": 44,
+          "poses": 4,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 189.477794,
-            "y": 245.61732
+            "x": 183.58100874271653,
+            "y": 248.15890886911134
           }
         }
       ]
@@ -1399,86 +1399,86 @@
     {
       "key": "lugia",
       "name": "Lugia",
-      "source": "Showdown flight",
+      "source": "PMD original",
       "directions": [
         {
           "direction": 0,
-          "poses": 67,
+          "poses": 2,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 189.29,
-            "y": 215.45
+            "x": 198.6875,
+            "y": 240.29306447991777
           }
         },
         {
           "direction": 1,
-          "poses": 67,
+          "poses": 2,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 210.71,
-            "y": 215.45
+            "x": 224.1686553006147,
+            "y": 239.52421978053246
           }
         },
         {
           "direction": 2,
-          "poses": 67,
+          "poses": 2,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 210.71,
-            "y": 215.45
+            "x": 239.375,
+            "y": 233.73056447991777
           }
         },
         {
           "direction": 3,
-          "poses": 66,
+          "poses": 2,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 209.24,
-            "y": 220.49
+            "x": 232.0436553006147,
+            "y": 220.0619091793031
           }
         },
         {
           "direction": 4,
-          "poses": 66,
+          "poses": 2,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 209.24,
-            "y": 220.49
+            "x": 198.6875,
+            "y": 215.35556447991777
           }
         },
         {
           "direction": 5,
-          "poses": 66,
+          "poses": 2,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 190.76,
-            "y": 220.49
+            "x": 166.6438446993853,
+            "y": 220.0619091793031
           }
         },
         {
           "direction": 6,
-          "poses": 67,
+          "poses": 2,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 189.29,
-            "y": 215.45
+            "x": 159.3125,
+            "y": 233.73056447991777
           }
         },
         {
           "direction": 7,
-          "poses": 67,
+          "poses": 2,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 189.29,
-            "y": 215.45
+            "x": 174.5188446993853,
+            "y": 239.52421978053246
           }
         }
       ]
@@ -1573,86 +1573,86 @@
     {
       "key": "flygon",
       "name": "Flygon",
-      "source": "Showdown flight",
+      "source": "PMD original",
       "directions": [
         {
           "direction": 0,
-          "poses": 43,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 191.883584,
-            "y": 251.414432
+            "x": 192.4848,
+            "y": 249.37701437125833
           }
         },
         {
           "direction": 1,
-          "poses": 43,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 208.116416,
-            "y": 251.414432
+            "x": 214.48011222049328,
+            "y": 245.06912659175163
           }
         },
         {
           "direction": 2,
-          "poses": 43,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 208.116416,
-            "y": 251.414432
+            "x": 216.9092,
+            "y": 241.86181437125833
           }
         },
         {
           "direction": 3,
-          "poses": 44,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 201.183644,
-            "y": 252.823532
+            "x": 205.08611222049328,
+            "y": 233.01810215076506
           }
         },
         {
           "direction": 4,
-          "poses": 44,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 201.183644,
-            "y": 252.823532
+            "x": 203.7576,
+            "y": 243.74061437125835
           }
         },
         {
           "direction": 5,
-          "poses": 44,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 198.816356,
-            "y": 252.823532
+            "x": 193.0350877795067,
+            "y": 233.01810215076506
           }
         },
         {
           "direction": 6,
-          "poses": 43,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 191.883584,
-            "y": 251.414432
+            "x": 181.212,
+            "y": 241.86181437125833
           }
         },
         {
           "direction": 7,
-          "poses": 43,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 191.883584,
-            "y": 251.414432
+            "x": 183.6410877795067,
+            "y": 245.06912659175163
           }
         }
       ]
@@ -1660,86 +1660,86 @@
     {
       "key": "altaria",
       "name": "Altaria",
-      "source": "Showdown flight",
+      "source": "PMD original",
       "directions": [
         {
           "direction": 0,
-          "poses": 59,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 197.047352,
-            "y": 241.93406
+            "x": 198.9302,
+            "y": 255.73248693646866
           }
         },
         {
           "direction": 1,
-          "poses": 59,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 202.952648,
-            "y": 241.93406
+            "x": 210.07132566902675,
+            "y": 255.10581260549543
           }
         },
         {
           "direction": 2,
-          "poses": 59,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 202.952648,
-            "y": 241.93406
+            "x": 214.9772,
+            "y": 249.31368693646868
           }
         },
         {
           "direction": 3,
-          "poses": 60,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 210.59102000000001,
-            "y": 234.87338
+            "x": 213.28072566902674,
+            "y": 243.52156126744194
           }
         },
         {
           "direction": 4,
-          "poses": 60,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 210.59102000000001,
-            "y": 234.87338
+            "x": 198.9302,
+            "y": 241.82508693646867
           }
         },
         {
           "direction": 5,
-          "poses": 60,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 189.40897999999999,
-            "y": 234.87338
+            "x": 185.64947433097325,
+            "y": 243.52156126744194
           }
         },
         {
           "direction": 6,
-          "poses": 59,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 197.047352,
-            "y": 241.93406
+            "x": 183.953,
+            "y": 249.31368693646868
           }
         },
         {
           "direction": 7,
-          "poses": 59,
+          "poses": 3,
           "empty": 0,
           "missing": 0,
           "emitter": {
-            "x": 197.047352,
-            "y": 241.93406
+            "x": 188.85887433097326,
+            "y": 255.10581260549543
           }
         }
       ]
