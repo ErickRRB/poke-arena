@@ -3,7 +3,7 @@ import { Renderer } from './render.js?v=19';
 import { SoundSystem } from './audio.js?v=18';
 import { OnlineClient } from './online.js?v=19';
 import { unpackGame, perspective } from './snapshot.js?v=18';
-import { cardArtMarkup } from './card-art.js?v=18';
+import { cardArtMarkup } from './card-art.js?v=scene-art-1';
 import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=18';
 
 const $ = id => document.getElementById(id);

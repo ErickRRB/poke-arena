@@ -19,10 +19,12 @@ for(const key of ['centralElectrode','madriguera','vivero','regice','duskull','r
   CARD_ART[key]={file:`assets/cards/${key}.webp`,columns:1,rows:1,x:0,y:0};
 }
 for(const key of ['lightning','pinMissile','blizzard','spikes','whirlpool','earthquake','nightmare'])CARD_ART[key].file=`assets/cards/${key}V2.webp`;
+const SCENE_ART = new Set(['ekans','zubat','beedrill','sandshrew','mankey','nidoqueen','exeggutor','altaria','treecko','kangaskhan']);
+for(const key of SCENE_ART)CARD_ART[key]={file:`assets/cards/${key}SceneV2.webp`,columns:1,rows:1,x:0,y:0};
 export function cardArtMarkup(key) {
   const art = CARD_ART[key];
   if (!art) return '';
-  const flip = ['pikachu','charizard','treecko','eevee','vulpix','alakazam','scyther','beedrill','ekans','arcanine','cloyster','starmie','dragonite','feraligatr','espeon','scizor','sceptile','gardevoir','sharpedo','salamence','rayquaza'].includes(key);
+  const flip = !SCENE_ART.has(key)&&['pikachu','charizard','treecko','eevee','vulpix','alakazam','scyther','beedrill','ekans','arcanine','cloyster','starmie','dragonite','feraligatr','espeon','scizor','sceptile','gardevoir','sharpedo','salamence','rayquaza'].includes(key);
   // The SVG viewport crops a raster atlas tile using cover semantics. Scaling a
   // background to columns × rows stretched every portrait into its container.
   const width = art.columns === 2 ? 1586 : 1122, height = art.columns === 2 ? 992 : 1402;

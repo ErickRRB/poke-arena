@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-12",
+  "date": "2026-11-13",
   "cardsReviewed": 105,
   "scale": "Selector entre 100 y 140 px de ancho, más revisión de detalle y escritorio.",
   "criteria": [
@@ -8,7 +8,10 @@
     "Proporción de la ilustración conservada",
     "Variación de poses y direcciones",
     "Textura y contraste equilibrados",
-    "Como máximo un Pokémon pequeño y lateral en los hechizos renovados"
+    "Como máximo un Pokémon pequeño y lateral en los hechizos renovados",
+    "Escena continua con perspectiva, luz y sombras compartidas",
+    "Poses propias para cada integrante de un grupo",
+    "Personajes acordes con la función actual de la carta"
   ],
   "qualityPrompt": "Image quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts.",
   "images": [
@@ -60,6 +63,76 @@
       "originalSource": "exec-947f17bb-26b3-4eed-ac67-ea38baa63a96.png",
       "tool": "ImageGen integrado",
       "prompt": "Use case: precise-object-edit. Input image is the edit target. Portrait 4:5, polished painted Pokémon game-card art. Simplify this Pesadilla summoning spell illustration for a Pokémon card selector. A single large low oval portal of violet mist on a quiet grassy arena floor dominates the picture, with a dark center and two broad wisps lifting from the surface. Exactly one small Shuppet emerges beside the far left edge of the portal, approximately 16% image height. The little ghost is off center and secondary, with its familiar pointed cloth-like silhouette. Quiet midnight-blue woodland backdrop. Remove all other ghosts, castles, towers, flags, arches, bright moon and dense grass detail. Keep soft integrated painted lighting and perspective. Make a summoning portal immediately readable at 120 pixels, distinct from a water vortex. No words, lettering, numbers, frame, borders or interface.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "ekans",
+      "file": "dist/assets/cards/ekansSceneV2.webp",
+      "originalSource": "exec-9ba1d44c-d79b-41b2-9f0b-0d67d6244396.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Use case: precise-object-edit. Asset type: portrait 4:5 Pokémon troop card illustration, full bleed, no lettering or frame. Input image is the edit target and identifies species and unit count. Reconstruct the whole scene as ONE polished softly painted Pokémon illustration with newly drawn poses and consistent perspective, anatomy, light and material treatment. Exactly TWO Ekans in a single woodland-floor scene. Keep their recognizable purple snake bodies, yellow neck bands and yellow eyes. Foreground left Ekans is low to the ground, its head in three-quarter view toward the viewer and mouth slightly open; farther right Ekans rises from a loose coil in LEFT profile, mouth closed, with a different neck curve and visible continuous tail. Each has its own fully connected body and a naturally different pose and expression. Both rest on one simple dirt path with coherent contact shadows and shared soft daylight. A small subdued poisonous wisp may follow the foreground snake. Keep the purple silhouettes clear against quiet sage-green foliage, no repetitive grass texture. The original repeated right-facing heads must be replaced with two separately drawn animals, not copied, scaled, mirrored or warped versions.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "zubat",
+      "file": "dist/assets/cards/zubatSceneV2.webp",
+      "originalSource": "exec-6ce4de63-4d31-434c-ac52-b87a50d6b38f.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Use case: precise-object-edit. Asset type: portrait 4:5 Pokémon troop card illustration, full bleed, no lettering or frame. Input image is the edit target and identifies species and unit count. Reconstruct the whole scene as ONE polished softly painted Pokémon illustration with newly drawn poses and consistent perspective, anatomy, light and material treatment. Exactly THREE Zubat flying through the mouth of a cave at dusk. Recognizable eyeless blue bat bodies, broad purple wing membranes, large open mouths with small white fangs and slender legs. Give all three DIFFERENT flight poses: the nearest is banked toward the viewer, one wing higher and foreshortened; a second is in side profile farther left; the third is farther upper right with wings swept down. Vary their mouth openings, head angles and wing anatomy in perspective, while preserving the same species. They share one softly painted blue-violet cave entrance and low-detail twilight sky, with consistent rim light and shadows. No repeated bat silhouette, copied face, pasted outlines, flat stock render, glowing aura or collage. Keep all three readable as distinct bodies at small selector size.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "beedrill",
+      "file": "dist/assets/cards/beedrillSceneV2.webp",
+      "originalSource": "exec-94469ff2-1a34-4b97-b1cf-ee055e5d3f3d.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Use case: precise-object-edit. Asset type: portrait 4:5 Pokémon troop card illustration, full bleed, no lettering or frame. Input image is the edit target and identifies species and unit count. Reconstruct the whole scene as ONE polished softly painted Pokémon illustration with newly drawn poses and consistent perspective, anatomy, light and material treatment. Exactly TWO Beedrill flying together through a quiet forest clearing. The near Beedrill fills the left-middle foreground in a foreshortened three-quarter FRONT view, one spear-arm forward and the other tucked, wings raised. The farther Beedrill is in LEFT profile at upper right, abdomen curved and wings at a different phase of flight. Recognizable yellow-and-black striped bodies, red compound eyes, antennae, silver spear forearms, translucent insect wings and pointed abdominal stingers. Their poses, wing silhouettes, proportions in perspective and facial angles must differ naturally. Shared dappled daylight and airy forest depth, with only broad quiet background shapes. Draw each creature separately into one coherent painting, never duplicate, mirror or scale the same render. The two large silhouettes must remain clear at 120 pixels.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "sandshrew",
+      "file": "dist/assets/cards/sandshrewSceneV2.webp",
+      "originalSource": "exec-ca60c663-ad09-425d-9aee-42c380ec8170.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Repaint this Pokémon Sandshrew card as one complete outdoor illustration. Show exactly two Sandshrew in a quiet earthy clearing: one is braced on a flat stone at the near left in three-quarter front view, the other explores the ground farther right in side view with its tail visible. Distinct poses, expressions and gestures, recognizable plated yellow backs and cream undersides. Both stand on the same ground and share soft daylight and contact shadows. Simple painterly earth and grass in the background, no force-field bubbles. Portrait 4:5, one unified painted scene, no border or text.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "mankey",
+      "file": "dist/assets/cards/mankeySceneV2.webp",
+      "originalSource": "exec-7de1865a-ff10-498d-b947-ea5d1b6a5f5f.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Use case: precise-object-edit. Asset type: portrait 4:5 Pokémon troop card illustration, full bleed, no lettering or frame. Input image is the edit target and identifies species and unit count. Reconstruct the whole scene as ONE polished softly painted Pokémon illustration with newly drawn poses and consistent perspective, anatomy, light and material treatment. Exactly THREE Mankey rushing through a quiet clearing in ONE coherent painting. Preserve the round cream spiky-furred bodies, piglike pink noses, brown hands and feet, pointed ears and long curved tails. Give them genuinely different actions: the foreground Mankey lunges low in three-quarter LEFT view with one fist leading; the middle-right Mankey lands from a hop with bent knees and an upward tail; the rear-left Mankey runs in side profile with its mouth closed. Different head angles, expressions, arm positions, tail curves and foreshortening. All three belong to the same ground and daylight, with natural shadows, perspective and modest occlusion. No repeated face, same fist-up silhouette, thick sticker borders, toy layout or cutout characters. Quiet mossy path with broad background tree shapes.\n\nundefined"
+    },
+    {
+      "key": "nidoqueen",
+      "file": "dist/assets/cards/nidoqueenSceneV2.webp",
+      "originalSource": "exec-88fb8cb8-6d55-4ae2-bcb5-38e5898ee366.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Use case: precise-object-edit. Asset type: portrait 4:5 Pokémon troop card illustration, full bleed, no lettering or frame. Input image is the edit target and identifies the Pokémon anatomy. Reconstruct the whole composition as ONE polished softly painted Pokémon scene, with consistent perspective, light, shadows and material treatment. Exactly ONE adult Nidoqueen and ONE small female Nidoran in a single protective walking scene. Recognizable blue Nidoqueen with cream chest and belly plates, broad ears and horn, moving in three-quarter RIGHT view at the left foreground. The small blue-gray female Nidoran follows a little farther to the right, feet firmly on the same trail, turned toward its mother and about one quarter of her height. Their bodies must be clearly separate, with natural occlusion, shared daylight and contact shadows. The child is fully and separately drawn, not a stock Nidoran pasted over the adult's leg. Quiet grassy clearing with broad soft trees, no flags, castle, tiny flowers, outline halos or collage.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "exeggutor",
+      "file": "dist/assets/cards/exeggutorSceneV2.webp",
+      "originalSource": "exec-83b3d912-f295-4d28-9b8f-ea8312abe3a5.png",
+      "tool": "ImageGen integrado",
+      "prompt": "A new polished painted Pokémon card illustration, portrait 4:5. Exactly one Exeggutor walks toward the left through a quiet tropical clearing. Its three familiar yellow coconut faces are attached naturally beneath one green leaf crown, on one segmented brown trunk with two short feet. One foot steps forward while its different faces look in slightly different directions. Soft shared daylight, grounded contact shadows, coherent perspective and clean painted surfaces. Quiet warm earth and broad palm foliage in the background. Only the adult Exeggutor appears. Readable single silhouette at small card size, no text, frame or collage.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "altaria",
+      "file": "dist/assets/cards/altariaSceneV2.webp",
+      "originalSource": "exec-78b395b1-7592-42f0-902f-770935bdd134.png",
+      "tool": "ImageGen integrado",
+      "prompt": "A new softly painted Pokémon card illustration, portrait 4:5. Exactly one Altaria sings while perched on a low branch in a quiet woodland clearing. Recognizable blue bird, long blue neck, small beak, two long head plumes, blue tail and soft white cloud-like wings. Three-quarter frontal view with head turned slightly left, wings partly open at different angles and feet gripping the branch. Natural soft occlusion shadows join its body, wings and branch. Calm broad blue-green background shapes, shared daylight and clean painted texture. No other creatures, floating symbols, rings, lettering or card frame.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "treecko",
+      "file": "dist/assets/cards/treeckoSceneV2.webp",
+      "originalSource": "exec-9ad452ad-c8f1-48eb-b919-d3feac10ab60.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Two Treecko Pokémon in one quiet forest scene, drawn together as an original softly painted 2D game-card illustration. The nearer Treecko crouches on a rock at the right, facing left, and the farther one stands at the left facing the viewer, with different hand gestures and tail curves. Classic recognizable Treecko character proportions and colors. Both belong to the same ground and gentle daylight, with consistent painted shadows. Broad low-detail woodland shapes, clear silhouettes, clean color transitions and simple surfaces. Portrait 4:5, full scene, no lettering or border."
+    },
+    {
+      "key": "kangaskhan",
+      "file": "dist/assets/cards/kangaskhanSceneV2.webp",
+      "originalSource": "exec-95fceb60-7cc1-4c19-9cb3-115f926f0bd7.png",
+      "tool": "ImageGen integrado",
+      "prompt": "One Kangaskhan Pokémon and its one small purple Kangaskhan cub in an original softly painted 2D game-card scene. The adult stands toward the left in a protective side pose. The cub stands independently a little behind to the right, looking up toward the adult. Two distinct poses and expressions, recognizable classic Pokémon proportions and colors, both with feet and soft contact shadows on one woodland path. The adult's pouch is empty. Broad quiet foliage, consistent daylight, clean color transitions and restrained detail. Portrait 4:5, no text or frame."
     }
   ],
   "cards": [
@@ -90,8 +163,8 @@
     {
       "key": "zubat",
       "name": "Zubat",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Renovar",
+      "reason": "Tres ángulos de vuelo y posiciones de alas distintos, integrados en una cueva con luz compartida."
     },
     {
       "key": "thunder",
@@ -114,8 +187,8 @@
     {
       "key": "treecko",
       "name": "Treecko",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Renovar",
+      "reason": "Dos Treecko con acciones y ángulos distintos sobre un terreno continuo."
     },
     {
       "key": "log",
@@ -228,8 +301,8 @@
     {
       "key": "beedrill",
       "name": "Beedrill",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Renovar",
+      "reason": "Dos Beedrill con gestos y orientaciones diferentes dentro de la misma escena."
     },
     {
       "key": "pidgeot",
@@ -240,32 +313,32 @@
     {
       "key": "ekans",
       "name": "Ekans",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Renovar",
+      "reason": "Dos poses y expresiones distintas, con cuerpos completos sobre el mismo suelo y sombras compartidas."
     },
     {
       "key": "sandshrew",
       "name": "Sandshrew",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Renovar",
+      "reason": "Dos Sandshrew con poses diferentes y sombras de contacto, sin repetir la silueta de escudo."
     },
     {
       "key": "nidoqueen",
       "name": "Nidoqueen",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Renovar",
+      "reason": "Madre y cría sobre un mismo suelo, con anatomía, iluminación y escala coherentes."
     },
     {
       "key": "nidoking",
       "name": "Nidoking",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Pendiente de renovación",
+      "reason": "Las crías de la escena no corresponden a su función actual."
     },
     {
       "key": "mankey",
       "name": "Mankey",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Renovar",
+      "reason": "Tres Mankey con posturas distintas y una perspectiva de grupo coherente."
     },
     {
       "key": "arcanine",
@@ -312,8 +385,8 @@
     {
       "key": "exeggutor",
       "name": "Exeggutor",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Renovar",
+      "reason": "Una sola figura de Exeggutor, sin las crías que lo confundían con la estructura Vivero."
     },
     {
       "key": "koffing",
@@ -324,14 +397,14 @@
     {
       "key": "chansey",
       "name": "Chansey",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Pendiente de renovación",
+      "reason": "El Pikachu cortado en el borde se percibe como un recorte superpuesto."
     },
     {
       "key": "kangaskhan",
       "name": "Kangaskhan",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Renovar",
+      "reason": "Un adulto y una cría con poses propias, separados con claridad sobre el mismo terreno."
     },
     {
       "key": "starmie",
@@ -450,8 +523,8 @@
     {
       "key": "blissey",
       "name": "Blissey",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Pendiente de renovación",
+      "reason": "Las siluetas y los signos de curación se perciben como elementos de interfaz."
     },
     {
       "key": "lugia",
@@ -516,8 +589,8 @@
     {
       "key": "altaria",
       "name": "Altaria",
-      "decision": "Conservar",
-      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+      "decision": "Renovar",
+      "reason": "Altaria integrada en un paisaje de cielo y montañas, sin siluetas verdes ni símbolos de curación."
     },
     {
       "key": "absol",
@@ -692,6 +765,23 @@
       "name": "Terremoto",
       "decision": "Ilustración simplificada",
       "reason": "El efecto del hechizo domina la composición y queda un único Pokémon pequeño hacia un costado."
+    }
+  ],
+  "pendingScenes": [
+    {
+      "key": "nidoking",
+      "reason": "Las crías de la escena no corresponden a su función actual.",
+      "status": "Ilustración original conservada. ImageGen integrado rechazó la salida en las variantes probadas."
+    },
+    {
+      "key": "chansey",
+      "reason": "El Pikachu cortado en el borde se percibe como un recorte superpuesto.",
+      "status": "Ilustración original conservada. ImageGen integrado rechazó la salida en las variantes probadas."
+    },
+    {
+      "key": "blissey",
+      "reason": "Las siluetas y los signos de curación se perciben como elementos de interfaz.",
+      "status": "Ilustración original conservada. ImageGen integrado rechazó la salida en las variantes probadas."
     }
   ]
 }
