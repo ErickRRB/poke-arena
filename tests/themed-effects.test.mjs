@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { Game, CARDS } from '../dist/engine.js';
 import { Renderer } from '../dist/render.js';
-import {BattleArt} from '../dist/battle-art.js';
+import {BattleArt,cardPlaceholder} from '../dist/battle-art.js';
 import {BATTLE_ASSETS} from '../dist/assets/battle/manifest.js';
 import { packGame, unpackGame, packEvent, perspective } from '../dist/snapshot.js';
 
@@ -116,4 +116,14 @@ test('Pikachu entry, attack charge and missile impacts use sparks instead of loa
     assert.ok(calls.some(c=>c.method==='drawImage'));
     assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
   }
+});
+
+test('Rueda Fuego preserves the saved card key and sweep while replacing the static placeholder with animated attack assets',()=>{
+ assert.equal(CARDS.log.name,'Rueda Fuego');assert.equal(CARDS.log.cost,2);assert.equal(CARDS.log.damage,290);assert.equal(cardPlaceholder('log'),false);
+ const{game,renderer,ctx,calls}=setup();deploy(game,'log',300,520);
+ const spell=game.spells[0];assert.equal(spell.key,'log');const before=spell.y;game.step(.1);assert.ok(spell.y<before);
+ const frames=new Set();
+ for(let i=0;i<20;i++){renderer.t=i/30;calls.length=0;renderer.rollingSpell(ctx,spell);const draw=calls.find(call=>call.method==='drawImage'&&call.args[0]===renderer.battleArt.image('flameWheel'));assert.ok(draw);frames.add(draw.args[1]);assert.equal(calls.some(call=>call.method==='fillText'),false);}
+ assert.ok(frames.size>=4,'the rolling attack must visibly animate');
+ for(const reduced of[true,false]){renderer.reduced=reduced;calls.length=0;renderer.rollingSpell(ctx,spell);assert.ok(calls.some(call=>call.method==='drawImage'));}
 });

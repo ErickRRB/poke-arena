@@ -320,6 +320,14 @@
       "rows": 8,
       "fps": 18
     },
+    "flameWheel": {
+      "file": "assets/battle/Particle__Flame_Wheel.None.png",
+      "width": 40,
+      "height": 40,
+      "columns": 5,
+      "rows": 1,
+      "fps": 18
+    },
     "lightningBody": {
       "file": "assets/battle/Beam__Lightning__Body.png",
       "width": 32,
@@ -665,6 +673,12 @@
       "file": "assets/battle/Particle__Bite.Dir8.png",
       "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Bite.Dir8.png",
       "sha256": "c26f5975d8ca805e3b83d304a34084519ea84812d6d347cd385bcc069e2321e6"
+    },
+    {
+      "key": "flameWheel",
+      "file": "assets/battle/Particle__Flame_Wheel.None.png",
+      "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Flame_Wheel.None.png",
+      "sha256": "73cefc7fe2922f2a628bfb37927adc1979fba0f44d185c7c24eb4d3212129189"
     },
     {
       "key": "lightningBody",

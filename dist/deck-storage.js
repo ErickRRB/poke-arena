@@ -1,4 +1,4 @@
-import { CARDS, DEFAULT_DECK } from './engine.js?v=25';
+import { CARDS, DEFAULT_DECK } from './engine.js?v=26';
 
 const KEY='poke-arena:deck',STAMP='poke-arena:deck-updated',COOKIE='poke_arena_deck';
 const replacements={shuppet:'diglett',shuppetSwarm:'diglettHorde',nidoranScouts:'raltsTrio',nidoranPack:'poochyenaPack',electrode:'forretress'};

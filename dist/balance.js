@@ -125,7 +125,7 @@ const descriptions = {
   snorlax: ['Tanque · estructuras', 'Tanque muy lento. Ignora tropas y golpea una estructura cada 2 s; los enjambres lo rodean.'],
   geodude: ['Defensor · objetivo único', 'Defensor de 3 de elixir. Resiste y golpea fuerte a un solo rival terrestre; necesita ayuda contra enjambres.'],
   thunder: ['Hechizo · aturde', 'Daña y aturde a los enemigos en el área. Interrumpe sus ataques.'],
-  log: ['Hechizo · empuje', 'Rueda desde tu lado y empuja a los enemigos terrestres a su paso.'],
+  log: ['Hechizo · empuje', 'Una rueda de fuego avanza y empuja a los enemigos terrestres.'],
   zubat: ['Trío · absorción', 'Tres murciélagos atacan a corta distancia y recuperan vida con sus mordidas.'],
   gastly: ['Enjambre aéreo · ×4', 'Cuatro fantasmas voladores atacan a distancia. Dejan niebla dañina al caer.'],
   butterfree: ['Volador · polvo', 'Esparce polvo que ralentiza en área. Ataca a tierra y aire.'],
@@ -184,7 +184,7 @@ export function applyBalance(cards) {
   cards.zubat.description='Tres murciélagos pequeños atacan a corta distancia y recuperan vida con sus mordidas.';
   cards.voltorb.description='Se lanza de un salto hacia un enemigo cercano y explota al aterrizar. Daña en área a tierra y aire, aturde y se consume. Puede morir antes de llegar.';
   Object.assign(cards.fireball,{name:'Bomba ígnea',move:'Bomba ígnea'});
-  Object.assign(cards.log,{name:'Mazazo',move:'Mazazo'});
+  Object.assign(cards.log,{name:'Rueda Fuego',move:'Rueda Fuego'});
   applyRoles(cards);
   for(const [key,description] of Object.entries(CARD_DESCRIPTIONS))cards[key].description=description;
 }
@@ -215,7 +215,7 @@ export const CARD_DESCRIPTIONS = {
   mewtwo:'Lanza esferas explosivas y puede activar una onda que daña y aturde.',
   treecko:'Dos tiradores lanzan semillas desde atrás de la primera línea.',
   golem:'Avanza hacia las estructuras y, al caer, explota y deja dos Geodude.',
-  log:'Rueda en línea recta y empuja a los enemigos que encuentra a su paso.',
+  log:'Una rueda de fuego avanza y empuja a los enemigos terrestres.',
   diglett:'Tres Diglett rodean y distraen a un rival.',
   diglettHorde:'Nueve Diglett rodean a sus enemigos y atacan en grupo.',
   raltsTrio:'Tres Ralts atacan a distancia con energía psíquica.',

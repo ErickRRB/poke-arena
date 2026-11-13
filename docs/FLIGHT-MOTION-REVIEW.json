@@ -1,0 +1,2009 @@
+{
+  "date": "2026-11-13",
+  "directions": 8,
+  "samples": 120,
+  "seconds": 2,
+  "rows": [
+    {
+      "key": "zubat",
+      "name": "Zubat",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 251.67282964800137
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 207.79646752981725,
+            "y": 246.50929717781867
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 211.52,
+            "y": 244.47282964800138
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 7,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 206.35646752981725,
+            "y": 238.11636211818416
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 238.7128296480014
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 7,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 193.64353247018275,
+            "y": 238.11636211818416
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 188.48,
+            "y": 244.47282964800138
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 192.20353247018275,
+            "y": 246.50929717781867
+          }
+        }
+      ]
+    },
+    {
+      "key": "charizard",
+      "name": "Charizard",
+      "source": "Showdown flight",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 47,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 185.881168,
+            "y": 247.821752
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 47,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 214.118832,
+            "y": 247.821752
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 47,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 214.118832,
+            "y": 247.821752
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 49,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 211.810946,
+            "y": 247.414478
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 49,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 211.810946,
+            "y": 247.414478
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 49,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 188.189054,
+            "y": 247.414478
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 47,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 185.881168,
+            "y": 247.821752
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 47,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 185.881168,
+            "y": 247.821752
+          }
+        }
+      ]
+    },
+    {
+      "key": "magnemite",
+      "name": "Magnemite",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.4762,
+            "y": 258.77427167696675
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 201.07748931317207,
+            "y": 258.3279609901388
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 257.25047167696675
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 199.55368931317207,
+            "y": 257.6967823637947
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.4762,
+            "y": 254.20287167696677
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.92251068682793,
+            "y": 256.1729823637947
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 196.9524,
+            "y": 257.25047167696675
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 195.87491068682795,
+            "y": 258.3279609901388
+          }
+        }
+      ]
+    },
+    {
+      "key": "scyther",
+      "name": "Scyther",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 180.8,
+            "y": 236.84466098388305
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 218.73137084989847,
+            "y": 233.1760318337815
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 209.6,
+            "y": 232.04466098388303
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 189.93137084989849,
+            "y": 227.71329013398457
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 219.2,
+            "y": 235.24466098388302
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 208.46862915010152,
+            "y": 227.71329013398457
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 188.8,
+            "y": 232.04466098388303
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 181.26862915010153,
+            "y": 233.1760318337815
+          }
+        }
+      ]
+    },
+    {
+      "key": "butterfree",
+      "name": "Butterfree",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 11,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.7333,
+            "y": 258.7199356446127
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 202.162392159729,
+            "y": 258.3489278043417
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 201.2667,
+            "y": 253.65313564461272
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200.895692159729,
+            "y": 250.22404348488374
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 11,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 248.58633564461275
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 197.837607840271,
+            "y": 250.22404348488374
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 197.4666,
+            "y": 253.65313564461272
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 196.570907840271,
+            "y": 258.3489278043417
+          }
+        }
+      ]
+    },
+    {
+      "key": "beedrill",
+      "name": "Beedrill",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 186.3446,
+            "y": 260.0760708199168
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 215.77460235816497,
+            "y": 253.50547317808181
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 213.6554,
+            "y": 246.42067081991684
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 199.636402358165,
+            "y": 241.81866846175186
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 209.9312,
+            "y": 242.69647081991684
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 197.88079764183502,
+            "y": 241.81866846175186
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 183.8618,
+            "y": 246.42067081991684
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 181.742597641835,
+            "y": 253.50547317808181
+          }
+        }
+      ]
+    },
+    {
+      "key": "pidgeot",
+      "name": "Pidgeot",
+      "source": "Showdown flight",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 53,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 192.46,
+            "y": 245.8
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 53,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 207.54,
+            "y": 245.8
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 53,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 207.54,
+            "y": 245.8
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 54,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 208.06,
+            "y": 243.58
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 54,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 208.06,
+            "y": 243.58
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 54,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 191.94,
+            "y": 243.58
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 53,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 192.46,
+            "y": 245.8
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 53,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 192.46,
+            "y": 245.8
+          }
+        }
+      ]
+    },
+    {
+      "key": "gastly",
+      "name": "Gastly",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 11,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 264.75020325138695
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 11,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 204.4142135623731,
+            "y": 263.16441681376006
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 11,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 207,
+            "y": 260.75020325138695
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 11,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 208.4142135623731,
+            "y": 255.33598968901384
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 11,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 199,
+            "y": 244.75020325138695
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 11,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 190.5857864376269,
+            "y": 255.33598968901384
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 11,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 192,
+            "y": 260.75020325138695
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 11,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 194.5857864376269,
+            "y": 263.16441681376006
+          }
+        }
+      ]
+    },
+    {
+      "key": "koffing",
+      "name": "Koffing",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.8387,
+            "y": 256.2484005860683
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 199.65986310499193,
+            "y": 255.90826369106028
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 255.08710058606835
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.49856310499194,
+            "y": 253.1046374810764
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.8387,
+            "y": 253.92580058606833
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200.34013689500807,
+            "y": 253.1046374810764
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.8387,
+            "y": 255.08710058606835
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 199.17883689500806,
+            "y": 255.90826369106028
+          }
+        }
+      ]
+    },
+    {
+      "key": "gyarados",
+      "name": "Gyarados",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 241.39932710660761
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 225.4811553006147,
+            "y": 238.0054824072223
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 234.125,
+            "y": 229.58682710660761
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 221.5436553006147,
+            "y": 215.91817180599293
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 209.89932710660761
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 177.1438446993853,
+            "y": 215.91817180599293
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 164.5625,
+            "y": 229.58682710660761
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 173.2063446993853,
+            "y": 238.0054824072223
+          }
+        }
+      ]
+    },
+    {
+      "key": "articuno",
+      "name": "Articuno",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 260.8163431621924
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 212.79447689579146,
+            "y": 259.3038200579839
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 214.307,
+            "y": 253.18594316219242
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 212.79447689579146,
+            "y": 252.79086626640094
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 246.5093431621924
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 186.25172310420854,
+            "y": 252.79086626640094
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 184.7392,
+            "y": 253.18594316219242
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 186.25172310420854,
+            "y": 259.3038200579839
+          }
+        }
+      ]
+    },
+    {
+      "key": "zapdos",
+      "name": "Zapdos",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 247.401982360331
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 219.62783460788344,
+            "y": 243.88091696821445
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 224.5106,
+            "y": 239.23178236033098
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 219.62783460788344,
+            "y": 234.58264775244754
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 224.25308236033098
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 180.37216539211656,
+            "y": 234.58264775244754
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 175.4894,
+            "y": 239.23178236033098
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 180.37216539211656,
+            "y": 243.88091696821445
+          }
+        }
+      ]
+    },
+    {
+      "key": "moltres",
+      "name": "Moltres",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 199.1899,
+            "y": 250.0278881688404
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 210.86685440687845,
+            "y": 253.60384257571886
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 216.202,
+            "y": 248.40768816884042
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 210.05675440687844,
+            "y": 243.21153376196196
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 199.1899,
+            "y": 241.9268881688404
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 189.13314559312155,
+            "y": 243.21153376196196
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 182.9879,
+            "y": 248.40768816884042
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 3,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 188.32304559312155,
+            "y": 253.60384257571886
+          }
+        }
+      ]
+    },
+    {
+      "key": "dragonite",
+      "name": "Dragonite",
+      "source": "Showdown flight",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 44,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 189.477794,
+            "y": 245.61732
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 44,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 210.522206,
+            "y": 245.61732
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 44,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 210.522206,
+            "y": 245.61732
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 45,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 247.955588
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 45,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 247.955588
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 45,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 247.955588
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 44,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 189.477794,
+            "y": 245.61732
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 44,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 189.477794,
+            "y": 245.61732
+          }
+        }
+      ]
+    },
+    {
+      "key": "crobat",
+      "name": "Crobat",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 7,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.625,
+            "y": 254.85272117949796
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 204.694543648263,
+            "y": 252.67226482776096
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 206.875,
+            "y": 252.10272117949796
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 201.944543648263,
+            "y": 246.03317753123497
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 7,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 245.22772117949796
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 196.680456351737,
+            "y": 246.03317753123497
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 191.75,
+            "y": 252.10272117949796
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 193.930456351737,
+            "y": 252.67226482776096
+          }
+        }
+      ]
+    },
+    {
+      "key": "skarmory",
+      "name": "Skarmory",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 182.1718,
+            "y": 238.46028106259251
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 202.34112623971924,
+            "y": 236.68720730231172
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 190.4002,
+            "y": 234.34608106259253
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 184.51292623971923,
+            "y": 237.49055482287326
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 219.1996,
+            "y": 241.2030810625925
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 214.11567376028077,
+            "y": 237.49055482287326
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 209.5998,
+            "y": 234.34608106259253
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 8,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 197.65887376028076,
+            "y": 236.68720730231172
+          }
+        }
+      ]
+    },
+    {
+      "key": "lugia",
+      "name": "Lugia",
+      "source": "Showdown flight",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 67,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 189.29,
+            "y": 215.45
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 67,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 210.71,
+            "y": 215.45
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 67,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 210.71,
+            "y": 215.45
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 66,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 209.24,
+            "y": 220.49
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 66,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 209.24,
+            "y": 220.49
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 66,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 190.76,
+            "y": 220.49
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 67,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 189.29,
+            "y": 215.45
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 67,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 189.29,
+            "y": 215.45
+          }
+        }
+      ]
+    },
+    {
+      "key": "hooh",
+      "name": "Ho-Oh",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.8696,
+            "y": 267.3366237423795
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 217.42422701090655,
+            "y": 261.0224507532861
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 222.608,
+            "y": 249.25022374237957
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 216.29382701090654,
+            "y": 238.60839673147302
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.8696,
+            "y": 237.94622374237954
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 181.44537298909344,
+            "y": 238.60839673147302
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 175.1312,
+            "y": 249.25022374237957
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 4,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 180.31497298909346,
+            "y": 261.0224507532861
+          }
+        }
+      ]
+    },
+    {
+      "key": "flygon",
+      "name": "Flygon",
+      "source": "Showdown flight",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 43,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 191.883584,
+            "y": 251.414432
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 43,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 208.116416,
+            "y": 251.414432
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 43,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 208.116416,
+            "y": 251.414432
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 44,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 201.183644,
+            "y": 252.823532
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 44,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 201.183644,
+            "y": 252.823532
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 44,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.816356,
+            "y": 252.823532
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 43,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 191.883584,
+            "y": 251.414432
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 43,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 191.883584,
+            "y": 251.414432
+          }
+        }
+      ]
+    },
+    {
+      "key": "altaria",
+      "name": "Altaria",
+      "source": "Showdown flight",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 59,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 197.047352,
+            "y": 241.93406
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 59,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 202.952648,
+            "y": 241.93406
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 59,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 202.952648,
+            "y": 241.93406
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 60,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 210.59102000000001,
+            "y": 234.87338
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 60,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 210.59102000000001,
+            "y": 234.87338
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 60,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 189.40897999999999,
+            "y": 234.87338
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 59,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 197.047352,
+            "y": 241.93406
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 59,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 197.047352,
+            "y": 241.93406
+          }
+        }
+      ]
+    },
+    {
+      "key": "salamence",
+      "name": "Salamence",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 5,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 180.0005,
+            "y": 272.2142887760086
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 5,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 218.275685471356,
+            "y": 267.8238742473646
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 5,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 213.333,
+            "y": 261.54788877600856
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 5,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 202.27608547135603,
+            "y": 256.60520330465255
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 5,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 211.9997,
+            "y": 261.54788877600856
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 5,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 196.39061452864397,
+            "y": 256.60520330465255
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 5,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 185.3337,
+            "y": 261.54788877600856
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 5,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 180.39101452864398,
+            "y": 267.8238742473646
+          }
+        }
+      ]
+    },
+    {
+      "key": "rayquaza",
+      "name": "Rayquaza",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 200,
+            "y": 234.21327795185442
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 216.2936553006147,
+            "y": 229.50693325246908
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 221,
+            "y": 223.71327795185442
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 214.9811553006147,
+            "y": 219.2321226512397
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 198.6875,
+            "y": 213.21327795185442
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 182.3938446993853,
+            "y": 220.5446226512397
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 182.9375,
+            "y": 227.65077795185442
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 12,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 187.6438446993853,
+            "y": 232.13193325246908
+          }
+        }
+      ]
+    },
+    {
+      "key": "celebi",
+      "name": "Celebi",
+      "source": "PMD original",
+      "directions": [
+        {
+          "direction": 0,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 187.07659999999998,
+            "y": 257.56544487998156
+          }
+        },
+        {
+          "direction": 1,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 206.8440605394266,
+            "y": 253.33230541940821
+          }
+        },
+        {
+          "direction": 2,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 192.6152,
+            "y": 253.8730448799816
+          }
+        },
+        {
+          "direction": 3,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 190.2282605394266,
+            "y": 254.413784340555
+          }
+        },
+        {
+          "direction": 4,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 207.3848,
+            "y": 255.7192448799816
+          }
+        },
+        {
+          "direction": 5,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 206.0793394605734,
+            "y": 254.413784340555
+          }
+        },
+        {
+          "direction": 6,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 203.6924,
+            "y": 253.8730448799816
+          }
+        },
+        {
+          "direction": 7,
+          "poses": 6,
+          "empty": 0,
+          "missing": 0,
+          "emitter": {
+            "x": 189.4635394605734,
+            "y": 253.33230541940821
+          }
+        }
+      ]
+    }
+  ]
+}

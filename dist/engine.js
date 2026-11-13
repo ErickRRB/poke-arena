@@ -1,7 +1,7 @@
-import { EXTRA_CARDS } from './catalog.js?v=25';
-import { applyBalance, THRESHOLDS } from './balance.js?v=25';
-import { emissionPoint } from './sprite-motion.js?v=25';
-export { attackPoseProgress } from './sprite-motion.js?v=25';
+import { EXTRA_CARDS } from './catalog.js?v=26';
+import { applyBalance, THRESHOLDS } from './balance.js?v=26';
+import { emissionPoint } from './sprite-motion.js?v=26';
+export { attackPoseProgress } from './sprite-motion.js?v=26';
 export const W = 600, H = 800;
 export const TILE = 24;
 export const DEPLOY_GRID = Object.freeze({ size: TILE, left: 0, top: (H % TILE) / 2, columns: W / TILE, rows: Math.floor(H / TILE) });
@@ -57,7 +57,7 @@ Object.assign(CARDS,{
 });
 CARDS.treecko={name:'Treecko',id:252,cost:3,type:'grass',label:'Planta',role:'Pareja · a distancia',move:'Semilladora',style:'leaf',attackAnim:'Shoot',attackDuration:.7,hp:370,damage:55,range:145,speed:45,interval:1.25,count:2,air:true,muzzleHeight:24,color:'#a5d577',description:'Dos tiradores que atacan a tierra y aire. Vulnerables al daño de área.'};
 CARDS.golem={name:'Golem',id:76,cost:8,type:'rock',label:'Roca',role:'Tanque · división',move:'Demolición',style:'slam',attackAnim:'Attack',attackDuration:1,hp:4600,damage:190,range:30,speed:21,interval:2.3,building:true,radius:23,muzzleHeight:35,deathDamage:130,split:true,color:'#b9ad92',description:'Tanque que solo ataca estructuras. Al caer explota y deja dos Geodude pequeños.'};
-CARDS.log={name:'Tronco',cost:2,type:'rock',label:'Terrestre',role:'Hechizo · empuje',spell:true,rolling:true,damage:200,towerDamage:55,splash:45,knockback:28,color:'#b99462',description:'Rueda desde tu lado, daña y empuja a los enemigos terrestres.'};
+CARDS.log={name:'Rueda Fuego',move:'Rueda Fuego',cost:2,type:'fire',label:'Fuego',role:'Hechizo · empuje',spell:true,rolling:true,damage:200,towerDamage:55,splash:45,knockback:28,color:'#ef9b52',description:'Una rueda de fuego avanza y empuja a los enemigos terrestres.'};
 CARDS.mewtwo.ability={name:'Onda psíquica',cost:2,damage:240,radius:135,stun:1};
 CARDS.mewtwo.description='Esfera de daño en área. Onda psíquica: 2 de elixir, daña y aturde alrededor; un uso por despliegue.';
 CARDS.pikachu.description='Rayo que salta a otros dos rivales. Aturde, interrumpe el ataque y hace buscar el objetivo más cercano.';

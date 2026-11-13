@@ -4,7 +4,7 @@
     "directions": 8,
     "movementSamples": 16,
     "attackSamples": 12,
-    "source": "Original PMDCollab sprite sheets rendered by the actual game renderer"
+    "source": "Original PMDCollab and Showdown sprite sheets rendered by the actual game renderer"
   },
   "species": 93,
   "pokemonCards": 101,
@@ -319,66 +319,57 @@
       "name": "Charizard",
       "species": 6,
       "kind": "air",
-      "movement": "Hop",
-      "attack": "Shoot",
+      "movement": "Showdown flight",
+      "attack": "Showdown flight",
       "emitter": "head",
-      "customLoop": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        4,
-        3,
-        2
-      ],
+      "customLoop": null,
       "directions": [
         {
           "direction": 0,
-          "movementPoses": 5,
-          "attackPoses": 6,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 1,
-          "movementPoses": 5,
-          "attackPoses": 6,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 2,
-          "movementPoses": 5,
-          "attackPoses": 6,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 3,
-          "movementPoses": 5,
-          "attackPoses": 6,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 4,
-          "movementPoses": 5,
-          "attackPoses": 6,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 5,
-          "movementPoses": 5,
-          "attackPoses": 6,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 6,
-          "movementPoses": 5,
-          "attackPoses": 6,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 7,
-          "movementPoses": 5,
-          "attackPoses": 6,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         }
       ],
@@ -1799,66 +1790,57 @@
       "name": "Pidgeot",
       "species": 18,
       "kind": "air",
-      "movement": "Hop",
-      "attack": "Attack",
+      "movement": "Showdown flight",
+      "attack": "Showdown flight",
       "emitter": "head",
-      "customLoop": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        6,
-        5,
-        4
-      ],
+      "customLoop": null,
       "directions": [
         {
           "direction": 0,
-          "movementPoses": 5,
-          "attackPoses": 8,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 1,
-          "movementPoses": 5,
-          "attackPoses": 8,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 2,
-          "movementPoses": 5,
-          "attackPoses": 8,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 3,
-          "movementPoses": 5,
-          "attackPoses": 8,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 4,
-          "movementPoses": 5,
-          "attackPoses": 8,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 5,
-          "movementPoses": 5,
-          "attackPoses": 8,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 6,
-          "movementPoses": 5,
-          "attackPoses": 8,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 7,
-          "movementPoses": 5,
-          "attackPoses": 8,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         }
       ],
@@ -3333,64 +3315,57 @@
       "name": "Dragonite",
       "species": 149,
       "kind": "air",
-      "movement": "Hop",
-      "attack": "Attack",
+      "movement": "Showdown flight",
+      "attack": "Showdown flight",
       "emitter": "hands",
-      "customLoop": [
-        3,
-        4,
-        5,
-        6,
-        5,
-        4
-      ],
+      "customLoop": null,
       "directions": [
         {
           "direction": 0,
-          "movementPoses": 4,
-          "attackPoses": 7,
+          "movementPoses": 15,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 1,
-          "movementPoses": 4,
-          "attackPoses": 7,
+          "movementPoses": 15,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 2,
-          "movementPoses": 4,
-          "attackPoses": 7,
+          "movementPoses": 15,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 3,
-          "movementPoses": 4,
-          "attackPoses": 7,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 4,
-          "movementPoses": 4,
-          "attackPoses": 7,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 5,
-          "movementPoses": 4,
-          "attackPoses": 7,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 6,
-          "movementPoses": 4,
-          "attackPoses": 7,
+          "movementPoses": 15,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 7,
-          "movementPoses": 4,
-          "attackPoses": 7,
+          "movementPoses": 15,
+          "attackPoses": 12,
           "emptyFrames": 0
         }
       ],
@@ -4133,57 +4108,57 @@
       "name": "Lugia",
       "species": 249,
       "kind": "air",
-      "movement": "Walk",
-      "attack": "Shoot",
+      "movement": "Showdown flight",
+      "attack": "Showdown flight",
       "emitter": "head",
       "customLoop": null,
       "directions": [
         {
           "direction": 0,
-          "movementPoses": 2,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 1,
-          "movementPoses": 2,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 2,
-          "movementPoses": 2,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 3,
-          "movementPoses": 2,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 4,
-          "movementPoses": 2,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 5,
-          "movementPoses": 2,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 6,
-          "movementPoses": 2,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 7,
-          "movementPoses": 2,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         }
       ],
@@ -4682,57 +4657,57 @@
       "name": "Flygon",
       "species": 330,
       "kind": "air",
-      "movement": "Walk",
-      "attack": "Attack",
+      "movement": "Showdown flight",
+      "attack": "Showdown flight",
       "emitter": "hands",
       "customLoop": null,
       "directions": [
         {
           "direction": 0,
-          "movementPoses": 3,
-          "attackPoses": 9,
+          "movementPoses": 14,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 1,
-          "movementPoses": 3,
-          "attackPoses": 9,
+          "movementPoses": 14,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 2,
-          "movementPoses": 3,
-          "attackPoses": 9,
+          "movementPoses": 14,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 3,
-          "movementPoses": 3,
-          "attackPoses": 9,
+          "movementPoses": 15,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 4,
-          "movementPoses": 3,
-          "attackPoses": 9,
+          "movementPoses": 15,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 5,
-          "movementPoses": 3,
-          "attackPoses": 9,
+          "movementPoses": 15,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 6,
-          "movementPoses": 3,
-          "attackPoses": 9,
+          "movementPoses": 14,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 7,
-          "movementPoses": 3,
-          "attackPoses": 9,
+          "movementPoses": 14,
+          "attackPoses": 12,
           "emptyFrames": 0
         }
       ],
@@ -4743,57 +4718,57 @@
       "name": "Altaria",
       "species": 334,
       "kind": "air",
-      "movement": "Walk",
-      "attack": "Shoot",
+      "movement": "Showdown flight",
+      "attack": "Showdown flight",
       "emitter": "head",
       "customLoop": null,
       "directions": [
         {
           "direction": 0,
-          "movementPoses": 3,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 1,
-          "movementPoses": 3,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 2,
-          "movementPoses": 3,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 3,
-          "movementPoses": 3,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 4,
-          "movementPoses": 3,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 5,
-          "movementPoses": 3,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 6,
-          "movementPoses": 3,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         },
         {
           "direction": 7,
-          "movementPoses": 3,
-          "attackPoses": 5,
+          "movementPoses": 16,
+          "attackPoses": 12,
           "emptyFrames": 0
         }
       ],

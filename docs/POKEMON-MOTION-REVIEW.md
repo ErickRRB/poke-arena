@@ -2,9 +2,15 @@
 
 Se comprobaron las 101 cartas de Pokémon, incluidas invocaciones y variantes, que representan 93 especies. El render real recorrió ocho direcciones, 16 momentos de movimiento y 12 de ataque por carta. No aparecieron recursos faltantes ni cuadros vacíos. El informe completo está en [POKEMON-MOTION-REVIEW.json](POKEMON-MOTION-REVIEW.json).
 
-Charizard, Pidgeot, Scyther, Dragonite y Salamence usan bucles de poses originales de `Hop`, elegidas para mostrar cambios en las alas. El anclaje al cuerpo elimina el desplazamiento vertical del salto original. El resto de los aéreos conserva sus cuadros originales de alas o flotación, también cuando espera entre ataques. Las barras de vida respetan la altura de las alas.
+Charizard, Pidgeot, Dragonite, Lugia, Altaria y Flygon usan secuencias completas de vuelo de Pokémon Showdown, con 43 a 70 cuadros originales por vista. El ciclo continúa al esperar, recibir un golpe o atacar. Las barras de vida conservan su altura al girar. Scyther y Salamence conservan sus bucles originales de `Hop`, anclados al cuerpo. Se compararon también las alternativas de Salamence de Showdown y Ranger, que mostraban menos aleteo.
+
+La revisión específica recorrió los 23 voladores en ocho direcciones durante 120 momentos de animación por dirección. El informe está en [FLIGHT-MOTION-REVIEW.json](FLIGHT-MOTION-REVIEW.json), con capturas en [flight-review](flight-review/README.md). El conteo comprueba reproducción y recursos. La comparación visual de las secuencias se usa para evaluar el aleteo.
 
 Se revisaron las salidas de los ataques desde cabeza, manos, cuerpo y cañones. Se ajustaron, entre otros, los huevos de Chansey y Blissey, el núcleo de Starmie, la gema de Espeon, el pulso de Rayquaza y las hojas de Sceptile. Las capturas de ataque señalan el punto de emisión con un píxel amarillo para la inspección técnica.
+
+Las nuevas vistas de vuelo tienen emisores propios para boca y garras. Los proyectiles de Lugia y Altaria salen desde la boca visible. El balance y los tiempos de ataque se conservan.
+
+Rueda Fuego reemplaza el tronco estático con un efecto original animado de PMD y una ilustración nueva. Conserva la clave interna `log`, dos de elixir, 290 de daño, 58 a torres, recorrido y empuje. La ilustración anterior permanece en `artwork/imagenes-viejas/originales/battle-1.webp` y su visor.
 
 Blastoise es una tropa móvil terrestre de cuatro de elixir, con 1.400 PV, alcance de cinco casillas y dos cañonazos de 85 cada 1,8 s. Conserva sus dos emisores y deja de usar plataforma, duración y atracción de estructuras. Su ilustración representa ese rol.
 
