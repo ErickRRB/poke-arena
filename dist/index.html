@@ -7,48 +7,50 @@
   <meta name="description" content="Batallas de Pokémon en tiempo real: elegí tus cartas, defendé tus torres y conquistá la arena.">
   <title>Poké Arena · Batalla de torres</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=16">
-  <link rel="stylesheet" href="card-ui.css?v=16">
-  <link rel="stylesheet" href="theme.css?v=16">
+  <link rel="stylesheet" href="style.css?v=17">
+  <link rel="stylesheet" href="card-ui.css?v=17">
+  <link rel="stylesheet" href="theme.css?v=17">
 </head>
 <body class="menu-mode">
   <svg class="svg-defs" aria-hidden="true"><defs>
-    <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h6m6 0h6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
-    <symbol id="i-sound" viewBox="0 0 24 24"><path d="m11 5-6 4H2v6h3l6 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-mute" viewBox="0 0 24 24"><path d="m11 5-6 4H2v6h3l6 4V5Zm5 4 6 6m0-6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 9a2.5 2.5 0 0 1 5 .5c0 1.5-2.5 1.5-2.5 3.5m0 3h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="i-settings" viewBox="0 0 24 24"><path d="m9 3-.6 2.3-2 .9-2.2-.6-2 3.4 1.7 1.7v2.6L2.2 15l2 3.4 2.2-.6 2 .9L9 21h4l.6-2.3 2-.9 2.2.6 2-3.4-1.7-1.7v-2.6l1.7-1.7-2-3.4-2.2.6-2-.9L13 3H9Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="11" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
-    <symbol id="i-crown" viewBox="0 0 24 24"><path d="m3 6 5 5 4-7 4 7 5-5-2 12H5L3 6Z" fill="currentColor"/><path d="M5 21h14" stroke="currentColor" stroke-width="2"/></symbol>
-    <linearGradient id="energy-gem" x1="4" y1="3" x2="19" y2="22" gradientUnits="userSpaceOnUse"><stop stop-color="#f3bdff"/><stop offset=".45" stop-color="#b85be4"/><stop offset="1" stop-color="#57217f"/></linearGradient>
-    <symbol id="i-energy" viewBox="0 0 24 24"><path d="m12 1 8.5 6v10L12 23l-8.5-6V7Z" fill="url(#energy-gem)" stroke="#522b69" stroke-width="1.3" stroke-linejoin="round"/><path d="m12 2-5 6 5 12 5-12Z" fill="#ecc4ff" opacity=".35"/><path d="m4.5 7 3 1 4.5-6m5 6 2.5-1M4.5 17l7.5 4.5 7.5-4.5M7.5 8h9" fill="none" stroke="#ffe8ff" stroke-opacity=".65" stroke-width=".85" stroke-linejoin="round"/><circle cx="12" cy="12.5" r="4.2" fill="#fff6d9" stroke="#683180" stroke-width="1.1"/><path d="M7.8 12.5h8.4" stroke="#87449f" stroke-width="1.4"/><circle cx="12" cy="12.5" r="1.65" fill="#fffdf0" stroke="#87449f" stroke-width="1"/><path d="m7 5 .5-1.5L8 5l1.5.5L8 6l-.5 1.5L7 6l-1.5-.5Z" fill="#fffdf2"/></symbol>
-    <symbol id="i-deck" viewBox="0 0 24 24"><rect x="8" y="4" width="12" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5 17H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m14 9 3 3-3 3-3-3 3-3Z" fill="currentColor"/></symbol>
-    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 6v12m8-12v12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
-    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z" fill="currentColor"/></symbol>
-    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8M5 10v10h5v-6h4v6h5V10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21 3.8 13A5.7 5.7 0 0 1 12 5.1 5.7 5.7 0 0 1 20.2 13L12 21Z" fill="currentColor"/><path d="m5 12 3-1 2 4 3-7 2 4h4" fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></symbol>
-    <symbol id="i-damage" viewBox="0 0 24 24"><path d="m14 3 7-1-1 7-9 9-5-5 8-10Z" fill="currentColor"/><path d="m5 11 8 8M8 16l-5 5m-1-3 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
-    <symbol id="i-dps" viewBox="0 0 24 24"><path d="m14 2-3 7h8l-9 13 2-10H5l9-10Z" fill="currentColor"/><path d="M3 5h5M2 9h3m13 7h4m-6 4h5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
-    <symbol id="i-attack-speed" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 2h6m-3 0v3m6 1 2-2m-8 5v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
-    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M12 1v6m0 10v6M1 12h6m10 0h6" stroke="currentColor" stroke-width="1.8"/></symbol>
-    <symbol id="i-move" viewBox="0 0 24 24"><path d="m9 3 4 1-1 5 3 4 5 1v5H8l-4-3 3-5 2-8Z" fill="currentColor"/><path d="M2 22h19M2 6h4M1 10h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="m11 11 3-1m-1 4 3-1" stroke="#fff" stroke-width="1.3"/></symbol>
-    <symbol id="i-range" viewBox="0 0 24 24"><path d="M4 20 20 4M4 12v8h8M12 4h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m8 8 2 2m4 4 2 2" stroke="currentColor" stroke-width="1.5"/></symbol>
-    <symbol id="i-deploy" viewBox="0 0 24 24"><path d="M12 2v12m-5-5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m6 14-3 6h18l-3-6M3 20v2h18v-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
-    <symbol id="i-units" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3" fill="currentColor"/><circle cx="4" cy="9" r="2.5" fill="currentColor"/><circle cx="20" cy="9" r="2.5" fill="currentColor"/><path d="M7 21v-4a5 5 0 0 1 10 0v4H7Zm-5-1v-4a3 3 0 0 1 4-2m16 6v-4a3 3 0 0 0-4-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 9 4v6c0 5-5 8-9 10C8 20 3 17 3 12V6l9-4Z" fill="currentColor"/><path d="M12 6v11m-4-5h8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></symbol>
-    <symbol id="i-effect" viewBox="0 0 24 24"><path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z" fill="currentColor"/><path d="m19 2 .8 2.2L22 5l-2.2.8L19 8l-.8-2.2L16 5l2.2-.8L19 2Z" fill="currentColor"/></symbol>
-    <symbol id="i-duration" viewBox="0 0 24 24"><path d="M6 2h12M6 22h12M7 2v5l5 5-5 5v5m10-20v5l-5 5 5 5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-tower" viewBox="0 0 24 24"><path d="M4 2h4v4h3V2h3v4h3V2h3v8l-2 3v9H6v-9l-2-3V2Z" fill="currentColor"/><path d="M10 22v-7a2 2 0 0 1 4 0v7" fill="none" stroke="#fff" stroke-width="1.6"/></symbol>
+    <symbol id="i-ball" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="-72" width="96" height="96"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="0" y="-24" width="96" height="96"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="-24" width="96" height="96"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="0" width="96" height="96"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-72" y="0" width="96" height="96"/></symbol>
+    <symbol id="i-crown" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-48" y="-48" width="96" height="96"/></symbol>
+    <symbol id="i-energy" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="0" y="-72" width="96" height="96"/></symbol>
+    <symbol id="i-deck" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-48" y="0" width="96" height="96"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-72" y="-24" width="96" height="96"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="-48" width="96" height="96"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="0" y="-48" width="96" height="96"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-48" y="-24" width="96" height="96"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="0" y="0" width="96" height="96"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="0" y="0" width="96" height="96"/></symbol>
+    <symbol id="i-damage" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="-24" y="0" width="96" height="96"/></symbol>
+    <symbol id="i-dps" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="-48" y="0" width="96" height="96"/></symbol>
+    <symbol id="i-attack-speed" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="-72" y="0" width="96" height="96"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="0" y="-24" width="96" height="96"/></symbol>
+    <symbol id="i-move" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="-24" y="-24" width="96" height="96"/></symbol>
+    <symbol id="i-range" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="-48" y="-24" width="96" height="96"/></symbol>
+    <symbol id="i-deploy" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="-72" y="-24" width="96" height="96"/></symbol>
+    <symbol id="i-units" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="0" y="-48" width="96" height="96"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="-48" y="-48" width="96" height="96"/></symbol>
+    <symbol id="i-effect" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="-72" y="-48" width="96" height="96"/></symbol>
+    <symbol id="i-duration" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="-24" y="-48" width="96" height="96"/></symbol>
+    <symbol id="i-tower" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/stat-icons.webp" x="0" y="-72" width="96" height="96"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-72" y="-48" width="96" height="96"/></symbol>
+  <symbol id="i-medal" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-48" y="-72" width="96" height="96"/></symbol>
+  <symbol id="i-retry" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-72" y="-72" width="96" height="96"/></symbol>
   </defs></svg>
 
   <header class="topbar">
     <a class="brand" href="./" aria-label="Poké Arena, inicio"><span class="brand-ball"></span><span>POKÉ<span class="brand-light">ARENA</span></span></a>
     <nav class="top-actions" aria-label="Opciones del juego">
-      <button id="menu-btn" class="icon-btn" title="Menú principal" aria-label="Menú principal"><svg><use href="#i-home"/></svg></button>
-      <button id="help-btn" class="icon-btn" title="Tutorial" aria-label="Tutorial"><svg><use href="#i-help"/></svg></button>
-      <button id="sound-btn" class="icon-btn" title="Activar sonido" aria-label="Activar sonido" aria-pressed="false"><svg><use href="#i-mute"/></svg></button>
-      <button id="settings-btn" class="icon-btn" title="Ajustes" aria-label="Ajustes"><svg><use href="#i-settings"/></svg></button>
+      <button id="menu-btn" class="icon-btn" title="Menú principal" aria-label="Menú principal"><svg aria-hidden="true"><use href="#i-home"/></svg></button>
+      <button id="help-btn" class="icon-btn" title="Tutorial" aria-label="Tutorial"><svg aria-hidden="true"><use href="#i-help"/></svg></button>
+      <button id="sound-btn" class="icon-btn" title="Activar sonido" aria-label="Activar sonido" aria-pressed="false"><svg aria-hidden="true"><use href="#i-mute"/></svg></button>
+      <button id="settings-btn" class="icon-btn" title="Ajustes" aria-label="Ajustes"><svg aria-hidden="true"><use href="#i-settings"/></svg></button>
     </nav>
   </header>
 
@@ -60,11 +62,11 @@
       <div id="menu-deck-preview" class="menu-deck-preview" aria-label="Tu mazo"></div>
       <p id="menu-deck-status" class="menu-deck-status" hidden></p>
       <label class="name-field" for="trainer-name">Nombre<input id="trainer-name" maxlength="20" autocomplete="nickname" placeholder="Entrenador"></label>
-      <button id="online-btn" class="primary-btn" disabled>Buscar partida <svg><use href="#i-arrow"/></svg></button>
+      <button id="online-btn" class="primary-btn" disabled>Buscar partida <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
       <button id="start-btn" class="secondary-btn" disabled>Jugar contra CPU</button>
-      <div class="menu-options"><button id="menu-deck-btn" class="secondary-btn"><svg><use href="#i-deck"/></svg>Mazo</button><button id="practice-btn" class="secondary-btn" disabled><svg><use href="#i-help"/></svg>Tutorial</button></div>
+      <div class="menu-options"><button id="menu-deck-btn" class="secondary-btn"><svg aria-hidden="true"><use href="#i-deck"/></svg>Mazo</button><button id="practice-btn" class="secondary-btn" disabled><svg aria-hidden="true"><use href="#i-help"/></svg>Tutorial</button></div>
       <span id="menu-loading" class="menu-loading">Cargando…</span>
-      <div id="search-panel" class="search-panel" hidden><span class="search-spinner"></span><strong id="search-status">Buscando rival…</strong><span id="search-time">0:00</span><button id="cancel-search" class="secondary-btn">Cancelar</button></div>
+      <div id="search-panel" class="search-panel" hidden><span class="search-spinner" aria-hidden="true"></span><strong id="search-status" role="status">Buscando rival…</strong><span id="search-time">0:00</span><button id="cancel-search" class="secondary-btn">Cancelar</button></div>
     </div>
   </section>
   <main class="battle-layout">
@@ -72,17 +74,17 @@
       <div class="arena-frame" id="arena-frame">
         <canvas id="arena" width="600" height="800" tabindex="0" role="application" aria-label="Arena. Seleccioná una carta con las teclas 1 a 4 y usá las flechas para elegir dónde desplegar. Confirmá con Enter. En pantalla táctil, tocá una carta y después tu mitad de la arena."></canvas>
         <div class="arena-corner corner-tl"></div><div class="arena-corner corner-tr"></div><div class="arena-corner corner-bl"></div><div class="arena-corner corner-br"></div>
-        <div id="loading" class="loading-overlay"><span class="brand-ball"></span><span>Cargando sprites…</span></div>
+        <div id="loading" class="loading-overlay" role="status"><span class="brand-ball"></span><span>Cargando sprites…</span></div>
         <div id="guide" class="guide" hidden><div><span id="guide-step">1 / 3</span><strong id="guide-text">Elegí una carta.</strong></div><button id="skip-guide" class="text-btn">Omitir</button></div>
-        <div id="pause-overlay" class="pause-overlay" hidden><div><svg class="pause-symbol"><use href="#i-pause"/></svg><h2>En pausa</h2><button id="resume-btn" class="primary-btn">Continuar<svg><use href="#i-play"/></svg></button><button id="pause-menu-btn" class="text-btn">Menú principal</button></div></div>
+        <div id="pause-overlay" class="pause-overlay" hidden><div><svg class="pause-symbol"><use href="#i-pause"/></svg><h2>En pausa</h2><button id="resume-btn" class="primary-btn">Continuar<svg aria-hidden="true"><use href="#i-play"/></svg></button><button id="pause-menu-btn" class="text-btn">Menú principal</button></div></div>
         <div id="result-overlay" class="result-overlay" hidden>
-          <div class="result-content"><svg class="result-crown"><use href="#i-crown"/></svg><span class="eyebrow" id="result-eyebrow">BATALLA TERMINADA</span><h2 id="result-title">Victoria</h2><div class="result-score"><span id="result-player">1</span><span>—</span><span id="result-enemy">0</span></div><p id="result-reason"></p><div class="result-stats"><div><strong id="result-deployed">0</strong><span>Desplegados</span></div><div><strong id="result-damage">0</strong><span>Daño total</span></div></div><button id="again-btn" class="primary-btn">Volver a jugar<svg><use href="#i-arrow"/></svg></button><button id="result-menu-btn" class="text-btn">Volver al inicio</button></div>
+          <div class="result-content"><svg class="result-crown"><use href="#i-crown"/></svg><span class="eyebrow" id="result-eyebrow">BATALLA TERMINADA</span><h2 id="result-title">Victoria</h2><div class="result-score"><span id="result-player">1</span><span>—</span><span id="result-enemy">0</span></div><p id="result-reason"></p><div class="result-stats"><div><strong id="result-deployed">0</strong><span>Desplegados</span></div><div><strong id="result-damage">0</strong><span>Daño total</span></div></div><button id="again-btn" class="primary-btn">Volver a jugar<svg aria-hidden="true"><use href="#i-arrow"/></svg></button><button id="result-menu-btn" class="text-btn">Volver al inicio</button></div>
         </div>
         <div class="toast" id="toast" role="status"></div>
         <div id="battle-overlays" class="battle-overlays">
           <div class="battle-hud">
             <div class="trainer-id"><strong id="enemy-name">Entrenador</strong><span id="online-status" class="online-status" hidden></span></div>
-            <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="phase-label" hidden>Extra</span><span id="boost" hidden>×2</span><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button></div>
+            <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="phase-label" hidden>Extra</span><span id="boost" hidden>×2</span><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button><button id="match-leave" class="icon-btn" aria-label="Salir de la partida" title="Salir de la partida" hidden><svg aria-hidden="true"><use href="#i-home"/></svg></button></div>
           </div>
           <div id="abilities" class="abilities" aria-label="Habilidades disponibles" hidden></div>
         </div>
@@ -92,18 +94,32 @@
     <aside class="battle-console" aria-label="Cartas y controles">
       <div class="hand" id="hand" aria-label="Tus cuatro cartas"></div>
       <div class="next-card"><span>PRÓXIMA</span><div id="next-preview"></div><strong id="next-name">Zubat</strong></div>
-      <div class="energy-section"><div class="energy-title"><span><svg><use href="#i-energy"/></svg>Elixir</span><strong><span id="energy-value">6</span><span class="energy-max"> / 10</span></strong></div><div class="energy-bar" id="energy-bar" role="progressbar" aria-label="Elixir disponible" aria-valuemin="0" aria-valuemax="10" aria-valuenow="6"></div></div>
+      <div class="energy-section"><div class="energy-title"><span><svg aria-hidden="true"><use href="#i-energy"/></svg>Elixir</span><strong><span id="energy-value">6</span><span class="energy-max"> / 10</span></strong></div><div class="energy-bar" id="energy-bar" role="progressbar" aria-label="Elixir disponible" aria-valuemin="0" aria-valuemax="10" aria-valuenow="6"></div></div>
       <div id="selected-detail" hidden></div>
     </aside>
   </main>
 
-  <dialog id="help-dialog" class="modal"><div class="modal-heading"><h2>Tutorial</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><p>Elegí una carta y tocá o arrastrá en la arena. Cerca del puente se ajusta a tu zona. Si la soltás muy lejos de tu zona o la devolvés a la mano, se cancela. El círculo muestra su alcance; las exclamaciones rojas marcan enemigos que pueden atacarla.</p><p>Ganá destruyendo la torre central o más torres que tu rival en 3 minutos. Si empatan: 2 minutos extra; gana la primera torre destruida. Después, las torres pierden vida hasta el desempate.</p><p>Elixir ×2 en el último minuto y al comenzar el tiempo extra; ×3 en el último minuto extra.</p><p>Los eléctricos interrumpen el ataque y reinician el objetivo. Los atacantes de estructuras siguen ignorando tropas; un Blastoise central puede atraerlos mientras avanzan.</p><p>Las habilidades flotan sobre la arena, encima de las cartas. Cuesta elixir y se usa una vez por despliegue. Consultá cada ataque en Mazo.</p><div class="help-keys"><span><kbd>1–4</kbd> Carta</span><span><kbd>↑ ↓ ← →</kbd> Apuntar</span><span><kbd>Enter</kbd> Desplegar</span><span><kbd>Espacio</kbd> Pausa CPU</span></div><button id="help-practice-btn" class="primary-btn">Práctica guiada<svg><use href="#i-arrow"/></svg></button></dialog>
+  <dialog id="help-dialog" class="modal" aria-labelledby="help-title">
+    <div class="modal-heading"><h2 id="help-title">Cómo jugar</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
+    <ol class="help-steps">
+      <li><svg aria-hidden="true"><use href="#i-deck"/></svg><span><strong>Elegí una carta.</strong> El número violeta indica cuánto elixir cuesta.</span></li>
+      <li><svg aria-hidden="true"><use href="#i-deploy"/></svg><span><strong>Ubicala en tu mitad.</strong> Tocá la arena o arrastrá la carta.</span></li>
+      <li><svg aria-hidden="true"><use href="#i-tower"/></svg><span><strong>Protegé tus torres.</strong> Los Pokémon avanzan y atacan solos.</span></li>
+    </ol>
+    <button id="help-practice-btn" class="primary-btn">Jugar la práctica<svg aria-hidden="true"><use href="#i-play"/></svg></button>
+    <details class="help-details"><summary>Reglas y controles</summary>
+      <p>Destruí la torre central o más torres que tu rival en 3 minutos. Si empatan, hay 2 minutos extra: gana quien destruya una torre primero. Después, las torres pierden vida hasta desempatar.</p>
+      <p>El elixir pasa a ×2 en el último minuto y al comenzar el tiempo extra; a ×3 en el último minuto extra. Las habilidades consumen elixir y se usan una vez por despliegue.</p>
+      <p>El alcance se muestra al apuntar. Las exclamaciones avisan qué enemigos pueden atacar tu posición. Soltar muy lejos de tu zona o devolver la carta a la mano cancela la jugada.</p>
+      <div class="help-keys"><span><kbd>1–4</kbd> Carta</span><span><kbd>↑ ↓ ← →</kbd> Apuntar</span><span><kbd>Enter</kbd> Desplegar</span><span><kbd>Espacio</kbd> Pausa CPU</span></div>
+    </details>
+  </dialog>
 
-  <dialog id="settings-dialog" class="modal small-modal"><div class="modal-heading"><h2>Ajustes</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><label class="setting-row" for="difficulty"><span><strong>Rival CPU</strong><small id="difficulty-hint" hidden>Próxima partida</small></span><select id="difficulty"><option value="easy">Principiante</option><option value="normal" selected>Entrenador</option><option value="hard">Líder de gimnasio</option></select></label><label class="setting-row" for="sound-setting"><span><strong>Sonido</strong></span><input type="checkbox" id="sound-setting" class="switch"></label><label class="setting-row" for="motion-setting"><span><strong>Reducir movimiento</strong></span><input type="checkbox" id="motion-setting" class="switch"></label><button id="settings-credits-btn" class="text-btn" style="margin-top:15px">Sprites y créditos</button></dialog>
+  <dialog id="settings-dialog" class="modal small-modal"><div class="modal-heading"><h2>Ajustes</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><label class="setting-row" for="difficulty"><span><strong>Rival CPU</strong><small id="difficulty-hint" hidden>Próxima partida</small></span><select id="difficulty"><option value="easy">Principiante</option><option value="normal" selected>Entrenador</option><option value="hard">Líder de gimnasio</option></select></label><label class="setting-row" for="sound-setting"><span><strong>Sonido</strong></span><input type="checkbox" id="sound-setting" class="switch"></label><label class="setting-row" for="motion-setting"><span><strong>Reducir movimiento</strong></span><input type="checkbox" id="motion-setting" class="switch"></label><button id="settings-credits-btn" class="text-btn" style="margin-top:15px">Sprites y créditos</button></dialog>
 
-  <dialog id="deck-dialog" class="modal deck-modal" aria-label="Editar mazo"><div class="deck-top"><div class="deck-editor-heading"><div id="deck-slots" class="deck-presets" role="group" aria-label="Mazos guardados"></div><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><div class="deck-strip" id="deck-strip" role="group" aria-label="Las ocho cartas de tu mazo"></div><div class="deck-summary"><span>Coste medio <strong id="deck-average">3,4</strong><svg><use href="#i-energy"/></svg></span></div></div><div class="collection" id="collection"></div><div class="deck-save-row"><button id="save-deck-btn" class="primary-btn">Listo</button></div></dialog>
+  <dialog id="deck-dialog" class="modal deck-modal" aria-label="Editar mazo"><div class="deck-top"><div class="deck-editor-heading"><div id="deck-slots" class="deck-presets" role="group" aria-label="Mazos guardados"></div><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><div class="deck-strip" id="deck-strip" role="group" aria-label="Las ocho cartas de tu mazo"></div></div><div class="collection" id="collection"></div><div class="deck-save-row"><div class="deck-summary"><span>Coste medio <strong id="deck-average">3,4</strong><svg aria-hidden="true"><use href="#i-energy"/></svg></span></div><button id="save-deck-btn" class="primary-btn">Listo</button></div></dialog>
 
-  <dialog id="credits-dialog" class="modal small-modal"><div class="modal-heading"><h2>Sprites y créditos</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg><use href="#i-close"/></svg></button></div><p>Los Pokémon de la arena usan sprites de <strong>Pokémon Mystery Dungeon</strong>, con sus vistas y animaciones originales de CHUNSOFT, conservados por <a href="https://github.com/PMDCollab/SpriteCollab" target="_blank" rel="noopener">PMDCollab / SpriteCollab</a>.</p><p>La ilustración de inicio y las escenas de las cartas se generaron para Poké Arena. Los archivos de atribución de cada sprite están incluidos con los recursos.</p><p>Las voces de despliegue provienen del pack <a href="https://forums.pokemmo.com/index.php?/topic/86447-mod-hq-pokemon-anime-cries-gen-1-5/" target="_blank" rel="noopener">HQ Pokémon Anime Cries Gen 1–5, de Galladito/RojoY</a>. La música de fondo es original y varía durante la partida. Los efectos combinan muestras de <a href="https://kenney.nl/assets/impact-sounds" target="_blank" rel="noopener">Kenney</a> y receptron, bajo CC0. Sus fuentes y licencias están incluidas en los recursos de audio.</p><p>Pokémon pertenece a Nintendo, Creatures y GAME FREAK. Este es un juego de fans sin afiliación oficial.</p></dialog>
+  <dialog id="credits-dialog" class="modal small-modal"><div class="modal-heading"><h2>Sprites y créditos</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><p>Los Pokémon de la arena usan sprites de <strong>Pokémon Mystery Dungeon</strong>, con sus vistas y animaciones originales de CHUNSOFT, conservados por <a href="https://github.com/PMDCollab/SpriteCollab" target="_blank" rel="noopener">PMDCollab / SpriteCollab</a>.</p><p>La ilustración de inicio y las escenas de las cartas se generaron para Poké Arena. Los archivos de atribución de cada sprite están incluidos con los recursos.</p><p>Las voces de despliegue provienen del pack <a href="https://forums.pokemmo.com/index.php?/topic/86447-mod-hq-pokemon-anime-cries-gen-1-5/" target="_blank" rel="noopener">HQ Pokémon Anime Cries Gen 1–5, de Galladito/RojoY</a>. La música de fondo es original y varía durante la partida. Los efectos combinan muestras de <a href="https://kenney.nl/assets/impact-sounds" target="_blank" rel="noopener">Kenney</a> y receptron, bajo CC0. Sus fuentes y licencias están incluidas en los recursos de audio.</p><p>Pokémon pertenece a Nintendo, Creatures y GAME FREAK. Este es un juego de fans sin afiliación oficial.</p></dialog>
 
   <dialog id="card-dialog" class="modal small-modal card-dialog" aria-labelledby="card-info-name" aria-describedby="card-info-description">
     <div class="modal-heading"><div><span id="card-info-type" class="eyebrow"></span><h2 id="card-info-name"></h2></div><button class="icon-btn" data-close aria-label="Cerrar ficha"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
@@ -117,8 +133,9 @@
     <button id="card-info-toggle" class="primary-btn"></button>
   </dialog>
 
+  <dialog id="leave-dialog" class="modal small-modal" aria-labelledby="leave-title" aria-describedby="leave-description"><div class="modal-heading"><h2 id="leave-title">Salir de la partida</h2><button class="icon-btn" data-close aria-label="Seguir jugando"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><p id="leave-description">Si salís, ganará tu rival. La partida sigue mientras decidís.</p><div class="leave-actions"><button class="primary-btn" data-close>Seguir jugando</button><button class="secondary-btn" id="confirm-leave-btn">Salir</button></div></dialog>
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
   <dialog id="portrait-dialog" class="modal small-modal portrait-dialog" aria-labelledby="portrait-title" aria-describedby="portrait-description"><h2 id="portrait-title">Jugá en vertical</h2><p id="portrait-description">Girá el teléfono para continuar.</p></dialog>
-  <script type="module" src="app.js?v=16"></script>
+  <script type="module" src="app.js?v=17"></script>
 </body>
 </html>

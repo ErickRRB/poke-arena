@@ -1,0 +1,111 @@
+{
+  "date": "2026-11-12",
+  "scope": [
+    "combate",
+    "animaciones",
+    "ataques",
+    "sprites",
+    "imágenes",
+    "cartas",
+    "menús",
+    "botones",
+    "ayuda",
+    "estados vacíos",
+    "resultados",
+    "controles online"
+  ],
+  "reference": "AGENTS.md y la familia de iconos RPG de dist/assets/ui/stat-icons.webp",
+  "criteria": [
+    {
+      "name": "Web Interface Guidelines",
+      "url": "https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md"
+    }
+  ],
+  "changes": [
+    {
+      "area": "Despliegues e invocaciones",
+      "finding": "Los círculos por unidad saturaban los enjambres y los temporizadores no compartían el estilo del juego.",
+      "change": "Una Poké Ball con progreso por despliegue; agrupación persistente para cartas mixtas y enjambres, barras de invocación con el primer ciclo correcto y eliminación de contornos por unidad.",
+      "evidence": "qa/themed-deployment-390.png"
+    },
+    {
+      "area": "Ataques y efectos",
+      "finding": "Pin misil aparecía después del daño y los proyectiles de sombra terminaban como puntos genéricos; varios impactos duplicaban anillos.",
+      "change": "Vuelo e impacto de agujas sincronizados; sprites para fuego, agua, hojas, sombra, veneno, hielo, golpes, curación y energía. Se eliminan los anillos de impacto genéricos.",
+      "evidence": "qa/animaciones-demo.gif"
+    },
+    {
+      "area": "Sprites",
+      "finding": "Las barras se calculaban con una sola pose sur y podían tapar las poses altas; reducir movimiento congelaba los ataques.",
+      "change": "Altura estable medida en todas las vistas Idle originales y progresión de ataques conservada al reducir movimiento. Se mantienen siluetas, anclas de pies, escalas y sprites originales.",
+      "evidence": "qa/design-quality-report.json"
+    },
+    {
+      "area": "Navegación y botones",
+      "finding": "Los iconos lineales no coincidían con los iconos RPG de las fichas; varios controles de navegación medían 31 píxeles.",
+      "change": "Atlas ilustrado compartido para navegación, audio, cierre, juego, pausa y búsqueda; objetivos táctiles de 44 píxeles y estados de foco y pulsación visibles.",
+      "evidence": "qa/design-after/01-home-mobile.png"
+    },
+    {
+      "area": "Resultados y pausa",
+      "finding": "Las estadísticas y el motivo de fin quedaban con poco contraste sobre la arena oscura.",
+      "change": "Paneles crema, números y etiquetas de alto contraste visual, medalla de victoria y escudo para derrota; acciones verificadas en pantallas pequeñas.",
+      "evidence": "qa/design-after/13-victory.png"
+    },
+    {
+      "area": "Ayuda",
+      "finding": "La práctica quedaba debajo de varios párrafos y la guía tapaba los controles superiores.",
+      "change": "Tres pasos visuales y acceso directo a la práctica; reglas opcionales desplegables y guía colocada debajo de la cabecera de combate.",
+      "evidence": "qa/design-after/09-help.png"
+    },
+    {
+      "area": "Colección y legibilidad",
+      "finding": "Una búsqueda sin resultados dejaba el panel vacío y las cartas sin elixir quedaban demasiado desvanecidas.",
+      "change": "Estado vacío con acción para restablecer filtros, roles en español y cartas sin elixir legibles.",
+      "evidence": "qa/design-after/07-empty-search.png"
+    },
+    {
+      "area": "Combate online",
+      "finding": "La navegación móvil desaparecía en online y la carga avanzaba a saltos entre snapshots.",
+      "change": "Salida visible con confirmación sin pausar la partida; progreso de aparición interpolado. Los controles transitorios conservan la geometría de arena, mano y elixir.",
+      "evidence": "qa/design-quality-report.json"
+    }
+  ],
+  "verification": {
+    "automatedTests": 208,
+    "passed": 208,
+    "screenshotStates": 18,
+    "battleScenes": 9,
+    "checks": [
+      "empty search resets to 105 cards",
+      "320x568: menus fit, 44px navigation targets and reachable result actions",
+      "390x844: menus fit, 44px navigation targets and reachable result actions",
+      "768x1024: menus fit, 44px navigation targets and reachable result actions",
+      "1440x980: menus fit, 44px navigation targets and reachable result actions",
+      "full-direction sprite heights, retained attack poses with reduced motion, textured shadow projectile",
+      "mobile online exit is reachable, can cancel and never pauses the match or resizes the arena",
+      "online deployment countdown interpolates between server snapshots"
+    ],
+    "worker": {
+      "routes": 7,
+      "compiledWorker": true,
+      "onlineSwarmUnits": 9,
+      "onlineIndicators": 1,
+      "opponentPerspective": true,
+      "missileEvents": true
+    },
+    "errors": []
+  },
+  "assetAudit": {
+    "playableCards": 105,
+    "referencedArtFiles": 29,
+    "spriteSpecies": 97,
+    "missingSelectedSprites": 0,
+    "missingSelectedAttackAnimations": 0
+  },
+  "limits": [
+    "Browser verification used local Microsoft Edge; physical iOS/Safari and screen readers were not tested in this design pass.",
+    "Screenshots and simulation checks do not establish competitive balance, enjoyment or universal accessibility compliance.",
+    "Additional local QA captures complement the screenshots committed in docs/ui-review/."
+  ]
+}

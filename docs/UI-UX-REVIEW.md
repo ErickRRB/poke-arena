@@ -6,10 +6,15 @@ Se revisaron la home, el editor, las fichas, una partida contra CPU, una partida
 
    <img src="ui-review/01-home.png" width="780" alt="Home de Poké Arena en un portátil: todos los controles caben en el panel.">
 
-2. **Editor y ficha: corregidos y verificados.** Los cuatro selectores están junto a la X, sin título ni contador general. Las fichas se cierran al agregar o quitar; el editor conserva su estado. Se reemplazaron los iconos de estadísticas por sprites ilustrados, se mejoró el contraste del elixir y se mantiene visible el botón inferior mientras el contenido se desplaza. Las estructuras pasivas ya no indican un alcance cuerpo a cuerpo que no utilizan.
+2. **Editor y ficha: corregidos y verificados.** Los cuatro selectores están junto a la X, sin título ni contador general. Se eliminaron los botones debajo de cada carta: tocar una abre la ficha y permite agregar o quitar desde allí. El coste medio comparte el pie con Listo. Las fichas se cierran al agregar o quitar y el editor conserva su estado. El coste de cada carta aparece sobre una gema facetada, también en las miniaturas del mazo. Se reemplazaron los iconos de estadísticas por sprites ilustrados y se mantiene visible el botón inferior mientras el contenido se desplaza. Las estructuras pasivas ya no indican un alcance cuerpo a cuerpo que no utilizan.
 
    <img src="ui-review/02-editor.png" width="330" alt="Editor compacto con cuatro selectores y cartas de hechizos.">
    <img src="ui-review/02-detail.png" width="330" alt="Ficha de Pikachu con iconos de estadísticas de estilo RPG.">
+
+   La búsqueda sin coincidencias ofrece una acción para recuperar todas las cartas. La ayuda presenta tres pasos breves y deja las reglas completas como contenido opcional. Pausa, victoria y derrota comparten el panel crema y los controles ilustrados.
+
+   <img src="ui-review/02-help.png" width="300" alt="Ayuda breve con acceso directo a la práctica.">
+   <img src="ui-review/02-result.png" width="300" alt="Resultado de partida con controles y panel crema.">
 
 3. **Partida contra CPU: corregida y verificada.** En móvil se oculta toda la cabecera para dar ese espacio a la arena. Nombre rival, reloj y pausa están sobre el tablero. En escritorio se eliminó el fondo distinto del panel derecho, los títulos y accesos al mazo y los créditos. Las habilidades usan retratos de las cartas y paneles crema con borde dorado. Mostrar una o tres habilidades, el tiempo extra o un aviso no mueve la arena, la mano ni el elixir. El contador tampoco desplaza la barra al pasar de 9 a 10.
 

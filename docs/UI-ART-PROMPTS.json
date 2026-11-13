@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-12",
+  "generator": "ImageGen",
+  "styleReference": "dist/assets/ui/stat-icons.webp",
+  "processing": "Original RGBA outputs preserved; lossless WebP conversion with original alpha and regular 4 by 4 cells. No background removal or replacement of existing artwork.",
+  "atlases": [
+    {
+      "file": "dist/assets/ui/menu-icons-v1.webp",
+      "grid": [4, 4],
+      "prompt": "Companion game UI atlas matching the existing polished hand-painted RPG stat icons: dark outlines, cream highlights, saturated gems and Nintendo handheld RPG styling. Transparent background, no labels or panels; equal square cells with isolated icons and padding, readable at 24 pixels. Row-major subjects below.",
+      "cells": ["red-roof home", "tutorial book", "playing-card deck", "silver and gold settings gear", "speaker and teal sound waves", "muted speaker", "red close cross", "gold right arrow", "green play triangle", "gold pause bars", "gold crown", "magnifier and Poke Ball", "purple elixir gem", "red-white Poke Ball", "victory medal", "turquoise replay arrow"]
+    },
+    {
+      "file": "dist/assets/ui/combat-effects-v1.webp",
+      "grid": [4, 4],
+      "prompt": "Production transparent combat VFX atlas for a colorful Pokemon-inspired Nintendo DS battle. Four by four equal cells, independent actual physical effects, no text, grid, panels or effect rings. Pixel-art-influenced hand-painted shapes, bold saturated silhouettes and cream highlights readable at 20 to 50 pixels. Directional projectiles point right; the renderer controls flight, orientation, timing and impacts. Row-major subjects below.",
+      "cells": ["orange forward flame", "cyan water bolt", "aqua bubble", "ivory and green needle", "green leaf", "violet poison puff", "dark-purple ghost wisp", "pink psychic orb", "branching electric spark", "cream and gold impact burst", "cyan ice crystal", "healing leaves", "thrown boulder", "tan dust puff", "three claw slashes", "orange fire explosion"]
+    }
+  ]
+}

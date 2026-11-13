@@ -6,7 +6,7 @@ import { packGame, unpackGame, packEvent, perspective } from '../dist/snapshot.j
 
 function setup(){
   const calls=[],ctx=new Proxy({}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
-  const renderer=Object.assign(Object.create(Renderer.prototype),{effects:[],rings:[],particles:[],numbers:[],bodyHeights:new Map(),healthStates:new Map(),t:0,reduced:false,verticalScale:1,ensureSpecies:async()=>{}});
+  const renderer=Object.assign(Object.create(Renderer.prototype),{effects:[],particles:[],numbers:[],bodyHeights:new Map(),healthStates:new Map(),t:0,reduced:false,verticalScale:1,ensureSpecies:async()=>{}});
   const game=new Game({seed:913,onEvent:e=>renderer.onEvent(e)});
   game.start();game.aiEnabled=false;game.towers.forEach(t=>t.active=false);
   return{game,renderer,ctx,calls};
@@ -87,7 +87,7 @@ test('a deployment release waits for readiness and creates no expanding ring',()
   const{game,renderer,ctx,calls}=setup();deploy(game,'zubat');
   renderer.drawEffects(ctx,.5);assert.equal(calls.length,0);
   renderer.drawEffects(ctx,.26);assert.ok(calls.some(c=>c.method==='fillRect'));
-  assert.equal(renderer.rings.length,0);assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
+  assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
 });
 
 test('Pin misil visibly flies before damage and lands when the simulation hits',()=>{
@@ -96,7 +96,7 @@ test('Pin misil visibly flies before damage and lands when the simulation hits',
   for(let i=0;i<4;i++){game.step(.1);renderer.drawEffects(ctx,.1);}
   assert.equal(game.spells.length,1);assert.ok(calls.some(c=>c.method==='fillRect'));
   for(let i=0;i<2;i++){game.step(.1);renderer.drawEffects(ctx,.1);}
-  assert.equal(game.spells.length,0);assert.equal(renderer.rings.length,0);
+  assert.equal(game.spells.length,0);assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
   assert.equal(renderer.effects.filter(e=>e.kind==='missiles').length,1);
   assert.equal(renderer.effects[0].landed,true);
   renderer.drawEffects(ctx,.5);assert.equal(renderer.effects.length,0);
@@ -112,6 +112,5 @@ test('Pikachu entry, attack charge and missile impacts use sparks instead of loa
     renderer.drawEffects(ctx,.05);
     assert.ok(calls.some(c=>c.method==='fillRect'));
     assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
-    assert.equal(renderer.rings.length,0);
   }
 });

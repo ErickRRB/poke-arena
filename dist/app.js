@@ -1,10 +1,10 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=16';
-import { Renderer } from './render.js?v=16';
-import { SoundSystem } from './audio.js?v=16';
-import { OnlineClient } from './online.js?v=16';
-import { unpackGame, perspective } from './snapshot.js?v=16';
-import { cardArtMarkup } from './card-art.js?v=16';
-import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=16';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=17';
+import { Renderer } from './render.js?v=17';
+import { SoundSystem } from './audio.js?v=17';
+import { OnlineClient } from './online.js?v=17';
+import { unpackGame, perspective } from './snapshot.js?v=17';
+import { cardArtMarkup } from './card-art.js?v=17';
+import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=17';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -123,6 +123,13 @@ function updateUi() {
   $('battle-clock').classList.toggle('urgent', game.time <= 30 || game.overtime);
   $('phase-label').hidden=!game.overtime;$('phase-label').textContent=game.tiebreaker?'Desempate':'Extra';
   $('match-pause').hidden=onlineMode||!['playing','paused'].includes(game.state);
+  $('match-leave').hidden=!onlineMode||game.state==='ended';
+  const battleAction=game.state==='paused'?'resume':'pause';
+  if($('match-pause').dataset.action!==battleAction){
+    const label=battleAction==='resume'?'Reanudar':'Pausar';
+    $('match-pause').dataset.action=battleAction;$('match-pause').setAttribute('aria-label',label);$('match-pause').title=`${label} (Espacio)`;
+    $('match-pause').querySelector('use').setAttribute('href',battleAction==='resume'?'#i-play':'#i-pause');
+  }
   const abilities=game.units.filter(u=>u.team===0&&u.card.ability&&!u.abilityUsed&&u.hp>0&&u.spawn<=0);
   $('abilities').hidden=!abilities.length;
   const signature=abilities.map(u=>`${u.id}:${game.energy[0]>=u.card.ability.cost}`).join(',');
@@ -150,7 +157,7 @@ function newGame({ start = false, tutorial = false } = {}) {
   sfx.resetMusic();
   $('result-overlay').hidden = true; $('pause-overlay').hidden = true; $('guide').hidden = true;
   walkthrough = null; selected = -1; handSignature = ''; renderer.pointer = null; renderer.selection = null; renderer.tutorialSpot = false;
-  renderer.particles = []; renderer.rings = [];renderer.effects=[];renderer.numbers=[];
+  renderer.particles = [];renderer.effects=[];renderer.numbers=[];
   game = new Game({ deck: tutorial||deck.length!==8 ? DEFAULT_DECK : deck, difficulty, tutorial, onEvent: handleEvent, animations:renderer.metadata });
   $('enemy-name').textContent = `${{easy:'Principiante',normal:'Entrenador',hard:'Líder de gimnasio'}[difficulty]} · CPU`;
   $('online-status').hidden=true;
@@ -179,7 +186,8 @@ function showResult(e) {
   selected = -1; renderer.selection = null;
   $('pause-overlay').hidden = true; $('result-overlay').hidden = false;
   $('result-title').textContent = e.winner === 0 ? 'Victoria' : e.winner === 1 ? 'Derrota' : 'Empate';
-  $('result-overlay').querySelector('.result-crown').style.color = e.winner === 0 ? 'var(--gold)' : e.winner === 1 ? '#dc8b79' : '#abbca3';
+  $('result-overlay').dataset.outcome=e.winner===0?'win':e.winner===1?'loss':'draw';
+  $('result-overlay').querySelector('.result-crown use').setAttribute('href',e.winner===0?'#i-medal':e.winner===1?'#i-shield':'#i-ball');
   $('result-player').textContent = game.crowns(0); $('result-enemy').textContent = game.crowns(1);
   $('result-reason').textContent = e.reason;
   $('result-deployed').textContent = game.stats[0].deployed;
@@ -214,7 +222,7 @@ function togglePause() {
 }
 const modalFocus = new WeakMap();
 function focusReference(element) {
-  const attribute=['data-toggle','data-collection','data-deck-info','data-menu-card'].find(name=>element?.hasAttribute(name));
+  const attribute=['data-collection','data-deck-info','data-menu-card'].find(name=>element?.hasAttribute(name));
   return {element,attribute,value:attribute?element.getAttribute(attribute):null};
 }
 function restoreFocus(reference) {
@@ -260,14 +268,10 @@ function renderCollection() {
   if(order==='elixir-asc')keys.sort((a,b)=>CARDS[a].cost-CARDS[b].cost||byName(a,b));
   else if(order==='elixir-desc')keys.sort((a,b)=>CARDS[b].cost-CARDS[a].cost||byName(a,b));
   else if(order==='name')keys.sort(byName);
-  $('collection').innerHTML=keys.map(k=>{
-    const c=CARDS[k],included=deckDraft.includes(k),full=!included&&deckDraft.length===8;
-    return `<div class="collection-entry">${cardMarkup(k,0,true)}<button class="deck-toggle" data-toggle="${k}" aria-pressed="${included}" aria-label="${included?'Quitar':'Agregar'} ${c.name} ${included?'del':'al'} mazo${full?', mazo completo':''}" ${!deckEditable||full?'disabled':''}>${included?'✓ En mazo':'+ Agregar'}</button></div>`;
-  }).join('');
+  $('collection').innerHTML=keys.map(k=>`<div class="collection-entry">${cardMarkup(k,0,true)}</div>`).join('')||'<div class="collection-empty"><svg aria-hidden="true"><use href="#i-search"/></svg><p role="status">No hay cartas con esos filtros.</p><button class="secondary-btn" data-reset-filters>Ver todas las cartas</button></div>';
   for(const el of $('collection').querySelectorAll('[data-collection]')){const c=CARDS[el.dataset.collection],included=deckDraft.includes(el.dataset.collection);el.classList.toggle('selected',included);el.removeAttribute('aria-pressed');el.setAttribute('aria-haspopup','dialog');el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir, ${c.role}${included?', en mazo':''}, ver detalles`);}
   $('deck-average').textContent=deckDraft.length?(deckDraft.reduce((a,k)=>a+CARDS[k].cost,0)/deckDraft.length).toFixed(1).replace('.',','):'—';
   $('save-deck-btn').disabled=false;
-  if(reference?.attribute==='data-toggle'&&$('collection').querySelector(`[data-toggle="${CSS.escape(reference.value)}"]`)?.disabled)reference.attribute='data-collection';
   restoreFocus(reference);
 }
 function renderDeckStrip(){
@@ -365,7 +369,7 @@ function renderCardInfo(key){
   $('card-info-toggle').disabled=!deckEditable||(!included&&deckDraft.length===8);
 }
 $('collection').addEventListener('click',e=>{
-  const toggle=e.target.closest('[data-toggle]');if(toggle){toggleDeckCard(toggle.dataset.toggle);return;}
+  if(e.target.closest('[data-reset-filters]')){$('collection-search').value='';$('rarity-filter').value='';$('role-filter').value='';renderCollection();$('collection-search').focus();return;}
   const el=e.target.closest('[data-collection]');if(el){renderCardInfo(el.dataset.collection);openModal('card-dialog');}
 });
 $('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){toggleDeckCard(inspectedCard);closeModal($('card-dialog'),false);}});
@@ -416,6 +420,8 @@ function mainMenu(){closingOnline=online?.close()||Promise.resolve();online=null
 $('menu-btn').addEventListener('click',mainMenu);
 $('pause-menu-btn').addEventListener('click',mainMenu);
 $('match-pause').addEventListener('click',togglePause);
+$('match-leave').addEventListener('click',()=>{if(onlineMode)openModal('leave-dialog');});
+$('confirm-leave-btn').addEventListener('click',mainMenu);
 $('resume-btn').addEventListener('click',togglePause);
 $('help-btn').addEventListener('click',()=>openModal('help-dialog'));
 $('settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
@@ -429,7 +435,7 @@ $('difficulty').addEventListener('change',e=>{difficulty=e.target.value;store.se
 
 for(let i=0;i<10;i++){const el=document.createElement('div');el.className='energy-segment';el.innerHTML='<div class="energy-fill"></div>';$('energy-bar').append(el);}
 $('trainer-name').value=store.get('name','');$('trainer-name').addEventListener('change',()=>store.set('name',$('trainer-name').value));
-const filters=document.createElement('div');filters.className='collection-tools';filters.innerHTML='<input id="collection-search" type="search" placeholder="Buscar carta" aria-label="Buscar carta"><select id="rarity-filter" aria-label="Filtrar rareza"><option value="">Todas las rarezas</option>'+Object.entries(RARITIES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')+'</select><select id="role-filter" aria-label="Filtrar rol"><option value="">Todos los roles</option><option value="building">Win conditions</option><option value="structure">Estructuras</option><option value="spell">Hechizos</option><option value="summon">Invocadores</option><option value="troop">Tropas</option></select><select id="collection-sort" aria-label="Ordenar cartas"><option value="elixir-asc">Menor elixir</option><option value="elixir-desc">Mayor elixir</option><option value="name">Nombre A–Z</option><option value="original">Orden original</option></select>';$('collection').before(filters);$('collection-search').addEventListener('input',renderCollection);$('rarity-filter').addEventListener('change',renderCollection);$('role-filter').addEventListener('change',renderCollection);$('collection-sort').value=store.get('collection-order','elixir-asc');if(!$('collection-sort').value)$('collection-sort').value='elixir-asc';$('collection-sort').addEventListener('change',()=>{store.set('collection-order',$('collection-sort').value);renderCollection();});
+const filters=document.createElement('div');filters.className='collection-tools';filters.innerHTML='<input id="collection-search" type="search" placeholder="Buscar carta" aria-label="Buscar carta"><select id="rarity-filter" aria-label="Filtrar rareza"><option value="">Todas las rarezas</option>'+Object.entries(RARITIES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')+'</select><select id="role-filter" aria-label="Filtrar rol"><option value="">Todos los roles</option><option value="building">Atacan estructuras</option><option value="structure">Estructuras</option><option value="spell">Hechizos</option><option value="summon">Invocadores</option><option value="troop">Tropas</option></select><select id="collection-sort" aria-label="Ordenar cartas"><option value="elixir-asc">Menor elixir</option><option value="elixir-desc">Mayor elixir</option><option value="name">Nombre A–Z</option><option value="original">Orden original</option></select>';$('collection').before(filters);$('collection-search').addEventListener('input',renderCollection);$('rarity-filter').addEventListener('change',renderCollection);$('role-filter').addEventListener('change',renderCollection);$('collection-sort').value=store.get('collection-order','elixir-asc');if(!$('collection-sort').value)$('collection-sort').value='elixir-asc';$('collection-sort').addEventListener('change',()=>{store.set('collection-order',$('collection-sort').value);renderCollection();});
 $('online-btn').addEventListener('click',beginOnline);$('cancel-search').addEventListener('click',mainMenu);
 $('abilities').addEventListener('click',async e=>{const button=e.target.closest('[data-ability]');if(!button)return;const id=Number(button.dataset.ability);button.disabled=true;const result=onlineMode?await online.send({kind:'ability',unitId:id}):game.activateAbility(0,id);if(!result.ok)live(result.reason);updateUi();});
 async function beginOnline(){

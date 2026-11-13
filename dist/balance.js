@@ -128,18 +128,18 @@ const descriptions = {
   zubat: ['Trío · absorción', 'Tres murciélagos atacan a corta distancia y recuperan vida con sus mordidas.'],
   gastly: ['Enjambre aéreo · ×4', 'Cuatro fantasmas voladores atacan a distancia. Dejan niebla dañina al caer.'],
   butterfree: ['Volador · polvo', 'Esparce polvo que ralentiza en área. Ataca a tierra y aire.'],
-  nidoking: ['Melee · veneno', 'Dos puñetazos venenosos. Su fuerza castiga cuerpos grandes; no alcanza voladores.'],
+  nidoking: ['Cuerpo a cuerpo · veneno', 'Dos puñetazos venenosos. Su fuerza castiga cuerpos grandes; no alcanza voladores.'],
   grimer: ['Defensa · lodo tóxico', 'Lanza lodo a corta distancia. Al caer deja un charco que daña a tropas terrestres.'],
   exeggutor: ['Tanque · bomba huevo', 'Lanza huevos que explotan en área. Su ataque es lento y se puede interrumpir antes del lanzamiento.'],
   koffing: ['Volador · gas', 'Escupe gas venenoso en área. La nube daña durante 3 s y alcanza tierra y aire.'],
-  feraligatr: ['Melee · mordida', 'Tritura un objetivo terrestre con mordidas fuertes. No tiene daño en área.'],
+  feraligatr: ['Cuerpo a cuerpo · mordida', 'Tritura un objetivo terrestre con mordidas fuertes. No tiene daño en área.'],
   umbreon: ['Tanque · tóxico', 'Resiste en primera línea y envenena un objetivo terrestre a corta distancia.'],
   wobbuffet: ['Defensa · contraataque', 'No inicia ataques. Devuelve el 50 % del daño directo recibido; el veneno y las quemaduras evitan su respuesta.'],
-  typhlosion: ['Melee · erupción', 'Libera fuego en un área amplia alrededor del objetivo. Quema a los enemigos terrestres.'],
+  typhlosion: ['Cuerpo a cuerpo · erupción', 'Libera fuego en un área amplia alrededor del objetivo. Quema a los enemigos terrestres.'],
   sableye: ['Salto · hostigamiento', 'Se acerca con Amago cada 3 s y golpea con sus garras. Tiene poca vida y no alcanza voladores.'],
   altaria: ['Volador · canto', 'Ataca con ondas de voz y cura a un aliado cercano. Su canto elimina veneno y ralentización.'],
   gardevoir: ['Apoyo · zona psíquica', 'Carga una esfera que explota y deja una zona de energía psíquica que daña a los enemigos.'],
-  absol: ['Melee · críticos', 'Tajo umbrío hace un 60 % más de daño a Pokémon por debajo del 35 % de vida. Ataca a un solo objetivo terrestre.'],
+  absol: ['Cuerpo a cuerpo · críticos', 'Tajo umbrío hace un 60 % más de daño a Pokémon por debajo del 35 % de vida. Ataca a un solo objetivo terrestre.'],
 };
 
 export function applyBalance(cards) {
@@ -217,9 +217,9 @@ function applyRoles(cards) {
 // Equal base stats retain their existing attack, including Ditto's transformation.
 function applyAttackRoles(cards) {
   const attacks = {
-    pikachu: { move: 'Chispa', style: 'lightning', role: 'Melee · descarga', description: 'Se acerca y descarga electricidad que salta entre rivales cercanos. Aturde e interrumpe sus ataques.' },
+    pikachu: { move: 'Chispa', style: 'lightning', role: 'Cuerpo a cuerpo · descarga', description: 'Se acerca y descarga electricidad que salta entre rivales cercanos. Aturde e interrumpe sus ataques.' },
     gengar: { move: 'Bola sombra', style: 'shadow', role: 'Rango · teletransporte', description: 'Se teletransporta para reposicionarse y lanza bolas de sombra a tierra y aire.' },
-    onix: { move: 'Cola férrea', style: 'slam', role: 'Asedio · estructuras', description: 'Avanza hacia las estructuras y las golpea con su cola. Ignora a las tropas.' },
+    onix: { move: 'Cola férrea', style: 'slam', role: 'Win condition · estructuras', description: 'Avanza hacia las estructuras y las golpea con su cola. Ignora a las tropas.' },
     grimer: { move: 'Puño veneno', style: 'punch', description: 'Defensor terrestre que golpea a corta distancia. Al caer deja un charco venenoso.' },
     gastly: { move: 'Bola sombra', style: 'shadow' },
     koffing: { move: 'Placaje', style: 'poison', role: 'Volador · contacto', description: 'Choca contra rivales de tierra y aire y libera gas venenoso alrededor del impacto.' },
