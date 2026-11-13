@@ -33,6 +33,28 @@ export async function checkCapturedDeploymentLighting(page){
   }
 }
 
+export async function checkSpellHoverFeedback(page){
+  const result=await page.evaluate(async()=>{
+    const r=__qa.renderer;await r.ensureSpecies([7]);
+    const saved={selection:r.selection,pointer:r.pointer,spellTargets:r.spellTargets,reduced:r.reduced,t:r.t,tintTarget:r.tintTarget};let tintCalls=0;r.tintTarget=function(...args){tintCalls++;return saved.tintTarget.apply(this,args);};
+    const preview=new __qa.game.constructor({seed:478});preview.start();preview.aiEnabled=false;
+    const unit=preview.spawn('squirtle',1,200,270,0);unit.attack=.7;unit.attackDuration=.8;unit.attackAnim='Shoot';
+    const canvas=document.createElement('canvas');canvas.width=400;canvas.height=400;const c=canvas.getContext('2d',{willReadFrequently:true});c.imageSmoothingEnabled=false;
+    const paint=(targeted,time,reduced=false,tower=false)=>{r.spellTargets=new Set(targeted?[tower?tower.id:unit.id]:[]);r.t=time;r.reduced=reduced;c.clearRect(0,0,400,400);if(tower)r.tower(c,tower);else r.sprite(c,unit,true);return c.getImageData(0,0,400,400).data;};
+    const red=pixels=>{let sum=0;for(let i=0;i<pixels.length;i+=4)sum+=pixels[i];return sum;},same=(a,b)=>a.every((v,i)=>v===b[i]);
+    try{
+      const normal=paint(false,.25),strong=paint(true,.25),weak=paint(true,.75),fixedA=paint(true,.25,true),fixedB=paint(true,.75,true);
+      const cleanAlpha=normal.every((value,i)=>i%4!==3||value!==0||strong[i]===0);
+      r.selection='thunder';r.pointer={x:unit.x,y:unit.y};r.updateSpellTargets(preview);const selected=r.spellTargets.has(unit.id);
+      r.pointer=null;r.updateSpellTargets(preview);const cleared=r.spellTargets.size===0;tintCalls=0;const afterExit=paint(false,.25),restored=tintCalls===0&&red(afterExit)<red(weak);
+      const tower={...preview.towers.find(t=>t.team===1&&!t.king),x:200,y:270};
+      const towerNormal=paint(false,.25,false,tower),towerRed=paint(true,.25,false,tower),bar=((281*400+200)*4);
+      return{selected,cleared,redTint:red(strong)>red(normal)+1000,pulses:red(strong)>red(weak)+1000,reducedStable:same(fixedA,fixedB),cleanAlpha,restored,towerTint:red(towerRed)>red(towerNormal)+1000,healthBarStable:[0,1,2,3].every(i=>towerNormal[bar+i]===towerRed[bar+i])};
+    }finally{Object.assign(r,saved);}
+  });
+  for(const[key,value]of Object.entries(result))assert.equal(value,true,key);
+}
+
 export async function run({browser,url,viewports,output}){
   for(const viewport of viewports){
     const{context,page,errors,apiRequests}=await openPage(browser,viewport);
@@ -46,6 +68,7 @@ export async function run({browser,url,viewports,output}){
       await page.evaluate(()=>{__qa.game.aiEnabled=false;__qa.game.energy[0]=0;__qa.updateUi();});assert.equal(await page.locator('#hand .unaffordable').count(),4);assert.match(await page.locator('#hand .pokemon-card').first().evaluate(node=>getComputedStyle(node).filter),/grayscale\(1\)/);
       await page.evaluate(()=>{__qa.game.energy[0]=10;__qa.updateUi();});assert.equal(await page.locator('#hand .unaffordable').count(),0);assert.equal(await page.locator('#next-name').isVisible(),true);
       await checkCapturedDeploymentLighting(page);
+      await checkSpellHoverFeedback(page);
       const board=await rects(page,['arena','hand','energy-bar']);await page.locator('#hand [data-card="0"]').click();await page.evaluate(()=>{__qa.renderer.pointer={x:300,y:520};__qa.renderer.draw(__qa.game,0);});stable(board,await rects(page,['arena','hand','energy-bar']),'range');await page.screenshot({path:`${output}/battle-${viewport.width}.png`});
       await page.locator('#match-leave').click();assert.equal(await page.evaluate(()=>__qa.game.state),'paused');await page.locator('#leave-dialog .primary-btn').click();await page.waitForFunction(()=>__qa.game.state==='playing');
       assert.deepEqual(errors,[]);assert.deepEqual(apiRequests,[]);
