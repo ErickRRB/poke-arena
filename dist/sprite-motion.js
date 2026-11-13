@@ -14,9 +14,14 @@ export function animationFrame(meta, clock, {loop=true}={}) {
   for(let frame=0;frame<meta.durations.length;frame++){if(cursor<meta.durations[frame])return frame;cursor-=meta.durations[frame];}
   return meta.durations.length-1;
 }
+export function movementAnchor(id,animation,direction,frame,fallback){
+  const pose=SPRITE_GEOMETRY[id]?.[animation]?.points[direction]?.[frame],rest=SPRITE_GEOMETRY[id]?.Idle?.points[direction]?.[0];
+  return pose&&rest?{x:pose[2]+rest[0]-rest[2],y:pose[3]+rest[1]-rest[3]}:fallback;
+}
 const HANDS=new Set(['punch','slash','aura','confusion','psychic']);
-const BODY=new Set(['powder','magnet','song']);
-const PARTS={1:'body',3:'body',9:'cannons',65:'hands',81:'body',122:'hands',150:'hands',282:'hands'};
+const BODY=new Set(['powder','magnet']);
+const PARTS={1:'body',3:'body',9:'cannons',54:'head',65:'hands',81:'body',102:'body',109:'body',113:'body',121:'body',122:'hands',150:'hands',154:'body',196:'head',242:'body',251:'hands',252:'hands',254:'hands',282:'hands',384:'head'};
+export function emitterPart(profile){return profile.emitter||PARTS[profile.id]||(HANDS.has(profile.style)?'hands':BODY.has(profile.style)?'body':'head');}
 export function emissionPoint(actor,shot=0) {
   const tower='king'in actor,card=actor.card,profile=card||actor.guard||{},id=profile.id;
   const animations=SPRITE_GEOMETRY[id],anim=actor.attackAnim||profile.attackAnim||'Attack',meta=animations?.[anim]||animations?.Idle;
@@ -25,8 +30,8 @@ export function emissionPoint(actor,shot=0) {
   const phase=attackPoseProgress(meta,elapsed,duration,windup),frame=animationFrame(meta,phase*meta.durations.reduce((a,b)=>a+b,0),{loop:false});
   let direction=(2-Math.round(Math.atan2(actor.dy||0,actor.dx||0)/(Math.PI/4))+8)%8;
   if(meta.points.length<8)direction=0;
-  const points=meta.points[direction][Math.min(frame,meta.points[direction].length-1)],style=profile.style;
-  const part=profile.emitter||PARTS[id]||(HANDS.has(style)?'hands':BODY.has(style)?'body':'head');
+  const points=meta.points[direction][Math.min(frame,meta.points[direction].length-1)];
+  const part=emitterPart(profile);
   const offset=part==='body'?2:part==='hands'||part==='cannons'?(shot%2?8:6):4;
   const scale=tower?(actor.king?1.15:1.3):actor.scale??profile.scale??1.5;
   const forward=part==='head'?2:1;

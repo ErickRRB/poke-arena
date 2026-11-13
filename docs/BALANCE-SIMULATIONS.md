@@ -18,13 +18,14 @@ Cada carta de Poké Arena tiene una referencia y una decisión en [balance-revie
 - Auditoría de las 105 cartas por función: presión sobre torres activas, respuesta de Pikachu, Magnemite y Blastoise, defensa de estructuras, refuerzos y hechizos contra cuerpos de 81 PV.
 - Seis combinaciones adicionales con dos distancias y ambos lados para contrastar contadores aéreos, curación y escudos.
 
-Escenarios generales: 6.588 antes y 6.924 después. El total cambia porque tres cartas pasan de seis a cinco de elixir y aumenta su conjunto de rivales. Las tasas globales de ambos catálogos tienen denominadores distintos. Los valores aislados no representan un porcentaje de victorias de jugadores.
+Escenarios generales: 6.588 antes y 7.152 después. El total cambia porque tres cartas pasan de seis a cinco de elixir y aumenta su conjunto de rivales. Las tasas globales de ambos catálogos tienen denominadores distintos. Los valores aislados no representan un porcentaje de victorias de jugadores.
 
 ## Ajustes
 
 | Carta | Elixir | PV | Daño por impacto | Intervalo | Velocidad |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | Onix | 5 → 4 | 1400 → 1950 | 180 → 240 | 2,1 → 1,8 | 18 → 30 |
+| Blastoise | 4 → 4 | 1200 → 1400 | 85 → 85 | 1,8 → 1,8 | 0 → 26 |
 | Articuno | 6 → 5 | 1400 → 1400 | 135 → 145 | 1,8 → 1,8 | 26 → 26 |
 | Zapdos | 6 → 5 | 1090 → 1200 | 109 → 150 | 1,8 → 1,8 | 26 → 26 |
 | Moltres | 6 → 5 | 1170 → 1350 | 135 → 165 | 1,8 → 1,8 | 26 → 26 |
@@ -57,7 +58,7 @@ El DPS directo incluye la ráfaga completa por cuerpo. El medido suma estados y 
 | Machamp | Antitanques · terrestre | 4 | 1361 | 400 | 396 | [Mini P.E.K.K.A](https://crtool.app/en/units/mini-pekka/) | Conservar |
 | Eevee | Ciclo · presión | 2 | 300 | 94,74 | 94,5 | [Battle Ram](https://crtool.app/en/units/battle-ram/) | Conservar |
 | Onix | Win condition · terrestre | 4 | 1950 | 133,33 | 132 | [Hog Rider](https://crtool.app/en/units/hog-rider/) | Ajustar |
-| Blastoise | Estructura · antiaérea | 4 | 1200 | 94,44 | 93,5 | [Cannon](https://crtool.app/en/units/cannon/) | Conservar |
+| Blastoise | Mini tanque · antiaéreo | 4 | 1400 | 94,44 | 93,5 | [Musketeer](https://crtool.app/en/units/musketeer/) | Ajustar |
 | Vulpix | Tirador · antiaéreo | 3 | 440 | 107,14 | 117,4 | [Firecracker](https://crtool.app/en/units/firecracker/) | Conservar |
 | Psyduck | Tirador · control | 3 | 560 | 78,57 | 82,5 | [Ice Wizard](https://crtool.app/en/units/ice-wizard/) | Conservar |
 | Alakazam | Tirador · área | 4 | 590 | 120,91 | 119,7 | [Magic Archer](https://crtool.app/en/units/magic-archer/) | Conservar |

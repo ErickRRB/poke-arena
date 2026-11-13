@@ -1,5 +1,5 @@
-import { CARDS } from './engine.js?v=24';
-import { cardPlaceholder } from './battle-art.js?v=24';
+import { CARDS } from './engine.js?v=25';
+import { cardPlaceholder } from './battle-art.js?v=25';
 // Each atlas contains opaque, full-bleed battle scenes in row-major order.
 const sheets = [
   ['pikachu','snorlax','machamp','blastoise','zubat','thunder','charizard','fireball','treecko','log','squirtle','charmander','bulbasaur','gengar','eevee','onix'],
@@ -24,6 +24,7 @@ for(const key of ['fireball','forretress'])CARD_ART[key]={file:`assets/cards/${k
 const SCENE_ART = new Set(['ekans','zubat','beedrill','sandshrew','mankey','nidoqueen','exeggutor','altaria','treecko','kangaskhan']);
 for(const key of SCENE_ART)CARD_ART[key]={file:`assets/cards/${key}SceneV2.webp`,columns:1,rows:1,x:0,y:0};
 CARD_ART.golem={file:'assets/cards/golemSceneV3.webp',columns:1,rows:1,x:0,y:0};
+CARD_ART.blastoise={file:'assets/cards/blastoise-mobile-v1.png',columns:1,rows:1,x:0,y:0};
 export function cardArtMarkup(key) {
   const art = CARD_ART[key];
   if (!art) return '';

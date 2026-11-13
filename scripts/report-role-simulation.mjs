@@ -17,7 +17,7 @@ const refs={
   "machamp": "mini-pekka",
   "eevee": "battle-ram",
   "onix": "hog-rider",
-  "blastoise": "cannon",
+  "blastoise": "musketeer",
   "vulpix": "firecracker",
   "psyduck": "ice-wizard",
   "alakazam": "magic-archer",
@@ -111,6 +111,7 @@ const refs={
   "earthquake": "earthquake"
 };
 const remarks={
+  "blastoise":"Tropa móvil de cuatro de elixir: 1.400 PV, dos impactos de 85, alcance de cinco casillas y movimiento medio. Conserva la doble ráfaga contra tierra y aire.",
   "squirtle": "La referencia calibra el coste y el DPS total. Squirtle concentra tres disparos en un cuerpo.",
   "charizard": "Volador de área de cinco de elixir. El daño por ráfaga y el cono se miden con tres impactos reales.",
   "gengar": "El teletransporte tiene una función propia y se prueba en navegación.",
@@ -139,7 +140,7 @@ const n=v=>Number(v).toLocaleString('es-AR',{maximumFractionDigits:2});
 const total=r=>r.damage.length+r.swarms.length+r.duels.length+r.abilityDuels.length+r.teams.length;
 const canHit=(a,b)=>!b.flying||a.air||a.meleeAir;
 const fair=(report,key)=>{const c=report.catalog[key],rows=report.duels.filter(t=>[t.a,t.b].includes(key)).filter(t=>{const b=report.catalog[t.a===key?t.b:t.a];return c.cost===b.cost&&canHit(c,b)&&canHit(b,c)});return{trials:rows.length,wins:rows.filter(t=>t.winner===key).length};};
-const changed=['onix','celebi','gardevoir','articuno','zapdos','moltres','dragonite'];
+const changed=['onix','celebi','gardevoir','articuno','zapdos','moltres','dragonite','blastoise'];
 const cards=Object.entries(after.catalog).filter(([,c])=>!c.token).map(([key,c])=>{
  const ref=reference.cards.find(r=>r.key===refs[key]);if(!ref)throw Error('Missing CR reference: '+key);
  const role=roles.after.cards.find(r=>r.key===key),was=before.catalog[key];

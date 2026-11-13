@@ -1,0 +1,6215 @@
+{
+  "date": "2026-11-13",
+  "protocol": {
+    "directions": 8,
+    "movementSamples": 16,
+    "attackSamples": 12,
+    "source": "Original PMDCollab sprite sheets rendered by the actual game renderer"
+  },
+  "species": 93,
+  "pokemonCards": 101,
+  "rows": [
+    {
+      "key": "pikachu",
+      "name": "Pikachu",
+      "species": 25,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shock",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "squirtle",
+      "name": "Squirtle",
+      "species": 7,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "charmander",
+      "name": "Charmander",
+      "species": 4,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "snorlax",
+      "name": "Snorlax",
+      "species": 143,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Stomp",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "zubat",
+      "name": "Zubat",
+      "species": 41,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 8,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 7,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 7,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 8,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "charizard",
+      "name": "Charizard",
+      "species": 6,
+      "kind": "air",
+      "movement": "Hop",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        4,
+        3,
+        2
+      ],
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "bulbasaur",
+      "name": "Bulbasaur",
+      "species": 1,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "body",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 6,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 6,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 6,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 6,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 6,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 6,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 6,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 6,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "gengar",
+      "name": "Gengar",
+      "species": 94,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "machamp",
+      "name": "Machamp",
+      "species": 68,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Double",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "eevee",
+      "name": "Eevee",
+      "species": 133,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 7,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 7,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 7,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 7,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 7,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 7,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 7,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 7,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "onix",
+      "name": "Onix",
+      "species": 95,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "blastoise",
+      "name": "Blastoise",
+      "species": 9,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "cannons",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "vulpix",
+      "name": "Vulpix",
+      "species": 37,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 5,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 5,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 5,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 5,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 5,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 5,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 5,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 5,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "psyduck",
+      "name": "Psyduck",
+      "species": 54,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "alakazam",
+      "name": "Alakazam",
+      "species": 65,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "geodude",
+      "name": "Geodude",
+      "species": 74,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "magnemite",
+      "name": "Magnemite",
+      "species": 81,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "body",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "scyther",
+      "name": "Scyther",
+      "species": 123,
+      "kind": "air",
+      "movement": "Hop",
+      "attack": "Double",
+      "emitter": "hands",
+      "customLoop": [
+        4,
+        5,
+        6,
+        7,
+        6,
+        5
+      ],
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 4,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 4,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 4,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 4,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 4,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 4,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 4,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 4,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "lapras",
+      "name": "Lapras",
+      "species": 131,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "mewtwo",
+      "name": "Mewtwo",
+      "species": 150,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "treecko",
+      "name": "Treecko",
+      "species": 252,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "golem",
+      "name": "Golem",
+      "species": 76,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "diglett",
+      "name": "Diglett",
+      "species": 50,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "diglettHorde",
+      "name": "Horda Diglett",
+      "species": 50,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "raltsTrio",
+      "name": "Trío Ralts",
+      "species": 280,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "poochyenaPack",
+      "name": "Manada Poochyena",
+      "species": 261,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "venusaur",
+      "name": "Venusaur",
+      "species": 3,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "body",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "butterfree",
+      "name": "Butterfree",
+      "species": 12,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "body",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 11,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 12,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 12,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 12,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 11,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 12,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 12,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 12,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "beedrill",
+      "name": "Beedrill",
+      "species": 15,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "pidgeot",
+      "name": "Pidgeot",
+      "species": 18,
+      "kind": "air",
+      "movement": "Hop",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        6,
+        5,
+        4
+      ],
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 5,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 5,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 5,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 5,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 5,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 5,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 5,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 5,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "ekans",
+      "name": "Ekans",
+      "species": 23,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 6,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "sandshrew",
+      "name": "Sandshrew",
+      "species": 27,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "nidoqueen",
+      "name": "Nidoqueen",
+      "species": 31,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "nidoking",
+      "name": "Nidoking",
+      "species": 34,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "mankey",
+      "name": "Mankey",
+      "species": 56,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 5,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 5,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 5,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 5,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 5,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 5,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 5,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 5,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "arcanine",
+      "name": "Arcanine",
+      "species": 59,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "slowbro",
+      "name": "Slowbro",
+      "species": 80,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "grimer",
+      "name": "Grimer",
+      "species": 88,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "cloyster",
+      "name": "Cloyster",
+      "species": 91,
+      "kind": "structure",
+      "movement": "Idle",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "gastly",
+      "name": "Gastly",
+      "species": 92,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 11,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 11,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 11,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 11,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 11,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 11,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 11,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 11,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "voltorb",
+      "name": "Voltorb",
+      "species": 100,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 7,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "forretress",
+      "name": "Forretress",
+      "species": 205,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "electrode",
+      "name": "Electrode",
+      "species": 101,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "exeggutor",
+      "name": "Exeggutor",
+      "species": 103,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "koffing",
+      "name": "Koffing",
+      "species": 109,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "body",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 8,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "chansey",
+      "name": "Chansey",
+      "species": 113,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "body",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "kangaskhan",
+      "name": "Kangaskhan",
+      "species": 115,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "starmie",
+      "name": "Starmie",
+      "species": 121,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "body",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "mrmime",
+      "name": "Mr. Mime",
+      "species": 122,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "gyarados",
+      "name": "Gyarados",
+      "species": 130,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "ditto",
+      "name": "Ditto",
+      "species": 132,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "articuno",
+      "name": "Articuno",
+      "species": 144,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "zapdos",
+      "name": "Zapdos",
+      "species": 145,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "moltres",
+      "name": "Moltres",
+      "species": 146,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "dragonite",
+      "name": "Dragonite",
+      "species": 149,
+      "kind": "air",
+      "movement": "Hop",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": [
+        3,
+        4,
+        5,
+        6,
+        5,
+        4
+      ],
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 4,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 4,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 4,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 4,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 4,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 4,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 4,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 4,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "meganium",
+      "name": "Meganium",
+      "species": 154,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "body",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "typhlosion",
+      "name": "Typhlosion",
+      "species": 157,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "feraligatr",
+      "name": "Feraligatr",
+      "species": 160,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "crobat",
+      "name": "Crobat",
+      "species": 169,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 7,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 8,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 8,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 8,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 7,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 8,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 8,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 8,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "ampharos",
+      "name": "Ampharos",
+      "species": 181,
+      "kind": "structure",
+      "movement": "Idle",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 4,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 4,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 4,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 4,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 4,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 4,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 4,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 4,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "espeon",
+      "name": "Espeon",
+      "species": 196,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "umbreon",
+      "name": "Umbreon",
+      "species": 197,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "wobbuffet",
+      "name": "Wobbuffet",
+      "species": 202,
+      "kind": "structure",
+      "movement": "Idle",
+      "attack": null,
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 2,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 2,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 2,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 2,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 2,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 2,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 2,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 2,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "steelix",
+      "name": "Steelix",
+      "species": 208,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "scizor",
+      "name": "Scizor",
+      "species": 212,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "skarmory",
+      "name": "Skarmory",
+      "species": 227,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 6,
+          "attackPoses": 8,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "blissey",
+      "name": "Blissey",
+      "species": 242,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "body",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "lugia",
+      "name": "Lugia",
+      "species": 249,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 2,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 2,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 2,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 2,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 2,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 2,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 2,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 2,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "hooh",
+      "name": "Ho-Oh",
+      "species": 250,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 4,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 4,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 4,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 4,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 4,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 4,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 4,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 4,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "sceptile",
+      "name": "Sceptile",
+      "species": 254,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "blaziken",
+      "name": "Blaziken",
+      "species": 257,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "swampert",
+      "name": "Swampert",
+      "species": 260,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "gardevoir",
+      "name": "Gardevoir",
+      "species": 282,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "sableye",
+      "name": "Sableye",
+      "species": 302,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "aggron",
+      "name": "Aggron",
+      "species": 306,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "sharpedo",
+      "name": "Sharpedo",
+      "species": 319,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 8,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "flygon",
+      "name": "Flygon",
+      "species": 330,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "altaria",
+      "name": "Altaria",
+      "species": 334,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "absol",
+      "name": "Absol",
+      "species": 359,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "salamence",
+      "name": "Salamence",
+      "species": 373,
+      "kind": "air",
+      "movement": "Hop",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        6,
+        5,
+        4
+      ],
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 5,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "metagross",
+      "name": "Metagross",
+      "species": 376,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "kyogre",
+      "name": "Kyogre",
+      "species": 382,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 10,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 10,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 10,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 10,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 10,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 10,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 10,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 10,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "groudon",
+      "name": "Groudon",
+      "species": 383,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "rayquaza",
+      "name": "Rayquaza",
+      "species": 384,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 11,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 11,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 11,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 11,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 11,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 11,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 11,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 11,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "nidoranF",
+      "name": "Nidoran♀",
+      "species": 29,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 7,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "nidoranM",
+      "name": "Nidoran♂",
+      "species": 32,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 6,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "exeggcute",
+      "name": "Exeggcute",
+      "species": 102,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "body",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "babyKangaskhan",
+      "name": "Cría",
+      "species": 115,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "centralElectrode",
+      "name": "Central Electrode",
+      "species": 101,
+      "kind": "structure",
+      "movement": "Idle",
+      "attack": null,
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "madriguera",
+      "name": "Madriguera Nidoqueen",
+      "species": 31,
+      "kind": "structure",
+      "movement": "Idle",
+      "attack": null,
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 4,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 4,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 4,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "vivero",
+      "name": "Vivero Exeggutor",
+      "species": 103,
+      "kind": "structure",
+      "movement": "Idle",
+      "attack": null,
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 0,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "regice",
+      "name": "Regice",
+      "species": 378,
+      "kind": "structure",
+      "movement": "Idle",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 7,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "duskull",
+      "name": "Duskull",
+      "species": 355,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 8,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 8,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 8,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 8,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 8,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 8,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 8,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 8,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "raichu",
+      "name": "Raichu",
+      "species": 26,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 6,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "registeel",
+      "name": "Registeel",
+      "species": 379,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "regirock",
+      "name": "Regirock",
+      "species": 377,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 5,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "celebi",
+      "name": "Celebi",
+      "species": 251,
+      "kind": "air",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "pandilla",
+      "name": "Pandilla Rocket",
+      "species": 261,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "shuppetToken",
+      "name": "Shuppet",
+      "species": 353,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 6,
+          "attackPoses": 10,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "poochyenaToken",
+      "name": "Poochyena",
+      "species": 261,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Attack",
+      "emitter": "head",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 5,
+          "attackPoses": 9,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "key": "raltsToken",
+      "name": "Ralts",
+      "species": 280,
+      "kind": "ground",
+      "movement": "Walk",
+      "attack": "Shoot",
+      "emitter": "hands",
+      "customLoop": null,
+      "directions": [
+        {
+          "direction": 0,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 1,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 2,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 3,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 4,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 5,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 6,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        },
+        {
+          "direction": 7,
+          "movementPoses": 3,
+          "attackPoses": 2,
+          "emptyFrames": 0
+        }
+      ],
+      "warnings": []
+    }
+  ]
+}

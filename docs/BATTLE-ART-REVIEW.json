@@ -87,15 +87,23 @@
           ]
         ]
       }
+    },
+    {
+      "file": "dist/assets/cards/blastoise-mobile-v1.png",
+      "generator": "Integrated image_gen",
+      "transparent": false,
+      "brief": "Canonically accurate mobile Blastoise, both arms and legs, two shoulder cannons, striding left from a shallow stream onto a grassy riverbank. Clean anime outlines, natural lighting, controlled detail, no tower or platform, no text or UI."
     }
   ],
   "animationChanges": {
-    "charizard": "Original Charge gliding poses replace walking while airborne. Shoot and its original head marker remain the attack.",
+    "charizard": "Body-anchored loop of changing original Hop poses for visible wing movement. Shoot and its original head marker remain the attack.",
     "attachments": "Native markers for all species, directions and attack frames. Cannons and alternating hands use separate attachments.",
     "smoothing": "Position and facing interpolation survives rebuilt online snapshots. Attack time remains monotonic during each sequence. Large teleports reset interpolation.",
     "whirlpool": "Original Gust_Blue frames are cropped to visible alpha bounds without editing pixels. The visible footprint spans the true damage radius.",
     "stealthRock": "Original raster boulders float within the field. Back and front layers retain depth.",
-    "hyperBeam": "Original golden beam column and explosion sheet. Card illustration remains unchanged."
+    "hyperBeam": "Original golden beam column and explosion sheet. Card illustration remains unchanged.",
+    "flying": "Pidgeot, Scyther, Dragonite and Salamence also use body-anchored original Hop loops. Other fliers keep native wing or floating animation while idle.",
+    "blastoise": "Mobile ground troop with two cannon shots, no platform and no lifetime decay."
   },
   "placeholders": [
     {
@@ -119,10 +127,11 @@
     "Eight attachment directions for Charizard, Charmander, Blastoise, Alakazam, Mewtwo and Bulbasaur",
     "All twelve spells captured in the actual renderer",
     "Desktop, tablet and mobile layouts",
-    "Delayed loading preserves layout"
+    "Delayed loading preserves layout",
+    "All 101 Pokémon cards across 93 species: eight directions, sixteen movement samples and twelve attack samples, with no empty or missing frames. Full report: POKEMON-MOTION-REVIEW.json"
   ],
   "preservedCardArt": [
     "hyperBeam",
-    "all existing active card scenes"
+    "Original Blastoise remains preserved in artwork/imagenes-viejas/originales/battle-1.webp"
   ]
 }

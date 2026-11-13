@@ -47,7 +47,7 @@ test('mouth attachments and projectile identities survive online serialization a
  const event=packEvent({type:'flame',from:game.muzzle(actor),to:{x:target.x,y:target.y-15},sourceId:actor.id,targetId:target.id});
  assert.equal(perspective(event,1).sourceId,actor.id);assert.equal(perspective(event,1).targetId,target.id);
 });
-test('Charizard glides with an existing original sheet and preserves its dimensions',()=>{
+test('airborne movement uses changing original poses instead of a repeated charge frame',()=>{
  const manifest=JSON.parse(readFileSync(new URL('../dist/assets/pokemon/manifest.json',import.meta.url)));
- assert.equal(CARDS.charizard.moveAnim,'Charge');assert.ok(manifest[6].Charge);assert.ok(CARDS.charizard.moveLoopFrames<=manifest[6].Charge.durations.length);
+ for(const key of['charizard','pidgeot','scyther','dragonite','salamence']){const card=CARDS[key],meta=manifest[card.id][card.moveAnim];assert.ok(meta);assert.ok(new Set(card.moveFrames).size>=4);assert.ok(card.moveFrames.every(frame=>frame>=0&&frame<meta.durations.length));}
 });

@@ -3,7 +3,7 @@ import { CARDS } from '../dist/engine.js';
 const file=new URL('../docs/ROLE-REVIEW.json',import.meta.url),previous=JSON.parse(await readFile(file,'utf8'));
 const references=Object.fromEntries(previous.cards.map(c=>[c.key,c.reference]));
 Object.assign(references,{
-  fireball:'Bola de fuego',log:'El Tronco',charizard:'Bebé dragón con ráfaga',onix:'Presión terrestre hacia estructuras',
+  fireball:'Bola de fuego',log:'El Tronco',charizard:'Bebé dragón con ráfaga',onix:'Presión terrestre hacia estructuras',blastoise:'Tropa móvil de apoyo con dos cañones',
   forretress:references.electrode||'Rompemuros / explosión contra estructuras',
   centralElectrode:'Horno adaptado a Voltorb',madriguera:'Choza de refuerzos',vivero:'Invocador inmóvil a distancia',regice:'Estructura de control',
   duskull:'Bruja con refuerzos al caer',raichu:'Antitanques frágil de golpe lento',registeel:'P.E.K.K.A. de golpe muy lento',regirock:'Tanque contra estructuras',celebi:'Presión aérea contra estructuras',pandilla:'Pandilla de cuerpo a cuerpo y tiradores',

@@ -60,11 +60,11 @@ test('Trampa rocas deals double damage to flyers and does not affect friendly tr
   cast(g,'stealthRock',300,300);run(g,6.5);assert.equal(ground.maxHp-ground.hp,360);assert.equal(air.maxHp-air.hp,720);assert.equal(ally.hp,ally.maxHp);
 });
 test('Remolino pulls troops while retaining river, structure and arena collision rules',()=>{
-  const g=fresh(),ground=still(g.spawn('snorlax',1,300,430,0)),air=still(g.spawn('charizard',1,320,430,0)),building=still(g.spawn('blastoise',1,350,350,0));
+  const g=fresh(),ground=still(g.spawn('snorlax',1,300,430,0)),air=still(g.spawn('charizard',1,320,430,0)),building=still(g.spawn('regice',1,350,350,0));
   cast(g,'whirlpool',300,360);run(g,2.9);assert.ok(ground.y>=RIVER.bottom);assert.ok(ground.y<430);assert.ok(air.y<390);assert.equal(building.x,350);assert.equal(building.y,350);
 });
 test('Terremoto prioritizes structure damage and leaves flying troops unharmed',()=>{
-  const g=fresh(),ground=still(g.spawn('snorlax',1,158,220,0)),building=still(g.spawn('blastoise',1,190,220,0)),air=still(g.spawn('charizard',1,158,220,0)),tower=g.towers.find(t=>t.team===1&&t.lane===0);
+  const g=fresh(),ground=still(g.spawn('snorlax',1,158,220,0)),building=still(g.spawn('regice',1,190,220,0)),air=still(g.spawn('charizard',1,158,220,0)),tower=g.towers.find(t=>t.team===1&&t.lane===0);
   cast(g,'earthquake',158,210);run(g,3.5);assert.equal(ground.maxHp-ground.hp,195);assert.equal(building.maxHp-building.hp,585);assert.equal(tower.maxHp-tower.hp,36);assert.equal(air.hp,air.maxHp);
 });
 test('Pesadilla releases eight separate invocations over time without putting them inside towers',()=>{

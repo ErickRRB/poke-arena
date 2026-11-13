@@ -184,9 +184,19 @@
       "cone": 0.42,
       "muzzleHeight": 50,
       "rarity": "legendaria",
-      "moveAnim": "Charge",
-      "idleAnim": "Charge",
-      "moveLoopFrames": 9,
+      "moveAnim": "Hop",
+      "idleAnim": "Hop",
+      "moveFrames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        4,
+        3,
+        2
+      ],
+      "movementAnchor": "body",
       "scale": 1.9394,
       "windup": 0.3,
       "attackKind": "ranged"
@@ -363,26 +373,27 @@
       "cost": 4,
       "type": "water",
       "label": "Agua",
-      "role": "Estructura · antiaérea",
+      "role": "Mini tanque · antiaéreo",
       "move": "Doble hidrobomba",
       "style": "hydro",
       "attackAnim": "Shoot",
       "attackDuration": 0.8,
-      "structure": true,
-      "lifetime": 35,
-      "hp": 1200,
+      "structure": false,
+      "lifetime": 0,
+      "hp": 1400,
       "damage": 85,
-      "range": 175,
-      "speed": 0,
+      "range": 120,
+      "speed": 26,
       "interval": 1.8,
       "burst": 2,
       "burstSpacing": 0.16,
       "air": true,
-      "radius": 28,
+      "radius": 19,
       "color": "#79c9ed",
-      "description": "Defiende desde un bastión con dos cañonazos por ataque.",
+      "description": "Avanza disparando dos cañonazos contra tierra y aire.",
       "muzzleHeight": 56,
       "rarity": "epica",
+      "attackRoleOverride": true,
       "scale": 1.7241,
       "windup": 0.3
     },
@@ -543,6 +554,18 @@
       "color": "#b8d98c",
       "description": "Se acerca volando y encadena dos cortes con sus guadañas.",
       "rarity": "epica",
+      "moveAnim": "Hop",
+      "idleAnim": "Hop",
+      "moveFrames": [
+        4,
+        5,
+        6,
+        7,
+        6,
+        5
+      ],
+      "moveFrameDuration": 5,
+      "movementAnchor": "body",
       "scale": 1.6,
       "windup": 0.3,
       "attackKind": "melee"
@@ -889,6 +912,20 @@
       "flying": true,
       "air": true,
       "charge": 1.25,
+      "moveAnim": "Hop",
+      "idleAnim": "Hop",
+      "moveFrames": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        6,
+        5,
+        4
+      ],
+      "moveFrameDuration": 6,
+      "movementAnchor": "body",
       "scale": 2,
       "windup": 0.3,
       "attackKind": "melee"
@@ -1607,6 +1644,18 @@
       "air": true,
       "burst": 3,
       "burstSpacing": 0.17,
+      "moveAnim": "Hop",
+      "idleAnim": "Hop",
+      "moveFrames": [
+        3,
+        4,
+        5,
+        6,
+        5,
+        4
+      ],
+      "moveFrameDuration": 7,
+      "movementAnchor": "body",
       "scale": 1.8857,
       "windup": 0.3,
       "attackKind": "melee"
@@ -2314,6 +2363,19 @@
       "burstSpacing": 0.13,
       "cone": 0,
       "enrage": true,
+      "moveAnim": "Hop",
+      "idleAnim": "Hop",
+      "moveFrames": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        6,
+        5,
+        4
+      ],
+      "movementAnchor": "body",
       "scale": 1.3333,
       "windup": 0.3,
       "attackKind": "melee"
@@ -3538,7 +3600,7 @@
       "seconds": 25,
       "damage": 2380,
       "sustainedDps": 93.5,
-      "firstHit": 0.73,
+      "firstHit": 0.8,
       "releases": 28,
       "bodiesSpawned": 1
     },
@@ -3548,7 +3610,7 @@
       "seconds": 25,
       "damage": 2380,
       "sustainedDps": 93.5,
-      "firstHit": 0.77,
+      "firstHit": 0.8,
       "releases": 28,
       "bodiesSpawned": 1
     },
@@ -3558,7 +3620,7 @@
       "seconds": 25,
       "damage": 2380,
       "sustainedDps": 93.5,
-      "firstHit": 0.77,
+      "firstHit": 0.8,
       "releases": 28,
       "bodiesSpawned": 1
     },
@@ -3598,7 +3660,7 @@
       "seconds": 25,
       "damage": 1980,
       "sustainedDps": 82.5,
-      "firstHit": 0.9,
+      "firstHit": 0.87,
       "releases": 18,
       "bodiesSpawned": 1
     },
@@ -3608,7 +3670,7 @@
       "seconds": 25,
       "damage": 1980,
       "sustainedDps": 82.5,
-      "firstHit": 0.93,
+      "firstHit": 0.9,
       "releases": 18,
       "bodiesSpawned": 1
     },
@@ -3618,7 +3680,7 @@
       "seconds": 25,
       "damage": 1980,
       "sustainedDps": 82.5,
-      "firstHit": 0.93,
+      "firstHit": 0.9,
       "releases": 18,
       "bodiesSpawned": 1
     },
@@ -4466,7 +4528,7 @@
       "key": "forretress",
       "target": "structure",
       "seconds": 25,
-      "damage": 601,
+      "damage": 600,
       "sustainedDps": 0,
       "firstHit": 1.03,
       "releases": 1,
@@ -4558,7 +4620,7 @@
       "seconds": 25,
       "damage": 252,
       "sustainedDps": 9.9,
-      "firstHit": 0.8,
+      "firstHit": 0.87,
       "releases": 14,
       "bodiesSpawned": 1
     },
@@ -4568,7 +4630,7 @@
       "seconds": 25,
       "damage": 252,
       "sustainedDps": 9.9,
-      "firstHit": 0.87,
+      "firstHit": 0.93,
       "releases": 14,
       "bodiesSpawned": 1
     },
@@ -4578,7 +4640,7 @@
       "seconds": 25,
       "damage": 252,
       "sustainedDps": 9.9,
-      "firstHit": 0.87,
+      "firstHit": 0.93,
       "releases": 14,
       "bodiesSpawned": 1
     },
@@ -5188,7 +5250,7 @@
       "seconds": 25,
       "damage": 455,
       "sustainedDps": 17.5,
-      "firstHit": 0.8,
+      "firstHit": 0.9,
       "releases": 13,
       "bodiesSpawned": 1
     },
@@ -5198,7 +5260,7 @@
       "seconds": 25,
       "damage": 455,
       "sustainedDps": 17.5,
-      "firstHit": 0.83,
+      "firstHit": 0.97,
       "releases": 13,
       "bodiesSpawned": 1
     },
@@ -5208,7 +5270,7 @@
       "seconds": 25,
       "damage": 455,
       "sustainedDps": 17.5,
-      "firstHit": 0.83,
+      "firstHit": 0.97,
       "releases": 13,
       "bodiesSpawned": 1
     },
@@ -5278,7 +5340,7 @@
       "seconds": 25,
       "damage": 4830,
       "sustainedDps": 195.5,
-      "firstHit": 0.77,
+      "firstHit": 0.83,
       "releases": 42,
       "bodiesSpawned": 1
     },
@@ -5288,7 +5350,7 @@
       "seconds": 25,
       "damage": 4830,
       "sustainedDps": 195.5,
-      "firstHit": 0.8,
+      "firstHit": 0.87,
       "releases": 42,
       "bodiesSpawned": 1
     },
@@ -5298,7 +5360,7 @@
       "seconds": 25,
       "damage": 4830,
       "sustainedDps": 195.5,
-      "firstHit": 0.8,
+      "firstHit": 0.87,
       "releases": 42,
       "bodiesSpawned": 1
     },
@@ -5518,7 +5580,7 @@
       "seconds": 25,
       "damage": 1200,
       "sustainedDps": 48.75,
-      "firstHit": 0.83,
+      "firstHit": 0.8,
       "releases": 16,
       "bodiesSpawned": 1
     },
@@ -5528,7 +5590,7 @@
       "seconds": 25,
       "damage": 1200,
       "sustainedDps": 48.75,
-      "firstHit": 0.87,
+      "firstHit": 0.83,
       "releases": 16,
       "bodiesSpawned": 1
     },
@@ -5538,7 +5600,7 @@
       "seconds": 25,
       "damage": 1200,
       "sustainedDps": 48.75,
-      "firstHit": 0.87,
+      "firstHit": 0.83,
       "releases": 16,
       "bodiesSpawned": 1
     },
@@ -5808,7 +5870,7 @@
       "seconds": 25,
       "damage": 2450,
       "sustainedDps": 113.75,
-      "firstHit": 1.97,
+      "firstHit": 1.93,
       "releases": 71,
       "bodiesSpawned": 9
     },
@@ -5968,7 +6030,7 @@
       "seconds": 25,
       "damage": 3640,
       "sustainedDps": 143,
-      "firstHit": 0.87,
+      "firstHit": 0.9,
       "releases": 14,
       "bodiesSpawned": 1
     },
@@ -5978,7 +6040,7 @@
       "seconds": 25,
       "damage": 3640,
       "sustainedDps": 143,
-      "firstHit": 0.87,
+      "firstHit": 0.9,
       "releases": 14,
       "bodiesSpawned": 1
     },
@@ -5988,7 +6050,7 @@
       "seconds": 25,
       "damage": 3640,
       "sustainedDps": 143,
-      "firstHit": 0.83,
+      "firstHit": 0.87,
       "releases": 14,
       "bodiesSpawned": 1
     },
@@ -6428,7 +6490,7 @@
     },
     {
       "key": "treecko",
-      "seconds": 8.47,
+      "seconds": 8.5,
       "eliminated": 9,
       "damage": 1818
     },
@@ -6722,7 +6784,7 @@
     },
     {
       "key": "sceptile",
-      "seconds": 10.63,
+      "seconds": 10.7,
       "eliminated": 9,
       "damage": 1818
     },
@@ -6772,7 +6834,7 @@
       "key": "altaria",
       "seconds": 12,
       "eliminated": 2,
-      "damage": 479
+      "damage": 554
     },
     {
       "key": "absol",
@@ -7200,6 +7262,74 @@
     },
     {
       "a": "pikachu",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "pikachu",
+      "seconds": 11.47,
+      "hp": [
+        714,
+        0
+      ],
+      "damage": [
+        1400,
+        0
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "pikachu",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "pikachu",
+      "seconds": 11.47,
+      "hp": [
+        714,
+        0
+      ],
+      "damage": [
+        1400,
+        0
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "pikachu",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "pikachu",
+      "seconds": 11.47,
+      "hp": [
+        714,
+        0
+      ],
+      "damage": [
+        1400,
+        0
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "pikachu",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "pikachu",
+      "seconds": 11.47,
+      "hp": [
+        714,
+        0
+      ],
+      "damage": [
+        1400,
+        0
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "pikachu",
       "b": "vulpix",
       "gap": 80,
       "aTeam": 0,
@@ -7289,7 +7419,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "pikachu",
-      "seconds": 6.67,
+      "seconds": 6.6,
       "hp": [
         384,
         0
@@ -7323,7 +7453,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "pikachu",
-      "seconds": 4.83,
+      "seconds": 4.8,
       "hp": [
         494,
         0
@@ -8549,12 +8679,12 @@
       "winner": "pikachu",
       "seconds": 6.17,
       "hp": [
-        660,
+        678,
         0
       ],
       "damage": [
         800,
-        54
+        36
       ],
       "abilityEnergy": 0
     },
@@ -10893,7 +11023,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 5.17,
+      "seconds": 5.13,
       "hp": [
         0,
         420
@@ -10927,7 +11057,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 5.43,
+      "seconds": 5.4,
       "hp": [
         0,
         532
@@ -11080,7 +11210,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 1.83,
+      "seconds": 1.87,
       "hp": [
         0,
         524
@@ -11097,7 +11227,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 1.83,
+      "seconds": 1.87,
       "hp": [
         0,
         524
@@ -11114,7 +11244,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 2.13,
+      "seconds": 2.17,
       "hp": [
         0,
         524
@@ -11131,7 +11261,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 2.17,
+      "seconds": 2.2,
       "hp": [
         0,
         524
@@ -11970,7 +12100,7 @@
         0
       ],
       "damage": [
-        230,
+        28,
         115
       ],
       "abilityEnergy": 0
@@ -11987,7 +12117,7 @@
         0
       ],
       "damage": [
-        230,
+        28,
         115
       ],
       "abilityEnergy": 0
@@ -12004,7 +12134,7 @@
         0
       ],
       "damage": [
-        230,
+        84,
         115
       ],
       "abilityEnergy": 0
@@ -12021,7 +12151,7 @@
         0
       ],
       "damage": [
-        230,
+        84,
         115
       ],
       "abilityEnergy": 0
@@ -12980,6 +13110,74 @@
     },
     {
       "a": "charmander",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 4.63,
+      "hp": [
+        0,
+        972.5
+      ],
+      "damage": [
+        427.5,
+        440
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "charmander",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 4.57,
+      "hp": [
+        0,
+        972.5
+      ],
+      "damage": [
+        427.5,
+        440
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "charmander",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 4.8,
+      "hp": [
+        0,
+        972.5
+      ],
+      "damage": [
+        427.5,
+        440
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "charmander",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 4.77,
+      "hp": [
+        0,
+        972.5
+      ],
+      "damage": [
+        427.5,
+        440
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "charmander",
       "b": "vulpix",
       "gap": 80,
       "aTeam": 0,
@@ -13069,7 +13267,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 5.17,
+      "seconds": 5.13,
       "hp": [
         0,
         128
@@ -13103,7 +13301,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 5.37,
+      "seconds": 5.33,
       "hp": [
         0,
         263
@@ -13392,7 +13590,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 1.83,
+      "seconds": 1.87,
       "hp": [
         0,
         329
@@ -13409,7 +13607,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 1.83,
+      "seconds": 1.87,
       "hp": [
         0,
         329
@@ -13426,7 +13624,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 2.1,
+      "seconds": 2.13,
       "hp": [
         0,
         329
@@ -13443,7 +13641,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 2.1,
+      "seconds": 2.13,
       "hp": [
         0,
         329
@@ -15109,7 +15307,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 2.13,
+      "seconds": 2.2,
       "hp": [
         0,
         456
@@ -15143,7 +15341,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 2.27,
+      "seconds": 2.33,
       "hp": [
         0,
         460.5
@@ -15381,7 +15579,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 8.9,
+      "seconds": 8.87,
       "hp": [
         0,
         40.5
@@ -15415,7 +15613,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 9.33,
+      "seconds": 9.3,
       "hp": [
         0,
         40.5
@@ -15857,7 +16055,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 7.87,
+      "seconds": 7.83,
       "hp": [
         0,
         40
@@ -15877,11 +16075,11 @@
       "seconds": 7.83,
       "hp": [
         0,
-        495
+        430
       ],
       "damage": [
-        65,
-        540
+        130,
+        550
       ],
       "abilityEnergy": 0
     },
@@ -15891,7 +16089,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 7.97,
+      "seconds": 7.93,
       "hp": [
         0,
         430
@@ -16044,7 +16242,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 2.6,
+      "seconds": 2.67,
       "hp": [
         0,
         543
@@ -16061,7 +16259,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 2.67,
+      "seconds": 2.7,
       "hp": [
         0,
         543
@@ -16078,7 +16276,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 2.87,
+      "seconds": 2.9,
       "hp": [
         0,
         608
@@ -16934,7 +17132,7 @@
         0
       ],
       "damage": [
-        230,
+        130,
         345
       ],
       "abilityEnergy": 0
@@ -16951,7 +17149,7 @@
         0
       ],
       "damage": [
-        230,
+        130,
         345
       ],
       "abilityEnergy": 0
@@ -16968,7 +17166,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         345
       ],
       "abilityEnergy": 0
@@ -16985,7 +17183,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         345
       ],
       "abilityEnergy": 0
@@ -17735,6 +17933,74 @@
       "damage": [
         1361,
         0
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "charizard",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "charizard",
+      "seconds": 11.67,
+      "hp": [
+        421,
+        0
+      ],
+      "damage": [
+        1400,
+        1105
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "charizard",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "charizard",
+      "seconds": 11.67,
+      "hp": [
+        421,
+        0
+      ],
+      "damage": [
+        1400,
+        1105
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "charizard",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "charizard",
+      "seconds": 11.7,
+      "hp": [
+        506,
+        0
+      ],
+      "damage": [
+        1400,
+        1020
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "charizard",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "charizard",
+      "seconds": 11.67,
+      "hp": [
+        506,
+        0
+      ],
+      "damage": [
+        1400,
+        1020
       ],
       "abilityEnergy": 0
     },
@@ -19463,12 +19729,12 @@
       "winner": "charizard",
       "seconds": 4.6,
       "hp": [
-        606,
+        721,
         0
       ],
       "damage": [
         600,
-        920
+        805
       ],
       "abilityEnergy": 0
     },
@@ -20345,7 +20611,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 5.17,
+      "seconds": 5.13,
       "hp": [
         0,
         220
@@ -20379,7 +20645,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 5.47,
+      "seconds": 5.43,
       "hp": [
         0,
         220
@@ -20532,7 +20798,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 1.83,
+      "seconds": 1.87,
       "hp": [
         0,
         523
@@ -20549,7 +20815,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 1.83,
+      "seconds": 1.87,
       "hp": [
         0,
         523
@@ -20566,7 +20832,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 2.23,
+      "seconds": 2.27,
       "hp": [
         0,
         438
@@ -21422,7 +21688,7 @@
         0
       ],
       "damage": [
-        230,
+        85,
         115
       ],
       "abilityEnergy": 0
@@ -21439,7 +21705,7 @@
         0
       ],
       "damage": [
-        230,
+        85,
         115
       ],
       "abilityEnergy": 0
@@ -21456,7 +21722,7 @@
         0
       ],
       "damage": [
-        230,
+        170,
         115
       ],
       "abilityEnergy": 0
@@ -21473,7 +21739,7 @@
         0
       ],
       "damage": [
-        230,
+        170,
         115
       ],
       "abilityEnergy": 0
@@ -22160,6 +22426,74 @@
     },
     {
       "a": "gengar",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 6.43,
+      "hp": [
+        0,
+        900
+      ],
+      "damage": [
+        500,
+        650
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "gengar",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 6.37,
+      "hp": [
+        0,
+        900
+      ],
+      "damage": [
+        500,
+        650
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "gengar",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 6.93,
+      "hp": [
+        0,
+        775
+      ],
+      "damage": [
+        625,
+        650
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "gengar",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 6.93,
+      "hp": [
+        0,
+        775
+      ],
+      "damage": [
+        625,
+        650
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "gengar",
       "b": "vulpix",
       "gap": 80,
       "aTeam": 0,
@@ -22283,7 +22617,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "gengar",
-      "seconds": 6.93,
+      "seconds": 6.9,
       "hp": [
         100,
         0
@@ -22640,7 +22974,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 2.77,
+      "seconds": 2.8,
       "hp": [
         0,
         108
@@ -22657,7 +22991,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 2.77,
+      "seconds": 2.8,
       "hp": [
         0,
         108
@@ -22674,7 +23008,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 3.23,
+      "seconds": 3.27,
       "hp": [
         0,
         108
@@ -24697,7 +25031,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.33,
+      "seconds": 3.4,
       "hp": [
         0,
         350
@@ -24731,7 +25065,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.53,
+      "seconds": 3.57,
       "hp": [
         0,
         350
@@ -25492,6 +25826,74 @@
     },
     {
       "a": "machamp",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "machamp",
+      "seconds": 3.8,
+      "hp": [
+        1021,
+        0
+      ],
+      "damage": [
+        1400,
+        340
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "machamp",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "machamp",
+      "seconds": 3.8,
+      "hp": [
+        1021,
+        0
+      ],
+      "damage": [
+        1400,
+        340
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "machamp",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "machamp",
+      "seconds": 6.43,
+      "hp": [
+        681,
+        0
+      ],
+      "damage": [
+        1400,
+        680
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "machamp",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "machamp",
+      "seconds": 6.4,
+      "hp": [
+        681,
+        0
+      ],
+      "damage": [
+        1400,
+        680
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "machamp",
       "b": "vulpix",
       "gap": 80,
       "aTeam": 0,
@@ -25581,7 +25983,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "machamp",
-      "seconds": 4.9,
+      "seconds": 4.87,
       "hp": [
         1031,
         0
@@ -25615,7 +26017,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "machamp",
-      "seconds": 10.17,
+      "seconds": 10.13,
       "hp": [
         591,
         0
@@ -28488,7 +28890,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 29.83,
+      "seconds": 29.8,
       "hp": [
         0,
         900
@@ -28522,7 +28924,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 30.03,
+      "seconds": 30,
       "hp": [
         0,
         900
@@ -28539,7 +28941,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 30.13,
+      "seconds": 30.17,
       "hp": [
         0,
         900
@@ -28896,7 +29298,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 3.6,
+      "seconds": 3.57,
       "hp": [
         0,
         380
@@ -28913,7 +29315,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 3.63,
+      "seconds": 3.6,
       "hp": [
         0,
         380
@@ -28947,7 +29349,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 3.63,
+      "seconds": 3.6,
       "hp": [
         0,
         560
@@ -29100,7 +29502,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 1.7,
+      "seconds": 1.73,
       "hp": [
         0,
         518
@@ -29990,7 +30392,7 @@
         0
       ],
       "damage": [
-        230,
+        90,
         115
       ],
       "abilityEnergy": 0
@@ -30007,7 +30409,7 @@
         0
       ],
       "damage": [
-        230,
+        90,
         115
       ],
       "abilityEnergy": 0
@@ -30024,7 +30426,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         115
       ],
       "abilityEnergy": 0
@@ -30041,7 +30443,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         115
       ],
       "abilityEnergy": 0
@@ -30659,6 +31061,3338 @@
       "abilityEnergy": 0
     },
     {
+      "a": "blastoise",
+      "b": "vulpix",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 4.57,
+      "hp": [
+        932.5,
+        0
+      ],
+      "damage": [
+        440,
+        467.5
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "vulpix",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 4.63,
+      "hp": [
+        932.5,
+        0
+      ],
+      "damage": [
+        440,
+        467.5
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "vulpix",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 4.87,
+      "hp": [
+        932.5,
+        0
+      ],
+      "damage": [
+        440,
+        467.5
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "vulpix",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 4.93,
+      "hp": [
+        932.5,
+        0
+      ],
+      "damage": [
+        440,
+        467.5
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "psyduck",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 10.47,
+      "hp": [
+        630,
+        0
+      ],
+      "damage": [
+        560,
+        770
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "psyduck",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 10.53,
+      "hp": [
+        630,
+        0
+      ],
+      "damage": [
+        560,
+        770
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "psyduck",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 11.03,
+      "hp": [
+        520,
+        0
+      ],
+      "damage": [
+        560,
+        880
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "psyduck",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 11.1,
+      "hp": [
+        520,
+        0
+      ],
+      "damage": [
+        560,
+        880
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "alakazam",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 6.23,
+      "hp": [
+        735,
+        0
+      ],
+      "damage": [
+        590,
+        665
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "alakazam",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 6.3,
+      "hp": [
+        735,
+        0
+      ],
+      "damage": [
+        590,
+        665
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "alakazam",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 7.07,
+      "hp": [
+        602,
+        0
+      ],
+      "damage": [
+        590,
+        798
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "alakazam",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 7.13,
+      "hp": [
+        602,
+        0
+      ],
+      "damage": [
+        590,
+        798
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "geodude",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "geodude",
+      "seconds": 9.33,
+      "hp": [
+        0,
+        916
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "geodude",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "geodude",
+      "seconds": 9.33,
+      "hp": [
+        0,
+        916
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "geodude",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "geodude",
+      "seconds": 13,
+      "hp": [
+        0,
+        576
+      ],
+      "damage": [
+        1190,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "geodude",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "geodude",
+      "seconds": 13,
+      "hp": [
+        0,
+        576
+      ],
+      "damage": [
+        1190,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "magnemite",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 4.47,
+      "hp": [
+        1238,
+        0
+      ],
+      "damage": [
+        400,
+        162
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "magnemite",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 4.47,
+      "hp": [
+        1238,
+        0
+      ],
+      "damage": [
+        400,
+        162
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "magnemite",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "magnemite",
+      "seconds": 31.77,
+      "hp": [
+        0,
+        400
+      ],
+      "damage": [
+        0,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "magnemite",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 5.77,
+      "hp": [
+        1157,
+        0
+      ],
+      "damage": [
+        400,
+        243
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "scyther",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 6.33,
+      "hp": [
+        750,
+        0
+      ],
+      "damage": [
+        650,
+        650
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "scyther",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 6.33,
+      "hp": [
+        750,
+        0
+      ],
+      "damage": [
+        650,
+        650
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "scyther",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 6.37,
+      "hp": [
+        1010,
+        0
+      ],
+      "damage": [
+        650,
+        390
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "scyther",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 6.37,
+      "hp": [
+        1010,
+        0
+      ],
+      "damage": [
+        650,
+        390
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "lapras",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "lapras",
+      "seconds": 15.1,
+      "hp": [
+        0,
+        140
+      ],
+      "damage": [
+        1360,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "lapras",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "lapras",
+      "seconds": 15,
+      "hp": [
+        0,
+        140
+      ],
+      "damage": [
+        1360,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "lapras",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "lapras",
+      "seconds": 15.3,
+      "hp": [
+        0,
+        140
+      ],
+      "damage": [
+        1360,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "lapras",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "lapras",
+      "seconds": 15.2,
+      "hp": [
+        0,
+        140
+      ],
+      "damage": [
+        1360,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "treecko",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 6.37,
+      "hp": [
+        392,
+        0
+      ],
+      "damage": [
+        608,
+        1008
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "treecko",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 6.43,
+      "hp": [
+        392,
+        0
+      ],
+      "damage": [
+        608,
+        1008
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "treecko",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 6.77,
+      "hp": [
+        280,
+        0
+      ],
+      "damage": [
+        608,
+        1120
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "treecko",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 6.8,
+      "hp": [
+        280,
+        0
+      ],
+      "damage": [
+        608,
+        1120
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "diglettHorde",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "diglettHorde",
+      "seconds": 5.1,
+      "hp": [
+        0,
+        486
+      ],
+      "damage": [
+        243,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "diglettHorde",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "diglettHorde",
+      "seconds": 5.07,
+      "hp": [
+        0,
+        486
+      ],
+      "damage": [
+        243,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "diglettHorde",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "diglettHorde",
+      "seconds": 9.47,
+      "hp": [
+        0,
+        324
+      ],
+      "damage": [
+        405,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "diglettHorde",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "diglettHorde",
+      "seconds": 9.07,
+      "hp": [
+        0,
+        324
+      ],
+      "damage": [
+        405,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "venusaur",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "venusaur",
+      "seconds": 16.17,
+      "hp": [
+        0,
+        370
+      ],
+      "damage": [
+        1530,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "venusaur",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "venusaur",
+      "seconds": 16.13,
+      "hp": [
+        0,
+        370
+      ],
+      "damage": [
+        1530,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "venusaur",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "venusaur",
+      "seconds": 16.33,
+      "hp": [
+        0,
+        370
+      ],
+      "damage": [
+        1530,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "venusaur",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "venusaur",
+      "seconds": 16.3,
+      "hp": [
+        0,
+        370
+      ],
+      "damage": [
+        1530,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "butterfree",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 4.6,
+      "hp": [
+        1184,
+        0
+      ],
+      "damage": [
+        440,
+        216
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "butterfree",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 4.6,
+      "hp": [
+        1184,
+        0
+      ],
+      "damage": [
+        440,
+        216
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "butterfree",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 4.9,
+      "hp": [
+        1184,
+        0
+      ],
+      "damage": [
+        440,
+        216
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "butterfree",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 4.9,
+      "hp": [
+        1184,
+        0
+      ],
+      "damage": [
+        440,
+        216
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "beedrill",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 6.33,
+      "hp": [
+        380,
+        0
+      ],
+      "damage": [
+        520,
+        1020
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "beedrill",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 6.33,
+      "hp": [
+        380,
+        0
+      ],
+      "damage": [
+        520,
+        1020
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "beedrill",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 6.37,
+      "hp": [
+        890,
+        0
+      ],
+      "damage": [
+        520,
+        510
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "beedrill",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 6.37,
+      "hp": [
+        890,
+        0
+      ],
+      "damage": [
+        520,
+        510
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "pidgeot",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "pidgeot",
+      "seconds": 11.53,
+      "hp": [
+        0,
+        32
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "pidgeot",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "pidgeot",
+      "seconds": 11.53,
+      "hp": [
+        0,
+        32
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "pidgeot",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "pidgeot",
+      "seconds": 11.47,
+      "hp": [
+        0,
+        32
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "pidgeot",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "pidgeot",
+      "seconds": 11.47,
+      "hp": [
+        0,
+        32
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sandshrew",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 9.9,
+      "hp": [
+        69,
+        0
+      ],
+      "damage": [
+        920,
+        1331
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sandshrew",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 9.97,
+      "hp": [
+        69,
+        0
+      ],
+      "damage": [
+        920,
+        1331
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sandshrew",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 10,
+      "hp": [
+        432,
+        0
+      ],
+      "damage": [
+        920,
+        968
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sandshrew",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 10,
+      "hp": [
+        432,
+        0
+      ],
+      "damage": [
+        920,
+        968
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "nidoking",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "nidoking",
+      "seconds": 8.13,
+      "hp": [
+        0,
+        1350
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "nidoking",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "nidoking",
+      "seconds": 8.13,
+      "hp": [
+        0,
+        1435
+      ],
+      "damage": [
+        765,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "nidoking",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "nidoking",
+      "seconds": 10.67,
+      "hp": [
+        0,
+        1180
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "nidoking",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "nidoking",
+      "seconds": 10.7,
+      "hp": [
+        0,
+        1180
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "arcanine",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "arcanine",
+      "seconds": 9.53,
+      "hp": [
+        0,
+        550
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "arcanine",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "arcanine",
+      "seconds": 9.53,
+      "hp": [
+        0,
+        550
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "arcanine",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "arcanine",
+      "seconds": 9.47,
+      "hp": [
+        0,
+        550
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "arcanine",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "arcanine",
+      "seconds": 9.47,
+      "hp": [
+        0,
+        550
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "slowbro",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 8.03,
+      "hp": [
+        950,
+        0
+      ],
+      "damage": [
+        688,
+        450
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "slowbro",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 8.1,
+      "hp": [
+        950,
+        0
+      ],
+      "damage": [
+        688,
+        450
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "slowbro",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 8.73,
+      "hp": [
+        950,
+        0
+      ],
+      "damage": [
+        688,
+        450
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "slowbro",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 8.77,
+      "hp": [
+        950,
+        0
+      ],
+      "damage": [
+        688,
+        450
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "exeggutor",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "exeggutor",
+      "seconds": 12.5,
+      "hp": [
+        0,
+        560
+      ],
+      "damage": [
+        1190,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "exeggutor",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "exeggutor",
+      "seconds": 12.33,
+      "hp": [
+        0,
+        560
+      ],
+      "damage": [
+        1190,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "exeggutor",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "exeggutor",
+      "seconds": 12.83,
+      "hp": [
+        0,
+        560
+      ],
+      "damage": [
+        1190,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "exeggutor",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "exeggutor",
+      "seconds": 12.7,
+      "hp": [
+        0,
+        560
+      ],
+      "damage": [
+        1190,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "koffing",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 8,
+      "hp": [
+        885.5,
+        0
+      ],
+      "damage": [
+        700,
+        514.5
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "koffing",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 8,
+      "hp": [
+        885.5,
+        0
+      ],
+      "damage": [
+        700,
+        514.5
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "koffing",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 8.17,
+      "hp": [
+        1029.5,
+        0
+      ],
+      "damage": [
+        700,
+        370.5
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "koffing",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 8.13,
+      "hp": [
+        1029.5,
+        0
+      ],
+      "damage": [
+        700,
+        370.5
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "chansey",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 8.17,
+      "hp": [
+        1328,
+        0
+      ],
+      "damage": [
+        800,
+        72
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "chansey",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 8.23,
+      "hp": [
+        1310,
+        0
+      ],
+      "damage": [
+        800,
+        90
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "chansey",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 8.4,
+      "hp": [
+        1328,
+        0
+      ],
+      "damage": [
+        800,
+        72
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "chansey",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 8.43,
+      "hp": [
+        1328,
+        0
+      ],
+      "damage": [
+        800,
+        72
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "kangaskhan",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "kangaskhan",
+      "seconds": 9.23,
+      "hp": [
+        0,
+        2060
+      ],
+      "damage": [
+        740,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "kangaskhan",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "kangaskhan",
+      "seconds": 7.53,
+      "hp": [
+        0,
+        2120
+      ],
+      "damage": [
+        680,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "kangaskhan",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "kangaskhan",
+      "seconds": 12.33,
+      "hp": [
+        0,
+        1720
+      ],
+      "damage": [
+        1080,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "kangaskhan",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "kangaskhan",
+      "seconds": 10.6,
+      "hp": [
+        0,
+        1780
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "starmie",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 6.23,
+      "hp": [
+        500,
+        0
+      ],
+      "damage": [
+        550,
+        900
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "starmie",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 6.3,
+      "hp": [
+        410,
+        0
+      ],
+      "damage": [
+        550,
+        990
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "starmie",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 7.07,
+      "hp": [
+        320,
+        0
+      ],
+      "damage": [
+        550,
+        1080
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "starmie",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 7.13,
+      "hp": [
+        320,
+        0
+      ],
+      "damage": [
+        550,
+        1080
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "mrmime",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 8.17,
+      "hp": [
+        950,
+        0
+      ],
+      "damage": [
+        790,
+        450
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "mrmime",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 8.23,
+      "hp": [
+        950,
+        0
+      ],
+      "damage": [
+        790,
+        450
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "mrmime",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 8.9,
+      "hp": [
+        860,
+        0
+      ],
+      "damage": [
+        790,
+        540
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "mrmime",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 8.93,
+      "hp": [
+        860,
+        0
+      ],
+      "damage": [
+        790,
+        540
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "ditto",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 4.57,
+      "hp": [
+        1040,
+        0
+      ],
+      "damage": [
+        508,
+        360
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "ditto",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 4.63,
+      "hp": [
+        968,
+        0
+      ],
+      "damage": [
+        508,
+        432
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "ditto",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 4.93,
+      "hp": [
+        968,
+        0
+      ],
+      "damage": [
+        508,
+        432
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "ditto",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 5,
+      "hp": [
+        968,
+        0
+      ],
+      "damage": [
+        508,
+        432
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "articuno",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 15.27,
+      "hp": [
+        240,
+        0
+      ],
+      "damage": [
+        1400,
+        1160
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "articuno",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 15.27,
+      "hp": [
+        95,
+        0
+      ],
+      "damage": [
+        1400,
+        1305
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "articuno",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 16.07,
+      "hp": [
+        95,
+        0
+      ],
+      "damage": [
+        1400,
+        1305
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "articuno",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 16.13,
+      "hp": [
+        95,
+        0
+      ],
+      "damage": [
+        1400,
+        1305
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "zapdos",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "zapdos",
+      "seconds": 16.93,
+      "hp": [
+        0,
+        435
+      ],
+      "damage": [
+        765,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "zapdos",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "zapdos",
+      "seconds": 16.93,
+      "hp": [
+        0,
+        1200
+      ],
+      "damage": [
+        0,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "zapdos",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 14.5,
+      "hp": [
+        200,
+        0
+      ],
+      "damage": [
+        1200,
+        1200
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "zapdos",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 14.53,
+      "hp": [
+        200,
+        0
+      ],
+      "damage": [
+        1200,
+        1200
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "moltres",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "draw",
+      "seconds": 13.6,
+      "hp": [
+        0,
+        0
+      ],
+      "damage": [
+        1350,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "moltres",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "moltres",
+      "seconds": 13.47,
+      "hp": [
+        0,
+        75
+      ],
+      "damage": [
+        1275,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "moltres",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "moltres",
+      "seconds": 13.77,
+      "hp": [
+        0,
+        160
+      ],
+      "damage": [
+        1190,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "moltres",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "moltres",
+      "seconds": 13.63,
+      "hp": [
+        0,
+        160
+      ],
+      "damage": [
+        1190,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "dragonite",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "dragonite",
+      "seconds": 11.2,
+      "hp": [
+        0,
+        580
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "dragonite",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "dragonite",
+      "seconds": 11.2,
+      "hp": [
+        0,
+        580
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "dragonite",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "dragonite",
+      "seconds": 13.73,
+      "hp": [
+        0,
+        240
+      ],
+      "damage": [
+        1360,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "dragonite",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "dragonite",
+      "seconds": 13.77,
+      "hp": [
+        0,
+        240
+      ],
+      "damage": [
+        1360,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "meganium",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "meganium",
+      "seconds": 22.83,
+      "hp": [
+        0,
+        190
+      ],
+      "damage": [
+        2210,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "meganium",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "meganium",
+      "seconds": 22.83,
+      "hp": [
+        0,
+        190
+      ],
+      "damage": [
+        2210,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "meganium",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "meganium",
+      "seconds": 24.03,
+      "hp": [
+        0,
+        190
+      ],
+      "damage": [
+        2210,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "meganium",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "meganium",
+      "seconds": 24.1,
+      "hp": [
+        0,
+        190
+      ],
+      "damage": [
+        2210,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "typhlosion",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 11.77,
+      "hp": [
+        260,
+        0
+      ],
+      "damage": [
+        1130,
+        1140
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "typhlosion",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 11.83,
+      "hp": [
+        260,
+        0
+      ],
+      "damage": [
+        1130,
+        1140
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "typhlosion",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 12.4,
+      "hp": [
+        260,
+        0
+      ],
+      "damage": [
+        1130,
+        1140
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "typhlosion",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 12.43,
+      "hp": [
+        255,
+        0
+      ],
+      "damage": [
+        1130,
+        1145
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "feraligatr",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "feraligatr",
+      "seconds": 7.8,
+      "hp": [
+        0,
+        1220
+      ],
+      "damage": [
+        680,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "feraligatr",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "feraligatr",
+      "seconds": 7.8,
+      "hp": [
+        0,
+        1220
+      ],
+      "damage": [
+        680,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "feraligatr",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "feraligatr",
+      "seconds": 10.33,
+      "hp": [
+        0,
+        880
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "feraligatr",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "feraligatr",
+      "seconds": 10.37,
+      "hp": [
+        0,
+        880
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "crobat",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 11.6,
+      "hp": [
+        350,
+        0
+      ],
+      "damage": [
+        1068,
+        1050
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "crobat",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 11.6,
+      "hp": [
+        350,
+        0
+      ],
+      "damage": [
+        1068,
+        1050
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "crobat",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 9.97,
+      "hp": [
+        650,
+        0
+      ],
+      "damage": [
+        1020,
+        750
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "crobat",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 9.97,
+      "hp": [
+        650,
+        0
+      ],
+      "damage": [
+        1020,
+        750
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "espeon",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 4.57,
+      "hp": [
+        960,
+        0
+      ],
+      "damage": [
+        460,
+        440
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "espeon",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 4.63,
+      "hp": [
+        960,
+        0
+      ],
+      "damage": [
+        460,
+        440
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "espeon",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 5.4,
+      "hp": [
+        850,
+        0
+      ],
+      "damage": [
+        460,
+        550
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "espeon",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 5.47,
+      "hp": [
+        850,
+        0
+      ],
+      "damage": [
+        460,
+        550
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "umbreon",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "umbreon",
+      "seconds": 18.53,
+      "hp": [
+        0,
+        400
+      ],
+      "damage": [
+        1700,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "umbreon",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "umbreon",
+      "seconds": 18.53,
+      "hp": [
+        0,
+        400
+      ],
+      "damage": [
+        1700,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "umbreon",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "umbreon",
+      "seconds": 21.07,
+      "hp": [
+        0,
+        60
+      ],
+      "damage": [
+        2040,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "umbreon",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "umbreon",
+      "seconds": 21.1,
+      "hp": [
+        0,
+        60
+      ],
+      "damage": [
+        2040,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "scizor",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "scizor",
+      "seconds": 7.83,
+      "hp": [
+        0,
+        775
+      ],
+      "damage": [
+        665,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "scizor",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "scizor",
+      "seconds": 7.83,
+      "hp": [
+        0,
+        775
+      ],
+      "damage": [
+        665,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "scizor",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "scizor",
+      "seconds": 9.9,
+      "hp": [
+        0,
+        520
+      ],
+      "damage": [
+        920,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "scizor",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "scizor",
+      "seconds": 9.93,
+      "hp": [
+        0,
+        520
+      ],
+      "damage": [
+        920,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "skarmory",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 9.93,
+      "hp": [
+        914,
+        0
+      ],
+      "damage": [
+        980,
+        486
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "skarmory",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 9.93,
+      "hp": [
+        914,
+        0
+      ],
+      "damage": [
+        980,
+        486
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "skarmory",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 10.03,
+      "hp": [
+        995,
+        0
+      ],
+      "damage": [
+        980,
+        405
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "skarmory",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 10,
+      "hp": [
+        995,
+        0
+      ],
+      "damage": [
+        980,
+        405
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "blissey",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 18.97,
+      "hp": [
+        1085,
+        0
+      ],
+      "damage": [
+        1800,
+        315
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "blissey",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 19.03,
+      "hp": [
+        1050,
+        0
+      ],
+      "damage": [
+        1800,
+        350
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "blissey",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 19.3,
+      "hp": [
+        1085,
+        0
+      ],
+      "damage": [
+        1800,
+        315
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "blissey",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 19.33,
+      "hp": [
+        1085,
+        0
+      ],
+      "damage": [
+        1800,
+        315
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sceptile",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 6.37,
+      "hp": [
+        250,
+        0
+      ],
+      "damage": [
+        600,
+        1150
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sceptile",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 6.43,
+      "hp": [
+        250,
+        0
+      ],
+      "damage": [
+        600,
+        1150
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sceptile",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 7.13,
+      "hp": [
+        250,
+        0
+      ],
+      "damage": [
+        600,
+        1150
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sceptile",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 7.2,
+      "hp": [
+        20,
+        0
+      ],
+      "damage": [
+        600,
+        1380
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "blaziken",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blaziken",
+      "seconds": 8.23,
+      "hp": [
+        0,
+        350
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "blaziken",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blaziken",
+      "seconds": 8.23,
+      "hp": [
+        0,
+        350
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "blaziken",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blaziken",
+      "seconds": 10.3,
+      "hp": [
+        0,
+        180
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "blaziken",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blaziken",
+      "seconds": 10.33,
+      "hp": [
+        0,
+        180
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "swampert",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "swampert",
+      "seconds": 14.47,
+      "hp": [
+        0,
+        1440
+      ],
+      "damage": [
+        1360,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "swampert",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "swampert",
+      "seconds": 14.47,
+      "hp": [
+        0,
+        1440
+      ],
+      "damage": [
+        1360,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "swampert",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "swampert",
+      "seconds": 17.93,
+      "hp": [
+        0,
+        1100
+      ],
+      "damage": [
+        1700,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "swampert",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "swampert",
+      "seconds": 17.97,
+      "hp": [
+        0,
+        1100
+      ],
+      "damage": [
+        1700,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "gardevoir",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "gardevoir",
+      "seconds": 7.5,
+      "hp": [
+        0,
+        100
+      ],
+      "damage": [
+        680,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "gardevoir",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "gardevoir",
+      "seconds": 7.47,
+      "hp": [
+        0,
+        100
+      ],
+      "damage": [
+        680,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "gardevoir",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "gardevoir",
+      "seconds": 7.67,
+      "hp": [
+        0,
+        100
+      ],
+      "damage": [
+        680,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "gardevoir",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "gardevoir",
+      "seconds": 7.63,
+      "hp": [
+        0,
+        100
+      ],
+      "damage": [
+        680,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sableye",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 8.1,
+      "hp": [
+        440,
+        0
+      ],
+      "damage": [
+        800,
+        960
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sableye",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 8.17,
+      "hp": [
+        440,
+        0
+      ],
+      "damage": [
+        800,
+        960
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sableye",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 8.13,
+      "hp": [
+        600,
+        0
+      ],
+      "damage": [
+        800,
+        800
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sableye",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 8.2,
+      "hp": [
+        600,
+        0
+      ],
+      "damage": [
+        800,
+        800
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sharpedo",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "sharpedo",
+      "seconds": 8.37,
+      "hp": [
+        0,
+        57
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sharpedo",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "sharpedo",
+      "seconds": 8.37,
+      "hp": [
+        0,
+        57
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sharpedo",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "sharpedo",
+      "seconds": 8.47,
+      "hp": [
+        0,
+        57
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "sharpedo",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "sharpedo",
+      "seconds": 8.47,
+      "hp": [
+        0,
+        57
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "flygon",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "flygon",
+      "seconds": 15.73,
+      "hp": [
+        0,
+        120
+      ],
+      "damage": [
+        1530,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "flygon",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "flygon",
+      "seconds": 15.73,
+      "hp": [
+        0,
+        120
+      ],
+      "damage": [
+        1530,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "flygon",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 17.23,
+      "hp": [
+        80,
+        0
+      ],
+      "damage": [
+        1650,
+        1320
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "flygon",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 17.2,
+      "hp": [
+        80,
+        0
+      ],
+      "damage": [
+        1650,
+        1320
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "altaria",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 9.87,
+      "hp": [
+        950,
+        0
+      ],
+      "damage": [
+        900,
+        450
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "altaria",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 9.87,
+      "hp": [
+        950,
+        0
+      ],
+      "damage": [
+        900,
+        450
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "altaria",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 10.13,
+      "hp": [
+        950,
+        0
+      ],
+      "damage": [
+        900,
+        450
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "altaria",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 10.13,
+      "hp": [
+        950,
+        0
+      ],
+      "damage": [
+        900,
+        450
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "absol",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "absol",
+      "seconds": 9.53,
+      "hp": [
+        0,
+        250
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "absol",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "absol",
+      "seconds": 9.53,
+      "hp": [
+        0,
+        250
+      ],
+      "damage": [
+        850,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "absol",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "absol",
+      "seconds": 11.23,
+      "hp": [
+        0,
+        80
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "absol",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "absol",
+      "seconds": 11.23,
+      "hp": [
+        0,
+        80
+      ],
+      "damage": [
+        1020,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "duskull",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "duskull",
+      "seconds": 10.17,
+      "hp": [
+        0,
+        162
+      ],
+      "damage": [
+        760,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "duskull",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "duskull",
+      "seconds": 10.47,
+      "hp": [
+        0,
+        162
+      ],
+      "damage": [
+        760,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "duskull",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 13.8,
+      "hp": [
+        65,
+        0
+      ],
+      "damage": [
+        922,
+        1335
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "duskull",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 13.77,
+      "hp": [
+        65,
+        0
+      ],
+      "damage": [
+        922,
+        1335
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "raichu",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "raichu",
+      "seconds": 4.07,
+      "hp": [
+        0,
+        300
+      ],
+      "damage": [
+        340,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "raichu",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "raichu",
+      "seconds": 4.07,
+      "hp": [
+        0,
+        300
+      ],
+      "damage": [
+        340,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "raichu",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "raichu",
+      "seconds": 6.13,
+      "hp": [
+        0,
+        130
+      ],
+      "damage": [
+        510,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "raichu",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "raichu",
+      "seconds": 6.17,
+      "hp": [
+        0,
+        130
+      ],
+      "damage": [
+        510,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "pandilla",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "pandilla",
+      "seconds": 4.43,
+      "hp": [
+        0,
+        585
+      ],
+      "damage": [
+        287,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "pandilla",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "pandilla",
+      "seconds": 4.43,
+      "hp": [
+        0,
+        585
+      ],
+      "damage": [
+        287,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "pandilla",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "pandilla",
+      "seconds": 7.43,
+      "hp": [
+        0,
+        468
+      ],
+      "damage": [
+        404,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "blastoise",
+      "b": "pandilla",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "pandilla",
+      "seconds": 7.67,
+      "hp": [
+        0,
+        468
+      ],
+      "damage": [
+        404,
+        1400
+      ],
+      "abilityEnergy": 0
+    },
+    {
       "a": "vulpix",
       "b": "psyduck",
       "gap": 80,
@@ -30681,7 +34415,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 5.17,
+      "seconds": 5.13,
       "hp": [
         0,
         14
@@ -30715,7 +34449,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 5.4,
+      "seconds": 5.37,
       "hp": [
         0,
         89
@@ -31004,7 +34738,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 1.83,
+      "seconds": 1.87,
       "hp": [
         0,
         454.5
@@ -31021,7 +34755,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 1.83,
+      "seconds": 1.87,
       "hp": [
         0,
         454.5
@@ -31038,7 +34772,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 2.1,
+      "seconds": 2.17,
       "hp": [
         0,
         454.5
@@ -32721,7 +36455,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 2.13,
+      "seconds": 2.2,
       "hp": [
         0,
         443
@@ -32738,7 +36472,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 2.47,
+      "seconds": 2.43,
       "hp": [
         0,
         446.5
@@ -32755,7 +36489,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 2.3,
+      "seconds": 2.33,
       "hp": [
         0,
         446.5
@@ -33248,7 +36982,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "alakazam",
-      "seconds": 6.07,
+      "seconds": 6.03,
       "hp": [
         0,
         150
@@ -33282,7 +37016,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "alakazam",
-      "seconds": 6.87,
+      "seconds": 6.83,
       "hp": [
         0,
         150
@@ -33316,7 +37050,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "geodude",
-      "seconds": 5.93,
+      "seconds": 5.9,
       "hp": [
         0,
         1326
@@ -33350,13 +37084,13 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "geodude",
-      "seconds": 13.03,
+      "seconds": 11.6,
       "hp": [
         0,
-        776
+        886
       ],
       "damage": [
-        990,
+        880,
         560
       ],
       "abilityEnergy": 0
@@ -33384,7 +37118,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 5.2,
+      "seconds": 5.17,
       "hp": [
         398,
         0
@@ -33401,7 +37135,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 6.5,
+      "seconds": 6.47,
       "hp": [
         398,
         0
@@ -33418,7 +37152,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 7.43,
+      "seconds": 7.4,
       "hp": [
         317,
         0
@@ -33452,7 +37186,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "scyther",
-      "seconds": 7.37,
+      "seconds": 7.33,
       "hp": [
         0,
         100
@@ -33486,7 +37220,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 7.87,
+      "seconds": 7.83,
       "hp": [
         235,
         0
@@ -33520,7 +37254,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 2.77,
+      "seconds": 2.8,
       "hp": [
         0,
         388
@@ -33537,7 +37271,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 2.77,
+      "seconds": 2.8,
       "hp": [
         0,
         388
@@ -33554,7 +37288,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 3.17,
+      "seconds": 3.2,
       "hp": [
         0,
         388
@@ -33639,7 +37373,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "diglettHorde",
-      "seconds": 7.7,
+      "seconds": 7.67,
       "hp": [
         0,
         324
@@ -33656,7 +37390,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "raltsTrio",
-      "seconds": 4.9,
+      "seconds": 4.83,
       "hp": [
         0,
         156
@@ -33673,7 +37407,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "raltsTrio",
-      "seconds": 4.9,
+      "seconds": 4.87,
       "hp": [
         0,
         156
@@ -33758,7 +37492,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "poochyenaPack",
-      "seconds": 6.9,
+      "seconds": 7.3,
       "hp": [
         0,
         294
@@ -33792,7 +37526,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 5.2,
+      "seconds": 5.17,
       "hp": [
         416,
         0
@@ -33809,7 +37543,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 5.1,
+      "seconds": 5.07,
       "hp": [
         488,
         0
@@ -33826,14 +37560,14 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 5.5,
+      "seconds": 5.47,
       "hp": [
-        416,
+        488,
         0
       ],
       "damage": [
         440,
-        144
+        72
       ],
       "abilityEnergy": 0
     },
@@ -33860,7 +37594,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "beedrill",
-      "seconds": 3.17,
+      "seconds": 3.13,
       "hp": [
         0,
         300
@@ -33894,7 +37628,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "beedrill",
-      "seconds": 7.4,
+      "seconds": 7.33,
       "hp": [
         0,
         40
@@ -33911,7 +37645,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "beedrill",
-      "seconds": 7.3,
+      "seconds": 7.27,
       "hp": [
         0,
         40
@@ -33928,7 +37662,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "pidgeot",
-      "seconds": 5.97,
+      "seconds": 5.93,
       "hp": [
         0,
         612
@@ -33996,7 +37730,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 7.83,
+      "seconds": 7.8,
       "hp": [
         98,
         0
@@ -34030,7 +37764,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 7.9,
+      "seconds": 7.87,
       "hp": [
         284,
         0
@@ -34047,7 +37781,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 7.87,
+      "seconds": 7.83,
       "hp": [
         284,
         0
@@ -34098,13 +37832,13 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sandshrew",
-      "seconds": 7.2,
+      "seconds": 8.77,
       "hp": [
         0,
-        460
+        350
       ],
       "damage": [
-        460,
+        570,
         560
       ],
       "abilityEnergy": 0
@@ -34200,7 +37934,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "arcanine",
-      "seconds": 4.57,
+      "seconds": 4.53,
       "hp": [
         0,
         1070
@@ -34217,7 +37951,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "arcanine",
-      "seconds": 4.53,
+      "seconds": 4.5,
       "hp": [
         0,
         1070
@@ -34234,7 +37968,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 17.63,
+      "seconds": 17.6,
       "hp": [
         560,
         0
@@ -34268,7 +38002,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 9.37,
+      "seconds": 9.33,
       "hp": [
         290,
         0
@@ -34302,7 +38036,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 9.9,
+      "seconds": 9.87,
       "hp": [
         200,
         0
@@ -34336,7 +38070,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 12.03,
+      "seconds": 12,
       "hp": [
         340,
         0
@@ -34370,14 +38104,14 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 12.23,
+      "seconds": 12.2,
       "hp": [
-        505,
+        560,
         0
       ],
       "damage": [
         900,
-        55
+        0
       ],
       "abilityEnergy": 0
     },
@@ -34404,7 +38138,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 5.27,
+      "seconds": 5.23,
       "hp": [
         192,
         0
@@ -34438,7 +38172,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 5.37,
+      "seconds": 5.33,
       "hp": [
         245,
         0
@@ -34472,7 +38206,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 9.3,
+      "seconds": 9.23,
       "hp": [
         128,
         0
@@ -34506,7 +38240,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 9.4,
+      "seconds": 9.37,
       "hp": [
         299,
         0
@@ -34540,7 +38274,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 10.77,
+      "seconds": 10.73,
       "hp": [
         488,
         0
@@ -34574,7 +38308,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 11,
+      "seconds": 10.97,
       "hp": [
         506,
         0
@@ -34608,7 +38342,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 6.57,
+      "seconds": 6.53,
       "hp": [
         20,
         0
@@ -34642,7 +38376,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "starmie",
-      "seconds": 4.37,
+      "seconds": 4.33,
       "hp": [
         0,
         330
@@ -34676,7 +38410,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 10.77,
+      "seconds": 10.73,
       "hp": [
         200,
         0
@@ -34710,7 +38444,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "mrmime",
-      "seconds": 10.23,
+      "seconds": 10.2,
       "hp": [
         0,
         40
@@ -34744,7 +38478,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 6.57,
+      "seconds": 6.53,
       "hp": [
         90,
         0
@@ -34778,7 +38512,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 6.8,
+      "seconds": 6.77,
       "hp": [
         90,
         0
@@ -34812,13 +38546,13 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "feraligatr",
-      "seconds": 7.33,
+      "seconds": 5.9,
       "hp": [
         0,
-        1350
+        1460
       ],
       "damage": [
-        550,
+        440,
         560
       ],
       "abilityEnergy": 0
@@ -34863,7 +38597,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "feraligatr",
-      "seconds": 7.6,
+      "seconds": 7.57,
       "hp": [
         0,
         1350
@@ -34880,7 +38614,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "crobat",
-      "seconds": 6.43,
+      "seconds": 6.4,
       "hp": [
         0,
         556
@@ -34914,7 +38648,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "crobat",
-      "seconds": 12,
+      "seconds": 11.97,
       "hp": [
         0,
         116
@@ -34948,7 +38682,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 6.57,
+      "seconds": 6.53,
       "hp": [
         10,
         0
@@ -34982,7 +38716,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 7.27,
+      "seconds": 7.23,
       "hp": [
         10,
         0
@@ -35016,7 +38750,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "umbreon",
-      "seconds": 12.07,
+      "seconds": 12.03,
       "hp": [
         0,
         1110
@@ -35050,7 +38784,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "umbreon",
-      "seconds": 15.4,
+      "seconds": 15.37,
       "hp": [
         0,
         890
@@ -35152,7 +38886,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 13.47,
+      "seconds": 13.43,
       "hp": [
         155,
         0
@@ -35186,7 +38920,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 13.53,
+      "seconds": 13.5,
       "hp": [
         317,
         0
@@ -35220,7 +38954,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 3.53,
+      "seconds": 3.5,
       "hp": [
         0,
         380
@@ -35237,7 +38971,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.33,
+      "seconds": 3.4,
       "hp": [
         0,
         380
@@ -35254,7 +38988,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 4.27,
+      "seconds": 4.23,
       "hp": [
         0,
         380
@@ -35271,7 +39005,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 4.07,
+      "seconds": 4.13,
       "hp": [
         0,
         380
@@ -35288,13 +39022,13 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "blaziken",
-      "seconds": 7.43,
+      "seconds": 6.13,
       "hp": [
         0,
-        650
+        760
       ],
       "damage": [
-        550,
+        440,
         560
       ],
       "abilityEnergy": 0
@@ -35322,13 +39056,13 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "blaziken",
-      "seconds": 9.03,
+      "seconds": 10.47,
       "hp": [
         0,
-        540
+        430
       ],
       "damage": [
-        660,
+        770,
         560
       ],
       "abilityEnergy": 0
@@ -35356,7 +39090,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "sableye",
-      "seconds": 5.93,
+      "seconds": 5.9,
       "hp": [
         0,
         360
@@ -35390,13 +39124,13 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sableye",
-      "seconds": 8.73,
+      "seconds": 10.1,
       "hp": [
         0,
-        140
+        30
       ],
       "damage": [
-        660,
+        770,
         560
       ],
       "abilityEnergy": 0
@@ -35424,7 +39158,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "sharpedo",
-      "seconds": 4.53,
+      "seconds": 4.5,
       "hp": [
         0,
         577
@@ -35458,7 +39192,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sharpedo",
-      "seconds": 7.33,
+      "seconds": 7.3,
       "hp": [
         0,
         357
@@ -35492,7 +39226,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 12.2,
+      "seconds": 12.17,
       "hp": [
         185,
         0
@@ -35509,7 +39243,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 12.1,
+      "seconds": 12.07,
       "hp": [
         260,
         0
@@ -35526,14 +39260,14 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 12.47,
+      "seconds": 12.43,
       "hp": [
-        260,
+        335,
         0
       ],
       "damage": [
         900,
-        300
+        225
       ],
       "abilityEnergy": 0
     },
@@ -35543,7 +39277,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "psyduck",
-      "seconds": 12.33,
+      "seconds": 12.3,
       "hp": [
         260,
         0
@@ -35559,23 +39293,6 @@
       "b": "absol",
       "gap": 80,
       "aTeam": 0,
-      "winner": "absol",
-      "seconds": 4.57,
-      "hp": [
-        0,
-        770
-      ],
-      "damage": [
-        330,
-        560
-      ],
-      "abilityEnergy": 0
-    },
-    {
-      "a": "psyduck",
-      "b": "absol",
-      "gap": 80,
-      "aTeam": 1,
       "winner": "absol",
       "seconds": 4.53,
       "hp": [
@@ -35591,10 +39308,27 @@
     {
       "a": "psyduck",
       "b": "absol",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "absol",
+      "seconds": 4.5,
+      "hp": [
+        0,
+        770
+      ],
+      "damage": [
+        330,
+        560
+      ],
+      "abilityEnergy": 0
+    },
+    {
+      "a": "psyduck",
+      "b": "absol",
       "gap": 160,
       "aTeam": 0,
       "winner": "psyduck",
-      "seconds": 13.43,
+      "seconds": 13.4,
       "hp": [
         560,
         0
@@ -35628,7 +39362,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "raichu",
-      "seconds": 4.87,
+      "seconds": 4.83,
       "hp": [
         0,
         310
@@ -35662,7 +39396,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "raichu",
-      "seconds": 7.73,
+      "seconds": 7.7,
       "hp": [
         0,
         90
@@ -36036,7 +39770,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 2.77,
+      "seconds": 2.8,
       "hp": [
         0,
         76
@@ -36053,7 +39787,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 2.77,
+      "seconds": 2.8,
       "hp": [
         0,
         76
@@ -38093,7 +41827,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.33,
+      "seconds": 3.4,
       "hp": [
         0,
         201
@@ -38127,7 +41861,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.57,
+      "seconds": 3.6,
       "hp": [
         0,
         201
@@ -39062,7 +42796,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 7.5,
+      "seconds": 7.53,
       "hp": [
         0,
         304
@@ -40067,12 +43801,12 @@
       "winner": "geodude",
       "seconds": 6.13,
       "hp": [
-        1694,
+        1712,
         0
       ],
       "damage": [
         800,
-        72
+        54
       ],
       "abilityEnergy": 0
     },
@@ -41000,7 +44734,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 37.83,
+      "seconds": 37.8,
       "hp": [
         0,
         900
@@ -41034,7 +44768,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 38.17,
+      "seconds": 38.13,
       "hp": [
         0,
         900
@@ -41340,7 +45074,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 1.87,
+      "seconds": 1.9,
       "hp": [
         0,
         527
@@ -41374,7 +45108,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 3.63,
+      "seconds": 3.67,
       "hp": [
         0,
         446
@@ -43057,7 +46791,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 2.17,
+      "seconds": 2.23,
       "hp": [
         0,
         519
@@ -43074,7 +46808,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 2.53,
+      "seconds": 2.5,
       "hp": [
         0,
         519
@@ -43091,7 +46825,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 2.53,
+      "seconds": 2.57,
       "hp": [
         0,
         519
@@ -43329,7 +47063,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 9.2,
+      "seconds": 9.17,
       "hp": [
         0,
         495
@@ -43363,7 +47097,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 11.27,
+      "seconds": 11.23,
       "hp": [
         0,
         414
@@ -43652,13 +47386,13 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 2.63,
+      "seconds": 2.67,
       "hp": [
         0,
-        413
+        348
       ],
       "damage": [
-        195,
+        260,
         650
       ],
       "abilityEnergy": 0
@@ -44559,7 +48293,7 @@
         0
       ],
       "damage": [
-        2800,
+        2400,
         0
       ],
       "abilityEnergy": 0
@@ -45709,7 +49443,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.27,
+      "seconds": 3.3,
       "hp": [
         0,
         340
@@ -45743,7 +49477,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.27,
+      "seconds": 3.3,
       "hp": [
         0,
         535
@@ -50333,7 +54067,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "diglettHorde",
-      "seconds": 4.2,
+      "seconds": 4.23,
       "hp": [
         0,
         324
@@ -50367,7 +54101,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 6.37,
+      "seconds": 6.4,
       "hp": [
         608,
         0
@@ -50401,7 +54135,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 2.83,
+      "seconds": 2.9,
       "hp": [
         284,
         0
@@ -50435,7 +54169,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.1,
+      "seconds": 3.13,
       "hp": [
         365,
         0
@@ -50471,12 +54205,12 @@
       "winner": "treecko",
       "seconds": 4.5,
       "hp": [
-        184,
+        64,
         0
       ],
       "damage": [
         808,
-        424
+        544
       ],
       "abilityEnergy": 0
     },
@@ -50503,7 +54237,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.7,
+      "seconds": 3.73,
       "hp": [
         608,
         0
@@ -50537,7 +54271,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 1.8,
+      "seconds": 1.83,
       "hp": [
         464,
         0
@@ -50571,7 +54305,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 2.1,
+      "seconds": 2.13,
       "hp": [
         464,
         0
@@ -50622,7 +54356,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 3.63,
+      "seconds": 3.67,
       "hp": [
         438,
         0
@@ -50639,7 +54373,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.57,
+      "seconds": 3.6,
       "hp": [
         438,
         0
@@ -50724,7 +54458,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 3.57,
+      "seconds": 3.6,
       "hp": [
         416,
         0
@@ -50741,7 +54475,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.57,
+      "seconds": 3.6,
       "hp": [
         416,
         0
@@ -50758,7 +54492,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 3.67,
+      "seconds": 3.7,
       "hp": [
         608,
         0
@@ -50775,7 +54509,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.63,
+      "seconds": 3.67,
       "hp": [
         608,
         0
@@ -50809,13 +54543,13 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sandshrew",
-      "seconds": 6.5,
+      "seconds": 5.8,
       "hp": [
         0,
-        108
+        220
       ],
       "damage": [
-        812,
+        700,
         608
       ],
       "abilityEnergy": 0
@@ -50826,7 +54560,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 5.53,
+      "seconds": 5.57,
       "hp": [
         366,
         0
@@ -50843,7 +54577,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 5.5,
+      "seconds": 5.53,
       "hp": [
         366,
         0
@@ -50860,7 +54594,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 2.67,
+      "seconds": 2.73,
       "hp": [
         368,
         0
@@ -50877,7 +54611,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 2.63,
+      "seconds": 2.67,
       "hp": [
         288,
         0
@@ -50911,7 +54645,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 2.7,
+      "seconds": 2.73,
       "hp": [
         608,
         0
@@ -51013,7 +54747,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.7,
+      "seconds": 3.73,
       "hp": [
         248,
         0
@@ -51047,7 +54781,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 4.3,
+      "seconds": 4.33,
       "hp": [
         248,
         0
@@ -51081,7 +54815,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 4.5,
+      "seconds": 4.53,
       "hp": [
         498,
         0
@@ -51115,7 +54849,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 4.8,
+      "seconds": 4.83,
       "hp": [
         608,
         0
@@ -51149,7 +54883,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.73,
+      "seconds": 3.77,
       "hp": [
         348,
         0
@@ -51183,14 +54917,14 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3,
+      "seconds": 3.07,
       "hp": [
-        433,
+        398,
         0
       ],
       "damage": [
         324,
-        175
+        210
       ],
       "abilityEnergy": 0
     },
@@ -51217,7 +54951,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.53,
+      "seconds": 3.57,
       "hp": [
         167,
         0
@@ -51251,7 +54985,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.7,
+      "seconds": 3.73,
       "hp": [
         608,
         0
@@ -51268,7 +55002,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 3.7,
+      "seconds": 3.73,
       "hp": [
         572,
         0
@@ -51285,7 +55019,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.7,
+      "seconds": 3.73,
       "hp": [
         572,
         0
@@ -51319,7 +55053,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.93,
+      "seconds": 4,
       "hp": [
         572,
         0
@@ -51404,7 +55138,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 3.7,
+      "seconds": 3.73,
       "hp": [
         428,
         0
@@ -51421,7 +55155,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.7,
+      "seconds": 3.73,
       "hp": [
         428,
         0
@@ -51455,7 +55189,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 4.4,
+      "seconds": 4.43,
       "hp": [
         338,
         0
@@ -51489,7 +55223,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 2.77,
+      "seconds": 2.8,
       "hp": [
         418,
         0
@@ -51523,7 +55257,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3,
+      "seconds": 3.03,
       "hp": [
         418,
         0
@@ -51642,7 +55376,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 4.57,
+      "seconds": 4.6,
       "hp": [
         158,
         0
@@ -51659,14 +55393,14 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 4.5,
+      "seconds": 4.53,
       "hp": [
-        308,
+        158,
         0
       ],
       "damage": [
-        948,
-        300
+        972,
+        450
       ],
       "abilityEnergy": 0
     },
@@ -51692,15 +55426,15 @@
       "b": "espeon",
       "gap": 80,
       "aTeam": 1,
-      "winner": "treecko",
-      "seconds": 2.77,
+      "winner": "draw",
+      "seconds": 2.8,
       "hp": [
-        168,
+        0,
         0
       ],
       "damage": [
         460,
-        440
+        608
       ],
       "abilityEnergy": 0
     },
@@ -51778,7 +55512,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 10.3,
+      "seconds": 10.33,
       "hp": [
         179,
         0
@@ -51795,7 +55529,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 10.27,
+      "seconds": 10.3,
       "hp": [
         179,
         0
@@ -51815,10 +55549,10 @@
       "seconds": 5.43,
       "hp": [
         0,
-        528
+        640
       ],
       "damage": [
-        912,
+        800,
         608
       ],
       "abilityEnergy": 0
@@ -51832,10 +55566,10 @@
       "seconds": 5.43,
       "hp": [
         0,
-        528
+        640
       ],
       "damage": [
-        912,
+        800,
         608
       ],
       "abilityEnergy": 0
@@ -51897,7 +55631,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 4.47,
+      "seconds": 4.5,
       "hp": [
         446,
         0
@@ -51931,7 +55665,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 4.53,
+      "seconds": 4.57,
       "hp": [
         527,
         0
@@ -51948,7 +55682,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 3.7,
+      "seconds": 3.73,
       "hp": [
         74,
         0
@@ -51965,7 +55699,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.7,
+      "seconds": 3.73,
       "hp": [
         74,
         0
@@ -51999,7 +55733,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 4.43,
+      "seconds": 4.47,
       "hp": [
         74,
         0
@@ -52135,7 +55869,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.67,
+      "seconds": 3.7,
       "hp": [
         448,
         0
@@ -52237,7 +55971,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 4.6,
+      "seconds": 4.63,
       "hp": [
         383,
         0
@@ -52271,7 +56005,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 4.87,
+      "seconds": 4.9,
       "hp": [
         383,
         0
@@ -52322,7 +56056,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 5.5,
+      "seconds": 5.53,
       "hp": [
         304,
         0
@@ -52339,7 +56073,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 5.5,
+      "seconds": 5.53,
       "hp": [
         304,
         0
@@ -52356,7 +56090,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "treecko",
-      "seconds": 3.57,
+      "seconds": 3.6,
       "hp": [
         304,
         0
@@ -52373,7 +56107,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 3.57,
+      "seconds": 3.6,
       "hp": [
         304,
         0
@@ -52407,7 +56141,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 2.83,
+      "seconds": 2.87,
       "hp": [
         608,
         0
@@ -52475,7 +56209,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "treecko",
-      "seconds": 4.9,
+      "seconds": 4.93,
       "hp": [
         446,
         0
@@ -52906,7 +56640,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         243
       ],
       "abilityEnergy": 0
@@ -52923,7 +56657,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         243
       ],
       "abilityEnergy": 0
@@ -52940,7 +56674,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         243
       ],
       "abilityEnergy": 0
@@ -52957,7 +56691,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         243
       ],
       "abilityEnergy": 0
@@ -54566,7 +58300,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "diglettHorde",
-      "seconds": 8.43,
+      "seconds": 8.4,
       "hp": [
         162,
         0
@@ -54804,7 +58538,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 28.23,
+      "seconds": 28.2,
       "hp": [
         0,
         900
@@ -54838,7 +58572,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 28.23,
+      "seconds": 28.2,
       "hp": [
         0,
         900
@@ -56918,7 +60652,7 @@
         0
       ],
       "damage": [
-        230,
+        120,
         460
       ],
       "abilityEnergy": 0
@@ -56935,7 +60669,7 @@
         0
       ],
       "damage": [
-        230,
+        120,
         460
       ],
       "abilityEnergy": 0
@@ -56952,7 +60686,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         460
       ],
       "abilityEnergy": 0
@@ -56969,7 +60703,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         460
       ],
       "abilityEnergy": 0
@@ -61077,7 +64811,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 2.17,
+      "seconds": 2.23,
       "hp": [
         0,
         528
@@ -61111,7 +64845,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 2.33,
+      "seconds": 2.37,
       "hp": [
         0,
         528
@@ -61349,7 +65083,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 8.93,
+      "seconds": 8.9,
       "hp": [
         0,
         540
@@ -61383,7 +65117,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 9.5,
+      "seconds": 9.47,
       "hp": [
         0,
         468
@@ -62947,7 +66681,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 4.37,
+      "seconds": 4.43,
       "hp": [
         0,
         430
@@ -66234,7 +69968,7 @@
         0
       ],
       "damage": [
-        230,
+        60,
         230
       ],
       "abilityEnergy": 0
@@ -66251,7 +69985,7 @@
         0
       ],
       "damage": [
-        230,
+        60,
         230
       ],
       "abilityEnergy": 0
@@ -66268,7 +70002,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         230
       ],
       "abilityEnergy": 0
@@ -66285,7 +70019,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         230
       ],
       "abilityEnergy": 0
@@ -67369,12 +71103,12 @@
       "winner": "sandshrew",
       "seconds": 6.67,
       "hp": [
-        848,
+        866,
         0
       ],
       "damage": [
         800,
-        72
+        54
       ],
       "abilityEnergy": 0
     },
@@ -68047,7 +71781,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 6.73,
+      "seconds": 6.8,
       "hp": [
         0,
         237
@@ -68268,7 +72002,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 21.83,
+      "seconds": 21.8,
       "hp": [
         0,
         900
@@ -68302,7 +72036,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 22.07,
+      "seconds": 22.03,
       "hp": [
         0,
         900
@@ -68819,7 +72553,7 @@
       ],
       "damage": [
         0,
-        3043
+        2881
       ],
       "abilityEnergy": 0
     },
@@ -68836,7 +72570,7 @@
       ],
       "damage": [
         0,
-        3043
+        2881
       ],
       "abilityEnergy": 0
     },
@@ -68853,7 +72587,7 @@
       ],
       "damage": [
         0,
-        3205
+        3043
       ],
       "abilityEnergy": 0
     },
@@ -68870,7 +72604,7 @@
       ],
       "damage": [
         0,
-        3205
+        3043
       ],
       "abilityEnergy": 0
     },
@@ -69737,7 +73471,7 @@
       ],
       "damage": [
         0,
-        3043
+        2962
       ],
       "abilityEnergy": 0
     },
@@ -69754,7 +73488,7 @@
       ],
       "damage": [
         0,
-        3043
+        2962
       ],
       "abilityEnergy": 0
     },
@@ -72082,7 +75816,7 @@
         0
       ],
       "damage": [
-        230,
+        80,
         345
       ],
       "abilityEnergy": 0
@@ -72099,7 +75833,7 @@
         0
       ],
       "damage": [
-        230,
+        160,
         345
       ],
       "abilityEnergy": 0
@@ -72116,7 +75850,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         345
       ],
       "abilityEnergy": 0
@@ -72133,7 +75867,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         345
       ],
       "abilityEnergy": 0
@@ -74660,7 +78394,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 29.83,
+      "seconds": 29.8,
       "hp": [
         0,
         900
@@ -74694,7 +78428,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 29.93,
+      "seconds": 29.9,
       "hp": [
         0,
         900
@@ -75901,7 +79635,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.33,
+      "seconds": 3.4,
       "hp": [
         0,
         420
@@ -75935,7 +79669,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.53,
+      "seconds": 3.6,
       "hp": [
         0,
         420
@@ -76173,7 +79907,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 15.3,
+      "seconds": 15.27,
       "hp": [
         0,
         90
@@ -76502,7 +80236,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         115
       ],
       "abilityEnergy": 0
@@ -76519,7 +80253,7 @@
         0
       ],
       "damage": [
-        230,
+        55,
         115
       ],
       "abilityEnergy": 0
@@ -76536,7 +80270,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         115
       ],
       "abilityEnergy": 0
@@ -76553,7 +80287,7 @@
         0
       ],
       "damage": [
-        230,
+        0,
         115
       ],
       "abilityEnergy": 0
@@ -77182,7 +80916,7 @@
         0
       ],
       "damage": [
-        230,
+        140,
         324
       ],
       "abilityEnergy": 0
@@ -77199,7 +80933,7 @@
         0
       ],
       "damage": [
-        230,
+        105,
         324
       ],
       "abilityEnergy": 0
@@ -77216,7 +80950,7 @@
         0
       ],
       "damage": [
-        230,
+        140,
         324
       ],
       "abilityEnergy": 0
@@ -77233,7 +80967,7 @@
         0
       ],
       "damage": [
-        230,
+        140,
         324
       ],
       "abilityEnergy": 0
@@ -78912,12 +82646,12 @@
       "winner": "exeggutor",
       "seconds": 5.93,
       "hp": [
-        830,
+        715,
         0
       ],
       "damage": [
         600,
-        920
+        1035
       ],
       "abilityEnergy": 0
     },
@@ -80321,7 +84055,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 4.37,
+      "seconds": 4.4,
       "hp": [
         0,
         360
@@ -80355,7 +84089,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 4.37,
+      "seconds": 4.4,
       "hp": [
         0,
         600
@@ -80868,10 +84602,10 @@
       "seconds": 4.67,
       "hp": [
         0,
-        514
+        496
       ],
       "damage": [
-        36,
+        54,
         800
       ],
       "abilityEnergy": 0
@@ -81157,7 +84891,7 @@
       "seconds": 10.27,
       "hp": [
         0,
-        894
+        882
       ],
       "damage": [
         108,
@@ -81174,10 +84908,10 @@
       "seconds": 10.27,
       "hp": [
         0,
-        900
+        882
       ],
       "damage": [
-        90,
+        108,
         800
       ],
       "abilityEnergy": 0
@@ -81225,10 +84959,10 @@
       "seconds": 7.97,
       "hp": [
         0,
-        388
+        406
       ],
       "damage": [
-        72,
+        54,
         800
       ],
       "abilityEnergy": 0
@@ -81477,7 +85211,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 4.43,
+      "seconds": 4.5,
       "hp": [
         0,
         564
@@ -81511,7 +85245,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 4.53,
+      "seconds": 4.57,
       "hp": [
         0,
         564
@@ -81582,10 +85316,10 @@
       "seconds": 6.8,
       "hp": [
         0,
-        1146
+        1128
       ],
       "damage": [
-        54,
+        72,
         800
       ],
       "abilityEnergy": 0
@@ -81749,7 +85483,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 16.9,
+      "seconds": 16.87,
       "hp": [
         0,
         738
@@ -81783,7 +85517,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 17.33,
+      "seconds": 17.3,
       "hp": [
         0,
         738
@@ -82215,7 +85949,7 @@
       ],
       "damage": [
         0,
-        2800
+        2400
       ],
       "abilityEnergy": 0
     },
@@ -82249,7 +85983,7 @@
       ],
       "damage": [
         0,
-        2800
+        2400
       ],
       "abilityEnergy": 0
     },
@@ -82419,7 +86153,7 @@
       ],
       "damage": [
         0,
-        2800
+        2655
       ],
       "abilityEnergy": 0
     },
@@ -82436,7 +86170,7 @@
       ],
       "damage": [
         0,
-        2800
+        2740
       ],
       "abilityEnergy": 0
     },
@@ -82453,7 +86187,7 @@
       ],
       "damage": [
         0,
-        2800
+        2740
       ],
       "abilityEnergy": 0
     },
@@ -82470,7 +86204,7 @@
       ],
       "damage": [
         0,
-        2800
+        2740
       ],
       "abilityEnergy": 0
     },
@@ -82827,7 +86561,7 @@
       ],
       "damage": [
         0,
-        2668
+        2268
       ],
       "abilityEnergy": 0
     },
@@ -83371,7 +87105,7 @@
       ],
       "damage": [
         0,
-        2500
+        2100
       ],
       "abilityEnergy": 0
     },
@@ -83405,7 +87139,7 @@
       ],
       "damage": [
         0,
-        2500
+        2100
       ],
       "abilityEnergy": 0
     },
@@ -83507,7 +87241,7 @@
       ],
       "damage": [
         0,
-        2800
+        2685
       ],
       "abilityEnergy": 0
     },
@@ -83558,7 +87292,7 @@
       ],
       "damage": [
         0,
-        2800
+        2685
       ],
       "abilityEnergy": 0
     },
@@ -84741,7 +88475,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.23,
+      "seconds": 3.3,
       "hp": [
         0,
         60
@@ -84758,7 +88492,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 3.63,
+      "seconds": 3.6,
       "hp": [
         0,
         60
@@ -84775,7 +88509,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.47,
+      "seconds": 3.53,
       "hp": [
         0,
         60
@@ -86509,7 +90243,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 4.53,
+      "seconds": 4.6,
       "hp": [
         0,
         330
@@ -86526,7 +90260,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 4.93,
+      "seconds": 4.9,
       "hp": [
         0,
         330
@@ -86543,7 +90277,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 4.77,
+      "seconds": 4.8,
       "hp": [
         0,
         330
@@ -88889,13 +92623,13 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.23,
+      "seconds": 3.3,
       "hp": [
         0,
-        208
+        110
       ],
       "damage": [
-        392,
+        490,
         508
       ],
       "abilityEnergy": 0
@@ -88906,7 +92640,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 3.63,
+      "seconds": 3.6,
       "hp": [
         0,
         110
@@ -88923,13 +92657,13 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 3.47,
+      "seconds": 3.53,
       "hp": [
         0,
-        208
+        110
       ],
       "damage": [
-        392,
+        490,
         508
       ],
       "abilityEnergy": 0
@@ -89144,7 +92878,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 10.63,
+      "seconds": 10.6,
       "hp": [
         0,
         900
@@ -89178,7 +92912,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 10.87,
+      "seconds": 10.83,
       "hp": [
         0,
         900
@@ -90113,7 +93847,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 8.07,
+      "seconds": 8.13,
       "hp": [
         0,
         20
@@ -90147,7 +93881,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 8.3,
+      "seconds": 8.37,
       "hp": [
         0,
         20
@@ -90557,12 +94291,12 @@
       "winner": "articuno",
       "seconds": 11.93,
       "hp": [
-        950,
+        875,
         0
       ],
       "damage": [
         900,
-        450
+        525
       ],
       "abilityEnergy": 0
     },
@@ -90816,7 +94550,7 @@
         0
       ],
       "damage": [
-        1084,
+        1003,
         450
       ],
       "abilityEnergy": 0
@@ -90833,7 +94567,7 @@
         0
       ],
       "damage": [
-        1084,
+        1003,
         450
       ],
       "abilityEnergy": 0
@@ -91509,12 +95243,12 @@
       "winner": "zapdos",
       "seconds": 6.13,
       "hp": [
-        395,
+        510,
         0
       ],
       "damage": [
         600,
-        805
+        690
       ],
       "abilityEnergy": 0
     },
@@ -94023,7 +97757,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 8.07,
+      "seconds": 8.1,
       "hp": [
         0,
         90
@@ -95147,12 +98881,12 @@
       "winner": "meganium",
       "seconds": 9.23,
       "hp": [
-        675,
+        790,
         0
       ],
       "damage": [
         600,
-        1725
+        1610
       ],
       "abilityEnergy": 0
     },
@@ -96167,12 +99901,12 @@
       "winner": "typhlosion",
       "seconds": 18.97,
       "hp": [
-        780,
+        815,
         0
       ],
       "damage": [
         1800,
-        350
+        315
       ],
       "abilityEnergy": 0
     },
@@ -96201,12 +99935,12 @@
       "winner": "typhlosion",
       "seconds": 19.07,
       "hp": [
-        815,
+        850,
         0
       ],
       "damage": [
         1800,
-        315
+        280
       ],
       "abilityEnergy": 0
     },
@@ -96233,7 +99967,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 5.73,
+      "seconds": 5.8,
       "hp": [
         0,
         110
@@ -96267,7 +100001,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 5.93,
+      "seconds": 5.97,
       "hp": [
         0,
         110
@@ -97848,7 +101582,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 41.03,
+      "seconds": 41,
       "hp": [
         0,
         900
@@ -97882,7 +101616,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 41.33,
+      "seconds": 41.3,
       "hp": [
         0,
         900
@@ -97899,7 +101633,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 41.4,
+      "seconds": 41.43,
       "hp": [
         0,
         900
@@ -98545,7 +102279,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 5.57,
+      "seconds": 5.6,
       "hp": [
         0,
         150
@@ -98579,7 +102313,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 5.57,
+      "seconds": 5.6,
       "hp": [
         0,
         300
@@ -99565,7 +103299,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 2.13,
+      "seconds": 2.2,
       "hp": [
         0,
         380
@@ -99599,7 +103333,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 2.37,
+      "seconds": 2.4,
       "hp": [
         0,
         380
@@ -100500,7 +104234,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 44.23,
+      "seconds": 44.2,
       "hp": [
         0,
         900
@@ -100534,7 +104268,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 44.53,
+      "seconds": 44.5,
       "hp": [
         0,
         900
@@ -100551,7 +104285,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 44.6,
+      "seconds": 44.63,
       "hp": [
         0,
         900
@@ -101384,7 +105118,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 31.43,
+      "seconds": 31.4,
       "hp": [
         0,
         900
@@ -101418,7 +105152,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 31.67,
+      "seconds": 31.63,
       "hp": [
         0,
         900
@@ -101809,7 +105543,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 5.57,
+      "seconds": 5.6,
       "hp": [
         0,
         357
@@ -101843,7 +105577,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 5.57,
+      "seconds": 5.6,
       "hp": [
         0,
         438
@@ -102410,7 +106144,7 @@
         0
       ],
       "damage": [
-        1084,
+        922,
         690
       ],
       "abilityEnergy": 0
@@ -102427,7 +106161,7 @@
         0
       ],
       "damage": [
-        1084,
+        922,
         690
       ],
       "abilityEnergy": 0
@@ -102444,7 +106178,7 @@
         0
       ],
       "damage": [
-        1246,
+        1084,
         870
       ],
       "abilityEnergy": 0
@@ -102461,7 +106195,7 @@
         0
       ],
       "damage": [
-        1246,
+        1084,
         870
       ],
       "abilityEnergy": 0
@@ -102625,7 +106359,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 9.33,
+      "seconds": 9.4,
       "hp": [
         0,
         425
@@ -102642,7 +106376,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 9.6,
+      "seconds": 9.57,
       "hp": [
         0,
         460
@@ -102659,7 +106393,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 9.43,
+      "seconds": 9.47,
       "hp": [
         0,
         460
@@ -102985,10 +106719,10 @@
       "seconds": 21.43,
       "hp": [
         0,
-        1265
+        1300
       ],
       "damage": [
-        385,
+        350,
         1800
       ],
       "abilityEnergy": 0
@@ -103033,7 +106767,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 37.7,
+      "seconds": 37.67,
       "hp": [
         0,
         235
@@ -103053,10 +106787,10 @@
       "seconds": 38.33,
       "hp": [
         0,
-        235
+        270
       ],
       "damage": [
-        665,
+        630,
         1800
       ],
       "abilityEnergy": 0
@@ -103067,7 +106801,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 38.27,
+      "seconds": 38.23,
       "hp": [
         0,
         270
@@ -104444,7 +108178,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 4.33,
+      "seconds": 4.37,
       "hp": [
         120,
         0
@@ -104478,14 +108212,14 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 4.33,
+      "seconds": 4.37,
       "hp": [
-        440,
+        280,
         0
       ],
       "damage": [
         800,
-        160
+        320
       ],
       "abilityEnergy": 0
     },
@@ -104546,7 +108280,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 4.43,
+      "seconds": 4.47,
       "hp": [
         21,
         0
@@ -104614,7 +108348,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 9.17,
+      "seconds": 9.2,
       "hp": [
         105,
         0
@@ -104648,7 +108382,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 4.57,
+      "seconds": 4.63,
       "hp": [
         375,
         0
@@ -104682,7 +108416,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 4.7,
+      "seconds": 4.77,
       "hp": [
         450,
         0
@@ -104750,7 +108484,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 5.63,
+      "seconds": 5.67,
       "hp": [
         200,
         0
@@ -104784,7 +108518,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "duskull",
-      "seconds": 5.27,
+      "seconds": 5.3,
       "hp": [
         0,
         243
@@ -104801,7 +108535,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "duskull",
-      "seconds": 6.17,
+      "seconds": 6.13,
       "hp": [
         0,
         162
@@ -104818,7 +108552,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 7.93,
+      "seconds": 7.97,
       "hp": [
         160,
         0
@@ -104835,7 +108569,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 8.07,
+      "seconds": 8.03,
       "hp": [
         160,
         0
@@ -104886,7 +108620,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 3.23,
+      "seconds": 3.3,
       "hp": [
         600,
         0
@@ -104954,14 +108688,14 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "sceptile",
-      "seconds": 5.9,
+      "seconds": 5.93,
       "hp": [
-        276,
+        357,
         0
       ],
       "damage": [
         872,
-        324
+        243
       ],
       "abilityEnergy": 0
     },
@@ -104971,7 +108705,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "sceptile",
-      "seconds": 6.07,
+      "seconds": 6.03,
       "hp": [
         357,
         0
@@ -105328,7 +109062,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 25.03,
+      "seconds": 25,
       "hp": [
         0,
         900
@@ -105362,7 +109096,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 25.27,
+      "seconds": 25.23,
       "hp": [
         0,
         900
@@ -106756,7 +110490,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 17.03,
+      "seconds": 17,
       "hp": [
         0,
         900
@@ -106790,7 +110524,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 17.17,
+      "seconds": 17.13,
       "hp": [
         0,
         900
@@ -107368,7 +111102,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 20.47,
+      "seconds": 20.43,
       "hp": [
         0,
         900
@@ -107402,7 +111136,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "altaria",
-      "seconds": 20.33,
+      "seconds": 20.3,
       "hp": [
         0,
         900
@@ -107997,7 +111731,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 23.57,
+      "seconds": 23.53,
       "hp": [
         900,
         0
@@ -108031,7 +111765,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 23.53,
+      "seconds": 23.5,
       "hp": [
         900,
         0
@@ -108054,7 +111788,7 @@
         0
       ],
       "damage": [
-        1084,
+        841,
         720
       ],
       "abilityEnergy": 0
@@ -108071,7 +111805,7 @@
         0
       ],
       "damage": [
-        1084,
+        916,
         720
       ],
       "abilityEnergy": 0
@@ -108088,7 +111822,7 @@
         0
       ],
       "damage": [
-        1084,
+        841,
         720
       ],
       "abilityEnergy": 0
@@ -108105,7 +111839,7 @@
         0
       ],
       "damage": [
-        1084,
+        841,
         720
       ],
       "abilityEnergy": 0
@@ -108133,7 +111867,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 13.83,
+      "seconds": 13.8,
       "hp": [
         900,
         0
@@ -108167,7 +111901,7 @@
       "gap": 160,
       "aTeam": 1,
       "winner": "altaria",
-      "seconds": 14.07,
+      "seconds": 14.03,
       "hp": [
         900,
         0
@@ -108564,7 +112298,7 @@
         0
       ],
       "damage": [
-        1084,
+        1003,
         630
       ],
       "abilityEnergy": 0
@@ -109338,6 +113072,74 @@
     },
     {
       "a": "articuno",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "articuno",
+      "seconds": 15.23,
+      "hp": [
+        40,
+        0
+      ],
+      "damage": [
+        1400,
+        1360
+      ],
+      "abilityEnergy": 2
+    },
+    {
+      "a": "articuno",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "articuno",
+      "seconds": 15.43,
+      "hp": [
+        40,
+        0
+      ],
+      "damage": [
+        1400,
+        1360
+      ],
+      "abilityEnergy": 2
+    },
+    {
+      "a": "articuno",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "articuno",
+      "seconds": 15.4,
+      "hp": [
+        210,
+        0
+      ],
+      "damage": [
+        1400,
+        1190
+      ],
+      "abilityEnergy": 2
+    },
+    {
+      "a": "articuno",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "articuno",
+      "seconds": 15.6,
+      "hp": [
+        210,
+        0
+      ],
+      "damage": [
+        1400,
+        1190
+      ],
+      "abilityEnergy": 2
+    },
+    {
+      "a": "articuno",
       "b": "alakazam",
       "gap": 80,
       "aTeam": 0,
@@ -109756,7 +113558,7 @@
         81
       ],
       "damage": [
-        3043,
+        2881,
         0
       ],
       "abilityEnergy": 2
@@ -109773,7 +113575,7 @@
         0
       ],
       "damage": [
-        3124,
+        2962,
         0
       ],
       "abilityEnergy": 2
@@ -109790,7 +113592,7 @@
         0
       ],
       "damage": [
-        3124,
+        2962,
         0
       ],
       "abilityEnergy": 2
@@ -109807,7 +113609,7 @@
         0
       ],
       "damage": [
-        3124,
+        2962,
         0
       ],
       "abilityEnergy": 2
@@ -110045,7 +113847,7 @@
         0
       ],
       "damage": [
-        2800,
+        2520,
         0
       ],
       "abilityEnergy": 2
@@ -111984,6 +115786,74 @@
       ],
       "damage": [
         1361,
+        0
+      ],
+      "abilityEnergy": 2
+    },
+    {
+      "a": "zapdos",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "blastoise",
+      "seconds": 14.43,
+      "hp": [
+        0,
+        20
+      ],
+      "damage": [
+        1380,
+        1200
+      ],
+      "abilityEnergy": 2
+    },
+    {
+      "a": "zapdos",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "blastoise",
+      "seconds": 14.43,
+      "hp": [
+        0,
+        20
+      ],
+      "damage": [
+        1380,
+        1200
+      ],
+      "abilityEnergy": 2
+    },
+    {
+      "a": "zapdos",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "zapdos",
+      "seconds": 15.13,
+      "hp": [
+        1200,
+        0
+      ],
+      "damage": [
+        1400,
+        0
+      ],
+      "abilityEnergy": 2
+    },
+    {
+      "a": "zapdos",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "zapdos",
+      "seconds": 15.13,
+      "hp": [
+        1200,
+        0
+      ],
+      "damage": [
+        1400,
         0
       ],
       "abilityEnergy": 2
@@ -114087,12 +117957,12 @@
       "winner": "zapdos",
       "seconds": 7.93,
       "hp": [
-        1125,
+        1050,
         0
       ],
       "damage": [
         900,
-        75
+        150
       ],
       "abilityEnergy": 2
     },
@@ -114639,6 +118509,74 @@
         0
       ],
       "abilityEnergy": 0
+    },
+    {
+      "a": "moltres",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 0,
+      "winner": "moltres",
+      "seconds": 11.67,
+      "hp": [
+        795,
+        0
+      ],
+      "damage": [
+        1400,
+        1105
+      ],
+      "abilityEnergy": 2
+    },
+    {
+      "a": "moltres",
+      "b": "blastoise",
+      "gap": 80,
+      "aTeam": 1,
+      "winner": "moltres",
+      "seconds": 11.8,
+      "hp": [
+        710,
+        0
+      ],
+      "damage": [
+        1400,
+        1190
+      ],
+      "abilityEnergy": 2
+    },
+    {
+      "a": "moltres",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 0,
+      "winner": "moltres",
+      "seconds": 11.83,
+      "hp": [
+        880,
+        0
+      ],
+      "damage": [
+        1400,
+        1020
+      ],
+      "abilityEnergy": 2
+    },
+    {
+      "a": "moltres",
+      "b": "blastoise",
+      "gap": 160,
+      "aTeam": 1,
+      "winner": "moltres",
+      "seconds": 11.97,
+      "hp": [
+        880,
+        0
+      ],
+      "damage": [
+        1400,
+        1020
+      ],
+      "abilityEnergy": 2
     },
     {
       "a": "moltres",
@@ -116297,12 +120235,12 @@
       "winner": "moltres",
       "seconds": 4.6,
       "hp": [
-        980,
+        1095,
         0
       ],
       "damage": [
         600,
-        920
+        805
       ],
       "abilityEnergy": 2
     },
@@ -117246,7 +121184,7 @@
       "gap": 80,
       "aTeam": 0,
       "winner": "b",
-      "seconds": 17.83,
+      "seconds": 17.8,
       "healing": [
         150,
         0
@@ -117272,13 +121210,13 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "b",
-      "seconds": 8.53,
+      "seconds": 17.83,
       "healing": [
         150,
         0
       ],
       "damage": [
-        494,
+        730,
         2716
       ]
     },
@@ -117298,7 +121236,7 @@
       "gap": 160,
       "aTeam": 0,
       "winner": "b",
-      "seconds": 20.2,
+      "seconds": 20.17,
       "healing": [
         225,
         0
@@ -117480,7 +121418,7 @@
       "gap": 80,
       "aTeam": 1,
       "winner": "b",
-      "seconds": 13.7,
+      "seconds": 13.67,
       "healing": [
         84,
         0
@@ -117761,11 +121699,11 @@
       "damage": 115,
       "nominalDps": 127.78,
       "sustainedDps": 126.5,
-      "wins": 141,
+      "wins": 145,
       "draws": 0,
       "losses": 71,
-      "trials": 212,
-      "winRate": 66.51
+      "trials": 216,
+      "winRate": 67.13
     },
     {
       "key": "squirtle",
@@ -117793,9 +121731,9 @@
       "sustainedDps": 100.35,
       "wins": 70,
       "draws": 0,
-      "losses": 114,
-      "trials": 184,
-      "winRate": 38.04
+      "losses": 118,
+      "trials": 188,
+      "winRate": 37.23
     },
     {
       "key": "zubat",
@@ -117821,11 +121759,11 @@
       "damage": 72,
       "nominalDps": 120,
       "sustainedDps": 118.8,
-      "wins": 132,
+      "wins": 136,
       "draws": 0,
       "losses": 24,
-      "trials": 156,
-      "winRate": 84.62
+      "trials": 160,
+      "winRate": 85
     },
     {
       "key": "bulbasaur",
@@ -117853,9 +121791,9 @@
       "sustainedDps": 87.5,
       "wins": 66,
       "draws": 1,
-      "losses": 145,
-      "trials": 212,
-      "winRate": 31.13
+      "losses": 149,
+      "trials": 216,
+      "winRate": 30.56
     },
     {
       "key": "machamp",
@@ -117866,11 +121804,11 @@
       "damage": 180,
       "nominalDps": 400,
       "sustainedDps": 396,
-      "wins": 141,
+      "wins": 145,
       "draws": 0,
       "losses": 71,
-      "trials": 212,
-      "winRate": 66.51
+      "trials": 216,
+      "winRate": 67.13
     },
     {
       "key": "eevee",
@@ -117888,6 +121826,21 @@
       "winRate": 12.9
     },
     {
+      "key": "blastoise",
+      "name": "Blastoise",
+      "role": "Mini tanque · antiaéreo",
+      "cost": 4,
+      "hp": 1400,
+      "damage": 85,
+      "nominalDps": 94.44,
+      "sustainedDps": 93.5,
+      "wins": 109,
+      "draws": 1,
+      "losses": 106,
+      "trials": 216,
+      "winRate": 50.46
+    },
+    {
       "key": "vulpix",
       "name": "Vulpix",
       "role": "Tirador · antiaéreo",
@@ -117898,9 +121851,9 @@
       "sustainedDps": 117.4,
       "wins": 70,
       "draws": 1,
-      "losses": 113,
-      "trials": 184,
-      "winRate": 38.04
+      "losses": 117,
+      "trials": 188,
+      "winRate": 37.23
     },
     {
       "key": "psyduck",
@@ -117913,9 +121866,9 @@
       "sustainedDps": 82.5,
       "wins": 82,
       "draws": 0,
-      "losses": 102,
-      "trials": 184,
-      "winRate": 44.57
+      "losses": 106,
+      "trials": 188,
+      "winRate": 43.62
     },
     {
       "key": "alakazam",
@@ -117928,9 +121881,9 @@
       "sustainedDps": 119.7,
       "wins": 84,
       "draws": 0,
-      "losses": 128,
-      "trials": 212,
-      "winRate": 39.62
+      "losses": 132,
+      "trials": 216,
+      "winRate": 38.89
     },
     {
       "key": "geodude",
@@ -117941,11 +121894,11 @@
       "damage": 202,
       "nominalDps": 168.33,
       "sustainedDps": 161.6,
-      "wins": 120,
+      "wins": 124,
       "draws": 0,
       "losses": 64,
-      "trials": 184,
-      "winRate": 65.22
+      "trials": 188,
+      "winRate": 65.96
     },
     {
       "key": "magnemite",
@@ -117956,11 +121909,11 @@
       "damage": 81,
       "nominalDps": 45,
       "sustainedDps": 44.55,
-      "wins": 86,
+      "wins": 87,
       "draws": 4,
-      "losses": 94,
-      "trials": 184,
-      "winRate": 46.74
+      "losses": 97,
+      "trials": 188,
+      "winRate": 46.28
     },
     {
       "key": "scyther",
@@ -117973,9 +121926,9 @@
       "sustainedDps": 110.5,
       "wins": 121,
       "draws": 1,
-      "losses": 90,
-      "trials": 212,
-      "winRate": 57.08
+      "losses": 94,
+      "trials": 216,
+      "winRate": 56.02
     },
     {
       "key": "lapras",
@@ -117986,11 +121939,11 @@
       "damage": 160,
       "nominalDps": 91.43,
       "sustainedDps": 88,
-      "wins": 74,
+      "wins": 78,
       "draws": 0,
       "losses": 82,
-      "trials": 156,
-      "winRate": 47.44
+      "trials": 160,
+      "winRate": 48.75
     },
     {
       "key": "mewtwo",
@@ -118016,11 +121969,11 @@
       "damage": 112,
       "nominalDps": 124.44,
       "sustainedDps": 235.2,
-      "wins": 126,
-      "draws": 0,
-      "losses": 58,
-      "trials": 184,
-      "winRate": 68.48
+      "wins": 125,
+      "draws": 1,
+      "losses": 62,
+      "trials": 188,
+      "winRate": 66.49
     },
     {
       "key": "diglett",
@@ -118046,11 +121999,11 @@
       "damage": 81,
       "nominalDps": 81,
       "sustainedDps": 684.45,
-      "wins": 98,
+      "wins": 102,
       "draws": 0,
       "losses": 86,
-      "trials": 184,
-      "winRate": 53.26
+      "trials": 188,
+      "winRate": 54.26
     },
     {
       "key": "raltsTrio",
@@ -118091,11 +122044,11 @@
       "damage": 140,
       "nominalDps": 73.68,
       "sustainedDps": 88,
-      "wins": 92,
+      "wins": 96,
       "draws": 0,
       "losses": 64,
-      "trials": 156,
-      "winRate": 58.97
+      "trials": 160,
+      "winRate": 60
     },
     {
       "key": "butterfree",
@@ -118108,9 +122061,9 @@
       "sustainedDps": 46.8,
       "wins": 90,
       "draws": 4,
-      "losses": 90,
-      "trials": 184,
-      "winRate": 48.91
+      "losses": 94,
+      "trials": 188,
+      "winRate": 47.87
     },
     {
       "key": "beedrill",
@@ -118123,9 +122076,9 @@
       "sustainedDps": 255,
       "wins": 143,
       "draws": 0,
-      "losses": 41,
-      "trials": 184,
-      "winRate": 77.72
+      "losses": 45,
+      "trials": 188,
+      "winRate": 76.06
     },
     {
       "key": "pidgeot",
@@ -118136,11 +122089,11 @@
       "damage": 165,
       "nominalDps": 126.92,
       "sustainedDps": 123.75,
-      "wins": 170,
+      "wins": 174,
       "draws": 0,
       "losses": 42,
-      "trials": 212,
-      "winRate": 80.19
+      "trials": 216,
+      "winRate": 80.56
     },
     {
       "key": "ekans",
@@ -118168,9 +122121,9 @@
       "sustainedDps": 217.8,
       "wins": 91,
       "draws": 0,
-      "losses": 93,
-      "trials": 184,
-      "winRate": 49.46
+      "losses": 97,
+      "trials": 188,
+      "winRate": 48.4
     },
     {
       "key": "nidoqueen",
@@ -118196,11 +122149,11 @@
       "damage": 150,
       "nominalDps": 187.5,
       "sustainedDps": 192.5,
-      "wins": 89,
+      "wins": 93,
       "draws": 6,
       "losses": 61,
-      "trials": 156,
-      "winRate": 57.05
+      "trials": 160,
+      "winRate": 58.13
     },
     {
       "key": "mankey",
@@ -118226,11 +122179,11 @@
       "damage": 220,
       "nominalDps": 157.14,
       "sustainedDps": 163.1,
-      "wins": 112,
+      "wins": 116,
       "draws": 0,
       "losses": 100,
-      "trials": 212,
-      "winRate": 52.83
+      "trials": 216,
+      "winRate": 53.7
     },
     {
       "key": "slowbro",
@@ -118243,9 +122196,9 @@
       "sustainedDps": 54,
       "wins": 66,
       "draws": 0,
-      "losses": 118,
-      "trials": 184,
-      "winRate": 35.87
+      "losses": 122,
+      "trials": 188,
+      "winRate": 35.11
     },
     {
       "key": "grimer",
@@ -118301,11 +122254,11 @@
       "damage": 230,
       "nominalDps": 121.05,
       "sustainedDps": 115,
-      "wins": 102,
+      "wins": 106,
       "draws": 0,
       "losses": 54,
-      "trials": 156,
-      "winRate": 65.38
+      "trials": 160,
+      "winRate": 66.25
     },
     {
       "key": "koffing",
@@ -118318,9 +122271,9 @@
       "sustainedDps": 79.13,
       "wins": 112,
       "draws": 0,
-      "losses": 72,
-      "trials": 184,
-      "winRate": 60.87
+      "losses": 76,
+      "trials": 188,
+      "winRate": 59.57
     },
     {
       "key": "chansey",
@@ -118333,8 +122286,8 @@
       "sustainedDps": 9.9,
       "wins": 0,
       "draws": 4,
-      "losses": 180,
-      "trials": 184,
+      "losses": 184,
+      "trials": 188,
       "winRate": 0
     },
     {
@@ -118346,11 +122299,11 @@
       "damage": 225,
       "nominalDps": 150,
       "sustainedDps": 221.5,
-      "wins": 92,
+      "wins": 96,
       "draws": 8,
       "losses": 56,
-      "trials": 156,
-      "winRate": 58.97
+      "trials": 160,
+      "winRate": 60
     },
     {
       "key": "starmie",
@@ -118363,9 +122316,9 @@
       "sustainedDps": 148.5,
       "wins": 95,
       "draws": 0,
-      "losses": 117,
-      "trials": 212,
-      "winRate": 44.81
+      "losses": 121,
+      "trials": 216,
+      "winRate": 43.98
     },
     {
       "key": "mrmime",
@@ -118378,9 +122331,9 @@
       "sustainedDps": 63,
       "wins": 44,
       "draws": 0,
-      "losses": 168,
-      "trials": 212,
-      "winRate": 20.75
+      "losses": 172,
+      "trials": 216,
+      "winRate": 20.37
     },
     {
       "key": "gyarados",
@@ -118408,9 +122361,9 @@
       "sustainedDps": null,
       "wins": 11,
       "draws": 5,
-      "losses": 168,
-      "trials": 184,
-      "winRate": 5.98
+      "losses": 172,
+      "trials": 188,
+      "winRate": 5.85
     },
     {
       "key": "articuno",
@@ -118423,9 +122376,9 @@
       "sustainedDps": 79.75,
       "wins": 92,
       "draws": 6,
-      "losses": 58,
-      "trials": 156,
-      "winRate": 58.97
+      "losses": 62,
+      "trials": 160,
+      "winRate": 57.5
     },
     {
       "key": "zapdos",
@@ -118436,11 +122389,11 @@
       "damage": 150,
       "nominalDps": 83.33,
       "sustainedDps": 82.5,
-      "wins": 113,
+      "wins": 115,
       "draws": 4,
-      "losses": 39,
-      "trials": 156,
-      "winRate": 72.44
+      "losses": 41,
+      "trials": 160,
+      "winRate": 71.88
     },
     {
       "key": "moltres",
@@ -118451,11 +122404,11 @@
       "damage": 165,
       "nominalDps": 91.67,
       "sustainedDps": 101.48,
-      "wins": 109,
-      "draws": 1,
+      "wins": 112,
+      "draws": 2,
       "losses": 46,
-      "trials": 156,
-      "winRate": 69.87
+      "trials": 160,
+      "winRate": 70
     },
     {
       "key": "dragonite",
@@ -118466,11 +122419,11 @@
       "damage": 85,
       "nominalDps": 134.21,
       "sustainedDps": 131.75,
-      "wins": 125,
+      "wins": 129,
       "draws": 0,
       "losses": 31,
-      "trials": 156,
-      "winRate": 80.13
+      "trials": 160,
+      "winRate": 80.63
     },
     {
       "key": "meganium",
@@ -118481,11 +122434,11 @@
       "damage": 105,
       "nominalDps": 61.76,
       "sustainedDps": 63,
-      "wins": 70,
+      "wins": 74,
       "draws": 0,
       "losses": 86,
-      "trials": 156,
-      "winRate": 44.87
+      "trials": 160,
+      "winRate": 46.25
     },
     {
       "key": "typhlosion",
@@ -118498,9 +122451,9 @@
       "sustainedDps": 90.75,
       "wins": 40,
       "draws": 0,
-      "losses": 116,
-      "trials": 156,
-      "winRate": 25.64
+      "losses": 120,
+      "trials": 160,
+      "winRate": 25
     },
     {
       "key": "feraligatr",
@@ -118511,11 +122464,11 @@
       "damage": 300,
       "nominalDps": 193.55,
       "sustainedDps": 195,
-      "wins": 136,
+      "wins": 140,
       "draws": 0,
       "losses": 76,
-      "trials": 212,
-      "winRate": 64.15
+      "trials": 216,
+      "winRate": 64.81
     },
     {
       "key": "crobat",
@@ -118528,9 +122481,9 @@
       "sustainedDps": 105,
       "wins": 148,
       "draws": 0,
-      "losses": 64,
-      "trials": 212,
-      "winRate": 69.81
+      "losses": 68,
+      "trials": 216,
+      "winRate": 68.52
     },
     {
       "key": "espeon",
@@ -118542,10 +122495,10 @@
       "nominalDps": 110,
       "sustainedDps": 104.5,
       "wins": 86,
-      "draws": 0,
-      "losses": 98,
-      "trials": 184,
-      "winRate": 46.74
+      "draws": 1,
+      "losses": 101,
+      "trials": 188,
+      "winRate": 45.74
     },
     {
       "key": "umbreon",
@@ -118556,11 +122509,11 @@
       "damage": 120,
       "nominalDps": 70.59,
       "sustainedDps": 80.75,
-      "wins": 92,
+      "wins": 96,
       "draws": 8,
       "losses": 84,
-      "trials": 184,
-      "winRate": 50
+      "trials": 188,
+      "winRate": 51.06
     },
     {
       "key": "scizor",
@@ -118571,11 +122524,11 @@
       "damage": 135,
       "nominalDps": 207.69,
       "sustainedDps": 202.5,
-      "wins": 132,
+      "wins": 136,
       "draws": 0,
       "losses": 80,
-      "trials": 212,
-      "winRate": 62.26
+      "trials": 216,
+      "winRate": 62.96
     },
     {
       "key": "skarmory",
@@ -118588,9 +122541,9 @@
       "sustainedDps": 56.7,
       "wins": 98,
       "draws": 10,
-      "losses": 104,
-      "trials": 212,
-      "winRate": 46.23
+      "losses": 108,
+      "trials": 216,
+      "winRate": 45.37
     },
     {
       "key": "blissey",
@@ -118603,8 +122556,8 @@
       "sustainedDps": 17.5,
       "wins": 0,
       "draws": 0,
-      "losses": 156,
-      "trials": 156,
+      "losses": 160,
+      "trials": 160,
       "winRate": 0
     },
     {
@@ -118648,9 +122601,9 @@
       "sustainedDps": 195.5,
       "wins": 103,
       "draws": 1,
-      "losses": 108,
-      "trials": 212,
-      "winRate": 48.58
+      "losses": 112,
+      "trials": 216,
+      "winRate": 47.69
     },
     {
       "key": "blaziken",
@@ -118661,11 +122614,11 @@
       "damage": 100,
       "nominalDps": 176.47,
       "sustainedDps": 185.75,
-      "wins": 100,
+      "wins": 104,
       "draws": 0,
       "losses": 112,
-      "trials": 212,
-      "winRate": 47.17
+      "trials": 216,
+      "winRate": 48.15
     },
     {
       "key": "swampert",
@@ -118676,11 +122629,11 @@
       "damage": 190,
       "nominalDps": 105.56,
       "sustainedDps": 104.5,
-      "wins": 71,
+      "wins": 75,
       "draws": 8,
       "losses": 77,
-      "trials": 156,
-      "winRate": 45.51
+      "trials": 160,
+      "winRate": 46.88
     },
     {
       "key": "gardevoir",
@@ -118691,11 +122644,11 @@
       "damage": 280,
       "nominalDps": 175,
       "sustainedDps": 196,
-      "wins": 76,
+      "wins": 80,
       "draws": 0,
       "losses": 80,
-      "trials": 156,
-      "winRate": 48.72
+      "trials": 160,
+      "winRate": 50
     },
     {
       "key": "sableye",
@@ -118708,9 +122661,9 @@
       "sustainedDps": 136,
       "wins": 70,
       "draws": 0,
-      "losses": 114,
-      "trials": 184,
-      "winRate": 38.04
+      "losses": 118,
+      "trials": 188,
+      "winRate": 37.23
     },
     {
       "key": "aggron",
@@ -118736,11 +122689,11 @@
       "damage": 193,
       "nominalDps": 193,
       "sustainedDps": 183.35,
-      "wins": 88,
+      "wins": 92,
       "draws": 1,
       "losses": 95,
-      "trials": 184,
-      "winRate": 47.83
+      "trials": 188,
+      "winRate": 48.94
     },
     {
       "key": "flygon",
@@ -118751,11 +122704,11 @@
       "damage": 165,
       "nominalDps": 91.67,
       "sustainedDps": 90.75,
-      "wins": 108,
+      "wins": 110,
       "draws": 2,
-      "losses": 46,
-      "trials": 156,
-      "winRate": 69.23
+      "losses": 48,
+      "trials": 160,
+      "winRate": 68.75
     },
     {
       "key": "altaria",
@@ -118768,9 +122721,9 @@
       "sustainedDps": 48.75,
       "wins": 82,
       "draws": 12,
-      "losses": 118,
-      "trials": 212,
-      "winRate": 38.68
+      "losses": 122,
+      "trials": 216,
+      "winRate": 37.96
     },
     {
       "key": "absol",
@@ -118781,11 +122734,11 @@
       "damage": 200,
       "nominalDps": 142.86,
       "sustainedDps": 140,
-      "wins": 74,
+      "wins": 78,
       "draws": 0,
       "losses": 138,
-      "trials": 212,
-      "winRate": 34.91
+      "trials": 216,
+      "winRate": 36.11
     },
     {
       "key": "salamence",
@@ -118856,11 +122809,11 @@
       "damage": 90,
       "nominalDps": 56.25,
       "sustainedDps": 318.5,
-      "wins": 32,
+      "wins": 34,
       "draws": 0,
-      "losses": 124,
-      "trials": 156,
-      "winRate": 20.51
+      "losses": 126,
+      "trials": 160,
+      "winRate": 21.25
     },
     {
       "key": "raichu",
@@ -118871,11 +122824,11 @@
       "damage": 700,
       "nominalDps": 291.67,
       "sustainedDps": 280,
-      "wins": 86,
+      "wins": 90,
       "draws": 0,
       "losses": 98,
-      "trials": 184,
-      "winRate": 46.74
+      "trials": 188,
+      "winRate": 47.87
     },
     {
       "key": "registeel",
@@ -118901,11 +122854,11 @@
       "damage": 120,
       "nominalDps": 109.09,
       "sustainedDps": 421.2,
-      "wins": 133,
+      "wins": 137,
       "draws": 0,
       "losses": 51,
-      "trials": 184,
-      "winRate": 72.28
+      "trials": 188,
+      "winRate": 72.87
     }
   ]
 }

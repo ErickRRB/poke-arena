@@ -296,3 +296,8 @@ input::placeholder{color:#74796d;opacity:1}
 .reduced-motion .pokeball-loader *,.reduced-motion .connection-loading svg{animation:none!important;transition:none!important}
 @media(prefers-reduced-motion:reduce){.pokeball-loader *,.connection-loading svg{animation:none!important;transition:none!important}}
 @media(max-width:940px){.battle-console .next-card{grid-column:1;grid-row:1;align-self:end;margin:0 0 1px}.energy-section{margin-top:8px;padding:5px 8px;grid-template-columns:46px minmax(0,1fr)}.energy-bar{height:16px}.energy-title strong{font-size:20px}.guide{left:8px;right:8px;gap:7px;padding:8px}.guide>strong{font-size:11px!important}}
+.debug-settings{border-bottom:1px solid #bbc1a9}
+.debug-settings summary{display:flex;align-items:center;min-height:44px;cursor:pointer;color:#53604f;font-size:13px;font-weight:600;gap:8px}
+.debug-settings summary:before{content:'›';font-size:21px;line-height:1}
+.debug-settings[open] summary:before{transform:rotate(90deg)}
+.debug-settings .setting-row{border-bottom:0;padding-top:4px}

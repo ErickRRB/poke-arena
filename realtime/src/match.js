@@ -1,5 +1,5 @@
-import { Game, CARDS } from '../../dist/engine.js?v=24';
-import { packGame, unpackGame } from '../../dist/snapshot.js?v=24';
+import { Game, CARDS } from '../../dist/engine.js?v=25';
+import { packGame, unpackGame } from '../../dist/snapshot.js?v=25';
 import { publicSnapshot, publicEvent, SIMULATION_HZ, RECONNECT_GRACE, ONLINE_PROTOCOL } from '../../dist/online-wire.js';
 
 export const validDeck = deck => Array.isArray(deck) && deck.length === 8 && new Set(deck).size === 8 && deck.every(key => CARDS[key] && !CARDS[key].token);
