@@ -17,7 +17,7 @@
       "directDps": 127.8,
       "range": 120,
       "scale": 1.2667,
-      "description": "Al aparecer, descarga electricidad en área. Lanza dos rayos que aturden y reinician ataques; puede repartirlos entre dos rivales.",
+      "description": "Descarga electricidad al aparecer y aturde con dos rayos.",
       "pokemonIdentity": "Doble Impactrueno",
       "attackRuleException": true
     },
@@ -36,7 +36,7 @@
       "directDps": 57.9,
       "range": 112,
       "scale": 1.3913,
-      "description": "Dispara tres burbujas seguidas al mismo objetivo. Ataca a tierra y aire.",
+      "description": "Dispara tres burbujas seguidas al mismo objetivo.",
       "pokemonIdentity": "Burbuja",
       "attackRuleException": false
     },
@@ -55,7 +55,7 @@
       "directDps": 90,
       "range": 112,
       "scale": 1.5238,
-      "description": "Lanza ascuas en un arco. La explosión golpea en área y quema durante tres segundos.",
+      "description": "Lanza ascuas que explotan en área y dejan quemadura.",
       "pokemonIdentity": "Ascuas",
       "attackRuleException": false
     },
@@ -74,7 +74,7 @@
       "directDps": 169.3,
       "range": 29,
       "scale": 2.4,
-      "description": "Tanque muy lento. Ignora tropas y golpea una estructura cada 2 s; los enjambres lo rodean.",
+      "description": "Avanza lentamente hacia las torres y estructuras para golpearlas.",
       "pokemonIdentity": "Golpe pesado",
       "attackRuleException": false
     },
@@ -93,7 +93,7 @@
       "directDps": 50,
       "range": 27,
       "scale": 1.44,
-      "description": "Tres murciélagos pequeños atacan a corta distancia y recuperan vida con sus mordidas.",
+      "description": "Tres Zubat recuperan vida con cada mordida.",
       "pokemonIdentity": "Chupavidas",
       "attackRuleException": false
     },
@@ -112,7 +112,7 @@
       "directDps": 120,
       "range": 120,
       "scale": 1.9394,
-      "description": "Vuela y exhala tres pulsos de fuego en un cono. Daña a todos los enemigos dentro de la llamarada.",
+      "description": "Exhala tres llamaradas que cubren un cono frente a él.",
       "pokemonIdentity": "Lanzallamas",
       "attackRuleException": false
     },
@@ -131,7 +131,7 @@
       "directDps": 0,
       "range": 60,
       "scale": null,
-      "description": "Daña y aturde a los enemigos en el área. Interrumpe sus ataques.",
+      "description": "Una descarga daña y aturde en el área elegida.",
       "pokemonIdentity": "Impactrueno",
       "attackRuleException": false
     },
@@ -150,7 +150,7 @@
       "directDps": 0,
       "range": 60,
       "scale": null,
-      "description": "Sale desde tu torre del rey y viaja hasta la zona elegida. Al impactar, daña y empuja a tierra y aire.",
+      "description": "Una bola de fuego explota en la zona elegida y empuja a los rivales.",
       "pokemonIdentity": "Bomba ígnea",
       "attackRuleException": false
     },
@@ -169,7 +169,7 @@
       "directDps": 65.4,
       "range": 122,
       "scale": 1.4167,
-      "description": "Extiende una liana que ralentiza a su objetivo durante 1,3 segundos. Alcanza tierra y aire.",
+      "description": "Golpea a distancia con una liana que ralentiza.",
       "pokemonIdentity": "Látigo cepa",
       "attackRuleException": false
     },
@@ -188,7 +188,7 @@
       "directDps": 86.2,
       "range": 130,
       "scale": 1.6296,
-      "description": "Se teletransporta para reposicionarse y lanza bolas de sombra a tierra y aire.",
+      "description": "Se teletransporta y lanza bolas de sombra que explotan en área.",
       "pokemonIdentity": "Bola sombra",
       "attackRuleException": false
     },
@@ -207,7 +207,7 @@
       "directDps": 400,
       "range": 28,
       "scale": 1.5484,
-      "description": "Encadena cuatro puñetazos a corta distancia. Cada golpe hace daño por separado; no alcanza voladores.",
+      "description": "Encadena cuatro puñetazos contra un mismo rival.",
       "pokemonIdentity": "Puño dinámico",
       "attackRuleException": false
     },
@@ -226,7 +226,7 @@
       "directDps": 94.7,
       "range": 26,
       "scale": 1.619,
-      "description": "Tras correr 1,5 segundos, acelera y duplica el daño de su siguiente placaje. La carga se pierde al atacar o quedar aturdido.",
+      "description": "Toma carrera para golpear con un placaje de daño doble.",
       "pokemonIdentity": "Ataque rápido",
       "attackRuleException": false
     },
@@ -245,7 +245,7 @@
       "directDps": 85.7,
       "range": 38,
       "scale": 1.038,
-      "description": "Avanza hacia las estructuras y las golpea con su cola. Ignora a las tropas.",
+      "description": "Avanza hacia las torres y estructuras y las golpea con su cola.",
       "pokemonIdentity": "Cola férrea",
       "attackRuleException": false
     },
@@ -264,7 +264,7 @@
       "directDps": 94.4,
       "range": 175,
       "scale": 1.7241,
-      "description": "Permanece sobre un bastión y dispara sus dos cañones contra tierra y aire. Dura 35 segundos, atrae tanques y no se desplaza.",
+      "description": "Defiende desde un bastión con dos cañonazos por ataque.",
       "pokemonIdentity": "Doble hidrobomba",
       "attackRuleException": false
     },
@@ -283,7 +283,7 @@
       "directDps": 107.1,
       "range": 116,
       "scale": 1.7143,
-      "description": "Lanza dos pequeñas llamas al mismo objetivo y lo quema. Corre rápido, pero tiene poca vida.",
+      "description": "Lanza dos llamas seguidas que queman a su objetivo.",
       "pokemonIdentity": "Pirotecnia",
       "attackRuleException": false
     },
@@ -302,7 +302,7 @@
       "directDps": 78.6,
       "range": 122,
       "scale": 1.6,
-      "description": "Su onda de confusión aturde durante 0,4 segundos. Interrumpe la preparación de ataques terrestres y aéreos.",
+      "description": "Su onda de confusión aturde e interrumpe ataques.",
       "pokemonIdentity": "Confusión",
       "attackRuleException": false
     },
@@ -321,7 +321,7 @@
       "directDps": 120.9,
       "range": 168,
       "scale": 1.3548,
-      "description": "Proyecta un rayo que atraviesa a los enemigos alineados. Es fuerte desde atrás y frágil a corta distancia.",
+      "description": "Dispara un rayo que atraviesa a los enemigos alineados.",
       "pokemonIdentity": "Psíquico",
       "attackRuleException": false
     },
@@ -340,7 +340,7 @@
       "directDps": 168.3,
       "range": 29,
       "scale": 1.6296,
-      "description": "Defensor de 3 de elixir. Resiste y golpea fuerte a un solo rival terrestre; necesita ayuda contra enjambres.",
+      "description": "Resiste en primera línea y golpea a un rival por ataque.",
       "pokemonIdentity": "Puño roca",
       "attackRuleException": false
     },
@@ -359,7 +359,7 @@
       "directDps": 45,
       "range": 145,
       "scale": 1.5238,
-      "description": "Volador eléctrico. Aturde, interrumpe el ataque y hace buscar el objetivo más cercano.",
+      "description": "Vuela y descarga electricidad que aturde e interrumpe ataques.",
       "pokemonIdentity": "Bomba imán",
       "attackRuleException": false
     },
@@ -378,7 +378,7 @@
       "directDps": 108.3,
       "range": 30,
       "scale": 1.6,
-      "description": "Se acerca volando y corta dos veces con sus guadañas. Daño rápido contra un solo objetivo de tierra o aire.",
+      "description": "Se acerca volando y encadena dos cortes con sus guadañas.",
       "pokemonIdentity": "Doble corte",
       "attackRuleException": false
     },
@@ -391,13 +391,13 @@
       "hp": 1500,
       "shield": 0,
       "count": 1,
-      "damage": 109,
+      "damage": 160,
       "impacts": 1,
       "interval": 1.75,
-      "directDps": 62.3,
+      "directDps": 91.4,
       "range": 138,
       "scale": 1.3488,
-      "description": "Un tanque a distancia. Sus cristales de hielo ralentizan a su objetivo durante dos segundos.",
+      "description": "Resiste al frente y ralentiza con rayos de hielo.",
       "pokemonIdentity": "Rayo hielo",
       "attackRuleException": false
     },
@@ -416,7 +416,7 @@
       "directDps": 157.1,
       "range": 144,
       "scale": 1.4839,
-      "description": "Esfera de daño en área. Onda psíquica: 2 de elixir, daña y aturde alrededor; un uso por despliegue.",
+      "description": "Lanza esferas explosivas y puede activar una onda que daña y aturde.",
       "pokemonIdentity": "Esfera aural",
       "attackRuleException": false
     },
@@ -435,7 +435,7 @@
       "directDps": 124.4,
       "range": 120,
       "scale": 1.4167,
-      "description": "Dos tiradores que atacan a tierra y aire. Vulnerables al daño de área.",
+      "description": "Dos tiradores lanzan semillas desde atrás de la primera línea.",
       "pokemonIdentity": "Semilladora",
       "attackRuleException": false
     },
@@ -454,7 +454,7 @@
       "directDps": 124.8,
       "range": 30,
       "scale": 2.3571,
-      "description": "Tanque que solo ataca estructuras. Al caer explota y deja dos Geodude pequeños.",
+      "description": "Avanza hacia las estructuras y, al caer, explota y deja dos Geodude.",
       "pokemonIdentity": "Demolición",
       "attackRuleException": false
     },
@@ -473,7 +473,7 @@
       "directDps": 0,
       "range": 45,
       "scale": null,
-      "description": "Rueda en línea recta desde donde lo soltás. Empuja a los enemigos terrestres a su paso.",
+      "description": "Rueda en línea recta y empuja a los enemigos que encuentra a su paso.",
       "pokemonIdentity": "Mazazo",
       "attackRuleException": false
     },
@@ -492,7 +492,7 @@
       "directDps": 81,
       "range": 26,
       "scale": 1.0909,
-      "description": "Tres pequeños atacantes que rodean y distraen a un rival terrestre.",
+      "description": "Tres Diglett rodean y distraen a un rival.",
       "pokemonIdentity": "Arañazo",
       "attackRuleException": false
     },
@@ -511,7 +511,7 @@
       "directDps": 81,
       "range": 26,
       "scale": 1.0909,
-      "description": "Nueve Diglett se acercan en grupo y rodean a los enemigos terrestres.",
+      "description": "Nueve Diglett rodean a sus enemigos y atacan en grupo.",
       "pokemonIdentity": "Arañazo",
       "attackRuleException": false
     },
@@ -530,7 +530,7 @@
       "directDps": 47.6,
       "range": 120,
       "scale": 1.4545,
-      "description": "Tres pequeños psíquicos atacan desde atrás. Alcanzan objetivos de tierra y aire.",
+      "description": "Tres Ralts atacan a distancia con energía psíquica.",
       "pokemonIdentity": "Confusión",
       "attackRuleException": false
     },
@@ -549,7 +549,7 @@
       "directDps": 109.1,
       "range": 27,
       "scale": 1.2593,
-      "description": "Cuatro atacantes que avanzan juntos y muerden a corta distancia. Solo atacan a tierra.",
+      "description": "Cuatro Poochyena avanzan juntos y muerden a corta distancia.",
       "pokemonIdentity": "Mordisco",
       "attackRuleException": false
     },
@@ -568,7 +568,7 @@
       "directDps": 73.7,
       "range": 135,
       "scale": 2.2143,
-      "description": "Resiste y dispara semillas que dejan veneno durante 3 s.",
+      "description": "Dispara semillas explosivas que dejan una zona venenosa.",
       "pokemonIdentity": "Bomba germen",
       "attackRuleException": false
     },
@@ -587,7 +587,7 @@
       "directDps": 45,
       "range": 115,
       "scale": 1.2667,
-      "description": "Esparce polvo que ralentiza en área. Ataca a tierra y aire.",
+      "description": "Esparce polvo que ralentiza a los enemigos en área.",
       "pokemonIdentity": "Paralizador",
       "attackRuleException": false
     },
@@ -606,7 +606,7 @@
       "directDps": 130.8,
       "range": 30,
       "scale": 1.2414,
-      "description": "Dos voladores. Cada uno pica dos veces a un objetivo.",
+      "description": "Dos Beedrill encadenan dos picotazos cada uno.",
       "pokemonIdentity": "Doble ataque",
       "attackRuleException": false
     },
@@ -625,7 +625,7 @@
       "directDps": 126.9,
       "range": 30,
       "scale": 2,
-      "description": "Carga tras volar sin atacar. La primera picada hace daño doble.",
+      "description": "Toma impulso al volar para hacer una picada de daño doble.",
       "pokemonIdentity": "Ataque ala",
       "attackRuleException": false
     },
@@ -644,7 +644,7 @@
       "directDps": 50,
       "range": 30,
       "scale": 1.3333,
-      "description": "Dos serpientes. Sus mordidas envenenan durante 3 s.",
+      "description": "Dos Ekans envenenan a sus enemigos con cada mordida.",
       "pokemonIdentity": "Colmillo venenoso",
       "attackRuleException": false
     },
@@ -663,7 +663,7 @@
       "directDps": 110,
       "range": 30,
       "scale": 1.5455,
-      "description": "Dos defensores con escudo. Solo atacan a tierra.",
+      "description": "Dos defensores avanzan protegidos por escudos.",
       "pokemonIdentity": "Arañazo",
       "attackRuleException": false
     },
@@ -682,7 +682,7 @@
       "directDps": 103.1,
       "range": 30,
       "scale": 2.24,
-      "description": "Invoca un Nidoran cada 7 s, hasta tres a la vez.",
+      "description": "Resiste en primera línea e invoca Nidoran como refuerzos.",
       "pokemonIdentity": "Golpe cuerpo",
       "attackRuleException": false,
       "summon": "nidoranF",
@@ -704,7 +704,7 @@
       "directDps": 187.5,
       "range": 30,
       "scale": 1.75,
-      "description": "Dos puñetazos venenosos. Su fuerza castiga cuerpos grandes; no alcanza voladores.",
+      "description": "Encadena dos puñetazos que envenenan al rival.",
       "pokemonIdentity": "Puño venenoso",
       "attackRuleException": false
     },
@@ -723,7 +723,7 @@
       "directDps": 66.7,
       "range": 30,
       "scale": 1.2308,
-      "description": "Tres atacantes frágiles. Su primera carga hace daño doble.",
+      "description": "Tres Mankey cargan juntos para dar un primer golpe de daño doble.",
       "pokemonIdentity": "Placaje furioso",
       "attackRuleException": false
     },
@@ -742,7 +742,7 @@
       "directDps": 157.1,
       "range": 30,
       "scale": 1.5,
-      "description": "Carga, golpea fuerte y quema. El aturdimiento corta la carga.",
+      "description": "Toma carrera y golpea con una carga que deja quemadura.",
       "pokemonIdentity": "Carga ígnea",
       "attackRuleException": false
     },
@@ -761,7 +761,7 @@
       "directDps": 52.9,
       "range": 132,
       "scale": 1.4194,
-      "description": "Al aparecer, libera una onda fría. Sus proyectiles de hielo ralentizan a los enemigos de tierra y aire.",
+      "description": "Libera frío al aparecer y lanza hielo que ralentiza en área.",
       "pokemonIdentity": "Rayo hielo",
       "attackRuleException": false
     },
@@ -780,7 +780,7 @@
       "directDps": 36.7,
       "range": 30,
       "scale": 1.3913,
-      "description": "Defensor terrestre que golpea a corta distancia. Al caer deja un charco venenoso.",
+      "description": "Golpea a corta distancia y deja un charco venenoso al caer.",
       "pokemonIdentity": "Puño veneno",
       "attackRuleException": false
     },
@@ -799,7 +799,7 @@
       "directDps": 53.8,
       "range": 170,
       "scale": 1.5556,
-      "description": "Cinco pinchos por ráfaga desde un bastión. Dura 32 s.",
+      "description": "Defiende desde un bastión con ráfagas de cinco pinchos.",
       "pokemonIdentity": "Carámbano",
       "attackRuleException": false
     },
@@ -818,7 +818,7 @@
       "directDps": 26.9,
       "range": 130,
       "scale": 1,
-      "description": "Cuatro fantasmas voladores atacan a distancia. Dejan niebla dañina al caer.",
+      "description": "Cuatro Gastly atacan a distancia y dejan niebla dañina al caer.",
       "pokemonIdentity": "Bola sombra",
       "attackRuleException": false
     },
@@ -837,7 +837,7 @@
       "directDps": 82.1,
       "range": 27,
       "scale": 1.75,
-      "description": "Se lanza de un salto hacia un enemigo cercano y explota al aterrizar. Daña en área a tierra y aire, aturde y se consume. Puede morir antes de llegar.",
+      "description": "Salta hacia un enemigo y explota al aterrizar, dañando y aturdiendo en área.",
       "pokemonIdentity": "Autodestrucción",
       "attackRuleException": false
     },
@@ -856,7 +856,7 @@
       "directDps": 375,
       "range": 28,
       "scale": 2.3158,
-      "description": "Busca estructuras y explota al llegar. Su onda reinicia ataques.",
+      "description": "Avanza hacia las estructuras y explota al llegar.",
       "pokemonIdentity": "Explosión",
       "attackRuleException": false
     },
@@ -875,7 +875,7 @@
       "directDps": 121.1,
       "range": 118,
       "scale": 2,
-      "description": "Lanza huevos que explotan en área. Su ataque es lento y se puede interrumpir antes del lanzamiento.",
+      "description": "Lanza huevos que explotan y dañan en área.",
       "pokemonIdentity": "Bomba huevo",
       "attackRuleException": false
     },
@@ -894,7 +894,7 @@
       "directDps": 52.9,
       "range": 30,
       "scale": 1.1613,
-      "description": "Choca contra rivales de tierra y aire y libera gas venenoso alrededor del impacto.",
+      "description": "Choca contra los rivales y libera gas venenoso en el impacto.",
       "pokemonIdentity": "Placaje",
       "attackRuleException": false
     },
@@ -913,7 +913,7 @@
       "directDps": 10,
       "range": 95,
       "scale": 1.75,
-      "description": "Cura al aliado más herido cercano cada 2,5 s.",
+      "description": "Cura al aliado más herido que tenga cerca.",
       "pokemonIdentity": "Bomba huevo",
       "attackRuleException": false
     },
@@ -951,7 +951,7 @@
       "directDps": 150,
       "range": 145,
       "scale": 1.8095,
-      "description": "Tres rayos que atraviesan enemigos alineados.",
+      "description": "Lanza tres rayos que atraviesan a los enemigos alineados.",
       "pokemonIdentity": "Psíquico",
       "attackRuleException": false
     },
@@ -970,7 +970,7 @@
       "directDps": 60,
       "range": 135,
       "scale": 1.6429,
-      "description": "Al aparecer da un escudo a los aliados cercanos.",
+      "description": "Protege con escudos a los aliados cercanos al aparecer.",
       "pokemonIdentity": "Confusión y barrera",
       "attackRuleException": false
     },
@@ -989,7 +989,7 @@
       "directDps": 133.3,
       "range": 30,
       "scale": 1.3125,
-      "description": "Volador resistente. Muerde en área a tierra y aire.",
+      "description": "Se acerca volando y da mordidas que dañan en área.",
       "pokemonIdentity": "Triturar",
       "attackRuleException": false
     },
@@ -1008,7 +1008,7 @@
       "directDps": 25,
       "range": 30,
       "scale": 1.2381,
-      "description": "Copia una vez el ataque del primer Pokémon enemigo, al 85 % de daño.",
+      "description": "Copia el ataque del primer Pokémon enemigo que enfrenta.",
       "pokemonIdentity": "Transformación",
       "attackRuleException": false
     },
@@ -1018,16 +1018,16 @@
       "role": "Volador · control",
       "reference": "Control con ralentización",
       "cost": 6,
-      "hp": 1250,
+      "hp": 1400,
       "shield": 0,
       "count": 1,
-      "damage": 90,
+      "damage": 135,
       "impacts": 1,
       "interval": 1.8,
-      "directDps": 50,
+      "directDps": 75,
       "range": 150,
       "scale": 0.9538,
-      "description": "Ralentiza. Ventisca: 2 de elixir, congela el área; un uso.",
+      "description": "Dispara hielo que ralentiza y puede activar una ventisca que congela.",
       "pokemonIdentity": "Rayo hielo",
       "attackRuleException": false
     },
@@ -1046,7 +1046,7 @@
       "directDps": 60.6,
       "range": 145,
       "scale": 1.3617,
-      "description": "Rayos con retarget. Tormenta: 2 de elixir, descarga en área; un uso.",
+      "description": "Aturde con sus rayos y puede activar una tormenta eléctrica en área.",
       "pokemonIdentity": "Rayo",
       "attackRuleException": false
     },
@@ -1059,13 +1059,13 @@
       "hp": 1170,
       "shield": 0,
       "count": 1,
-      "damage": 109,
+      "damage": 135,
       "impacts": 1,
       "interval": 1.8,
-      "directDps": 60.6,
+      "directDps": 75,
       "range": 145,
       "scale": 0.8101,
-      "description": "Quema en área. Renacer: 2 de elixir, se cura y libera fuego; un uso.",
+      "description": "Quema en área y puede activar Renacer para curarse y liberar fuego.",
       "pokemonIdentity": "Ascuas",
       "attackRuleException": false
     },
@@ -1084,7 +1084,7 @@
       "directDps": 134.2,
       "range": 30,
       "scale": 1.8857,
-      "description": "Se acerca volando y encadena tres zarpazos al mismo objetivo de tierra o aire.",
+      "description": "Se acerca volando y encadena tres zarpazos al mismo objetivo.",
       "pokemonIdentity": "Garra dragón",
       "attackRuleException": false
     },
@@ -1103,7 +1103,7 @@
       "directDps": 61.8,
       "range": 95,
       "scale": 1.8182,
-      "description": "Avanza lento y cura a los aliados próximos cada 2 s.",
+      "description": "Avanza como tanque y cura a los aliados cercanos.",
       "pokemonIdentity": "Látigo cepa",
       "attackRuleException": false
     },
@@ -1122,7 +1122,7 @@
       "directDps": 83.3,
       "range": 130,
       "scale": 1.931,
-      "description": "Lanza fuego que explota en área y deja quemadura. Ataca a tierra y aire.",
+      "description": "Lanza erupciones que explotan en área y dejan quemadura.",
       "pokemonIdentity": "Erupción",
       "attackRuleException": false
     },
@@ -1141,7 +1141,7 @@
       "directDps": 193.5,
       "range": 30,
       "scale": 1.3889,
-      "description": "Tritura un objetivo terrestre con mordidas fuertes. No tiene daño en área.",
+      "description": "Tritura a un rival con mordidas fuertes.",
       "pokemonIdentity": "Triturar",
       "attackRuleException": false
     },
@@ -1160,7 +1160,7 @@
       "directDps": 100,
       "range": 30,
       "scale": 1.375,
-      "description": "Dos mordidas en área. Se cura por cada Pokémon alcanzado.",
+      "description": "Muerde dos veces en área y recupera vida por cada Pokémon alcanzado.",
       "pokemonIdentity": "Chupavidas",
       "attackRuleException": false
     },
@@ -1179,7 +1179,7 @@
       "directDps": 84.8,
       "range": 185,
       "scale": 1.625,
-      "description": "Faro defensivo. Sus rayos saltan y reinician ataques; dura 36 s.",
+      "description": "Defiende desde un faro con rayos que saltan entre rivales y aturden.",
       "pokemonIdentity": "Rayo",
       "attackRuleException": false
     },
@@ -1198,7 +1198,7 @@
       "directDps": 110,
       "range": 145,
       "scale": 1.3571,
-      "description": "Rayo rápido que atraviesa a enemigos alineados. Vida baja.",
+      "description": "Dispara un rayo rápido que atraviesa a los enemigos alineados.",
       "pokemonIdentity": "Psíquico",
       "attackRuleException": false
     },
@@ -1217,7 +1217,7 @@
       "directDps": 70.6,
       "range": 30,
       "scale": 1.4,
-      "description": "Muerde a corta distancia y envenena a su objetivo. Avanza junto a la primera línea.",
+      "description": "Resiste en primera línea y envenena con sus mordidas.",
       "pokemonIdentity": "Mordisco",
       "attackRuleException": false
     },
@@ -1236,7 +1236,7 @@
       "directDps": 0,
       "range": 30,
       "scale": 2,
-      "description": "No inicia ataques. Devuelve el 50 % del daño directo recibido; el veneno y las quemaduras evitan su respuesta.",
+      "description": "Devuelve parte del daño directo a quien lo ataca.",
       "pokemonIdentity": "Contraataque",
       "attackRuleException": false
     },
@@ -1255,7 +1255,7 @@
       "directDps": 140.9,
       "range": 30,
       "scale": 1.3115,
-      "description": "Solo ataca estructuras. Reduce el daño recibido un 15 %.",
+      "description": "Avanza protegido por su armadura y golpea torres y estructuras.",
       "pokemonIdentity": "Cola férrea",
       "attackRuleException": false
     },
@@ -1274,7 +1274,7 @@
       "directDps": 207.7,
       "range": 30,
       "scale": 1.4839,
-      "description": "Dos cortes por ataque. Su escudo absorbe el primer castigo.",
+      "description": "Avanza con escudo y encadena dos cortes por ataque.",
       "pokemonIdentity": "Tijera X",
       "attackRuleException": false
     },
@@ -1293,7 +1293,7 @@
       "directDps": 54,
       "range": 30,
       "scale": 1.3714,
-      "description": "Defensor aéreo con un escudo resistente. Ataca a tierra y aire.",
+      "description": "Defiende desde el aire con un escudo resistente.",
       "pokemonIdentity": "Ala de acero",
       "attackRuleException": false
     },
@@ -1312,7 +1312,7 @@
       "directDps": 17.5,
       "range": 95,
       "scale": 1.9231,
-      "description": "Cura al grupo cercano. Al caer libera una última curación.",
+      "description": "Cura al grupo cercano y libera una última curación al caer.",
       "pokemonIdentity": "Bomba huevo",
       "attackRuleException": false
     },
@@ -1331,7 +1331,7 @@
       "directDps": 75,
       "range": 155,
       "scale": 1.3125,
-      "description": "Aeroescudo: 2 de elixir, protege a los aliados próximos; un uso.",
+      "description": "Resiste desde el aire y puede proteger al grupo con Aeroescudo.",
       "pokemonIdentity": "Hidrobomba",
       "attackRuleException": false
     },
@@ -1350,7 +1350,7 @@
       "directDps": 93.8,
       "range": 30,
       "scale": 1.1304,
-      "description": "Ataca con picadas a corta distancia y cura a un aliado cercano. Fuego sagrado cura y quema alrededor.",
+      "description": "Ataca con picadas y cura a sus aliados con Fuego sagrado.",
       "pokemonIdentity": "Pájaro osado",
       "attackRuleException": false
     },
@@ -1369,7 +1369,7 @@
       "directDps": 191.7,
       "range": 140,
       "scale": 1.5862,
-      "description": "Dos hojas rápidas por ataque. Acompaña a los tanques desde atrás.",
+      "description": "Encadena dos cortes rápidos con sus hojas.",
       "pokemonIdentity": "Hojas gemelas",
       "attackRuleException": false
     },
@@ -1388,7 +1388,7 @@
       "directDps": 176.5,
       "range": 30,
       "scale": 1.5556,
-      "description": "Tres golpes a corta distancia que dejan quemadura.",
+      "description": "Encadena tres golpes que dejan quemadura.",
       "pokemonIdentity": "Puño fuego",
       "attackRuleException": false
     },
@@ -1407,7 +1407,7 @@
       "directDps": 105.6,
       "range": 34,
       "scale": 1.8125,
-      "description": "Golpea en área y ralentiza a los enemigos terrestres.",
+      "description": "Golpea en área y ralentiza a los rivales.",
       "pokemonIdentity": "Golpe de barro",
       "attackRuleException": false
     },
@@ -1426,7 +1426,7 @@
       "directDps": 127.8,
       "range": 132,
       "scale": 1.9048,
-      "description": "Lanza energía psíquica que explota en área y deja una zona dañina.",
+      "description": "Lanza energía psíquica que explota y deja una zona dañina.",
       "pokemonIdentity": "Psíquico",
       "attackRuleException": false
     },
@@ -1445,7 +1445,7 @@
       "directDps": 133.3,
       "range": 30,
       "scale": 1.1111,
-      "description": "Se acerca con Amago cada 3 s y golpea con sus garras. Tiene poca vida y no alcanza voladores.",
+      "description": "Se acerca con Amago y golpea con sus garras.",
       "pokemonIdentity": "Amago",
       "attackRuleException": false
     },
@@ -1464,7 +1464,7 @@
       "directDps": 129.4,
       "range": 30,
       "scale": 1.9375,
-      "description": "Reduce el daño un 25 % y devuelve el 10 % del daño directo.",
+      "description": "Su armadura reduce el daño y devuelve parte de los golpes recibidos.",
       "pokemonIdentity": "Cuerpo pesado",
       "attackRuleException": false
     },
@@ -1483,7 +1483,7 @@
       "directDps": 193,
       "range": 30,
       "scale": 1.3548,
-      "description": "Carga rápido y duplica su primera mordida. Se frena con aturdimiento.",
+      "description": "Toma carrera para dar una primera mordida de daño doble.",
       "pokemonIdentity": "Triturar",
       "attackRuleException": false
     },
@@ -1502,7 +1502,7 @@
       "directDps": 91.7,
       "range": 30,
       "scale": 1.8788,
-      "description": "Golpea con sus garras y levanta arena que ralentiza a los enemigos cercanos.",
+      "description": "Golpea con sus garras y levanta arena que ralentiza alrededor.",
       "pokemonIdentity": "Garra dragón",
       "attackRuleException": false
     },
@@ -1521,7 +1521,7 @@
       "directDps": 46.9,
       "range": 110,
       "scale": 1.0698,
-      "description": "Ataca con ondas de voz y cura a un aliado cercano. Su canto elimina veneno y ralentización.",
+      "description": "Su canto daña a los rivales y cura y limpia de efectos a un aliado.",
       "pokemonIdentity": "Voz cautivadora",
       "attackRuleException": false
     },
@@ -1540,7 +1540,7 @@
       "directDps": 142.9,
       "range": 30,
       "scale": 1.375,
-      "description": "Tajo umbrío hace un 60 % más de daño a Pokémon por debajo del 35 % de vida. Ataca a un solo objetivo terrestre.",
+      "description": "Sus cortes hacen más daño a los Pokémon con poca vida.",
       "pokemonIdentity": "Tajo umbrío",
       "attackRuleException": false
     },
@@ -1559,7 +1559,7 @@
       "directDps": 129.5,
       "range": 30,
       "scale": 1.3333,
-      "description": "Encadena tres zarpazos cuerpo a cuerpo. Aumenta su daño al perder la mitad de su vida.",
+      "description": "Encadena tres zarpazos y aumenta su daño al perder la mitad de la vida.",
       "pokemonIdentity": "Garra dragón",
       "attackRuleException": false
     },
@@ -1578,7 +1578,7 @@
       "directDps": 123.8,
       "range": 35,
       "scale": 1.7297,
-      "description": "Impactos en área que interrumpen ataques terrestres.",
+      "description": "Da golpes en área que interrumpen ataques.",
       "pokemonIdentity": "Puño meteoro",
       "attackRuleException": false
     },
@@ -1597,7 +1597,7 @@
       "directDps": 133.3,
       "range": 155,
       "scale": 1.3968,
-      "description": "Doble hidrobomba. Marea: 3 de elixir, daña y empuja en área; un uso.",
+      "description": "Dispara una doble hidrobomba y puede activar una marea que daña y empuja.",
       "pokemonIdentity": "Doble hidrobomba",
       "attackRuleException": false
     },
@@ -1616,7 +1616,7 @@
       "directDps": 133.3,
       "range": 30,
       "scale": 1.4286,
-      "description": "Busca estructuras. Terremoto: 3 de elixir, daño terrestre alrededor; un uso.",
+      "description": "Busca estructuras y puede activar un terremoto a su alrededor.",
       "pokemonIdentity": "Pisotón",
       "attackRuleException": false
     },
@@ -1635,7 +1635,7 @@
       "directDps": 127.8,
       "range": 170,
       "scale": 1.3125,
-      "description": "Rayo perforante. Ascenso: 3 de elixir, avanza y golpea el área; un uso.",
+      "description": "Dispara un rayo perforante y puede avanzar con un golpe en área.",
       "pokemonIdentity": "Pulso dragón",
       "attackRuleException": false
     },
@@ -1654,7 +1654,7 @@
       "directDps": 0,
       "range": 30,
       "scale": 2.3158,
-      "description": "Permanece en el suelo y libera un Voltorb al segundo de aparecer y cada 6 s. Al caer deja otro. Los Voltorb saltan y explotan contra tierra y aire.",
+      "description": "Libera Voltorb periódicamente y deja uno más al caer.",
       "pokemonIdentity": "Central de energía",
       "attackRuleException": false,
       "summon": "voltorb",
@@ -1678,7 +1678,7 @@
       "directDps": 0,
       "range": 30,
       "scale": 2.24,
-      "description": "Genera dos Nidoran cada 7 s; la primera pareja sale al segundo. Al destruirse libera una última pareja. No ataca y pierde vida con el tiempo.",
+      "description": "Libera parejas de Nidoran y deja una última pareja al caer.",
       "pokemonIdentity": "Refugio de la camada",
       "attackRuleException": false,
       "summon": "nidoranM",
@@ -1702,7 +1702,7 @@
       "directDps": 0,
       "range": 30,
       "scale": 2,
-      "description": "Cada 6,5 s libera dos Exeggcute en fila, con 0,85 s entre uno y otro. Atacan a distancia. Al caer libera una última pareja con la misma separación.",
+      "description": "Libera parejas de Exeggcute en fila y deja otra pareja al caer.",
       "pokemonIdentity": "Semillero",
       "attackRuleException": false,
       "summon": "exeggcute",
@@ -1726,7 +1726,7 @@
       "directDps": 41.7,
       "range": 150,
       "scale": 1.4194,
-      "description": "Defensa inmóvil que lanza hielo en área y ralentiza. Atrae a los atacantes de estructuras; dura hasta 30 s.",
+      "description": "Defiende desde el suelo con hielo que daña en área y ralentiza.",
       "pokemonIdentity": "Viento hielo",
       "attackRuleException": true
     },
@@ -1745,7 +1745,7 @@
       "directDps": 56.3,
       "range": 125,
       "scale": 1.76,
-      "description": "Avanza a distancia e invoca dos Shuppet cada 6 s. Deja otros dos al caer. Los Shuppet golpean a tierra; Duskull puede defender también contra aire.",
+      "description": "Ataca a distancia e invoca Shuppet durante el combate y al caer.",
       "pokemonIdentity": "Tinieblas",
       "attackRuleException": true,
       "summon": "shuppetToken",
@@ -1769,7 +1769,7 @@
       "directDps": 291.7,
       "range": 30,
       "scale": 1.4667,
-      "description": "Golpea muy fuerte a un solo objetivo terrestre, pero tiene poca vida. Los grupos baratos lo distraen y su golpe se puede interrumpir.",
+      "description": "Prepara un golpe lento que hace mucho daño a un solo rival.",
       "pokemonIdentity": "Puño trueno",
       "attackRuleException": true
     },
@@ -1788,7 +1788,7 @@
       "directDps": 348.4,
       "range": 32,
       "scale": 1.2571,
-      "description": "Camina y prepara cada golpe lentamente. Causa mucho daño a un objetivo terrestre; los enjambres lo distraen y no alcanza voladores.",
+      "description": "Avanza lentamente y da golpes devastadores a un solo rival.",
       "pokemonIdentity": "Puño meteoro",
       "attackRuleException": true
     },
@@ -1807,7 +1807,7 @@
       "directDps": 100,
       "range": 32,
       "scale": 1.375,
-      "description": "Tanque de mucha vida que reduce el daño un 20 %. Ignora tropas y busca torres o estructuras. Sus golpes moderados y lentos necesitan apoyo contra defensores.",
+      "description": "Resiste con su armadura y avanza hacia torres y estructuras.",
       "pokemonIdentity": "Avalancha",
       "attackRuleException": true
     },
@@ -1826,7 +1826,7 @@
       "directDps": 122.2,
       "range": 85,
       "scale": 1.8462,
-      "description": "Vuela directo hacia las torres y estructuras, ignorando tropas. Tiene poca vida: protegelo y usá control para que llegue a atacar.",
+      "description": "Vuela directo hacia las torres y estructuras para atacarlas.",
       "pokemonIdentity": "Bomba germen",
       "attackRuleException": true
     },
@@ -1845,7 +1845,7 @@
       "directDps": 109.1,
       "range": 30,
       "scale": 1.2593,
-      "description": "Tres Poochyena van adelante y dos Ralts los cubren desde atrás a distancia contra tierra y aire. El daño en área elimina al grupo.",
+      "description": "Tres Poochyena van adelante y dos Ralts los cubren a distancia.",
       "pokemonIdentity": "Emboscada",
       "attackRuleException": true
     },
@@ -1864,7 +1864,7 @@
       "directDps": 0,
       "range": 86,
       "scale": null,
-      "description": "Una lluvia de pinchos cubre una zona amplia. Elimina enjambres de tierra y aire, incluso a los que sobreviven a Impactrueno.",
+      "description": "Una lluvia de pinchos daña a los enemigos en una zona amplia.",
       "pokemonIdentity": "Pin misil",
       "attackRuleException": false
     },
@@ -1883,7 +1883,7 @@
       "directDps": 0,
       "range": 84,
       "scale": null,
-      "description": "Golpea a los tres enemigos con más vida actual dentro de la zona. Daña y aturde a tropas, estructuras y torres.",
+      "description": "Daña y aturde a los tres enemigos con más vida dentro del área.",
       "pokemonIdentity": "Rayo",
       "attackRuleException": false
     },
@@ -1902,7 +1902,7 @@
       "directDps": 0,
       "range": 48,
       "scale": null,
-      "description": "Marca una zona pequeña y dispara tras 1,6 s. Gran daño contra tropas y estructuras, reducido en torres. El rival puede salir antes del impacto.",
+      "description": "Marca una zona y, tras una demora, la golpea con un rayo devastador.",
       "pokemonIdentity": "Hiperrayo",
       "attackRuleException": false
     },
@@ -1921,7 +1921,7 @@
       "directDps": 0,
       "range": 72,
       "scale": null,
-      "description": "Congela durante 3 s a los enemigos de tierra y aire y a las torres del área. Hace muy poco daño; necesita tropas que aprovechen el tiempo.",
+      "description": "Congela a los enemigos dentro del área elegida.",
       "pokemonIdentity": "Ventisca",
       "attackRuleException": false
     },
@@ -1940,7 +1940,7 @@
       "directDps": 0,
       "range": 66,
       "scale": null,
-      "description": "Deja púas durante 7 s. Daña por segundo a las tropas y estructuras terrestres que permanezcan encima. No alcanza voladores ni daña torres.",
+      "description": "Deja púas que dañan a los enemigos terrestres que pasan por encima.",
       "pokemonIdentity": "Púas",
       "attackRuleException": false,
       "fieldDuration": 7,
@@ -1961,7 +1961,7 @@
       "directDps": 0,
       "range": 72,
       "scale": null,
-      "description": "Rocas suspendidas dañan durante 6 s a tierra y aire. Hacen el doble de daño a los voladores; no dañan torres.",
+      "description": "Deja rocas flotantes que dañan en área, con daño doble a los voladores.",
       "pokemonIdentity": "Trampa rocas",
       "attackRuleException": false,
       "fieldDuration": 6,
@@ -1982,7 +1982,7 @@
       "directDps": 0,
       "range": 84,
       "scale": null,
-      "description": "Durante 2,5 s atrae tropas de tierra y aire hacia el centro y las daña. No mueve estructuras ni torres; permite agrupar rivales para otro ataque.",
+      "description": "Arrastra a las tropas hacia el centro y las daña.",
       "pokemonIdentity": "Remolino",
       "attackRuleException": false,
       "fieldDuration": 2.5,
@@ -2003,7 +2003,7 @@
       "directDps": 0,
       "range": 66,
       "scale": null,
-      "description": "Abre una zona durante 5,6 s e invoca ocho Shuppet de a uno. Podés usarla junto a una torre; los ataques en área y los hechizos frenan las apariciones.",
+      "description": "Invoca Shuppet de a uno en la zona elegida.",
       "pokemonIdentity": "Pesadilla",
       "attackRuleException": false,
       "fieldDuration": 5.6,
@@ -2024,7 +2024,7 @@
       "directDps": 0,
       "range": 76,
       "scale": null,
-      "description": "Sacude el suelo durante 3 s. Hace el triple de daño a estructuras, poco daño a torres y ralentiza a las tropas terrestres dentro de la zona.",
+      "description": "Sacude y ralentiza en área, con daño extra contra estructuras.",
       "pokemonIdentity": "Terremoto",
       "attackRuleException": false,
       "fieldDuration": 3,

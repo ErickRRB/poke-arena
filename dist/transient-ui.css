@@ -1,0 +1,6 @@
+/* Background resource feedback shares the battle overlay without taking space. */
+#search-status{max-height:44px;overflow:hidden}
+.battle-loading{position:absolute;left:8px;bottom:8px;width:32px;height:32px;padding:2px;border:1px solid #79836a;border-radius:6px;background:#fff9e5e8;pointer-events:none}
+.battle-loading>.pokeball-loader{width:26px;height:26px}
+.battle-loading .loading-ball{position:absolute;inset:3px;width:20px;height:20px}
+.battle-loading .load-ring{display:none}

@@ -1,5 +1,5 @@
-import { EXTRA_CARDS } from './catalog.js?v=17';
-import { applyBalance, THRESHOLDS } from './balance.js?v=17';
+import { EXTRA_CARDS } from './catalog.js?v=18';
+import { applyBalance, THRESHOLDS } from './balance.js?v=18';
 export const W = 600, H = 800;
 export const TILE = 24;
 export const DEPLOY_GRID = Object.freeze({ size: TILE, left: 0, top: (H % TILE) / 2, columns: W / TILE, rows: Math.floor(H / TILE) });

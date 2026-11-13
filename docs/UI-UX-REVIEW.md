@@ -6,7 +6,7 @@ Se revisaron la home, el editor, las fichas, una partida contra CPU, una partida
 
    <img src="ui-review/01-home.png" width="780" alt="Home de Poké Arena en un portátil: todos los controles caben en el panel.">
 
-2. **Editor y ficha: corregidos y verificados.** Los cuatro selectores están junto a la X, sin título ni contador general. Se eliminaron los botones debajo de cada carta: tocar una abre la ficha y permite agregar o quitar desde allí. El coste medio comparte el pie con Listo. Las fichas se cierran al agregar o quitar y el editor conserva su estado. El coste de cada carta aparece sobre una gema facetada, también en las miniaturas del mazo. Se reemplazaron los iconos de estadísticas por sprites ilustrados y se mantiene visible el botón inferior mientras el contenido se desplaza. Las estructuras pasivas ya no indican un alcance cuerpo a cuerpo que no utilizan.
+2. **Editor y ficha: corregidos y verificados.** Los cuatro selectores están junto a la X, sin título ni contador general. Tocar una carta abre la ficha para agregar o quitar desde allí. El coste medio comparte el pie con Listo. Las fichas se cierran al agregar o quitar y el editor conserva su estado. La gema tiene el número centrado con una tipografía más ancha y un contorno fino. Los nombres se alinean arriba y los roles abajo. Las ilustraciones conservan su proporción en colección, mano y miniaturas, con recorte centrado cuando cambia el formato. Las estadísticas usan sprites ilustrados y el botón inferior sigue visible mientras el contenido se desplaza. Las 105 descripciones explican la acción principal en una frase breve, con los valores en las estadísticas.
 
    <img src="ui-review/02-editor.png" width="330" alt="Editor compacto con cuatro selectores y cartas de hechizos.">
    <img src="ui-review/02-detail.png" width="330" alt="Ficha de Pikachu con iconos de estadísticas de estilo RPG.">
@@ -25,7 +25,7 @@ Se revisaron la home, el editor, las fichas, una partida contra CPU, una partida
 
    <img src="ui-review/04-online.png" width="900" alt="Partida online: nombre rival y reloj sobre el tablero, sin botón de pausa.">
 
-5. **Ajustes: corregidos y verificados.** Se reemplazó el fondo oscuro del selector y se hicieron visibles los interruptores. Los créditos se abren únicamente desde Ajustes. Durante una partida de escritorio, la dificultad informa que se aplica a la próxima CPU; la práctica guiada se inicia desde la home.
+5. **Ajustes: corregidos y verificados.** Se reemplazó el fondo oscuro del selector y se hicieron visibles los interruptores. Los créditos se abren únicamente desde Ajustes. Durante una partida de escritorio, la dificultad informa que se aplica a la próxima CPU. La práctica guiada se inicia desde la home.
 
    <img src="ui-review/05-settings.png" width="330" alt="Ajustes en la home con selector crema, interruptores y acceso a créditos.">
 
@@ -37,8 +37,17 @@ También se corrigieron señales de combate que daban información equivocada: V
 
 La comprobación detrás del rey encontró una única fila central desplegable: en la grilla actual corresponde a y = 760 para el jugador inferior y a y = 40 para el superior. Se conservó esa fila; el margen visual incluye la base y la información de la torre.
 
-Se probaron ocho tamaños de ventana, de 320 × 568 a 1680 × 1400, cinco tipos de ficha en cuatro tamaños, dos jugadores online y el modo vertical con un perfil táctil. Pasaron 208 pruebas automatizadas. La recuperación de audio se comprobó con AudioContext real en Chromium y con estados interrumpidos, rechazos y relojes congelados simulados. El [reporte de WebKit](https://bugs.webkit.org/show_bug.cgi?id=276016) documenta la familia de fallos de Safari que motivó esa recuperación.
+Se probaron ocho tamaños de ventana, de 320 × 568 a 1680 × 1400, cinco tipos de ficha en cuatro tamaños, dos jugadores online y el modo vertical con un perfil táctil. Pasaron 222 pruebas automatizadas. Se comprobaron además las proporciones, los nombres y los números de las 105 cartas en móvil, tablet y escritorio. La recuperación de audio se comprobó con AudioContext real en Chromium y con estados interrumpidos, rechazos y relojes congelados simulados. El [reporte de WebKit](https://bugs.webkit.org/show_bug.cgi?id=276016) documenta la familia de fallos de Safari que motivó esa recuperación.
 
 Queda pendiente confirmar el bloqueo nativo y la recuperación del sonido en un iPhone físico. Las capturas y las pruebas de interacción tampoco sustituyen una revisión con lector de pantalla o pruebas con jugadores.
 
 Los iconos se generaron con ImageGen integrado. El recurso está en [stat-icons.webp](../dist/assets/ui/stat-icons.webp) y el prompt completo en [IMAGE-PROMPTS-UI.json](IMAGE-PROMPTS-UI.json).
+
+La revisión visual del catálogo y sus prompts están en [CARD-ART-REVIEW.json](CARD-ART-REVIEW.json). Se priorizó una silueta clara, fondos tranquilos, textura limpia y contraste equilibrado. Impactrueno conserva su ilustración. El sandbox de balance y sus mediciones están en [BALANCE-SIMULATIONS.md](BALANCE-SIMULATIONS.md).
+
+<img src="art-review/spells-before-after.webp" width="900" alt="Comparación de las ilustraciones de hechizos antes y después de simplificar sus fondos.">
+
+La carga inicial usa una Pokébola animada con progreso real de sprites y atlas. La búsqueda, los errores y la reconexión aparecen en capas absolutas. La carga de sprites durante la partida tiene un indicador pequeño sobre la arena. Se demoraron y bloquearon solicitudes reales del navegador en 390 × 844, 768 × 1024 y 1440 × 980: los rectángulos del menú, los controles y el tablero permanecieron iguales antes, durante y después de cada espera. La prueba con movimiento reducido mantuvo estáticas las animaciones.
+
+<img src="ui-review/07-loading.png" width="330" alt="Carga inicial con Pokébola y progreso real sobre el menú, conservando el espacio de los controles.">
+<img src="ui-review/07-search.png" width="330" alt="Búsqueda de rival en una capa sobre el menú, con cancelar en una posición estable.">

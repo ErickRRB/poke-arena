@@ -68,6 +68,12 @@ export async function api(request,env,animations={}){
     const token=request.headers.get('authorization')?.replace(/^Bearer /,'');if(!token||token.length>160)return json({error:'Volvé a buscar partida.'},401);
     let player=await db.prepare('SELECT * FROM arena_players WHERE token_hash=?').bind(await hash(token)).first();if(!player)return json({error:'La búsqueda expiró.'},401);
     await db.prepare('UPDATE arena_players SET seen=? WHERE id=?').bind(now,player.id).run();
+    if(url.pathname==='/api/resume'&&request.method==='POST'){
+      if(!player.room_id)return json(player.joined===null?{status:'idle'}:{status:'searching',joined:player.joined});
+      const stored=await db.prepare('SELECT data FROM arena_rooms WHERE id=?').bind(player.room_id).first();
+      if(!stored||JSON.parse(stored.data).game.state==='ended')return json({status:'idle'});
+      return battle(db,player,{after:Number(body.after||0)},now,animations);
+    }
     if(url.pathname==='/api/queue'&&request.method==='POST'){
       if(player.room_id){const old=await db.prepare('SELECT data FROM arena_rooms WHERE id=?').bind(player.room_id).first();if(!old||JSON.parse(old.data).game.state==='ended'){await db.prepare('UPDATE arena_players SET room_id=NULL WHERE id=?').bind(player.id).run();player.room_id=null;}}
       if(validDeck(body.deck)&&!player.room_id){player.deck=JSON.stringify(body.deck);player.name=safeName(body.name);await db.prepare('UPDATE arena_players SET deck=?,name=? WHERE id=?').bind(player.deck,player.name,player.id).run();}

@@ -1,10 +1,10 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=17';
-import { Renderer } from './render.js?v=17';
-import { SoundSystem } from './audio.js?v=17';
-import { OnlineClient } from './online.js?v=17';
-import { unpackGame, perspective } from './snapshot.js?v=17';
-import { cardArtMarkup } from './card-art.js?v=17';
-import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=17';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=18';
+import { Renderer } from './render.js?v=19';
+import { SoundSystem } from './audio.js?v=18';
+import { OnlineClient } from './online.js?v=19';
+import { unpackGame, perspective } from './snapshot.js?v=18';
+import { cardArtMarkup } from './card-art.js?v=18';
+import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=18';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -58,15 +58,14 @@ function live(message) { $('live-status').textContent = message; }
 
 function cardMarkup(key, index, collection = false) {
   const c = CARDS[key];
-  return `<button class="pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-${collection ? 'collection' : 'card'}="${collection ? key : index}" aria-label="${c.name}, ${RARITIES[c.rarity]}, ${c.cost} de elixir, ${c.role}" aria-pressed="false"><span class="card-cost">${c.cost}</span>${!collection ? `<span class="card-key">${index + 1}</span>` : ''}${cardArtMarkup(key)}${collection&&c.count>1?`<span class="card-quantity" aria-hidden="true"><svg><use href="#i-units"/></svg>×${c.count}</span>`:''}<span class="card-name">${c.name}</span><span class="card-role">${c.role}</span></button>`;
+  return `<button class="pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-${collection ? 'collection' : 'card'}="${collection ? key : index}" aria-label="${c.name}, ${RARITIES[c.rarity]}, ${c.cost} de elixir, ${c.role}" aria-pressed="false"><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${!collection ? `<span class="card-key">${index + 1}</span>` : ''}${cardArtMarkup(key)}${collection&&c.count>1?`<span class="card-quantity" aria-hidden="true"><svg><use href="#i-units"/></svg>×${c.count}</span>`:''}<span class="card-name">${c.name}</span><span class="card-role">${c.role}</span></button>`;
 }
 function renderMenuDeck(){
   renderDeckSlots();
-  $('menu-deck-preview').innerHTML=Array.from({length:8},(_,i)=>{const key=deck[i],c=CARDS[key];return c?`<button class="menu-card pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-menu-card="${key}" aria-label="${c.name}, ${c.cost} de elixir, ver detalles"><span class="card-cost">${c.cost}</span>${cardArtMarkup(key)}<span class="card-name">${c.name}</span></button>`:`<button class="menu-card pokemon-card empty" data-menu-empty aria-label="Elegir carta para el espacio ${i+1}">+</button>`;}).join('');
-  $('menu-deck-average').textContent=deck.length?(deck.reduce((sum,key)=>sum+CARDS[key].cost,0)/deck.length).toFixed(1).replace('.',','):'—';
-  $('menu-deck-status').hidden=true;
-  $('start-btn').disabled=$('online-btn').disabled=!ready||deck.length!==8;
+  $('menu-deck-preview').innerHTML=Array.from({length:8},(_,i)=>{const key=deck[i],c=CARDS[key];return c?`<button class="menu-card pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-menu-card="${key}" aria-label="${c.name}, ${c.cost} de elixir, ver detalles"><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${cardArtMarkup(key)}<span class="card-name">${c.name}</span></button>`:`<button class="menu-card pokemon-card empty" data-menu-empty aria-label="Elegir carta para el espacio ${i+1}">+</button>`;}).join('');
+  updateMenuAvailability();
 }
+function updateMenuAvailability(){ $('start-btn').disabled=$('online-btn').disabled=!ready||deck.length!==8; }
 function applyDeckChanges(){
   deck=[...deckDraft];deckLibrary.slots[deckLibrary.active]=[...deck];saveDeck(deck);saveDeckLibrary(deckLibrary);renderMenuDeck();
 }
@@ -87,7 +86,7 @@ function syncHand() {
     $('hand').innerHTML = game.hands[0].map((key,i) => cardMarkup(key,i)).join('');
     const key = game.queues[0][0], c = CARDS[key];
     $('next-preview').innerHTML = cardArtMarkup(key);
-    $('next-name').textContent = c.name;
+    $('next-card').setAttribute('aria-label',`Próxima carta: ${c.name}, ${c.cost} de elixir`);
   }
   for (const el of $('hand').querySelectorAll('[data-card]')) {
     const i = Number(el.dataset.card), c = CARDS[game.hands[0][i]];
@@ -113,6 +112,7 @@ function choose(index) {
 }
 function cancelSelection() { selected = -1; renderer.pointer = null; renderer.selection = null; updateDetail(); syncHand(); }
 function updateUi() {
+  $('battle-loading').hidden=!renderer.pendingSpecies.size;
   sfx.setBattleState(game.state==='playing'&&!document.hidden&&!document.body.classList.contains('menu-mode')&&!document.querySelector('dialog[open]'),game.overtime||game.time<=60);
   const energy = game.energy[0];
   $('energy-value').textContent = String(Math.floor(energy));
@@ -123,7 +123,9 @@ function updateUi() {
   $('battle-clock').classList.toggle('urgent', game.time <= 30 || game.overtime);
   $('phase-label').hidden=!game.overtime;$('phase-label').textContent=game.tiebreaker?'Desempate':'Extra';
   $('match-pause').hidden=onlineMode||!['playing','paused'].includes(game.state);
-  $('match-leave').hidden=!onlineMode||game.state==='ended';
+  $('match-leave').hidden=onlineMode||!['playing','paused'].includes(game.state);
+  $('menu-btn').disabled=!!online?.active&&(onlineMode&&game.state!=='ended'||online.mode==='resume');
+  document.querySelector('.brand').setAttribute('aria-disabled',String($('menu-btn').disabled));
   const battleAction=game.state==='paused'?'resume':'pause';
   if($('match-pause').dataset.action!==battleAction){
     const label=battleAction==='resume'?'Reanudar':'Pausar';
@@ -160,7 +162,7 @@ function newGame({ start = false, tutorial = false } = {}) {
   renderer.particles = [];renderer.effects=[];renderer.numbers=[];
   game = new Game({ deck: tutorial||deck.length!==8 ? DEFAULT_DECK : deck, difficulty, tutorial, onEvent: handleEvent, animations:renderer.metadata });
   $('enemy-name').textContent = `${{easy:'Principiante',normal:'Entrenador',hard:'Líder de gimnasio'}[difficulty]} · CPU`;
-  $('online-status').hidden=true;
+  $('online-status').hidden=true;$('connection-loading').hidden=true;
   document.body.classList.toggle('menu-mode',!start);$('main-menu').hidden=start;
   renderMenuDeck();
   renderer.ensureSpecies(deck.map(k=>CARDS[k]?.id).filter(Boolean)).catch(()=>{});
@@ -175,8 +177,8 @@ function newGame({ start = false, tutorial = false } = {}) {
 function setGuideStep(step) {
   if (!walkthrough) return;
   walkthrough.step = step; $('guide').hidden = false;
-  $('guide-step').textContent = `${step} / 3`;
-  $('guide-text').textContent = {1:'Elegí un Pokémon de tu mano.',2:'Tocá tu mitad de la arena para desplegarlo.',3:'Avanza y ataca solo. Sumá otro Pokémon para apoyarlo.'}[step];
+  $('guide-step').textContent = String(step);$('guide-step').setAttribute('aria-label',`Paso ${step} de 3`);
+  $('guide-text').textContent = {1:'Elegí una carta.',2:'Tocá tu lado de la arena.',3:'Sumá otro Pokémon para apoyarlo.'}[step];
   renderer.tutorialSpot = step === 2;
   $('skip-guide').textContent = step === 3 ? 'Listo' : 'Omitir'; syncHand();
 }
@@ -278,7 +280,7 @@ function renderDeckStrip(){
   $('deck-strip').innerHTML=Array.from({length:8},(_,i)=>{
     const key=deckDraft[i],c=CARDS[key];
     if(!c)return`<span class="deck-slot empty" aria-label="Espacio ${i+1} vacío">+</span>`;
-    return`<button class="deck-slot" data-rarity="${c.rarity}" data-deck-info="${key}" aria-label="${c.name}, ${c.cost} de elixir, ver detalles" title="${c.name}">${cardArtMarkup(key)}<span class="slot-cost">${c.cost}</span></button>`;
+    return`<button class="deck-slot" data-rarity="${c.rarity}" data-deck-info="${key}" aria-label="${c.name}, ${c.cost} de elixir, ver detalles" title="${c.name}">${cardArtMarkup(key)}<span class="slot-cost"><span class="cost-value">${c.cost}</span></span></button>`;
   }).join('');
 }
 $('deck-strip').addEventListener('click',e=>{const el=e.target.closest('[data-deck-info]');if(el){renderCardInfo(el.dataset.deckInfo);openModal('card-dialog');}});
@@ -406,7 +408,8 @@ document.addEventListener('keydown',e=>{
   }
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden)sfx.setBattleState(false);else{sfx.recover();updateUi();}if(document.hidden&&game.state==='playing'&&!onlineMode){game.pause();$('pause-overlay').hidden=false;}});
-addEventListener('pageshow',()=>{if(game){sfx.recover();updateUi();}});
+addEventListener('pagehide',()=>online?.suspend());
+addEventListener('pageshow',event=>{if(game){sfx.recover();updateUi();}if(event.persisted&&onlineMode&&game.state!=='ended')online?.resume();});
 addEventListener('focus',()=>sfx.recover());
 for(const event of['pointerdown','keydown'])document.addEventListener(event,()=>{if(sfx.ctx)sfx.unlock(true);},{capture:true,passive:true});
 
@@ -416,11 +419,18 @@ $('skip-guide').addEventListener('click',finishGuide);
 $('again-btn').addEventListener('click',()=>{if(onlineMode)beginOnline();else newGame({start:true});});
 $('result-menu-btn').addEventListener('click',mainMenu);
 $('menu-deck-btn').addEventListener('click',openDeck);
-function mainMenu(){closingOnline=online?.close()||Promise.resolve();online=null;onlineMode=false;$('search-panel').hidden=true;$('ready-overlay').classList.remove('searching');for(const dialog of document.querySelectorAll('dialog[open]'))closeModal(dialog,false);newGame();canvas.blur();}
-$('menu-btn').addEventListener('click',mainMenu);
-$('pause-menu-btn').addEventListener('click',mainMenu);
+function mainMenu(){if(online?.active&&(online.mode==='resume'||onlineMode&&game.state!=='ended'))return;const searching=!$('search-panel').hidden;closingOnline=online?.close()||Promise.resolve();online=null;onlineMode=false;$('search-panel').hidden=true;$('ready-overlay').inert=false;for(const dialog of document.querySelectorAll('dialog[open]'))closeModal(dialog,false);newGame();canvas.blur();if(searching)$('online-btn').focus({preventScroll:true});}
+function requestHome(event){
+  event?.preventDefault();
+  if(online?.active&&(online.mode==='resume'||onlineMode&&game.state!=='ended'))return;
+  if(!document.body.classList.contains('menu-mode')&&!onlineMode&&['playing','paused'].includes(game.state)){if(!$('leave-dialog').open)openModal('leave-dialog');return;}
+  mainMenu();
+}
+$('menu-btn').addEventListener('click',requestHome);
+document.querySelector('.brand').addEventListener('click',requestHome);
+$('pause-menu-btn').addEventListener('click',requestHome);
 $('match-pause').addEventListener('click',togglePause);
-$('match-leave').addEventListener('click',()=>{if(onlineMode)openModal('leave-dialog');});
+$('match-leave').addEventListener('click',requestHome);
 $('confirm-leave-btn').addEventListener('click',mainMenu);
 $('resume-btn').addEventListener('click',togglePause);
 $('help-btn').addEventListener('click',()=>openModal('help-dialog'));
@@ -438,17 +448,28 @@ $('trainer-name').value=store.get('name','');$('trainer-name').addEventListener(
 const filters=document.createElement('div');filters.className='collection-tools';filters.innerHTML='<input id="collection-search" type="search" placeholder="Buscar carta" aria-label="Buscar carta"><select id="rarity-filter" aria-label="Filtrar rareza"><option value="">Todas las rarezas</option>'+Object.entries(RARITIES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')+'</select><select id="role-filter" aria-label="Filtrar rol"><option value="">Todos los roles</option><option value="building">Atacan estructuras</option><option value="structure">Estructuras</option><option value="spell">Hechizos</option><option value="summon">Invocadores</option><option value="troop">Tropas</option></select><select id="collection-sort" aria-label="Ordenar cartas"><option value="elixir-asc">Menor elixir</option><option value="elixir-desc">Mayor elixir</option><option value="name">Nombre A–Z</option><option value="original">Orden original</option></select>';$('collection').before(filters);$('collection-search').addEventListener('input',renderCollection);$('rarity-filter').addEventListener('change',renderCollection);$('role-filter').addEventListener('change',renderCollection);$('collection-sort').value=store.get('collection-order','elixir-asc');if(!$('collection-sort').value)$('collection-sort').value='elixir-asc';$('collection-sort').addEventListener('change',()=>{store.set('collection-order',$('collection-sort').value);renderCollection();});
 $('online-btn').addEventListener('click',beginOnline);$('cancel-search').addEventListener('click',mainMenu);
 $('abilities').addEventListener('click',async e=>{const button=e.target.closest('[data-ability]');if(!button)return;const id=Number(button.dataset.ability);button.disabled=true;const result=onlineMode?await online.send({kind:'ability',unitId:id}):game.activateAbility(0,id);if(!result.ok)live(result.reason);updateUi();});
-async function beginOnline(){
-  if(deck.length!==8)return;
-  await closingOnline;await online?.close();onlineMode=false;newGame();audioInit();$('search-panel').hidden=false;$('ready-overlay').classList.add('searching');$('search-status').textContent='Buscando rival…';$('search-time').textContent='0:00';
-  online=new OnlineClient({onSearch:ms=>{const sec=Math.floor(ms/1000);$('search-time').textContent=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;},onConnection:status=>{$('online-status').hidden=!status;$('online-status').textContent=status;if(!onlineMode)$('search-status').textContent=status||'Buscando rival…';},onSnapshot:packet=>{
-    online.team=packet.team;onlineMode=true;document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('enemy-name').textContent=packet.opponent;
+function showSearch(){if(!$('search-panel').hidden)return;$('menu-loading').hidden=true;$('search-panel').hidden=false;$('ready-overlay').inert=true;$('cancel-search').focus({preventScroll:true});}
+function createOnlineClient(){
+  return new OnlineClient({onSearch:ms=>{const sec=Math.floor(ms/1000);$('search-time').textContent=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;if(ready)showSearch();},onConnection:status=>{
+    const reconnecting=status==='Reconectando…';$('connection-loading').hidden=!onlineMode||!reconnecting;$('online-status').hidden=!onlineMode||!status||reconnecting;$('online-status').textContent=reconnecting?'':status;
+    if(!onlineMode)$('search-status').textContent=status||'Buscando rival…';
+  },onIdle:()=>{
+    online=null;onlineMode=false;$('menu-loading').hidden=true;$('ready-overlay').inert=false;$('search-panel').hidden=true;newGame();
+  },onSnapshot:packet=>{
+    online.team=packet.team;onlineMode=true;$('enemy-name').textContent=packet.opponent;
+    if(ready){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
+    $('search-panel').hidden=true;
     const old=new Map(game.units.map(u=>[u.id,u]));game=unpackGame(perspective(packet.game,packet.team),handleEvent,renderer.metadata);
     for(const u of game.units){const previous=old.get(u.id);u.drawX=previous?.drawX??previous?.x??u.x;u.drawY=previous?.drawY??previous?.y??u.y;}
     for(const entry of packet.events)handleEvent(perspective(entry.event,packet.team));
     if(game.state==='ended'&&$('result-overlay').hidden)showResult({winner:game.winner,reason:game.reason});
     $('online-status').hidden=packet.startsIn<=0;$('online-status').textContent=packet.startsIn>0?'Preparados':'';updateUi();
   }});
+}
+async function beginOnline(){
+  if(deck.length!==8||onlineMode&&game.state!=='ended')return;
+  await closingOnline;await online?.close();onlineMode=false;newGame();audioInit();showSearch();$('search-status').textContent='Buscando rival…';$('search-time').textContent='0:00';
+  online=createOnlineClient();
   try{await online.start($('trainer-name').value||'Entrenador',deck);}catch(error){$('search-status').textContent=error.message;}
 }
 updateSound();setReduced(reduced);newGame();syncPortrait();
@@ -471,9 +492,17 @@ function frame(now){
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
+$('retry-load').addEventListener('click',()=>location.reload());
 try{
-  await renderer.load(deck.length===8?deck:DEFAULT_DECK);ready=true;$('loading').hidden=true;$('menu-loading').hidden=true;$('practice-btn').disabled=false;renderMenuDeck();
+  if(sessionStorage.getItem('poke-arena:online-token')){
+    $('ready-overlay').inert=true;online=createOnlineClient();online.resume().catch(()=>{});
+  }
+  await renderer.load(deck.length===8?deck:DEFAULT_DECK,(loaded,total)=>{const percent=Math.floor(loaded/total*100),indicator=$('menu-load-progress');indicator.style.setProperty('--load-progress',String(percent));indicator.setAttribute('aria-valuenow',String(percent));});
+  ready=true;$('loading').hidden=true;$('ready-overlay').setAttribute('aria-busy','false');$('practice-btn').disabled=false;updateMenuAvailability();
+  if(onlineMode){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
+  else if(online?.active&&online.mode==='search')showSearch();
+  else if(online?.active){$('menu-load-progress').classList.add('is-indeterminate');$('menu-load-progress').setAttribute('aria-label','Reconectando a la partida');$('menu-load-progress').removeAttribute('aria-valuenow');}
+  else{$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
 }catch(error){
-  console.error(error);$('menu-loading').innerHTML='<p>No se pudieron cargar los sprites.</p><button class="secondary-btn" id="retry-load">Volver a intentar</button>';
-  $('retry-load').addEventListener('click',()=>location.reload());
+  console.error(error);$('menu-loading-badge').hidden=true;$('menu-load-error').hidden=false;$('menu-loading').classList.add('load-failed');$('ready-overlay').setAttribute('aria-busy','false');
 }

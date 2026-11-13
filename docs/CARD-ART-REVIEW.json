@@ -1,0 +1,697 @@
+{
+  "date": "2026-11-12",
+  "cardsReviewed": 105,
+  "scale": "Selector entre 100 y 140 px de ancho, más revisión de detalle y escritorio.",
+  "criteria": [
+    "Silueta y acción claras",
+    "Fondo subordinado al sujeto",
+    "Proporción de la ilustración conservada",
+    "Variación de poses y direcciones",
+    "Textura y contraste equilibrados",
+    "Como máximo un Pokémon pequeño y lateral en los hechizos renovados"
+  ],
+  "qualityPrompt": "Image quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts.",
+  "images": [
+    {
+      "key": "lightning",
+      "file": "dist/assets/cards/lightningV2.webp",
+      "originalSource": "exec-9e238dc8-e596-4927-a058-4fa820d05bc6.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Use case: precise-object-edit. Asset type: portrait 4:5 Pokémon spell card, read at 120 pixels wide. Input image is the edit target. Add exactly one SMALL Raichu, on the far lower left, in side profile casting toward the arena. It occupies about 12% of image height, is integrated into the same light and never overlaps or blocks the three bolts. Make lightning naturally jagged with controlled highlights rather than perfectly straight outlined zigzag icons. Preserve three clear separated strikes, quiet storm background and painted stone ground. Reduce the floor crack microdetails. Keep the existing composition, clean painted game-card style and simple integrated setting. No additional Pokémon, architecture, text, border or numbers.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "pinMissile",
+      "file": "dist/assets/cards/pinMissileV2.webp",
+      "originalSource": "exec-a0309d30-de15-48dd-878e-1b0d29212007.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Use case: precise-object-edit. Asset type: portrait 4:5 Pokémon spell card, read at 120 pixels wide. Input image is the edit target. Add exactly one SMALL Beedrill in the far upper right at the origin of the missiles, approximately 14% image height. Keep the five clear diagonal needles as main subject and the quiet soft forest backdrop. Integrate Beedrill in the scene lighting, not a pasted cutout. Preserve broad readable shapes. Keep the existing composition, clean painted game-card style and simple integrated setting. No additional Pokémon, architecture, text, border or numbers.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "blizzard",
+      "file": "dist/assets/cards/blizzardV2.webp",
+      "originalSource": "exec-467db32c-e9aa-43f8-b2af-b4bc50d0854a.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Edit the supplied painted Pokémon spell-card illustration. Portrait 4:5. Add exactly one SMALL Articuno in the distant upper left, approximately 14% image height, sweeping its wing toward the icy wind. Preserve the broad dominant snow blast, three ice crystals and quiet navy background. Keep the tiny character off center and secondary. Smooth the excessive little streaks in the snow, retaining a few large flowing bands. Preserve the existing clean composition and softly painted game-art style. Keep the main spell much larger than the character. No lettering, card frame or interface.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "spikes",
+      "file": "dist/assets/cards/spikesV2.webp",
+      "originalSource": "exec-fb4ea4f6-b715-4f2c-a8fd-fcb9973bbdec.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Edit the supplied painted Pokémon spell-card illustration. Portrait 4:5. Add exactly one SMALL Sableye sitting near the far right grassy edge in the background, approximately 12% image height, looking toward the caltrops. Preserve the three large spikes and quiet arena ground. Smooth the metal surfaces and quiet the excessive scratches and tiny stone patterns. Metal should read as broad painted planes, not gritty photoreal HDR. Sableye is off-center and secondary. Preserve the existing clean composition and softly painted game-art style. Keep the main spell much larger than the character. No lettering, card frame or interface.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "whirlpool",
+      "file": "dist/assets/cards/whirlpoolV2.webp",
+      "originalSource": "exec-05d9ccda-4f0d-4cea-93e6-44ba5fa7bdc4.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Use case: precise-object-edit. Edit target is supplied Pokémon Remolino spell card. Retain painterly Pokémon game card polish, portrait 4:5. Simplify the scene so a single huge turquoise water whirlpool dominates the entire image, centered dark hollow funnel, two or three strong circular white foam bands with clear motion drawing water toward its center. Quiet deep teal surrounding water and a small soft far shore. Use broad readable painted shapes and integrated water lighting. Remove ALL Pokémon including Gyarados, Mantine and Starmie, all castles, arches, flags, spectators, waterfalls and small scattered debris. Keep a physical illustrated scene, not a neon symbol, abstract icon or diagram. A clean circular water vortex must read clearly at 120px and differ from a white icy horizontal blizzard. No text, numbers, frame or border."
+    },
+    {
+      "key": "earthquake",
+      "file": "dist/assets/cards/earthquakeV2.webp",
+      "originalSource": "exec-1db20bdc-c112-45bb-a89f-71fa83774146.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Use case: precise-object-edit. Input image is the edit target. Portrait 4:5, polished painted Pokémon game-card art. Simplify this Terremoto spell illustration for a Pokémon card selector. Make the cracking arena ground the dominant subject: a few broad, deep branching fissures and lifted slabs, a gentle wave of dust showing seismic movement. Warm ochre earth against quiet olive grass in the far background. Exactly one small Golem at the far upper right, about 14% image height, causing the tremor. Keep Golem off center and secondary. Remove the large foreground character, castle towers, flags, arches, mountains and dense debris. Integrated painterly texture, perspective and lighting, clearly an earthquake at 120 pixels wide. Avoid lava, fire, explosion or a pile of floating rocks so it differs from Trampa rocas. No words, lettering, numbers, frame, borders or interface.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "nightmare",
+      "file": "dist/assets/cards/nightmareV2.webp",
+      "originalSource": "exec-947f17bb-26b3-4eed-ac67-ea38baa63a96.png",
+      "tool": "ImageGen integrado",
+      "prompt": "Use case: precise-object-edit. Input image is the edit target. Portrait 4:5, polished painted Pokémon game-card art. Simplify this Pesadilla summoning spell illustration for a Pokémon card selector. A single large low oval portal of violet mist on a quiet grassy arena floor dominates the picture, with a dark center and two broad wisps lifting from the surface. Exactly one small Shuppet emerges beside the far left edge of the portal, approximately 16% image height. The little ghost is off center and secondary, with its familiar pointed cloth-like silhouette. Quiet midnight-blue woodland backdrop. Remove all other ghosts, castles, towers, flags, arches, bright moon and dense grass detail. Keep soft integrated painted lighting and perspective. Make a summoning portal immediately readable at 120 pixels, distinct from a water vortex. No words, lettering, numbers, frame, borders or interface.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    }
+  ],
+  "cards": [
+    {
+      "key": "pikachu",
+      "name": "Pikachu",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "snorlax",
+      "name": "Snorlax",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "machamp",
+      "name": "Machamp",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "blastoise",
+      "name": "Blastoise",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "zubat",
+      "name": "Zubat",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "thunder",
+      "name": "Impactrueno",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "charizard",
+      "name": "Charizard",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "fireball",
+      "name": "Bomba ígnea",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "treecko",
+      "name": "Treecko",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "log",
+      "name": "Mazazo",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "squirtle",
+      "name": "Squirtle",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "charmander",
+      "name": "Charmander",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "bulbasaur",
+      "name": "Bulbasaur",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "gengar",
+      "name": "Gengar",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "eevee",
+      "name": "Eevee",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "onix",
+      "name": "Onix",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "vulpix",
+      "name": "Vulpix",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "psyduck",
+      "name": "Psyduck",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "alakazam",
+      "name": "Alakazam",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "geodude",
+      "name": "Geodude",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "magnemite",
+      "name": "Magnemite",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "scyther",
+      "name": "Scyther",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "lapras",
+      "name": "Lapras",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "mewtwo",
+      "name": "Mewtwo",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "golem",
+      "name": "Golem",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "venusaur",
+      "name": "Venusaur",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "butterfree",
+      "name": "Butterfree",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "beedrill",
+      "name": "Beedrill",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "pidgeot",
+      "name": "Pidgeot",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "ekans",
+      "name": "Ekans",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "sandshrew",
+      "name": "Sandshrew",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "nidoqueen",
+      "name": "Nidoqueen",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "nidoking",
+      "name": "Nidoking",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "mankey",
+      "name": "Mankey",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "arcanine",
+      "name": "Arcanine",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "slowbro",
+      "name": "Slowbro",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "grimer",
+      "name": "Grimer",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "cloyster",
+      "name": "Cloyster",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "gastly",
+      "name": "Gastly",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "voltorb",
+      "name": "Voltorb",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "electrode",
+      "name": "Electrode",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "exeggutor",
+      "name": "Exeggutor",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "koffing",
+      "name": "Koffing",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "chansey",
+      "name": "Chansey",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "kangaskhan",
+      "name": "Kangaskhan",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "starmie",
+      "name": "Starmie",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "mrmime",
+      "name": "Mr. Mime",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "gyarados",
+      "name": "Gyarados",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "ditto",
+      "name": "Ditto",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "articuno",
+      "name": "Articuno",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "zapdos",
+      "name": "Zapdos",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "moltres",
+      "name": "Moltres",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "dragonite",
+      "name": "Dragonite",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "meganium",
+      "name": "Meganium",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "typhlosion",
+      "name": "Typhlosion",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "feraligatr",
+      "name": "Feraligatr",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "crobat",
+      "name": "Crobat",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "ampharos",
+      "name": "Ampharos",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "espeon",
+      "name": "Espeon",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "umbreon",
+      "name": "Umbreon",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "wobbuffet",
+      "name": "Wobbuffet",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "steelix",
+      "name": "Steelix",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "scizor",
+      "name": "Scizor",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "skarmory",
+      "name": "Skarmory",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "blissey",
+      "name": "Blissey",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "lugia",
+      "name": "Lugia",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "hooh",
+      "name": "Ho-Oh",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "sceptile",
+      "name": "Sceptile",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "blaziken",
+      "name": "Blaziken",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "swampert",
+      "name": "Swampert",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "gardevoir",
+      "name": "Gardevoir",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "sableye",
+      "name": "Sableye",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "aggron",
+      "name": "Aggron",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "sharpedo",
+      "name": "Sharpedo",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "flygon",
+      "name": "Flygon",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "altaria",
+      "name": "Altaria",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "absol",
+      "name": "Absol",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "salamence",
+      "name": "Salamence",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "metagross",
+      "name": "Metagross",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "kyogre",
+      "name": "Kyogre",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "groudon",
+      "name": "Groudon",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "rayquaza",
+      "name": "Rayquaza",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "diglett",
+      "name": "Diglett",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "diglettHorde",
+      "name": "Horda Diglett",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "raltsTrio",
+      "name": "Trío Ralts",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "poochyenaPack",
+      "name": "Manada Poochyena",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "centralElectrode",
+      "name": "Central Electrode",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "madriguera",
+      "name": "Madriguera Nidoqueen",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "vivero",
+      "name": "Vivero Exeggutor",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "regice",
+      "name": "Regice",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "duskull",
+      "name": "Duskull",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "raichu",
+      "name": "Raichu",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "registeel",
+      "name": "Registeel",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "regirock",
+      "name": "Regirock",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "celebi",
+      "name": "Celebi",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "pandilla",
+      "name": "Pandilla Rocket",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "pinMissile",
+      "name": "Pin misil",
+      "decision": "Ilustración simplificada",
+      "reason": "Se redujo la competencia visual del fondo y de sujetos secundarios."
+    },
+    {
+      "key": "lightning",
+      "name": "Rayo",
+      "decision": "Ilustración simplificada",
+      "reason": "Se redujo la competencia visual del fondo y de sujetos secundarios."
+    },
+    {
+      "key": "hyperBeam",
+      "name": "Hiperrayo",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "blizzard",
+      "name": "Ventisca",
+      "decision": "Ilustración simplificada",
+      "reason": "Se redujo la competencia visual del fondo y de sujetos secundarios."
+    },
+    {
+      "key": "spikes",
+      "name": "Púas",
+      "decision": "Ilustración simplificada",
+      "reason": "Se redujo la competencia visual del fondo y de sujetos secundarios."
+    },
+    {
+      "key": "stealthRock",
+      "name": "Trampa rocas",
+      "decision": "Conservar",
+      "reason": "La silueta y la acción permanecen legibles al tamaño del selector."
+    },
+    {
+      "key": "whirlpool",
+      "name": "Remolino",
+      "decision": "Ilustración simplificada",
+      "reason": "Se redujo la competencia visual del fondo y de sujetos secundarios."
+    },
+    {
+      "key": "nightmare",
+      "name": "Pesadilla",
+      "decision": "Ilustración simplificada",
+      "reason": "El efecto del hechizo domina la composición y queda un único Pokémon pequeño hacia un costado."
+    },
+    {
+      "key": "earthquake",
+      "name": "Terremoto",
+      "decision": "Ilustración simplificada",
+      "reason": "El efecto del hechizo domina la composición y queda un único Pokémon pequeño hacia un costado."
+    }
+  ]
+}

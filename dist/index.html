@@ -7,12 +7,29 @@
   <meta name="description" content="Batallas de Pokémon en tiempo real: elegí tus cartas, defendé tus torres y conquistá la arena.">
   <title>Poké Arena · Batalla de torres</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=17">
-  <link rel="stylesheet" href="card-ui.css?v=17">
-  <link rel="stylesheet" href="theme.css?v=17">
+  <link rel="preload" href="assets/fonts/font-3.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/fonts/font-4.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/fonts/font-7.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="style.css?v=19">
+  <link rel="stylesheet" href="card-ui.css?v=19">
+  <link rel="stylesheet" href="theme.css?v=19">
+  <link rel="stylesheet" href="transient-ui.css?v=19">
 </head>
 <body class="menu-mode">
   <svg class="svg-defs" aria-hidden="true"><defs>
+    <linearGradient id="loading-red" x2="0" y2="1"><stop stop-color="#ff8a69"/><stop offset="1" stop-color="#b93f3d"/></linearGradient>
+    <linearGradient id="loading-ivory" x2="0" y2="1"><stop stop-color="#fffdf0"/><stop offset="1" stop-color="#e0d6b2"/></linearGradient>
+    <symbol id="i-loading-ball" viewBox="0 0 64 64">
+      <ellipse cx="32" cy="58" rx="20" ry="3" fill="#34463b" opacity=".18"/>
+      <circle cx="32" cy="30" r="27" fill="url(#loading-ivory)" stroke="#414a50" stroke-width="3"/>
+      <path d="M5 30a27 27 0 0 1 54 0Z" fill="url(#loading-red)"/>
+      <path d="M5 30h54" stroke="#414a50" stroke-width="5"/>
+      <circle cx="32" cy="30" r="27" fill="none" stroke="#414a50" stroke-width="3"/>
+      <ellipse cx="22" cy="13" rx="9" ry="3" fill="#fff6df" opacity=".7" transform="rotate(-25 22 13)"/>
+      <circle cx="32" cy="30" r="9" fill="#dfd9be" stroke="#414a50" stroke-width="3"/>
+      <circle cx="32" cy="30" r="4" fill="#fffdf0"/>
+    </symbol>
     <symbol id="i-ball" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="-72" width="96" height="96"/></symbol>
     <symbol id="i-sound" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="0" y="-24" width="96" height="96"/></symbol>
     <symbol id="i-mute" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="-24" width="96" height="96"/></symbol>
@@ -56,45 +73,47 @@
 
   <section id="main-menu" class="main-menu" aria-label="Menú principal">
     <div class="menu-scene" aria-hidden="true"><img class="menu-background" src="assets/home-arena.webp" alt="" fetchpriority="high" decoding="async"></div>
-    <div id="ready-overlay" class="menu-panel">
-      <div class="menu-deck-heading"><h1>Tu mazo</h1><span>Elixir medio <strong id="menu-deck-average"></strong><svg aria-hidden="true"><use href="#i-energy"/></svg></span></div>
-      <div id="menu-deck-slots" class="deck-presets" role="group" aria-label="Mazos guardados"></div>
-      <div id="menu-deck-preview" class="menu-deck-preview" aria-label="Tu mazo"></div>
-      <p id="menu-deck-status" class="menu-deck-status" hidden></p>
-      <label class="name-field" for="trainer-name">Nombre<input id="trainer-name" maxlength="20" autocomplete="nickname" placeholder="Entrenador"></label>
+    <div id="ready-overlay" class="menu-panel" aria-busy="true">
+      <div id="menu-deck-slots" class="deck-presets" role="group" aria-label="Mazos guardados"><span class="deck-preset" aria-hidden="true"><svg><use href="#i-deck"/></svg><span>1</span><small>8/8</small></span><span class="deck-preset" aria-hidden="true"><svg><use href="#i-deck"/></svg><span>2</span><small>+</small></span><span class="deck-preset" aria-hidden="true"><svg><use href="#i-deck"/></svg><span>3</span><small>+</small></span><span class="deck-preset" aria-hidden="true"><svg><use href="#i-deck"/></svg><span>4</span><small>+</small></span></div>
+      <div id="menu-deck-preview" class="menu-deck-preview" aria-label="Tu mazo"><span class="menu-card pokemon-card empty" aria-hidden="true"></span><span class="menu-card pokemon-card empty" aria-hidden="true"></span><span class="menu-card pokemon-card empty" aria-hidden="true"></span><span class="menu-card pokemon-card empty" aria-hidden="true"></span><span class="menu-card pokemon-card empty" aria-hidden="true"></span><span class="menu-card pokemon-card empty" aria-hidden="true"></span><span class="menu-card pokemon-card empty" aria-hidden="true"></span><span class="menu-card pokemon-card empty" aria-hidden="true"></span></div>
+      <label class="name-field" for="trainer-name"><span class="sr-only">Nombre del entrenador</span><input id="trainer-name" maxlength="20" autocomplete="nickname" placeholder="Entrenador"></label>
       <button id="online-btn" class="primary-btn" disabled>Buscar partida <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
       <button id="start-btn" class="secondary-btn" disabled>Jugar contra CPU</button>
       <div class="menu-options"><button id="menu-deck-btn" class="secondary-btn"><svg aria-hidden="true"><use href="#i-deck"/></svg>Mazo</button><button id="practice-btn" class="secondary-btn" disabled><svg aria-hidden="true"><use href="#i-help"/></svg>Tutorial</button></div>
-      <span id="menu-loading" class="menu-loading">Cargando…</span>
-      <div id="search-panel" class="search-panel" hidden><span class="search-spinner" aria-hidden="true"></span><strong id="search-status" role="status">Buscando rival…</strong><span id="search-time">0:00</span><button id="cancel-search" class="secondary-btn">Cancelar</button></div>
     </div>
+    <div id="menu-loading" class="menu-loading">
+      <div id="menu-loading-badge" class="loading-badge"><span id="menu-load-progress" class="pokeball-loader" role="progressbar" aria-label="Cargando el juego" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><svg class="load-ring" viewBox="0 0 100 100" aria-hidden="true"><circle class="load-track" cx="50" cy="50" r="45"/><circle class="load-progress" cx="50" cy="50" r="45" pathLength="100"/></svg><svg class="loading-ball" aria-hidden="true"><use href="#i-loading-ball"/></svg></span></div>
+      <div id="menu-load-error" class="load-error" role="alert" hidden><p>No se pudo cargar el juego.</p><button id="retry-load" class="secondary-btn">Reintentar</button></div>
+    </div>
+    <div id="search-panel" class="search-panel" role="region" aria-label="Búsqueda de rival" hidden><div class="search-card"><span class="pokeball-loader is-indeterminate" aria-hidden="true"><svg class="load-ring" viewBox="0 0 100 100"><circle class="load-track" cx="50" cy="50" r="45"/><circle class="load-progress" cx="50" cy="50" r="45" pathLength="100"/></svg><svg class="loading-ball"><use href="#i-loading-ball"/></svg></span><strong id="search-status" role="status">Buscando rival…</strong><span id="search-time">0:00</span><button id="cancel-search" class="secondary-btn">Cancelar</button></div></div>
   </section>
   <main class="battle-layout">
     <section class="battle-stage" aria-label="Arena de batalla">
       <div class="arena-frame" id="arena-frame">
         <canvas id="arena" width="600" height="800" tabindex="0" role="application" aria-label="Arena. Seleccioná una carta con las teclas 1 a 4 y usá las flechas para elegir dónde desplegar. Confirmá con Enter. En pantalla táctil, tocá una carta y después tu mitad de la arena."></canvas>
         <div class="arena-corner corner-tl"></div><div class="arena-corner corner-tr"></div><div class="arena-corner corner-bl"></div><div class="arena-corner corner-br"></div>
-        <div id="loading" class="loading-overlay" role="status"><span class="brand-ball"></span><span>Cargando sprites…</span></div>
-        <div id="guide" class="guide" hidden><div><span id="guide-step">1 / 3</span><strong id="guide-text">Elegí una carta.</strong></div><button id="skip-guide" class="text-btn">Omitir</button></div>
-        <div id="pause-overlay" class="pause-overlay" hidden><div><svg class="pause-symbol"><use href="#i-pause"/></svg><h2>En pausa</h2><button id="resume-btn" class="primary-btn">Continuar<svg aria-hidden="true"><use href="#i-play"/></svg></button><button id="pause-menu-btn" class="text-btn">Menú principal</button></div></div>
+        <div id="loading" class="loading-overlay" role="status" aria-label="Cargando el juego"><span class="pokeball-loader is-indeterminate" aria-hidden="true"><svg class="load-ring" viewBox="0 0 100 100"><circle class="load-track" cx="50" cy="50" r="45"/><circle class="load-progress" cx="50" cy="50" r="45" pathLength="100"/></svg><svg class="loading-ball"><use href="#i-loading-ball"/></svg></span></div>
+        <div id="guide" class="guide" role="status" hidden><span id="guide-step" class="guide-step" aria-label="Paso 1 de 3">1</span><strong id="guide-text">Elegí una carta.</strong><button id="skip-guide" class="secondary-btn">Omitir</button></div>
+        <div id="pause-overlay" class="pause-overlay" hidden><div><svg class="pause-symbol"><use href="#i-pause"/></svg><h2>En pausa</h2><button id="resume-btn" class="primary-btn">Continuar<svg aria-hidden="true"><use href="#i-play"/></svg></button><button id="pause-menu-btn" class="secondary-btn"><svg aria-hidden="true"><use href="#i-home"/></svg>Volver al inicio</button></div></div>
         <div id="result-overlay" class="result-overlay" hidden>
           <div class="result-content"><svg class="result-crown"><use href="#i-crown"/></svg><span class="eyebrow" id="result-eyebrow">BATALLA TERMINADA</span><h2 id="result-title">Victoria</h2><div class="result-score"><span id="result-player">1</span><span>—</span><span id="result-enemy">0</span></div><p id="result-reason"></p><div class="result-stats"><div><strong id="result-deployed">0</strong><span>Desplegados</span></div><div><strong id="result-damage">0</strong><span>Daño total</span></div></div><button id="again-btn" class="primary-btn">Volver a jugar<svg aria-hidden="true"><use href="#i-arrow"/></svg></button><button id="result-menu-btn" class="text-btn">Volver al inicio</button></div>
         </div>
         <div class="toast" id="toast" role="status"></div>
         <div id="battle-overlays" class="battle-overlays">
           <div class="battle-hud">
-            <div class="trainer-id"><strong id="enemy-name">Entrenador</strong><span id="online-status" class="online-status" hidden></span></div>
-            <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="phase-label" hidden>Extra</span><span id="boost" hidden>×2</span><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button><button id="match-leave" class="icon-btn" aria-label="Salir de la partida" title="Salir de la partida" hidden><svg aria-hidden="true"><use href="#i-home"/></svg></button></div>
+            <div class="trainer-id"><strong id="enemy-name">Entrenador</strong><span id="connection-loading" class="connection-loading" role="status" aria-label="Reconectando a la partida" hidden><svg class="loading-ball" aria-hidden="true"><use href="#i-loading-ball"/></svg></span><span id="online-status" class="online-status" role="status" hidden></span></div>
+            <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="phase-label" hidden>Extra</span><span id="boost" hidden>×2</span><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button><button id="match-leave" class="icon-btn" aria-label="Volver al inicio" title="Volver al inicio" hidden><svg aria-hidden="true"><use href="#i-home"/></svg></button></div>
           </div>
           <div id="abilities" class="abilities" aria-label="Habilidades disponibles" hidden></div>
+          <span id="battle-loading" class="battle-loading" role="status" hidden><span class="pokeball-loader" aria-hidden="true"><svg class="loading-ball"><use href="#i-loading-ball"/></svg></span><span class="sr-only">Cargando recursos de batalla…</span></span>
         </div>
       </div>
     </section>
 
     <aside class="battle-console" aria-label="Cartas y controles">
       <div class="hand" id="hand" aria-label="Tus cuatro cartas"></div>
-      <div class="next-card"><span>PRÓXIMA</span><div id="next-preview"></div><strong id="next-name">Zubat</strong></div>
-      <div class="energy-section"><div class="energy-title"><span><svg aria-hidden="true"><use href="#i-energy"/></svg>Elixir</span><strong><span id="energy-value">6</span><span class="energy-max"> / 10</span></strong></div><div class="energy-bar" id="energy-bar" role="progressbar" aria-label="Elixir disponible" aria-valuemin="0" aria-valuemax="10" aria-valuenow="6"></div></div>
+      <div id="next-card" class="next-card" role="img" aria-label="Próxima carta"><div id="next-preview" aria-hidden="true"></div></div>
+      <div class="energy-section"><div class="energy-title" aria-hidden="true"><svg><use href="#i-energy"/></svg><strong id="energy-value">6</strong></div><div class="energy-bar" id="energy-bar" role="progressbar" aria-label="Elixir disponible" aria-valuemin="0" aria-valuemax="10" aria-valuenow="6"></div></div>
       <div id="selected-detail" hidden></div>
     </aside>
   </main>
@@ -107,12 +126,6 @@
       <li><svg aria-hidden="true"><use href="#i-tower"/></svg><span><strong>Protegé tus torres.</strong> Los Pokémon avanzan y atacan solos.</span></li>
     </ol>
     <button id="help-practice-btn" class="primary-btn">Jugar la práctica<svg aria-hidden="true"><use href="#i-play"/></svg></button>
-    <details class="help-details"><summary>Reglas y controles</summary>
-      <p>Destruí la torre central o más torres que tu rival en 3 minutos. Si empatan, hay 2 minutos extra: gana quien destruya una torre primero. Después, las torres pierden vida hasta desempatar.</p>
-      <p>El elixir pasa a ×2 en el último minuto y al comenzar el tiempo extra; a ×3 en el último minuto extra. Las habilidades consumen elixir y se usan una vez por despliegue.</p>
-      <p>El alcance se muestra al apuntar. Las exclamaciones avisan qué enemigos pueden atacar tu posición. Soltar muy lejos de tu zona o devolver la carta a la mano cancela la jugada.</p>
-      <div class="help-keys"><span><kbd>1–4</kbd> Carta</span><span><kbd>↑ ↓ ← →</kbd> Apuntar</span><span><kbd>Enter</kbd> Desplegar</span><span><kbd>Espacio</kbd> Pausa CPU</span></div>
-    </details>
   </dialog>
 
   <dialog id="settings-dialog" class="modal small-modal"><div class="modal-heading"><h2>Ajustes</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><label class="setting-row" for="difficulty"><span><strong>Rival CPU</strong><small id="difficulty-hint" hidden>Próxima partida</small></span><select id="difficulty"><option value="easy">Principiante</option><option value="normal" selected>Entrenador</option><option value="hard">Líder de gimnasio</option></select></label><label class="setting-row" for="sound-setting"><span><strong>Sonido</strong></span><input type="checkbox" id="sound-setting" class="switch"></label><label class="setting-row" for="motion-setting"><span><strong>Reducir movimiento</strong></span><input type="checkbox" id="motion-setting" class="switch"></label><button id="settings-credits-btn" class="text-btn" style="margin-top:15px">Sprites y créditos</button></dialog>
@@ -133,9 +146,9 @@
     <button id="card-info-toggle" class="primary-btn"></button>
   </dialog>
 
-  <dialog id="leave-dialog" class="modal small-modal" aria-labelledby="leave-title" aria-describedby="leave-description"><div class="modal-heading"><h2 id="leave-title">Salir de la partida</h2><button class="icon-btn" data-close aria-label="Seguir jugando"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><p id="leave-description">Si salís, ganará tu rival. La partida sigue mientras decidís.</p><div class="leave-actions"><button class="primary-btn" data-close>Seguir jugando</button><button class="secondary-btn" id="confirm-leave-btn">Salir</button></div></dialog>
+  <dialog id="leave-dialog" class="modal small-modal" aria-labelledby="leave-title" aria-describedby="leave-description"><div class="modal-heading"><h2 id="leave-title">¿Volver al inicio?</h2><button class="icon-btn" data-close aria-label="Seguir jugando"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><p id="leave-description">Se perderá esta partida contra CPU.</p><div class="leave-actions"><button class="primary-btn" data-close>Seguir jugando</button><button class="secondary-btn" id="confirm-leave-btn"><svg aria-hidden="true"><use href="#i-home"/></svg>Volver</button></div></dialog>
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
   <dialog id="portrait-dialog" class="modal small-modal portrait-dialog" aria-labelledby="portrait-title" aria-describedby="portrait-description"><h2 id="portrait-title">Jugá en vertical</h2><p id="portrait-description">Girá el teléfono para continuar.</p></dialog>
-  <script type="module" src="app.js?v=17"></script>
+  <script type="module" src="app.js?v=19"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=17';
+import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=18';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -45,26 +45,37 @@ export class Renderer {
     this.sprites = new Map(); this.metadata = {};
     this.anchors = new Map(); this.bodyHeights = new Map(); this.effects = [];
     this.particles = []; this.numbers = [];
-    this.healthStates=new Map();this.speciesLoads=new Map();this.imageLoads=new Map();
+    this.healthStates=new Map();this.speciesLoads=new Map();this.imageLoads=new Map();this.pendingSpecies=new Set();
     this.uiAtlas=new Image();this.uiAtlas.src='assets/ui/menu-icons-v1.webp';
     this.combatAtlas=new Image();this.combatAtlas.src='assets/ui/combat-effects-v1.webp';
     this.t = 0; this.reduced = false; this.pointer = null; this.selection = null; this.tutorialSpot = false;
     this.buildBackground();
   }
-  async load(keys=DEFAULT_DECK) {
-    const response = await fetch('assets/pokemon/manifest.json?v=17');
+  async load(keys=DEFAULT_DECK,onProgress=()=>{}) {
+    const response = await fetch('assets/pokemon/manifest.json?v=18');
     if (!response.ok) throw new Error('No se pudo cargar el archivo de sprites.');
     this.metadata = await response.json();
-    await Promise.all([this.ensureSpecies([...keys.map(k=>CARDS[k]?.id),31,34,52].filter(Boolean)),this.uiAtlas.decode().catch(()=>{}),this.combatAtlas.decode().catch(()=>{})]);
+    const ids=[...new Set([...keys.map(k=>CARDS[k]?.id),31,34,52].filter(Boolean))];
+    const files=new Set(ids.flatMap(id=>this.animationEntries(id).flatMap(([,meta])=>[meta.file,meta.shadow])));
+    const total=files.size+2;let loaded=0;
+    const track=pending=>pending.then(value=>{onProgress(++loaded,total);return value;});
+    onProgress(0,total);
+    await Promise.all([this.ensureSpecies(ids),...[...files].map(file=>track(this.loadImage(file))),track(this.uiAtlas.decode().catch(()=>{})),track(this.combatAtlas.decode().catch(()=>{}))]);
+  }
+  animationEntries(id){
+    const names=new Set(['Walk','Idle','Attack','Hurt',...([31,34,52].includes(Number(id))?['Shoot']:[]),...Object.values(CARDS).filter(c=>c.id===Number(id)).map(c=>c.attackAnim)]);
+    return Object.entries(this.metadata[id]||{}).filter(([name])=>names.has(name));
+  }
+  loadImage(file){
+    if(!this.imageLoads.has(file)){const image=new Image();image.src=file;this.imageLoads.set(file,image.decode().then(()=>image));}
+    return this.imageLoads.get(file);
   }
   ensureSpecies(ids){if(!Object.keys(this.metadata).length)return Promise.resolve();return Promise.all([...new Set(ids)].map(id=>{
     if(this.speciesLoads.has(id))return this.speciesLoads.get(id);
-    const names=new Set(['Walk','Idle','Attack','Hurt',...([31,34,52].includes(Number(id))?['Shoot']:[]),...Object.values(CARDS).filter(c=>c.id===Number(id)).map(c=>c.attackAnim)]);
-    const pending=Promise.all(Object.entries(this.metadata[id]||{}).filter(([name])=>names.has(name)).map(async([name,meta])=>{
-      const loadImage=file=>{if(!this.imageLoads.has(file)){const image=new Image();image.src=file;this.imageLoads.set(file,image.decode().then(()=>image));}return this.imageLoads.get(file);};
-      const img=await loadImage(meta.file);
+    this.pendingSpecies.add(id);
+    const pending=Promise.all(this.animationEntries(id).map(async([name,meta])=>{
+      const [img,shadow]=await Promise.all([this.loadImage(meta.file),this.loadImage(meta.shadow)]);
       this.sprites.set(`${id}-${name}`, img);
-      const shadow=await loadImage(meta.shadow);
       const surface=document.createElement('canvas');surface.width=shadow.width;surface.height=shadow.height;
       const ctx=surface.getContext('2d',{willReadFrequently:true});ctx.drawImage(shadow,0,0);
       const pixels=ctx.getImageData(0,0,shadow.width,shadow.height).data,anchors=[];
@@ -86,7 +97,7 @@ export class Renderer {
         }
         this.bodyHeights.set(Number(id),height);
       }
-    }));this.speciesLoads.set(id,pending);return pending;
+    }));this.speciesLoads.set(id,pending);pending.then(()=>this.pendingSpecies.delete(id),()=>this.pendingSpecies.delete(id));return pending;
   }));
   }
   rng(seed) { let s = seed; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }

@@ -1,4 +1,4 @@
-import { CARDS } from './engine.js?v=17';
+import { CARDS } from './engine.js?v=18';
 // Each atlas contains opaque, full-bleed battle scenes in row-major order.
 const sheets = [
   ['pikachu','snorlax','machamp','blastoise','zubat','thunder','charizard','fireball','treecko','log','squirtle','charmander','bulbasaur','gengar','eevee','onix'],
@@ -18,10 +18,15 @@ for (const key of ['diglett', 'diglettHorde', 'raltsTrio', 'poochyenaPack']) {
 for(const key of ['centralElectrode','madriguera','vivero','regice','duskull','raichu','registeel','regirock','celebi','pandilla','pinMissile','lightning','hyperBeam','blizzard','spikes','stealthRock','whirlpool','nightmare','earthquake']){
   CARD_ART[key]={file:`assets/cards/${key}.webp`,columns:1,rows:1,x:0,y:0};
 }
+for(const key of ['lightning','pinMissile','blizzard','spikes','whirlpool','earthquake','nightmare'])CARD_ART[key].file=`assets/cards/${key}V2.webp`;
 export function cardArtMarkup(key) {
   const art = CARD_ART[key];
   if (!art) return '';
-  const x = art.columns === 1 ? 0 : art.x * 100 / (art.columns - 1), y = art.rows === 1 ? 0 : art.y * 100 / (art.rows - 1);
   const flip = ['pikachu','charizard','treecko','eevee','vulpix','alakazam','scyther','beedrill','ekans','arcanine','cloyster','starmie','dragonite','feraligatr','espeon','scizor','sceptile','gardevoir','sharpedo','salamence','rayquaza'].includes(key);
-  return `<span class="card-art" data-art="${key}" aria-hidden="true" style="background-image:url('${art.file}');background-size:${art.columns * 100}% ${art.rows * 100}%;background-position:${x}% ${y}%;${flip?'transform:scaleX(-1)':''}"></span>${CARDS[key]?.rarity==='legendaria'?'<span class="legend-frame" aria-hidden="true"></span>':''}`;
+  // The SVG viewport crops a raster atlas tile using cover semantics. Scaling a
+  // background to columns × rows stretched every portrait into its container.
+  const width = art.columns === 2 ? 1586 : 1122, height = art.columns === 2 ? 992 : 1402;
+  const tileWidth = width / art.columns, tileHeight = height / art.rows;
+  const raster = art.columns > 1 ? `<svg viewBox="${art.x * tileWidth} ${art.y * tileHeight} ${tileWidth} ${tileHeight}" preserveAspectRatio="xMidYMid slice" focusable="false"><image href="${art.file}" width="${width}" height="${height}"/></svg>` : '';
+  return `<span class="card-art" data-art="${key}" aria-hidden="true" style="${art.columns===1?`background-image:url('${art.file}');background-size:cover;background-position:center;`:''}${flip?'transform:scaleX(-1)':''}">${raster}</span>${CARDS[key]?.rarity==='legendaria'?'<span class="legend-frame" aria-hidden="true"></span>':''}`;
 }

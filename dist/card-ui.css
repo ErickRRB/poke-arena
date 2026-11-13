@@ -5,11 +5,6 @@ html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden;
 .menu-scene:after { background: linear-gradient(90deg, transparent 40%, #10251f18 62%, #10251f55), linear-gradient(0deg, #10251f44, transparent 28%); }
 .menu-panel { width: 440px; max-height: 100%; padding: 22px; overflow-y: auto; overscroll-behavior: contain; }
 .menu-panel { background: #152c26f2; border-color: #7a8f657a; box-shadow: 0 18px 70px #06170e66; backdrop-filter: blur(12px); }
-.menu-deck-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
-.menu-panel .menu-deck-heading h1 { margin: 0; font-size: 30px; text-align: left; letter-spacing: 0; }
-.menu-deck-heading > span { display: flex; align-items: center; gap: 5px; color: #b9cbbd; font-size: 10px; white-space: nowrap; }
-.menu-deck-heading strong { color: #e4bdff; font-size: 13px; }
-.menu-deck-heading svg { color: #cb8bf1; width: 13px; height: 16px; }
 .menu-panel .menu-deck-preview { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 10px; margin: 0 0 17px; }
 .pokemon-card { padding: 7px 5px 8px; }
 .card-art { display: block; position: absolute; inset: 0; border-radius: inherit; background-repeat: no-repeat; pointer-events: none; }
@@ -21,8 +16,6 @@ html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden;
 .menu-card .card-name { font-size: 10px; }
 .menu-card .card-cost { left: -5px; top: -6px; width: 24px; height: 29px; font-size: 23px; }
 .menu-card.empty { border-style: dashed; display: grid; place-items: center; font-size: 24px; color: #a4b4a0; }
-.menu-deck-status { color: #f0cf86; margin: -5px 0 12px; font-size: 11px; }
-.menu-panel.searching > .menu-deck-heading, .menu-panel.searching > .menu-deck-status { display: none; }
 .deck-slot > .card-art { inset: 0; width: auto; height: auto; padding: 0; border-radius: inherit; }
 .deck-slot > .slot-cost { right: 2px; bottom: 2px; z-index: 1; min-width: 15px; font-size: 11px; line-height: 16px; background: #783a9e; border: 1px solid #e0a5ff; padding: 0 3px; }
 .next-card #next-preview { padding: 0; }
@@ -100,7 +93,6 @@ html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden;
   .menu-scene:after { background: linear-gradient(0deg, #10251f 30%, #10251f05 80%); }
   .main-menu { height: calc(var(--app-height, 100dvh) - 44px); min-height: 0; padding: 14px 16px max(16px, env(safe-area-inset-bottom)); }
   .menu-panel { width: 400px; padding: 18px; }
-  .menu-panel .menu-deck-heading h1 { font-size: 28px; }
   .menu-panel .menu-deck-preview { gap: 11px 9px; margin-bottom: 14px; }
   .menu-panel .name-field { margin-bottom: 7px; }
   .name-field input, .collection-tools input { font-size: 16px; }
@@ -139,7 +131,6 @@ html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden;
 @media(max-height: 650px) and (max-width: 940px) {
   .main-menu { padding-top: 10px; padding-bottom: 10px; }
   .menu-panel { padding: 13px 16px; }
-  .menu-panel .menu-deck-heading { margin-bottom: 11px; }
   .menu-panel .menu-deck-preview { gap: 9px; margin-bottom: 11px; }
   .menu-panel .menu-card { aspect-ratio: 1; }
   .menu-panel > .primary-btn, .menu-panel > .secondary-btn { min-height: 38px; margin-top: 8px; }

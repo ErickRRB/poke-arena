@@ -6,15 +6,15 @@ Juego web de estrategia en tiempo real inspirado en las batallas de torres de Cl
 
 ## Cómo se juega
 
-Armá un mazo de ocho cartas en la home. Durante la partida tenés cuatro cartas en la mano y una cola rotativa; cada despliegue consume elixir, que se regenera hasta diez. Podés guardar cuatro mazos en el navegador.
+Armá un mazo de ocho cartas en la home. Durante la partida tenés cuatro cartas en la mano y una cola rotativa. Cada despliegue consume elixir, que se regenera hasta diez. Podés guardar cuatro mazos en el navegador.
 
-La colección tiene 105 cartas: tropas terrestres y aéreas, estructuras, invocadores y doce hechizos. Las cartas tienen funciones y estadísticas propias; la rareza no modifica sus estadísticas. Algunas unidades legendarias tienen una habilidad que consume elixir y se puede activar una vez por despliegue.
+La colección tiene 105 cartas: tropas terrestres y aéreas, estructuras, invocadores y doce hechizos. Cada carta tiene funciones y estadísticas propias. Algunas unidades legendarias tienen una habilidad que consume elixir y se puede activar una vez por despliegue.
 
-La partida dura tres minutos. Ganás al destruir la torre central o terminar con más torres que el rival. Un empate lleva a dos minutos extra con muerte súbita; después se aplica un desempate por vida de las torres. El elixir se acelera en las fases finales.
+La partida dura tres minutos. Ganás al destruir la torre central o terminar con más torres que el rival. Un empate lleva a dos minutos extra con muerte súbita y luego a un desempate por vida de las torres. El elixir se acelera en las fases finales.
 
 La CPU utiliza diez estrategias de mazo. Las partidas online usan una simulación autoritativa en el servidor que valida cartas, elixir, colocación y habilidades. La pausa está disponible únicamente contra CPU. El mazo se edita desde la home y los créditos se consultan en Ajustes.
 
-En móvil se juega en vertical, tocando una carta y luego la arena, o arrastrándola. Se solicita el bloqueo de orientación cuando el navegador lo permite; en los demás casos aparece un aviso al girar el dispositivo.
+En móvil se juega en vertical, tocando una carta y luego la arena, o arrastrándola. Un aviso al girar el dispositivo mantiene el juego en vertical cuando el navegador restringe el bloqueo de orientación.
 
 | Tecla | Acción |
 | --- | --- |
@@ -26,7 +26,7 @@ En móvil se juega en vertical, tocando una carta y luego la arena, o arrastrán
 
 ## Ejecutar localmente
 
-Requiere Node.js con `node:sqlite` disponible; el proyecto se prueba con Node.js 22.16. Los recursos del juego están incluidos en el repositorio y no requiere instalar dependencias para ejecutar estos comandos.
+Requiere Node.js con `node:sqlite`, probado con Node.js 22.16. Los recursos y las herramientas para ejecutar el juego están incluidos en el repositorio.
 
 ```sh
 git clone https://github.com/ErickRRB/poke-arena.git
@@ -42,9 +42,10 @@ El servidor se abre en `http://127.0.0.1:4173`. Crea automáticamente la base SQ
 npm test
 npm run check
 npm run build
+npm run balance:simulate
 ```
 
-Las pruebas cubren combate, objetivos, balance, formaciones, movimiento, colocación, guardado de mazos, recuperación de audio y restauración de partidas online. `check` comprueba la sintaxis de los módulos. `build` genera el Worker ESM en `dist/server/index.js`, con los recursos necesarios para servir el cliente.
+Las pruebas cubren combate, objetivos, balance, formaciones, movimiento, colocación, guardado de mazos, recuperación de audio y restauración de partidas online. `check` comprueba la sintaxis de los módulos. `build` genera el Worker ESM en `dist/server/index.js`, con los recursos necesarios para servir el cliente. `balance:simulate` ejecuta un sandbox con despliegues libres, duelos, enjambres y combinaciones de cartas, y guarda los resultados en `docs/balance-simulation.json`.
 
 El despliegue alojado utiliza un Worker y una base D1 enlazada como `DB`. La configuración está en `.openai/hosting.json` y el esquema inicial en `drizzle/0000_online.sql`. El servidor local ofrece la misma interfaz de datos mediante SQLite.
 
@@ -66,12 +67,12 @@ El despliegue alojado utiliza un Worker y una base D1 enlazada como `DB`. La con
 | `tests/` | Pruebas automatizadas |
 | `docs/` | Mecánicas, balance, revisiones y prompts |
 
-Las reglas de mecánicas están en [MECHANICS.md](docs/MECHANICS.md), las referencias de balance en [BALANCE.md](docs/BALANCE.md) y la revisión de la interfaz con capturas en [UI-UX-REVIEW.md](docs/UI-UX-REVIEW.md).
+Las reglas de mecánicas están en [MECHANICS.md](docs/MECHANICS.md), las referencias en [BALANCE.md](docs/BALANCE.md), las mediciones del sandbox en [BALANCE-SIMULATIONS.md](docs/BALANCE-SIMULATIONS.md) y la revisión de la interfaz con capturas en [UI-UX-REVIEW.md](docs/UI-UX-REVIEW.md).
 
 ## Recursos y atribuciones
 
-Los sprites y animaciones de la arena provienen de Pokémon Mystery Dungeon, conservados por [PMDCollab / SpriteCollab](https://github.com/PMDCollab/SpriteCollab). Se mantienen las atribuciones de cada especie en sus recursos. Parte del arte de referencia proviene de [PokéAPI / sprites](https://github.com/PokeAPI/sprites). La portada, las escenas de las cartas y los iconos ilustrados fueron generados para el proyecto; sus prompts están documentados en `docs/`.
+Los sprites y animaciones de la arena provienen de Pokémon Mystery Dungeon, conservados por [PMDCollab / SpriteCollab](https://github.com/PMDCollab/SpriteCollab). Se mantienen las atribuciones de cada especie en sus recursos. Parte del arte de referencia proviene de [PokéAPI / sprites](https://github.com/PokeAPI/sprites). La portada, las escenas de las cartas y los iconos ilustrados fueron generados para el proyecto, con los prompts documentados en `docs/`.
 
-Las voces utilizan la compilación [HQ Pokémon Anime Cries Gen 1–5, de Galladito/RojoY](https://forums.pokemmo.com/index.php?/topic/86447-mod-hq-pokemon-anime-cries-gen-1-5/). Los efectos incluyen recursos de Kenney y receptron bajo CC0; sus fuentes y licencias están en `dist/assets/audio/`. La música de batalla es una composición original secuenciada con Web Audio. Las fuentes son Barlow Condensed y DM Sans.
+Las voces utilizan la compilación [HQ Pokémon Anime Cries Gen 1–5, de Galladito/RojoY](https://forums.pokemmo.com/index.php?/topic/86447-mod-hq-pokemon-anime-cries-gen-1-5/). Los efectos incluyen recursos de Kenney y receptron bajo CC0, con sus fuentes y licencias en `dist/assets/audio/`. La música de batalla es una composición original secuenciada con Web Audio. Las fuentes son Barlow Condensed y DM Sans.
 
 Pokémon pertenece a Nintendo, Creatures y GAME FREAK. Poké Arena es un juego de fans sin afiliación oficial.

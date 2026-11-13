@@ -22,9 +22,9 @@ for(const [key,count]of[['machamp',1],['diglett',9],['treecko',2],['pikachu',1]]
 const content=[
   '# Balance, roles y tamaños',
   '',
-  'Revisión del 11 de noviembre de 2026. '+playable.length+' cartas. Valores explícitos compartidos entre CPU, navegador y servidor. La referencia de rol usa Clash Royale de nivel 11 y adaptaciones Pokémon; los valores propios no constituyen una copia de todas sus estadísticas.',
+  'Revisión del 12 de noviembre de 2026. '+playable.length+' cartas. Valores explícitos compartidos entre CPU, navegador y servidor. La referencia de rol usa Clash Royale de nivel 11 y adaptaciones Pokémon.',
   '',
-  'Las reglas y fuentes están en [MECHANICS.md](MECHANICS.md); la revisión por carta está en [ROLE-REVIEW.json](ROLE-REVIEW.json). Las descripciones del producto explican las acciones. Esta tabla técnica incluye daño directo por unidad; el DPS no suma veneno, quemadura, reflejo, curación ni habilidades.',
+  'Las reglas y fuentes están en [MECHANICS.md](MECHANICS.md), la revisión por carta en [ROLE-REVIEW.json](ROLE-REVIEW.json) y las mediciones del motor en [BALANCE-SIMULATIONS.md](BALANCE-SIMULATIONS.md). Esta tabla técnica incluye el daño directo por unidad. El sandbox registra además los efectos, las invocaciones y la curación.',
   '',
   '| Carta | Rol | Elixir | Unidades | PV | Escudo | Daño | Ataque cada (s) | DPS directo | Alcance | Referencia | Identidad y decisión |',
   '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |',
