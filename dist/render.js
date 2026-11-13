@@ -1,4 +1,4 @@
-import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=18';
+import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, KING_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=20';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -52,7 +52,7 @@ export class Renderer {
     this.buildBackground();
   }
   async load(keys=DEFAULT_DECK,onProgress=()=>{}) {
-    const response = await fetch('assets/pokemon/manifest.json?v=18');
+    const response = await fetch('assets/pokemon/manifest.json?v=20');
     if (!response.ok) throw new Error('No se pudo cargar el archivo de sprites.');
     this.metadata = await response.json();
     const ids=[...new Set([...keys.map(k=>CARDS[k]?.id),31,34,52].filter(Boolean))];
@@ -153,7 +153,7 @@ export class Renderer {
         rect(c, '#729553', x + s * 29 - 3, y, 8, 10); rect(c, '#587f45', x + s * 34 - 2, y + 5, 7, 8);
       }
     }
-    for (const yy of [106, 669]) {
+    for (const yy of [KING_Y[1]-12, KING_Y[0]-13]) {
       rect(c, '#789553', 227, yy - 15, 147, 61); rect(c, '#879958', 236, yy - 10, 128, 48);
       for (let y = yy - 10; y < yy + 38; y += 16) for (let x = 237; x < 363; x += 20) { rect(c, '#96a367', x, y, 18, 14); rect(c, '#b8bb7d44', x+1, y, 16, 2); }
     }
@@ -205,27 +205,33 @@ export class Renderer {
     const ww = king ? 62 : 49, hh = king ? 58 : 48;
     c.save(); if (tower.hit > 0&&!this.reduced) { c.translate(Math.sin(this.t * 150) * 1.5,0); }
     ellipse(c, '#17392c70', x + 5, y + 15, ww*.7, 20);
-    rect(c, '#4d5c49', x - ww/2 - 6,y + 8,ww + 12,14); rect(c, '#9da27c', x - ww/2 - 6,y + 7,ww + 12,4);
-    rect(c, '#6e795a', x - ww/2,y-hh+18,ww,hh-3); rect(c, '#aaa98a', x - ww/2 + 2,y-hh+18,ww - 9,hh-4);
-    for (let row = 0; row < 3; row++) { const yy = y - hh + 29 + row*14; rect(c, '#7e8866',x-ww/2+2,yy,ww-9,2); rect(c,'#7d8567',x+(row%2?-10:6),yy-12,2,12); }
-    rect(c,'#596c54',x - ww/2,y+6,ww,8); rect(c,'#d3c89b',x - ww/2+3,y+7,ww-10,3);
-    // Recessed doorway and team-coloured roof.
-    rect(c,'#4a5240',x-8,y-8,16,21); rect(c,'#293c31',x-5,y-10,10,20); rect(c,'#c1b280',x-7,y-11,14,3);
+    // Pokémon outposts: a gym lookout and a larger Center, with rooftop guardians.
+    rect(c,'#52674b',x-ww/2-5,y+8,ww+10,12);rect(c,'#bdc49c',x-ww/2-5,y+7,ww+10,4);
+    rect(c,'#657b5c',x-ww/2,y-hh+18,ww,hh-3);rect(c,'#e2dcaf',x-ww/2+2,y-hh+19,ww-4,hh-5);
+    rect(c,'#f3eac7',x-ww/2+3,y-hh+21,ww-6,5);rect(c,'#b5bb91',x+ww/2-8,y-hh+25,6,hh-10);
+    rect(c,pal[0],x-ww/2+2,y+5,ww-4,7);rect(c,pal[2],x-ww/2+2,y+5,ww-4,2);
+    for(const side of[-1,1]){
+      const wx=x+side*(king?21:16)-5;
+      rect(c,'#5c7259',wx-1,y-hh+29,12,13);rect(c,'#84b7af',wx,y-hh+30,10,10);rect(c,'#d8edcf',wx+1,y-hh+30,3,8);
+      rect(c,'#f5e9c1',wx-2,y-hh+42,14,3);
+    }
+    rect(c,'#71866c',x-10,y-11,20,25);rect(c,'#41675f',x-7,y-9,14,21);rect(c,'#8eb9ab',x-6,y-8,5,15);rect(c,'#c9dfbd',x+1,y-8,5,15);rect(c,'#5a7865',x-7,y+8,14,4);
     const roofY = y - hh + 13;
-    rect(c,pal[3],x-ww/2-5,roofY+1,ww+10,13); rect(c,pal[0],x-ww/2-6,roofY-4,ww+12,12);
-    rect(c,pal[1],x-ww/2-2,roofY-8,ww+4,9); rect(c,pal[2],x-ww/2-1,roofY-8,ww,3);
-    for (let i = -1; i < 2; i++) { rect(c,pal[3],x+i*17-5,roofY-17,11,12); rect(c,pal[1],x+i*17-6,roofY-18,10,10); rect(c,pal[2],x+i*17-6,roofY-18,10,3); }
-    ball(c,x,roofY+7,king?8:6,pal[0]);
+    rect(c,pal[3],x-ww/2-6,roofY+3,ww+12,12);rect(c,pal[0],x-ww/2-6,roofY-2,ww+12,12);
+    rect(c,pal[1],x-ww/2-2,roofY-9,ww+4,10);rect(c,pal[2],x-ww/2+2,roofY-9,ww-4,3);
+    rect(c,pal[3],x-ww/2+3,roofY-4,ww-6,2);
+    if(king){rect(c,'#fff2ce',x-12,roofY,24,16);ball(c,x,roofY+8,7,pal[0]);}
+    else{rect(c,'#fff0c5',x-9,roofY+1,18,13);ball(c,x,roofY+7,5,pal[0]);}
     if (king) {
       rect(c,'#847951',x+27,roofY-32,3,42);
       c.fillStyle = pal[1]; c.beginPath(); c.moveTo(x+30,roofY-30); c.lineTo(x+54,roofY-26+Math.sin(this.t*3)*2);c.lineTo(x+51,roofY-12+Math.sin(this.t*3+1)*2);c.lineTo(x+30,roofY-15);c.fill();
-      text(c,'★',x+40,roofY-22,'#e8dca5',11);
-      if (!tower.active) { ellipse(c, '#1a322785',x,y+22,13,7);text(c,'z',x,y+21,'#cbd6b7',10); }
+      ball(c,x+40,roofY-22,4,'#e7d78d');
+      if (!tower.active) { ellipse(c, '#1a322785',x,y+3,10,6);text(c,'z',x,y+2,'#cbd6b7',9); }
     }
     // Guardians use the same feet anchors and aiming as units on the arena floor.
     if(tower.guard)this.sprite(c,{...tower,attack:!tower.active?0:tower.attack,card:{id:tower.guard.id},scale:king?1.15:1.3,x,y:y-hh+4,mounted:true,attackAnim:tower.guard.attackAnim,moving:false},true);
     if (tower.stun > 0) { c.globalAlpha = this.reduced?.5:.5 + Math.sin(this.t*12)*.2; ellipse(c,'#fff3a48a',x,y-35,ww*.6,30);c.globalAlpha=1; }
-    const bw = king ? 64 : 58, by = y + 26;
+    const bw = king ? 64 : 58, by = y + (king?18:26);
     rect(c,'#20352ad9',x-bw/2-2,by-2,bw+4,10);rect(c,'#435845',x-bw/2,by,bw,6);rect(c,pal[1],x-bw/2,by,bw*(tower.hp/tower.maxHp),6);rect(c,pal[2],x-bw/2,by,bw*(tower.hp/tower.maxHp),2);
     c.font='600 12px "DM Sans",sans-serif';const hpWidth=c.measureText(String(Math.ceil(tower.hp))).width+12;
     rect(c,'#243b2ad9',x-hpWidth/2,by+10,hpWidth,16);text(c,String(Math.ceil(tower.hp)),x,by+18,team?'#f0c3a8':'#c4e3e8',11,700);
@@ -616,7 +622,7 @@ export class Renderer {
       for(const lane of [0,1]){
         if(game.towers.some(t=>t.team===1&&t.lane===lane&&t.hp<=0))rect(c,'#8ed2a018',lane?300:36,252,264,104);
       }
-      c.strokeStyle='#d9ebbc35';c.lineWidth=.7;
+      c.strokeStyle='#d9ebbc19';c.lineWidth=.55;
       for(let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++){
         const x=col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
         if(game.canDeploy(0,key,x,y))c.strokeRect(x-TILE/2,y-TILE/2,TILE,TILE);
@@ -638,7 +644,7 @@ export class Renderer {
       if(!card.spell&&placement){
         const range=card.squad?Math.max(...card.squad.map(k=>CARDS[k].range)):card.range;
         if(!card.passive&&range>=50){
-        c.fillStyle='#9fe4e415';c.strokeStyle='#b7ededbb';c.lineWidth=1.5;c.setLineDash([5,6]);c.beginPath();c.arc(point.x,point.y,range,0,Math.PI*2);c.fill();c.stroke();c.setLineDash([]);
+        c.fillStyle='#e9e2a92b';c.strokeStyle='#e6ddb182';c.lineWidth=1.2;c.beginPath();c.arc(point.x,point.y,range,0,Math.PI*2);c.fill();c.stroke();
         }
         for(const enemy of game.deploymentThreats(0,key,point.x,point.y)){
           const id=enemy.card?.id,scale=visualScale(enemy);
@@ -657,7 +663,9 @@ export class Renderer {
       if((!card.spell||card.rolling)&&valid&&this.selection){
         const positions=card.rolling?[point]:game.deploymentPositions(0,key,point.x,point.y);
         for(const [index,position]of positions.entries()){
-          c.fillStyle='#b6f1ec30';c.strokeStyle='#c2f4ed';c.lineWidth=1.5;c.fillRect(position.x-TILE/2,position.y-TILE/2,TILE,TILE);c.strokeRect(position.x-TILE/2,position.y-TILE/2,TILE,TILE);
+          const left=position.x-TILE/2,top=position.y-TILE/2,corner=6;
+          c.fillStyle='#f4e4a93d';c.fillRect(left,top,TILE,TILE);
+          for(const [cx,cy,dx,dy]of[[left,top,1,1],[left+TILE,top,-1,1],[left,top+TILE,1,-1],[left+TILE,top+TILE,-1,-1]]){line(c,'#f5e4aa',cx,cy,cx+dx*corner,cy,2);line(c,'#f5e4aa',cx,cy,cx,cy+dy*corner,2);}
           if(!card.spell){const previewCard=CARDS[card.squad?.[index]]||card;c.globalAlpha=.55;this.sprite(c,{...position,card:previewCard,preview:true,team:0,dx:0,dy:-1,anim:this.t,id:-1-index,lifetime:card.lifetime},true);c.globalAlpha=1;}
         }
       }

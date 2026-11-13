@@ -1,5 +1,15 @@
 # Geometría del juego
 
+## Selección de pruebas
+
+Elegir las pruebas por la sección modificada. Para el editor o guardado del mazo, usar `npm run test:deck` y `npm run test:ui:deck`; no ejecutar conexión entre usuarios, audio, combate ni balance. Usar los grupos `battle`, `placement`, `rendering`, `online`, `server`, `audio`, `balance` y `tooling` solo cuando el cambio alcance esas áreas. Se pueden combinar con `npm test -- deck rendering`.
+
+Las pruebas de navegador están separadas en `tests/browser/deck.mjs`, `battle.mjs`, `loading.mjs` y `online.mjs`. Durante la implementación, usar un solo tamaño que reproduzca el problema. Agregar `-- --matrix` al cerrar cambios responsive o cuando un fallo indique otro tamaño afectado. No repetir verificaciones que ya pasaron con entradas sin cambios.
+
+Reservar `npm run test:all` y `npm run test:full` para cambios grandes que puedan romper áreas distintas, como reglas compartidas del motor, formato de snapshots o infraestructura común. Antes de una ejecución amplia, explicar qué dependencias transversales la justifican. `npm test` sin sección no ejecuta la suite completa.
+
+## Disposición
+
 Los indicadores de carga, búsqueda de rival, conexión, guardado y errores temporales van en capas flotantes o absolutas. Nunca agregan filas ni cambian el tamaño o la posición del menú, sus controles, la arena o la mano. Para la carga inicial, usar una Pokébola animada con progreso real de los recursos; para esperas sin progreso medible, una Pokébola indeterminada. Respetar la opción de reducir movimiento y conservar los anuncios accesibles sin texto visible que ocupe espacio. Verificar con carga demorada y errores, comparando rectángulos en móvil, tablet y escritorio.
 
 La arena, la mano y el elixir conservan su tamaño y posición cuando aparecen controles o información durante una partida. Ninguna habilidad, aviso, botón o control transitorio debe crear filas, márgenes o espacio adicional que achique o desplace el tablero.
@@ -19,6 +29,12 @@ Las cartas nuevas y las ilustraciones que se renuevan deben mantener el nivel de
 Variar las poses y las orientaciones del conjunto. Combinar vistas frontales, perfiles, diagonales y acciones hacia la izquierda y la derecha; no dar a todas las cartas la misma dirección. Revisar las imágenes dentro de la colección, conservando sus siluetas y acciones legibles al tamaño real de las cartas.
 
 Para los menús, seguir la preferencia de una interfaz inspirada en los juegos de Nintendo de alrededor de 2000, con paneles crema, bordes oscuros y acentos rojos y amarillos. Priorizar espacio para las cartas: el editor mantiene los cuatro selectores junto a la X, sin título ni contador general.
+
+El editor muestra el mazo en dos filas de cuatro cartas grandes. El mazo y la colección comparten un área de desplazamiento; al bajar, el mazo sale de la vista. Los selectores de mazo son bajos y los filtros se abren desde un botón pequeño. Rareza queda al final, plegada. Tocar una carta del editor muestra primero un menú pequeño con Info y Usar o Quitar. Las cantidades de enjambre van debajo del nombre, con icono y texto, sin fondo crema.
+
+El indicador de carga es la propia Pokébola centrada: se llena con el progreso real y gira sobre su centro en esperas indeterminadas. No agregar aros ni placas circulares alrededor. Las cartas sin elixir se muestran completamente en blanco y negro. El panel de combate usa bordes rectos y un patrón tenue de Pokébolas; la próxima carta queda centrada verticalmente y muestra su nombre pequeño debajo.
+
+Las posiciones reales de las torres del rey usan `KING_Y` y dejan exactamente una fila de la grilla detrás de cada torre, con colocación válida en su centro. Mantener esa geometría al restaurar partidas antiguas y al invertir la perspectiva online.
 
 Los nombres de las cartas se alinean arriba y los roles abajo. Conservar la proporción de las ilustraciones en todas las vistas. En los hechizos, priorizar la silueta del ataque y permitir como máximo un Pokémon pequeño hacia un costado. Usar fondos tranquilos, contraste equilibrado y texturas limpias, con detalle concentrado en la acción.
 

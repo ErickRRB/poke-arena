@@ -1,6 +1,14 @@
-/* Background resource feedback shares the battle overlay without taking space. */
+/* Loading stays outside the layout; the ball itself carries the progress. */
 #search-status{max-height:44px;overflow:hidden}
-.battle-loading{position:absolute;left:8px;bottom:8px;width:32px;height:32px;padding:2px;border:1px solid #79836a;border-radius:6px;background:#fff9e5e8;pointer-events:none}
-.battle-loading>.pokeball-loader{width:26px;height:26px}
-.battle-loading .loading-ball{position:absolute;inset:3px;width:20px;height:20px}
-.battle-loading .load-ring{display:none}
+.loading-badge{display:grid;place-items:center;padding:0;border:0;background:none;box-shadow:none;filter:drop-shadow(0 3px 3px #20322c66)}
+.pokeball-loader{position:relative;display:grid;place-items:center;width:88px;height:88px;flex-shrink:0}
+.pokeball-loader>.loading-ball{position:static;display:block;inset:auto;width:100%;height:100%;overflow:visible;animation:none;transform-origin:50% 50%}
+.loading-base{opacity:1}.is-indeterminate .loading-base{opacity:0}.is-indeterminate .loading-fill{clip-path:none}
+.is-indeterminate>.loading-ball,.connection-loading>.loading-ball,.battle-loading .loading-ball{animation:pokeball-spin 1.3s linear infinite;transform-origin:50% 50%}
+.connection-loading,.battle-loading{width:30px;height:30px;padding:0;border:0;border-radius:0;background:none;box-shadow:none;pointer-events:none}
+.connection-loading>.loading-ball{display:block;width:100%;height:100%}
+.battle-loading{position:absolute;left:8px;bottom:8px;display:grid;place-items:center}
+.battle-loading>.pokeball-loader{width:30px;height:30px}
+@keyframes pokeball-spin{to{transform:rotate(360deg)}}
+.reduced-motion .loading-ball{animation:none!important}
+@media(prefers-reduced-motion:reduce){.loading-ball{animation:none!important}}

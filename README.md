@@ -39,11 +39,39 @@ El servidor se abre en `http://127.0.0.1:4173`. Crea automáticamente la base SQ
 ## Comprobar y compilar
 
 ```sh
-npm test
+npm run test:deck
+npm run test:ui:deck
+```
+
+Las pruebas se eligen por sección. Un cambio en el editor de mazos usa `test:deck` y `test:ui:deck`; esos comandos no abren sesiones online ni juegan partidas. Las pruebas del navegador usan un único tamaño móvil por defecto y no cargan sprites de combate cuando se revisa solo el editor. Agregá `-- --matrix` cuando cambies la disposición responsive y necesites revisar los cinco tamaños.
+
+| Sección | Pruebas de lógica | Pruebas del navegador |
+| --- | --- | --- |
+| Mazos y guardado | `npm run test:deck` | `npm run test:ui:deck` |
+| Combate y unidades | `npm run test:battle` | `npm run test:ui:battle` |
+| Arena, torres y colocación | `npm run test:placement` | `npm run test:ui:battle` |
+| Dibujo, efectos y alcance | `npm run test:rendering` | `npm run test:ui:battle` |
+| Carga e indicadores | Según el módulo modificado | `npm run test:ui:loading` |
+| Conexión y reconexión | `npm run test:online` | `npm run test:ui:online` |
+| Recursos del servidor | `npm run test:server` | Solo si cambia la entrega al navegador |
+| Audio | `npm run test:audio` | Solo si cambia una interacción con sonido |
+| Balance | `npm run test:balance` | Solo si cambia su representación visual |
+| Herramientas de pruebas | `npm run test:tooling` | No corresponde |
+
+Podés combinar secciones con `npm test -- deck rendering`, sin repetir archivos. `npm run test:list` muestra los grupos. `npm test` sin sección muestra la ayuda y termina sin ejecutar pruebas; no lanza la suite completa por defecto.
+
+Para las pruebas de navegador, primero iniciá `npm run dev`. Reutilizan Playwright de `qa/node_modules` o de la instalación local; si falta, instalalo con `npm install --prefix qa playwright`. En Windows usan Edge. Para apuntar a otro servidor, usá `node scripts/test-ui.mjs deck --url http://127.0.0.1:4180` o la variable `POKE_ARENA_TEST_URL`.
+
+La comprobación completa queda reservada para cambios grandes o transversales:
+
+```sh
+npm run test:all      # Toda la lógica, sin abrir navegadores
+npm run test:full     # Lógica y las cuatro secciones del navegador, con matriz responsive
 npm run check
 npm run build
-npm run balance:simulate
 ```
+
+`balance:simulate` se ejecuta al cambiar estadísticas o reglas de balance, no para revisar menús o estilos.
 
 Las pruebas cubren combate, objetivos, balance, formaciones, movimiento, colocación, guardado de mazos, recuperación de audio y restauración de partidas online. `check` comprueba la sintaxis de los módulos. `build` genera el Worker ESM en `dist/server/index.js`, con los recursos necesarios para servir el cliente. `balance:simulate` ejecuta un sandbox con despliegues libres, duelos, enjambres y combinaciones de cartas, y guarda los resultados en `docs/balance-simulation.json`.
 

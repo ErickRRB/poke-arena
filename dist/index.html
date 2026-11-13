@@ -11,25 +11,26 @@
   <link rel="preload" href="assets/fonts/font-4.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="assets/fonts/font-7.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="assets/fonts/fonts.css">
-  <link rel="stylesheet" href="style.css?v=19">
-  <link rel="stylesheet" href="card-ui.css?v=19">
-  <link rel="stylesheet" href="theme.css?v=19">
-  <link rel="stylesheet" href="transient-ui.css?v=19">
+  <link rel="stylesheet" href="style.css?v=20">
+  <link rel="stylesheet" href="card-ui.css?v=20">
+  <link rel="stylesheet" href="theme.css?v=20">
+  <link rel="stylesheet" href="transient-ui.css?v=20">
+  <link rel="stylesheet" href="editor.css?v=20">
 </head>
 <body class="menu-mode">
   <svg class="svg-defs" aria-hidden="true"><defs>
     <linearGradient id="loading-red" x2="0" y2="1"><stop stop-color="#ff8a69"/><stop offset="1" stop-color="#b93f3d"/></linearGradient>
     <linearGradient id="loading-ivory" x2="0" y2="1"><stop stop-color="#fffdf0"/><stop offset="1" stop-color="#e0d6b2"/></linearGradient>
     <symbol id="i-loading-ball" viewBox="0 0 64 64">
-      <ellipse cx="32" cy="58" rx="20" ry="3" fill="#34463b" opacity=".18"/>
-      <circle cx="32" cy="30" r="27" fill="url(#loading-ivory)" stroke="#414a50" stroke-width="3"/>
-      <path d="M5 30a27 27 0 0 1 54 0Z" fill="url(#loading-red)"/>
-      <path d="M5 30h54" stroke="#414a50" stroke-width="5"/>
-      <circle cx="32" cy="30" r="27" fill="none" stroke="#414a50" stroke-width="3"/>
-      <ellipse cx="22" cy="13" rx="9" ry="3" fill="#fff6df" opacity=".7" transform="rotate(-25 22 13)"/>
-      <circle cx="32" cy="30" r="9" fill="#dfd9be" stroke="#414a50" stroke-width="3"/>
-      <circle cx="32" cy="30" r="4" fill="#fffdf0"/>
+      <circle cx="32" cy="32" r="27" fill="url(#loading-ivory)" stroke="#414a50" stroke-width="3"/>
+      <path d="M5 32a27 27 0 0 1 54 0Z" fill="url(#loading-red)"/>
+      <path d="M5 32h54" stroke="#414a50" stroke-width="5"/>
+      <circle cx="32" cy="32" r="27" fill="none" stroke="#414a50" stroke-width="3"/>
+      <ellipse cx="22" cy="15" rx="9" ry="3" fill="#fff6df" opacity=".7" transform="rotate(-25 22 15)"/>
+      <circle cx="32" cy="32" r="9" fill="#dfd9be" stroke="#414a50" stroke-width="3"/>
+      <circle cx="32" cy="32" r="4" fill="#fffdf0"/>
     </symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M8 3v6M16 9v6M10 15v6" fill="none" stroke="#bc4941" stroke-width="4" stroke-linecap="round"/></symbol>
     <symbol id="i-ball" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="-72" width="96" height="96"/></symbol>
     <symbol id="i-sound" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="0" y="-24" width="96" height="96"/></symbol>
     <symbol id="i-mute" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="-24" width="96" height="96"/></symbol>
@@ -82,17 +83,17 @@
       <div class="menu-options"><button id="menu-deck-btn" class="secondary-btn"><svg aria-hidden="true"><use href="#i-deck"/></svg>Mazo</button><button id="practice-btn" class="secondary-btn" disabled><svg aria-hidden="true"><use href="#i-help"/></svg>Tutorial</button></div>
     </div>
     <div id="menu-loading" class="menu-loading">
-      <div id="menu-loading-badge" class="loading-badge"><span id="menu-load-progress" class="pokeball-loader" role="progressbar" aria-label="Cargando el juego" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><svg class="load-ring" viewBox="0 0 100 100" aria-hidden="true"><circle class="load-track" cx="50" cy="50" r="45"/><circle class="load-progress" cx="50" cy="50" r="45" pathLength="100"/></svg><svg class="loading-ball" aria-hidden="true"><use href="#i-loading-ball"/></svg></span></div>
+      <div id="menu-loading-badge" class="loading-badge"><span id="menu-load-progress" class="pokeball-loader" role="progressbar" aria-label="Cargando el juego" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><svg viewBox="0 0 64 64" class="loading-ball" aria-hidden="true"><defs><clipPath id="menu-ball-clip"><rect id="menu-load-fill" x="0" y="64" width="64" height="0"/></clipPath></defs><g class="loading-base"><circle cx="32" cy="32" r="27" fill="#a4ab9b" stroke="#56634f" stroke-width="3"/><path d="M5 32h54" stroke="#56634f" stroke-width="5"/><circle cx="32" cy="32" r="9" fill="#d1d5bf" stroke="#56634f" stroke-width="3"/><circle cx="32" cy="32" r="4" fill="#e8ead8"/></g><use class="loading-fill" href="#i-loading-ball" clip-path="url(#menu-ball-clip)"/></svg></span></div>
       <div id="menu-load-error" class="load-error" role="alert" hidden><p>No se pudo cargar el juego.</p><button id="retry-load" class="secondary-btn">Reintentar</button></div>
     </div>
-    <div id="search-panel" class="search-panel" role="region" aria-label="Búsqueda de rival" hidden><div class="search-card"><span class="pokeball-loader is-indeterminate" aria-hidden="true"><svg class="load-ring" viewBox="0 0 100 100"><circle class="load-track" cx="50" cy="50" r="45"/><circle class="load-progress" cx="50" cy="50" r="45" pathLength="100"/></svg><svg class="loading-ball"><use href="#i-loading-ball"/></svg></span><strong id="search-status" role="status">Buscando rival…</strong><span id="search-time">0:00</span><button id="cancel-search" class="secondary-btn">Cancelar</button></div></div>
+    <div id="search-panel" class="search-panel" role="region" aria-label="Búsqueda de rival" hidden><div class="search-card"><span class="pokeball-loader is-indeterminate" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span><strong id="search-status" role="status">Buscando rival…</strong><span id="search-time">0:00</span><button id="cancel-search" class="secondary-btn">Cancelar</button></div></div>
   </section>
   <main class="battle-layout">
     <section class="battle-stage" aria-label="Arena de batalla">
       <div class="arena-frame" id="arena-frame">
         <canvas id="arena" width="600" height="800" tabindex="0" role="application" aria-label="Arena. Seleccioná una carta con las teclas 1 a 4 y usá las flechas para elegir dónde desplegar. Confirmá con Enter. En pantalla táctil, tocá una carta y después tu mitad de la arena."></canvas>
         <div class="arena-corner corner-tl"></div><div class="arena-corner corner-tr"></div><div class="arena-corner corner-bl"></div><div class="arena-corner corner-br"></div>
-        <div id="loading" class="loading-overlay" role="status" aria-label="Cargando el juego"><span class="pokeball-loader is-indeterminate" aria-hidden="true"><svg class="load-ring" viewBox="0 0 100 100"><circle class="load-track" cx="50" cy="50" r="45"/><circle class="load-progress" cx="50" cy="50" r="45" pathLength="100"/></svg><svg class="loading-ball"><use href="#i-loading-ball"/></svg></span></div>
+        <div id="loading" class="loading-overlay" role="status" aria-label="Cargando el juego"><span class="pokeball-loader is-indeterminate" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span></div>
         <div id="guide" class="guide" role="status" hidden><span id="guide-step" class="guide-step" aria-label="Paso 1 de 3">1</span><strong id="guide-text">Elegí una carta.</strong><button id="skip-guide" class="secondary-btn">Omitir</button></div>
         <div id="pause-overlay" class="pause-overlay" hidden><div><svg class="pause-symbol"><use href="#i-pause"/></svg><h2>En pausa</h2><button id="resume-btn" class="primary-btn">Continuar<svg aria-hidden="true"><use href="#i-play"/></svg></button><button id="pause-menu-btn" class="secondary-btn"><svg aria-hidden="true"><use href="#i-home"/></svg>Volver al inicio</button></div></div>
         <div id="result-overlay" class="result-overlay" hidden>
@@ -101,18 +102,18 @@
         <div class="toast" id="toast" role="status"></div>
         <div id="battle-overlays" class="battle-overlays">
           <div class="battle-hud">
-            <div class="trainer-id"><strong id="enemy-name">Entrenador</strong><span id="connection-loading" class="connection-loading" role="status" aria-label="Reconectando a la partida" hidden><svg class="loading-ball" aria-hidden="true"><use href="#i-loading-ball"/></svg></span><span id="online-status" class="online-status" role="status" hidden></span></div>
+            <div class="trainer-id"><strong id="enemy-name">Entrenador</strong><span id="connection-loading" class="connection-loading" role="status" aria-label="Reconectando a la partida" hidden><svg viewBox="0 0 64 64" class="loading-ball" aria-hidden="true"><use href="#i-loading-ball"/></svg></span><span id="online-status" class="online-status" role="status" hidden></span></div>
             <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="phase-label" hidden>Extra</span><span id="boost" hidden>×2</span><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button><button id="match-leave" class="icon-btn" aria-label="Volver al inicio" title="Volver al inicio" hidden><svg aria-hidden="true"><use href="#i-home"/></svg></button></div>
           </div>
           <div id="abilities" class="abilities" aria-label="Habilidades disponibles" hidden></div>
-          <span id="battle-loading" class="battle-loading" role="status" hidden><span class="pokeball-loader" aria-hidden="true"><svg class="loading-ball"><use href="#i-loading-ball"/></svg></span><span class="sr-only">Cargando recursos de batalla…</span></span>
+          <span id="battle-loading" class="battle-loading" role="status" hidden><span class="pokeball-loader" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span><span class="sr-only">Cargando recursos de batalla…</span></span>
         </div>
       </div>
     </section>
 
     <aside class="battle-console" aria-label="Cartas y controles">
       <div class="hand" id="hand" aria-label="Tus cuatro cartas"></div>
-      <div id="next-card" class="next-card" role="img" aria-label="Próxima carta"><div id="next-preview" aria-hidden="true"></div></div>
+      <div id="next-card" class="next-card" role="img" aria-label="Próxima carta"><div id="next-preview" aria-hidden="true"></div><span id="next-name" class="next-name" aria-hidden="true"></span></div>
       <div class="energy-section"><div class="energy-title" aria-hidden="true"><svg><use href="#i-energy"/></svg><strong id="energy-value">6</strong></div><div class="energy-bar" id="energy-bar" role="progressbar" aria-label="Elixir disponible" aria-valuemin="0" aria-valuemax="10" aria-valuenow="6"></div></div>
       <div id="selected-detail" hidden></div>
     </aside>
@@ -130,7 +131,15 @@
 
   <dialog id="settings-dialog" class="modal small-modal"><div class="modal-heading"><h2>Ajustes</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><label class="setting-row" for="difficulty"><span><strong>Rival CPU</strong><small id="difficulty-hint" hidden>Próxima partida</small></span><select id="difficulty"><option value="easy">Principiante</option><option value="normal" selected>Entrenador</option><option value="hard">Líder de gimnasio</option></select></label><label class="setting-row" for="sound-setting"><span><strong>Sonido</strong></span><input type="checkbox" id="sound-setting" class="switch"></label><label class="setting-row" for="motion-setting"><span><strong>Reducir movimiento</strong></span><input type="checkbox" id="motion-setting" class="switch"></label><button id="settings-credits-btn" class="text-btn" style="margin-top:15px">Sprites y créditos</button></dialog>
 
-  <dialog id="deck-dialog" class="modal deck-modal" aria-label="Editar mazo"><div class="deck-top"><div class="deck-editor-heading"><div id="deck-slots" class="deck-presets" role="group" aria-label="Mazos guardados"></div><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><div class="deck-strip" id="deck-strip" role="group" aria-label="Las ocho cartas de tu mazo"></div></div><div class="collection" id="collection"></div><div class="deck-save-row"><div class="deck-summary"><span>Coste medio <strong id="deck-average">3,4</strong><svg aria-hidden="true"><use href="#i-energy"/></svg></span></div><button id="save-deck-btn" class="primary-btn">Listo</button></div></dialog>
+  <dialog id="deck-dialog" class="modal deck-modal" aria-label="Editar mazo">
+    <div class="deck-editor-heading"><div id="deck-slots" class="deck-presets" role="group" aria-label="Mazos guardados"></div><button id="collection-filters-btn" class="icon-btn" aria-label="Filtros y orden de cartas" aria-haspopup="dialog" aria-expanded="false" aria-controls="collection-filters"><svg aria-hidden="true"><use href="#i-filter"/></svg></button><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
+    <div id="deck-scroll" class="deck-scroll"><div class="deck-top"><div class="deck-strip" id="deck-strip" role="group" aria-label="Las ocho cartas de tu mazo"></div></div><div class="collection" id="collection"></div></div>
+    <div class="deck-save-row"><div class="deck-summary"><span>Coste medio <strong id="deck-average">3,4</strong><svg aria-hidden="true"><use href="#i-energy"/></svg></span></div><button id="save-deck-btn" class="primary-btn">Listo</button></div>
+    <div id="collection-filters" class="editor-popover filter-popover" tabindex="-1" popover="auto" role="dialog" aria-label="Filtros de cartas"><label class="filter-search"><span class="sr-only">Buscar carta</span><input id="collection-search" type="search" placeholder="Buscar carta" autocomplete="off"></label><label>Orden<select id="collection-sort"><option value="elixir-asc">Menor elixir</option><option value="elixir-desc">Mayor elixir</option><option value="name">Nombre A–Z</option><option value="original">Orden original</option></select></label><label>Rol<select id="role-filter"><option value="">Todos los roles</option><option value="building">Atacan estructuras</option><option value="structure">Estructuras</option><option value="spell">Hechizos</option><option value="summon">Invocadores</option><option value="troop">Tropas</option></select></label><details class="rarity-options"><summary>Rareza</summary><select id="rarity-filter" aria-label="Filtrar rareza"></select></details><div class="filter-actions"><button id="reset-filters-btn" class="secondary-btn">Limpiar</button><button id="apply-filters-btn" class="primary-btn">Listo</button></div></div>
+    <div id="card-actions" class="editor-popover card-actions" popover="auto" role="dialog" aria-label="Acciones de la carta"><button id="card-action-info" class="secondary-btn">Info</button><button id="card-action-toggle" class="primary-btn">Usar</button></div>
+    <div id="deck-replace-hint" class="deck-replace-hint" role="status" hidden><span>Elegí qué carta reemplazar</span><button id="cancel-replace-btn" class="secondary-btn">Cancelar</button></div>
+  </dialog>
+
 
   <dialog id="credits-dialog" class="modal small-modal"><div class="modal-heading"><h2>Sprites y créditos</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><p>Los Pokémon de la arena usan sprites de <strong>Pokémon Mystery Dungeon</strong>, con sus vistas y animaciones originales de CHUNSOFT, conservados por <a href="https://github.com/PMDCollab/SpriteCollab" target="_blank" rel="noopener">PMDCollab / SpriteCollab</a>.</p><p>La ilustración de inicio y las escenas de las cartas se generaron para Poké Arena. Los archivos de atribución de cada sprite están incluidos con los recursos.</p><p>Las voces de despliegue provienen del pack <a href="https://forums.pokemmo.com/index.php?/topic/86447-mod-hq-pokemon-anime-cries-gen-1-5/" target="_blank" rel="noopener">HQ Pokémon Anime Cries Gen 1–5, de Galladito/RojoY</a>. La música de fondo es original y varía durante la partida. Los efectos combinan muestras de <a href="https://kenney.nl/assets/impact-sounds" target="_blank" rel="noopener">Kenney</a> y receptron, bajo CC0. Sus fuentes y licencias están incluidas en los recursos de audio.</p><p>Pokémon pertenece a Nintendo, Creatures y GAME FREAK. Este es un juego de fans sin afiliación oficial.</p></dialog>
 
@@ -149,6 +158,6 @@
   <dialog id="leave-dialog" class="modal small-modal" aria-labelledby="leave-title" aria-describedby="leave-description"><div class="modal-heading"><h2 id="leave-title">¿Volver al inicio?</h2><button class="icon-btn" data-close aria-label="Seguir jugando"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><p id="leave-description">Se perderá esta partida contra CPU.</p><div class="leave-actions"><button class="primary-btn" data-close>Seguir jugando</button><button class="secondary-btn" id="confirm-leave-btn"><svg aria-hidden="true"><use href="#i-home"/></svg>Volver</button></div></dialog>
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
   <dialog id="portrait-dialog" class="modal small-modal portrait-dialog" aria-labelledby="portrait-title" aria-describedby="portrait-description"><h2 id="portrait-title">Jugá en vertical</h2><p id="portrait-description">Girá el teléfono para continuar.</p></dialog>
-  <script type="module" src="app.js?v=scene-art-1"></script>
+  <script type="module" src="app.js?v=21"></script>
 </body>
 </html>
