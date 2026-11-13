@@ -52,3 +52,8 @@
 @media(max-width:940px){.battle-console .next-card{align-self:center;gap:3px;margin:0}.next-card #next-preview{width:36px}.next-card>.next-name{max-width:44px;font-size:8px}}
 .deck-strip .card-heading{top:18px}.deck-strip .card-heading>.card-name{padding-inline:1px}
 .deck-strip .pokemon-card>.card-cost{left:-5px;top:-8px;width:27px;height:27px;font-size:21px}
+/* Keep labels inside the opening of the 120 × 160 legendary ornament. */
+.collection .pokemon-card[data-rarity=legendaria]>.card-heading,.deck-strip .pokemon-card[data-rarity=legendaria]>.card-heading{top:max(14px,calc(13.125% - 3px));left:11%;right:11%}
+.collection .pokemon-card[data-rarity=legendaria]>.card-heading>.card-name,.deck-strip .pokemon-card[data-rarity=legendaria]>.card-heading>.card-name{padding:0}
+.deck-strip .pokemon-card[data-rarity=legendaria]>.card-heading{top:max(18px,calc(13.125% - 3px))}
+.collection .pokemon-card[data-rarity=legendaria]>.card-role{bottom:max(10px,calc(8.75% - .5px));left:11%;right:11%;padding:0;z-index:3}

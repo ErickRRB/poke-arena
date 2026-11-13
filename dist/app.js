@@ -80,7 +80,7 @@ for(const id of['menu-deck-slots','deck-slots'])$(id).addEventListener('click',e
   const button=event.target.closest('[data-deck-slot]');if(!button||(!deckEditable&&id==='deck-slots'))return;
   closeCardActions();clearReplacement();
   deckLibrary.active=Number(button.dataset.deckSlot);deckDraft=[...(deckLibrary.slots[deckLibrary.active]||[])];applyDeckChanges();
-  if($('deck-dialog').open)renderCollection();
+  if($('deck-dialog').open){renderCollection();if(id==='deck-slots')showDeckTop();}
   $(id).querySelector(`[data-deck-slot="${deckLibrary.active}"]`).focus({preventScroll:true});
 });
 function syncHand() {
@@ -230,14 +230,14 @@ function togglePause() {
 const modalFocus = new WeakMap();
 function focusReference(element) {
   const attribute=['data-collection','data-deck-info','data-menu-card'].find(name=>element?.hasAttribute(name));
-  return {element,attribute,value:attribute?element.getAttribute(attribute):null,deckScroll:attribute?$('deck-scroll').scrollTop:null};
+  return {element,attribute,value:attribute?element.getAttribute(attribute):null,deckScroll:element&&$('deck-scroll').contains(element)?$('deck-scroll').scrollTop:null};
 }
 function restoreFocus(reference) {
   if(!reference)return;
   const target=reference.attribute?document.querySelector(`[${reference.attribute}="${CSS.escape(reference.value)}"]`):reference.element;
   const topDialog=[...document.querySelectorAll('dialog[open]')].at(-1);
   if(target?.isConnected&&!target.disabled&&(!topDialog||topDialog.contains(target)))target.focus({preventScroll:true});
-  if(reference.deckScroll!==null)$('deck-scroll').scrollTop=reference.deckScroll;
+  if(reference.deckScroll!==null&&topDialog?.id==='deck-dialog')$('deck-scroll').scrollTop=reference.deckScroll;
 }
 function openModal(id) {
   if($('portrait-dialog').open&&id!=='portrait-dialog')return;
@@ -296,7 +296,13 @@ $('menu-deck-preview').addEventListener('click',e=>{if(!document.body.classList.
 function openDeck() {
   if(!document.body.classList.contains('menu-mode'))return;
   deckEditable=true;deckDraft=[...deck];
-  clearReplacement();renderDeckSlots();renderCollection();openModal('deck-dialog');$('deck-scroll').scrollTop=0;
+  clearReplacement();renderDeckSlots();renderCollection();openModal('deck-dialog');showDeckTop();
+  requestAnimationFrame(()=>{if($('deck-slots').contains(document.activeElement))showDeckTop();});
+}
+function showDeckTop(){
+  const dialog=$('deck-dialog');if(!dialog.open)return;
+  $('deck-slots').querySelector('[aria-pressed="true"]')?.focus({preventScroll:true});
+  dialog.scrollTop=0;$('deck-scroll').scrollTop=0;
 }
 function clearReplacement(){replacementKey=null;$('deck-dialog').classList.remove('replacing-card');$('deck-replace-hint').hidden=true;}
 function positionEditorPopover(popover,anchor){

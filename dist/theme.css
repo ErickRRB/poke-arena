@@ -77,6 +77,8 @@ input::placeholder{color:#74796d;opacity:1}
 .pokemon-card[data-rarity=legendaria]{border:0;background:transparent;box-shadow:none;border-radius:13px 13px 12px 12px}
 .pokemon-card[data-rarity=legendaria]>.card-art{inset:1px;clip-path:polygon(10% 0,90% 0,100% 9%,100% 91%,90% 100%,10% 100%,0 91%,0 9%)}
 .pokemon-card[data-rarity=legendaria]>.card-name,.pokemon-card[data-rarity=legendaria]>.card-role{padding-inline:4px}
+.menu-card[data-rarity=legendaria]>.card-name{max-width:100%;bottom:max(4px,calc(8.75% - 6px));padding:0;overflow-wrap:anywhere;text-wrap:balance;z-index:3}
+@media(min-width:941px){.hand .pokemon-card[data-rarity=legendaria]>.card-name,.hand .pokemon-card[data-rarity=legendaria]>.card-role{bottom:max(4px,calc(8.75% - 6px));max-width:calc(80% - 4px);padding-inline:0;overflow-wrap:anywhere;text-wrap:balance;z-index:3}}
 .pokemon-card[data-rarity=legendaria]>.legend-frame:after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 34%,#fff7d544 49%,transparent 61%);mask:url('assets/legend-frame.svg') center/100% 100%;animation:legend-glow 6s ease-in-out infinite}
 .deck-slot[data-rarity=legendaria]{border:0;background:transparent;overflow:visible}
 .deck-slot>.legend-frame{inset:-4px -2px -3px;padding:0;border-radius:0;filter:none;background:transparent url('assets/legend-frame.svg') center/100% 100% no-repeat}

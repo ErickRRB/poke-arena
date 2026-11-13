@@ -62,6 +62,10 @@ La próxima carta conserva su proporción, queda centrada verticalmente y muestr
 
 La reconexión conserva el margen existente del servidor: 25 segundos de ausencia antes de resolver la partida por desconexión. Las pruebas utilizaron Chromium en Windows; no verifican el comportamiento de un teléfono físico ni sustituyen una revisión con lector de pantalla.
 
+Los nombres y roles de las 16 legendarias quedan dentro de la abertura del marco, en la colección, el mazo, la home y la mano. Se compararon los rectángulos del texto con los píxeles del ornamento en 320 × 568, 390 × 844, 768 × 1024 y 1440 × 980. La comprobación detectó y corrigió cruces en la colección, nombres largos de la home y roles de la mano de escritorio.
+
+Abrir el editor o seleccionar otro mazo lleva la vista a las cartas elegidas y enfoca su selector. Las pruebas de navegador comprueban la reapertura después de desplazarse por la colección, el cambio entre mazos y la conservación de las cartas y su orden.
+
 La siguiente revisión amplió el mazo a dos filas de cuatro cartas y redujo la altura de los selectores. El mazo y la colección comparten el desplazamiento: al bajar, sólo quedan las cartas de colección. Los filtros se abren desde un botón pequeño y Rareza queda al final, plegada. Con ocho cartas, Usar permite elegir cuál reemplazar. Los nombres subieron y las cantidades de enjambre se muestran debajo, sin fondo crema.
 
 <img src="ui-review/09-editor.png" width="330" alt="Mazo de ocho cartas grandes en dos filas, con selectores bajos y filtros compactos.">

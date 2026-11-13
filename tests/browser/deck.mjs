@@ -9,6 +9,14 @@ export async function run({browser,url,viewports,output}){
       const cards=await page.locator('#deck-strip [data-deck-info]').evaluateAll(nodes=>nodes.map(node=>({row:node.offsetTop,width:node.offsetWidth,height:node.offsetHeight})));
       assert.equal(cards.length,8);assert.equal(new Set(cards.map(card=>card.row)).size,2);assert.ok(cards.every(card=>card.width>55&&Math.abs(card.width/card.height-.8)<.02));
       assert.equal(await page.locator('[data-collection]').count(),105);await inViewport(page,'#save-deck-btn',viewport);
+      const chosen=await page.locator('#deck-strip [data-deck-info]').evaluateAll(nodes=>nodes.map(node=>node.dataset.deckInfo));
+      await page.locator('[data-collection=rayquaza]').scrollIntoViewIfNeeded();await page.locator('#save-deck-btn').click();await page.locator('#menu-deck-btn').click();
+      assert.equal(await page.locator('#deck-scroll').evaluate(node=>node.scrollTop),0,'opening the editor starts with the active deck');
+      assert.deepEqual(await page.locator('#deck-strip [data-deck-info]').evaluateAll(nodes=>nodes.map(node=>node.dataset.deckInfo)),chosen);
+      await page.locator('[data-collection=rayquaza]').scrollIntoViewIfNeeded();await page.locator('#deck-slots [data-deck-slot="1"]').click();
+      assert.equal(await page.locator('#deck-scroll').evaluate(node=>node.scrollTop),0,'switching decks brings the selected deck into view');
+      await page.locator('#deck-slots [data-deck-slot="0"]').click();
+      assert.deepEqual(await page.locator('#deck-strip [data-deck-info]').evaluateAll(nodes=>nodes.map(node=>node.dataset.deckInfo)),chosen);
       await page.locator('[data-deck-info=pikachu]').click();assert.equal(await page.locator('#card-dialog').isVisible(),false);await inViewport(page,'#card-actions',viewport);
       await page.keyboard.press('Escape');assert.equal(await page.locator('#deck-dialog').isVisible(),true);
       await page.locator('[data-deck-info=pikachu]').click();await page.locator('#card-action-info').click();await page.locator('#card-dialog').waitFor({state:'visible'});await page.locator('#card-dialog [data-close]').click();
