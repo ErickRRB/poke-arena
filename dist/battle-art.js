@@ -1,7 +1,7 @@
 import {BATTLE_ASSETS} from './assets/battle/manifest.js';
 import {WHIRLPOOL_BOUNDS} from './assets/battle/frame-bounds.js';
 
-export const CARD_PLACEHOLDERS=Object.freeze({log:'Objeto de troncos estático pendiente de una animación de rodado.'});
+export const CARD_PLACEHOLDERS=Object.freeze({});
 export const cardPlaceholder=key=>Object.hasOwn(CARD_PLACEHOLDERS,key);
 const ALIASES={aura:'psychic',confusion:'psychic',lightning:'lightningHead',magnet:'lightningHead',powder:'poison',punch:'impact',slam:'dust',eruption:'explosion',dash:'impact'};
 const STRUCTURES={princess:[[161,7,309,395],[794,7,309,395]],king:[[29,428,574,476],[662,428,574,476]],platform:[[92,959,449,271],[725,959,448,271]]};

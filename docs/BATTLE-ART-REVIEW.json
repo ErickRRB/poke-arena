@@ -30,6 +30,13 @@
       "uses": [
         "Poké Ball deployment marker"
       ]
+    },
+    {
+      "repository": "https://github.com/smogon/sprites",
+      "sources": "artwork/sprite-sources/README.md",
+      "uses": [
+        "Complete original flight loops for Charizard, Dragonite, Pidgeot, Lugia, Altaria and Flygon"
+      ]
     }
   ],
   "generated": [
@@ -93,32 +100,26 @@
       "generator": "Integrated image_gen",
       "transparent": false,
       "brief": "Canonically accurate mobile Blastoise, both arms and legs, two shoulder cannons, striding left from a shallow stream onto a grassy riverbank. Clean anime outlines, natural lighting, controlled detail, no tower or platform, no text or UI."
+    },
+    {
+      "file": "dist/assets/cards/flame-wheel-v1.png",
+      "generator": "Integrated image_gen",
+      "transparent": false,
+      "brief": "A single large flame wheel rolls left along a quiet grassy path, with one small Cyndaquil in the far right background. Clean anime illustration with controlled detail."
     }
   ],
   "animationChanges": {
-    "charizard": "Body-anchored loop of changing original Hop poses for visible wing movement. Shoot and its original head marker remain the attack.",
+    "charizard": "Complete 47/49-frame original flight loops, continuous during movement, idle, attacks and hurt. Mouth attachment matches the flight raster.",
     "attachments": "Native markers for all species, directions and attack frames. Cannons and alternating hands use separate attachments.",
     "smoothing": "Position and facing interpolation survives rebuilt online snapshots. Attack time remains monotonic during each sequence. Large teleports reset interpolation.",
     "whirlpool": "Original Gust_Blue frames are cropped to visible alpha bounds without editing pixels. The visible footprint spans the true damage radius.",
     "stealthRock": "Original raster boulders float within the field. Back and front layers retain depth.",
     "hyperBeam": "Original golden beam column and explosion sheet. Card illustration remains unchanged.",
-    "flying": "Pidgeot, Scyther, Dragonite and Salamence also use body-anchored original Hop loops. Other fliers keep native wing or floating animation while idle.",
-    "blastoise": "Mobile ground troop with two cannon shots, no platform and no lifetime decay."
+    "flying": "All 23 fliers reviewed over 8 directions and 120 frames. Charizard, Dragonite, Pidgeot, Lugia, Altaria and Flygon use full Showdown flight loops; the other native PMD motions are preserved.",
+    "blastoise": "Mobile ground troop with two cannon shots, no platform and no lifetime decay.",
+    "log": "Rueda Fuego replaces the static log with the original animated Flame_Wheel raster and a new card illustration. Mechanical stats and saved key log remain."
   },
-  "placeholders": [
-    {
-      "card": "log",
-      "label": "PLACEHOLDER",
-      "reason": "The original log object is usable as a rolling projectile but lacks a suitable rolling animation.",
-      "visibleIn": [
-        "collection",
-        "saved deck",
-        "hand",
-        "card details",
-        "battle"
-      ]
-    }
-  ],
+  "placeholders": [],
   "archived": [
     "artwork/imagenes-viejas/variantes/arena-con-torres-anteriores.png",
     "artwork/imagenes-viejas/originales/combat-effects-v1.webp"
@@ -128,7 +129,8 @@
     "All twelve spells captured in the actual renderer",
     "Desktop, tablet and mobile layouts",
     "Delayed loading preserves layout",
-    "All 101 Pokémon cards across 93 species: eight directions, sixteen movement samples and twelve attack samples, with no empty or missing frames. Full report: POKEMON-MOTION-REVIEW.json"
+    "All 101 Pokémon cards across 93 species: eight directions, sixteen movement samples and twelve attack samples, with no empty or missing frames. Full report: POKEMON-MOTION-REVIEW.json",
+    "All 23 fliers: 8 directions, 120 real-render samples per direction. FLIGHT-MOTION-REVIEW.json"
   ],
   "preservedCardArt": [
     "hyperBeam",

@@ -1,12 +1,18 @@
-import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, KING_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=25';
-import { BattleArt } from './battle-art.js?v=25';
-import { emissionPoint, animationFrame, movementAnchor, TOWER_MOUNTS } from './sprite-motion.js?v=25';
+import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, KING_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=26';
+import { BattleArt } from './battle-art.js?v=26';
+import { emissionPoint, emitterPart, animationFrame, movementAnchor, TOWER_MOUNTS } from './sprite-motion.js?v=26';
+import { flightSheets, flightPose, flightEmission } from './flight-motion.js?v=26';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
 function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.lineWidth = width; c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); }
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
 const visualScale = unit => unit.scale ?? unit.card?.scale ?? 1.5;
+function attackLunge(unit,reduced){
+  if(reduced||!unit.attack||unit.mounted||!(unit.card.range<50))return 0;
+  const duration=unit.attackDuration||.75,elapsed=duration-unit.attack;
+  return Math.sin(Math.PI*Math.max(0,Math.min(1,elapsed/duration)))*3;
+}
 function pixelMeter(c,x,y,width,progress,color,segments=6){
   rect(c,'#24352e',x-2,y-2,width+4,8);rect(c,'#495346',x,y,width,4);
   const gap=2,step=(width+gap)/segments,filled=Math.floor(Math.max(0,Math.min(1,progress))*segments+1e-6);
@@ -30,11 +36,11 @@ export class Renderer {
     this.buildBackground();
   }
   async load(keys=DEFAULT_DECK,onProgress=()=>{}) {
-    const response = await fetch('assets/pokemon/manifest.json?v=25');
+    const response = await fetch('assets/pokemon/manifest.json?v=26');
     if (!response.ok) throw new Error('No se pudo cargar el archivo de sprites.');
     this.metadata = await response.json();
     const ids=[...new Set([...keys.map(k=>CARDS[k]?.id),31,34,52].filter(Boolean))];
-    const files=new Set(ids.flatMap(id=>this.animationEntries(id).flatMap(([,meta])=>[meta.file,meta.shadow])));
+    const files=new Set(ids.flatMap(id=>[...this.animationEntries(id).flatMap(([,meta])=>[meta.file,meta.shadow]),...flightSheets(id).map(meta=>meta.file)]));
     const total=files.size+this.battleArt.files().length;let loaded=0;
     const track=pending=>pending.then(value=>{onProgress(++loaded,total);return value;});
     onProgress(0,total);
@@ -52,7 +58,7 @@ export class Renderer {
   ensureSpecies(ids){if(!Object.keys(this.metadata).length)return Promise.resolve();return Promise.all([...new Set(ids)].map(id=>{
     if(this.speciesLoads.has(id))return this.speciesLoads.get(id);
     this.pendingSpecies.add(id);
-    const pending=Promise.all(this.animationEntries(id).map(async([name,meta])=>{
+    const pending=Promise.all([...flightSheets(id).map(async meta=>this.sprites.set(meta.key,await this.loadImage(meta.file))),...this.animationEntries(id).map(async([name,meta])=>{
       const [img,shadow]=await Promise.all([this.loadImage(meta.file),this.loadImage(meta.shadow)]);
       this.sprites.set(`${id}-${name}`, img);
       const surface=document.createElement('canvas');surface.width=shadow.width;surface.height=shadow.height;
@@ -77,7 +83,7 @@ export class Renderer {
         }
         this.bodyHeights.set(Number(id),Math.max(this.bodyHeights.get(Number(id))||0,height));
       }
-    }));this.speciesLoads.set(id,pending);pending.then(()=>this.pendingSpecies.delete(id),()=>this.pendingSpecies.delete(id));return pending;
+    })]);this.speciesLoads.set(id,pending);pending.then(()=>this.pendingSpecies.delete(id),()=>this.pendingSpecies.delete(id));return pending;
   }));
   }
   rng(seed) { let s = seed; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
@@ -113,6 +119,11 @@ export class Renderer {
   }
   visualEmission(actor,shot=0){
     if(!actor)return null;
+    const flight=flightPose(actor,this.t,this.reduced);
+    if(flight&&this.sprites?.has(flight.key)){
+      const lunge=attackLunge(actor,this.reduced),point=flightEmission({...actor,x:actor.x+(actor.dx||0)*lunge,y:actor.y+(actor.dy||0)*lunge},flight,emitterPart(actor.card),shot);
+      return{x:point.x,y:actor.y+(point.y-actor.y)/(this.verticalScale||1)};
+    }
     const point=emissionPoint(actor,shot),bob=actor.card?.flying&&!this.reduced?Math.sin(this.t*2.6+actor.id)*1.5:0;
     return{x:point.x,y:actor.y+(point.y-actor.y-bob)/(this.verticalScale||1)};
   }
@@ -138,11 +149,12 @@ export class Renderer {
   sprite(c, unit, idle = false) {
     const id = unit.card.id;
     if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
+    const candidate=flightPose(unit,this.t,this.reduced),flight=candidate&&this.sprites.has(candidate.key)?candidate:null;
     let anim = unit.attack > 0 ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving ? (unit.card.moveAnim||'Walk') : unit.hit>0?'Hurt':unit.card.idleAnim||(unit.card.flying?'Walk':'Idle');
     if (!this.sprites.has(`${id}-${anim}`)) anim = 'Walk';
-    const meta = this.metadata[id]?.[anim], img = this.sprites.get(`${id}-${anim}`);
+    const meta = flight?{...flight,durations:[1]}:this.metadata[id]?.[anim], img = this.sprites.get(flight?.key||`${id}-${anim}`);
     if (!meta || !img) return;
-    const scale = visualScale(unit),vertical=this.verticalScale||1;
+    const scale = flight?.scale??visualScale(unit),vertical=this.verticalScale||1;
     let frame = 0;
     const attacking=unit.attack>0;
     const duration = meta.durations.reduce((a,b)=>a+b,0);
@@ -158,11 +170,10 @@ export class Renderer {
     if(img.height/meta.height<8)direction=0;
     const {x,y}=unit;
     const nativeAnchor=this.anchors.get(`${id}-${anim}`)?.[direction]?.[frame]||{x:meta.width/2,y:meta.height*.65};
-    const anchor=loopFrames&&unit.card.movementAnchor==='body'?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor;
+    const anchor=flight?.anchor||(loopFrames&&unit.card.movementAnchor==='body'?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor);
     const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:48):0;
-    const lift=(leapLift+(unit.card.structure?23:unit.card.flying?16+(this.reduced?0:Math.sin(this.t*2.6+unit.id)*1.5):0))/vertical;
-    const pulse = Math.sin(Math.PI*Math.max(0,Math.min(1,elapsed/(unit.attackDuration||.75))));
-    const lunge=attacking&&!unit.mounted&&unit.card.range<50&&!this.reduced?pulse*3:0;
+    const lift=(leapLift+(unit.card.structure?23:unit.card.flying?16+(this.reduced||flight?0:Math.sin(this.t*2.6+unit.id)*1.5):0))/vertical;
+    const lunge=attackLunge(unit,this.reduced);
     const radius=unit.radius||12;
     if(!unit.mounted&&!unit.preview){
       ellipse(c,'#15382a65',x,y+2,radius+2,unit.card.flying?6:4);
@@ -172,13 +183,14 @@ export class Renderer {
     const spawnProgress=unit.spawn>0?Math.max(0,1-unit.spawn/Math.max(.001,unit.spawnGroup?.duration??.75)):1;
     if(unit.spawn>0)c.globalAlpha=.2+.8*spawnProgress;
     if(unit.hit>0&&!this.reduced) c.filter=`brightness(${1+.35*unit.hit/.24})`;
-    const px=x+unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge-lift-(this.reduced?0:(1-spawnProgress)*12/vertical)-anchor.y*scale/vertical;
+    const px=x+(flight?.flip?-1:1)*unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge-lift-(this.reduced?0:(1-spawnProgress)*12/vertical)-anchor.y*scale/vertical;
+    if(flight?.flip){c.translate(x*2,0);c.scale(-1,1);}
     if(unit.card.charge&&unit.charge>=unit.card.charge&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
-    c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px),Math.round(py),meta.width*scale,meta.height*scale/vertical);
+    c.drawImage(img,flight?.sx??frame*meta.width,flight?.sy??direction*meta.height,meta.width,meta.height,Math.round(px),Math.round(py),meta.width*scale,meta.height*scale/vertical);
     c.restore();
     if(unit.shield>0&&!unit.mounted){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
     if(idle)return;
-    const by=y-lift-((this.bodyHeights.get(id)||22)*scale+9)/vertical;
+    const by=y-lift-((flight?flight.healthHeight:(this.bodyHeights.get(id)||22)*scale)+9)/vertical;
     this.healthBar(c,unit,x,by,unit.maxHp<=1?18:unit.card.count?30:unit.maxHp>=1800?52:44);
     if(unit.card.ability&&!unit.abilityUsed){ellipse(c,'#382448',x+27,by+4,6,6);text(c,'◆',x+27,by+4,'#e9beff',10,800);}
     if(unit.card.summon&&unit.spawn<=0)this.summonIndicator(c,unit,x,by-(unit.shield>0?13:12)/vertical);
@@ -291,7 +303,7 @@ export class Renderer {
       }
       if(event.key==='thunder'){this.effects.push({...event,kind:'entry',style:'lightning',life:.36,max:.36});return;}
       if(CARDS[event.key].fieldDuration)return;
-      const art={fireball:'explosion',lightning:'lightning',hyperBeam:'explosion',blizzard:'ice',log:'dust'}[event.key]||'impact';
+      const art={fireball:'explosion',lightning:'lightning',hyperBeam:'explosion',blizzard:'ice',log:'flame'}[event.key]||'impact';
       this.effects.push({...event,kind:'artImpact',art,life:.7,max:.7});
       if(['hyperBeam','blizzard'].includes(event.key))this.effects.push({...event,kind:'spell',life:.65,max:.65});
     }
@@ -329,7 +341,8 @@ export class Renderer {
   }
   projectile(c,p){
     const progress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),source=this.frameActors.get(p.sourceId),target=this.frameActors.get(p.target.id)||p.target;
-    const start=this.projected({x:p.startX,y:p.startY},source),end=this.projected({x:p.target.x,y:p.target.y-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15)},target);
+    const flight=source&&flightPose(source,this.t,this.reduced);
+    const start=flight&&this.sprites?.has(flight.key)?this.visualEmission(source):this.projected({x:p.startX,y:p.startY},source),end=this.projected({x:p.target.x,y:p.target.y-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15)},target);
     const logicalEnd={x:p.target.x,y:p.target.y-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15)};
     const desired={x:p.x+(start.x-p.startX)*(1-progress)+(end.x-logicalEnd.x)*progress,y:p.y+(start.y-p.startY)*(1-progress)+(end.y-logicalEnd.y)*progress};
     const key=p.id||p;let pose=this.visualProjectiles.get(key);
@@ -533,6 +546,14 @@ export class Renderer {
     for(let i=3;i>0;i--){const tail=position(Math.max(0,progress-i*.015));c.save();c.globalAlpha=(1-i/4)*.6;this.combatArt(c,'flame',tail.x,tail.y,35,angle,35);c.restore();}
     this.combatArt(c,'ember',point.x,point.y,48,angle,48);
   }
+  rollingSpell(c,spell){
+    const travelled=Math.max(0,spell.card.travelDistance-(spell.travelRemaining??spell.card.travelDistance)),direction=spell.team?1:-1;
+    for(let i=3;i>0;i--)if(travelled>i*14){
+      c.save();c.globalAlpha=(1-i/4)*.6;
+      this.combatArt(c,'ember',spell.x,spell.y-direction*i*14-4,24-i*3,0,24-i*3,{age:this.reduced?0:this.t+i*.07});c.restore();
+    }
+    this.combatArt(c,'flameWheel',spell.x,spell.y-14,88,0,80,{age:this.reduced?0:this.t});
+  }
   draw(game,dt=.016){
     const c=this.ctx;this.t+=dt;this.drawDt=dt;this.battleArt.time=this.reduced?0:this.t;
     c.imageSmoothingEnabled=false;c.drawImage(this.background,0,0);this.drawWater(c);
@@ -542,7 +563,7 @@ export class Renderer {
     for(const field of game.fields||[])this.field(c,field);
     for(const spell of game.spells){
       if(spell.key==='pinMissile')continue;
-      if(spell.card.rolling){this.combatArt(c,'log',spell.x,spell.y-10,75,Math.PI/2,55,{frame:0});text(c,'PLACEHOLDER',spell.x,spell.y+20,'#ffe3a0',8);continue;}
+      if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
       c.strokeStyle=spell.team?'#ed9e78':'#d4e8aa';c.lineWidth=1;c.setLineDash([5,5]);c.beginPath();c.arc(spell.x,spell.y,spell.card.splash,0,Math.PI*2);c.stroke();c.setLineDash([]);
     }
     const objects=[...this.frameActors.values()].sort((a,b)=>a.y-b.y);

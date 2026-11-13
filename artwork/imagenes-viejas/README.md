@@ -7,4 +7,6 @@ Abrí [index.html](index.html) para revisar las cartas y sus alternativas. Los o
 - `historicas/`: imágenes reemplazadas o retiradas que se recuperaron del historial del proyecto.
 - `catalogo.json`: procedencia, tamaño y checksum de cada archivo.
 
+El dibujo del tronco que reemplazó Rueda Fuego está conservado en `originales/battle-1.webp` y se puede ver como carta individual en el visor.
+
 El archivo se encuentra fuera de `dist` y se puede revisar directamente en el navegador.

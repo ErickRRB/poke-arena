@@ -1,4 +1,4 @@
-import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=25';
+import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=26';
 
 // Entity references are IDs on the wire; full cards preserve summoned forms.
 const entityCopy=e=>{const{target,...copy}=e;return{...copy,targetId:target?.id??null};};
