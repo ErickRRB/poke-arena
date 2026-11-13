@@ -106,6 +106,8 @@ Las pruebas cubren combate, objetivos, balance, formaciones, movimiento, colocac
 
 La interfaz se aloja con la configuración de `.openai/hosting.json`. El backend multijugador se publica por separado en Cloudflare. La API HTTP y su base D1 se conservan para las pestañas abiertas de versiones anteriores.
 
+La compilación separa el Worker y sus recursos en módulos de menos de 32 MiB. La rama `site-publication` conserva el árbol publicado en Sites y `main` mantiene el historial completo de desarrollo. Ambos árboles se comprueban antes de publicar.
+
 ## Organización del proyecto
 
 | Ruta | Contenido |

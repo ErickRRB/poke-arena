@@ -1,5 +1,13 @@
 # Geometría del juego
 
+## Publicación en Sites
+
+El Worker compilado se divide en `dist/server/index.js` y módulos `asset-chunk-*.js`. Conservar cada archivo por debajo de 32 MiB, el límite de objetos del repositorio de Sites.
+
+GitHub `main` conserva el historial completo del proyecto. Sites usa una rama de publicación con el mismo árbol final y su propio historial: un commit antiguo de GitHub contiene un Worker de más de 32 MiB que Sites rechaza incluso si un commit posterior lo reduce. No reescribir ni forzar el historial de GitHub.
+
+Para Sites, usar el worktree vecino `pokemon-arena-site-publication` y su rama `site-publication`. Abrir y sincronizar allí el repositorio con el helper oficial. Con el árbol principal probado y commiteado, aplicar su árbol con `git read-tree --reset -u <commit>` únicamente en ese worktree de publicación limpio, crear el commit y verificar que ambos árboles coincidan. Publicar ese commit con el helper y el conector Sites. Mantener la rama de publicación en GitHub para conservar su procedencia. Al continuar, no intentar subir el historial de `main` al repositorio de Sites.
+
 ## Selección de pruebas
 
 Elegir las pruebas por la sección modificada. Para el editor o guardado del mazo, usar `npm run test:deck` y `npm run test:ui:deck`; no ejecutar conexión entre usuarios, audio, combate ni balance. Usar los grupos `battle`, `placement`, `rendering`, `online`, `server`, `audio`, `balance` y `tooling` solo cuando el cambio alcance esas áreas. Se pueden combinar con `npm test -- deck rendering`.
