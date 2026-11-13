@@ -18,7 +18,7 @@ test('the nearest free cell avoids towers, structures and reserved formation cel
   const g=fresh();g.spawn('centralElectrode',0,300,500,0);
   for(const key of['pikachu','regice','pandilla']){
     const points=g.deploymentPositions(0,key,300,500);assert.ok(points.length);assert.equal(new Set(points.map(p=>`${p.x},${p.y}`)).size,points.length);
-    for(const p of points)assert.ok(g.canDeploy(0,key,p.x,p.y));
+    for(const [i,p]of points.entries())assert.ok(g.canDeploy(0,CARDS[key].squad?.[i]||key,p.x,p.y));
   }
   assert.equal(g.resolveDeployment(0,'pikachu',300,330),null);
 });
@@ -78,7 +78,20 @@ test('Central Electrode generates five Voltorb in waves and one final Voltorb wh
 });
 test('destroying a spawner early releases only one final wave and prevents later production',()=>{
   for(const [key,child,count]of[['centralElectrode','voltorb',1],['madriguera','nidoranM',2],['vivero','exeggcute',2]]){
-    const g=fresh();g.towers.forEach(t=>t.hp=0);const owner=g.spawn(key,0,300,520,0);g.damage(owner,99999,1);assert.equal(g.units.filter(u=>u.key===child).length,count);run(g,10);assert.equal(g.units.filter(u=>u.key===child).length,count);
+    const g=fresh();g.towers.forEach(t=>t.hp=0);const owner=g.spawn(key,0,300,520,0);g.damage(owner,99999,1);assert.equal(g.units.filter(u=>u.key===child).length,CARDS[key].summonSpacing?1:count);run(g,10);assert.equal(g.units.filter(u=>u.key===child).length,count);
+  }
+});
+test('Exeggutor releases each pair in single file with a real delay, including its last pair and restored online jobs',()=>{
+  for(const team of[0,1]){
+    const g=fresh(),spawns=[];
+    g.onEvent=e=>{if(e.type==='spawn'&&e.unit.key==='exeggcute')spawns.push({x:e.unit.x,y:e.unit.y,at:g.elapsed,unit:e.unit});};
+    const owner=g.spawn('vivero',team,158,team?270:530,0);run(g,1.1);assert.equal(spawns.length,1);assert.equal(g.reinforcements.length,1);
+    const clone=unpackGame(packGame(g)),flipped=unpackGame(perspective(packGame(g),1));run(g,.8);run(clone,.8);run(flipped,.8);
+    assert.equal(spawns.length,2);assert.equal(spawns[0].x,spawns[1].x);assert.equal(spawns[0].y,spawns[1].y);assert.ok(spawns[1].at-spawns[0].at>=.84);
+    assert.deepEqual(packGame(clone).units.map(u=>[u.key,u.x,u.y,u.spawn]),packGame(g).units.map(u=>[u.key,u.x,u.y,u.spawn]));
+    assert.equal(flipped.units.filter(u=>u.key==='exeggcute'&&u.team===1-team).length,2);
+    run(g,.6);const children=g.units.filter(u=>u.parentId===owner.id);assert.ok((children[0].y-children[1].y)*(team?-1:1)<0,'first child advances ahead of the second');
+    g.damage(owner,99999,1-team);assert.equal(spawns.length,3);run(g,.9);assert.equal(spawns.length,4);assert.ok(spawns[3].at-spawns[2].at>=.84);run(g,8);assert.equal(spawns.length,4);
   }
 });
 test('Duskull invokes pairs, respects its living summon limit and leaves reinforcements on death',()=>{
@@ -86,6 +99,20 @@ test('Duskull invokes pairs, respects its living summon limit and leaves reinfor
 });
 test('the mixed gang deploys three melee Poochyena and two ranged Ralts for one card cost',()=>{
   const g=fresh(),result=cast(g,'pandilla',300,530);assert.ok(result.ok);assert.equal(g.units.filter(u=>u.key==='poochyenaToken').length,3);assert.equal(g.units.filter(u=>u.key==='raltsToken').length,2);assert.ok(g.units.filter(u=>u.key==='raltsToken').every(u=>u.card.air));assert.equal(g.energy[0],7);
+});
+test('Rocket gang keeps three melee in front and two ranged behind at edges, towers and in either online perspective',()=>{
+  for(const team of[0,1])for(const[x,y]of[[300,530],[300,448],[50,760],[550,760],[158,628],[300,682]]){
+    const g=fresh(),cursor={x:team?600-x:x,y:team?800-y:y},anchor=g.resolveDeployment(team,'pandilla',cursor.x,cursor.y);
+    assert.ok(anchor,JSON.stringify({team,cursor}));const preview=g.deploymentPositions(team,'pandilla',anchor.x,anchor.y);assert.equal(preview.length,5);
+    cast(g,'pandilla',cursor.x,cursor.y,team);assert.deepEqual(g.units.map(({x,y})=>({x,y})),preview);
+    const check=units=>{
+      const front=units.filter(u=>u.key==='poochyenaToken'),back=units.filter(u=>u.key==='raltsToken'),direction=units[0].team?-1:1;
+      assert.equal(front.length,3);assert.equal(back.length,2);assert.ok(Math.max(...front.map(u=>u.y*direction))<Math.min(...back.map(u=>u.y*direction)));
+      assert.equal(new Set(front.map(u=>u.y)).size,1);assert.equal(new Set(back.map(u=>u.y)).size,1);assert.equal(new Set(units.map(u=>`${u.x},${u.y}`)).size,5);
+    };
+    check(g.units);check(unpackGame(perspective(packGame(g),1)).units);
+    for(const u of g.units)assert.ok(g.canDeploy(team,u.key,u.x,u.y));
+  }
 });
 test('a defensive structure stops holding an out-of-range target and picks the next reachable enemy',()=>{
   const g=fresh(),defense=g.spawn('regice',0,300,530,0),retreating=still(g.spawn('snorlax',1,300,410,0));run(g,.5);assert.equal(defense.target,retreating);

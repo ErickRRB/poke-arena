@@ -15,8 +15,13 @@ test('a troop preview draws one range circle and a cell marker, without a second
 test('after placement no old hover or preview can draw a placement indicator',()=>{
   const{game,renderer,ctx,calls}=drawing(null);renderer.deploymentPreview={key:'pikachu',x:300,y:500,until:50};renderer.drawPlacement(ctx,game);assert.deepEqual(calls,[]);
 });
-test('passive spawners have no fake attack radius and Voltorb shows its jump trigger distance',()=>{
-  for(const[key,radii]of[['centralElectrode',[]],['voltorb',[CARDS.voltorb.jumpRange]],['pandilla',[120]]]){const{game,renderer,ctx,calls}=drawing(key);renderer.drawPlacement(ctx,game);assert.deepEqual(calls.filter(c=>c.method==='arc').map(c=>c.args[2]),radii,key);}
+test('only ranged attacks show a troop range circle, including the ranged members of a mixed squad',()=>{
+  for(const[key,radii]of[['centralElectrode',[]],['voltorb',[]],['pandilla',[120]],['meganium',[CARDS.meganium.range]],['regice',[CARDS.regice.range]]]){const{game,renderer,ctx,calls}=drawing(key);renderer.drawPlacement(ctx,game);assert.deepEqual(calls.filter(c=>c.method==='arc').map(c=>c.args[2]),radii,key);}
+});
+test('melee troops never show explosion, jump, splash or short attack reach as a range circle',()=>{
+  for(const[key,card]of Object.entries(CARDS).filter(([,c])=>!c.spell&&!c.squad&&c.range<50)){
+    const{game,renderer,ctx,calls}=drawing(key);renderer.drawPlacement(ctx,game);assert.equal(calls.filter(c=>c.method==='arc').length,0,key);
+  }
 });
 test('a spell has one target boundary and Mazazo has its straight travel footprint',()=>{
   for(const[key,radii]of[['spikes',[CARDS.spikes.splash]],['log',[]]]){const{game,renderer,ctx,calls}=drawing(key);renderer.drawPlacement(ctx,game);assert.deepEqual(calls.filter(c=>c.method==='arc').map(c=>c.args[2]),radii);}

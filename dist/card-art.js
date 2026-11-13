@@ -1,4 +1,4 @@
-import { CARDS } from './engine.js?v=15';
+import { CARDS } from './engine.js?v=16';
 // Each atlas contains opaque, full-bleed battle scenes in row-major order.
 const sheets = [
   ['pikachu','snorlax','machamp','blastoise','zubat','thunder','charizard','fireball','treecko','log','squirtle','charmander','bulbasaur','gengar','eevee','onix'],

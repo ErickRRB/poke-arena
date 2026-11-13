@@ -9,6 +9,16 @@ test('the same snapping rules apply to a defensive bastion and block stacking',(
 test('a marching troop switches from a tower to a newly placed closer Pokémon',()=>{const g=fresh(),u=g.spawn('machamp',1,158,445,0);g.step(1/60);assert.ok('king'in u.target);const closer=g.spawn('squirtle',0,158,525,0);g.step(1/60);assert.equal(u.target,closer);});
 test('a farther Pokémon does not distract a troop from the nearer tower',()=>{const g=fresh(),u=g.spawn('machamp',1,158,500,0);const tower=g.towers.find(t=>t.team===0&&t.lane===0);g.step(1/60);assert.equal(u.target,tower);g.spawn('squirtle',0,158,660,0);g.step(1/60);assert.equal(u.target,tower);});
 test('both bridge lanes are pulled toward a central defensive bastion while marching',()=>{for(const x of[158,442]){const g=fresh(),u=g.spawn('snorlax',1,x,390,0);g.step(1/60);assert.ok('king'in u.target);const bastion=g.spawn('blastoise',0,300,490,0);g.step(1/60);assert.equal(u.target,bastion);}});
+test('win conditions cannot be pulled across to the other bridge and respect one or two cells past the middle',()=>{
+  for(const team of[0,1])for(const lane of[0,1])for(const key of['electrode','golem']){
+    const side=lane===0?1:-1,x=lane===0?158:442,reach=(key==='golem'?2:1)*24;
+    for(const offset of[reach,reach+1,142]){
+      const g=fresh(),u=g.spawn(key,team,x,team?410:390,0),structure=g.spawn('blastoise',1-team,300+side*offset,team?500:300,0);
+      g.step(1/60);assert.equal(u.target===structure,offset<=reach,JSON.stringify({team,lane,key,offset}));
+      if(offset>reach){u.target=structure;u.engaged=true;g.step(1/60);assert.notEqual(u.target,structure,'stale cross-lane target must be released');}
+    }
+  }
+});
 test('a troop already attacking keeps its target when a closer defender appears',()=>{const g=fresh(),u=g.spawn('machamp',1,158,570,0),tower=g.towers.find(t=>t.team===0&&t.lane===0);run(g,.5);assert.equal(u.target,tower);assert.equal(u.engaged,true);g.spawn('squirtle',0,170,570,0);run(g,.2);assert.equal(u.target,tower);});
 test('after its current victim is defeated a troop can select the next closest target',()=>{const g=fresh(),u=g.spawn('machamp',1,158,520,0),a=g.spawn('snorlax',0,158,552,0);a.card={...a.card,speed:0};run(g,.5);assert.equal(u.target,a);g.damage(a,9999,1);const b=g.spawn('squirtle',0,200,530,0);g.step(1/60);assert.equal(u.target,b);});
 test('building seekers remain building seekers while following a newly placed bastion',()=>{const g=fresh(),u=g.spawn('onix',1,158,390,0);g.step(1/60);const pika=g.spawn('squirtle',0,158,460,0);g.step(1/60);assert.notEqual(u.target,pika);const b=g.spawn('blastoise',0,158,490,0);g.step(1/60);assert.equal(u.target,b);});

@@ -1,5 +1,9 @@
 # Poké Arena
 
+[Jugar](https://poke-arena-erick.eriqrb.chatgpt.site) · [Revisión de UI/UX con capturas](docs/UI-UX-REVIEW.md)
+
+La interfaz de combate móvil ocupa la pantalla sin cabecera y se usa en vertical. El mazo se edita únicamente desde la home; la pausa está dentro del tablero sólo contra CPU. Los créditos están en Ajustes. La revisión enlazada documenta las fichas con iconos ilustrados, las habilidades, las formaciones, el límite lateral de atracción y la recuperación de audio al volver a Safari.
+
 Juego web de batallas de torres contra otra persona online o contra la computadora, inspirado en las mecánicas de Clash Royale. Incluye dos carriles, puentes, tres torres por equipo, mazo editable de ocho cartas, mano de cuatro y cola rotativa. El elixir llega hasta diez. La colección tiene 105 cartas, con Pokémon de las primeras tres generaciones y doce hechizos.
 
 La ampliación incorpora Pin misil, Rayo, Hiperrayo, Ventisca, Púas, Trampa rocas, Remolino, Pesadilla y Terremoto. Bomba ígnea y Mazazo conservan las claves y mecánicas de Bola de fuego y Tronco para mantener los mazos guardados. Las zonas persistentes tienen efectos diferentes: daño terrestre, presión antiaérea, atracción, invocaciones graduales o daño contra estructuras. Los hechizos reducen su daño a torres; Púas, Trampa rocas y Remolino no dañan torres.

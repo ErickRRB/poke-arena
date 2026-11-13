@@ -1,0 +1,24 @@
+{
+  "generator": "ImageGen (built-in)",
+  "asset": "dist/assets/ui/stat-icons.webp",
+  "grid": {
+    "columns": 4,
+    "rows": 4,
+    "icons": [
+      "heart",
+      "damage",
+      "dps",
+      "attack-speed",
+      "target",
+      "move",
+      "range",
+      "deploy",
+      "units",
+      "duration",
+      "shield",
+      "effect",
+      "tower"
+    ]
+  },
+  "prompt": "Create a production game UI sprite atlas: ONE square transparent PNG image, exactly 4 columns by 4 rows of equally sized cells. This is a cohesive set of polished small inventory/stat icons for a Pokémon-inspired GBA / Nintendo DS era RPG with cream menu panels, dark warm outlines, rich jewel colors. Pixel-painted / carefully shaded sprite-art feel, charming tactile enamel and controlled highlights, simple bold silhouette readable at 28 pixels, professionally finished; NOT thin outline SVGs, NOT generic flat vector clip art. Each icon occupies the central 65 percent of its cell with ample transparent padding and no overlap, same visual scale throughout. No text, numbers, labels, panels, grid lines, checkerboard, watermark, ground, or drop shadows beyond a tight subtle sprite shadow. Transparent alpha background. Cell order left to right, top to bottom is mandatory. Row 1: red glossy heart (HP), steel short sword with golden hilt (attack damage), golden lightning bolt with small orange impact sparks (damage per second), silver stopwatch with violet dial (attack interval). Row 2: teal archery target with small arrow at center (targets), green adventurer running boot angled diagonally (movement), wooden bow with long green arrow pointing right (attack range), cyan downward arrow entering a small blue deployment pedestal (deployment). Row 3: three small red and cream Poké Ball-like capsules grouped as a squad (unit count), golden hourglass with pale blue glass and sand (duration), blue metal shield with bright center and gold rim (shield), violet status star surrounded by three little pale sparks (status effect). Row 4: compact stone arena watchtower with red roof (tower damage), then the final three cells MUST be entirely empty transparent. All 13 icons distinct and recognizable; they are individual inventory sprites aligned to the exact regular atlas grid. The output is one game-ready sprite sheet intended for deterministic slicing, so do not vary cell centers or place icons between cells."
+}

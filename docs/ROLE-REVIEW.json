@@ -1702,7 +1702,7 @@
       "directDps": 0,
       "range": 30,
       "scale": 2,
-      "description": "Se queda plantado y genera dos Exeggcute a distancia cada 6,5 s. Al caer deja dos más. Sus brotes son frágiles frente a hechizos.",
+      "description": "Cada 6,5 s libera dos Exeggcute en fila, con 0,85 s entre uno y otro. Atacan a distancia. Al caer libera una última pareja con la misma separación.",
       "pokemonIdentity": "Semillero",
       "attackRuleException": false,
       "summon": "exeggcute",
@@ -1845,7 +1845,7 @@
       "directDps": 109.1,
       "range": 30,
       "scale": 1.2593,
-      "description": "Tres Poochyena atacan de cerca y dos Ralts los cubren a distancia contra tierra y aire. El daño en área elimina al grupo.",
+      "description": "Tres Poochyena van adelante y dos Ralts los cubren desde atrás a distancia contra tierra y aire. El daño en área elimina al grupo.",
       "pokemonIdentity": "Emboscada",
       "attackRuleException": true
     },

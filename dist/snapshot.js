@@ -1,4 +1,4 @@
-import { Game, CARDS, W, H, PRINCESS_RANGE } from './engine.js?v=15';
+import { Game, CARDS, W, H, PRINCESS_RANGE } from './engine.js?v=16';
 
 // Entity references are IDs on the wire; full cards preserve summoned forms.
 const entityCopy=e=>{const{target,...copy}=e;return{...copy,targetId:target?.id??null};};
@@ -8,6 +8,7 @@ export function packGame(game){
 }
 export function unpackGame(data,onEvent=()=>{},animations={}){
   const game=Object.assign(Object.create(Game.prototype),structuredClone(data));game.onEvent=onEvent;game.animations=animations;
+  game.reinforcements??=[];
   for(const tower of game.towers)if(!tower.king)tower.range=PRINCESS_RANGE;
   const entities=new Map([...game.units,...game.towers].map(e=>[e.id,e]));
   for(const entity of entities.values()){entity.card=entity.card||CARDS[entity.key];entity.target=entities.get(entity.targetId)||null;}

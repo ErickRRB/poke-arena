@@ -1,10 +1,10 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=15';
-import { Renderer } from './render.js?v=15';
-import { SoundSystem } from './audio.js?v=15';
-import { OnlineClient } from './online.js?v=15';
-import { unpackGame, perspective } from './snapshot.js?v=15';
-import { cardArtMarkup } from './card-art.js?v=15';
-import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=15';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=16';
+import { Renderer } from './render.js?v=16';
+import { SoundSystem } from './audio.js?v=16';
+import { OnlineClient } from './online.js?v=16';
+import { unpackGame, perspective } from './snapshot.js?v=16';
+import { cardArtMarkup } from './card-art.js?v=16';
+import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=16';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -35,7 +35,7 @@ const sfx=new SoundSystem(sound);
 let inspectedCard=null;
 
 function audioInit() {
-  sfx.setEnabled(sound);sfx.unlock();
+  sfx.setEnabled(sound);sfx.unlock(true);
 }
 function tone(freq = 440, duration = .08, wave = 'sine', volume = .035, slide = 0) {
   sfx.tone(freq,duration,wave,volume,slide);
@@ -74,6 +74,7 @@ function renderDeckSlots(){
   for(const id of['menu-deck-slots','deck-slots'])$(id).innerHTML=deckLibrary.slots.map((cards,i)=>`<button class="deck-preset" data-deck-slot="${i}" aria-pressed="${i===deckLibrary.active}" aria-label="Mazo ${i+1}, ${cards?.length??0} de 8 cartas" ${id==='deck-slots'&&!deckEditable?'disabled':''}><svg aria-hidden="true"><use href="#i-deck"/></svg><span>${i+1}</span><small>${cards?.length?`${cards.length}/8`:'+'}</small></button>`).join('');
 }
 for(const id of['menu-deck-slots','deck-slots'])$(id).addEventListener('click',event=>{
+  if(!document.body.classList.contains('menu-mode'))return;
   const button=event.target.closest('[data-deck-slot]');if(!button||(!deckEditable&&id==='deck-slots'))return;
   deckLibrary.active=Number(button.dataset.deckSlot);deckDraft=[...(deckLibrary.slots[deckLibrary.active]||[])];applyDeckChanges();
   if($('deck-dialog').open)renderCollection();
@@ -121,12 +122,11 @@ function updateUi() {
   const total = Math.ceil(game.time); $('timer').textContent = `${Math.floor(total/60)}:${String(total%60).padStart(2,'0')}`;
   $('battle-clock').classList.toggle('urgent', game.time <= 30 || game.overtime);
   $('phase-label').hidden=!game.overtime;$('phase-label').textContent=game.tiebreaker?'Desempate':'Extra';
-  $('pause-btn').disabled = onlineMode||!['playing','paused'].includes(game.state);
-  $('match-pause').hidden=onlineMode;
+  $('match-pause').hidden=onlineMode||!['playing','paused'].includes(game.state);
   const abilities=game.units.filter(u=>u.team===0&&u.card.ability&&!u.abilityUsed&&u.hp>0&&u.spawn<=0);
   $('abilities').hidden=!abilities.length;
   const signature=abilities.map(u=>`${u.id}:${game.energy[0]>=u.card.ability.cost}`).join(',');
-  if($('abilities').dataset.signature!==signature){$('abilities').dataset.signature=signature;$('abilities').innerHTML=abilities.map(u=>`<button class="ability-btn" data-ability="${u.id}" ${game.energy[0]<u.card.ability.cost?'disabled':''} aria-label="${u.card.name}: ${u.card.ability.name}, ${u.card.ability.cost} de elixir"><img src="assets/pokemon/${u.card.id}/art.png" alt=""><span>${u.card.ability.name}</span><b class="card-cost">${u.card.ability.cost}</b></button>`).join('');}
+  if($('abilities').dataset.signature!==signature){$('abilities').dataset.signature=signature;$('abilities').innerHTML=abilities.map(u=>`<button class="ability-btn" data-ability="${u.id}" ${game.energy[0]<u.card.ability.cost?'disabled':''} aria-label="${u.card.name}: ${u.card.ability.name}, ${u.card.ability.cost} de elixir"><span class="ability-portrait">${cardArtMarkup(u.key)}</span><span class="ability-name">${u.card.ability.name}</span><span class="ability-cost" aria-hidden="true"><svg><use href="#i-energy"/></svg><b>${u.card.ability.cost}</b></span></button>`).join('');}
   syncHand();
 }
 function handleEvent(e) {
@@ -153,6 +153,7 @@ function newGame({ start = false, tutorial = false } = {}) {
   renderer.particles = []; renderer.rings = [];renderer.effects=[];renderer.numbers=[];
   game = new Game({ deck: tutorial||deck.length!==8 ? DEFAULT_DECK : deck, difficulty, tutorial, onEvent: handleEvent, animations:renderer.metadata });
   $('enemy-name').textContent = `${{easy:'Principiante',normal:'Entrenador',hard:'Líder de gimnasio'}[difficulty]} · CPU`;
+  $('online-status').hidden=true;
   document.body.classList.toggle('menu-mode',!start);$('main-menu').hidden=start;
   renderMenuDeck();
   renderer.ensureSpecies(deck.map(k=>CARDS[k]?.id).filter(Boolean)).catch(()=>{});
@@ -223,6 +224,10 @@ function restoreFocus(reference) {
   if(target?.isConnected&&!target.disabled&&(!topDialog||topDialog.contains(target)))target.focus({preventScroll:true});
 }
 function openModal(id) {
+  if($('portrait-dialog').open&&id!=='portrait-dialog')return;
+  if(id==='deck-dialog'&&!document.body.classList.contains('menu-mode'))return;
+  if(id==='help-dialog')$('help-practice-btn').hidden=!document.body.classList.contains('menu-mode');
+  if(id==='settings-dialog')$('difficulty-hint').hidden=document.body.classList.contains('menu-mode');
   const dialog=$(id);dialog.dataset.resume=game.state==='playing'?'1':'0';
   modalFocus.set(dialog,focusReference(document.activeElement));
   if(game.state==='playing'&&!onlineMode)game.pause();
@@ -231,8 +236,20 @@ function openModal(id) {
 function closeModal(dialog,resume=true){if(!resume)dialog.dataset.resume='0';dialog.close();}
 document.querySelectorAll('dialog').forEach(dialog=>{
   dialog.addEventListener('close',()=>{if(dialog.dataset.resume==='1'&&game.state==='paused'){game.resume();$('pause-overlay').hidden=true;}restoreFocus(modalFocus.get(dialog));});
-  dialog.addEventListener('click',event=>{if(event.target.closest('[data-close]'))closeModal(dialog);else if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeModal(dialog);}});
+  dialog.addEventListener('click',event=>{if(dialog.id==='portrait-dialog')return;if(event.target.closest('[data-close]'))closeModal(dialog);else if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeModal(dialog);}});
 });
+const portraitMedia=matchMedia('(pointer: coarse) and (hover: none) and (orientation: landscape)');
+function syncPortrait(){
+  const dialog=$('portrait-dialog');
+  if(portraitMedia.matches){if(!dialog.open)openModal('portrait-dialog');}
+  else if(dialog.open)closeModal(dialog);
+}
+$('portrait-dialog').addEventListener('cancel',event=>event.preventDefault());
+portraitMedia.addEventListener('change',syncPortrait);
+document.addEventListener('pointerdown',()=>{
+  if(!matchMedia('(pointer: coarse)').matches)return;
+  try{screen.orientation?.lock?.('portrait')?.catch(()=>{});}catch{/* Portrait notice covers browsers without orientation locking. */}
+},{once:true});
 
 function renderCollection() {
   const focused=document.activeElement,reference=$('collection').contains(focused)||$('deck-strip').contains(focused)?focusReference(focused):null;
@@ -261,13 +278,14 @@ function renderDeckStrip(){
   }).join('');
 }
 $('deck-strip').addEventListener('click',e=>{const el=e.target.closest('[data-deck-info]');if(el){renderCardInfo(el.dataset.deckInfo);openModal('card-dialog');}});
-$('menu-deck-preview').addEventListener('click',e=>{if(e.target.closest('[data-menu-empty]')){openDeck();return;}const el=e.target.closest('[data-menu-card]');if(el){deckEditable=true;deckDraft=[...deck];renderCardInfo(el.dataset.menuCard);openModal('card-dialog');}});
+$('menu-deck-preview').addEventListener('click',e=>{if(!document.body.classList.contains('menu-mode'))return;if(e.target.closest('[data-menu-empty]')){openDeck();return;}const el=e.target.closest('[data-menu-card]');if(el){deckEditable=true;deckDraft=[...deck];renderCardInfo(el.dataset.menuCard);openModal('card-dialog');}});
 function openDeck() {
-  deckEditable=!['playing','paused'].includes(game.state);deckDraft=[...deck];
+  if(!document.body.classList.contains('menu-mode'))return;
+  deckEditable=true;deckDraft=[...deck];
   renderDeckSlots();renderCollection();openModal('deck-dialog');
 }
 function toggleDeckCard(key){
-  if(!deckEditable)return;
+  if(!deckEditable||!document.body.classList.contains('menu-mode'))return;
   if(deckDraft.includes(key))deckDraft=deckDraft.filter(k=>k!==key);
   else if(deckDraft.length<8)deckDraft.push(key);
   else return;
@@ -295,7 +313,7 @@ function renderCardInfo(key){
   if(c.spell&&c.towerDamage)stats.push(['Daño a torres',number(c.towerDamage),'tower']);
   stats.push(['Objetivos',targets,'target']);
   if(c.speed!==undefined)stats.push(['Movimiento',c.structure||c.speed===0?'Inmóvil':c.speed<=18?'Lento':c.speed<=26?'Medio':c.speed<=32?'Rápido':'Muy rápido','move']);
-  if(c.range)stats.push(['Alcance',c.range<50?'Cuerpo a cuerpo':tiles(c.range),'range']);
+  if(c.range&&!c.passive)stats.push(['Alcance',c.range<50?'Cuerpo a cuerpo':tiles(c.range),'range']);
   if(c.spell)stats.push([c.rolling?'Recorrido':'Radio',tiles(c.rolling?c.travelDistance:c.splash),'range']);
   stats.push([c.travelSpeed&&!c.rolling?'Lanzamiento':'Despliegue',seconds(c.spell?(c.rolling?0:c.castDelay??.4):.75),'deploy']);
   if(c.count>1)traits.push(['Unidades',`×${c.count}`,'units']);
@@ -311,6 +329,9 @@ function renderCardInfo(key){
   if(c.entryStun)extraStats.push(['Aturdimiento al aparecer',seconds(c.entryStun),'effect']);
   if(c.travelSpeed&&!c.rolling)extraStats.push(['Viaje',`${number(c.travelSpeed/TILE)} casillas / s`,'move']);
   if(c.slow)extraStats.push(['Ralentización',seconds(c.slow),'effect']);
+  if(c.splash&&!c.spell)extraStats.push([c.suicide?'Radio de explosión':'Radio de impacto',tiles(c.splash),'range']);
+  if(c.jumpRange)extraStats.push(['Distancia de salto',tiles(c.jumpRange),'range']);
+  if(c.summonSpacing)extraStats.push(['Entre refuerzos',seconds(c.summonSpacing),'attack-speed']);
   if(c.lifesteal)extraStats.push(['Curación por golpe',number(c.lifesteal),'heart']);
   if(c.summon)stats.push(['Invocación',`${c.summonCount||1} ${CARDS[c.summon].name} / ${seconds(c.summonEvery)}`,'units']);
   if(c.deathSpawn)extraStats.push(['Al caer',`${c.deathCount||1} ${CARDS[c.deathSpawn].name}`,'units']);
@@ -333,7 +354,7 @@ function renderCardInfo(key){
       if(stat[2]==='range')stat[1]=bodies.map(b=>b.range<50?'Contacto':tiles(b.range)).join(' / ');
     }
   }
-  const statMarkup=items=>items.map(([label,value,icon])=>`<div class="stat-item stat-${icon}"><dt><svg aria-hidden="true"><use href="#i-${icon}"/></svg><span>${label}</span></dt><dd>${value}</dd></div>`).join('');
+  const statMarkup=items=>items.map(([label,value,icon])=>`<div class="stat-item stat-${icon}"><dt><span class="stat-icon stat-icon-${icon}" aria-hidden="true"></span><span>${label}</span></dt><dd>${value}</dd></div>`).join('');
   $('card-info-stats').innerHTML=statMarkup(stats);
   $('card-info-traits').innerHTML=statMarkup(traits);$('card-info-traits').hidden=!traits.length;
   $('card-stats-unit').textContent=c.squad?[...new Set(c.squad)].map(k=>CARDS[k].name).join(' / '):c.count>1?'Por unidad':'';
@@ -380,33 +401,31 @@ document.addEventListener('keydown',e=>{
     }else if(e.key==='Enter'&&renderer.pointer){e.preventDefault();attemptDeploy(renderer.pointer);}
   }
 });
-document.addEventListener('visibilitychange',()=>{if(document.hidden)sfx.setBattleState(false);if(document.hidden&&game.state==='playing'&&!onlineMode){game.pause();$('pause-overlay').hidden=false;}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)sfx.setBattleState(false);else{sfx.recover();updateUi();}if(document.hidden&&game.state==='playing'&&!onlineMode){game.pause();$('pause-overlay').hidden=false;}});
+addEventListener('pageshow',()=>{if(game){sfx.recover();updateUi();}});
+addEventListener('focus',()=>sfx.recover());
+for(const event of['pointerdown','keydown'])document.addEventListener(event,()=>{if(sfx.ctx)sfx.unlock(true);},{capture:true,passive:true});
 
 $('start-btn').addEventListener('click',()=>{online?.close();onlineMode=false;newGame({start:true});});
 $('practice-btn').addEventListener('click',()=>{online?.close();onlineMode=false;newGame({start:true,tutorial:true});});
 $('skip-guide').addEventListener('click',finishGuide);
 $('again-btn').addEventListener('click',()=>{if(onlineMode)beginOnline();else newGame({start:true});});
-$('result-deck-btn').addEventListener('click',openDeck);
-$('deck-btn').addEventListener('click',openDeck);
+$('result-menu-btn').addEventListener('click',mainMenu);
 $('menu-deck-btn').addEventListener('click',openDeck);
 function mainMenu(){closingOnline=online?.close()||Promise.resolve();online=null;onlineMode=false;$('search-panel').hidden=true;$('ready-overlay').classList.remove('searching');for(const dialog of document.querySelectorAll('dialog[open]'))closeModal(dialog,false);newGame();canvas.blur();}
 $('menu-btn').addEventListener('click',mainMenu);
 $('pause-menu-btn').addEventListener('click',mainMenu);
-$('pause-btn').addEventListener('click',togglePause);
 $('match-pause').addEventListener('click',togglePause);
 $('resume-btn').addEventListener('click',togglePause);
 $('help-btn').addEventListener('click',()=>openModal('help-dialog'));
 $('settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
-$('credits-btn').addEventListener('click',()=>openModal('credits-dialog'));
 $('settings-credits-btn').addEventListener('click',()=>openModal('credits-dialog'));
-$('help-practice-btn').addEventListener('click',()=>{closeModal($('help-dialog'),false);newGame({start:true,tutorial:true});});
+$('help-practice-btn').addEventListener('click',()=>{if(!document.body.classList.contains('menu-mode'))return;closeModal($('help-dialog'),false);newGame({start:true,tutorial:true});});
 $('sound-btn').addEventListener('click',()=>{sound=!sound;updateSound();audioInit();if(sound)tone(580,.13,'sine',.05);});
 $('sound-setting').addEventListener('change',e=>{sound=e.target.checked;updateSound();audioInit();});
 $('motion-setting').addEventListener('change',e=>setReduced(e.target.checked));
 $('difficulty').value=difficulty;
 $('difficulty').addEventListener('change',e=>{difficulty=e.target.value;store.set('difficulty',difficulty);});
-$('restart-btn').addEventListener('click',()=>{if(game.state==='ready'||game.state==='ended')newGame();else openModal('restart-dialog');});
-$('confirm-restart-btn').addEventListener('click',()=>{closeModal($('restart-dialog'),false);newGame({start:true});});
 
 for(let i=0;i<10;i++){const el=document.createElement('div');el.className='energy-segment';el.innerHTML='<div class="energy-fill"></div>';$('energy-bar').append(el);}
 $('trainer-name').value=store.get('name','');$('trainer-name').addEventListener('change',()=>store.set('name',$('trainer-name').value));
@@ -426,12 +445,15 @@ async function beginOnline(){
   }});
   try{await online.start($('trainer-name').value||'Entrenador',deck);}catch(error){$('search-status').textContent=error.message;}
 }
-updateSound();setReduced(reduced);newGame();
+updateSound();setReduced(reduced);newGame();syncPortrait();
 let previous=performance.now(),accumulator=0;
 function frame(now){
   const dt=Math.min((now-previous)/1000,.08);previous=now;
   if(onlineMode){
-    for(const u of game.units){u.drawX+=(u.x-u.drawX)*Math.min(1,dt*15);u.drawY+=(u.y-u.drawY)*Math.min(1,dt*15);u.anim+=dt;u.attack=Math.max(0,u.attack-dt);u.hit=Math.max(0,u.hit-dt);}
+    for(const u of game.units){
+      u.drawX+=(u.x-u.drawX)*Math.min(1,dt*15);u.drawY+=(u.y-u.drawY)*Math.min(1,dt*15);u.anim+=dt;u.attack=Math.max(0,u.attack-dt);u.hit=Math.max(0,u.hit-dt);
+      if(game.state==='playing'&&!game.tiebreaker){const activeDt=Math.max(0,dt-u.spawn);u.spawn=Math.max(0,u.spawn-dt);if(u.card.summon)u.summonClock=Math.max(0,u.summonClock-activeDt);}
+    }
     if(game.state==='playing'&&!game.tiebreaker){game.time=Math.max(0,game.time-dt);game.energy[0]=Math.min(10,game.energy[0]+dt*game.multiplier/2.8);}
   }else if(game.state==='playing'&&!(walkthrough&&walkthrough.step<3)){
     accumulator+=dt;

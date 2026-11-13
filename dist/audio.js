@@ -1,32 +1,48 @@
 // Recorded foley and Pokémon voices follow release/impact events; synthesis is a loading fallback.
-import { BattleMusic } from './music.js?v=15';
-import { CARDS } from './engine.js?v=15';
+import { BattleMusic } from './music.js?v=16';
+import { CARDS } from './engine.js?v=16';
 export class SoundSystem {
-  constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.ready=this.preload().catch(()=>false); }
+  constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.battlePlaying=false;this.intense=false;this.ready=this.preload().catch(()=>false); }
   async preload(){
-    const response=await fetch('assets/audio/manifest.json?v=15');if(!response.ok)throw Error('Audio manifest unavailable');
+    const response=await fetch('assets/audio/manifest.json?v=16');if(!response.ok)throw Error('Audio manifest unavailable');
     const manifest=await response.json();
     await Promise.all(Object.entries(manifest).flatMap(([group,entries])=>Object.entries(entries).map(async([id,file])=>{const r=await fetch(file);if(!r.ok)throw Error(`Audio unavailable: ${file}`);this.encoded.set(`${group}:${id}`,await r.arrayBuffer());})));
     this.bytesReady=true;if(this.ctx)await this.decodeSamples();return true;
   }
   decodeSamples(){
     if(!this.ctx||!this.bytesReady)return;
-    this.decoded||=Promise.all([...this.encoded].map(async([key,bytes])=>{
-      let buffer=await this.ctx.decodeAudioData(bytes.slice(0));let peak=0;
+    const ctx=this.ctx;
+    this.decoded||=Promise.all([...this.encoded].filter(([key])=>!this.buffers.has(key)).map(async([key,bytes])=>{
+      let buffer=await ctx.decodeAudioData(bytes.slice(0));let peak=0;
       for(let channel=0;channel<buffer.numberOfChannels;channel++){const data=buffer.getChannelData(channel);for(let i=0;i<data.length;i++)peak=Math.max(peak,Math.abs(data[i]));}
       const data=buffer.getChannelData(0),threshold=peak*.015;let first=0,last=data.length-1;
       while(first<last&&Math.abs(data[first])<threshold)first++;while(last>first&&Math.abs(data[last])<threshold)last--;
       first=Math.max(0,first-Math.round(buffer.sampleRate*.005));last=Math.min(data.length-1,last+Math.round(buffer.sampleRate*.025));
-      if(first>0||last<data.length-1){const trimmed=this.ctx.createBuffer(buffer.numberOfChannels,last-first+1,buffer.sampleRate);for(let ch=0;ch<buffer.numberOfChannels;ch++)trimmed.getChannelData(ch).set(buffer.getChannelData(ch).subarray(first,last+1));buffer=trimmed;}
+      if(first>0||last<data.length-1){const trimmed=ctx.createBuffer(buffer.numberOfChannels,last-first+1,buffer.sampleRate);for(let ch=0;ch<buffer.numberOfChannels;ch++)trimmed.getChannelData(ch).set(buffer.getChannelData(ch).subarray(first,last+1));buffer=trimmed;}
       const gain=peak>.01?.8/peak:1;
       for(let channel=0;channel<buffer.numberOfChannels;channel++){const data=buffer.getChannelData(channel);for(let i=0;i<data.length;i++)data[i]*=gain;}
       this.buffers.set(key,buffer);
     }));
     this.decoded.catch(()=>{});return this.decoded;
   }
-  unlock() {
+  syncMusic(){if(this.music){this.music.intense=this.intense;this.music.setPlaying(this.battlePlaying&&this.enabled&&!this.needsRebuild&&this.ctx.state==='running');}}
+  discardContext(){
+    clearTimeout(this.recoveryTimer);this.music?.setPlaying(false);
+    const previous=this.ctx;if(previous){previous.onstatechange=null;try{previous.close()?.catch(()=>{});}catch{}}
+    this.ctx=null;this.master=null;this.music=null;this.noiseBuffer=null;this.decoded=null;this.resumePending=null;this.needsRebuild=false;this.last.clear();this.voiceSlots=[];
+  }
+  watchRecovery(ctx){
+    clearTimeout(this.recoveryTimer);const time=ctx.currentTime;
+    this.recoveryTimer=setTimeout(()=>{
+      if(this.ctx!==ctx||!this.enabled||document.hidden)return;
+      if(ctx.state!=='running'||ctx.currentTime<=time+.01){this.needsRebuild=true;this.music?.setPlaying(false);}
+    },500);
+  }
+  recover(){if(!this.enabled||!this.ctx||document.hidden)return;this.music?.setPlaying(false);this.unlock();if(this.ctx)this.watchRecovery(this.ctx);}
+  unlock(userGesture=false) {
     if(!this.enabled)return;
     try{
+      if(this.ctx&&(this.ctx.state==='closed'||this.needsRebuild||userGesture&&this.resumePending===this.ctx&&this.ctx.state!=='running'))this.discardContext();
       if(!this.ctx){
         this.ctx=new(window.AudioContext||window.webkitAudioContext)();
         this.master=this.ctx.createGain();this.master.gain.value=.7;
@@ -36,12 +52,19 @@ export class SoundSystem {
         this.noiseBuffer=this.ctx.createBuffer(1,this.ctx.sampleRate,this.ctx.sampleRate);
         const data=this.noiseBuffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;
         this.decodeSamples();
+        const ctx=this.ctx;ctx.onstatechange=()=>{if(this.ctx===ctx)this.syncMusic();};
       }
-      if(this.ctx.state==='suspended')this.ctx.resume();
-    }catch{this.ctx=null;}
+      const ctx=this.ctx;
+      if(ctx.state!=='running'){
+        this.resumePending=ctx;
+        Promise.resolve(ctx.resume()).then(()=>{if(this.ctx===ctx){this.resumePending=null;this.syncMusic();}}).catch(()=>{if(this.ctx===ctx)this.needsRebuild=true;});
+        this.watchRecovery(ctx);
+      }
+      this.syncMusic();
+    }catch{this.discardContext();}
   }
-  setEnabled(value) { this.enabled=value;if(this.master)this.master.gain.setTargetAtTime(value?.7:0,this.ctx.currentTime,.02);if(value)this.unlock();else this.music?.setPlaying(false); }
-  setBattleState(playing,intense=false){if(this.music){this.music.intense=intense;this.music.setPlaying(!!playing&&this.enabled);}}
+  setEnabled(value) { this.enabled=value;if(this.master&&this.ctx.state!=='closed')this.master.gain.setTargetAtTime(value?.7:0,this.ctx.currentTime,.02);if(value)this.unlock();else{clearTimeout(this.recoveryTimer);this.music?.setPlaying(false);} }
+  setBattleState(playing,intense=false){this.battlePlaying=!!playing;this.intense=intense;this.syncMusic();}
   resetMusic(){this.music?.reset();}
   sample(key,x=300,{volume=.25,rate=1,maxDuration=.65,reverse=false,delay=0}={}){
     if(!this.enabled||!this.ctx||this.ctx.state!=='running')return false;
