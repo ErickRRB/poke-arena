@@ -1,5 +1,5 @@
-import { EXTRA_CARDS } from './catalog.js?v=18';
-import { applyBalance, THRESHOLDS } from './balance.js?v=18';
+import { EXTRA_CARDS } from './catalog.js?v=20';
+import { applyBalance, THRESHOLDS } from './balance.js?v=20';
 export const W = 600, H = 800;
 export const TILE = 24;
 export const DEPLOY_GRID = Object.freeze({ size: TILE, left: 0, top: (H % TILE) / 2, columns: W / TILE, rows: Math.floor(H / TILE) });
@@ -11,6 +11,7 @@ export function snapToCell(team, x, y) {
 export const RIVER = { top: 388, bottom: 412 };
 export const BRIDGE = { top: RIVER.top - 12, bottom: RIVER.bottom + 12 };
 export const PRINCESS_Y = [628, 172];
+export const KING_Y = [706, 94];
 // Include the snapped cells beside the lane center when reaching midbridge.
 export const PRINCESS_RANGE = Math.ceil(Math.hypot(PRINCESS_Y[0] - H / 2, TILE));
 export const LANES = [158, 442];
@@ -134,7 +135,7 @@ export class Game {
     this.stats = [{ deployed: 0, damage: 0, energy: 0, defeated: 0 }, { deployed: 0, damage: 0, energy: 0, defeated: 0 }];
     for (let team = 0; team < 2; team++) {
       for (let lane = 0; lane < 2; lane++) this.towers.push({ id: this.nextId++, team, lane, x: LANES[lane], y: PRINCESS_Y[team], hp: 3000, maxHp: 3000, king: false, active: true, radius: 29, range: PRINCESS_RANGE, damage: THRESHOLDS.tower, interval: THRESHOLDS.towerInterval, cooldown: .3, stun: 0, hit: 0 });
-      this.towers.push({ id: this.nextId++, team, lane: -1, x: 300, y: team ? 118 : 682, hp: 4800, maxHp: 4800, king: true, active: false, radius: 34, range: 210, damage: 109, interval: 1, cooldown: .5, stun: 0, hit: 0 });
+      this.towers.push({ id: this.nextId++, team, lane: -1, x: 300, y: KING_Y[team], hp: 4800, maxHp: 4800, king: true, active: false, radius: 34, range: 210, damage: 109, interval: 1, cooldown: .5, stun: 0, hit: 0 });
     }
     for (const tower of this.towers) Object.assign(tower, {guard: { id: 52, style: 'coin', attackAnim: 'Shoot' }, dx: 0, dy: tower.team ? 1 : -1, attack: 0, attackDuration: .6, attackSeq: 0, anim: this.random(), target: null });
     const royalGuards = this.random() < .5 ? [34, 31] : [31, 34];
@@ -172,7 +173,10 @@ export class Game {
     const inOwnHalf = team === 0 ? y >= 444 : y <= 356;
     const inCaptured = laneDestroyed && (team === 0 ? y >= 252 && y <= 356 : y >= 444 && y <= 548);
     if (!inOwnHalf && !inCaptured) return false;
-    if([...this.towers, ...this.units.filter(u => u.card.structure)].some(t => t.hp > 0 && distance(t, { x, y }) < t.radius + (card.structure ? 38 : 27)))return false;
+    if([...this.towers, ...this.units.filter(u => u.card.structure)].some(t => {
+      const behindKing=t.king&&t.team===team&&(team?y<t.y:y>t.y);
+      return t.hp>0&&distance(t,{x,y})<t.radius+(card.structure?38:behindKing?20:27);
+    }))return false;
     return !wholeFormation||!card.formation||formationOffsets(card,team).every(offset=>this.canDeploy(team,key,x+offset.x,y+offset.y,false));
   }
   resolveDeployment(team,key,x,y,reserved){

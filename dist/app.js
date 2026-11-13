@@ -1,10 +1,10 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=18';
-import { Renderer } from './render.js?v=19';
-import { SoundSystem } from './audio.js?v=18';
-import { OnlineClient } from './online.js?v=19';
-import { unpackGame, perspective } from './snapshot.js?v=18';
-import { cardArtMarkup } from './card-art.js?v=18';
-import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=18';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=20';
+import { Renderer } from './render.js?v=20';
+import { SoundSystem } from './audio.js?v=20';
+import { OnlineClient } from './online.js?v=20';
+import { unpackGame, perspective } from './snapshot.js?v=20';
+import { cardArtMarkup } from './card-art.js?v=20';
+import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=20';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -33,6 +33,7 @@ let game, selected = -1, handSignature = '', ready = false, walkthrough = null, 
 let toastTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
 const sfx=new SoundSystem(sound);
 let inspectedCard=null;
+let cardActionKey=null,cardActionReference=null,replacementKey=null;
 
 function audioInit() {
   sfx.setEnabled(sound);sfx.unlock(true);
@@ -56,9 +57,11 @@ function toast(message) {
 }
 function live(message) { $('live-status').textContent = message; }
 
-function cardMarkup(key, index, collection = false) {
+function cardMarkup(key, index, source = 'card') {
   const c = CARDS[key];
-  return `<button class="pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-${collection ? 'collection' : 'card'}="${collection ? key : index}" aria-label="${c.name}, ${RARITIES[c.rarity]}, ${c.cost} de elixir, ${c.role}" aria-pressed="false"><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${!collection ? `<span class="card-key">${index + 1}</span>` : ''}${cardArtMarkup(key)}${collection&&c.count>1?`<span class="card-quantity" aria-hidden="true"><svg><use href="#i-units"/></svg>×${c.count}</span>`:''}<span class="card-name">${c.name}</span><span class="card-role">${c.role}</span></button>`;
+  const collection=source!=='card',name=`<span class="card-name">${c.name}</span>`;
+  const heading=collection?`<span class="card-heading">${name}${c.count>1?`<span class="card-quantity" aria-hidden="true"><svg><use href="#i-units"/></svg>×${c.count}</span>`:''}</span>`:name;
+  return `<button class="${source==='deck-info'?'deck-slot ':''}pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-${source}="${collection ? key : index}" aria-label="${c.name}, ${RARITIES[c.rarity]}, ${c.cost} de elixir, ${c.role}${c.count>1?`, ${c.count} unidades`:''}" ${collection?'aria-haspopup="dialog" aria-expanded="false"':'aria-pressed="false"'}><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${!collection ? `<span class="card-key">${index + 1}</span>` : ''}${cardArtMarkup(key)}${heading}${source==='deck-info'?'':`<span class="card-role">${c.role}</span>`}</button>`;
 }
 function renderMenuDeck(){
   renderDeckSlots();
@@ -75,6 +78,7 @@ function renderDeckSlots(){
 for(const id of['menu-deck-slots','deck-slots'])$(id).addEventListener('click',event=>{
   if(!document.body.classList.contains('menu-mode'))return;
   const button=event.target.closest('[data-deck-slot]');if(!button||(!deckEditable&&id==='deck-slots'))return;
+  closeCardActions();clearReplacement();
   deckLibrary.active=Number(button.dataset.deckSlot);deckDraft=[...(deckLibrary.slots[deckLibrary.active]||[])];applyDeckChanges();
   if($('deck-dialog').open)renderCollection();
   $(id).querySelector(`[data-deck-slot="${deckLibrary.active}"]`).focus({preventScroll:true});
@@ -87,6 +91,7 @@ function syncHand() {
     const key = game.queues[0][0], c = CARDS[key];
     $('next-preview').innerHTML = cardArtMarkup(key);
     $('next-card').setAttribute('aria-label',`Próxima carta: ${c.name}, ${c.cost} de elixir`);
+    $('next-name').textContent=c.name;
   }
   for (const el of $('hand').querySelectorAll('[data-card]')) {
     const i = Number(el.dataset.card), c = CARDS[game.hands[0][i]];
@@ -225,19 +230,21 @@ function togglePause() {
 const modalFocus = new WeakMap();
 function focusReference(element) {
   const attribute=['data-collection','data-deck-info','data-menu-card'].find(name=>element?.hasAttribute(name));
-  return {element,attribute,value:attribute?element.getAttribute(attribute):null};
+  return {element,attribute,value:attribute?element.getAttribute(attribute):null,deckScroll:attribute?$('deck-scroll').scrollTop:null};
 }
 function restoreFocus(reference) {
   if(!reference)return;
   const target=reference.attribute?document.querySelector(`[${reference.attribute}="${CSS.escape(reference.value)}"]`):reference.element;
   const topDialog=[...document.querySelectorAll('dialog[open]')].at(-1);
   if(target?.isConnected&&!target.disabled&&(!topDialog||topDialog.contains(target)))target.focus({preventScroll:true});
+  if(reference.deckScroll!==null)$('deck-scroll').scrollTop=reference.deckScroll;
 }
 function openModal(id) {
   if($('portrait-dialog').open&&id!=='portrait-dialog')return;
   if(id==='deck-dialog'&&!document.body.classList.contains('menu-mode'))return;
   if(id==='help-dialog')$('help-practice-btn').hidden=!document.body.classList.contains('menu-mode');
   if(id==='settings-dialog')$('difficulty-hint').hidden=document.body.classList.contains('menu-mode');
+  closeEditorPopovers();
   const dialog=$(id);dialog.dataset.resume=game.state==='playing'?'1':'0';
   modalFocus.set(dialog,focusReference(document.activeElement));
   if(game.state==='playing'&&!onlineMode)game.pause();
@@ -245,7 +252,7 @@ function openModal(id) {
 }
 function closeModal(dialog,resume=true){if(!resume)dialog.dataset.resume='0';dialog.close();}
 document.querySelectorAll('dialog').forEach(dialog=>{
-  dialog.addEventListener('close',()=>{if(dialog.dataset.resume==='1'&&game.state==='paused'){game.resume();$('pause-overlay').hidden=true;}restoreFocus(modalFocus.get(dialog));});
+  dialog.addEventListener('close',()=>{if(dialog.id==='deck-dialog'){closeEditorPopovers();clearReplacement();}if(dialog.dataset.resume==='1'&&game.state==='paused'){game.resume();$('pause-overlay').hidden=true;}restoreFocus(modalFocus.get(dialog));});
   dialog.addEventListener('click',event=>{if(dialog.id==='portrait-dialog')return;if(event.target.closest('[data-close]'))closeModal(dialog);else if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeModal(dialog);}});
 });
 const portraitMedia=matchMedia('(pointer: coarse) and (hover: none) and (orientation: landscape)');
@@ -270,8 +277,9 @@ function renderCollection() {
   if(order==='elixir-asc')keys.sort((a,b)=>CARDS[a].cost-CARDS[b].cost||byName(a,b));
   else if(order==='elixir-desc')keys.sort((a,b)=>CARDS[b].cost-CARDS[a].cost||byName(a,b));
   else if(order==='name')keys.sort(byName);
-  $('collection').innerHTML=keys.map(k=>`<div class="collection-entry">${cardMarkup(k,0,true)}</div>`).join('')||'<div class="collection-empty"><svg aria-hidden="true"><use href="#i-search"/></svg><p role="status">No hay cartas con esos filtros.</p><button class="secondary-btn" data-reset-filters>Ver todas las cartas</button></div>';
-  for(const el of $('collection').querySelectorAll('[data-collection]')){const c=CARDS[el.dataset.collection],included=deckDraft.includes(el.dataset.collection);el.classList.toggle('selected',included);el.removeAttribute('aria-pressed');el.setAttribute('aria-haspopup','dialog');el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir, ${c.role}${included?', en mazo':''}, ver detalles`);}
+  $('collection').innerHTML=keys.map(k=>`<div class="collection-entry">${cardMarkup(k,0,'collection')}</div>`).join('')||'<div class="collection-empty"><svg aria-hidden="true"><use href="#i-search"/></svg><p role="status">No hay cartas con esos filtros.</p><button class="secondary-btn" data-reset-filters>Ver todas las cartas</button></div>';
+  for(const el of $('collection').querySelectorAll('[data-collection]')){const c=CARDS[el.dataset.collection],included=deckDraft.includes(el.dataset.collection);el.classList.toggle('selected',included);el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir, ${c.role}${c.count>1?`, ${c.count} unidades`:''}${included?', en mazo':''}, acciones de la carta`);}
+  $('collection-filters-btn').classList.toggle('has-filters',!!term||!!rarity||!!role||order!=='elixir-asc');
   $('deck-average').textContent=deckDraft.length?(deckDraft.reduce((a,k)=>a+CARDS[k].cost,0)/deckDraft.length).toFixed(1).replace('.',','):'—';
   $('save-deck-btn').disabled=false;
   restoreFocus(reference);
@@ -280,16 +288,47 @@ function renderDeckStrip(){
   $('deck-strip').innerHTML=Array.from({length:8},(_,i)=>{
     const key=deckDraft[i],c=CARDS[key];
     if(!c)return`<span class="deck-slot empty" aria-label="Espacio ${i+1} vacío">+</span>`;
-    return`<button class="deck-slot" data-rarity="${c.rarity}" data-deck-info="${key}" aria-label="${c.name}, ${c.cost} de elixir, ver detalles" title="${c.name}">${cardArtMarkup(key)}<span class="slot-cost"><span class="cost-value">${c.cost}</span></span></button>`;
+    return cardMarkup(key,i,'deck-info');
   }).join('');
 }
-$('deck-strip').addEventListener('click',e=>{const el=e.target.closest('[data-deck-info]');if(el){renderCardInfo(el.dataset.deckInfo);openModal('card-dialog');}});
+$('deck-strip').addEventListener('click',e=>{const el=e.target.closest('[data-deck-info]');if(!el)return;if(replacementKey){const index=deckDraft.indexOf(el.dataset.deckInfo);deckDraft[index]=replacementKey;clearReplacement();applyDeckChanges();renderCollection();$('deck-strip').querySelectorAll('[data-deck-info]')[index]?.focus({preventScroll:true});return;}openCardActions(el.dataset.deckInfo,el);});
 $('menu-deck-preview').addEventListener('click',e=>{if(!document.body.classList.contains('menu-mode'))return;if(e.target.closest('[data-menu-empty]')){openDeck();return;}const el=e.target.closest('[data-menu-card]');if(el){deckEditable=true;deckDraft=[...deck];renderCardInfo(el.dataset.menuCard);openModal('card-dialog');}});
 function openDeck() {
   if(!document.body.classList.contains('menu-mode'))return;
   deckEditable=true;deckDraft=[...deck];
-  renderDeckSlots();renderCollection();openModal('deck-dialog');
+  clearReplacement();renderDeckSlots();renderCollection();openModal('deck-dialog');$('deck-scroll').scrollTop=0;
 }
+function clearReplacement(){replacementKey=null;$('deck-dialog').classList.remove('replacing-card');$('deck-replace-hint').hidden=true;}
+function positionEditorPopover(popover,anchor){
+  const a=anchor.getBoundingClientRect(),p=popover.getBoundingClientRect(),view=window.visualViewport,top=view?.offsetTop||0,height=view?.height||innerHeight;
+  const x=Math.max(12,Math.min(innerWidth-p.width-12,a.x+a.width/2-p.width/2));
+  const below=a.bottom+8,y=below+p.height<=top+height-12?below:a.top-p.height-8;
+  popover.style.left=`${x}px`;popover.style.top=`${Math.max(top+12,Math.min(top+height-p.height-12,y))}px`;
+}
+function closeCardActions(restore=false){
+  const reference=cardActionReference;if($('card-actions').matches(':popover-open'))$('card-actions').hidePopover();
+  reference?.element?.setAttribute('aria-expanded','false');cardActionKey=null;cardActionReference=null;if(restore)restoreFocus(reference);
+}
+function closeEditorPopovers(){closeCardActions();if($('collection-filters').matches(':popover-open'))$('collection-filters').hidePopover();}
+function openCardActions(key,anchor){
+  closeCardActions();cardActionKey=key;cardActionReference=focusReference(anchor);anchor.setAttribute('aria-expanded','true');
+  $('card-actions').setAttribute('aria-label',`Acciones de ${CARDS[key].name}`);$('card-action-toggle').textContent=deckDraft.includes(key)?'Quitar':'Usar';
+  $('card-actions').showPopover({source:anchor});positionEditorPopover($('card-actions'),anchor);$('card-action-info').focus({preventScroll:true});
+}
+$('card-actions').addEventListener('toggle',event=>{if(event.newState==='closed')cardActionReference?.element?.setAttribute('aria-expanded','false');});
+$('card-action-info').addEventListener('click',()=>{const key=cardActionKey;if(!key)return;closeCardActions(true);renderCardInfo(key);openModal('card-dialog');});
+$('card-action-toggle').addEventListener('click',()=>{
+  const key=cardActionKey;if(!key)return;closeCardActions();
+  if(deckDraft.includes(key)||deckDraft.length<8){toggleDeckCard(key);return;}
+  replacementKey=key;$('deck-dialog').classList.add('replacing-card');$('deck-replace-hint').hidden=false;$('deck-scroll').scrollTop=0;$('deck-strip').querySelector('button')?.focus({preventScroll:true});
+});
+$('cancel-replace-btn').addEventListener('click',clearReplacement);
+$('deck-scroll').addEventListener('scroll',()=>{
+  const anchor=cardActionReference?.element;if(!$('card-actions').matches(':popover-open')||!anchor?.isConnected)return;
+  const a=anchor.getBoundingClientRect(),pane=$('deck-scroll').getBoundingClientRect();
+  if(a.bottom<=pane.top||a.top>=pane.bottom){closeCardActions();return;}
+  cardActionReference.deckScroll=$('deck-scroll').scrollTop;positionEditorPopover($('card-actions'),anchor);
+},{passive:true});
 function toggleDeckCard(key){
   if(!deckEditable||!document.body.classList.contains('menu-mode'))return;
   if(deckDraft.includes(key))deckDraft=deckDraft.filter(k=>k!==key);
@@ -371,8 +410,8 @@ function renderCardInfo(key){
   $('card-info-toggle').disabled=!deckEditable||(!included&&deckDraft.length===8);
 }
 $('collection').addEventListener('click',e=>{
-  if(e.target.closest('[data-reset-filters]')){$('collection-search').value='';$('rarity-filter').value='';$('role-filter').value='';renderCollection();$('collection-search').focus();return;}
-  const el=e.target.closest('[data-collection]');if(el){renderCardInfo(el.dataset.collection);openModal('card-dialog');}
+  if(e.target.closest('[data-reset-filters]')){resetCollectionFilters();return;}
+  const el=e.target.closest('[data-collection]');if(el)openCardActions(el.dataset.collection,el);
 });
 $('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){toggleDeckCard(inspectedCard);closeModal($('card-dialog'),false);}});
 $('save-deck-btn').addEventListener('click',()=>closeModal($('deck-dialog')));
@@ -445,7 +484,17 @@ $('difficulty').addEventListener('change',e=>{difficulty=e.target.value;store.se
 
 for(let i=0;i<10;i++){const el=document.createElement('div');el.className='energy-segment';el.innerHTML='<div class="energy-fill"></div>';$('energy-bar').append(el);}
 $('trainer-name').value=store.get('name','');$('trainer-name').addEventListener('change',()=>store.set('name',$('trainer-name').value));
-const filters=document.createElement('div');filters.className='collection-tools';filters.innerHTML='<input id="collection-search" type="search" placeholder="Buscar carta" aria-label="Buscar carta"><select id="rarity-filter" aria-label="Filtrar rareza"><option value="">Todas las rarezas</option>'+Object.entries(RARITIES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')+'</select><select id="role-filter" aria-label="Filtrar rol"><option value="">Todos los roles</option><option value="building">Atacan estructuras</option><option value="structure">Estructuras</option><option value="spell">Hechizos</option><option value="summon">Invocadores</option><option value="troop">Tropas</option></select><select id="collection-sort" aria-label="Ordenar cartas"><option value="elixir-asc">Menor elixir</option><option value="elixir-desc">Mayor elixir</option><option value="name">Nombre A–Z</option><option value="original">Orden original</option></select>';$('collection').before(filters);$('collection-search').addEventListener('input',renderCollection);$('rarity-filter').addEventListener('change',renderCollection);$('role-filter').addEventListener('change',renderCollection);$('collection-sort').value=store.get('collection-order','elixir-asc');if(!$('collection-sort').value)$('collection-sort').value='elixir-asc';$('collection-sort').addEventListener('change',()=>{store.set('collection-order',$('collection-sort').value);renderCollection();});
+$('rarity-filter').innerHTML='<option value="">Todas las rarezas</option>'+Object.entries(RARITIES).map(([key,value])=>`<option value="${key}">${value}</option>`).join('');
+$('collection-sort').value=store.get('collection-order','elixir-asc');if(!$('collection-sort').value)$('collection-sort').value='elixir-asc';
+function filterCollection(){closeCardActions();renderCollection();$('deck-scroll').scrollTop=$('collection').offsetTop;}
+function resetCollectionFilters(){$('collection-search').value='';$('rarity-filter').value='';$('role-filter').value='';filterCollection();}
+for(const id of['collection-search','rarity-filter','role-filter'])$(id).addEventListener(id==='collection-search'?'input':'change',filterCollection);
+$('collection-sort').addEventListener('change',()=>{store.set('collection-order',$('collection-sort').value);filterCollection();});
+$('collection-filters-btn').addEventListener('click',()=>{const popover=$('collection-filters');if(popover.matches(':popover-open')){popover.hidePopover();return;}popover.showPopover({source:$('collection-filters-btn')});positionEditorPopover(popover,$('collection-filters-btn'));popover.focus({preventScroll:true});});
+$('collection-filters').addEventListener('toggle',event=>$('collection-filters-btn').setAttribute('aria-expanded',String(event.newState==='open')));
+$('reset-filters-btn').addEventListener('click',resetCollectionFilters);
+$('apply-filters-btn').addEventListener('click',()=>{$('collection-filters').hidePopover();$('collection-filters-btn').focus({preventScroll:true});});
+addEventListener('resize',()=>{if($('collection-filters').matches(':popover-open'))positionEditorPopover($('collection-filters'),$('collection-filters-btn'));closeCardActions();},{passive:true});
 $('online-btn').addEventListener('click',beginOnline);$('cancel-search').addEventListener('click',mainMenu);
 $('abilities').addEventListener('click',async e=>{const button=e.target.closest('[data-ability]');if(!button)return;const id=Number(button.dataset.ability);button.disabled=true;const result=onlineMode?await online.send({kind:'ability',unitId:id}):game.activateAbility(0,id);if(!result.ok)live(result.reason);updateUi();});
 function showSearch(){if(!$('search-panel').hidden)return;$('menu-loading').hidden=true;$('search-panel').hidden=false;$('ready-overlay').inert=true;$('cancel-search').focus({preventScroll:true});}
@@ -497,7 +546,7 @@ try{
   if(sessionStorage.getItem('poke-arena:online-token')){
     $('ready-overlay').inert=true;online=createOnlineClient();online.resume().catch(()=>{});
   }
-  await renderer.load(deck.length===8?deck:DEFAULT_DECK,(loaded,total)=>{const percent=Math.floor(loaded/total*100),indicator=$('menu-load-progress');indicator.style.setProperty('--load-progress',String(percent));indicator.setAttribute('aria-valuenow',String(percent));});
+  await renderer.load(deck.length===8?deck:DEFAULT_DECK,(loaded,total)=>{const progress=loaded/total,indicator=$('menu-load-progress');indicator.setAttribute('aria-valuenow',String(Math.floor(progress*100)));$('menu-load-fill').setAttribute('y',String(64*(1-progress)));$('menu-load-fill').setAttribute('height',String(64*progress));});
   ready=true;$('loading').hidden=true;$('ready-overlay').setAttribute('aria-busy','false');$('practice-btn').disabled=false;updateMenuAvailability();
   if(onlineMode){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
   else if(online?.active&&online.mode==='search')showSearch();

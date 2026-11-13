@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import {openPage,ready,rects,stable,inViewport} from './helpers.mjs';
+
+export async function run({browser,url,viewports,output}){
+  for(const viewport of viewports){
+    const{context,page,errors,apiRequests}=await openPage(browser,viewport,{deckOnly:true});
+    try{
+      await page.goto(url);await ready(page);await page.locator('#menu-deck-btn').click();
+      const cards=await page.locator('#deck-strip [data-deck-info]').evaluateAll(nodes=>nodes.map(node=>({row:node.offsetTop,width:node.offsetWidth,height:node.offsetHeight})));
+      assert.equal(cards.length,8);assert.equal(new Set(cards.map(card=>card.row)).size,2);assert.ok(cards.every(card=>card.width>55&&Math.abs(card.width/card.height-.8)<.02));
+      assert.equal(await page.locator('[data-collection]').count(),105);await inViewport(page,'#save-deck-btn',viewport);
+      await page.locator('[data-deck-info=pikachu]').click();assert.equal(await page.locator('#card-dialog').isVisible(),false);await inViewport(page,'#card-actions',viewport);
+      await page.keyboard.press('Escape');assert.equal(await page.locator('#deck-dialog').isVisible(),true);
+      await page.locator('[data-deck-info=pikachu]').click();await page.locator('#card-action-info').click();await page.locator('#card-dialog').waitFor({state:'visible'});await page.locator('#card-dialog [data-close]').click();
+      const before=await rects(page,['deck-scroll','save-deck-btn']);await page.locator('#collection-filters-btn').click();stable(before,await rects(page,['deck-scroll','save-deck-btn']),'filters');
+      assert.equal(await page.locator('.rarity-options').evaluate(node=>node.open),false);await page.locator('#collection-search').fill('sandshrew');assert.equal(await page.locator('[data-collection]').count(),1);
+      const count=await page.locator('[data-collection=sandshrew]').evaluate(node=>{const name=node.querySelector('.card-name'),quantity=node.querySelector('.card-quantity');return{below:quantity.getBoundingClientRect().top>=name.getBoundingClientRect().bottom,background:getComputedStyle(quantity).backgroundColor};});
+      assert.ok(count.below);assert.equal(count.background,'rgba(0, 0, 0, 0)');await page.locator('#apply-filters-btn').click();
+      await page.locator('[data-collection=sandshrew]').click();await page.locator('#card-action-toggle').click();await page.locator('#deck-replace-hint').waitFor({state:'visible'});await page.locator('[data-deck-info=pikachu]').click();
+      assert.equal(await page.locator('#deck-strip [data-deck-info]').count(),8);await page.locator('[data-deck-info=sandshrew]').click();await page.locator('#card-action-toggle').click();assert.equal(await page.locator('#deck-strip [data-deck-info]').count(),7);
+      await page.locator('#collection-filters-btn').click();await page.locator('#reset-filters-btn').click();await page.locator('#apply-filters-btn').click();
+      await page.locator('#deck-scroll').evaluate(node=>node.scrollTop=document.querySelector('.deck-top').offsetHeight+8);
+      const deck=await page.locator('#deck-strip').boundingBox(),pane=await page.locator('#deck-scroll').boundingBox();assert.ok(deck.y+deck.height<=pane.y+2);
+      await page.locator('[data-collection=pikachu]').scrollIntoViewIfNeeded();await page.locator('[data-collection=pikachu]').click();await page.locator('#card-action-toggle').click();
+      await page.locator('#save-deck-btn').click();await page.reload();await ready(page);await page.locator('#menu-deck-btn').click();assert.equal(await page.locator('#deck-strip [data-deck-info]').count(),8);
+      await page.screenshot({path:`${output}/deck-${viewport.width}.png`});assert.deepEqual(errors,[]);assert.deepEqual(apiRequests,[],'deck tests must never create sessions or contact online play');
+    }finally{await context.close();}
+  }
+  return{viewports:viewports.length,onlineRequests:0};
+}

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, DEFAULT_DECK, W, H, TILE, LANES, RIVER, BRIDGE, snapToCell } from '../dist/engine.js';
+import { Game, DEFAULT_DECK, W, H, TILE, LANES, RIVER, BRIDGE, DEPLOY_GRID, KING_Y, snapToCell } from '../dist/engine.js';
 import { packGame, unpackGame, perspective } from '../dist/snapshot.js';
 
 function arena(team=0,lane=0){
@@ -11,6 +11,25 @@ function arena(team=0,lane=0){
   return{game,tower,events};
 }
 function run(game,seconds){for(let i=0;i<Math.ceil(seconds*60);i++)game.step(1/60);}
+
+test('exactly one complete deployment row remains behind each royal tower',()=>{
+  const game=new Game();
+  for(const team of[0,1]){
+    const king=game.towers.find(t=>t.team===team&&t.king);
+    const rows=Array.from({length:DEPLOY_GRID.rows},(_,i)=>DEPLOY_GRID.top+TILE/2+i*TILE).filter(y=>y>=40&&y<=760&&(team?y<king.y-king.radius:y>king.y+king.radius));
+    assert.deepEqual(rows,[team?40:760]);assert.equal(king.y,KING_Y[team]);
+    assert.ok(game.canDeploy(team,'pikachu',300,rows[0]));assert.ok(game.canDeploy(team,'golem',300,rows[0]));
+    assert.equal(game.canDeploy(team,'pikachu',300,rows[0]+(team?TILE:-TILE)),false);
+  }
+});
+
+test('old online rooms restore the same one-row rear geometry in either perspective',()=>{
+  const saved=packGame(new Game());for(const tower of saved.towers)if(tower.king){tower.y=tower.team?118:682;tower.hp=2345;}
+  for(const team of[0,1]){
+    const game=unpackGame(perspective(saved,team));
+    for(const king of game.towers.filter(t=>t.king)){assert.equal(king.y,KING_Y[king.team]);assert.equal(king.hp,2345);assert.ok(game.canDeploy(king.team,'pikachu',300,king.team?40:760));}
+  }
+});
 
 test('princess towers damage enemies from the bridge midpoint through their own bank on the real grid',()=>{
   for(const team of[0,1])for(const lane of[0,1])for(const key of['snorlax','zubat'])for(const offset of[-TILE,0,TILE])for(const y of[H/2,team?RIVER.top:RIVER.bottom,team?BRIDGE.top:BRIDGE.bottom]){

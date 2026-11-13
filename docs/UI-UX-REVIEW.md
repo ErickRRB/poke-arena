@@ -6,7 +6,7 @@ Se revisaron la home, el editor, las fichas, una partida contra CPU, una partida
 
    <img src="ui-review/01-home.png" width="780" alt="Home de Poké Arena en un portátil: todos los controles caben en el panel.">
 
-2. **Editor y ficha: corregidos y verificados.** Los cuatro selectores están junto a la X, sin título ni contador general. Tocar una carta abre la ficha para agregar o quitar desde allí. El coste medio comparte el pie con Listo. Las fichas se cierran al agregar o quitar y el editor conserva su estado. La gema tiene el número centrado con una tipografía más ancha y un contorno fino. Los nombres se alinean arriba y los roles abajo. Las ilustraciones conservan su proporción en colección, mano y miniaturas, con recorte centrado cuando cambia el formato. Las estadísticas usan sprites ilustrados y el botón inferior sigue visible mientras el contenido se desplaza. Las 105 descripciones explican la acción principal en una frase breve, con los valores en las estadísticas.
+2. **Editor y ficha: corregidos y verificados.** Los cuatro selectores están junto a la X, sin título ni contador general. Tocar una carta abre un menú pequeño con Info y Usar o Quitar; Info abre la ficha detallada. El coste medio comparte el pie con Listo. El editor conserva su estado al cerrar la ficha. La gema tiene el número centrado con una tipografía más ancha y un contorno fino. Los nombres se alinean arriba y los roles abajo. Las ilustraciones conservan su proporción en colección, mano y miniaturas, con recorte centrado cuando cambia el formato. Las estadísticas usan sprites ilustrados y el botón inferior sigue visible mientras el contenido se desplaza. Las 105 descripciones explican la acción principal en una frase breve, con los valores en las estadísticas.
 
    <img src="ui-review/02-editor.png" width="330" alt="Editor compacto con cuatro selectores y cartas de hechizos.">
    <img src="ui-review/02-detail.png" width="330" alt="Ficha de Pikachu con iconos de estadísticas de estilo RPG.">
@@ -35,7 +35,7 @@ Se revisaron la home, el editor, las fichas, una partida contra CPU, una partida
 
 También se corrigieron señales de combate que daban información equivocada: Voltorb y los demás melee no muestran círculo de alcance; la Pandilla Rocket despliega tres Poochyena adelante y dos Ralts detrás, incluso al ajustar la colocación y al invertir la perspectiva online; Exeggutor libera cada pareja en fila con 0,85 s entre salidas. Las defensas no atraen win conditions al otro puente: el límite lateral es una celda pasada la mitad, o dos para cuerpos grandes como Golem.
 
-La comprobación detrás del rey encontró una única fila central desplegable: en la grilla actual corresponde a y = 760 para el jugador inferior y a y = 40 para el superior. Se conservó esa fila; el margen visual incluye la base y la información de la torre.
+Las torres del rey se movieron una celda hacia el borde de cada equipo: `KING_Y = [706, 94]`. Queda una sola fila completa detrás de sus bases, con colocación válida en y = 760 para el jugador inferior y en y = 40 para el superior. Los snapshots antiguos se migran al restaurar y conservan esa disposición al invertir la perspectiva online.
 
 Se probaron ocho tamaños de ventana, de 320 × 568 a 1680 × 1400, cinco tipos de ficha en cuatro tamaños, dos jugadores online y el modo vertical con un perfil táctil. Pasaron 224 pruebas automatizadas. Se comprobaron además las proporciones, los nombres y los números de las 105 cartas en móvil, tablet y escritorio. La recuperación de audio se comprobó con AudioContext real en Chromium y con estados interrumpidos, rechazos y relojes congelados simulados. El [reporte de WebKit](https://bugs.webkit.org/show_bug.cgi?id=276016) documenta la familia de fallos de Safari que motivó esa recuperación.
 
@@ -50,15 +50,28 @@ La revisión visual del catálogo y sus prompts están en [CARD-ART-REVIEW.json]
 La carga inicial usa una Pokébola animada con progreso real de sprites y atlas. La búsqueda, los errores y la reconexión aparecen en capas absolutas. La carga de sprites durante la partida tiene un indicador pequeño sobre la arena. Se demoraron y bloquearon solicitudes reales del navegador en 390 × 844, 768 × 1024 y 1440 × 980: los rectángulos del menú, los controles y el tablero permanecieron iguales antes, durante y después de cada espera. La prueba con movimiento reducido mantuvo estáticas las animaciones.
 
 <img src="ui-review/07-loading.png" width="330" alt="Carga inicial con Pokébola y progreso real sobre el menú, conservando el espacio de los controles.">
-<img src="ui-review/07-search.png" width="330" alt="Búsqueda de rival en una capa sobre el menú, con cancelar en una posición estable.">
 
 La última comprobación cubrió 320 × 568, 390 × 844, 768 × 1024, 1440 × 980 y 932 × 430. Las pruebas de carga demorada registraron cero cambios de posición o tamaño en el menú, la mano, la arena y el elixir. Tampoco se registraron eventos de desplazamiento visual durante esas pruebas locales. Se verificaron además la carga lenta de fuentes, los errores y su reintento, el movimiento reducido y una interrupción breve de conexión entre dos sesiones. Pasaron las 224 pruebas automatizadas, la comprobación de sintaxis, la compilación y la prueba del Worker generado.
 
-La próxima carta conserva su proporción y su nombre accesible, sin rótulo visible. El elixir usa un marco crema y segmentos morados. La guía mantiene tres pasos que se pueden omitir, con el mismo estilo de panel y botones del juego. Volver al inicio contra CPU pide confirmación; cancelar reanuda la partida o conserva una pausa manual previa.
+La próxima carta conserva su proporción, queda centrada verticalmente y muestra su nombre pequeño debajo. El elixir usa un marco crema y segmentos morados. La guía mantiene tres pasos que se pueden omitir, con el mismo estilo de panel y botones del juego. Volver al inicio contra CPU pide confirmación; cancelar reanuda la partida o conserva una pausa manual previa.
 
 <img src="ui-review/08-home.png" width="330" alt="Menú compacto sin título ni rótulo visible del nombre.">
-<img src="ui-review/08-battle.png" width="330" alt="Próxima carta sin texto visible y barra de elixir con marco crema.">
+<img src="ui-review/08-battle.png" width="330" alt="Próxima carta centrada con su nombre debajo y barra de elixir con marco crema.">
 <img src="ui-review/08-tutorial.png" width="330" alt="Guía interactiva breve con número de paso y botón para omitir o terminar.">
 <img src="ui-review/08-confirm.png" width="330" alt="Confirmación antes de salir de una partida contra CPU.">
 
 La reconexión conserva el margen existente del servidor: 25 segundos de ausencia antes de resolver la partida por desconexión. Las pruebas utilizaron Chromium en Windows; no verifican el comportamiento de un teléfono físico ni sustituyen una revisión con lector de pantalla.
+
+La siguiente revisión amplió el mazo a dos filas de cuatro cartas y redujo la altura de los selectores. El mazo y la colección comparten el desplazamiento: al bajar, sólo quedan las cartas de colección. Los filtros se abren desde un botón pequeño y Rareza queda al final, plegada. Con ocho cartas, Usar permite elegir cuál reemplazar. Los nombres subieron y las cantidades de enjambre se muestran debajo, sin fondo crema.
+
+<img src="ui-review/09-editor.png" width="330" alt="Mazo de ocho cartas grandes en dos filas, con selectores bajos y filtros compactos.">
+<img src="ui-review/09-actions.png" width="330" alt="Menú pequeño de una carta con Info y Usar.">
+<img src="ui-review/09-filters.png" width="330" alt="Filtros en un panel compacto, con Rareza plegada al final.">
+<img src="ui-review/09-swarm.png" width="330" alt="Sandshrew con su cantidad debajo del nombre y sin placa crema.">
+
+La Pokébola de carga se llena con el progreso real, centrada y sin aros exteriores; en esperas indeterminadas gira sobre su centro. El panel de combate tiene bordes rectos y un patrón tenue de Pokébolas. Las cartas sin elixir usan blanco y negro completo. El alcance tiene un relleno suave y una guía de colocación discreta. Las torres se dibujan como puestos de gimnasio y un Centro Pokémon, conservando sus huellas de combate.
+
+<img src="ui-review/09-grayscale.png" width="330" alt="Cartas sin elixir completamente en blanco y negro y panel de combate con patrón de Pokébolas.">
+<img src="ui-review/09-range.png" width="330" alt="Alcance con relleno tenue y torres adaptadas a la temática Pokémon.">
+
+Estas modificaciones pasaron las 226 pruebas de lógica existentes y la revisión visual en cinco tamaños. Después se separaron las pruebas por sección según la tabla del README. La comprobación aislada del editor recorrió filtros, acciones, reemplazo y guardado en 2,6 segundos, en un tamaño móvil y con cero solicitudes a la API. También pasaron las 11 pruebas de guardado y las cuatro de selección de suites. Esta separación no volvió a ejecutar combate, conexión, audio ni balance. La suite completa queda para cambios transversales explícitos.

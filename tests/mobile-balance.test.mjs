@@ -17,7 +17,7 @@ test('large tanks steer around bodies and cross either bridge in both directions
 
 test('both teams can deploy directly behind their king and the troop walks around it',()=>{
   for(const team of[0,1]){
-    const g=fresh(),y=team?48:752,king=g.towers.find(t=>t.team===team&&t.king);
+    const g=fresh(),y=team?40:760,king=g.towers.find(t=>t.team===team&&t.king);
     assert.ok(g.canDeploy(team,'pikachu',300,y));
     const p=g.resolveDeployment(team,'pikachu',300,y);assert.deepEqual(p,{x:300,y:team?40:760});
     const result=g.deploy(team,0,300,y);assert.equal(result.ok,true);const troop=g.units[0];
