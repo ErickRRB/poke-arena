@@ -1,4 +1,5 @@
-import { CARDS } from './engine.js?v=23';
+import { CARDS } from './engine.js?v=24';
+import { cardPlaceholder } from './battle-art.js?v=24';
 // Each atlas contains opaque, full-bleed battle scenes in row-major order.
 const sheets = [
   ['pikachu','snorlax','machamp','blastoise','zubat','thunder','charizard','fireball','treecko','log','squirtle','charmander','bulbasaur','gengar','eevee','onix'],
@@ -32,5 +33,5 @@ export function cardArtMarkup(key) {
   const width = art.columns === 2 ? 1586 : 1122, height = art.columns === 2 ? 992 : 1402;
   const tileWidth = width / art.columns, tileHeight = height / art.rows;
   const raster = art.columns > 1 ? `<svg viewBox="${art.x * tileWidth} ${art.y * tileHeight} ${tileWidth} ${tileHeight}" preserveAspectRatio="xMidYMid slice" focusable="false"><image href="${art.file}" width="${width}" height="${height}"/></svg>` : '';
-  return `<span class="card-art" data-art="${key}" aria-hidden="true" style="${art.columns===1?`background-image:url('${art.file}');background-size:cover;background-position:center;`:''}${flip?'transform:scaleX(-1)':''}">${raster}</span>${CARDS[key]?.rarity==='legendaria'?'<span class="legend-frame" aria-hidden="true"></span>':''}`;
+  return `<span class="card-art" data-art="${key}" aria-hidden="true" style="${art.columns===1?`background-image:url('${art.file}');background-size:cover;background-position:center;`:''}${flip?'transform:scaleX(-1)':''}">${raster}</span>${CARDS[key]?.rarity==='legendaria'?'<span class="legend-frame" aria-hidden="true"></span>':''}${cardPlaceholder(key)?'<span class="art-placeholder">PLACEHOLDER</span>':''}`;
 }

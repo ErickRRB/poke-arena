@@ -1,0 +1,7170 @@
+{
+  "before": {
+    "protocol": {
+      "fps": 30,
+      "seed": 120112,
+      "towerPushSeconds": 45,
+      "attackDeployment": [
+        158,
+        520
+      ],
+      "defenseDeployment": [
+        240,
+        520
+      ]
+    },
+    "cards": [
+      {
+        "key": "pikachu",
+        "name": "Pikachu",
+        "cost": 4,
+        "role": "Control · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 714,
+          "nominalDps": 127.78
+        },
+        "openTower": {
+          "key": "pikachu",
+          "defender": null,
+          "seconds": 9.53,
+          "damage": 460,
+          "totalTowerDamage": 460,
+          "firstTowerHit": 6.5,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "squirtle",
+        "name": "Squirtle",
+        "cost": 2,
+        "role": "Tirador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 400,
+          "nominalDps": 57.93
+        },
+        "openTower": {
+          "key": "squirtle",
+          "defender": null,
+          "seconds": 7.63,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "charmander",
+        "name": "Charmander",
+        "cost": 3,
+        "role": "Tirador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 440,
+          "nominalDps": 90
+        },
+        "openTower": {
+          "key": "charmander",
+          "defender": null,
+          "seconds": 7.6,
+          "damage": 135,
+          "totalTowerDamage": 135,
+          "firstTowerHit": 7.17,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "snorlax",
+        "name": "Snorlax",
+        "cost": 5,
+        "role": "Win condition · tanque",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 4091,
+          "nominalDps": 169.33
+        },
+        "openTower": {
+          "key": "snorlax",
+          "defender": null,
+          "seconds": 33.2,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 16.7,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 603,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "snorlax",
+            "defender": "pikachu",
+            "seconds": 20.87,
+            "damage": 0,
+            "totalTowerDamage": 0,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.87,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "snorlax",
+            "defender": "magnemite",
+            "seconds": 29.5,
+            "damage": 1524,
+            "totalTowerDamage": 1524,
+            "firstTowerHit": 20.9,
+            "firstIncomingHit": 3.2,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "snorlax",
+            "defender": "blastoise",
+            "seconds": 29.43,
+            "damage": 1778,
+            "totalTowerDamage": 2450,
+            "firstTowerHit": 20.27,
+            "firstIncomingHit": 4.93,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "zubat",
+        "name": "Zubat",
+        "cost": 2,
+        "role": "Enjambre · aéreo",
+        "deployment": {
+          "bodies": 3,
+          "totalHp": 540,
+          "nominalDps": 150
+        },
+        "openTower": {
+          "key": "zubat",
+          "defender": null,
+          "seconds": 8.63,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 4.63,
+          "survivingHp": 0,
+          "deployed": 3,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "charizard",
+        "name": "Charizard",
+        "cost": 5,
+        "role": "Mini tanque · aéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1526,
+          "nominalDps": 120
+        },
+        "openTower": {
+          "key": "charizard",
+          "defender": null,
+          "seconds": 15.93,
+          "damage": 1080,
+          "totalTowerDamage": 1080,
+          "firstTowerHit": 8,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "thunder",
+        "name": "Impactrueno",
+        "cost": 2,
+        "role": "Hechizo · aturde",
+        "damage": [
+          {
+            "key": "thunder",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 192,
+            "sustainedDps": 0,
+            "firstHit": 0.43,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "thunder",
+            "target": "air",
+            "seconds": 25,
+            "damage": 192,
+            "sustainedDps": 0,
+            "firstHit": 0.43,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "thunder",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 58,
+            "sustainedDps": 0,
+            "firstHit": 0.43,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "thunder",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.43
+          },
+          {
+            "key": "thunder",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "thunder",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.43
+          },
+          {
+            "key": "thunder",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          }
+        ]
+      },
+      {
+        "key": "fireball",
+        "name": "Bomba ígnea",
+        "cost": 4,
+        "role": "Hechizo · área",
+        "damage": [
+          {
+            "key": "fireball",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 689,
+            "sustainedDps": 0,
+            "firstHit": 0.73,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "fireball",
+            "target": "air",
+            "seconds": 25,
+            "damage": 689,
+            "sustainedDps": 0,
+            "firstHit": 0.73,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "fireball",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 207,
+            "sustainedDps": 0,
+            "firstHit": 0.73,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "fireball",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.13
+          },
+          {
+            "key": "fireball",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.13
+          },
+          {
+            "key": "fireball",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.13
+          },
+          {
+            "key": "fireball",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.13
+          }
+        ]
+      },
+      {
+        "key": "bulbasaur",
+        "name": "Bulbasaur",
+        "cost": 2,
+        "role": "Tirador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 400,
+          "nominalDps": 65.38
+        },
+        "openTower": {
+          "key": "bulbasaur",
+          "defender": null,
+          "seconds": 7.63,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "gengar",
+        "name": "Gengar",
+        "cost": 4,
+        "role": "Tirador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 650,
+          "nominalDps": 86.21
+        },
+        "openTower": {
+          "key": "gengar",
+          "defender": null,
+          "seconds": 7.73,
+          "damage": 250,
+          "totalTowerDamage": 250,
+          "firstTowerHit": 5.5,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "machamp",
+        "name": "Machamp",
+        "cost": 4,
+        "role": "Antitanques · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1361,
+          "nominalDps": 400
+        },
+        "openTower": {
+          "key": "machamp",
+          "defender": null,
+          "seconds": 14.93,
+          "damage": 1440,
+          "totalTowerDamage": 1440,
+          "firstTowerHit": 11.53,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "eevee",
+        "name": "Eevee",
+        "cost": 2,
+        "role": "Ciclo · presión",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 300,
+          "nominalDps": 94.74
+        },
+        "openTower": {
+          "key": "eevee",
+          "defender": null,
+          "seconds": 4.5,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.07,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "onix",
+        "name": "Onix",
+        "cost": 5,
+        "role": "Win condition · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1400,
+          "nominalDps": 85.71
+        },
+        "openTower": {
+          "key": "onix",
+          "defender": null,
+          "seconds": 16.97,
+          "damage": 180,
+          "totalTowerDamage": 180,
+          "firstTowerHit": 15.97,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "onix",
+            "defender": "pikachu",
+            "seconds": 10.43,
+            "damage": 0,
+            "totalTowerDamage": 0,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.87,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "onix",
+            "defender": "magnemite",
+            "seconds": 13.83,
+            "damage": 0,
+            "totalTowerDamage": 0,
+            "firstTowerHit": null,
+            "firstIncomingHit": 3.2,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "onix",
+            "defender": "blastoise",
+            "seconds": 11.87,
+            "damage": 0,
+            "totalTowerDamage": 180,
+            "firstTowerHit": null,
+            "firstIncomingHit": 4.93,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "blastoise",
+        "name": "Blastoise",
+        "cost": 4,
+        "role": "Estructura · antiaérea",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1200,
+          "nominalDps": 94.44
+        },
+        "openTower": {
+          "key": "blastoise",
+          "defender": null,
+          "seconds": 35,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "blastoise",
+          "damage": 1270,
+          "spawned": 1,
+          "seconds": 27.87
+        }
+      },
+      {
+        "key": "vulpix",
+        "name": "Vulpix",
+        "cost": 3,
+        "role": "Tirador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 440,
+          "nominalDps": 107.14
+        },
+        "openTower": {
+          "key": "vulpix",
+          "defender": null,
+          "seconds": 7.6,
+          "damage": 150,
+          "totalTowerDamage": 150,
+          "firstTowerHit": 7.1,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "psyduck",
+        "name": "Psyduck",
+        "cost": 3,
+        "role": "Tirador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 560,
+          "nominalDps": 78.57
+        },
+        "openTower": {
+          "key": "psyduck",
+          "defender": null,
+          "seconds": 9.57,
+          "damage": 110,
+          "totalTowerDamage": 110,
+          "firstTowerHit": 8.43,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "alakazam",
+        "name": "Alakazam",
+        "cost": 4,
+        "role": "Tirador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 590,
+          "nominalDps": 120.91
+        },
+        "openTower": {
+          "key": "alakazam",
+          "defender": null,
+          "seconds": 9.4,
+          "damage": 399,
+          "totalTowerDamage": 399,
+          "firstTowerHit": 6.17,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "geodude",
+        "name": "Geodude",
+        "cost": 3,
+        "role": "Mini tanque · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1766,
+          "nominalDps": 168.33
+        },
+        "openTower": {
+          "key": "geodude",
+          "defender": null,
+          "seconds": 20.27,
+          "damage": 808,
+          "totalTowerDamage": 808,
+          "firstTowerHit": 16.47,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "magnemite",
+        "name": "Magnemite",
+        "cost": 3,
+        "role": "Volador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 400,
+          "nominalDps": 45
+        },
+        "openTower": {
+          "key": "magnemite",
+          "defender": null,
+          "seconds": 7.67,
+          "damage": 81,
+          "totalTowerDamage": 81,
+          "firstTowerHit": 7.53,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "scyther",
+        "name": "Scyther",
+        "cost": 4,
+        "role": "Volador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 650,
+          "nominalDps": 108.33
+        },
+        "openTower": {
+          "key": "scyther",
+          "defender": null,
+          "seconds": 7.5,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.63,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "lapras",
+        "name": "Lapras",
+        "cost": 5,
+        "role": "Mini tanque · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1500,
+          "nominalDps": 91.43
+        },
+        "openTower": {
+          "key": "lapras",
+          "defender": null,
+          "seconds": 18,
+          "damage": 800,
+          "totalTowerDamage": 800,
+          "firstTowerHit": 10.87,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "mewtwo",
+        "name": "Mewtwo",
+        "cost": 6,
+        "role": "Tirador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1452,
+          "nominalDps": 157.14
+        },
+        "openTower": {
+          "key": "mewtwo",
+          "defender": null,
+          "seconds": 16.03,
+          "damage": 1320,
+          "totalTowerDamage": 1320,
+          "firstTowerHit": 8.17,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "mewtwo",
+          "defender": "pikachu",
+          "seconds": 17.03,
+          "damage": 880,
+          "totalTowerDamage": 1594,
+          "firstTowerHit": 12.5,
+          "firstIncomingHit": 4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 2
+        }
+      },
+      {
+        "key": "treecko",
+        "name": "Treecko",
+        "cost": 3,
+        "role": "Tiradores · dúo",
+        "deployment": {
+          "bodies": 2,
+          "totalHp": 608,
+          "nominalDps": 248.89
+        },
+        "openTower": {
+          "key": "treecko",
+          "defender": null,
+          "seconds": 9.3,
+          "damage": 112,
+          "totalTowerDamage": 112,
+          "firstTowerHit": 8.97,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 2,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "golem",
+        "name": "Golem",
+        "cost": 8,
+        "role": "Win condition · tanque",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 5120,
+          "nominalDps": 124.8
+        },
+        "openTower": {
+          "key": "golem",
+          "defender": null,
+          "seconds": 39.1,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 16.6,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 869,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "golem",
+            "defender": "pikachu",
+            "seconds": 31.87,
+            "damage": 676,
+            "totalTowerDamage": 676,
+            "firstTowerHit": 24.4,
+            "firstIncomingHit": 2.8,
+            "survivingHp": 0,
+            "deployed": 3,
+            "abilityCost": 0
+          },
+          {
+            "key": "golem",
+            "defender": "magnemite",
+            "seconds": 45,
+            "damage": 2704,
+            "totalTowerDamage": 2704,
+            "firstTowerHit": 21.93,
+            "firstIncomingHit": 3.2,
+            "survivingHp": 302,
+            "deployed": 3,
+            "abilityCost": 0
+          },
+          {
+            "key": "golem",
+            "defender": "blastoise",
+            "seconds": 42.63,
+            "damage": 3000,
+            "totalTowerDamage": 3624,
+            "firstTowerHit": 21.63,
+            "firstIncomingHit": 4.77,
+            "survivingHp": 1146,
+            "deployed": 3,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "log",
+        "name": "Mazazo",
+        "cost": 2,
+        "role": "Hechizo · empuje",
+        "damage": [
+          {
+            "key": "log",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 290,
+            "sustainedDps": 0,
+            "firstHit": 0.03,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "log",
+            "target": "air",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "log",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 58,
+            "sustainedDps": 0,
+            "firstHit": 0.03,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "log",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.73
+          },
+          {
+            "key": "log",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.73
+          },
+          {
+            "key": "log",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "log",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.73
+          }
+        ]
+      },
+      {
+        "key": "diglett",
+        "name": "Diglett",
+        "cost": 1,
+        "role": "Ciclo · distracción",
+        "deployment": {
+          "bodies": 3,
+          "totalHp": 243,
+          "nominalDps": 243
+        },
+        "openTower": {
+          "key": "diglett",
+          "defender": null,
+          "seconds": 6.1,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 4.47,
+          "survivingHp": 0,
+          "deployed": 3,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "diglettHorde",
+        "name": "Horda Diglett",
+        "cost": 3,
+        "role": "Enjambre · terrestre",
+        "deployment": {
+          "bodies": 9,
+          "totalHp": 729,
+          "nominalDps": 729
+        },
+        "openTower": {
+          "key": "diglettHorde",
+          "defender": null,
+          "seconds": 10.17,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 9,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "raltsTrio",
+        "name": "Trío Ralts",
+        "cost": 2,
+        "role": "Enjambre · antiaéreo",
+        "deployment": {
+          "bodies": 3,
+          "totalHp": 399,
+          "nominalDps": 142.94
+        },
+        "openTower": {
+          "key": "raltsTrio",
+          "defender": null,
+          "seconds": 9.33,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 5.3,
+          "survivingHp": 0,
+          "deployed": 3,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "poochyenaPack",
+        "name": "Manada Poochyena",
+        "cost": 2,
+        "role": "Enjambre · terrestre",
+        "deployment": {
+          "bodies": 4,
+          "totalHp": 808,
+          "nominalDps": 436.36
+        },
+        "openTower": {
+          "key": "poochyenaPack",
+          "defender": null,
+          "seconds": 9.23,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 4,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "venusaur",
+        "name": "Venusaur",
+        "cost": 5,
+        "role": "Mini tanque · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1900,
+          "nominalDps": 73.68
+        },
+        "openTower": {
+          "key": "venusaur",
+          "defender": null,
+          "seconds": 21.33,
+          "damage": 840,
+          "totalTowerDamage": 840,
+          "firstTowerHit": 11.07,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "butterfree",
+        "name": "Butterfree",
+        "cost": 3,
+        "role": "Volador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 440,
+          "nominalDps": 45
+        },
+        "openTower": {
+          "key": "butterfree",
+          "defender": null,
+          "seconds": 8.43,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "beedrill",
+        "name": "Beedrill",
+        "cost": 3,
+        "role": "Enjambre · aéreo",
+        "deployment": {
+          "bodies": 2,
+          "totalHp": 520,
+          "nominalDps": 261.54
+        },
+        "openTower": {
+          "key": "beedrill",
+          "defender": null,
+          "seconds": 7.5,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.63,
+          "survivingHp": 0,
+          "deployed": 2,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "pidgeot",
+        "name": "Pidgeot",
+        "cost": 4,
+        "role": "Volador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1052,
+          "nominalDps": 126.92
+        },
+        "openTower": {
+          "key": "pidgeot",
+          "defender": null,
+          "seconds": 10.17,
+          "damage": 825,
+          "totalTowerDamage": 825,
+          "firstTowerHit": 5.23,
+          "firstIncomingHit": 2.93,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "ekans",
+        "name": "Ekans",
+        "cost": 2,
+        "role": "Enjambre · terrestre",
+        "deployment": {
+          "bodies": 2,
+          "totalHp": 500,
+          "nominalDps": 100
+        },
+        "openTower": {
+          "key": "ekans",
+          "defender": null,
+          "seconds": 8.33,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 2,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "sandshrew",
+        "name": "Sandshrew",
+        "cost": 3,
+        "role": "Enjambre · terrestre",
+        "deployment": {
+          "bodies": 2,
+          "totalHp": 920,
+          "nominalDps": 220
+        },
+        "openTower": {
+          "key": "sandshrew",
+          "defender": null,
+          "seconds": 13.23,
+          "damage": 363,
+          "totalTowerDamage": 363,
+          "firstTowerHit": 10,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 2,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "nidoqueen",
+        "name": "Nidoqueen",
+        "cost": 6,
+        "role": "Tanque · invocadora",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2800,
+          "nominalDps": 103.13
+        },
+        "openTower": {
+          "key": "nidoqueen",
+          "defender": null,
+          "seconds": 29.43,
+          "damage": 1925,
+          "totalTowerDamage": 1925,
+          "firstTowerHit": 12.2,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 4,
+          "abilityCost": 0
+        },
+        "summons": {
+          "key": "nidoqueen",
+          "target": "ground",
+          "seconds": 30,
+          "damage": 4316,
+          "sustainedDps": 152.84,
+          "firstHit": 1.13,
+          "releases": 50,
+          "bodiesSpawned": 5
+        }
+      },
+      {
+        "key": "nidoking",
+        "name": "Nidoking",
+        "cost": 5,
+        "role": "Antitanques · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2200,
+          "nominalDps": 187.5
+        },
+        "openTower": {
+          "key": "nidoking",
+          "defender": null,
+          "seconds": 21.6,
+          "damage": 2148,
+          "totalTowerDamage": 2148,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "mankey",
+        "name": "Mankey",
+        "cost": 2,
+        "role": "Enjambre · terrestre",
+        "deployment": {
+          "bodies": 3,
+          "totalHp": 450,
+          "nominalDps": 200
+        },
+        "openTower": {
+          "key": "mankey",
+          "defender": null,
+          "seconds": 6.9,
+          "damage": 160,
+          "totalTowerDamage": 160,
+          "firstTowerHit": 6.17,
+          "firstIncomingHit": 3.03,
+          "survivingHp": 0,
+          "deployed": 3,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "arcanine",
+        "name": "Arcanine",
+        "cost": 4,
+        "role": "Luchador · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1400,
+          "nominalDps": 157.14
+        },
+        "openTower": {
+          "key": "arcanine",
+          "defender": null,
+          "seconds": 12.77,
+          "damage": 1605,
+          "totalTowerDamage": 1605,
+          "firstTowerHit": 5.33,
+          "firstIncomingHit": 3.07,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "slowbro",
+        "name": "Slowbro",
+        "cost": 3,
+        "role": "Tirador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 688,
+          "nominalDps": 52.94
+        },
+        "openTower": {
+          "key": "slowbro",
+          "defender": null,
+          "seconds": 12.17,
+          "damage": 90,
+          "totalTowerDamage": 90,
+          "firstTowerHit": 11.2,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "grimer",
+        "name": "Grimer",
+        "cost": 2,
+        "role": "Mini tanque · zona",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 900,
+          "nominalDps": 36.67
+        },
+        "openTower": {
+          "key": "grimer",
+          "defender": null,
+          "seconds": 13.7,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "cloyster",
+        "name": "Cloyster",
+        "cost": 4,
+        "role": "Estructura · antiaérea",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1095,
+          "nominalDps": 53.85
+        },
+        "openTower": {
+          "key": "cloyster",
+          "defender": null,
+          "seconds": 32,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "cloyster",
+          "damage": 2032,
+          "spawned": 1,
+          "seconds": 32.03
+        }
+      },
+      {
+        "key": "gastly",
+        "name": "Gastly",
+        "cost": 2,
+        "role": "Enjambre · aéreo",
+        "deployment": {
+          "bodies": 4,
+          "totalHp": 324,
+          "nominalDps": 107.69
+        },
+        "openTower": {
+          "key": "gastly",
+          "defender": null,
+          "seconds": 6.07,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.63,
+          "survivingHp": 0,
+          "deployed": 4,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "voltorb",
+        "name": "Voltorb",
+        "cost": 1,
+        "role": "Ciclo · antienjambre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 230,
+          "nominalDps": 82.14
+        },
+        "openTower": {
+          "key": "voltorb",
+          "defender": null,
+          "seconds": 5.2,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "forretress",
+        "name": "Forretress",
+        "cost": 4,
+        "role": "Win condition · explosiva",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1200,
+          "nominalDps": 375
+        },
+        "openTower": {
+          "key": "forretress",
+          "defender": null,
+          "seconds": 9.63,
+          "damage": 600,
+          "totalTowerDamage": 600,
+          "firstTowerHit": 9.63,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "forretress",
+            "defender": "pikachu",
+            "seconds": 7.83,
+            "damage": 0,
+            "totalTowerDamage": 1,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.43,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "forretress",
+            "defender": "magnemite",
+            "seconds": 10.23,
+            "damage": 0,
+            "totalTowerDamage": 1,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.7,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "forretress",
+            "defender": "blastoise",
+            "seconds": 7.23,
+            "damage": 0,
+            "totalTowerDamage": 601,
+            "firstTowerHit": null,
+            "firstIncomingHit": 3.33,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "exeggutor",
+        "name": "Exeggutor",
+        "cost": 5,
+        "role": "Mini tanque · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1750,
+          "nominalDps": 121.05
+        },
+        "openTower": {
+          "key": "exeggutor",
+          "defender": null,
+          "seconds": 20.47,
+          "damage": 1150,
+          "totalTowerDamage": 1150,
+          "firstTowerHit": 12.03,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "koffing",
+        "name": "Koffing",
+        "cost": 3,
+        "role": "Volador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 700,
+          "nominalDps": 52.94
+        },
+        "openTower": {
+          "key": "koffing",
+          "defender": null,
+          "seconds": 10,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "chansey",
+        "name": "Chansey",
+        "cost": 3,
+        "role": "Apoyo · curación",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 800,
+          "nominalDps": 10
+        },
+        "openTower": {
+          "key": "chansey",
+          "defender": null,
+          "seconds": 10.93,
+          "damage": 18,
+          "totalTowerDamage": 18,
+          "firstTowerHit": 9.37,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "kangaskhan",
+        "name": "Kangaskhan",
+        "cost": 5,
+        "role": "Mini tanque · refuerzos",
+        "deployment": {
+          "bodies": 2,
+          "totalHp": 2800,
+          "nominalDps": 211.54
+        },
+        "openTower": {
+          "key": "kangaskhan",
+          "defender": null,
+          "seconds": 25.33,
+          "damage": 2250,
+          "totalTowerDamage": 2250,
+          "firstTowerHit": 11.83,
+          "firstIncomingHit": 7.27,
+          "survivingHp": 0,
+          "deployed": 2,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "starmie",
+        "name": "Starmie",
+        "cost": 4,
+        "role": "Tirador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 550,
+          "nominalDps": 150
+        },
+        "openTower": {
+          "key": "starmie",
+          "defender": null,
+          "seconds": 8.5,
+          "damage": 540,
+          "totalTowerDamage": 540,
+          "firstTowerHit": 5.8,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "mrmime",
+        "name": "Mr. Mime",
+        "cost": 4,
+        "role": "Apoyo · escudos",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 790,
+          "nominalDps": 60
+        },
+        "openTower": {
+          "key": "mrmime",
+          "defender": null,
+          "seconds": 11,
+          "damage": 270,
+          "totalTowerDamage": 270,
+          "firstTowerHit": 7.97,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "gyarados",
+        "name": "Gyarados",
+        "cost": 6,
+        "role": "Tanque · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2600,
+          "nominalDps": 133.33
+        },
+        "openTower": {
+          "key": "gyarados",
+          "defender": null,
+          "seconds": 24.1,
+          "damage": 1920,
+          "totalTowerDamage": 1920,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "ditto",
+        "name": "Ditto",
+        "cost": 3,
+        "role": "Apoyo · copia",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 508,
+          "nominalDps": 25
+        },
+        "openTower": {
+          "key": "ditto",
+          "defender": null,
+          "seconds": 7.53,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "articuno",
+        "name": "Articuno",
+        "cost": 6,
+        "role": "Volador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1400,
+          "nominalDps": 75
+        },
+        "openTower": {
+          "key": "articuno",
+          "defender": null,
+          "seconds": 15.17,
+          "damage": 675,
+          "totalTowerDamage": 675,
+          "firstTowerHit": 7.3,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "articuno",
+          "defender": "pikachu",
+          "seconds": 18.5,
+          "damage": 270,
+          "totalTowerDamage": 984,
+          "firstTowerHit": 15.63,
+          "firstIncomingHit": 5.33,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 2
+        }
+      },
+      {
+        "key": "zapdos",
+        "name": "Zapdos",
+        "cost": 6,
+        "role": "Volador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1090,
+          "nominalDps": 60.56
+        },
+        "openTower": {
+          "key": "zapdos",
+          "defender": null,
+          "seconds": 13.43,
+          "damage": 436,
+          "totalTowerDamage": 436,
+          "firstTowerHit": 7.03,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "zapdos",
+          "defender": "pikachu",
+          "seconds": 14.1,
+          "damage": 0,
+          "totalTowerDamage": 714,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.93,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 2
+        }
+      },
+      {
+        "key": "moltres",
+        "name": "Moltres",
+        "cost": 6,
+        "role": "Volador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1170,
+          "nominalDps": 75
+        },
+        "openTower": {
+          "key": "moltres",
+          "defender": null,
+          "seconds": 13.5,
+          "damage": 605,
+          "totalTowerDamage": 605,
+          "firstTowerHit": 7.53,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "moltres",
+          "defender": "pikachu",
+          "seconds": 14.53,
+          "damage": 142,
+          "totalTowerDamage": 856,
+          "firstTowerHit": 13.57,
+          "firstIncomingHit": 3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 2
+        }
+      },
+      {
+        "key": "dragonite",
+        "name": "Dragonite",
+        "cost": 5,
+        "role": "Volador · antitanques",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2000,
+          "nominalDps": 134.21
+        },
+        "openTower": {
+          "key": "dragonite",
+          "defender": null,
+          "seconds": 19.93,
+          "damage": 1275,
+          "totalTowerDamage": 1275,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "meganium",
+        "name": "Meganium",
+        "cost": 5,
+        "role": "Tanque · curación",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2400,
+          "nominalDps": 61.76
+        },
+        "openTower": {
+          "key": "meganium",
+          "defender": null,
+          "seconds": 25.43,
+          "damage": 840,
+          "totalTowerDamage": 840,
+          "firstTowerHit": 12.8,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "typhlosion",
+        "name": "Typhlosion",
+        "cost": 5,
+        "role": "Tirador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1130,
+          "nominalDps": 83.33
+        },
+        "openTower": {
+          "key": "typhlosion",
+          "defender": null,
+          "seconds": 13.5,
+          "damage": 645,
+          "totalTowerDamage": 645,
+          "firstTowerHit": 8.07,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "feraligatr",
+        "name": "Feraligatr",
+        "cost": 4,
+        "role": "Antitanques · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1900,
+          "nominalDps": 193.55
+        },
+        "openTower": {
+          "key": "feraligatr",
+          "defender": null,
+          "seconds": 19.1,
+          "damage": 1500,
+          "totalTowerDamage": 1500,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "crobat",
+        "name": "Crobat",
+        "cost": 4,
+        "role": "Volador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 900,
+          "nominalDps": 100
+        },
+        "openTower": {
+          "key": "crobat",
+          "defender": null,
+          "seconds": 10,
+          "damage": 300,
+          "totalTowerDamage": 300,
+          "firstTowerHit": 7.57,
+          "firstIncomingHit": 3.63,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "ampharos",
+        "name": "Ampharos",
+        "cost": 5,
+        "role": "Estructura · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1600,
+          "nominalDps": 84.85
+        },
+        "openTower": {
+          "key": "ampharos",
+          "defender": null,
+          "seconds": 36,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "ampharos",
+          "damage": 508,
+          "spawned": 1,
+          "seconds": 27.1
+        }
+      },
+      {
+        "key": "espeon",
+        "name": "Espeon",
+        "cost": 3,
+        "role": "Tirador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 460,
+          "nominalDps": 110
+        },
+        "openTower": {
+          "key": "espeon",
+          "defender": null,
+          "seconds": 7.67,
+          "damage": 220,
+          "totalTowerDamage": 220,
+          "firstTowerHit": 5.8,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "umbreon",
+        "name": "Umbreon",
+        "cost": 3,
+        "role": "Mini tanque · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2100,
+          "nominalDps": 70.59
+        },
+        "openTower": {
+          "key": "umbreon",
+          "defender": null,
+          "seconds": 20.77,
+          "damage": 800,
+          "totalTowerDamage": 800,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "wobbuffet",
+        "name": "Wobbuffet",
+        "cost": 4,
+        "role": "Estructura · reflejo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1900,
+          "nominalDps": 0
+        },
+        "openTower": {
+          "key": "wobbuffet",
+          "defender": null,
+          "seconds": 35,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "wobbuffet",
+          "damage": 1778,
+          "spawned": 1,
+          "seconds": 32.87
+        }
+      },
+      {
+        "key": "steelix",
+        "name": "Steelix",
+        "cost": 6,
+        "role": "Win condition · tanque",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 4500,
+          "nominalDps": 140.91
+        },
+        "openTower": {
+          "key": "steelix",
+          "defender": null,
+          "seconds": 36.2,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 16.4,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 1165,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "steelix",
+            "defender": "pikachu",
+            "seconds": 25.93,
+            "damage": 310,
+            "totalTowerDamage": 310,
+            "firstTowerHit": 25.4,
+            "firstIncomingHit": 2.8,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "steelix",
+            "defender": "magnemite",
+            "seconds": 36.17,
+            "damage": 2170,
+            "totalTowerDamage": 2170,
+            "firstTowerHit": 19.1,
+            "firstIncomingHit": 3.2,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "steelix",
+            "defender": "blastoise",
+            "seconds": 37.77,
+            "damage": 2480,
+            "totalTowerDamage": 3113,
+            "firstTowerHit": 21.13,
+            "firstIncomingHit": 4.73,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "scizor",
+        "name": "Scizor",
+        "cost": 4,
+        "role": "Luchador · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1440,
+          "nominalDps": 207.69
+        },
+        "openTower": {
+          "key": "scizor",
+          "defender": null,
+          "seconds": 15.73,
+          "damage": 1350,
+          "totalTowerDamage": 1350,
+          "firstTowerHit": 9.37,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "skarmory",
+        "name": "Skarmory",
+        "cost": 4,
+        "role": "Volador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 980,
+          "nominalDps": 54
+        },
+        "openTower": {
+          "key": "skarmory",
+          "defender": null,
+          "seconds": 11.57,
+          "damage": 162,
+          "totalTowerDamage": 162,
+          "firstTowerHit": 9.37,
+          "firstIncomingHit": 4.37,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "blissey",
+        "name": "Blissey",
+        "cost": 5,
+        "role": "Mini tanque · curación",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1800,
+          "nominalDps": 17.5
+        },
+        "openTower": {
+          "key": "blissey",
+          "defender": null,
+          "seconds": 20.43,
+          "damage": 140,
+          "totalTowerDamage": 140,
+          "firstTowerHit": 13.17,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "lugia",
+        "name": "Lugia",
+        "cost": 7,
+        "role": "Tanque aéreo · apoyo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 3300,
+          "nominalDps": 75
+        },
+        "openTower": {
+          "key": "lugia",
+          "defender": null,
+          "seconds": 30.2,
+          "damage": 1800,
+          "totalTowerDamage": 1800,
+          "firstTowerHit": 6.97,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "lugia",
+          "defender": "pikachu",
+          "seconds": 34.8,
+          "damage": 1440,
+          "totalTowerDamage": 2154,
+          "firstTowerHit": 16.57,
+          "firstIncomingHit": 3.1,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 2
+        }
+      },
+      {
+        "key": "hooh",
+        "name": "Ho-Oh",
+        "cost": 7,
+        "role": "Tanque aéreo · curación",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2900,
+          "nominalDps": 93.75
+        },
+        "openTower": {
+          "key": "hooh",
+          "defender": null,
+          "seconds": 26.6,
+          "damage": 1696,
+          "totalTowerDamage": 1696,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "hooh",
+          "defender": "pikachu",
+          "seconds": 16.8,
+          "damage": 0,
+          "totalTowerDamage": 714,
+          "firstTowerHit": null,
+          "firstIncomingHit": 2.63,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 3
+        }
+      },
+      {
+        "key": "sceptile",
+        "name": "Sceptile",
+        "cost": 4,
+        "role": "Tirador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 600,
+          "nominalDps": 191.67
+        },
+        "openTower": {
+          "key": "sceptile",
+          "defender": null,
+          "seconds": 7.73,
+          "damage": 575,
+          "totalTowerDamage": 575,
+          "firstTowerHit": 5.27,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "blaziken",
+        "name": "Blaziken",
+        "cost": 4,
+        "role": "Luchador · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1200,
+          "nominalDps": 176.47
+        },
+        "openTower": {
+          "key": "blaziken",
+          "defender": null,
+          "seconds": 13.23,
+          "damage": 920,
+          "totalTowerDamage": 920,
+          "firstTowerHit": 9.37,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "swampert",
+        "name": "Swampert",
+        "cost": 5,
+        "role": "Tanque · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2800,
+          "nominalDps": 105.56
+        },
+        "openTower": {
+          "key": "swampert",
+          "defender": null,
+          "seconds": 27.8,
+          "damage": 1330,
+          "totalTowerDamage": 1330,
+          "firstTowerHit": 16.17,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "gardevoir",
+        "name": "Gardevoir",
+        "cost": 5,
+        "role": "Tirador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 720,
+          "nominalDps": 127.78
+        },
+        "openTower": {
+          "key": "gardevoir",
+          "defender": null,
+          "seconds": 10.17,
+          "damage": 460,
+          "totalTowerDamage": 460,
+          "firstTowerHit": 8.33,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "sableye",
+        "name": "Sableye",
+        "cost": 3,
+        "role": "Asesino · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 800,
+          "nominalDps": 133.33
+        },
+        "openTower": {
+          "key": "sableye",
+          "defender": null,
+          "seconds": 9.17,
+          "damage": 640,
+          "totalTowerDamage": 640,
+          "firstTowerHit": 5.17,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "aggron",
+        "name": "Aggron",
+        "cost": 6,
+        "role": "Tanque · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 3000,
+          "nominalDps": 129.41
+        },
+        "openTower": {
+          "key": "aggron",
+          "defender": null,
+          "seconds": 36.8,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 7.3,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 57,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "sharpedo",
+        "name": "Sharpedo",
+        "cost": 3,
+        "role": "Luchador · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 907,
+          "nominalDps": 193
+        },
+        "openTower": {
+          "key": "sharpedo",
+          "defender": null,
+          "seconds": 9.23,
+          "damage": 965,
+          "totalTowerDamage": 965,
+          "firstTowerHit": 5.13,
+          "firstIncomingHit": 2.87,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "flygon",
+        "name": "Flygon",
+        "cost": 5,
+        "role": "Mini tanque · aéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1650,
+          "nominalDps": 91.67
+        },
+        "openTower": {
+          "key": "flygon",
+          "defender": null,
+          "seconds": 16.57,
+          "damage": 825,
+          "totalTowerDamage": 825,
+          "firstTowerHit": 9.37,
+          "firstIncomingHit": 4.37,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "altaria",
+        "name": "Altaria",
+        "cost": 4,
+        "role": "Volador · curación",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 900,
+          "nominalDps": 46.88
+        },
+        "openTower": {
+          "key": "altaria",
+          "defender": null,
+          "seconds": 11.77,
+          "damage": 150,
+          "totalTowerDamage": 150,
+          "firstTowerHit": 8.8,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "absol",
+        "name": "Absol",
+        "cost": 4,
+        "role": "Asesino · rematador",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1100,
+          "nominalDps": 142.86
+        },
+        "openTower": {
+          "key": "absol",
+          "defender": null,
+          "seconds": 11.67,
+          "damage": 600,
+          "totalTowerDamage": 600,
+          "firstTowerHit": 7.57,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "salamence",
+        "name": "Salamence",
+        "cost": 6,
+        "role": "Volador · antitanques",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2200,
+          "nominalDps": 129.55
+        },
+        "openTower": {
+          "key": "salamence",
+          "defender": null,
+          "seconds": 21.6,
+          "damage": 1710,
+          "totalTowerDamage": 1710,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "metagross",
+        "name": "Metagross",
+        "cost": 6,
+        "role": "Tanque · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 3200,
+          "nominalDps": 123.81
+        },
+        "openTower": {
+          "key": "metagross",
+          "defender": null,
+          "seconds": 34.67,
+          "damage": 2340,
+          "totalTowerDamage": 2340,
+          "firstTowerHit": 16.13,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "kyogre",
+        "name": "Kyogre",
+        "cost": 8,
+        "role": "Tanque · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 3300,
+          "nominalDps": 133.33
+        },
+        "openTower": {
+          "key": "kyogre",
+          "defender": null,
+          "seconds": 30.43,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 9.83,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 248,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "kyogre",
+          "defender": "pikachu",
+          "seconds": 33.57,
+          "damage": 3000,
+          "totalTowerDamage": 3714,
+          "firstTowerHit": 12.97,
+          "firstIncomingHit": 5.07,
+          "survivingHp": 18,
+          "deployed": 1,
+          "abilityCost": 3
+        }
+      },
+      {
+        "key": "groudon",
+        "name": "Groudon",
+        "cost": 8,
+        "role": "Win condition · tanque",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 4500,
+          "nominalDps": 133.33
+        },
+        "openTower": {
+          "key": "groudon",
+          "defender": null,
+          "seconds": 38.23,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 16.63,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 358,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "groudon",
+            "defender": "pikachu",
+            "seconds": 22.6,
+            "damage": 0,
+            "totalTowerDamage": 0,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.8,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "groudon",
+            "defender": "magnemite",
+            "seconds": 31.7,
+            "damage": 1280,
+            "totalTowerDamage": 1280,
+            "firstTowerHit": 21.97,
+            "firstIncomingHit": 3.2,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "groudon",
+            "defender": "blastoise",
+            "seconds": 31.93,
+            "damage": 1600,
+            "totalTowerDamage": 2240,
+            "firstTowerHit": 21.2,
+            "firstIncomingHit": 4.73,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ],
+        "withAbility": {
+          "key": "groudon",
+          "defender": "pikachu",
+          "seconds": 22.6,
+          "damage": 0,
+          "totalTowerDamage": 330,
+          "firstTowerHit": null,
+          "firstIncomingHit": 2.8,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 3
+        }
+      },
+      {
+        "key": "rayquaza",
+        "name": "Rayquaza",
+        "cost": 8,
+        "role": "Tanque aéreo · apoyo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 3000,
+          "nominalDps": 127.78
+        },
+        "openTower": {
+          "key": "rayquaza",
+          "defender": null,
+          "seconds": 26.87,
+          "damage": 2990,
+          "totalTowerDamage": 2990,
+          "firstTowerHit": 5,
+          "firstIncomingHit": 4.37,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "rayquaza",
+          "defender": "pikachu",
+          "seconds": 23.53,
+          "damage": 2300,
+          "totalTowerDamage": 3014,
+          "firstTowerHit": 5.6,
+          "firstIncomingHit": 2.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 3
+        }
+      },
+      {
+        "key": "centralElectrode",
+        "name": "Central Electrode",
+        "cost": 5,
+        "role": "Estructura · invocadora",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1000,
+          "nominalDps": 0
+        },
+        "openTower": {
+          "key": "centralElectrode",
+          "defender": null,
+          "seconds": 34.53,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 7,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "centralElectrode",
+          "damage": 2286,
+          "spawned": 5,
+          "seconds": 34.5
+        },
+        "summons": {
+          "key": "centralElectrode",
+          "target": "ground",
+          "seconds": 30,
+          "damage": 575,
+          "sustainedDps": 18.4,
+          "firstHit": 1.97,
+          "releases": 5,
+          "bodiesSpawned": 7
+        }
+      },
+      {
+        "key": "madriguera",
+        "name": "Madriguera Nidoqueen",
+        "cost": 5,
+        "role": "Estructura · invocadora",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1200,
+          "nominalDps": 0
+        },
+        "openTower": {
+          "key": "madriguera",
+          "defender": null,
+          "seconds": 38.27,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 13,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "madriguera",
+          "damage": 254,
+          "spawned": 9,
+          "seconds": 22.37
+        },
+        "summons": {
+          "key": "madriguera",
+          "target": "ground",
+          "seconds": 30,
+          "damage": 3960,
+          "sustainedDps": 147.6,
+          "firstHit": 1.83,
+          "releases": 88,
+          "bodiesSpawned": 11
+        }
+      },
+      {
+        "key": "vivero",
+        "name": "Vivero Exeggutor",
+        "cost": 4,
+        "role": "Estructura · invocadora",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 900,
+          "nominalDps": 0
+        },
+        "openTower": {
+          "key": "vivero",
+          "defender": null,
+          "seconds": 35.27,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 13,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "vivero",
+          "damage": 508,
+          "spawned": 9,
+          "seconds": 21.2
+        },
+        "summons": {
+          "key": "vivero",
+          "target": "ground",
+          "seconds": 30,
+          "damage": 3150,
+          "sustainedDps": 119,
+          "firstHit": 1.87,
+          "releases": 90,
+          "bodiesSpawned": 12
+        }
+      },
+      {
+        "key": "regice",
+        "name": "Regice",
+        "cost": 4,
+        "role": "Estructura · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1000,
+          "nominalDps": 41.67
+        },
+        "openTower": {
+          "key": "regice",
+          "defender": null,
+          "seconds": 30,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "regice",
+          "damage": 1778,
+          "spawned": 1,
+          "seconds": 33.43
+        }
+      },
+      {
+        "key": "duskull",
+        "name": "Duskull",
+        "cost": 5,
+        "role": "Invocador · apoyo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 598,
+          "nominalDps": 56.25
+        },
+        "openTower": {
+          "key": "duskull",
+          "defender": null,
+          "seconds": 13.2,
+          "damage": 155,
+          "totalTowerDamage": 155,
+          "firstTowerHit": 9.43,
+          "firstIncomingHit": 6.03,
+          "survivingHp": 0,
+          "deployed": 7,
+          "abilityCost": 0
+        },
+        "summons": {
+          "key": "duskull",
+          "target": "ground",
+          "seconds": 30,
+          "damage": 8860,
+          "sustainedDps": 328,
+          "firstHit": 0.87,
+          "releases": 129,
+          "bodiesSpawned": 11
+        }
+      },
+      {
+        "key": "raichu",
+        "name": "Raichu",
+        "cost": 3,
+        "role": "Antitanques · frágil",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 640,
+          "nominalDps": 291.67
+        },
+        "openTower": {
+          "key": "raichu",
+          "defender": null,
+          "seconds": 8.3,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "registeel",
+        "name": "Registeel",
+        "cost": 7,
+        "role": "Antitanques · pesado",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 3200,
+          "nominalDps": 348.39
+        },
+        "openTower": {
+          "key": "registeel",
+          "defender": null,
+          "seconds": 23.27,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 17,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 1020,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "regirock",
+        "name": "Regirock",
+        "cost": 7,
+        "role": "Win condition · tanque",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 5700,
+          "nominalDps": 100
+        },
+        "openTower": {
+          "key": "regirock",
+          "defender": null,
+          "seconds": 45,
+          "damage": 2860,
+          "totalTowerDamage": 2860,
+          "firstTowerHit": 16.63,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 1689,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "regirock",
+            "defender": "pikachu",
+            "seconds": 32.63,
+            "damage": 440,
+            "totalTowerDamage": 440,
+            "firstTowerHit": 25.73,
+            "firstIncomingHit": 2.8,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "regirock",
+            "defender": "magnemite",
+            "seconds": 45,
+            "damage": 1320,
+            "totalTowerDamage": 1320,
+            "firstTowerHit": 23.87,
+            "firstIncomingHit": 3.2,
+            "survivingHp": 221,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "regirock",
+            "defender": "blastoise",
+            "seconds": 45,
+            "damage": 2420,
+            "totalTowerDamage": 3046,
+            "firstTowerHit": 21.7,
+            "firstIncomingHit": 4.73,
+            "survivingHp": 737,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "celebi",
+        "name": "Celebi",
+        "cost": 4,
+        "role": "Win condition · aérea",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 950,
+          "nominalDps": 122.22
+        },
+        "openTower": {
+          "key": "celebi",
+          "defender": null,
+          "seconds": 10.83,
+          "damage": 440,
+          "totalTowerDamage": 440,
+          "firstTowerHit": 7.93,
+          "firstIncomingHit": 4.37,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "celebi",
+            "defender": "pikachu",
+            "seconds": 6.5,
+            "damage": 0,
+            "totalTowerDamage": 0,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.4,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "celebi",
+            "defender": "magnemite",
+            "seconds": 8.67,
+            "damage": 0,
+            "totalTowerDamage": 0,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.67,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "celebi",
+            "defender": "blastoise",
+            "seconds": 7.67,
+            "damage": 0,
+            "totalTowerDamage": 440,
+            "firstTowerHit": null,
+            "firstIncomingHit": 3.27,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "pandilla",
+        "name": "Pandilla Rocket",
+        "cost": 3,
+        "role": "Enjambre · mixto",
+        "deployment": {
+          "bodies": 5,
+          "totalHp": 872,
+          "nominalDps": 422.57
+        },
+        "openTower": {
+          "key": "pandilla",
+          "defender": null,
+          "seconds": 11.77,
+          "damage": 162,
+          "totalTowerDamage": 162,
+          "firstTowerHit": 9.73,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 5,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "pinMissile",
+        "name": "Pin misil",
+        "cost": 3,
+        "role": "Hechizo · antienjambre",
+        "damage": [
+          {
+            "key": "pinMissile",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 366,
+            "sustainedDps": 0,
+            "firstHit": 0.57,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "pinMissile",
+            "target": "air",
+            "seconds": 25,
+            "damage": 366,
+            "sustainedDps": 0,
+            "firstHit": 0.57,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "pinMissile",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 110,
+            "sustainedDps": 0,
+            "firstHit": 0.57,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "pinMissile",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.57
+          },
+          {
+            "key": "pinMissile",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "pinMissile",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.57
+          },
+          {
+            "key": "pinMissile",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          }
+        ]
+      },
+      {
+        "key": "lightning",
+        "name": "Rayo",
+        "cost": 6,
+        "role": "Hechizo · daño selectivo",
+        "damage": [
+          {
+            "key": "lightning",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 1056,
+            "sustainedDps": 0,
+            "firstHit": 0.73,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "lightning",
+            "target": "air",
+            "seconds": 25,
+            "damage": 1056,
+            "sustainedDps": 0,
+            "firstHit": 0.73,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "lightning",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 317,
+            "sustainedDps": 0,
+            "firstHit": 0.73,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "lightning",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.73
+          },
+          {
+            "key": "lightning",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "lightning",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.73
+          },
+          {
+            "key": "lightning",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          }
+        ]
+      },
+      {
+        "key": "hyperBeam",
+        "name": "Hiperrayo",
+        "cost": 6,
+        "role": "Hechizo · daño pesado",
+        "damage": [
+          {
+            "key": "hyperBeam",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 1484,
+            "sustainedDps": 0,
+            "firstHit": 1.6,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "hyperBeam",
+            "target": "air",
+            "seconds": 25,
+            "damage": 1484,
+            "sustainedDps": 0,
+            "firstHit": 1.6,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "hyperBeam",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 371,
+            "sustainedDps": 0,
+            "firstHit": 1.6,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "hyperBeam",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.6
+          },
+          {
+            "key": "hyperBeam",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.6
+          },
+          {
+            "key": "hyperBeam",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.6
+          },
+          {
+            "key": "hyperBeam",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.6
+          }
+        ]
+      },
+      {
+        "key": "blizzard",
+        "name": "Ventisca",
+        "cost": 4,
+        "role": "Hechizo · congelación",
+        "damage": [
+          {
+            "key": "blizzard",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 45,
+            "sustainedDps": 0,
+            "firstHit": 0.37,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "blizzard",
+            "target": "air",
+            "seconds": 25,
+            "damage": 45,
+            "sustainedDps": 0,
+            "firstHit": 0.37,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "blizzard",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 14,
+            "sustainedDps": 0,
+            "firstHit": 0.37,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "blizzard",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "blizzard",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "blizzard",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "blizzard",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          }
+        ]
+      },
+      {
+        "key": "spikes",
+        "name": "Púas",
+        "cost": 3,
+        "role": "Hechizo · zona terrestre",
+        "damage": [
+          {
+            "key": "spikes",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 784,
+            "sustainedDps": 14,
+            "firstHit": 0.87,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "spikes",
+            "target": "air",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "spikes",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "spikes",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.37
+          },
+          {
+            "key": "spikes",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.37
+          },
+          {
+            "key": "spikes",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "spikes",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.37
+          }
+        ]
+      },
+      {
+        "key": "stealthRock",
+        "name": "Trampa rocas",
+        "cost": 3,
+        "role": "Hechizo · zona antiaérea",
+        "damage": [
+          {
+            "key": "stealthRock",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 360,
+            "sustainedDps": 4.5,
+            "firstHit": 0.87,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "stealthRock",
+            "target": "air",
+            "seconds": 25,
+            "damage": 720,
+            "sustainedDps": 9,
+            "firstHit": 0.87,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "stealthRock",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "stealthRock",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.87
+          },
+          {
+            "key": "stealthRock",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.87
+          },
+          {
+            "key": "stealthRock",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.37
+          },
+          {
+            "key": "stealthRock",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.87
+          }
+        ]
+      },
+      {
+        "key": "whirlpool",
+        "name": "Remolino",
+        "cost": 3,
+        "role": "Hechizo · atracción",
+        "damage": [
+          {
+            "key": "whirlpool",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 100,
+            "sustainedDps": 0,
+            "firstHit": 0.83,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "whirlpool",
+            "target": "air",
+            "seconds": 25,
+            "damage": 100,
+            "sustainedDps": 0,
+            "firstHit": 0.83,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "whirlpool",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "whirlpool",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 2.83
+          },
+          {
+            "key": "whirlpool",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 2.83
+          },
+          {
+            "key": "whirlpool",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 2.83
+          },
+          {
+            "key": "whirlpool",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 2.83
+          }
+        ]
+      },
+      {
+        "key": "nightmare",
+        "name": "Pesadilla",
+        "cost": 5,
+        "role": "Hechizo · invocación",
+        "damage": [
+          {
+            "key": "nightmare",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 7085,
+            "sustainedDps": 315.25,
+            "firstHit": 1.3,
+            "releases": 109,
+            "bodiesSpawned": 8
+          },
+          {
+            "key": "nightmare",
+            "target": "air",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 8
+          },
+          {
+            "key": "nightmare",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 7280,
+            "sustainedDps": 321.75,
+            "firstHit": 1.3,
+            "releases": 112,
+            "bodiesSpawned": 8
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "nightmare",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 3.7
+          },
+          {
+            "key": "nightmare",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 3.7
+          },
+          {
+            "key": "nightmare",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "nightmare",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 3.7
+          }
+        ]
+      },
+      {
+        "key": "earthquake",
+        "name": "Terremoto",
+        "cost": 3,
+        "role": "Hechizo · antiestructuras",
+        "damage": [
+          {
+            "key": "earthquake",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 195,
+            "sustainedDps": 0,
+            "firstHit": 0.83,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "earthquake",
+            "target": "air",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "earthquake",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 36,
+            "sustainedDps": 0,
+            "firstHit": 0.83,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "earthquake",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.83
+          },
+          {
+            "key": "earthquake",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.83
+          },
+          {
+            "key": "earthquake",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "earthquake",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.83
+          }
+        ]
+      }
+    ],
+    "unprotectedDefense": {
+      "key": null,
+      "damage": 3000,
+      "spawned": 0,
+      "seconds": 37.43
+    }
+  },
+  "after": {
+    "protocol": {
+      "fps": 30,
+      "seed": 120112,
+      "towerPushSeconds": 45,
+      "attackDeployment": [
+        158,
+        520
+      ],
+      "defenseDeployment": [
+        240,
+        520
+      ]
+    },
+    "cards": [
+      {
+        "key": "pikachu",
+        "name": "Pikachu",
+        "cost": 4,
+        "role": "Control · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 714,
+          "nominalDps": 127.78
+        },
+        "openTower": {
+          "key": "pikachu",
+          "defender": null,
+          "seconds": 9.53,
+          "damage": 460,
+          "totalTowerDamage": 460,
+          "firstTowerHit": 6.5,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "squirtle",
+        "name": "Squirtle",
+        "cost": 2,
+        "role": "Tirador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 400,
+          "nominalDps": 57.93
+        },
+        "openTower": {
+          "key": "squirtle",
+          "defender": null,
+          "seconds": 7.63,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "charmander",
+        "name": "Charmander",
+        "cost": 3,
+        "role": "Tirador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 440,
+          "nominalDps": 90
+        },
+        "openTower": {
+          "key": "charmander",
+          "defender": null,
+          "seconds": 7.6,
+          "damage": 135,
+          "totalTowerDamage": 135,
+          "firstTowerHit": 7.17,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "snorlax",
+        "name": "Snorlax",
+        "cost": 5,
+        "role": "Win condition · tanque",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 4091,
+          "nominalDps": 169.33
+        },
+        "openTower": {
+          "key": "snorlax",
+          "defender": null,
+          "seconds": 33.2,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 16.7,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 603,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "snorlax",
+            "defender": "pikachu",
+            "seconds": 20.87,
+            "damage": 0,
+            "totalTowerDamage": 0,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.87,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "snorlax",
+            "defender": "magnemite",
+            "seconds": 29.5,
+            "damage": 1524,
+            "totalTowerDamage": 1524,
+            "firstTowerHit": 20.9,
+            "firstIncomingHit": 3.2,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "snorlax",
+            "defender": "blastoise",
+            "seconds": 29.43,
+            "damage": 1778,
+            "totalTowerDamage": 2450,
+            "firstTowerHit": 20.27,
+            "firstIncomingHit": 4.93,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "zubat",
+        "name": "Zubat",
+        "cost": 2,
+        "role": "Enjambre · aéreo",
+        "deployment": {
+          "bodies": 3,
+          "totalHp": 540,
+          "nominalDps": 150
+        },
+        "openTower": {
+          "key": "zubat",
+          "defender": null,
+          "seconds": 8.63,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 4.63,
+          "survivingHp": 0,
+          "deployed": 3,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "charizard",
+        "name": "Charizard",
+        "cost": 5,
+        "role": "Mini tanque · aéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1526,
+          "nominalDps": 120
+        },
+        "openTower": {
+          "key": "charizard",
+          "defender": null,
+          "seconds": 15.93,
+          "damage": 1080,
+          "totalTowerDamage": 1080,
+          "firstTowerHit": 8,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "thunder",
+        "name": "Impactrueno",
+        "cost": 2,
+        "role": "Hechizo · aturde",
+        "damage": [
+          {
+            "key": "thunder",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 192,
+            "sustainedDps": 0,
+            "firstHit": 0.43,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "thunder",
+            "target": "air",
+            "seconds": 25,
+            "damage": 192,
+            "sustainedDps": 0,
+            "firstHit": 0.43,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "thunder",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 58,
+            "sustainedDps": 0,
+            "firstHit": 0.43,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "thunder",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.43
+          },
+          {
+            "key": "thunder",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "thunder",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.43
+          },
+          {
+            "key": "thunder",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          }
+        ]
+      },
+      {
+        "key": "fireball",
+        "name": "Bomba ígnea",
+        "cost": 4,
+        "role": "Hechizo · área",
+        "damage": [
+          {
+            "key": "fireball",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 689,
+            "sustainedDps": 0,
+            "firstHit": 0.73,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "fireball",
+            "target": "air",
+            "seconds": 25,
+            "damage": 689,
+            "sustainedDps": 0,
+            "firstHit": 0.73,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "fireball",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 207,
+            "sustainedDps": 0,
+            "firstHit": 0.73,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "fireball",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.13
+          },
+          {
+            "key": "fireball",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.13
+          },
+          {
+            "key": "fireball",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.13
+          },
+          {
+            "key": "fireball",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.13
+          }
+        ]
+      },
+      {
+        "key": "bulbasaur",
+        "name": "Bulbasaur",
+        "cost": 2,
+        "role": "Tirador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 400,
+          "nominalDps": 65.38
+        },
+        "openTower": {
+          "key": "bulbasaur",
+          "defender": null,
+          "seconds": 7.63,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "gengar",
+        "name": "Gengar",
+        "cost": 4,
+        "role": "Tirador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 650,
+          "nominalDps": 86.21
+        },
+        "openTower": {
+          "key": "gengar",
+          "defender": null,
+          "seconds": 7.73,
+          "damage": 250,
+          "totalTowerDamage": 250,
+          "firstTowerHit": 5.5,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "machamp",
+        "name": "Machamp",
+        "cost": 4,
+        "role": "Antitanques · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1361,
+          "nominalDps": 400
+        },
+        "openTower": {
+          "key": "machamp",
+          "defender": null,
+          "seconds": 14.93,
+          "damage": 1440,
+          "totalTowerDamage": 1440,
+          "firstTowerHit": 11.53,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "eevee",
+        "name": "Eevee",
+        "cost": 2,
+        "role": "Ciclo · presión",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 300,
+          "nominalDps": 94.74
+        },
+        "openTower": {
+          "key": "eevee",
+          "defender": null,
+          "seconds": 4.5,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.07,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "onix",
+        "name": "Onix",
+        "cost": 4,
+        "role": "Win condition · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1950,
+          "nominalDps": 133.33
+        },
+        "openTower": {
+          "key": "onix",
+          "defender": null,
+          "seconds": 18.5,
+          "damage": 1200,
+          "totalTowerDamage": 1200,
+          "firstTowerHit": 9.7,
+          "firstIncomingHit": 4.63,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "onix",
+            "defender": "pikachu",
+            "seconds": 11.23,
+            "damage": 0,
+            "totalTowerDamage": 0,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.37,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "onix",
+            "defender": "magnemite",
+            "seconds": 14.63,
+            "damage": 480,
+            "totalTowerDamage": 480,
+            "firstTowerHit": 11.2,
+            "firstIncomingHit": 2.67,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "onix",
+            "defender": "blastoise",
+            "seconds": 12,
+            "damage": 0,
+            "totalTowerDamage": 720,
+            "firstTowerHit": null,
+            "firstIncomingHit": 3.23,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "blastoise",
+        "name": "Blastoise",
+        "cost": 4,
+        "role": "Estructura · antiaérea",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1200,
+          "nominalDps": 94.44
+        },
+        "openTower": {
+          "key": "blastoise",
+          "defender": null,
+          "seconds": 35,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "blastoise",
+          "damage": 1270,
+          "spawned": 1,
+          "seconds": 27.87
+        }
+      },
+      {
+        "key": "vulpix",
+        "name": "Vulpix",
+        "cost": 3,
+        "role": "Tirador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 440,
+          "nominalDps": 107.14
+        },
+        "openTower": {
+          "key": "vulpix",
+          "defender": null,
+          "seconds": 7.6,
+          "damage": 150,
+          "totalTowerDamage": 150,
+          "firstTowerHit": 7.1,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "psyduck",
+        "name": "Psyduck",
+        "cost": 3,
+        "role": "Tirador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 560,
+          "nominalDps": 78.57
+        },
+        "openTower": {
+          "key": "psyduck",
+          "defender": null,
+          "seconds": 9.57,
+          "damage": 110,
+          "totalTowerDamage": 110,
+          "firstTowerHit": 8.43,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "alakazam",
+        "name": "Alakazam",
+        "cost": 4,
+        "role": "Tirador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 590,
+          "nominalDps": 120.91
+        },
+        "openTower": {
+          "key": "alakazam",
+          "defender": null,
+          "seconds": 9.4,
+          "damage": 399,
+          "totalTowerDamage": 399,
+          "firstTowerHit": 6.17,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "geodude",
+        "name": "Geodude",
+        "cost": 3,
+        "role": "Mini tanque · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1766,
+          "nominalDps": 168.33
+        },
+        "openTower": {
+          "key": "geodude",
+          "defender": null,
+          "seconds": 20.27,
+          "damage": 808,
+          "totalTowerDamage": 808,
+          "firstTowerHit": 16.47,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "magnemite",
+        "name": "Magnemite",
+        "cost": 3,
+        "role": "Volador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 400,
+          "nominalDps": 45
+        },
+        "openTower": {
+          "key": "magnemite",
+          "defender": null,
+          "seconds": 7.67,
+          "damage": 81,
+          "totalTowerDamage": 81,
+          "firstTowerHit": 7.53,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "scyther",
+        "name": "Scyther",
+        "cost": 4,
+        "role": "Volador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 650,
+          "nominalDps": 108.33
+        },
+        "openTower": {
+          "key": "scyther",
+          "defender": null,
+          "seconds": 7.5,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.63,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "lapras",
+        "name": "Lapras",
+        "cost": 5,
+        "role": "Mini tanque · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1500,
+          "nominalDps": 91.43
+        },
+        "openTower": {
+          "key": "lapras",
+          "defender": null,
+          "seconds": 18,
+          "damage": 800,
+          "totalTowerDamage": 800,
+          "firstTowerHit": 10.87,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "mewtwo",
+        "name": "Mewtwo",
+        "cost": 6,
+        "role": "Tirador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1452,
+          "nominalDps": 157.14
+        },
+        "openTower": {
+          "key": "mewtwo",
+          "defender": null,
+          "seconds": 16.03,
+          "damage": 1320,
+          "totalTowerDamage": 1320,
+          "firstTowerHit": 8.17,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "mewtwo",
+          "defender": "pikachu",
+          "seconds": 17.03,
+          "damage": 880,
+          "totalTowerDamage": 1594,
+          "firstTowerHit": 12.5,
+          "firstIncomingHit": 4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 2
+        }
+      },
+      {
+        "key": "treecko",
+        "name": "Treecko",
+        "cost": 3,
+        "role": "Tiradores · dúo",
+        "deployment": {
+          "bodies": 2,
+          "totalHp": 608,
+          "nominalDps": 248.89
+        },
+        "openTower": {
+          "key": "treecko",
+          "defender": null,
+          "seconds": 9.3,
+          "damage": 112,
+          "totalTowerDamage": 112,
+          "firstTowerHit": 8.97,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 2,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "golem",
+        "name": "Golem",
+        "cost": 8,
+        "role": "Win condition · tanque",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 5120,
+          "nominalDps": 124.8
+        },
+        "openTower": {
+          "key": "golem",
+          "defender": null,
+          "seconds": 39.1,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 16.6,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 869,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "golem",
+            "defender": "pikachu",
+            "seconds": 31.87,
+            "damage": 676,
+            "totalTowerDamage": 676,
+            "firstTowerHit": 24.4,
+            "firstIncomingHit": 2.8,
+            "survivingHp": 0,
+            "deployed": 3,
+            "abilityCost": 0
+          },
+          {
+            "key": "golem",
+            "defender": "magnemite",
+            "seconds": 45,
+            "damage": 2704,
+            "totalTowerDamage": 2704,
+            "firstTowerHit": 21.93,
+            "firstIncomingHit": 3.2,
+            "survivingHp": 302,
+            "deployed": 3,
+            "abilityCost": 0
+          },
+          {
+            "key": "golem",
+            "defender": "blastoise",
+            "seconds": 42.63,
+            "damage": 3000,
+            "totalTowerDamage": 3624,
+            "firstTowerHit": 21.63,
+            "firstIncomingHit": 4.77,
+            "survivingHp": 1146,
+            "deployed": 3,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "log",
+        "name": "Mazazo",
+        "cost": 2,
+        "role": "Hechizo · empuje",
+        "damage": [
+          {
+            "key": "log",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 290,
+            "sustainedDps": 0,
+            "firstHit": 0.03,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "log",
+            "target": "air",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "log",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 58,
+            "sustainedDps": 0,
+            "firstHit": 0.03,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "log",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.73
+          },
+          {
+            "key": "log",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.73
+          },
+          {
+            "key": "log",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "log",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.73
+          }
+        ]
+      },
+      {
+        "key": "diglett",
+        "name": "Diglett",
+        "cost": 1,
+        "role": "Ciclo · distracción",
+        "deployment": {
+          "bodies": 3,
+          "totalHp": 243,
+          "nominalDps": 243
+        },
+        "openTower": {
+          "key": "diglett",
+          "defender": null,
+          "seconds": 6.1,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 4.47,
+          "survivingHp": 0,
+          "deployed": 3,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "diglettHorde",
+        "name": "Horda Diglett",
+        "cost": 3,
+        "role": "Enjambre · terrestre",
+        "deployment": {
+          "bodies": 9,
+          "totalHp": 729,
+          "nominalDps": 729
+        },
+        "openTower": {
+          "key": "diglettHorde",
+          "defender": null,
+          "seconds": 10.17,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 9,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "raltsTrio",
+        "name": "Trío Ralts",
+        "cost": 2,
+        "role": "Enjambre · antiaéreo",
+        "deployment": {
+          "bodies": 3,
+          "totalHp": 399,
+          "nominalDps": 142.94
+        },
+        "openTower": {
+          "key": "raltsTrio",
+          "defender": null,
+          "seconds": 9.33,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 5.3,
+          "survivingHp": 0,
+          "deployed": 3,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "poochyenaPack",
+        "name": "Manada Poochyena",
+        "cost": 2,
+        "role": "Enjambre · terrestre",
+        "deployment": {
+          "bodies": 4,
+          "totalHp": 808,
+          "nominalDps": 436.36
+        },
+        "openTower": {
+          "key": "poochyenaPack",
+          "defender": null,
+          "seconds": 9.23,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 4,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "venusaur",
+        "name": "Venusaur",
+        "cost": 5,
+        "role": "Mini tanque · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1900,
+          "nominalDps": 73.68
+        },
+        "openTower": {
+          "key": "venusaur",
+          "defender": null,
+          "seconds": 21.33,
+          "damage": 840,
+          "totalTowerDamage": 840,
+          "firstTowerHit": 11.07,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "butterfree",
+        "name": "Butterfree",
+        "cost": 3,
+        "role": "Volador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 440,
+          "nominalDps": 45
+        },
+        "openTower": {
+          "key": "butterfree",
+          "defender": null,
+          "seconds": 8.43,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "beedrill",
+        "name": "Beedrill",
+        "cost": 3,
+        "role": "Enjambre · aéreo",
+        "deployment": {
+          "bodies": 2,
+          "totalHp": 520,
+          "nominalDps": 261.54
+        },
+        "openTower": {
+          "key": "beedrill",
+          "defender": null,
+          "seconds": 7.5,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.63,
+          "survivingHp": 0,
+          "deployed": 2,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "pidgeot",
+        "name": "Pidgeot",
+        "cost": 4,
+        "role": "Volador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1052,
+          "nominalDps": 126.92
+        },
+        "openTower": {
+          "key": "pidgeot",
+          "defender": null,
+          "seconds": 10.17,
+          "damage": 825,
+          "totalTowerDamage": 825,
+          "firstTowerHit": 5.23,
+          "firstIncomingHit": 2.93,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "ekans",
+        "name": "Ekans",
+        "cost": 2,
+        "role": "Enjambre · terrestre",
+        "deployment": {
+          "bodies": 2,
+          "totalHp": 500,
+          "nominalDps": 100
+        },
+        "openTower": {
+          "key": "ekans",
+          "defender": null,
+          "seconds": 8.33,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 2,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "sandshrew",
+        "name": "Sandshrew",
+        "cost": 3,
+        "role": "Enjambre · terrestre",
+        "deployment": {
+          "bodies": 2,
+          "totalHp": 920,
+          "nominalDps": 220
+        },
+        "openTower": {
+          "key": "sandshrew",
+          "defender": null,
+          "seconds": 13.23,
+          "damage": 363,
+          "totalTowerDamage": 363,
+          "firstTowerHit": 10,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 2,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "nidoqueen",
+        "name": "Nidoqueen",
+        "cost": 6,
+        "role": "Tanque · invocadora",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2800,
+          "nominalDps": 103.13
+        },
+        "openTower": {
+          "key": "nidoqueen",
+          "defender": null,
+          "seconds": 29.43,
+          "damage": 1925,
+          "totalTowerDamage": 1925,
+          "firstTowerHit": 12.2,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 4,
+          "abilityCost": 0
+        },
+        "summons": {
+          "key": "nidoqueen",
+          "target": "ground",
+          "seconds": 30,
+          "damage": 4316,
+          "sustainedDps": 152.84,
+          "firstHit": 1.13,
+          "releases": 50,
+          "bodiesSpawned": 5
+        }
+      },
+      {
+        "key": "nidoking",
+        "name": "Nidoking",
+        "cost": 5,
+        "role": "Antitanques · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2200,
+          "nominalDps": 187.5
+        },
+        "openTower": {
+          "key": "nidoking",
+          "defender": null,
+          "seconds": 21.6,
+          "damage": 2148,
+          "totalTowerDamage": 2148,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "mankey",
+        "name": "Mankey",
+        "cost": 2,
+        "role": "Enjambre · terrestre",
+        "deployment": {
+          "bodies": 3,
+          "totalHp": 450,
+          "nominalDps": 200
+        },
+        "openTower": {
+          "key": "mankey",
+          "defender": null,
+          "seconds": 6.9,
+          "damage": 160,
+          "totalTowerDamage": 160,
+          "firstTowerHit": 6.17,
+          "firstIncomingHit": 3.03,
+          "survivingHp": 0,
+          "deployed": 3,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "arcanine",
+        "name": "Arcanine",
+        "cost": 4,
+        "role": "Luchador · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1400,
+          "nominalDps": 157.14
+        },
+        "openTower": {
+          "key": "arcanine",
+          "defender": null,
+          "seconds": 12.77,
+          "damage": 1605,
+          "totalTowerDamage": 1605,
+          "firstTowerHit": 5.33,
+          "firstIncomingHit": 3.07,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "slowbro",
+        "name": "Slowbro",
+        "cost": 3,
+        "role": "Tirador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 688,
+          "nominalDps": 52.94
+        },
+        "openTower": {
+          "key": "slowbro",
+          "defender": null,
+          "seconds": 12.17,
+          "damage": 90,
+          "totalTowerDamage": 90,
+          "firstTowerHit": 11.2,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "grimer",
+        "name": "Grimer",
+        "cost": 2,
+        "role": "Mini tanque · zona",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 900,
+          "nominalDps": 36.67
+        },
+        "openTower": {
+          "key": "grimer",
+          "defender": null,
+          "seconds": 13.7,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "cloyster",
+        "name": "Cloyster",
+        "cost": 4,
+        "role": "Estructura · antiaérea",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1095,
+          "nominalDps": 53.85
+        },
+        "openTower": {
+          "key": "cloyster",
+          "defender": null,
+          "seconds": 32,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "cloyster",
+          "damage": 2032,
+          "spawned": 1,
+          "seconds": 32.03
+        }
+      },
+      {
+        "key": "gastly",
+        "name": "Gastly",
+        "cost": 2,
+        "role": "Enjambre · aéreo",
+        "deployment": {
+          "bodies": 4,
+          "totalHp": 324,
+          "nominalDps": 107.69
+        },
+        "openTower": {
+          "key": "gastly",
+          "defender": null,
+          "seconds": 6.07,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.63,
+          "survivingHp": 0,
+          "deployed": 4,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "voltorb",
+        "name": "Voltorb",
+        "cost": 1,
+        "role": "Ciclo · antienjambre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 230,
+          "nominalDps": 82.14
+        },
+        "openTower": {
+          "key": "voltorb",
+          "defender": null,
+          "seconds": 5.2,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "forretress",
+        "name": "Forretress",
+        "cost": 4,
+        "role": "Win condition · explosiva",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1200,
+          "nominalDps": 375
+        },
+        "openTower": {
+          "key": "forretress",
+          "defender": null,
+          "seconds": 9.63,
+          "damage": 600,
+          "totalTowerDamage": 600,
+          "firstTowerHit": 9.63,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "forretress",
+            "defender": "pikachu",
+            "seconds": 7.83,
+            "damage": 0,
+            "totalTowerDamage": 1,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.43,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "forretress",
+            "defender": "magnemite",
+            "seconds": 10.23,
+            "damage": 0,
+            "totalTowerDamage": 1,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.7,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "forretress",
+            "defender": "blastoise",
+            "seconds": 7.23,
+            "damage": 0,
+            "totalTowerDamage": 601,
+            "firstTowerHit": null,
+            "firstIncomingHit": 3.33,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "exeggutor",
+        "name": "Exeggutor",
+        "cost": 5,
+        "role": "Mini tanque · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1750,
+          "nominalDps": 121.05
+        },
+        "openTower": {
+          "key": "exeggutor",
+          "defender": null,
+          "seconds": 20.47,
+          "damage": 1150,
+          "totalTowerDamage": 1150,
+          "firstTowerHit": 12.03,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "koffing",
+        "name": "Koffing",
+        "cost": 3,
+        "role": "Volador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 700,
+          "nominalDps": 52.94
+        },
+        "openTower": {
+          "key": "koffing",
+          "defender": null,
+          "seconds": 10,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "chansey",
+        "name": "Chansey",
+        "cost": 3,
+        "role": "Apoyo · curación",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 800,
+          "nominalDps": 10
+        },
+        "openTower": {
+          "key": "chansey",
+          "defender": null,
+          "seconds": 10.93,
+          "damage": 18,
+          "totalTowerDamage": 18,
+          "firstTowerHit": 9.37,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "kangaskhan",
+        "name": "Kangaskhan",
+        "cost": 5,
+        "role": "Mini tanque · refuerzos",
+        "deployment": {
+          "bodies": 2,
+          "totalHp": 2800,
+          "nominalDps": 211.54
+        },
+        "openTower": {
+          "key": "kangaskhan",
+          "defender": null,
+          "seconds": 25.33,
+          "damage": 2250,
+          "totalTowerDamage": 2250,
+          "firstTowerHit": 11.83,
+          "firstIncomingHit": 7.27,
+          "survivingHp": 0,
+          "deployed": 2,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "starmie",
+        "name": "Starmie",
+        "cost": 4,
+        "role": "Tirador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 550,
+          "nominalDps": 150
+        },
+        "openTower": {
+          "key": "starmie",
+          "defender": null,
+          "seconds": 8.5,
+          "damage": 540,
+          "totalTowerDamage": 540,
+          "firstTowerHit": 5.8,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "mrmime",
+        "name": "Mr. Mime",
+        "cost": 4,
+        "role": "Apoyo · escudos",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 790,
+          "nominalDps": 60
+        },
+        "openTower": {
+          "key": "mrmime",
+          "defender": null,
+          "seconds": 11,
+          "damage": 270,
+          "totalTowerDamage": 270,
+          "firstTowerHit": 7.97,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "gyarados",
+        "name": "Gyarados",
+        "cost": 6,
+        "role": "Tanque · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2600,
+          "nominalDps": 133.33
+        },
+        "openTower": {
+          "key": "gyarados",
+          "defender": null,
+          "seconds": 24.1,
+          "damage": 1920,
+          "totalTowerDamage": 1920,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "ditto",
+        "name": "Ditto",
+        "cost": 3,
+        "role": "Apoyo · copia",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 508,
+          "nominalDps": 25
+        },
+        "openTower": {
+          "key": "ditto",
+          "defender": null,
+          "seconds": 7.53,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "articuno",
+        "name": "Articuno",
+        "cost": 5,
+        "role": "Volador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1400,
+          "nominalDps": 80.56
+        },
+        "openTower": {
+          "key": "articuno",
+          "defender": null,
+          "seconds": 15.17,
+          "damage": 725,
+          "totalTowerDamage": 725,
+          "firstTowerHit": 7.3,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "articuno",
+          "defender": "pikachu",
+          "seconds": 18.5,
+          "damage": 290,
+          "totalTowerDamage": 1004,
+          "firstTowerHit": 15.63,
+          "firstIncomingHit": 5.33,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 2
+        }
+      },
+      {
+        "key": "zapdos",
+        "name": "Zapdos",
+        "cost": 5,
+        "role": "Volador · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1200,
+          "nominalDps": 83.33
+        },
+        "openTower": {
+          "key": "zapdos",
+          "defender": null,
+          "seconds": 15.23,
+          "damage": 750,
+          "totalTowerDamage": 750,
+          "firstTowerHit": 7.03,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "zapdos",
+          "defender": "pikachu",
+          "seconds": 15.13,
+          "damage": 300,
+          "totalTowerDamage": 1014,
+          "firstTowerHit": 13.3,
+          "firstIncomingHit": 3.93,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 2
+        }
+      },
+      {
+        "key": "moltres",
+        "name": "Moltres",
+        "cost": 5,
+        "role": "Volador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1350,
+          "nominalDps": 91.67
+        },
+        "openTower": {
+          "key": "moltres",
+          "defender": null,
+          "seconds": 15.17,
+          "damage": 903,
+          "totalTowerDamage": 903,
+          "firstTowerHit": 7.53,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "moltres",
+          "defender": "pikachu",
+          "seconds": 15.43,
+          "damage": 356,
+          "totalTowerDamage": 1070,
+          "firstTowerHit": 12.8,
+          "firstIncomingHit": 3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 2
+        }
+      },
+      {
+        "key": "dragonite",
+        "name": "Dragonite",
+        "cost": 5,
+        "role": "Volador · antitanques",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1600,
+          "nominalDps": 134.21
+        },
+        "openTower": {
+          "key": "dragonite",
+          "defender": null,
+          "seconds": 16.6,
+          "damage": 765,
+          "totalTowerDamage": 765,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "meganium",
+        "name": "Meganium",
+        "cost": 5,
+        "role": "Tanque · curación",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2400,
+          "nominalDps": 61.76
+        },
+        "openTower": {
+          "key": "meganium",
+          "defender": null,
+          "seconds": 25.43,
+          "damage": 840,
+          "totalTowerDamage": 840,
+          "firstTowerHit": 12.8,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "typhlosion",
+        "name": "Typhlosion",
+        "cost": 5,
+        "role": "Tirador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1130,
+          "nominalDps": 83.33
+        },
+        "openTower": {
+          "key": "typhlosion",
+          "defender": null,
+          "seconds": 13.5,
+          "damage": 645,
+          "totalTowerDamage": 645,
+          "firstTowerHit": 8.07,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "feraligatr",
+        "name": "Feraligatr",
+        "cost": 4,
+        "role": "Antitanques · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1900,
+          "nominalDps": 193.55
+        },
+        "openTower": {
+          "key": "feraligatr",
+          "defender": null,
+          "seconds": 19.1,
+          "damage": 1500,
+          "totalTowerDamage": 1500,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "crobat",
+        "name": "Crobat",
+        "cost": 4,
+        "role": "Volador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 900,
+          "nominalDps": 100
+        },
+        "openTower": {
+          "key": "crobat",
+          "defender": null,
+          "seconds": 10,
+          "damage": 300,
+          "totalTowerDamage": 300,
+          "firstTowerHit": 7.57,
+          "firstIncomingHit": 3.63,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "ampharos",
+        "name": "Ampharos",
+        "cost": 5,
+        "role": "Estructura · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1600,
+          "nominalDps": 84.85
+        },
+        "openTower": {
+          "key": "ampharos",
+          "defender": null,
+          "seconds": 36,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "ampharos",
+          "damage": 508,
+          "spawned": 1,
+          "seconds": 27.1
+        }
+      },
+      {
+        "key": "espeon",
+        "name": "Espeon",
+        "cost": 3,
+        "role": "Tirador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 460,
+          "nominalDps": 110
+        },
+        "openTower": {
+          "key": "espeon",
+          "defender": null,
+          "seconds": 7.67,
+          "damage": 220,
+          "totalTowerDamage": 220,
+          "firstTowerHit": 5.8,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "umbreon",
+        "name": "Umbreon",
+        "cost": 3,
+        "role": "Mini tanque · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2100,
+          "nominalDps": 70.59
+        },
+        "openTower": {
+          "key": "umbreon",
+          "defender": null,
+          "seconds": 20.77,
+          "damage": 800,
+          "totalTowerDamage": 800,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "wobbuffet",
+        "name": "Wobbuffet",
+        "cost": 4,
+        "role": "Estructura · reflejo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1900,
+          "nominalDps": 0
+        },
+        "openTower": {
+          "key": "wobbuffet",
+          "defender": null,
+          "seconds": 35,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "wobbuffet",
+          "damage": 1778,
+          "spawned": 1,
+          "seconds": 32.87
+        }
+      },
+      {
+        "key": "steelix",
+        "name": "Steelix",
+        "cost": 6,
+        "role": "Win condition · tanque",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 4500,
+          "nominalDps": 140.91
+        },
+        "openTower": {
+          "key": "steelix",
+          "defender": null,
+          "seconds": 36.2,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 16.4,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 1165,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "steelix",
+            "defender": "pikachu",
+            "seconds": 25.93,
+            "damage": 310,
+            "totalTowerDamage": 310,
+            "firstTowerHit": 25.4,
+            "firstIncomingHit": 2.8,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "steelix",
+            "defender": "magnemite",
+            "seconds": 36.17,
+            "damage": 2170,
+            "totalTowerDamage": 2170,
+            "firstTowerHit": 19.1,
+            "firstIncomingHit": 3.2,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "steelix",
+            "defender": "blastoise",
+            "seconds": 37.77,
+            "damage": 2480,
+            "totalTowerDamage": 3113,
+            "firstTowerHit": 21.13,
+            "firstIncomingHit": 4.73,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "scizor",
+        "name": "Scizor",
+        "cost": 4,
+        "role": "Luchador · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1440,
+          "nominalDps": 207.69
+        },
+        "openTower": {
+          "key": "scizor",
+          "defender": null,
+          "seconds": 15.73,
+          "damage": 1350,
+          "totalTowerDamage": 1350,
+          "firstTowerHit": 9.37,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "skarmory",
+        "name": "Skarmory",
+        "cost": 4,
+        "role": "Volador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 980,
+          "nominalDps": 54
+        },
+        "openTower": {
+          "key": "skarmory",
+          "defender": null,
+          "seconds": 11.57,
+          "damage": 162,
+          "totalTowerDamage": 162,
+          "firstTowerHit": 9.37,
+          "firstIncomingHit": 4.37,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "blissey",
+        "name": "Blissey",
+        "cost": 5,
+        "role": "Mini tanque · curación",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1800,
+          "nominalDps": 17.5
+        },
+        "openTower": {
+          "key": "blissey",
+          "defender": null,
+          "seconds": 20.43,
+          "damage": 140,
+          "totalTowerDamage": 140,
+          "firstTowerHit": 13.17,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "lugia",
+        "name": "Lugia",
+        "cost": 7,
+        "role": "Tanque aéreo · apoyo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 3300,
+          "nominalDps": 75
+        },
+        "openTower": {
+          "key": "lugia",
+          "defender": null,
+          "seconds": 30.2,
+          "damage": 1800,
+          "totalTowerDamage": 1800,
+          "firstTowerHit": 6.97,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "lugia",
+          "defender": "pikachu",
+          "seconds": 34.8,
+          "damage": 1440,
+          "totalTowerDamage": 2154,
+          "firstTowerHit": 16.57,
+          "firstIncomingHit": 3.1,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 2
+        }
+      },
+      {
+        "key": "hooh",
+        "name": "Ho-Oh",
+        "cost": 7,
+        "role": "Tanque aéreo · curación",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2900,
+          "nominalDps": 93.75
+        },
+        "openTower": {
+          "key": "hooh",
+          "defender": null,
+          "seconds": 26.6,
+          "damage": 1696,
+          "totalTowerDamage": 1696,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "hooh",
+          "defender": "pikachu",
+          "seconds": 16.8,
+          "damage": 0,
+          "totalTowerDamage": 714,
+          "firstTowerHit": null,
+          "firstIncomingHit": 2.63,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 3
+        }
+      },
+      {
+        "key": "sceptile",
+        "name": "Sceptile",
+        "cost": 4,
+        "role": "Tirador · antiaéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 600,
+          "nominalDps": 191.67
+        },
+        "openTower": {
+          "key": "sceptile",
+          "defender": null,
+          "seconds": 7.73,
+          "damage": 575,
+          "totalTowerDamage": 575,
+          "firstTowerHit": 5.27,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "blaziken",
+        "name": "Blaziken",
+        "cost": 4,
+        "role": "Luchador · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1200,
+          "nominalDps": 176.47
+        },
+        "openTower": {
+          "key": "blaziken",
+          "defender": null,
+          "seconds": 13.23,
+          "damage": 920,
+          "totalTowerDamage": 920,
+          "firstTowerHit": 9.37,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "swampert",
+        "name": "Swampert",
+        "cost": 5,
+        "role": "Tanque · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2800,
+          "nominalDps": 105.56
+        },
+        "openTower": {
+          "key": "swampert",
+          "defender": null,
+          "seconds": 27.8,
+          "damage": 1330,
+          "totalTowerDamage": 1330,
+          "firstTowerHit": 16.17,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "gardevoir",
+        "name": "Gardevoir",
+        "cost": 5,
+        "role": "Tirador · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 780,
+          "nominalDps": 175
+        },
+        "openTower": {
+          "key": "gardevoir",
+          "defender": null,
+          "seconds": 11,
+          "damage": 560,
+          "totalTowerDamage": 560,
+          "firstTowerHit": 8.17,
+          "firstIncomingHit": 5.27,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "sableye",
+        "name": "Sableye",
+        "cost": 3,
+        "role": "Asesino · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 800,
+          "nominalDps": 133.33
+        },
+        "openTower": {
+          "key": "sableye",
+          "defender": null,
+          "seconds": 9.17,
+          "damage": 640,
+          "totalTowerDamage": 640,
+          "firstTowerHit": 5.17,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "aggron",
+        "name": "Aggron",
+        "cost": 6,
+        "role": "Tanque · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 3000,
+          "nominalDps": 129.41
+        },
+        "openTower": {
+          "key": "aggron",
+          "defender": null,
+          "seconds": 36.8,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 7.3,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 57,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "sharpedo",
+        "name": "Sharpedo",
+        "cost": 3,
+        "role": "Luchador · terrestre",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 907,
+          "nominalDps": 193
+        },
+        "openTower": {
+          "key": "sharpedo",
+          "defender": null,
+          "seconds": 9.23,
+          "damage": 965,
+          "totalTowerDamage": 965,
+          "firstTowerHit": 5.13,
+          "firstIncomingHit": 2.87,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "flygon",
+        "name": "Flygon",
+        "cost": 5,
+        "role": "Mini tanque · aéreo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1650,
+          "nominalDps": 91.67
+        },
+        "openTower": {
+          "key": "flygon",
+          "defender": null,
+          "seconds": 16.57,
+          "damage": 825,
+          "totalTowerDamage": 825,
+          "firstTowerHit": 9.37,
+          "firstIncomingHit": 4.37,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "altaria",
+        "name": "Altaria",
+        "cost": 4,
+        "role": "Volador · curación",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 900,
+          "nominalDps": 46.88
+        },
+        "openTower": {
+          "key": "altaria",
+          "defender": null,
+          "seconds": 11.77,
+          "damage": 150,
+          "totalTowerDamage": 150,
+          "firstTowerHit": 8.8,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "absol",
+        "name": "Absol",
+        "cost": 4,
+        "role": "Asesino · rematador",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1100,
+          "nominalDps": 142.86
+        },
+        "openTower": {
+          "key": "absol",
+          "defender": null,
+          "seconds": 11.67,
+          "damage": 600,
+          "totalTowerDamage": 600,
+          "firstTowerHit": 7.57,
+          "firstIncomingHit": 3.67,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "salamence",
+        "name": "Salamence",
+        "cost": 6,
+        "role": "Volador · antitanques",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 2200,
+          "nominalDps": 129.55
+        },
+        "openTower": {
+          "key": "salamence",
+          "defender": null,
+          "seconds": 21.6,
+          "damage": 1710,
+          "totalTowerDamage": 1710,
+          "firstTowerHit": 11.47,
+          "firstIncomingHit": 5.23,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "metagross",
+        "name": "Metagross",
+        "cost": 6,
+        "role": "Tanque · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 3200,
+          "nominalDps": 123.81
+        },
+        "openTower": {
+          "key": "metagross",
+          "defender": null,
+          "seconds": 34.67,
+          "damage": 2340,
+          "totalTowerDamage": 2340,
+          "firstTowerHit": 16.13,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "kyogre",
+        "name": "Kyogre",
+        "cost": 8,
+        "role": "Tanque · área",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 3300,
+          "nominalDps": 133.33
+        },
+        "openTower": {
+          "key": "kyogre",
+          "defender": null,
+          "seconds": 30.43,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 9.83,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 248,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "kyogre",
+          "defender": "pikachu",
+          "seconds": 33.57,
+          "damage": 3000,
+          "totalTowerDamage": 3714,
+          "firstTowerHit": 12.97,
+          "firstIncomingHit": 5.07,
+          "survivingHp": 18,
+          "deployed": 1,
+          "abilityCost": 3
+        }
+      },
+      {
+        "key": "groudon",
+        "name": "Groudon",
+        "cost": 8,
+        "role": "Win condition · tanque",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 4500,
+          "nominalDps": 133.33
+        },
+        "openTower": {
+          "key": "groudon",
+          "defender": null,
+          "seconds": 38.23,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 16.63,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 358,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "groudon",
+            "defender": "pikachu",
+            "seconds": 22.6,
+            "damage": 0,
+            "totalTowerDamage": 0,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.8,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "groudon",
+            "defender": "magnemite",
+            "seconds": 31.7,
+            "damage": 1280,
+            "totalTowerDamage": 1280,
+            "firstTowerHit": 21.97,
+            "firstIncomingHit": 3.2,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "groudon",
+            "defender": "blastoise",
+            "seconds": 31.93,
+            "damage": 1600,
+            "totalTowerDamage": 2240,
+            "firstTowerHit": 21.2,
+            "firstIncomingHit": 4.73,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ],
+        "withAbility": {
+          "key": "groudon",
+          "defender": "pikachu",
+          "seconds": 22.6,
+          "damage": 0,
+          "totalTowerDamage": 330,
+          "firstTowerHit": null,
+          "firstIncomingHit": 2.8,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 3
+        }
+      },
+      {
+        "key": "rayquaza",
+        "name": "Rayquaza",
+        "cost": 8,
+        "role": "Tanque aéreo · apoyo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 3000,
+          "nominalDps": 127.78
+        },
+        "openTower": {
+          "key": "rayquaza",
+          "defender": null,
+          "seconds": 26.87,
+          "damage": 2990,
+          "totalTowerDamage": 2990,
+          "firstTowerHit": 5,
+          "firstIncomingHit": 4.37,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "withAbility": {
+          "key": "rayquaza",
+          "defender": "pikachu",
+          "seconds": 23.53,
+          "damage": 2300,
+          "totalTowerDamage": 3014,
+          "firstTowerHit": 5.6,
+          "firstIncomingHit": 2.3,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 3
+        }
+      },
+      {
+        "key": "centralElectrode",
+        "name": "Central Electrode",
+        "cost": 5,
+        "role": "Estructura · invocadora",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1000,
+          "nominalDps": 0
+        },
+        "openTower": {
+          "key": "centralElectrode",
+          "defender": null,
+          "seconds": 34.53,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 7,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "centralElectrode",
+          "damage": 2286,
+          "spawned": 5,
+          "seconds": 34.5
+        },
+        "summons": {
+          "key": "centralElectrode",
+          "target": "ground",
+          "seconds": 30,
+          "damage": 575,
+          "sustainedDps": 18.4,
+          "firstHit": 1.97,
+          "releases": 5,
+          "bodiesSpawned": 7
+        }
+      },
+      {
+        "key": "madriguera",
+        "name": "Madriguera Nidoqueen",
+        "cost": 5,
+        "role": "Estructura · invocadora",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1200,
+          "nominalDps": 0
+        },
+        "openTower": {
+          "key": "madriguera",
+          "defender": null,
+          "seconds": 38.27,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 13,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "madriguera",
+          "damage": 254,
+          "spawned": 9,
+          "seconds": 22.37
+        },
+        "summons": {
+          "key": "madriguera",
+          "target": "ground",
+          "seconds": 30,
+          "damage": 3960,
+          "sustainedDps": 147.6,
+          "firstHit": 1.83,
+          "releases": 88,
+          "bodiesSpawned": 11
+        }
+      },
+      {
+        "key": "vivero",
+        "name": "Vivero Exeggutor",
+        "cost": 4,
+        "role": "Estructura · invocadora",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 900,
+          "nominalDps": 0
+        },
+        "openTower": {
+          "key": "vivero",
+          "defender": null,
+          "seconds": 35.27,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 13,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "vivero",
+          "damage": 508,
+          "spawned": 9,
+          "seconds": 21.2
+        },
+        "summons": {
+          "key": "vivero",
+          "target": "ground",
+          "seconds": 30,
+          "damage": 3150,
+          "sustainedDps": 119,
+          "firstHit": 1.87,
+          "releases": 90,
+          "bodiesSpawned": 12
+        }
+      },
+      {
+        "key": "regice",
+        "name": "Regice",
+        "cost": 4,
+        "role": "Estructura · control",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1000,
+          "nominalDps": 41.67
+        },
+        "openTower": {
+          "key": "regice",
+          "defender": null,
+          "seconds": 30,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": null,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defense": {
+          "key": "regice",
+          "damage": 1778,
+          "spawned": 1,
+          "seconds": 33.43
+        }
+      },
+      {
+        "key": "duskull",
+        "name": "Duskull",
+        "cost": 5,
+        "role": "Invocador · apoyo",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 598,
+          "nominalDps": 56.25
+        },
+        "openTower": {
+          "key": "duskull",
+          "defender": null,
+          "seconds": 13.2,
+          "damage": 155,
+          "totalTowerDamage": 155,
+          "firstTowerHit": 9.43,
+          "firstIncomingHit": 6.03,
+          "survivingHp": 0,
+          "deployed": 7,
+          "abilityCost": 0
+        },
+        "summons": {
+          "key": "duskull",
+          "target": "ground",
+          "seconds": 30,
+          "damage": 8860,
+          "sustainedDps": 328,
+          "firstHit": 0.87,
+          "releases": 129,
+          "bodiesSpawned": 11
+        }
+      },
+      {
+        "key": "raichu",
+        "name": "Raichu",
+        "cost": 3,
+        "role": "Antitanques · frágil",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 640,
+          "nominalDps": 291.67
+        },
+        "openTower": {
+          "key": "raichu",
+          "defender": null,
+          "seconds": 8.3,
+          "damage": 0,
+          "totalTowerDamage": 0,
+          "firstTowerHit": null,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "registeel",
+        "name": "Registeel",
+        "cost": 7,
+        "role": "Antitanques · pesado",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 3200,
+          "nominalDps": 348.39
+        },
+        "openTower": {
+          "key": "registeel",
+          "defender": null,
+          "seconds": 23.27,
+          "damage": 3000,
+          "totalTowerDamage": 3000,
+          "firstTowerHit": 17,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 1020,
+          "deployed": 1,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "regirock",
+        "name": "Regirock",
+        "cost": 7,
+        "role": "Win condition · tanque",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 5700,
+          "nominalDps": 100
+        },
+        "openTower": {
+          "key": "regirock",
+          "defender": null,
+          "seconds": 45,
+          "damage": 2860,
+          "totalTowerDamage": 2860,
+          "firstTowerHit": 16.63,
+          "firstIncomingHit": 7.3,
+          "survivingHp": 1689,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "regirock",
+            "defender": "pikachu",
+            "seconds": 32.63,
+            "damage": 440,
+            "totalTowerDamage": 440,
+            "firstTowerHit": 25.73,
+            "firstIncomingHit": 2.8,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "regirock",
+            "defender": "magnemite",
+            "seconds": 45,
+            "damage": 1320,
+            "totalTowerDamage": 1320,
+            "firstTowerHit": 23.87,
+            "firstIncomingHit": 3.2,
+            "survivingHp": 221,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "regirock",
+            "defender": "blastoise",
+            "seconds": 45,
+            "damage": 2420,
+            "totalTowerDamage": 3046,
+            "firstTowerHit": 21.7,
+            "firstIncomingHit": 4.73,
+            "survivingHp": 737,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "celebi",
+        "name": "Celebi",
+        "cost": 4,
+        "role": "Win condition · aérea",
+        "deployment": {
+          "bodies": 1,
+          "totalHp": 1350,
+          "nominalDps": 144.44
+        },
+        "openTower": {
+          "key": "celebi",
+          "defender": null,
+          "seconds": 13.43,
+          "damage": 1040,
+          "totalTowerDamage": 1040,
+          "firstTowerHit": 6.47,
+          "firstIncomingHit": 3.63,
+          "survivingHp": 0,
+          "deployed": 1,
+          "abilityCost": 0
+        },
+        "defendedTower": [
+          {
+            "key": "celebi",
+            "defender": "pikachu",
+            "seconds": 7.57,
+            "damage": 0,
+            "totalTowerDamage": 0,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.17,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "celebi",
+            "defender": "magnemite",
+            "seconds": 10.4,
+            "damage": 520,
+            "totalTowerDamage": 520,
+            "firstTowerHit": 7.7,
+            "firstIncomingHit": 2.4,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          },
+          {
+            "key": "celebi",
+            "defender": "blastoise",
+            "seconds": 8.6,
+            "damage": 0,
+            "totalTowerDamage": 780,
+            "firstTowerHit": null,
+            "firstIncomingHit": 2.73,
+            "survivingHp": 0,
+            "deployed": 1,
+            "abilityCost": 0
+          }
+        ]
+      },
+      {
+        "key": "pandilla",
+        "name": "Pandilla Rocket",
+        "cost": 3,
+        "role": "Enjambre · mixto",
+        "deployment": {
+          "bodies": 5,
+          "totalHp": 872,
+          "nominalDps": 422.57
+        },
+        "openTower": {
+          "key": "pandilla",
+          "defender": null,
+          "seconds": 11.77,
+          "damage": 162,
+          "totalTowerDamage": 162,
+          "firstTowerHit": 9.73,
+          "firstIncomingHit": 4.4,
+          "survivingHp": 0,
+          "deployed": 5,
+          "abilityCost": 0
+        }
+      },
+      {
+        "key": "pinMissile",
+        "name": "Pin misil",
+        "cost": 3,
+        "role": "Hechizo · antienjambre",
+        "damage": [
+          {
+            "key": "pinMissile",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 366,
+            "sustainedDps": 0,
+            "firstHit": 0.57,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "pinMissile",
+            "target": "air",
+            "seconds": 25,
+            "damage": 366,
+            "sustainedDps": 0,
+            "firstHit": 0.57,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "pinMissile",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 110,
+            "sustainedDps": 0,
+            "firstHit": 0.57,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "pinMissile",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.57
+          },
+          {
+            "key": "pinMissile",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "pinMissile",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.57
+          },
+          {
+            "key": "pinMissile",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          }
+        ]
+      },
+      {
+        "key": "lightning",
+        "name": "Rayo",
+        "cost": 6,
+        "role": "Hechizo · daño selectivo",
+        "damage": [
+          {
+            "key": "lightning",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 1056,
+            "sustainedDps": 0,
+            "firstHit": 0.73,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "lightning",
+            "target": "air",
+            "seconds": 25,
+            "damage": 1056,
+            "sustainedDps": 0,
+            "firstHit": 0.73,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "lightning",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 317,
+            "sustainedDps": 0,
+            "firstHit": 0.73,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "lightning",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.73
+          },
+          {
+            "key": "lightning",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "lightning",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 0.73
+          },
+          {
+            "key": "lightning",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          }
+        ]
+      },
+      {
+        "key": "hyperBeam",
+        "name": "Hiperrayo",
+        "cost": 6,
+        "role": "Hechizo · daño pesado",
+        "damage": [
+          {
+            "key": "hyperBeam",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 1484,
+            "sustainedDps": 0,
+            "firstHit": 1.6,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "hyperBeam",
+            "target": "air",
+            "seconds": 25,
+            "damage": 1484,
+            "sustainedDps": 0,
+            "firstHit": 1.6,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "hyperBeam",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 371,
+            "sustainedDps": 0,
+            "firstHit": 1.6,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "hyperBeam",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.6
+          },
+          {
+            "key": "hyperBeam",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.6
+          },
+          {
+            "key": "hyperBeam",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.6
+          },
+          {
+            "key": "hyperBeam",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.6
+          }
+        ]
+      },
+      {
+        "key": "blizzard",
+        "name": "Ventisca",
+        "cost": 4,
+        "role": "Hechizo · congelación",
+        "damage": [
+          {
+            "key": "blizzard",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 45,
+            "sustainedDps": 0,
+            "firstHit": 0.37,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "blizzard",
+            "target": "air",
+            "seconds": 25,
+            "damage": 45,
+            "sustainedDps": 0,
+            "firstHit": 0.37,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "blizzard",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 14,
+            "sustainedDps": 0,
+            "firstHit": 0.37,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "blizzard",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "blizzard",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "blizzard",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "blizzard",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          }
+        ]
+      },
+      {
+        "key": "spikes",
+        "name": "Púas",
+        "cost": 3,
+        "role": "Hechizo · zona terrestre",
+        "damage": [
+          {
+            "key": "spikes",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 784,
+            "sustainedDps": 14,
+            "firstHit": 0.87,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "spikes",
+            "target": "air",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "spikes",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "spikes",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.37
+          },
+          {
+            "key": "spikes",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.37
+          },
+          {
+            "key": "spikes",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "spikes",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.37
+          }
+        ]
+      },
+      {
+        "key": "stealthRock",
+        "name": "Trampa rocas",
+        "cost": 3,
+        "role": "Hechizo · zona antiaérea",
+        "damage": [
+          {
+            "key": "stealthRock",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 360,
+            "sustainedDps": 4.5,
+            "firstHit": 0.87,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "stealthRock",
+            "target": "air",
+            "seconds": 25,
+            "damage": 720,
+            "sustainedDps": 9,
+            "firstHit": 0.87,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "stealthRock",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "stealthRock",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.87
+          },
+          {
+            "key": "stealthRock",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.87
+          },
+          {
+            "key": "stealthRock",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.37
+          },
+          {
+            "key": "stealthRock",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.87
+          }
+        ]
+      },
+      {
+        "key": "whirlpool",
+        "name": "Remolino",
+        "cost": 3,
+        "role": "Hechizo · atracción",
+        "damage": [
+          {
+            "key": "whirlpool",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 100,
+            "sustainedDps": 0,
+            "firstHit": 0.83,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "whirlpool",
+            "target": "air",
+            "seconds": 25,
+            "damage": 100,
+            "sustainedDps": 0,
+            "firstHit": 0.83,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "whirlpool",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "whirlpool",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 2.83
+          },
+          {
+            "key": "whirlpool",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 2.83
+          },
+          {
+            "key": "whirlpool",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 2.83
+          },
+          {
+            "key": "whirlpool",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 2.83
+          }
+        ]
+      },
+      {
+        "key": "nightmare",
+        "name": "Pesadilla",
+        "cost": 5,
+        "role": "Hechizo · invocación",
+        "damage": [
+          {
+            "key": "nightmare",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 7085,
+            "sustainedDps": 315.25,
+            "firstHit": 1.3,
+            "releases": 109,
+            "bodiesSpawned": 8
+          },
+          {
+            "key": "nightmare",
+            "target": "air",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 8
+          },
+          {
+            "key": "nightmare",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 7280,
+            "sustainedDps": 321.75,
+            "firstHit": 1.3,
+            "releases": 112,
+            "bodiesSpawned": 8
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "nightmare",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 3.7
+          },
+          {
+            "key": "nightmare",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 3.7
+          },
+          {
+            "key": "nightmare",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "nightmare",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 3.7
+          }
+        ]
+      },
+      {
+        "key": "earthquake",
+        "name": "Terremoto",
+        "cost": 3,
+        "role": "Hechizo · antiestructuras",
+        "damage": [
+          {
+            "key": "earthquake",
+            "target": "ground",
+            "seconds": 25,
+            "damage": 195,
+            "sustainedDps": 0,
+            "firstHit": 0.83,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "earthquake",
+            "target": "air",
+            "seconds": 25,
+            "damage": 0,
+            "sustainedDps": 0,
+            "firstHit": null,
+            "releases": 0,
+            "bodiesSpawned": 0
+          },
+          {
+            "key": "earthquake",
+            "target": "tower",
+            "seconds": 25,
+            "damage": 36,
+            "sustainedDps": 0,
+            "firstHit": 0.83,
+            "releases": 0,
+            "bodiesSpawned": 0
+          }
+        ],
+        "weakTargets": [
+          {
+            "key": "earthquake",
+            "fresh": false,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.83
+          },
+          {
+            "key": "earthquake",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "diglett",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.83
+          },
+          {
+            "key": "earthquake",
+            "fresh": false,
+            "flying": true,
+            "targetKey": "gastly",
+            "eliminated": 0,
+            "total": 3,
+            "seconds": 15
+          },
+          {
+            "key": "earthquake",
+            "fresh": true,
+            "flying": false,
+            "targetKey": "shuppetToken",
+            "eliminated": 3,
+            "total": 3,
+            "seconds": 1.83
+          }
+        ]
+      }
+    ],
+    "unprotectedDefense": {
+      "key": null,
+      "damage": 3000,
+      "spawned": 0,
+      "seconds": 37.43
+    }
+  }
+}

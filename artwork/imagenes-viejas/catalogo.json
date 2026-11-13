@@ -298,6 +298,18 @@
       "source": "Golem frontal antes del ajuste de encuadre",
       "sha256": "35df20d21fce76800fb8bca28fa6af82fb2c9340ac5c97234394aed8d4ec8956",
       "bytes": 2403507
+    },
+    {
+      "file": "variantes/arena-con-torres-anteriores.png",
+      "source": "Renderer screenshot before the raster structure pass",
+      "sha256": "dc47e5f1be5a926d4f2ff826824545ea50fb590af6dd3613ff6cf675a4cb1dc5",
+      "bytes": 153482
+    },
+    {
+      "file": "originales/combat-effects-v1.webp",
+      "source": "dist/assets/ui/combat-effects-v1.webp",
+      "sha256": "71bf3ca302750a66a927e1a393110a6154576317e2619315380cbef97ff0fcbf",
+      "bytes": 761924
     }
   ]
 }

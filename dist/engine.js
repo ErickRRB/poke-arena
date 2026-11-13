@@ -1,5 +1,7 @@
-import { EXTRA_CARDS } from './catalog.js?v=23';
-import { applyBalance, THRESHOLDS } from './balance.js?v=23';
+import { EXTRA_CARDS } from './catalog.js?v=24';
+import { applyBalance, THRESHOLDS } from './balance.js?v=24';
+import { emissionPoint } from './sprite-motion.js?v=24';
+export { attackPoseProgress } from './sprite-motion.js?v=24';
 export const W = 600, H = 800;
 export const TILE = 24;
 export const DEPLOY_GRID = Object.freeze({ size: TILE, left: 0, top: (H % TILE) / 2, columns: W / TILE, rows: Math.floor(H / TILE) });
@@ -84,13 +86,6 @@ export const CPU_DECKS = [
 export function directionRow(dx, dy) { return (2 - Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8; }
 export function aimPoint(target) { return { x: target.x, y: target.y - ('king' in target ? 27 : target.card?.structure ? 43 : target.card?.flying ? 27 : 15) }; }
 // Compress/extend the original windup so its hit frame coincides with the shared release time.
-export function attackPoseProgress(meta, elapsed, duration, windup) {
-  const total = meta.durations.reduce((a,b)=>a+b,0);
-  const hit = meta.hitFrame || Math.max(1, Math.floor(meta.durations.length * .3));
-  const ratio = meta.durations.slice(0,hit).reduce((a,b)=>a+b,0) / total;
-  const progress = elapsed <= windup ? ratio * elapsed / Math.max(.001,windup) : ratio + (1-ratio) * (elapsed-windup) / Math.max(.001,duration-windup);
-  return Math.max(0,Math.min(.999,progress));
-}
 export function formationOffsets(card, team = 0) {
   const count = card.count || 1;
   const direction = team ? -1 : 1;
@@ -565,10 +560,7 @@ export class Game {
     this.emit('attackStart', { attacker, target, style: profile.style, duration, windup });
   }
   muzzle(actor, shot = 0) {
-    const tower = 'king' in actor;
-    const height = tower ? (actor.king ? 71 : 63) : actor.card.muzzleHeight || 22;
-    const side = actor.card?.structure ? (shot % 2 ? 1 : -1) * 9 : 0;
-    return { x: actor.x + actor.dx*11 - actor.dy*side, y: actor.y - height + actor.dy*7 + actor.dx*side };
+    return emissionPoint(actor,shot);
   }
   strike(actor, target, amount, profile) {
     const hp = target.hp;
@@ -597,23 +589,23 @@ export class Game {
         const tx=t.x-a.x,ty=t.y-a.y,forward=tx*dx+ty*dy,side=Math.abs(tx*dy-ty*dx);
         if(t===target||(forward>0&&forward<=card.range+t.radius&&side<17+t.radius*.65))this.strike(a,t,amount,card);
       }
-      this.emit('beam',{from,to:{x:from.x+dx*(card.range+10),y:from.y+dy*(card.range+10)},style,key:a.key,team:a.team});
+      this.emit('beam',{from,to:{x:from.x+dx*(card.range+10),y:from.y+dy*(card.range+10)},style,key:a.key,team:a.team,sourceId:a.id,shot});
     }else if(card?.bolts){
       const second=[...this.units,...this.towers].filter(t=>t!==target&&this.validTarget(a,t)&&distance(a,t)<=card.range+t.radius).sort((x,y)=>distance(a,x)-distance(a,y))[0];
       const targets=second?[target,second]:[target];
       for(let i=0;i<card.bolts;i++){
         const victim=targets[i%targets.length];this.strike(a,victim,amount,card);
-        this.emit('beam',{from:{x:from.x+(i?6:-6),y:from.y},to:aimPoint(victim),style,key:a.key,team:a.team});
+        this.emit('beam',{from:{x:from.x+(i?6:-6),y:from.y},to:aimPoint(victim),style,key:a.key,team:a.team,sourceId:a.id,targetId:victim.id,shot:i});
       }
     }else if(style==='lightning'||style==='vine') {
       this.strike(a,target,amount,card||{stun:a.guard?.stun||0});
-      this.emit('beam',{from,to,style,key:a.key,team:a.team});
+      this.emit('beam',{from,to,style,key:a.key,team:a.team,sourceId:a.id,targetId:target.id,shot});
       let last=target;
       const hit=new Set([target.id]);
       for(let i=0;i<(card?.chain||0);i++){
         const next=[...this.units,...this.towers].filter(t=>this.validTarget(a,t)&&!hit.has(t.id)&&distance(t,last)<78).sort((x,y)=>distance(x,last)-distance(y,last))[0];
         if(!next)break;
-        this.strike(a,next,amount*Math.pow(.6,i+1),card);this.emit('beam',{from:aimPoint(last),to:aimPoint(next),style,key:a.key,team:a.team});hit.add(next.id);last=next;
+        this.strike(a,next,amount*Math.pow(.6,i+1),card);this.emit('beam',{from:aimPoint(last),to:aimPoint(next),style,key:a.key,team:a.team,chainFromId:last.id,targetId:next.id});hit.add(next.id);last=next;
       }
     } else if(style==='flame') {
       const angle=Math.atan2(a.dy,a.dx);
@@ -623,14 +615,14 @@ export class Game {
         const spread=Math.abs(Math.atan2(Math.sin(delta),Math.cos(delta)));
         if(t===target||(distance(a,t)<card.range+t.radius+22&&spread<card.cone))this.strike(a,t,amount,{});
       }
-      this.emit('flame',{from,to,team:a.team,length:distance(a,target)+target.radius,angle});
+      this.emit('flame',{from,to,team:a.team,length:distance(a,target)+target.radius,angle,sourceId:a.id,targetId:target.id,shot});
     } else if(card&&card.range<50) {
       this.strike(a,target,amount,card);
       if(card.splash)for(const u of this.units)if(u!==target&&this.validTarget(a,u)&&distance(u,target)<card.splash)this.strike(a,u,amount,card);
-      this.emit('melee',{from,to,style,team:a.team,shot,charged,radius:card.splash||0});
-      this.emit('hit',{x:to.x,y:to.y,key:a.key,style,team:a.team});
+      this.emit('melee',{from,to,style,team:a.team,shot,charged,radius:card.splash||0,sourceId:a.id,targetId:target.id});
+      this.emit('hit',{x:to.x,y:to.y,key:a.key,style,team:a.team,targetId:target.id});
     } else {
-      this.projectiles.push({ x:from.x,y:from.y,startX:from.x,startY:from.y,totalDistance:Math.hypot(to.x-from.x,to.y-from.y),travelled:0,target,team:a.team,sourceId:a.id,damage:amount,speed:card?.projectileSpeed||(style==='bubble'?270:style==='rock'||style==='egg'?235:style==='hydro'?420:style==='coin'?470:310),key:a.key||'tower',style,splash:card?.splash||0,stun:card?.stun||0,slow:card?.slow||0,burn:card?.burn||0,burnKind:card?.burnKind||'fire',poisonField:card?.poisonField||0,air:!card||!!card.air,life:3,arc:style==='rock'?65:style==='egg'?55:style==='ember'?38:0,trace:[] });
+      this.projectiles.push({ id:a.id+':'+job.seq+':'+shot,x:from.x,y:from.y,startX:from.x,startY:from.y,totalDistance:Math.hypot(to.x-from.x,to.y-from.y),travelled:0,target,team:a.team,sourceId:a.id,damage:amount,speed:card?.projectileSpeed||(style==='bubble'?270:style==='rock'||style==='egg'?235:style==='hydro'?420:style==='coin'?470:310),key:a.key||'tower',style,splash:card?.splash||0,stun:card?.stun||0,slow:card?.slow||0,burn:card?.burn||0,burnKind:card?.burnKind||'fire',poisonField:card?.poisonField||0,air:!card||!!card.air,life:3,arc:style==='rock'?65:style==='egg'?55:style==='ember'?38:0,trace:[] });
     }
     if(card?.suicide)this.damage(a,a.maxHp*10,1-a.team);
   }
@@ -817,7 +809,7 @@ export class Game {
       if (d < p.speed * dt + 7) {
         this.damage(p.target, p.damage, p.team, p);
         if (p.splash) for (const u of this.units) if (u !== p.target && u.team !== p.team && u.hp > 0 && u.spawn <= 0 && (!u.card.flying || p.air) && distance(u, p.target) < p.splash) this.damage(u, p.damage, p.team, p);
-        this.emit('hit', { key: p.key, style:p.style, x: tx, y: ty, team: p.team }); p.life = 0;
+        this.emit('hit', { key: p.key, style:p.style, x: tx, y: ty, team: p.team,targetId:p.target.id }); p.life = 0;
       } else { p.trace.push({x:p.x,y:p.y});if(p.trace.length>7)p.trace.shift();p.x += dx / d * p.speed * dt; p.y += dy / d * p.speed * dt;p.travelled+=p.speed*dt; }
     }
     this.projectiles = this.projectiles.filter(p => p.life > 0);

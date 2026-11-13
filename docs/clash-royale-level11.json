@@ -1,0 +1,2907 @@
+{
+  "collected": "2026-11-13",
+  "level": 11,
+  "source": "https://crtool.app/en/units/",
+  "cards": [
+    {
+      "key": "archer-queen",
+      "name": "Archer Queen",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "1.2sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "5"
+      },
+      "level11": [
+        {
+          "Hitpoints": "1000",
+          "Ranged Damage": "232"
+        },
+        {
+          "Damage/Sec": "348"
+        }
+      ],
+      "source": "https://crtool.app/en/units/archer-queen/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "archers",
+      "name": "Archers",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "0.9sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "5",
+        "Count": "2"
+      },
+      "level11": [
+        {
+          "Hitpoints": "304",
+          "Ranged Damage": "112"
+        },
+        {
+          "Power Shot Damage": "140"
+        }
+      ],
+      "source": "https://crtool.app/en/units/archers/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "arrows",
+      "name": "Arrows",
+      "elixir": 3,
+      "traits": {
+        "Radius": "3.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "122 x3",
+          "Crown Tower Damage": "25 x3"
+        }
+      ],
+      "source": "https://crtool.app/en/units/arrows/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "baby-dragon",
+      "name": "Baby Dragon",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.5sec",
+        "Targets": "Air & Ground",
+        "Speed": "Fast",
+        "Range": "3.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "168",
+          "Hitpoints": "1152"
+        }
+      ],
+      "source": "https://crtool.app/en/units/baby-dragon/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "balloon",
+      "name": "Balloon",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "2sec",
+        "Targets": "Buildings",
+        "Speed": "Medium",
+        "Range": "Melee: Short"
+      },
+      "level11": [
+        {
+          "Damage": "640",
+          "Death Damage": "240",
+          "Damage/Sec": "320",
+          "Hitpoints": "1676"
+        },
+        {
+          "Landing Damage": "230",
+          "Crown Tower Damage": "25"
+        },
+        {
+          "Hitpoints": "473",
+          "Damage": "204"
+        }
+      ],
+      "source": "https://crtool.app/en/units/balloon/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "bandit",
+      "name": "Bandit",
+      "elixir": 3,
+      "traits": {
+        "Dash Range": "3.5–6",
+        "Hit Speed": "1sec",
+        "Targets": "Ground",
+        "Speed": "Fast",
+        "Range": "Melee: Short"
+      },
+      "level11": [
+        {
+          "Damage": "194",
+          "Dash Damage": "389",
+          "Damage/Sec": "194",
+          "Hitpoints": "906"
+        }
+      ],
+      "source": "https://crtool.app/en/units/bandit/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "barbarian-barrel",
+      "name": "Barbarian Barrel",
+      "elixir": 2,
+      "traits": {
+        "Targets": "Ground",
+        "Width": "2.6",
+        "Range": "4.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "215"
+        },
+        {
+          "Hitpoints": "716",
+          "Damage": "192"
+        },
+        {
+          "Area Damage": "215",
+          "Crown Tower Damage": "108"
+        }
+      ],
+      "source": "https://crtool.app/en/units/barbarian-barrel/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "barbarian-hut",
+      "name": "Barbarian Hut",
+      "elixir": 6,
+      "traits": {
+        "Spawn on Death": "Barbarian x1",
+        "Spawn Speed": "15sec",
+        "Lifetime": "30sec"
+      },
+      "level11": [
+        {
+          "Hitpoints": "1164"
+        },
+        {
+          "Hitpoints": "716",
+          "Damage": "192"
+        }
+      ],
+      "source": "https://crtool.app/en/units/barbarian-hut/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "barbarians",
+      "name": "Barbarians",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "1.4sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Short",
+        "Count": "5"
+      },
+      "level11": [
+        {
+          "Damage": "192",
+          "Damage/Sec": "137",
+          "Hitpoints": "716"
+        }
+      ],
+      "source": "https://crtool.app/en/units/barbarians/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "bats",
+      "name": "Bats",
+      "elixir": 2,
+      "traits": {
+        "Hit Speed": "1.2sec",
+        "Targets": "Air & Ground",
+        "Speed": "Very Fast",
+        "Range": "Melee: Medium",
+        "Count": "5"
+      },
+      "level11": [
+        {
+          "Damage": "81",
+          "Damage/Sec": "67",
+          "Hitpoints": "81"
+        },
+        {
+          "Hitpoints": "122",
+          "Healing": "76",
+          "Max Hitpoints": "244"
+        }
+      ],
+      "source": "https://crtool.app/en/units/bats/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "battle-healer",
+      "name": "Battle Healer",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "2sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Long"
+      },
+      "level11": [
+        {
+          "Damage": "268",
+          "Damage/Sec": "134",
+          "Hitpoints": "1920",
+          "Heal per Attack": "100",
+          "Spawn Heal": "200"
+        }
+      ],
+      "source": "https://crtool.app/en/units/battle-healer/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "battle-ram",
+      "name": "Battle Ram",
+      "elixir": 4,
+      "traits": {
+        "Targets": "Buildings",
+        "Speed": "Medium",
+        "Range": "Melee: Short"
+      },
+      "level11": [
+        {
+          "Damage": "286",
+          "Charge Damage": "573",
+          "Hitpoints": "967"
+        },
+        {
+          "Hitpoints": "716",
+          "Damage": "192"
+        }
+      ],
+      "source": "https://crtool.app/en/units/battle-ram/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "berserker",
+      "name": "Berserker",
+      "elixir": 2,
+      "traits": {
+        "Hit Speed": "0.6sec",
+        "Targets": "Ground",
+        "Speed": "Fast",
+        "Range": "Melee: Short"
+      },
+      "level11": [
+        {
+          "Damage": "102",
+          "Damage/Sec": "170",
+          "Hitpoints": "896"
+        },
+        {
+          "Damage": "167"
+        }
+      ],
+      "source": "https://crtool.app/en/units/berserker/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "bomb-tower",
+      "name": "Bomb Tower",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.8sec",
+        "Targets": "Ground",
+        "Range": "6",
+        "Lifetime": "30sec"
+      },
+      "level11": [
+        {
+          "Area Damage": "222",
+          "Death Damage": "222",
+          "Hitpoints": "1356"
+        }
+      ],
+      "source": "https://crtool.app/en/units/bomb-tower/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "bomber",
+      "name": "Bomber",
+      "elixir": 2,
+      "traits": {
+        "Hit Speed": "1.8sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "4.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "212",
+          "Hitpoints": "304"
+        },
+        {
+          "Bounce Damage": "212"
+        }
+      ],
+      "source": "https://crtool.app/en/units/bomber/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "boss-bandit",
+      "name": "Boss Bandit",
+      "elixir": 6,
+      "traits": {
+        "Dash Range": "3.5–6",
+        "Hit Speed": "1.1sec",
+        "Targets": "Ground",
+        "Speed": "Fast",
+        "Range": "Melee: Short"
+      },
+      "level11": [
+        {
+          "Damage": "245",
+          "Dash Damage": "491",
+          "Damage/Sec": "222",
+          "Hitpoints": "2624"
+        }
+      ],
+      "source": "https://crtool.app/en/units/boss-bandit/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "bowler",
+      "name": "Bowler",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "2.5sec",
+        "Targets": "Ground",
+        "Speed": "Slow",
+        "Range": "4"
+      },
+      "level11": [
+        {
+          "Area Damage": "289",
+          "Hitpoints": "2081"
+        },
+        {
+          "Area Damage": "384",
+          "Crown Tower Damage": "192"
+        }
+      ],
+      "source": "https://crtool.app/en/units/bowler/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "cannon-cart",
+      "name": "Cannon Cart",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "0.9sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "5.5",
+        "Activation": "50%"
+      },
+      "level11": [
+        {
+          "Hitpoints": "1809",
+          "Ranged Damage": "202"
+        }
+      ],
+      "source": "https://crtool.app/en/units/cannon-cart/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "cannon",
+      "name": "Cannon",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "1sec",
+        "Targets": "Ground",
+        "Range": "5.5",
+        "Lifetime": "30sec"
+      },
+      "level11": [
+        {
+          "Hitpoints": "824",
+          "Ranged Damage": "202"
+        },
+        {
+          "Barrage Damage": "261"
+        }
+      ],
+      "source": "https://crtool.app/en/units/cannon/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "cannoneer",
+      "name": "Cannoneer",
+      "elixir": null,
+      "traits": {
+        "Hit Speed": "2.2sec",
+        "Targets": "Air & Ground",
+        "Range": "7.5"
+      },
+      "level11": [
+        {
+          "Hitpoints": "2616",
+          "Damage/Sec": "145",
+          "Damage": "320"
+        }
+      ],
+      "source": "https://crtool.app/en/units/cannoneer/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "clone",
+      "name": "Clone",
+      "elixir": 3,
+      "traits": {
+        "Clone Hitpoints": "1",
+        "Clone Shield Hitpoints": "1",
+        "Radius": "3"
+      },
+      "level11": [],
+      "source": "https://crtool.app/en/units/clone/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "dagger-duchess",
+      "name": "Dagger Duchess",
+      "elixir": null,
+      "traits": {
+        "Hit Speed": "0.5sec",
+        "Targets": "Air & Ground",
+        "Range": "7.5",
+        "Max Daggers": "8",
+        "Dagger Charge": "0.9sec"
+      },
+      "level11": [
+        {
+          "Hitpoints": "2768",
+          "Damage/Sec": "214",
+          "Damage": "107"
+        }
+      ],
+      "source": "https://crtool.app/en/units/dagger-duchess/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "dark-prince",
+      "name": "Dark Prince",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.4sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Area Damage": "266",
+          "Charge Damage": "532",
+          "Damage/Sec": "190",
+          "Hitpoints": "1200",
+          "Shield Hitpoints": "240"
+        },
+        {
+          "Spawn Damage": "307"
+        },
+        {
+          "Hitpoints": "1356",
+          "Damage": "179",
+          "Charge Damage": "358"
+        }
+      ],
+      "source": "https://crtool.app/en/units/dark-prince/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "dart-goblin",
+      "name": "Dart Goblin",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "0.8sec",
+        "Targets": "Air & Ground",
+        "Speed": "Very Fast",
+        "Range": "6.5"
+      },
+      "level11": [
+        {
+          "Hitpoints": "261",
+          "Ranged Damage": "143"
+        },
+        {
+          "Poison Damage/Sec": "64–307",
+          "Crown Tower Damage/Sec": "15–76"
+        }
+      ],
+      "source": "https://crtool.app/en/units/dart-goblin/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "earthquake",
+      "name": "Earthquake",
+      "elixir": 3,
+      "traits": {
+        "Slowdown Enemies": "-50%",
+        "Duration": "3sec",
+        "Radius": "3.5"
+      },
+      "level11": [
+        {
+          "Damage/Sec": "81",
+          "Crown Tower Damage/Sec": "49",
+          "Building Damage/Sec": "286"
+        }
+      ],
+      "source": "https://crtool.app/en/units/earthquake/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "electro-dragon",
+      "name": "Electro Dragon",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "2.1sec",
+        "Stun Duration": "0.5sec",
+        "Chained Attacks": "3",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "3.5"
+      },
+      "level11": [
+        {
+          "Hitpoints": "1049",
+          "Ranged Damage": "192"
+        },
+        {
+          "Extra Chain Damage": "64"
+        }
+      ],
+      "source": "https://crtool.app/en/units/electro-dragon/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "electro-giant",
+      "name": "Electro Giant",
+      "elixir": 7,
+      "traits": {
+        "Hit Speed": "1.8sec",
+        "Targets": "Buildings",
+        "Speed": "Slow",
+        "Range": "Melee: Medium",
+        "Stun Duration": "0.5sec"
+      },
+      "level11": [
+        {
+          "Damage": "184",
+          "Reflected Damage": "192",
+          "Reflected Tower Damage": "97",
+          "Damage/Sec": "102",
+          "Hitpoints": "3952"
+        }
+      ],
+      "source": "https://crtool.app/en/units/electro-giant/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "electro-spirit",
+      "name": "Electro Spirit",
+      "elixir": 1,
+      "traits": {
+        "Chained Attacks": "9",
+        "Stun Duration": "0.5sec",
+        "Targets": "Air & Ground",
+        "Speed": "Very Fast",
+        "Range": "2.5"
+      },
+      "level11": [
+        {
+          "Hitpoints": "215",
+          "Ranged Damage": "99"
+        }
+      ],
+      "source": "https://crtool.app/en/units/electro-spirit/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "electro-wizard",
+      "name": "Electro Wizard",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.8sec",
+        "Stun Duration": "0.5sec",
+        "Targets": "Air & Ground",
+        "Speed": "Fast",
+        "Range": "5"
+      },
+      "level11": [
+        {
+          "Damage": "117 x2",
+          "Spawn Damage": "192",
+          "Hitpoints": "714"
+        },
+        {
+          "Damage/Sec": "256 x2"
+        }
+      ],
+      "source": "https://crtool.app/en/units/electro-wizard/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "elite-barbarians",
+      "name": "Elite Barbarians",
+      "elixir": 6,
+      "traits": {
+        "Hit Speed": "1.4sec",
+        "Targets": "Ground",
+        "Speed": "Fast",
+        "Range": "Melee: Medium",
+        "Count": "2"
+      },
+      "level11": [
+        {
+          "Damage": "384",
+          "Damage/Sec": "274",
+          "Hitpoints": "1341"
+        },
+        {
+          "Ranged Damage": "220"
+        }
+      ],
+      "source": "https://crtool.app/en/units/elite-barbarians/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "elixir-collector",
+      "name": "Elixir Collector",
+      "elixir": 6,
+      "traits": {
+        "Production Speed": "15sec",
+        "Lifetime": "1min 50sec"
+      },
+      "level11": [
+        {
+          "Hitpoints": "1070"
+        }
+      ],
+      "source": "https://crtool.app/en/units/elixir-collector/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "elixir-golem",
+      "name": "Elixir Golem",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "1.1sec",
+        "Targets": "Buildings",
+        "Speed": "Slow",
+        "Range": "Melee: Short"
+      },
+      "level11": [
+        {
+          "Damage": "253",
+          "Damage/Sec": "230",
+          "Hitpoints": "1569"
+        },
+        {
+          "Hitpoints": "762",
+          "Damage": "128"
+        },
+        {
+          "Hitpoints": "360",
+          "Damage": "64"
+        }
+      ],
+      "source": "https://crtool.app/en/units/elixir-golem/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "executioner",
+      "name": "Executioner",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "2.4sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "4.5",
+        "Projectile Range": "7"
+      },
+      "level11": [
+        {
+          "Area Damage": "179 x2",
+          "Hitpoints": "1280"
+        },
+        {
+          "Close Quarters Damage": "240 x2"
+        }
+      ],
+      "source": "https://crtool.app/en/units/executioner/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "fire-spirit",
+      "name": "Fire Spirit",
+      "elixir": 1,
+      "traits": {
+        "Targets": "Air & Ground",
+        "Speed": "Very Fast",
+        "Range": "2.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "215",
+          "Hitpoints": "215"
+        }
+      ],
+      "source": "https://crtool.app/en/units/fire-spirit/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "fireball",
+      "name": "Fireball",
+      "elixir": 4,
+      "traits": {
+        "Radius": "2.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "688",
+          "Crown Tower Damage": "159"
+        }
+      ],
+      "source": "https://crtool.app/en/units/fireball/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "firecracker",
+      "name": "Firecracker",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "3sec",
+        "Targets": "Air & Ground",
+        "Speed": "Fast",
+        "Range": "6"
+      },
+      "level11": [
+        {
+          "Hitpoints": "304",
+          "Ranged Damage": "64 x5"
+        },
+        {
+          "Damage/Sec": "192",
+          "Crown Tower Damage/Sec": "12"
+        }
+      ],
+      "source": "https://crtool.app/en/units/firecracker/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "fisherman",
+      "name": "Fisherman",
+      "elixir": 3,
+      "traits": {
+        "Ranged Attack Range": "3.5–7",
+        "Hit Speed": "1.3sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Damage": "194",
+          "Damage/Sec": "149",
+          "Hitpoints": "870"
+        }
+      ],
+      "source": "https://crtool.app/en/units/fisherman/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "flying-machine",
+      "name": "Flying Machine",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.1sec",
+        "Targets": "Air & Ground",
+        "Speed": "Fast",
+        "Range": "6"
+      },
+      "level11": [
+        {
+          "Hitpoints": "614",
+          "Ranged Damage": "179"
+        }
+      ],
+      "source": "https://crtool.app/en/units/flying-machine/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "freeze",
+      "name": "Freeze",
+      "elixir": 4,
+      "traits": {
+        "Freeze Duration": "3.5sec",
+        "Radius": "3"
+      },
+      "level11": [
+        {
+          "Area Damage": "148",
+          "Crown Tower Damage": "38"
+        }
+      ],
+      "source": "https://crtool.app/en/units/freeze/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "furnace",
+      "name": "Furnace",
+      "elixir": 4,
+      "traits": {
+        "Spawn Speed": "5sec",
+        "Hit Speed": "1.7sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "5.5"
+      },
+      "level11": [
+        {
+          "Hitpoints": "727",
+          "Ranged Damage": "179"
+        },
+        {
+          "Area Damage": "215",
+          "Hitpoints": "215"
+        }
+      ],
+      "source": "https://crtool.app/en/units/furnace/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "giant-skeleton",
+      "name": "Giant Skeleton",
+      "elixir": 6,
+      "traits": {
+        "Hit Speed": "1.3sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Short"
+      },
+      "level11": [
+        {
+          "Damage": "276",
+          "Death Damage": "688",
+          "Damage/Sec": "212",
+          "Hitpoints": "3361"
+        }
+      ],
+      "source": "https://crtool.app/en/units/giant-skeleton/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "giant-snowball",
+      "name": "Giant Snowball",
+      "elixir": 2,
+      "traits": {
+        "Slowdown Duration": "3sec",
+        "Radius": "2.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "179",
+          "Crown Tower Damage": "45"
+        },
+        {
+          "Crown Tower Damage": "46"
+        }
+      ],
+      "source": "https://crtool.app/en/units/giant-snowball/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "giant",
+      "name": "Giant",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "1.5sec",
+        "Targets": "Buildings",
+        "Speed": "Slow",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Damage": "253",
+          "Damage/Sec": "168",
+          "Hitpoints": "3968"
+        },
+        {
+          "Landing Damage": "135"
+        }
+      ],
+      "source": "https://crtool.app/en/units/giant/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "goblin-barrel",
+      "name": "Goblin Barrel",
+      "elixir": 3,
+      "traits": {
+        "Radius": "1.5",
+        "Goblin Count": "3"
+      },
+      "level11": [
+        {
+          "Hitpoints": "202",
+          "Damage": "125"
+        },
+        {
+          "Hitpoints": "81",
+          "Damage": "66"
+        }
+      ],
+      "source": "https://crtool.app/en/units/goblin-barrel/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "goblin-cage",
+      "name": "Goblin Cage",
+      "elixir": 4,
+      "traits": {
+        "Spawn on Death": "Goblin Brawler x1",
+        "Lifetime": "20sec"
+      },
+      "level11": [
+        {
+          "Hitpoints": "780"
+        },
+        {
+          "Hitpoints": "1121",
+          "Damage": "337"
+        },
+        {
+          "Damage/Sec": "366"
+        }
+      ],
+      "source": "https://crtool.app/en/units/goblin-cage/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "goblin-curse",
+      "name": "Goblin Curse",
+      "elixir": 2,
+      "traits": {
+        "Slowdown Enemies": "-15%",
+        "Duration": "6sec",
+        "Radius": "3"
+      },
+      "level11": [
+        {
+          "Damage/Sec": "35",
+          "Crown Tower Damage/Sec": "10"
+        },
+        {
+          "Hitpoints": "202",
+          "Damage": "125"
+        }
+      ],
+      "source": "https://crtool.app/en/units/goblin-curse/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "goblin-demolisher",
+      "name": "Goblin Demolisher",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.1sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "5",
+        "Activation": "50%",
+        "Charge Targets": "Buildings",
+        "Charge Speed": "Very Fast"
+      },
+      "level11": [
+        {
+          "Area Damage": "186",
+          "Hitpoints": "1300"
+        }
+      ],
+      "source": "https://crtool.app/en/units/goblin-demolisher/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "goblin-drill",
+      "name": "Goblin Drill",
+      "elixir": 4,
+      "traits": {
+        "Spawn Speed": "3sec",
+        "Lifetime": "10sec"
+      },
+      "level11": [
+        {
+          "Area Damage": "84",
+          "Crown Tower Damage": "20",
+          "Hitpoints": "1313"
+        }
+      ],
+      "source": "https://crtool.app/en/units/goblin-drill/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "goblin-gang",
+      "name": "Goblin Gang",
+      "elixir": 3,
+      "traits": {
+        "Goblin Count": "3",
+        "Spear Goblin Count": "3"
+      },
+      "level11": [
+        {
+          "Hitpoints": "202",
+          "Damage": "125"
+        },
+        {
+          "Hitpoints": "133",
+          "Damage": "81"
+        }
+      ],
+      "source": "https://crtool.app/en/units/goblin-gang/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "goblin-giant",
+      "name": "Goblin Giant",
+      "elixir": 6,
+      "traits": {
+        "Spear Goblin Count": "2",
+        "Hit Speed": "1.5sec",
+        "Targets": "Buildings",
+        "Speed": "Medium",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Damage": "176",
+          "Damage/Sec": "117",
+          "Hitpoints": "3110"
+        },
+        {
+          "Hitpoints": "133",
+          "Damage": "81"
+        },
+        {
+          "Hitpoints": "202",
+          "Damage": "125"
+        }
+      ],
+      "source": "https://crtool.app/en/units/goblin-giant/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "goblin-hut",
+      "name": "Goblin Hut",
+      "elixir": 4,
+      "traits": {
+        "Spawn Speed": "2.2sec",
+        "Targets": "Air & Ground",
+        "Range": "6",
+        "Spawn on Death": "Spear Goblin x1",
+        "Lifetime": "30sec"
+      },
+      "level11": [
+        {
+          "Hitpoints": "1180"
+        },
+        {
+          "Hitpoints": "133",
+          "Ranged Damage": "81"
+        }
+      ],
+      "source": "https://crtool.app/en/units/goblin-hut/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "goblin-machine",
+      "name": "Goblin Machine",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "1.2sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Damage": "232",
+          "Damage/Sec": "193",
+          "Hitpoints": "2265"
+        },
+        {
+          "Area Damage": "304"
+        }
+      ],
+      "source": "https://crtool.app/en/units/goblin-machine/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "goblins",
+      "name": "Goblins",
+      "elixir": 2,
+      "traits": {
+        "Hit Speed": "1.1sec",
+        "Targets": "Ground",
+        "Speed": "Very Fast",
+        "Range": "Melee: Short",
+        "Count": "4"
+      },
+      "level11": [
+        {
+          "Damage": "125",
+          "Damage/Sec": "113",
+          "Hitpoints": "202"
+        },
+        {
+          "Damage": "125",
+          "Damage/Sec": "113",
+          "Hitpoints": "202"
+        }
+      ],
+      "source": "https://crtool.app/en/units/goblins/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "goblinstein",
+      "name": "Goblinstein",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "1.8sec",
+        "Stun Duration": "0.5sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "5.5"
+      },
+      "level11": [
+        {
+          "Hitpoints": "721",
+          "Ranged Damage": "135"
+        },
+        {
+          "Damage": "128",
+          "Damage/Sec": "85",
+          "Hitpoints": "2240"
+        },
+        {
+          "Damage/Sec": "188",
+          "Crown Tower Damage/Sec": "46"
+        }
+      ],
+      "source": "https://crtool.app/en/units/goblinstein/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "golden-knight",
+      "name": "Golden Knight",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "0.9sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Damage": "168",
+          "Damage/Sec": "186",
+          "Hitpoints": "1799"
+        },
+        {
+          "Dash damage": "335"
+        }
+      ],
+      "source": "https://crtool.app/en/units/golden-knight/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "golem",
+      "name": "Golem",
+      "elixir": 8,
+      "traits": {
+        "Hit Speed": "2.5sec",
+        "Targets": "Buildings",
+        "Speed": "Slow",
+        "Range": "Melee: Short",
+        "Deploy Time": "3sec"
+      },
+      "level11": [
+        {
+          "Damage": "312",
+          "Death Damage": "225",
+          "Damage/Sec": "124",
+          "Hitpoints": "5120"
+        },
+        {
+          "Damage": "84",
+          "Death Damage": "99",
+          "Damage/Sec": "33",
+          "Hitpoints": "1039"
+        }
+      ],
+      "source": "https://crtool.app/en/units/golem/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "graveyard",
+      "name": "Graveyard",
+      "elixir": 5,
+      "traits": {
+        "Duration": "9sec",
+        "Radius": "4",
+        "Skeleton Count": "12"
+      },
+      "level11": [
+        {
+          "Damage": "81",
+          "Hitpoints": "81"
+        }
+      ],
+      "source": "https://crtool.app/en/units/graveyard/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "guards",
+      "name": "Guards",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "1sec",
+        "Targets": "Ground",
+        "Speed": "Fast",
+        "Range": "Melee: Long",
+        "Count": "3"
+      },
+      "level11": [
+        {
+          "Damage": "117",
+          "Damage/Sec": "117",
+          "Hitpoints": "81",
+          "Shield Hitpoints": "256"
+        }
+      ],
+      "source": "https://crtool.app/en/units/guards/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "heal-spirit",
+      "name": "Heal Spirit",
+      "elixir": 1,
+      "traits": {
+        "Duration": "1sec",
+        "Targets": "Air & Ground",
+        "Speed": "Very Fast",
+        "Range": "2.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "110",
+          "Hitpoints": "215",
+          "Healing": "400"
+        }
+      ],
+      "source": "https://crtool.app/en/units/heal-spirit/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "hog-rider",
+      "name": "Hog Rider",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.6sec",
+        "Targets": "Buildings",
+        "Speed": "Very Fast",
+        "Range": "Melee: Short"
+      },
+      "level11": [
+        {
+          "Damage": "317",
+          "Damage/Sec": "198",
+          "Hitpoints": "1697"
+        }
+      ],
+      "source": "https://crtool.app/en/units/hog-rider/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "hunter",
+      "name": "Hunter",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "2.2sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "4"
+      },
+      "level11": [
+        {
+          "Hitpoints": "885",
+          "Ranged Damage": "84 x10"
+        }
+      ],
+      "source": "https://crtool.app/en/units/hunter/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "ice-golem",
+      "name": "Ice Golem",
+      "elixir": 2,
+      "traits": {
+        "Hit Speed": "2.5sec",
+        "Targets": "Buildings",
+        "Speed": "Slow",
+        "Range": "Melee: Short"
+      },
+      "level11": [
+        {
+          "Damage": "84",
+          "Death Damage": "84",
+          "Damage/Sec": "33",
+          "Hitpoints": "1228"
+        },
+        {
+          "Damage per Blast": "69"
+        }
+      ],
+      "source": "https://crtool.app/en/units/ice-golem/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "ice-spirit",
+      "name": "Ice Spirit",
+      "elixir": 1,
+      "traits": {
+        "Targets": "Air & Ground",
+        "Speed": "Very Fast",
+        "Range": "2.5",
+        "Freeze Duration": "1.1sec"
+      },
+      "level11": [
+        {
+          "Area Damage": "110",
+          "Hitpoints": "215"
+        }
+      ],
+      "source": "https://crtool.app/en/units/ice-spirit/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "ice-wizard",
+      "name": "Ice Wizard",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "1.7sec",
+        "Slowdown Duration": "2.5sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "5.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "89",
+          "Spawn Damage": "84",
+          "Hitpoints": "688"
+        },
+        {
+          "Snowman Hitpoints": "266",
+          "Area Damage": "46"
+        }
+      ],
+      "source": "https://crtool.app/en/units/ice-wizard/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "inferno-dragon",
+      "name": "Inferno Dragon",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "0.4sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "3.5"
+      },
+      "level11": [
+        {
+          "Damage": "35–422",
+          "Damage/Sec": "87–1055",
+          "Hitpoints": "1295"
+        }
+      ],
+      "source": "https://crtool.app/en/units/inferno-dragon/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "inferno-tower",
+      "name": "Inferno Tower",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "0.4sec",
+        "Targets": "Air & Ground",
+        "Range": "6",
+        "Lifetime": "30sec"
+      },
+      "level11": [
+        {
+          "Damage": "43–847",
+          "Damage/Sec": "107–2117",
+          "Hitpoints": "1748"
+        }
+      ],
+      "source": "https://crtool.app/en/units/inferno-tower/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "knight",
+      "name": "Knight",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "1.2sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Damage": "202",
+          "Damage/Sec": "168",
+          "Hitpoints": "1766"
+        },
+        {
+          "Shield Hitpoints": "512"
+        }
+      ],
+      "source": "https://crtool.app/en/units/knight/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "lava-hound",
+      "name": "Lava Hound",
+      "elixir": 7,
+      "traits": {
+        "Hit Speed": "1.5sec",
+        "Targets": "Buildings",
+        "Speed": "Slow",
+        "Range": "3.5"
+      },
+      "level11": [
+        {
+          "Hitpoints": "3581",
+          "Ranged Damage": "71"
+        },
+        {
+          "Hitpoints": "215",
+          "Damage": "81"
+        }
+      ],
+      "source": "https://crtool.app/en/units/lava-hound/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "lightning",
+      "name": "Lightning",
+      "elixir": 6,
+      "traits": {
+        "Count": "3",
+        "Stun Duration": "0.5sec",
+        "Radius": "3.5"
+      },
+      "level11": [
+        {
+          "Damage": "1057",
+          "Crown Tower Damage": "265"
+        }
+      ],
+      "source": "https://crtool.app/en/units/lightning/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "little-prince",
+      "name": "Little Prince",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "1.2sec–0.4sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "5.5"
+      },
+      "level11": [
+        {
+          "Hitpoints": "698",
+          "Ranged Damage": "104"
+        },
+        {
+          "Charge Damage": "320",
+          "Hitpoints": "1600",
+          "Damage": "232"
+        }
+      ],
+      "source": "https://crtool.app/en/units/little-prince/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "lumberjack",
+      "name": "Lumberjack",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "0.8sec",
+        "Targets": "Ground",
+        "Speed": "Very Fast",
+        "Range": "Melee: Short"
+      },
+      "level11": [
+        {
+          "Damage": "256",
+          "Damage/Sec": "320",
+          "Hitpoints": "1282"
+        },
+        {
+          "Damage": "256"
+        }
+      ],
+      "source": "https://crtool.app/en/units/lumberjack/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "magic-archer",
+      "name": "Magic Archer",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.1sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "7"
+      },
+      "level11": [
+        {
+          "Area Damage": "135",
+          "Hitpoints": "529"
+        },
+        {
+          "Decoy Hitpoints": "271",
+          "Triple Shot Damage": "46 x3"
+        }
+      ],
+      "source": "https://crtool.app/en/units/magic-archer/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "mega-knight",
+      "name": "Mega Knight",
+      "elixir": 7,
+      "traits": {
+        "Jump Range": "3.5–5",
+        "Hit Speed": "1.7sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Area Damage": "268",
+          "Jump Damage": "537",
+          "Spawn Damage": "430",
+          "Damage/Sec": "157",
+          "Hitpoints": "3993"
+        },
+        {
+          "Damage": "430"
+        }
+      ],
+      "source": "https://crtool.app/en/units/mega-knight/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "mega-minion",
+      "name": "Mega Minion",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "1.5sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Long"
+      },
+      "level11": [
+        {
+          "Hitpoints": "837",
+          "Ranged Damage": "312",
+          "Damage/Sec": "208"
+        },
+        {
+          "Warp Damage": "422"
+        }
+      ],
+      "source": "https://crtool.app/en/units/mega-minion/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "mighty-miner",
+      "name": "Mighty Miner",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "0.4sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Long"
+      },
+      "level11": [
+        {
+          "Damage": "43–409",
+          "Damage/Sec": "107–1022",
+          "Hitpoints": "2250"
+        },
+        {
+          "Area Damage": "332"
+        }
+      ],
+      "source": "https://crtool.app/en/units/mighty-miner/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "miner",
+      "name": "Miner",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "1.3sec",
+        "Targets": "Ground",
+        "Speed": "Fast",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Damage": "194",
+          "Crown Tower Damage": "39",
+          "Damage/Sec": "149",
+          "Hitpoints": "1210"
+        }
+      ],
+      "source": "https://crtool.app/en/units/miner/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "mini-pekka",
+      "name": "Mini P.E.K.K.A",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.6sec",
+        "Targets": "Ground",
+        "Speed": "Fast",
+        "Range": "Melee: Short"
+      },
+      "level11": [
+        {
+          "Damage": "755",
+          "Damage/Sec": "471",
+          "Hitpoints": "1390"
+        }
+      ],
+      "source": "https://crtool.app/en/units/mini-pekka/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "minion-giant",
+      "name": "Minion Giant",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.7sec",
+        "Targets": "Buildings",
+        "Speed": "Medium",
+        "Range": "4"
+      },
+      "level11": [
+        {
+          "Damage": "153",
+          "Damage/Sec": "90",
+          "Hitpoints": "1817"
+        }
+      ],
+      "source": "https://crtool.app/en/units/minion-giant/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "minion-horde",
+      "name": "Minion Horde",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "1.2sec",
+        "Targets": "Air & Ground",
+        "Speed": "Fast",
+        "Range": "2.5",
+        "Count": "6"
+      },
+      "level11": [
+        {
+          "Hitpoints": "230",
+          "Ranged Damage": "107"
+        }
+      ],
+      "source": "https://crtool.app/en/units/minion-horde/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "minions",
+      "name": "Minions",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "1.2sec",
+        "Targets": "Air & Ground",
+        "Speed": "Fast",
+        "Range": "2.5",
+        "Count": "3"
+      },
+      "level11": [
+        {
+          "Hitpoints": "230",
+          "Ranged Damage": "107"
+        }
+      ],
+      "source": "https://crtool.app/en/units/minions/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "mirror",
+      "name": "Mirror",
+      "elixir": 1,
+      "traits": {},
+      "level11": [],
+      "source": "https://crtool.app/en/units/mirror/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "monk",
+      "name": "Monk",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "0.8sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Damage": "140",
+          "Combo Damage": "422",
+          "Damage/Sec": "175",
+          "Hitpoints": "2214"
+        }
+      ],
+      "source": "https://crtool.app/en/units/monk/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "mortar",
+      "name": "Mortar",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "4.7sec",
+        "Targets": "Ground",
+        "Range": "11.5",
+        "Deploy Time": "3.5sec",
+        "Lifetime": "30sec"
+      },
+      "level11": [
+        {
+          "Area Damage": "266",
+          "Hitpoints": "1369"
+        },
+        {
+          "Hitpoints": "202",
+          "Damage": "125"
+        }
+      ],
+      "source": "https://crtool.app/en/units/mortar/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "mother-witch",
+      "name": "Mother Witch",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "5.5",
+        "Duration": "5sec"
+      },
+      "level11": [
+        {
+          "Hitpoints": "529",
+          "Ranged Damage": "133"
+        },
+        {
+          "Hitpoints": "629",
+          "Damage": "53"
+        }
+      ],
+      "source": "https://crtool.app/en/units/mother-witch/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "musketeer",
+      "name": "Musketeer",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "6"
+      },
+      "level11": [
+        {
+          "Hitpoints": "721",
+          "Ranged Damage": "217"
+        },
+        {
+          "Sniper Damage": "391"
+        },
+        {
+          "Spawn Damage": "204",
+          "Turret Hitpoints": "1536",
+          "Turret Damage": "148"
+        }
+      ],
+      "source": "https://crtool.app/en/units/musketeer/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "night-witch",
+      "name": "Night Witch",
+      "elixir": 4,
+      "traits": {
+        "Spawn on Death": "Bat x1",
+        "Spawn Speed": "5sec",
+        "Hit Speed": "1.3sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Long"
+      },
+      "level11": [
+        {
+          "Damage": "314",
+          "Damage/Sec": "241",
+          "Hitpoints": "906"
+        },
+        {
+          "Hitpoints": "81",
+          "Damage": "81"
+        }
+      ],
+      "source": "https://crtool.app/en/units/night-witch/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "pekka",
+      "name": "P.E.K.K.A",
+      "elixir": 7,
+      "traits": {
+        "Hit Speed": "1.8sec",
+        "Targets": "Ground",
+        "Speed": "Slow",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Damage": "842",
+          "Damage/Sec": "467",
+          "Hitpoints": "3760"
+        },
+        {
+          "Heal per Death": "168–606",
+          "Max Hitpoints": "5640"
+        }
+      ],
+      "source": "https://crtool.app/en/units/pekka/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "phoenix",
+      "name": "Phoenix",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Long"
+      },
+      "level11": [
+        {
+          "Damage": "217",
+          "Damage/Sec": "217",
+          "Hitpoints": "1052"
+        },
+        {
+          "Hitpoints": "317"
+        }
+      ],
+      "source": "https://crtool.app/en/units/phoenix/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "poison",
+      "name": "Poison",
+      "elixir": 4,
+      "traits": {
+        "Slowdown Enemies": "-15%",
+        "Duration": "8sec",
+        "Radius": "3.5"
+      },
+      "level11": [
+        {
+          "Damage/Sec": "92",
+          "Crown Tower Damage/Sec": "21"
+        }
+      ],
+      "source": "https://crtool.app/en/units/poison/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "prince",
+      "name": "Prince",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "1.4sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Long"
+      },
+      "level11": [
+        {
+          "Damage": "391",
+          "Charge Damage": "783",
+          "Damage/Sec": "279",
+          "Hitpoints": "1920"
+        }
+      ],
+      "source": "https://crtool.app/en/units/prince/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "princess",
+      "name": "Princess",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "3sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "9",
+        "Deploy Time": "1.2sec"
+      },
+      "level11": [
+        {
+          "Area Damage": "168",
+          "Hitpoints": "261"
+        },
+        {
+          "Death Damage": "168"
+        }
+      ],
+      "source": "https://crtool.app/en/units/princess/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "rage",
+      "name": "Rage",
+      "elixir": 2,
+      "traits": {
+        "Deploy Time": "0.5sec",
+        "Duration": "4.5sec",
+        "Boost": "+30%",
+        "Radius": "3"
+      },
+      "level11": [
+        {
+          "Area Damage": "179",
+          "Crown Tower Damage": "46"
+        }
+      ],
+      "source": "https://crtool.app/en/units/rage/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "ram-rider",
+      "name": "Ram Rider",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "1.7sec",
+        "Targets": "Buildings",
+        "Speed": "Medium",
+        "Range": "Melee: Short"
+      },
+      "level11": [
+        {
+          "Damage": "271",
+          "Charge Damage": "542",
+          "Damage/Sec": "159",
+          "Hitpoints": "1766"
+        },
+        {
+          "Hitpoints": "593",
+          "Damage": "104"
+        }
+      ],
+      "source": "https://crtool.app/en/units/ram-rider/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "rascals",
+      "name": "Rascals",
+      "elixir": 5,
+      "traits": {
+        "Rascal Boy Count": "1",
+        "Rascal Girl Count": "2"
+      },
+      "level11": [
+        {
+          "Hitpoints": "1832",
+          "Damage": "217"
+        },
+        {
+          "Hitpoints": "261",
+          "Damage": "125"
+        }
+      ],
+      "source": "https://crtool.app/en/units/rascals/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "rocket",
+      "name": "Rocket",
+      "elixir": 6,
+      "traits": {
+        "Radius": "2"
+      },
+      "level11": [
+        {
+          "Area Damage": "1484",
+          "Crown Tower Damage": "342"
+        }
+      ],
+      "source": "https://crtool.app/en/units/rocket/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "ronin",
+      "name": "Ronin",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "1.3sec",
+        "Targets": "Ground",
+        "Speed": "Fast",
+        "Range": "Melee: Medium",
+        "Parry Cooldown": "3.5sec"
+      },
+      "level11": [
+        {
+          "Damage": "371",
+          "Damage/Sec": "285",
+          "Hitpoints": "1779"
+        }
+      ],
+      "source": "https://crtool.app/en/units/ronin/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "royal-chef",
+      "name": "Royal Chef",
+      "elixir": null,
+      "traits": {
+        "Hit Speed": "1sec",
+        "Targets": "Air & Ground",
+        "Range": "7.5",
+        "Cooking Time": "23sec–38sec",
+        "Buff Threshold": "33%"
+      },
+      "level11": [
+        {
+          "Hitpoints": "2703",
+          "Damage/Sec": "109",
+          "Damage": "109"
+        }
+      ],
+      "source": "https://crtool.app/en/units/royal-chef/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "royal-delivery",
+      "name": "Royal Delivery",
+      "elixir": 3,
+      "traits": {
+        "Count": "1",
+        "Radius": "3"
+      },
+      "level11": [
+        {
+          "Area Damage": "384"
+        },
+        {
+          "Hitpoints": "547",
+          "Damage": "133",
+          "Shield Hitpoints": "240"
+        }
+      ],
+      "source": "https://crtool.app/en/units/royal-delivery/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "royal-ghost",
+      "name": "Royal Ghost",
+      "elixir": 3,
+      "traits": {
+        "Hit Speed": "1.8sec",
+        "Targets": "Ground",
+        "Speed": "Fast",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Area Damage": "263",
+          "Damage/Sec": "146",
+          "Hitpoints": "1152"
+        },
+        {
+          "Spawn Damage": "81"
+        },
+        {
+          "Area Damage": "81",
+          "Hitpoints": "81"
+        }
+      ],
+      "source": "https://crtool.app/en/units/royal-ghost/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "royal-giant",
+      "name": "Royal Giant",
+      "elixir": 6,
+      "traits": {
+        "Hit Speed": "1.8sec",
+        "Targets": "Buildings",
+        "Speed": "Slow",
+        "Range": "5"
+      },
+      "level11": [
+        {
+          "Hitpoints": "3164",
+          "Ranged Damage": "307"
+        },
+        {
+          "Recoil Damage": "81"
+        }
+      ],
+      "source": "https://crtool.app/en/units/royal-giant/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "royal-hogs",
+      "name": "Royal Hogs",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "1.2sec",
+        "Targets": "Buildings",
+        "Speed": "Very Fast",
+        "Range": "Melee: Short",
+        "Count": "4"
+      },
+      "level11": [
+        {
+          "Damage": "74",
+          "Damage/Sec": "61",
+          "Hitpoints": "837"
+        },
+        {
+          "Landing Damage": "43"
+        }
+      ],
+      "source": "https://crtool.app/en/units/royal-hogs/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "royal-recruits",
+      "name": "Royal Recruits",
+      "elixir": 7,
+      "traits": {
+        "Hit Speed": "1.3sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Long",
+        "Count": "6"
+      },
+      "level11": [
+        {
+          "Damage": "133",
+          "Damage/Sec": "102",
+          "Hitpoints": "547",
+          "Shield Hitpoints": "240"
+        },
+        {
+          "Charge Damage": "266"
+        }
+      ],
+      "source": "https://crtool.app/en/units/royal-recruits/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "rune-giant",
+      "name": "Rune Giant",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.5sec",
+        "Targets": "Buildings",
+        "Speed": "Medium",
+        "Range": "Melee: Medium",
+        "Enchant Limit": "2",
+        "Enchant Range": "7"
+      },
+      "level11": [
+        {
+          "Damage": "153",
+          "Damage/Sec": "102",
+          "Hitpoints": "2816",
+          "Bonus Damage": "220"
+        }
+      ],
+      "source": "https://crtool.app/en/units/rune-giant/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "skeleton-army",
+      "name": "Skeleton Army",
+      "elixir": 3,
+      "traits": {
+        "Skeleton Count": "15"
+      },
+      "level11": [
+        {
+          "Hitpoints": "81",
+          "Damage": "81"
+        },
+        {
+          "Hitpoints": "81",
+          "Damage": "81",
+          "Shield Hitpoints": "81"
+        }
+      ],
+      "source": "https://crtool.app/en/units/skeleton-army/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "skeleton-barrel",
+      "name": "Skeleton Barrel",
+      "elixir": 3,
+      "traits": {
+        "Skeleton Count": "7",
+        "Targets": "Buildings",
+        "Speed": "Fast"
+      },
+      "level11": [
+        {
+          "Death Damage": "163",
+          "Hitpoints": "532"
+        },
+        {
+          "Damage": "81",
+          "Hitpoints": "81"
+        },
+        {
+          "Hitpoints": "665"
+        }
+      ],
+      "source": "https://crtool.app/en/units/skeleton-barrel/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "skeleton-dragons",
+      "name": "Skeleton Dragons",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "2sec",
+        "Targets": "Air & Ground",
+        "Speed": "Fast",
+        "Range": "3.5",
+        "Count": "2"
+      },
+      "level11": [
+        {
+          "Area Damage": "151",
+          "Hitpoints": "560"
+        }
+      ],
+      "source": "https://crtool.app/en/units/skeleton-dragons/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "skeleton-king",
+      "name": "Skeleton King",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.6sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Area Damage": "204",
+          "Damage/Sec": "127",
+          "Hitpoints": "2298"
+        }
+      ],
+      "source": "https://crtool.app/en/units/skeleton-king/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "skeletons",
+      "name": "Skeletons",
+      "elixir": 1,
+      "traits": {
+        "Hit Speed": "1.1sec",
+        "Targets": "Ground",
+        "Speed": "Fast",
+        "Range": "Melee: Short",
+        "Count": "3"
+      },
+      "level11": [
+        {
+          "Damage": "81",
+          "Damage/Sec": "73",
+          "Hitpoints": "81"
+        }
+      ],
+      "source": "https://crtool.app/en/units/skeletons/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "sparky",
+      "name": "Sparky",
+      "elixir": 6,
+      "traits": {
+        "Hit Speed": "4sec",
+        "Targets": "Ground",
+        "Speed": "Slow",
+        "Range": "5"
+      },
+      "level11": [
+        {
+          "Area Damage": "1331",
+          "Hitpoints": "1451"
+        }
+      ],
+      "source": "https://crtool.app/en/units/sparky/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "spear-goblins",
+      "name": "Spear Goblins",
+      "elixir": 2,
+      "traits": {
+        "Hit Speed": "1.6sec",
+        "Targets": "Air & Ground",
+        "Speed": "Very Fast",
+        "Range": "5",
+        "Count": "3"
+      },
+      "level11": [
+        {
+          "Hitpoints": "133",
+          "Ranged Damage": "81"
+        }
+      ],
+      "source": "https://crtool.app/en/units/spear-goblins/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "spirit-empress",
+      "name": "Spirit Empress",
+      "elixir": 6,
+      "traits": {
+        "Hit Speed": "1.4sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "5",
+        "Ground Elixir": "3"
+      },
+      "level11": [
+        {
+          "Hitpoints": "1121",
+          "Ranged Damage": "320"
+        },
+        {
+          "Damage": "320",
+          "Damage/Sec": "266",
+          "Hitpoints": "1121"
+        }
+      ],
+      "source": "https://crtool.app/en/units/spirit-empress/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "suspicious-bush",
+      "name": "Suspicious Bush",
+      "elixir": 2,
+      "traits": {
+        "Bush Goblin Count": "2",
+        "Targets": "Buildings",
+        "Speed": "Medium"
+      },
+      "level11": [
+        {
+          "Hitpoints": "81"
+        },
+        {
+          "Hitpoints": "337",
+          "Damage": "256"
+        }
+      ],
+      "source": "https://crtool.app/en/units/suspicious-bush/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "tesla",
+      "name": "Tesla",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.1sec",
+        "Targets": "Air & Ground",
+        "Range": "5.5",
+        "Lifetime": "25sec"
+      },
+      "level11": [
+        {
+          "Damage": "220",
+          "Damage/Sec": "200",
+          "Hitpoints": "1182"
+        },
+        {
+          "Pulse Damage": "148"
+        }
+      ],
+      "source": "https://crtool.app/en/units/tesla/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "the-log",
+      "name": "The Log",
+      "elixir": 2,
+      "traits": {
+        "Targets": "Ground",
+        "Width": "3.9",
+        "Range": "10.1"
+      },
+      "level11": [
+        {
+          "Area Damage": "268",
+          "Crown Tower Damage": "35"
+        }
+      ],
+      "source": "https://crtool.app/en/units/the-log/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "three-musketeers",
+      "name": "Three Musketeers",
+      "elixir": 9,
+      "traits": {
+        "Hit Speed": "1.3sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "6",
+        "Melee Range": "Melee: Long",
+        "Count": "3"
+      },
+      "level11": [
+        {
+          "Hitpoints": "906",
+          "Ranged Damage": "204",
+          "Melee Damage": "314"
+        }
+      ],
+      "source": "https://crtool.app/en/units/three-musketeers/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "tombstone",
+      "name": "Tombstone",
+      "elixir": 3,
+      "traits": {
+        "Spawn on Death": "Skeleton x4",
+        "Spawn Speed": "4sec",
+        "Lifetime": "30sec"
+      },
+      "level11": [
+        {
+          "Hitpoints": "529"
+        },
+        {
+          "Hitpoints": "81",
+          "Damage": "81"
+        },
+        {
+          "Damage": "422",
+          "Hitpoints": "4224"
+        }
+      ],
+      "source": "https://crtool.app/en/units/tombstone/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "tornado",
+      "name": "Tornado",
+      "elixir": 3,
+      "traits": {
+        "Duration": "1sec",
+        "Radius": "5.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "84",
+          "Crown Tower Damage": "25"
+        }
+      ],
+      "source": "https://crtool.app/en/units/tornado/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "tower-princess",
+      "name": "Tower Princess",
+      "elixir": null,
+      "traits": {
+        "Hit Speed": "0.8sec",
+        "Targets": "Air & Ground",
+        "Range": "7.5"
+      },
+      "level11": [
+        {
+          "Hitpoints": "3052",
+          "Damage/Sec": "136",
+          "Damage": "109"
+        }
+      ],
+      "source": "https://crtool.app/en/units/tower-princess/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "valkyrie",
+      "name": "Valkyrie",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "1.5sec",
+        "Targets": "Ground",
+        "Speed": "Medium",
+        "Range": "Melee: Medium"
+      },
+      "level11": [
+        {
+          "Area Damage": "266",
+          "Damage/Sec": "177",
+          "Hitpoints": "1907"
+        },
+        {
+          "Tornado Damage": "43"
+        },
+        {
+          "Damage/Sec": "388",
+          "Crown Tower Damage/Sec": "192"
+        }
+      ],
+      "source": "https://crtool.app/en/units/valkyrie/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "vines",
+      "name": "Vines",
+      "elixir": 3,
+      "traits": {
+        "Count": "3",
+        "Duration": "2sec",
+        "Radius": "2.5"
+      },
+      "level11": [
+        {
+          "Damage/Sec": "153",
+          "Crown Tower Damage/Sec": "35"
+        }
+      ],
+      "source": "https://crtool.app/en/units/vines/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "void",
+      "name": "Void",
+      "elixir": 5,
+      "traits": {
+        "Duration": "4sec",
+        "Radius": "2.5"
+      },
+      "level11": [
+        {
+          "Damage: 1 Target": "696",
+          "Crown Tower: 1 Target": "97",
+          "2 – 4 Targets": "51",
+          "5+ Targets": "35"
+        }
+      ],
+      "source": "https://crtool.app/en/units/void/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "wall-breakers",
+      "name": "Wall Breakers",
+      "elixir": 2,
+      "traits": {
+        "Targets": "Buildings",
+        "Speed": "Very Fast",
+        "Range": "Melee: Short",
+        "Count": "2"
+      },
+      "level11": [
+        {
+          "Area Damage": "302",
+          "Hitpoints": "330"
+        },
+        {
+          "Hitpoints": "163",
+          "Area Damage": "184"
+        }
+      ],
+      "source": "https://crtool.app/en/units/wall-breakers/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "witch",
+      "name": "Witch",
+      "elixir": 5,
+      "traits": {
+        "Spawn Speed": "7sec",
+        "Hit Speed": "1.1sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "5.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "135",
+          "Hitpoints": "839"
+        },
+        {
+          "Hitpoints": "81",
+          "Damage": "81"
+        },
+        {
+          "Heal per Skeleton": "153",
+          "Max Hitpoints": "1451"
+        }
+      ],
+      "source": "https://crtool.app/en/units/witch/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "wizard",
+      "name": "Wizard",
+      "elixir": 5,
+      "traits": {
+        "Hit Speed": "1.4sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "5.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "304",
+          "Hitpoints": "755"
+        },
+        {
+          "Shield Hitpoints": "176",
+          "Explosion Damage": "281"
+        },
+        {
+          "Tornado Damage": "43"
+        }
+      ],
+      "source": "https://crtool.app/en/units/wizard/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "x-bow",
+      "name": "X-Bow",
+      "elixir": 6,
+      "traits": {
+        "Hit Speed": "0.4sec",
+        "Targets": "Ground",
+        "Range": "11.5",
+        "Deploy Time": "3.5sec",
+        "Lifetime": "30sec"
+      },
+      "level11": [
+        {
+          "Hitpoints": "1600",
+          "Ranged Damage": "61"
+        }
+      ],
+      "source": "https://crtool.app/en/units/x-bow/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "zap",
+      "name": "Zap",
+      "elixir": 2,
+      "traits": {
+        "Stun Duration": "0.5sec",
+        "Radius": "2.5"
+      },
+      "level11": [
+        {
+          "Area Damage": "192",
+          "Crown Tower Damage": "48"
+        }
+      ],
+      "source": "https://crtool.app/en/units/zap/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    },
+    {
+      "key": "zappies",
+      "name": "Zappies",
+      "elixir": 4,
+      "traits": {
+        "Hit Speed": "2.3sec",
+        "Stun Duration": "0.5sec",
+        "Targets": "Air & Ground",
+        "Speed": "Medium",
+        "Range": "4.5",
+        "Count": "3"
+      },
+      "level11": [
+        {
+          "Damage": "117",
+          "Damage/Sec": "50",
+          "Hitpoints": "529"
+        }
+      ],
+      "source": "https://crtool.app/en/units/zappies/",
+      "gameVersion": "16.635.1",
+      "dataUpdated": "November 9, 2026"
+    }
+  ]
+}

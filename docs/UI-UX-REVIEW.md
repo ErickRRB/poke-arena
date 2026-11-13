@@ -1,5 +1,18 @@
 # Revisión de UI/UX · 12 de noviembre de 2026
 
+## Recursos y selección del mazo · 13 de noviembre
+
+La colección marca las cartas del mazo activo con un borde verde y una marca de selección, sin ocupar espacio en el flujo. Las pruebas verifican que el indicador se actualice al agregar, reemplazar y quitar cartas. Las torres y bases usan ilustraciones raster. Los ataques, campos y partículas usan sprites originales con sus puntos de emisión por dirección. El agua de Remolino cubre su área real. Mazazo conserva la marca `PLACEHOLDER` mientras falta una animación de rodado adecuada.
+
+Se comprobaron el editor, la partida y la carga demorada en 320 × 568, 390 × 844, 768 × 1024, 1440 × 980 y 932 × 430. Los estados transitorios conservaron los rectángulos de controles y contenido. La revisión online utilizó dos sesiones, reenvíos y reconexión. Los archivos de origen y los recursos pendientes se documentan en [BATTLE-ART-REVIEW.json](BATTLE-ART-REVIEW.json).
+
+<img src="ui-review/10-deck-selected.png" width="550" alt="Las cartas del mazo activo tienen un borde verde y una marca en la colección.">
+<img src="ui-review/10-raster-arena.png" width="550" alt="Arena con torres y bases raster junto a sprites originales de Pokémon.">
+<img src="ui-review/10-whirlpool.png" width="550" alt="Remolino con el agua alineada con su zona de efecto.">
+<img src="ui-review/10-attack-attachments.png" width="700" alt="Seis Pokémon en ocho direcciones, con el punto de emisión señalado en rojo para la revisión técnica.">
+
+## Revisión anterior
+
 Se revisaron la home, el editor, las fichas, una partida contra CPU, una partida online entre dos sesiones y Ajustes. Las capturas corresponden a esta revisión. El criterio fue priorizar el tablero y sus controles, mantener el estilo de menús crema de la época GBA/DS y usar texto que ayude a jugar.
 
 1. **Home: corregida y verificada.** Los cuatro mazos siguen guardándose automáticamente. Se quitaron el título, el coste medio y la etiqueta visible del nombre; el campo conserva su etiqueta accesible. Se acomodaron las filas para aprovechar ese espacio, también en horizontal. El botón de CPU usa una tipografía consistente con los demás controles. Los botones principales tienen al menos 44 px de alto.

@@ -98,6 +98,10 @@ npm run build
 
 `balance:simulate` se ejecuta al cambiar estadísticas o reglas de balance, no para revisar menús o estilos.
 
+La [revisión de balance](docs/BALANCE-SIMULATIONS.md) cubre las 105 cartas, con referencias de Clash Royale de nivel 11, bancos de daño, duelos, refuerzos y pruebas contra torres activas. `node scripts/audit-role-balance.mjs` ejecuta los escenarios por función. `node scripts/report-simulation.mjs` genera el informe a partir de los resultados guardados.
+
+El combate usa sprites y efectos raster originales de Pokémon Mystery Dungeon. Las torres y bases usan un atlas de ilustraciones generado para el juego. [BATTLE-ART-REVIEW.json](docs/BATTLE-ART-REVIEW.json) documenta las fuentes y los recursos pendientes. Las cartas con un recurso gráfico provisional muestran `PLACEHOLDER`. Las versiones anteriores se conservan en [el archivo de imágenes](artwork/imagenes-viejas/index.html).
+
 Las pruebas cubren combate, objetivos, balance, formaciones, movimiento, colocación, guardado de mazos, recuperación de audio y restauración de partidas online. `check` comprueba la sintaxis de los módulos. `build` genera el Worker ESM en `dist/server/index.js`, con los recursos necesarios para servir el cliente. `balance:simulate` ejecuta un sandbox con despliegues libres, duelos, enjambres y combinaciones de cartas, y guarda los resultados en `docs/balance-simulation.json`.
 
 La interfaz se aloja con la configuración de `.openai/hosting.json`. El backend multijugador se publica por separado en Cloudflare. La API HTTP y su base D1 se conservan para las pestañas abiertas de versiones anteriores.

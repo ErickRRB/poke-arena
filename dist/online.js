@@ -1,5 +1,5 @@
-import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=23';
-import { onlineServer } from './online-config.js?v=23';
+import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=24';
+import { onlineServer } from './online-config.js?v=24';
 
 export const ONLINE_TOKEN_KEY = 'poke-arena:ws-token';
 const ROOM_KEY = 'poke-arena:ws-room', SEQ_KEY = 'poke-arena:ws-seq';

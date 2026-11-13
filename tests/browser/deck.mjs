@@ -10,6 +10,9 @@ export async function run({browser,url,viewports,output}){
       assert.equal(cards.length,8);assert.equal(new Set(cards.map(card=>card.row)).size,2);assert.ok(cards.every(card=>card.width>55&&Math.abs(card.width/card.height-.8)<.02));
       assert.equal(await page.locator('[data-collection]').count(),105);await inViewport(page,'#save-deck-btn',viewport);
       const chosen=await page.locator('#deck-strip [data-deck-info]').evaluateAll(nodes=>nodes.map(node=>node.dataset.deckInfo));
+      assert.deepEqual(await page.locator('#collection .selected').evaluateAll(nodes=>nodes.map(node=>node.dataset.collection).sort()),[...chosen].sort());
+      const selectedStyle=await page.locator('[data-collection=pikachu]').evaluate(node=>({border:getComputedStyle(node).outlineColor,badge:getComputedStyle(node,'::after').content}));
+      assert.equal(selectedStyle.border,'rgb(49, 132, 97)');assert.ok(selectedStyle.badge.includes('✓'));
       await page.locator('[data-collection=rayquaza]').scrollIntoViewIfNeeded();await page.locator('#save-deck-btn').click();await page.locator('#menu-deck-btn').click();
       assert.equal(await page.locator('#deck-scroll').evaluate(node=>node.scrollTop),0,'opening the editor starts with the active deck');
       assert.deepEqual(await page.locator('#deck-strip [data-deck-info]').evaluateAll(nodes=>nodes.map(node=>node.dataset.deckInfo)),chosen);
@@ -25,7 +28,7 @@ export async function run({browser,url,viewports,output}){
       const count=await page.locator('[data-collection=sandshrew]').evaluate(node=>{const name=node.querySelector('.card-name'),quantity=node.querySelector('.card-quantity');return{below:quantity.getBoundingClientRect().top>=name.getBoundingClientRect().bottom,background:getComputedStyle(quantity).backgroundColor};});
       assert.ok(count.below);assert.equal(count.background,'rgba(0, 0, 0, 0)');await page.locator('#apply-filters-btn').click();
       await page.locator('[data-collection=sandshrew]').click();await page.locator('#card-action-toggle').click();await page.locator('#deck-replace-hint').waitFor({state:'visible'});await page.locator('[data-deck-info=pikachu]').click();
-      assert.equal(await page.locator('#deck-strip [data-deck-info]').count(),8);await page.locator('[data-deck-info=sandshrew]').click();await page.locator('#card-action-toggle').click();assert.equal(await page.locator('#deck-strip [data-deck-info]').count(),7);
+      assert.equal(await page.locator('#deck-strip [data-deck-info]').count(),8);assert.equal(await page.locator('[data-collection=sandshrew]').evaluate(node=>node.classList.contains('selected')),true);await page.locator('[data-deck-info=sandshrew]').click();await page.locator('#card-action-toggle').click();assert.equal(await page.locator('#deck-strip [data-deck-info]').count(),7);assert.equal(await page.locator('[data-collection=sandshrew]').evaluate(node=>node.classList.contains('selected')),false);
       await page.locator('#collection-filters-btn').click();await page.locator('#reset-filters-btn').click();await page.locator('#apply-filters-btn').click();
       await page.locator('#deck-scroll').evaluate(node=>node.scrollTop=document.querySelector('.deck-top').offsetHeight+8);
       const deck=await page.locator('#deck-strip').boundingBox(),pane=await page.locator('#deck-scroll').boundingBox();assert.ok(deck.y+deck.height<=pane.y+2);

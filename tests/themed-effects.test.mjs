@@ -2,11 +2,14 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { Game, CARDS } from '../dist/engine.js';
 import { Renderer } from '../dist/render.js';
+import {BattleArt} from '../dist/battle-art.js';
+import {BATTLE_ASSETS} from '../dist/assets/battle/manifest.js';
 import { packGame, unpackGame, packEvent, perspective } from '../dist/snapshot.js';
 
 function setup(){
   const calls=[],ctx=new Proxy({}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
-  const renderer=Object.assign(Object.create(Renderer.prototype),{effects:[],particles:[],numbers:[],bodyHeights:new Map(),healthStates:new Map(),t:0,reduced:false,verticalScale:1,ensureSpecies:async()=>{}});
+  const battleArt=new BattleArt(async()=>({}));for(const asset of Object.values(BATTLE_ASSETS))battleArt.images.set(asset.file,{});
+  const renderer=Object.assign(Object.create(Renderer.prototype),{battleArt,frameActors:new Map(),effects:[],particles:[],numbers:[],bodyHeights:new Map(),healthStates:new Map(),t:0,reduced:false,verticalScale:1,ensureSpecies:async()=>{}});
   const game=new Game({seed:913,onEvent:e=>renderer.onEvent(e)});
   game.start();game.aiEnabled=false;game.towers.forEach(t=>t.active=false);
   return{game,renderer,ctx,calls};
@@ -86,7 +89,7 @@ test('the summon meter starts empty for the first short cycle and resets to the 
 test('a deployment release waits for readiness and creates no expanding ring',()=>{
   const{game,renderer,ctx,calls}=setup();deploy(game,'zubat');
   renderer.drawEffects(ctx,.5);assert.equal(calls.length,0);
-  renderer.drawEffects(ctx,.26);assert.ok(calls.some(c=>c.method==='fillRect'));
+  renderer.drawEffects(ctx,.26);assert.ok(calls.some(c=>c.method==='drawImage'));
   assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
 });
 
@@ -94,7 +97,7 @@ test('Pin misil visibly flies before damage and lands when the simulation hits',
   const{game,renderer,ctx,calls}=setup();deploy(game,'pinMissile',300,300);
   assert.equal(renderer.effects.filter(e=>e.kind==='missiles').length,1);
   for(let i=0;i<4;i++){game.step(.1);renderer.drawEffects(ctx,.1);}
-  assert.equal(game.spells.length,1);assert.ok(calls.some(c=>c.method==='fillRect'));
+  assert.equal(game.spells.length,1);assert.ok(calls.some(c=>c.method==='drawImage'));
   for(let i=0;i<2;i++){game.step(.1);renderer.drawEffects(ctx,.1);}
   assert.equal(game.spells.length,0);assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
   assert.equal(renderer.effects.filter(e=>e.kind==='missiles').length,1);
@@ -110,7 +113,7 @@ test('Pikachu entry, attack charge and missile impacts use sparks instead of loa
     renderer.onEvent({type:'attackStart',attacker:unit,style:'lightning',windup:.2});
     renderer.onEvent({type:'spellHit',key:'pinMissile',x:300,y:300,radius:86,team:0});
     renderer.drawEffects(ctx,.05);
-    assert.ok(calls.some(c=>c.method==='fillRect'));
+    assert.ok(calls.some(c=>c.method==='drawImage'));
     assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
   }
 });
