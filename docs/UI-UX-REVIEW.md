@@ -2,7 +2,7 @@
 
 Se revisaron la home, el editor, las fichas, una partida contra CPU, una partida online entre dos sesiones y Ajustes. Las capturas corresponden a esta revisión. El criterio fue priorizar el tablero y sus controles, mantener el estilo de menús crema de la época GBA/DS y usar texto que ayude a jugar.
 
-1. **Home: corregida y verificada.** Los cuatro mazos siguen guardándose automáticamente. Se corrigió el contraste del coste medio y se compactó el panel de portátiles: Mazo y Tutorial quedan visibles en 1280 × 720. Los botones principales tienen al menos 44 px de alto.
+1. **Home: corregida y verificada.** Los cuatro mazos siguen guardándose automáticamente. Se quitaron el título, el coste medio y la etiqueta visible del nombre; el campo conserva su etiqueta accesible. Se acomodaron las filas para aprovechar ese espacio, también en horizontal. El botón de CPU usa una tipografía consistente con los demás controles. Los botones principales tienen al menos 44 px de alto.
 
    <img src="ui-review/01-home.png" width="780" alt="Home de Poké Arena en un portátil: todos los controles caben en el panel.">
 
@@ -11,7 +11,7 @@ Se revisaron la home, el editor, las fichas, una partida contra CPU, una partida
    <img src="ui-review/02-editor.png" width="330" alt="Editor compacto con cuatro selectores y cartas de hechizos.">
    <img src="ui-review/02-detail.png" width="330" alt="Ficha de Pikachu con iconos de estadísticas de estilo RPG.">
 
-   La búsqueda sin coincidencias ofrece una acción para recuperar todas las cartas. La ayuda presenta tres pasos breves y deja las reglas completas como contenido opcional. Pausa, victoria y derrota comparten el panel crema y los controles ilustrados.
+   La búsqueda sin coincidencias ofrece una acción para recuperar todas las cartas. La ayuda presenta tres pasos breves y un acceso a la práctica; se retiró el bloque extenso de reglas. Pausa, victoria y derrota comparten el panel crema y los controles ilustrados.
 
    <img src="ui-review/02-help.png" width="300" alt="Ayuda breve con acceso directo a la práctica.">
    <img src="ui-review/02-result.png" width="300" alt="Resultado de partida con controles y panel crema.">
@@ -21,7 +21,7 @@ Se revisaron la home, el editor, las fichas, una partida contra CPU, una partida
    <img src="ui-review/03-mobile-battle.png" width="330" alt="Partida móvil sin cabecera, con tres habilidades desplazables sobre la arena.">
    <img src="ui-review/03-desktop-battle.png" width="900" alt="Partida de escritorio con el panel derecho integrado con el fondo.">
 
-4. **Partida online: verificada.** No hay pausa ni acceso al mazo durante la partida, tampoco mediante Espacio. Abrir ajustes desde escritorio o girar el teléfono no pausa la simulación online. Se comprobó además que una respuesta de despliegue demorada no deja el indicador ni permite duplicar la carta. Al finalizar se vuelve a la home para editar el mazo.
+4. **Partida online: verificada.** No hay pausa ni acceso al mazo durante la partida, tampoco mediante Espacio. Los accesos al inicio están bloqueados mientras la partida sigue activa. Una recarga recupera la misma sesión y sala, sin enviar una cancelación ni iniciar otra búsqueda. La recuperación comienza antes de terminar de descargar las imágenes. Si la recarga ocurre durante una búsqueda, continúa esa búsqueda. Abrir ajustes desde escritorio o girar el teléfono no pausa la simulación online. Se comprobó además que una respuesta de despliegue demorada no deja el indicador ni permite duplicar la carta. Al finalizar se vuelve a la home para editar el mazo.
 
    <img src="ui-review/04-online.png" width="900" alt="Partida online: nombre rival y reloj sobre el tablero, sin botón de pausa.">
 
@@ -51,3 +51,14 @@ La carga inicial usa una Pokébola animada con progreso real de sprites y atlas.
 
 <img src="ui-review/07-loading.png" width="330" alt="Carga inicial con Pokébola y progreso real sobre el menú, conservando el espacio de los controles.">
 <img src="ui-review/07-search.png" width="330" alt="Búsqueda de rival en una capa sobre el menú, con cancelar en una posición estable.">
+
+La última comprobación cubrió 320 × 568, 390 × 844, 768 × 1024, 1440 × 980 y 932 × 430. Las pruebas de carga demorada registraron cero cambios de posición o tamaño en el menú, la mano, la arena y el elixir. Tampoco se registraron eventos de desplazamiento visual durante esas pruebas locales. Se verificaron además la carga lenta de fuentes, los errores y su reintento, el movimiento reducido y una interrupción breve de conexión entre dos sesiones. Pasaron las 224 pruebas automatizadas, la comprobación de sintaxis, la compilación y la prueba del Worker generado.
+
+La próxima carta conserva su proporción y su nombre accesible, sin rótulo visible. El elixir usa un marco crema y segmentos morados. La guía mantiene tres pasos que se pueden omitir, con el mismo estilo de panel y botones del juego. Volver al inicio contra CPU pide confirmación; cancelar reanuda la partida o conserva una pausa manual previa.
+
+<img src="ui-review/08-home.png" width="330" alt="Menú compacto sin título ni rótulo visible del nombre.">
+<img src="ui-review/08-battle.png" width="330" alt="Próxima carta sin texto visible y barra de elixir con marco crema.">
+<img src="ui-review/08-tutorial.png" width="330" alt="Guía interactiva breve con número de paso y botón para omitir o terminar.">
+<img src="ui-review/08-confirm.png" width="330" alt="Confirmación antes de salir de una partida contra CPU.">
+
+La reconexión conserva el margen existente del servidor: 25 segundos de ausencia antes de resolver la partida por desconexión. Las pruebas utilizaron Chromium en Windows; no verifican el comportamiento de un teléfono físico ni sustituyen una revisión con lector de pantalla.
