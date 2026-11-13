@@ -37,7 +37,7 @@ También se corrigieron señales de combate que daban información equivocada: V
 
 La comprobación detrás del rey encontró una única fila central desplegable: en la grilla actual corresponde a y = 760 para el jugador inferior y a y = 40 para el superior. Se conservó esa fila; el margen visual incluye la base y la información de la torre.
 
-Se probaron ocho tamaños de ventana, de 320 × 568 a 1680 × 1400, cinco tipos de ficha en cuatro tamaños, dos jugadores online y el modo vertical con un perfil táctil. Pasaron 222 pruebas automatizadas. Se comprobaron además las proporciones, los nombres y los números de las 105 cartas en móvil, tablet y escritorio. La recuperación de audio se comprobó con AudioContext real en Chromium y con estados interrumpidos, rechazos y relojes congelados simulados. El [reporte de WebKit](https://bugs.webkit.org/show_bug.cgi?id=276016) documenta la familia de fallos de Safari que motivó esa recuperación.
+Se probaron ocho tamaños de ventana, de 320 × 568 a 1680 × 1400, cinco tipos de ficha en cuatro tamaños, dos jugadores online y el modo vertical con un perfil táctil. Pasaron 224 pruebas automatizadas. Se comprobaron además las proporciones, los nombres y los números de las 105 cartas en móvil, tablet y escritorio. La recuperación de audio se comprobó con AudioContext real en Chromium y con estados interrumpidos, rechazos y relojes congelados simulados. El [reporte de WebKit](https://bugs.webkit.org/show_bug.cgi?id=276016) documenta la familia de fallos de Safari que motivó esa recuperación.
 
 Queda pendiente confirmar el bloqueo nativo y la recuperación del sonido en un iPhone físico. Las capturas y las pruebas de interacción tampoco sustituyen una revisión con lector de pantalla o pruebas con jugadores.
 

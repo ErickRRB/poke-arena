@@ -35,7 +35,8 @@ test('reloading while searching restores that search without replacing the sessi
   const restored=await call('/api/resume',{},a.token);assert.equal(restored.status,'searching');assert.equal(restored.joined,before.joined);
   const b=await call('/api/session',{name:'Rival',deck:DEFAULT_DECK});const matched=await call('/api/queue',{},b.token);assert.equal(matched.opponent,'Reload');
   assert.equal((await call('/api/resume',{},a.token)).roomId,matched.roomId);
-  assert.deepEqual(await DB.prepare('SELECT id,joined,deck FROM arena_players WHERE name=?').bind('Reload').first(),{...before,joined:null});
+  const after=await DB.prepare('SELECT id,joined,deck FROM arena_players WHERE name=?').bind('Reload').first();
+  assert.equal(after.id,before.id);assert.equal(after.deck,before.deck);assert.equal(after.joined,null);
 });
 test('both disconnected players draw instead of rewarding the first to return',async t=>{const{call,advance}=setup(t),{a}=await pair(call);advance(26000);const result=await call('/api/battle',{},a.token);assert.equal(result.game.winner,-1);});
 test('online endpoints reject invalid decks, unauthenticated actions and cross-site posts',async t=>{const{call,DB}=setup(t);assert.equal((await call('/api/session',{deck:['pikachu']})).status,400);assert.equal((await call('/api/battle',{})).status,401);const response=await api(new Request('https://arena.test/api/session',{method:'POST',headers:{Origin:'https://other.test'},body:'{}'}),{DB});assert.equal(response.status,403);});
