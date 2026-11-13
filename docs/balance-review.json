@@ -18,7 +18,7 @@
     ]
   },
   "baselineScenarios": 6588,
-  "currentScenarios": 6924,
+  "currentScenarios": 7152,
   "counters": {
     "before": [
       {
@@ -342,7 +342,7 @@
           0
         ],
         "damage": [
-          230,
+          0,
           950
         ]
       },
@@ -367,7 +367,7 @@
           0
         ],
         "damage": [
-          230,
+          0,
           950
         ]
       },
@@ -392,7 +392,7 @@
           0
         ],
         "damage": [
-          230,
+          0,
           950
         ]
       },
@@ -417,7 +417,7 @@
           0
         ],
         "damage": [
-          230,
+          0,
           950
         ]
       },
@@ -952,7 +952,7 @@
           0
         ],
         "damage": [
-          230,
+          0,
           1350
         ]
       },
@@ -977,7 +977,7 @@
           0
         ],
         "damage": [
-          230,
+          0,
           1350
         ]
       },
@@ -1002,7 +1002,7 @@
           0
         ],
         "damage": [
-          230,
+          0,
           1350
         ]
       },
@@ -1027,7 +1027,7 @@
           0
         ],
         "damage": [
-          230,
+          0,
           1350
         ]
       },
@@ -1296,8 +1296,8 @@
           "wins": 42
         },
         "after": {
-          "trials": 64,
-          "wins": 42
+          "trials": 68,
+          "wins": 46
         }
       },
       "roleTrial": {
@@ -1590,11 +1590,11 @@
           {
             "key": "snorlax",
             "defender": "blastoise",
-            "seconds": 29.43,
-            "damage": 1778,
-            "totalTowerDamage": 2450,
-            "firstTowerHit": 20.27,
-            "firstIncomingHit": 4.93,
+            "seconds": 23.23,
+            "damage": 1016,
+            "totalTowerDamage": 1016,
+            "firstTowerHit": 17.8,
+            "firstIncomingHit": 3.57,
             "survivingHp": 0,
             "deployed": 1,
             "abilityCost": 0
@@ -2158,7 +2158,7 @@
           "wins": 12
         },
         "after": {
-          "trials": 64,
+          "trials": 68,
           "wins": 12
         }
       },
@@ -2236,8 +2236,8 @@
           "wins": 44
         },
         "after": {
-          "trials": 44,
-          "wins": 44
+          "trials": 48,
+          "wins": 48
         }
       },
       "roleTrial": {
@@ -2449,11 +2449,11 @@
           {
             "key": "onix",
             "defender": "blastoise",
-            "seconds": 12,
-            "damage": 0,
-            "totalTowerDamage": 720,
-            "firstTowerHit": null,
-            "firstIncomingHit": 3.23,
+            "seconds": 11.83,
+            "damage": 240,
+            "totalTowerDamage": 240,
+            "firstTowerHit": 10.4,
+            "firstIncomingHit": 2.93,
             "survivingHp": 0,
             "deployed": 1,
             "abilityCost": 0
@@ -2464,30 +2464,35 @@
     {
       "key": "blastoise",
       "name": "Blastoise",
-      "role": "Estructura · antiaérea",
-      "decision": "keep",
-      "explanation": "Se mide defensa con torres activas, daño acumulado y duración.",
+      "role": "Mini tanque · antiaéreo",
+      "decision": "adjust",
+      "explanation": "Tropa móvil de cuatro de elixir: 1.400 PV, dos impactos de 85, alcance de cinco casillas y movimiento medio. Conserva la doble ráfaga contra tierra y aire.",
       "comparisonKind": "role-and-cost",
       "reference": {
-        "key": "cannon",
-        "name": "Cannon",
-        "elixir": 3,
+        "key": "musketeer",
+        "name": "Musketeer",
+        "elixir": 4,
         "traits": {
           "Hit Speed": "1sec",
-          "Targets": "Ground",
-          "Range": "5.5",
-          "Lifetime": "30sec"
+          "Targets": "Air & Ground",
+          "Speed": "Medium",
+          "Range": "6"
         },
         "level11": [
           {
-            "Hitpoints": "824",
-            "Ranged Damage": "202"
+            "Hitpoints": "721",
+            "Ranged Damage": "217"
           },
           {
-            "Barrage Damage": "261"
+            "Sniper Damage": "391"
+          },
+          {
+            "Spawn Damage": "204",
+            "Turret Hitpoints": "1536",
+            "Turret Damage": "148"
           }
         ],
-        "source": "https://crtool.app/en/units/cannon/",
+        "source": "https://crtool.app/en/units/musketeer/",
         "gameVersion": "16.635.1",
         "dataUpdated": "November 9, 2026"
       },
@@ -2500,10 +2505,10 @@
       },
       "after": {
         "cost": 4,
-        "hp": 1200,
+        "hp": 1400,
         "damage": 85,
         "interval": 1.8,
-        "speed": 0
+        "speed": 26
       },
       "nominalDps": 94.44,
       "measuredGroundDps": 93.5,
@@ -2513,37 +2518,31 @@
           "wins": 0
         },
         "after": {
-          "trials": 0,
-          "wins": 0
+          "trials": 68,
+          "wins": 36
         }
       },
       "roleTrial": {
         "key": "blastoise",
         "name": "Blastoise",
         "cost": 4,
-        "role": "Estructura · antiaérea",
+        "role": "Mini tanque · antiaéreo",
         "deployment": {
           "bodies": 1,
-          "totalHp": 1200,
+          "totalHp": 1400,
           "nominalDps": 94.44
         },
         "openTower": {
           "key": "blastoise",
           "defender": null,
-          "seconds": 35,
-          "damage": 0,
-          "totalTowerDamage": 0,
-          "firstTowerHit": null,
-          "firstIncomingHit": null,
+          "seconds": 15.13,
+          "damage": 680,
+          "totalTowerDamage": 680,
+          "firstTowerHit": 8.3,
+          "firstIncomingHit": 5.27,
           "survivingHp": 0,
           "deployed": 1,
           "abilityCost": 0
-        },
-        "defense": {
-          "key": "blastoise",
-          "damage": 1270,
-          "spawned": 1,
-          "seconds": 27.87
         }
       }
     },
@@ -2700,10 +2699,10 @@
         "openTower": {
           "key": "psyduck",
           "defender": null,
-          "seconds": 9.57,
+          "seconds": 9.53,
           "damage": 110,
           "totalTowerDamage": 110,
-          "firstTowerHit": 8.43,
+          "firstTowerHit": 8.4,
           "firstIncomingHit": 5.27,
           "survivingHp": 0,
           "deployed": 1,
@@ -2764,7 +2763,7 @@
           "wins": 20
         },
         "after": {
-          "trials": 64,
+          "trials": 68,
           "wins": 20
         }
       },
@@ -3006,7 +3005,7 @@
           "wins": 16
         },
         "after": {
-          "trials": 40,
+          "trials": 44,
           "wins": 15
         }
       },
@@ -3260,7 +3259,7 @@
         },
         "after": {
           "trials": 76,
-          "wins": 56
+          "wins": 55
         }
       },
       "roleTrial": {
@@ -3399,12 +3398,12 @@
           {
             "key": "golem",
             "defender": "blastoise",
-            "seconds": 42.63,
-            "damage": 3000,
-            "totalTowerDamage": 3624,
-            "firstTowerHit": 21.63,
-            "firstIncomingHit": 4.77,
-            "survivingHp": 1146,
+            "seconds": 36.93,
+            "damage": 2444,
+            "totalTowerDamage": 2444,
+            "firstTowerHit": 17.77,
+            "firstIncomingHit": 3.53,
+            "survivingHp": 0,
             "deployed": 3,
             "abilityCost": 0
           }
@@ -4155,8 +4154,8 @@
           "wins": 36
         },
         "after": {
-          "trials": 40,
-          "wins": 36
+          "trials": 44,
+          "wins": 40
         }
       },
       "roleTrial": {
@@ -4663,8 +4662,8 @@
           "wins": 30
         },
         "after": {
-          "trials": 44,
-          "wins": 30
+          "trials": 48,
+          "wins": 34
         }
       },
       "roleTrial": {
@@ -5187,7 +5186,7 @@
             "defender": "pikachu",
             "seconds": 7.83,
             "damage": 0,
-            "totalTowerDamage": 1,
+            "totalTowerDamage": 0,
             "firstTowerHit": null,
             "firstIncomingHit": 2.43,
             "survivingHp": 0,
@@ -5199,7 +5198,7 @@
             "defender": "magnemite",
             "seconds": 10.23,
             "damage": 0,
-            "totalTowerDamage": 1,
+            "totalTowerDamage": 0,
             "firstTowerHit": null,
             "firstIncomingHit": 2.7,
             "survivingHp": 0,
@@ -5209,11 +5208,11 @@
           {
             "key": "forretress",
             "defender": "blastoise",
-            "seconds": 7.23,
+            "seconds": 8.27,
             "damage": 0,
-            "totalTowerDamage": 601,
+            "totalTowerDamage": 0,
             "firstTowerHit": null,
-            "firstIncomingHit": 3.33,
+            "firstIncomingHit": 2.93,
             "survivingHp": 0,
             "deployed": 1,
             "abilityCost": 0
@@ -5455,7 +5454,7 @@
           "seconds": 10.93,
           "damage": 18,
           "totalTowerDamage": 18,
-          "firstTowerHit": 9.37,
+          "firstTowerHit": 9.43,
           "firstIncomingHit": 5.27,
           "survivingHp": 0,
           "deployed": 1,
@@ -5607,7 +5606,7 @@
           "wins": 28
         },
         "after": {
-          "trials": 64,
+          "trials": 68,
           "wins": 28
         }
       },
@@ -5686,7 +5685,7 @@
           "wins": 6
         },
         "after": {
-          "trials": 64,
+          "trials": 68,
           "wins": 6
         }
       },
@@ -6435,8 +6434,8 @@
           "wins": 40
         },
         "after": {
-          "trials": 44,
-          "wins": 40
+          "trials": 48,
+          "wins": 44
         }
       },
       "roleTrial": {
@@ -6513,7 +6512,7 @@
           "wins": 26
         },
         "after": {
-          "trials": 40,
+          "trials": 44,
           "wins": 26
         }
       },
@@ -6986,11 +6985,11 @@
           {
             "key": "steelix",
             "defender": "blastoise",
-            "seconds": 37.77,
-            "damage": 2480,
-            "totalTowerDamage": 3113,
-            "firstTowerHit": 21.13,
-            "firstIncomingHit": 4.73,
+            "seconds": 28.53,
+            "damage": 1550,
+            "totalTowerDamage": 1550,
+            "firstTowerHit": 17.6,
+            "firstIncomingHit": 3.5,
             "survivingHp": 0,
             "deployed": 1,
             "abilityCost": 0
@@ -7058,8 +7057,8 @@
           "wins": 36
         },
         "after": {
-          "trials": 44,
-          "wins": 36
+          "trials": 48,
+          "wins": 40
         }
       },
       "roleTrial": {
@@ -7138,7 +7137,7 @@
           "wins": 6
         },
         "after": {
-          "trials": 40,
+          "trials": 44,
           "wins": 6
         }
       },
@@ -7238,7 +7237,7 @@
           "seconds": 20.43,
           "damage": 140,
           "totalTowerDamage": 140,
-          "firstTowerHit": 13.17,
+          "firstTowerHit": 13.3,
           "firstIncomingHit": 7.3,
           "survivingHp": 0,
           "deployed": 1,
@@ -7485,7 +7484,7 @@
           "wins": 34
         },
         "after": {
-          "trials": 64,
+          "trials": 68,
           "wins": 34
         }
       },
@@ -7505,7 +7504,7 @@
           "seconds": 7.73,
           "damage": 575,
           "totalTowerDamage": 575,
-          "firstTowerHit": 5.27,
+          "firstTowerHit": 5.3,
           "firstIncomingHit": 3.67,
           "survivingHp": 0,
           "deployed": 1,
@@ -7566,8 +7565,8 @@
           "wins": 28
         },
         "after": {
-          "trials": 44,
-          "wins": 28
+          "trials": 48,
+          "wins": 32
         }
       },
       "roleTrial": {
@@ -8139,7 +8138,7 @@
           "wins": 0
         },
         "after": {
-          "trials": 40,
+          "trials": 44,
           "wins": 0
         }
       },
@@ -8159,7 +8158,7 @@
           "seconds": 11.77,
           "damage": 150,
           "totalTowerDamage": 150,
-          "firstTowerHit": 8.8,
+          "firstTowerHit": 8.77,
           "firstIncomingHit": 5.23,
           "survivingHp": 0,
           "deployed": 1,
@@ -8217,8 +8216,8 @@
           "wins": 20
         },
         "after": {
-          "trials": 44,
-          "wins": 20
+          "trials": 48,
+          "wins": 24
         }
       },
       "roleTrial": {
@@ -8606,11 +8605,11 @@
           {
             "key": "groudon",
             "defender": "blastoise",
-            "seconds": 31.93,
-            "damage": 1600,
-            "totalTowerDamage": 2240,
-            "firstTowerHit": 21.2,
-            "firstIncomingHit": 4.73,
+            "seconds": 24.93,
+            "damage": 960,
+            "totalTowerDamage": 960,
+            "firstTowerHit": 17.83,
+            "firstIncomingHit": 3.5,
             "survivingHp": 0,
             "deployed": 1,
             "abilityCost": 0
@@ -9469,12 +9468,12 @@
           {
             "key": "regirock",
             "defender": "blastoise",
-            "seconds": 45,
-            "damage": 2420,
-            "totalTowerDamage": 3046,
-            "firstTowerHit": 21.7,
-            "firstIncomingHit": 4.73,
-            "survivingHp": 737,
+            "seconds": 36.13,
+            "damage": 1980,
+            "totalTowerDamage": 1980,
+            "firstTowerHit": 17.83,
+            "firstIncomingHit": 3.5,
+            "survivingHp": 0,
             "deployed": 1,
             "abilityCost": 0
           }
@@ -9560,7 +9559,7 @@
           "seconds": 13.43,
           "damage": 1040,
           "totalTowerDamage": 1040,
-          "firstTowerHit": 6.47,
+          "firstTowerHit": 6.5,
           "firstIncomingHit": 3.63,
           "survivingHp": 0,
           "deployed": 1,
@@ -9585,7 +9584,7 @@
             "seconds": 10.4,
             "damage": 520,
             "totalTowerDamage": 520,
-            "firstTowerHit": 7.7,
+            "firstTowerHit": 7.73,
             "firstIncomingHit": 2.4,
             "survivingHp": 0,
             "deployed": 1,
@@ -9594,11 +9593,11 @@
           {
             "key": "celebi",
             "defender": "blastoise",
-            "seconds": 8.6,
-            "damage": 0,
-            "totalTowerDamage": 780,
-            "firstTowerHit": null,
-            "firstIncomingHit": 2.73,
+            "seconds": 8.43,
+            "damage": 520,
+            "totalTowerDamage": 520,
+            "firstTowerHit": 6.5,
+            "firstIncomingHit": 2.6,
             "survivingHp": 0,
             "deployed": 1,
             "abilityCost": 0

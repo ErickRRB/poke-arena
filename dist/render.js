@@ -1,6 +1,6 @@
-import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, KING_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=24';
-import { BattleArt } from './battle-art.js?v=24';
-import { emissionPoint, animationFrame, TOWER_MOUNTS } from './sprite-motion.js?v=24';
+import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, KING_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=25';
+import { BattleArt } from './battle-art.js?v=25';
+import { emissionPoint, animationFrame, movementAnchor, TOWER_MOUNTS } from './sprite-motion.js?v=25';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -23,14 +23,14 @@ export class Renderer {
     this.background = document.createElement('canvas'); this.background.width = W; this.background.height = H;
     this.sprites = new Map(); this.metadata = {};
     this.anchors = new Map(); this.bodyHeights = new Map(); this.effects = [];
-    this.particles = []; this.numbers = [];
+    this.particles = []; this.numbers = [];this.showCombatNumbers=false;
     this.healthStates=new Map();this.speciesLoads=new Map();this.imageLoads=new Map();this.pendingSpecies=new Set();
     this.battleArt=new BattleArt(file=>this.loadImage(file));this.visualActors=new Map();this.visualProjectiles=new Map();this.frameActors=new Map();
     this.t = 0; this.reduced = false; this.pointer = null; this.selection = null; this.tutorialSpot = false;
     this.buildBackground();
   }
   async load(keys=DEFAULT_DECK,onProgress=()=>{}) {
-    const response = await fetch('assets/pokemon/manifest.json?v=24');
+    const response = await fetch('assets/pokemon/manifest.json?v=25');
     if (!response.ok) throw new Error('No se pudo cargar el archivo de sprites.');
     this.metadata = await response.json();
     const ids=[...new Set([...keys.map(k=>CARDS[k]?.id),31,34,52].filter(Boolean))];
@@ -66,13 +66,14 @@ export class Renderer {
         }
       }
       this.anchors.set(`${id}-${name}`,anchors);
-      if(name==='Idle'||Object.values(CARDS).some(card=>card.id===Number(id)&&(card.moveAnim===name||card.idleAnim===name))){
+      if(name==='Idle'||Object.values(CARDS).some(card=>card.id===Number(id)&&(card.moveAnim===name||card.idleAnim===name||card.flying&&name==='Walk'))){
         surface.width=img.width;surface.height=img.height;ctx.drawImage(img,0,0);
         const data=ctx.getImageData(0,0,img.width,img.height).data;let height=0;
         for(let row=0;row<img.height/meta.height;row++)for(let frame=0;frame<meta.durations.length;frame++){
           let top=meta.height;
           for(let y=0;y<meta.height&&top===meta.height;y++)for(let x=0;x<meta.width;x++)if(data[((row*meta.height+y)*img.width+frame*meta.width+x)*4+3]>0){top=y;break;}
-          height=Math.max(height,(anchors[row]?.[frame]?.y??meta.height*.7)-top);
+          const anchor=Object.values(CARDS).some(card=>card.id===Number(id)&&card.moveAnim===name&&card.movementAnchor==='body')?movementAnchor(Number(id),name,row,frame,anchors[row]?.[frame]):anchors[row]?.[frame];
+          height=Math.max(height,(anchor?.y??meta.height*.7)-top);
         }
         this.bodyHeights.set(Number(id),Math.max(this.bodyHeights.get(Number(id))||0,height));
       }
@@ -137,7 +138,7 @@ export class Renderer {
   sprite(c, unit, idle = false) {
     const id = unit.card.id;
     if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
-    let anim = unit.attack > 0 ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving ? (unit.card.moveAnim||'Walk') : unit.hit>0?'Hurt':unit.card.idleAnim||'Idle';
+    let anim = unit.attack > 0 ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving ? (unit.card.moveAnim||'Walk') : unit.hit>0?'Hurt':unit.card.idleAnim||(unit.card.flying?'Walk':'Idle');
     if (!this.sprites.has(`${id}-${anim}`)) anim = 'Walk';
     const meta = this.metadata[id]?.[anim], img = this.sprites.get(`${id}-${anim}`);
     if (!meta || !img) return;
@@ -148,13 +149,16 @@ export class Renderer {
     const elapsed = (unit.attackDuration || .6) - unit.attack;
     const windup = unit.attackWindup ?? unit.card.windup ?? .18;
     const progress=attacking?attackPoseProgress(meta,elapsed,unit.attackDuration||.6,windup):0;
-    const loopMeta=!attacking&&unit.card.moveLoopFrames&&anim===unit.card.moveAnim?{durations:meta.durations.slice(0,unit.card.moveLoopFrames)}:meta;
-    const clock=attacking?progress*duration:this.reduced?0:anim==='Hurt'?Math.max(0,.24-unit.hit)*60:(this.t+unit.id*.173)*60*(unit.card.moveAnim===anim?.65:unit.moving?.85:.75);
+    const loopFrames=!attacking&&anim===unit.card.moveAnim?unit.card.moveFrames:null;
+    const loopMeta=loopFrames?{durations:loopFrames.map(()=>unit.card.moveFrameDuration||8)}:meta;
+    const clock=attacking?progress*duration:this.reduced?0:anim==='Hurt'?Math.max(0,.24-unit.hit)*60:(this.t+unit.id*.173)*60*(loopFrames?1:unit.moving?.85:.75);
     frame=animationFrame(attacking?meta:loopMeta,clock,{loop:!attacking});
+    if(loopFrames)frame=loopFrames[frame];
     let direction = directionRow(unit.dx,unit.dy);
     if(img.height/meta.height<8)direction=0;
     const {x,y}=unit;
-    const anchor=this.anchors.get(`${id}-${anim}`)?.[direction]?.[frame]||{x:meta.width/2,y:meta.height*.65};
+    const nativeAnchor=this.anchors.get(`${id}-${anim}`)?.[direction]?.[frame]||{x:meta.width/2,y:meta.height*.65};
+    const anchor=loopFrames&&unit.card.movementAnchor==='body'?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor;
     const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:48):0;
     const lift=(leapLift+(unit.card.structure?23:unit.card.flying?16+(this.reduced?0:Math.sin(this.t*2.6+unit.id)*1.5):0))/vertical;
     const pulse = Math.sin(Math.PI*Math.max(0,Math.min(1,elapsed/(unit.attackDuration||.75))));
@@ -167,7 +171,7 @@ export class Renderer {
     c.save();
     const spawnProgress=unit.spawn>0?Math.max(0,1-unit.spawn/Math.max(.001,unit.spawnGroup?.duration??.75)):1;
     if(unit.spawn>0)c.globalAlpha=.2+.8*spawnProgress;
-    if(unit.hit>0&&!this.reduced) c.filter='brightness(1.5)';
+    if(unit.hit>0&&!this.reduced) c.filter=`brightness(${1+.35*unit.hit/.24})`;
     const px=x+unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge-lift-(this.reduced?0:(1-spawnProgress)*12/vertical)-anchor.y*scale/vertical;
     if(unit.card.charge&&unit.charge>=unit.card.charge&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
     c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px),Math.round(py),meta.width*scale,meta.height*scale/vertical);
@@ -220,7 +224,8 @@ export class Renderer {
   healthBar(c,unit,x,y,width){
     const ratio=Math.max(0,unit.hp/unit.maxHp);let h=this.healthStates.get(unit.id);
     if(!h){h={chip:ratio,last:ratio,at:-10};this.healthStates.set(unit.id,h);}
-    if(ratio<h.last-.001){h.at=this.t;h.chip=Math.max(h.chip,h.last);}if(ratio>h.chip)h.chip=ratio;h.last=ratio;
+    if(unit.card.structure)h.chip=ratio;
+    else if(ratio<h.last-.001){h.at=this.t;h.chip=Math.max(h.chip,h.last);}if(ratio>h.chip)h.chip=ratio;h.last=ratio;
     if(this.t-h.at>.35)h.chip=Math.max(ratio,h.chip-(this.drawDt||0)*.9);
     const height=unit.maxHp<=1?4:8;
     rect(c,'#09170f',x-width/2-2,y-2,width+4,height+4);rect(c,'#32413b',x-width/2,y,width,height);
@@ -232,7 +237,6 @@ export class Renderer {
   }
   platform(c,unit){
     if(!this.battleArt.structure(c,'platform',unit.team,unit.x,unit.y+4,74,this.verticalScale||1))text(c,'PLACEHOLDER',unit.x,unit.y-15,'#ffe3a0',8);
-    pixelMeter(c,unit.x-20,unit.y+10,40,Math.max(0,unit.lifetime/unit.card.lifetime),'#d3c68d',8);
   }
   onEvent(event) {
     const {type}=event;
@@ -262,7 +266,7 @@ export class Renderer {
     }
     if(type==='entry')this.effects.push({...event,kind:'entry',life:.36,max:.36});
     if(type==='ability'||type==='deathBurst'){
-      const art={electric:'lightning',water:'hydro',fire:'explosion',grass:'leaf',psychic:'psychic',ghost:'shadow',rock:'dust'}[event.unit.card.type]||'impact';
+      const art=event.style==='lightning'?'explosion':{electric:'lightning',water:'hydro',fire:'explosion',grass:'leaf',psychic:'psychic',ghost:'shadow',rock:'dust'}[event.unit.card.type]||'impact';
       this.effects.push({kind:'artImpact',art,x:event.unit.x,y:event.unit.y-15,radius:Math.min(95,event.radius||55),life:.5,max:.5});
     }
     if(type==='hit'){
@@ -297,7 +301,9 @@ export class Renderer {
     if(this.reduced)count=Math.min(count,3);
     for(let i=0;i<count&&this.particles.length<350;i++)this.particles.push({x,y,vx:(Math.random()-.5)*speed,vy:(Math.random()-.5)*speed-20,color,life:.3+Math.random()*.4,max:.7,gravity:65,size:2+Math.random()*3});
   }
+  setCombatNumbers(enabled){this.showCombatNumbers=enabled===true;this.numbers=[];}
   floatingNumber(target,amount,kind='damage'){
+    if(!this.showCombatNumbers)return;
     const combined=this.numbers.find(n=>n.targetId===target.id&&n.kind===kind&&this.t-n.lastAt<.22);
     if(combined){combined.amount+=amount;combined.life=combined.max;combined.lastAt=this.t;return;}
     const id=target.card?.id,scale=visualScale(target);
@@ -307,6 +313,7 @@ export class Renderer {
     this.numbers.push({targetId:target.id,kind,x:Math.max(24,Math.min(W-24,target.x+(target.id%3-1)*7+(kind==='dot'?15:kind==='heal'?-15:0))),y:Math.max(27,Math.min(H-27,target.y-height+(kind==='dot'?12:0))),amount,color:kind==='heal'?'#baf3a2':kind==='dot'?'#ffc27d':target.team?'#ffe8a0':'#ffd2c8',life,max:life,lastAt:this.t});
   }
   drawNumbers(c,dt){
+    if(!this.showCombatNumbers){this.numbers=[];return;}
     for(const n of this.numbers){
       n.life-=dt;if(n.life<=0)continue;
       const age=n.max-n.life,progress=age/n.max,size=n.kind==='dot'?17:n.amount>=160?23:20;

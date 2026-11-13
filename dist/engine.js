@@ -1,7 +1,7 @@
-import { EXTRA_CARDS } from './catalog.js?v=24';
-import { applyBalance, THRESHOLDS } from './balance.js?v=24';
-import { emissionPoint } from './sprite-motion.js?v=24';
-export { attackPoseProgress } from './sprite-motion.js?v=24';
+import { EXTRA_CARDS } from './catalog.js?v=25';
+import { applyBalance, THRESHOLDS } from './balance.js?v=25';
+import { emissionPoint } from './sprite-motion.js?v=25';
+export { attackPoseProgress } from './sprite-motion.js?v=25';
 export const W = 600, H = 800;
 export const TILE = 24;
 export const DEPLOY_GRID = Object.freeze({ size: TILE, left: 0, top: (H % TILE) / 2, columns: W / TILE, rows: Math.floor(H / TILE) });
@@ -76,11 +76,11 @@ export const CPU_DECKS = [
   {name:'Noche de fantasmas',cards:['golem','duskull','gengar','zubat','regice','diglett','nightmare','log']},
   {name:'Asedio de roca',cards:['regirock','registeel','cloyster','raltsTrio','mankey','gastly','earthquake','thunder']},
   {name:'Vuelo del bosque',cards:['celebi','charizard','vivero','treecko','eevee','skarmory','blizzard','pinMissile']},
-  {name:'Contraataque',cards:['steelix','raichu','blastoise','pikachu','diglett','chansey','whirlpool','fireball']},
+  {name:'Contraataque',cards:['steelix','raichu','regice','pikachu','diglett','chansey','whirlpool','fireball']},
   {name:'Emboscada Rocket',cards:['forretress','pandilla','duskull','ampharos','voltorb','beedrill','nightmare','thunder']},
   {name:'Control glacial',cards:['onix','lapras','regice','espeon','poochyenaPack','zubat','stealthRock','hyperBeam']},
   {name:'Bosque vivo',cards:['golem','vivero','meganium','sceptile','gastly','diglett','spikes','pinMissile']},
-  {name:'Presión aérea',cards:['celebi','pidgeot','magnemite','blastoise','pandilla','eevee','whirlpool','lightning']},
+  {name:'Presión aérea',cards:['celebi','pidgeot','cloyster','blastoise','pandilla','eevee','whirlpool','lightning']},
 ];
 // PMD sheets run south, southeast, east, northeast, north, northwest, west, southwest.
 export function directionRow(dx, dy) { return (2 - Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8; }
@@ -263,7 +263,7 @@ export class Game {
     if(card.spawnWith){const baby=this.spawn(card.spawnWith,team,clamp(x+24,44,556),y+12,delay,u.spawnGroup);baby.parentId=u.id;}
     return u;
   }
-  damage(target, amount, team, { stun = 0, freeze = 0, slow = 0, burn = 0, burnKind = 'fire', dot = false, sourceId = 0, reflected = false, poisonField = 0 } = {}) {
+  damage(target, amount, team, { stun = 0, freeze = 0, slow = 0, burn = 0, burnKind = 'fire', dot = false, sourceId = 0, sourceKey = '', reflected = false, poisonField = 0 } = {}) {
     if (target.hp <= 0 || this.state !== 'playing') return;
     amount*=1-(target.card?.armor||0);const shielded=target.shield>0,absorbed=Math.min(target.shield||0,amount);target.shield=Math.max(0,(target.shield||0)-absorbed);amount=shielded?0:amount;
     const actual = Math.min(target.hp, amount)+absorbed;
@@ -273,11 +273,12 @@ export class Game {
     target.freeze=Math.max(target.freeze||0,freeze);
     target.slow = Math.max(target.slow || 0, slow);
     if (stun > 0) { target.attackSeq++; target.attack = 0; target.charge = 0; target.target=null;target.engaged=false;target.cooldown=Math.max(target.cooldown,stun+.18); }
-    if (burn > 0) target.burn = { remaining: 3, tick: .5, damage: burn, team, kind: burnKind };
+    if (burn > 0) target.burn = { remaining: 3, tick: .5, damage: burn, team, kind: burnKind,sourceId,sourceKey };
     this.stats[team].damage += actual;
-    this.emit('damage', { target, amount: actual, dot });
+    if(actual>0)this.emit('damage', { target, amount: actual, dot,sourceId,sourceKey });
+    if(target.card?.structure)target.lifetime=target.card.lifetime*target.hp/target.maxHp;
     if(poisonField&&!dot)this.addField(target.x,target.y,team,poisonField,sourceId);
-    if(target.card?.reflect&&sourceId&&!reflected&&!dot){const attacker=this.units.find(u=>u.id===sourceId)||this.towers.find(t=>t.id===sourceId);if(attacker?.hp>0){this.emit('counter',{unit:target,from:aimPoint(target),to:aimPoint(attacker)});this.damage(attacker,actual*target.card.reflect,target.team,{reflected:true});}}
+    if(target.card?.reflect&&sourceId&&!reflected&&!dot&&actual>0){const attacker=this.units.find(u=>u.id===sourceId)||this.towers.find(t=>t.id===sourceId);if(attacker?.hp>0){this.emit('counter',{unit:target,from:aimPoint(target),to:aimPoint(attacker)});this.damage(attacker,actual*target.card.reflect,target.team,{reflected:true,sourceId:target.id,sourceKey:target.key});}}
     if (target.king && actual > 0) target.active = true;
     if (target.hp <= 0) {
       if ('king' in target) {
@@ -294,14 +295,15 @@ export class Game {
         this.stats[team].defeated++; this.emit(target.card.structure ? 'structureDown' : 'faint', { unit: target });
         if(target.card.split){
           this.emit('deathBurst',{unit:target,radius:64});
-          for(const other of[...this.units,...this.towers])if(other.team!==target.team&&other.hp>0&&!other.card?.flying&&distance(other,target)<64+other.radius)this.damage(other,target.card.deathDamage,target.team);
+          for(const other of[...this.units,...this.towers])if(other.team!==target.team&&other.hp>0&&!other.card?.flying&&distance(other,target)<64+other.radius)this.damage(other,target.card.deathDamage,target.team,{sourceId:target.id,sourceKey:target.key});
           for(const offset of[-20,20]){const small=this.spawn('geodude',target.team,clamp(target.x+offset,44,556),target.y,.4);small.card={...CARDS.geodude,damage:52,building:true,splash:0,speed:28};small.hp=small.maxHp=900;small.scale=CARDS.geodude.scale*.65;}
         }
         if(target.card.deathSpawn)this.spawnReinforcements(target,target.card.deathSpawn,target.card.deathCount||1,.4);
         if(target.card.deathField)this.addField(target.x,target.y,target.team,target.card.deathField,target.id);
         if(target.card.deathHeal)this.healNearby(target,target.card.deathHeal,125,true);
-        if(target.card.deathStun)for(const other of this.units)if(other.team!==target.team&&other.hp>0&&distance(other,target)<100)this.damage(other,1,target.team,{stun:target.card.deathStun});
+        if(target.card.deathStun){this.emit('deathBurst',{unit:target,radius:100,style:'lightning'});for(const other of this.units)if(other.team!==target.team&&other.hp>0&&distance(other,target)<100)this.damage(other,0,target.team,{stun:target.card.deathStun,sourceId:target.id});}
   }
+  retireUnit(unit){if(unit.hp<=0||unit.deathHandled)return;unit.hp=0;this.unitDeath(unit,1-unit.team);}
   spawnReinforcements(owner,key,count,delay=.5){
     const children=[],spawnGroup={id:this.nextId,x:owner.x,y:owner.y+(owner.team?1:-1)*(owner.card?.structure?42:24),duration:delay};
     for(let i=0;i<count&&this.units.filter(u=>u.hp>0).length<160;i++){
@@ -360,7 +362,7 @@ export class Game {
   addField(x,y,team,damage,sourceId){
     const existing=this.fields.find(f=>f.team===team&&f.sourceId===sourceId&&Math.hypot(f.x-x,f.y-y)<50);
     if(existing){existing.life=3;return;}if(this.fields.length>=24)this.fields.shift();
-    const owner=this.units.find(u=>u.id===sourceId);this.fields.push({x,y,team,damage,sourceId,style:owner?.card.fieldStyle||'poison',air:!!(owner?.card.air||owner?.card.flying),life:3,tick:.5,radius:48});
+    const owner=this.units.find(u=>u.id===sourceId);this.fields.push({x,y,team,damage,sourceId,sourceKey:owner?.key||'',style:owner?.card.fieldStyle||'poison',air:!!(owner?.card.air||owner?.card.flying),life:3,tick:.5,radius:48});
   }
   spellField(spell){
     const c=spell.card;
@@ -385,7 +387,7 @@ export class Game {
         f.tick+=.5;
         for(const target of targets){
           const amount='king'in target?(f.towerDamage||0):f.damage*(target.card.structure?(f.buildingMultiplier||1):target.card.flying?(f.airMultiplier||1):1);
-          if(amount>0)this.damage(target,amount*.5,f.team,{dot:true});
+          if(amount>0)this.damage(target,amount*.5,f.team,{dot:true,sourceId:f.sourceId||0,sourceKey:f.key||f.sourceKey||''});
         }
       }
       if(f.spawnKey){
@@ -417,7 +419,7 @@ export class Game {
     this.emit('attackRelease',{attacker:unit,target:unit.target,key:unit.key,style:'lightning',from,to,shot:0});
     for(const target of[...this.units,...this.towers])if(this.validTarget(unit,target)&&distance(unit,target)<unit.card.splash+target.radius*.4)this.strike(unit,target,unit.card.damage,unit.card);
     this.emit('deathBurst',{unit,radius:unit.card.splash});this.emit('hit',{x:unit.x,y:unit.y-15,key:unit.key,style:'lightning',team:unit.team});
-    this.damage(unit,unit.maxHp*10,1-unit.team);
+    this.retireUnit(unit);
   }
   validTarget(unit, target) {
     return !!(target && target.hp > 0 && target.team !== unit.team && (!target.card?.flying || unit.card.air) && (!unit.card.building || 'king' in target || target.card?.structure) && (target.spawn === undefined || target.spawn <= 0));
@@ -566,7 +568,7 @@ export class Game {
     const hp = target.hp;
     if(actor.card?.execute&&target.card&&target.hp/target.maxHp<actor.card.execute)amount*=1.6;
     if(actor.card?.enrage&&actor.hp<actor.maxHp*.5)amount*=1.25;
-    this.damage(target, amount, actor.team, {...profile,sourceId:actor.id});
+    this.damage(target, amount, actor.team, {...profile,sourceId:actor.id,sourceKey:actor.key||'tower'});
     if (actor.card?.lifesteal && target.card && hp > target.hp && actor.hp > 0) {
       const healed = Math.min(actor.maxHp-actor.hp, actor.card.lifesteal);
       actor.hp += healed;
@@ -622,9 +624,9 @@ export class Game {
       this.emit('melee',{from,to,style,team:a.team,shot,charged,radius:card.splash||0,sourceId:a.id,targetId:target.id});
       this.emit('hit',{x:to.x,y:to.y,key:a.key,style,team:a.team,targetId:target.id});
     } else {
-      this.projectiles.push({ id:a.id+':'+job.seq+':'+shot,x:from.x,y:from.y,startX:from.x,startY:from.y,totalDistance:Math.hypot(to.x-from.x,to.y-from.y),travelled:0,target,team:a.team,sourceId:a.id,damage:amount,speed:card?.projectileSpeed||(style==='bubble'?270:style==='rock'||style==='egg'?235:style==='hydro'?420:style==='coin'?470:310),key:a.key||'tower',style,splash:card?.splash||0,stun:card?.stun||0,slow:card?.slow||0,burn:card?.burn||0,burnKind:card?.burnKind||'fire',poisonField:card?.poisonField||0,air:!card||!!card.air,life:3,arc:style==='rock'?65:style==='egg'?55:style==='ember'?38:0,trace:[] });
+      this.projectiles.push({ id:a.id+':'+job.seq+':'+shot,x:from.x,y:from.y,startX:from.x,startY:from.y,totalDistance:Math.hypot(to.x-from.x,to.y-from.y),travelled:0,target,team:a.team,sourceId:a.id,sourceKey:a.key||'tower',damage:amount,speed:card?.projectileSpeed||(style==='bubble'?270:style==='rock'||style==='egg'?235:style==='hydro'?420:style==='coin'?470:310),key:a.key||'tower',style,splash:card?.splash||0,stun:card?.stun||0,slow:card?.slow||0,burn:card?.burn||0,burnKind:card?.burnKind||'fire',poisonField:card?.poisonField||0,air:!card||!!card.air,life:3,arc:style==='rock'?65:style==='egg'?55:style==='ember'?38:0,trace:[] });
     }
-    if(card?.suicide)this.damage(a,a.maxHp*10,1-a.team);
+    if(card?.suicide)this.retireUnit(a);
   }
   ai(dt) {
     if (!this.aiEnabled) return;
@@ -679,7 +681,7 @@ export class Game {
     entity.slow=Math.max(0,(entity.slow||0)-dt);entity.attack=Math.max(0,(entity.attack||0)-dt);
     if(entity.burn&&entity.hp>0){
       const burn=entity.burn;burn.remaining-=dt;burn.tick-=dt;
-      if(burn.tick<=0){burn.tick+=.5;this.damage(entity,burn.damage*.5,burn.team,{dot:true});}
+      if(burn.tick<=0){burn.tick+=.5;this.damage(entity,burn.damage*.5,burn.team,{dot:true,sourceId:burn.sourceId||0,sourceKey:burn.sourceKey||''});}
       if(burn.remaining<=0)entity.burn=null;
     }
   }
@@ -721,7 +723,7 @@ export class Game {
         const travelled=Math.min(remaining,(spell.card.travelSpeed||CARDS.log.travelSpeed)*dt);
         spell.y+=(spell.team?1:-1)*travelled;spell.travelRemaining=Math.max(0,remaining-travelled);
         for(const target of[...this.units,...this.towers])if(target.team!==spell.team&&target.hp>0&&!target.card?.flying&&!spell.hitIds.includes(target.id)&&Math.abs(target.x-spell.x)<spell.card.splash+target.radius&&target.y>=Math.min(previousY,spell.y)-18-target.radius&&target.y<=Math.max(previousY,spell.y)+18+target.radius){
-          spell.hitIds.push(target.id);this.damage(target,'king'in target?spell.card.towerDamage:spell.card.damage,spell.team);
+          spell.hitIds.push(target.id);this.damage(target,'king'in target?spell.card.towerDamage:spell.card.damage,spell.team,{sourceKey:spell.key});
           if(target.card&&!target.card.structure){target.y=clamp(target.y+(spell.team?1:-1)*spell.card.knockback,42,758);target.attackSeq++;target.attack=0;target.target=null;target.engaged=false;}
           this.emit('hit',{x:target.x,y:target.y,key:spell.key,style:'rock',team:spell.team});
         }
@@ -739,7 +741,7 @@ export class Game {
       let targets = [...this.units, ...this.towers].filter(t => t.team !== spell.team && t.hp > 0 && (t.spawn === undefined || t.spawn <= 0) && (!spell.card.groundOnly||!t.card?.flying) && distance(t, spell) < spell.card.splash + t.radius * .4);
       if(spell.card.targetLimit)targets=targets.sort((a,b)=>b.hp-a.hp||a.id-b.id).slice(0,spell.card.targetLimit);
       for (const target of targets) {
-        if(spell.card.damage>0)this.damage(target, 'king' in target ? spell.card.towerDamage : spell.card.damage, spell.team, spell.card);
+        if(spell.card.damage>0)this.damage(target, 'king' in target ? spell.card.towerDamage : spell.card.damage, spell.team, {...spell.card,sourceKey:spell.key});
         if(spell.card.targetLimit)this.emit('beam',{from:{x:target.x,y:target.y-180},to:aimPoint(target),style:'lightning',key:spell.key,team:spell.team});
         if (target.card && spell.card.knockback && !target.card.building && !target.card.structure) {
           const d = distance(target, spell) || 1;
@@ -767,19 +769,19 @@ export class Game {
       if(unit.spawn<=0&&unit.entryPending){
         unit.entryPending=false;
         for(const target of [...this.units,...this.towers])if(target.team!==unit.team&&target.hp>0&&(target.spawn===undefined||target.spawn<=0)&&distance(target,unit)<=unit.card.entryRadius+target.radius*.4){
-          this.damage(target,'king'in target?Math.round(unit.card.entryDamage*.3):unit.card.entryDamage,unit.team,{stun:unit.card.entryStun||0,slow:unit.card.entrySlow||0});
+          this.damage(target,'king'in target?Math.round(unit.card.entryDamage*.3):unit.card.entryDamage,unit.team,{stun:unit.card.entryStun||0,slow:unit.card.entrySlow||0,sourceId:unit.id,sourceKey:unit.key});
         }
         this.emit('entry',{unit,x:unit.x,y:unit.y,radius:unit.card.entryRadius,style:unit.card.entryStun?'lightning':'ice'});
       }
       unit.cooldown-=dt;unit.anim+=dt;unit.blinkCooldown=Math.max(0,unit.blinkCooldown-dt);
       unit.moving = false;
       if(unit.card.structure&&unit.spawn<=0){
-        unit.lifetime=Math.max(0,unit.lifetime-dt);unit.hp=Math.max(0,unit.hp-unit.maxHp/unit.card.lifetime*dt);
+        unit.hp=Math.max(0,unit.hp-unit.maxHp/unit.card.lifetime*dt);unit.lifetime=unit.card.lifetime*unit.hp/unit.maxHp;
         if(unit.lifetime<=1e-7||unit.hp<=0){unit.hp=0;this.unitDeath(unit,1-unit.team);continue;}
       }
       if (unit.spawn > 0 || unit.stun > 0) continue;
       if(unit.leap){this.stepLeap(unit,dt);continue;}
-      if(unit.ttl>0){unit.ttl-=dt;if(unit.ttl<=0){this.damage(unit,unit.maxHp*10,1-unit.team);continue;}}
+      if(unit.ttl>0){unit.ttl-=dt;if(unit.ttl<=0){this.retireUnit(unit);continue;}}
       if(unit.card.summon){unit.summonClock-=dt;if(unit.summonClock<=0){unit.summonClock+=unit.card.summonEvery;unit.summonCycle=unit.card.summonEvery;const alive=this.units.filter(u=>u.parentId===unit.id&&u.hp>0).length;this.spawnReinforcements(unit,unit.card.summon,Math.max(0,Math.min(unit.card.summonCount||1,(unit.card.summonMax||3)-alive)));}}
       if(unit.card.heal){unit.healClock-=dt;if(unit.healClock<=0){unit.healClock=unit.card.healEvery;this.healNearby(unit,unit.card.heal,unit.card.healRadius,unit.card.healAll);}}
       if(unit.card.structure&&unit.target&&distance(unit,unit.target)>unit.card.range+unit.target.radius||unit.card.building&&unit.target?.card?.structure&&!this.withinPullLane(unit,unit.target)){unit.target=null;unit.engaged=false;unit.attackSeq++;unit.attack=0;}

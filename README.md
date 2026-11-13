@@ -14,6 +14,8 @@ La partida dura tres minutos. Ganás al destruir la torre central o terminar con
 
 La CPU utiliza diez estrategias de mazo. Las partidas online usan una simulación autoritativa en el servidor que valida cartas, elixir, colocación y habilidades. La pausa está disponible únicamente contra CPU. El mazo se edita desde la home y los créditos se consultan en Ajustes.
 
+La vida de las estructuras se reduce con el tiempo y con los golpes. Los números flotantes de daño están ocultos por defecto y pueden activarse en Ajustes → Depuración. La preferencia se guarda en el navegador.
+
 En móvil se juega en vertical, tocando una carta y luego la arena, o arrastrándola. Un aviso al girar el dispositivo mantiene el juego en vertical cuando el navegador restringe el bloqueo de orientación.
 
 | Tecla | Acción |
@@ -101,6 +103,8 @@ npm run build
 La [revisión de balance](docs/BALANCE-SIMULATIONS.md) cubre las 105 cartas, con referencias de Clash Royale de nivel 11, bancos de daño, duelos, refuerzos y pruebas contra torres activas. `node scripts/audit-role-balance.mjs` ejecuta los escenarios por función. `node scripts/report-simulation.mjs` genera el informe a partir de los resultados guardados.
 
 El combate usa sprites y efectos raster originales de Pokémon Mystery Dungeon. Las torres y bases usan un atlas de ilustraciones generado para el juego. [BATTLE-ART-REVIEW.json](docs/BATTLE-ART-REVIEW.json) documenta las fuentes y los recursos pendientes. Las cartas con un recurso gráfico provisional muestran `PLACEHOLDER`. Las versiones anteriores se conservan en [el archivo de imágenes](artwork/imagenes-viejas/index.html).
+
+La [revisión de animaciones](docs/POKEMON-MOTION-REVIEW.md) incluye las 93 especies, sus variantes, las ocho orientaciones y los puntos de emisión de los ataques.
 
 Las pruebas cubren combate, objetivos, balance, formaciones, movimiento, colocación, guardado de mazos, recuperación de audio y restauración de partidas online. `check` comprueba la sintaxis de los módulos. `build` genera el Worker ESM en `dist/server/index.js`, con los recursos necesarios para servir el cliente. `balance:simulate` ejecuta un sandbox con despliegues libres, duelos, enjambres y combinaciones de cartas, y guarda los resultados en `docs/balance-simulation.json`.
 

@@ -13,7 +13,7 @@ export const CARD_REVIEW = {
   "machamp": "Puño dinámico: Encadena cuatro puñetazos contra un mismo rival. Referencia: Mini P.E.K.K.A. / antitanques. 4 de elixir.",
   "eevee": "Ataque rápido: Toma carrera para golpear con un placaje de daño doble. Referencia: Atacante de carga. 2 de elixir.",
   "onix": "Cola férrea: Avanza hacia las torres y estructuras y las golpea con su cola. Referencia: Presión terrestre hacia estructuras. 4 de elixir.",
-  "blastoise": "Doble hidrobomba: Defiende desde un bastión con dos cañonazos por ataque. Referencia: Estructura defensiva. 4 de elixir.",
+  "blastoise": "Doble hidrobomba: Avanza disparando dos cañonazos contra tierra y aire. Referencia: Tropa móvil de apoyo con dos cañones. 4 de elixir.",
   "vulpix": "Pirotecnia: Lanza dos llamas seguidas que queman a su objetivo. Referencia: Tirador. 3 de elixir.",
   "psyduck": "Confusión: Su onda de confusión aturde e interrumpe ataques. Referencia: Control eléctrico. 3 de elixir.",
   "alakazam": "Psíquico: Dispara un rayo que atraviesa a los enemigos alineados. Referencia: Arquero mágico / perforación. 4 de elixir.",

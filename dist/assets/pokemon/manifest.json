@@ -482,6 +482,25 @@
       "hitFrame": 5,
       "file": "assets/pokemon/6/Charge-Anim.png",
       "shadow": "assets/pokemon/6/Charge-Shadow.png"
+    },
+    "Hop": {
+      "width": 48,
+      "height": 96,
+      "durations": [
+        2,
+        1,
+        2,
+        3,
+        4,
+        4,
+        3,
+        2,
+        1,
+        2
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/6/Hop-Anim.png",
+      "shadow": "assets/pokemon/6/Hop-Shadow.png"
     }
   },
   "7": {
@@ -1130,6 +1149,25 @@
       "hitFrame": 5,
       "file": "assets/pokemon/18/Charge-Anim.png",
       "shadow": "assets/pokemon/18/Charge-Shadow.png"
+    },
+    "Hop": {
+      "width": 32,
+      "height": 96,
+      "durations": [
+        2,
+        1,
+        2,
+        3,
+        4,
+        4,
+        3,
+        2,
+        1,
+        2
+      ],
+      "hitFrame": 9,
+      "file": "assets/pokemon/18/Hop-Anim.png",
+      "shadow": "assets/pokemon/18/Hop-Shadow.png"
     }
   },
   "23": {
@@ -6005,6 +6043,25 @@
       "hitFrame": 5,
       "file": "assets/pokemon/123/Charge-Anim.png",
       "shadow": "assets/pokemon/123/Charge-Shadow.png"
+    },
+    "Hop": {
+      "width": 40,
+      "height": 96,
+      "durations": [
+        2,
+        1,
+        2,
+        3,
+        4,
+        4,
+        3,
+        2,
+        1,
+        2
+      ],
+      "hitFrame": 9,
+      "file": "assets/pokemon/123/Hop-Anim.png",
+      "shadow": "assets/pokemon/123/Hop-Shadow.png"
     }
   },
   "129": {
@@ -7292,6 +7349,25 @@
       "hitFrame": 5,
       "file": "assets/pokemon/149/Charge-Anim.png",
       "shadow": "assets/pokemon/149/Charge-Shadow.png"
+    },
+    "Hop": {
+      "width": 40,
+      "height": 104,
+      "durations": [
+        2,
+        1,
+        2,
+        3,
+        4,
+        4,
+        3,
+        2,
+        1,
+        2
+      ],
+      "hitFrame": 9,
+      "file": "assets/pokemon/149/Hop-Anim.png",
+      "shadow": "assets/pokemon/149/Hop-Shadow.png"
     }
   },
   "150": {
@@ -11602,6 +11678,25 @@
       "hitFrame": 5,
       "file": "assets/pokemon/373/Charge-Anim.png",
       "shadow": "assets/pokemon/373/Charge-Shadow.png"
+    },
+    "Hop": {
+      "width": 56,
+      "height": 104,
+      "durations": [
+        2,
+        1,
+        2,
+        3,
+        4,
+        4,
+        3,
+        2,
+        1,
+        2
+      ],
+      "hitFrame": 9,
+      "file": "assets/pokemon/373/Hop-Anim.png",
+      "shadow": "assets/pokemon/373/Hop-Shadow.png"
     }
   },
   "376": {

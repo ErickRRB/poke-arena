@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {RealtimeMatch,validDeck} from '../realtime/src/match.js';
-import {Game,CARDS} from '../dist/engine.js?v=24';
-import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=24';
+import {Game,CARDS} from '../dist/engine.js?v=25';
+import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=25';
 import {publicSnapshot,publicEvent,unpackEvent,RECONNECT_GRACE} from '../dist/online-wire.js';
 
 const deck=['diglett','voltorb','bulbasaur','eevee','ekans','gastly','grimer','squirtle'];

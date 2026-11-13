@@ -1,10 +1,10 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=24';
-import { Renderer } from './render.js?v=24';
-import { SoundSystem } from './audio.js?v=24';
-import { OnlineClient, hasSavedOnlineSession } from './online.js?v=24';
-import { unpackGame, perspective } from './snapshot.js?v=24';
-import { cardArtMarkup } from './card-art.js?v=24';
-import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=24';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=25';
+import { Renderer } from './render.js?v=25';
+import { SoundSystem } from './audio.js?v=25';
+import { OnlineClient, hasSavedOnlineSession } from './online.js?v=25';
+import { unpackGame, perspective } from './snapshot.js?v=25';
+import { cardArtMarkup } from './card-art.js?v=25';
+import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=25';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -29,6 +29,7 @@ const storedDifficulty = store.get('difficulty', 'normal');
 let difficulty = ['easy', 'normal', 'hard'].includes(storedDifficulty) ? storedDifficulty : 'normal';
 let sound = store.get('sound', true) === true;
 let reduced = store.get('reduced', matchMedia('(prefers-reduced-motion: reduce)').matches) === true;
+let combatNumbers = store.get('combat-numbers', false) === true;
 let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true;
 let toastTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
 const sfx=new SoundSystem(sound);
@@ -50,6 +51,7 @@ function updateSound() {
   store.set('sound', sound);
 }
 function setReduced(value) { reduced = value; renderer.reduced = reduced; document.body.classList.toggle('reduced-motion', reduced); $('motion-setting').checked = reduced; store.set('reduced', reduced); }
+function setCombatNumbers(value){combatNumbers=value===true;renderer.setCombatNumbers(combatNumbers);$('damage-numbers-setting').checked=combatNumbers;store.set('combat-numbers',combatNumbers);}
 function toast(message) {
   if(game?.state==='playing'){live(message);$('online-status').hidden=false;$('online-status').textContent=message;clearTimeout(toastTimer);toastTimer=setTimeout(()=>{$('online-status').hidden=true;},2400);return;}
   $('toast').textContent = message; $('toast').classList.add('show');
@@ -486,6 +488,7 @@ $('help-practice-btn').addEventListener('click',()=>{if(!document.body.classList
 $('sound-btn').addEventListener('click',()=>{sound=!sound;updateSound();audioInit();if(sound)tone(580,.13,'sine',.05);});
 $('sound-setting').addEventListener('change',e=>{sound=e.target.checked;updateSound();audioInit();});
 $('motion-setting').addEventListener('change',e=>setReduced(e.target.checked));
+$('damage-numbers-setting').addEventListener('change',e=>setCombatNumbers(e.target.checked));
 $('difficulty').value=difficulty;
 $('difficulty').addEventListener('change',e=>{difficulty=e.target.value;store.set('difficulty',difficulty);});
 
@@ -527,7 +530,7 @@ async function beginOnline(){
   online=createOnlineClient();
   try{await online.start($('trainer-name').value||'Entrenador',deck);}catch(error){$('search-status').textContent=error.message;}
 }
-updateSound();setReduced(reduced);newGame();syncPortrait();
+updateSound();setReduced(reduced);setCombatNumbers(combatNumbers);newGame();syncPortrait();
 let previous=performance.now(),accumulator=0;
 function frame(now){
   const dt=Math.min((now-previous)/1000,.08);previous=now;

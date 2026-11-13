@@ -10,7 +10,7 @@ function setup(key, distance) {
   game.towers.forEach(t => { t.active = false; });
   const attacker = game.spawn(key, 0, 300, 550, 0);
   attacker.card = { ...attacker.card, speed: 0 };
-  const target = game.spawn('blastoise', 1, 300, 550 - distance, 0);
+  const target = game.spawn('regice', 1, 300, 550 - distance, 0);
   target.card = { ...target.card, passive: true, damage: 0, lifetime: Infinity };
   target.lifetime = Infinity;
   return { game, attacker, target };

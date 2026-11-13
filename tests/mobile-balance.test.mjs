@@ -30,7 +30,7 @@ test('danger preview uses the resolved placement and respects air and building t
   const ground=g.deploymentThreats(0,'pikachu',158,400);
   assert.ok(ground.includes(ranged));assert.ok(ground.includes(melee));assert.ok(!ground.includes(tank));
   const flying=g.deploymentThreats(0,'zubat',158,400);assert.ok(flying.includes(ranged));assert.ok(!flying.includes(melee));
-  const structure=g.deploymentThreats(0,'blastoise',158,470);assert.ok(structure.includes(tank));
+  const structure=g.deploymentThreats(0,'regice',158,470);assert.ok(structure.includes(tank));
   ranged.hp=0;assert.ok(!g.deploymentThreats(0,'pikachu',158,400).includes(ranged));
   assert.deepEqual(g.deploymentThreats(0,'thunder',158,200),[]);
 });
@@ -75,16 +75,16 @@ test('movement has four slower tiers with a readable gap between tanks and runne
 test('central defensive structures pull marching win conditions before either bridge',()=>{
   for(const key of['snorlax','groudon','golem','steelix','onix'])for(const team of[0,1])for(const x of LANES){
     const g=fresh(),unit=g.spawn(key,team,x,team?350:450,0);g.step(1/60);assert.ok('king'in unit.target);
-    const structure=g.spawn('blastoise',1-team,300,team?550:250,.75);run(g,1);
+    const structure=g.spawn('regice',1-team,300,team?550:250,.75);run(g,1);
     assert.equal(unit.target,structure,`${key} ignored central defense`);assert.ok(unit.moving||unit.engaged);
   }
 });
 
 test('an approaching tank prioritizes a central defense even slightly farther away than the crown tower',()=>{
-  const g=fresh(),unit=g.spawn('snorlax',1,442,410,0);g.step(1/60);const structure=g.spawn('blastoise',0,300,565,0);g.step(1/60);assert.equal(unit.target,structure);
+  const g=fresh(),unit=g.spawn('snorlax',1,442,410,0);g.step(1/60);const structure=g.spawn('regice',0,300,565,0);g.step(1/60);assert.equal(unit.target,structure);
 });
 
 test('a tank already hitting a crown tower keeps its victim when a new structure appears',()=>{
   const g=fresh(),unit=g.spawn('snorlax',1,442,575,0);run(g,.6);const tower=unit.target;assert.ok(unit.engaged);
-  g.spawn('blastoise',0,300,535,0);run(g,.2);assert.equal(unit.target,tower);
+  g.spawn('regice',0,300,535,0);run(g,.2);assert.equal(unit.target,tower);
 });

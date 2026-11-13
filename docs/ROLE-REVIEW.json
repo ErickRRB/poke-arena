@@ -252,21 +252,21 @@
     {
       "key": "blastoise",
       "name": "Blastoise",
-      "role": "Estructura · antiaérea",
-      "reference": "Estructura defensiva",
+      "role": "Mini tanque · antiaéreo",
+      "reference": "Tropa móvil de apoyo con dos cañones",
       "cost": 4,
-      "hp": 1200,
+      "hp": 1400,
       "shield": 0,
       "count": 1,
       "damage": 85,
       "impacts": 2,
       "interval": 1.8,
       "directDps": 94.4,
-      "range": 175,
+      "range": 120,
       "scale": 1.7241,
-      "description": "Defiende desde un bastión con dos cañonazos por ataque.",
+      "description": "Avanza disparando dos cañonazos contra tierra y aire.",
       "pokemonIdentity": "Doble hidrobomba",
-      "attackRuleException": false
+      "attackRuleException": true
     },
     {
       "key": "vulpix",

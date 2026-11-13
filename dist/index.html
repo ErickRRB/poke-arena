@@ -11,11 +11,11 @@
   <link rel="preload" href="assets/fonts/font-4.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="assets/fonts/font-7.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="assets/fonts/fonts.css">
-  <link rel="stylesheet" href="style.css?v=24">
-  <link rel="stylesheet" href="card-ui.css?v=24">
-  <link rel="stylesheet" href="theme.css?v=24">
-  <link rel="stylesheet" href="transient-ui.css?v=24">
-  <link rel="stylesheet" href="editor.css?v=24">
+  <link rel="stylesheet" href="style.css?v=25">
+  <link rel="stylesheet" href="card-ui.css?v=25">
+  <link rel="stylesheet" href="theme.css?v=25">
+  <link rel="stylesheet" href="transient-ui.css?v=25">
+  <link rel="stylesheet" href="editor.css?v=25">
 </head>
 <body class="menu-mode">
   <svg class="svg-defs" aria-hidden="true"><defs>
@@ -129,7 +129,7 @@
     <button id="help-practice-btn" class="primary-btn">Jugar la práctica<svg aria-hidden="true"><use href="#i-play"/></svg></button>
   </dialog>
 
-  <dialog id="settings-dialog" class="modal small-modal"><div class="modal-heading"><h2>Ajustes</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><label class="setting-row" for="difficulty"><span><strong>Rival CPU</strong><small id="difficulty-hint" hidden>Próxima partida</small></span><select id="difficulty"><option value="easy">Principiante</option><option value="normal" selected>Entrenador</option><option value="hard">Líder de gimnasio</option></select></label><label class="setting-row" for="sound-setting"><span><strong>Sonido</strong></span><input type="checkbox" id="sound-setting" class="switch"></label><label class="setting-row" for="motion-setting"><span><strong>Reducir movimiento</strong></span><input type="checkbox" id="motion-setting" class="switch"></label><button id="settings-credits-btn" class="text-btn" style="margin-top:15px">Sprites y créditos</button></dialog>
+  <dialog id="settings-dialog" class="modal small-modal"><div class="modal-heading"><h2>Ajustes</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><label class="setting-row" for="difficulty"><span><strong>Rival CPU</strong><small id="difficulty-hint" hidden>Próxima partida</small></span><select id="difficulty"><option value="easy">Principiante</option><option value="normal" selected>Entrenador</option><option value="hard">Líder de gimnasio</option></select></label><label class="setting-row" for="sound-setting"><span><strong>Sonido</strong></span><input type="checkbox" id="sound-setting" class="switch"></label><label class="setting-row" for="motion-setting"><span><strong>Reducir movimiento</strong></span><input type="checkbox" id="motion-setting" class="switch"></label><details class="debug-settings"><summary>Depuración</summary><label class="setting-row" for="damage-numbers-setting"><span><strong>Mostrar números de daño</strong></span><input type="checkbox" id="damage-numbers-setting" class="switch"></label></details><button id="settings-credits-btn" class="text-btn" style="margin-top:15px">Sprites y créditos</button></dialog>
 
   <dialog id="deck-dialog" class="modal deck-modal" aria-label="Editar mazo">
     <div class="deck-editor-heading"><div id="deck-slots" class="deck-presets" role="group" aria-label="Mazos guardados"></div><button id="collection-filters-btn" class="icon-btn" aria-label="Filtros y orden de cartas" aria-haspopup="dialog" aria-expanded="false" aria-controls="collection-filters"><svg aria-hidden="true"><use href="#i-filter"/></svg></button><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
@@ -158,6 +158,6 @@
   <dialog id="leave-dialog" class="modal small-modal" aria-labelledby="leave-title" aria-describedby="leave-description"><div class="modal-heading"><h2 id="leave-title">¿Volver al inicio?</h2><button class="icon-btn" data-close aria-label="Seguir jugando"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><p id="leave-description">Se perderá esta partida contra CPU.</p><div class="leave-actions"><button class="primary-btn" data-close>Seguir jugando</button><button class="secondary-btn" id="confirm-leave-btn"><svg aria-hidden="true"><use href="#i-home"/></svg>Volver</button></div></dialog>
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
   <dialog id="portrait-dialog" class="modal small-modal portrait-dialog" aria-labelledby="portrait-title" aria-describedby="portrait-description"><h2 id="portrait-title">Jugá en vertical</h2><p id="portrait-description">Girá el teléfono para continuar.</p></dialog>
-  <script type="module" src="app.js?v=24"></script>
+  <script type="module" src="app.js?v=25"></script>
 </body>
 </html>

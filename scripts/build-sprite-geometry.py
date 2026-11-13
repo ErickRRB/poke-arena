@@ -6,7 +6,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 manifest = json.loads((ROOT/'dist/assets/pokemon/manifest.json').read_text())
-cards = json.loads(subprocess.check_output(['node','--input-type=module','-e',"import {CARDS} from './dist/engine.js'; console.log(JSON.stringify(Object.values(CARDS).filter(c=>c.id).map(c=>({id:c.id,anim:c.attackAnim||'Attack'}))))"],cwd=ROOT,text=True))
+cards = json.loads(subprocess.check_output(['node','--input-type=module','-e',"import {CARDS} from './dist/engine.js'; console.log(JSON.stringify(Object.values(CARDS).filter(c=>c.id).flatMap(c=>[c.attackAnim||'Attack',c.moveAnim,c.idleAnim].filter(Boolean).map(anim=>({id:c.id,anim})))))"],cwd=ROOT,text=True))
 wanted = {}
 for card in cards + [{'id':value,'anim':'Shoot'} for value in [31,34,52]]:
     wanted.setdefault(str(card['id']),set()).add(card['anim'])
