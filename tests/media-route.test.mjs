@@ -1,2 +1,8 @@
 import{test}from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';import worker from'../dist/server/index.js';
+test('the hosted Worker serves the same bytes from its separate resource modules',async()=>{
+  for(const file of['index.html','engine.js','assets/cards/battle-1.webp','assets/battle/structures-v1.png','assets/battle/Particle__Gust_Blue.None.png','assets/ui/menu-icons-v1.webp']){
+    const response=await worker.fetch(new Request('https://arena.test/'+file),{});assert.equal(response.status,200,file);
+    assert.deepEqual(Buffer.from(await response.arrayBuffer()),readFileSync(new URL('../dist/'+file,import.meta.url)),file);
+  }
+});
 test('hosted media works when the platform forbids access to CacheStorage',async t=>{const descriptor=Object.getOwnPropertyDescriptor(globalThis,'caches');Object.defineProperty(globalThis,'caches',{configurable:true,get(){throw Error('This Worker is not permitted to access the default cache.');}});t.after(()=>descriptor?Object.defineProperty(globalThis,'caches',descriptor):delete globalThis.caches);const bytes=readFileSync(new URL('../dist/assets/pokemon/252/art.png',import.meta.url));t.mock.method(globalThis,'fetch',async url=>{assert.match(String(url),/^https:\/\/raw\.githubusercontent\.com\/PokeAPI\/sprites\/[a-f0-9]{40}\//);return new Response(bytes,{headers:{'Content-Type':'image/png'}});});const response=await worker.fetch(new Request('https://arena.test/assets/pokemon/252/art.png'),{});assert.equal(response.status,200);assert.equal(response.headers.get('Content-Type'),'image/png');assert.deepEqual(Buffer.from(await response.arrayBuffer()),bytes);});

@@ -1,10 +1,10 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=23';
-import { Renderer } from './render.js?v=23';
-import { SoundSystem } from './audio.js?v=23';
-import { OnlineClient, hasSavedOnlineSession } from './online.js?v=23';
-import { unpackGame, perspective } from './snapshot.js?v=23';
-import { cardArtMarkup } from './card-art.js?v=23';
-import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=23';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=24';
+import { Renderer } from './render.js?v=24';
+import { SoundSystem } from './audio.js?v=24';
+import { OnlineClient, hasSavedOnlineSession } from './online.js?v=24';
+import { unpackGame, perspective } from './snapshot.js?v=24';
+import { cardArtMarkup } from './card-art.js?v=24';
+import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=24';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -164,7 +164,7 @@ function newGame({ start = false, tutorial = false } = {}) {
   sfx.resetMusic();
   $('result-overlay').hidden = true; $('pause-overlay').hidden = true; $('guide').hidden = true;
   walkthrough = null; selected = -1; handSignature = ''; renderer.pointer = null; renderer.selection = null; renderer.tutorialSpot = false;
-  renderer.particles = [];renderer.effects=[];renderer.numbers=[];
+  renderer.particles = [];renderer.effects=[];renderer.numbers=[];renderer.resetVisuals();
   game = new Game({ deck: tutorial||deck.length!==8 ? DEFAULT_DECK : deck, difficulty, tutorial, onEvent: handleEvent, animations:renderer.metadata });
   $('enemy-name').textContent = `${{easy:'Principiante',normal:'Entrenador',hard:'Líder de gimnasio'}[difficulty]} · CPU`;
   $('online-status').hidden=true;$('connection-loading').hidden=true;
@@ -515,8 +515,7 @@ function createOnlineClient(){
     online.team=packet.team;onlineMode=true;$('enemy-name').textContent=packet.opponent;
     if(ready){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
     $('search-panel').hidden=true;
-    const old=new Map(game.units.map(u=>[u.id,u]));game=unpackGame(perspective(packet.game,packet.team),handleEvent,renderer.metadata);
-    for(const u of game.units){const previous=old.get(u.id);u.drawX=previous?.drawX??previous?.x??u.x;u.drawY=previous?.drawY??previous?.y??u.y;}
+    game=unpackGame(perspective(packet.game,packet.team),handleEvent,renderer.metadata);
     for(const entry of packet.events)handleEvent(perspective(entry.event,packet.team));
     if(game.state==='ended'&&$('result-overlay').hidden)showResult({winner:game.winner,reason:game.reason});
     $('online-status').hidden=packet.startsIn<=0;$('online-status').textContent=packet.startsIn>0?'Preparados':'';updateUi();
@@ -533,9 +532,13 @@ let previous=performance.now(),accumulator=0;
 function frame(now){
   const dt=Math.min((now-previous)/1000,.08);previous=now;
   if(onlineMode){
-    for(const u of game.units){
-      u.drawX+=(u.x-u.drawX)*Math.min(1,dt*15);u.drawY+=(u.y-u.drawY)*Math.min(1,dt*15);u.anim+=dt;u.attack=Math.max(0,u.attack-dt);u.hit=Math.max(0,u.hit-dt);
-      if(game.state==='playing'&&!game.tiebreaker){const activeDt=Math.max(0,dt-u.spawn);u.spawn=Math.max(0,u.spawn-dt);if(u.card.summon)u.summonClock=Math.max(0,u.summonClock-activeDt);}
+    for(const u of [...game.units,...game.towers]){
+      u.anim+=dt;u.attack=Math.max(0,u.attack-dt);u.hit=Math.max(0,(u.hit||0)-dt);
+      if(u.card&&game.state==='playing'&&!game.tiebreaker){const activeDt=Math.max(0,dt-u.spawn);u.spawn=Math.max(0,u.spawn-dt);if(u.card.summon)u.summonClock=Math.max(0,u.summonClock-activeDt);}
+    }
+    if(game.state==='playing'){
+      for(const field of game.fields)field.life=Math.max(0,field.life-dt);
+      for(const spell of game.spells){spell.delay=Math.max(0,spell.delay-dt);if(spell.flightTime&&spell.delay<=0)spell.flightElapsed=Math.min(spell.flightTime,spell.flightElapsed+dt);}
     }
     if(game.state==='playing'&&!game.tiebreaker){game.time=Math.max(0,game.time-dt);game.energy[0]=Math.min(10,game.energy[0]+dt*game.multiplier/2.8);}
   }else if(game.state==='playing'&&!(walkthrough&&walkthrough.step<3)){

@@ -32,7 +32,8 @@ html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden;
 .collection .pokemon-card { height: 154px; touch-action: pan-y; }
 .collection .card-name { font-size: 13px; }
 .collection .card-role { font-size: 10px; margin-top: 4px; }
-.collection .pokemon-card.selected:after { display: none; }
+.collection .pokemon-card.selected { outline: 3px solid #318461; outline-offset: 1px; box-shadow: 0 0 0 5px #dceec2, 0 3px 0 #163e31; }
+.collection .pokemon-card.selected:after { content: '✓'; display: grid; place-items: center; position: absolute; top: -9px; right: -7px; width: 20px; height: 20px; border: 2px solid #f8f5dc; border-radius: 50%; background: #247552; color: #fffde8; font: 800 14px/1 "DM Sans", sans-serif; box-shadow: 0 1px 3px #153c32aa; z-index: 7; pointer-events: none; }
 .card-quantity { position: absolute; z-index: 2; top: 6px; right: 6px; display: flex; align-items: center; gap: 3px; padding: 4px 6px; border: 1px solid #d4dec966; border-radius: 5px; background: #10281edb; color: #fff7df; font-size: 12px; font-weight: 700; }
 .card-quantity svg { width: 13px; height: 13px; }
 .deck-toggle { min-height: 44px; padding: 7px 5px; border-radius: 6px; font-size: 12px; }
@@ -136,3 +137,4 @@ html, body { height: var(--app-height, 100dvh); min-height: 0; overflow: hidden;
   .menu-panel > .primary-btn, .menu-panel > .secondary-btn { min-height: 38px; margin-top: 8px; }
   .menu-panel .menu-options button { min-height: 36px; }
 }
+.art-placeholder{position:absolute;z-index:6;left:50%;top:50%;transform:translate(-50%,-50%);padding:3px 5px;border:1px solid #e8c168;border-radius:3px;background:#392f24ed;color:#fff2cd;font:800 8px/1.2 "DM Sans",sans-serif;letter-spacing:.04em;pointer-events:none;white-space:nowrap}

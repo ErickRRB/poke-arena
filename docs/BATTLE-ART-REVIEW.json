@@ -1,0 +1,128 @@
+{
+  "date": "2026-11-13",
+  "renderer": "Original raster sheets for combat, scenery and particles. Tactical placement boundaries, shadows, health bars and text remain UI.",
+  "sources": [
+    {
+      "repository": "https://github.com/PMDCollab/RawAsset",
+      "revision": "03c80dad937911572f8fb19903771a47956fc696",
+      "manifest": "dist/assets/battle/manifest.json",
+      "uses": [
+        "attack projectiles and beams",
+        "melee impact sheets",
+        "fire, ice, poison, shadow and healing",
+        "spell fields",
+        "water, grass, paths, fences and trees"
+      ]
+    },
+    {
+      "repository": "https://github.com/PMDCollab/SpriteCollab",
+      "revision": "576a7f13b5b7f6ad09a5877d5ae6b2d33458c245",
+      "documentation": "https://wiki.pmdo.pmdcollab.org/PMD_Sprite_Format",
+      "uses": [
+        "original Pokémon animations",
+        "head, body and hand offsets",
+        "white foot anchors"
+      ]
+    },
+    {
+      "repository": "https://github.com/PokeAPI/sprites",
+      "revision": "1b3b7c0a538dd2226ae08d0d2f8955125075bbd4",
+      "uses": [
+        "Poké Ball deployment marker"
+      ]
+    }
+  ],
+  "generated": [
+    {
+      "file": "dist/assets/battle/structures-v1.png",
+      "generator": "Integrated image_gen",
+      "transparent": true,
+      "prompt": "Use case: stylized-concept. Asset type: transparent bitmap sprite atlas for a Pokémon tower-battle game, in polished Nintendo DS era pixel-art style. Create a perfectly aligned grid of SIX separate sprites, TWO columns and THREE rows, with generous transparent empty margins in each equal-size cell. Front-facing three-quarter overhead camera, consistent lighting and scale, crisp pixel clusters with attractive detailed roof tiles and stonework. Row 1: two small gym lookout towers, left with blue accents and right with warm red accents. Row 2: two larger royal gym towers, left blue, right red. Row 3: two low square stone deployment bastions, left blue, right red. All six sprites must be fully visible and separated, on a transparent background. Small towers have cream stone walls, a substantial stone footing, a flat open rooftop lookout deck for a Pokémon to stand on, a tasteful Pokéball crest on the front and short blue or red pennants. Royal towers are wider and sturdier with an elevated open rooftop deck, a larger Pokéball crest and two short banners. No characters, Pokémon, lettering, numbers, health bars, card frames or surrounding scene. Design actual beautiful finished game buildings, with coherent perspective and clean silhouettes. No vector appearance, no simple stacked rectangles, no blurry glows, no noisy texture. Keep each building centered within its cell with feet resting near the same relative baseline.",
+      "uses": [
+        "princess towers",
+        "king towers",
+        "Pokémon structure bases"
+      ],
+      "sourceRects": {
+        "princess": [
+          [
+            161,
+            7,
+            309,
+            395
+          ],
+          [
+            794,
+            7,
+            309,
+            395
+          ]
+        ],
+        "king": [
+          [
+            29,
+            428,
+            574,
+            476
+          ],
+          [
+            662,
+            428,
+            574,
+            476
+          ]
+        ],
+        "platform": [
+          [
+            92,
+            959,
+            449,
+            271
+          ],
+          [
+            725,
+            959,
+            448,
+            271
+          ]
+        ]
+      }
+    }
+  ],
+  "animationChanges": {
+    "charizard": "Original Charge gliding poses replace walking while airborne. Shoot and its original head marker remain the attack.",
+    "attachments": "Native markers for all species, directions and attack frames. Cannons and alternating hands use separate attachments.",
+    "smoothing": "Position and facing interpolation survives rebuilt online snapshots. Attack time remains monotonic during each sequence. Large teleports reset interpolation.",
+    "whirlpool": "Original Gust_Blue frames are cropped to visible alpha bounds without editing pixels. The visible footprint spans the true damage radius.",
+    "stealthRock": "Original raster boulders float within the field. Back and front layers retain depth.",
+    "hyperBeam": "Original golden beam column and explosion sheet. Card illustration remains unchanged."
+  },
+  "placeholders": [
+    {
+      "card": "log",
+      "label": "PLACEHOLDER",
+      "reason": "The original log object is usable as a rolling projectile but lacks a suitable rolling animation.",
+      "visibleIn": [
+        "collection",
+        "saved deck",
+        "hand",
+        "card details",
+        "battle"
+      ]
+    }
+  ],
+  "archived": [
+    "artwork/imagenes-viejas/variantes/arena-con-torres-anteriores.png",
+    "artwork/imagenes-viejas/originales/combat-effects-v1.webp"
+  ],
+  "checks": [
+    "Eight attachment directions for Charizard, Charmander, Blastoise, Alakazam, Mewtwo and Bulbasaur",
+    "All twelve spells captured in the actual renderer",
+    "Desktop, tablet and mobile layouts",
+    "Delayed loading preserves layout"
+  ],
+  "preservedCardArt": [
+    "hyperBeam",
+    "all existing active card scenes"
+  ]
+}
