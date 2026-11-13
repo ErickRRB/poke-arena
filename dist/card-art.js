@@ -1,4 +1,4 @@
-import { CARDS } from './engine.js?v=20';
+import { CARDS } from './engine.js?v=23';
 // Each atlas contains opaque, full-bleed battle scenes in row-major order.
 const sheets = [
   ['pikachu','snorlax','machamp','blastoise','zubat','thunder','charizard','fireball','treecko','log','squirtle','charmander','bulbasaur','gengar','eevee','onix'],
@@ -18,9 +18,11 @@ for (const key of ['diglett', 'diglettHorde', 'raltsTrio', 'poochyenaPack']) {
 for(const key of ['centralElectrode','madriguera','vivero','regice','duskull','raichu','registeel','regirock','celebi','pandilla','pinMissile','lightning','hyperBeam','blizzard','spikes','stealthRock','whirlpool','nightmare','earthquake']){
   CARD_ART[key]={file:`assets/cards/${key}.webp`,columns:1,rows:1,x:0,y:0};
 }
-for(const key of ['lightning','pinMissile','blizzard','spikes','whirlpool','earthquake','nightmare'])CARD_ART[key].file=`assets/cards/${key}V2.webp`;
+for(const key of ['lightning','pinMissile','blizzard','spikes','whirlpool','earthquake','nightmare','stealthRock'])CARD_ART[key].file=`assets/cards/${key}V2.webp`;
+for(const key of ['fireball','forretress'])CARD_ART[key]={file:`assets/cards/${key}${key==='fireball'?'V2':''}.webp`,columns:1,rows:1,x:0,y:0};
 const SCENE_ART = new Set(['ekans','zubat','beedrill','sandshrew','mankey','nidoqueen','exeggutor','altaria','treecko','kangaskhan']);
 for(const key of SCENE_ART)CARD_ART[key]={file:`assets/cards/${key}SceneV2.webp`,columns:1,rows:1,x:0,y:0};
+CARD_ART.golem={file:'assets/cards/golemSceneV3.webp',columns:1,rows:1,x:0,y:0};
 export function cardArtMarkup(key) {
   const art = CARD_ART[key];
   if (!art) return '';

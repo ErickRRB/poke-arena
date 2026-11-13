@@ -44,7 +44,7 @@ export const CARD_REVIEW = {
   "cloyster": "Carámbano: Defiende desde un bastión con ráfagas de cinco pinchos. Referencia de rol: Estructura defensiva; 4 de elixir. El coste y los tiempos son ajustes de Poké Arena.",
   "gastly": "Bola sombra: Cuatro Gastly atacan a distancia y dejan niebla dañina al caer. Referencia de rol: Grupo de tropas; 2 de elixir. El coste y los tiempos son ajustes de Poké Arena.",
   "voltorb": "Autodestrucción: Salta hacia un enemigo y explota al aterrizar, dañando y aturdiendo en área. Referencia de rol: Espíritu eléctrico / ataque suicida; 1 de elixir. El coste y los tiempos son ajustes de Poké Arena.",
-  "electrode": "Explosión: Avanza hacia las estructuras y explota al llegar. Referencia de rol: Rompemuros / explosión contra estructuras; 4 de elixir. El coste y los tiempos son ajustes de Poké Arena.",
+  "forretress": "Explosión: Avanza hacia las estructuras y explota al llegar. Referencia de rol: Rompemuros / explosión contra estructuras; 4 de elixir. El coste y los tiempos son ajustes de Poké Arena.",
   "exeggutor": "Bomba huevo: Lanza huevos que explotan y dañan en área. Referencia de rol: Mago de área; 5 de elixir. El coste y los tiempos son ajustes de Poké Arena.",
   "koffing": "Placaje: Choca contra los rivales y libera gas venenoso en el impacto. Referencia de rol: Luchador de área; 3 de elixir. El coste y los tiempos son ajustes de Poké Arena.",
   "chansey": "Bomba huevo: Cura al aliado más herido que tenga cerca. Referencia de rol: Apoyo de curación; 3 de elixir. El coste y los tiempos son ajustes de Poké Arena.",

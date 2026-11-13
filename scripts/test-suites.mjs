@@ -3,7 +3,7 @@ export const TEST_SUITES=Object.freeze({
   battle:['engine.test.mjs','combat.test.mjs','crowd-movement.test.mjs','attack-roles.test.mjs','new-archetypes.test.mjs','expansion.test.mjs','grid-spells-roles.test.mjs'],
   placement:['arena-layout.test.mjs','placement-targeting.test.mjs','mobile-balance.test.mjs'],
   rendering:['placement-preview.test.mjs','themed-effects.test.mjs'],
-  online:['online.test.mjs','online-client.test.mjs'],
+  online:['online.test.mjs','online-client.test.mjs','realtime-match.test.mjs'],
   server:['media-route.test.mjs'],
   audio:['audio-recovery.test.mjs'],
   balance:['balance.test.mjs','balance-sandbox.test.mjs','thresholds.test.mjs'],

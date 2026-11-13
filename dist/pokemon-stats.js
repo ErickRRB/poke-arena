@@ -1,4 +1,4 @@
-// Base stats from PokéAPI, captured 2026-11-11. Game damage and health remain in balance.js.
+// Base stats from PokéAPI. Game damage and health remain in balance.js.
 // Source: https://raw.githubusercontent.com/PokeAPI/pokeapi/master/data/v2/csv/pokemon_stats.csv
 export const POKEMON_STATS = {
   "1": {
@@ -55,6 +55,11 @@ export const POKEMON_STATS = {
     "hp": 35,
     "attack": 55,
     "specialAttack": 50
+  },
+  "26": {
+    "hp": 60,
+    "attack": 90,
+    "specialAttack": 90
   },
   "27": {
     "hp": 50,
@@ -306,6 +311,11 @@ export const POKEMON_STATS = {
     "attack": 33,
     "specialAttack": 33
   },
+  "205": {
+    "hp": 75,
+    "attack": 90,
+    "specialAttack": 60
+  },
   "208": {
     "hp": 75,
     "attack": 85,
@@ -335,6 +345,11 @@ export const POKEMON_STATS = {
     "hp": 106,
     "attack": 130,
     "specialAttack": 110
+  },
+  "251": {
+    "hp": 100,
+    "attack": 100,
+    "specialAttack": 100
   },
   "252": {
     "hp": 40,
@@ -401,6 +416,11 @@ export const POKEMON_STATS = {
     "attack": 75,
     "specialAttack": 63
   },
+  "355": {
+    "hp": 20,
+    "attack": 40,
+    "specialAttack": 30
+  },
   "359": {
     "hp": 65,
     "attack": 130,
@@ -415,6 +435,21 @@ export const POKEMON_STATS = {
     "hp": 80,
     "attack": 135,
     "specialAttack": 95
+  },
+  "377": {
+    "hp": 80,
+    "attack": 100,
+    "specialAttack": 50
+  },
+  "378": {
+    "hp": 80,
+    "attack": 50,
+    "specialAttack": 100
+  },
+  "379": {
+    "hp": 80,
+    "attack": 75,
+    "specialAttack": 75
   },
   "382": {
     "hp": 100,

@@ -12,6 +12,8 @@
     "test:placement": "node scripts/test.mjs placement",
     "test:rendering": "node scripts/test.mjs rendering",
     "test:online": "node scripts/test.mjs online",
+    "test:realtime": "npm --prefix realtime test",
+    "dev:realtime": "npm --prefix realtime run dev",
     "test:server": "node scripts/test.mjs server",
     "test:audio": "node scripts/test.mjs audio",
     "test:balance": "node scripts/test.mjs balance",

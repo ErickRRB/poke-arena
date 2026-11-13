@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 export async function openPage(browser,viewport,{deckOnly=false,...options}={}){
   const context=await browser.newContext({viewport,...options}),page=await context.newPage(),errors=[],apiRequests=[];
   page.setDefaultTimeout(12000);
+  if(process.env.POKE_ARENA_REALTIME_URL)await page.route('**/online-config.js?*',route=>route.fulfill({contentType:'text/javascript',body:'export const ONLINE_SERVER='+JSON.stringify(process.env.POKE_ARENA_REALTIME_URL)+';export const onlineServer=()=>ONLINE_SERVER;'}));
   await page.addInitScript(()=>localStorage.setItem('poke-arena:sound','false'));
   page.on('pageerror',error=>errors.push(error.message));page.on('request',request=>{if(new URL(request.url()).pathname.startsWith('/api/'))apiRequests.push(new URL(request.url()).pathname);});
   if(deckOnly)await page.route('**/render.js?*',async route=>{const response=await route.fetch();await route.fulfill({response,body:await response.text()+'\nRenderer.prototype.load=async function(){};'});});

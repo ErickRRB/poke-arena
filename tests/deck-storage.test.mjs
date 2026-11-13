@@ -21,6 +21,11 @@ test('catalog migration preserves valid choices and order while removing retired
   assert.deepEqual(loadDeck({storage,cookie:''}),['gastly','diglett','raltsTrio','poochyenaPack','diglettHorde']);
   assert.deepEqual(normalizeDeck(['constructor','__proto__','nidoranF','gastly']),['gastly']);
 });
+
+test('Electrode migrates to Forretress across saved decks without filling incomplete slots',()=>{
+  const storage=memory();storage.setItem('poke-arena:deck-slots',JSON.stringify({version:1,active:1,slots:[['voltorb','electrode'],['centralElectrode','electrode','gastly'],[],null]}));
+  const loaded=loadDeckLibrary({storage,cookie:''});assert.equal(loaded.active,1);assert.deepEqual(loaded.slots,[['voltorb','forretress'],['centralElectrode','forretress','gastly'],[],null]);
+});
 test('the local cookie backup preserves edits when browser storage is unavailable',()=>{
   const blocked={getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}};let cookie='';
   assert.ok(saveDeck(chosen,{storage:blocked,cookie,writeCookie:v=>cookie=v,now:200}));assert.deepEqual(loadDeck({storage:blocked,cookie}),chosen);

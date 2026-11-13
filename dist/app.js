@@ -1,10 +1,10 @@
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=20';
-import { Renderer } from './render.js?v=20';
-import { SoundSystem } from './audio.js?v=20';
-import { OnlineClient } from './online.js?v=20';
-import { unpackGame, perspective } from './snapshot.js?v=20';
-import { cardArtMarkup } from './card-art.js?v=21';
-import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=20';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=23';
+import { Renderer } from './render.js?v=23';
+import { SoundSystem } from './audio.js?v=23';
+import { OnlineClient, hasSavedOnlineSession } from './online.js?v=23';
+import { unpackGame, perspective } from './snapshot.js?v=23';
+import { cardArtMarkup } from './card-art.js?v=23';
+import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=23';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -98,7 +98,7 @@ function syncHand() {
     el.classList.toggle('selected', selected === i);
     el.classList.toggle('unaffordable', game.energy[0] + .001 < c.cost);
     el.classList.toggle('guide-target', !!walkthrough && walkthrough.step === 1 && i === 0);
-    el.disabled=deploying||game.tiebreaker||(onlineMode&&game.state==='ready');
+    el.disabled=deploying||game.tiebreaker||(onlineMode&&(game.state==='ready'||!online?.connected));
     el.setAttribute('aria-pressed', String(selected === i));
   }
 }
@@ -452,7 +452,8 @@ document.addEventListener('keydown',e=>{
     }else if(e.key==='Enter'&&renderer.pointer){e.preventDefault();attemptDeploy(renderer.pointer);}
   }
 });
-document.addEventListener('visibilitychange',()=>{if(document.hidden)sfx.setBattleState(false);else{sfx.recover();updateUi();}if(document.hidden&&game.state==='playing'&&!onlineMode){game.pause();$('pause-overlay').hidden=false;}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)sfx.setBattleState(false);else{sfx.recover();online?.reconnectIfStale();updateUi();}if(document.hidden&&game.state==='playing'&&!onlineMode){game.pause();$('pause-overlay').hidden=false;}});
+addEventListener('online',()=>online?.reconnectIfStale());
 addEventListener('pagehide',()=>online?.suspend());
 addEventListener('pageshow',event=>{if(game){sfx.recover();updateUi();}if(event.persisted&&onlineMode&&game.state!=='ended')online?.resume();});
 addEventListener('focus',()=>sfx.recover());
@@ -508,8 +509,8 @@ function createOnlineClient(){
   return new OnlineClient({onSearch:ms=>{const sec=Math.floor(ms/1000);$('search-time').textContent=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;if(ready)showSearch();},onConnection:status=>{
     const reconnecting=status==='Reconectando…';$('connection-loading').hidden=!onlineMode||!reconnecting;$('online-status').hidden=!onlineMode||!status||reconnecting;$('online-status').textContent=reconnecting?'':status;
     if(!onlineMode)$('search-status').textContent=status||'Buscando rival…';
-  },onIdle:()=>{
-    online=null;onlineMode=false;$('menu-loading').hidden=true;$('ready-overlay').inert=false;$('search-panel').hidden=true;newGame();
+  },onIdle:message=>{
+    online=null;onlineMode=false;$('menu-loading').hidden=ready;$('ready-overlay').inert=false;$('search-panel').hidden=true;newGame();if(message)toast(message);
   },onSnapshot:packet=>{
     online.team=packet.team;onlineMode=true;$('enemy-name').textContent=packet.opponent;
     if(ready){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
@@ -549,7 +550,7 @@ function frame(now){
 requestAnimationFrame(frame);
 $('retry-load').addEventListener('click',()=>location.reload());
 try{
-  if(sessionStorage.getItem('poke-arena:online-token')){
+  if(hasSavedOnlineSession()){
     $('ready-overlay').inert=true;online=createOnlineClient();online.resume().catch(()=>{});
   }
   await renderer.load(deck.length===8?deck:DEFAULT_DECK,(loaded,total)=>{const progress=loaded/total,indicator=$('menu-load-progress');indicator.setAttribute('aria-valuenow',String(Math.floor(progress*100)));$('menu-load-fill').setAttribute('y',String(64*(1-progress)));$('menu-load-fill').setAttribute('height',String(64*progress));});

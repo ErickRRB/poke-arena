@@ -1,0 +1,303 @@
+{
+  "date": "2026-11-13",
+  "entries": [
+    {
+      "file": "originales/battle-1.webp",
+      "source": "dist/assets/cards/battle-1.webp",
+      "sha256": "fd750445c1188a0f7f348354f8b022ad7474bf8373951be720ee4fd816399502",
+      "bytes": 337104
+    },
+    {
+      "file": "originales/battle-2.webp",
+      "source": "dist/assets/cards/battle-2.webp",
+      "sha256": "6d7b459f8eda166a13ba7c485c73f6f6cdd1b552a14ff299a7edd20793fe1684",
+      "bytes": 307756
+    },
+    {
+      "file": "originales/battle-3.webp",
+      "source": "dist/assets/cards/battle-3.webp",
+      "sha256": "89ef10b083420edd0f45c4369069d618d43727d5e0c4f10940575074b79912c3",
+      "bytes": 348524
+    },
+    {
+      "file": "originales/battle-4.webp",
+      "source": "dist/assets/cards/battle-4.webp",
+      "sha256": "35297f5a6ecf5699980b09eef8b87d2dc3a65760a34856ee8f800fb272444231",
+      "bytes": 291210
+    },
+    {
+      "file": "originales/battle-5.webp",
+      "source": "dist/assets/cards/battle-5.webp",
+      "sha256": "2fc31bcc627d037f66453c882f96f8cee9443eda91b4aedc8e8930cf9151c1c7",
+      "bytes": 345086
+    },
+    {
+      "file": "originales/battle-6.webp",
+      "source": "dist/assets/cards/battle-6.webp",
+      "sha256": "68a7d1d916ccb210c82fc9b48ad7f5907fea55cb6fcebba46f1924fce70c5f2a",
+      "bytes": 226928
+    },
+    {
+      "file": "originales/lightning.webp",
+      "source": "dist/assets/cards/lightning.webp",
+      "sha256": "e6aad89f4ef6935789d3d7b1c32448d8ef2045bbb046a771539b46e907ae0f1b",
+      "bytes": 272384
+    },
+    {
+      "file": "originales/pinMissile.webp",
+      "source": "dist/assets/cards/pinMissile.webp",
+      "sha256": "2aff35d292a7a4b1a0a5d9ebdd53053f723e87037f4e4f932c0fd2005ae0a37f",
+      "bytes": 287700
+    },
+    {
+      "file": "originales/blizzard.webp",
+      "source": "dist/assets/cards/blizzard.webp",
+      "sha256": "4efba501f52e82ddbddbda3e6fd13a466b78b4fbaf83eb715fbb20f536597ea6",
+      "bytes": 338538
+    },
+    {
+      "file": "originales/spikes.webp",
+      "source": "dist/assets/cards/spikes.webp",
+      "sha256": "94c2a2f4a3c3b60f48a88e8738756dd8efd2671641ea331b9e435117a02d54d0",
+      "bytes": 281762
+    },
+    {
+      "file": "originales/whirlpool.webp",
+      "source": "dist/assets/cards/whirlpool.webp",
+      "sha256": "6c7d7d90ad9ebb9d73185959eb335d6149af67663c8ae15c8d3ef49a7079732e",
+      "bytes": 323606
+    },
+    {
+      "file": "originales/earthquake.webp",
+      "source": "dist/assets/cards/earthquake.webp",
+      "sha256": "eec7ee373ca25e71e746700a8d5f65d4eb0c0c7d7bd09d0a416cc2773615f6be",
+      "bytes": 254240
+    },
+    {
+      "file": "originales/nightmare.webp",
+      "source": "dist/assets/cards/nightmare.webp",
+      "sha256": "47b3cba2eb59846c6a09ad3bbc3d9c0caea7030011ffc761488da32c0186f776",
+      "bytes": 181386
+    },
+    {
+      "file": "originales/stealthRock.webp",
+      "source": "dist/assets/cards/stealthRock.webp",
+      "sha256": "b6e5723f087b1884be7459596ce3e20443013d3ae36ffe0fbdcb8e8a5c18cadd",
+      "bytes": 240276
+    },
+    {
+      "file": "originales/hyperBeam.webp",
+      "source": "dist/assets/cards/hyperBeam.webp",
+      "sha256": "0f4e455ee83f0df9503fe6827de912d2a744ca2dceeb1985d5aff806a3838df3",
+      "bytes": 247752
+    },
+    {
+      "file": "historicas/blizzard-22936e5afd.svg",
+      "source": {
+        "path": "dist/assets/cards/blizzard.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "22936e5afda33474de2786faad4e1dc4f5f4584c"
+      },
+      "sha256": "21befabf462e2c2cb62af0baf8ad23fe010a7c02b394f30391bf575a5e500ecf",
+      "bytes": 2065
+    },
+    {
+      "file": "historicas/celebi-b9241c07c1.svg",
+      "source": {
+        "path": "dist/assets/cards/celebi.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "b9241c07c17d4e41b7d7c43adcc4f0cc6bf8a5f8"
+      },
+      "sha256": "a591b002073a0bb36ed2f278974dd81a8417215c411b28ca2689872232910a9b",
+      "bytes": 171715
+    },
+    {
+      "file": "historicas/centralElectrode-994597b000.svg",
+      "source": {
+        "path": "dist/assets/cards/centralElectrode.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "994597b000ea790a74542566c150e02e065c617e"
+      },
+      "sha256": "c41dd37a2e1066ddd15a21a0072d0aeffe5c1a5fd711a5bd7bc1ec268ff45e26",
+      "bytes": 498139
+    },
+    {
+      "file": "historicas/duskull-470ddba93a.svg",
+      "source": {
+        "path": "dist/assets/cards/duskull.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "470ddba93ab2a899208e77dc1c71155272bc8511"
+      },
+      "sha256": "7204819dfb0cb2d96e5a385845c2af5e968fa67796e22de4e889d10eaac0ec65",
+      "bytes": 333092
+    },
+    {
+      "file": "historicas/earthquake-c1fb63dd7d.svg",
+      "source": {
+        "path": "dist/assets/cards/earthquake.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "c1fb63dd7dfc1a561db40d25f46c8487780934b8"
+      },
+      "sha256": "08aca6c9b3e9bf91754850f88eb90518a0ef1966667c12e7113574b006cfa0c3",
+      "bytes": 1291
+    },
+    {
+      "file": "historicas/hyperBeam-78a58be728.svg",
+      "source": {
+        "path": "dist/assets/cards/hyperBeam.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "78a58be728262b447d0cea710a69936e76deed53"
+      },
+      "sha256": "d5dd43d9d4ab9c8416263615a339a91e5148ac00bc61478c9c044c56eac66722",
+      "bytes": 1179
+    },
+    {
+      "file": "historicas/lightning-5ee767b965.svg",
+      "source": {
+        "path": "dist/assets/cards/lightning.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "5ee767b96504b5a40003b2e2b53bcafe5aaf6793"
+      },
+      "sha256": "c95e1c58233a4a44d61a90b457ed3734007be0d89147d19cee0e2b04ee45ffc8",
+      "bytes": 1418
+    },
+    {
+      "file": "historicas/madriguera-c8cfe22f59.svg",
+      "source": {
+        "path": "dist/assets/cards/madriguera.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "c8cfe22f593d8524a60d4df22accd343fcc98500"
+      },
+      "sha256": "62a07f83cc096b3951783ca62eca1ff88dddd56dbebacef1e54dd98753535fb2",
+      "bytes": 473223
+    },
+    {
+      "file": "historicas/nightmare-1504e211fc.svg",
+      "source": {
+        "path": "dist/assets/cards/nightmare.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "1504e211fc6156138505852c19d8bbd70a981c55"
+      },
+      "sha256": "5839f424af9e555006f4fa4e3f409065503712f4819846bb4693d7872ba0309c",
+      "bytes": 1855
+    },
+    {
+      "file": "historicas/pandilla-e46c3bc44b.svg",
+      "source": {
+        "path": "dist/assets/cards/pandilla.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "e46c3bc44b95c957fbeccf1845a4f8e77d94b744"
+      },
+      "sha256": "a1a9233709d12750af89333e2fd3f5177f2e0b7cceb33682f992d2498f2ac92b",
+      "bytes": 445047
+    },
+    {
+      "file": "historicas/pinMissile-72c54eec7c.svg",
+      "source": {
+        "path": "dist/assets/cards/pinMissile.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "72c54eec7cf636e66afba780ef87bfecbfe236da"
+      },
+      "sha256": "58d27e04bf177ea20ccac1591f43e63fdc6f3e9288f935c3fa716454618e7545",
+      "bytes": 2439
+    },
+    {
+      "file": "historicas/raichu-6813f2f465.svg",
+      "source": {
+        "path": "dist/assets/cards/raichu.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "6813f2f465e562b595d76174ccc083a97a2f054d"
+      },
+      "sha256": "21d3148ea5b9eb52ad5aabf7cca91649971155654fe4a4331085932c8fbe0e0a",
+      "bytes": 126759
+    },
+    {
+      "file": "historicas/regice-808e4dc89b.svg",
+      "source": {
+        "path": "dist/assets/cards/regice.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "808e4dc89be51957b2254b32c3c8320348959644"
+      },
+      "sha256": "387c4d4ac703989fe9e3336324f4522a85e18c972da7cb486bfaeeed8d148683",
+      "bytes": 237794
+    },
+    {
+      "file": "historicas/regirock-946c6381d2.svg",
+      "source": {
+        "path": "dist/assets/cards/regirock.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "946c6381d2d2932923e2edf2a2ee941ff47254c0"
+      },
+      "sha256": "bd0a74dc3e4c88256e6a610ad55000be3d5e9f93a16ba7fc31771bff4ec65319",
+      "bytes": 282551
+    },
+    {
+      "file": "historicas/registeel-622b8d3771.svg",
+      "source": {
+        "path": "dist/assets/cards/registeel.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "622b8d37719896c8d885fc83cff50b276248af51"
+      },
+      "sha256": "d6397c7defcf0984d8ed47aa6664dc9880ca1ef1ac7b051731b7262167defcb3",
+      "bytes": 168435
+    },
+    {
+      "file": "historicas/spikes-82ce7a043a.svg",
+      "source": {
+        "path": "dist/assets/cards/spikes.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "82ce7a043ab19fcfa97225f454102611135c49e4"
+      },
+      "sha256": "84f33d753874f2af7bd8c9b9a3a17a8485bfc2ceae6f34430afd4d0c62636d2c",
+      "bytes": 1955
+    },
+    {
+      "file": "historicas/stealthRock-67216bd9b2.svg",
+      "source": {
+        "path": "dist/assets/cards/stealthRock.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "67216bd9b29412560c4e70e8280b84cc752a798c"
+      },
+      "sha256": "efc6e806e5d030bef85be2013443aa14407fe4b71cb612015dd868f62fece81f",
+      "bytes": 1955
+    },
+    {
+      "file": "historicas/vivero-a1be99a526.svg",
+      "source": {
+        "path": "dist/assets/cards/vivero.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "a1be99a5260d50050c94c076e915a7e0bc6dc32c"
+      },
+      "sha256": "2d70d9e0343dd78ff4edc830d08f08f2030573d297317c659716a91c68e5b6b0",
+      "bytes": 434951
+    },
+    {
+      "file": "historicas/whirlpool-4676070f9f.svg",
+      "source": {
+        "path": "dist/assets/cards/whirlpool.svg",
+        "revision": "7fd29c98a355b010c2e0b6d7763e4f9ade4a1969",
+        "blob": "4676070f9f6bf6b80d36d519289efe2820dce9ae"
+      },
+      "sha256": "5ea59a1c2bcea423615ed374b66f344dab59156d8c8d3fe74322d65ca334e90a",
+      "bytes": 1667
+    },
+    {
+      "file": "variantes/hiperrayo-simplificado.webp",
+      "source": "Variante simplificada de Hiperrayo",
+      "sha256": "b79a8cacae8a823c8381e72484a3e1f2afa9b8027106115156730c2d1915e2e4",
+      "bytes": 68728
+    },
+    {
+      "file": "variantes/golem-primera-variante.png",
+      "source": "Primera variante de Golem",
+      "sha256": "60c596f3fbb108a68326307e9381cec82e00e922f1a0bdbdf0f2e052e9171c27",
+      "bytes": 2146963
+    },
+    {
+      "file": "variantes/golem-frontal-primer-encuadre.png",
+      "source": "Golem frontal antes del ajuste de encuadre",
+      "sha256": "35df20d21fce76800fb8bca28fa6af82fb2c9340ac5c97234394aed8d4ec8956",
+      "bytes": 2403507
+    }
+  ]
+}

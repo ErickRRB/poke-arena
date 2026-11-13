@@ -1,5 +1,5 @@
 // Generation I–III cards. Rarity never multiplies stats.
-function card(name,id,cost,type,role,stats,description){return{name,id,cost,type,label:{grass:'Planta',water:'Agua',fire:'Fuego',electric:'Eléctrico',psychic:'Psíquico',ghost:'Fantasma',flying:'Volador',rock:'Roca',fighting:'Lucha',normal:'Normal',poison:'Veneno'}[type]||type,role,hp:700,damage:70,range:30,speed:44,interval:1.4,attackDuration:.75,attackAnim:'Attack',style:'punch',muzzleHeight:26,color:'#b9d49d',move:role.split(' · ')[0],rarity:cost>=6?'epica':cost>=4?'especial':'comun',description,...stats};}
+function card(name,id,cost,type,role,stats,description){return{name,id,cost,type,label:{grass:'Planta',water:'Agua',fire:'Fuego',electric:'Eléctrico',psychic:'Psíquico',ghost:'Fantasma',flying:'Volador',rock:'Roca',steel:'Acero',fighting:'Lucha',normal:'Normal',poison:'Veneno'}[type]||type,role,hp:700,damage:70,range:30,speed:44,interval:1.4,attackDuration:.75,attackAnim:'Attack',style:'punch',muzzleHeight:26,color:'#b9d49d',move:role.split(' · ')[0],rarity:cost>=6?'epica':cost>=4?'especial':'comun',description,...stats};}
 const ranged=(style,range=135)=>({style,range,attackAnim:'Shoot',air:true});
 const active=(name,cost,damage,radius,effect,extra={})=>({name,cost,damage,radius,effect,...extra});
 export const EXTRA_CARDS={
@@ -22,7 +22,9 @@ grimer:card('Grimer',88,2,'poison','Defensa · charco',{hp:850,damage:32,speed:2
 cloyster:card('Cloyster',91,4,'water','Estructura · ráfaga',{hp:1200,shield:230,damage:24,...ranged('ice',170),structure:true,lifetime:32,speed:0,burst:5,burstSpacing:.1,interval:2.6,radius:25},'Cinco pinchos por ráfaga desde un bastión. Dura 32 s.'),
 gastly:card('Gastly',92,2,'ghost','Dúo · niebla',{hp:180,damage:29,flying:true,air:true,count:2,style:'shadow',speed:57,deathField:12},'Dos fantasmas voladores. Dejan niebla dañina al caer.'),
 voltorb:card('Voltorb',100,2,'electric','Corredor · descarga',{hp:330,damage:160,speed:88,style:'slam',range:27,suicide:true,splash:58,stun:.45},'Se descarga al llegar: daño en área, aturdimiento y retarget.'),
-electrode:card('Electrode',101,4,'electric','Explosión · torres',{hp:1100,damage:330,speed:51,building:true,style:'slam',range:28,suicide:true,splash:90,deathStun:.6},'Busca estructuras y explota al llegar. Su onda reinicia ataques.'),
+forretress:card('Forretress',205,4,'steel','Win condition · explosiva',{hp:1200,damage:600,interval:1.6,speed:32,windup:.5,building:true,style:'slam',range:28,suicide:true,splash:60,deathStun:.6},'Avanza hacia las estructuras y explota al llegar.'),
+// Retain the retired key only for snapshots from already open legacy matches.
+electrode:card('Electrode',101,4,'electric','Win condition · explosiva',{token:true,hp:1100,damage:330,speed:51,building:true,style:'slam',range:28,suicide:true,splash:90,deathStun:.6},'Avanza hacia las estructuras y explota al llegar.'),
 exeggutor:card('Exeggutor',103,5,'grass','Invocador · huevos',{hp:1400,damage:65,...ranged('confusion',118),summon:'exeggcute',summonEvery:5,summonMax:4,speed:27,interval:1.9},'Invoca Exeggcute explosivos cada 5 s, hasta cuatro a la vez.'),
 koffing:card('Koffing',109,3,'poison','Volador · veneno',{hp:650,damage:46,flying:true,...ranged('confusion',100),splash:40,burn:15,poisonField:12,interval:1.9},'Sus nubes envenenan un área pequeña. Ataca a tierra y aire.'),
 chansey:card('Chansey',113,3,'normal','Apoyo · curación',{hp:980,damage:18,...ranged('bubble',95),heal:95,healEvery:2.5,healRadius:100,speed:34,interval:1.8},'Cura al aliado más herido cercano cada 2,5 s.'),

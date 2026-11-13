@@ -10,6 +10,7 @@
     "Textura y contraste equilibrados",
     "Como máximo un Pokémon pequeño y lateral en los hechizos renovados",
     "Escena continua con perspectiva, luz y sombras compartidas",
+    "Detalle expresivo en el ataque y su impacto cuando refuerza la lectura y potencia de la escena",
     "Poses propias para cada integrante de un grupo",
     "Personajes acordes con la función actual de la carta"
   ],
@@ -133,6 +134,38 @@
       "originalSource": "exec-95fceb60-7cc1-4c19-9cb3-115f926f0bd7.png",
       "tool": "ImageGen integrado",
       "prompt": "One Kangaskhan Pokémon and its one small purple Kangaskhan cub in an original softly painted 2D game-card scene. The adult stands toward the left in a protective side pose. The cub stands independently a little behind to the right, looking up toward the adult. Two distinct poses and expressions, recognizable classic Pokémon proportions and colors, both with feet and soft contact shadows on one woodland path. The adult's pouch is empty. Broad quiet foliage, consistent daylight, clean color transitions and restrained detail. Portrait 4:5, no text or frame."
+    },
+    {
+      "key": "stealthRock",
+      "file": "dist/assets/cards/stealthRockV2.webp",
+      "originalSource": "exec-d9291fa5-bfde-4c08-b13c-8d52de0ab78d.png",
+      "tool": "ImageGen integrado",
+      "reason": "Tres rocas legibles, fondo tranquilo y un Onix pequeño hacia un costado.",
+      "prompt": "Edit the supplied Pokémon spell illustration into a much simpler 4:5 portrait game-card scene. Three large clearly separated pointed rocks hover above a quiet earthen clearing. Broad stone planes and very soft amber light, with a few grains of dust only. Use a calm olive woodland backdrop in broad soft shapes. Exactly one tiny Onix at the distant far left edge, at most 12% of image height, suggests the caster. Remove Aerodactyl, castles, bridges, banners, dense grass patterns and scattered little rocks. Keep the stones as the dominant subject and readable at 120 pixels. Preserve a complete softly painted physical scene with shared light and perspective, not an abstract icon. No lettering, border or interface.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "fireball",
+      "file": "dist/assets/cards/fireballV2.webp",
+      "originalSource": "exec-44930f21-0b4e-41a5-b21e-17e5dbce6318.png",
+      "tool": "ImageGen integrado",
+      "reason": "Bola de fuego con silueta clara y un Charizard pequeño hacia un costado.",
+      "prompt": "Repaint and simplify this Bomba ígnea Pokémon spell as a polished 4:5 portrait game-card scene. One large round orange fireball with a short broad curved flame tail travels diagonally toward the lower right. The main fireball is dominant, with a clean bright center and two or three large flame shapes, no explosion on the ground. A quiet dark muted blue-green sky and a soft distant earthen horizon support the warm orange silhouette. Exactly one SMALL Charizard at the far upper left edge casting the fireball, at most 12% image height and well behind the main spell. Remove the rubble, debris shower, smoke columns, extra projectiles and gritty tiny details. Clean softly painted materials, shared lighting, restrained contrast and colors. No lettering, frame or interface.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts."
+    },
+    {
+      "key": "forretress",
+      "file": "dist/assets/cards/forretress.webp",
+      "originalSource": "exec-f5366d32-a2b1-4b05-9f32-d78dc99a812c.png",
+      "tool": "ImageGen integrado",
+      "reason": "Una escena continua para la carta explosiva que reemplaza al Electrode duplicado.",
+      "prompt": "One Forretress Pokémon in a softly painted 2D game-card scene. Its familiar round gray segmented steel shell surrounds a red inner rim with two little eyes. It rests at a three-quarter angle on a quiet woodland path, with a small trace of dust behind it suggesting rolling movement. Recognizable classic Pokémon anatomy, one complete subject only, grounded in the scene with shared daylight and a soft contact shadow. Broad clean material planes, quiet green backdrop, restrained contrast and natural painted textures. Portrait 4:5, no text or card border."
+    },
+    {
+      "key": "golem",
+      "file": "dist/assets/cards/golemSceneV3.webp",
+      "originalSource": "exec-f43a4d64-b8bd-4cd8-8480-d94181417833.png",
+      "tool": "ImageGen integrado",
+      "reason": "Pose frontal con dos brazos, dos piernas y margen alrededor de las manos.",
+      "prompt": "A 4:5 portrait Pokémon Golem game-card illustration, 1024 x 1280. Full-body Golem standing directly toward the viewer with both short arms spread, both clawed hands visible, and two separate feet on the ground. Its round boulder body, head, two arms and two legs have the familiar canonical Golem proportions. Golem occupies only 70 percent of the image width, with generous empty landscape space to each side of the claws. Simple sunny mountain meadow, a few broad rocks and soft distant trees, a calm natural painted anime scene. Quiet clean background, smooth shading, controlled detail, no grain or overprocessing. Single Pokémon only, no text or border."
     }
   ],
   "cards": [
@@ -782,6 +815,24 @@
       "key": "blissey",
       "reason": "Las siluetas y los signos de curación se perciben como elementos de interfaz.",
       "status": "Ilustración original conservada. ImageGen integrado rechazó la salida en las variantes probadas."
+    }
+  ],
+  "alternatives": [
+    {
+      "key": "hyperBeam",
+      "file": "artwork/imagenes-viejas/variantes/hiperrayo-simplificado.webp",
+      "originalSource": "exec-2904a728-27e2-4ee8-a587-fc5d7826539b.png",
+      "tool": "ImageGen integrado",
+      "reason": "Un solo haz dominante y un Dragonite pequeño en el origen del ataque.",
+      "prompt": "Simplify the supplied Hiper rayo Pokémon spell illustration as a 4:5 portrait painted card. A single thick golden-white energy beam runs diagonally from the far upper left to the lower right, with a clear warm gold outer band and a small broad impact glow on a quiet earthen arena floor. Keep exactly one SMALL Dragonite at the far upper left origin, at most 14% of the image height, secondary to the beam. Remove castles, arches, flags, mountains, swirling energy rings, debris showers and dense tiny ground texture. Quiet blue-gray sky and muted olive background in broad painted shapes. The straight beam must read instantly at 120 pixels and remain distinct from lightning and a fireball. Coherent painted light and perspective. No lettering, interface or border.\n\nImage quality and natural texture preservation:\nAvoid the characteristic AI-generated overprocessed look. Maintain natural visual complexity, balanced detail distribution, and clean, coherent textures throughout the image.\n- Avoid excessive microcontrast, oversharpening, artificial HDR effects, and exaggerated local contrast.\n- Prevent high-frequency texture noise, repetitive microdetails, artificial grain, and unnatural surface patterns.\n- Do not introduce unnecessary tiny details into skin, hair, clothing, backgrounds, or environmental surfaces.\n- Preserve smooth, naturally occurring gradients and clean areas without filling every surface with artificial texture.\n- Maintain realistic or stylistically appropriate material properties, lighting, reflections, and color transitions.\n- Avoid oversaturation, excessive clarity, glowing edges, crunchy textures, and artificially enhanced highlights.\n- Preserve fine details where they naturally belong, without applying uniform sharpness or texture density across the entire image.\n- Maintain a natural hierarchy of visual detail: important subjects should remain clearly defined, while secondary elements should have appropriate levels of detail.\n- Avoid accumulating artifacts, contrast, sharpening, or texture from previous image generations or editing iterations.\n- When editing an existing image, preserve its original visual characteristics without amplifying existing noise or introducing additional artificial details.\nThe final image should look naturally rendered or photographed in its intended artistic style, with clean textures, controlled detail, balanced contrast, and no visible AI-processing artifacts.",
+      "decision": "Alternativa conservada para comparar"
+    }
+  ],
+  "retained": [
+    {
+      "key": "hyperBeam",
+      "file": "dist/assets/cards/hyperBeam.webp",
+      "reason": "Se conserva el haz y el impacto detallados. El detalle concentrado en el ataque aporta potencia y claridad a la escena."
     }
   ]
 }

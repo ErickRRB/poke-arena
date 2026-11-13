@@ -26,7 +26,7 @@ En móvil se juega en vertical, tocando una carta y luego la arena, o arrastrán
 
 ## Ejecutar localmente
 
-Requiere Node.js con `node:sqlite`, probado con Node.js 22.16. Los recursos y las herramientas para ejecutar el juego están incluidos en el repositorio.
+Requiere Node.js 22.18 o posterior. Los recursos y las herramientas para ejecutar el juego están incluidos en el repositorio.
 
 ```sh
 git clone https://github.com/ErickRRB/poke-arena.git
@@ -34,7 +34,32 @@ cd poke-arena
 npm run dev
 ```
 
-El servidor se abre en `http://127.0.0.1:4173`. Crea automáticamente la base SQLite en `.sites-runtime/arena.sqlite`, fuera del control de versiones. Para probar el modo online local, abrí dos sesiones de navegador y buscá partida en ambas.
+La interfaz se abre en `http://127.0.0.1:4173`. Para jugar online en desarrollo, iniciá también el servidor de salas en otra terminal y abrí dos sesiones de navegador:
+
+```sh
+cd realtime
+npm ci
+npm run dev
+```
+
+Las conexiones locales usan WebSocket en el puerto 4180. La versión publicada usa el [servidor de Cloudflare](https://poke-arena-realtime.eriickramiirez.workers.dev).
+
+## Servidor multijugador
+
+Un Worker de Cloudflare recibe las conexiones WebSocket. Un Durable Object organiza la búsqueda de rival y otro mantiene cada partida, con simulación autoritativa a 30 pasos por segundo y envío de estados a 15 actualizaciones por segundo. El servidor valida el mazo, elixir, objetivos y colocación. Cada jugador recibe su propia mano y los movimientos se confirman mediante identificadores que evitan despliegues duplicados al reenviar.
+
+Las salas guardan las jugadas y sus confirmaciones antes de responder, con un punto de recuperación del combate cada segundo. Una desconexión permite volver a la misma sala durante 25 segundos. Una recarga recupera la sesión sin abrir otra búsqueda.
+
+La configuración está en `realtime/cloudflare.config.ts`. Para probar o publicar desde esa carpeta:
+
+```sh
+npm test
+npm run build
+npx cf auth login
+npm run deploy
+```
+
+`dist/online-config.js` contiene la dirección del servidor de producción. `ALLOWED_ORIGINS` en la configuración de Cloudflare limita los sitios que pueden abrir las conexiones desde un navegador. El comando `node scripts/smoke-realtime.mjs https://tu-worker.workers.dev` verifica una partida con dos conexiones, reenvío y reconexión.
 
 ## Comprobar y compilar
 
@@ -75,7 +100,7 @@ npm run build
 
 Las pruebas cubren combate, objetivos, balance, formaciones, movimiento, colocación, guardado de mazos, recuperación de audio y restauración de partidas online. `check` comprueba la sintaxis de los módulos. `build` genera el Worker ESM en `dist/server/index.js`, con los recursos necesarios para servir el cliente. `balance:simulate` ejecuta un sandbox con despliegues libres, duelos, enjambres y combinaciones de cartas, y guarda los resultados en `docs/balance-simulation.json`.
 
-El despliegue alojado utiliza un Worker y una base D1 enlazada como `DB`. La configuración está en `.openai/hosting.json` y el esquema inicial en `drizzle/0000_online.sql`. El servidor local ofrece la misma interfaz de datos mediante SQLite.
+La interfaz se aloja con la configuración de `.openai/hosting.json`. El backend multijugador se publica por separado en Cloudflare. La API HTTP y su base D1 se conservan para las pestañas abiertas de versiones anteriores.
 
 ## Organización del proyecto
 
@@ -86,10 +111,11 @@ El despliegue alojado utiliza un Worker y una base D1 enlazada como `DB`. La con
 | `dist/catalog.js`, `dist/balance.js` | Cartas, estadísticas y reglas de balance |
 | `dist/render.js` | Arena, sprites, efectos y vista previa |
 | `dist/audio.js`, `dist/music.js` | Voces, efectos y música |
-| `dist/online.js`, `dist/snapshot.js` | Cliente online, serialización y perspectiva |
+| `dist/online.js`, `dist/online-wire.js`, `dist/snapshot.js` | WebSocket, serialización y perspectiva |
 | `dist/deck-storage.js` | Guardado y migración de mazos |
 | `dist/assets/` | Ilustraciones, sprites, fuentes, iconos y audio |
-| `worker/api.js` | Sesiones, emparejamiento y simulación online |
+| `realtime/` | Worker, salas Durable Objects y pruebas del servidor WebSocket |
+| `worker/api.js` | Compatibilidad con la API HTTP anterior |
 | `drizzle/` | Esquema y migraciones de base de datos |
 | `scripts/` | Servidor local, compilación y preparación de recursos |
 | `tests/` | Pruebas automatizadas |
@@ -100,6 +126,8 @@ Las reglas de mecánicas están en [MECHANICS.md](docs/MECHANICS.md), las refere
 ## Recursos y atribuciones
 
 Los sprites y animaciones de la arena provienen de Pokémon Mystery Dungeon, conservados por [PMDCollab / SpriteCollab](https://github.com/PMDCollab/SpriteCollab). Se mantienen las atribuciones de cada especie en sus recursos. Parte del arte de referencia proviene de [PokéAPI / sprites](https://github.com/PokeAPI/sprites). La portada, las escenas de las cartas y los iconos ilustrados fueron generados para el proyecto, con los prompts documentados en `docs/`.
+
+Las ilustraciones anteriores y sus variantes se conservan en [artwork/imagenes-viejas](artwork/imagenes-viejas/README.md), con un visor local para compararlas.
 
 Las voces utilizan la compilación [HQ Pokémon Anime Cries Gen 1–5, de Galladito/RojoY](https://forums.pokemmo.com/index.php?/topic/86447-mod-hq-pokemon-anime-cries-gen-1-5/). Los efectos incluyen recursos de Kenney y receptron bajo CC0, con sus fuentes y licencias en `dist/assets/audio/`. La música de batalla es una composición original secuenciada con Web Audio. Las fuentes son Barlow Condensed y DM Sans.
 

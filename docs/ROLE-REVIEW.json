@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-12",
+  "date": "2026-11-13",
   "baseline": "Clash Royale level 11 role references, adapted per Pokémon; not a universal stats multiplier.",
   "cards": [
     {
@@ -842,8 +842,8 @@
       "attackRuleException": false
     },
     {
-      "key": "electrode",
-      "name": "Electrode",
+      "key": "forretress",
+      "name": "Forretress",
       "role": "Win condition · explosiva",
       "reference": "Rompemuros / explosión contra estructuras",
       "cost": 4,
@@ -855,7 +855,7 @@
       "interval": 1.6,
       "directDps": 375,
       "range": 28,
-      "scale": 2.3158,
+      "scale": 1.8333,
       "description": "Avanza hacia las estructuras y explota al llegar.",
       "pokemonIdentity": "Explosión",
       "attackRuleException": false

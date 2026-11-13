@@ -13,5 +13,5 @@ for (const row of (await response.text()).trim().split('\n').slice(1)) {
   (stats[id] ??= {})[{ 1: 'hp', 2: 'attack', 4: 'specialAttack' }[stat]] = value;
 }
 for (const id of ids) if (Object.keys(stats[id] || {}).length !== 3) throw Error(`Missing base stats for ${id}`);
-await writeFile(new URL('../dist/pokemon-stats.js', import.meta.url), `// Base stats from PokéAPI, captured 2026-11-11. Game damage and health remain in balance.js.\n// Source: ${source}\nexport const POKEMON_STATS = ${JSON.stringify(stats, null, 2)};\n`);
+await writeFile(new URL('../dist/pokemon-stats.js', import.meta.url), `// Base stats from PokéAPI. Game damage and health remain in balance.js.\n// Source: ${source}\nexport const POKEMON_STATS = ${JSON.stringify(stats, null, 2)};\n`);
 console.log(`Recorded base stats for ${ids.size} species.`);

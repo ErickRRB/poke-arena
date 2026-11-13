@@ -5,11 +5,11 @@ import {TEST_SUITES,selectTests} from '../scripts/test-suites.mjs';
 
 test('the deck section never selects online, combat or audio tests',()=>{
   assert.deepEqual(selectTests(['deck']),['deck-storage.test.mjs']);
-  assert.ok(selectTests(['online']).every(file=>file.startsWith('online')));
+  assert.deepEqual(selectTests(['online']),['online.test.mjs','online-client.test.mjs','realtime-match.test.mjs']);
 });
 test('combining sections runs each test file only once',()=>{
   const selected=selectTests(['deck','online','deck']);
-  assert.equal(selected.length,3);assert.equal(new Set(selected).size,selected.length);
+  assert.equal(selected.length,4);assert.equal(new Set(selected).size,selected.length);
 });
 test('every unit test belongs to a section and all includes the same files',async()=>{
   const files=(await readdir(new URL('.',import.meta.url))).filter(file=>file.endsWith('.test.mjs')).sort();

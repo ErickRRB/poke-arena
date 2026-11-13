@@ -1,5 +1,5 @@
-import { EXTRA_CARDS } from './catalog.js?v=20';
-import { applyBalance, THRESHOLDS } from './balance.js?v=20';
+import { EXTRA_CARDS } from './catalog.js?v=23';
+import { applyBalance, THRESHOLDS } from './balance.js?v=23';
 export const W = 600, H = 800;
 export const TILE = 24;
 export const DEPLOY_GRID = Object.freeze({ size: TILE, left: 0, top: (H % TILE) / 2, columns: W / TILE, rows: Math.floor(H / TILE) });
@@ -69,13 +69,13 @@ Object.assign(CARDS,EXTRA_CARDS);
 applyBalance(CARDS);
 export const DEFAULT_DECK = ['pikachu', 'snorlax', 'machamp', 'blastoise', 'zubat', 'thunder', 'charizard', 'fireball'];
 export const CPU_DECKS = [
-  {name:'Carga eléctrica',cards:['electrode','raichu','centralElectrode','treecko','voltorb','pikachu','pinMissile','lightning']},
+  {name:'Carga eléctrica',cards:['forretress','raichu','centralElectrode','treecko','voltorb','pikachu','pinMissile','lightning']},
   {name:'Camada venenosa',cards:['snorlax','nidoqueen','madriguera','poochyenaPack','butterfree','grimer','spikes','fireball']},
   {name:'Noche de fantasmas',cards:['golem','duskull','gengar','zubat','regice','diglett','nightmare','log']},
   {name:'Asedio de roca',cards:['regirock','registeel','cloyster','raltsTrio','mankey','gastly','earthquake','thunder']},
   {name:'Vuelo del bosque',cards:['celebi','charizard','vivero','treecko','eevee','skarmory','blizzard','pinMissile']},
   {name:'Contraataque',cards:['steelix','raichu','blastoise','pikachu','diglett','chansey','whirlpool','fireball']},
-  {name:'Emboscada Rocket',cards:['electrode','pandilla','duskull','ampharos','voltorb','beedrill','nightmare','thunder']},
+  {name:'Emboscada Rocket',cards:['forretress','pandilla','duskull','ampharos','voltorb','beedrill','nightmare','thunder']},
   {name:'Control glacial',cards:['onix','lapras','regice','espeon','poochyenaPack','zubat','stealthRock','hyperBeam']},
   {name:'Bosque vivo',cards:['golem','vivero','meganium','sceptile','gastly','diglett','spikes','pinMissile']},
   {name:'Presión aérea',cards:['celebi','pidgeot','magnemite','blastoise','pandilla','eevee','whirlpool','lightning']},
