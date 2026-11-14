@@ -28,6 +28,32 @@ test('a spell has one target boundary and Rueda Fuego has no circular area',()=>
   for(const[key,radii]of[['spikes',[CARDS.spikes.splash]],['log',[]]]){const{game,renderer,ctx,calls}=drawing(key);renderer.drawPlacement(ctx,game);assert.deepEqual(calls.filter(c=>c.method==='arc').map(c=>c.args[2]),radii);}
 });
 
+test('spells show only their range while aiming, without a central marker or summon ghosts',()=>{
+ for(const [key,card] of Object.entries(CARDS).filter(([,card])=>card.spell&&!card.rolling)){
+  const {game,renderer,ctx,calls}=drawing(key);let ghosts=0;renderer.sprite=()=>ghosts++;renderer.drawPlacement(ctx,game);
+  assert.equal(ghosts,0,key);assert.equal(calls.filter(c=>['fillRect','strokeRect','setLineDash','closePath'].includes(c.method)).length,0,key);
+  assert.equal(calls.filter(c=>c.method==='arc').length,1,key);
+ }
+});
+
+test('leaving the arena removes every spell aiming indicator even if the card stays selected',()=>{
+ for(const [key] of Object.entries(CARDS).filter(([,card])=>card.spell)){
+  const {game,renderer,ctx,calls}=drawing(key);renderer.pointer=null;renderer.drawPlacement(ctx,game);assert.deepEqual(calls,[],key);
+ }
+});
+
+test('no cast or travelling spell announces its landing position after aiming ends',()=>{
+ for(const [key,card] of Object.entries(CARDS).filter(([,card])=>card.spell)){
+  const calls=[],ctx=new Proxy({}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
+  const renderer=Object.assign(Object.create(Renderer.prototype),{ctx,t:0,battleArt:{},visualActors:new Map(),visualProjectiles:new Map(),healthStates:new Map(),particles:[],selection:null,pointer:null,
+    drawWater(){},field(){},rollingSpell(){},fireball(){},drawDeployments(){},drawEffects(){},updateSpellTargets(){}});
+  const spell={key,card,x:300,y:320,delay:.2,flightTime:1,flightElapsed:.4,startX:300,startY:700,impactPoint:{x:300,y:320}};
+  renderer.draw({state:'playing',units:[],towers:[],fields:[],projectiles:[],spells:[spell]},0);
+  assert.equal(calls.filter(c=>['arc','strokeRect','fillRect'].includes(c.method)).length,0,key);
+  assert.deepEqual(spell.impactPoint,{x:300,y:320},'visual cleanup keeps the mechanical impact point');
+ }
+});
+
 test('Rueda Fuego previews only its deployment cell, with no path, corridor or snap connector in either perspective',()=>{
   for(const team of[0,1]){
     const{game,renderer,ctx,calls}=drawing('log');
