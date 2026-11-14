@@ -329,7 +329,9 @@ export class Game {
   pushUnit(unit,dx,dy,{force=false}={}){
     const immune=unit.card?.knockbackImmune??CARDS[unit.key]?.knockbackImmune;
     if(!unit.card||unit.card.structure||unit.hp<=0||unit.leap||unit.dash?.phase==='travel'&&unit.card.dashInvulnerable||immune&&!force)return false;
-    const point=this.constrainMovement(unit,unit.x+dx,unit.y+dy);unit.x=point.x;unit.y=point.y;
+    const point=this.constrainMovement(unit,unit.x+dx,unit.y+dy);
+    if(unit.key==='golem'&&Math.hypot(point.x-unit.x,point.y-unit.y)>1e-7)unit.pushHurt=.24;
+    unit.x=point.x;unit.y=point.y;
     // A push invalidates preparation, not the remaining attack cooldown.
     // Keep the target so the unit can finish approaching after displacement.
     unit.attackSeq++;unit.attack=0;unit.charge=0;unit.dash=null;return true;
@@ -746,6 +748,7 @@ export class Game {
   }
   tickStatus(entity,dt) {
     entity.hit=Math.max(0,entity.hit-dt);entity.stun=Math.max(0,entity.stun-dt);
+    if(entity.pushHurt)entity.pushHurt=Math.max(0,entity.pushHurt-dt);
     entity.freeze=Math.max(0,(entity.freeze||0)-dt);
     entity.slow=Math.max(0,(entity.slow||0)-dt);entity.attack=Math.max(0,(entity.attack||0)-dt);
     if(entity.burn&&entity.hp>0){

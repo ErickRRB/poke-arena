@@ -5,6 +5,7 @@ import {combatVisual,projectileVisual,movementVisual,fireballVisual} from './com
 import { spellPreviewTargets } from './spell-preview.js?v=28';
 import {areaGuide,cellGuide,travelGuide} from './targeting-art.js?v=32';
 import { FlightWings } from './wing-motion.js';
+import { drawCapsule } from './capsule-art.js';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -188,13 +189,14 @@ export class Renderer {
     if(burrow>=.999){this.platform(c,unit);return;}
     if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
     const movement=movementVisual(unit.card);
-    let anim = unit.attack > 0 ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving||unit.card.flying ? movement.animation : unit.hit>0?'Hurt':unit.card.idleAnim||'Idle';
+    const golemHurt=unit.key==='golem'&&this.drawDt!==0&&(unit.deathHurt||unit.pushHurt>0);
+    let anim = golemHurt?'Hurt':unit.attack > 0 ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving||unit.card.flying ? movement.animation : unit.hit>0&&unit.key!=='golem'?'Hurt':unit.card.idleAnim||'Idle';
     if (!this.sprites.has(`${id}-${anim}`)) anim = 'Walk';
     const meta = this.metadata[id]?.[anim], img = this.sprites.get(`${id}-${anim}`);
     if (!meta || !img) return;
     const scale = visualScale(unit),vertical=this.verticalScale||1;
     let frame = 0;
-    const attacking=unit.attack>0;
+    const attacking=unit.attack>0&&!golemHurt;
     this.flightWings??=new FlightWings();
     const flightClock=this.flightWings.clock(unit.id,this.t,unit.freeze>0);
     const duration = meta.durations.reduce((a,b)=>a+b,0);
@@ -204,7 +206,7 @@ export class Renderer {
     const loopFrames=!attacking&&anim===movement.animation?movement.frames:null;
     const loopMeta=loopFrames?{durations:loopFrames.map(()=>movement.frameDuration)}:meta;
     const speed=loopFrames?1:(unit.card.flying||unit.moving)?.85:.75;
-    const clock=attacking?progress*duration:this.reduced?0:anim==='Hurt'?Math.max(0,.24-unit.hit)*60:(flightClock+unit.id*.173)*60*speed;
+    const clock=attacking?progress*duration:this.reduced?0:anim==='Hurt'?Math.max(0,.24-(golemHurt?unit.pushHurt:unit.hit))*60:(flightClock+unit.id*.173)*60*speed;
     frame=attacking?attackAnimationFrame(meta,elapsed,unit.attackDuration||.6,windup,unit.card.attackFrames,unit.card):animationFrame(loopMeta,clock);
     if(loopFrames)frame=loopFrames[frame];
     let direction = directionRow(unit.dx,unit.dy);
@@ -357,7 +359,10 @@ export class Renderer {
       else this.burst(point.x,point.y,color,4,30);
       if(['egg','song'].includes(event.style))this.effects.push({...event,...point,kind:'impact',life:.4,max:.4,radius:CARDS[event.key]?.splash||18});
     }
-    if(type==='faint')this.burst(event.unit.x,event.unit.y-15,'#ddd9bd',12,55);
+    if(type==='faint'){
+      if(event.unit.key==='golem')this.effects.push({kind:'golemDeath',unit:{...event.unit,attack:0,moving:false,deathHurt:true},life:.24,max:.24});
+      this.burst(event.unit.x,event.unit.y-15,'#ddd9bd',12,55);
+    }
     if(type==='structureDown'){this.burst(event.unit.x,event.unit.y-10,'#a9b395',28,85);this.burst(event.unit.x,event.unit.y-24,'#a4d5de',10,60);}
     if(type==='towerDown'){
       this.burst(event.tower.x,event.tower.y-20,'#c5b88d',35,110);
@@ -523,7 +528,8 @@ export class Renderer {
       e.life-=activeDt;if(e.life<=0)continue;
       const progress=1-e.life/e.max,age=e.max-e.life;
       c.save();c.globalAlpha=Math.min(1,e.life/Math.min(.2,e.max));
-      if(e.kind==='missiles')this.drawMissiles(c,e);
+      if(e.kind==='golemDeath'){if(dt>0)this.sprite(c,{...e.unit,pushHurt:e.life},true);}
+      else if(e.kind==='missiles')this.drawMissiles(c,e);
       else if(e.kind==='entry')this.entryEffect(c,e,progress);
       else if(e.kind==='areaImpact')this.areaImpact(c,e,progress);
       else if(e.kind==='artImpact'){
@@ -719,12 +725,13 @@ export class Renderer {
     pose.logical=spell.flightElapsed;pose.at=this.t;this.visualFlights.set(id,pose);
     const visual={...spell,flightElapsed:Math.min(spell.flightTime,pose.elapsed)};
     const {point,tail,angle}=fireballVisual(visual,this.verticalScale||1),age=this.reduced?0:visual.flightElapsed;
-    if(spell.card?.spawnOnImpact){this.combatArt(c,'pokeball',point.x,point.y,52,this.reduced?0:age*4,52,{frame:0,trim:true});return;}
+    if(spell.card?.spawnOnImpact){this.capsule(c,point.x,point.y,52,this.reduced?0:age*4);return;}
     for(let i=tail.length-1;i>=0;i--){c.save();c.globalAlpha=.45-i*.1;const size=36-i*7;
       this.combatArt(c,'fireTrail',tail[i].x,tail[i].y,size,angle-Math.PI/2,size,{age:age+i*.09,fps:8,trim:true});c.restore();}
     const size=this.reduced?58:58+Math.sin(age*5)*2;
     this.combatArt(c,'fireOrb',point.x,point.y,size,angle-Math.PI/2,size,{frame:1,trim:true});
   }
+  capsule(c,x,y,size,angle){drawCapsule(c,x,y,size,angle);}
   rollingSpell(c,spell){
     const travelled=Math.max(0,spell.card.travelDistance-(spell.travelRemaining??spell.card.travelDistance)),direction=spell.team?1:-1;
     for(let i=3;i>0;i--)if(travelled>i*14){
