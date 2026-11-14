@@ -12,7 +12,7 @@ import {WING_RIGS} from '../dist/wing-rigs.js';
 
 test('native emission markers cover every playable attack in all eight directions',()=>{
  for(const card of Object.values(CARDS).filter(c=>c.id&&!c.spell)){
-  assert.ok(SPRITE_GEOMETRY[card.id]?.[card.attackAnim]||SPRITE_GEOMETRY[card.id]?.Idle,card.name);
+  assert.ok(SPRITE_GEOMETRY[card.id]?.[card.attackAnim],card.name+' uses the markers of its actual attack clip');
   for(let direction=0;direction<8;direction++)for(const phase of[0,.25,.5,.9]){
    const angle=(2-direction)*Math.PI/4,actor={card,x:300,y:500,dx:Math.cos(angle),dy:Math.sin(angle),attack:card.attackDuration*(1-phase),attackDuration:card.attackDuration};
    const point=emissionPoint(actor);assert.ok(Number.isFinite(point.x)&&Number.isFinite(point.y),card.name);

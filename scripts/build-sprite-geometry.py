@@ -19,7 +19,7 @@ def painted_pixels(image):
 manifest = json.loads((ROOT/'dist/assets/pokemon/manifest.json').read_text())
 cards = json.loads(subprocess.check_output(['node','--input-type=module','-e',"import {CARDS} from './dist/engine.js'; console.log(JSON.stringify(Object.values(CARDS).filter(c=>c.id).flatMap(c=>[c.attackAnim||'Attack',c.moveAnim,c.idleAnim].filter(Boolean).map(anim=>({id:c.id,anim})))))"],cwd=ROOT,text=True))
 wanted = {}
-for card in cards + [{'id':value,'anim':'Shoot'} for value in [31,34,52]] + [{'id':83,'anim':'Attack'},{'id':534,'anim':'Shoot'}]:
+for card in cards + [{'id':value,'anim':'Shoot'} for value in [31,34,52,75]] + [{'id':83,'anim':'Attack'},{'id':534,'anim':'Shoot'}]:
     wanted.setdefault(str(card['id']),set()).add(card['anim'])
 result = {}
 for species,names in sorted(wanted.items(),key=lambda entry:int(entry[0])):
