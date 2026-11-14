@@ -12,7 +12,7 @@ function fixture(){
 test('the native schedule survives snapshots in both player perspectives',()=>{
  for(const phase of [{time:180,overtime:false,m:1},{time:61,overtime:false,m:1},{time:60,overtime:false,m:2},{time:120,overtime:true,m:2},{time:61,overtime:true,m:2},{time:60,overtime:true,m:3}]){
   const game=new Game();game.start();Object.assign(game,phase);delete game.m;assert.equal(game.multiplier,phase.m);
-  for(const team of[0,1]){const restored=unpackGame(perspective(packGame(game),team)),{ui,element}=fixture();ui.update(restored);assert.equal(element('.energy-section').dataset.elixir,String(phase.m));assert.equal(element('boost').hidden,phase.m===1);assert.equal(element('battle-clock').dataset.phase,phase.overtime?'overtime':'regular');}
+  for(const team of[0,1]){const restored=unpackGame(perspective(packGame(game),team)),{ui,element}=fixture();ui.update(restored);assert.equal(element('.energy-section').dataset.elixir,String(phase.m));assert.equal(element('boost').hidden,phase.m===1);assert.equal(element('boost-value').textContent,'×'+phase.m);assert.equal(element('boost').writes,0,'the drop artwork must survive phase updates');assert.equal(element('battle-clock').dataset.phase,phase.overtime?'overtime':'regular');}
  }
 });
 test('late phase snapshots announce once; repeated snapshots and ticks do not repeat the announcement',()=>{

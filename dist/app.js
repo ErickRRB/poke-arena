@@ -1,7 +1,7 @@
 import { screenToWorld, inArena } from './arena-geometry.js?v=26';
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=26';
 import { Renderer } from './render.js?v=32';
-import { SoundSystem } from './audio.js?v=32';
+import { SoundSystem } from './audio.js?v=33';
 import { OnlineClient, hasSavedOnlineSession } from './online.js?v=26';
 import { unpackGame, perspective } from './snapshot.js?v=26';
 import { cardArtMarkup } from './card-art.js?v=26';
@@ -17,14 +17,18 @@ const renderer = new Renderer(canvas);
 function fitDesktop(){
   const root=document.documentElement;
   if(innerWidth<=940){root.style.removeProperty('--arena-h');root.style.setProperty('--ui-scale','1');root.style.removeProperty('--battle-gap');return;}
-  const scale=Math.max(1,Math.min(2.15,(innerHeight-112)/760)),gap=Math.round(28*scale);
-  const width=innerWidth-48-294*scale-gap,height=Math.max(200,Math.min(innerHeight-112,width/.75));
+  const reserve=document.fullscreenElement||matchMedia('(display-mode:fullscreen)').matches?24:112;
+  const scale=Math.max(1,Math.min(2.15,(innerHeight-reserve)/760)),gap=Math.round(28*scale);
+  const width=innerWidth-48-294*scale-gap,height=Math.max(200,Math.min(innerHeight-reserve,width/.75));
   root.style.setProperty('--arena-h',`${height}px`);root.style.setProperty('--ui-scale',String(scale));root.style.setProperty('--battle-gap',`${gap}px`);
 }
 fitDesktop();addEventListener('resize',fitDesktop,{passive:true});
 function fitViewport(){document.documentElement.style.setProperty('--app-height',`${window.visualViewport?.height || innerHeight}px`);}
 fitViewport();addEventListener('resize',fitViewport,{passive:true});
 window.visualViewport?.addEventListener('resize',fitViewport,{passive:true});
+window.visualViewport?.addEventListener('scroll',fitViewport,{passive:true});
+document.addEventListener('fullscreenchange',()=>{fitViewport();fitDesktop();});
+matchMedia('(display-mode:fullscreen)').addEventListener('change',()=>{fitViewport();fitDesktop();});
 const store = {
   get(key, fallback) { try { const v = JSON.parse(localStorage.getItem(`poke-arena:${key}`)); return v ?? fallback; } catch { return fallback; } },
   set(key, value) { try { localStorage.setItem(`poke-arena:${key}`, JSON.stringify(value)); } catch { /* Storage can be disabled in private browsing. */ } },

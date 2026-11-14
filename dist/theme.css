@@ -144,17 +144,12 @@ input::placeholder{color:#74796d;opacity:1}
 .setting-row .switch:checked{background:#709055;border-color:#516b3b}
 .setting-row .switch:checked:before{transform:translateX(18px);background:#fffce8}
 .battle-hud{position:absolute;inset:8px 8px auto;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:8px;pointer-events:none}
-.battle-hud .trainer-id,.battle-hud .battle-clock,.battle-hud :is(#match-pause,#match-leave){background:#fff9dfee;border:2px solid #515d4d;border-radius:7px;box-shadow:inset 0 1px #fffef4,0 2px 0 #23342a55;color:#3d4944}
 .battle-hud .trainer-id{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0;width:fit-content;max-width:100%;padding:9px 10px}
 .battle-hud .trainer-id>strong{font-size:12px;line-height:1.25;max-width:100%}
 .battle-hud .online-status{font-size:10px;line-height:1.3;max-width:100%;overflow-wrap:anywhere}
 .battle-hud-actions{display:flex;align-items:flex-start;gap:6px}
 .battle-hud .battle-clock{position:static;left:auto;transform:none;display:flex;flex-wrap:wrap;justify-content:flex-end;max-width:158px;min-height:44px;padding:6px 9px;gap:3px 6px;font-size:28px;line-height:1;letter-spacing:.5px}
-.battle-hud .battle-clock.urgent{color:#a33b35;border-color:#a33b35}
-.battle-hud #boost{align-self:center;font-size:13px;padding:3px 4px;background:#8740a8}
-.battle-hud #phase-label{order:2;flex-basis:100%;font-size:9px;line-height:1.2;letter-spacing:0;text-align:right;color:#79563a}
 .battle-hud :is(#match-pause,#match-leave){width:44px;height:44px;flex:0 0 44px;pointer-events:auto;touch-action:manipulation}
-.battle-hud :is(#match-pause,#match-leave):hover{background:#fff4c3;border-color:#aa8338}
 .battle-hud :is(#match-pause,#match-leave) svg{width:21px;height:21px}
 .portrait-dialog{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:32px;border:0;border-radius:0;background:#f7f0d5;box-shadow:none;text-align:center}
 .portrait-dialog[open]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
@@ -257,10 +252,6 @@ input::placeholder{color:#74796d;opacity:1}
 .battle-hud .battle-clock{position:relative;flex-wrap:nowrap}
 .battle-hud #timer{min-width:4ch;text-align:center;font-variant-numeric:tabular-nums}
 .battle-hud-actions{position:relative}
-.battle-hud-status{position:absolute;top:calc(100% + 7px);right:0;display:flex;align-items:flex-start;gap:6px;pointer-events:none}
-.battle-hud #boost{position:static;display:inline-flex;align-items:center;justify-content:center;gap:5px;width:76px;height:36px;margin:0;padding:3px 7px;border:2px solid #515d4d;border-radius:6px;background:linear-gradient(#fffced,#eee5c5);box-shadow:inset 0 1px #fffef4,0 2px 0 #23342a55;color:#68477c;font:800 24px/1 'Barlow Condensed',sans-serif;white-space:nowrap}
-.battle-hud #boost:before{content:'';width:20px;height:20px;background:url('assets/ui/menu-icons-v1.webp') 0 100%/400% 400% no-repeat}
-.battle-hud #phase-label{position:static;order:0;flex:0 0 90px;display:flex;align-items:center;justify-content:center;height:36px;padding:5px 7px;border:2px solid #7e7657;border-radius:6px;background:#fff8df;font-size:11px;white-space:nowrap}
 .name-field input{display:block;margin-top:0;line-height:1.25}
 .menu-panel>#start-btn{font:700 14px/1.25 'DM Sans','Segoe UI',sans-serif;letter-spacing:0}
 .load-failed{pointer-events:auto}
@@ -270,7 +261,7 @@ input::placeholder{color:#74796d;opacity:1}
 .search-card .pokeball-loader{width:64px;height:64px}.search-card>strong{font-size:14px;line-height:1.4;text-align:center;overflow-wrap:anywhere}.search-card>#search-time{line-height:1;font-size:30px;font-variant-numeric:tabular-nums}.search-card>button{height:44px;justify-content:center}
 .pause-overlay #pause-menu-btn{width:100%;justify-content:center;gap:12px;min-height:46px;font-size:13px;font-weight:700}.pause-overlay #pause-menu-btn svg{width:27px;height:27px}
 .battle-hud .trainer-id{position:relative}
-.battle-hud .online-status{position:absolute;top:calc(100% + 6px);left:-2px;width:max-content;max-width:min(230px,calc(100vw - 28px));padding:7px 9px;border:2px solid #7e886e;border-radius:6px;background:#fff9e8f5;color:#4c5847;box-shadow:0 2px 0 #26382c33}
+.battle-hud .online-status{position:absolute;width:max-content;max-width:min(230px,calc(100vw - 28px))}
 .connection-loading{position:absolute;top:calc(100% + 6px);left:0;display:grid;place-items:center;width:32px;height:32px;border:2px solid #838a72;border-radius:50%;background:#fff9e8;box-shadow:0 2px 0 #26382c33}.connection-loading svg{width:24px;height:24px;animation:pokeball-wait 1.6s ease-in-out infinite}
 .battle-loading{position:absolute;left:10px;bottom:10px;display:grid;place-items:center;width:32px;height:32px;padding:2px;border:2px solid #838a72;border-radius:50%;background:#fff9e8;box-shadow:0 2px 0 #26382c33;pointer-events:none}
 .battle-loading .pokeball-loader{width:24px;height:24px}.battle-loading .loading-ball{width:100%;height:100%}

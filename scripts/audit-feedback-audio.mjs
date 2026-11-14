@@ -4,7 +4,7 @@ import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
-const root=path.resolve(import.meta.dirname,'..'),dist=path.join(root,'dist'),out=path.join(root,'docs/audio-feedback-2026-11-14');await mkdir(out,{recursive:true});
+const root=path.resolve(import.meta.dirname,'..'),dist=path.join(root,'dist'),out=path.join(root,'docs/audio-pokemon-2026-11-14');await mkdir(out,{recursive:true});
 const server=http.createServer(async(req,res)=>{try{const p=new URL(req.url,'http://localhost').pathname;if(p==='/'){res.writeHead(200,{'Content-Type':'text/html'}).end('<!doctype html><title>Audio audit</title>');return;}const file=path.resolve(dist,'.'+p);if(!file.startsWith(dist+path.sep))throw Error('Path');const bytes=await readFile(file);res.writeHead(200,{'Content-Type':file.endsWith('.js')?'text/javascript':file.endsWith('.json')?'application/json':'application/octet-stream'}).end(bytes);}catch{res.writeHead(404).end();}});
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const{chromium}=await import(pathToFileURL(process.env.POKE_ARENA_PLAYWRIGHT_MODULE||path.join(root,'qa/node_modules/playwright/index.mjs')).href),browser=await chromium.launch({channel:'msedge',headless:true});
@@ -13,15 +13,16 @@ try{
  const report=await page.evaluate(async()=>{
   const{SoundSystem}=await import('/audio.js'),{Game,CARDS}=await import('/engine.js?v=26'),{BattleMusic}=await import('/music.js?v=26');
   const preload=new SoundSystem();await preload.ready;preload.ctx=new OfflineAudioContext(2,44100,44100);await preload.decodeSamples();
-  const rate=44100,span=2.1,keys=['treecko','treecko-pair','roselia','nuzleaf','alakazam','rhydon','snorlax','sableye','squirtle','ampharos-up','ampharos-down','pinMissile','fireball','heal','mixed-voices','mixed-music'];
+  const rate=44100,span=2.1,keys=['treecko','treecko-pair','roselia','nuzleaf','alakazam','rhydon','snorlax','sableye','squirtle','pikachu','charizard','gastly','grimer','lapras','exeggcute','ampharos-up','ampharos-down','pinMissile','fireball','heal','mixed-voices','mixed-music','cold-roselia'];
   const rows=[],demo=[new Float32Array(Math.ceil(keys.length*span*rate)),new Float32Array(Math.ceil(keys.length*span*rate))];
   for(let index=0;index<keys.length;index++){
    const key=keys[index],ctx=new OfflineAudioContext(2,Math.ceil(span*rate),rate);let clock=0;
    Object.defineProperty(ctx,'state',{get:()=> 'running'});Object.defineProperty(ctx,'currentTime',{get:()=>clock});
    const sound=Object.assign(Object.create(SoundSystem.prototype),{enabled:true,ctx,last:new Map(),buffers:preload.buffers,voiceSlots:[],effectSlots:[],master:ctx.createGain(),noiseBuffer:ctx.createBuffer(1,rate,rate)});
    sound.master.gain.value=.7;const compressor=ctx.createDynamicsCompressor();compressor.threshold.value=-18;compressor.ratio.value=5;sound.master.connect(compressor);compressor.connect(ctx.destination);let seed=937;const noise=sound.noiseBuffer.getChannelData(0);for(let i=0;i<noise.length;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;noise[i]=(seed/4294967296*2-1)*.7;}
+   if(key.startsWith('cold-'))sound.buffers=new Map();
    const events=[],outputs=[],original=sound.output;
-   sound.output=function(node,volume,duration,pan,delay=0,voice){const at=original.call(this,node,volume,duration,pan,delay,voice);if(at!==null)outputs.push({at,volume,duration,pan:pan||0,voice:!!voice});return at;};
+   sound.output=function(node,volume,duration,pan,delay=0,voice,recording){const at=original.call(this,node,volume,duration,pan,delay,voice,recording);if(at!==null)outputs.push({at,volume,duration,pan:pan||0,voice:!!voice});return at;};
    const emit=e=>{const before=outputs.length;sound.event(e);if(outputs.length>before)events.push({type:e.type,at:clock,outputs:outputs.length-before});};
    if(key==='mixed-music'){sound.music=new BattleMusic(ctx,sound.master);sound.music.seed=937;sound.music.noise=sound.noiseBuffer;sound.music.setPlaying(true);clearInterval(sound.music.timer);}
    if(key.startsWith('mixed-'))for(const id of [25,6,315])sound.cry(id,300);
@@ -32,7 +33,7 @@ try{
     const spell=!!CARDS[key]?.spell,target=game.spawn('snorlax',1,180,440,0);target.hp=target.maxHp=1e8;target.card={...target.card,passive:true,speed:0,structure:true,lifetime:1e12};
     if(spell){game.hands[0][0]=key;game.energy[0]=10;game.deploy(0,0,180,440);}
     else{
-      const squad=key==='treecko-pair'?['treecko','treecko']:key.startsWith('mixed-')?['treecko','nuzleaf','roselia','rhydon']: [key];
+      const squad=key==='treecko-pair'?['treecko','treecko']:key.startsWith('mixed-')?['treecko','nuzleaf','roselia','rhydon']: [key.replace(/^cold-/,'')];
       for(const [index,species] of squad.entries()){
         const x=180+index*36,actor=game.spawn(species,0,x,500,0),victim=index?game.spawn('snorlax',1,x,440,0):target;
         victim.hp=victim.maxHp=1e8;victim.card={...victim.card,passive:true,speed:0,structure:true,lifetime:1e12};actor.entryPending=false;game.attack(actor,victim);actor.cooldown=999;
@@ -53,6 +54,6 @@ try{
  });
  const wav=Buffer.from(report.preview,'base64');delete report.preview;await writeFile(path.join(out,'feedback-preview.wav'),wav);
  report.hashes=Object.fromEntries(await Promise.all(['dist/audio.js','dist/engine.js','dist/assets/audio/manifest.json'].map(async file=>[file,createHash('sha256').update(await readFile(path.join(root,file))).digest('hex')])));report.previewSha256=createHash('sha256').update(wav).digest('hex');
- report.retired=Object.fromEntries(['heavy','punch-1','punch-2','punch-3'].map(name=>{const file='dist/assets/audio/foley/'+name+'.ogg',bytes=execFileSync('git',['show','ab068f3:'+file],{cwd:root,windowsHide:true});return[file,{publicSourceCommit:'ab068f3',sha256:createHash('sha256').update(bytes).digest('hex'),removedFrom:'Manifest, recorded routes, synthesis fallback, downloader and distributed file.'}];}));
+ report.retired=JSON.parse(await readFile(path.join(out,'retired-assets.json'),'utf8'));
  await writeFile(path.join(out,'verification.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({cases:report.rows.length,decoded:report.decodedSamples,peak:Math.max(...report.rows.map(r=>r.peak)),output:out}));
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}

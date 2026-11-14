@@ -1,0 +1,361 @@
+{
+  "repository": "pagefaultgames/pokerogue-assets",
+  "commit": "6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3",
+  "folder": "audio/battle_anims",
+  "sourceTree": "72544b67c5e35833ea837877ceef2683df03310b",
+  "sourceGroup": "PRSFX: Pokémon Reborn",
+  "attribution": "Pokémon Reborn Team; their credits identify Pokémon Mystery Universe, Amethyst and original rip by Neslug for sound. Pokémon belongs to Nintendo / Creatures / GAME FREAK. Pagefault Games distributes this bank with LicenseRef-POKEMON-REBORN; do not relabel it CC0.",
+  "sourceLicence": "https://github.com/pagefaultgames/pokerogue-assets/blob/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/LICENSES/LicenseRef-POKEMON-REBORN.txt",
+  "files": [
+    {
+      "key": "quick-attack",
+      "file": "PRSFX- Quick Attack.wav",
+      "bytes": 13116,
+      "gitBlob": "6645807d4a1ce078c4f618241db86c4022b93f65",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Quick%20Attack.wav"
+    },
+    {
+      "key": "pound",
+      "file": "PRSFX- Pound.wav",
+      "bytes": 9802,
+      "gitBlob": "e759938a5317c73afb4e755f30b9c157b033bc22",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Pound.wav"
+    },
+    {
+      "key": "body-slam1",
+      "file": "PRSFX- Body Slam1.wav",
+      "bytes": 8122,
+      "gitBlob": "ce0ed7eb12332d179112752da7528ecb2c3cfc85",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Body%20Slam1.wav"
+    },
+    {
+      "key": "body-slam2",
+      "file": "PRSFX- Body Slam2.wav",
+      "bytes": 18718,
+      "gitBlob": "2a90441649403a52ecf7195a1c13621004326f0a",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Body%20Slam2.wav"
+    },
+    {
+      "key": "strength",
+      "file": "PRSFX- Strength.wav",
+      "bytes": 21776,
+      "gitBlob": "9e7588a31cd3d3be0e8a498f6af96de6e812aea2",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Strength.wav"
+    },
+    {
+      "key": "horn-attack",
+      "file": "PRSFX- Horn Attack.wav",
+      "bytes": 7744,
+      "gitBlob": "88b54a50db0da8377474107b9a3976a73736162a",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Horn%20Attack.wav"
+    },
+    {
+      "key": "fury-attack",
+      "file": "PRSFX- Fury Attack.wav",
+      "bytes": 14112,
+      "gitBlob": "d7208021645cfc9dcce9f736b91a3e5ee2f89977",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Fury%20Attack.wav"
+    },
+    {
+      "key": "slash",
+      "file": "PRSFX- Slash.wav",
+      "bytes": 14686,
+      "gitBlob": "c841511e3b43790d5def75d1feb23637cfb9cb85",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Slash.wav"
+    },
+    {
+      "key": "bite",
+      "file": "PRSFX- Bite.wav",
+      "bytes": 9824,
+      "gitBlob": "3875c327bf73b9b16c3a1eba340bda664b18594f",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Bite.wav"
+    },
+    {
+      "key": "rock-throw1",
+      "file": "PRSFX- Rock Throw1.wav",
+      "bytes": 22040,
+      "gitBlob": "930928c6f96435236b767c6d82f4c0a92744d4de",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Rock%20Throw1.wav"
+    },
+    {
+      "key": "rock-throw2",
+      "file": "PRSFX- Rock Throw2.wav",
+      "bytes": 13372,
+      "gitBlob": "339436cffbe9e3fa00c0b7eb1193d07d0b06275e",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Rock%20Throw2.wav"
+    },
+    {
+      "key": "rock-slide",
+      "file": "PRSFX- Rock Slide.wav",
+      "bytes": 43964,
+      "gitBlob": "f3e2e21007a7ec885636f60d1bdab22c0f9c8db8",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Rock%20Slide.wav"
+    },
+    {
+      "key": "stone-edge",
+      "file": "PRSFX- Stone Edge.wav",
+      "bytes": 43010,
+      "gitBlob": "9f3458a3a174861a532c9957765011d02e11281a",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Stone%20Edge.wav"
+    },
+    {
+      "key": "ember",
+      "file": "PRSFX- Ember.wav",
+      "bytes": 16408,
+      "gitBlob": "653d3d7d84a462bce0425d5b31ef421470da2512",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Ember.wav"
+    },
+    {
+      "key": "fire-blast",
+      "file": "PRSFX- Fire Blast.wav",
+      "bytes": 94050,
+      "gitBlob": "aee3f8c94442842b5e63bb4aadc1d708e4b9648f",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Fire%20Blast.wav"
+    },
+    {
+      "key": "fire-spin",
+      "file": "PRSFX- Fire Spin.wav",
+      "bytes": 14416,
+      "gitBlob": "2634a10319c617ffbbe6352cbabba4e37925affc",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Fire%20Spin.wav"
+    },
+    {
+      "key": "bubble",
+      "file": "PRSFX- Bubble.wav",
+      "bytes": 36412,
+      "gitBlob": "b5e501017b63017b3da363776f76db3a4e0fdc85",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Bubble.wav"
+    },
+    {
+      "key": "bubblebeam",
+      "file": "PRSFX- Bubblebeam.wav",
+      "bytes": 38560,
+      "gitBlob": "98555e7e0aacced5af2f01e156a1f1029e14997d",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Bubblebeam.wav"
+    },
+    {
+      "key": "water-gun",
+      "file": "PRSFX- Water Gun.wav",
+      "bytes": 38520,
+      "gitBlob": "813a356dc66ec682ec7357af1ef7723907bf2dec",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Water%20Gun.wav"
+    },
+    {
+      "key": "hydro-pump",
+      "file": "PRSFX- Hydro Pump.wav",
+      "bytes": 19396,
+      "gitBlob": "0adee21868f0a583d8260d6f9d2efaa3b2ef3827",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Hydro%20Pump.wav"
+    },
+    {
+      "key": "thunderbolt1",
+      "file": "PRSFX- Thunderbolt1.wav",
+      "bytes": 42874,
+      "gitBlob": "941e733653db58fa392728e3c67422bff251b0ca",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Thunderbolt1.wav"
+    },
+    {
+      "key": "thundershock",
+      "file": "PRSFX- Thundershock.wav",
+      "bytes": 37950,
+      "gitBlob": "8a679b29272b88a763013af8c19030c21792a475",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Thundershock.wav"
+    },
+    {
+      "key": "discharge",
+      "file": "PRSFX- Discharge.wav",
+      "bytes": 83234,
+      "gitBlob": "b57d27aaae912517258f56b1a91060e308a108d3",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Discharge.wav"
+    },
+    {
+      "key": "bullet-seed",
+      "file": "PRSFX- Bullet Seed.wav",
+      "bytes": 16698,
+      "gitBlob": "36bcd81f8d8c8be0d7640ca7687d86463743aac6",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Bullet%20Seed.wav"
+    },
+    {
+      "key": "poison-sting",
+      "file": "PRSFX- Poison Sting.wav",
+      "bytes": 20464,
+      "gitBlob": "b3b1aeeaa56317e77b55ffd6f0d973f20e6682c8",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Poison%20Sting.wav"
+    },
+    {
+      "key": "petal-dance",
+      "file": "PRSFX- Petal Dance.wav",
+      "bytes": 20774,
+      "gitBlob": "c817371f912797724e88ab9ee06bea3b356f7294",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Petal%20Dance.wav"
+    },
+    {
+      "key": "petal-blizzard2",
+      "file": "PRSFX- Petal Blizzard2.wav",
+      "bytes": 27870,
+      "gitBlob": "1bddb624c86f8f1dd6b96f04a53fddb972ebad85",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Petal%20Blizzard2.wav"
+    },
+    {
+      "key": "razor-leaf2",
+      "file": "PRSFX- Razor Leaf2.wav",
+      "bytes": 13364,
+      "gitBlob": "1f530b5aa0338093302862597561c794fb66104e",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Razor%20Leaf2.wav"
+    },
+    {
+      "key": "ice-beam",
+      "file": "PRSFX- Ice Beam.wav",
+      "bytes": 31058,
+      "gitBlob": "64301ef7d9c8bfa22d81989739e3be4d80619d51",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Ice%20Beam.wav"
+    },
+    {
+      "key": "icy-wind1",
+      "file": "PRSFX- Icy Wind1.wav",
+      "bytes": 27046,
+      "gitBlob": "d534e493ec56d2f829c66d5dccebb0a8497c0a37",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Icy%20Wind1.wav"
+    },
+    {
+      "key": "confusion",
+      "file": "PRSFX- Confusion.wav",
+      "bytes": 15450,
+      "gitBlob": "c9e85e6b1fa7b278272042eb758997a9dc72fc97",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Confusion.wav"
+    },
+    {
+      "key": "psychic",
+      "file": "PRSFX- Psychic.wav",
+      "bytes": 21440,
+      "gitBlob": "2d9354430434b8719e66045b590ec65532dddd06",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Psychic.wav"
+    },
+    {
+      "key": "psybeam",
+      "file": "PRSFX- Psybeam.wav",
+      "bytes": 39244,
+      "gitBlob": "b5f7a903fdc53b14bd193244828be3986f07fa58",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Psybeam.wav"
+    },
+    {
+      "key": "aura-sphere1",
+      "file": "PRSFX- Aura Sphere1.wav",
+      "bytes": 28738,
+      "gitBlob": "c8df5caaa630d696353bb102c91551c55de31e14",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Aura%20Sphere1.wav"
+    },
+    {
+      "key": "aura-sphere2",
+      "file": "PRSFX- Aura Sphere2.wav",
+      "bytes": 37716,
+      "gitBlob": "be90edf746c52169bbf4039aebae99174945bae9",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Aura%20Sphere2.wav"
+    },
+    {
+      "key": "shadow-ball1",
+      "file": "PRSFX- Shadow Ball1.wav",
+      "bytes": 24144,
+      "gitBlob": "6147c2ed831956f621e89f029a028aa567111983",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Shadow%20Ball1.wav"
+    },
+    {
+      "key": "shadow-ball2",
+      "file": "PRSFX- Shadow Ball2.wav",
+      "bytes": 23740,
+      "gitBlob": "1a5a53be99b7741c3f84e2da9a1570e5f3700bab",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Shadow%20Ball2.wav"
+    },
+    {
+      "key": "feint-attack1",
+      "file": "PRSFX- Feint Attack1.wav",
+      "bytes": 27370,
+      "gitBlob": "054a9e5b68fbe337d9c54998bc6b3a438b241c83",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Feint%20Attack1.wav"
+    },
+    {
+      "key": "feint-attack2",
+      "file": "PRSFX- Feint Attack2.wav",
+      "bytes": 14140,
+      "gitBlob": "2d9175f76ca39628cc9a9fe6079002232876bbfd",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Feint%20Attack2.wav"
+    },
+    {
+      "key": "healing-pulse",
+      "file": "PRSFX- Healing Pulse.wav",
+      "bytes": 51656,
+      "gitBlob": "d9edfb614f0ac410b32771c35671cdf05dd6f80b",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Healing%20Pulse.wav"
+    },
+    {
+      "key": "recover",
+      "file": "PRSFX- Recover.wav",
+      "bytes": 26060,
+      "gitBlob": "245a6a3941041014db34ae35d539827791029bcc",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Recover.wav"
+    },
+    {
+      "key": "acid",
+      "file": "PRSFX- Acid.wav",
+      "bytes": 21746,
+      "gitBlob": "ab88833b50c3f40c9b01cc448afce712c82b1910",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Acid.wav"
+    },
+    {
+      "key": "sludge-bomb2",
+      "file": "PRSFX- Sludge Bomb2.wav",
+      "bytes": 29872,
+      "gitBlob": "7f283e6b63ea5e7b241ab35a7b7bb0dfd48f2cc9",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Sludge%20Bomb2.wav"
+    },
+    {
+      "key": "egg-bomb1",
+      "file": "PRSFX- Egg Bomb1.wav",
+      "bytes": 10694,
+      "gitBlob": "2b3dce75511b7a0ef1dcce83e15292136d33ec36",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Egg%20Bomb1.wav"
+    },
+    {
+      "key": "egg-bomb2",
+      "file": "PRSFX- Egg Bomb2.wav",
+      "bytes": 23074,
+      "gitBlob": "768f4cbe5dae77471ea01f822ff4cf805322e6c7",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Egg%20Bomb2.wav"
+    },
+    {
+      "key": "pay-day1",
+      "file": "PRSFX- Pay Day1.wav",
+      "bytes": 45936,
+      "gitBlob": "c8c70c363363f153c2acdf01b0cc7e1eeaf81563",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Pay%20Day1.wav"
+    },
+    {
+      "key": "agility",
+      "file": "PRSFX- Agility.wav",
+      "bytes": 24012,
+      "gitBlob": "7cb5b59094781da511d3198c648752479e319abe",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Agility.wav"
+    },
+    {
+      "key": "explosion2",
+      "file": "PRSFX- Explosion2.wav",
+      "bytes": 14746,
+      "gitBlob": "3d2a864d0e7a1f902bb96e0a1dc4172d7430602a",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Explosion2.wav"
+    },
+    {
+      "key": "gust",
+      "file": "PRSFX- Gust.wav",
+      "bytes": 62042,
+      "gitBlob": "a442784d9d3387e586eb72a56adabff3f1740442",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Gust.wav"
+    },
+    {
+      "key": "stomp",
+      "file": "PRSFX- Stomp.wav",
+      "bytes": 13572,
+      "gitBlob": "800bf6b3df2944d7bf91d242e46c2a8a58d7a378",
+      "sourceUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims/PRSFX-%20Stomp.wav"
+    }
+  ]
+}

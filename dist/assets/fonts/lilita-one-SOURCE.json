@@ -1,0 +1,27 @@
+{
+  "family": "Lilita One",
+  "author": "Juan Montoreano",
+  "license": "SIL Open Font License1.1",
+  "repository": "google/fonts",
+  "commit": "cc39c4c2c304bc368c9b7c311ea2bcc6013299fe",
+  "sourceCommit": "d3687864827cfeca4a14baaeaee95d151c37a6b9",
+  "usage": "Battle timer and elixir multiplier only.",
+  "files": [
+    {
+      "source": "LilitaOne-Regular.ttf",
+      "file": "lilita-one.ttf",
+      "bytes": 28092,
+      "gitBlob": "fdec368cbd478e437f0476a538c3868723aed296",
+      "sha256": "f5b641c45c69d772ee4eda687bc9fda411d5cad6b0b45371491da4580cbc8d59",
+      "url": "https://raw.githubusercontent.com/google/fonts/cc39c4c2c304bc368c9b7c311ea2bcc6013299fe/ofl/lilitaone/LilitaOne-Regular.ttf"
+    },
+    {
+      "source": "OFL.txt",
+      "file": "lilita-one-OFL.txt",
+      "bytes": 4392,
+      "gitBlob": "055594f2f330e835940070f2d5944a2331c7c299",
+      "sha256": "255d5debbb80eb2ea762644311f266a279e8778f00156655a516e2b7781a63e1",
+      "url": "https://raw.githubusercontent.com/google/fonts/cc39c4c2c304bc368c9b7c311ea2bcc6013299fe/ofl/lilitaone/OFL.txt"
+    }
+  ]
+}

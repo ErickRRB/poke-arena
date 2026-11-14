@@ -1,0 +1,1153 @@
+{
+  "rows": [
+    {
+      "key": "treecko",
+      "previewAt": 0,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.6666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.22400000000000003,
+          "duration": 0.22,
+          "pan": -0.27520775000000003,
+          "voice": false
+        },
+        {
+          "at": 0.6666666666666666,
+          "volume": 0.28,
+          "duration": 0.2,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.13266117870807648,
+      "rms": 0.009892068857210919
+    },
+    {
+      "key": "treecko-pair",
+      "previewAt": 2.1,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.6666666666666666,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.6666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.22400000000000003,
+          "duration": 0.22,
+          "pan": -0.27520775000000003,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.22400000000000003,
+          "duration": 0.22,
+          "pan": -0.18520775,
+          "voice": false
+        },
+        {
+          "at": 0.6666666666666666,
+          "volume": 0.28,
+          "duration": 0.2,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.6666666666666666,
+          "volume": 0.28,
+          "duration": 0.2,
+          "pan": -0.21,
+          "voice": false
+        }
+      ],
+      "peak": 0.2514577805995941,
+      "rms": 0.019282207165345733
+    },
+    {
+      "key": "roselia",
+      "previewAt": 4.2,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.3,
+          "volume": 0.272,
+          "duration": 0.36,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.4666666666666666,
+          "volume": 0.34,
+          "duration": 0.36,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.12102783471345901,
+      "rms": 0.010874303362393119
+    },
+    {
+      "key": "nuzleaf",
+      "previewAt": 6.300000000000001,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.36666666666666664,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4333333333333333,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.36666666666666664,
+          "volume": 0.192,
+          "duration": 0.16,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.4333333333333333,
+          "volume": 0.24,
+          "duration": 0.17,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.1321069598197937,
+      "rms": 0.006818525819078275
+    },
+    {
+      "key": "alakazam",
+      "previewAt": 8.4,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.7,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.7666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.7,
+          "volume": 0.24,
+          "duration": 0.28,
+          "pan": -0.28645200000000004,
+          "voice": false
+        },
+        {
+          "at": 0.7666666666666666,
+          "volume": 0.3,
+          "duration": 0.29,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.11428195983171463,
+      "rms": 0.009589135161296806
+    },
+    {
+      "key": "rhydon",
+      "previewAt": 10.5,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.30400000000000005,
+          "duration": 0.21,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.38,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.2666947543621063,
+      "rms": 0.01669183237072878
+    },
+    {
+      "key": "snorlax",
+      "previewAt": 12.600000000000001,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.32000000000000006,
+          "duration": 0.26,
+          "pan": -0.276,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.4,
+          "duration": 0.33657596371882087,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.13395099341869354,
+      "rms": 0.015040688648715174
+    },
+    {
+      "key": "sableye",
+      "previewAt": 14.700000000000001,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.39999999999999997,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.39999999999999997,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.39999999999999997,
+          "volume": 0.256,
+          "duration": 0.32,
+          "pan": -0.309,
+          "voice": false
+        },
+        {
+          "at": 0.39999999999999997,
+          "volume": 0.32,
+          "duration": 0.32,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.11858561635017395,
+      "rms": 0.010762603866952979
+    },
+    {
+      "key": "squirtle",
+      "previewAt": 16.8,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.3,
+          "volume": 0.256,
+          "duration": 0.3,
+          "pan": -0.30456525,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.32,
+          "duration": 0.29,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.16288450360298157,
+      "rms": 0.013843318457142286
+    },
+    {
+      "key": "pikachu",
+      "previewAt": 18.900000000000002,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.6,
+          "outputs": 1
+        },
+        {
+          "type": "beam",
+          "at": 0.6,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.6,
+          "volume": 0.272,
+          "duration": 0.28,
+          "pan": -0.307778,
+          "voice": false
+        },
+        {
+          "at": 0.6,
+          "volume": 0.34,
+          "duration": 0.34,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.22734302282333374,
+      "rms": 0.018592956079063104
+    },
+    {
+      "key": "charizard",
+      "previewAt": 21,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.3,
+          "volume": 0.272,
+          "duration": 0.3,
+          "pan": -0.3048485,
+          "voice": false
+        },
+        {
+          "at": 0.4666666666666666,
+          "volume": 0.34,
+          "duration": 0.32,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.17282994091510773,
+      "rms": 0.013193114397312244
+    },
+    {
+      "key": "gastly",
+      "previewAt": 23.1,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.3,
+          "volume": 0.256,
+          "duration": 0.32,
+          "pan": -0.3025,
+          "voice": false
+        },
+        {
+          "at": 0.4666666666666666,
+          "volume": 0.32,
+          "duration": 0.32,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.11727353930473328,
+      "rms": 0.011092469047425033
+    },
+    {
+      "key": "grimer",
+      "previewAt": 25.200000000000003,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.3,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.3,
+          "volume": 0.256,
+          "duration": 0.2,
+          "pan": -0.26659075,
+          "voice": false
+        },
+        {
+          "at": 0.3,
+          "volume": 0.32,
+          "duration": 0.23,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.1652490645647049,
+      "rms": 0.011152131959859231
+    },
+    {
+      "key": "lapras",
+      "previewAt": 27.3,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.6333333333333333,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.256,
+          "duration": 0.33,
+          "pan": -0.30337200000000003,
+          "voice": false
+        },
+        {
+          "at": 0.6333333333333333,
+          "volume": 0.32,
+          "duration": 0.35,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.1573963761329651,
+      "rms": 0.015614710237071911
+    },
+    {
+      "key": "exeggcute",
+      "previewAt": 29.400000000000002,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.42,
+          "duration": 0.38,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.25910046696662903,
+      "rms": 0.021939459380744528
+    },
+    {
+      "key": "ampharos-up",
+      "previewAt": 31.5,
+      "events": [
+        {
+          "type": "burrow",
+          "at": 0,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.025,
+          "duration": 0.12,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.006142704281955957,
+      "rms": 0.00026964523636383535
+    },
+    {
+      "key": "ampharos-down",
+      "previewAt": 33.6,
+      "events": [
+        {
+          "type": "burrow",
+          "at": 0,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.025,
+          "duration": 0.12,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.00417825672775507,
+      "rms": 0.00018530919876040224
+    },
+    {
+      "key": "pinMissile",
+      "previewAt": 35.7,
+      "events": [
+        {
+          "type": "cast",
+          "at": 0,
+          "outputs": 1
+        },
+        {
+          "type": "spellHit",
+          "at": 0.6,
+          "outputs": 1
+        },
+        {
+          "type": "spellHit",
+          "at": 0.7999999999999999,
+          "outputs": 1
+        },
+        {
+          "type": "spellHit",
+          "at": 0.9999999999999999,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.272,
+          "duration": 0.3,
+          "pan": -0.33,
+          "voice": false
+        },
+        {
+          "at": 0.6,
+          "volume": 0.34,
+          "duration": 0.32,
+          "pan": -0.33,
+          "voice": false
+        },
+        {
+          "at": 0.7999999999999999,
+          "volume": 0.34,
+          "duration": 0.32,
+          "pan": -0.33,
+          "voice": false
+        },
+        {
+          "at": 0.9999999999999999,
+          "volume": 0.34,
+          "duration": 0.32,
+          "pan": -0.33,
+          "voice": false
+        }
+      ],
+      "peak": 0.12530770897865295,
+      "rms": 0.013652297595506848
+    },
+    {
+      "key": "fireball",
+      "previewAt": 37.800000000000004,
+      "events": [
+        {
+          "type": "cast",
+          "at": 0,
+          "outputs": 1
+        },
+        {
+          "type": "spellHit",
+          "at": 1.0666666666666667,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.32000000000000006,
+          "duration": 0.35,
+          "pan": -0.33,
+          "voice": false
+        },
+        {
+          "at": 1.0666666666666667,
+          "volume": 0.4,
+          "duration": 0.48,
+          "pan": -0.33,
+          "voice": false
+        }
+      ],
+      "peak": 0.16544286906719208,
+      "rms": 0.011389458900944982
+    },
+    {
+      "key": "heal",
+      "previewAt": 39.9,
+      "events": [
+        {
+          "type": "heal",
+          "at": 0,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.1,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.04874861612915993,
+      "rms": 0.003526457829909289
+    },
+    {
+      "key": "mixed-voices",
+      "previewAt": 42,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.36666666666666664,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4333333333333333,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4666666666666666,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.6666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 0.95437641723356,
+          "pan": 0,
+          "voice": true
+        },
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 1.9974603174603174,
+          "pan": 0,
+          "voice": true
+        },
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 0.6750113378684808,
+          "pan": 0,
+          "voice": true
+        },
+        {
+          "at": 0.3,
+          "volume": 0.272,
+          "duration": 0.36,
+          "pan": -0.12,
+          "voice": false
+        },
+        {
+          "at": 0.36666666666666664,
+          "volume": 0.192,
+          "duration": 0.16,
+          "pan": -0.21,
+          "voice": false
+        },
+        {
+          "at": 0.4333333333333333,
+          "volume": 0.24,
+          "duration": 0.17,
+          "pan": -0.21,
+          "voice": false
+        },
+        {
+          "at": 0.4666666666666666,
+          "volume": 0.34,
+          "duration": 0.36,
+          "pan": -0.12,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.22400000000000003,
+          "duration": 0.22,
+          "pan": -0.27520775000000003,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.30400000000000005,
+          "duration": 0.21,
+          "pan": -0.03,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.38,
+          "duration": 0.28,
+          "pan": -0.03,
+          "voice": false
+        },
+        {
+          "at": 0.6666666666666666,
+          "volume": 0.28,
+          "duration": 0.2,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.2962014377117157,
+      "rms": 0.021707075302405985
+    },
+    {
+      "key": "mixed-music",
+      "previewAt": 44.1,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.36666666666666664,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4333333333333333,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4666666666666666,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.6666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 0.95437641723356,
+          "pan": 0,
+          "voice": true
+        },
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 1.9974603174603174,
+          "pan": 0,
+          "voice": true
+        },
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 0.6750113378684808,
+          "pan": 0,
+          "voice": true
+        },
+        {
+          "at": 0.3,
+          "volume": 0.272,
+          "duration": 0.36,
+          "pan": -0.12,
+          "voice": false
+        },
+        {
+          "at": 0.36666666666666664,
+          "volume": 0.192,
+          "duration": 0.16,
+          "pan": -0.21,
+          "voice": false
+        },
+        {
+          "at": 0.4333333333333333,
+          "volume": 0.24,
+          "duration": 0.17,
+          "pan": -0.21,
+          "voice": false
+        },
+        {
+          "at": 0.4666666666666666,
+          "volume": 0.34,
+          "duration": 0.36,
+          "pan": -0.12,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.22400000000000003,
+          "duration": 0.22,
+          "pan": -0.27520775000000003,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.30400000000000005,
+          "duration": 0.21,
+          "pan": -0.03,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.38,
+          "duration": 0.28,
+          "pan": -0.03,
+          "voice": false
+        },
+        {
+          "at": 0.6666666666666666,
+          "volume": 0.28,
+          "duration": 0.2,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.29503002762794495,
+      "rms": 0.02253204163847345
+    },
+    {
+      "key": "cold-roselia",
+      "previewAt": 46.2,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.3,
+          "volume": 0.272,
+          "duration": 0.36,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.4666666666666666,
+          "volume": 0.34,
+          "duration": 0.36,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.10320638865232468,
+      "rms": 0.008298472217580762
+    }
+  ],
+  "decodedSamples": 157,
+  "sampleRate": 44100,
+  "scope": "Actual Game events and SoundSystem rendered by browser OfflineAudioContext at production master .7 and compressor settings. Controlled stationary targets, one/two/mixed attacks, three simultaneous voices and the real BattleMusic first bar. Peak/RMS verify output and headroom, not perceived quality or speaker balance.",
+  "hashes": {
+    "dist/audio.js": "531512cffceb118fc5250a705af18b221f0e9a2e1ee93f5995b4c3da9bc23a05",
+    "dist/engine.js": "62a45760556ff000b6605fc1277687d2908aac44de89b3ff767e2d0c3df3cf81",
+    "dist/assets/audio/manifest.json": "12bfd2ade794a851577f7471bd88b1f8d39044949a8541f9c36f47b061d1a1ce"
+  },
+  "previewSha256": "b4387a2a85ba080a8c0954bbcfd7eea0d7ce31634fa2381e3db25f42ceafc3a8",
+  "retired": {
+    "baseline": "21b3eaae2b42c8ad0c0f60f45812383aefd575bd",
+    "scope": "Removed distributed binaries, manifest groups, playback/fallback/compatibility routes and importers. Historical source attribution remains in Git.",
+    "rows": [
+      {
+        "group": "foley",
+        "key": "stone",
+        "file": "assets/audio/foley/stone.ogg",
+        "bytes": 8713,
+        "sha256": "142fd6c77f13d25f318265901163f70f8dfe12f87829169a570025be43de7011"
+      },
+      {
+        "group": "foley",
+        "key": "metal",
+        "file": "assets/audio/foley/metal.ogg",
+        "bytes": 6967,
+        "sha256": "fba69c467ddd85da7b1d82e259f936b876d9ba6a3d6f1b24bdd10468e46bfe08"
+      },
+      {
+        "group": "foley",
+        "key": "glass",
+        "file": "assets/audio/foley/glass.ogg",
+        "bytes": 8605,
+        "sha256": "d3d806cb3012c9ddd87010b30295ccb74d6d8b690077d19e67afd09a9d8feb03"
+      },
+      {
+        "group": "foley",
+        "key": "bell",
+        "file": "assets/audio/foley/bell.ogg",
+        "bytes": 15577,
+        "sha256": "9df61e3ae9a83dc65e5a1fd3ed19d480876f3b22b963a1b9ef6fa293592dcec4"
+      },
+      {
+        "group": "foley",
+        "key": "swish-1",
+        "file": "assets/audio/foley/swish-1.ogg",
+        "bytes": 15532,
+        "sha256": "4cd96dc630bed9840c15f1dd2306da2cc56a4da26a5d3f1a03c5a7265ac5e54f"
+      },
+      {
+        "group": "foley",
+        "key": "coin",
+        "file": "assets/audio/foley/coin.ogg",
+        "bytes": 25394,
+        "sha256": "8a91f969e932df709df80ee124d86a51389eed9b67f22e5e716bc2bbf60d8dab"
+      },
+      {
+        "group": "foley",
+        "key": "swish-2",
+        "file": "assets/audio/foley/swish-2.ogg",
+        "bytes": 15099,
+        "sha256": "6c2064d0ef988d1ec3d56868e823ea8823a5cac00f2742560052633529407def"
+      },
+      {
+        "group": "foley",
+        "key": "cloth",
+        "file": "assets/audio/foley/cloth.ogg",
+        "bytes": 16508,
+        "sha256": "ddb93a3671233f95da0e0b10367f082f7eb42fa6caaddcf776410aa8833c747d"
+      },
+      {
+        "group": "foley",
+        "key": "water",
+        "file": "assets/audio/foley/water.wav",
+        "bytes": 529244,
+        "sha256": "2f1cac78c1d9ff7ff00e10c39c6c0b53ac25a22f307bebba9752a364126ae34e"
+      },
+      {
+        "group": "combat",
+        "key": "6-impact",
+        "file": "assets/audio/combat/006-flame-impact.wav",
+        "bytes": 31796,
+        "sha256": "62075eaf706431d83b7005b8d08026bb510dfd2dde8aae22e707984a5837a81c"
+      },
+      {
+        "group": "combat",
+        "key": "6-release",
+        "file": "assets/audio/combat/006-flame-release.wav",
+        "bytes": 47672,
+        "sha256": "409e19078d4763da08346116f088cdcbad80c5f6a66eda333f1988dffea275a1"
+      },
+      {
+        "group": "combat",
+        "key": "25-impact",
+        "file": "assets/audio/combat/025-electric-impact.wav",
+        "bytes": 20330,
+        "sha256": "d69c553e5dc23f127b5d2458213b7e4630183cb07f02af669f755fb0364e8a12"
+      },
+      {
+        "group": "combat",
+        "key": "25-release",
+        "file": "assets/audio/combat/025-electric-release.wav",
+        "bytes": 30032,
+        "sha256": "ab79a3f654c3cb106565b780fa7948bebe5dba8506aa582270d7940b157b5aa5"
+      },
+      {
+        "group": "combat",
+        "key": "215-impact",
+        "file": "assets/audio/combat/215-claw-impact.wav",
+        "bytes": 13274,
+        "sha256": "cd8c2feccd769aebfc962a5cdd1aa233de70cb5712af434002cdcd5cfc1bb9d2"
+      },
+      {
+        "group": "combat",
+        "key": "215-release",
+        "file": "assets/audio/combat/215-claw-release.wav",
+        "bytes": 21212,
+        "sha256": "5f8538700a4630c826e661b5578f5799346abc20d96b032cef4616ccfbad552a"
+      },
+      {
+        "group": "feedback",
+        "key": "bow-release",
+        "file": "assets/audio/feedback/bow-release.ogg",
+        "bytes": 6381,
+        "sha256": "ac3e1f9868946cfd2fdfe00f65d7170d1e30d66ec626ba7767a5370dacedaba6"
+      },
+      {
+        "group": "feedback",
+        "key": "petal-rustle",
+        "file": "assets/audio/feedback/petal-rustle.ogg",
+        "bytes": 9726,
+        "sha256": "fddf83a4743b3440c54d6769bb7029e522e51c173a2017c38503e82afc0a54bb"
+      },
+      {
+        "group": "feedback",
+        "key": "dart-air",
+        "file": "assets/audio/feedback/dart-air.ogg",
+        "bytes": 9052,
+        "sha256": "423e3d6dbc226adbdc4154345a686cefd59c24d55f30831c2235a37d26b278c0"
+      },
+      {
+        "group": "feedback",
+        "key": "light-contact",
+        "file": "assets/audio/feedback/light-contact.ogg",
+        "bytes": 8926,
+        "sha256": "647d81fe3929bfa30e07254e24177c547903c38407c6cb85215474b99c6ca09e"
+      },
+      {
+        "group": "feedback",
+        "key": "stone-crack",
+        "file": "assets/audio/feedback/stone-crack.ogg",
+        "bytes": 14067,
+        "sha256": "4249062d1bb59022d98568d6ae4ed95d3fa581960821803f6897642ff2b7f3c5"
+      },
+      {
+        "group": "feedback",
+        "key": "bite-crunch",
+        "file": "assets/audio/feedback/bite-crunch.ogg",
+        "bytes": 8958,
+        "sha256": "7cedf347473eb6d2d798c126e6cfe8ea3414432aa49337f8e015f7d46980b0bb"
+      },
+      {
+        "group": "feedback",
+        "key": "body-contact",
+        "file": "assets/audio/feedback/body-contact.ogg",
+        "bytes": 8660,
+        "sha256": "39f042a95a7c07ce86eb6b2fceb449417853c1f770a0c54562cbbdbc45cfa58c"
+      }
+    ]
+  }
+}

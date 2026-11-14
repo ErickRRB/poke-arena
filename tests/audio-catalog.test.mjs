@@ -1,7 +1,25 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync,existsSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import {MAX_EFFECT_VOICES} from '../dist/audio.js';
+import {ATTACK_AUDIO,attackCue} from '../dist/attack-audio.js';
+import {FALLBACK_PCM} from '../dist/attack-audio-fallback.js';
 import {CARDS,makeSound,attackScene,featureScene,spellScene} from './helpers/audio-catalog-harness.mjs';
+
+test('the shipped bank and its cold-load excerpts keep verifiable Pokémon sources',()=>{
+ const manifest=JSON.parse(readFileSync(new URL('../dist/assets/audio/manifest.json',import.meta.url))),source=JSON.parse(readFileSync(new URL('../dist/assets/audio/moves/SOURCES.json',import.meta.url))),fallback=JSON.parse(readFileSync(new URL('../dist/assets/audio/moves/FALLBACK-SOURCES.json',import.meta.url)));
+ assert.deepEqual(Object.keys(manifest).sort(),['cries','moves']);assert.equal(source.files.length,50);
+ for(const row of source.files){const bytes=readFileSync(new URL('../dist/'+manifest.moves[row.key],import.meta.url));assert.equal(createHash('sha1').update(Buffer.from('blob '+bytes.length+'\0')).update(bytes).digest('hex'),row.gitBlob,row.key);assert.equal(createHash('sha256').update(bytes).digest('hex'),row.sha256,row.key);}
+ for(const row of fallback.excerpts){const bytes=Buffer.from(FALLBACK_PCM[row.key].data,'base64');assert.equal(createHash('sha256').update(bytes).digest('hex'),row.pcmSha256,row.key);assert.equal(FALLBACK_PCM[row.key].rate,row.sampleRate);assert.ok(source.files.some(file=>file.sha256===row.sourceSha256));}
+ const retired=JSON.parse(readFileSync(new URL('../docs/audio-pokemon-2026-11-14/retired-assets.json',import.meta.url)));
+ for(const row of retired.rows)assert.equal(existsSync(new URL('../dist/'+row.file,import.meta.url)),false,row.file+' must not be shipped');
+ for(const card of Object.values(CARDS).filter(card=>!card.spell&&!card.passive&&card.damage>0))assert.ok(ATTACK_AUDIO[attackCue(card,card.style)],card.name+' has an explicit family');
+ for(const[family,cue]of Object.entries(ATTACK_AUDIO)){
+  assert.ok(FALLBACK_PCM[cue.fallback],family+' has an original-move fallback');
+  for(const variants of [cue.release,cue.contact]){const hashes=variants.map(key=>{assert.ok(manifest.moves[key],key);return source.files.find(row=>row.key===key).gitBlob});assert.equal(new Set(hashes).size,hashes.length,family+' variants must be different recordings');}
+ }
+});
 
 for(const buffered of[true,false])test(`all active attack families remain audible with ${buffered?'decoded samples':'samples still loading'}`,()=>{
   const silent=[];
@@ -23,11 +41,11 @@ test('delayed projectile contacts preserve the sound of the actual attack family
   assert.deepEqual(silent,[],'A travelling projectile must not become silent when it reaches its target');
 });
 
-test('a failed family-specific sample falls back even when unrelated foley decoded',()=>{
+test('a failed family-specific sample uses its original-move PCM fallback despite unrelated decoded samples',()=>{
   const audio=makeSound();
-  for(const key of['foley:swish-1','foley:swish-2','combat:215-release'])audio.sound.buffers.delete(key);
+  for(const key of['moves:agility','moves:slash'])audio.sound.buffers.delete(key);
   audio.event({type:'attackRelease',key:'sneaselToken',style:'slash',attacker:{card:CARDS.sneaselToken},from:{x:180},shot:0});
-  assert.ok(audio.trace.length,'Unrelated decoded samples must not hide missing slash samples');
+  assert.ok(audio.trace.some(output=>output.sample==='fallback:slash'),'Unrelated decoded samples must not hide missing slash samples');
 });
 
 test('the opposite lane remains audible when two different attackers release the same family together',()=>{
@@ -98,7 +116,7 @@ test('a full-arena mixed burst has a global output budget',()=>{
 
 test('character voices keep their priority when the FX budget is full',()=>{
   const audio=makeSound();
-  for(let i=0;i<MAX_EFFECT_VOICES+10;i++)audio.sound.noise(.5,1000,.02);
+  for(let i=0;i<MAX_EFFECT_VOICES+10;i++)audio.sound.sample('moves:pound',300,{maxDuration:.5});
   const fx=audio.trace.length;assert.equal(fx,MAX_EFFECT_VOICES);
   audio.sound.cry(25,300);
   assert.equal(audio.trace.filter(output=>output.sample==='cries:25').length,1);
@@ -107,8 +125,8 @@ test('character voices keep their priority when the FX budget is full',()=>{
 
 test('finished output nodes release their FX slots for later effects',()=>{
   const audio=makeSound();
-  for(let i=0;i<MAX_EFFECT_VOICES;i++)audio.sound.noise(.1,1000,.02);
-  const before=audio.trace.length;audio.ctx.currentTime=11;audio.sound.noise(.1,1000,.02);
+  for(let i=0;i<MAX_EFFECT_VOICES;i++)audio.sound.sample('moves:pound',300,{maxDuration:.1});
+  const before=audio.trace.length;audio.ctx.currentTime=11;audio.sound.sample('moves:pound',300,{maxDuration:.1});
   assert.equal(audio.trace.length,before+1);
 });
 
@@ -165,7 +183,7 @@ test('spell launch feedback follows cast preparation and does not stand in for t
 
 test('Tesla emerge and conceal feedback is short, distinct and remains silent when muted',()=>{
   const sound=makeSound(),unit={x:180},up=sound.event({type:'burrow',unit,hidden:false},10),down=sound.event({type:'burrow',unit,hidden:true},11);
-  assert.ok(up.length&&down.length);assert.notDeepEqual(up.map(o=>o.frequency),down.map(o=>o.frequency));
+  assert.ok(up.length&&down.length);assert.notDeepEqual(up.map(o=>o.sample),down.map(o=>o.sample));
   assert.ok([...up,...down].every(o=>o.volume<=.025&&o.duration<=.14));
   sound.sound.setEnabled(false);const before=sound.trace.length;sound.event({type:'burrow',unit,hidden:false},12);sound.event({type:'cast',key:'fireball',x:180},12);assert.equal(sound.trace.length,before);
 });
@@ -181,15 +199,15 @@ test('nearby archers retain independent releases and only the same action is coa
 test('the compatible release keeps its archer cue when an older card has no nativeReference field',()=>{
   const sound=makeSound(),card={...CARDS.treecko};delete card.nativeReference;
   const outputs=sound.event({type:'attackRelease',key:'treecko',attacker:{id:11,attackSeq:1,card},from:{x:327},shot:0});
-  assert.ok(outputs.some(output=>output.sample==='feedback:bow-release'));
+  assert.ok(outputs.some(output=>output.sample==='moves:bullet-seed'));
 });
 
 test('rejected generic impacts are absent from every recorded and loading-fallback route',()=>{
   for(const buffered of [true,false]){
     for(const key of Object.keys(CARDS).filter(key=>!CARDS[key].spell&&!CARDS[key].passive&&CARDS[key].damage>0)){
       const scene=attackScene(key,{buffered});
-      assert.ok(scene.outputs.every(o=>!/^foley:(heavy|punch-[123])$/.test(o.sample)),key);
-      assert.ok(scene.outputs.every(o=>!o.frequency.some(f=>f.kind==='set'&&[94,155,174,193,48].includes(f.value))),key+' must not restore the old generic drum fallback');
+      assert.ok(scene.outputs.every(o=>/^(moves|fallback|cries):/.test(o.sample)),key+' must use Pokémon recordings including its loading fallback');
+      assert.ok(scene.outputs.every(o=>o.kind==='sample'&&o.rate===1),key+' must not restore synthetic or pitched generic contacts');
     }
   }
 });

@@ -111,7 +111,7 @@ try{
       r.verticalScale=savedVertical;sound.discardContext();
       // Decode the new voices and sounds through the browser audio decoder.
       const manifest=await(await fetch('/assets/audio/manifest.json')).json(),audio=new AudioContext();
-      const decoded=await Promise.all([...Object.entries(manifest.cries).filter(([id])=>[75,78,112,215,274,315,356].includes(Number(id))),...Object.entries(manifest.combat)].map(async([key,file])=>{const b=await audio.decodeAudioData(await(await fetch(file)).arrayBuffer());return{key,channels:b.numberOfChannels,duration:b.duration,rate:b.sampleRate};}));await audio.close();
+      const decoded=await Promise.all([...Object.entries(manifest.cries).filter(([id])=>[75,78,112,215,274,315,356].includes(Number(id))),...Object.entries(manifest.moves)].map(async([key,file])=>{const b=await audio.decodeAudioData(await(await fetch(file)).arrayBuffer());return{key,channels:b.numberOfChannels,duration:b.duration,rate:b.sampleRate};}));await audio.close();
       const sorted=times.slice(5).sort((a,b)=>a-b);return{frames,scenes,nativeSheets,decoded,displayIntervals:{medianMs:sorted[Math.floor(sorted.length*.5)],p95Ms:sorted[Math.floor(sorted.length*.95)],meanMs:sorted.reduce((a,b)=>a+b,0)/sorted.length},contact:contact.toDataURL('image/png').split(',')[1]};
     });
     for(const scene of result.scenes){await writeFile(path.join(output,`${scene.key}-60hz.webm`),Buffer.from(scene.video,'base64'));delete scene.video;}
