@@ -1,0 +1,8170 @@
+{
+  "mode": "snapshots15",
+  "board": {
+    "width": 370,
+    "height": 677,
+    "recordingWidth": 370,
+    "recordingHeight": 678,
+    "camera": {
+      "scale": 0.6851851851851852,
+      "x": -20.555555555555557,
+      "y": 102.11111111111107
+    }
+  },
+  "durationMs": 8003.899999976158,
+  "mime": "audio/webm;codecs=opus",
+  "videoFrames": 480,
+  "videoCodec": "vp8",
+  "encoderErrors": [],
+  "audioState": "running",
+  "decodedSamples": 131,
+  "failedAssets": 0,
+  "peakRms": 0.004501130827443261,
+  "nativeDashMin": 84,
+  "firstTarget": {
+    "id": 8,
+    "hp": 0
+  },
+  "secondTarget": {
+    "id": 9,
+    "hp": 998640.9999920093
+  },
+  "actorId": 7,
+  "events": [
+    {
+      "type": "dashWindup",
+      "style": null,
+      "at": 0.06666666666666667,
+      "frame": 4,
+      "targetId": 8,
+      "gap": 117.6,
+      "outputCount": 1,
+      "audioTime": 0.22058956916099773,
+      "dash": {
+        "phase": "windup",
+        "elapsed": 0,
+        "targetId": 8,
+        "startX": 96,
+        "startY": 604
+      }
+    },
+    {
+      "type": "dashStart",
+      "style": null,
+      "at": 0.8666666666666666,
+      "frame": 52,
+      "targetId": 8,
+      "gap": 117.6,
+      "outputCount": 2,
+      "audioTime": 1.0216780045351475,
+      "dash": {
+        "phase": "travel",
+        "elapsed": 0,
+        "targetId": 8,
+        "startX": 96,
+        "startY": 604,
+        "endX": 198.6,
+        "endY": 604,
+        "duration": 0.4275
+      }
+    },
+    {
+      "type": "attackRelease",
+      "style": "dash",
+      "at": 1.2666666666666673,
+      "frame": 76,
+      "targetId": 8,
+      "gap": 15.000000000000007,
+      "outputCount": 2,
+      "audioTime": 1.4222222222222223,
+      "dash": null
+    },
+    {
+      "type": "dashWindup",
+      "style": null,
+      "at": 1.3333333333333341,
+      "frame": 80,
+      "targetId": 9,
+      "gap": 104,
+      "outputCount": 1,
+      "audioTime": 1.4802721088435373,
+      "dash": {
+        "phase": "windup",
+        "elapsed": 0,
+        "targetId": 9,
+        "startX": 198.6,
+        "startY": 604
+      }
+    },
+    {
+      "type": "dashStart",
+      "style": null,
+      "at": 2.1333333333333355,
+      "frame": 128,
+      "targetId": 9,
+      "gap": 104,
+      "outputCount": 2,
+      "audioTime": 2.2900680272108844,
+      "dash": {
+        "phase": "travel",
+        "elapsed": 0,
+        "targetId": 9,
+        "startX": 198.6,
+        "startY": 604,
+        "endX": 287.6,
+        "endY": 604,
+        "duration": 0.37083333333333346
+      }
+    },
+    {
+      "type": "attackRelease",
+      "style": "dash",
+      "at": 2.533333333333334,
+      "frame": 152,
+      "targetId": 9,
+      "gap": 14.999999999999979,
+      "outputCount": 2,
+      "audioTime": 2.681904761904762,
+      "dash": null
+    },
+    {
+      "type": "attackRelease",
+      "style": "shadow",
+      "at": 3.5333333333333306,
+      "frame": 212,
+      "targetId": 9,
+      "gap": 14.999999999999979,
+      "outputCount": 2,
+      "audioTime": 3.680362811791383,
+      "dash": null
+    },
+    {
+      "type": "attackRelease",
+      "style": "shadow",
+      "at": 4.533333333333327,
+      "frame": 272,
+      "targetId": 9,
+      "gap": 14.999999999999979,
+      "outputCount": 2,
+      "audioTime": 4.690430839002268,
+      "dash": null
+    },
+    {
+      "type": "attackRelease",
+      "style": "shadow",
+      "at": 5.5333333333333234,
+      "frame": 332,
+      "targetId": 9,
+      "gap": 14.999999999999979,
+      "outputCount": 2,
+      "audioTime": 5.691791383219955,
+      "dash": null
+    },
+    {
+      "type": "attackRelease",
+      "style": "shadow",
+      "at": 6.53333333333332,
+      "frame": 392,
+      "targetId": 9,
+      "gap": 14.999999999999979,
+      "outputCount": 2,
+      "audioTime": 6.681541950113378,
+      "dash": null
+    },
+    {
+      "type": "attackRelease",
+      "style": "shadow",
+      "at": 7.533333333333316,
+      "frame": 452,
+      "targetId": 9,
+      "gap": 14.999999999999979,
+      "outputCount": 2,
+      "audioTime": 7.68,
+      "dash": null
+    }
+  ],
+  "outputs": [
+    {
+      "event": "dashWindup",
+      "style": null,
+      "sourceId": 7,
+      "gameTime": 0.06666666666666667,
+      "at": 0.22058956916099773,
+      "volume": 0.018,
+      "duration": 0.2,
+      "voice": false
+    },
+    {
+      "event": "dashStart",
+      "style": null,
+      "sourceId": 7,
+      "gameTime": 0.8666666666666666,
+      "at": 1.0216780045351475,
+      "volume": 0.12,
+      "duration": 0.14,
+      "voice": false
+    },
+    {
+      "event": "dashStart",
+      "style": null,
+      "sourceId": 7,
+      "gameTime": 0.8666666666666666,
+      "at": 1.0216780045351475,
+      "volume": 0.02,
+      "duration": 0.055,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "dash",
+      "sourceId": 7,
+      "gameTime": 1.2666666666666673,
+      "at": 1.4222222222222223,
+      "volume": 0.12,
+      "duration": 0.14,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "dash",
+      "sourceId": 7,
+      "gameTime": 1.2666666666666673,
+      "at": 1.4222222222222223,
+      "volume": 0.02,
+      "duration": 0.055,
+      "voice": false
+    },
+    {
+      "event": "dashWindup",
+      "style": null,
+      "sourceId": 7,
+      "gameTime": 1.3333333333333341,
+      "at": 1.4802721088435373,
+      "volume": 0.018,
+      "duration": 0.2,
+      "voice": false
+    },
+    {
+      "event": "dashStart",
+      "style": null,
+      "sourceId": 7,
+      "gameTime": 2.1333333333333355,
+      "at": 2.2900680272108844,
+      "volume": 0.12,
+      "duration": 0.14,
+      "voice": false
+    },
+    {
+      "event": "dashStart",
+      "style": null,
+      "sourceId": 7,
+      "gameTime": 2.1333333333333355,
+      "at": 2.2900680272108844,
+      "volume": 0.02,
+      "duration": 0.055,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "dash",
+      "sourceId": 7,
+      "gameTime": 2.533333333333334,
+      "at": 2.681904761904762,
+      "volume": 0.12,
+      "duration": 0.14,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "dash",
+      "sourceId": 7,
+      "gameTime": 2.533333333333334,
+      "at": 2.681904761904762,
+      "volume": 0.02,
+      "duration": 0.055,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "shadow",
+      "sourceId": 7,
+      "gameTime": 3.5333333333333306,
+      "at": 3.680362811791383,
+      "volume": 0.2,
+      "duration": 0.35,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "shadow",
+      "sourceId": 7,
+      "gameTime": 3.5333333333333306,
+      "at": 3.680362811791383,
+      "volume": 0.08,
+      "duration": 0.4,
+      "voice": false
+    },
+    {
+      "event": "hit",
+      "style": "shadow",
+      "sourceId": null,
+      "gameTime": 3.5333333333333306,
+      "at": 3.680362811791383,
+      "volume": 0.2,
+      "duration": 0.35,
+      "voice": false
+    },
+    {
+      "event": "hit",
+      "style": "shadow",
+      "sourceId": null,
+      "gameTime": 3.5333333333333306,
+      "at": 3.680362811791383,
+      "volume": 0.08,
+      "duration": 0.4,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "shadow",
+      "sourceId": 7,
+      "gameTime": 4.533333333333327,
+      "at": 4.690430839002268,
+      "volume": 0.2,
+      "duration": 0.35,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "shadow",
+      "sourceId": 7,
+      "gameTime": 4.533333333333327,
+      "at": 4.690430839002268,
+      "volume": 0.08,
+      "duration": 0.4,
+      "voice": false
+    },
+    {
+      "event": "hit",
+      "style": "shadow",
+      "sourceId": null,
+      "gameTime": 4.533333333333327,
+      "at": 4.690430839002268,
+      "volume": 0.2,
+      "duration": 0.35,
+      "voice": false
+    },
+    {
+      "event": "hit",
+      "style": "shadow",
+      "sourceId": null,
+      "gameTime": 4.533333333333327,
+      "at": 4.690430839002268,
+      "volume": 0.08,
+      "duration": 0.4,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "shadow",
+      "sourceId": 7,
+      "gameTime": 5.5333333333333234,
+      "at": 5.691791383219955,
+      "volume": 0.2,
+      "duration": 0.35,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "shadow",
+      "sourceId": 7,
+      "gameTime": 5.5333333333333234,
+      "at": 5.691791383219955,
+      "volume": 0.08,
+      "duration": 0.4,
+      "voice": false
+    },
+    {
+      "event": "hit",
+      "style": "shadow",
+      "sourceId": null,
+      "gameTime": 5.5333333333333234,
+      "at": 5.691791383219955,
+      "volume": 0.2,
+      "duration": 0.35,
+      "voice": false
+    },
+    {
+      "event": "hit",
+      "style": "shadow",
+      "sourceId": null,
+      "gameTime": 5.5333333333333234,
+      "at": 5.691791383219955,
+      "volume": 0.08,
+      "duration": 0.4,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "shadow",
+      "sourceId": 7,
+      "gameTime": 6.53333333333332,
+      "at": 6.681541950113378,
+      "volume": 0.2,
+      "duration": 0.35,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "shadow",
+      "sourceId": 7,
+      "gameTime": 6.53333333333332,
+      "at": 6.681541950113378,
+      "volume": 0.08,
+      "duration": 0.4,
+      "voice": false
+    },
+    {
+      "event": "hit",
+      "style": "shadow",
+      "sourceId": null,
+      "gameTime": 6.53333333333332,
+      "at": 6.681541950113378,
+      "volume": 0.2,
+      "duration": 0.35,
+      "voice": false
+    },
+    {
+      "event": "hit",
+      "style": "shadow",
+      "sourceId": null,
+      "gameTime": 6.53333333333332,
+      "at": 6.681541950113378,
+      "volume": 0.08,
+      "duration": 0.4,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "shadow",
+      "sourceId": 7,
+      "gameTime": 7.533333333333316,
+      "at": 7.68,
+      "volume": 0.2,
+      "duration": 0.35,
+      "voice": false
+    },
+    {
+      "event": "attackRelease",
+      "style": "shadow",
+      "sourceId": 7,
+      "gameTime": 7.533333333333316,
+      "at": 7.68,
+      "volume": 0.08,
+      "duration": 0.4,
+      "voice": false
+    },
+    {
+      "event": "hit",
+      "style": "shadow",
+      "sourceId": null,
+      "gameTime": 7.533333333333316,
+      "at": 7.68,
+      "volume": 0.2,
+      "duration": 0.35,
+      "voice": false
+    },
+    {
+      "event": "hit",
+      "style": "shadow",
+      "sourceId": null,
+      "gameTime": 7.533333333333316,
+      "at": 7.68,
+      "volume": 0.08,
+      "duration": 0.4,
+      "voice": false
+    }
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "wallMs": 24.099999964237213,
+      "gameTime": 0,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 4
+      },
+      "attackSeq": 0,
+      "attackAge": 0,
+      "dash": null,
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 1,
+      "wallMs": 39.09999996423721,
+      "gameTime": 0.03333333333333333,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 4
+      },
+      "attackSeq": 0,
+      "attackAge": 0,
+      "dash": null,
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 2,
+      "wallMs": 53.89999997615814,
+      "gameTime": 0.03333333333333333,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 4
+      },
+      "attackSeq": 0,
+      "attackAge": 0,
+      "dash": null,
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 3,
+      "wallMs": 72.39999997615814,
+      "gameTime": 0.06666666666666667,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 3
+      },
+      "attackSeq": 2,
+      "attackAge": 0.03300000000000003,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 4,
+      "wallMs": 85.5,
+      "gameTime": 0.06666666666666667,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 3
+      },
+      "attackSeq": 2,
+      "attackAge": 0.04966666666666675,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.0032065578635798197
+    },
+    {
+      "index": 5,
+      "wallMs": 101.59999996423721,
+      "gameTime": 0.1,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 3
+      },
+      "attackSeq": 2,
+      "attackAge": 0.06633333333333347,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.004206618004435179
+    },
+    {
+      "index": 6,
+      "wallMs": 124.5,
+      "gameTime": 0.1,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.08300000000000018,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.0024078195960349816
+    },
+    {
+      "index": 7,
+      "wallMs": 140.0999999642372,
+      "gameTime": 0.13333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.10000000000000009,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.0015404792450397172
+    },
+    {
+      "index": 8,
+      "wallMs": 155.19999998807907,
+      "gameTime": 0.13333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.11666666666666681,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.0011352190473373303
+    },
+    {
+      "index": 9,
+      "wallMs": 171,
+      "gameTime": 0.16666666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.13333333333333353,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.0006575999381885605
+    },
+    {
+      "index": 10,
+      "wallMs": 186.89999997615814,
+      "gameTime": 0.16666666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.15000000000000024,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.0005137150213156653
+    },
+    {
+      "index": 11,
+      "wallMs": 202.69999998807907,
+      "gameTime": 0.19999999999999998,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.16700000000000004,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.00030109627485190316
+    },
+    {
+      "index": 12,
+      "wallMs": 217.5999999642372,
+      "gameTime": 0.19999999999999998,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.18366666666666676,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.00022113918384978433
+    },
+    {
+      "index": 13,
+      "wallMs": 239.80000001192093,
+      "gameTime": 0.2333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.20033333333333347,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.00010052039305053046
+    },
+    {
+      "index": 14,
+      "wallMs": 256.39999997615814,
+      "gameTime": 0.2333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.2170000000000002,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.00008069818690095026
+    },
+    {
+      "index": 15,
+      "wallMs": 271.30000001192093,
+      "gameTime": 0.26666666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.2336666666666669,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.000046162030853522024
+    },
+    {
+      "index": 16,
+      "wallMs": 286.5,
+      "gameTime": 0.26666666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.25033333333333363,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.00003479297242659573
+    },
+    {
+      "index": 17,
+      "wallMs": 301.69999998807907,
+      "gameTime": 0.3,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.26700000000000035,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0.000005673039067804206
+    },
+    {
+      "index": 18,
+      "wallMs": 317.30000001192093,
+      "gameTime": 0.3,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.28366666666666707,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 19,
+      "wallMs": 340.19999998807907,
+      "gameTime": 0.3333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.30033333333333373,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 20,
+      "wallMs": 355.19999998807907,
+      "gameTime": 0.3333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.3170000000000004,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 21,
+      "wallMs": 370.39999997615814,
+      "gameTime": 0.36666666666666664,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.33366666666666706,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 22,
+      "wallMs": 385.30000001192093,
+      "gameTime": 0.36666666666666664,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.3503333333333337,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 23,
+      "wallMs": 408.69999998807907,
+      "gameTime": 0.39999999999999997,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.3670000000000004,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 24,
+      "wallMs": 423.39999997615814,
+      "gameTime": 0.39999999999999997,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.38366666666666704,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 25,
+      "wallMs": 438.5999999642372,
+      "gameTime": 0.4333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.4003333333333337,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 26,
+      "wallMs": 453.5999999642372,
+      "gameTime": 0.4333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.41700000000000037,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 27,
+      "wallMs": 469.69999998807907,
+      "gameTime": 0.4666666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.43366666666666703,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 28,
+      "wallMs": 484.69999998807907,
+      "gameTime": 0.4666666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.4503333333333337,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 29,
+      "wallMs": 507.30000001192093,
+      "gameTime": 0.49999999999999994,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.46700000000000036,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 30,
+      "wallMs": 522.8999999761581,
+      "gameTime": 0.49999999999999994,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.483666666666667,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 31,
+      "wallMs": 538.8000000119209,
+      "gameTime": 0.5333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.5003333333333337,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 32,
+      "wallMs": 554.3999999761581,
+      "gameTime": 0.5333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.5170000000000003,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 33,
+      "wallMs": 569.8999999761581,
+      "gameTime": 0.5666666666666667,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.533666666666667,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 34,
+      "wallMs": 585.5,
+      "gameTime": 0.5666666666666667,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.5503333333333337,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 35,
+      "wallMs": 601,
+      "gameTime": 0.6,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.5670000000000004,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 36,
+      "wallMs": 624.3999999761581,
+      "gameTime": 0.6,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.583666666666667,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 37,
+      "wallMs": 639.8999999761581,
+      "gameTime": 0.6333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.6003333333333336,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 38,
+      "wallMs": 655.1999999880791,
+      "gameTime": 0.6333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.6170000000000003,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 39,
+      "wallMs": 670.8999999761581,
+      "gameTime": 0.6666666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.633666666666667,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 40,
+      "wallMs": 686.6999999880791,
+      "gameTime": 0.6666666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.6503333333333337,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 41,
+      "wallMs": 702,
+      "gameTime": 0.7,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.6670000000000003,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 42,
+      "wallMs": 717.3999999761581,
+      "gameTime": 0.7,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.683666666666667,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 43,
+      "wallMs": 740.6999999880791,
+      "gameTime": 0.7333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.7003333333333337,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 44,
+      "wallMs": 756.5999999642372,
+      "gameTime": 0.7333333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.7170000000000003,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 45,
+      "wallMs": 771.8000000119209,
+      "gameTime": 0.7666666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.7336666666666669,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 46,
+      "wallMs": 787.5,
+      "gameTime": 0.7666666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.7503333333333336,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 47,
+      "wallMs": 803.5,
+      "gameTime": 0.7999999999999999,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.7670000000000003,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 48,
+      "wallMs": 818.3000000119209,
+      "gameTime": 0.7999999999999999,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.783666666666667,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 49,
+      "wallMs": 840.5999999642372,
+      "gameTime": 0.8333333333333333,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 50,
+      "wallMs": 854.6999999880791,
+      "gameTime": 0.8333333333333333,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "windup",
+      "x": 96,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 51,
+      "wallMs": 870.8999999761581,
+      "gameTime": 0.8666666666666666,
+      "draw": {
+        "animation": "Walk",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 99.89266304773926,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 52,
+      "wallMs": 885.1999999880791,
+      "gameTime": 0.8666666666666666,
+      "draw": {
+        "animation": "Walk",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 101.89122289507418,
+      "y": 604,
+      "rms": 0.0008551055661518084
+    },
+    {
+      "index": 53,
+      "wallMs": 900.3999999761581,
+      "gameTime": 0.8999999999999999,
+      "draw": {
+        "animation": "Walk",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 102.9173177341071,
+      "y": 604,
+      "rms": 0.0008462408444806403
+    },
+    {
+      "index": 54,
+      "wallMs": 924.5,
+      "gameTime": 0.8999999999999999,
+      "draw": {
+        "animation": "Walk",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 103.44413239021759,
+      "y": 604,
+      "rms": 0.000349455916551878
+    },
+    {
+      "index": 55,
+      "wallMs": 939.8999999761581,
+      "gameTime": 0.9333333333333332,
+      "draw": {
+        "animation": "Walk",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 111.4999341487005,
+      "y": 604,
+      "rms": 0.0004930055170106402
+    },
+    {
+      "index": 56,
+      "wallMs": 954.8000000119209,
+      "gameTime": 0.9333333333333332,
+      "draw": {
+        "animation": "Walk",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 115.63592067903849,
+      "y": 604,
+      "rms": 0.0005349595965571538
+    },
+    {
+      "index": 57,
+      "wallMs": 969.8999999761581,
+      "gameTime": 0.9666666666666666,
+      "draw": {
+        "animation": "Walk",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 117.75940696780224,
+      "y": 604,
+      "rms": 0.0001330866489419359
+    },
+    {
+      "index": 58,
+      "wallMs": 986.3000000119209,
+      "gameTime": 0.9666666666666666,
+      "draw": {
+        "animation": "Walk",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 118.84964118048453,
+      "y": 604,
+      "rms": 0.000038554701728161416
+    },
+    {
+      "index": 59,
+      "wallMs": 1002.0999999642372,
+      "gameTime": 0.9999999999999999,
+      "draw": {
+        "animation": "Walk",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 127.19471218450916,
+      "y": 604,
+      "rms": 0.00003776157880592458
+    },
+    {
+      "index": 60,
+      "wallMs": 1017.5,
+      "gameTime": 0.9999999999999999,
+      "draw": {
+        "animation": "Walk",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 131.47921449751792,
+      "y": 604,
+      "rms": 0.000026837143243089334
+    },
+    {
+      "index": 61,
+      "wallMs": 1040.5,
+      "gameTime": 1.0333333333333332,
+      "draw": {
+        "animation": "Walk",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 133.67895133155133,
+      "y": 604,
+      "rms": 0.000002650880844822988
+    },
+    {
+      "index": 62,
+      "wallMs": 1055.3999999761581,
+      "gameTime": 1.0333333333333332,
+      "draw": {
+        "animation": "Walk",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 134.80833387951066,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 63,
+      "wallMs": 1069.8999999761581,
+      "gameTime": 1.0666666666666667,
+      "draw": {
+        "animation": "Walk",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 143.17350430904816,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 64,
+      "wallMs": 1085.199999988079,
+      "gameTime": 1.0666666666666667,
+      "draw": {
+        "animation": "Walk",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 147.46832601119792,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 65,
+      "wallMs": 1100.699999988079,
+      "gameTime": 1.1,
+      "draw": {
+        "animation": "Walk",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 149.6733609962743,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 66,
+      "wallMs": 1123.3999999761581,
+      "gameTime": 1.1,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 150.8054637056783,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 67,
+      "wallMs": 1138.8999999761581,
+      "gameTime": 1.1333333333333335,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 159.172030712668,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 68,
+      "wallMs": 1153.5999999642372,
+      "gameTime": 1.1333333333333335,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 163.4675694415898,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 69,
+      "wallMs": 1168.5,
+      "gameTime": 1.166666666666667,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 165.67297256048576,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 70,
+      "wallMs": 1184,
+      "gameTime": 1.166666666666667,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 166.80526427609482,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 71,
+      "wallMs": 1207.5999999642372,
+      "gameTime": 1.2000000000000004,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 175.1719283221058,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 72,
+      "wallMs": 1221.699999988079,
+      "gameTime": 1.2000000000000004,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 179.46751687252234,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 73,
+      "wallMs": 1237.199999988079,
+      "gameTime": 1.2333333333333338,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 181.67294557062658,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 74,
+      "wallMs": 1252.300000011921,
+      "gameTime": 1.2333333333333338,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 182.80525041903906,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 75,
+      "wallMs": 1270.5,
+      "gameTime": 1.2666666666666673,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0,
+      "dash": null,
+      "x": 188.01246273376887,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 76,
+      "wallMs": 1290.800000011921,
+      "gameTime": 1.2666666666666673,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0,
+      "dash": null,
+      "x": 191.5029615322959,
+      "y": 604,
+      "rms": 0.0010447218339502188
+    },
+    {
+      "index": 77,
+      "wallMs": 1306.5,
+      "gameTime": 1.3000000000000007,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.016666666666666663,
+      "dash": null,
+      "x": 193.8427128476119,
+      "y": 604,
+      "rms": 0.0008837666621881177
+    },
+    {
+      "index": 78,
+      "wallMs": 1321.199999988079,
+      "gameTime": 1.3000000000000007,
+      "draw": {
+        "animation": "Attack",
+        "frame": 4,
+        "direction": 2
+      },
+      "attackSeq": 2,
+      "attackAge": 0.033333333333333326,
+      "dash": null,
+      "x": 195.41109505700643,
+      "y": 604,
+      "rms": 0.0003245519976155138
+    },
+    {
+      "index": 79,
+      "wallMs": 1337.0999999642372,
+      "gameTime": 1.3333333333333341,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.03300000000000003,
+      "dash": "windup",
+      "x": 196.46241309180928,
+      "y": 604,
+      "rms": 0.00046381049316108434
+    },
+    {
+      "index": 80,
+      "wallMs": 1351.699999988079,
+      "gameTime": 1.3333333333333341,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.04966666666666675,
+      "dash": "windup",
+      "x": 197.16713264529642,
+      "y": 604,
+      "rms": 0.004501130827443261
+    },
+    {
+      "index": 81,
+      "wallMs": 1374.5,
+      "gameTime": 1.3666666666666676,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.06633333333333347,
+      "dash": "windup",
+      "x": 197.63952028883213,
+      "y": 604,
+      "rms": 0.0035109438778624705
+    },
+    {
+      "index": 82,
+      "wallMs": 1389.0999999642372,
+      "gameTime": 1.3666666666666676,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.08300000000000018,
+      "dash": "windup",
+      "x": 197.95617119579364,
+      "y": 604,
+      "rms": 0.002026130305428729
+    },
+    {
+      "index": 83,
+      "wallMs": 1404.300000011921,
+      "gameTime": 1.400000000000001,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.10000000000000009,
+      "dash": "windup",
+      "x": 198.1684286463253,
+      "y": 604,
+      "rms": 0.0014671272847373827
+    },
+    {
+      "index": 84,
+      "wallMs": 1419.800000011921,
+      "gameTime": 1.400000000000001,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.11666666666666681,
+      "dash": "windup",
+      "x": 198.3107090703371,
+      "y": 604,
+      "rms": 0.0009208134796220383
+    },
+    {
+      "index": 85,
+      "wallMs": 1436.3999999761581,
+      "gameTime": 1.4333333333333345,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.13333333333333353,
+      "dash": "windup",
+      "x": 198.40608249071067,
+      "y": 604,
+      "rms": 0.000684418409252585
+    },
+    {
+      "index": 86,
+      "wallMs": 1450.5999999642372,
+      "gameTime": 1.4333333333333345,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.15000000000000024,
+      "dash": "windup",
+      "x": 198.47001320624605,
+      "y": 604,
+      "rms": 0.00039631788767749556
+    },
+    {
+      "index": 87,
+      "wallMs": 1473.5,
+      "gameTime": 1.466666666666668,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.16700000000000004,
+      "dash": "windup",
+      "x": 198.51286724642682,
+      "y": 604,
+      "rms": 0.00023005044253379895
+    },
+    {
+      "index": 88,
+      "wallMs": 1488.5999999642372,
+      "gameTime": 1.466666666666668,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.18366666666666676,
+      "dash": "windup",
+      "x": 198.54159316861362,
+      "y": 604,
+      "rms": 0.00018287878114095057
+    },
+    {
+      "index": 89,
+      "wallMs": 1503.800000011921,
+      "gameTime": 1.5000000000000013,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.20033333333333347,
+      "dash": "windup",
+      "x": 198.56084873009627,
+      "y": 604,
+      "rms": 0.0001045710687464853
+    },
+    {
+      "index": 90,
+      "wallMs": 1519,
+      "gameTime": 1.5000000000000013,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.2170000000000002,
+      "dash": "windup",
+      "x": 198.57375611895577,
+      "y": 604,
+      "rms": 0.00006059075404663726
+    },
+    {
+      "index": 91,
+      "wallMs": 1534.5,
+      "gameTime": 1.5333333333333348,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.2336666666666669,
+      "dash": "windup",
+      "x": 198.5824082004503,
+      "y": 604,
+      "rms": 0.00004802222478247075
+    },
+    {
+      "index": 92,
+      "wallMs": 1557.3999999761581,
+      "gameTime": 1.5333333333333348,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.25033333333333363,
+      "dash": "windup",
+      "x": 198.588207864116,
+      "y": 604,
+      "rms": 0.000025511138585564218
+    },
+    {
+      "index": 93,
+      "wallMs": 1571.800000011921,
+      "gameTime": 1.5666666666666682,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.26700000000000035,
+      "dash": "windup",
+      "x": 198.59209549493136,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 94,
+      "wallMs": 1587.3999999761581,
+      "gameTime": 1.5666666666666682,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.28366666666666707,
+      "dash": "windup",
+      "x": 198.5947014517985,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 95,
+      "wallMs": 1602.8999999761581,
+      "gameTime": 1.6000000000000016,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.30033333333333373,
+      "dash": "windup",
+      "x": 198.59644827692566,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 96,
+      "wallMs": 1618.5999999642372,
+      "gameTime": 1.6000000000000016,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.3170000000000004,
+      "dash": "windup",
+      "x": 198.5976192088253,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 97,
+      "wallMs": 1634,
+      "gameTime": 1.633333333333335,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.33366666666666706,
+      "dash": "windup",
+      "x": 198.5984041079502,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 98,
+      "wallMs": 1657.0999999642372,
+      "gameTime": 1.633333333333335,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.3503333333333337,
+      "dash": "windup",
+      "x": 198.5989302415677,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 99,
+      "wallMs": 1672.199999988079,
+      "gameTime": 1.6666666666666685,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.3670000000000004,
+      "dash": "windup",
+      "x": 198.5992829194784,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 100,
+      "wallMs": 1687.800000011921,
+      "gameTime": 1.6666666666666685,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.38366666666666704,
+      "dash": "windup",
+      "x": 198.59951932655176,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 101,
+      "wallMs": 1702.8999999761581,
+      "gameTime": 1.700000000000002,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4003333333333337,
+      "dash": "windup",
+      "x": 198.59967779495204,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 102,
+      "wallMs": 1718.3999999761581,
+      "gameTime": 1.700000000000002,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.41700000000000037,
+      "dash": "windup",
+      "x": 198.5997840194974,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 103,
+      "wallMs": 1740.5999999642372,
+      "gameTime": 1.7333333333333354,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.43366666666666703,
+      "dash": "windup",
+      "x": 198.59985522393956,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 104,
+      "wallMs": 1755.5999999642372,
+      "gameTime": 1.7333333333333354,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4503333333333337,
+      "dash": "windup",
+      "x": 198.5999029537045,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 105,
+      "wallMs": 1771.300000011921,
+      "gameTime": 1.7666666666666688,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.46700000000000036,
+      "dash": "windup",
+      "x": 198.59993494792272,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 106,
+      "wallMs": 1787.3999999761581,
+      "gameTime": 1.7666666666666688,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.483666666666667,
+      "dash": "windup",
+      "x": 198.59995639428857,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 107,
+      "wallMs": 1802.5999999642372,
+      "gameTime": 1.8000000000000023,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.5003333333333337,
+      "dash": "windup",
+      "x": 198.5999707702175,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 108,
+      "wallMs": 1818.3999999761581,
+      "gameTime": 1.8000000000000023,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.5170000000000003,
+      "dash": "windup",
+      "x": 198.59998040669086,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 109,
+      "wallMs": 1834,
+      "gameTime": 1.8333333333333357,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.533666666666667,
+      "dash": "windup",
+      "x": 198.5999868662121,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 110,
+      "wallMs": 1857.199999988079,
+      "gameTime": 1.8333333333333357,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.5503333333333337,
+      "dash": "windup",
+      "x": 198.5999911961587,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 111,
+      "wallMs": 1872.300000011921,
+      "gameTime": 1.8666666666666691,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.5670000000000004,
+      "dash": "windup",
+      "x": 198.5999940986087,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 112,
+      "wallMs": 1887.5999999642372,
+      "gameTime": 1.8666666666666691,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.583666666666667,
+      "dash": "windup",
+      "x": 198.5999960441791,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 113,
+      "wallMs": 1902.699999988079,
+      "gameTime": 1.9000000000000026,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.6003333333333336,
+      "dash": "windup",
+      "x": 198.59999734833394,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 114,
+      "wallMs": 1918.199999988079,
+      "gameTime": 1.9000000000000026,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.6170000000000003,
+      "dash": "windup",
+      "x": 198.59999822253508,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 115,
+      "wallMs": 1941.0999999642372,
+      "gameTime": 1.933333333333336,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.633666666666667,
+      "dash": "windup",
+      "x": 198.59999880852962,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 116,
+      "wallMs": 1956.199999988079,
+      "gameTime": 1.933333333333336,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.6503333333333337,
+      "dash": "windup",
+      "x": 198.59999920133353,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 117,
+      "wallMs": 1971.300000011921,
+      "gameTime": 1.9666666666666694,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.6670000000000003,
+      "dash": "windup",
+      "x": 198.59999946463785,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 118,
+      "wallMs": 1986.800000011921,
+      "gameTime": 1.9666666666666694,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.683666666666667,
+      "dash": "windup",
+      "x": 198.599999641136,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 119,
+      "wallMs": 2002.3999999761581,
+      "gameTime": 2.0000000000000027,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.7003333333333337,
+      "dash": "windup",
+      "x": 198.59999975944626,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 120,
+      "wallMs": 2018.300000011921,
+      "gameTime": 2.0000000000000027,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.7170000000000003,
+      "dash": "windup",
+      "x": 198.599999838752,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 121,
+      "wallMs": 2033.800000011921,
+      "gameTime": 2.033333333333336,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.7336666666666669,
+      "dash": "windup",
+      "x": 198.59999989191223,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 122,
+      "wallMs": 2057.5,
+      "gameTime": 2.033333333333336,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.7503333333333336,
+      "dash": "windup",
+      "x": 198.5999999275466,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 123,
+      "wallMs": 2072.899999976158,
+      "gameTime": 2.066666666666669,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.7670000000000003,
+      "dash": "windup",
+      "x": 198.59999995143303,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 124,
+      "wallMs": 2087.399999976158,
+      "gameTime": 2.066666666666669,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.783666666666667,
+      "dash": "windup",
+      "x": 198.59999996744457,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 125,
+      "wallMs": 2103.099999964237,
+      "gameTime": 2.1000000000000023,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "windup",
+      "x": 198.59999997817744,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 126,
+      "wallMs": 2118.5,
+      "gameTime": 2.1000000000000023,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "windup",
+      "x": 198.5999999853719,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 127,
+      "wallMs": 2141,
+      "gameTime": 2.1333333333333355,
+      "draw": {
+        "animation": "Walk",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 202.49266304022896,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 128,
+      "wallMs": 2155.800000011921,
+      "gameTime": 2.1333333333333355,
+      "draw": {
+        "animation": "Walk",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 204.49122289121826,
+      "y": 604,
+      "rms": 0.0009701264836587737
+    },
+    {
+      "index": 129,
+      "wallMs": 2170.699999988079,
+      "gameTime": 2.1666666666666687,
+      "draw": {
+        "animation": "Walk",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 205.5173177321274,
+      "y": 604,
+      "rms": 0.000574403643034321
+    },
+    {
+      "index": 130,
+      "wallMs": 2186,
+      "gameTime": 2.1666666666666687,
+      "draw": {
+        "animation": "Walk",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 206.04413238920117,
+      "y": 604,
+      "rms": 0.00036523008872559065
+    },
+    {
+      "index": 131,
+      "wallMs": 2202,
+      "gameTime": 2.200000000000002,
+      "draw": {
+        "animation": "Walk",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 214.09993414817865,
+      "y": 604,
+      "rms": 0.00043150617117258626
+    },
+    {
+      "index": 132,
+      "wallMs": 2218.399999976158,
+      "gameTime": 2.200000000000002,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 218.23592067877055,
+      "y": 604,
+      "rms": 0.0005237361959234748
+    },
+    {
+      "index": 133,
+      "wallMs": 2233.699999988079,
+      "gameTime": 2.233333333333335,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 220.35940696766465,
+      "y": 604,
+      "rms": 0.0003248174061948462
+    },
+    {
+      "index": 134,
+      "wallMs": 2257.300000011921,
+      "gameTime": 2.233333333333335,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 221.4496411804139,
+      "y": 604,
+      "rms": 0.00003697016544251963
+    },
+    {
+      "index": 135,
+      "wallMs": 2273.5,
+      "gameTime": 2.2666666666666684,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 229.7947121844729,
+      "y": 604,
+      "rms": 0.000036795729058324795
+    },
+    {
+      "index": 136,
+      "wallMs": 2288.699999988079,
+      "gameTime": 2.2666666666666684,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 234.0792144974993,
+      "y": 604,
+      "rms": 0.00002278767453422519
+    },
+    {
+      "index": 137,
+      "wallMs": 2304.199999988079,
+      "gameTime": 2.3000000000000016,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 236.27895133154178,
+      "y": 604,
+      "rms": 0.0000031573388375215855
+    },
+    {
+      "index": 138,
+      "wallMs": 2320,
+      "gameTime": 2.3000000000000016,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 237.40833387950573,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 139,
+      "wallMs": 2335.699999988079,
+      "gameTime": 2.333333333333335,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 245.77350430904562,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 140,
+      "wallMs": 2350.599999964237,
+      "gameTime": 2.333333333333335,
+      "draw": {
+        "animation": "Walk",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 250.0683260111966,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 141,
+      "wallMs": 2373.699999988079,
+      "gameTime": 2.366666666666668,
+      "draw": {
+        "animation": "Walk",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 252.27336099627362,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 142,
+      "wallMs": 2389.099999964237,
+      "gameTime": 2.366666666666668,
+      "draw": {
+        "animation": "Walk",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 253.40546370567793,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 143,
+      "wallMs": 2404.399999976158,
+      "gameTime": 2.4000000000000012,
+      "draw": {
+        "animation": "Walk",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 261.77203071266786,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 144,
+      "wallMs": 2419.699999988079,
+      "gameTime": 2.4000000000000012,
+      "draw": {
+        "animation": "Walk",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 266.06756944158974,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 145,
+      "wallMs": 2434.399999976158,
+      "gameTime": 2.4333333333333345,
+      "draw": {
+        "animation": "Walk",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 268.27297256048575,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 146,
+      "wallMs": 2457.800000011921,
+      "gameTime": 2.4333333333333345,
+      "draw": {
+        "animation": "Walk",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 269.40526427609484,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 147,
+      "wallMs": 2473.399999976158,
+      "gameTime": 2.4666666666666677,
+      "draw": {
+        "animation": "Walk",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 277.77192832210585,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 148,
+      "wallMs": 2488.5,
+      "gameTime": 2.4666666666666677,
+      "draw": {
+        "animation": "Walk",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 282.0675168725224,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 149,
+      "wallMs": 2503.800000011921,
+      "gameTime": 2.500000000000001,
+      "draw": {
+        "animation": "Walk",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 284.27294557062663,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 150,
+      "wallMs": 2519.800000011921,
+      "gameTime": 2.500000000000001,
+      "draw": {
+        "animation": "Walk",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.8,
+      "dash": "travel",
+      "x": 285.4052504190391,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 151,
+      "wallMs": 2535.599999964237,
+      "gameTime": 2.533333333333334,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0,
+      "dash": null,
+      "x": 286.1288153598536,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 152,
+      "wallMs": 2558,
+      "gameTime": 2.533333333333334,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0,
+      "dash": null,
+      "x": 286.61383544429015,
+      "y": 604,
+      "rms": 0.0010359224983879402
+    },
+    {
+      "index": 153,
+      "wallMs": 2573.5,
+      "gameTime": 2.5666666666666673,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.03300000000000003,
+      "dash": null,
+      "x": 286.93895412961785,
+      "y": 604,
+      "rms": 0.00033125997233365785
+    },
+    {
+      "index": 154,
+      "wallMs": 2589.199999988079,
+      "gameTime": 2.5666666666666673,
+      "draw": {
+        "animation": "Attack",
+        "frame": 4,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.04966666666666669,
+      "dash": null,
+      "x": 287.15688770173375,
+      "y": 604,
+      "rms": 0.00037298707404248414
+    },
+    {
+      "index": 155,
+      "wallMs": 2604.599999964237,
+      "gameTime": 2.6000000000000005,
+      "draw": {
+        "animation": "Attack",
+        "frame": 5,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.10000000000000003,
+      "dash": null,
+      "x": 287.3029729438272,
+      "y": 604,
+      "rms": 0.0004077743374387612
+    },
+    {
+      "index": 156,
+      "wallMs": 2620.199999988079,
+      "gameTime": 2.6000000000000005,
+      "draw": {
+        "animation": "Attack",
+        "frame": 5,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.1166666666666667,
+      "dash": null,
+      "x": 287.40089681003246,
+      "y": 604,
+      "rms": 0.00028143151939655697
+    },
+    {
+      "index": 157,
+      "wallMs": 2636.5,
+      "gameTime": 2.6333333333333337,
+      "draw": {
+        "animation": "Attack",
+        "frame": 6,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.13333333333333336,
+      "dash": null,
+      "x": 287.46653714053514,
+      "y": 604,
+      "rms": 0.00010640397033320921
+    },
+    {
+      "index": 158,
+      "wallMs": 2651.800000011921,
+      "gameTime": 2.6333333333333337,
+      "draw": {
+        "animation": "Attack",
+        "frame": 6,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.15000000000000002,
+      "dash": null,
+      "x": 287.51053716989946,
+      "y": 604,
+      "rms": 0.00003042915701665914
+    },
+    {
+      "index": 159,
+      "wallMs": 2667.5,
+      "gameTime": 2.666666666666667,
+      "draw": {
+        "animation": "Attack",
+        "frame": 6,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.167,
+      "dash": null,
+      "x": 287.54003127160854,
+      "y": 604,
+      "rms": 0.00003402644300702224
+    },
+    {
+      "index": 160,
+      "wallMs": 2691.099999964237,
+      "gameTime": 2.666666666666667,
+      "draw": {
+        "animation": "Attack",
+        "frame": 6,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.18366666666666667,
+      "dash": null,
+      "x": 287.55980175922394,
+      "y": 604,
+      "rms": 0.0000030712516473113966
+    },
+    {
+      "index": 161,
+      "wallMs": 2705.5,
+      "gameTime": 2.7,
+      "draw": {
+        "animation": "Attack",
+        "frame": 7,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.20033333333333334,
+      "dash": null,
+      "x": 287.57305431339245,
+      "y": 604,
+      "rms": 0.0000018194636114382298
+    },
+    {
+      "index": 162,
+      "wallMs": 2720.5,
+      "gameTime": 2.7,
+      "draw": {
+        "animation": "Attack",
+        "frame": 7,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.217,
+      "dash": null,
+      "x": 287.5819377661128,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 163,
+      "wallMs": 2736.599999964237,
+      "gameTime": 2.7333333333333334,
+      "draw": {
+        "animation": "Attack",
+        "frame": 7,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.23366666666666666,
+      "dash": null,
+      "x": 287.5878925225492,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 164,
+      "wallMs": 2751.899999976158,
+      "gameTime": 2.7333333333333334,
+      "draw": {
+        "animation": "Attack",
+        "frame": 7,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.2503333333333333,
+      "dash": null,
+      "x": 287.5918841151578,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 165,
+      "wallMs": 2767.5,
+      "gameTime": 2.7666666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 8,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.26699999999999996,
+      "dash": null,
+      "x": 287.594559759699,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 166,
+      "wallMs": 2791.5,
+      "gameTime": 2.7666666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 8,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.2836666666666666,
+      "dash": null,
+      "x": 287.596353297871,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 167,
+      "wallMs": 2806.5,
+      "gameTime": 2.8,
+      "draw": {
+        "animation": "Attack",
+        "frame": 8,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.3003333333333333,
+      "dash": null,
+      "x": 287.597555542461,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 168,
+      "wallMs": 2822.399999976158,
+      "gameTime": 2.8,
+      "draw": {
+        "animation": "Attack",
+        "frame": 8,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.31699999999999995,
+      "dash": null,
+      "x": 287.59836143110994,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 169,
+      "wallMs": 2836,
+      "gameTime": 2.833333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.3336666666666666,
+      "dash": null,
+      "x": 287.59890163442617,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 170,
+      "wallMs": 2851,
+      "gameTime": 2.833333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.3503333333333333,
+      "dash": null,
+      "x": 287.599263743538,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 171,
+      "wallMs": 2874.5,
+      "gameTime": 2.8666666666666663,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.367,
+      "dash": null,
+      "x": 287.59950647253453,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 172,
+      "wallMs": 2889.599999964237,
+      "gameTime": 2.8666666666666663,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.38366666666666666,
+      "dash": null,
+      "x": 287.59966917864665,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 173,
+      "wallMs": 2904.199999988079,
+      "gameTime": 2.8999999999999995,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.5997782438152,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 174,
+      "wallMs": 2919.800000011921,
+      "gameTime": 2.8999999999999995,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.599851352384,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 175,
+      "wallMs": 2935.099999964237,
+      "gameTime": 2.9333333333333327,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.5999003585232,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 176,
+      "wallMs": 2958.699999988079,
+      "gameTime": 2.9333333333333327,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.5999332083207,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 177,
+      "wallMs": 2974.5,
+      "gameTime": 2.966666666666666,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59995522819844,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 178,
+      "wallMs": 2989.899999976158,
+      "gameTime": 2.966666666666666,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59996998856394,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 179,
+      "wallMs": 3004.5,
+      "gameTime": 2.999999999999999,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.5999798827328,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 180,
+      "wallMs": 3020.199999988079,
+      "gameTime": 2.999999999999999,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.5999865149925,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 181,
+      "wallMs": 3036.5,
+      "gameTime": 3.0333333333333323,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999096072914,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 182,
+      "wallMs": 3052.800000011921,
+      "gameTime": 3.0333333333333323,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999394079557,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 183,
+      "wallMs": 3067.5,
+      "gameTime": 3.0666666666666655,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.5999959383938,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 184,
+      "wallMs": 3091.399999976158,
+      "gameTime": 3.0666666666666655,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999727742394,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 185,
+      "wallMs": 3107.699999988079,
+      "gameTime": 3.0999999999999988,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.5999981750027,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 186,
+      "wallMs": 3122.800000011921,
+      "gameTime": 3.0999999999999988,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 5,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999877666775,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 187,
+      "wallMs": 3139,
+      "gameTime": 3.133333333333332,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.03300000000000003,
+      "dash": null,
+      "x": 287.5999991799759,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 188,
+      "wallMs": 3154.399999976158,
+      "gameTime": 3.133333333333332,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.04966666666666675,
+      "dash": null,
+      "x": 287.59999945032143,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 189,
+      "wallMs": 3169.800000011921,
+      "gameTime": 3.166666666666665,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.06633333333333341,
+      "dash": null,
+      "x": 287.59999963153945,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 190,
+      "wallMs": 3185.5,
+      "gameTime": 3.166666666666665,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.08300000000000007,
+      "dash": null,
+      "x": 287.5999997530135,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 191,
+      "wallMs": 3200.899999976158,
+      "gameTime": 3.1999999999999984,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.10000000000000003,
+      "dash": null,
+      "x": 287.59999983444,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 192,
+      "wallMs": 3223.800000011921,
+      "gameTime": 3.1999999999999984,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.1166666666666667,
+      "dash": null,
+      "x": 287.59999988902183,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 193,
+      "wallMs": 3239.800000011921,
+      "gameTime": 3.2333333333333316,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.13333333333333336,
+      "dash": null,
+      "x": 287.5999999256091,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 194,
+      "wallMs": 3255.5,
+      "gameTime": 3.2333333333333316,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.15000000000000002,
+      "dash": null,
+      "x": 287.5999999501343,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 195,
+      "wallMs": 3271.199999988079,
+      "gameTime": 3.266666666666665,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.16700000000000004,
+      "dash": null,
+      "x": 287.59999996657405,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 196,
+      "wallMs": 3286.5,
+      "gameTime": 3.266666666666665,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.1836666666666667,
+      "dash": null,
+      "x": 287.59999997759394,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 197,
+      "wallMs": 3301.899999976158,
+      "gameTime": 3.299999999999998,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.20033333333333336,
+      "dash": null,
+      "x": 287.5999999849808,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 198,
+      "wallMs": 3317.5,
+      "gameTime": 3.299999999999998,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.21700000000000003,
+      "dash": null,
+      "x": 287.5999999899323,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 199,
+      "wallMs": 3341.5,
+      "gameTime": 3.3333333333333313,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.2336666666666667,
+      "dash": null,
+      "x": 287.59999999325146,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 200,
+      "wallMs": 3357.599999964237,
+      "gameTime": 3.3333333333333313,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.25033333333333335,
+      "dash": null,
+      "x": 287.5999999954763,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 201,
+      "wallMs": 3372.599999964237,
+      "gameTime": 3.3666666666666645,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.267,
+      "dash": null,
+      "x": 287.5999999969677,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 202,
+      "wallMs": 3388.599999964237,
+      "gameTime": 3.3666666666666645,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.2836666666666667,
+      "dash": null,
+      "x": 287.5999999979674,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 203,
+      "wallMs": 3403.899999976158,
+      "gameTime": 3.3999999999999977,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.30033333333333334,
+      "dash": null,
+      "x": 287.59999999863754,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 204,
+      "wallMs": 3419.399999976158,
+      "gameTime": 3.3999999999999977,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.317,
+      "dash": null,
+      "x": 287.5999999990867,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 205,
+      "wallMs": 3435.300000011921,
+      "gameTime": 3.433333333333331,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.33366666666666667,
+      "dash": null,
+      "x": 287.5999999993878,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 206,
+      "wallMs": 3450.599999964237,
+      "gameTime": 3.433333333333331,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.35033333333333333,
+      "dash": null,
+      "x": 287.59999999958967,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 207,
+      "wallMs": 3474.099999964237,
+      "gameTime": 3.466666666666664,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.36700000000000005,
+      "dash": null,
+      "x": 287.59999999972496,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 208,
+      "wallMs": 3489.5,
+      "gameTime": 3.466666666666664,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.3836666666666667,
+      "dash": null,
+      "x": 287.5999999998156,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 209,
+      "wallMs": 3504.899999976158,
+      "gameTime": 3.4999999999999973,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.5999999998764,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 210,
+      "wallMs": 3520.399999976158,
+      "gameTime": 3.4999999999999973,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999991715,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 211,
+      "wallMs": 3537.599999964237,
+      "gameTime": 3.5333333333333306,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.5999999999445,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 212,
+      "wallMs": 3552.300000011921,
+      "gameTime": 3.5333333333333306,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.5999999999628,
+      "y": 604,
+      "rms": 0.002991942645972042
+    },
+    {
+      "index": 213,
+      "wallMs": 3568.399999976158,
+      "gameTime": 3.5666666666666638,
+      "draw": {
+        "animation": "Attack",
+        "frame": 5,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.43300000000000005,
+      "dash": null,
+      "x": 287.59999999997507,
+      "y": 604,
+      "rms": 0.0035497117470089656
+    },
+    {
+      "index": 214,
+      "wallMs": 3591.300000011921,
+      "gameTime": 3.5666666666666638,
+      "draw": {
+        "animation": "Attack",
+        "frame": 5,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.4496666666666667,
+      "dash": null,
+      "x": 287.5999999999833,
+      "y": 604,
+      "rms": 0.0024100768071916765
+    },
+    {
+      "index": 215,
+      "wallMs": 3606.599999964237,
+      "gameTime": 3.599999999999997,
+      "draw": {
+        "animation": "Attack",
+        "frame": 7,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.5,
+      "dash": null,
+      "x": 287.5999999999888,
+      "y": 604,
+      "rms": 0.001868473195563467
+    },
+    {
+      "index": 216,
+      "wallMs": 3620.300000011921,
+      "gameTime": 3.599999999999997,
+      "draw": {
+        "animation": "Attack",
+        "frame": 8,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.5166666666666666,
+      "dash": null,
+      "x": 287.5999999999925,
+      "y": 604,
+      "rms": 0.0014915117389694705
+    },
+    {
+      "index": 217,
+      "wallMs": 3635.899999976158,
+      "gameTime": 3.63333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.5333333333333333,
+      "dash": null,
+      "x": 287.599999999995,
+      "y": 604,
+      "rms": 0.0013379228490301247
+    },
+    {
+      "index": 218,
+      "wallMs": 3650.699999988079,
+      "gameTime": 3.63333333333333,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.55,
+      "dash": null,
+      "x": 287.59999999999667,
+      "y": 604,
+      "rms": 0.001087200241829258
+    },
+    {
+      "index": 219,
+      "wallMs": 3673.599999964237,
+      "gameTime": 3.6666666666666634,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999775,
+      "y": 604,
+      "rms": 0.0007390695631372187
+    },
+    {
+      "index": 220,
+      "wallMs": 3690.300000011921,
+      "gameTime": 3.6666666666666634,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.5999999999985,
+      "y": 604,
+      "rms": 0.0006553815074016545
+    },
+    {
+      "index": 221,
+      "wallMs": 3705.5,
+      "gameTime": 3.6999999999999966,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.599999999999,
+      "y": 604,
+      "rms": 0.0006048249102193254
+    },
+    {
+      "index": 222,
+      "wallMs": 3721.399999976158,
+      "gameTime": 3.6999999999999966,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999934,
+      "y": 604,
+      "rms": 0.0005501225593716249
+    },
+    {
+      "index": 223,
+      "wallMs": 3737.099999964237,
+      "gameTime": 3.73333333333333,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999957,
+      "y": 604,
+      "rms": 0.00045361665128408526
+    },
+    {
+      "index": 224,
+      "wallMs": 3752.5,
+      "gameTime": 3.73333333333333,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999974,
+      "y": 604,
+      "rms": 0.00025323313774924176
+    },
+    {
+      "index": 225,
+      "wallMs": 3768.300000011921,
+      "gameTime": 3.766666666666663,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999985,
+      "y": 604,
+      "rms": 0.00014804969629004768
+    },
+    {
+      "index": 226,
+      "wallMs": 3790.599999964237,
+      "gameTime": 3.766666666666663,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.5999999999999,
+      "y": 604,
+      "rms": 0.00010774506879077023
+    },
+    {
+      "index": 227,
+      "wallMs": 3806.199999988079,
+      "gameTime": 3.7999999999999963,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00007856070531850643
+    },
+    {
+      "index": 228,
+      "wallMs": 3820.899999976158,
+      "gameTime": 3.7999999999999963,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000047896772677794764
+    },
+    {
+      "index": 229,
+      "wallMs": 3836.5,
+      "gameTime": 3.8333333333333295,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00004172525036961063
+    },
+    {
+      "index": 230,
+      "wallMs": 3851.599999964237,
+      "gameTime": 3.8333333333333295,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000034702430083385945
+    },
+    {
+      "index": 231,
+      "wallMs": 3867.599999964237,
+      "gameTime": 3.8666666666666627,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00002919712619490372
+    },
+    {
+      "index": 232,
+      "wallMs": 3890.399999976158,
+      "gameTime": 3.8666666666666627,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000014062143786853802
+    },
+    {
+      "index": 233,
+      "wallMs": 3906.800000011921,
+      "gameTime": 3.899999999999996,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000011939552827362285
+    },
+    {
+      "index": 234,
+      "wallMs": 3921.300000011921,
+      "gameTime": 3.899999999999996,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000010782702349393828
+    },
+    {
+      "index": 235,
+      "wallMs": 3937.199999988079,
+      "gameTime": 3.933333333333329,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000009078662525270715
+    },
+    {
+      "index": 236,
+      "wallMs": 3952.899999976158,
+      "gameTime": 3.933333333333329,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000005370207128544511
+    },
+    {
+      "index": 237,
+      "wallMs": 3968.699999988079,
+      "gameTime": 3.9666666666666623,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0000032616359580201586
+    },
+    {
+      "index": 238,
+      "wallMs": 3990.899999976158,
+      "gameTime": 3.9666666666666623,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 239,
+      "wallMs": 4006.699999988079,
+      "gameTime": 3.9999999999999956,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 240,
+      "wallMs": 4021.699999988079,
+      "gameTime": 3.9999999999999956,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 241,
+      "wallMs": 4038.300000011921,
+      "gameTime": 4.033333333333329,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 242,
+      "wallMs": 4053.699999988079,
+      "gameTime": 4.033333333333329,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 243,
+      "wallMs": 4068.699999988079,
+      "gameTime": 4.066666666666662,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 244,
+      "wallMs": 4084.300000011921,
+      "gameTime": 4.066666666666662,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 245,
+      "wallMs": 4108.399999976158,
+      "gameTime": 4.099999999999995,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 246,
+      "wallMs": 4124.399999976158,
+      "gameTime": 4.099999999999995,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 6,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 247,
+      "wallMs": 4140.099999964237,
+      "gameTime": 4.133333333333328,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.03300000000000003,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 248,
+      "wallMs": 4155.199999988079,
+      "gameTime": 4.133333333333328,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.04966666666666675,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 249,
+      "wallMs": 4170.699999988079,
+      "gameTime": 4.166666666666662,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.06633333333333341,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 250,
+      "wallMs": 4185.800000011921,
+      "gameTime": 4.166666666666662,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.08300000000000007,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 251,
+      "wallMs": 4201.699999988079,
+      "gameTime": 4.199999999999995,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.10000000000000003,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 252,
+      "wallMs": 4217.300000011921,
+      "gameTime": 4.199999999999995,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.1166666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 253,
+      "wallMs": 4239.599999964237,
+      "gameTime": 4.233333333333328,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.13333333333333336,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 254,
+      "wallMs": 4255.399999976158,
+      "gameTime": 4.233333333333328,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.15000000000000002,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 255,
+      "wallMs": 4270.300000011921,
+      "gameTime": 4.266666666666661,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.16700000000000004,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 256,
+      "wallMs": 4285.5,
+      "gameTime": 4.266666666666661,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.1836666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 257,
+      "wallMs": 4307.5,
+      "gameTime": 4.2999999999999945,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.20033333333333336,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 258,
+      "wallMs": 4323.399999976158,
+      "gameTime": 4.2999999999999945,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.21700000000000003,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 259,
+      "wallMs": 4338.599999964237,
+      "gameTime": 4.333333333333328,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.2336666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 260,
+      "wallMs": 4354.399999976158,
+      "gameTime": 4.333333333333328,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.25033333333333335,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 261,
+      "wallMs": 4369.699999988079,
+      "gameTime": 4.366666666666661,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.267,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 262,
+      "wallMs": 4385.300000011921,
+      "gameTime": 4.366666666666661,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.2836666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 263,
+      "wallMs": 4400.800000011921,
+      "gameTime": 4.399999999999994,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.30033333333333334,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 264,
+      "wallMs": 4424.599999964237,
+      "gameTime": 4.399999999999994,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.317,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 265,
+      "wallMs": 4440,
+      "gameTime": 4.433333333333327,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.33366666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 266,
+      "wallMs": 4454.800000011921,
+      "gameTime": 4.433333333333327,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.35033333333333333,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 267,
+      "wallMs": 4469.899999976158,
+      "gameTime": 4.466666666666661,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.36700000000000005,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 268,
+      "wallMs": 4486.399999976158,
+      "gameTime": 4.466666666666661,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.3836666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 269,
+      "wallMs": 4501,
+      "gameTime": 4.499999999999994,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 270,
+      "wallMs": 4523.699999988079,
+      "gameTime": 4.499999999999994,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 271,
+      "wallMs": 4539.800000011921,
+      "gameTime": 4.533333333333327,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 272,
+      "wallMs": 4554.399999976158,
+      "gameTime": 4.533333333333327,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0018600349173331203
+    },
+    {
+      "index": 273,
+      "wallMs": 4569.899999976158,
+      "gameTime": 4.56666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 5,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.43300000000000005,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0035497117466738158
+    },
+    {
+      "index": 274,
+      "wallMs": 4584.599999964237,
+      "gameTime": 4.56666666666666,
+      "draw": {
+        "animation": "Attack",
+        "frame": 5,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.4496666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0031542699255036814
+    },
+    {
+      "index": 275,
+      "wallMs": 4607.599999964237,
+      "gameTime": 4.599999999999993,
+      "draw": {
+        "animation": "Attack",
+        "frame": 7,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.5,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.002410076808974648
+    },
+    {
+      "index": 276,
+      "wallMs": 4623.099999964237,
+      "gameTime": 4.599999999999993,
+      "draw": {
+        "animation": "Attack",
+        "frame": 8,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.5166666666666666,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0015275469412403084
+    },
+    {
+      "index": 277,
+      "wallMs": 4638.599999964237,
+      "gameTime": 4.633333333333327,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.5333333333333333,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0014915117414989567
+    },
+    {
+      "index": 278,
+      "wallMs": 4653.800000011921,
+      "gameTime": 4.633333333333327,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.55,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0012730949462545296
+    },
+    {
+      "index": 279,
+      "wallMs": 4668.699999988079,
+      "gameTime": 4.66666666666666,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.001087200241700518
+    },
+    {
+      "index": 280,
+      "wallMs": 4684.399999976158,
+      "gameTime": 4.66666666666666,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0007390695624116568
+    },
+    {
+      "index": 281,
+      "wallMs": 4700.5,
+      "gameTime": 4.699999999999993,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0006553815064769927
+    },
+    {
+      "index": 282,
+      "wallMs": 4723.399999976158,
+      "gameTime": 4.699999999999993,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0005659197694959286
+    },
+    {
+      "index": 283,
+      "wallMs": 4739.599999964237,
+      "gameTime": 4.733333333333326,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0004536166484861123
+    },
+    {
+      "index": 284,
+      "wallMs": 4754.5,
+      "gameTime": 4.733333333333326,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0003366882208153566
+    },
+    {
+      "index": 285,
+      "wallMs": 4769.800000011921,
+      "gameTime": 4.7666666666666595,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00014804969615367537
+    },
+    {
+      "index": 286,
+      "wallMs": 4786.399999976158,
+      "gameTime": 4.7666666666666595,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0001309357651907096
+    },
+    {
+      "index": 287,
+      "wallMs": 4802,
+      "gameTime": 4.799999999999993,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00010774506849096051
+    },
+    {
+      "index": 288,
+      "wallMs": 4817.599999964237,
+      "gameTime": 4.799999999999993,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000078560704910061
+    },
+    {
+      "index": 289,
+      "wallMs": 4840.899999976158,
+      "gameTime": 4.833333333333326,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0000417252502798644
+    },
+    {
+      "index": 290,
+      "wallMs": 4856.5,
+      "gameTime": 4.833333333333326,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00003873794137036531
+    },
+    {
+      "index": 291,
+      "wallMs": 4871.899999976158,
+      "gameTime": 4.866666666666659,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000029197126057141605
+    },
+    {
+      "index": 292,
+      "wallMs": 4886.699999988079,
+      "gameTime": 4.866666666666659,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000022756044748473316
+    },
+    {
+      "index": 293,
+      "wallMs": 4901.5,
+      "gameTime": 4.899999999999992,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00001406214369114574
+    },
+    {
+      "index": 294,
+      "wallMs": 4917.300000011921,
+      "gameTime": 4.899999999999992,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000011939552770253751
+    },
+    {
+      "index": 295,
+      "wallMs": 4940,
+      "gameTime": 4.933333333333326,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000009078662525270715
+    },
+    {
+      "index": 296,
+      "wallMs": 4955.199999988079,
+      "gameTime": 4.933333333333326,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000007050904686613349
+    },
+    {
+      "index": 297,
+      "wallMs": 4970.399999976158,
+      "gameTime": 4.966666666666659,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0000037831770627847985
+    },
+    {
+      "index": 298,
+      "wallMs": 4986.399999976158,
+      "gameTime": 4.966666666666659,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 299,
+      "wallMs": 5002.699999988079,
+      "gameTime": 4.999999999999992,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 300,
+      "wallMs": 5018.399999976158,
+      "gameTime": 4.999999999999992,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 301,
+      "wallMs": 5034,
+      "gameTime": 5.033333333333325,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 302,
+      "wallMs": 5056.099999964237,
+      "gameTime": 5.033333333333325,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 303,
+      "wallMs": 5070.5,
+      "gameTime": 5.066666666666658,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 304,
+      "wallMs": 5086.5,
+      "gameTime": 5.066666666666658,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 305,
+      "wallMs": 5102.399999976158,
+      "gameTime": 5.099999999999992,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 306,
+      "wallMs": 5118.300000011921,
+      "gameTime": 5.099999999999992,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 7,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 307,
+      "wallMs": 5139.899999976158,
+      "gameTime": 5.133333333333325,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.03300000000000003,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 308,
+      "wallMs": 5155.300000011921,
+      "gameTime": 5.133333333333325,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.04966666666666675,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 309,
+      "wallMs": 5171.099999964237,
+      "gameTime": 5.166666666666658,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.06633333333333341,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 310,
+      "wallMs": 5186.300000011921,
+      "gameTime": 5.166666666666658,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.08300000000000007,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 311,
+      "wallMs": 5201.599999964237,
+      "gameTime": 5.199999999999991,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.10000000000000003,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 312,
+      "wallMs": 5224.800000011921,
+      "gameTime": 5.199999999999991,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.1166666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 313,
+      "wallMs": 5239.699999988079,
+      "gameTime": 5.2333333333333245,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.13333333333333336,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 314,
+      "wallMs": 5255.399999976158,
+      "gameTime": 5.2333333333333245,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.15000000000000002,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 315,
+      "wallMs": 5270.800000011921,
+      "gameTime": 5.266666666666658,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.16700000000000004,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 316,
+      "wallMs": 5286.5,
+      "gameTime": 5.266666666666658,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.1836666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 317,
+      "wallMs": 5301.5,
+      "gameTime": 5.299999999999991,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.20033333333333336,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 318,
+      "wallMs": 5324.599999964237,
+      "gameTime": 5.299999999999991,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.21700000000000003,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 319,
+      "wallMs": 5339.800000011921,
+      "gameTime": 5.333333333333324,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.2336666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 320,
+      "wallMs": 5355.800000011921,
+      "gameTime": 5.333333333333324,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.25033333333333335,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 321,
+      "wallMs": 5370.399999976158,
+      "gameTime": 5.366666666666657,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.267,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 322,
+      "wallMs": 5386.399999976158,
+      "gameTime": 5.366666666666657,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.2836666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 323,
+      "wallMs": 5402.300000011921,
+      "gameTime": 5.399999999999991,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.30033333333333334,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 324,
+      "wallMs": 5417.199999988079,
+      "gameTime": 5.399999999999991,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.317,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 325,
+      "wallMs": 5439.699999988079,
+      "gameTime": 5.433333333333324,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.33366666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 326,
+      "wallMs": 5455,
+      "gameTime": 5.433333333333324,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.35033333333333333,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 327,
+      "wallMs": 5470.099999964237,
+      "gameTime": 5.466666666666657,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.36700000000000005,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 328,
+      "wallMs": 5486.399999976158,
+      "gameTime": 5.466666666666657,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.3836666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 329,
+      "wallMs": 5501.899999976158,
+      "gameTime": 5.49999999999999,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 330,
+      "wallMs": 5517.300000011921,
+      "gameTime": 5.49999999999999,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 331,
+      "wallMs": 5541,
+      "gameTime": 5.5333333333333234,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 332,
+      "wallMs": 5555.899999976158,
+      "gameTime": 5.5333333333333234,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0012519775501812517
+    },
+    {
+      "index": 333,
+      "wallMs": 5570.899999976158,
+      "gameTime": 5.566666666666657,
+      "draw": {
+        "animation": "Attack",
+        "frame": 5,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.43300000000000005,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0033340477774748438
+    },
+    {
+      "index": 334,
+      "wallMs": 5586.5,
+      "gameTime": 5.566666666666657,
+      "draw": {
+        "animation": "Attack",
+        "frame": 5,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.4496666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.003154269925854212
+    },
+    {
+      "index": 335,
+      "wallMs": 5602.199999988079,
+      "gameTime": 5.59999999999999,
+      "draw": {
+        "animation": "Attack",
+        "frame": 7,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.5,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0024100768064787993
+    },
+    {
+      "index": 336,
+      "wallMs": 5617.5,
+      "gameTime": 5.59999999999999,
+      "draw": {
+        "animation": "Attack",
+        "frame": 8,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.5166666666666666,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.001868473194214966
+    },
+    {
+      "index": 337,
+      "wallMs": 5640.699999988079,
+      "gameTime": 5.633333333333323,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.5333333333333333,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0014184308773504987
+    },
+    {
+      "index": 338,
+      "wallMs": 5656.5,
+      "gameTime": 5.633333333333323,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.55,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.001273094949687362
+    },
+    {
+      "index": 339,
+      "wallMs": 5671.800000011921,
+      "gameTime": 5.666666666666656,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0009140048576725266
+    },
+    {
+      "index": 340,
+      "wallMs": 5687.5,
+      "gameTime": 5.666666666666656,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0008270939723307195
+    },
+    {
+      "index": 341,
+      "wallMs": 5702.800000011921,
+      "gameTime": 5.6999999999999895,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0006553815062177421
+    },
+    {
+      "index": 342,
+      "wallMs": 5718.300000011921,
+      "gameTime": 5.6999999999999895,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0005827341872092042
+    },
+    {
+      "index": 343,
+      "wallMs": 5741.199999988079,
+      "gameTime": 5.733333333333323,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0004536166494429
+    },
+    {
+      "index": 344,
+      "wallMs": 5756.399999976158,
+      "gameTime": 5.733333333333323,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00034900030762469
+    },
+    {
+      "index": 345,
+      "wallMs": 5771.599999964237,
+      "gameTime": 5.766666666666656,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0001905946728911984
+    },
+    {
+      "index": 346,
+      "wallMs": 5787.199999988079,
+      "gameTime": 5.766666666666656,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00013093576543834754
+    },
+    {
+      "index": 347,
+      "wallMs": 5801.800000011921,
+      "gameTime": 5.799999999999989,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00010662888208719961
+    },
+    {
+      "index": 348,
+      "wallMs": 5817.099999964237,
+      "gameTime": 5.799999999999989,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00007856070509166868
+    },
+    {
+      "index": 349,
+      "wallMs": 5839.699999988079,
+      "gameTime": 5.833333333333322,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000041460457515814316
+    },
+    {
+      "index": 350,
+      "wallMs": 5855.300000011921,
+      "gameTime": 5.833333333333322,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00003873794145005958
+    },
+    {
+      "index": 351,
+      "wallMs": 5870.199999988079,
+      "gameTime": 5.866666666666656,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000029197126135011786
+    },
+    {
+      "index": 352,
+      "wallMs": 5886.399999976158,
+      "gameTime": 5.866666666666656,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000022756044900846316
+    },
+    {
+      "index": 353,
+      "wallMs": 5901.599999964237,
+      "gameTime": 5.899999999999989,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000014062143767458986
+    },
+    {
+      "index": 354,
+      "wallMs": 5917.199999988079,
+      "gameTime": 5.899999999999989,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000012574846250832667
+    },
+    {
+      "index": 355,
+      "wallMs": 5940,
+      "gameTime": 5.933333333333322,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000009078662525270715
+    },
+    {
+      "index": 356,
+      "wallMs": 5956.300000011921,
+      "gameTime": 5.933333333333322,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000007492171409268298
+    },
+    {
+      "index": 357,
+      "wallMs": 5971.5,
+      "gameTime": 5.966666666666655,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0000037831770627847985
+    },
+    {
+      "index": 358,
+      "wallMs": 5987.399999976158,
+      "gameTime": 5.966666666666655,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 359,
+      "wallMs": 6003.199999988079,
+      "gameTime": 5.9999999999999885,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 360,
+      "wallMs": 6018.5,
+      "gameTime": 5.9999999999999885,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 361,
+      "wallMs": 6040.599999964237,
+      "gameTime": 6.033333333333322,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 362,
+      "wallMs": 6056.199999988079,
+      "gameTime": 6.033333333333322,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 363,
+      "wallMs": 6070.899999976158,
+      "gameTime": 6.066666666666655,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 364,
+      "wallMs": 6086,
+      "gameTime": 6.066666666666655,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 365,
+      "wallMs": 6100.800000011921,
+      "gameTime": 6.099999999999988,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 366,
+      "wallMs": 6122.699999988079,
+      "gameTime": 6.099999999999988,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 8,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 367,
+      "wallMs": 6138.599999964237,
+      "gameTime": 6.133333333333321,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.03300000000000003,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 368,
+      "wallMs": 6153.599999964237,
+      "gameTime": 6.133333333333321,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.04966666666666675,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 369,
+      "wallMs": 6168.5,
+      "gameTime": 6.1666666666666545,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.06633333333333341,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 370,
+      "wallMs": 6184.599999964237,
+      "gameTime": 6.1666666666666545,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.08300000000000007,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 371,
+      "wallMs": 6200.599999964237,
+      "gameTime": 6.199999999999988,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.10000000000000003,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 372,
+      "wallMs": 6224.199999988079,
+      "gameTime": 6.199999999999988,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.1166666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 373,
+      "wallMs": 6239.399999976158,
+      "gameTime": 6.233333333333321,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.13333333333333336,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 374,
+      "wallMs": 6254.699999988079,
+      "gameTime": 6.233333333333321,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.15000000000000002,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 375,
+      "wallMs": 6270.399999976158,
+      "gameTime": 6.266666666666654,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.16700000000000004,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 376,
+      "wallMs": 6286.300000011921,
+      "gameTime": 6.266666666666654,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.1836666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 377,
+      "wallMs": 6301.800000011921,
+      "gameTime": 6.299999999999987,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.20033333333333336,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 378,
+      "wallMs": 6318.199999988079,
+      "gameTime": 6.299999999999987,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.21700000000000003,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 379,
+      "wallMs": 6341.599999964237,
+      "gameTime": 6.333333333333321,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.2336666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 380,
+      "wallMs": 6357.599999964237,
+      "gameTime": 6.333333333333321,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.25033333333333335,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 381,
+      "wallMs": 6371.5,
+      "gameTime": 6.366666666666654,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.267,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 382,
+      "wallMs": 6387.5,
+      "gameTime": 6.366666666666654,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.2836666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 383,
+      "wallMs": 6402.800000011921,
+      "gameTime": 6.399999999999987,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.30033333333333334,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 384,
+      "wallMs": 6418.699999988079,
+      "gameTime": 6.399999999999987,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.317,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 385,
+      "wallMs": 6440.5,
+      "gameTime": 6.43333333333332,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.33366666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 386,
+      "wallMs": 6456.399999976158,
+      "gameTime": 6.43333333333332,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.35033333333333333,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 387,
+      "wallMs": 6472,
+      "gameTime": 6.4666666666666535,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.36700000000000005,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 388,
+      "wallMs": 6488.300000011921,
+      "gameTime": 6.4666666666666535,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.3836666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 389,
+      "wallMs": 6503.399999976158,
+      "gameTime": 6.499999999999987,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 390,
+      "wallMs": 6518.699999988079,
+      "gameTime": 6.499999999999987,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 391,
+      "wallMs": 6534.300000011921,
+      "gameTime": 6.53333333333332,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 392,
+      "wallMs": 6557.300000011921,
+      "gameTime": 6.53333333333332,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0029919426486323254
+    },
+    {
+      "index": 393,
+      "wallMs": 6572.899999976158,
+      "gameTime": 6.566666666666653,
+      "draw": {
+        "animation": "Attack",
+        "frame": 5,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.43300000000000005,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0031542699350362467
+    },
+    {
+      "index": 394,
+      "wallMs": 6588.399999976158,
+      "gameTime": 6.566666666666653,
+      "draw": {
+        "animation": "Attack",
+        "frame": 5,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.4496666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0028497321367943044
+    },
+    {
+      "index": 395,
+      "wallMs": 6603.699999988079,
+      "gameTime": 6.599999999999986,
+      "draw": {
+        "animation": "Attack",
+        "frame": 7,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.5,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0018684731924640784
+    },
+    {
+      "index": 396,
+      "wallMs": 6618.699999988079,
+      "gameTime": 6.599999999999986,
+      "draw": {
+        "animation": "Attack",
+        "frame": 8,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.5166666666666666,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0015275469388504668
+    },
+    {
+      "index": 397,
+      "wallMs": 6640.800000011921,
+      "gameTime": 6.6333333333333195,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.5333333333333333,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0012730949489304126
+    },
+    {
+      "index": 398,
+      "wallMs": 6656.399999976158,
+      "gameTime": 6.6333333333333195,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.55,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0012676323730631673
+    },
+    {
+      "index": 399,
+      "wallMs": 6671.199999988079,
+      "gameTime": 6.666666666666653,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000827093971391468
+    },
+    {
+      "index": 400,
+      "wallMs": 6686.399999976158,
+      "gameTime": 6.666666666666653,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0006586743934730333
+    },
+    {
+      "index": 401,
+      "wallMs": 6701.899999976158,
+      "gameTime": 6.699999999999986,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0006048249105589905
+    },
+    {
+      "index": 402,
+      "wallMs": 6718.699999988079,
+      "gameTime": 6.699999999999986,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0005609737326122602
+    },
+    {
+      "index": 403,
+      "wallMs": 6734.5,
+      "gameTime": 6.733333333333319,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0004536166488508064
+    },
+    {
+      "index": 404,
+      "wallMs": 6756.599999964237,
+      "gameTime": 6.733333333333319,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00025323313811926766
+    },
+    {
+      "index": 405,
+      "wallMs": 6771.800000011921,
+      "gameTime": 6.766666666666652,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00013093576491619944
+    },
+    {
+      "index": 406,
+      "wallMs": 6787.099999964237,
+      "gameTime": 6.766666666666652,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00012056940475348686
+    },
+    {
+      "index": 407,
+      "wallMs": 6802.599999964237,
+      "gameTime": 6.799999999999986,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00007856070516802099
+    },
+    {
+      "index": 408,
+      "wallMs": 6818.599999964237,
+      "gameTime": 6.799999999999986,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000056564332758310634
+    },
+    {
+      "index": 409,
+      "wallMs": 6840.800000011921,
+      "gameTime": 6.833333333333319,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00003873794137908119
+    },
+    {
+      "index": 410,
+      "wallMs": 6856.5,
+      "gameTime": 6.833333333333319,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000037912976656624036
+    },
+    {
+      "index": 411,
+      "wallMs": 6871.699999988079,
+      "gameTime": 6.866666666666652,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000022756044876433733
+    },
+    {
+      "index": 412,
+      "wallMs": 6887.5,
+      "gameTime": 6.866666666666652,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000016702380425639026
+    },
+    {
+      "index": 413,
+      "wallMs": 6902.899999976158,
+      "gameTime": 6.899999999999985,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00001257484622888898
+    },
+    {
+      "index": 414,
+      "wallMs": 6918.599999964237,
+      "gameTime": 6.899999999999985,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00001126879672732144
+    },
+    {
+      "index": 415,
+      "wallMs": 6934.199999988079,
+      "gameTime": 6.9333333333333185,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000009078662525270715
+    },
+    {
+      "index": 416,
+      "wallMs": 6957.300000011921,
+      "gameTime": 6.9333333333333185,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000005370207128544511
+    },
+    {
+      "index": 417,
+      "wallMs": 6972,
+      "gameTime": 6.966666666666652,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 418,
+      "wallMs": 6987.099999964237,
+      "gameTime": 6.966666666666652,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 419,
+      "wallMs": 7002.5,
+      "gameTime": 6.999999999999985,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 420,
+      "wallMs": 7018.399999976158,
+      "gameTime": 6.999999999999985,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 421,
+      "wallMs": 7040.800000011921,
+      "gameTime": 7.033333333333318,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 422,
+      "wallMs": 7056.199999988079,
+      "gameTime": 7.033333333333318,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 423,
+      "wallMs": 7070.599999964237,
+      "gameTime": 7.066666666666651,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 424,
+      "wallMs": 7086,
+      "gameTime": 7.066666666666651,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 425,
+      "wallMs": 7101.699999988079,
+      "gameTime": 7.0999999999999845,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 426,
+      "wallMs": 7117.5,
+      "gameTime": 7.0999999999999845,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 9,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 427,
+      "wallMs": 7140.800000011921,
+      "gameTime": 7.133333333333318,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.03300000000000003,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 428,
+      "wallMs": 7156.300000011921,
+      "gameTime": 7.133333333333318,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.04966666666666675,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 429,
+      "wallMs": 7171.599999964237,
+      "gameTime": 7.166666666666651,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.06633333333333341,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 430,
+      "wallMs": 7187.300000011921,
+      "gameTime": 7.166666666666651,
+      "draw": {
+        "animation": "Attack",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.08300000000000007,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 431,
+      "wallMs": 7202.199999988079,
+      "gameTime": 7.199999999999984,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.10000000000000003,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 432,
+      "wallMs": 7218.5,
+      "gameTime": 7.199999999999984,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.1166666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 433,
+      "wallMs": 7233.899999976158,
+      "gameTime": 7.233333333333317,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.13333333333333336,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 434,
+      "wallMs": 7256.300000011921,
+      "gameTime": 7.233333333333317,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.15000000000000002,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 435,
+      "wallMs": 7271.899999976158,
+      "gameTime": 7.266666666666651,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.16700000000000004,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 436,
+      "wallMs": 7286.5,
+      "gameTime": 7.266666666666651,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.1836666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 437,
+      "wallMs": 7302.599999964237,
+      "gameTime": 7.299999999999984,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.20033333333333336,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 438,
+      "wallMs": 7318.699999988079,
+      "gameTime": 7.299999999999984,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.21700000000000003,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 439,
+      "wallMs": 7341.199999988079,
+      "gameTime": 7.333333333333317,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.2336666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 440,
+      "wallMs": 7356.5,
+      "gameTime": 7.333333333333317,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.25033333333333335,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 441,
+      "wallMs": 7371.800000011921,
+      "gameTime": 7.36666666666665,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.267,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 442,
+      "wallMs": 7387.199999988079,
+      "gameTime": 7.36666666666665,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.2836666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 443,
+      "wallMs": 7403.099999964237,
+      "gameTime": 7.3999999999999835,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.30033333333333334,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 444,
+      "wallMs": 7418.300000011921,
+      "gameTime": 7.3999999999999835,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.317,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 445,
+      "wallMs": 7441.599999964237,
+      "gameTime": 7.433333333333317,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.33366666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 446,
+      "wallMs": 7457.399999976158,
+      "gameTime": 7.433333333333317,
+      "draw": {
+        "animation": "Attack",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.35033333333333333,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 447,
+      "wallMs": 7472,
+      "gameTime": 7.46666666666665,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.36700000000000005,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 448,
+      "wallMs": 7487.699999988079,
+      "gameTime": 7.46666666666665,
+      "draw": {
+        "animation": "Attack",
+        "frame": 2,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.3836666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 449,
+      "wallMs": 7503.300000011921,
+      "gameTime": 7.499999999999983,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 450,
+      "wallMs": 7518.5,
+      "gameTime": 7.499999999999983,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 451,
+      "wallMs": 7534.899999976158,
+      "gameTime": 7.533333333333316,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 452,
+      "wallMs": 7557.5,
+      "gameTime": 7.533333333333316,
+      "draw": {
+        "animation": "Attack",
+        "frame": 3,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.4,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.002991942646693439
+    },
+    {
+      "index": 453,
+      "wallMs": 7572.599999964237,
+      "gameTime": 7.5666666666666496,
+      "draw": {
+        "animation": "Attack",
+        "frame": 5,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.43300000000000005,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0031542699272424247
+    },
+    {
+      "index": 454,
+      "wallMs": 7587.5,
+      "gameTime": 7.5666666666666496,
+      "draw": {
+        "animation": "Attack",
+        "frame": 5,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.4496666666666667,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0027583628055618953
+    },
+    {
+      "index": 455,
+      "wallMs": 7602.899999976158,
+      "gameTime": 7.599999999999983,
+      "draw": {
+        "animation": "Attack",
+        "frame": 7,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.5,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0017881274218503513
+    },
+    {
+      "index": 456,
+      "wallMs": 7618.5,
+      "gameTime": 7.599999999999983,
+      "draw": {
+        "animation": "Attack",
+        "frame": 8,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.5166666666666666,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0015275469404717262
+    },
+    {
+      "index": 457,
+      "wallMs": 7640.300000011921,
+      "gameTime": 7.633333333333316,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.5333333333333333,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0012730949506834597
+    },
+    {
+      "index": 458,
+      "wallMs": 7656,
+      "gameTime": 7.633333333333316,
+      "draw": {
+        "animation": "Attack",
+        "frame": 9,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.55,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0010872002406481615
+    },
+    {
+      "index": 459,
+      "wallMs": 7670.399999976158,
+      "gameTime": 7.666666666666649,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00073906956222545
+    },
+    {
+      "index": 460,
+      "wallMs": 7686.300000011921,
+      "gameTime": 7.666666666666649,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0006586743948176306
+    },
+    {
+      "index": 461,
+      "wallMs": 7702.5,
+      "gameTime": 7.699999999999982,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0006048249119184774
+    },
+    {
+      "index": 462,
+      "wallMs": 7717.800000011921,
+      "gameTime": 7.699999999999982,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.0005747547736609966
+    },
+    {
+      "index": 463,
+      "wallMs": 7740.699999988079,
+      "gameTime": 7.733333333333316,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00033668822038604256
+    },
+    {
+      "index": 464,
+      "wallMs": 7756.599999964237,
+      "gameTime": 7.733333333333316,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00025323313683393796
+    },
+    {
+      "index": 465,
+      "wallMs": 7772,
+      "gameTime": 7.766666666666649,
+      "draw": {
+        "animation": "Idle",
+        "frame": 0,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00013093576487484412
+    },
+    {
+      "index": 466,
+      "wallMs": 7787.399999976158,
+      "gameTime": 7.766666666666649,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00011763968392789842
+    },
+    {
+      "index": 467,
+      "wallMs": 7802.199999988079,
+      "gameTime": 7.799999999999982,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00007450770565522792
+    },
+    {
+      "index": 468,
+      "wallMs": 7817.300000011921,
+      "gameTime": 7.799999999999982,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00005456804378393043
+    },
+    {
+      "index": 469,
+      "wallMs": 7839.599999964237,
+      "gameTime": 7.833333333333315,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000038737941241797155
+    },
+    {
+      "index": 470,
+      "wallMs": 7855.699999988079,
+      "gameTime": 7.833333333333315,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00003470242990920009
+    },
+    {
+      "index": 471,
+      "wallMs": 7871.099999964237,
+      "gameTime": 7.8666666666666485,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000019862303684113044
+    },
+    {
+      "index": 472,
+      "wallMs": 7885.599999964237,
+      "gameTime": 7.8666666666666485,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.00001670238034977415
+    },
+    {
+      "index": 473,
+      "wallMs": 7901.399999976158,
+      "gameTime": 7.899999999999982,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000011939552770567892
+    },
+    {
+      "index": 474,
+      "wallMs": 7917.300000011921,
+      "gameTime": 7.899999999999982,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000011268796734237829
+    },
+    {
+      "index": 475,
+      "wallMs": 7941.5,
+      "gameTime": 7.933333333333315,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000007050904686613349
+    },
+    {
+      "index": 476,
+      "wallMs": 7955.899999976158,
+      "gameTime": 7.933333333333315,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0.000005370207128544511
+    },
+    {
+      "index": 477,
+      "wallMs": 7970.599999964237,
+      "gameTime": 7.966666666666648,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 478,
+      "wallMs": 7986.300000011921,
+      "gameTime": 7.966666666666648,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    },
+    {
+      "index": 479,
+      "wallMs": 8000.699999988079,
+      "gameTime": 7.999999999999981,
+      "draw": {
+        "animation": "Idle",
+        "frame": 1,
+        "direction": 2
+      },
+      "attackSeq": 10,
+      "attackAge": 0.56,
+      "dash": null,
+      "x": 287.59999999999997,
+      "y": 604,
+      "rms": 0
+    }
+  ]
+}

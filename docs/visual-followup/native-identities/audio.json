@@ -1,0 +1,10 @@
+{
+  "date":"2026-11-14",
+  "kind":"Original game cries registered for the new species; these two recordings are not anime speech.",
+  "changes":"Two manifest entries and two Ogg files; existing anime recordings and attribution stay intact.",
+  "files":[
+    {"id":83,"file":"dist/assets/audio/cries/83.ogg","source":"https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/83.ogg","bytes":10539,"sha256":"851dfc31aa191ecbbc48b5f95534738874d4b1572331a4679323268535c003db","durationSeconds":0.563187},
+    {"id":534,"file":"dist/assets/audio/cries/534.ogg","source":"https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/534.ogg","bytes":16646,"sha256":"d6232357a5be5f11c11cd8f36c071edf948686c606dfd4f05ea58ca8fb283a21","durationSeconds":1.407969}
+  ],
+  "validation":"Both have OggS headers and ffprobe8.1.2 decodes their format/duration. No audio engine, timing or voice concurrency policy changes."
+}
