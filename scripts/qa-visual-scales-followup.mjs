@@ -8,7 +8,11 @@ import { pathToFileURL } from 'node:url';
 import { openPage, ready } from '../tests/browser/helpers.mjs';
 
 const root = path.resolve(import.meta.dirname, '..'), dist = path.join(root, 'dist');
-const out = path.join(root, 'docs/visual-followup/scales');
+const nativeCamera=process.argv.includes('--native-camera');
+const capturedHead=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8',windowsHide:true}).trim();
+const cut=process.argv.find(value=>value.startsWith('--cut='))?.slice(6)||capturedHead.slice(0,7);
+assert.match(cut,/^[a-zA-Z0-9_-]+$/);
+const out = path.join(root,nativeCamera?'docs/visual-followup/native-scales/'+cut:'docs/visual-followup/scales');
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 await mkdir(out, { recursive: true });
 const frozen = new Map(), inputs = (await readdir(dist)).filter(file => /\.(js|css|html)$/.test(file)).map(file => `dist/${file}`);
@@ -16,7 +20,8 @@ inputs.push('dist/assets/pokemon/manifest.json');
 for (const id of (await readdir(path.join(dist, 'assets/pokemon'))).filter(name => /^\d+$/.test(name))) {
   inputs.push(...(await readdir(path.join(dist, 'assets/pokemon', id))).filter(name => /(?:Anim|Shadow|Offsets)\.png$|\.xml$|^credits\.txt$/.test(name)).map(name => `dist/assets/pokemon/${id}/${name}`));
 }
-inputs.push(...(await readdir(path.join(dist, 'assets/battle'))).filter(name => /\.(png|webp|js)$/.test(name)).map(name => `dist/assets/battle/${name}`));
+inputs.push(...(await readdir(path.join(dist, 'assets/battle'))).filter(name => /\.(png|webp|js|svg)$/.test(name)).map(name => `dist/assets/battle/${name}`));
+inputs.push(...(await readdir(path.join(dist,'assets/ui'))).filter(name=>/\.(png|webp|svg)$/.test(name)).map(name=>'dist/assets/ui/'+name));
 const sourceHashes = Object.fromEntries(await Promise.all(inputs.map(async file => {
   const bytes = await readFile(path.join(root, file)); frozen.set('/' + file.slice(5), bytes); return [file, hash(bytes)];
 })));
@@ -43,20 +48,21 @@ try {
   const { context, page, errors } = await openPage(browser, { width: 390, height: 844 });
   page.setDefaultTimeout(180000); await page.exposeFunction('scaleProgress', value => console.log(value));
   await page.goto(`http://127.0.0.1:${server.address().port}`); await ready(page); await page.locator('#start-btn').click();
-  const report = await page.evaluate(async () => {
+  const report = await page.evaluate(async nativeCamera => {
     const { Game, CARDS, TILE, W, H } = await import('/engine.js?v=26');
+    const {ARENA_CAMERA,arenaProjection}=await import('/arena-geometry.js?v=26');
     const { CARD_EQUIVALENTS } = await import('/card-equivalents.js');
     const { movementVisual } = await import('/combat-visuals.js?v=29');
     const r = __qa.renderer; r.draw = () => {}; __qa.game.step = () => {};
     r.resetVisuals(); r.reduced = false;
-    const rect = r.canvas.getBoundingClientRect(), sx = rect.width / W, sy = rect.height / H, vertical = r.verticalScale;
+    const rect = r.canvas.getBoundingClientRect(), projection=arenaProjection(rect.width,rect.height),sx = nativeCamera?projection.scale:rect.width / W, sy = nativeCamera?projection.scale:rect.height / H, vertical = r.verticalScale;
     const round = n => Math.round(n * 10000) / 10000;
     const entries = Object.entries(CARDS).filter(([, card]) => card.id).map(([key, card]) => ({ key, card: { ...card }, scope: 'catalogue', sourceKey: key }));
     const derived = new Game(); derived.state = 'playing'; derived.towers = []; derived.units = [];
     const parent = derived.spawn('golem', 0, 300, 500, 0); derived.damage(parent, 1e9, 1);
     const child = derived.units.find(u => u !== parent && u.hp > 0);
     if (child) entries.push({ key: 'golemDeathGeodude', sourceKey: child.key, scope: 'derived_golem_token', card: { ...child.card, id: 74, name: 'Geodude pequeno de Golem', role: 'Token de Golem', scale: child.scale, token: true, cost: 0, hp: child.maxHp }, radius: child.radius });
-    const extras = [
+    const extras = nativeCamera?[]:[
       { id: 83, key: 'knightFarfetchdCandidate', sourceKey: 'geodude', name: "Farfetch'd", scale: 2.2 },
       { id: 534, key: 'bowlerConkeldurrCandidate', sourceKey: 'graveler', name: 'Conkeldurr', scale: 1.85 },
     ];
@@ -171,7 +177,7 @@ try {
       const rows = entries.filter(e => group(e) === category).sort((a, b) => a.card.cost - b.card.cost || a.card.name.localeCompare(b.card.name));
       for (let index = 0; index < rows.length; index += 6) sheet(`${category}-${index / 6 + 1}.png`, `${category} | actual390px | ground grid24=${round(TILE * sx)}x${round(TILE * sy)}pxCSS`, rows.slice(index, index + 6).map(entry => ({ entry })));
     }
-    const candidateSets = [
+    const candidateSets = nativeCamera?['ampharos','nuzleaf','geodude','graveler','centralElectrode','fireSpiritToken','geodudeToken','roselia','rhydon','rayquaza','duskull','shuppetToken'].filter(key=>CARDS[key]).map(key=>({key,scales:[CARDS[key].scale],states:CARDS[key].passive?['rest']:['rest','attack']})):[
       { key: 'ampharos', scales: [CARDS.ampharos.scale, 1.8, 1.85, 1.95], states: ['rest', 'attack'] },
       { key: 'nuzleaf', scales: [CARDS.nuzleaf.scale, 1.45, 1.55], states: ['rest'] },
       { key: 'alakazam', scales: [CARDS.alakazam.scale, 1.3], states: ['rest'] },
@@ -195,12 +201,12 @@ try {
       await scaleProgress(`Compared candidates: ${candidate.key}`);
     }
     r.platform = platform;
-    return { date: '2026-11-14', scene: 'Read-only synthetic Renderer scale scenes; no combat validation. All current keys plus a separately derived Golem token and two replacement candidates.', measurementThresholds: { native: 1, paintedCore: 128, note: 'All nonzero-alpha bounds are also retained per sample; core bounds exclude almost-transparent atlas fringes after projection.' }, coverage: { allKeys: Object.keys(CARDS).length, bodyKeys: entries.filter(e => e.scope === 'catalogue').length, measuredBodies: entries.length, species: new Set(entries.map(e => e.card.id)).size, missingCandidates, effects: Object.entries(CARDS).filter(([, c]) => !c.id).map(([key]) => ({ key, reference: CARD_EQUIVALENTS[key]?.reference || null })) }, viewport: { width: 390, height: 844, arenaCssWidth: rect.width, arenaCssHeight: rect.height, sx, sy, vertical, tile: TILE, tileCss: { width: round(TILE * sx), height: round(TILE * sy) } }, metrics, collisions, candidates, sheets };
-  });
+    return { date: '2026-11-14', scene: nativeCamera?'Read-only synthetic Renderer scale scenes on the shared native camera; all current bodies and an independently derived Golem token. No combat or CR pixel-parity claim.':'Read-only synthetic Renderer scale scenes; no combat validation. All current keys plus a separately derived Golem token and two replacement candidates.', measurementThresholds: { native: 1, paintedCore: 128, note: 'All nonzero-alpha bounds are also retained per sample; core bounds exclude almost-transparent atlas fringes after projection.' }, coverage: { allKeys: Object.keys(CARDS).length, bodyKeys: entries.filter(e => e.scope === 'catalogue').length, measuredBodies: entries.length, species: new Set(entries.map(e => e.card.id)).size, missingCandidates, effects: Object.entries(CARDS).filter(([, c]) => !c.id).map(([key]) => ({ key, reference: CARD_EQUIVALENTS[key]?.reference || null })) }, viewport: { width: 390, height: 844, arenaCssWidth: rect.width, arenaCssHeight: rect.height, sx, sy, vertical, tile: TILE, tileCss: { width: round(TILE * sx), height: round(TILE * sy) },camera:nativeCamera?ARENA_CAMERA:null }, metrics, collisions, candidates, sheets };
+  },nativeCamera);
   assert.equal(report.coverage.bodyKeys, report.metrics.filter(m => m.scope === 'catalogue').length);
   assert.ok(report.metrics.every(m => m.actualRestCycle.minWidth > 0 && m.actualRestCycle.minHeight > 0)); assert.deepEqual(errors, []);
   for (const sheet of report.sheets) { const bytes = Buffer.from(sheet.png, 'base64'); await writeFile(path.join(out, sheet.name), bytes); sheet.sha256 = hash(bytes); delete sheet.png; }
-  report.gitHead = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8', windowsHide: true }).trim();
+  report.gitHead = capturedHead;
   report.sourceHashes = sourceHashes; report.frozenInputFiles = frozen.size; report.changedAfterFreeze = [];
   for (const file of inputs) if (hash(await readFile(path.join(root, file))) !== sourceHashes[file]) report.changedAfterFreeze.push(file);
   await writeFile(path.join(out, 'measurements.json'), JSON.stringify(report, null, 2) + '\n');
