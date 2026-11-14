@@ -503,7 +503,7 @@ export class Game {
       if(!this.validTarget(unit,t))return false;
       if(unit.card.building&&t.card?.structure&&!this.withinPullLane(unit,t))return false;
       if(unit.card.structure)return distance(unit,t)<=unit.card.range+t.radius;
-      return 'king'in t||distance(unit,t)<=(t.card.structure?(unit.card.building?unit.card.pullRange||300:Math.max(220,unit.card.sightRange||0)):Math.max(165,unit.card.sightRange||0));
+      return 'king'in t||distance(unit,t)<=(t.card.structure?(unit.card.building?unit.card.pullRange||300:Math.max(220,unit.card.sightRange||0)):(unit.card.sightRange??165));
     });
     candidates.sort((a,b)=>distance(unit,a)-distance(unit,b));return candidates[0]||null;
   }
@@ -885,7 +885,7 @@ export class Game {
       if(unit.card.summon){unit.summonClock-=dt;if(unit.summonClock<=0){unit.summonClock+=unit.card.summonEvery;unit.summonCycle=unit.card.summonEvery;const alive=this.units.filter(u=>u.parentId===unit.id&&u.hp>0).length;this.spawnReinforcements(unit,unit.card.summon,Math.max(0,Math.min(unit.card.summonCount||1,(unit.card.summonMax||3)-alive)));}}
       if(unit.card.heal){unit.healClock-=dt;if(unit.healClock<=0){unit.healClock=unit.card.healEvery;this.healNearby(unit,unit.card.heal,unit.card.healRadius,unit.card.healAll);}}
       if(unit.card.structure&&unit.target&&distance(unit,unit.target)>unit.card.range+unit.target.radius||unit.card.building&&unit.target?.card?.structure&&!this.withinPullLane(unit,unit.target)){unit.target=null;unit.engaged=false;unit.attackSeq++;unit.attack=0;}
-      if(!this.validTarget(unit,unit.target)||(unit.target?.card&&distance(unit,unit.target)>(unit.card.building?unit.card.pullRange||300:Math.max(240,unit.card.sightRange||0)))){unit.target=null;unit.engaged=false;}
+      if(!this.validTarget(unit,unit.target)||(unit.target?.card&&distance(unit,unit.target)>(unit.target.card.structure?(unit.card.building?unit.card.pullRange||300:Math.max(240,unit.card.sightRange||0)):(unit.card.sightRange??165))&&!(unit.engaged&&unit.attack>0&&distance(unit,unit.target)<=unit.card.range+unit.target.radius+12))){if(unit.target){unit.attackSeq++;unit.attack=0;}unit.target=null;unit.engaged=false;}
       if(unit.target&&unit.engaged&&unit.attack<=0&&distance(unit,unit.target)>unit.card.range+unit.target.radius+45)unit.engaged=false;
       if(!unit.engaged){
         const nearest=this.acquire(unit);
