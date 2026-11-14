@@ -94,7 +94,7 @@ test('an area projectile reports the exact ground center and radius it damaged, 
 test('area feedback draws the real footprint without increasing single-target contact flashes',()=>{
   const effects=[],calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{effects,particles:[],verticalScale:1,reduced:false,combatArt:(c,art,x,y,size)=>calls.push({art,x,y,size})});
   renderer.onEvent({type:'hit',key:'nuzleaf',style:'leaf',x:300,y:280,radius:0});assert.equal(effects[0].kind,'artImpact');assert.ok(effects[0].visualSize<30);
-  const ctx=new Proxy({globalAlpha:1},{get:(o,k)=>o[k]??((...args)=>{if(k==='arc')calls.push({radius:args[2]});}),set:(o,k,v)=>(o[k]=v,true)});
+  const ctx=new Proxy({globalAlpha:1,createRadialGradient:()=>({addColorStop(){}})},{get:(o,k)=>o[k]??((...args)=>{if(k==='arc')calls.push({radius:args[2]});}),set:(o,k,v)=>(o[k]=v,true)});
   renderer.areaImpact(ctx,{x:300,y:300,radius:180,art:'explosion',style:'ember'},.35);assert.ok(calls.some(c=>c.radius===180));assert.ok(calls.filter(c=>c.size).every(c=>c.size<=72));
   renderer.onEvent({type:'hit',key:'forretress',style:'slam',x:300,y:280,groundX:300,groundY:300,radius:60,structuresOnly:true});assert.equal(effects.filter(e=>e.kind==='areaImpact').length,0);
 });

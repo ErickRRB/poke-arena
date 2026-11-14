@@ -9,7 +9,7 @@ for(const key of['spikes','stealthRock','whirlpool','nightmare','earthquake'])te
   for(let frame=0;frame<240&&!game.fields.length;frame++)game.step(1/60);
   assert.equal(game.fields.length,1,'a real cast must create its real field');
   const physical=JSON.stringify(game.fields),calls=[],effects=[];
-  const ctx=new Proxy({}, {get:(object,name)=>object[name]??((...args)=>calls.push({name,args})),set:(object,name,value)=>(object[name]=value,true)});
+  const ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}})}, {get:(object,name)=>object[name]??((...args)=>calls.push({name,args})),set:(object,name,value)=>(object[name]=value,true)});
   const renderer=Object.assign(Object.create(Renderer.prototype),{t:.5,reduced:false,verticalScale:1,
     combatArt:(...args)=>effects.push({kind:'combatArt',args}),battleArt:{tile:(...args)=>effects.push({kind:'tile',args}),draw:(...args)=>effects.push({kind:'draw',args})}});
   renderer.field(ctx,game.fields[0],false);renderer.field(ctx,game.fields[0],true);

@@ -4,7 +4,7 @@ import { Renderer } from '../dist/render.js';
 import { Game, CARDS } from '../dist/engine.js';
 import {spellPreviewTargets} from '../dist/spell-preview.js';
 function drawing(key){
-  const calls=[];const ctx=new Proxy({}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
+  const calls=[];const ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}})}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
   const game=new Game({seed:433});game.start();game.aiEnabled=false;game.energy[0]=10;game.deploymentThreats=()=>[];
   const renderer=Object.assign(Object.create(Renderer.prototype),{selection:key,pointer:{x:288,y:508},t:0,reduced:true,sprite(){}});
   return{game,renderer,ctx,calls};
@@ -45,7 +45,7 @@ test('leaving the arena removes every spell aiming indicator even if the card st
 test('an unaffordable spell retains its range without a central invalid-placement cross',()=>{
  const {game,renderer,ctx,calls}=drawing('fireball');game.energy[0]=0;renderer.drawPlacement(ctx,game);
  assert.equal(calls.filter(c=>c.method==='arc').length,1);
- assert.equal(calls.filter(c=>c.method==='moveTo'||c.method==='lineTo').length,8,'only the four range ticks remain');
+ assert.equal(calls.filter(c=>c.method==='moveTo'||c.method==='lineTo'||c.method==='stroke').length,0,'the area fades without ticks, an outline or a center cross');
 });
 
 test('no cast or travelling spell announces its landing position after aiming ends',()=>{
@@ -67,10 +67,12 @@ test('Rueda Fuego previews only its deployment cell, with no path, corridor or s
     const anchor=game.resolveDeployment(team,'log',renderer.pointer.x,renderer.pointer.y);
     assert.ok(anchor);assert.ok(Math.hypot(anchor.x-renderer.pointer.x,anchor.y-renderer.pointer.y)>24);
     renderer.drawPlacement(ctx,game);
-    assert.deepEqual(calls.filter(c=>c.method==='fillRect').map(c=>c.args),[[anchor.x-12,anchor.y-12,24,24]]);
+    const fills=calls.filter(c=>c.method==='fillRect').map(c=>c.args);
+    assert.deepEqual(fills[0],[anchor.x-12,anchor.y-12,24,24]);
+    assert.ok(fills.every(([x,y,w,h])=>x>=anchor.x-12&&y>=anchor.y-12&&x+w<=anchor.x+12&&y+h<=anchor.y+12));
     assert.equal(calls.filter(c=>['arc','ellipse','strokeRect','setLineDash','closePath'].includes(c.method)).length,0);
     const points=calls.filter(c=>['moveTo','lineTo'].includes(c.method));
-    assert.equal(points.length,16);
+    assert.equal(points.length,0);
     for(const {args:[x,y]}of points){assert.ok(Math.abs(x-anchor.x)<=12);assert.ok(Math.abs(y-anchor.y)<=12);}
   }
 });

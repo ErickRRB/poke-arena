@@ -4,7 +4,7 @@ import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=32';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=26';
 import {combatVisual,projectileVisual,movementVisual,fireballVisual,isRangedAttack} from './combat-visuals.js?v=29';
 import { spellPreviewTargets } from './spell-preview.js?v=28';
-import {areaGuide,cellGuide,travelGuide} from './targeting-art.js?v=32';
+import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=32';
 import { FlightWings } from './wing-motion.js';
 import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js';
 
@@ -590,10 +590,9 @@ export class Renderer {
   }
   areaImpact(c,e,progress){
     const radius=e.radius,fade=1-progress,color=e.color||'#dfdab0',vertical=this.verticalScale||1;
-    c.save();c.beginPath();c.arc(e.x,e.y,radius,0,Math.PI*2);c.clip();
-    c.save();c.globalAlpha*=.09*Math.max(0,1-progress*2);c.fillStyle=color;c.fill();c.restore();
-    // A brief expanding ground ripple communicates the true splash boundary.
-    c.save();c.globalAlpha*=.5*Math.max(0,1-progress*1.45);c.beginPath();c.arc(e.x,e.y,radius*(.35+.65*Math.min(1,progress*4)),0,Math.PI*2);c.strokeStyle='#293c3f';c.lineWidth=3*(1-progress)+1;c.stroke();c.strokeStyle=color;c.lineWidth=1.5*(1-progress)+.5;c.stroke();c.restore();
+    c.save();
+    softDisc(c,e.x,e.y,radius,{color,opacity:.27*Math.max(0,1-progress*1.45)});
+    c.beginPath();c.arc(e.x,e.y,radius,0,Math.PI*2);c.clip();
     if(['leaf','poison','powder','bite','slash'].includes(e.style)){
       const count=this.reduced?4:8,size=Math.min(17,Math.max(10,radius*.27)),spread=this.reduced?.72:.15+Math.sin(Math.min(1,progress)*Math.PI/2)*.75;
       for(let i=0;i<count;i++){
@@ -710,19 +709,13 @@ export class Renderer {
     if(!card||(card.spell||this.placementWhenPaused)&&!this.pointer||game.state!=='playing'&&!(this.placementWhenPaused&&game.state==='paused'))return;
     c.save();
     if(this.selection){
-      // Keep the terrain bright; legal cells and their frontier carry placement feedback.
+      // The quiet grid marks legal cells without outlining blocked tower holes.
       const cells=Array.from({length:DEPLOY_GRID.rows},(_,row)=>Array.from({length:DEPLOY_GRID.columns},(_,col)=>game.canDeploy(team,key,DEPLOY_GRID.left+col*TILE+TILE/2,DEPLOY_GRID.top+row*TILE+TILE/2)));
       if(!card.spell||card.rolling&&key!=='log')for(let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++){
         const x=DEPLOY_GRID.left+col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
         if(cells[row][col]){
           c.strokeStyle='#eef5d525';c.lineWidth=.65;
           c.strokeRect(x-TILE/2,y-TILE/2,TILE,TILE);
-          const neighbor=cells[row+(team?1:-1)];
-          if(neighbor&&!neighbor[col]){
-            const frontier=y+(team?1:-1)*TILE/2;
-            line(c,'#3e5339cc',x-TILE/2,frontier,x+TILE/2,frontier,3);
-            line(c,'#fff0ba',x-TILE/2+3,frontier,x+TILE/2-3,frontier,1);
-          }
         }
       }
       if(this.tutorialSpot)text(c,'D E S P L E G Á  A C Á',300,480,'#e0ecc7aa',10,500);
@@ -742,7 +735,7 @@ export class Renderer {
       if(!card.spell&&placement){
         const ranged=(card.squad?card.squad.map(k=>CARDS[k]):[card]).filter(isRangedAttack),range=Math.max(...ranged.map(member=>member.range));
         if(!card.passive&&ranged.length){
-        c.fillStyle='#e9e2a92b';c.strokeStyle='#e6ddb182';c.lineWidth=1.2;c.beginPath();c.arc(point.x,point.y,range,0,Math.PI*2);c.fill();c.stroke();
+        softDisc(c,point.x,point.y,range,{color:'#fff6df',opacity:.2});
         }
         for(const enemy of game.deploymentThreats(team,key,point.x,point.y)){
           const height='king'in enemy?(enemy.king?106:96):this.bodyHeight(enemy,23)+25;
@@ -752,14 +745,12 @@ export class Renderer {
         }
       }
       if(card.spell&&!card.rolling){
-        areaGuide(c,point.x,point.y,card.splash,{team,valid});
+        areaGuide(c,point.x,point.y,card.splash,{team,valid,color:card.color});
       }
       if((!card.spell||card.rolling)&&valid&&this.selection){
         const positions=card.rolling?[point]:game.deploymentPositions(team,key,point.x,point.y);
         for(const [index,position]of positions.entries()){
-          const left=position.x-TILE/2,top=position.y-TILE/2,corner=6;
-          c.fillStyle='#f4e4a93d';c.fillRect(left,top,TILE,TILE);
-          for(const [cx,cy,dx,dy]of[[left,top,1,1],[left+TILE,top,-1,1],[left,top+TILE,1,-1],[left+TILE,top+TILE,-1,-1]]){line(c,'#f5e4aa',cx,cy,cx+dx*corner,cy,2);line(c,'#f5e4aa',cx,cy,cx,cy+dy*corner,2);}
+          cellGuide(c,position.x,position.y,TILE,valid);
           if(!card.spell){const previewCard=CARDS[card.squad?.[index]]||card;c.globalAlpha=.55;this.sprite(c,{...position,card:previewCard,preview:true,team,dx:0,dy:team?1:-1,anim:this.t,id:-1-index,lifetime:card.lifetime},true);c.globalAlpha=1;}
         }
       }
@@ -770,6 +761,7 @@ export class Renderer {
   field(c,f,front=false){
     const radius=f.radius,age=f.duration?f.duration-f.life:this.t;
     c.save();c.globalAlpha=Math.min(1,f.life*2);
+    if(!front)softDisc(c,f.x,f.y,radius,{color:CARDS[f.key]?.color||'#b8cad1',opacity:f.key==='whirlpool'?.24:.1});
     if(f.key==='stealthRock'){
       for(let i=0;i<9;i++){
         const a=i*2.39996,r=Math.sqrt((i+.5)/9)*radius*.83,x=f.x+Math.cos(a)*r,y=f.y+Math.sin(a)*r;
@@ -780,10 +772,6 @@ export class Renderer {
       this.combatArt(c,front?'nightmareFront':'nightmareBack',f.x,f.y,radius*2.4,0,radius*2.4,{age:this.reduced?.3:age,blend:!this.reduced});
     }else if(!front){
       if(f.key==='whirlpool'){
-        // The visible water reaches the same boundary as the affected zone.
-        c.save();c.beginPath();c.arc(f.x,f.y,radius,0,Math.PI*2);c.clip();c.globalAlpha*=.45;
-        const frame=this.reduced?0:Math.floor(this.t*8)%10;
-        this.battleArt.tile(c,'water',0,frame*144+32,216,24,f.x-radius,f.y-radius,radius*2,radius*2);c.restore();
         this.battleArt.draw(c,'whirlpool',f.x,f.y,radius*1.95,radius*1.95,{age:this.reduced?.8:age,trim:true,blend:!this.reduced});
       }else if(f.key==='spikes'){
         for(let i=0;i<15;i++){const a=i*2.39996,r=Math.sqrt((i+.5)/15)*radius*.85;this.combatArt(c,'spikes',f.x+Math.cos(a)*r,f.y+Math.sin(a)*r,22,0,22,{frame:i%3});}

@@ -7,7 +7,7 @@ import {BATTLE_ASSETS} from '../dist/assets/battle/manifest.js';
 import { packGame, unpackGame, packEvent, perspective } from '../dist/snapshot.js';
 
 function setup(){
-  const calls=[],ctx=new Proxy({}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
+  const calls=[],ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}})}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
   const battleArt=new BattleArt(async()=>({}));for(const asset of Object.values(BATTLE_ASSETS))battleArt.images.set(asset.file,{});
   const renderer=Object.assign(Object.create(Renderer.prototype),{battleArt,frameActors:new Map(),effects:[],particles:[],numbers:[],bodyHeights:new Map(),healthStates:new Map(),t:0,reduced:false,verticalScale:1,ensureSpecies:async()=>{}});
   const game=new Game({seed:913,onEvent:e=>renderer.onEvent(e)});
