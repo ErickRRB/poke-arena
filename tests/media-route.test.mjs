@@ -1,6 +1,6 @@
 import{test}from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';import worker from'../dist/server/index.js';
 test('the public test arena and its shared battle dependencies are included in the hosted Worker',async()=>{
-  for(const file of['testing.html','testing.js','testing.css','sandbox.js','quick-stats.js','quick-stats.css','attack-choreography.js','wing-motion.js','wing-rigs.js','knockback-profiles.js','targeting-art.js','assets/ui/pokeball-v2.webp','assets/battle/arena-ground-v2.webp','assets/battle/arena-bridge-v2.webp','assets/battle/riverbank-v2.webp']){
+  for(const file of['testing.html','testing.js','testing.css','sandbox.js','quick-stats.js','quick-stats.css','attack-choreography.js','wing-motion.js','wing-rigs.js','knockback-profiles.js','targeting-art.js','loader-art.js','assets/ui/pokeball-pixel-v1.svg','assets/audio/feedback/bow-release.ogg','assets/audio/feedback/CREDITS.txt','assets/battle/arena-ground-v2.webp','assets/battle/arena-bridge-v2.webp','assets/battle/riverbank-v2.webp']){
     const response=await worker.fetch(new Request('https://arena.test/'+file),{});assert.equal(response.status,200,file);assert.deepEqual(Buffer.from(await response.arrayBuffer()),readFileSync(new URL('../dist/'+file,import.meta.url)),file);
   }
 });

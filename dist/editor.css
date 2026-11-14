@@ -62,4 +62,4 @@
 .collection .pokemon-card[data-rarity=legendaria]>.card-heading>.card-name,.deck-strip .pokemon-card[data-rarity=legendaria]>.card-heading>.card-name{padding:0}
 .deck-strip .pokemon-card[data-rarity=legendaria]>.card-heading{top:max(18px,calc(13.125% - 3px))}
 .collection .pokemon-card[data-rarity=legendaria]>.card-role{bottom:max(10px,calc(8.75% - .5px));left:11%;right:11%;padding:0;z-index:3}
-.brand-ball{border:0;border-radius:0;background:transparent url("assets/ui/pokeball-v2.webp") center/contain no-repeat}.brand-ball:before,.brand-ball:after{display:none}.loading-base{filter:grayscale(1);opacity:.45}
+.brand-ball{border:0;border-radius:0;background:transparent url("assets/ui/pokeball-pixel-v1.svg") center/contain no-repeat}.brand-ball:before,.brand-ball:after{display:none}.loading-base{filter:grayscale(1)}
