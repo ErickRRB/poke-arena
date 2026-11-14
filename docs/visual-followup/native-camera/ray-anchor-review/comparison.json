@@ -1,0 +1,150 @@
+{
+  "reference588": {
+    "status": "Presentation rejected by Root; retained only as comparison",
+    "camera": {
+      "left": 6,
+      "top": -88,
+      "width": 588,
+      "height": 900
+    },
+    "rayScale": 1.3125,
+    "rayAnchor": "body",
+    "fieldCss": {
+      "width": 271.8367346938776,
+      "height": 483.26530612244903
+    },
+    "canvasAreaFraction": 0.5244491309320282
+  },
+  "candidates": [
+    {
+      "name": "A540-foot125",
+      "capturedHead": "7688fbfe2c65980040e55717ea5d69c1d78b9181",
+      "camera": {
+        "left": 30,
+        "top": -120,
+        "width": 540,
+        "height": 932
+      },
+      "fieldCss": {
+        "width": 296,
+        "height": 526.2222222222223,
+        "widthFractionOfCanvas": 0.8,
+        "heightFractionOfCanvas": 0.7772854094862959
+      },
+      "canvasAreaFraction": 0.6218283275890367,
+      "image": "A540-foot125/390-roles-reading.png",
+      "kind": "Controlled native-size reference, not a simulated paid deployment. All four positions pass actual canDeploy; profile stats and native sprites are unchanged.",
+      "roles": [
+        {
+          "name": "Golem",
+          "role": "Win condition · tanque",
+          "scale": 3.25,
+          "colliderRadius": 18,
+          "hp": 5120,
+          "bodyCss": {
+            "width": 62.35185185185185,
+            "height": 46.76388888888886
+          }
+        },
+        {
+          "name": "Rayquaza",
+          "role": "Tanque aéreo · apoyo",
+          "scale": 1.25,
+          "colliderRadius": 12,
+          "hp": 3000,
+          "bodyCss": {
+            "width": 43.6805555555556,
+            "height": 53.95833333333337
+          }
+        },
+        {
+          "name": "Pikachu",
+          "role": "Control · antiaéreo",
+          "scale": 1.5556,
+          "colliderRadius": 12,
+          "hp": 714,
+          "bodyCss": {
+            "width": 22.383355555555582,
+            "height": 25.580977777777775
+          }
+        },
+        {
+          "name": "Roselia",
+          "role": "Tirador · área",
+          "scale": 1.7143,
+          "colliderRadius": 12,
+          "hp": 261,
+          "bodyCss": {
+            "width": 30.53993703703702,
+            "height": 24.66687222222231
+          }
+        }
+      ]
+    },
+    {
+      "name": "B528-foot115",
+      "capturedHead": "7688fbfe2c65980040e55717ea5d69c1d78b9181",
+      "camera": {
+        "left": 36,
+        "top": -120,
+        "width": 528,
+        "height": 932
+      },
+      "fieldCss": {
+        "width": 302.72727272727275,
+        "height": 538.1818181818182,
+        "widthFractionOfCanvas": 0.8181818181818182,
+        "heightFractionOfCanvas": 0.7949509869746207
+      },
+      "canvasAreaFraction": 0.6504144438883261,
+      "image": "B528-foot115/390-roles-reading.png",
+      "kind": "Controlled native-size reference, not a simulated paid deployment. All four positions pass actual canDeploy; profile stats and native sprites are unchanged.",
+      "roles": [
+        {
+          "name": "Golem",
+          "role": "Win condition · tanque",
+          "scale": 3.25,
+          "colliderRadius": 18,
+          "hp": 5120,
+          "bodyCss": {
+            "width": 63.768939393939405,
+            "height": 47.82670454545462
+          }
+        },
+        {
+          "name": "Rayquaza",
+          "role": "Tanque aéreo · apoyo",
+          "scale": 1.15,
+          "colliderRadius": 12,
+          "hp": 3000,
+          "bodyCss": {
+            "width": 41.09943181818181,
+            "height": 50.76988636363626
+          }
+        },
+        {
+          "name": "Pikachu",
+          "role": "Control · antiaéreo",
+          "scale": 1.5556,
+          "colliderRadius": 12,
+          "hp": 714,
+          "bodyCss": {
+            "width": 22.892068181818203,
+            "height": 26.162363636363693
+          }
+        },
+        {
+          "name": "Roselia",
+          "role": "Tirador · área",
+          "scale": 1.7143,
+          "colliderRadius": 12,
+          "hp": 261,
+          "bodyCss": {
+            "width": 31.23402651515147,
+            "height": 25.227482954545394
+          }
+        }
+      ]
+    }
+  ]
+}

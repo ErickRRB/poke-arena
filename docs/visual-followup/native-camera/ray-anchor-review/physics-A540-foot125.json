@@ -1,0 +1,50 @@
+{
+  "visual": {
+    "movementAnchor": "foot",
+    "scale": 1.25
+  },
+  "physicalProfile": {
+    "cost": 8,
+    "hp": 3000,
+    "damage": 230,
+    "range": 170,
+    "speed": 32,
+    "interval": 1.8,
+    "projectileSpeed": 480,
+    "projectileRange": 264,
+    "shotRadius": 6,
+    "flying": true,
+    "air": true,
+    "windup": 0.3,
+    "attackDuration": 0.75,
+    "attackContactFrame": 2,
+    "style": "psychic"
+  },
+  "cases": [
+    {
+      "name": "ray-left-defence",
+      "sha256": "f8611c3bb688efcfa4a92ec8e6fa68dcd7a22f7e23f69251702b2bc622b199b1",
+      "identical": true
+    },
+    {
+      "name": "ray-right-defence",
+      "sha256": "d0c749b3e7f910c47a3ed0ce6b9a438b21fe522900ef46b12142073231184c6b",
+      "identical": true
+    },
+    {
+      "name": "ray-top-defence",
+      "sha256": "36b0eefbd9ec77c8b99e86357d83c736da494a4cba5c3e5df335668d929e273e",
+      "identical": true
+    },
+    {
+      "name": "golem-left-log",
+      "sha256": "a104fd53623f117587c78e9720b096c308649108954a241c3ac8449933fd3f0a",
+      "identical": true
+    },
+    {
+      "name": "golem-right-log",
+      "sha256": "68f3eb5e0a61c5743f07442b0fded76dd6f21c2d3d2f4f685fac6cd6dfe5c979",
+      "identical": true
+    }
+  ]
+}
