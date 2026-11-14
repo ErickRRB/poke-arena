@@ -48,6 +48,13 @@ test('two cards at the same position retain separate deployment indicators',()=>
   assert.equal(result.length,2);assert.notEqual(result[0].id,result[1].id);
 });
 
+test('deployment uses the original shared Pokeball and a small meter without a background panel',()=>{
+  const{renderer,ctx,calls}=setup();renderer.deploymentIndicator(ctx,{x:300,top:450},.5);
+  assert.equal(BATTLE_ASSETS.pokeball.file,'assets/ui/pokeball-v2.webp');assert.equal(BATTLE_ASSETS.pokeball.width,64);
+  assert.ok(calls.filter(call=>call.method==='fillRect').every(call=>call.args[3]<=3));
+  assert.ok(calls.some(call=>call.method==='drawImage'));
+});
+
 test('an eliminated member does not remove its surviving swarm indicator',()=>{
   const{game,renderer}=setup();deploy(game,'diglettHorde');
   game.units[0].hp=0;

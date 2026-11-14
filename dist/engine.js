@@ -17,6 +17,13 @@ export const KING_Y = [706, 94];
 // Include the snapped cells beside the lane center when reaching midbridge.
 export const PRINCESS_RANGE = Math.ceil(Math.hypot(PRINCESS_Y[0] - H / 2, TILE));
 export const LANES = [158, 442];
+export function spellOverlapsTarget(card,point,target){
+  const radius=card.splash??card.radius??0;
+  // Crown towers receive spells on their two-cell square footprint. Other
+  // bodies overlap by their full collision radius, rather than 40% of it.
+  if('king'in target){const dx=Math.max(0,Math.abs(target.x-point.x)-TILE),dy=Math.max(0,Math.abs(target.y-point.y)-TILE);return Math.hypot(dx,dy)<radius;}
+  return Math.hypot(target.x-point.x,target.y-point.y)<radius+(target.radius||0);
+}
 export function projectileProfile(card={}){
   const style=card.style;
   return{speed:card.projectileSpeed??({bubble:270,rock:235,egg:235,hydro:420,coin:470,psychic:480}[style]||310),arc:card.projectileArc??({rock:65,egg:55,ember:42,ice:12,bubble:16}[style]||0)};
@@ -274,7 +281,7 @@ export class Game {
     return u;
   }
   damage(target, amount, team, { stun = 0, freeze = 0, slow = 0, burn = 0, burnKind = 'fire', dot = false, sourceId = 0, sourceKey = '', reflected = false, poisonField = 0, affectsHidden = false } = {}) {
-    if (target.hp <= 0 || this.state !== 'playing'||target.burrowed&&!affectsHidden) return;
+    if (target.hp <= 0 || this.state !== 'playing'||target.burrowed&&!affectsHidden||target.dash?.phase==='travel'&&target.card?.dashInvulnerable) return;
     amount*=1-(target.card?.armor||0);const shielded=target.shield>0,absorbed=Math.min(target.shield||0,amount);target.shield=Math.max(0,(target.shield||0)-absorbed);amount=shielded?0:amount;
     const actual = Math.min(target.hp, amount)+absorbed;
     target.hp = Math.max(0, target.hp - amount);
@@ -393,7 +400,7 @@ export class Game {
   stepFields(dt){
     for(const f of this.fields){
       const active=Math.min(dt,Math.max(0,f.life));f.life=Math.max(0,f.life-active);f.tick-=active;
-      const targets=[...this.units,...this.towers].filter(t=>t.team!==f.team&&t.hp>0&&(!t.burrowed||f.affectsHidden)&&(t.spawn===undefined||t.spawn<=0)&&(!t.card?.flying||f.air)&&distance(t,f)<f.radius+(t.radius||0)*(f.key ? .4 : 1));
+      const targets=[...this.units,...this.towers].filter(t=>t.team!==f.team&&t.hp>0&&(!t.burrowed||f.affectsHidden)&&(t.spawn===undefined||t.spawn<=0)&&(!t.card?.flying||f.air)&&(f.key?spellOverlapsTarget(f,f,t):distance(t,f)<f.radius+(t.radius||0)));
       for(const target of targets)if(target.card){
         if(f.slow)target.slow=Math.max(target.slow||0,f.slow);
         if(f.pull&&!target.card.structure&&!target.leap){
@@ -717,7 +724,7 @@ export class Game {
     this.deploy(1, choice.i, x, y);
   }
   spellValue(card,point){
-    return [...this.units,...this.towers].filter(t=>t.team===0&&t.hp>0&&(!card.groundOnly||!t.card?.flying)&&distance(t,point)<card.splash+t.radius*.4)
+    return [...this.units,...this.towers].filter(t=>t.team===0&&t.hp>0&&(!card.groundOnly||!t.card?.flying)&&spellOverlapsTarget(card,point,t))
       .sort((a,b)=>b.hp-a.hp).slice(0,card.targetLimit||Infinity).reduce((sum,t)=>sum+('king'in t?card.towerDamage||card.fieldTowerDamage||0:Math.min(t.hp,(card.damage||0)+(card.fieldDamage||0)*(card.fieldDuration||0)*(t.card.structure?card.buildingMultiplier||1:1))),0);
   }
   tickStatus(entity,dt) {
@@ -731,6 +738,13 @@ export class Game {
     }
   }
   blink(unit,target) {
+    if(unit.card.dash){
+      const d=distance(unit,target),sameBank=unit.y<RIVER.top&&target.y<RIVER.top||unit.y>RIVER.bottom&&target.y>RIVER.bottom;
+      if(unit.dash||unit.blinkCooldown>0||unit.attack>0||d<unit.card.dashMin||d>unit.card.dashMax||!sameBank)return false;
+      unit.attackSeq++;unit.attack=unit.attackDuration=unit.attackWindup=unit.card.dashWindup;unit.engaged=true;this.face(unit,target);
+      unit.dash={phase:'windup',elapsed:0,targetId:target.id,startX:unit.x,startY:unit.y};
+      this.emit('dashWindup',{unit,duration:unit.card.dashWindup});return true;
+    }
     if(!unit.card.blink||unit.blinkCooldown>0||distance(unit,target)>155||distance(unit,target)<65)return false;
     if(!((unit.y<RIVER.top&&target.y<RIVER.top)||(unit.y>RIVER.bottom&&target.y>RIVER.bottom)))return false;
     const from={x:unit.x,y:unit.y},d=distance(unit,target)||1,reach=unit.card.range+target.radius-3;
@@ -738,6 +752,29 @@ export class Game {
     if(x<46||x>554||y<42||y>758||this.towers.some(t=>t.hp>0&&distance(t,{x,y})<t.radius+unit.radius*.7))return false;
     unit.x=x;unit.y=y;unit.blinkCooldown=unit.card.blink;this.face(unit,target);
     this.emit('blink',{from,to:{x,y},unit});return true;
+  }
+  stepDash(unit,dt){
+    const dash=unit.dash,target=[...this.units,...this.towers].find(t=>t.id===dash.targetId);
+    if(!this.validTarget(unit,target)||unit.stun>0){unit.dash=null;unit.attack=0;unit.engaged=false;return;}
+    dash.elapsed+=dt;
+    if(dash.phase==='windup'){
+      if(dash.elapsed+1e-7<unit.card.dashWindup)return;
+      const d=distance(unit,target),reach=unit.card.range+target.radius-3;
+      const sameBank=unit.y<RIVER.top&&target.y<RIVER.top||unit.y>RIVER.bottom&&target.y>RIVER.bottom;
+      if(d<unit.card.dashMin||d>unit.card.dashMax||!sameBank){unit.dash=null;unit.attack=0;unit.engaged=false;return;}
+      const end=this.constrainMovement(unit,target.x+(unit.x-target.x)/d*reach,target.y+(unit.y-target.y)/d*reach);
+      Object.assign(dash,{phase:'travel',elapsed:0,startX:unit.x,startY:unit.y,endX:end.x,endY:end.y,duration:Math.max(.18,Math.hypot(end.x-unit.x,end.y-unit.y)/unit.card.dashSpeed)});
+      unit.blinkCooldown=unit.card.blink;unit.attack=0;unit.moving=true;this.face(unit,target);
+      this.emit('dashStart',{unit,from:{x:dash.startX,y:dash.startY},to:{x:dash.endX,y:dash.endY},duration:dash.duration});return;
+    }
+    const progress=Math.min(1,dash.elapsed/dash.duration);unit.x=dash.startX+(dash.endX-dash.startX)*progress;unit.y=dash.startY+(dash.endY-dash.startY)*progress;unit.moving=true;
+    if(progress<1)return;
+    unit.dash=null;unit.cooldown=unit.card.interval;unit.attackDuration=.4;unit.attackWindup=0;unit.attack=.4;
+    if(distance(unit,target)<=unit.card.range+target.radius+8){
+      const from=this.muzzle(unit),to=aimPoint(target);this.strike(unit,target,unit.card.damage*unit.card.dashMultiplier,unit.card);
+      this.emit('attackRelease',{attacker:unit,target,key:unit.key,style:'dash',from,to,shot:0,charged:true});
+      this.emit('melee',{sourceId:unit.id,targetId:target.id,key:unit.key,team:unit.team,style:'dash',from,to,charged:true});
+    }
   }
   step(dt) {
     if (this.state !== 'playing') return;
@@ -785,7 +822,7 @@ export class Game {
       spell.done = true;
       if(spell.card.spawnOnImpact)this.summonSpell(spell);
       if(spell.card.fieldDuration)this.spellField(spell);
-      let targets = [...this.units, ...this.towers].filter(t => t.team !== spell.team && t.hp > 0 && (!t.burrowed||spell.card.affectsHidden) && (t.spawn === undefined || t.spawn <= 0) && (!spell.card.groundOnly||!t.card?.flying) && distance(t, spell) < spell.card.splash + t.radius * .4);
+      let targets = [...this.units, ...this.towers].filter(t => t.team !== spell.team && t.hp > 0 && (!t.burrowed||spell.card.affectsHidden) && (t.spawn === undefined || t.spawn <= 0) && (!spell.card.groundOnly||!t.card?.flying) && spellOverlapsTarget(spell.card,spell,t));
       if(spell.card.targetLimit)targets=targets.sort((a,b)=>b.hp-a.hp||a.id-b.id).slice(0,spell.card.targetLimit);
       for (const target of targets) {
         if(spell.card.damage>0)this.damage(target, 'king' in target ? spell.card.towerDamage : spell.card.damage, spell.team, {...spell.card,sourceKey:spell.key});
@@ -813,6 +850,7 @@ export class Game {
     for (const unit of this.units) {
       if (unit.hp <= 0) continue;
       unit.spawn = Math.max(0, unit.spawn - dt);this.tickStatus(unit,dt);
+      if(unit.hp<=0)continue;
       if(unit.spawn<=0&&unit.entryPending){
         unit.entryPending=false;
         for(const target of [...this.units,...this.towers])if(target.team!==unit.team&&target.hp>0&&!target.burrowed&&(target.spawn===undefined||target.spawn<=0)&&distance(target,unit)<=unit.card.entryRadius+target.radius*.4){
@@ -822,13 +860,15 @@ export class Game {
       }
       unit.cooldown-=dt;unit.anim+=dt;unit.blinkCooldown=Math.max(0,unit.blinkCooldown-dt);
       unit.moving = false;
+      if(unit.dash&&unit.stun>0){unit.dash=null;unit.attack=0;unit.engaged=false;}
       if(unit.card.structure&&unit.spawn<=0){
         unit.hp=Math.max(0,unit.hp-unit.maxHp/unit.card.lifetime*dt);unit.lifetime=unit.card.lifetime*unit.hp/unit.maxHp;
         if(unit.lifetime<=1e-7||unit.hp<=0){unit.hp=0;this.unitDeath(unit,1-unit.team);continue;}
       }
+      if(unit.spawn<=0&&unit.ttl>0){unit.ttl-=dt;if(unit.ttl<=0){this.retireUnit(unit);continue;}}
       if (unit.spawn > 0 || unit.stun > 0 || unit.burrowed) continue;
+      if(unit.dash){this.stepDash(unit,dt);continue;}
       if(unit.leap){this.stepLeap(unit,dt);continue;}
-      if(unit.ttl>0){unit.ttl-=dt;if(unit.ttl<=0){this.retireUnit(unit);continue;}}
       if(unit.card.summon){unit.summonClock-=dt;if(unit.summonClock<=0){unit.summonClock+=unit.card.summonEvery;unit.summonCycle=unit.card.summonEvery;const alive=this.units.filter(u=>u.parentId===unit.id&&u.hp>0).length;this.spawnReinforcements(unit,unit.card.summon,Math.max(0,Math.min(unit.card.summonCount||1,(unit.card.summonMax||3)-alive)));}}
       if(unit.card.heal){unit.healClock-=dt;if(unit.healClock<=0){unit.healClock=unit.card.healEvery;this.healNearby(unit,unit.card.heal,unit.card.healRadius,unit.card.healAll);}}
       if(unit.card.structure&&unit.target&&distance(unit,unit.target)>unit.card.range+unit.target.radius||unit.card.building&&unit.target?.card?.structure&&!this.withinPullLane(unit,unit.target)){unit.target=null;unit.engaged=false;unit.attackSeq++;unit.attack=0;}
@@ -842,8 +882,8 @@ export class Game {
       const target = unit.target;
       if (!target) continue;
       if(this.startLeap(unit,target))continue;
-      if(unit.card.copy&&target.card&&!target.card.structure&&!target.card.token){const copied={};for(const key of['damage','range','interval','style','burst','burstSpacing','bolts','stun','slow','burn','splash','air','chain','cone','pierce','projectileSpeed','projectileArc','projectileArt','rollingShot','projectileRange','shotRadius','knockback','lifesteal','poisonField','attackDuration'])if(key in target.card)copied[key]=target.card[key];unit.card={...unit.card,...copied,damage:Math.round(target.card.damage*.85),copy:false,attackAnim:'Attack'};this.emit('transform',{unit});}
-      this.blink(unit,target);
+      if(unit.card.copy&&target.card&&!target.card.structure&&!target.card.token){const copied={};for(const key of['damage','range','interval','style','burst','burstSpacing','bolts','stun','slow','burn','burnKind','splash','air','chain','cone','pierce','projectileSpeed','projectileArc','projectileArt','rollingShot','projectileRange','shotRadius','knockback','lifesteal','poisonField','attackDuration','windup'])if(key in target.card)copied[key]=target.card[key];unit.card={...unit.card,...copied,damage:Math.round(target.card.damage*.85),copy:false,attackAnim:'Attack'};this.emit('transform',{unit});}
+      if(this.blink(unit,target))continue;
       const reach = unit.card.range + target.radius;
       if (distance(unit, target) <= reach) { this.face(unit,target);if (unit.cooldown <= 0) this.attack(unit, target); }
       else if(!unit.card.structure&&unit.attack<=0)this.move(unit, target, dt);

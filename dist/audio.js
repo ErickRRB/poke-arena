@@ -160,11 +160,13 @@ export class SoundSystem {
     }
   }
   event(e) {
+    if(e.type==='dashWindup'){this.tone(230,.2,'sine',.018,120,(e.unit.x-300)/500);}
+    if(e.type==='dashStart')this.play('dash',e.from.x);
     if(e.type==='entry')this.play(e.style,e.x,true,0,e.unit.card.id);
     if(e.type==='ability'){this.play(e.unit.card.style,e.unit.x,true,0,e.unit.card.id);this.sample('foley:bell',e.unit.x,{volume:.2,rate:.65,maxDuration:.75});}
     if(e.type==='transform')this.play('shadow',e.unit.x);
     if(e.type==='attackRelease'){const id=e.attacker.card?.id||e.attacker.guard?.id;this.play(e.style,e.from.x,false,e.shot,id);}
-    if(e.type==='hit'&&['bubble','hydro','rock','ember','coin','magnet','ice','confusion','aura'].includes(e.style))this.play(e.style,e.x,true);
+    if(e.type==='hit'&&['bubble','hydro','rock','ember','coin','magnet','ice','confusion','aura','leaf','poison','shadow'].includes(e.style))this.play(e.style,e.x,true);
     if(e.type==='blink')this.play('shadow',e.from.x);
     if(e.type==='leap')this.play('dash',e.unit.x);
     if(e.type==='deploy'){this.cry(CARDS[e.key]?.id,e.x);this.sample('foley:cloth',e.x,{volume:.06,rate:1,maxDuration:.15});}

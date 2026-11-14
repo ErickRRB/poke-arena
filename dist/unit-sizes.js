@@ -106,3 +106,6 @@ export const UNIT_SCALES = {
   "383": 1.4286,
   "384": 1.3125
 };
+// Small single troops need a readable silhouette on the portrait arena.
+// These calibrations change artwork and emitters, never collision radii.
+Object.assign(UNIT_SCALES,{25:1.5556,7:1.8261,4:1.9091,1:2,133:2,37:1.9091,81:2.2105,315:1.5,12:1.68,88:1.9091,100:2.625,109:1.6154,132:2,196:1.5,197:1.5556,302:1.8,334:1.4483});

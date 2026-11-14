@@ -425,9 +425,9 @@
       "fps": 18
     },
     "pokeball": {
-      "file": "assets/battle/poke-ball.png",
-      "width": 30,
-      "height": 30,
+      "file": "assets/ui/pokeball-v2.webp",
+      "width": 64,
+      "height": 64,
       "columns": 1,
       "rows": 1,
       "fps": 1

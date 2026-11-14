@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7f0d5"><title>Arena de pruebas · Poké Arena</title>
+  <link rel="icon" href="favicon.svg"><link rel="stylesheet" href="assets/fonts/fonts.css"><link rel="stylesheet" href="testing.css">
+</head>
+<body>
+  <header class="lab-header"><a href="./" class="lab-home">← Juego</a><h1>Arena de pruebas</h1><button id="lab-help" aria-label="Cómo usar la arena de pruebas">?</button></header>
+  <main>
+    <div class="lab-toolbar">
+      <button id="choose-card" class="lab-card-button" aria-haspopup="dialog"><span id="chosen-art"></span><span><strong id="chosen-name">Roselia</strong><small id="chosen-equivalent">Princesa</small></span><span aria-hidden="true">▾</span></button>
+      <div class="lab-teams" role="group" aria-label="Bando a desplegar"><button data-team="0" aria-pressed="true">Azul</button><button data-team="1" aria-pressed="false">Rojo</button></div>
+      <label class="lab-speed">Velocidad<select id="lab-speed"><option value="0.25">¼×</option><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label>
+      <button id="lab-sound" aria-pressed="true" title="Escuchar la última columna que tocaste">Sonido</button>
+      <button id="pause-all">Pausar todas</button><button id="start-all">Iniciar todas</button>
+      <button id="add-column">+ Columna</button>
+      <details class="lab-options"><summary>Opciones</summary><div><label><input id="auto-start" type="checkbox" checked> Iniciar al colocar ambos bandos</label><label><input id="tower-fire" type="checkbox" checked> Las torres atacan</label><label><input id="damage-numbers" type="checkbox" checked> Números de daño</label><label><input id="reduced-motion" type="checkbox"> Reducir movimiento</label></div></details>
+    </div>
+    <p class="lab-hint" id="lab-hint">Tocá tu lado para enfrentar al rival preparado. En las columnas vacías, colocá ambos bandos.</p>
+    <nav id="lab-scenarios" class="lab-scenarios" aria-label="Ir a una columna"></nav>
+    <div class="lab-workspace">
+      <div id="lab-columns" class="lab-columns" aria-label="Columnas de prueba independientes"></div>
+      <div id="lab-loading" class="lab-loading" role="progressbar" aria-label="Cargando arena de pruebas" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="lab-load-progress" aria-hidden="true"><img class="lab-load-base" src="favicon.svg" alt=""><img class="lab-load-fill" src="favicon.svg" alt=""></span><button id="lab-retry" hidden>Reintentar</button></div>
+    </div>
+  </main>
+  <div id="lab-notice" class="lab-notice" role="status"></div>
+  <dialog id="card-picker"><div class="picker-heading"><h2>Elegir carta</h2><button data-close aria-label="Cerrar catálogo">×</button></div><label class="picker-search"><span class="sr-only">Buscar por Pokémon o carta de Clash Royale</span><input id="card-search" type="search" placeholder="Pokémon o carta de Clash Royale…" autocomplete="off"></label><div id="picker-list" class="picker-list"></div><span id="picker-empty" hidden>No hay cartas con ese nombre.</span></dialog>
+  <dialog id="lab-guide"><div class="picker-heading"><h2>Prepará tu prueba</h2><button data-close aria-label="Cerrar ayuda">×</button></div><ol><li>Elegí cualquier carta y un bando. Tocá una columna para colocarla, sin gastar elixir.</li><li>Los rivales preparados esperan quietos. Al colocar una carta azul, comienza ese enfrentamiento. Cambiá el rival desde el selector de cada columna.</li><li>En una columna <strong>Vacía · libre</strong>, el primer bando queda en pausa hasta colocar al otro. Desactivá el inicio automático en Opciones para preparar grupos.</li><li>Las torres se curan después de 2 segundos sin recibir daño y reviven tras ese mismo tiempo. En Opciones podés desactivar sus ataques para medir daño.</li><li>Pausá o avanzá 0,1 segundos para inspeccionar golpes. Reiniciar restaura el escenario elegido.</li></ol><p>El DPS muestra el daño efectivo de los últimos 5 segundos. Vida incluye los escudos. Las cartas conservan las reglas y estadísticas del juego.</p><button data-close>Probar</button></dialog>
+  <script type="module" src="testing.js?v=32"></script>
+</body></html>
