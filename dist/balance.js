@@ -172,7 +172,7 @@ export function applyBalance(cards) {
     if (descriptions[key]) [card.role, card.description] = descriptions[key];
   }
   const moves = {
-    geodude:'Puño roca',feraligatr:'Triturar',nidoking:'Puño venenoso',typhlosion:'Erupción',sableye:'Amago',
+    geodude:'Golpe de puerro',feraligatr:'Triturar',nidoking:'Puño venenoso',typhlosion:'Erupción',sableye:'Amago',
     venusaur:'Bomba germen',beedrill:'Doble ataque',pidgeot:'Ataque ala',ekans:'Colmillo venenoso',sandshrew:'Arañazo',
     nidoqueen:'Golpe cuerpo',mankey:'Placaje furioso',arcanine:'Carga ígnea',slowbro:'Confusión',grimer:'Bomba lodo',
     cloyster:'Defiende su posición disparando una descarga de pinchos.',gastly:'Lengüetazo',voltorb:'Autodestrucción',electrode:'Explosión',forretress:'Explosión',koffing:'Gas venenoso',
