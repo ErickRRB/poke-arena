@@ -1,0 +1,417 @@
+{
+  "generatedAt": "2026-11-14T20:27:50.599Z",
+  "sourceCutGeneratedAt": "2026-11-14T20:27:50.192Z",
+  "baseline": {
+    "label": "baseline",
+    "sourceDirectory": "C:\\Users\\Mapa\\Documents\\ChatGPT\\Plugins\\pokemon-arena-search-timer\\qa\\native-combat-checkpoint\\6ab2d56d82eede0fa17304d4e92df7976360b3ef",
+    "gitHead": "6ab2d56d82eede0fa17304d4e92df7976360b3ef",
+    "workingTreeStatus": [],
+    "frozenCache": "qa/native-combat-checkpoint/6ab2d56d82eede0fa17304d4e92df7976360b3ef",
+    "inputs": [
+      {
+        "file": "dist/app.js",
+        "bytes": 48052,
+        "sha256": "d1ac4b276f7c4f900624725ff91059a0d061ba1da91e61aa82172c055c6eb291"
+      },
+      {
+        "file": "dist/assets/pokemon/manifest.json",
+        "bytes": 253443,
+        "sha256": "98f8facb20949c082d0dcbcbd21622948b0cfef19d17002bd54861b3c7d6db0b"
+      },
+      {
+        "file": "dist/attack-choreography.js",
+        "bytes": 1924,
+        "sha256": "8f64e99ac7ab948825497dc3d3d13c0ae503017f373c75e4a19c847215898262"
+      },
+      {
+        "file": "dist/audio.js",
+        "bytes": 17386,
+        "sha256": "a8b2a1b4d2c40790654a8851075eae90ef575603bab3db8757d7ba281eef0791"
+      },
+      {
+        "file": "dist/balance.js",
+        "bytes": 34124,
+        "sha256": "a2972da12ede76a7ede4b07ac52927b7f3d7da99956d35befd3e32c02bbb9990"
+      },
+      {
+        "file": "dist/battle-art.js",
+        "bytes": 4773,
+        "sha256": "8a2102b7fd5c4ab1a8200f011a9b775c74f3268f948cf65da63910a4547d6dbe"
+      },
+      {
+        "file": "dist/capsule-art.js",
+        "bytes": 1381,
+        "sha256": "0e7401f1191814b399e1b394087da428109efa6d34040cba13dc1064b8751876"
+      },
+      {
+        "file": "dist/card-art.js",
+        "bytes": 5124,
+        "sha256": "6dbebc46dc8546d187a06b2035ed83b878276c99473117573204108e79cb82c2"
+      },
+      {
+        "file": "dist/card-equivalents.js",
+        "bytes": 17820,
+        "sha256": "40fe14e3622f4e778a88aeb99bda9ff1f6a6092ab27fee11ab44efa06f22b845"
+      },
+      {
+        "file": "dist/card-review.js",
+        "bytes": 14836,
+        "sha256": "3b834be599a4724589774db20da7cb329afebd314329a0033386165d9a18b853"
+      },
+      {
+        "file": "dist/catalog.js",
+        "bytes": 26144,
+        "sha256": "30af7dc65f875a2e7b04a6a0f75882ef00cffd56541da3738b6ed205539a6882"
+      },
+      {
+        "file": "dist/combat-visuals.js",
+        "bytes": 2473,
+        "sha256": "93006993a0fb9d14203302972d679d81752260cf0e9253612d73ded68f4e2739"
+      },
+      {
+        "file": "dist/current-reference.js",
+        "bytes": 13138,
+        "sha256": "1e1d7a36e6235ba5081aff98fd5c450c43ac79dd93567dcb456ebf1359801306"
+      },
+      {
+        "file": "dist/deck-storage.js",
+        "bytes": 4690,
+        "sha256": "affe8e768a358cf5c09467c6c24e7458717cb1a139d7a14cc8219095c6170feb"
+      },
+      {
+        "file": "dist/deployment-formations.js",
+        "bytes": 1128,
+        "sha256": "f2f431eda74ae96a58e30ddbc97d8d0646a160f33c46241d22f685afb680d3dc"
+      },
+      {
+        "file": "dist/engine.js",
+        "bytes": 79809,
+        "sha256": "a7105431422589bdd7e8237c519761c37f9e5dc4d3b79512cab24910cabe9cea"
+      },
+      {
+        "file": "dist/knockback-profiles.js",
+        "bytes": 1777,
+        "sha256": "e2cc17619efc8694b5515ac40d0cd08fac348f0ee1208956039a5a5f4a920b58"
+      },
+      {
+        "file": "dist/music.js",
+        "bytes": 5269,
+        "sha256": "2d9a9b01bc577d5c6f548a8df9595e1312b6f5276f7c2a07498f3db2855e7162"
+      },
+      {
+        "file": "dist/online-config.js",
+        "bytes": 306,
+        "sha256": "887aec9af4dd2836ede6d745b18cbe439b363ce8444d00b8366d1afd616ad581"
+      },
+      {
+        "file": "dist/online-wire.js",
+        "bytes": 1773,
+        "sha256": "083c70bf353c8ace6d995f47d7e8d936595e63cffd9a3b69cfa96cd7b386be88"
+      },
+      {
+        "file": "dist/online.js",
+        "bytes": 9277,
+        "sha256": "5058e0279ca17b4b63a6c57b4fbadfee604347d373d2c05e16cd9b9a33e08313"
+      },
+      {
+        "file": "dist/pokemon-silhouettes.js",
+        "bytes": 6066,
+        "sha256": "03ebecf4bc077b3fe195510503cf564cb789dcf8faa29d2b7cf3fdd760058742"
+      },
+      {
+        "file": "dist/pokemon-stats.js",
+        "bytes": 7580,
+        "sha256": "64c1544c59efb2c653737f73252cdab19f44eec203a45e4437a291cd88e3d75a"
+      },
+      {
+        "file": "dist/quick-stats.js",
+        "bytes": 11273,
+        "sha256": "a287c2954418ba091297b089a2af235d82a4fd6d1f7eda08bb3781e89cbaaae4"
+      },
+      {
+        "file": "dist/render.js",
+        "bytes": 63663,
+        "sha256": "209bb080341674f0827259f8a5954762e19cf6fd73f4034ba21afe1e767de7a9"
+      },
+      {
+        "file": "dist/sandbox.js",
+        "bytes": 4871,
+        "sha256": "cf8534e529e31b73377a940764f2878c5d34a8c6217da5e97010f78f9052b5f0"
+      },
+      {
+        "file": "dist/snapshot.js",
+        "bytes": 3223,
+        "sha256": "0fe9889e6accef199dca9780bfb0a05a248b88b3bd8de2a0db4bc70aab2141eb"
+      },
+      {
+        "file": "dist/spell-preview.js",
+        "bytes": 1298,
+        "sha256": "402beb01f17f419e69208956133bfd8742d6d988cd344a79781b88529cf61f32"
+      },
+      {
+        "file": "dist/sprite-geometry.js",
+        "bytes": 678080,
+        "sha256": "efafdc523d7e6256043999cc7f88b30f73887253c71a2a6c6c334b7dafec1f12"
+      },
+      {
+        "file": "dist/sprite-motion.js",
+        "bytes": 5680,
+        "sha256": "566f7f7bff7312a7b83528845f60d4934271a75729f6904d5f8403825374b8b9"
+      },
+      {
+        "file": "dist/targeting-art.js",
+        "bytes": 2308,
+        "sha256": "a3207c34acef39771e1f71aa32f9d88949244eeef642e44165655f936b8b43da"
+      },
+      {
+        "file": "dist/testing.js",
+        "bytes": 17114,
+        "sha256": "7539655525892813a18d9f40e12d81d0494a56acd393275e5bb4f0b56c6d2469"
+      },
+      {
+        "file": "dist/unit-sizes.js",
+        "bytes": 2326,
+        "sha256": "e99693751d8b6ae1ccb6734926494840ae7d48a04c30c071cef9a506f8a17eb9"
+      },
+      {
+        "file": "dist/wing-motion.js",
+        "bytes": 4772,
+        "sha256": "6e0beff3cfc3cd279ebc84cf42d3ea59e8dfc2c78eff59503dd2b8116ac6f2a1"
+      },
+      {
+        "file": "dist/wing-rigs.js",
+        "bytes": 9246,
+        "sha256": "a9fa115bcd8f08ff6fc5f98fd7812b3809012c768e8e58411f569b8994f3e8e6"
+      }
+    ],
+    "checkpoint": {
+      "commit": "6ab2d56d82eede0fa17304d4e92df7976360b3ef",
+      "archiveSha256": "f833b98eaac68255dc54164764da4cbd0f3fa4794f0023b88408a8168c50e416",
+      "archiveBytes": 40642560,
+      "frozenAt": "2026-11-14T19:41:05.199Z",
+      "source": "git archive from immutable commit; no working-tree bytes"
+    }
+  },
+  "candidate": {
+    "label": "candidate",
+    "sourceDirectory": "C:\\Users\\Mapa\\Documents\\ChatGPT\\Plugins\\pokemon-arena-search-timer\\qa\\native-combat-checkpoint\\8172b584dbf10acb7d663ba12371e10cda2c6e39",
+    "gitHead": "8172b584dbf10acb7d663ba12371e10cda2c6e39",
+    "workingTreeStatus": [],
+    "frozenCache": "qa/native-combat-checkpoint/8172b584dbf10acb7d663ba12371e10cda2c6e39",
+    "inputs": [
+      {
+        "file": "dist/app.js",
+        "bytes": 47430,
+        "sha256": "d1da9f731c9243bd8b24455371d692db4a814d8e5ee20577019990e70abdf98f"
+      },
+      {
+        "file": "dist/arena-geometry.js",
+        "bytes": 4324,
+        "sha256": "291e476708913207d4b5f46a63f4fc077f3cf79c6c3cc03543b44f90e2ba4423"
+      },
+      {
+        "file": "dist/arena-tilemap.js",
+        "bytes": 2988,
+        "sha256": "ee9e991d7c778473e2920b57b475971002a24fa774b6ace789f048540fc059c1"
+      },
+      {
+        "file": "dist/assets/pokemon/manifest.json",
+        "bytes": 253443,
+        "sha256": "98f8facb20949c082d0dcbcbd21622948b0cfef19d17002bd54861b3c7d6db0b"
+      },
+      {
+        "file": "dist/attack-choreography.js",
+        "bytes": 1924,
+        "sha256": "8f64e99ac7ab948825497dc3d3d13c0ae503017f373c75e4a19c847215898262"
+      },
+      {
+        "file": "dist/audio.js",
+        "bytes": 17084,
+        "sha256": "d4637d1ee6363402bc436cd23f6fd401b1419d860990c1f4591f2099724ed088"
+      },
+      {
+        "file": "dist/balance.js",
+        "bytes": 35130,
+        "sha256": "1254cf4cd56b62d3685771963dd7f87016030c4ece261028cd475be31fc3b636"
+      },
+      {
+        "file": "dist/battle-art.js",
+        "bytes": 4773,
+        "sha256": "8a2102b7fd5c4ab1a8200f011a9b775c74f3268f948cf65da63910a4547d6dbe"
+      },
+      {
+        "file": "dist/capsule-art.js",
+        "bytes": 1381,
+        "sha256": "0e7401f1191814b399e1b394087da428109efa6d34040cba13dc1064b8751876"
+      },
+      {
+        "file": "dist/card-art.js",
+        "bytes": 5124,
+        "sha256": "6dbebc46dc8546d187a06b2035ed83b878276c99473117573204108e79cb82c2"
+      },
+      {
+        "file": "dist/card-equivalents.js",
+        "bytes": 19105,
+        "sha256": "c141659366660c083ef361ba9c594ab3645b5eda2a63e87232e0bf387d83affd"
+      },
+      {
+        "file": "dist/card-review.js",
+        "bytes": 15084,
+        "sha256": "2a50dbfcd561df3a3d699bf0850546a13f2df31cb0e43b480474eb40ba71836b"
+      },
+      {
+        "file": "dist/catalog.js",
+        "bytes": 25758,
+        "sha256": "8dd25a1cddf2f61b078d2bc47018a20e4d91733677ea325327de4c0404cc7762"
+      },
+      {
+        "file": "dist/clash-roster.js",
+        "bytes": 2436,
+        "sha256": "531f0ff72de017228ad0d04aca11c9d0973661de514b10d6bbdfe45b40b4543c"
+      },
+      {
+        "file": "dist/combat-visuals.js",
+        "bytes": 2488,
+        "sha256": "d5f35778b6ad2705ece3a4e39931406f65a26d60309cc5a62fc8c18a20604255"
+      },
+      {
+        "file": "dist/current-reference.js",
+        "bytes": 113020,
+        "sha256": "a6b5660279cd977686d1f6df8db3b7c0b8c196d65b1ee532d0cd297c310bd53f"
+      },
+      {
+        "file": "dist/deck-storage.js",
+        "bytes": 4690,
+        "sha256": "affe8e768a358cf5c09467c6c24e7458717cb1a139d7a14cc8219095c6170feb"
+      },
+      {
+        "file": "dist/deployment-formations.js",
+        "bytes": 1124,
+        "sha256": "d832c5a38cdaea2c660e62f66c8338bc026448a406271a5e5453ea7392f05acd"
+      },
+      {
+        "file": "dist/engine.js",
+        "bytes": 90137,
+        "sha256": "1b5592db8e7dbf5411599770a81a3f44529a81f12a59d58e3ef09f89287a9e90"
+      },
+      {
+        "file": "dist/knockback-profiles.js",
+        "bytes": 1777,
+        "sha256": "e2cc17619efc8694b5515ac40d0cd08fac348f0ee1208956039a5a5f4a920b58"
+      },
+      {
+        "file": "dist/loader-art.js",
+        "bytes": 662,
+        "sha256": "b06fc38a6937924dc906063532b49b2234acaa1471cec9cd783f0676ea60d9ec"
+      },
+      {
+        "file": "dist/music.js",
+        "bytes": 5269,
+        "sha256": "2d9a9b01bc577d5c6f548a8df9595e1312b6f5276f7c2a07498f3db2855e7162"
+      },
+      {
+        "file": "dist/native-descriptions.js",
+        "bytes": 4100,
+        "sha256": "9cd019c0fd73795b2719aeb648bcade4abd3d88145e82b909ea1789600d69427"
+      },
+      {
+        "file": "dist/native-formations.js",
+        "bytes": 2281,
+        "sha256": "47dd05a3b1fff4682ad1d014c8e422e2f1a86251cbdd6796b48402cc52b12db3"
+      },
+      {
+        "file": "dist/online-config.js",
+        "bytes": 306,
+        "sha256": "887aec9af4dd2836ede6d745b18cbe439b363ce8444d00b8366d1afd616ad581"
+      },
+      {
+        "file": "dist/online-wire.js",
+        "bytes": 1773,
+        "sha256": "083c70bf353c8ace6d995f47d7e8d936595e63cffd9a3b69cfa96cd7b386be88"
+      },
+      {
+        "file": "dist/online.js",
+        "bytes": 9277,
+        "sha256": "5058e0279ca17b4b63a6c57b4fbadfee604347d373d2c05e16cd9b9a33e08313"
+      },
+      {
+        "file": "dist/pokemon-silhouettes.js",
+        "bytes": 6066,
+        "sha256": "03ebecf4bc077b3fe195510503cf564cb789dcf8faa29d2b7cf3fdd760058742"
+      },
+      {
+        "file": "dist/pokemon-stats.js",
+        "bytes": 7580,
+        "sha256": "64c1544c59efb2c653737f73252cdab19f44eec203a45e4437a291cd88e3d75a"
+      },
+      {
+        "file": "dist/quick-stats.js",
+        "bytes": 11645,
+        "sha256": "61d2307e64e356fb06ea07897c9a50f52fdc1e033b2888ffaa018233b1ecfdc2"
+      },
+      {
+        "file": "dist/render.js",
+        "bytes": 63892,
+        "sha256": "1095437c07ae4fcd2e9f160928fe043b20b2c55cf3023d01ed7adc93bafaddde"
+      },
+      {
+        "file": "dist/sandbox.js",
+        "bytes": 4693,
+        "sha256": "1e6f77d604f7922b78e71ed5f181625a051c836f54ee26630a762d3c78db83c0"
+      },
+      {
+        "file": "dist/snapshot.js",
+        "bytes": 4246,
+        "sha256": "1bb962965caa519476f06d099498d630e38f7734da2e1baf61a6f65ff9eb682f"
+      },
+      {
+        "file": "dist/spell-preview.js",
+        "bytes": 1276,
+        "sha256": "64497f695736012c0b06932fa43dccc8d097fdb54dda5a9d94a87595c2276b23"
+      },
+      {
+        "file": "dist/sprite-geometry.js",
+        "bytes": 678080,
+        "sha256": "efafdc523d7e6256043999cc7f88b30f73887253c71a2a6c6c334b7dafec1f12"
+      },
+      {
+        "file": "dist/sprite-motion.js",
+        "bytes": 5680,
+        "sha256": "566f7f7bff7312a7b83528845f60d4934271a75729f6904d5f8403825374b8b9"
+      },
+      {
+        "file": "dist/targeting-art.js",
+        "bytes": 2308,
+        "sha256": "a3207c34acef39771e1f71aa32f9d88949244eeef642e44165655f936b8b43da"
+      },
+      {
+        "file": "dist/testing.js",
+        "bytes": 16360,
+        "sha256": "bbe776a7d7dafda2046dc0437d4a84a0ed12e8c440f5dded692256f3255ac898"
+      },
+      {
+        "file": "dist/unit-sizes.js",
+        "bytes": 2326,
+        "sha256": "e99693751d8b6ae1ccb6734926494840ae7d48a04c30c071cef9a506f8a17eb9"
+      },
+      {
+        "file": "dist/wing-motion.js",
+        "bytes": 4772,
+        "sha256": "6e0beff3cfc3cd279ebc84cf42d3ea59e8dfc2c78eff59503dd2b8116ac6f2a1"
+      },
+      {
+        "file": "dist/wing-rigs.js",
+        "bytes": 9246,
+        "sha256": "a9fa115bcd8f08ff6fc5f98fd7812b3809012c768e8e58411f569b8994f3e8e6"
+      }
+    ],
+    "checkpoint": {
+      "commit": "8172b584dbf10acb7d663ba12371e10cda2c6e39",
+      "archiveSha256": "b8515b7993954244651f8394689b2ed75c56c25c5e3c536a8104cd9353545ebc",
+      "archiveBytes": 40785920,
+      "frozenAt": "2026-11-14T20:27:50.192Z",
+      "source": "git archive from immutable commit; no working-tree bytes"
+    }
+  },
+  "assetInputs": []
+}

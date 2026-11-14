@@ -1,0 +1,166 @@
+{
+  "status": "physical_launch_mismatch_persists",
+  "checkpoint": "8172b584dbf10acb7d663ba12371e10cda2c6e39",
+  "scope": "Only Treecko/Beedrill local30 eight directions. No edits to prior scripts/evidence/runtime.",
+  "supervisionNote": {
+    "file": "../.supervision/native-release-emitter-bug.md",
+    "sha256": "4be895bff481101c4b80a2b50346032b410ddcd9555de88787e5da88ae6a7591"
+  },
+  "files": [
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/all-key-transition.csv",
+      "bytes": 87089,
+      "sha256": "e407f5b59a611d85ac1e953555f9391e086baea280d8a1b593464062fcef06d4"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/cards-baseline.json",
+      "bytes": 89832,
+      "sha256": "bc169d91027214520bb402918a16f59b09497a75368ce6baa4ef8b647bbc41f0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/cards-main-working-tree.json",
+      "bytes": 174102,
+      "sha256": "5a66a6ab464016a6c55481584d3e584e06b4ee4d7a680e8a54d87b23c96a9d5e"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/frozen-inputs.json",
+      "bytes": 14162,
+      "sha256": "36012fd34e514042d11d8480d3bea8a533a3328d99148923906ff8efaca271f2"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/inventory-provisional.json",
+      "bytes": 1405781,
+      "sha256": "f571154a8b8c58a8595f64802d3691096b3e1f737def0dada258bd27ff73811f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/beedrill-local30-0-direct-viewer0.png",
+      "bytes": 39708,
+      "sha256": "841d9826e32a8d8c1ef0dfe4b40e6ce2463e1da1dac4a4643c8658e88ef71b2c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/beedrill-local30-1-direct-viewer0.png",
+      "bytes": 37908,
+      "sha256": "34e92b10a713e9425d5b1de3249be5e9cefc04dc2752a5b3386e3e060153785a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/beedrill-local30-2-direct-viewer0.png",
+      "bytes": 37396,
+      "sha256": "d3e53e1ee7af77650127c92a8b295b015150c009c5637c49edc3a75e92de2799"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/beedrill-local30-3-direct-viewer0.png",
+      "bytes": 37344,
+      "sha256": "d6a5b7c7e408724b596aea2b8c5067508cd1247e8d0122b69f21516291380b9e"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/beedrill-local30-4-direct-viewer0.png",
+      "bytes": 38827,
+      "sha256": "9e27487dc14ce010b4fd4f2a5a961fa8c23d240e7e03752e11c695b70c424a73"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/beedrill-local30-5-direct-viewer0.png",
+      "bytes": 37554,
+      "sha256": "c8d92ea246736ff06096eb546a299e85aff8b0212a7967cae308a01f5582cb84"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/beedrill-local30-6-direct-viewer0.png",
+      "bytes": 37623,
+      "sha256": "3e65cc716d5862f30cb783a0479fbfd8bc5d07a777e458bbc0879b2473d0b435"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/beedrill-local30-7-direct-viewer0.png",
+      "bytes": 38136,
+      "sha256": "9d4e5385cd4df9e37f686bff2a03e451f3854487cd2b446de4fe0f6a113746a4"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/treecko-local30-0-direct-viewer0.png",
+      "bytes": 35984,
+      "sha256": "91110ea58caaf4fb731497eaed5191034568d6903a1cbee0cad2f286a56a4c64"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/treecko-local30-1-direct-viewer0.png",
+      "bytes": 36190,
+      "sha256": "8935b6d7210f893714adef6f4d24177dbca3fb3e2f8a93c9fb31409d6a1a4e08"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/treecko-local30-2-direct-viewer0.png",
+      "bytes": 35952,
+      "sha256": "05de727ec4d6be416f9245b5db39971ac660dc22163ac827282a9b680223a655"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/treecko-local30-3-direct-viewer0.png",
+      "bytes": 35447,
+      "sha256": "f34ad3dbc81c145dc77c24ad75c4b4fd2b3ce4fa12ee39b3753a9e4191ded20f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/treecko-local30-4-direct-viewer0.png",
+      "bytes": 36082,
+      "sha256": "14eaa90ac94318d23ff0798f4b8aec3b8deb7aa8aed5672c83b719ef6516b870"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/treecko-local30-5-direct-viewer0.png",
+      "bytes": 35808,
+      "sha256": "c738a942a6f80fbaa0c35b2418d725c44f13c3e22de5641a23c39284981c074f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/treecko-local30-6-direct-viewer0.png",
+      "bytes": 35823,
+      "sha256": "45f68d5bb399e554acf7b736049a88b1c20268973bf7030c9124a39ce90be424"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/contacts/treecko-local30-7-direct-viewer0.png",
+      "bytes": 36083,
+      "sha256": "23eb7c14da0e5836d5c3a2d80c0dadcaee771e7f57dc978443ef56ed35d14e1c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/progress.json",
+      "bytes": 56,
+      "sha256": "af2d4608dc1e09d6073e4203dc19b78d3a8cfdbd2e6185883c4d2a02a65dde98"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/qa-native-contact-browser.mjs",
+      "bytes": 9789,
+      "sha256": "e2dab0d783f3d81c0e2b040b4c5480fe31779d52159e19c02fa099113b0273b2"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/qa-native-contact-harness.mjs",
+      "bytes": 18694,
+      "sha256": "43aa64be590d099ab1014b630acb7e8edbd9977f2838e28631f0ad4abb2e7516"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/summary.json",
+      "bytes": 152906,
+      "sha256": "5dbde01207f431cd441606858163c2c4d81ffd0d11698bc85a4ddb84ccf93ca7"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/traces/beedrill.json.gz",
+      "bytes": 61931,
+      "sha256": "0c4a0c4847ea95f423e00bfe3e9c810bf315a430e08a4b860c01b6e77e1ba37f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-recheck/traces/treecko.json.gz",
+      "bytes": 35417,
+      "sha256": "07e5fe449240b08c1c667e9fdd15f7eb15f7bcd36bd33743010181d36867f45f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/physical-verification.json",
+      "bytes": 163066,
+      "sha256": "c4a81d3f10337d3c855744347e70b2fb4a2ebb78abea61e123ebbe70f050d3ed"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/qa-minimum-provisional.json",
+      "bytes": 14907,
+      "sha256": "c13b2a3c080db1b7f603164e05fea0de8859770a51cf3cb8525600cb0304a3c9"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/README.md",
+      "bytes": 3312,
+      "sha256": "835ba14dfca026c9e1fe29068449f328789b3aa859f8fa2507e3e29ce9bf1aca"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-8172b58/verify-physical-recheck.mjs",
+      "bytes": 5393,
+      "sha256": "88d8143d00a7f288fb307b616eae5d6e14dd29cd76bf4768a5089e0fe102ad1e"
+    }
+  ]
+}
