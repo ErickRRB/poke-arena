@@ -1,9 +1,10 @@
 import { CLASH_ROSTER } from './clash-roster.js';
+import { NATIVE_DESCRIPTIONS } from './native-descriptions.js';
 // Base-card contracts and explicitly retained Pokemon adaptations.
 export const CARD_EQUIVALENTS = {
   raltsHut:{reference:'Choza de duendes',similarity:'equivalent',reason:'Refugio que libera Ralts cuando hay enemigos cerca y deja uno al caer.'},
   pikachu: { reference: 'Mago eléctrico', similarity: 'equivalent', reason: 'Descarga al aparecer y dos rayos que aturden y pueden repartirse entre objetivos.' },
-  squirtle: { reference: null, similarity: 'none', reason: 'Tirador económico con tres burbujas por ataque, sin un equivalente cercano.' },
+  squirtle: { reference: null, similarity: 'none', reason: 'Tirador económico que concentra su vida en un solo cuerpo y dispara burbujas.' },
   charmander: { reference: 'Mago', similarity: 'partial', reason: 'Dispara en área contra tierra y aire, pero añade quemadura y cuesta menos.' },
   snorlax: { reference: 'Gigante', similarity: 'equivalent', reason: 'Tanque lento que ignora tropas y golpea torres y estructuras.' },
   zubat: { reference: 'Murciélagos', similarity: 'partial', reason: 'Cinco atacantes aéreos frágiles que recuperan vida al morder.' },
@@ -15,15 +16,15 @@ export const CARD_EQUIVALENTS = {
   machamp: { reference: 'Mini P.E.K.K.A.', similarity: 'partial', reason: 'Antitanques terrestre de cuatro de elixir que reparte cada ataque en cuatro golpes.' },
   eevee: { reference: 'Príncipe', similarity: 'partial', reason: 'Duplica el primer golpe al tomar carrera, adaptado a una unidad pequeña de ciclo.' },
   onix: { reference: 'Montapuercos', similarity: 'partial', reason: 'Ataca estructuras por cuatro de elixir, pero es más lento y no salta el río.' },
-  blastoise: { reference: null, similarity: 'none', reason: 'Unidad móvil resistente que dispara dos cañonazos contra tierra y aire.' },
-  vulpix: { reference: null, similarity: 'none', reason: 'Lanza dos disparos que queman a un solo objetivo.' },
+  blastoise: { reference: null, similarity: 'none', reason: 'Unidad móvil resistente que dispara agua contra tierra y aire.' },
+  vulpix: { reference: null, similarity: 'none', reason: 'Lanza una llama que quema a un solo objetivo.' },
   psyduck: { reference: 'Mago eléctrico', similarity: 'partial', reason: 'Aturde a distancia con un solo disparo y no tiene descarga de entrada.' },
   alakazam: { reference: 'Arquero mágico', similarity: 'equivalent', reason: 'Tirador de largo alcance que atraviesa a los enemigos alineados.' },
   geodude: { reference: 'Caballero', similarity: 'equivalent', reason: 'Defensor terrestre económico y resistente que golpea a un objetivo por ataque.' },
   magnemite: { reference: null, similarity: 'none', reason: 'Volador individual que aturde con un disparo sin encadenar rayos.' },
-  scyther: { reference: null, similarity: 'none', reason: 'Volador de contacto que encadena dos cortes por ataque.' },
+  scyther: { reference: null, similarity: 'none', reason: 'Volador de contacto que concentra cada ataque en un corte.' },
   lapras: { reference: 'Mago de hielo', similarity: 'partial', reason: 'Ralentiza a distancia, pero tiene más resistencia y no hace daño en área.' },
-  mewtwo: { reference: null, similarity: 'none', reason: 'Combina esferas explosivas fuertes con una habilidad activa de control.' },
+  mewtwo: { reference: null, similarity: 'none', reason: 'Tirador que prepara esferas psíquicas de daño elevado y área pequeña.' },
   treecko: { reference: 'Arqueras', similarity: 'equivalent', reason: 'Dos tiradores de tres de elixir que atacan a tierra y aire.' },
   golem: { reference: 'Gólem', similarity: 'equivalent', reason: 'Tanque que busca estructuras, explota al caer y deja dos cuerpos pequeños.' },
   log: { reference: 'El Tronco', similarity: 'equivalent', reason: 'Avanza por el suelo, daña una vez a cada enemigo que alcanza y lo empuja.' },
@@ -38,7 +39,7 @@ export const CARD_EQUIVALENTS = {
   ekans: { reference: null, similarity: 'none', reason: 'Pareja terrestre que aplica veneno con sus mordidas.' },
   sandshrew: { reference: 'Guardias', similarity: 'partial', reason: 'Tres defensores terrestres con escudos individuales.' },
   nidoqueen: { reference: null, similarity: 'none', reason: 'Tanque de contacto que produce refuerzos terrestres venenosos.' },
-  nidoking: { reference: null, similarity: 'none', reason: 'Luchador resistente con dos golpes venenosos por ataque.' },
+  nidoking: { reference: null, similarity: 'none', reason: 'Luchador resistente cuyos puñetazos aplican veneno.' },
   mankey: { reference: 'Príncipe', similarity: 'partial', reason: 'La carga duplica el primer golpe, repartida entre tres atacantes frágiles.' },
   arcanine: { reference: 'Príncipe', similarity: 'partial', reason: 'Toma carrera para dar un golpe de daño doble que también quema.' },
   slowbro: { reference: 'Mago de hielo', similarity: 'equivalent', reason: 'Tirador de área que ralentiza y libera frío al aparecer.' },
@@ -55,7 +56,7 @@ export const CARD_EQUIVALENTS = {
   mrmime: { reference: null, similarity: 'none', reason: 'Tirador con escudo propio que protege a los aliados al aparecer.' },
   gyarados: { reference: null, similarity: 'none', reason: 'Tanque aéreo de contacto con daño de área.' },
   ditto: { reference: null, similarity: 'none', reason: 'Copia el ataque de un enemigo, en lugar de repetir la última carta propia como Espejo.' },
-  articuno: { reference: 'Mago de hielo', similarity: 'partial', reason: 'Tirador aéreo que ralentiza y tiene una congelación activa adicional.' },
+  articuno: { reference: 'Mago de hielo', similarity: 'partial', reason: 'Tirador aéreo que ralentiza a un objetivo y tiene más resistencia.' },
   zapdos: { reference: 'Dragón eléctrico', similarity: 'partial', reason: 'Volador con rayos encadenados que aturden y una habilidad de tormenta adicional.' },
   moltres: { reference: 'Bebé dragón', similarity: 'partial', reason: 'Volador de disparo en área, con quemadura y curación activa; no revive al morir.' },
   dragonite: { reference: null, similarity: 'none', reason: 'Volador resistente que encadena tres golpes de contacto.' },
@@ -68,13 +69,13 @@ export const CARD_EQUIVALENTS = {
   umbreon: { reference: null, similarity: 'none', reason: 'Defensor terrestre resistente cuyas mordidas envenenan.' },
   wobbuffet: { reference: null, similarity: 'none', reason: 'Defensa inmóvil que devuelve parte del daño directo que recibe.' },
   steelix: { reference: 'Gigante', similarity: 'partial', reason: 'Ignora tropas y busca estructuras, con armadura y daño de área adicionales.' },
-  scizor: { reference: null, similarity: 'none', reason: 'Luchador con escudo y combo doble, sin carga ni daño de área.' },
+  scizor: { reference: null, similarity: 'none', reason: 'Luchador con escudo que golpea a un objetivo con sus pinzas.' },
   skarmory: { reference: null, similarity: 'none', reason: 'Defensor aéreo de contacto protegido por un escudo.' },
   blissey: { reference: null, similarity: 'none', reason: 'Cura periódicamente al grupo y libera una curación final al morir.' },
-  lugia: { reference: null, similarity: 'none', reason: 'Tanque aéreo de disparo en área con una habilidad para dar escudos.' },
+  lugia: { reference: null, similarity: 'none', reason: 'Tanque aéreo que dispara agua en área y necesita apoyo contra enjambres.' },
   hooh: { reference: null, similarity: 'none', reason: 'Tanque aéreo de contacto con quemadura y curación.' },
   sceptile: { reference: 'Duende lanzadardos', similarity: 'partial', reason: 'Tirador rápido de apoyo, con ráfagas dobles y más resistencia.' },
-  blaziken: { reference: null, similarity: 'none', reason: 'Encadena tres golpes de contacto que aplican quemadura.' },
+  blaziken: { reference: null, similarity: 'none', reason: 'Luchador de contacto que concentra su daño en un golpe y aplica quemadura.' },
   swampert: { reference: 'Valquiria', similarity: 'partial', reason: 'Defensor de contacto con daño de área cuyos golpes también ralentizan.' },
   gardevoir: { reference: 'Mago', similarity: 'partial', reason: 'Proyectil antiaéreo de área que deja una zona dañina adicional.' },
   sableye: { reference: 'Bandida', similarity: 'partial', reason: 'Prepara una embestida de daño doble, con invulnerabilidad durante el recorrido y estadísticas propias.' },
@@ -83,11 +84,11 @@ export const CARD_EQUIVALENTS = {
   flygon: { reference: null, similarity: 'none', reason: 'Volador de contacto con daño de área y ralentización.' },
   altaria: { reference: null, similarity: 'none', reason: 'Volador de apoyo que cura y elimina estados de un aliado.' },
   absol: { reference: null, similarity: 'none', reason: 'Aumenta el daño contra enemigos que están por debajo de un umbral de vida.' },
-  salamence: { reference: null, similarity: 'none', reason: 'Volador de contacto con combo triple y aumento de daño al perder vida.' },
+  salamence: { reference: null, similarity: 'none', reason: 'Volador de contacto que aumenta el daño de sus garras al perder vida.' },
   metagross: { reference: null, similarity: 'none', reason: 'Tanque con escudo y golpes de área que aturden, sin saltos ni impacto de entrada.' },
-  kyogre: { reference: null, similarity: 'none', reason: 'Tanque de doble disparo con ralentización y una habilidad de oleada.' },
-  groudon: { reference: 'Gigante', similarity: 'partial', reason: 'Busca estructuras, con golpes de área y un terremoto activo adicionales.' },
-  rayquaza: { reference: 'Arquero mágico', similarity: 'partial', reason: 'Ataque perforante en línea, adaptado a un tanque aéreo con habilidad activa.' },
+  kyogre: { reference: null, similarity: 'none', reason: 'Tanque a distancia que dispara agua y ralentiza en área.' },
+  groudon: { reference: 'Gigante', similarity: 'partial', reason: 'Busca estructuras y golpea en área con un cuerpo más caro y resistente.' },
+  rayquaza: { reference: 'Arquero mágico', similarity: 'partial', reason: 'Ataque perforante en línea, adaptado a un tanque aéreo.' },
   centralElectrode: { reference: 'Horno', similarity: 'partial', reason: 'Produce atacantes suicidas periódicamente, pero usa Voltorb eléctricos y no dispara por sí misma.' },
   madriguera: { reference: 'Choza de bárbaros', similarity: 'partial', reason: 'Produce parejas de combatientes terrestres y deja refuerzos al morir, con cuerpos más frágiles.' },
   vivero: { reference: 'Lápida', similarity: 'equivalent', reason: 'Estructura de tres de elixir que produce parejas de unidades terrestres mínimas y libera cuatro al morir.' },
@@ -128,7 +129,7 @@ export const CARD_EQUIVALENTS = {
 
 for(const key of Object.keys(CLASH_ROSTER))if(CARD_EQUIVALENTS[key]){
   CARD_EQUIVALENTS[key].similarity='equivalent';
-  CARD_EQUIVALENTS[key].reason='Usa el cuerpo y el ataque de la carta base de referencia.';
+  CARD_EQUIVALENTS[key].reason=NATIVE_DESCRIPTIONS[CLASH_ROSTER[key]]||'Usa el cuerpo y el ataque de la carta base de referencia.';
 }
 CARD_EQUIVALENTS.geodudeToken={reference:'Golemita',similarity:'equivalent',reason:'Cuerpo pequeño de Gólem que busca estructuras y explota al caer.'};
 CARD_EQUIVALENTS.centralElectrode={reference:'Horno',similarity:'equivalent',reason:'Tropa móvil que dispara fuego e invoca espíritus de fuego.'};

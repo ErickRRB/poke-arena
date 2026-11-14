@@ -1,6 +1,6 @@
 // Authored design decisions. A comparator is a budget anchor, not an equivalence label.
 export const ORIGINAL_DECISIONS={
- squirtle:['treecko','Un solo tirador barato y resistente, sin escuadra ni control; menor daño agregado que dos Arqueras a cambio de concentrar la vida.'],
+ squirtle:['raltsTrio','Un tirador de400PV por2elixir concentra la vida: sobrevive Descarga192y Flechas366, que eliminan cada Ralts133. A cambio tiene menor daño agregado, alcance y velocidad que los tres duendes con lanza; no se aumenta daño para igualar su empuje.'],
  gengar:['charmander','Tirador de área de4 con650HP y teletransporte periódico. Menos vida y daño que Mago5; movilidad y preparación breve pagan la diferencia.'],
  blastoise:['pikachu','Dos cañones sobre un cuerpo móvil resistente. No se balancea como edificio: disparos sin aturdimiento, coste4 y daño repartido entre dos proyectiles completos.'],
  vulpix:['bulbasaur','Daño directo más quemadura en un solo objetivo. Menos vida y sin área/control que Mago de hielo; el DOT no se suma como un segundo básico instantáneo.'],
