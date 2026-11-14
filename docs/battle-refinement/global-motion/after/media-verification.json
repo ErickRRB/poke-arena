@@ -1,0 +1,171 @@
+{
+  "verificationSha256": "08210542a44dcf3d08ef73080934daa0869a5d43dbafb62606507ef2581219e2",
+  "videoCount": 14,
+  "sheetCount": 14,
+  "summary": {
+    "keys": 7,
+    "species": 6,
+    "timelines": 168,
+    "contacts": 192,
+    "samples": 12552,
+    "sheets": 14,
+    "videos": 14,
+    "findings": 0
+  },
+  "videos": [
+    {
+      "file": "videos/beedrill-engine60.mp4",
+      "sha256": "affc679c20e065cb934e8e4a889a61c1889372c00e14d433b63f5610ef53c5cb",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.250000",
+        "nb_frames": "75"
+      }
+    },
+    {
+      "file": "videos/beedrill-snapshots15.mp4",
+      "sha256": "af425b78f012920282dd077410cde34ccec640809bdaddf424f51e4c568a2d0d",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.250000",
+        "nb_frames": "75"
+      }
+    },
+    {
+      "file": "videos/snorlax-engine60.mp4",
+      "sha256": "24860e00fa7bc55597896a315a770fdb1e36862ca83c72c335b0ff5d4a9a0740",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.516667",
+        "nb_frames": "91"
+      }
+    },
+    {
+      "file": "videos/snorlax-snapshots15.mp4",
+      "sha256": "a38ff680e97102dc8d7dc1badd82bda8ee8061b865244abff3f8620672ae1248",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.516667",
+        "nb_frames": "91"
+      }
+    },
+    {
+      "file": "videos/lugia-engine60.mp4",
+      "sha256": "98bdc20c0039db9a62b79c3078ca5a90724ff16e5f142129cd7f2137123bb1e2",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.166667",
+        "nb_frames": "70"
+      }
+    },
+    {
+      "file": "videos/lugia-snapshots15.mp4",
+      "sha256": "c1dfe2d09dfa6599c6b51b1106adfe64866647a99b8fbee6821f433035b89757",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.166667",
+        "nb_frames": "70"
+      }
+    },
+    {
+      "file": "videos/rayquaza-engine60.mp4",
+      "sha256": "fff5f9e5b9d13f1b51ad4eaa0af572da49a04ad785922c10ba502ded0a89982b",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.283333",
+        "nb_frames": "77"
+      }
+    },
+    {
+      "file": "videos/rayquaza-snapshots15.mp4",
+      "sha256": "cb74924fe2f2d7972561f097d57f4bcefdd32a85b2b6c58fee7c2585ce8b8868",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.283333",
+        "nb_frames": "77"
+      }
+    },
+    {
+      "file": "videos/koffing-engine60.mp4",
+      "sha256": "dfb9183f36597cba20c02c131f05e3f650d40ec72abaee7c23d9a24d24061c3c",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.166667",
+        "nb_frames": "70"
+      }
+    },
+    {
+      "file": "videos/koffing-snapshots15.mp4",
+      "sha256": "ef89697c8f222b8407dbc1b1687add6a761da8bf4d2e1bafee76ca245f327523",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.166667",
+        "nb_frames": "70"
+      }
+    },
+    {
+      "file": "videos/kangaskhan-engine60.mp4",
+      "sha256": "adcb0f66ceb5e8ea88b67ddf105f520971922597d9d4fbb2ee40c498853e56a1",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.166667",
+        "nb_frames": "70"
+      }
+    },
+    {
+      "file": "videos/kangaskhan-snapshots15.mp4",
+      "sha256": "c3d36f300b03aed0567d442ba78ac5b157d42549a825a7b648441b01902d0f90",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.166667",
+        "nb_frames": "70"
+      }
+    },
+    {
+      "file": "videos/babyKangaskhan-engine60.mp4",
+      "sha256": "eb07f5a79b07aec6fe25af349d03eaa5d5d8e5d138fcf924db96632814330042",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.166667",
+        "nb_frames": "70"
+      }
+    },
+    {
+      "file": "videos/babyKangaskhan-snapshots15.mp4",
+      "sha256": "06c219ea3c6907d834f9b47371e73b37a0ccc01e5c2681764b3f22b213dcae4f",
+      "stream": {
+        "width": 390,
+        "height": 844,
+        "avg_frame_rate": "60/1",
+        "duration": "1.166667",
+        "nb_frames": "70"
+      }
+    }
+  ]
+}
