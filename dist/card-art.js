@@ -35,6 +35,8 @@ for(const [key,file]of Object.entries({diglett:'diglettV2',diglettHorde:'diglett
 }
 CARD_ART.rhydon={file:'assets/cards/rhydon-v1.webp',columns:1,rows:1,x:0,y:0};
 CARD_ART.pandilla={file:'assets/cards/pandilla.webp',columns:1,rows:1,x:0,y:0};
+CARD_ART.geodude={file:'assets/cards/farfetchd-knight-v1.png',columns:1,rows:1,x:0,y:0};
+CARD_ART.graveler={file:'assets/cards/conkeldurr-bowler-v1.png',columns:1,rows:1,x:0,y:0};
 export function cardArtMarkup(key) {
   const art = CARD_ART[key];
   if (!art) return '';
