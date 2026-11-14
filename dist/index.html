@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="transient-ui.css?v=26">
   <link rel="stylesheet" href="editor.css?v=32">
   <link rel="stylesheet" href="quick-stats.css">
+  <link rel="stylesheet" href="battle-phase.css">
 </head>
 <body class="menu-mode">
   <svg class="svg-defs" aria-hidden="true"><defs>
@@ -98,7 +99,7 @@
         <div id="battle-overlays" class="battle-overlays">
           <div class="battle-hud">
             <div class="trainer-id"><strong id="enemy-name">Entrenador</strong><span id="connection-loading" class="connection-loading" role="status" aria-label="Reconectando a la partida" hidden><svg viewBox="0 0 64 64" class="loading-ball" aria-hidden="true"><use href="#i-loading-ball"/></svg></span><span id="online-status" class="online-status" role="status" hidden></span></div>
-            <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button><button id="match-leave" class="icon-btn" aria-label="Volver al inicio" title="Volver al inicio" hidden><svg aria-hidden="true"><use href="#i-home"/></svg></button><div class="battle-hud-status"><span id="phase-label" hidden>Extra</span><span id="boost" role="status" aria-label="Multiplicador de elixir" hidden>×2</span></div></div>
+            <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button><button id="match-leave" class="icon-btn" aria-label="Volver al inicio" title="Volver al inicio" hidden><svg aria-hidden="true"><use href="#i-home"/></svg></button><div class="battle-hud-status"><span id="phase-label" hidden>Extra</span><span id="boost" aria-hidden="true" hidden>2×</span></div></div>
           </div>
 
           <span id="battle-loading" class="battle-loading" role="status" hidden><span class="pokeball-loader" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span><span class="sr-only">Cargando recursos de batalla…</span></span>
@@ -155,6 +156,7 @@
 
   <dialog id="leave-dialog" class="modal small-modal" aria-labelledby="leave-title" aria-describedby="leave-description"><div class="modal-heading"><h2 id="leave-title">¿Volver al inicio?</h2><button class="icon-btn" data-close aria-label="Seguir jugando"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><p id="leave-description">Se perderá esta partida contra CPU.</p><div class="leave-actions"><button class="primary-btn" data-close>Seguir jugando</button><button class="secondary-btn" id="confirm-leave-btn"><svg aria-hidden="true"><use href="#i-home"/></svg>Volver</button></div></dialog>
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
+  <div class="sr-only" id="battle-phase-announcement" role="status" aria-live="polite" aria-atomic="true"></div>
   <dialog id="portrait-dialog" class="modal small-modal portrait-dialog" aria-labelledby="portrait-title" aria-describedby="portrait-description"><h2 id="portrait-title">Jugá en vertical</h2><p id="portrait-description">Girá el teléfono para continuar.</p></dialog>
   <script type="module" src="app.js?v=31"></script>
 </body>

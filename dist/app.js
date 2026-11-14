@@ -8,8 +8,10 @@ import { cardArtMarkup } from './card-art.js?v=26';
 import { cardEquivalentLabel } from './card-equivalents.js?v=30';
 import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=26';
 import { bindQuickStats } from './quick-stats.js';
+import { BattlePhaseUi } from './battle-phase-ui.js';
 
 const $ = id => document.getElementById(id);
+const battlePhaseUi = new BattlePhaseUi(document);
 const canvas = $('arena');
 const renderer = new Renderer(canvas);
 function fitDesktop(){
@@ -129,10 +131,7 @@ function updateUi() {
   $('energy-value').textContent = String(Math.floor(energy));
   $('energy-bar').setAttribute('aria-valuenow', energy.toFixed(1));
   [...$('energy-bar').children].forEach((el,i) => el.firstElementChild.style.width = `${Math.max(0,Math.min(1,energy-i))*100}%`);
-  $('boost').hidden = game.multiplier === 1; $('boost').textContent = `×${game.multiplier}`;
-  const total = Math.ceil(game.time); $('timer').textContent = `${Math.floor(total/60)}:${String(total%60).padStart(2,'0')}`;
-  $('battle-clock').classList.toggle('urgent', game.time <= 30 || game.overtime);
-  $('phase-label').hidden=!game.overtime;$('phase-label').textContent=game.tiebreaker?'Desempate':'Extra';
+  battlePhaseUi.update(game,{reduced});
   $('match-pause').hidden=onlineMode||!['playing','paused'].includes(game.state);
   $('match-leave').hidden=onlineMode||!['playing','paused'].includes(game.state);
   $('menu-btn').disabled=!!online?.active&&(onlineMode&&game.state!=='ended'||online.mode==='resume');
@@ -158,11 +157,10 @@ function handleEvent(e) {
     live(e.team === 0 ? 'Destruiste una torre. Ahora podés desplegar más adelante en ese carril.' : 'El rival destruyó una de tus torres.');
     if (!reduced) { $('arena-frame').classList.remove('shake'); void $('arena-frame').offsetWidth; $('arena-frame').classList.add('shake'); }
   }
-  if (e.type === 'energyBoost') live(`Elixir por ${e.multiplier}.`);
-  if (e.type === 'overtime') live('Tiempo extra. La primera torre destruida decide la partida.');
   if (e.type === 'end') showResult(e);
 }
 function newGame({ start = false, tutorial = false } = {}) {
+  battlePhaseUi.reset();
   deploying=false;deploymentSerial++;
   sfx.resetMusic();
   $('result-overlay').hidden = true; $('pause-overlay').hidden = true; $('guide').hidden = true;
