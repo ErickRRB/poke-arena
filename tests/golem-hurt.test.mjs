@@ -14,13 +14,14 @@ test('Golem reacts to an effective forced push, never ordinary chip or an immune
   game.pause();game.step(.1);assert.equal(unit.pushHurt,copy.pushHurt);game.resume();for(let i=0;i<20;i++)game.step(1/60);assert.equal(unit.pushHurt,0);
 });
 
-test('Golem death retains a brief visual ghost and does not draw it while paused',()=>{
+test('Golem death retains the same brief visual ghost while paused, without advancing its lifetime',()=>{
   const renderer=Object.assign(Object.create(Renderer.prototype),{effects:[],particles:[],frameActors:new Map(),burst(){}});
   const game=new Game({tutorial:true,onEvent:e=>{if(e.type==='faint')renderer.onEvent(e);}});game.start();game.aiEnabled=false;
   const unit=game.spawn('golem',1,300,520,0);game.damage(unit,unit.hp+1,0);assert.equal(unit.hp,0);
   const ghost=renderer.effects.find(e=>e.kind==='golemDeath');assert.ok(ghost);assert.equal(ghost.unit.deathHurt,true);
   let draws=0;renderer.sprite=()=>draws++;const context={save(){},restore(){},globalAlpha:1};
-  renderer.drawEffects(context,0);assert.equal(draws,0);renderer.drawEffects(context,1/60);assert.equal(draws,1);
+  const before=ghost.life;renderer.drawEffects(context,0);assert.equal(draws,1);assert.equal(ghost.life,before);
+  renderer.drawEffects(context,1/60);assert.equal(draws,2);
   for(let i=0;i<20;i++)renderer.drawEffects(context,1/60);assert.ok(!renderer.effects.includes(ghost));
 });
 
@@ -31,5 +32,5 @@ test('Golem sprite keeps its normal image for chip and selects native Hurt for a
   const unit={id:1,key:'golem',card:CARDS.golem,x:300,y:500,dx:0,dy:-1,hp:100,maxHp:100,hit:.2,spawn:0,attack:0,moving:false};
   renderer.sprite(ctx,unit,true);assert.equal(drawn.pop(),images.Idle);
   renderer.sprite(ctx,{...unit,pushHurt:.2,moving:true},true);assert.equal(drawn.pop(),images.Hurt);
-  renderer.drawDt=0;renderer.sprite(ctx,{...unit,pushHurt:.2},true);assert.equal(drawn.pop(),images.Idle);
+  renderer.drawDt=0;renderer.sprite(ctx,{...unit,pushHurt:.2},true);assert.equal(drawn.pop(),images.Hurt);
 });

@@ -24,8 +24,23 @@ test('melee troops never show explosion, jump, splash or short attack reach as a
     const{game,renderer,ctx,calls}=drawing(key);renderer.drawPlacement(ctx,game);assert.equal(calls.filter(c=>c.method==='arc').length,0,key);
   }
 });
-test('a spell has one target boundary and Mazazo has its straight travel footprint',()=>{
+test('a spell has one target boundary and Rueda Fuego has no circular area',()=>{
   for(const[key,radii]of[['spikes',[CARDS.spikes.splash]],['log',[]]]){const{game,renderer,ctx,calls}=drawing(key);renderer.drawPlacement(ctx,game);assert.deepEqual(calls.filter(c=>c.method==='arc').map(c=>c.args[2]),radii);}
+});
+
+test('Rueda Fuego previews only its deployment cell, with no path, corridor or snap connector in either perspective',()=>{
+  for(const team of[0,1]){
+    const{game,renderer,ctx,calls}=drawing('log');
+    game.energy[team]=10;renderer.placementTeam=team;renderer.pointer={x:310,y:team?380:420};
+    const anchor=game.resolveDeployment(team,'log',renderer.pointer.x,renderer.pointer.y);
+    assert.ok(anchor);assert.ok(Math.hypot(anchor.x-renderer.pointer.x,anchor.y-renderer.pointer.y)>24);
+    renderer.drawPlacement(ctx,game);
+    assert.deepEqual(calls.filter(c=>c.method==='fillRect').map(c=>c.args),[[anchor.x-12,anchor.y-12,24,24]]);
+    assert.equal(calls.filter(c=>['arc','ellipse','strokeRect','setLineDash','closePath'].includes(c.method)).length,0);
+    const points=calls.filter(c=>['moveTo','lineTo'].includes(c.method));
+    assert.equal(points.length,16);
+    for(const {args:[x,y]}of points){assert.ok(Math.abs(x-anchor.x)<=12);assert.ok(Math.abs(y-anchor.y)<=12);}
+  }
 });
 
 test('spell previews exclude allies, defeated enemies, deploying troops and out-of-area targets',()=>{
@@ -79,5 +94,18 @@ test('hover targets update immediately and clear on pointer exit, cancellation, 
   renderer.pointer={x:50,y:50};renderer.updateSpellTargets(game);assert.equal(renderer.spellTargets.size,0);
   for(const change of[r=>r.pointer=null,r=>r.selection=null,r=>r.selection='voltorb',()=>game.state='paused']){
     renderer.selection='thunder';renderer.pointer={x:300,y:500};game.state='playing';renderer.updateSpellTargets(game);assert.ok(renderer.spellTargets.size>0);change(renderer);renderer.updateSpellTargets(game);assert.equal(renderer.spellTargets.size,0);
+  }
+});
+
+test('Rueda Fuego keeps red target feedback in both perspectives and clears it on exit or release',()=>{
+  for(const team of[0,1]){
+    const{game,renderer}=drawing('log');game.energy[team]=10;game.towers=[];
+    renderer.placementTeam=team;renderer.pointer={x:300,y:team?280:520};
+    const point=game.resolveDeployment(team,'log',renderer.pointer.x,renderer.pointer.y),direction=team?1:-1;
+    const target=game.spawn('squirtle',1-team,point.x,point.y+direction*100,0);
+    renderer.updateSpellTargets(game);assert.ok(renderer.spellTargets.has(target.id));
+    renderer.pointer=null;renderer.updateSpellTargets(game);assert.equal(renderer.spellTargets.size,0);
+    renderer.pointer=point;renderer.updateSpellTargets(game);assert.ok(renderer.spellTargets.has(target.id));
+    renderer.selection=null;renderer.updateSpellTargets(game);assert.equal(renderer.spellTargets.size,0);
   }
 });
