@@ -34,6 +34,7 @@
     "79": "assets/audio/voices/79.mp3",
     "80": "assets/audio/voices/80.mp3",
     "81": "assets/audio/voices/81.mp3",
+    "83": "assets/audio/cries/83.ogg",
     "88": "assets/audio/voices/88.mp3",
     "91": "assets/audio/voices/91.mp3",
     "92": "assets/audio/voices/92.mp3",
@@ -104,7 +105,8 @@
     "379": "assets/audio/voices/379.mp3",
     "382": "assets/audio/voices/382.mp3",
     "383": "assets/audio/voices/383.mp3",
-    "384": "assets/audio/voices/384.mp3"
+    "384": "assets/audio/voices/384.mp3",
+    "534": "assets/audio/cries/534.ogg"
   },
   "foley": {
     "punch-1": "assets/audio/foley/punch-1.ogg",
