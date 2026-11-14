@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-11-14T20:17:21.174Z",
+  "gitHead": "2ccd1df234a3ce75856f068074275e9764f50de0",
+  "engineModule": "engine.js?v=26",
+  "sourceHashes": {
+    "dist/card-art.js": "cf7ac4b1b1a46e68dfc3759fea91f26dbd63faeb6f36b15d4d04d92fbdc1bc35",
+    "dist/engine.js": "cec3940d0776a12ac9c7549b69bc43c899a6e3ceca22ebf08a4e21d6f1a5d6b2",
+    "dist/catalog.js": "8dd25a1cddf2f61b078d2bc47018a20e4d91733677ea325327de4c0404cc7762",
+    "dist/assets/cards/pandilla-six-v2.png": "04bfb4432bd692e21a14792819f61e51ca6750f1711220aee2db9926a26c6537",
+    "dist/assets/cards/centralElectrode-mobile-v1.png": "636684ca934f72d3ce61a4c5b98c3463cc41c79d32d00a538c77f33062726dde",
+    "dist/assets/cards/farfetchd-knight-v1.png": "4023514cf21c4f48d89311aa7f3bcc246cdfdb4ef5d9be21f96cc180f6de614c",
+    "dist/assets/cards/conkeldurr-bowler-v1.png": "3838bcb225fd6c86f5dba7cc083709eeb0f4d8e9a32f704dfa488c0680b62f27",
+    "dist/assets/cards/ralts-hut-v1.png": "e95004a3940635d0cad3708372dc6010419c3cb38d18cd4eec52cff55c9c4213"
+  },
+  "artworks": 113,
+  "selectable": 110,
+  "corrected": [
+    "pandilla",
+    "centralElectrode",
+    "geodude",
+    "graveler",
+    "raltsHut"
+  ],
+  "identities": {
+    "pandilla": {
+      "name": "Pandilla Rocket",
+      "id": 261,
+      "count": 6,
+      "art": "assets/cards/pandilla-six-v2.png"
+    },
+    "centralElectrode": {
+      "name": "Electrode",
+      "id": 101,
+      "count": 1,
+      "art": "assets/cards/centralElectrode-mobile-v1.png"
+    },
+    "geodude": {
+      "name": "Farfetch’d",
+      "id": 83,
+      "count": 1,
+      "art": "assets/cards/farfetchd-knight-v1.png"
+    },
+    "graveler": {
+      "name": "Conkeldurr",
+      "id": 534,
+      "count": 1,
+      "art": "assets/cards/conkeldurr-bowler-v1.png"
+    },
+    "raltsHut": {
+      "name": "Refugio Ralts",
+      "id": null,
+      "count": 1,
+      "art": "assets/cards/ralts-hut-v1.png"
+    }
+  },
+  "viewports": [
+    {
+      "width": 390,
+      "height": 844,
+      "loadedFiles": 53,
+      "delayedImages": 5,
+      "layoutDelta": 0,
+      "detailCards": 5,
+      "apiRequests": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "loadedFiles": 53,
+      "delayedImages": 5,
+      "layoutDelta": 0,
+      "detailCards": 5,
+      "apiRequests": 0
+    },
+    {
+      "width": 1440,
+      "height": 980,
+      "loadedFiles": 53,
+      "delayedImages": 5,
+      "layoutDelta": 0,
+      "detailCards": 5,
+      "apiRequests": 0
+    }
+  ],
+  "artifactHashes": {
+    "card-centralElectrode.png": "d4613a1e7d50d866e776cdf4d413ae7f2640b1f69c5334cc19a91672d594b2f5",
+    "card-geodude.png": "447910397c36921ea848589055edf8f2c75192d7dced576f1caa9d7c424ec05c",
+    "card-graveler.png": "7fc117d93f178303422ad7096e4ca0318b59dfd85fd20f73dcd701a7400b1887",
+    "card-pandilla.png": "4237361e097a8cb68fa10d135d27ecde46e428c6404759534c366c4dfad248b8",
+    "card-raltsHut.png": "ed6dc4fd7b14a65d995c9b6c626968edb261a2981678199c46747b03830879d0",
+    "detail-centralElectrode-390.png": "5a00f219a86d08420f2d2ec22e672215503a4fe18ad5494b27f733735161fa24",
+    "detail-geodude-390.png": "a5da6575451c8e114994370a5c04d29e584318f39aafab72ac58b4bf71db21d0",
+    "detail-graveler-390.png": "3e1ce768d2b4a56a40644bb9c2bb18afbc1f82398e4499e1f4be1f78c96f9c23",
+    "detail-pandilla-390.png": "e85bf7163d57a3d840e7ff9ddc0c67f28d01864cb635ed67143d010474f3e9c7",
+    "detail-raltsHut-390.png": "7d973d1e0446b677af2e413cafd24789732dccaff1d4dc343d39cac74963e6ab"
+  }
+}

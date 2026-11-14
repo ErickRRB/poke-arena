@@ -1,0 +1,249 @@
+{
+  "generatedAt": "2026-11-14T19:36:18.164Z",
+  "cut": "Frozen local proposal files. The app camera may continue changing outside this captured cut.",
+  "sourceHashes": {
+    "dist/app.js": "d1ac4b276f7c4f900624725ff91059a0d061ba1da91e61aa82172c055c6eb291",
+    "dist/arena-geometry.js": "291e476708913207d4b5f46a63f4fc077f3cf79c6c3cc03543b44f90e2ba4423",
+    "dist/arena-tilemap.js": "ee9e991d7c778473e2920b57b475971002a24fa774b6ace789f048540fc059c1",
+    "dist/attack-choreography.js": "ba6b152a5555c5c6aa8bf3d5b750c9f00683803db7b57dca40b03ef2389cd437",
+    "dist/audio.js": "a8b2a1b4d2c40790654a8851075eae90ef575603bab3db8757d7ba281eef0791",
+    "dist/balance.js": "a2972da12ede76a7ede4b07ac52927b7f3d7da99956d35befd3e32c02bbb9990",
+    "dist/battle-art.js": "c3e8f1bb10073a58e5e6511cc9394dffad44221000a6fb158714a10c278b22ff",
+    "dist/capsule-art.js": "6c403e3200f7fa1345fcfca208e7e08abb1bfe424b8c5b902dc742a429b6a058",
+    "dist/card-art.js": "6dbebc46dc8546d187a06b2035ed83b878276c99473117573204108e79cb82c2",
+    "dist/card-equivalents.js": "40fe14e3622f4e778a88aeb99bda9ff1f6a6092ab27fee11ab44efa06f22b845",
+    "dist/card-review.js": "ed6a20d5054c0201f39ef78e8e20f3ee7053e35cf903eaab518ef120d2f13377",
+    "dist/card-ui.css": "2efc28f94c0e454cba604931bfc968b16f37f03dbc390a9362a1af4e561d70da",
+    "dist/catalog.js": "30af7dc65f875a2e7b04a6a0f75882ef00cffd56541da3738b6ed205539a6882",
+    "dist/combat-visuals.js": "93006993a0fb9d14203302972d679d81752260cf0e9253612d73ded68f4e2739",
+    "dist/current-reference.js": "abbbfc4c891f2486dbdaf6c68f976a19356f8ffeceba2317b9b796c2c8fc059e",
+    "dist/deck-storage.js": "affe8e768a358cf5c09467c6c24e7458717cb1a139d7a14cc8219095c6170feb",
+    "dist/deployment-formations.js": "7ad1ed114b92e6d833e827f763c6856e0d380273154f823d6fd5b0e374e27034",
+    "dist/editor.css": "57e0a104a198862f79f71fb2f4ac528c152789f579106f35fc7db14fc562b539",
+    "dist/engine.js": "a7105431422589bdd7e8237c519761c37f9e5dc4d3b79512cab24910cabe9cea",
+    "dist/index.html": "ac4b424ce67b96012924f13bf6b2e7b044603589b078806a1a6dc0f409528440",
+    "dist/knockback-profiles.js": "e2cc17619efc8694b5515ac40d0cd08fac348f0ee1208956039a5a5f4a920b58",
+    "dist/music.js": "2d9a9b01bc577d5c6f548a8df9595e1312b6f5276f7c2a07498f3db2855e7162",
+    "dist/online-config.js": "887aec9af4dd2836ede6d745b18cbe439b363ce8444d00b8366d1afd616ad581",
+    "dist/online-wire.js": "083c70bf353c8ace6d995f47d7e8d936595e63cffd9a3b69cfa96cd7b386be88",
+    "dist/online.js": "5058e0279ca17b4b63a6c57b4fbadfee604347d373d2c05e16cd9b9a33e08313",
+    "dist/pokemon-silhouettes.js": "03ebecf4bc077b3fe195510503cf564cb789dcf8faa29d2b7cf3fdd760058742",
+    "dist/pokemon-stats.js": "64c1544c59efb2c653737f73252cdab19f44eec203a45e4437a291cd88e3d75a",
+    "dist/quick-stats.css": "8d6e397abb2dc594f85fdd9098616b39e6c43c216472ad68b4f8913fbf301dc6",
+    "dist/quick-stats.js": "93af550b551b58d0009a2be6ff0d474ea4684d61a5f8a60d64c1edf9cefa6c20",
+    "dist/render.js": "b664544fe60de8c5241db026b31f2e79593c016da68396b6783fdfa82aadb43f",
+    "dist/sandbox.js": "cf8534e529e31b73377a940764f2878c5d34a8c6217da5e97010f78f9052b5f0",
+    "dist/snapshot.js": "0fe9889e6accef199dca9780bfb0a05a248b88b3bd8de2a0db4bc70aab2141eb",
+    "dist/spell-preview.js": "402beb01f17f419e69208956133bfd8742d6d988cd344a79781b88529cf61f32",
+    "dist/sprite-geometry.js": "efafdc523d7e6256043999cc7f88b30f73887253c71a2a6c6c334b7dafec1f12",
+    "dist/sprite-motion.js": "566f7f7bff7312a7b83528845f60d4934271a75729f6904d5f8403825374b8b9",
+    "dist/style.css": "7d5374380e98fa30f49e687a96806a21476b01a17c159bc85c99c5366a1db5a1",
+    "dist/targeting-art.js": "a3207c34acef39771e1f71aa32f9d88949244eeef642e44165655f936b8b43da",
+    "dist/testing.css": "bbec316494b0c4c14d1896dd096ad7eef4dbbe6d42b13e06c06825fdfd45ed8f",
+    "dist/testing.html": "33e57465b3b2a8a3532ac2320b9aedf5ffd7c0646025ba542e2a49ce8313e0a6",
+    "dist/testing.js": "7539655525892813a18d9f40e12d81d0494a56acd393275e5bb4f0b56c6d2469",
+    "dist/theme.css": "d41e670e02ff03fec877739b9d5a3571a96c426e3efa6e43dd77b8068ad42756",
+    "dist/transient-ui.css": "5b110474064321a12c474fa9018a8abe4184b8f1bf9291ab22751d08fa227063",
+    "dist/unit-sizes.js": "e99693751d8b6ae1ccb6734926494840ae7d48a04c30c071cef9a506f8a17eb9",
+    "dist/wing-motion.js": "a86cb99670e14a63eb1ad182cb562a15df60f68142566652c913089050d1d8d5",
+    "dist/wing-rigs.js": "a9fa115bcd8f08ff6fc5f98fd7812b3809012c768e8e58411f569b8994f3e8e6",
+    "dist/assets/pokemon/manifest.json": "98f8facb20949c082d0dcbcbd21622948b0cfef19d17002bd54861b3c7d6db0b",
+    "dist/assets/battle/arena-bridge-v2.png": "94d1ddf1a4bbb58455b4f11d4cfcc8ea74b8a9592b7c8f84a418de69c8a404cf",
+    "dist/assets/battle/arena-bridge-v2.webp": "defac1da7c6bf617a38e5245cc297860ba8e55f342847a272cdfa7de53219755",
+    "dist/assets/battle/arena-ground-v2.png": "86c687a838fca61b5df094ebb23ba8cb65318fb005a75703268cc0830c39dee2",
+    "dist/assets/battle/arena-ground-v2.webp": "2c0fa6491949b4a6a03466f2e57447b1a6db8db2ad3c8c2534745df42e0bd611",
+    "dist/assets/battle/Beam__Beam__Body.png": "0487b28a1939bb08c677f54f49ed38b099e731f5b1b3f24db8e909c1cff74c02",
+    "dist/assets/battle/Beam__Beam__Head.png": "f4235573a697b61ef96cf5c5c194f6898bd9fdc9a059e5b0872c02a39285835b",
+    "dist/assets/battle/Beam__Beam__Tail.png": "981ad783ed267614dc3310571140b26a29fab9e795c105086352638ef09cdb1e",
+    "dist/assets/battle/Beam__Column_Blue__Body.png": "6133e7b7544427b2116db3809f01d331441b32f58526925193658fb9f9ac2667",
+    "dist/assets/battle/Beam__Column_Blue__Head.png": "6758c89a9dc7ed53b4dd8136446398766ba74c733e2cf4ebb28a9540cd612ed0",
+    "dist/assets/battle/Beam__Column_Blue__Tail.png": "50ec20bc7744df72b1f60f4cd5b5509a0a3b8ca99ddd7c64a270b27e75f5007d",
+    "dist/assets/battle/Beam__Column_Yellow__Body.png": "96af7bc2c6e13f9b04bbd059b3b690ec35f288546695eed2b1968b53a9c248f6",
+    "dist/assets/battle/Beam__Column_Yellow__Head.png": "90bfbf1c27df80f193073399bf3f8ba6013b10ac3d7fb35fa78b7bd247c86254",
+    "dist/assets/battle/Beam__Column_Yellow__Tail.png": "50ec20bc7744df72b1f60f4cd5b5509a0a3b8ca99ddd7c64a270b27e75f5007d",
+    "dist/assets/battle/Beam__Lightning__Body.png": "db252b3f73d3d7d2b26aff79695da8ee65a68b5dfcc80dd659177dcdd2a667ff",
+    "dist/assets/battle/Beam__Lightning__Head.png": "ad5507d242139eef9c3e9d6997f14f1d003eb6a34c486c5eaadb47e1bf812381",
+    "dist/assets/battle/Beam__Lightning__Tail.png": "98b591328e9e4bb53a3e5383f74c52539e76d2cc20355f76bf8ddc7eab1b79fd",
+    "dist/assets/battle/frame-bounds.js": "3d9f54c5593142cdec764e5606a82c5d041a1252d818b151e8c7611485ae638e",
+    "dist/assets/battle/Item__Money_Yellow.None.png": "0e85debff04bb121eda7e1e7f0d90364e11ebb8bc1a5d22d4950b66357030dc2",
+    "dist/assets/battle/manifest.js": "0e4f146ef52d0d4225192729358f35bd3ac31025190870b8e15f8eb08492a1ae",
+    "dist/assets/battle/Object__Fence.Flip.png": "10710bba02f95311f11635a7dbe0f52b4dbc1408fb31d274e0505e487499c92c",
+    "dist/assets/battle/Object__Logs_Large.Flip.png": "1a49caeabb45b0c33792c2f625a259a473b7ccdee26ac72231fa6733646859a8",
+    "dist/assets/battle/Object__Tree_Town.Flip.png": "147cf52606863d90214c0c03bdd6eb946f055b5551dba2da69072bcb52619dac",
+    "dist/assets/battle/Particle__Aura_Sphere.None.png": "1abf6bef7f0a4b2a913b3c59dc60ffc7b9cca0f9f16a99257fabee8fcffb078b",
+    "dist/assets/battle/Particle__Bite.Dir8.png": "c26f5975d8ca805e3b83d304a34084519ea84812d6d347cd385bcc069e2321e6",
+    "dist/assets/battle/Particle__Bubbles_Blue.None.png": "a5f94f956f2345889ced3e4fcddb91a640c030b47cd26c944a61810f828a0937",
+    "dist/assets/battle/Particle__Dark_Void_Back.None.png": "7ff5a778cbb79675815cd0fb109f2ad98ba51b2b0e1b78c13fd91055a0e27652",
+    "dist/assets/battle/Particle__Dark_Void_Front.None.png": "a22b734d84f2ee63911cea7b3f4aae4d99af9a3a596a35fe8b0d6d60f7574609",
+    "dist/assets/battle/Particle__Dizzy_Punch_Hit.None.png": "1ca7ca160f2170bba05a506224b86d30eaac9e85647319cfcb8e54a36100c1a8",
+    "dist/assets/battle/Particle__Earth_Power_Eruption.None.png": "e1ab38b8102d2d227a41e651f50d4f7d288ad7d96d66316f79dede031f7db73c",
+    "dist/assets/battle/Particle__Egg_Bomb_Egg.None.png": "f49dd6a36a09bd0d6e477c9907267ed892313c688a7438bb705dc9e8a6f53137",
+    "dist/assets/battle/Particle__Ember.None.png": "2875d15af0d787a2185f359679f5a120d14cc63687c5a88e4a3811e2145ad76d",
+    "dist/assets/battle/Particle__Explosion.None.png": "33cff9cb450ae73068809b6a3ee6b3e708f8ab9359377499e371338701df44f2",
+    "dist/assets/battle/Particle__Flamethrower.None.png": "cdf854eb86da7cccaa4650a7e892f096e0bf0ccbc69512d2ae31bd9f895ffa74",
+    "dist/assets/battle/Particle__Flamethrower_2.None.png": "175203e3eb6405013017a527692449fef1ff9585392d3ad53d5db06982d38984",
+    "dist/assets/battle/Particle__Flame_Wheel.None.png": "73cefc7fe2922f2a628bfb37927adc1979fba0f44d185c7c24eb4d3212129189",
+    "dist/assets/battle/Particle__Growl.Dir8.png": "05498d575b0b6381a43f45d9d2b2944a59857ff87a20d51e2a618462ce1983a3",
+    "dist/assets/battle/Particle__Gust_Blue.None.png": "a2222c9bc1eb66521edada7d61c4312f2f4e037480f2c371b5cf804909b0ca1c",
+    "dist/assets/battle/Particle__Heal_Order.None.png": "59a26037db0e500ece038f6128f65f6c57f372aa1a9bef783e108ac403ba5af7",
+    "dist/assets/battle/Particle__Hydro_Cannon.None.png": "1ef2d00af95c39861f274b0acf238e21618afc16d8414fc9485fdb120bbb1bb3",
+    "dist/assets/battle/Particle__Ice_Ball.None.png": "c2b9e0f3ef40767f7bfda682dcc1d7931ceff84173e18d13cebd21dbd61c6ded",
+    "dist/assets/battle/Particle__Ice_Shard.Dir8.png": "5a93504695050beed6002d43ac88e04557ac76dc6c2e11b07f6569e875a2a07d",
+    "dist/assets/battle/Particle__Ice_Shard_Hit.None.png": "0a3ed5836cfeed2a0df7c8c9f3c43c071d3124336f19b22edbe3e37ef5ee881a",
+    "dist/assets/battle/Particle__Lick.None.png": "c7c125faf775af3c1016a25145f0ba27fd1196caee5c58aff99d9745ec1aafab",
+    "dist/assets/battle/Particle__Megahorn_Front.None.png": "edece3e64754f1057745a957e2a5595fc0650a61cf10a101a26b4e966fb07fc1",
+    "dist/assets/battle/Particle__Music_Notes.None.png": "5e5b0db6023b959fb32ffff9a473d3b8a2b54b5cd778ef2eccd2b4afb1936fc8",
+    "dist/assets/battle/Particle__Petal_Dance_Flower_Pink.None.png": "f3c8a784cc2972b5c48c03232fbec8a06ff5f61264c9fe74c042986f03689900",
+    "dist/assets/battle/Particle__Pin_Missile.Dir5.png": "0e9afd85360ce8358f6e11c94c6ec61c4eaacc9312a304e3b55ca3ce3bb843c5",
+    "dist/assets/battle/Particle__Poison_Ball_Ranger.None.png": "7d85c13486c550a71664499be74db256d7fc4a857bc59fd20413cca11baaf8b1",
+    "dist/assets/battle/Particle__Protect_Blue.None.png": "4e9f1a63669fe090ca95ac7d2684ac97de11845536466ce3335161318213e038",
+    "dist/assets/battle/Particle__Puff_Brown.None.png": "36653d6d900c5249e139bb3d4bfa0c3c3188618a90d61378855b7fc7b961fd7d",
+    "dist/assets/battle/Particle__Puff_White.None.png": "603018a5b6592b0f529394119bbe33d5d67988f9978d0c467df4d0de7202107e",
+    "dist/assets/battle/Particle__Razor_Leaf.None.png": "4e0a060cd0b3628e43dc1fb378db413886b9a23d86594797ff4cf5e7d02fea31",
+    "dist/assets/battle/Particle__Rock_Pieces.None.png": "7ce6a9100e85d798a50e81337b6be041ddc156796ef478f60a9af98e676c8762",
+    "dist/assets/battle/Particle__Rock_Wrecker_Boulder.None.png": "a75780cc81d4ea5bf0d281ac656e48231fc2d30321119fd0c9779a407d67ee9b",
+    "dist/assets/battle/Particle__Scratch.Dir1.png": "54ed603821c836df08db212fb73ba5a4bce8c6235fd4316127b3ee380187111c",
+    "dist/assets/battle/Particle__Shadow_Ball.None.png": "bb6db172f0bd7f4230748c154958ec8f5bee01fa6807cdeb3f06640eb59c1f03",
+    "dist/assets/battle/Particle__Spikes_RSE.Flip.png": "e1f64173c5d6c454fd72c617d6b4abd1199e034e5b6e56d7667395b12df3c9c1",
+    "dist/assets/battle/Particle__Stealth_Rock_Back.None.png": "e4eaf56bfbd286601c2464e32b25431a08ca1fbbd04828c1b292c009f84edc95",
+    "dist/assets/battle/Particle__Stealth_Rock_Front.None.png": "6088eb2cfd3f2f4d16d6c40ef867e42e19d3068b82bd1c562a9a1f5bf06072ec",
+    "dist/assets/battle/Particle__Vine_Whip.Dir1.png": "4532648663f05f7f3b4616d203b8ff7a9856c61b2bc14b2b9bb5ba92c8ee5a06",
+    "dist/assets/battle/Particle__Water_Column_Ranger.None.png": "31f2e34d0eb20756d396642ee400d4533e8e72768aeb3c5ffb5cd7161e25eb3b",
+    "dist/assets/battle/Particle__Weather_Ball_Fire_1.None.png": "e0b0c2bdf99d1b406e0b300a688088a82ce906bb726caf1ef8b892766fe25f37",
+    "dist/assets/battle/Particle__Weather_Ball_Fire_3.Flip.png": "7af08ca82cc0942f44efc5d88c034ab092b84783fee63c0e05b085691fbd7b26",
+    "dist/assets/battle/poke-ball.png": "a4c7b9e8ff5727d10e6f679bcf16a963a95b2a36480d3bd9156d9808bdf54dff",
+    "dist/assets/battle/pokeball-material-v2.png": "be89cd1a53b6f11dcd82ac37cb5232ab0d06034f5c4fe721f6919a725450d3bb",
+    "dist/assets/battle/projectile-bounds.js": "3fb806ea96e8c655feff1148fe71175d7d315b1d71720c476747d8b7ac86f86e",
+    "dist/assets/battle/ralts-hut-v1.png": "63b1890d7e39cdd3c885953871116acfb6ca54b9ae8fe83ed373e4f02e924cbb",
+    "dist/assets/battle/riverbank-v2.png": "7f6f6d39d2c906132473fbae5f54351d6bea6857e34fe8595fd68a5ae367ed13",
+    "dist/assets/battle/riverbank-v2.webp": "cec6d62253b803a24c4fe6b80a3f6a4eff9059fa87bf8f3c772b6013567495d1",
+    "dist/assets/battle/structures-v1.png": "e4bdce8733b73ba6aa55be17f666f2a1d358b15b02efdb14ede359a70ccdd87b",
+    "dist/assets/battle/Tile__24x24__BeachWaves.png": "331d79cd8fb27e7517d58f40d82d69781f227ce2fc7ca47d987df7f23099c9ed",
+    "dist/assets/battle/Tile__8x8__TownBase.png": "fdb9d3f8eebff459e546bbad8b840ad0c3a33002c818204c5d7ebc61779e0f34",
+    "dist/assets/ui/combat-effects-v1.webp": "71bf3ca302750a66a927e1a393110a6154576317e2619315380cbef97ff0fcbf",
+    "dist/assets/ui/cost-crystal.webp": "bcacdfcaab87eed31c45681599b414bdd3c16832c957f04722fadbd9f95baf02",
+    "dist/assets/ui/menu-icons-v1.webp": "d3d2e125f8e0b911ca84c89060c2f773f98100eab4c75f4050927dadaf9e1821",
+    "dist/assets/ui/pokeball-v2.png": "e114dd6a48df9ae71d651d7241449072b7a26893fef90223c82a3014fc405eee",
+    "dist/assets/ui/pokeball-v2.webp": "93e032372700ab7e69d65004f7cffd93c99800daf4dcf6cda1008af0fbac18e8",
+    "dist/assets/ui/stat-icons.webp": "42fd088090aeb419d47f8653de1a3b6b44ec32d19c0ba560a14314f346b3abd3",
+    "scripts/qa-capsule-v2.mjs": "ad3307edf5e3f75be57baaa7e49976cfa62b0449114abc5bca7a3e90a1672d8f"
+  },
+  "baseline": {
+    "url": "https://poke-arena-erick.eriqrb.chatgpt.site/",
+    "suppliedFile": "C:\\Users\\Mapa\\Documents\\ChatGPT\\Plugins\\.supervision\\capsule-live-v34.js",
+    "sha256": "a8a5b458eee3ccfba5596131df951a45ac21232369d8bd000d103d2e30726c5e",
+    "scope": "Authentic v34 graphic function replayed over the same frozen local Game trajectory. This A/B is not a recording of production gameplay."
+  },
+  "artifacts": [
+    {
+      "file": "phases-8.png",
+      "bytes": 91069,
+      "sha256": "c6106311ac951a123ff62fe0a06edb0b652347a3838bd70ec7a225870c14f8e9"
+    },
+    {
+      "file": "arena-live-v34-graphic.png",
+      "bytes": 292186,
+      "sha256": "32771fbb8b87bcd31edcf3df19a8521e463d2b312b3910dd99b823aeb4a3c821"
+    },
+    {
+      "file": "arena-proposal.png",
+      "bytes": 290386,
+      "sha256": "7b21e035a4fc88cfcf4e6d769c05e10170b3c2515196a4152570580cab3f67e6"
+    }
+  ],
+  "browser": "157.0.4341.46",
+  "firstReview": {
+    "phases": [
+      {
+        "phase": 0,
+        "angle": 0,
+        "atlasPhase": 0
+      },
+      {
+        "phase": 1,
+        "angle": 0.7853981633974483,
+        "atlasPhase": 12
+      },
+      {
+        "phase": 2,
+        "angle": 1.5707963267948966,
+        "atlasPhase": 24
+      },
+      {
+        "phase": 3,
+        "angle": 2.356194490192345,
+        "atlasPhase": 36
+      },
+      {
+        "phase": 4,
+        "angle": 3.141592653589793,
+        "atlasPhase": 48
+      },
+      {
+        "phase": 5,
+        "angle": 3.9269908169872414,
+        "atlasPhase": 60
+      },
+      {
+        "phase": 6,
+        "angle": 4.71238898038469,
+        "atlasPhase": 72
+      },
+      {
+        "phase": 7,
+        "angle": 5.497787143782138,
+        "atlasPhase": 84
+      }
+    ],
+    "positions": [
+      {
+        "variant": "proposal",
+        "x": 261.3491940955253,
+        "y": 426.4256447113601,
+        "size": 52,
+        "angle": 3.133333333333333,
+        "axis": -2.881689725472844
+      },
+      {
+        "variant": "proposal",
+        "x": 338.6508059044747,
+        "y": 105.12325531684567,
+        "size": 52,
+        "angle": 3.133333333333333,
+        "axis": 0.25990292811694915
+      },
+      {
+        "variant": "live-v34-graphic",
+        "x": 261.3491940955253,
+        "y": 426.4256447113601,
+        "size": 52,
+        "angle": 3.133333333333333,
+        "axis": -2.881689725472844
+      },
+      {
+        "variant": "live-v34-graphic",
+        "x": 338.6508059044747,
+        "y": 105.12325531684567,
+        "size": 52,
+        "angle": 3.133333333333333,
+        "axis": 0.25990292811694915
+      }
+    ],
+    "board": {
+      "width": 370,
+      "height": 677,
+      "verticalScale": 1
+    },
+    "texture": {
+      "loaded": true,
+      "width": 512,
+      "height": 256
+    },
+    "stats": {
+      "built": 8,
+      "totalMs": 10.50000011920929,
+      "maxMs": 2.199999988079071
+    }
+  },
+  "pageErrors": []
+}

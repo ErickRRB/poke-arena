@@ -1,0 +1,599 @@
+{
+  "kind": "derived-numeric-summary",
+  "capturedAt": "2026-11-14T19:49:04.931Z",
+  "sourceReport": {
+    "file": "verification.json",
+    "sha256": "ceb710caf573e76458f63a1a31f923195d7d7b53dbe1908f7f519c753d69ab69",
+    "note": "Extracted from the final capture. No new simulation, images or videos were generated."
+  },
+  "base": {
+    "gitHead": "62ff66320dfdda1f58ea411a5d7a330429cc4870",
+    "kind": "frozen-local-proposal",
+    "note": "Current native motor and camera frozen at capture start. Uncommitted material/renderer files are identified by exact SHA-256. This is not a production gameplay recording."
+  },
+  "model": {
+    "simulationHz": 30,
+    "snapshotHz": 15,
+    "renderSamplingHz": 60,
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "pause": {
+      "start": 1,
+      "end": 1.4
+    },
+    "note": "Fixed-step sampling, no network jitter. Readback context willReadFrequently is fixture-only; timings are a local CPU microbenchmark, not a hardware frame-rate guarantee."
+  },
+  "browser": "157.0.4341.46",
+  "baseline": {
+    "url": "https://poke-arena-erick.eriqrb.chatgpt.site/capsule-art.js?v=26",
+    "suppliedFile": "C:\\Users\\Mapa\\Documents\\ChatGPT\\Plugins\\.supervision\\capsule-live-v34.js",
+    "sha256": "a8a5b458eee3ccfba5596131df951a45ac21232369d8bd000d103d2e30726c5e",
+    "scope": "Authentic published v34 graphic function, replayed with the same frozen local Game path and viewport. Only the capsule drawing hook changes in the A/B."
+  },
+  "checks": {
+    "local30:side0:motion:bothTeams": true,
+    "local30:side0:motion:size52": true,
+    "local30:side0:motion:noPlanarRotation": true,
+    "local30:side0:motion:pausePixels": true,
+    "local30:side0:motion:pauseEngine": true,
+    "local30:side0:motion:phaseClock": true,
+    "local30:side0:motion:monotonic": true,
+    "local30:side0:motion:flightMoves": true,
+    "local30:side0:motion:pauseMaterialAndPosition": true,
+    "local30:side0:reduced:bothTeams": true,
+    "local30:side0:reduced:size52": true,
+    "local30:side0:reduced:noPlanarRotation": true,
+    "local30:side0:reduced:pausePixels": true,
+    "local30:side0:reduced:pauseEngine": true,
+    "local30:side0:reduced:phaseClock": true,
+    "local30:side0:reduced:monotonic": true,
+    "local30:side0:reduced:flightMoves": true,
+    "local30:side0:reduced:pauseMaterialAndPosition": true,
+    "local30:side1:motion:bothTeams": true,
+    "local30:side1:motion:size52": true,
+    "local30:side1:motion:noPlanarRotation": true,
+    "local30:side1:motion:pausePixels": true,
+    "local30:side1:motion:pauseEngine": true,
+    "local30:side1:motion:phaseClock": true,
+    "local30:side1:motion:monotonic": true,
+    "local30:side1:motion:flightMoves": true,
+    "local30:side1:motion:pauseMaterialAndPosition": true,
+    "local30:side1:reduced:bothTeams": true,
+    "local30:side1:reduced:size52": true,
+    "local30:side1:reduced:noPlanarRotation": true,
+    "local30:side1:reduced:pausePixels": true,
+    "local30:side1:reduced:pauseEngine": true,
+    "local30:side1:reduced:phaseClock": true,
+    "local30:side1:reduced:monotonic": true,
+    "local30:side1:reduced:flightMoves": true,
+    "local30:side1:reduced:pauseMaterialAndPosition": true,
+    "snapshots15:side0:motion:bothTeams": true,
+    "snapshots15:side0:motion:size52": true,
+    "snapshots15:side0:motion:noPlanarRotation": true,
+    "snapshots15:side0:motion:pausePixels": true,
+    "snapshots15:side0:motion:pauseEngine": true,
+    "snapshots15:side0:motion:phaseClock": true,
+    "snapshots15:side0:motion:monotonic": true,
+    "snapshots15:side0:motion:flightMoves": true,
+    "snapshots15:side0:motion:pauseMaterialAndPosition": true,
+    "snapshots15:side0:reduced:bothTeams": true,
+    "snapshots15:side0:reduced:size52": true,
+    "snapshots15:side0:reduced:noPlanarRotation": true,
+    "snapshots15:side0:reduced:pausePixels": true,
+    "snapshots15:side0:reduced:pauseEngine": true,
+    "snapshots15:side0:reduced:phaseClock": true,
+    "snapshots15:side0:reduced:monotonic": true,
+    "snapshots15:side0:reduced:flightMoves": true,
+    "snapshots15:side0:reduced:pauseMaterialAndPosition": true,
+    "snapshots15:side1:motion:bothTeams": true,
+    "snapshots15:side1:motion:size52": true,
+    "snapshots15:side1:motion:noPlanarRotation": true,
+    "snapshots15:side1:motion:pausePixels": true,
+    "snapshots15:side1:motion:pauseEngine": true,
+    "snapshots15:side1:motion:phaseClock": true,
+    "snapshots15:side1:motion:monotonic": true,
+    "snapshots15:side1:motion:flightMoves": true,
+    "snapshots15:side1:motion:pauseMaterialAndPosition": true,
+    "snapshots15:side1:reduced:bothTeams": true,
+    "snapshots15:side1:reduced:size52": true,
+    "snapshots15:side1:reduced:noPlanarRotation": true,
+    "snapshots15:side1:reduced:pausePixels": true,
+    "snapshots15:side1:reduced:pauseEngine": true,
+    "snapshots15:side1:reduced:phaseClock": true,
+    "snapshots15:side1:reduced:monotonic": true,
+    "snapshots15:side1:reduced:flightMoves": true,
+    "snapshots15:side1:reduced:pauseMaterialAndPosition": true,
+    "materialReturns2pi": true,
+    "materialAlphaUnchanged": true,
+    "redHemispherePassesFrontToBack": true,
+    "whiteHemispherePassesFrontToBack": true,
+    "seamMovesAcrossSurface": true,
+    "cacheWarmNoBuilds": true,
+    "cacheBounded256": true,
+    "cacheReusesAtlasAndScratch": true
+  },
+  "findings": [],
+  "material": {
+    "rows": [
+      {
+        "phase": 0,
+        "angle": 0,
+        "redTop": 908,
+        "redBottom": 0,
+        "whiteTop": 87,
+        "whiteBottom": 1019,
+        "beltCenter": 88
+      },
+      {
+        "phase": 1,
+        "angle": 0.7853981633974483,
+        "redTop": 1132,
+        "redBottom": 805,
+        "whiteTop": 0,
+        "whiteBottom": 150,
+        "beltCenter": 0
+      },
+      {
+        "phase": 2,
+        "angle": 1.5707963267948966,
+        "redTop": 1132,
+        "redBottom": 1132,
+        "whiteTop": 0,
+        "whiteBottom": 0,
+        "beltCenter": 0
+      },
+      {
+        "phase": 3,
+        "angle": 2.356194490192345,
+        "redTop": 914,
+        "redBottom": 1132,
+        "whiteTop": 134,
+        "whiteBottom": 0,
+        "beltCenter": 0
+      },
+      {
+        "phase": 4,
+        "angle": 3.141592653589793,
+        "redTop": 0,
+        "redBottom": 1036,
+        "whiteTop": 1084,
+        "whiteBottom": 1,
+        "beltCenter": 86
+      },
+      {
+        "phase": 5,
+        "angle": 3.9269908169872414,
+        "redTop": 0,
+        "redBottom": 107,
+        "whiteTop": 1132,
+        "whiteBottom": 938,
+        "beltCenter": 0
+      },
+      {
+        "phase": 6,
+        "angle": 4.71238898038469,
+        "redTop": 0,
+        "redBottom": 0,
+        "whiteTop": 1132,
+        "whiteBottom": 1132,
+        "beltCenter": 0
+      },
+      {
+        "phase": 7,
+        "angle": 5.497787143782138,
+        "redTop": 96,
+        "redBottom": 0,
+        "whiteTop": 920,
+        "whiteBottom": 1132,
+        "beltCenter": 0
+      }
+    ],
+    "returnsExactly": true,
+    "alphaUnchanged": true,
+    "cssDiameter": 40.083333333333336
+  },
+  "budget": {
+    "cold": {
+      "calls": 192,
+      "medianMs": 0.30000001192092896,
+      "p95Ms": 0.40000003576278687,
+      "maxMs": 0.6000000238418579
+    },
+    "warm": {
+      "calls": 3840,
+      "newFramesBuilt": 0,
+      "medianMs": 0,
+      "p95Ms": 0
+    },
+    "afterEviction": {
+      "keys": 256,
+      "atlas": [
+        1024,
+        1024
+      ],
+      "sameAtlas": true,
+      "sameScratch": true
+    },
+    "rgbaBytes": 4734976
+  },
+  "cases": [
+    {
+      "mode": "local30",
+      "side": 0,
+      "reduced": false,
+      "variant": "proposal",
+      "camera": {
+        "left": 60,
+        "top": -56,
+        "width": 480,
+        "height": 864
+      },
+      "board": {
+        "width": 370,
+        "height": 677
+      },
+      "projection": {
+        "scale": 0.7708333333333334,
+        "x": -46.25,
+        "y": 48.66666666666667
+      },
+      "summary": {
+        "calls": 396,
+        "identities": 2,
+        "pausedFrames": 24,
+        "visibleCssDiameter": 40.083333333333336,
+        "observedPhases": 96,
+        "landings": 6
+      },
+      "pausedPixelChanges": 0,
+      "cache": {
+        "frames": 191,
+        "atlas": [
+          1024,
+          1024
+        ],
+        "stats": {
+          "built": 191,
+          "totalMs": 84.70000010728836,
+          "maxMs": 3.300000011920929
+        }
+      },
+      "drawMs": {
+        "median": 0.30000001192092896,
+        "p95": 1.199999988079071,
+        "max": 5.100000023841858
+      }
+    },
+    {
+      "mode": "local30",
+      "side": 0,
+      "reduced": true,
+      "variant": "proposal",
+      "camera": {
+        "left": 60,
+        "top": -56,
+        "width": 480,
+        "height": 864
+      },
+      "board": {
+        "width": 370,
+        "height": 677
+      },
+      "projection": {
+        "scale": 0.7708333333333334,
+        "x": -46.25,
+        "y": 48.66666666666667
+      },
+      "summary": {
+        "calls": 396,
+        "identities": 2,
+        "pausedFrames": 24,
+        "visibleCssDiameter": 40.083333333333336,
+        "observedPhases": 1,
+        "landings": 6
+      },
+      "pausedPixelChanges": 0,
+      "cache": {
+        "frames": 1,
+        "atlas": [
+          1024,
+          1024
+        ],
+        "stats": {
+          "built": 1,
+          "totalMs": 0.6000000238418579,
+          "maxMs": 0.6000000238418579
+        }
+      },
+      "drawMs": {
+        "median": 0.10000002384185791,
+        "p95": 0.20000004768371582,
+        "max": 5.799999952316284
+      }
+    },
+    {
+      "mode": "local30",
+      "side": 1,
+      "reduced": false,
+      "variant": "proposal",
+      "camera": {
+        "left": 60,
+        "top": -56,
+        "width": 480,
+        "height": 864
+      },
+      "board": {
+        "width": 370,
+        "height": 677
+      },
+      "projection": {
+        "scale": 0.7708333333333334,
+        "x": -46.25,
+        "y": 48.66666666666667
+      },
+      "summary": {
+        "calls": 396,
+        "identities": 2,
+        "pausedFrames": 24,
+        "visibleCssDiameter": 40.083333333333336,
+        "observedPhases": 96,
+        "landings": 6
+      },
+      "pausedPixelChanges": 0,
+      "cache": {
+        "frames": 191,
+        "atlas": [
+          1024,
+          1024
+        ],
+        "stats": {
+          "built": 191,
+          "totalMs": 80.59999978542328,
+          "maxMs": 3.300000011920929
+        }
+      },
+      "drawMs": {
+        "median": 0.20000004768371582,
+        "p95": 1.100000023841858,
+        "max": 3.699999988079071
+      }
+    },
+    {
+      "mode": "local30",
+      "side": 1,
+      "reduced": true,
+      "variant": "proposal",
+      "camera": {
+        "left": 60,
+        "top": -56,
+        "width": 480,
+        "height": 864
+      },
+      "board": {
+        "width": 370,
+        "height": 677
+      },
+      "projection": {
+        "scale": 0.7708333333333334,
+        "x": -46.25,
+        "y": 48.66666666666667
+      },
+      "summary": {
+        "calls": 396,
+        "identities": 2,
+        "pausedFrames": 24,
+        "visibleCssDiameter": 40.083333333333336,
+        "observedPhases": 1,
+        "landings": 6
+      },
+      "pausedPixelChanges": 0,
+      "cache": {
+        "frames": 1,
+        "atlas": [
+          1024,
+          1024
+        ],
+        "stats": {
+          "built": 1,
+          "totalMs": 0.30000001192092896,
+          "maxMs": 0.30000001192092896
+        }
+      },
+      "drawMs": {
+        "median": 0.10000002384185791,
+        "p95": 0.20000004768371582,
+        "max": 5.400000035762787
+      }
+    },
+    {
+      "mode": "snapshots15",
+      "side": 0,
+      "reduced": false,
+      "variant": "proposal",
+      "camera": {
+        "left": 60,
+        "top": -56,
+        "width": 480,
+        "height": 864
+      },
+      "board": {
+        "width": 370,
+        "height": 677
+      },
+      "projection": {
+        "scale": 0.7708333333333334,
+        "x": -46.25,
+        "y": 48.66666666666667
+      },
+      "summary": {
+        "calls": 400,
+        "identities": 2,
+        "pausedFrames": 24,
+        "visibleCssDiameter": 40.083333333333336,
+        "observedPhases": 96,
+        "landings": 6
+      },
+      "pausedPixelChanges": 0,
+      "cache": {
+        "frames": 191,
+        "atlas": [
+          1024,
+          1024
+        ],
+        "stats": {
+          "built": 191,
+          "totalMs": 76.59999990463257,
+          "maxMs": 3.300000011920929
+        }
+      },
+      "drawMs": {
+        "median": 0.19999998807907104,
+        "p95": 1,
+        "max": 3.800000011920929
+      }
+    },
+    {
+      "mode": "snapshots15",
+      "side": 0,
+      "reduced": true,
+      "variant": "proposal",
+      "camera": {
+        "left": 60,
+        "top": -56,
+        "width": 480,
+        "height": 864
+      },
+      "board": {
+        "width": 370,
+        "height": 677
+      },
+      "projection": {
+        "scale": 0.7708333333333334,
+        "x": -46.25,
+        "y": 48.66666666666667
+      },
+      "summary": {
+        "calls": 400,
+        "identities": 2,
+        "pausedFrames": 24,
+        "visibleCssDiameter": 40.083333333333336,
+        "observedPhases": 1,
+        "landings": 6
+      },
+      "pausedPixelChanges": 0,
+      "cache": {
+        "frames": 1,
+        "atlas": [
+          1024,
+          1024
+        ],
+        "stats": {
+          "built": 1,
+          "totalMs": 0.5,
+          "maxMs": 0.5
+        }
+      },
+      "drawMs": {
+        "median": 0.10000002384185791,
+        "p95": 0.2999999523162842,
+        "max": 6
+      }
+    },
+    {
+      "mode": "snapshots15",
+      "side": 1,
+      "reduced": false,
+      "variant": "proposal",
+      "camera": {
+        "left": 60,
+        "top": -56,
+        "width": 480,
+        "height": 864
+      },
+      "board": {
+        "width": 370,
+        "height": 677
+      },
+      "projection": {
+        "scale": 0.7708333333333334,
+        "x": -46.25,
+        "y": 48.66666666666667
+      },
+      "summary": {
+        "calls": 400,
+        "identities": 2,
+        "pausedFrames": 24,
+        "visibleCssDiameter": 40.083333333333336,
+        "observedPhases": 96,
+        "landings": 6
+      },
+      "pausedPixelChanges": 0,
+      "cache": {
+        "frames": 191,
+        "atlas": [
+          1024,
+          1024
+        ],
+        "stats": {
+          "built": 191,
+          "totalMs": 76.50000029802322,
+          "maxMs": 3.399999976158142
+        }
+      },
+      "drawMs": {
+        "median": 0.20000004768371582,
+        "p95": 1,
+        "max": 3.799999952316284
+      }
+    },
+    {
+      "mode": "snapshots15",
+      "side": 1,
+      "reduced": true,
+      "variant": "proposal",
+      "camera": {
+        "left": 60,
+        "top": -56,
+        "width": 480,
+        "height": 864
+      },
+      "board": {
+        "width": 370,
+        "height": 677
+      },
+      "projection": {
+        "scale": 0.7708333333333334,
+        "x": -46.25,
+        "y": 48.66666666666667
+      },
+      "summary": {
+        "calls": 400,
+        "identities": 2,
+        "pausedFrames": 24,
+        "visibleCssDiameter": 40.083333333333336,
+        "observedPhases": 1,
+        "landings": 6
+      },
+      "pausedPixelChanges": 0,
+      "cache": {
+        "frames": 1,
+        "atlas": [
+          1024,
+          1024
+        ],
+        "stats": {
+          "built": 1,
+          "totalMs": 0.5,
+          "maxMs": 0.5
+        }
+      },
+      "drawMs": {
+        "median": 0.10000002384185791,
+        "p95": 0.30000001192092896,
+        "max": 5.399999976158142
+      }
+    }
+  ]
+}

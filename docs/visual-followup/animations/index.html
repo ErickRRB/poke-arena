@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Esfera Sneasel y Golem · QA</title>
+<style>
+ :root{font:14px system-ui,sans-serif;color:#233a30;background:#f7f0d5;color-scheme:light}body{max-width:1000px;margin:16px auto;padding:0 12px}
+ nav{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:14px}select{padding:8px;font:inherit;border:1px solid #8e9d80;border-radius:6px;color:inherit;background:#fffbed}
+ video{display:block;width:390px;max-width:100%;background:#233a30;margin:0 auto}a{color:#31583e}p{line-height:1.5}.frames{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.frames img{display:block;width:100%;height:auto}.frames figure{margin:0}.frames figcaption{padding-top:5px}@media(max-width:640px){.frames{grid-template-columns:1fr 1fr}}
+</style>
+<nav><label>Escena <select id="scene"><option value="capsule-perspective-0">Cápsula · perspectiva 0</option><option value="capsule-perspective-1">Cápsula · perspectiva 1</option><option value="golem-chip">Golem · chip</option><option value="golem-fireball">Golem · Fireball sin empuje</option><option value="golem-log">Golem · empuje efectivo</option><option value="golem-death">Golem · muerte</option></select></label><a href="verification.json">Datos</a><a href="README.md">Método</a></nav>
+<video controls muted playsinline preload="metadata"></video>
+<p>Game 30 Hz · snapshots públicos 15 Hz · Renderer 60 Hz. Pausa de Golem: pose y píxeles conservados. <a href="frames/capsule-768-back.png">Tablet</a> · <a href="frames/capsule-1440-back.png">Escritorio</a>.</p>
+<div class="frames">
+ <figure><img src="frames/capsule-side0-front.png" alt="Esfera de frente en el tablero"><figcaption>Frente</figcaption></figure>
+ <figure><img src="frames/capsule-side0-side.png" alt="Esfera de lateral en el tablero"><figcaption>Lateral</figcaption></figure>
+ <figure><img src="frames/capsule-side0-back.png" alt="Dorso de la esfera sin cierre visible"><figcaption>Dorso</figcaption></figure>
+ <figure><img src="frames/capsule-side0-return.png" alt="El cierre vuelve al frente"><figcaption>Regreso</figcaption></figure>
+</div>
+<script>
+ const select=document.querySelector('select'),video=document.querySelector('video');
+ function load(){video.pause();video.src=select.value+'.mp4';video.load();}select.addEventListener('change',load);load();
+</script>
+</html>
