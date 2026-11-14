@@ -21,7 +21,7 @@ export function spawnCard(game, key, team, x, y) {
   const card = CARDS[key];
   if (!card || card.spell) throw Error(`Expected a troop or structure: ${key}`);
   const group = { id: game.nextId, x, y, duration: 0 };
-  return formationOffsets(card, team).map((offset, i) => game.spawn(card.squad?.[i] || key, team, x + offset.x, y + offset.y, 0, group));
+  return formationOffsets(card, team,x).map((offset, i) => game.spawn(card.squad?.[i] || key, team, x + offset.x, y + offset.y, 0, group));
 }
 
 function dummy(game, team, x, y, { flying = false, structure = false } = {}) {
@@ -56,7 +56,7 @@ export function damageTrial(key, { seconds = PROTOCOL.damageSeconds, fps = PROTO
 }
 
 const alive = (game, team) => game.units.some(unit => unit.team === team && unit.hp > 0) || game.reinforcements.some(job => job.team === team && !job.requiresParent);
-export function duelTrial(a, b, { gap = 160, aTeam = 0, fps = PROTOCOL.fps, seconds = PROTOCOL.duelSeconds, seed = PROTOCOL.seed, ability = false } = {}) {
+export function duelTrial(a, b, { gap = 160, aTeam = 0, fps = PROTOCOL.fps, seconds = PROTOCOL.duelSeconds, seed = PROTOCOL.seed } = {}) {
   const game = createSandbox(seed, { navigation: true }), keys = aTeam === 0 ? [a, b] : [b, a], navigationDamage = [0, 0];
   // Inert towers retain normal forward movement after a front row dies. Their
   // damage is excluded, and their weapons stay disabled even if a king wakes.
@@ -64,19 +64,12 @@ export function duelTrial(a, b, { gap = 160, aTeam = 0, fps = PROTOCOL.fps, seco
   // Mirror positions and squad orientation, and swap update order with the team.
   for (const team of [0, 1]) spawnCard(game, keys[team], team, 156, 400 + (team ? -1 : 1) * gap / 2);
   for (let step = 0; step < Math.round(seconds * fps) && alive(game, 0) && alive(game, 1); step++) {
-    if (ability) for (const unit of game.units.filter(unit => unit.team === aTeam && unit.card.ability && !unit.abilityUsed)) {
-      const skill = unit.card.ability;
-      if (skill.effect === 'restore' && unit.hp > unit.maxHp * .55) continue;
-      if (game.units.some(enemy => enemy.team !== unit.team && Math.hypot(enemy.x - unit.x, enemy.y - unit.y) <= skill.radius + enemy.radius)) {
-        game.energy[unit.team] = 10; game.activateAbility(unit.team, unit.id);
-      }
-    }
     game.towers.forEach(tower => tower.active = false); game.step(1 / fps);
   }
   const living = [0, 1].map(team => alive(game, team));
   const winnerTeam = living[0] && !living[1] ? 0 : living[1] && !living[0] ? 1 : -1;
   const hp = [aTeam, 1 - aTeam].map(team => round(game.units.filter(unit => unit.team === team).reduce((sum, unit) => sum + Math.max(0, unit.hp) + (unit.shield || 0), 0)));
-  return { a, b, gap, aTeam, winner: winnerTeam < 0 ? 'draw' : winnerTeam === aTeam ? a : b, seconds: round(game.elapsed), hp, damage: [round(game.stats[aTeam].damage-navigationDamage[aTeam]), round(game.stats[1 - aTeam].damage-navigationDamage[1-aTeam])], abilityEnergy: game.stats[aTeam].energy };
+  return { a, b, gap, aTeam, winner: winnerTeam < 0 ? 'draw' : winnerTeam === aTeam ? a : b, seconds: round(game.elapsed), hp, damage: [round(game.stats[aTeam].damage-navigationDamage[aTeam]), round(game.stats[1 - aTeam].damage-navigationDamage[1-aTeam])] };
 }
 
 export function swarmTrial(key, { seconds = 12 } = {}) {
@@ -127,9 +120,8 @@ export function runSuite({ focus = null } = {}) {
     const matches = duels.filter(trial => trial.a === key || trial.b === key), wins = matches.filter(trial => trial.winner === key).length, draws = matches.filter(trial => trial.winner === 'draw').length;
     return { key, name: CARDS[key].name, role: CARDS[key].role, cost: CARDS[key].cost, hp: CARDS[key].hp, damage: CARDS[key].damage, nominalDps: round(CARDS[key].damage * (CARDS[key].bolts || CARDS[key].burst || 1) / CARDS[key].interval), sustainedDps: damage.find(trial => trial.key === key && trial.target === 'ground')?.sustainedDps ?? null, wins, draws, losses: matches.length - wins - draws, trials: matches.length, winRate: matches.length ? round(wins / matches.length * 100) : null };
   });
-  const abilityDuels = ['articuno','zapdos','moltres'].flatMap(a => combatants.filter(b => b !== a && Math.abs(CARDS[a].cost - CARDS[b].cost) <= 1).flatMap(b => PROTOCOL.gaps.flatMap(gap => PROTOCOL.teams.map(aTeam => duelTrial(a, b, { gap, aTeam, ability: true })))));
   const teams = TEAM_SCENARIOS.flatMap(([a, b]) => PROTOCOL.gaps.flatMap(gap => PROTOCOL.teams.map(aTeam => teamTrial(a, b, { gap, aTeam }))));
-  return { protocol: PROTOCOL, catalog: structuredClone(CARDS), cards: playable.length, damage, swarms: playable.map(key => swarmTrial(key)), duels, abilityDuels, teams, scores };
+  return { protocol: PROTOCOL, catalog: structuredClone(CARDS), cards: playable.length, damage, swarms: playable.map(key => swarmTrial(key)), duels, teams, scores };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
@@ -143,5 +135,5 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
   const report = runSuite({ focus });
   await mkdir(resolve(output, '..'), { recursive: true });
   await writeFile(output, JSON.stringify(report, null, 2) + '\n');
-  console.log(JSON.stringify({ output, cards: report.cards, damageTrials: report.damage.length, swarms: report.swarms.length, duels: report.duels.length, abilityDuels: report.abilityDuels.length, teams: report.teams.length, focus: report.scores.filter(row => (focus || ['lapras', 'articuno', 'moltres', 'zapdos']).includes(row.key)) }, null, 2));
+  console.log(JSON.stringify({ output, cards: report.cards, damageTrials: report.damage.length, swarms: report.swarms.length, duels: report.duels.length, teams: report.teams.length, focus: report.scores.filter(row => (focus || ['lapras', 'articuno', 'moltres', 'zapdos']).includes(row.key)) }, null, 2));
 }

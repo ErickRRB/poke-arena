@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const file=new URL('../qa/reference/tilemap.csv',import.meta.url),bytes=fs.readFileSync(file);
+const sha=crypto.createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
+if(sha!=='49ba496eef3907100fba58844de3ae39a5a68065')throw Error('Unexpected native tilemap');
+const rows=bytes.toString('utf8').trimEnd().split(/\r?\n/).map(line=>line.split(','));
+const end=rows.findIndex((r,i)=>i>2&&r[0].trim()),grid=rows.slice(3,end<0?undefined:end).map(r=>Array.from({length:36},(_,i)=>Number(r[i+1])||0));
+if(grid.length!==64||grid.some(r=>r.some(v=>![0,1,2,16,17,18,32].includes(v))))throw Error('Unexpected native map shape');
+fs.writeFileSync(new URL('../dist/arena-tilemap.js',import.meta.url),`// Native 18x32 tilemap: RoyaleGym/RoyaleSim, blob ${sha}.\n// Each character is one half-tile bitmask encoded in base36.\nexport const ARENA_TILEMAP = ${JSON.stringify(grid.map(r=>r.map(v=>v.toString(36)).join('')),null,2)}.map(row=>Array.from(row,v=>parseInt(v,36)));\n`);
+console.log(`Imported native36x64 half-tile masks (${sha}).`);

@@ -46,6 +46,8 @@ function fixture(key) {
   } else {
     attacker = game.spawn(key, 0, 158, 550, 0);
     // Ignore deployment effects and companions; preserve every combat profile value.
+    // Preserve compatibility with pending bursts in pre-update room snapshots.
+    if(key==='machamp'||key==='squirtle'){const count=key==='machamp'?4:3;attacker.card={...attacker.card,burst:count,burstSpacing:.14,damage:attacker.card.damage/count,attackDuration:attacker.card.windup+(count-1)*.14+.16};}
     attacker.entryPending = false;
     attacker.summonClock = 10000;
     game.units = [attacker];
@@ -99,7 +101,7 @@ function assertWindow(actual, expected, dt, label) {
 function checkCycle(f, began, dt) {
   const count = f.attacker.card?.burst || 1;
   const spacing = f.attacker.card?.burstSpacing || 0;
-  const windup = f.attacker.card?.windup ?? .18;
+  const windup = f.attacker.card?.windup ?? f.attacker.windup ?? .18;
   const lastDeadline = began.at + windup + (count - 1) * spacing;
   assert.equal(began.jobs.length, count, `${f.key}: queued shot count`);
   for (const [shot, job] of began.jobs.entries()) {
@@ -123,7 +125,7 @@ function checkCycle(f, began, dt) {
 for (const hz of [30, 60]) {
   const dt = 1 / hz;
   for (const mode of ['direct', 'automatic']) {
-    test(`${mode} attacks respect windup and every burst deadline across active profiles and guards at ${hz}Hz`, () => {
+    test(`${mode} attacks respect windup and every burst deadline across active profiles, legacy bursts and guards at ${hz}Hz`, () => {
       for (const key of [...ACTIVE_KEYS, ...GUARDS]) {
         // Voltorb's automatic attack uses stepLeap, not the scheduled-attack queue.
         if (mode === 'automatic' && CARDS[key]?.jumpRange) continue;
@@ -275,7 +277,7 @@ for (const hz of [30, 60]) {
     const f = fixture('voltorb');
     advanceUntil(f.game, () => !!f.attacker.leap, dt, 'Voltorb leap');
     const began = f.game.elapsed;
-    const duration = f.attacker.leap.duration;
+    const duration = f.attacker.leap.duration+(f.attacker.leap.prepare||0);
     assert.equal(f.game.attacks.length, 0, 'leap unexpectedly used releaseAt scheduling');
     advanceUntil(f.game, () => releases(f).length > 0, dt, 'Voltorb leap contact');
     const actual = releases(f);

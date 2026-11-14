@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, DEFAULT_DECK, W, H, TILE, LANES, RIVER, BRIDGE, DEPLOY_GRID, KING_Y, snapToCell } from '../dist/engine.js';
+import { Game, DEFAULT_DECK, W, H, TILE, LANES, RIVER, BRIDGE, DEPLOY_GRID, KING_Y, snapToCell, attackReach, PRINCESS_RANGE } from '../dist/engine.js';
 import { packGame, unpackGame, perspective } from '../dist/snapshot.js';
 
 function arena(team=0,lane=0){
@@ -16,8 +16,8 @@ test('exactly one complete deployment row remains behind each royal tower',()=>{
   const game=new Game();
   for(const team of[0,1]){
     const king=game.towers.find(t=>t.team===team&&t.king);
-    const rows=Array.from({length:DEPLOY_GRID.rows},(_,i)=>DEPLOY_GRID.top+TILE/2+i*TILE).filter(y=>y>=40&&y<=760&&(team?y<king.y-king.radius:y>king.y+king.radius));
-    assert.deepEqual(rows,[team?40:760]);assert.equal(king.y,KING_Y[team]);
+    const rows=Array.from({length:DEPLOY_GRID.rows},(_,i)=>DEPLOY_GRID.top+TILE/2+i*TILE).filter(y=>(team?y<king.y-36:y>king.y+36));
+    assert.deepEqual(rows,[team?28:772]);assert.equal(king.y,KING_Y[team]);
     assert.ok(game.canDeploy(team,'pikachu',300,rows[0]));assert.ok(game.canDeploy(team,'golem',300,rows[0]));
     assert.equal(game.canDeploy(team,'pikachu',300,rows[0]+(team?TILE:-TILE)),false);
   }
@@ -27,31 +27,34 @@ test('old online rooms restore the same one-row rear geometry in either perspect
   const saved=packGame(new Game());for(const tower of saved.towers)if(tower.king){tower.y=tower.team?118:682;tower.hp=2345;}
   for(const team of[0,1]){
     const game=unpackGame(perspective(saved,team));
-    for(const king of game.towers.filter(t=>t.king)){assert.equal(king.y,KING_Y[king.team]);assert.equal(king.hp,2345);assert.ok(game.canDeploy(king.team,'pikachu',300,king.team?40:760));}
+    for(const king of game.towers.filter(t=>t.king)){assert.equal(king.y,KING_Y[king.team]);assert.equal(king.hp,2345);assert.ok(game.canDeploy(king.team,'pikachu',300,king.team?28:772));}
   }
 });
 
-test('princess towers damage enemies from the bridge midpoint through their own bank on the real grid',()=>{
+test('princess towers use native7.5-cell reach plus both collision bodies on the real grid',()=>{
+  assert.equal(PRINCESS_RANGE,180);
   for(const team of[0,1])for(const lane of[0,1])for(const key of['snorlax','zubat'])for(const offset of[-TILE,0,TILE])for(const y of[H/2,team?RIVER.top:RIVER.bottom,team?BRIDGE.top:BRIDGE.bottom]){
     const{game,tower,events}=arena(team,lane),point=snapToCell(1-team,LANES[lane]+offset,y),unit=game.spawn(key,1-team,point.x,y,0);
     unit.card={...unit.card,speed:0,damage:0};
-    game.step(1/60);assert.equal(tower.target,unit,`${team}/${lane}/${key} at ${y}`);
-    run(game,.85);
-    assert.ok(events.some(e=>e.type==='attackRelease'&&e.attacker===tower&&e.target===unit));
-    assert.ok(unit.hp<unit.maxHp,`${team}/${lane}/${key} took no damage at ${y}`);
+    const covered=Math.hypot(tower.x-unit.x,tower.y-unit.y)<=180+tower.radius+unit.radius+1e-7;
+    game.step(1/60);assert.equal(tower.target===unit,covered,`${team}/${lane}/${key} at ${y}`);
+    run(game,1.8);
+    assert.equal(events.some(e=>e.type==='attackRelease'&&e.attacker===tower&&e.target===unit),covered);
+    assert.equal(unit.hp<unit.maxHp,covered,`${team}/${lane}/${key} damage at ${y}`);
   }
 });
 
-test('a normally deployed tank draws its first princess shot at the bridge midpoint',()=>{
+test('a deployed tank enters the native reach before the full tower preparation and projectile flight',()=>{
   for(const team of[0,1])for(const lane of[0,1])for(const offset of[-TILE,0,TILE]){
     const{game,tower,events}=arena(team,lane),deployment=game.deploy(1-team,1,LANES[lane]+offset,H/2);
     assert.ok(deployment.ok);const unit=game.units[0];
-    const positions=[];game.onEvent=event=>{events.push(event);if(['attackStart','attackRelease'].includes(event.type)&&event.attacker===tower)positions.push({type:event.type,y:unit.y});};
+    const positions=[];game.onEvent=event=>{events.push(event);if(['attackStart','attackRelease'].includes(event.type)&&event.attacker===tower)positions.push({type:event.type,y:unit.y,at:game.elapsed,distance:Math.hypot(tower.x-unit.x,tower.y-unit.y)});};
     run(game,12);
     for(const type of['attackStart','attackRelease']){
       const first=positions.find(p=>p.type===type);assert.ok(first,`${type} never happened`);
-      assert.ok(Math.abs(first.y-H/2)<=6,JSON.stringify({team,lane,offset,first}));
+      assert.ok(first.distance<=180+tower.radius+unit.radius+1e-7,JSON.stringify({team,lane,offset,first}));
     }
+    assert.ok(positions.find(p=>p.type==='attackRelease').at-positions.find(p=>p.type==='attackStart').at>=.8-1e-7);
   }
 });
 
@@ -60,17 +63,17 @@ test('a princess cancels its pending shot when the victim retreats beyond its ra
     const{game,tower,events}=arena(team),direction=team?1:-1,unit=game.spawn('snorlax',1-team,tower.x,tower.y+direction*(tower.range-1),0);
     unit.card={...unit.card,speed:0,damage:0};game.step(1/60);
     assert.ok(events.some(e=>e.type==='attackStart'&&e.attacker===tower));
-    unit.y=tower.y+direction*(tower.range+1);run(game,.3);
+    unit.y=tower.y+direction*(attackReach(tower,unit)+37);run(game,1.2);
     assert.ok(!events.some(e=>e.type==='attackRelease'&&e.attacker===tower));
   }
 });
 
-test('danger previews and targeting start at midbridge and exclude the approaching half',()=>{
+test('danger previews and targeting share the same native range and collision convention',()=>{
   for(const team of[0,1])for(const lane of[0,1])for(const key of['pikachu','charizard']){
     const{game,tower}=arena(team,lane),enemy=1-team,direction=team?1:-1;
     const point=game.resolveDeployment(team,key,LANES[lane],H/2);
     for(const y of[point.y+direction*TILE,H/2,H/2+direction*4,H/2+direction*TILE]){
-      const covered=direction*(y-H/2)<=0;
+      const covered=Math.hypot(tower.x-point.x,tower.y-y)<=180+tower.radius+12+1e-7;
       const unit=game.spawn(key,enemy,point.x,y,0);unit.card={...unit.card,speed:0,damage:0};
       game.step(1/60);
       assert.equal(game.deploymentThreats(enemy,key,point.x,y,true).includes(tower),covered);
@@ -86,8 +89,8 @@ test('old online matches use the current princess reach after reconnecting or re
     const saved=packGame(game);for(const t of saved.towers)if(!t.king)t.range=oldRange;
     const restored=unpackGame(perspective(saved,view)),defender=restored.towers.find(t=>t.id===tower.id),victim=restored.units[0];
     assert.equal(defender.hp,2100);assert.equal(victim.x,view?W-point.x:point.x);
-    run(restored,.85);assert.ok(victim.hp<victim.maxHp);
-    victim.y=H/2+(defender.team?1:-1)*TILE;restored.step(1/60);
+    victim.y=defender.y+(defender.team?1:-1)*200;run(restored,1.8);assert.ok(victim.hp<victim.maxHp);
+    victim.y=defender.y+(defender.team?1:-1)*(attackReach(defender,victim)+37);restored.step(1/60);
     assert.equal(defender.target,null);
     assert.deepEqual(restored.towers.filter(t=>t.king).map(t=>t.range),game.towers.filter(t=>t.king).map(t=>t.range));
   }

@@ -9,6 +9,10 @@ const attachment = ws => ws.deserializeAttachment() || {};
 function send(ws, packet) { try { if (ws.readyState === OPEN) { ws.send(JSON.stringify(packet));return true; } } catch {} return false; }
 function close(ws, code = 1000, reason = '') { try { ws.close(code, reason); } catch {} }
 function reject(ws, message, code = 'invalid') { send(ws, { type: 'error', message, code, fatal: true });close(ws, 1008, 'Invalid request'); }
+function currentProtocol(ws, state) {
+  if (state.protocol === ONLINE_PROTOCOL) return true;
+  reject(ws, 'Actualizá la página para conectar.', 'protocol');return false;
+}
 function parseMessage(message) {
   if (typeof message !== 'string' || message.length > 4096) throw Error('Mensaje demasiado grande.');
   const packet = JSON.parse(message);
@@ -35,11 +39,12 @@ export class ArenaLobby extends DurableObject {
   }
   fetch(request) { return socket(this.ctx, request, 128); }
   session(id) { return this.sql.exec('SELECT * FROM sessions WHERE id=?', id).toArray()[0]; }
-  sockets(id) { return this.ctx.getWebSockets().filter(ws => ws.readyState === OPEN && attachment(ws).authed && attachment(ws).playerId === id); }
+  sockets(id) { return this.ctx.getWebSockets().filter(ws => { const state=attachment(ws);return ws.readyState===OPEN && state.authed && state.playerId===id && currentProtocol(ws,state); }); }
   async webSocketMessage(ws, message) {
     try {
       const packet = parseMessage(message), state = attachment(ws);
       if (!state.authed) { if (packet.type !== 'hello' || state.handshaking) return reject(ws, 'Volvé a conectar.');state.handshaking = true;ws.serializeAttachment(state);return await this.hello(ws, packet); }
+      if (!currentProtocol(ws,state)) return;
       if (packet.type === 'cancel') return await this.cancel(state.playerId, ws);
       if (packet.type !== 'ack') reject(ws, 'Acción no válida.');
     } catch (error) { console.error(JSON.stringify({ event: 'lobby_message_error', message: error.message }));reject(ws, 'No se pudo conectar.', 'server'); }
@@ -56,7 +61,7 @@ export class ArenaLobby extends DurableObject {
       session = { id: crypto.randomUUID(), token_hash: await tokenHash(token), name: safeName(packet.name), deck: JSON.stringify(packet.deck), room_id: null, joined: null, updated: now };
       this.sql.exec('INSERT INTO sessions(id,token_hash,name,deck,updated) VALUES(?,?,?,?,?)', session.id, session.token_hash, session.name, session.deck, now);
     }
-    ws.serializeAttachment({ authed: true, playerId: session.id, seen: now, connectedAt: now });
+    ws.serializeAttachment({ authed: true, protocol: ONLINE_PROTOCOL, playerId: session.id, seen: now, connectedAt: now });
     for (const previous of this.sockets(session.id)) if (previous !== ws) close(previous, 4001, 'Session replaced');
     send(ws, { type: 'welcome', protocol: ONLINE_PROTOCOL, ...(token ? { token } : {}) });
     if (session.room_id) {
@@ -130,7 +135,7 @@ export class ArenaRoom extends DurableObject {
     this.sql.exec('INSERT INTO match_state(id,data) VALUES(1,?) ON CONFLICT(id) DO UPDATE SET data=excluded.data', JSON.stringify(this.match.serialize()));this.lastSave = Date.now();
   }
   refreshSeen() {
-    for (const ws of this.ctx.getWebSockets()) { const state = attachment(ws);if (state.authed && ws.readyState === OPEN) this.match.touch(state.team, lastSeen(this.ctx, ws)); }
+    for (const ws of this.ctx.getWebSockets()) { const state = attachment(ws);if (state.authed && ws.readyState === OPEN && currentProtocol(ws,state)) this.match.touch(state.team, lastSeen(this.ctx, ws)); }
   }
   start() { if (!this.timer) this.timer = setInterval(() => this.tick(), 1000 / SIMULATION_HZ); }
   stop() { clearInterval(this.timer);this.timer = null; }
@@ -151,6 +156,7 @@ export class ArenaRoom extends DurableObject {
     this.match.version++;this.lastBroadcast = Date.now();
     for (const ws of this.ctx.getWebSockets()) {
       const state = attachment(ws);if (!state.authed || ws.readyState !== OPEN || ws.bufferedAmount > 131072) continue;
+      if (!currentProtocol(ws,state)) continue;
       send(ws, this.match.packet(state.team, state.after || 0, this.epoch, this.lastBroadcast));
     }
   }
@@ -158,18 +164,20 @@ export class ArenaRoom extends DurableObject {
     try {
       const packet = parseMessage(message), state = attachment(ws), now = Date.now();
       if (!state.authed) {
-        if (packet.type !== 'hello' || packet.protocol !== ONLINE_PROTOCOL || state.handshaking || typeof packet.token !== 'string' || packet.token.length < 48 || packet.token.length > 160) return reject(ws, 'Volvé a conectar.', 'session');
+        if (packet.protocol !== ONLINE_PROTOCOL) return reject(ws, 'Actualizá la página para conectar.', 'protocol');
+        if (packet.type !== 'hello' || state.handshaking || typeof packet.token !== 'string' || packet.token.length < 48 || packet.token.length > 160) return reject(ws, 'Volvé a conectar.', 'session');
         state.handshaking = true;ws.serializeAttachment(state);
         const hash = await tokenHash(packet.token), team = this.match?.players.findIndex(player => player.tokenHash === hash);
         if (team !== 0 && team !== 1) return reject(ws, 'La partida ya no está disponible.', 'session');
         this.refreshSeen();this.match.advance(now);
         if (packet.resume && this.match.game.state === 'ended') { send(ws, { type: 'idle' });close(ws);return; }
-        ws.serializeAttachment({ authed: true, team, playerId: this.match.players[team].id, seen: now, connectedAt: now, after: Math.min(this.match.seq, Math.max(0, Number(packet.after) || 0)) });
+        ws.serializeAttachment({ authed: true, protocol: ONLINE_PROTOCOL, team, playerId: this.match.players[team].id, seen: now, connectedAt: now, after: Math.min(this.match.seq, Math.max(0, Number(packet.after) || 0)) });
         for (const previous of this.ctx.getWebSockets()) if (previous !== ws && attachment(previous).authed && attachment(previous).team === team) close(previous, 4001, 'Session replaced');
         this.match.touch(team, now);this.persist();this.broadcast();
         if (this.match.game.state !== 'ended') this.start();
         return;
       }
+      if (!currentProtocol(ws,state)) return;
       state.seen = now;
       if (packet.type === 'ack') { state.after = Math.min(this.match.seq, Math.max(state.after || 0, Number(packet.seq) || 0));ws.serializeAttachment(state);return; }
       if (packet.type !== 'action') return reject(ws, 'Acción no válida.');

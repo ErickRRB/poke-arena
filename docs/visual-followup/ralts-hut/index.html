@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Refugio Ralts · QA visual</title>
+<style>
+ :root{font:14px system-ui,sans-serif;background:#f7f0d5;color:#243b31;color-scheme:light}body{max-width:1100px;padding:0 12px;margin:16px auto}
+ nav{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:12px}select{font:inherit;padding:8px;border:1px solid #8c9b7e;border-radius:6px;background:#fffbed;color:inherit}
+ a{color:#31583e}p{line-height:1.5}img{display:block;max-width:100%;height:auto;margin:0 auto}
+</style>
+<nav><label>Estado <select id="frame"><option value="390-normal">Normal · 390</option><option value="390-preview">Preview alpha</option><option value="390-target-team1-side0">Rival rojo · perspectiva 0</option><option value="390-target-team0-side1">Rival rojo · perspectiva 1</option><option value="390-hit-reducedfalse">Golpe</option><option value="390-hit-reducedtrue">Golpe · reduced</option><option value="390-death-paused-reducedfalse">Caída pausada</option><option value="390-death-paused-reducedtrue">Caída pausada · reduced</option><option value="390-death-cleaned">Caída terminada</option><option value="768-projection">Proyección · 768</option><option value="1440-projection">Proyección · 1440</option></select></label><a href="verification.json">Datos</a><a href="README.md">Alcance</a><a id="original" href="frames/390-normal.png">Imagen original</a></nav>
+<p>Cuerpo sin ID Pokémon. Generación y catálogo pendientes de integración.</p>
+<img id="image" src="frames/390-normal.png" alt="Refugio Ralts dentro del tablero real">
+<script>
+ const select=document.querySelector('select'),image=document.querySelector('img'),link=document.querySelector('#original');
+ select.addEventListener('change',()=>{const file='frames/'+select.value+'.png';image.src=file;link.href=file;});
+</script>
+</html>

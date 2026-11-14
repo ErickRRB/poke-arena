@@ -46,7 +46,7 @@ export class RealtimeMatch {
     } else if (this.game.state !== 'playing') result = { ok: false, reason: 'La partida todavía no está lista.' };
     else if (action.kind === 'deploy' && Number.isInteger(action.handIndex) && action.handIndex >= 0 && action.handIndex < 4 && Number.isFinite(action.x) && Number.isFinite(action.y) && Math.abs(action.x) <= 8192 && Math.abs(action.y) <= 8192) {
       result = this.game.hands[team][action.handIndex] === action.key ? this.game.deploy(team, action.handIndex, action.x, action.y) : { ok: false, reason: 'La mano cambió. Volvé a elegir la carta.' };
-    } else if (action.kind === 'ability' && Number.isSafeInteger(action.unitId)) result = this.game.activateAbility(team, action.unitId);
+    }
     else result = { ok: false, reason: 'Acción no válida.' };
     this.receipts[team].push({ nonce: action.nonce, result });
     // Successful commands remain deduplicated for the whole match. Keep a

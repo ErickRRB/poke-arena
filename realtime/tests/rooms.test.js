@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { env } from 'cloudflare:workers';
 import { runInDurableObject, evictDurableObject } from 'cloudflare:test';
 import worker from '../src/index.js';
+import { ONLINE_PROTOCOL } from '../../dist/online-wire.js';
 
 const deck = ['diglett','voltorb','bulbasaur','eevee','ekans','gastly','grimer','squirtle'];
 const sockets = [];
@@ -26,15 +27,15 @@ async function connect(path = '/v1/lobby', origin = 'http://127.0.0.1:4173') {
 }
 async function join() {
   const a = await connect(), b = await connect();
-  a.send({ type: 'hello', protocol: 2, mode: 'search', name: 'Uno', deck });
+  a.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Uno', deck });
   const tokenA = (await a.next(p => p.type === 'welcome')).token;
-  b.send({ type: 'hello', protocol: 2, mode: 'search', name: 'Dos', deck });
+  b.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Dos', deck });
   const tokenB = (await b.next(p => p.type === 'welcome')).token;
   const roomA = await a.next(p => p.type === 'matched'), roomB = await b.next(p => p.type === 'matched');
   expect(roomA.roomId).toBe(roomB.roomId);
   const room = roomA.roomId;
   const players = await Promise.all([connect('/v1/rooms/' + room), connect('/v1/rooms/' + room)]);
-  players.forEach((player, index) => player.send({ type: 'hello', protocol: 2, token: [tokenA, tokenB][index] }));
+  players.forEach((player, index) => player.send({ type: 'hello', protocol: ONLINE_PROTOCOL, token: [tokenA, tokenB][index] }));
   await Promise.all(players.map(player => player.next(p => p.type === 'snapshot')));
   a.ws.close();b.ws.close();
   return { players, tokens: [tokenA, tokenB], room };
@@ -45,6 +46,47 @@ async function finish(room) {
 }
 
 describe('Cloudflare WebSocket rooms', () => {
+  it('rejects an old protocol in both handshakes before creating a session or reading a room', async () => {
+    for (const path of ['/v1/lobby','/v1/rooms/'+crypto.randomUUID()]) {
+      const player=await connect(path);player.send({type:'hello',protocol:ONLINE_PROTOCOL-1,mode:'search',deck});
+      expect((await player.next(p=>p.type==='error')).code).toBe('protocol');
+      expect(player.packets.some(p=>p.type==='welcome'||p.type==='snapshot'||p.type==='matched')).toBe(false);
+    }
+    for (const ws of sockets.splice(0)) { try { ws.close(); } catch {} }
+  });
+  it('rejects an authenticated socket from before the update and keeps its room resumable', async () => {
+    const {players:[a,b],tokens,room}=await join();
+    try {
+      const team=(await a.next(p=>p.type==='snapshot')).team;
+      const version=await runInDurableObject(env.ARENAS.getByName(room),instance=>{
+        instance.stop();
+        for (const ws of instance.ctx.getWebSockets()) {
+          const state=ws.deserializeAttachment();if(!state.authed||state.team!==team)continue;
+          delete state.protocol;ws.serializeAttachment(state);
+        }
+        instance.broadcast();return instance.match.version;
+      });
+      expect((await a.next(p=>p.type==='error')).code).toBe('protocol');
+      expect((await b.next(p=>p.type==='snapshot'&&p.version===version)).version).toBe(version);
+      expect(a.packets.some(p=>p.type==='snapshot'&&p.version===version)).toBe(false);
+      const restored=await connect('/v1/rooms/'+room);restored.send({type:'hello',protocol:ONLINE_PROTOCOL,token:tokens[0],resume:true});
+      const snapshot=await restored.next(p=>p.type==='snapshot');expect(snapshot.roomId).toBe(room);expect(snapshot.team).toBe(team);
+    } finally { await finish(room); }
+  });
+  it('rejects an old authenticated action before applying it or creating a receipt', async () => {
+    const {players:[a],room}=await join();
+    try {
+      const team=(await a.next(p=>p.type==='snapshot')).team,nonce=crypto.randomUUID();
+      await runInDurableObject(env.ARENAS.getByName(room),async instance=>{
+        instance.stop();const ws=instance.ctx.getWebSockets().find(ws=>ws.deserializeAttachment()?.team===team);
+        const state=ws.deserializeAttachment();state.protocol=ONLINE_PROTOCOL-1;ws.serializeAttachment(state);
+        await instance.webSocketMessage(ws,JSON.stringify({type:'action',kind:'leave',nonce}));
+        expect(instance.match.receipts[team].some(receipt=>receipt.nonce===nonce)).toBe(false);
+        expect(instance.match.game.state).not.toBe('ended');
+      });
+      expect((await a.next(p=>p.type==='error')).code).toBe('protocol');
+    } finally { await finish(room); }
+  });
   it('pairs players, streams authoritative snapshots, validates and deduplicates actions, restores sockets', async () => {
     const { players: [a, b], tokens, room } = await join();
     try {
@@ -67,7 +109,7 @@ describe('Cloudflare WebSocket rooms', () => {
         expect(instance.match.game.stats[team].deployed).toBe(3);
       });
       a.ws.close();const restored = await connect('/v1/rooms/' + room);
-      restored.send({ type: 'hello', protocol: 2, token: tokens[0], resume: true, after: first.seq || 0 });
+      restored.send({ type: 'hello', protocol: ONLINE_PROTOCOL, token: tokens[0], resume: true, after: first.seq || 0 });
       const snapshot = await restored.next(p => p.type === 'snapshot');expect(snapshot.roomId).toBe(room);expect(snapshot.team).toBe(team);
       restored.send(action);expect((await restored.next(p => p.type === 'result' && p.nonce === nonce)).result).toEqual(first.result);
       const badNonce = crypto.randomUUID();restored.send({ ...action, nonce: badNonce, x: 1e20 });
@@ -75,7 +117,7 @@ describe('Cloudflare WebSocket rooms', () => {
       const stub = env.ARENAS.getByName(room);
       await runInDurableObject(stub, instance => { instance.persist();instance.stop(); });
       await evictDurableObject(stub, { webSockets: 'close' });
-      const afterRestart = await connect('/v1/rooms/' + room);afterRestart.send({ type: 'hello', protocol: 2, token: tokens[0], resume: true });
+      const afterRestart = await connect('/v1/rooms/' + room);afterRestart.send({ type: 'hello', protocol: ONLINE_PROTOCOL, token: tokens[0], resume: true });
       const restarted = await afterRestart.next(p => p.type === 'snapshot');expect(restarted.epoch).not.toBe(snapshot.epoch);expect(restarted.game.stats[team].deployed).toBe(3);
       afterRestart.send(action);expect((await afterRestart.next(p => p.type === 'result' && p.nonce === nonce)).result).toEqual(first.result);
     } finally { await finish(room); }
@@ -84,26 +126,26 @@ describe('Cloudflare WebSocket rooms', () => {
     const one = await join(), two = await join();
     try {
       expect(one.room).not.toBe(two.room);
-      const attacker = await connect('/v1/rooms/' + one.room);attacker.send({ type: 'hello', protocol: 2, token: two.tokens[0] });
+      const attacker = await connect('/v1/rooms/' + one.room);attacker.send({ type: 'hello', protocol: ONLINE_PROTOCOL, token: two.tokens[0] });
       expect((await attacker.next(p => p.type === 'error')).code).toBe('session');
       const forbidden = await worker.fetch(new Request('https://arena.test/v1/lobby', { headers: { Upgrade: 'websocket', Origin: 'https://unrelated.invalid' } }), env);expect(forbidden.status).toBe(403);
     } finally { await finish(one.room);await finish(two.room); }
   });
   it('cancel removes a queued player and resume returns idle without a new search', async () => {
-    const player = await connect();player.send({ type: 'hello', protocol: 2, mode: 'search', deck });
+    const player = await connect();player.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', deck });
     const token = (await player.next(p => p.type === 'welcome')).token;await player.next(p => p.type === 'searching');
     player.send({ type: 'cancel' });await player.next(p => p.type === 'idle');
-    const resume = await connect();resume.send({ type: 'hello', protocol: 2, mode: 'resume', token });await resume.next(p => p.type === 'idle');
+    const resume = await connect();resume.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'resume', token });await resume.next(p => p.type === 'idle');
     expect(resume.packets.some(p => p.type === 'searching')).toBe(false);
     for (const ws of sockets.splice(0)) { try { ws.close(); } catch {} }
   });
   it('a dropped search resumes its original queue without a new deck or session', async () => {
-    const player = await connect();player.send({ type: 'hello', protocol: 2, mode: 'search', name: 'Reload', deck });
+    const player = await connect();player.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Reload', deck });
     const token = (await player.next(p => p.type === 'welcome')).token, joined = (await player.next(p => p.type === 'searching')).joined;
     player.ws.close();
-    const resume = await connect();resume.send({ type: 'hello', protocol: 2, mode: 'resume', token });
+    const resume = await connect();resume.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'resume', token });
     expect((await resume.next(p => p.type === 'searching')).joined).toBe(joined);
-    const second = await connect();second.send({ type: 'hello', protocol: 2, mode: 'search', name: 'Other', deck });
+    const second = await connect();second.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Other', deck });
     const room = (await second.next(p => p.type === 'matched')).roomId;expect((await resume.next(p => p.type === 'matched')).roomId).toBe(room);await finish(room);
   });
 });

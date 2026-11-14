@@ -1,17 +1,19 @@
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import {readFile,mkdir,writeFile,readdir} from 'node:fs/promises';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
 import {CARD_ART} from '../dist/card-art.js';
-import {CARDS} from '../dist/engine.js';
+import {CARDS} from '../dist/engine.js?v=26';
 import {openPage,ready,stable} from '../tests/browser/helpers.mjs';
 import {run as reviewDeck} from '../tests/browser/deck.mjs';
 
 const root=path.resolve(import.meta.dirname,'..'),dist=path.join(root,'dist');
-const output=path.join(root,'docs/pokemon-fidelity/ui');
-const keys=['diglett','diglettHorde','zubat','crobat','raltsTrio','registeel','celebi','duskull','nuzleaf'];
+const requested=process.argv.slice(2);
+const output=path.join(root,requested.length?'docs/visual-followup/card-ui':'docs/pokemon-fidelity/ui');
+const keys=requested.length?requested:['diglett','diglettHorde','zubat','crobat','raltsTrio','registeel','celebi','duskull','nuzleaf'];
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.webp':'image/webp','.png':'image/png','.woff2':'font/woff2','.svg':'image/svg+xml'};
 const server=http.createServer(async(req,res)=>{
   const pathname=new URL(req.url,'http://localhost').pathname;
@@ -28,13 +30,17 @@ try{
   const module=process.env.POKE_ARENA_PLAYWRIGHT_MODULE||path.join(root,'qa/node_modules/playwright/index.mjs');
   const {chromium}=await import(pathToFileURL(module).href);
   browser=await chromium.launch({...(process.platform==='win32'?{channel:'msedge'}:{}),headless:true});
-  const report={artworks:Object.keys(CARD_ART).length,selectable:Object.keys(CARD_ART).filter(key=>!CARDS[key]?.token).length,corrected:keys,viewports:[]};
-  report.deck=await reviewDeck({browser,url,viewports:[{width:390,height:844}],output});
+  const sourceFiles=['dist/card-art.js','dist/engine.js','dist/catalog.js',...keys.map(key=>'dist/'+CARD_ART[key].file)];
+  const sourceHashes=Object.fromEntries(await Promise.all(sourceFiles.map(async file=>[file,createHash('sha256').update(await readFile(path.join(root,file))).digest('hex')])));
+  const report={generatedAt:new Date().toISOString(),gitHead:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8',windowsHide:true}).trim(),engineModule:'engine.js?v=26',sourceHashes,
+    artworks:Object.keys(CARD_ART).length,selectable:Object.keys(CARD_ART).filter(key=>!CARDS[key]?.token).length,corrected:keys,identities:Object.fromEntries(keys.map(key=>[key,{name:CARDS[key].name,id:CARDS[key].id??null,count:CARDS[key].squad?.length||CARDS[key].count||1,art:CARD_ART[key].file}])),viewports:[]};
+  if(!requested.length)report.deck=await reviewDeck({browser,url,viewports:[{width:390,height:844}],output});
   for(const viewport of [{width:390,height:844},{width:768,height:1024},{width:1440,height:980}]){
     const {context,page,errors,apiRequests}=await openPage(browser,viewport,{deckOnly:true,reducedMotion:'reduce'});
     try{
       await page.goto(url);await ready(page);
-      assert.ok((await (await page.request.get(url+'/card-art.js?v=26')).text()).includes("diglett:'diglettV2'"));
+      const servedSource=await (await page.request.get(url+'/card-art.js?v=26')).text();
+      for(const key of keys)assert.ok(servedSource.includes(path.basename(CARD_ART[key].file).split('.')[0]));
       for(const key of keys){
         const file=CARD_ART[key].file,response=await page.request.get(url+'/'+file);
         const actual=createHash('sha256').update(await response.body()).digest('hex');
@@ -83,9 +89,10 @@ try{
       }
       assert.deepEqual(errors,[]);assert.deepEqual(apiRequests,[]);
       report.viewports.push({...viewport,loadedFiles:images.length,delayedImages:pending.size,layoutDelta:0,detailCards:keys.length,apiRequests:0});
-      console.log(`Artwork UI ${viewport.width}: all nine cards load; no layout movement.`);
+      console.log(`Artwork UI ${viewport.width}: ${keys.length} cards load; no layout movement.`);
     }finally{await context.close();}
   }
+  report.artifactHashes=Object.fromEntries(await Promise.all((await readdir(output)).filter(file=>file.endsWith('.png')).map(async file=>[file,createHash('sha256').update(await readFile(path.join(output,file))).digest('hex')])));
   await writeFile(path.join(output,'validation.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify(report));
 }finally{

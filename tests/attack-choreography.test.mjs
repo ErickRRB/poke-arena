@@ -12,7 +12,7 @@ const CONTACTS={beedrill:[10,10],machamp:[4,4,4,4],scyther:[6,6],nidoking:[7,7],
 test('every reviewed hit displays its contact pose at the first 30/60 Hz simulation release',()=>{
   for(const[key,contacts]of Object.entries(CONTACTS))for(const hz of[30,60]){
     const card=CARDS[key],meta=SPRITE_GEOMETRY[card.id][card.attackAnim];
-    contacts.forEach((expected,shot)=>{
+    contacts.slice(0,card.burst||1).forEach((expected,shot)=>{
       const release=card.windup+shot*(card.burstSpacing||0),sample=Math.ceil((release-1e-8)*hz)/hz;
       assert.equal(attackAnimationFrame(meta,sample,card.attackDuration,card.windup,card.attackFrames,card),expected,`${key} hit ${shot} at ${hz} Hz`);
     });
