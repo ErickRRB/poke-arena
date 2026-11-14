@@ -134,17 +134,14 @@ export class Renderer {
     this.landscapePattern=ground?pattern(200,224,120,128):null;
     const path=ground?pattern(146,240,24,72):'#c9bd8c';
     c.fillStyle=this.landscapePattern||'#8eaa79';c.fillRect(left,top,right-left,bottom-top);
-    // A cleared field in a continuous forest. NO_DEPLOY bits are rules only;
-    // the decoration follows the outside of ARENA and the visible landscape.
+    // Restrained woodland around the cleared field. NO_DEPLOY stays a rule;
+    // sparse groups of the original canopy give the landscape a quiet edge.
     c.save();c.beginPath();c.rect(left,top,right-left,bottom-top);c.rect(ARENA.left,ARENA.top,ARENA.width,ARENA.height);c.clip('evenodd');
-    rect(c,'#294d3670',left,top,right-left,bottom-top);
-    const pitch=32;
-    for(let row=Math.floor(top/pitch)-2;row<=Math.ceil(bottom/pitch)+2;row++)for(let col=Math.floor(left/pitch)-2;col<=Math.ceil(right/pitch)+2;col++){
-      const random=this.rng((row*73856093^col*19349663)>>>0),scale=.9+random()*.35,x=col*pitch+(random()-.5)*14,y=row*pitch+(random()-.5)*14;
-      const canopy={left:x-33*scale,right:x+33*scale,top:y-58*scale,bottom:y+8*scale};
-      if(canopy.left>=ARENA.left&&canopy.right<=ARENA.right&&canopy.top>=ARENA.top&&canopy.bottom<=ARENA.bottom)continue;
-      if(canopy.bottom>RIVER.top-5&&canopy.top<RIVER.bottom+5)continue;
-      c.filter=`brightness(${.72+random()*.24})`;c.save();if(random()<.5){c.translate(x*2,0);c.scale(-1,1);}this.tree(c,x,y,scale);c.restore();
+    rect(c,'#54745c12',left,top,right-left,bottom-top);
+    const clusters=[...Array.from({length:6},(_,i)=>[48+i*100,ARENA.top-88]),...Array.from({length:6},(_,i)=>[48+i*100,ARENA.bottom+60]),...[168,288,520,672].flatMap(y=>[[ARENA.left-38,y],[ARENA.right+38,y]])];
+    for(const[index,[cx,cy]]of clusters.entries()){
+      const random=this.rng(index*73856093+1832),scale=.8+random()*.45,x=cx+(random()-.5)*16,y=cy+(random()-.5)*18;
+      c.filter='saturate(.38) brightness(.78)';c.globalAlpha=.72;c.save();if(random()<.5){c.translate(x*2,0);c.scale(-1,1);}this.tree(c,x,y,scale);c.restore();
     }
     c.restore();
     const half=TILE/2;
