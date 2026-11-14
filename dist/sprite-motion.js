@@ -28,9 +28,10 @@ export function attackAnimationFrame(meta,elapsed,duration,windup,frames,profile
     const contactEnd=Math.min(window*.45,Math.max(1/30+.001,window*.25));
     return time<contactEnd?gesture.contact:phase<.6?gesture.follow:phase<.8||last?gesture.rest:profile.attackGestures[(shot+1)%profile.attackGestures.length].prepare;
   }
-  const sequence=frames?{durations:frames.map(frame=>meta.durations[frame]),hitFrame:Math.max(1,frames.indexOf(meta.hitFrame))}:meta;
+  const contact=profile.attackContactFrame??meta.hitFrame;
+  const sequence=frames?{durations:frames.map(frame=>meta.durations[frame]),hitFrame:Math.max(1,frames.indexOf(contact))}:contact!==meta.hitFrame?{...meta,hitFrame:contact}:meta;
   const phase=attackPoseProgress(sequence,elapsed,duration,windup),total=sequence.durations.reduce((a,b)=>a+b,0);
-  const frame=animationFrame(sequence,phase*total,{loop:false});return frames?frames[frame]:frame;
+  const frame=animationFrame(sequence,phase*total+1e-7,{loop:false});return frames?frames[frame]:frame;
 }
 export function movementAnchor(id,animation,direction,frame,fallback){
   const pose=SPRITE_GEOMETRY[id]?.[animation]?.points[direction]?.[frame],rest=SPRITE_GEOMETRY[id]?.Idle?.points[direction]?.[0];

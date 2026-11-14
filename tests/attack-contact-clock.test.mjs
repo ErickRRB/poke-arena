@@ -6,7 +6,7 @@ import {packGame,unpackGame,packEvent} from '../dist/snapshot.js';
 import {SPRITE_GEOMETRY} from '../dist/sprite-geometry.js';
 import {attackAnimationFrame} from '../dist/sprite-motion.js';
 
-const keys=Object.keys(CARDS).filter(key=>CARDS[key].attackGestures);
+const keys=Object.keys(CARDS).filter(key=>CARDS[key].attackGestures||Number.isFinite(CARDS[key].attackContactFrame));
 for(const mode of['local30','local60','snapshots15'])test(`${mode}: each delivered hit shares its native contact and the attack clock never rewinds`,()=>{
   for(const key of keys){
     const renderer=Object.assign(Object.create(Renderer.prototype),{t:0,visualActors:new Map(),effects:[],particles:[]});
@@ -29,7 +29,7 @@ for(const mode of['local30','local60','snapshots15'])test(`${mode}: each deliver
       for(const event of delivered.filter(event=>event.type==='attackRelease')){
         const meta=SPRITE_GEOMETRY[actor.card.id][actor.card.attackAnim];
         const frameIndex=attackAnimationFrame(meta,age,duration,actor.card.windup,actor.card.attackFrames,actor.card);
-        assert.equal(frameIndex,actor.card.attackGestures[event.shot%actor.card.attackGestures.length].contact,`${key} hit ${event.shot}`);
+        assert.equal(frameIndex,actor.card.attackGestures?actor.card.attackGestures[event.shot%actor.card.attackGestures.length].contact:actor.card.attackContactFrame,`${key} hit ${event.shot}`);
         seen++;
       }
     }

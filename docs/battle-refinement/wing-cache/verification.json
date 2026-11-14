@@ -1,0 +1,72 @@
+{
+  "scope": "Allocation and working-set measurement with real FlightWings/card timing and transparent mocked raster input. It does not measure pixel extraction cost, GPU memory or FPS.",
+  "rows": [
+    {
+      "directions": 1,
+      "actors": 3,
+      "seconds": 30,
+      "warmUpSeconds": 10,
+      "uniqueKeys": 13,
+      "misses": 13,
+      "afterWarmMisses": 0,
+      "afterWarmAllocations": 0,
+      "immutableCacheEntries": 13,
+      "sharedComposites": 4,
+      "retainedCanvases": 43,
+      "rgbaEquivalentBytes": 2692352,
+      "rgbaEquivalentMiB": 2.568
+    },
+    {
+      "directions": 2,
+      "actors": 6,
+      "seconds": 30,
+      "warmUpSeconds": 10,
+      "uniqueKeys": 26,
+      "misses": 26,
+      "afterWarmMisses": 0,
+      "afterWarmAllocations": 0,
+      "immutableCacheEntries": 26,
+      "sharedComposites": 4,
+      "retainedCanvases": 82,
+      "rgbaEquivalentBytes": 3275264,
+      "rgbaEquivalentMiB": 3.124
+    },
+    {
+      "directions": 4,
+      "actors": 12,
+      "seconds": 30,
+      "warmUpSeconds": 10,
+      "uniqueKeys": 52,
+      "misses": 52,
+      "afterWarmMisses": 0,
+      "afterWarmAllocations": 0,
+      "immutableCacheEntries": 52,
+      "sharedComposites": 4,
+      "retainedCanvases": 148,
+      "rgbaEquivalentBytes": 4270080,
+      "rgbaEquivalentMiB": 4.072
+    },
+    {
+      "directions": 8,
+      "actors": 24,
+      "seconds": 30,
+      "warmUpSeconds": 10,
+      "uniqueKeys": 104,
+      "misses": 104,
+      "afterWarmMisses": 0,
+      "afterWarmAllocations": 0,
+      "immutableCacheEntries": 104,
+      "sharedComposites": 4,
+      "retainedCanvases": 292,
+      "rgbaEquivalentBytes": 6430720,
+      "rgbaEquivalentMiB": 6.133
+    }
+  ],
+  "inputs": {
+    "dist/wing-motion.js": "6e0beff3cfc3cd279ebc84cf42d3ea59e8dfc2c78eff59503dd2b8116ac6f2a1",
+    "dist/wing-rigs.js": "251760cde85a06523f206cd1cc8787bc23b49fb167449e8ee85ac0a9b64b6a7c",
+    "dist/attack-choreography.js": "8f64e99ac7ab948825497dc3d3d13c0ae503017f373c75e4a19c847215898262",
+    "dist/assets/pokemon/manifest.json": "e1adbe2ccd1d1b03028835e86b107b2f6b3c959062bccafd49a7f8fe63f96619",
+    "scripts/qa-wing-cache.mjs": "9ce037e6bf58b6bc44a682291c2dc49fcd3e87f622a6d476a5e67f468f4a706d"
+  }
+}
