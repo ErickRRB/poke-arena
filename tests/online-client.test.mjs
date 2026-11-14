@@ -1,10 +1,11 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {OnlineClient,ONLINE_TOKEN_KEY,hasSavedOnlineSession} from '../dist/online.js';
+import {ONLINE_PROTOCOL} from '../dist/online-wire.js';
 
 const ROOM='d521bab0-5618-404e-96dc-5b73fcb51b77';
 const deck=['diglett','voltorb','bulbasaur','eevee','ekans','gastly','grimer','squirtle'];
-const snapshot=(extra={})=>({type:'snapshot',status:'matched',protocol:2,roomId:ROOM,epoch:'worker-one',team:0,version:5,seq:8,events:[],game:{state:'playing'},...extra});
+const snapshot=(extra={})=>({type:'snapshot',status:'matched',protocol:ONLINE_PROTOCOL,roomId:ROOM,epoch:'worker-one',team:0,version:5,seq:8,events:[],game:{state:'playing'},...extra});
 function setup(t,{token='existing-session',room=null}={}){
   const storage=new Map(token?[[ONLINE_TOKEN_KEY,token]]:[]),sockets=[],snapshots=[],statuses=[],searches=[],idles=[];
   if(room)storage.set('poke-arena:ws-room',room);
@@ -26,7 +27,7 @@ test('a fresh visit does not create a socket or join the queue',async t=>{
 test('search authenticates in messages, hands off to a room and uses no HTTP polling',async t=>{
   const s=setup(t,{token:null});t.mock.method(globalThis,'fetch',()=>{throw Error('Unexpected HTTP polling');});
   await s.client.start('Erick',deck);const lobby=s.sockets[0];lobby.open();assert.equal(lobby.sent[0].mode,'search');assert.deepEqual(lobby.sent[0].deck,deck);
-  lobby.packet({type:'welcome',token:'capability-token'});lobby.packet({type:'searching',joined:96000});assert.equal(s.searches[0],4000);
+  lobby.packet({type:'welcome',protocol:ONLINE_PROTOCOL,token:'capability-token'});lobby.packet({type:'searching',joined:96000});assert.equal(s.searches[0],4000);
   lobby.packet({type:'matched',roomId:ROOM});const room=s.sockets[1];room.open();assert.equal(room.sent[0].token,'capability-token');assert.ok(!room.url.includes('capability-token'));
   room.packet(snapshot());assert.equal(s.client.connected,true);assert.equal(s.client.mode,'battle');s.advance(250);assert.equal(room.sent.at(-1).type,'ack');
 });
@@ -34,6 +35,13 @@ test('reload restores the same room and suspension never abandons it',async t=>{
   const s=setup(t,{room:ROOM});assert.equal(await s.client.resume(),true);let room=s.sockets[0];room.open();assert.equal(room.sent[0].resume,true);
   room.packet(snapshot());s.client.suspend();s.advance(5000);assert.equal(s.sockets.length,1);assert.ok(!room.sent.some(p=>p.type==='action'||p.type==='cancel'));
   await s.client.resume();room=s.sockets[1];room.open();assert.equal(new URL(room.url).pathname,'/v1/rooms/'+ROOM);assert.equal(room.sent[0].after,8);
+});
+
+for(const type of ['welcome','snapshot'])test(`${type} from another protocol stops safely and keeps the room for reload`,async t=>{
+  const s=setup(t,{room:ROOM});await s.client.resume();const socket=s.sockets[0];socket.open();
+  socket.packet(type==='snapshot'?snapshot({protocol:ONLINE_PROTOCOL-1}):{type,protocol:ONLINE_PROTOCOL-1,token:'wrong-version-token'});
+  assert.equal(s.client.active,false);assert.equal(s.snapshots.length,0);assert.equal(s.storage.get(ONLINE_TOKEN_KEY),'existing-session');assert.equal(s.storage.get('poke-arena:ws-room'),ROOM);
+  assert.match(s.idles.at(-1),/Actualizá/);s.advance(10000);assert.equal(s.sockets.length,1);assert.ok(!socket.sent.some(p=>p.type==='action'||p.type==='cancel'));
 });
 
 for(const offset of[1,500,60000])test(`search starts at zero when the server clock is ${offset} ms ahead`,async t=>{

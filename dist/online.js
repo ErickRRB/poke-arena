@@ -68,6 +68,9 @@ export class OnlineClient {
     try { this.socket.send(typeof packet === 'string' ? packet : JSON.stringify(packet));return true; } catch { return false; }
   }
   receive(packet) {
+    if (['welcome','snapshot'].includes(packet.type) && packet.protocol !== ONLINE_PROTOCOL) {
+      this.suspend();this.onConnection('');this.onIdle('Actualizá la página para conectar.');return;
+    }
     if (packet.type === 'welcome') { if (packet.token) { this.token = packet.token;save(ONLINE_TOKEN_KEY, packet.token); }return; }
     if (packet.type === 'searching') {
       const now=Date.now();
