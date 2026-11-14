@@ -70,8 +70,10 @@ export class OnlineClient {
   receive(packet) {
     if (packet.type === 'welcome') { if (packet.token) { this.token = packet.token;save(ONLINE_TOKEN_KEY, packet.token); }return; }
     if (packet.type === 'searching') {
-      this.mode = 'search';this.connected = true;this.retry = 0;this.started = packet.joined || this.started || Date.now();this.onConnection('');
-      clearInterval(this.searchTimer);const update = () => this.onSearch(Date.now() - this.started);update();this.searchTimer = setInterval(update, 1000);return;
+      const now=Date.now();
+      this.mode = 'search';this.connected = true;this.retry = 0;this.started = Math.min(packet.joined || this.started || now,now);this.onConnection('');
+      const elapsed=now-this.started,clock=performance.now();
+      clearInterval(this.searchTimer);const update = () => this.onSearch(Math.max(0,elapsed+performance.now()-clock));update();this.searchTimer = setInterval(update, 1000);return;
     }
     if (packet.type === 'matched') {
       if (!/^[a-f0-9-]{36}$/.test(packet.roomId || '')) { this.reconnect();return; }

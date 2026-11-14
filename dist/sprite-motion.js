@@ -1,6 +1,7 @@
 import { SPRITE_GEOMETRY } from './sprite-geometry.js';
 
 export const TOWER_MOUNTS = Object.freeze({ princess: 46, king: 59 });
+export const structureLift = card => card.structure && card.platform !== false && !card.burrow ? 23 : 0;
 export function attackPoseProgress(meta, elapsed, duration, windup) {
   const total=meta.durations.reduce((sum,value)=>sum+value,0);
   const hit=meta.hitFrame||Math.max(1,Math.floor(meta.durations.length*.3));
@@ -37,6 +38,6 @@ export function emissionPoint(actor,shot=0) {
   const forward=part==='head'?2:1;
   const localX=(points[offset]-points[0]+(actor.dx||0)*forward)*scale;
   const localY=(points[offset+1]-points[1]+(actor.dy||0)*forward+(part==='cannons'?-3:0))*scale;
-  const lift=tower?TOWER_MOUNTS[actor.king?'king':'princess']:card.structure&&!card.burrow?23:card.flying?16:0;
+  const lift=tower?TOWER_MOUNTS[actor.king?'king':'princess']:card.structure?structureLift(card):card.flying?16:0;
   return{x:actor.x+localX,y:actor.y-lift+localY};
 }

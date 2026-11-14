@@ -11,12 +11,13 @@ function setup(t,{token='existing-session',room=null}={}){
   const previous=Object.getOwnPropertyDescriptor(globalThis,'sessionStorage');
   Object.defineProperty(globalThis,'sessionStorage',{configurable:true,value:{getItem:key=>storage.get(key)||null,setItem:(key,value)=>storage.set(key,value),removeItem:key=>storage.delete(key)}});
   t.after(()=>{if(previous)Object.defineProperty(globalThis,'sessionStorage',previous);else delete globalThis.sessionStorage;});
-  t.mock.timers.enable({apis:['setTimeout','setInterval']});let now=100000;
+  t.mock.timers.enable({apis:['setTimeout','setInterval']});let now=100000,clock=1000;
   t.mock.method(Date,'now',()=>now);
+  t.mock.method(performance,'now',()=>clock);
   const client=new OnlineClient({serverUrl:'https://realtime.example',onSnapshot:p=>snapshots.push(p),onConnection:s=>statuses.push(s),onSearch:ms=>searches.push(ms),onIdle:message=>idles.push(message),
     createSocket:url=>{const socket={url,readyState:0,sent:[],send(value){this.sent.push(value==='ping'?value:JSON.parse(value));},close(){this.readyState=3;},open(){this.readyState=1;this.onopen?.();},packet(value){this.onmessage?.({data:typeof value==='string'?value:JSON.stringify(value)});},disconnect(code=1006){this.readyState=3;this.onclose?.({code});}};sockets.push(socket);return socket;}});
   t.after(()=>client.suspend());
-  return{client,sockets,snapshots,statuses,searches,idles,storage,advance(ms){now+=ms;t.mock.timers.tick(ms);}};
+  return{client,sockets,snapshots,statuses,searches,idles,storage,shiftWallClock(ms){now+=ms;},advance(ms){now+=ms;clock+=ms;t.mock.timers.tick(ms);}};
 }
 
 test('a fresh visit does not create a socket or join the queue',async t=>{
@@ -33,6 +34,19 @@ test('reload restores the same room and suspension never abandons it',async t=>{
   const s=setup(t,{room:ROOM});assert.equal(await s.client.resume(),true);let room=s.sockets[0];room.open();assert.equal(room.sent[0].resume,true);
   room.packet(snapshot());s.client.suspend();s.advance(5000);assert.equal(s.sockets.length,1);assert.ok(!room.sent.some(p=>p.type==='action'||p.type==='cancel'));
   await s.client.resume();room=s.sockets[1];room.open();assert.equal(new URL(room.url).pathname,'/v1/rooms/'+ROOM);assert.equal(room.sent[0].after,8);
+});
+
+for(const offset of[1,500,60000])test(`search starts at zero when the server clock is ${offset} ms ahead`,async t=>{
+  const s=setup(t);await s.client.start('Erick',deck);const lobby=s.sockets[0];lobby.open();
+  lobby.packet({type:'searching',joined:100000+offset});assert.equal(s.searches.at(-1),0);
+  s.advance(1000);assert.equal(s.searches.at(-1),1000);
+});
+
+test('search elapsed time keeps advancing when the device wall clock changes',async t=>{
+  const s=setup(t);await s.client.start('Erick',deck);const lobby=s.sockets[0];lobby.open();
+  lobby.packet({type:'searching',joined:98000});s.advance(1000);
+  s.shiftWallClock(-5000);s.advance(1000);s.shiftWallClock(8000);s.advance(1000);
+  assert.deepEqual(s.searches,[2000,3000,4000,5000]);
 });
 test('an idle or expired session returns to the menu without starting a search',async t=>{
   const s=setup(t);await s.client.resume();s.sockets[0].open();assert.equal(s.sockets[0].sent[0].mode,'resume');

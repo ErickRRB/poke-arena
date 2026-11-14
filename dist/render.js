@@ -1,6 +1,6 @@
 import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, KING_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=26';
 import { BattleArt } from './battle-art.js?v=29';
-import { emissionPoint, animationFrame, movementAnchor, TOWER_MOUNTS } from './sprite-motion.js?v=26';
+import { emissionPoint, animationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=26';
 import {combatVisual,projectileVisual,movementVisual,fireballVisual} from './combat-visuals.js?v=29';
 import { spellPreviewTargets } from './spell-preview.js?v=28';
 
@@ -18,6 +18,12 @@ function pixelMeter(c,x,y,width,progress,color,segments=6){
   rect(c,'#24352e',x-2,y-2,width+4,8);rect(c,'#495346',x,y,width,4);
   const gap=2,step=(width+gap)/segments,filled=Math.floor(Math.max(0,Math.min(1,progress))*segments+1e-6);
   for(let i=0;i<segments;i++)if(i<filled){rect(c,color,x+i*step,y,step-gap,4);rect(c,'#fff3c1',x+i*step,y,step-gap,1);}
+}
+function placementWarning(c,x,y,vertical){
+  c.save();c.translate(Math.round(x),Math.round(y));c.scale(1,1/vertical);
+  rect(c,'#484832',-8,-13,16,24);rect(c,'#484832',-10,-11,20,20);rect(c,'#484832',-3,11,6,4);
+  rect(c,'#fff3cc',-6,-11,12,20);rect(c,'#fff3cc',-8,-9,16,16);rect(c,'#fff3cc',-1,9,2,4);
+  rect(c,'#ac3338',-2,-8,4,10);rect(c,'#ac3338',-2,5,4,3);c.restore();
 }
 export class Renderer {
   constructor(canvas) {
@@ -188,7 +194,7 @@ export class Renderer {
     const nativeAnchor=this.anchors.get(`${id}-${anim}`)?.[direction]?.[frame]||{x:meta.width/2,y:meta.height*.65};
     const anchor=loopFrames&&movement.bodyAnchor?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor;
     const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:unit.leap.kind==='river'?24:48):0;
-    const lift=(leapLift+(unit.card.structure?(unit.card.burrow?0:23):unit.card.flying?16+(this.reduced?0:Math.sin(this.t*2.6+unit.id)*1.5):0))/vertical;
+    const lift=(leapLift+(unit.card.structure?structureLift(unit.card):unit.card.flying?16+(this.reduced?0:Math.sin(this.t*2.6+unit.id)*1.5):0))/vertical;
     const lunge=attackLunge(unit,this.reduced);
     const radius=unit.radius||12;
     if(!unit.mounted&&!unit.preview){
@@ -223,7 +229,7 @@ export class Renderer {
       const group=unit.spawnGroup||{id:unit.id,x:unit.x,y:unit.y,duration:.75};
       let marker=groups.get(group.id);
       if(!marker){marker={...group,top:H,remaining:0};groups.set(group.id,marker);}
-      const lift=unit.card.structure?23:unit.card.flying?16:0;
+      const lift=unit.card.structure?structureLift(unit.card):unit.card.flying?16:0;
       marker.top=Math.min(marker.top,(unit.drawY??unit.y)-lift-((this.bodyHeights.get(unit.card.id)||22)*visualScale(unit)+35)/vertical);
       marker.remaining=Math.max(marker.remaining,unit.spawn);
     }
@@ -266,6 +272,7 @@ export class Renderer {
     if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
   }
   platform(c,unit){
+    if(unit.card.platform===false)return;
     if(unit.card.burrow){
       const vertical=this.verticalScale||1;c.save();c.translate(unit.x,unit.y);c.scale(1,1/vertical);
       rect(c,'#263a32',-25,-9,50,20);rect(c,'#89998b',-23,-7,46,16);rect(c,'#b6c0a5',-20,-5,40,12);
@@ -348,7 +355,7 @@ export class Renderer {
     const combined=this.numbers.find(n=>n.targetId===target.id&&n.kind===kind&&this.t-n.lastAt<.22);
     if(combined){combined.amount+=amount;combined.life=combined.max;combined.lastAt=this.t;return;}
     const id=target.card?.id,scale=visualScale(target);
-    const height='king'in target?(target.king?83:72):(this.bodyHeights.get(id)||23)*scale+(target.card.structure?23:target.card.flying?16:0)+13;
+    const height='king'in target?(target.king?83:72):(this.bodyHeights.get(id)||23)*scale+(target.card.structure?structureLift(target.card):target.card.flying?16:0)+13;
     const life=kind==='dot'?.95:1.15;
     if(this.numbers.length>=32)this.numbers.shift();
     this.numbers.push({targetId:target.id,kind,x:Math.max(24,Math.min(W-24,target.x+(target.id%3-1)*7+(kind==='dot'?15:kind==='heal'?-15:0))),y:Math.max(27,Math.min(H-27,target.y-height+(kind==='dot'?12:0))),amount,color:kind==='heal'?'#baf3a2':kind==='dot'?'#ffc27d':target.team?'#ffe8a0':'#ffd2c8',life,max:life,lastAt:this.t});
@@ -520,17 +527,18 @@ export class Renderer {
     if(!card||game.state!=='playing')return;
     c.save();
     if(this.selection){
-      if(!card.spell||card.rolling){
-        c.fillStyle='#132e2570';c.beginPath();c.rect(35,36,530,339);
-        if(!card.rolling)for(const lane of[0,1]){
-          if(game.towers.some(t=>t.team===1&&!t.king&&t.lane===lane&&t.hp<=0))c.rect(lane?300:44,252,256,104);
-        }
-        c.fill('evenodd');
-      }
+      // Keep the terrain bright; legal cells and their frontier carry placement feedback.
       c.strokeStyle=card.spell?'#314b3759':'#d9ebbc19';c.lineWidth=card.spell?.9:.55;
+      const cells=Array.from({length:DEPLOY_GRID.rows},(_,row)=>Array.from({length:DEPLOY_GRID.columns},(_,col)=>game.canDeploy(0,key,col*TILE+TILE/2,DEPLOY_GRID.top+row*TILE+TILE/2)));
       for(let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++){
         const x=col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
-        if(game.canDeploy(0,key,x,y))c.strokeRect(x-TILE/2,y-TILE/2,TILE,TILE);
+        if(cells[row][col]){
+          c.strokeRect(x-TILE/2,y-TILE/2,TILE,TILE);
+          if((!card.spell||card.rolling)&&row&&!cells[row-1][col]){
+            line(c,'#3e5339cc',x-TILE/2,y-TILE/2,x+TILE/2,y-TILE/2,3);
+            line(c,'#fff0ba',x-TILE/2+3,y-TILE/2,x+TILE/2-3,y-TILE/2,1);
+          }
+        }
       }
       if(this.tutorialSpot)text(c,'D E S P L E G Á  A C Á',300,480,'#e0ecc7aa',10,500);
     }
@@ -559,12 +567,10 @@ export class Renderer {
         }
         for(const enemy of game.deploymentThreats(0,key,point.x,point.y)){
           const id=enemy.card?.id,scale=visualScale(enemy);
-          const height='king'in enemy?(enemy.king?106:96):(this.bodyHeights.get(id)||23)*scale+(enemy.card.structure?24:enemy.card.flying?16:0)+25;
+          const height='king'in enemy?(enemy.king?106:96):(this.bodyHeights.get(id)||23)*scale+(enemy.card.structure?structureLift(enemy.card):enemy.card.flying?16:0)+25;
           const bx=enemy.x+18,by=Math.max(22,enemy.y-height/(this.verticalScale||1));
           ellipse(c,'#ef554944',enemy.x,enemy.y,enemy.radius+7,9);
-          c.save();c.translate(bx,by);c.scale(1,1/(this.verticalScale||1));
-          ellipse(c,'#b9202e',0,0,12,14);c.strokeStyle='#ffe7cd';c.lineWidth=2;c.beginPath();c.ellipse(0,0,12,14,0,0,Math.PI*2);c.stroke();
-          text(c,'!',0,0,'#fff7e9',22,900);c.restore();
+          placementWarning(c,bx,by,this.verticalScale||1);
         }
       }
       if(card.spell&&!card.rolling){

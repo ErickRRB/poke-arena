@@ -165,13 +165,13 @@ export class Game {
   canDeploy(team, key, x, y, wholeFormation = true) {
     const card = CARDS[key];
     if (!card || !Number.isFinite(x) || !Number.isFinite(y) || x < 44 || x > 556 || y < 40 || y > 760) return false;
-    if (card.rolling) return team ? y <= 356 : y >= 444;
-    if (card.spell) return true;
+    if (card.spell && !card.rolling) return true;
     const lane = x < 300 ? 0 : 1;
     const laneDestroyed = this.towers.some(t => t.team !== team && t.lane === lane && !t.king && t.hp <= 0);
     const inOwnHalf = team === 0 ? y >= 444 : y <= 356;
     const inCaptured = laneDestroyed && (team === 0 ? y >= 252 && y <= 356 : y >= 444 && y <= 548);
     if (!inOwnHalf && !inCaptured) return false;
+    if (card.rolling) return true;
     if([...this.towers, ...this.units.filter(u => u.card.structure)].some(t => {
       const behindKing=t.king&&t.team===team&&(team?y<t.y:y>t.y);
       return t.hp>0&&distance(t,{x,y})<t.radius+(card.structure?38:behindKing?20:27);
