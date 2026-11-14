@@ -5,7 +5,7 @@ import {combatVisual,projectileVisual,movementVisual,fireballVisual} from './com
 import { spellPreviewTargets } from './spell-preview.js?v=28';
 import {areaGuide,cellGuide,travelGuide} from './targeting-art.js?v=32';
 import { FlightWings } from './wing-motion.js';
-import { drawCapsule } from './capsule-art.js';
+import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -58,6 +58,7 @@ export class Renderer {
     const track=pending=>pending.then(value=>{onProgress(++loaded,total);return value;});
     onProgress(0,total);
     await Promise.all([this.ensureSpecies(ids),...[...files].map(file=>track(this.loadImage(file))),this.battleArt.preload(()=>onProgress(++loaded,total))]);
+    this.capsuleArt=new CapsuleArt(this.battleArt.images.get(CAPSULE_TEXTURE));
     this.buildBackground();
   }
   animationEntries(id){
@@ -725,13 +726,13 @@ export class Renderer {
     pose.logical=spell.flightElapsed;pose.at=this.t;this.visualFlights.set(id,pose);
     const visual={...spell,flightElapsed:Math.min(spell.flightTime,pose.elapsed)};
     const {point,tail,angle}=fireballVisual(visual,this.verticalScale||1),age=this.reduced?0:visual.flightElapsed;
-    if(spell.card?.spawnOnImpact){this.capsule(c,point.x,point.y,52,this.reduced?0:age*4);return;}
+    if(spell.card?.spawnOnImpact){const axis=Math.atan2(spell.x-spell.startX,(spell.y-spell.startY)*(this.verticalScale||1));this.capsule(c,point.x,point.y,52,this.reduced?0:age*4,axis);return;}
     for(let i=tail.length-1;i>=0;i--){c.save();c.globalAlpha=.45-i*.1;const size=36-i*7;
       this.combatArt(c,'fireTrail',tail[i].x,tail[i].y,size,angle-Math.PI/2,size,{age:age+i*.09,fps:8,trim:true});c.restore();}
     const size=this.reduced?58:58+Math.sin(age*5)*2;
     this.combatArt(c,'fireOrb',point.x,point.y,size,angle-Math.PI/2,size,{frame:1,trim:true});
   }
-  capsule(c,x,y,size,angle){c.save();c.translate(x,y);c.scale(1,1/(this.verticalScale||1));drawCapsule(c,0,0,size,angle);c.restore();}
+  capsule(c,x,y,size,angle,axis=0){c.save();c.translate(x,y);c.scale(1,1/(this.verticalScale||1));drawCapsule(c,0,0,size,angle,axis,this.capsuleArt);c.restore();}
   rollingSpell(c,spell){
     const travelled=Math.max(0,spell.card.travelDistance-(spell.travelRemaining??spell.card.travelDistance)),direction=spell.team?1:-1;
     for(let i=3;i>0;i--)if(travelled>i*14){
