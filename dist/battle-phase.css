@@ -1,13 +1,16 @@
 /* Phase feedback changes paint only; the clock, hand and arena keep their boxes. */
-.battle-hud #boost {
+.battle-console .energy-section {grid-template-columns:46px minmax(0,1fr) 44px}
+.energy-boost-slot {display:grid;place-items:center;width:44px;height:22px}
+.battle-console #boost {
+  display:inline-flex;align-items:center;justify-content:center;width:44px;height:26px;
+  padding:0;border:2px solid;border-radius:4px;font:800 22px/1 'Barlow Condensed',sans-serif;
   border-color:#55256f;
   background:linear-gradient(#be5ddc 0 43%,#8b32b5 44% 100%);
   color:#fff5ff;
   box-shadow:inset 0 2px #efacff,0 2px 0 #3d255d,0 0 0 2px #f4d0ff88;
   text-shadow:0 2px #61217c;
-  font-size:26px;
 }
-.battle-hud #boost[data-elixir="3"] {
+.battle-console #boost[data-elixir="3"] {
   border-color:#81214d;
   background:linear-gradient(#f27ac3 0 43%,#b72979 44% 100%);
   box-shadow:inset 0 2px #ffd3eb,0 2px 0 #702a4f,0 0 0 2px #f5ca65;
@@ -30,11 +33,11 @@
 .energy-section[data-elixir="2"][data-beat="strong"] .energy-bar {box-shadow:inset 0 1px #fff3ff,0 0 7px #b32cda99}
 .energy-section[data-elixir="3"][data-beat="strong"] .energy-bar {box-shadow:inset 0 1px #fff6eb,0 0 8px #ee3d9299}
 .battle-hud .battle-clock[data-phase="overtime"],.battle-hud .battle-clock[data-phase="tiebreaker"] {
-  color:#a31e2b;border-color:#aa2631;background:#fff0da;
-  text-shadow:0 1px #fff9e9;box-shadow:inset 0 1px #fff8ed,0 2px 0 #7b283b;
+  color:#fff8e8;border-color:#7a2030;background:#a82a37;
+  text-shadow:0 2px #712132;box-shadow:inset 0 1px #ed8691,0 2px 0 #702235;
 }
 .battle-hud .battle-clock:is([data-phase="overtime"],[data-phase="tiebreaker"])[data-beat="strong"] {
-  color:#c32335;border-color:#c32335;background:#ffd9c8;
-  box-shadow:inset 0 1px #fff3d5,0 2px 0 #8d2737,0 0 0 2px #ed5e4c66;
+  color:#fff8e8;border-color:#b92b3c;background:#df3f50;
+  box-shadow:inset 0 1px #ffaaa4,0 2px 0 #8d2737,0 0 0 2px #ed5e4c66;
 }
 .battle-hud #phase-label {color:#8e2630;border-color:#a84643;background:#ffead5;font-weight:800}

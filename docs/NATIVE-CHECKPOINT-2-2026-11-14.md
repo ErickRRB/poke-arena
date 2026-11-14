@@ -1,5 +1,7 @@
 # Segundo checkpoint de motor y regresiones
 
+> Evidencia histórica del checkpoint 8172b58. La [entrega final](NATIVE-RELEASE-2026-11-14.md) enlaza las pruebas, la matriz regenerada y la revisión completa posteriores.
+
 458pruebas de Node y4pruebas del Worker realtime pasan con Node22.23.4. Comandos: `npm run check`, `npm run test:all`, y `npm test` en realtime. El Worker está compilado, pero esta entrega aún espera cámara y QA visual para publicarse.
 
 Se corrigieron dos hallazgos independientes del primer checkpoint: cada instancia de módulo recibe un clon de las definiciones del catálogo, evitando reducir por segunda vez un combo ya consolidado cuando conviven imports con y sin query. El test abre tres instancias, compara todas las fichas y verifica Scizor270, Blaziken300, Dragonite255 y Crobat150. Sableye comprueba el hueco actual antes de cada embestida: tras la primera, un mismo blanco cercano recibe básicos194, y un nuevo blanco a distancia válida conserva su nueva preparación. Ambos bandos y30/60Hz están cubiertos.

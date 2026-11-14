@@ -22,13 +22,13 @@ export async function run({browser,url,viewports,output}){
     },phase);
     assert.equal(result.multiplier,phase.m);assert.equal(result.boostHidden,phase.m===1);assert.equal(result.boost,phase.m+'×');
     assert.equal(result.phase,phase.overtime?'overtime':'regular');stable(before,await rects(page,ids),phase.name);
-    if(phase.overtime){assert.match(result.announcement,/Tiempo extra/);assert.equal(result.color,'rgb(195, 35, 53)');}
+    if(phase.overtime){assert.match(result.announcement,/Tiempo extra/);assert.equal(result.background,'rgb(223, 63, 80)');}
     await page.screenshot({path:output+'/phase-'+phase.name+'-'+viewport.width+'.png'});
     await page.evaluate(()=>{for(let i=0;i<8;i++)__qa.updateUi();});
     assert.equal(await page.evaluate(()=>window.__phaseMutationCount),0,'no repeated live announcement');
     if(phase.overtime){
-     const soft=await page.evaluate(()=>{__qa.game.elapsed=.75;__qa.updateUi();return{color:getComputedStyle(document.getElementById('battle-clock')).color,beat:document.getElementById('battle-clock').dataset.beat}});
-     assert.notEqual(soft.color,result.color);assert.equal(soft.beat,'soft');
+     const soft=await page.evaluate(()=>{__qa.game.elapsed=.75;__qa.updateUi();return{background:getComputedStyle(document.getElementById('battle-clock')).backgroundColor,beat:document.getElementById('battle-clock').dataset.beat}});
+     assert.notEqual(soft.background,result.background);assert.equal(soft.beat,'soft');
      await page.evaluate(()=>{__qa.game.pause();__qa.updateUi();});await page.waitForTimeout(580);
      assert.equal(await page.locator('#battle-clock').getAttribute('data-beat'),'soft','pause freezes the pulse');
      stable(before,await rects(page,ids),'paused '+phase.name);

@@ -1,5 +1,7 @@
 # Revisión de las doce funciones originales
 
+> Checkpoint histórico anterior a la matriz final. La entrega vigente revisa [los 50 originales](ORIGINAL-CATALOG-REVIEW-2026-11-14.md) y conserva [372 encuentros con fuentes verificables](NATIVE-TRADE-MATRIX-2026-11-14.json). Las cifras de este checkpoint no describen el catálogo final.
+
 Los cuerpos y hechizos nativos se fijaron antes de presupuestar estas originales. La matriz principal separa sus180 casos de los180 nativos y termina cada intercambio al caer una familia. Los encuentros donde ninguno puede atacar al otro no se presentan como duelos ganados. La revisión conserva costes y funciones diferenciadas aprobadas, sin restaurar activables.
 
 | Original | Comparación y decisión |
