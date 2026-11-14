@@ -1,6 +1,7 @@
 import {BATTLE_ASSETS} from './assets/battle/manifest.js';
 import {PROJECTILE_BOUNDS} from './assets/battle/projectile-bounds.js';
 import {WHIRLPOOL_BOUNDS} from './assets/battle/frame-bounds.js';
+import {CAPSULE_TEXTURE} from './capsule-art.js';
 
 export const CARD_PLACEHOLDERS=Object.freeze({});
 export const cardPlaceholder=key=>Object.hasOwn(CARD_PLACEHOLDERS,key);
@@ -9,7 +10,7 @@ const STRUCTURES={princess:[[161,7,309,395],[794,7,309,395]],king:[[29,428,574,4
 
 export class BattleArt {
   constructor(loadImage){this.loadImage=loadImage;this.images=new Map();this.failed=new Set();this.time=0;}
-  files(){return [...new Set([...Object.values(BATTLE_ASSETS).map(asset=>asset.file),'assets/battle/structures-v1.png','assets/battle/arena-ground-v2.webp','assets/battle/arena-bridge-v2.webp','assets/battle/riverbank-v2.webp'])];}
+  files(){return [...new Set([...Object.values(BATTLE_ASSETS).map(asset=>asset.file),CAPSULE_TEXTURE,'assets/battle/structures-v1.png','assets/battle/arena-ground-v2.webp','assets/battle/arena-bridge-v2.webp','assets/battle/riverbank-v2.webp'])];}
   async load(file){try{const image=await this.loadImage(file);this.images.set(file,image);return image;}catch{this.failed.add(file);return null;}}
   async preload(onFile=()=>{}){await Promise.all(this.files().map(file=>this.load(file).then(onFile)));}
   image(name){const meta=BATTLE_ASSETS[ALIASES[name]||name];return meta?this.images.get(meta.file):null;}

@@ -5,7 +5,7 @@ import {combatVisual,projectileVisual,movementVisual,fireballVisual} from './com
 import { spellPreviewTargets } from './spell-preview.js?v=28';
 import {areaGuide,cellGuide,travelGuide} from './targeting-art.js?v=32';
 import { FlightWings } from './wing-motion.js';
-import { drawCapsule } from './capsule-art.js';
+import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -58,6 +58,7 @@ export class Renderer {
     const track=pending=>pending.then(value=>{onProgress(++loaded,total);return value;});
     onProgress(0,total);
     await Promise.all([this.ensureSpecies(ids),...[...files].map(file=>track(this.loadImage(file))),this.battleArt.preload(()=>onProgress(++loaded,total))]);
+    this.capsuleArt=new CapsuleArt(this.battleArt.images.get(CAPSULE_TEXTURE));
     this.buildBackground();
   }
   animationEntries(id){
@@ -189,7 +190,7 @@ export class Renderer {
     if(burrow>=.999){this.platform(c,unit);return;}
     if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
     const movement=movementVisual(unit.card);
-    const golemHurt=unit.key==='golem'&&this.drawDt!==0&&(unit.deathHurt||unit.pushHurt>0);
+    const golemHurt=unit.key==='golem'&&(unit.deathHurt||unit.pushHurt>0);
     let anim = golemHurt?'Hurt':unit.attack > 0 ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving||unit.card.flying ? movement.animation : unit.hit>0&&unit.key!=='golem'?'Hurt':unit.card.idleAnim||'Idle';
     if (!this.sprites.has(`${id}-${anim}`)) anim = 'Walk';
     const meta = this.metadata[id]?.[anim], img = this.sprites.get(`${id}-${anim}`);
@@ -528,7 +529,7 @@ export class Renderer {
       e.life-=activeDt;if(e.life<=0)continue;
       const progress=1-e.life/e.max,age=e.max-e.life;
       c.save();c.globalAlpha=Math.min(1,e.life/Math.min(.2,e.max));
-      if(e.kind==='golemDeath'){if(dt>0)this.sprite(c,{...e.unit,pushHurt:e.life},true);}
+      if(e.kind==='golemDeath')this.sprite(c,{...e.unit,pushHurt:e.life},true);
       else if(e.kind==='missiles')this.drawMissiles(c,e);
       else if(e.kind==='entry')this.entryEffect(c,e,progress);
       else if(e.kind==='areaImpact')this.areaImpact(c,e,progress);
@@ -609,7 +610,7 @@ export class Renderer {
     if(this.selection){
       // Keep the terrain bright; legal cells and their frontier carry placement feedback.
       const cells=Array.from({length:DEPLOY_GRID.rows},(_,row)=>Array.from({length:DEPLOY_GRID.columns},(_,col)=>game.canDeploy(team,key,col*TILE+TILE/2,DEPLOY_GRID.top+row*TILE+TILE/2)));
-      if(!card.spell||card.rolling)for(let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++){
+      if(!card.spell||card.rolling&&key!=='log')for(let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++){
         const x=col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
         if(cells[row][col]){
           c.strokeStyle='#eef5d525';c.lineWidth=.65;
@@ -637,10 +638,10 @@ export class Renderer {
         c.fillStyle='#edfad15c';
         for(let row=-2;row<=2;row++)for(let col=-2;col<=2;col++)c.fillRect(point.x+(col-.5)*TILE-1,point.y+(row-.5)*TILE-1,2,2);
       }
-      if(placement&&this.selection&&Math.hypot(point.x-p.x,point.y-p.y)>TILE/2){
+      if(key!=='log'&&placement&&this.selection&&Math.hypot(point.x-p.x,point.y-p.y)>TILE/2){
         c.strokeStyle=color;c.lineWidth=2;c.setLineDash([3,5]);c.beginPath();c.moveTo(p.x,p.y);c.lineTo(point.x,point.y);c.stroke();c.setLineDash([]);ellipse(c,color,p.x,p.y,3,3);
       }
-      if(card.rolling)travelGuide(c,point.x,point.y,card.splash,card.travelDistance,team,valid);
+      if(card.rolling&&key!=='log')travelGuide(c,point.x,point.y,card.splash,card.travelDistance,team,valid);
       if(!card.spell&&placement){
         const range=card.squad?Math.max(...card.squad.map(k=>CARDS[k].range)):card.range;
         if(!card.passive&&range>=50){
@@ -725,13 +726,13 @@ export class Renderer {
     pose.logical=spell.flightElapsed;pose.at=this.t;this.visualFlights.set(id,pose);
     const visual={...spell,flightElapsed:Math.min(spell.flightTime,pose.elapsed)};
     const {point,tail,angle}=fireballVisual(visual,this.verticalScale||1),age=this.reduced?0:visual.flightElapsed;
-    if(spell.card?.spawnOnImpact){this.capsule(c,point.x,point.y,52,this.reduced?0:age*4);return;}
+    if(spell.card?.spawnOnImpact){const axis=Math.atan2(spell.x-spell.startX,(spell.y-spell.startY)*(this.verticalScale||1));this.capsule(c,point.x,point.y,52,this.reduced?0:age*4,axis);return;}
     for(let i=tail.length-1;i>=0;i--){c.save();c.globalAlpha=.45-i*.1;const size=36-i*7;
       this.combatArt(c,'fireTrail',tail[i].x,tail[i].y,size,angle-Math.PI/2,size,{age:age+i*.09,fps:8,trim:true});c.restore();}
     const size=this.reduced?58:58+Math.sin(age*5)*2;
     this.combatArt(c,'fireOrb',point.x,point.y,size,angle-Math.PI/2,size,{frame:1,trim:true});
   }
-  capsule(c,x,y,size,angle){drawCapsule(c,x,y,size,angle);}
+  capsule(c,x,y,size,angle,axis=0){c.save();c.translate(x,y);c.scale(1,1/(this.verticalScale||1));drawCapsule(c,0,0,size,angle,axis,this.capsuleArt);c.restore();}
   rollingSpell(c,spell){
     const travelled=Math.max(0,spell.card.travelDistance-(spell.travelRemaining??spell.card.travelDistance)),direction=spell.team?1:-1;
     for(let i=3;i>0;i--)if(travelled>i*14){
