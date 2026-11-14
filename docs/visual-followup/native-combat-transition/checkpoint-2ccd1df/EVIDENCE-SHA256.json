@@ -1,0 +1,1551 @@
+{
+  "status": "frozen_native_checkpoint_evidence_contact_fix_verified_physical_origin_pending",
+  "frozenCommits": [
+    "01ec423b12a46c5d5acfbadf43607f5571b7eb15",
+    "62ff66320dfdda1f58ea411a5d7a330429cc4870",
+    "2ccd1df234a3ce75856f068074275e9764f50de0"
+  ],
+  "closedPriorDeliverablesUnchanged": true,
+  "files": [
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/README.md",
+      "bytes": 7085,
+      "sha256": "998946adc330025c0037375c6f4d4e14cb6cafb2efed59d0f6dacd539f2e8767"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/RERUN.md",
+      "bytes": 4149,
+      "sha256": "9a5bac322b030f2361bb787874acbb286856f838c63adebbf115456575388e0c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/affected-contact-keys.json",
+      "bytes": 827,
+      "sha256": "a6a750235b4fbb699cfc4a3b450815688f416eb98fbac13d9ca0eed9e47744f0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/all-key-transition.csv",
+      "bytes": 86651,
+      "sha256": "7f80c99657456b9c7d2f95a99364a3e50e38fe7639b2a6c1aa5773f14655f46e"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/analysis-summary.json",
+      "bytes": 2331,
+      "sha256": "258b3ce7a47bbf5aba1819dee8780cb495a7808946544a436269c99af0935072"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/progress.json",
+      "bytes": 61,
+      "sha256": "faee9ae4fe1dfefa83c37b46cd66216db16dca0ded488f6b94553e3f54101887"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/qa-native-contact-browser.mjs",
+      "bytes": 7917,
+      "sha256": "2e07699a123494b54ef153820f40844d727a82eba21deab643f951be97b9ce4a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/qa-native-contact-harness.mjs",
+      "bytes": 14405,
+      "sha256": "8202c03ce95ac277c5d087cc0fe63094734c16beaabc285cbd98671526a4415a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/summary.json",
+      "bytes": 2352379,
+      "sha256": "4eec9e87b0a03de528c6972b481fbff005fef3dbf03ff269c4c67c2a6b1fd5e4"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/alakazam.json.gz",
+      "bytes": 195339,
+      "sha256": "bc9a49c8c2c0a1f6a1d5b6cd2d3269e16cb03f0f678e65dd95aa0045819d81f5"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/ampharos.json.gz",
+      "bytes": 180111,
+      "sha256": "d65904f69e6f72f3e8c52c5d8070b2e6679d5c84f3fd82266c43fda0ea1163ad"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/arcanine.json.gz",
+      "bytes": 23865,
+      "sha256": "142ff08a6d00c46ae0e4a58b75b32afc2fddc643f3f96ac4df4d7500e54bc926"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/articuno.json.gz",
+      "bytes": 37927,
+      "sha256": "93221942e7264607f1dc2ea32e9c60ac99660c3e11a9f9726a74d812070f5f59"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/beedrill.json.gz",
+      "bytes": 255731,
+      "sha256": "5926c7e894c7ccc6c778e72ebfa2d862e247a740970791e495fcd6e08e703392"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/blastoise.json.gz",
+      "bytes": 25743,
+      "sha256": "6eb1f043405506540333781a6ca443e479f617005317128c02661ccfceddda2b"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/blaziken.json.gz",
+      "bytes": 26031,
+      "sha256": "561864b5cde8e67be026e8ba6b5b08d28007ca701a66ab2c312e59783f2ef8d3"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/bulbasaur.json.gz",
+      "bytes": 203246,
+      "sha256": "a772aef06c234564d54ace06561c9fe7b017d14cc46d478efd4aaad10a4dd075"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/butterfree.json.gz",
+      "bytes": 35952,
+      "sha256": "ae18263ff553c426e1b3cc3db8cd30c82174acf33d88cecd15695b164789d362"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/celebi.json.gz",
+      "bytes": 338662,
+      "sha256": "69c792651dd802201e6ccfe26a941a02a0704148a23c3341d7baa78fcf8226d4"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/centralElectrode.json.gz",
+      "bytes": 208523,
+      "sha256": "f75ad7a4e2f7f104f2d0f0842e57bd4bf4dded8dfe0d6b312f0f37f3fd2c6884"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/charizard.json.gz",
+      "bytes": 256302,
+      "sha256": "652fb9187dd601f56f1eb169bec01b4929fb23e2848e51b7a70541ea140757aa"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/charmander.json.gz",
+      "bytes": 193563,
+      "sha256": "61ffd7358bb4f11687ba2ba1504457409a0722775dad2c35b56b7bec360551c1"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/cloyster.json.gz",
+      "bytes": 31325,
+      "sha256": "044e7f57119a9509715ac727790be9f58757b3e530138db1f9a8ebb4d4a47a5c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/crobat.json.gz",
+      "bytes": 34596,
+      "sha256": "3b5226887725825662d35ea5795ecd30fd11e492cfd6d577c5cdbb6308ccf12d"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/diglett.json.gz",
+      "bytes": 186724,
+      "sha256": "063fce6610a346470ea88b8ad4be2314b661219ab4813bfc392c68136237aad7"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/diglettHorde.json.gz",
+      "bytes": 186928,
+      "sha256": "a587b93188ffd96980fed7af9130bba2cca51ef68b97d5a075080b29921ffb85"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/dragonite.json.gz",
+      "bytes": 39747,
+      "sha256": "39deb5b73c6cab1a79255b99183c8d29552f817b7c50876ed487513ffc077420"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/duskull.json.gz",
+      "bytes": 189367,
+      "sha256": "2a768d6ce2962158f04220befcd3d60649f23bf9ed0fff85fa57538d2d5b5807"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/duskullToken.json.gz",
+      "bytes": 188300,
+      "sha256": "f1e3072bb5fd73d02f9e9550b001d2d2a4f9697348e2211c712a014776115810"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/eevee.json.gz",
+      "bytes": 23533,
+      "sha256": "286cc7c22b5ab9abb7f71d8fff26d7b65c4a8ba057ef15f557103270b953d11d"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/espeon.json.gz",
+      "bytes": 193359,
+      "sha256": "5e4f12523df7c251141efa39414d166fcd0bd7a042b50afdd4682af200e411dc"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/exeggcute.json.gz",
+      "bytes": 187156,
+      "sha256": "d9b749a665b712d18925766b9ef937322a54a29312f9034310ec1f0ac1fdd249"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/feraligatr.json.gz",
+      "bytes": 215776,
+      "sha256": "cc5f3daec2ca083949b2026f150eed4883cf68d331550b64591808bf35a02619"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/fireSpiritToken.json.gz",
+      "bytes": 40915,
+      "sha256": "4535c19436b9cd6e7345a404de787fa2f7eee18439e51240730a0c8e95e68091"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/forretress.json.gz",
+      "bytes": 111292,
+      "sha256": "e81a329b25d7080725ef25e0fc8d1d7e52898be87c31d7ecb0a925ff5cf12181"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/gardevoir.json.gz",
+      "bytes": 191319,
+      "sha256": "32f2420f52f98eae66f0d9d8d9ded80c395b0d0ee02fc84fcf7e793da8ac1cfd"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/geodude.json.gz",
+      "bytes": 191984,
+      "sha256": "5da8f785e8594d14ce82088921c106965d4664ebce036799e7b7b98441a5ff09"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/geodudeToken.json.gz",
+      "bytes": 300373,
+      "sha256": "1d2b8e598aad486a8075140dc5c6c7c46cc53f1995ff35abe9f60aad93fce6b9"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/golem.json.gz",
+      "bytes": 299658,
+      "sha256": "11beb54b3154b1dc969583d5b1d668275bd1ec6c6395e6ad3310962b7b3063d9"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/graveler.json.gz",
+      "bytes": 248753,
+      "sha256": "46aaa2391357940073d25851de0650d29a0036d9b1dacf8f365d0256a7eb017e"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/groudon.json.gz",
+      "bytes": 31364,
+      "sha256": "26764acf5e7f77a30a3d9a784bdd1d228054facef20cfb75f048f059b419bdf0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/kyogre.json.gz",
+      "bytes": 28592,
+      "sha256": "107a49658d5b69014d90f0ee069fba29d276684aa802b4bb958a8c9347ad88ad"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/lapras.json.gz",
+      "bytes": 206460,
+      "sha256": "fc35e63babe6c7453026715b2934c11879f6cd0762e9c4173f06ac16a3a65095"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/machamp.json.gz",
+      "bytes": 214742,
+      "sha256": "c2766e42998705919b53d319407b84c86716a08f25dcd98d4d49515e0d14a9f3"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/mankey.json.gz",
+      "bytes": 23047,
+      "sha256": "421e803227126f2a067031407f0d9fae03869720f3d7a311138b89df0f3eca31"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/moltres.json.gz",
+      "bytes": 260788,
+      "sha256": "b8a0c6ac388cfc42004b65455cfb91f833ccb800a8fc209daa14a3a1fbeccb44"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/nidoking.json.gz",
+      "bytes": 25125,
+      "sha256": "4838c5e748fbdb599d48e91c1cbb76428ceae536fc7b3aa92d78416191aa345e"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/nidoranM.json.gz",
+      "bytes": 190564,
+      "sha256": "3d9b088afe4721b22c2f43d06a65a6e42a85739404741a89aa0e30a115860483"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/nuzleaf.json.gz",
+      "bytes": 147884,
+      "sha256": "d4e239a8681f346177c04c192c75eff057ca3dbb46ed4f5a9b1a50889768fa47"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/onix.json.gz",
+      "bytes": 222680,
+      "sha256": "8829530245eff0b28b7dcb829c4278d5bddd4e05e8861633c1d007e7910a3c8a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/pandilla.json.gz",
+      "bytes": 197880,
+      "sha256": "ed16cedfe77c977abd9303da93cb1af3d489ef269530354373acc0c00b34783d"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/pidgeot.json.gz",
+      "bytes": 32169,
+      "sha256": "9f5986e70024d3379b660e44f36b7d2f8ebc61d4d74b468aa90398e509f8004f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/pikachu.json.gz",
+      "bytes": 221861,
+      "sha256": "813cc597e3b378a92eb23959304941ebabc3e018e208b7e2a2e0e3a6b94de918"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/poochyenaPack.json.gz",
+      "bytes": 198341,
+      "sha256": "eef9ed9e637a5683205bcdba05427022d78ae1a799dd7ad614985ffd3b8e7fa9"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/poochyenaToken.json.gz",
+      "bytes": 180903,
+      "sha256": "c2cd5d4e7e470819ef42b07bae25f394b0e70ffb9b5c8847bbca3539d9980d9f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/psyduck.json.gz",
+      "bytes": 22996,
+      "sha256": "5223bcc750227ec2341424abd7b7c2ea6b4f4e7755fb25066fba1cd92904f41c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/raichu.json.gz",
+      "bytes": 214045,
+      "sha256": "bee6d7a38ff628607957297433cd351b391d9e678df73f1a740517b6804f7ccd"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/raltsToken.json.gz",
+      "bytes": 23499,
+      "sha256": "96f72c1ed826eb2b4723cc130173bb537cec2d9074a6337b2b4687628787629d"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/raltsTrio.json.gz",
+      "bytes": 23492,
+      "sha256": "f82a272c44a29615e84fe0aba68cd32a67af3c706c76b5f069c9a147ce4137be"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/rapidash.json.gz",
+      "bytes": 222770,
+      "sha256": "28aa3036e75812af8a134452f9abe0b989afd88ce1571bf50d93dd832a09c2cc"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/rayquaza.json.gz",
+      "bytes": 38044,
+      "sha256": "fe165c7e9c045194e417a0192bc2b16b9294cbf59b7fcb2517e23c79408100b7"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/regirock.json.gz",
+      "bytes": 33565,
+      "sha256": "57f7a535d5e28b05bc4ca39083fb52b02fafd03ea77f1e00fb1396a627c915f6"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/rhydon.json.gz",
+      "bytes": 219247,
+      "sha256": "d4c0a41c899a45d7067a1439990d8c071c963a81486235a0131e47cfe7b1ce28"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/roselia.json.gz",
+      "bytes": 263090,
+      "sha256": "cb53dbe2a1568050a376cd18f460708b2185ff554444550a6a881ea3fe9a0b10"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/sableye.json.gz",
+      "bytes": 19654,
+      "sha256": "df24dd1c1c6f86f29444e5c1f8edb26c7193daed5a32e6561602331c15f1f527"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/salamence.json.gz",
+      "bytes": 40845,
+      "sha256": "4c170abaf10e12f748e01195aed9188e68d7f55864a4b08f6cb1dc89968fd372"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/sandshrew.json.gz",
+      "bytes": 181054,
+      "sha256": "ba2e19142b9debb2b561fba54b9cbc5b5f7250a58c86eb000b6a9611d8f5c846"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/sceptile.json.gz",
+      "bytes": 146119,
+      "sha256": "c97a7e98a324ab38ceb4f881452cfb26acc4249be6c425d57924cdd076a8b97b"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/scizor.json.gz",
+      "bytes": 23509,
+      "sha256": "cae5535af9a25c2b8d2317302821debe1b270ae34e99dcdf6bdad537949bacf4"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/scyther.json.gz",
+      "bytes": 30717,
+      "sha256": "e44c1cb32e1c866436f11b2b36e33599122dd5e696f766ff360eb3ee04f267d5"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/sharpedo.json.gz",
+      "bytes": 20083,
+      "sha256": "55823308743c975df175316833423963e5bd9b9139b3c7fee684dcbdedd625fc"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/shuppetToken.json.gz",
+      "bytes": 190618,
+      "sha256": "c291d9d037e10a14de76edff8b4fb83ab07508d84af6bc1da13581beb58fc959"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/slowbro.json.gz",
+      "bytes": 203894,
+      "sha256": "2adb663b8d5b4a99f7af860edea2b887dbdc2abc3c582027abaca9d33550d01a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/sneaselToken.json.gz",
+      "bytes": 172707,
+      "sha256": "2b70d66365f18f12eb07e2c8e74aab5c116e4f9a8f9496123e369bd95d05b4f3"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/snorlax.json.gz",
+      "bytes": 211487,
+      "sha256": "61d4e96803f1b69fea7461567b1e16466a92eb2d399cc0cdaead549305491e0d"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/squirtle.json.gz",
+      "bytes": 23711,
+      "sha256": "3c6bf1901ccab99683c3763f9d9d298ba2a2f55435ce16af352e53867e3986ae"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/starmie.json.gz",
+      "bytes": 191590,
+      "sha256": "c4b736290ec53b41607f1228de8ff063c91569691ffc397be55336d818656a6a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/steelix.json.gz",
+      "bytes": 29437,
+      "sha256": "b10d18199617280ea62b220973aaf1e902736df223f3a6b988f5c1b935396367"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/swampert.json.gz",
+      "bytes": 172308,
+      "sha256": "f3c79c18edcd607dba72a58e9d7ac66873edfa2bf60cbbfb8057c5e4bb0d063f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/tower-31.json.gz",
+      "bytes": 169515,
+      "sha256": "80384e28048e9d9933d86c46cb05c40a376074d04f6e6ee78f09acf9abb45c8d"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/tower-34.json.gz",
+      "bytes": 167874,
+      "sha256": "0782cb40e5f9a7ffa176ad2b7c6aacabcffeaedc4213f6a727c69d25c6ba957a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/tower-52.json.gz",
+      "bytes": 181649,
+      "sha256": "2b1e325e04f081d95325a92b1e922390c8bffbf50e66833f2c112fce0a91677a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/treecko.json.gz",
+      "bytes": 161858,
+      "sha256": "7e42d3afb7a03a0f35efa2926fe078e4c51353f4a1d6584e1ce844383615b465"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/typhlosion.json.gz",
+      "bytes": 189738,
+      "sha256": "81179bd3b26c2fb5165c2662d139cbf3f71f72c1ac1b22ea7639daa4ad76afa5"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/venusaur.json.gz",
+      "bytes": 191094,
+      "sha256": "5ef777d69a2e51a1825436b995e0d6d4ed918b90713cec835bd85b13c20536a0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/voltorb.json.gz",
+      "bytes": 39254,
+      "sha256": "8078c679f98ce1f0530fecd5e96aad713c3594a102557a5835a323ecef17aca3"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/vulpix.json.gz",
+      "bytes": 23837,
+      "sha256": "96b49e03166923ffbd64118a39931a1d4e0038b4890e32c4cadd6f44d198217a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/zapdos.json.gz",
+      "bytes": 335190,
+      "sha256": "5c516e7cc52d20cce377da7775fdf9e616a7ffd0b79e3c283b85ef67a1f01953"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/browser/traces/zubat.json.gz",
+      "bytes": 274080,
+      "sha256": "127a6fc0c2dde8205d104a004270305736e1a765cefaa7f7e019e5f3b61cc696"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/cards-baseline.json",
+      "bytes": 89832,
+      "sha256": "bc169d91027214520bb402918a16f59b09497a75368ce6baa4ef8b647bbc41f0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/cards-main-working-tree.json",
+      "bytes": 173721,
+      "sha256": "279e8347fb6d7844c694e812f982dd34d60a4b92ea2d791c6bc93994e46d09e3"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/frozen-inputs.json",
+      "bytes": 14000,
+      "sha256": "4604b2a3164c86a4443427c46da45fe6cd25907ba6b0eed7df91121f1c22ec58"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/inventory-provisional.json",
+      "bytes": 1402138,
+      "sha256": "fbb249306b2a4bbbeb625bbf24717245e356cc5c642567951b10b951f041ecf8"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-summary.json",
+      "bytes": 350142,
+      "sha256": "4fe82177011c10c1b6d92220d53c11ce86f93ae5bc4e168f46e19d482e15c7ee"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/alakazam.json.gz",
+      "bytes": 23270,
+      "sha256": "bd4f2eb7b5fa06801cde672e37b02419edf3879781acfaaa72b9832fa8ff6de1"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/ampharos.json.gz",
+      "bytes": 20844,
+      "sha256": "c6a3471c04cd9cfdb2de3cd72e2f85f2de5730d42c9f3e861f927f4584c72bb0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/arcanine.json.gz",
+      "bytes": 23795,
+      "sha256": "1594a2d9b9689c89d1aa304aee05e4ce2e643203c4dd9184a8dc5bdcab1c4e76"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/articuno.json.gz",
+      "bytes": 37709,
+      "sha256": "430b5464bdbf2ede97bef5688bf4c5abb5f88f417615783b1a80618f8f7b1a81"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/beedrill.json.gz",
+      "bytes": 31161,
+      "sha256": "1fd3f082b276f68d9d0311c61a360bcb2bf74fe00bddbc759c3756cfe56718e3"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/blastoise.json.gz",
+      "bytes": 25573,
+      "sha256": "d9ee8b54ea2e46d781260c10de28737ba9bce9eb1e9dfa997731f501f935c6d2"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/blaziken.json.gz",
+      "bytes": 25881,
+      "sha256": "57b721e9e3d87f9d2377214218f2008919ec35e459cba4a706061f801de32da5"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/bulbasaur.json.gz",
+      "bytes": 24129,
+      "sha256": "07488438b3fb29d93a4df8cc47491b478c7b7d9c40d781448ae0ee55544234e1"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/butterfree.json.gz",
+      "bytes": 35729,
+      "sha256": "4136f12cfbed7eff11bcaa4031325115ac32b02f5937b7b5a7b820501844e18f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/celebi.json.gz",
+      "bytes": 41645,
+      "sha256": "9443b7ac23e1126750eb0c6dbf46a38463c932c8d11c76b6fbd869cb8e796164"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/centralElectrode.json.gz",
+      "bytes": 24685,
+      "sha256": "cf70eb7c23153eb7da3fee414cd7a4ddf13f078045a4cf00af0acf176b8dbfdd"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/charizard.json.gz",
+      "bytes": 31336,
+      "sha256": "efab6659ef846d7b674cee3c1c5c1cdef1d2915e9eaa8c60c50fd7b3cbe60c5d"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/charmander.json.gz",
+      "bytes": 22808,
+      "sha256": "3b927ac895b1efb7f7cf12385a52af1e8ae9360ec350970f0a07ace347fce162"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/cloyster.json.gz",
+      "bytes": 31176,
+      "sha256": "8f175e9149ab25839a9d4092f608f57b45bb570b6233e88f7c350e8b64696695"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/crobat.json.gz",
+      "bytes": 34470,
+      "sha256": "35b871e8360420a9be9ad4a205e25bd8ba6d6542c0d4c3d23966e347cba9eff1"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/diglett.json.gz",
+      "bytes": 21676,
+      "sha256": "25260cb64a881e869f133cc10481fca6ca38aa97857c97b8c274cae032a8f57c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/diglettHorde.json.gz",
+      "bytes": 21703,
+      "sha256": "f67b3970ed1e0e05c3c36236cbdd7708a7defc1a278176fc2f860863d9d7f5db"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/dragonite.json.gz",
+      "bytes": 39523,
+      "sha256": "cad82b91163fb44aa21e0f8c6a3f408604ae1f0a77aee16037acf6c11292472f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/duskull.json.gz",
+      "bytes": 22359,
+      "sha256": "0edeaa2c606fe18a7a590f85243967727d927ef690ab91182888bc1ce69b2482"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/duskullToken.json.gz",
+      "bytes": 21930,
+      "sha256": "0a53d73b3dd23f820e25c53d74a94217d8dcc7d752342ad1d318fbb93f7e061b"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/eevee.json.gz",
+      "bytes": 23487,
+      "sha256": "4e7e4efba778459fe26d2c4ad953ec516165ee196cf4bff4f1d3455500192238"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/espeon.json.gz",
+      "bytes": 22890,
+      "sha256": "5a95e4d95d97e1fb782af51050af8d12a7c58df6403e111fca13989bf5529a8f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/exeggcute.json.gz",
+      "bytes": 21853,
+      "sha256": "697b7e1ef44e97d0cfab7ded1df74d2fac7dd22d5b18c7b9939c59d77cb1494a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/feraligatr.json.gz",
+      "bytes": 25283,
+      "sha256": "2866dff5513420c701aa30de44b5060735eaa01b8d5fbd44793d3a22974764d5"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/fireSpiritToken.json.gz",
+      "bytes": 5638,
+      "sha256": "9c6e3c0a387f30246e8adeafe7ea0732e66066f54f6e45650c349fb2ec5d852b"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/forretress.json.gz",
+      "bytes": 13993,
+      "sha256": "f341687c402c76036bbf9bd6eaf493dad4ca654a493fc0c7f6caee0b894368ad"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/gardevoir.json.gz",
+      "bytes": 22608,
+      "sha256": "2a984c7502bbf623c1fb80d8d03f6175e9a0ca9f6f26dbbf89ba1013df8ee341"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/geodude.json.gz",
+      "bytes": 22297,
+      "sha256": "08c240f994ee5d2dfa829f114f1bc4f075053f5a6b56467b3e8205bd8ee19827"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/geodudeToken.json.gz",
+      "bytes": 35924,
+      "sha256": "11c3d183dbb5435855135a7cd488dc8feda76d0d7d10f8f467cb646526c44e3d"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/golem.json.gz",
+      "bytes": 35513,
+      "sha256": "913410fad21d83bf44ac2a7f9397f17ab342884d816e01f325ad1713ccc98629"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/graveler.json.gz",
+      "bytes": 29760,
+      "sha256": "575e29ff93850330c97fa4ef2d2f4a588a95318d378f6ebc075becba4bc9d199"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/groudon.json.gz",
+      "bytes": 31236,
+      "sha256": "021acddbef85ab12ca4605d30d96b364821bc81e63e3e9af2bc6171c78af8eeb"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/kyogre.json.gz",
+      "bytes": 28429,
+      "sha256": "2b1f7c907a0a6fa922f816f7e2081a4217d06dc777da5c2b38feec63efe8f457"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/lapras.json.gz",
+      "bytes": 24403,
+      "sha256": "b7781ee17b7ac325121487213aa32fe835cf1587c8db3b3dc74c23b21ff5d033"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/machamp.json.gz",
+      "bytes": 25353,
+      "sha256": "66cd9182c97983a7173c3979f64738f7b18468a40e597d305c9989f437ec202b"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/mankey.json.gz",
+      "bytes": 22854,
+      "sha256": "fd3289259b0bff8a14b636de7be32c2faa2adba220554d6d7dd6e024d5e30eb7"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/moltres.json.gz",
+      "bytes": 31879,
+      "sha256": "abdc285e32534aa299270851200d4d2eb8af1f4cee5b085bbb4bd2f26a43ae6e"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/nidoking.json.gz",
+      "bytes": 25095,
+      "sha256": "7dcf808eb95d76cdf76e7f223d542b161017f13e096da3b2c50c79c35235a2a0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/nidoranM.json.gz",
+      "bytes": 22216,
+      "sha256": "ffd578aeac2bb8522fd4049f1e5ef3d509db47e626b9d6ad0cf794300d30d988"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/nuzleaf.json.gz",
+      "bytes": 16844,
+      "sha256": "7152638c05b914589e334de72c24044135838b66a2ee657b809ca55e4dfac728"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/onix.json.gz",
+      "bytes": 26112,
+      "sha256": "d6b9fa64a6ab1709a3b4e6c618e3b38e97f518f79f7edb50157192e9b241c223"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/pandilla.json.gz",
+      "bytes": 23113,
+      "sha256": "b145c0f8d3154bc9ac5af0405d18d8c3a30aee7acd3c3751cbfab95c5d7e377a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/pidgeot.json.gz",
+      "bytes": 32051,
+      "sha256": "591defd243da601ea086166a4f16a2a725eb8bfe770cb938103c1c78b2b8e71c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/pikachu.json.gz",
+      "bytes": 26395,
+      "sha256": "e9fadbb3800838f8791401235bb3af80952cbb679167dc1bd6449ac1bdebf3c0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/poochyenaPack.json.gz",
+      "bytes": 22932,
+      "sha256": "80d0e3f4b0c57b0cc1e251ff4c0a60aed41e851fefa6e505e87df27f57f1ddf8"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/poochyenaToken.json.gz",
+      "bytes": 20890,
+      "sha256": "4707ff0101803b1ffda9cfc1d6d55ba2a2f03c6e55edf56986ed8fc9c1e4babf"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/psyduck.json.gz",
+      "bytes": 22873,
+      "sha256": "8ad565808af4c7526f219095b251f5570bf6fa1fa4ec7bd8c1ec8403555b7894"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/qa-native-contact-checkpoint.mjs",
+      "bytes": 4985,
+      "sha256": "c71c85021a644349591205d4cc68010e37d6d0c810d7ce8cb3cd85d29b68007d"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/qa-native-contact-harness.mjs",
+      "bytes": 18694,
+      "sha256": "43aa64be590d099ab1014b630acb7e8edbd9977f2838e28631f0ad4abb2e7516"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/raichu.json.gz",
+      "bytes": 25123,
+      "sha256": "bdeefd103ac21e331f0a33d0b47f1660fa6b9444d38aa431aa864830b5144697"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/raltsToken.json.gz",
+      "bytes": 23296,
+      "sha256": "2ea606d5fe3d87a658c38d7b0977fc272e0ad94a3d91042d4a75275c4dd7e597"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/raltsTrio.json.gz",
+      "bytes": 23287,
+      "sha256": "230d49c20dac50f6da277f83ebe228b9366147f3f32be04db6aa1e943b19ce94"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/rapidash.json.gz",
+      "bytes": 26000,
+      "sha256": "5e34eb14cc278b32a1563019454a500bbdaeccdf91d8355b8037746175549041"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/rayquaza.json.gz",
+      "bytes": 37852,
+      "sha256": "a066b454f7c446bb3a350b67c4f4136fdb1f23ba813e37a360bfc72a04b34bb7"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/regirock.json.gz",
+      "bytes": 33475,
+      "sha256": "025e660320c3765a83a890017178d0661e4eeb29a5d003e97658c35451133982"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/rhydon.json.gz",
+      "bytes": 25840,
+      "sha256": "b3727c05c0737a0d038214b596a2a1d81ee5feee4c13df4e093a611a4a20e811"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/roselia.json.gz",
+      "bytes": 31486,
+      "sha256": "9bae219e11088dd691a27864ca13a500c6204c8ce911ae70e1e4ce1e5f856092"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/sableye.json.gz",
+      "bytes": 19571,
+      "sha256": "041a328d962e81da1670a837970fbfc703a8ed5e26f9429527fb1ba64e3bd876"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/salamence.json.gz",
+      "bytes": 40633,
+      "sha256": "205d9f2f6d25469e93adc3269b5f44ae5f281968c581658b06b6db9db4aff5f7"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/sandshrew.json.gz",
+      "bytes": 20941,
+      "sha256": "784637180a472befac049dfe18224e45b55de0c3f1ffb0aa4621543bc783d59d"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/sceptile.json.gz",
+      "bytes": 17096,
+      "sha256": "cf23b487bd01cbdb333a6c9a3d85da2be4573e9a6b053a6529c331c4aa5ae04b"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/scizor.json.gz",
+      "bytes": 23312,
+      "sha256": "f59c4f07e0d78d30593d28b8e0197c13d2d1fe8d2a7d4b80b39032b4c561ffd6"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/scyther.json.gz",
+      "bytes": 30533,
+      "sha256": "e70de97146d7bf8f6edfcad5a9312c96ce14d014c6ff0562b857e9aa6721e0ad"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/sharpedo.json.gz",
+      "bytes": 19947,
+      "sha256": "43790f82a989604055408d854c3dfd7751db89cb0e8cfbc9f18a3aa58eb085f1"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/shuppetToken.json.gz",
+      "bytes": 22102,
+      "sha256": "9eb6bf8f1374b9959adefe48d13f863322578212e7eee451ba2c07969cf6eb88"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/slowbro.json.gz",
+      "bytes": 24133,
+      "sha256": "8101eb4f4742a78f329c619493fd9835bc2139f04472bf6e33c478440e3fd245"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/sneaselToken.json.gz",
+      "bytes": 20058,
+      "sha256": "b1bc3a9cbe4726769e3216713eeff55f8780ba9f51e5193a5818de55ccb832c5"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/snorlax.json.gz",
+      "bytes": 24616,
+      "sha256": "1363390e687823cd9e7feb682ab68db12ce7980b550d3f92a223ef53514cd46d"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/squirtle.json.gz",
+      "bytes": 23498,
+      "sha256": "b51426b667964b5030b5fea349d24489fba885e1d709b278f2405f800e1afecf"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/starmie.json.gz",
+      "bytes": 22861,
+      "sha256": "a314ab109c664e624223a5c3ea98c7f3297b6c4a265489d0219ab4caa2ab08fa"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/steelix.json.gz",
+      "bytes": 29299,
+      "sha256": "c941cf9f74842dfba19b9b5ce5168cfb03203a9b9626870cc9b083a0fd98100c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/swampert.json.gz",
+      "bytes": 20066,
+      "sha256": "98bf183cb70f7eff634db1146b74d7ab1b6854fd8254315b82daa52b85d455fe"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/tower-31.json.gz",
+      "bytes": 19875,
+      "sha256": "bb14364907c9388d094710b43cf4d9a7c4f23cb8db3201bdd269d15980cd7afa"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/tower-34.json.gz",
+      "bytes": 19687,
+      "sha256": "bd29f41ea95dc06a7a09aaffd0abd90b363543c15b3eff8bd1a97211334ba1d2"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/tower-52.json.gz",
+      "bytes": 21348,
+      "sha256": "00ad3d03bf966f5677577bc3fb383be977ae4e140214ba6bd82eb9e750cf4f28"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/treecko.json.gz",
+      "bytes": 18996,
+      "sha256": "2c970946f5bd65853fe0daca181cd5fa6d0964034fce1d84d23a2e167f80c6a5"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/typhlosion.json.gz",
+      "bytes": 22332,
+      "sha256": "14bd1abdc3c6e04ce676cb7813602c43cd43a127adb3b7e0320c6eace72e2b37"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/venusaur.json.gz",
+      "bytes": 22529,
+      "sha256": "002f7a299249df3d3efc092a85ce891eb74a1827adb374b1cf6dcb28763ee8be"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/voltorb.json.gz",
+      "bytes": 5473,
+      "sha256": "3a5cf68f1b2e4c21fdf1f5c88709cc9e7c1d4765fc2f595600feb276cde17161"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/vulpix.json.gz",
+      "bytes": 23709,
+      "sha256": "e95efd4a3e608fe6d182cf430493a4dc5b3ea4b69f89e928234de44c30e1a6b2"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/zapdos.json.gz",
+      "bytes": 40759,
+      "sha256": "64c4051073cf69da86411149ce1e6498de6216bbab2bcb42d3d35053eb6ae14f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/numeric-traces/zubat.json.gz",
+      "bytes": 32820,
+      "sha256": "071d7b47ca96ecae807355248ff2c227cbf8aa2a1aeed771761c5fbdf545a0ae"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/physical-launch-evidence.json",
+      "bytes": 22607,
+      "sha256": "d2b87aaf4578b8d63479dfc86b003f87b54bb122f95bc622f1dc21b0984481c7"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/qa-minimum-provisional.json",
+      "bytes": 14713,
+      "sha256": "c7050e2e9d8ff1b4aa44365b850b579d2299ee928f5ecc44fad6b1bc8a06d36c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/beedrill-launch.json",
+      "bytes": 8533,
+      "sha256": "35503da93d9bbdaa5f6573a184da9184e626f0fdb5bd2b79ae33ac5178e8abb1"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/beedrill-local30-0-direct-viewer0.png",
+      "bytes": 39708,
+      "sha256": "841d9826e32a8d8c1ef0dfe4b40e6ce2463e1da1dac4a4643c8658e88ef71b2c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/beedrill-local30-1-direct-viewer0.png",
+      "bytes": 37908,
+      "sha256": "34e92b10a713e9425d5b1de3249be5e9cefc04dc2752a5b3386e3e060153785a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/beedrill-local30-2-direct-viewer0.png",
+      "bytes": 37396,
+      "sha256": "d3e53e1ee7af77650127c92a8b295b015150c009c5637c49edc3a75e92de2799"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/beedrill-local30-3-direct-viewer0.png",
+      "bytes": 37344,
+      "sha256": "d6a5b7c7e408724b596aea2b8c5067508cd1247e8d0122b69f21516291380b9e"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/beedrill-local30-4-direct-viewer0.png",
+      "bytes": 38827,
+      "sha256": "9e27487dc14ce010b4fd4f2a5a961fa8c23d240e7e03752e11c695b70c424a73"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/beedrill-local30-5-direct-viewer0.png",
+      "bytes": 37554,
+      "sha256": "c8d92ea246736ff06096eb546a299e85aff8b0212a7967cae308a01f5582cb84"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/beedrill-local30-6-direct-viewer0.png",
+      "bytes": 37623,
+      "sha256": "3e65cc716d5862f30cb783a0479fbfd8bc5d07a777e458bbc0879b2473d0b435"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/beedrill-local30-7-direct-viewer0.png",
+      "bytes": 38136,
+      "sha256": "9d4e5385cd4df9e37f686bff2a03e451f3854487cd2b446de4fe0f6a113746a4"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/treecko-local30-0-direct-viewer0.png",
+      "bytes": 35984,
+      "sha256": "91110ea58caaf4fb731497eaed5191034568d6903a1cbee0cad2f286a56a4c64"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/treecko-local30-1-direct-viewer0.png",
+      "bytes": 36190,
+      "sha256": "8935b6d7210f893714adef6f4d24177dbca3fb3e2f8a93c9fb31409d6a1a4e08"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/treecko-local30-2-direct-viewer0.png",
+      "bytes": 35952,
+      "sha256": "05de727ec4d6be416f9245b5db39971ac660dc22163ac827282a9b680223a655"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/treecko-local30-3-direct-viewer0.png",
+      "bytes": 35447,
+      "sha256": "f34ad3dbc81c145dc77c24ad75c4b4fd2b3ce4fa12ee39b3753a9e4191ded20f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/treecko-local30-4-direct-viewer0.png",
+      "bytes": 36082,
+      "sha256": "14eaa90ac94318d23ff0798f4b8aec3b8deb7aa8aed5672c83b719ef6516b870"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/treecko-local30-5-direct-viewer0.png",
+      "bytes": 35808,
+      "sha256": "c738a942a6f80fbaa0c35b2418d725c44f13c3e22de5641a23c39284981c074f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/treecko-local30-6-direct-viewer0.png",
+      "bytes": 35823,
+      "sha256": "45f68d5bb399e554acf7b736049a88b1c20268973bf7030c9124a39ce90be424"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/contacts/treecko-local30-7-direct-viewer0.png",
+      "bytes": 36083,
+      "sha256": "23eb7c14da0e5836d5c3a2d80c0dadcaee771e7f57dc978443ef56ed35d14e1c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/progress.json",
+      "bytes": 56,
+      "sha256": "af2d4608dc1e09d6073e4203dc19b78d3a8cfdbd2e6185883c4d2a02a65dde98"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/qa-native-contact-browser.mjs",
+      "bytes": 9031,
+      "sha256": "65a4444e1e76466f4f00bc889a521b07cd9ad9547b7e3719f4cb77a3c64cce4b"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/qa-native-contact-harness.mjs",
+      "bytes": 18668,
+      "sha256": "da7e60e898920d695cfb538cb9a6f0df21bb75c4336a391ee40ecf1906328aec"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/summary.json",
+      "bytes": 152226,
+      "sha256": "43bc45f0ba648697221741e5f75a34529582d5e66365f9958de84c44d95ce599"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/traces/beedrill.json.gz",
+      "bytes": 61912,
+      "sha256": "58aa01b952deea8030496d684f9cf52ee56cf2bb26eb9457989230d36a344aeb"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/traces/treecko.json.gz",
+      "bytes": 35385,
+      "sha256": "521a5656109304cc2117186a3415ff36b16caa868529c7e29a4c103e688922c4"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-flight-source/treecko-launch.json",
+      "bytes": 8546,
+      "sha256": "864735c6d59b47e9ecd174c9a55d4d0ec525d882cc9d09997ed774c467fa36ae"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-king34/contacts/tower-34-public15-4-automatic-viewer0.png",
+      "bytes": 34397,
+      "sha256": "d0b64583181af40f51abd32490325b59d2303cac0bcaf4ec8fa81264274b2faf"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-king34/contacts/tower-34-public15-4-automatic-viewer1.png",
+      "bytes": 34448,
+      "sha256": "c10b5acf815913fa40694c7cfe07e12238a4113d3cb5d67448ce9ebef26b505c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-king34/contacts/tower-34-public15-4-direct-viewer0.png",
+      "bytes": 34830,
+      "sha256": "89f03b29f962a1db8655958404d4f9bfaaffe131c3af8858b9447ffd92e54337"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-king34/contacts/tower-34-public15-4-direct-viewer1.png",
+      "bytes": 34543,
+      "sha256": "bb5c5cd96a29c2cba2b5ff5e72c9e6a4a2f8f95174fa728601a2f15c5b8ebdf9"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-king34/progress.json",
+      "bytes": 56,
+      "sha256": "d327e9140ea4d8787463751151731c5364d4acb2a0ef889a6c3b8bffa1e88f66"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-king34/qa-native-contact-browser.mjs",
+      "bytes": 8871,
+      "sha256": "43caace7fc4acdee103393485a409e017c831ac1b152903fbfb483570b375858"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-king34/qa-native-contact-harness.mjs",
+      "bytes": 16737,
+      "sha256": "2882e41571ba0f1d9853c67c1bff67ab94d385565a285a308a351849ce2f21c5"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-king34/repro.json",
+      "bytes": 62222,
+      "sha256": "66acddae237fab61104989a03abb19524d9c647bbbd2e2fad6c26c0c255560cf"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-king34/summary.json",
+      "bytes": 147640,
+      "sha256": "df130638ab78f503e1b8943cba33db57cafef22e187dea7dffac98c054b1a769"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-01ec423/repro-king34/traces/tower-34.json.gz",
+      "bytes": 14715,
+      "sha256": "d4a0948b08634386f654a46acf240d7ac72ec9ee106c0df3402c5cc8ff5a6c5a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/README.md",
+      "bytes": 2963,
+      "sha256": "16e035f1abfb2c80b1482fc2828e79290f444425dbd49807f9388d783e98c3d7"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/all-key-transition.csv",
+      "bytes": 86628,
+      "sha256": "7aaa5f34ccf0bb46555aa3fa60170ede33263c6d83905a8a197d8137d32f565a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/progress.json",
+      "bytes": 58,
+      "sha256": "0c580a5199dfad41b531d082065fb9e03bdabd95b3063d2b48b08dc0e593f184"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/qa-native-contact-browser.mjs",
+      "bytes": 9789,
+      "sha256": "e2dab0d783f3d81c0e2b040b4c5480fe31779d52159e19c02fa099113b0273b2"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/qa-native-contact-harness.mjs",
+      "bytes": 18694,
+      "sha256": "43aa64be590d099ab1014b630acb7e8edbd9977f2838e28631f0ad4abb2e7516"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/summary.json",
+      "bytes": 441552,
+      "sha256": "4ca25ca9d9e3f3323437e50b5d895733363badb9ffc254f32ecb4dc1aabf73d6"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/ampharos.json.gz",
+      "bytes": 59700,
+      "sha256": "8cb8e7a4bf7b7fc32979986b5f37af4a1e5d67a74a67415dd438a10eb7d85121"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/celebi.json.gz",
+      "bytes": 111029,
+      "sha256": "44742319d46eee36a84d157215007698581781c67f9d90bd7907dfec235d9008"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/diglett.json.gz",
+      "bytes": 60877,
+      "sha256": "dfddd6ee260479b5ef6da5fc209f4b6ba57a3d43865d941e896ca2eca77bd734"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/diglettHorde.json.gz",
+      "bytes": 60946,
+      "sha256": "54656245ec6c823e8fe0edea760df5732a06a36a5e5dbc08af3a4e561b5357b2"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/duskullToken.json.gz",
+      "bytes": 61288,
+      "sha256": "15b33572c8e4e8b4e0e7453520c349fd5f51701a73a5752e216ed2ad93eeb5dc"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/espeon.json.gz",
+      "bytes": 63178,
+      "sha256": "7994e67a16e8d65292da04d916d7ccb2bfb5ad68a57b01d12fb59901a81fefca"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/feraligatr.json.gz",
+      "bytes": 69169,
+      "sha256": "b66dfdd330c2f72ba3003fb64d9ade1d63fafa1e6bb42b6e9c0661acf3200627"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/geodudeToken.json.gz",
+      "bytes": 98265,
+      "sha256": "4a324bf20e990fcfe0c7ef8d040ffacabedab28fd54905bb8f1be49ea0d96c77"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/groudon.json.gz",
+      "bytes": 83529,
+      "sha256": "d533b7eec256e538e466a4799cb894a23629c9e862c18b4791c5bca683c7d4be"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/nidoranM.json.gz",
+      "bytes": 61434,
+      "sha256": "0c2d6d68311e9dd312ae3ab9fce3ae3660aaca1603dfceeb95f1bc364ce8d205"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/nuzleaf.json.gz",
+      "bytes": 47392,
+      "sha256": "76030a948c7ce4070f0a699be3ae43d509b1408e070bcf837356b122c918505f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/pandilla.json.gz",
+      "bytes": 64926,
+      "sha256": "748799b427891ca80d5cc640f215d7a3ba578250e1ab6a4bec81db95f2f5e084"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/pikachu.json.gz",
+      "bytes": 71458,
+      "sha256": "df56750c29f9c458e5c2513a47d2c134472b0846cf23ad34e95c294481e30703"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/poochyenaPack.json.gz",
+      "bytes": 65131,
+      "sha256": "f4a51a319cd1df3fab4407f31cc05469306754e57ca33c85ea5625ffa0bd17d0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/poochyenaToken.json.gz",
+      "bytes": 59333,
+      "sha256": "b6473bd088db7e34c500eeb8fc2de6938cf2af43f01f1fe020d2a99c7945d885"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/regirock.json.gz",
+      "bytes": 89792,
+      "sha256": "8265bb3584643aa9304a0b636380111ecb45d140e5fceee64f2a60ce9d459a30"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/rhydon.json.gz",
+      "bytes": 70253,
+      "sha256": "0daf1b0aced09db32a84744f5f4ad17e4982e8635fee84ada7d9d0162fa93585"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/sableye.json.gz",
+      "bytes": 54365,
+      "sha256": "bf16611fd445cf60a1a47dd64d9739d56f0c3630d3d557b656171ab186e2a323"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/sceptile.json.gz",
+      "bytes": 46746,
+      "sha256": "80359165bafdc558fb023b90bf0d3c4c06b876d0d70abd78ee0039871816487b"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/sharpedo.json.gz",
+      "bytes": 55488,
+      "sha256": "284a244d0520991ada57f37edb865d948fad412f47e270843a49ec3e83e2d368"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/shuppetToken.json.gz",
+      "bytes": 62202,
+      "sha256": "1e9b74ed07d113c96dc2523ef395f34ec2ee8b8fdf6d198ead2a8804cfe45e96"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/tower-31.json.gz",
+      "bytes": 54825,
+      "sha256": "e6d6a17e747ed0aa364908c9cd3e98c867cec56d3acbbf8ce56251c42c558d81"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/tower-34.json.gz",
+      "bytes": 54307,
+      "sha256": "42f8a0d399d5e6f16027467c3d676ef52e8c92c3349fc5d4a779b557b26407c4"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/tower-52.json.gz",
+      "bytes": 58450,
+      "sha256": "dd2df047a76a362b69ca8177861302d3742316e343b86d6845aac7418c538c89"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/typhlosion.json.gz",
+      "bytes": 61220,
+      "sha256": "0497b5e79ed6d48dc256e0b7201d0cba95d29db4f42d672465174f8c59a723c6"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after-viewer1/traces/zubat.json.gz",
+      "bytes": 89209,
+      "sha256": "998f1036455e7b12303eb7f56d78e799851a5474cc748423cff33735b7abb740"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/progress.json",
+      "bytes": 59,
+      "sha256": "61d874d449d57c85a91a858fd012da898c63282a7640184351b1793df8c8b379"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/qa-native-contact-browser.mjs",
+      "bytes": 9789,
+      "sha256": "e2dab0d783f3d81c0e2b040b4c5480fe31779d52159e19c02fa099113b0273b2"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/qa-native-contact-harness.mjs",
+      "bytes": 18694,
+      "sha256": "43aa64be590d099ab1014b630acb7e8edbd9977f2838e28631f0ad4abb2e7516"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/summary.json",
+      "bytes": 1032266,
+      "sha256": "1f922224c2c33e73aed02bf023921302f9568ff9a1e836dfacc492e9ca9fb0b9"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/ampharos.json.gz",
+      "bytes": 180560,
+      "sha256": "2720d3613928b4a04b14ffcba86aac5763f4fec47511e83a98bcfa95908bce54"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/celebi.json.gz",
+      "bytes": 339548,
+      "sha256": "c2893389309cf06e53d96e9a084fb733927b56b6e67bab43bf38675ab8699354"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/diglett.json.gz",
+      "bytes": 186109,
+      "sha256": "38a27d20ed7ac8c8385fe467e6885bfa88339a69d3c842bc11b72d7ace7a2972"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/diglettHorde.json.gz",
+      "bytes": 186308,
+      "sha256": "c2972230b7ff58147f622cbdc79af5d0270b9962272143e63eee9c802c24fe1c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/duskullToken.json.gz",
+      "bytes": 187641,
+      "sha256": "d6bfa3115e098d2a515f137fb91328a0f891e4e42e2ee0bc1108e2990c3aaa97"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/espeon.json.gz",
+      "bytes": 193787,
+      "sha256": "88e62d84aafa0c3d81d76bfedafbeb955b1b74411d468fd0874aa6664da73488"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/feraligatr.json.gz",
+      "bytes": 214753,
+      "sha256": "a1147a3baafd198bdde0b457765f096c5556450f3d55e413ec8d5b88a0a4f25b"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/geodudeToken.json.gz",
+      "bytes": 301464,
+      "sha256": "1a2163d160a36dfd638388f8be3ddefb3a7df906b667a8b90308b5ce6e5c2cdd"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/groudon.json.gz",
+      "bytes": 261418,
+      "sha256": "aed64048d587f96b4406eea7ddd79674fda249f4df0fe557b89fd2c75a3817c7"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/nidoranM.json.gz",
+      "bytes": 189291,
+      "sha256": "22ed02606afbf4ee2cd4ac15747d4377abb1b7386c266a78e15d09c416c16fd1"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/nuzleaf.json.gz",
+      "bytes": 147128,
+      "sha256": "9c0e48bb3903ff87bfb024e84e2e27db6f94427824ea5d932446021742aee7d5"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/pandilla.json.gz",
+      "bytes": 197777,
+      "sha256": "7d85a57aa9dfa1da32431e9e2979ad256e95138162933c9964dfcb584eaa79f9"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/pikachu.json.gz",
+      "bytes": 221710,
+      "sha256": "6faa4520c10483894e221e3b047b7824c4be06502f7e8d2287c3919642348d44"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/poochyenaPack.json.gz",
+      "bytes": 198223,
+      "sha256": "f9980751978ff64e24327813c33307823255d9b9f91ad91413e856e9f6ac383a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/poochyenaToken.json.gz",
+      "bytes": 180473,
+      "sha256": "8e7f3175f175ab70920a4bde1e3460962a5e1204477d4d89cbd6cf2d69b487ca"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/regirock.json.gz",
+      "bytes": 279546,
+      "sha256": "eaa3873953cd6b178d4bc34fbc1cfe5344e07f2d865280a456ecce6ba6f2a57a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/rhydon.json.gz",
+      "bytes": 218174,
+      "sha256": "fe32e5dbc1303d54eb8714810d5b73766c3169d88fda5789b7a44fc9f9427e04"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/sableye.json.gz",
+      "bytes": 167755,
+      "sha256": "a29f643b0b700c4c4e2423fa2d94d9a456bdcad0f3ccf950ef912291e82783c8"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/sceptile.json.gz",
+      "bytes": 145614,
+      "sha256": "146652390497b5a5b3a37b5c640ea0d11dfade053dcedf26e07f70533756e63d"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/sharpedo.json.gz",
+      "bytes": 172116,
+      "sha256": "6b8405f3813e6af406c1ad7297197757f50a01dea2b853c48d04183ff16061a5"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/shuppetToken.json.gz",
+      "bytes": 190186,
+      "sha256": "14bae1010f7486ce7d0cf875a593f4b2f062bd62c31eacaa38f38266acf88d1c"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/tower-31.json.gz",
+      "bytes": 169262,
+      "sha256": "2fefb4965b755f96f88e74228cde3abf2a4a5cec959b833c393b3ffd63b72691"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/tower-34.json.gz",
+      "bytes": 167563,
+      "sha256": "6d9ff1214e58cf24fe6a05da943cccdd3999e54e91163a42d5ca60e118cb8303"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/tower-52.json.gz",
+      "bytes": 181400,
+      "sha256": "00df470a898744eaf7425504cf38b335eb4642b963fc377478a576980f229804"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/typhlosion.json.gz",
+      "bytes": 189424,
+      "sha256": "41923a96dfe99de5995859033e8e6a110a279b631c13b1e11e6cf52f2adcbbf6"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/browser-contact-after/traces/zubat.json.gz",
+      "bytes": 273900,
+      "sha256": "5839d10d7c772b4f3d546aeebb20f26eed662a0b8b97d4515f3f49f18c9d553e"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/cards-baseline.json",
+      "bytes": 89832,
+      "sha256": "bc169d91027214520bb402918a16f59b09497a75368ce6baa4ef8b647bbc41f0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/cards-main-working-tree.json",
+      "bytes": 173721,
+      "sha256": "279e8347fb6d7844c694e812f982dd34d60a4b92ea2d791c6bc93994e46d09e3"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/frozen-inputs.json",
+      "bytes": 14000,
+      "sha256": "9ec621d170667af20e6a9c2f6dd8f02acec09fd681341ba59e8f7eef0450e44a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/inventory-provisional.json",
+      "bytes": 1401915,
+      "sha256": "2ec21f3e8a34a92130c1a3aa87bef2def256cd84a236102e5623e74c2f7743e0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/qa-minimum-provisional.json",
+      "bytes": 14679,
+      "sha256": "636f60f48920d57432d51ccca655f55c9db4e075ba2d90eb68240bc8a6e45022"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/repro-king34-after/contacts/tower-34-public15-4-automatic-viewer0.png",
+      "bytes": 33754,
+      "sha256": "ac9570a2b9997e6344880f38d1cb8c2f6c9dc4893d15c92b9d51c1f6bfdd7e06"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/repro-king34-after/contacts/tower-34-public15-4-automatic-viewer1.png",
+      "bytes": 34040,
+      "sha256": "a57bc36547c30ec4f6ef2dfb8b34c7913a78e7ad176725dd59a7922f806d2fbc"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/repro-king34-after/contacts/tower-34-public15-4-direct-viewer0.png",
+      "bytes": 34179,
+      "sha256": "e8ea9a903e12b5f8311cda36b2c6c3c8532026bb50ba97abed4cfed2994d285a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/repro-king34-after/contacts/tower-34-public15-4-direct-viewer1.png",
+      "bytes": 34152,
+      "sha256": "cc0744bc49b9509b5215c37eca3f0819f726cfb47e08f4b85d1d3756337fa723"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/repro-king34-after/progress.json",
+      "bytes": 56,
+      "sha256": "9b6ee7c8d3370da1da9bb7ff545cf4cfee41bf0547023ed3eb6bd51e340c4152"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/repro-king34-after/qa-native-contact-browser.mjs",
+      "bytes": 9789,
+      "sha256": "e2dab0d783f3d81c0e2b040b4c5480fe31779d52159e19c02fa099113b0273b2"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/repro-king34-after/qa-native-contact-harness.mjs",
+      "bytes": 18694,
+      "sha256": "43aa64be590d099ab1014b630acb7e8edbd9977f2838e28631f0ad4abb2e7516"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/repro-king34-after/summary.json",
+      "bytes": 146338,
+      "sha256": "7f17158d48fcfae3b6e622b21d48e5aac7a37dc39a69530adb27437abe6bb8d8"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/repro-king34-after/traces/tower-34.json.gz",
+      "bytes": 14661,
+      "sha256": "fa4f7b5223eb13869ad581cbd90ca07f263af957b4d1d11f4eb184f3a04eae58"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-2ccd1df/verification.json",
+      "bytes": 2430,
+      "sha256": "9f4c36d6be47998796c853f7bb4234badf5cda069ec07b5fc094026e1d010636"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/README.md",
+      "bytes": 987,
+      "sha256": "8c015b710f438ed7f40e6496394fb6f5e536bec288b473f9537db48231b32575"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/all-key-transition.csv",
+      "bytes": 86628,
+      "sha256": "7aaa5f34ccf0bb46555aa3fa60170ede33263c6d83905a8a197d8137d32f565a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/browser-central-fix/progress.json",
+      "bytes": 57,
+      "sha256": "2c7eb1ff577891077cea2794a7d930047a18c2a67a4ffd45017ce722905e0fbf"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/browser-central-fix/qa-native-contact-browser.mjs",
+      "bytes": 9031,
+      "sha256": "65a4444e1e76466f4f00bc889a521b07cd9ad9547b7e3719f4cb77a3c64cce4b"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/browser-central-fix/qa-native-contact-harness.mjs",
+      "bytes": 18668,
+      "sha256": "da7e60e898920d695cfb538cb9a6f0df21bb75c4336a391ee40ecf1906328aec"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/browser-central-fix/summary.json",
+      "bytes": 211636,
+      "sha256": "f69b2ed8659fd4ca4c43ae0e6661e71d7f0e38d0396c1981fe97f778177ea054"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/browser-central-fix/traces/centralElectrode.json.gz",
+      "bytes": 209174,
+      "sha256": "2f9d97aa8f1bc680b1d9f3d422322c4533314830a320941764bc9334637ff6ae"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/browser-central-fix/traces/rayquaza.json.gz",
+      "bytes": 310466,
+      "sha256": "8a5e3ebfba892c034a3b92ec2214c0f29e50f9564384d5fdbceb8ee9c3a930f9"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/cards-baseline.json",
+      "bytes": 89832,
+      "sha256": "bc169d91027214520bb402918a16f59b09497a75368ce6baa4ef8b647bbc41f0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/cards-main-working-tree.json",
+      "bytes": 173721,
+      "sha256": "279e8347fb6d7844c694e812f982dd34d60a4b92ea2d791c6bc93994e46d09e3"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/frozen-inputs.json",
+      "bytes": 14000,
+      "sha256": "8c6dfc3e44539a7729f8133026ea0c11f98ef946d0fbf6c2b9b5723fdfb24d8a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/inventory-provisional.json",
+      "bytes": 1401915,
+      "sha256": "448bd541dc7c8c6fc2342989906fe124dc1394abff48b9547a812e75c4c488b7"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-62ff663/qa-minimum-provisional.json",
+      "bytes": 14679,
+      "sha256": "b8ddc362a2ea0c9de679e1ab3a67e17e6d3723cfc690d8c92802d5739c8589a7"
+    },
+    {
+      "file": "scripts/inventory-native-checkpoint.mjs",
+      "bytes": 9690,
+      "sha256": "a27fecb4e339343e886732099380d4684d4328ee48e2c0217066f2885cdf6bd1"
+    },
+    {
+      "file": "scripts/qa-native-contact-browser.mjs",
+      "bytes": 9789,
+      "sha256": "e2dab0d783f3d81c0e2b040b4c5480fe31779d52159e19c02fa099113b0273b2"
+    },
+    {
+      "file": "scripts/qa-native-contact-checkpoint.mjs",
+      "bytes": 4985,
+      "sha256": "c71c85021a644349591205d4cc68010e37d6d0c810d7ce8cb3cd85d29b68007d"
+    },
+    {
+      "file": "scripts/qa-native-contact-harness.mjs",
+      "bytes": 18694,
+      "sha256": "43aa64be590d099ab1014b630acb7e8edbd9977f2838e28631f0ad4abb2e7516"
+    },
+    {
+      "file": "scripts/summarize-native-contact-checkpoint.mjs",
+      "bytes": 7045,
+      "sha256": "4928ecdf5a292c1ddff19520e2986fea7ee203ae8f4b79bd336ef262394a66e4"
+    },
+    {
+      "file": "scripts/verify-native-contact-after.mjs",
+      "bytes": 4864,
+      "sha256": "6062ba18af322e8481236aef6bea441507b8711a683ae932d7ca6ec4537bc24a"
+    }
+  ]
+}

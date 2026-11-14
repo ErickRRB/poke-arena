@@ -1,0 +1,30 @@
+{
+  "checkpoint": "01ec423b12a46c5d5acfbadf43607f5571b7eb15",
+  "keys": [
+    "celebi",
+    "diglett",
+    "diglettHorde",
+    "duskullToken",
+    "espeon",
+    "feraligatr",
+    "geodudeToken",
+    "groudon",
+    "nidoranM",
+    "nuzleaf",
+    "pandilla",
+    "pikachu",
+    "poochyenaPack",
+    "poochyenaToken",
+    "regirock",
+    "rhydon",
+    "sableye",
+    "sceptile",
+    "sharpedo",
+    "shuppetToken",
+    "tower-34",
+    "typhlosion",
+    "zubat"
+  ],
+  "selector": "celebi,diglett,diglettHorde,duskullToken,espeon,feraligatr,geodudeToken,groudon,nidoranM,nuzleaf,pandilla,pikachu,poochyenaPack,poochyenaToken,regirock,rhydon,sableye,sceptile,sharpedo,shuppetToken,tower-34,typhlosion,zubat",
+  "reason": "Actual native RGBA differs at public attackRelease delivery; local30/local60 contact raster checks passed."
+}

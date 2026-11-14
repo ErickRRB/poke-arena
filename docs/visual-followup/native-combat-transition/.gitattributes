@@ -1,0 +1,3 @@
+# Captured evidence and hashes must survive Windows checkouts byte for byte.
+* -text
+** -text

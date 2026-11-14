@@ -1,0 +1,402 @@
+[
+  {
+    "key": "beedrill",
+    "direction": 0,
+    "at": 0.5,
+    "sourceFrame": 4,
+    "drawnFrame": 10,
+    "releaseFrom": {
+      "x": 286.3446,
+      "y": 575.3102
+    },
+    "drawnMarker": {
+      "x": 287.3108,
+      "y": 584.3114
+    },
+    "visualMarker": {
+      "x": 287.586,
+      "y": 583.888142
+    },
+    "launch": {
+      "x": 286.3446,
+      "y": 575.3102
+    },
+    "launchError": 9.052908034438472,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "beedrill",
+      "groundPath": true,
+      "startX": 300,
+      "startY": 610.8,
+      "liftX": -13.655399999999986,
+      "liftY": -35.489799999999946,
+      "endLiftY": -20,
+      "totalDistance": 49.200000000000045,
+      "travelled": 16,
+      "x": 300,
+      "y": 626.8,
+      "arc": 0,
+      "launch": {
+        "x": 286.3446,
+        "y": 575.3102
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "slash",
+      "x": 290.78538,
+      "y": 596.347533
+    },
+    "expectedResidualAtFirstDraw": 6.108872901287752
+  },
+  {
+    "key": "beedrill",
+    "direction": 1,
+    "at": 0.5,
+    "sourceFrame": 4,
+    "drawnFrame": 10,
+    "releaseFrom": {
+      "x": 315.774602,
+      "y": 569.981002
+    },
+    "drawnMarker": {
+      "x": 317.947802,
+      "y": 574.775202
+    },
+    "visualMarker": {
+      "x": 318.257402,
+      "y": 574.834745
+    },
+    "launch": {
+      "x": 315.774602358165,
+      "y": 569.981002358165
+    },
+    "launchError": 5.263757867630577,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "beedrill",
+      "groundPath": true,
+      "startX": 307.63675323681474,
+      "startY": 607.6367532368147,
+      "liftX": 8.137849121350257,
+      "liftY": -37.655750878649656,
+      "endLiftY": -20,
+      "totalDistance": 49.2,
+      "travelled": 16,
+      "x": 318.9504617357995,
+      "y": 618.9504617357994,
+      "arc": 0,
+      "launch": {
+        "x": 315.774602358165,
+        "y": 569.981002358165
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "slash",
+      "x": 324.441856,
+      "y": 587.036418
+    },
+    "expectedResidualAtFirstDraw": 3.5519666911653487
+  },
+  {
+    "key": "beedrill",
+    "direction": 2,
+    "at": 0.5,
+    "sourceFrame": 4,
+    "drawnFrame": 10,
+    "releaseFrom": {
+      "x": 313.6554,
+      "y": 562.8962
+    },
+    "drawnMarker": {
+      "x": 315.3114,
+      "y": 566.242
+    },
+    "visualMarker": {
+      "x": 314.8968,
+      "y": 566.508542
+    },
+    "launch": {
+      "x": 313.6554,
+      "y": 562.8962
+    },
+    "launchError": 3.733190812160506,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "beedrill",
+      "groundPath": true,
+      "startX": 310.8,
+      "startY": 600,
+      "liftX": 2.8553999999999746,
+      "liftY": -37.10379999999998,
+      "endLiftY": -20,
+      "totalDistance": 49.19999999999999,
+      "travelled": 16,
+      "x": 326.8,
+      "y": 600,
+      "arc": 0,
+      "launch": {
+        "x": 313.6554,
+        "y": 562.8962
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "slash",
+      "x": 328.726815,
+      "y": 568.458411
+    },
+    "expectedResidualAtFirstDraw": 2.5191450195879836
+  },
+  {
+    "key": "beedrill",
+    "direction": 3,
+    "at": 0.5,
+    "sourceFrame": 4,
+    "drawnFrame": 10,
+    "releaseFrom": {
+      "x": 300.877802,
+      "y": 559.535598
+    },
+    "drawnMarker": {
+      "x": 301.051002,
+      "y": 561.708798
+    },
+    "visualMarker": {
+      "x": 300.877802,
+      "y": 561.90654
+    },
+    "launch": {
+      "x": 300.87780235816496,
+      "y": 559.535597641835
+    },
+    "launchError": 2.1800912624613273,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "beedrill",
+      "groundPath": true,
+      "startX": 307.63675323681474,
+      "startY": 592.3632467631853,
+      "liftX": -6.7589508786497845,
+      "liftY": -32.827649121350305,
+      "endLiftY": -20,
+      "totalDistance": 49.2,
+      "travelled": 16,
+      "x": 318.9504617357995,
+      "y": 581.0495382642006,
+      "arc": 0,
+      "launch": {
+        "x": 300.87780235816496,
+        "y": 559.535597641835
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "slash",
+      "x": 314.389544,
+      "y": 552.393482
+    },
+    "expectedResidualAtFirstDraw": 1.471118494181221
+  },
+  {
+    "key": "beedrill",
+    "direction": 4,
+    "at": 0.5,
+    "sourceFrame": 4,
+    "drawnFrame": 10,
+    "releaseFrom": {
+      "x": 309.9312,
+      "y": 557.9306
+    },
+    "drawnMarker": {
+      "x": 307.1732,
+      "y": 553.621
+    },
+    "visualMarker": {
+      "x": 307.4484,
+      "y": 554.094542
+    },
+    "launch": {
+      "x": 309.9312,
+      "y": 557.9306
+    },
+    "launchError": 5.116562924464067,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "beedrill",
+      "groundPath": true,
+      "startX": 300,
+      "startY": 589.2,
+      "liftX": 9.93119999999999,
+      "liftY": -31.26940000000002,
+      "endLiftY": -20,
+      "totalDistance": 49.200000000000045,
+      "travelled": 16,
+      "x": 300,
+      "y": 573.2,
+      "arc": 0,
+      "launch": {
+        "x": 309.9312,
+        "y": 557.9306
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "slash",
+      "x": 306.701541,
+      "y": 545.595446
+    },
+    "expectedResidualAtFirstDraw": 3.452640022199331
+  },
+  {
+    "key": "beedrill",
+    "direction": 5,
+    "at": 0.5,
+    "sourceFrame": 4,
+    "drawnFrame": 10,
+    "releaseFrom": {
+      "x": 296.639398,
+      "y": 559.535598
+    },
+    "drawnMarker": {
+      "x": 296.915798,
+      "y": 561.708798
+    },
+    "visualMarker": {
+      "x": 296.639398,
+      "y": 561.90654
+    },
+    "launch": {
+      "x": 296.63939764183505,
+      "y": 559.535597641835
+    },
+    "launchError": 2.190706953182501,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "beedrill",
+      "groundPath": true,
+      "startX": 292.36324676318526,
+      "startY": 592.3632467631853,
+      "liftX": 4.276150878649787,
+      "liftY": -32.827649121350305,
+      "endLiftY": -20,
+      "totalDistance": 49.2,
+      "travelled": 16,
+      "x": 281.0495382642005,
+      "y": 581.0495382642006,
+      "arc": 0,
+      "launch": {
+        "x": 296.63939764183505,
+        "y": 559.535597641835
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "slash",
+      "x": 283.935071,
+      "y": 552.393482
+    },
+    "expectedResidualAtFirstDraw": 1.4782819277572974
+  },
+  {
+    "key": "beedrill",
+    "direction": 6,
+    "at": 0.5,
+    "sourceFrame": 4,
+    "drawnFrame": 10,
+    "releaseFrom": {
+      "x": 283.8618,
+      "y": 562.8962
+    },
+    "drawnMarker": {
+      "x": 282.6554,
+      "y": 566.242
+    },
+    "visualMarker": {
+      "x": 282.6204,
+      "y": 566.508542
+    },
+    "launch": {
+      "x": 283.8618,
+      "y": 562.8962
+    },
+    "launchError": 3.5566527241213297,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "beedrill",
+      "groundPath": true,
+      "startX": 289.2,
+      "startY": 600,
+      "liftX": -5.338199999999972,
+      "liftY": -37.10379999999998,
+      "endLiftY": -20,
+      "totalDistance": 49.19999999999999,
+      "travelled": 16,
+      "x": 273.2,
+      "y": 600,
+      "arc": 0,
+      "launch": {
+        "x": 283.8618,
+        "y": 562.8962
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "slash",
+      "x": 269.5978,
+      "y": 568.458411
+    },
+    "expectedResidualAtFirstDraw": 2.400017691886751
+  },
+  {
+    "key": "beedrill",
+    "direction": 7,
+    "at": 0.5,
+    "sourceFrame": 4,
+    "drawnFrame": 10,
+    "releaseFrom": {
+      "x": 281.742598,
+      "y": 569.981002
+    },
+    "drawnMarker": {
+      "x": 279.018998,
+      "y": 574.775202
+    },
+    "visualMarker": {
+      "x": 279.259798,
+      "y": 574.834745
+    },
+    "launch": {
+      "x": 281.742597641835,
+      "y": 569.981002358165
+    },
+    "launchError": 5.513832171437087,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "beedrill",
+      "groundPath": true,
+      "startX": 292.36324676318526,
+      "startY": 607.6367532368147,
+      "liftX": -10.620649121350255,
+      "liftY": -37.655750878649656,
+      "endLiftY": -20,
+      "totalDistance": 49.2,
+      "travelled": 16,
+      "x": 281.0495382642005,
+      "y": 618.9504617357994,
+      "arc": 0,
+      "launch": {
+        "x": 281.742597641835,
+        "y": 569.981002358165
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "slash",
+      "x": 273.882759,
+      "y": 587.036418
+    },
+    "expectedResidualAtFirstDraw": 3.720716018124213
+  }
+]

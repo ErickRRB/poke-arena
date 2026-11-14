@@ -1,0 +1,871 @@
+{
+  "status": "confirmed_stored_projectile_launch_uses_previous_native_pose",
+  "checkpoint": "01ec423b12a46c5d5acfbadf43607f5571b7eb15",
+  "scope": "Two explicit ranged cards, all eight directions, real Game direct attack at30Hz + real Renderer.sprite/projectile. Resistant passive target60wu away keeps the projectile visible. Yellow: native marker of actual drawn contact; cyan: stored projectile launch; red: actual projectile center. The counterfactual from the current contact marker is explanatory only.",
+  "cases": [
+    {
+      "key": "beedrill",
+      "direction": 0,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Attack",
+        "frame": 4,
+        "direction": 0,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Attack",
+        "frame": 10,
+        "direction": 0
+      },
+      "engineFrom": {
+        "x": 286.3446,
+        "y": 575.3102
+      },
+      "storedLaunch": {
+        "x": 286.3446,
+        "y": 575.3102
+      },
+      "drawnMarker": {
+        "x": 287.3108,
+        "y": 584.3114
+      },
+      "visualEmission": {
+        "x": 287.586,
+        "y": 583.888142
+      },
+      "drawMarkerRoundingError": 0.504859,
+      "launchToDrawnMarkerError": 9.052908034438472,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "slash",
+        "x": 290.78538,
+        "y": 596.347533
+      },
+      "fromStoredLaunch": {
+        "x": 290.7853804878049,
+        "y": 596.3475333333333
+      },
+      "actualMatchesStoredLaunchError": 5.908170239067489e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 291.43736910569106,
+        "y": 602.4215138211382
+      },
+      "residualAtFirstDraw": 6.10887328477966,
+      "progress": 0.32520325203252004,
+      "sheet": "repro-flight-source/contacts/beedrill-local30-0-direct-viewer0.png"
+    },
+    {
+      "key": "beedrill",
+      "direction": 1,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Attack",
+        "frame": 4,
+        "direction": 1,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Attack",
+        "frame": 10,
+        "direction": 1
+      },
+      "engineFrom": {
+        "x": 315.774602,
+        "y": 569.981002
+      },
+      "storedLaunch": {
+        "x": 315.774602358165,
+        "y": 569.981002358165
+      },
+      "drawnMarker": {
+        "x": 317.947802,
+        "y": 574.775202
+      },
+      "visualEmission": {
+        "x": 318.257402,
+        "y": 574.834745
+      },
+      "drawMarkerRoundingError": 0.315274,
+      "launchToDrawnMarkerError": 5.263757867630577,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "slash",
+        "x": 324.441856,
+        "y": 587.036418
+      },
+      "fromStoredLaunch": {
+        "x": 324.4418558583366,
+        "y": 587.0364184599626
+      },
+      "actualMatchesStoredLaunchError": 4.812838218735183e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 325.908323909331,
+        "y": 590.2715287873798
+      },
+      "residualAtFirstDraw": 3.5519670516093775,
+      "progress": 0.3252032520325203,
+      "sheet": "repro-flight-source/contacts/beedrill-local30-1-direct-viewer0.png"
+    },
+    {
+      "key": "beedrill",
+      "direction": 2,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Attack",
+        "frame": 4,
+        "direction": 2,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Attack",
+        "frame": 10,
+        "direction": 2
+      },
+      "engineFrom": {
+        "x": 313.6554,
+        "y": 562.8962
+      },
+      "storedLaunch": {
+        "x": 313.6554,
+        "y": 562.8962
+      },
+      "drawnMarker": {
+        "x": 315.3114,
+        "y": 566.242
+      },
+      "visualEmission": {
+        "x": 314.8968,
+        "y": 566.508542
+      },
+      "drawMarkerRoundingError": 0.492887,
+      "launchToDrawnMarkerError": 3.733190812160506,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "slash",
+        "x": 328.726815,
+        "y": 568.458411
+      },
+      "fromStoredLaunch": {
+        "x": 328.7268146341463,
+        "y": 568.4584113821138
+      },
+      "actualMatchesStoredLaunchError": 5.290178749500534e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 329.84427804878044,
+        "y": 570.7161463414634
+      },
+      "residualAtFirstDraw": 2.5191451997617675,
+      "progress": 0.3252032520325204,
+      "sheet": "repro-flight-source/contacts/beedrill-local30-2-direct-viewer0.png"
+    },
+    {
+      "key": "beedrill",
+      "direction": 3,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Attack",
+        "frame": 4,
+        "direction": 3,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Attack",
+        "frame": 10,
+        "direction": 3
+      },
+      "engineFrom": {
+        "x": 300.877802,
+        "y": 559.535598
+      },
+      "storedLaunch": {
+        "x": 300.87780235816496,
+        "y": 559.535597641835
+      },
+      "drawnMarker": {
+        "x": 301.051002,
+        "y": 561.708798
+      },
+      "visualEmission": {
+        "x": 300.877802,
+        "y": 561.90654
+      },
+      "drawMarkerRoundingError": 0.262869,
+      "launchToDrawnMarkerError": 2.1800912624613273,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "slash",
+        "x": 314.389544,
+        "y": 552.393482
+      },
+      "fromStoredLaunch": {
+        "x": 314.3895436632147,
+        "y": 552.3934823530456
+      },
+      "actualMatchesStoredLaunchError": 4.87919616454869e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 314.50641821827406,
+        "y": 553.8599508874171
+      },
+      "residualAtFirstDraw": 1.4711188193547204,
+      "progress": 0.3252032520325203,
+      "sheet": "repro-flight-source/contacts/beedrill-local30-3-direct-viewer0.png"
+    },
+    {
+      "key": "beedrill",
+      "direction": 4,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Attack",
+        "frame": 4,
+        "direction": 4,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Attack",
+        "frame": 10,
+        "direction": 4
+      },
+      "engineFrom": {
+        "x": 309.9312,
+        "y": 557.9306
+      },
+      "storedLaunch": {
+        "x": 309.9312,
+        "y": 557.9306
+      },
+      "drawnMarker": {
+        "x": 307.1732,
+        "y": 553.621
+      },
+      "visualEmission": {
+        "x": 307.4484,
+        "y": 554.094542
+      },
+      "drawMarkerRoundingError": 0.547702,
+      "launchToDrawnMarkerError": 5.116562924464067,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "slash",
+        "x": 306.701541,
+        "y": 545.595446
+      },
+      "fromStoredLaunch": {
+        "x": 306.7015414634146,
+        "y": 545.5954455284553
+      },
+      "actualMatchesStoredLaunchError": 6.611410576911742e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 304.8404520325203,
+        "y": 542.6873414634147
+      },
+      "residualAtFirstDraw": 3.4526401695779234,
+      "progress": 0.32520325203252004,
+      "sheet": "repro-flight-source/contacts/beedrill-local30-4-direct-viewer0.png"
+    },
+    {
+      "key": "beedrill",
+      "direction": 5,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Attack",
+        "frame": 4,
+        "direction": 5,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Attack",
+        "frame": 10,
+        "direction": 5
+      },
+      "engineFrom": {
+        "x": 296.639398,
+        "y": 559.535598
+      },
+      "storedLaunch": {
+        "x": 296.63939764183505,
+        "y": 559.535597641835
+      },
+      "drawnMarker": {
+        "x": 296.915798,
+        "y": 561.708798
+      },
+      "visualEmission": {
+        "x": 296.639398,
+        "y": 561.90654
+      },
+      "drawMarkerRoundingError": 0.339851,
+      "launchToDrawnMarkerError": 2.190706953182501,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "slash",
+        "x": 283.935071,
+        "y": 552.393482
+      },
+      "fromStoredLaunch": {
+        "x": 283.9350709709317,
+        "y": 552.3934823530456
+      },
+      "actualMatchesStoredLaunchError": 3.54240267134495e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 284.12158503375844,
+        "y": 553.8599508874171
+      },
+      "residualAtFirstDraw": 1.4782822743141102,
+      "progress": 0.3252032520325203,
+      "sheet": "repro-flight-source/contacts/beedrill-local30-5-direct-viewer0.png"
+    },
+    {
+      "key": "beedrill",
+      "direction": 6,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Attack",
+        "frame": 4,
+        "direction": 6,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Attack",
+        "frame": 10,
+        "direction": 6
+      },
+      "engineFrom": {
+        "x": 283.8618,
+        "y": 562.8962
+      },
+      "storedLaunch": {
+        "x": 283.8618,
+        "y": 562.8962
+      },
+      "drawnMarker": {
+        "x": 282.6554,
+        "y": 566.242
+      },
+      "visualEmission": {
+        "x": 282.6204,
+        "y": 566.508542
+      },
+      "drawMarkerRoundingError": 0.26883,
+      "launchToDrawnMarkerError": 3.5566527241213297,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "slash",
+        "x": 269.5978,
+        "y": 568.458411
+      },
+      "fromStoredLaunch": {
+        "x": 269.5978,
+        "y": 568.4584113821138
+      },
+      "actualMatchesStoredLaunchError": 3.8211385344766313e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 268.783725203252,
+        "y": 570.7161463414634
+      },
+      "residualAtFirstDraw": 2.400018051347397,
+      "progress": 0.3252032520325204,
+      "sheet": "repro-flight-source/contacts/beedrill-local30-6-direct-viewer0.png"
+    },
+    {
+      "key": "beedrill",
+      "direction": 7,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Attack",
+        "frame": 4,
+        "direction": 7,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Attack",
+        "frame": 10,
+        "direction": 7
+      },
+      "engineFrom": {
+        "x": 281.742598,
+        "y": 569.981002
+      },
+      "storedLaunch": {
+        "x": 281.742597641835,
+        "y": 569.981002358165
+      },
+      "drawnMarker": {
+        "x": 279.018998,
+        "y": 574.775202
+      },
+      "visualEmission": {
+        "x": 279.259798,
+        "y": 574.834745
+      },
+      "drawMarkerRoundingError": 0.248052,
+      "launchToDrawnMarkerError": 5.513832171437087,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "slash",
+        "x": 273.882759,
+        "y": 587.036418
+      },
+      "fromStoredLaunch": {
+        "x": 273.8827587758097,
+        "y": 587.0364184599626
+      },
+      "actualMatchesStoredLaunchError": 5.116902547508635e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 272.044882594734,
+        "y": 590.2715287873798
+      },
+      "residualAtFirstDraw": 3.7207165287958204,
+      "progress": 0.3252032520325203,
+      "sheet": "repro-flight-source/contacts/beedrill-local30-7-direct-viewer0.png"
+    },
+    {
+      "key": "treecko",
+      "direction": 0,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Appeal",
+        "frame": 5,
+        "direction": 0,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Appeal",
+        "frame": 6,
+        "direction": 0
+      },
+      "engineFrom": {
+        "x": 287.2497,
+        "y": 584.4163
+      },
+      "storedLaunch": {
+        "x": 287.2497,
+        "y": 584.4163
+      },
+      "drawnMarker": {
+        "x": 291.8338,
+        "y": 597.501
+      },
+      "visualEmission": {
+        "x": 291.4998,
+        "y": 597.1666
+      },
+      "drawMarkerRoundingError": 0.47263,
+      "launchToDrawnMarkerError": 13.864463455179207,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "leaf",
+        "x": 289.737563,
+        "y": 581.454252
+      },
+      "fromStoredLaunch": {
+        "x": 289.73756341463417,
+        "y": 581.4542521547531
+      },
+      "actualMatchesStoredLaunchError": 4.425720360680187e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 293.42720487804877,
+        "y": 591.9858399596312
+      },
+      "residualAtFirstDraw": 11.15920257633584,
+      "progress": 0.195121951219512,
+      "sheet": "repro-flight-source/contacts/treecko-local30-0-direct-viewer0.png"
+    },
+    {
+      "key": "treecko",
+      "direction": 1,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Appeal",
+        "frame": 5,
+        "direction": 1,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Appeal",
+        "frame": 6,
+        "direction": 1
+      },
+      "engineFrom": {
+        "x": 308.085258,
+        "y": 579.751258
+      },
+      "storedLaunch": {
+        "x": 308.08525817690696,
+        "y": 579.751258176907
+      },
+      "drawnMarker": {
+        "x": 309.502758,
+        "y": 591.419258
+      },
+      "visualEmission": {
+        "x": 309.501958,
+        "y": 591.084858
+      },
+      "drawMarkerRoundingError": 0.334401,
+      "launchToDrawnMarkerError": 11.753787713761394,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "leaf",
+        "x": 314.78597,
+        "y": 574.270469
+      },
+      "fromStoredLaunch": {
+        "x": 314.78597011725543,
+        "y": 574.2704686134718
+      },
+      "actualMatchesStoredLaunchError": 4.039218742301067e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 315.9268846090132,
+        "y": 583.661785544254
+      },
+      "residualAtFirstDraw": 9.46036535126621,
+      "progress": 0.19512195121951217,
+      "sheet": "repro-flight-source/contacts/treecko-local30-1-direct-viewer0.png"
+    },
+    {
+      "key": "treecko",
+      "direction": 2,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Appeal",
+        "frame": 5,
+        "direction": 2,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Appeal",
+        "frame": 6,
+        "direction": 2
+      },
+      "engineFrom": {
+        "x": 295.7499,
+        "y": 584.4163
+      },
+      "storedLaunch": {
+        "x": 295.7499,
+        "y": 584.4163
+      },
+      "drawnMarker": {
+        "x": 300.0008,
+        "y": 596.8342
+      },
+      "visualEmission": {
+        "x": 300,
+        "y": 597.1666
+      },
+      "drawMarkerRoundingError": 0.332401,
+      "launchToDrawnMarkerError": 13.125333946989722,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "leaf",
+        "x": 308.286505,
+        "y": 569.746935
+      },
+      "fromStoredLaunch": {
+        "x": 308.28650487804885,
+        "y": 569.7469350815824
+      },
+      "actualMatchesStoredLaunchError": 1.4672341160937656e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 311.7079609756098,
+        "y": 579.7418302035336
+      },
+      "residualAtFirstDraw": 10.564293214534276,
+      "progress": 0.19512195121951223,
+      "sheet": "repro-flight-source/contacts/treecko-local30-2-direct-viewer0.png"
+    },
+    {
+      "key": "treecko",
+      "direction": 3,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Appeal",
+        "frame": 5,
+        "direction": 3,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Appeal",
+        "frame": 6,
+        "direction": 3
+      },
+      "engineFrom": {
+        "x": 308.085258,
+        "y": 587.664642
+      },
+      "storedLaunch": {
+        "x": 308.08525817690696,
+        "y": 587.664641823093
+      },
+      "drawnMarker": {
+        "x": 303.835958,
+        "y": 598.999042
+      },
+      "visualEmission": {
+        "x": 303.835158,
+        "y": 598.998242
+      },
+      "drawMarkerRoundingError": 0.001131,
+      "launchToDrawnMarkerError": 12.104758542149094,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "leaf",
+        "x": 314.78597,
+        "y": 564.083131
+      },
+      "fromStoredLaunch": {
+        "x": 314.78597011725543,
+        "y": 564.0831308179854
+      },
+      "actualMatchesStoredLaunchError": 2.1651358235897264e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 311.365801682184,
+        "y": 573.2059407164716
+      },
+      "residualAtFirstDraw": 9.74285422477114,
+      "progress": 0.19512195121951217,
+      "sheet": "repro-flight-source/contacts/treecko-local30-3-direct-viewer0.png"
+    },
+    {
+      "key": "treecko",
+      "direction": 4,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Appeal",
+        "frame": 5,
+        "direction": 4,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Appeal",
+        "frame": 6,
+        "direction": 4
+      },
+      "engineFrom": {
+        "x": 308.5002,
+        "y": 580.1662
+      },
+      "storedLaunch": {
+        "x": 308.5002,
+        "y": 580.1662
+      },
+      "drawnMarker": {
+        "x": 310.2509,
+        "y": 592.9173
+      },
+      "visualEmission": {
+        "x": 309.9169,
+        "y": 592.9165
+      },
+      "drawMarkerRoundingError": 0.334001,
+      "launchToDrawnMarkerError": 12.870722656478879,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "leaf",
+        "x": 306.841624,
+        "y": 554.618806
+      },
+      "fromStoredLaunch": {
+        "x": 306.8416243902439,
+        "y": 554.6188058132898
+      },
+      "actualMatchesStoredLaunchError": 4.326094949697361e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 308.25072439024393,
+        "y": 564.8818863010946
+      },
+      "residualAtFirstDraw": 10.359362006248382,
+      "progress": 0.195121951219512,
+      "sheet": "repro-flight-source/contacts/treecko-local30-4-direct-viewer0.png"
+    },
+    {
+      "key": "treecko",
+      "direction": 5,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Appeal",
+        "frame": 5,
+        "direction": 5,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Appeal",
+        "frame": 6,
+        "direction": 5
+      },
+      "engineFrom": {
+        "x": 289.081342,
+        "y": 587.664642
+      },
+      "storedLaunch": {
+        "x": 289.081341823093,
+        "y": 587.664641823093
+      },
+      "drawnMarker": {
+        "x": 292.998642,
+        "y": 598.999042
+      },
+      "visualEmission": {
+        "x": 293.331442,
+        "y": 598.998242
+      },
+      "drawMarkerRoundingError": 0.332801,
+      "launchToDrawnMarkerError": 11.992241994150458,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "leaf",
+        "x": 282.933488,
+        "y": 564.083131
+      },
+      "fromStoredLaunch": {
+        "x": 282.93348841932993,
+        "y": 564.0831308179854
+      },
+      "actualMatchesStoredLaunchError": 4.571289570812251e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 286.0864373422063,
+        "y": 573.2059407164716
+      },
+      "residualAtFirstDraw": 9.65229230170053,
+      "progress": 0.19512195121951217,
+      "sheet": "repro-flight-source/contacts/treecko-local30-5-direct-viewer0.png"
+    },
+    {
+      "key": "treecko",
+      "direction": 6,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Appeal",
+        "frame": 5,
+        "direction": 6,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Appeal",
+        "frame": 6,
+        "direction": 6
+      },
+      "engineFrom": {
+        "x": 301.4167,
+        "y": 584.4163
+      },
+      "storedLaunch": {
+        "x": 301.4167,
+        "y": 584.4163
+      },
+      "drawnMarker": {
+        "x": 296.8338,
+        "y": 596.8342
+      },
+      "visualEmission": {
+        "x": 297.1666,
+        "y": 597.1666
+      },
+      "drawMarkerRoundingError": 0.470368,
+      "launchToDrawnMarkerError": 13.23658614673741,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "leaf",
+        "x": 289.432954,
+        "y": 569.746935
+      },
+      "fromStoredLaunch": {
+        "x": 289.4329536585366,
+        "y": 569.7469350815824
+      },
+      "actualMatchesStoredLaunchError": 3.510739917519265e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 285.7442780487805,
+        "y": 579.7418302035336
+      },
+      "residualAtFirstDraw": 10.6538378250621,
+      "progress": 0.19512195121951223,
+      "sheet": "repro-flight-source/contacts/treecko-local30-6-direct-viewer0.png"
+    },
+    {
+      "key": "treecko",
+      "direction": 7,
+      "trigger": "direct",
+      "mode": "local30",
+      "releaseAt": 0.5,
+      "sourcePose": {
+        "animation": "Appeal",
+        "frame": 5,
+        "direction": 7,
+        "age": 0.466667
+      },
+      "drawnPose": {
+        "animation": "Appeal",
+        "frame": 6,
+        "direction": 7
+      },
+      "engineFrom": {
+        "x": 289.081342,
+        "y": 579.751258
+      },
+      "storedLaunch": {
+        "x": 289.081341823093,
+        "y": 579.751258176907
+      },
+      "drawnMarker": {
+        "x": 287.331842,
+        "y": 591.419258
+      },
+      "visualEmission": {
+        "x": 287.664642,
+        "y": 591.084858
+      },
+      "drawMarkerRoundingError": 0.471783,
+      "launchToDrawnMarkerError": 11.798430806793844,
+      "actualProjectileCenter": {
+        "id": "7:1:0",
+        "name": "leaf",
+        "x": 282.933488,
+        "y": 574.270469
+      },
+      "fromStoredLaunch": {
+        "x": 282.93348841932993,
+        "y": 574.2704686134718
+      },
+      "actualMatchesStoredLaunchError": 5.702995989283309e-7,
+      "hypotheticalCenterFromDrawnMarker": {
+        "x": 281.525354415377,
+        "y": 583.661785544254
+      },
+      "residualAtFirstDraw": 9.496297522009394,
+      "progress": 0.19512195121951217,
+      "sheet": "repro-flight-source/contacts/treecko-local30-7-direct-viewer0.png"
+    }
+  ]
+}

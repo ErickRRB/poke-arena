@@ -1,0 +1,2475 @@
+{
+  "checkpoint": "01ec423b12a46c5d5acfbadf43607f5571b7eb15",
+  "status": "confirmed_raster_transition_at_public_event_delivery",
+  "scope": "Real Game + publicSnapshot/publicEvent/unpackEvent/perspective + real Renderer.sprite/tower. Direct attack phase isolates a packet arriving one 30Hz step after release. Automatic three-cycle control included.",
+  "cases": [
+    {
+      "viewerTeam": 0,
+      "trigger": "automatic",
+      "profile": {
+        "id": 34,
+        "animation": "Shoot",
+        "interval": 1,
+        "windup": 0.5,
+        "duration": 0.66,
+        "burst": 1,
+        "spacing": 0,
+        "rangedAttack": null,
+        "emitter": "head",
+        "suicide": false,
+        "jumpRange": 0
+      },
+      "eventOrder": [
+        {
+          "type": "attackStart",
+          "at": 0.033333,
+          "seq": 1,
+          "shot": null,
+          "windup": 0.5,
+          "duration": 0.66
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.533333,
+          "seq": 1,
+          "shot": 0,
+          "from": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "expectedFrame": 6,
+          "expectedAnimation": "Shoot",
+          "id": 34,
+          "sourcePose": {
+            "animation": "Shoot",
+            "frame": 5,
+            "direction": 4,
+            "age": 0.466667
+          },
+          "sourcePoint": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "part": "head",
+          "source": {
+            "attacker": {
+              "id": 3,
+              "team": 0,
+              "lane": -1,
+              "x": 300,
+              "y": 712,
+              "hp": 4824,
+              "damage": 109,
+              "interval": 1,
+              "windup": 0.5,
+              "range": 168,
+              "radius": 33.6,
+              "projectileSpeed": 480,
+              "projectileStart": 18,
+              "maxHp": 4824,
+              "king": true,
+              "active": true,
+              "cooldown": 0.5333333333333334,
+              "stun": 0,
+              "hit": 0,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "dx": 0,
+              "dy": -1,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackSeq": 1,
+              "anim": 1.3304594736546287,
+              "entryPending": false,
+              "freeze": 0,
+              "slow": 0,
+              "engaged": true,
+              "attackWindup": 0.5,
+              "attackAnim": "Shoot",
+              "charge": 0,
+              "chargeTravel": 0,
+              "targetId": 7
+            },
+            "card": null,
+            "guard": {
+              "id": 34,
+              "style": "poison",
+              "attackAnim": "Shoot",
+              "projectileSpeed": 480,
+              "projectileStart": 18
+            }
+          },
+          "startAt": 0.033333,
+          "expectedAt": 0.533333,
+          "rendered": {
+            "index": 32,
+            "t": 0.533333,
+            "elapsed": 0.533333,
+            "seq": 1,
+            "attack": 0.159667,
+            "animation": "Shoot",
+            "frame": 6,
+            "direction": 4,
+            "age": 0.500333,
+            "emitter": {
+              "x": 293.1,
+              "y": 624.25
+            },
+            "drawn": true,
+            "alive": true,
+            "logicalSeq": 1
+          },
+          "frameMatches": true,
+          "rasterMatches": true,
+          "drawMarker": {
+            "available": true,
+            "part": "head",
+            "expected": {
+              "x": 292.7,
+              "y": 624.25
+            },
+            "actual": {
+              "x": 293.1,
+              "y": 624.25
+            },
+            "error": 0.4
+          },
+          "retiredAtRelease": false,
+          "sameTickNextStart": false,
+          "engineToVisualSourceError": 0
+        },
+        {
+          "type": "attackStart",
+          "at": 1.033333,
+          "seq": 2,
+          "shot": null,
+          "windup": 0.5,
+          "duration": 0.66
+        },
+        {
+          "type": "attackRelease",
+          "at": 1.533333,
+          "seq": 2,
+          "shot": 0,
+          "from": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "expectedFrame": 6,
+          "expectedAnimation": "Shoot",
+          "id": 34,
+          "sourcePose": {
+            "animation": "Shoot",
+            "frame": 5,
+            "direction": 4,
+            "age": 0.466667
+          },
+          "sourcePoint": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "part": "head",
+          "source": {
+            "attacker": {
+              "id": 3,
+              "team": 0,
+              "lane": -1,
+              "x": 300,
+              "y": 712,
+              "hp": 4824,
+              "damage": 109,
+              "interval": 1,
+              "windup": 0.5,
+              "range": 168,
+              "radius": 33.6,
+              "projectileSpeed": 480,
+              "projectileStart": 18,
+              "maxHp": 4824,
+              "king": true,
+              "active": true,
+              "cooldown": 0.5333333333333334,
+              "stun": 0,
+              "hit": 0,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "dx": 0,
+              "dy": -1,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackSeq": 2,
+              "anim": 2.3304594736546296,
+              "entryPending": false,
+              "freeze": 0,
+              "slow": 0,
+              "engaged": true,
+              "attackWindup": 0.5,
+              "attackAnim": "Shoot",
+              "charge": 0,
+              "chargeTravel": 0,
+              "targetId": 7
+            },
+            "card": null,
+            "guard": {
+              "id": 34,
+              "style": "poison",
+              "attackAnim": "Shoot",
+              "projectileSpeed": 480,
+              "projectileStart": 18
+            }
+          },
+          "startAt": 1.033333,
+          "expectedAt": 1.533333,
+          "rendered": {
+            "index": 92,
+            "t": 1.533333,
+            "elapsed": 1.533333,
+            "seq": 2,
+            "attack": 0.159667,
+            "animation": "Shoot",
+            "frame": 6,
+            "direction": 4,
+            "age": 0.500333,
+            "emitter": {
+              "x": 293.1,
+              "y": 624.25
+            },
+            "drawn": true,
+            "alive": true,
+            "logicalSeq": 2
+          },
+          "frameMatches": true,
+          "rasterMatches": true,
+          "drawMarker": {
+            "available": true,
+            "part": "head",
+            "expected": {
+              "x": 292.7,
+              "y": 624.25
+            },
+            "actual": {
+              "x": 293.1,
+              "y": 624.25
+            },
+            "error": 0.4
+          },
+          "retiredAtRelease": false,
+          "sameTickNextStart": false,
+          "engineToVisualSourceError": 0
+        },
+        {
+          "type": "attackStart",
+          "at": 2.033333,
+          "seq": 3,
+          "shot": null,
+          "windup": 0.5,
+          "duration": 0.66
+        },
+        {
+          "type": "attackRelease",
+          "at": 2.533333,
+          "seq": 3,
+          "shot": 0,
+          "from": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "expectedFrame": 6,
+          "expectedAnimation": "Shoot",
+          "id": 34,
+          "sourcePose": {
+            "animation": "Shoot",
+            "frame": 5,
+            "direction": 4,
+            "age": 0.466667
+          },
+          "sourcePoint": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "part": "head",
+          "source": {
+            "attacker": {
+              "id": 3,
+              "team": 0,
+              "lane": -1,
+              "x": 300,
+              "y": 712,
+              "hp": 4824,
+              "damage": 109,
+              "interval": 1,
+              "windup": 0.5,
+              "range": 168,
+              "radius": 33.6,
+              "projectileSpeed": 480,
+              "projectileStart": 18,
+              "maxHp": 4824,
+              "king": true,
+              "active": true,
+              "cooldown": 998.5333333333338,
+              "stun": 0,
+              "hit": 0,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "dx": 0,
+              "dy": -1,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackSeq": 3,
+              "anim": 3.330459473654626,
+              "entryPending": false,
+              "freeze": 0,
+              "slow": 0,
+              "engaged": true,
+              "attackWindup": 0.5,
+              "attackAnim": "Shoot",
+              "charge": 0,
+              "chargeTravel": 0,
+              "targetId": 7
+            },
+            "card": null,
+            "guard": {
+              "id": 34,
+              "style": "poison",
+              "attackAnim": "Shoot",
+              "projectileSpeed": 480,
+              "projectileStart": 18
+            }
+          },
+          "startAt": 2.033333,
+          "expectedAt": 2.533333,
+          "rendered": {
+            "index": 152,
+            "t": 2.533333,
+            "elapsed": 2.533333,
+            "seq": 3,
+            "attack": 0.159667,
+            "animation": "Shoot",
+            "frame": 6,
+            "direction": 4,
+            "age": 0.500333,
+            "emitter": {
+              "x": 293.1,
+              "y": 624.25
+            },
+            "drawn": true,
+            "alive": true,
+            "logicalSeq": 3
+          },
+          "frameMatches": true,
+          "rasterMatches": true,
+          "drawMarker": {
+            "available": true,
+            "part": "head",
+            "expected": {
+              "x": 292.7,
+              "y": 624.25
+            },
+            "actual": {
+              "x": 293.1,
+              "y": 624.25
+            },
+            "error": 0.4
+          },
+          "retiredAtRelease": false,
+          "sameTickNextStart": false,
+          "engineToVisualSourceError": 0
+        }
+      ],
+      "source": {
+        "attacker": {
+          "id": 3,
+          "team": 0,
+          "lane": -1,
+          "x": 300,
+          "y": 712,
+          "hp": 4824,
+          "damage": 109,
+          "interval": 1,
+          "windup": 0.5,
+          "range": 168,
+          "radius": 33.6,
+          "projectileSpeed": 480,
+          "projectileStart": 18,
+          "maxHp": 4824,
+          "king": true,
+          "active": true,
+          "cooldown": 0.5333333333333334,
+          "stun": 0,
+          "hit": 0,
+          "guard": {
+            "id": 34,
+            "style": "poison",
+            "attackAnim": "Shoot",
+            "projectileSpeed": 480,
+            "projectileStart": 18
+          },
+          "dx": 0,
+          "dy": -1,
+          "attack": 0.19333333333333347,
+          "attackDuration": 0.66,
+          "attackSeq": 1,
+          "anim": 1.3304594736546287,
+          "entryPending": false,
+          "freeze": 0,
+          "slow": 0,
+          "engaged": true,
+          "attackWindup": 0.5,
+          "attackAnim": "Shoot",
+          "charge": 0,
+          "chargeTravel": 0,
+          "targetId": 7
+        },
+        "card": null,
+        "guard": {
+          "id": 34,
+          "style": "poison",
+          "attackAnim": "Shoot",
+          "projectileSpeed": 480,
+          "projectileStart": 18
+        },
+        "poseAtEmission": {
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 4,
+          "age": 0.466667
+        },
+        "emission": {
+          "x": 293.1,
+          "y": 624.25
+        }
+      },
+      "expectedFrame": 6,
+      "expectedAnimation": "Shoot",
+      "delivered": {
+        "index": 32,
+        "t": 0.533333,
+        "elapsed": 0.533333,
+        "seq": 1,
+        "attack": 0.159667,
+        "animation": "Shoot",
+        "frame": 6,
+        "direction": 4,
+        "age": 0.500333,
+        "emitter": {
+          "x": 293.1,
+          "y": 624.25
+        },
+        "drawn": true,
+        "alive": true,
+        "logicalSeq": 1
+      },
+      "rasterMatches": true,
+      "marker": {
+        "available": true,
+        "part": "head",
+        "expected": {
+          "x": 292.7,
+          "y": 624.25
+        },
+        "actual": {
+          "x": 293.1,
+          "y": 624.25
+        },
+        "error": 0.4
+      },
+      "wireDeliveries": [
+        {
+          "index": 4,
+          "t": 0.066667,
+          "elapsed": 0.066667,
+          "events": [
+            {
+              "type": "attackStart",
+              "seq": 1,
+              "attack": 0.66,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        },
+        {
+          "index": 32,
+          "t": 0.533333,
+          "elapsed": 0.533333,
+          "events": [
+            {
+              "type": "attackRelease",
+              "seq": 1,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        },
+        {
+          "index": 64,
+          "t": 1.066667,
+          "elapsed": 1.066667,
+          "events": [
+            {
+              "type": "attackStart",
+              "seq": 2,
+              "attack": 0.66,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        },
+        {
+          "index": 92,
+          "t": 1.533333,
+          "elapsed": 1.533333,
+          "events": [
+            {
+              "type": "attackRelease",
+              "seq": 2,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        },
+        {
+          "index": 124,
+          "t": 2.066667,
+          "elapsed": 2.066667,
+          "events": [
+            {
+              "type": "attackStart",
+              "seq": 3,
+              "attack": 0.66,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        },
+        {
+          "index": 152,
+          "t": 2.533333,
+          "elapsed": 2.533333,
+          "events": [
+            {
+              "type": "attackRelease",
+              "seq": 3,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        }
+      ],
+      "aroundDelivery": [
+        {
+          "index": 28,
+          "t": 0.466667,
+          "elapsed": 0.466667,
+          "seq": 1,
+          "attack": 0.226333,
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 4,
+          "age": 0.433667,
+          "emitter": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 29,
+          "t": 0.483333,
+          "elapsed": 0.466667,
+          "seq": 1,
+          "attack": 0.209667,
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 4,
+          "age": 0.450333,
+          "emitter": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 30,
+          "t": 0.5,
+          "elapsed": 0.5,
+          "seq": 1,
+          "attack": 0.193,
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 4,
+          "age": 0.467,
+          "emitter": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 31,
+          "t": 0.516667,
+          "elapsed": 0.5,
+          "seq": 1,
+          "attack": 0.176333,
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 4,
+          "age": 0.483667,
+          "emitter": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 32,
+          "t": 0.533333,
+          "elapsed": 0.533333,
+          "seq": 1,
+          "attack": 0.159667,
+          "animation": "Shoot",
+          "frame": 6,
+          "direction": 4,
+          "age": 0.500333,
+          "emitter": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 33,
+          "t": 0.55,
+          "elapsed": 0.533333,
+          "seq": 1,
+          "attack": 0.143,
+          "animation": "Shoot",
+          "frame": 6,
+          "direction": 4,
+          "age": 0.517,
+          "emitter": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 34,
+          "t": 0.566667,
+          "elapsed": 0.566667,
+          "seq": 1,
+          "attack": 0.126333,
+          "animation": "Shoot",
+          "frame": 7,
+          "direction": 4,
+          "age": 0.533667,
+          "emitter": {
+            "x": 300,
+            "y": 626.55
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 35,
+          "t": 0.583333,
+          "elapsed": 0.566667,
+          "seq": 1,
+          "attack": 0.109667,
+          "animation": "Shoot",
+          "frame": 8,
+          "direction": 4,
+          "age": 0.550333,
+          "emitter": {
+            "x": 300,
+            "y": 626.55
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 36,
+          "t": 0.6,
+          "elapsed": 0.6,
+          "seq": 1,
+          "attack": 0.093,
+          "animation": "Shoot",
+          "frame": 9,
+          "direction": 4,
+          "age": 0.567,
+          "emitter": {
+            "x": 300,
+            "y": 626.55
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        }
+      ],
+      "sheet": "contacts/tower-34-public15-4-automatic-viewer0.png"
+    },
+    {
+      "viewerTeam": 1,
+      "trigger": "automatic",
+      "profile": {
+        "id": 34,
+        "animation": "Shoot",
+        "interval": 1,
+        "windup": 0.5,
+        "duration": 0.66,
+        "burst": 1,
+        "spacing": 0,
+        "rangedAttack": null,
+        "emitter": "head",
+        "suicide": false,
+        "jumpRange": 0
+      },
+      "eventOrder": [
+        {
+          "type": "attackStart",
+          "at": 0.033333,
+          "seq": 1,
+          "shot": null,
+          "windup": 0.5,
+          "duration": 0.66
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.533333,
+          "seq": 1,
+          "shot": 0,
+          "from": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "expectedFrame": 6,
+          "expectedAnimation": "Shoot",
+          "id": 34,
+          "sourcePose": {
+            "animation": "Shoot",
+            "frame": 5,
+            "direction": 4,
+            "age": 0.466667
+          },
+          "sourcePoint": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "part": "head",
+          "source": {
+            "attacker": {
+              "id": 3,
+              "team": 0,
+              "lane": -1,
+              "x": 300,
+              "y": 712,
+              "hp": 4824,
+              "damage": 109,
+              "interval": 1,
+              "windup": 0.5,
+              "range": 168,
+              "radius": 33.6,
+              "projectileSpeed": 480,
+              "projectileStart": 18,
+              "maxHp": 4824,
+              "king": true,
+              "active": true,
+              "cooldown": 0.5333333333333334,
+              "stun": 0,
+              "hit": 0,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "dx": 0,
+              "dy": -1,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackSeq": 1,
+              "anim": 1.3304594736546287,
+              "entryPending": false,
+              "freeze": 0,
+              "slow": 0,
+              "engaged": true,
+              "attackWindup": 0.5,
+              "attackAnim": "Shoot",
+              "charge": 0,
+              "chargeTravel": 0,
+              "targetId": 7
+            },
+            "card": null,
+            "guard": {
+              "id": 34,
+              "style": "poison",
+              "attackAnim": "Shoot",
+              "projectileSpeed": 480,
+              "projectileStart": 18
+            }
+          },
+          "startAt": 0.033333,
+          "expectedAt": 0.533333,
+          "rendered": {
+            "index": 32,
+            "t": 0.533333,
+            "elapsed": 0.533333,
+            "seq": 1,
+            "attack": 0.159667,
+            "animation": "Shoot",
+            "frame": 6,
+            "direction": 0,
+            "age": 0.500333,
+            "emitter": {
+              "x": 302.3,
+              "y": 4.85
+            },
+            "drawn": true,
+            "alive": true,
+            "logicalSeq": 1
+          },
+          "frameMatches": true,
+          "rasterMatches": true,
+          "drawMarker": {
+            "available": true,
+            "part": "head",
+            "expected": {
+              "x": 301.9,
+              "y": 4.65
+            },
+            "actual": {
+              "x": 302.3,
+              "y": 4.85
+            },
+            "error": 0.447214
+          },
+          "retiredAtRelease": false,
+          "sameTickNextStart": false,
+          "engineToVisualSourceError": 170.961896
+        },
+        {
+          "type": "attackStart",
+          "at": 1.033333,
+          "seq": 2,
+          "shot": null,
+          "windup": 0.5,
+          "duration": 0.66
+        },
+        {
+          "type": "attackRelease",
+          "at": 1.533333,
+          "seq": 2,
+          "shot": 0,
+          "from": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "expectedFrame": 6,
+          "expectedAnimation": "Shoot",
+          "id": 34,
+          "sourcePose": {
+            "animation": "Shoot",
+            "frame": 5,
+            "direction": 4,
+            "age": 0.466667
+          },
+          "sourcePoint": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "part": "head",
+          "source": {
+            "attacker": {
+              "id": 3,
+              "team": 0,
+              "lane": -1,
+              "x": 300,
+              "y": 712,
+              "hp": 4824,
+              "damage": 109,
+              "interval": 1,
+              "windup": 0.5,
+              "range": 168,
+              "radius": 33.6,
+              "projectileSpeed": 480,
+              "projectileStart": 18,
+              "maxHp": 4824,
+              "king": true,
+              "active": true,
+              "cooldown": 0.5333333333333334,
+              "stun": 0,
+              "hit": 0,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "dx": 0,
+              "dy": -1,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackSeq": 2,
+              "anim": 2.3304594736546296,
+              "entryPending": false,
+              "freeze": 0,
+              "slow": 0,
+              "engaged": true,
+              "attackWindup": 0.5,
+              "attackAnim": "Shoot",
+              "charge": 0,
+              "chargeTravel": 0,
+              "targetId": 7
+            },
+            "card": null,
+            "guard": {
+              "id": 34,
+              "style": "poison",
+              "attackAnim": "Shoot",
+              "projectileSpeed": 480,
+              "projectileStart": 18
+            }
+          },
+          "startAt": 1.033333,
+          "expectedAt": 1.533333,
+          "rendered": {
+            "index": 92,
+            "t": 1.533333,
+            "elapsed": 1.533333,
+            "seq": 2,
+            "attack": 0.159667,
+            "animation": "Shoot",
+            "frame": 6,
+            "direction": 0,
+            "age": 0.500333,
+            "emitter": {
+              "x": 302.3,
+              "y": 4.85
+            },
+            "drawn": true,
+            "alive": true,
+            "logicalSeq": 2
+          },
+          "frameMatches": true,
+          "rasterMatches": true,
+          "drawMarker": {
+            "available": true,
+            "part": "head",
+            "expected": {
+              "x": 301.9,
+              "y": 4.65
+            },
+            "actual": {
+              "x": 302.3,
+              "y": 4.85
+            },
+            "error": 0.447214
+          },
+          "retiredAtRelease": false,
+          "sameTickNextStart": false,
+          "engineToVisualSourceError": 170.961896
+        },
+        {
+          "type": "attackStart",
+          "at": 2.033333,
+          "seq": 3,
+          "shot": null,
+          "windup": 0.5,
+          "duration": 0.66
+        },
+        {
+          "type": "attackRelease",
+          "at": 2.533333,
+          "seq": 3,
+          "shot": 0,
+          "from": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "expectedFrame": 6,
+          "expectedAnimation": "Shoot",
+          "id": 34,
+          "sourcePose": {
+            "animation": "Shoot",
+            "frame": 5,
+            "direction": 4,
+            "age": 0.466667
+          },
+          "sourcePoint": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "part": "head",
+          "source": {
+            "attacker": {
+              "id": 3,
+              "team": 0,
+              "lane": -1,
+              "x": 300,
+              "y": 712,
+              "hp": 4824,
+              "damage": 109,
+              "interval": 1,
+              "windup": 0.5,
+              "range": 168,
+              "radius": 33.6,
+              "projectileSpeed": 480,
+              "projectileStart": 18,
+              "maxHp": 4824,
+              "king": true,
+              "active": true,
+              "cooldown": 998.5333333333338,
+              "stun": 0,
+              "hit": 0,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "dx": 0,
+              "dy": -1,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackSeq": 3,
+              "anim": 3.330459473654626,
+              "entryPending": false,
+              "freeze": 0,
+              "slow": 0,
+              "engaged": true,
+              "attackWindup": 0.5,
+              "attackAnim": "Shoot",
+              "charge": 0,
+              "chargeTravel": 0,
+              "targetId": 7
+            },
+            "card": null,
+            "guard": {
+              "id": 34,
+              "style": "poison",
+              "attackAnim": "Shoot",
+              "projectileSpeed": 480,
+              "projectileStart": 18
+            }
+          },
+          "startAt": 2.033333,
+          "expectedAt": 2.533333,
+          "rendered": {
+            "index": 152,
+            "t": 2.533333,
+            "elapsed": 2.533333,
+            "seq": 3,
+            "attack": 0.159667,
+            "animation": "Shoot",
+            "frame": 6,
+            "direction": 0,
+            "age": 0.500333,
+            "emitter": {
+              "x": 302.3,
+              "y": 4.85
+            },
+            "drawn": true,
+            "alive": true,
+            "logicalSeq": 3
+          },
+          "frameMatches": true,
+          "rasterMatches": true,
+          "drawMarker": {
+            "available": true,
+            "part": "head",
+            "expected": {
+              "x": 301.9,
+              "y": 4.65
+            },
+            "actual": {
+              "x": 302.3,
+              "y": 4.85
+            },
+            "error": 0.447214
+          },
+          "retiredAtRelease": false,
+          "sameTickNextStart": false,
+          "engineToVisualSourceError": 170.961896
+        }
+      ],
+      "source": {
+        "attacker": {
+          "id": 3,
+          "team": 0,
+          "lane": -1,
+          "x": 300,
+          "y": 712,
+          "hp": 4824,
+          "damage": 109,
+          "interval": 1,
+          "windup": 0.5,
+          "range": 168,
+          "radius": 33.6,
+          "projectileSpeed": 480,
+          "projectileStart": 18,
+          "maxHp": 4824,
+          "king": true,
+          "active": true,
+          "cooldown": 0.5333333333333334,
+          "stun": 0,
+          "hit": 0,
+          "guard": {
+            "id": 34,
+            "style": "poison",
+            "attackAnim": "Shoot",
+            "projectileSpeed": 480,
+            "projectileStart": 18
+          },
+          "dx": 0,
+          "dy": -1,
+          "attack": 0.19333333333333347,
+          "attackDuration": 0.66,
+          "attackSeq": 1,
+          "anim": 1.3304594736546287,
+          "entryPending": false,
+          "freeze": 0,
+          "slow": 0,
+          "engaged": true,
+          "attackWindup": 0.5,
+          "attackAnim": "Shoot",
+          "charge": 0,
+          "chargeTravel": 0,
+          "targetId": 7
+        },
+        "card": null,
+        "guard": {
+          "id": 34,
+          "style": "poison",
+          "attackAnim": "Shoot",
+          "projectileSpeed": 480,
+          "projectileStart": 18
+        },
+        "poseAtEmission": {
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 4,
+          "age": 0.466667
+        },
+        "emission": {
+          "x": 293.1,
+          "y": 624.25
+        }
+      },
+      "expectedFrame": 6,
+      "expectedAnimation": "Shoot",
+      "delivered": {
+        "index": 32,
+        "t": 0.533333,
+        "elapsed": 0.533333,
+        "seq": 1,
+        "attack": 0.159667,
+        "animation": "Shoot",
+        "frame": 6,
+        "direction": 0,
+        "age": 0.500333,
+        "emitter": {
+          "x": 302.3,
+          "y": 4.85
+        },
+        "drawn": true,
+        "alive": true,
+        "logicalSeq": 1
+      },
+      "rasterMatches": true,
+      "marker": {
+        "available": true,
+        "part": "head",
+        "expected": {
+          "x": 301.9,
+          "y": 4.65
+        },
+        "actual": {
+          "x": 302.3,
+          "y": 4.85
+        },
+        "error": 0.447214
+      },
+      "wireDeliveries": [
+        {
+          "index": 4,
+          "t": 0.066667,
+          "elapsed": 0.066667,
+          "events": [
+            {
+              "type": "attackStart",
+              "seq": 1,
+              "attack": 0.66,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        },
+        {
+          "index": 32,
+          "t": 0.533333,
+          "elapsed": 0.533333,
+          "events": [
+            {
+              "type": "attackRelease",
+              "seq": 1,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        },
+        {
+          "index": 64,
+          "t": 1.066667,
+          "elapsed": 1.066667,
+          "events": [
+            {
+              "type": "attackStart",
+              "seq": 2,
+              "attack": 0.66,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        },
+        {
+          "index": 92,
+          "t": 1.533333,
+          "elapsed": 1.533333,
+          "events": [
+            {
+              "type": "attackRelease",
+              "seq": 2,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        },
+        {
+          "index": 124,
+          "t": 2.066667,
+          "elapsed": 2.066667,
+          "events": [
+            {
+              "type": "attackStart",
+              "seq": 3,
+              "attack": 0.66,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        },
+        {
+          "index": 152,
+          "t": 2.533333,
+          "elapsed": 2.533333,
+          "events": [
+            {
+              "type": "attackRelease",
+              "seq": 3,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        }
+      ],
+      "aroundDelivery": [
+        {
+          "index": 28,
+          "t": 0.466667,
+          "elapsed": 0.466667,
+          "seq": 1,
+          "attack": 0.226333,
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 0,
+          "age": 0.433667,
+          "emitter": {
+            "x": 302.3,
+            "y": 4.85
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 29,
+          "t": 0.483333,
+          "elapsed": 0.466667,
+          "seq": 1,
+          "attack": 0.209667,
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 0,
+          "age": 0.450333,
+          "emitter": {
+            "x": 302.3,
+            "y": 4.85
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 30,
+          "t": 0.5,
+          "elapsed": 0.5,
+          "seq": 1,
+          "attack": 0.193,
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 0,
+          "age": 0.467,
+          "emitter": {
+            "x": 302.3,
+            "y": 4.85
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 31,
+          "t": 0.516667,
+          "elapsed": 0.5,
+          "seq": 1,
+          "attack": 0.176333,
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 0,
+          "age": 0.483667,
+          "emitter": {
+            "x": 302.3,
+            "y": 4.85
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 32,
+          "t": 0.533333,
+          "elapsed": 0.533333,
+          "seq": 1,
+          "attack": 0.159667,
+          "animation": "Shoot",
+          "frame": 6,
+          "direction": 0,
+          "age": 0.500333,
+          "emitter": {
+            "x": 302.3,
+            "y": 4.85
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 33,
+          "t": 0.55,
+          "elapsed": 0.533333,
+          "seq": 1,
+          "attack": 0.143,
+          "animation": "Shoot",
+          "frame": 6,
+          "direction": 0,
+          "age": 0.517,
+          "emitter": {
+            "x": 302.3,
+            "y": 4.85
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 34,
+          "t": 0.566667,
+          "elapsed": 0.566667,
+          "seq": 1,
+          "attack": 0.126333,
+          "animation": "Shoot",
+          "frame": 7,
+          "direction": 0,
+          "age": 0.533667,
+          "emitter": {
+            "x": 300,
+            "y": 22.1
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 35,
+          "t": 0.583333,
+          "elapsed": 0.566667,
+          "seq": 1,
+          "attack": 0.109667,
+          "animation": "Shoot",
+          "frame": 8,
+          "direction": 0,
+          "age": 0.550333,
+          "emitter": {
+            "x": 300,
+            "y": 22.1
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 36,
+          "t": 0.6,
+          "elapsed": 0.6,
+          "seq": 1,
+          "attack": 0.093,
+          "animation": "Shoot",
+          "frame": 9,
+          "direction": 0,
+          "age": 0.567,
+          "emitter": {
+            "x": 300,
+            "y": 22.1
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        }
+      ],
+      "sheet": "contacts/tower-34-public15-4-automatic-viewer1.png"
+    },
+    {
+      "viewerTeam": 0,
+      "trigger": "direct",
+      "profile": {
+        "id": 34,
+        "animation": "Shoot",
+        "interval": 1,
+        "windup": 0.5,
+        "duration": 0.66,
+        "burst": 1,
+        "spacing": 0,
+        "rangedAttack": null,
+        "emitter": "head",
+        "suicide": false,
+        "jumpRange": 0
+      },
+      "eventOrder": [
+        {
+          "type": "attackStart",
+          "at": 0,
+          "seq": 1,
+          "shot": null,
+          "windup": 0.5,
+          "duration": 0.66
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.5,
+          "seq": 1,
+          "shot": 0,
+          "from": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "expectedFrame": 6,
+          "expectedAnimation": "Shoot",
+          "id": 34,
+          "sourcePose": {
+            "animation": "Shoot",
+            "frame": 5,
+            "direction": 4,
+            "age": 0.466667
+          },
+          "sourcePoint": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "part": "head",
+          "source": {
+            "attacker": {
+              "id": 3,
+              "team": 0,
+              "lane": -1,
+              "x": 300,
+              "y": 712,
+              "hp": 4824,
+              "damage": 109,
+              "interval": 1,
+              "windup": 0.5,
+              "range": 168,
+              "radius": 33.6,
+              "projectileSpeed": 480,
+              "projectileStart": 18,
+              "maxHp": 4824,
+              "king": true,
+              "active": true,
+              "cooldown": 998.5333333333338,
+              "stun": 0,
+              "hit": 0,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "dx": 0,
+              "dy": -1,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackSeq": 1,
+              "anim": 1.2971261403212953,
+              "entryPending": false,
+              "engaged": true,
+              "attackWindup": 0.5,
+              "attackAnim": "Shoot",
+              "charge": 0,
+              "chargeTravel": 0,
+              "freeze": 0,
+              "slow": 0,
+              "targetId": 7
+            },
+            "card": null,
+            "guard": {
+              "id": 34,
+              "style": "poison",
+              "attackAnim": "Shoot",
+              "projectileSpeed": 480,
+              "projectileStart": 18
+            }
+          },
+          "startAt": 0,
+          "expectedAt": 0.5,
+          "rendered": {
+            "index": 32,
+            "t": 0.533333,
+            "elapsed": 0.533333,
+            "seq": 1,
+            "attack": 0.126333,
+            "animation": "Shoot",
+            "frame": 7,
+            "direction": 4,
+            "age": 0.533667,
+            "emitter": {
+              "x": 300,
+              "y": 626.55
+            },
+            "drawn": true,
+            "alive": true,
+            "logicalSeq": 1
+          },
+          "frameMatches": false,
+          "rasterMatches": false,
+          "drawMarker": {
+            "available": true,
+            "part": "head",
+            "expected": {
+              "x": 299.6,
+              "y": 626.95
+            },
+            "actual": {
+              "x": 300,
+              "y": 626.55
+            },
+            "error": 0.565685
+          },
+          "retiredAtRelease": false,
+          "sameTickNextStart": false,
+          "engineToVisualSourceError": 7.273239
+        }
+      ],
+      "source": {
+        "attacker": {
+          "id": 3,
+          "team": 0,
+          "lane": -1,
+          "x": 300,
+          "y": 712,
+          "hp": 4824,
+          "damage": 109,
+          "interval": 1,
+          "windup": 0.5,
+          "range": 168,
+          "radius": 33.6,
+          "projectileSpeed": 480,
+          "projectileStart": 18,
+          "maxHp": 4824,
+          "king": true,
+          "active": true,
+          "cooldown": 998.5333333333338,
+          "stun": 0,
+          "hit": 0,
+          "guard": {
+            "id": 34,
+            "style": "poison",
+            "attackAnim": "Shoot",
+            "projectileSpeed": 480,
+            "projectileStart": 18
+          },
+          "dx": 0,
+          "dy": -1,
+          "attack": 0.19333333333333347,
+          "attackDuration": 0.66,
+          "attackSeq": 1,
+          "anim": 1.2971261403212953,
+          "entryPending": false,
+          "engaged": true,
+          "attackWindup": 0.5,
+          "attackAnim": "Shoot",
+          "charge": 0,
+          "chargeTravel": 0,
+          "freeze": 0,
+          "slow": 0,
+          "targetId": 7
+        },
+        "card": null,
+        "guard": {
+          "id": 34,
+          "style": "poison",
+          "attackAnim": "Shoot",
+          "projectileSpeed": 480,
+          "projectileStart": 18
+        },
+        "poseAtEmission": {
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 4,
+          "age": 0.466667
+        },
+        "emission": {
+          "x": 293.1,
+          "y": 624.25
+        }
+      },
+      "expectedFrame": 6,
+      "expectedAnimation": "Shoot",
+      "delivered": {
+        "index": 32,
+        "t": 0.533333,
+        "elapsed": 0.533333,
+        "seq": 1,
+        "attack": 0.126333,
+        "animation": "Shoot",
+        "frame": 7,
+        "direction": 4,
+        "age": 0.533667,
+        "emitter": {
+          "x": 300,
+          "y": 626.55
+        },
+        "drawn": true,
+        "alive": true,
+        "logicalSeq": 1
+      },
+      "rasterMatches": false,
+      "marker": {
+        "available": true,
+        "part": "head",
+        "expected": {
+          "x": 299.6,
+          "y": 626.95
+        },
+        "actual": {
+          "x": 300,
+          "y": 626.55
+        },
+        "error": 0.565685
+      },
+      "wireDeliveries": [
+        {
+          "index": 0,
+          "t": 0,
+          "elapsed": 0,
+          "events": [
+            {
+              "type": "attackStart",
+              "seq": 1,
+              "attack": 0.66,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        },
+        {
+          "index": 32,
+          "t": 0.533333,
+          "elapsed": 0.533333,
+          "events": [
+            {
+              "type": "attackRelease",
+              "seq": 1,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        }
+      ],
+      "aroundDelivery": [
+        {
+          "index": 28,
+          "t": 0.466667,
+          "elapsed": 0.466667,
+          "seq": 1,
+          "attack": 0.193,
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 4,
+          "age": 0.467,
+          "emitter": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 29,
+          "t": 0.483333,
+          "elapsed": 0.466667,
+          "seq": 1,
+          "attack": 0.176333,
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 4,
+          "age": 0.483667,
+          "emitter": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 30,
+          "t": 0.5,
+          "elapsed": 0.5,
+          "seq": 1,
+          "attack": 0.159667,
+          "animation": "Shoot",
+          "frame": 6,
+          "direction": 4,
+          "age": 0.500333,
+          "emitter": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 31,
+          "t": 0.516667,
+          "elapsed": 0.5,
+          "seq": 1,
+          "attack": 0.143,
+          "animation": "Shoot",
+          "frame": 6,
+          "direction": 4,
+          "age": 0.517,
+          "emitter": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 32,
+          "t": 0.533333,
+          "elapsed": 0.533333,
+          "seq": 1,
+          "attack": 0.126333,
+          "animation": "Shoot",
+          "frame": 7,
+          "direction": 4,
+          "age": 0.533667,
+          "emitter": {
+            "x": 300,
+            "y": 626.55
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 33,
+          "t": 0.55,
+          "elapsed": 0.533333,
+          "seq": 1,
+          "attack": 0.109667,
+          "animation": "Shoot",
+          "frame": 8,
+          "direction": 4,
+          "age": 0.550333,
+          "emitter": {
+            "x": 300,
+            "y": 626.55
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 34,
+          "t": 0.566667,
+          "elapsed": 0.566667,
+          "seq": 1,
+          "attack": 0.093,
+          "animation": "Shoot",
+          "frame": 9,
+          "direction": 4,
+          "age": 0.567,
+          "emitter": {
+            "x": 300,
+            "y": 626.55
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 35,
+          "t": 0.583333,
+          "elapsed": 0.566667,
+          "seq": 1,
+          "attack": 0.076333,
+          "animation": "Shoot",
+          "frame": 10,
+          "direction": 4,
+          "age": 0.583667,
+          "emitter": {
+            "x": 300,
+            "y": 626.55
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 36,
+          "t": 0.6,
+          "elapsed": 0.6,
+          "seq": 1,
+          "attack": 0.059667,
+          "animation": "Shoot",
+          "frame": 11,
+          "direction": 4,
+          "age": 0.600333,
+          "emitter": {
+            "x": 300,
+            "y": 626.55
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        }
+      ],
+      "sheet": "contacts/tower-34-public15-4-direct-viewer0.png"
+    },
+    {
+      "viewerTeam": 1,
+      "trigger": "direct",
+      "profile": {
+        "id": 34,
+        "animation": "Shoot",
+        "interval": 1,
+        "windup": 0.5,
+        "duration": 0.66,
+        "burst": 1,
+        "spacing": 0,
+        "rangedAttack": null,
+        "emitter": "head",
+        "suicide": false,
+        "jumpRange": 0
+      },
+      "eventOrder": [
+        {
+          "type": "attackStart",
+          "at": 0,
+          "seq": 1,
+          "shot": null,
+          "windup": 0.5,
+          "duration": 0.66
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.5,
+          "seq": 1,
+          "shot": 0,
+          "from": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "expectedFrame": 6,
+          "expectedAnimation": "Shoot",
+          "id": 34,
+          "sourcePose": {
+            "animation": "Shoot",
+            "frame": 5,
+            "direction": 4,
+            "age": 0.466667
+          },
+          "sourcePoint": {
+            "x": 293.1,
+            "y": 624.25
+          },
+          "part": "head",
+          "source": {
+            "attacker": {
+              "id": 3,
+              "team": 0,
+              "lane": -1,
+              "x": 300,
+              "y": 712,
+              "hp": 4824,
+              "damage": 109,
+              "interval": 1,
+              "windup": 0.5,
+              "range": 168,
+              "radius": 33.6,
+              "projectileSpeed": 480,
+              "projectileStart": 18,
+              "maxHp": 4824,
+              "king": true,
+              "active": true,
+              "cooldown": 998.5333333333338,
+              "stun": 0,
+              "hit": 0,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "dx": 0,
+              "dy": -1,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackSeq": 1,
+              "anim": 1.2971261403212953,
+              "entryPending": false,
+              "engaged": true,
+              "attackWindup": 0.5,
+              "attackAnim": "Shoot",
+              "charge": 0,
+              "chargeTravel": 0,
+              "freeze": 0,
+              "slow": 0,
+              "targetId": 7
+            },
+            "card": null,
+            "guard": {
+              "id": 34,
+              "style": "poison",
+              "attackAnim": "Shoot",
+              "projectileSpeed": 480,
+              "projectileStart": 18
+            }
+          },
+          "startAt": 0,
+          "expectedAt": 0.5,
+          "rendered": {
+            "index": 32,
+            "t": 0.533333,
+            "elapsed": 0.533333,
+            "seq": 1,
+            "attack": 0.126333,
+            "animation": "Shoot",
+            "frame": 7,
+            "direction": 0,
+            "age": 0.533667,
+            "emitter": {
+              "x": 300,
+              "y": 22.1
+            },
+            "drawn": true,
+            "alive": true,
+            "logicalSeq": 1
+          },
+          "frameMatches": false,
+          "rasterMatches": false,
+          "drawMarker": {
+            "available": true,
+            "part": "head",
+            "expected": {
+              "x": 299.6,
+              "y": 22.5
+            },
+            "actual": {
+              "x": 300,
+              "y": 22.1
+            },
+            "error": 0.565685
+          },
+          "retiredAtRelease": false,
+          "sameTickNextStart": false,
+          "engineToVisualSourceError": 153.804852
+        }
+      ],
+      "source": {
+        "attacker": {
+          "id": 3,
+          "team": 0,
+          "lane": -1,
+          "x": 300,
+          "y": 712,
+          "hp": 4824,
+          "damage": 109,
+          "interval": 1,
+          "windup": 0.5,
+          "range": 168,
+          "radius": 33.6,
+          "projectileSpeed": 480,
+          "projectileStart": 18,
+          "maxHp": 4824,
+          "king": true,
+          "active": true,
+          "cooldown": 998.5333333333338,
+          "stun": 0,
+          "hit": 0,
+          "guard": {
+            "id": 34,
+            "style": "poison",
+            "attackAnim": "Shoot",
+            "projectileSpeed": 480,
+            "projectileStart": 18
+          },
+          "dx": 0,
+          "dy": -1,
+          "attack": 0.19333333333333347,
+          "attackDuration": 0.66,
+          "attackSeq": 1,
+          "anim": 1.2971261403212953,
+          "entryPending": false,
+          "engaged": true,
+          "attackWindup": 0.5,
+          "attackAnim": "Shoot",
+          "charge": 0,
+          "chargeTravel": 0,
+          "freeze": 0,
+          "slow": 0,
+          "targetId": 7
+        },
+        "card": null,
+        "guard": {
+          "id": 34,
+          "style": "poison",
+          "attackAnim": "Shoot",
+          "projectileSpeed": 480,
+          "projectileStart": 18
+        },
+        "poseAtEmission": {
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 4,
+          "age": 0.466667
+        },
+        "emission": {
+          "x": 293.1,
+          "y": 624.25
+        }
+      },
+      "expectedFrame": 6,
+      "expectedAnimation": "Shoot",
+      "delivered": {
+        "index": 32,
+        "t": 0.533333,
+        "elapsed": 0.533333,
+        "seq": 1,
+        "attack": 0.126333,
+        "animation": "Shoot",
+        "frame": 7,
+        "direction": 0,
+        "age": 0.533667,
+        "emitter": {
+          "x": 300,
+          "y": 22.1
+        },
+        "drawn": true,
+        "alive": true,
+        "logicalSeq": 1
+      },
+      "rasterMatches": false,
+      "marker": {
+        "available": true,
+        "part": "head",
+        "expected": {
+          "x": 299.6,
+          "y": 22.5
+        },
+        "actual": {
+          "x": 300,
+          "y": 22.1
+        },
+        "error": 0.565685
+      },
+      "wireDeliveries": [
+        {
+          "index": 0,
+          "t": 0,
+          "elapsed": 0,
+          "events": [
+            {
+              "type": "attackStart",
+              "seq": 1,
+              "attack": 0.66,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        },
+        {
+          "index": 32,
+          "t": 0.533333,
+          "elapsed": 0.533333,
+          "events": [
+            {
+              "type": "attackRelease",
+              "seq": 1,
+              "attack": 0.19333333333333347,
+              "attackDuration": 0.66,
+              "attackWindup": 0.5,
+              "guard": {
+                "id": 34,
+                "style": "poison",
+                "attackAnim": "Shoot",
+                "projectileSpeed": 480,
+                "projectileStart": 18
+              },
+              "card": null
+            }
+          ]
+        }
+      ],
+      "aroundDelivery": [
+        {
+          "index": 28,
+          "t": 0.466667,
+          "elapsed": 0.466667,
+          "seq": 1,
+          "attack": 0.193,
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 0,
+          "age": 0.467,
+          "emitter": {
+            "x": 302.3,
+            "y": 4.85
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 29,
+          "t": 0.483333,
+          "elapsed": 0.466667,
+          "seq": 1,
+          "attack": 0.176333,
+          "animation": "Shoot",
+          "frame": 5,
+          "direction": 0,
+          "age": 0.483667,
+          "emitter": {
+            "x": 302.3,
+            "y": 4.85
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 30,
+          "t": 0.5,
+          "elapsed": 0.5,
+          "seq": 1,
+          "attack": 0.159667,
+          "animation": "Shoot",
+          "frame": 6,
+          "direction": 0,
+          "age": 0.500333,
+          "emitter": {
+            "x": 302.3,
+            "y": 4.85
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 31,
+          "t": 0.516667,
+          "elapsed": 0.5,
+          "seq": 1,
+          "attack": 0.143,
+          "animation": "Shoot",
+          "frame": 6,
+          "direction": 0,
+          "age": 0.517,
+          "emitter": {
+            "x": 302.3,
+            "y": 4.85
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 32,
+          "t": 0.533333,
+          "elapsed": 0.533333,
+          "seq": 1,
+          "attack": 0.126333,
+          "animation": "Shoot",
+          "frame": 7,
+          "direction": 0,
+          "age": 0.533667,
+          "emitter": {
+            "x": 300,
+            "y": 22.1
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 33,
+          "t": 0.55,
+          "elapsed": 0.533333,
+          "seq": 1,
+          "attack": 0.109667,
+          "animation": "Shoot",
+          "frame": 8,
+          "direction": 0,
+          "age": 0.550333,
+          "emitter": {
+            "x": 300,
+            "y": 22.1
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 34,
+          "t": 0.566667,
+          "elapsed": 0.566667,
+          "seq": 1,
+          "attack": 0.093,
+          "animation": "Shoot",
+          "frame": 9,
+          "direction": 0,
+          "age": 0.567,
+          "emitter": {
+            "x": 300,
+            "y": 22.1
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 35,
+          "t": 0.583333,
+          "elapsed": 0.566667,
+          "seq": 1,
+          "attack": 0.076333,
+          "animation": "Shoot",
+          "frame": 10,
+          "direction": 0,
+          "age": 0.583667,
+          "emitter": {
+            "x": 300,
+            "y": 22.1
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        },
+        {
+          "index": 36,
+          "t": 0.6,
+          "elapsed": 0.6,
+          "seq": 1,
+          "attack": 0.059667,
+          "animation": "Shoot",
+          "frame": 11,
+          "direction": 0,
+          "age": 0.600333,
+          "emitter": {
+            "x": 300,
+            "y": 22.1
+          },
+          "drawn": true,
+          "alive": true,
+          "logicalSeq": 1
+        }
+      ],
+      "sheet": "contacts/tower-34-public15-4-direct-viewer1.png"
+    }
+  ]
+}
