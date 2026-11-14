@@ -1,0 +1,3969 @@
+{
+  "date": "2026-11-14",
+  "coverage": {
+    "allKeys": 121,
+    "bodyKeys": 108,
+    "species": 100,
+    "spellsWithoutBody": [
+      "thunder",
+      "fireball",
+      "log",
+      "sneaselAmbush",
+      "pinMissile",
+      "lightning",
+      "hyperBeam",
+      "blizzard",
+      "spikes",
+      "stealthRock",
+      "whirlpool",
+      "nightmare",
+      "earthquake"
+    ]
+  },
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "arenaCssWidth": 370,
+    "arenaUnits": 600,
+    "mobileScale": 0.6166666666666667
+  },
+  "metrics": [
+    {
+      "key": "pikachu",
+      "name": "Pikachu",
+      "id": 25,
+      "group": "support-fighters",
+      "reference": "Mago eléctrico",
+      "similarity": "equivalent",
+      "cost": 4,
+      "hp": 714,
+      "token": false,
+      "count": 1,
+      "scale": 1.2667,
+      "platform": null,
+      "rest": {
+        "minWidth": 24.07,
+        "maxWidth": 31.67,
+        "minHeight": 30.4,
+        "maxHeight": 34.2
+      },
+      "movement": {
+        "minWidth": 24.07,
+        "maxWidth": 31.67,
+        "minHeight": 26.6,
+        "maxHeight": 34.2
+      },
+      "attack": {
+        "minWidth": 19,
+        "maxWidth": 50.67,
+        "minHeight": 27.87,
+        "maxHeight": 46.87
+      },
+      "mobileRest": {
+        "width": 19.53,
+        "height": 21.09
+      }
+    },
+    {
+      "key": "squirtle",
+      "name": "Squirtle",
+      "id": 7,
+      "group": "support-fighters",
+      "reference": null,
+      "similarity": "none",
+      "cost": 2,
+      "hp": 400,
+      "token": false,
+      "count": 1,
+      "scale": 1.3913,
+      "platform": null,
+      "rest": {
+        "minWidth": 20.87,
+        "maxWidth": 32,
+        "minHeight": 25.04,
+        "maxHeight": 27.83
+      },
+      "movement": {
+        "minWidth": 20.87,
+        "maxWidth": 32,
+        "minHeight": 25.04,
+        "maxHeight": 27.83
+      },
+      "attack": {
+        "minWidth": 20.87,
+        "maxWidth": 34.78,
+        "minHeight": 20.87,
+        "maxHeight": 32
+      },
+      "mobileRest": {
+        "width": 19.73,
+        "height": 17.16
+      }
+    },
+    {
+      "key": "charmander",
+      "name": "Charmander",
+      "id": 4,
+      "group": "support-fighters",
+      "reference": "Mago",
+      "similarity": "partial",
+      "cost": 3,
+      "hp": 440,
+      "token": false,
+      "count": 1,
+      "scale": 1.5238,
+      "platform": null,
+      "rest": {
+        "minWidth": 22.86,
+        "maxWidth": 30.48,
+        "minHeight": 30.48,
+        "maxHeight": 33.52
+      },
+      "movement": {
+        "minWidth": 21.33,
+        "maxWidth": 32,
+        "minHeight": 28.95,
+        "maxHeight": 33.52
+      },
+      "attack": {
+        "minWidth": 21.33,
+        "maxWidth": 32,
+        "minHeight": 28.95,
+        "maxHeight": 33.52
+      },
+      "mobileRest": {
+        "width": 18.79,
+        "height": 20.67
+      }
+    },
+    {
+      "key": "snorlax",
+      "name": "Snorlax",
+      "id": 143,
+      "group": "heavy",
+      "reference": "Gigante",
+      "similarity": "equivalent",
+      "cost": 5,
+      "hp": 3968,
+      "token": false,
+      "count": 1,
+      "scale": 2.4,
+      "platform": null,
+      "rest": {
+        "minWidth": 50.4,
+        "maxWidth": 67.2,
+        "minHeight": 62.4,
+        "maxHeight": 76.8
+      },
+      "movement": {
+        "minWidth": 50.4,
+        "maxWidth": 67.2,
+        "minHeight": 62.4,
+        "maxHeight": 76.8
+      },
+      "attack": {
+        "minWidth": 48,
+        "maxWidth": 72,
+        "minHeight": 43.2,
+        "maxHeight": 79.2
+      },
+      "mobileRest": {
+        "width": 41.44,
+        "height": 47.36
+      }
+    },
+    {
+      "key": "zubat",
+      "name": "Zubat",
+      "id": 41,
+      "group": "swarms-tokens",
+      "reference": "Murciélagos",
+      "similarity": "partial",
+      "cost": 2,
+      "hp": 81,
+      "token": false,
+      "count": 5,
+      "scale": 1.44,
+      "platform": null,
+      "rest": {
+        "minWidth": 25.92,
+        "maxWidth": 36,
+        "minHeight": 27.36,
+        "maxHeight": 34.56
+      },
+      "movement": {
+        "minWidth": 23.04,
+        "maxWidth": 36,
+        "minHeight": 27.36,
+        "maxHeight": 36
+      },
+      "attack": {
+        "minWidth": 23.04,
+        "maxWidth": 36,
+        "minHeight": 27.36,
+        "maxHeight": 36
+      },
+      "mobileRest": {
+        "width": 22.2,
+        "height": 21.31
+      }
+    },
+    {
+      "key": "charizard",
+      "name": "Charizard",
+      "id": 6,
+      "group": "flying",
+      "reference": "Bebé dragón",
+      "similarity": "partial",
+      "cost": 5,
+      "hp": 1526,
+      "token": false,
+      "count": 1,
+      "scale": 1.9394,
+      "platform": null,
+      "rest": {
+        "minWidth": 48.49,
+        "maxWidth": 56.24,
+        "minHeight": 50.42,
+        "maxHeight": 56.24
+      },
+      "movement": {
+        "minWidth": 52.36,
+        "maxWidth": 77.58,
+        "minHeight": 48.49,
+        "maxHeight": 62.06
+      },
+      "attack": {
+        "minWidth": 52.36,
+        "maxWidth": 77.58,
+        "minHeight": 48.49,
+        "maxHeight": 62.06
+      },
+      "mobileRest": {
+        "width": 34.68,
+        "height": 34.68
+      }
+    },
+    {
+      "key": "bulbasaur",
+      "name": "Bulbasaur",
+      "id": 1,
+      "group": "support-fighters",
+      "reference": "Mago de hielo",
+      "similarity": "partial",
+      "cost": 2,
+      "hp": 400,
+      "token": false,
+      "count": 1,
+      "scale": 1.4167,
+      "platform": null,
+      "rest": {
+        "minWidth": 24.08,
+        "maxWidth": 29.75,
+        "minHeight": 25.5,
+        "maxHeight": 29.75
+      },
+      "movement": {
+        "minWidth": 24.08,
+        "maxWidth": 34,
+        "minHeight": 22.67,
+        "maxHeight": 31.17
+      },
+      "attack": {
+        "minWidth": 24.08,
+        "maxWidth": 26.92,
+        "minHeight": 25.5,
+        "maxHeight": 29.75
+      },
+      "mobileRest": {
+        "width": 18.35,
+        "height": 18.35
+      }
+    },
+    {
+      "key": "gengar",
+      "name": "Gengar",
+      "id": 94,
+      "group": "support-fighters",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 650,
+      "token": false,
+      "count": 1,
+      "scale": 1.6296,
+      "platform": null,
+      "rest": {
+        "minWidth": 30.96,
+        "maxWidth": 40.74,
+        "minHeight": 35.85,
+        "maxHeight": 40.74
+      },
+      "movement": {
+        "minWidth": 30.96,
+        "maxWidth": 42.37,
+        "minHeight": 35.85,
+        "maxHeight": 40.74
+      },
+      "attack": {
+        "minWidth": 30.96,
+        "maxWidth": 44,
+        "minHeight": 34.22,
+        "maxHeight": 42.37
+      },
+      "mobileRest": {
+        "width": 25.12,
+        "height": 25.12
+      }
+    },
+    {
+      "key": "machamp",
+      "name": "Machamp",
+      "id": 68,
+      "group": "support-fighters",
+      "reference": "Mini P.E.K.K.A.",
+      "similarity": "partial",
+      "cost": 4,
+      "hp": 1390,
+      "token": false,
+      "count": 1,
+      "scale": 1.5484,
+      "platform": null,
+      "rest": {
+        "minWidth": 26.32,
+        "maxWidth": 48,
+        "minHeight": 43.36,
+        "maxHeight": 48
+      },
+      "movement": {
+        "minWidth": 26.32,
+        "maxWidth": 48,
+        "minHeight": 43.36,
+        "maxHeight": 49.55
+      },
+      "attack": {
+        "minWidth": 26.32,
+        "maxWidth": 48,
+        "minHeight": 37.16,
+        "maxHeight": 41.81
+      },
+      "mobileRest": {
+        "width": 29.6,
+        "height": 29.6
+      }
+    },
+    {
+      "key": "eevee",
+      "name": "Eevee",
+      "id": 133,
+      "group": "support-fighters",
+      "reference": "Príncipe",
+      "similarity": "partial",
+      "cost": 2,
+      "hp": 300,
+      "token": false,
+      "count": 1,
+      "scale": 1.619,
+      "platform": null,
+      "rest": {
+        "minWidth": 24.29,
+        "maxWidth": 34,
+        "minHeight": 29.14,
+        "maxHeight": 34
+      },
+      "movement": {
+        "minWidth": 27.52,
+        "maxWidth": 43.71,
+        "minHeight": 25.9,
+        "maxHeight": 38.86
+      },
+      "attack": {
+        "minWidth": 27.52,
+        "maxWidth": 43.71,
+        "minHeight": 25.9,
+        "maxHeight": 38.86
+      },
+      "mobileRest": {
+        "width": 20.97,
+        "height": 20.97
+      }
+    },
+    {
+      "key": "onix",
+      "name": "Onix",
+      "id": 95,
+      "group": "heavy",
+      "reference": "Montapuercos",
+      "similarity": "partial",
+      "cost": 4,
+      "hp": 1950,
+      "token": false,
+      "count": 1,
+      "scale": 1.038,
+      "platform": null,
+      "rest": {
+        "minWidth": 24.91,
+        "maxWidth": 64.36,
+        "minHeight": 48.79,
+        "maxHeight": 60.2
+      },
+      "movement": {
+        "minWidth": 24.91,
+        "maxWidth": 82,
+        "minHeight": 40.48,
+        "maxHeight": 61.24
+      },
+      "attack": {
+        "minWidth": 24.91,
+        "maxWidth": 82,
+        "minHeight": 40.48,
+        "maxHeight": 61.24
+      },
+      "mobileRest": {
+        "width": 39.69,
+        "height": 37.13
+      }
+    },
+    {
+      "key": "blastoise",
+      "name": "Blastoise",
+      "id": 9,
+      "group": "support-fighters",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 1400,
+      "token": false,
+      "count": 1,
+      "scale": 1.7241,
+      "platform": null,
+      "rest": {
+        "minWidth": 39.65,
+        "maxWidth": 46.55,
+        "minHeight": 41.38,
+        "maxHeight": 50
+      },
+      "movement": {
+        "minWidth": 39.65,
+        "maxWidth": 46.55,
+        "minHeight": 41.38,
+        "maxHeight": 50
+      },
+      "attack": {
+        "minWidth": 39.65,
+        "maxWidth": 55.17,
+        "minHeight": 39.65,
+        "maxHeight": 58.62
+      },
+      "mobileRest": {
+        "width": 28.71,
+        "height": 30.83
+      }
+    },
+    {
+      "key": "vulpix",
+      "name": "Vulpix",
+      "id": 37,
+      "group": "support-fighters",
+      "reference": null,
+      "similarity": "none",
+      "cost": 3,
+      "hp": 440,
+      "token": false,
+      "count": 1,
+      "scale": 1.7143,
+      "platform": null,
+      "rest": {
+        "minWidth": 29.14,
+        "maxWidth": 36,
+        "minHeight": 32.57,
+        "maxHeight": 37.71
+      },
+      "movement": {
+        "minWidth": 29.14,
+        "maxWidth": 36,
+        "minHeight": 30.86,
+        "maxHeight": 41.14
+      },
+      "attack": {
+        "minWidth": 29.14,
+        "maxWidth": 36,
+        "minHeight": 30.86,
+        "maxHeight": 37.71
+      },
+      "mobileRest": {
+        "width": 22.2,
+        "height": 23.26
+      }
+    },
+    {
+      "key": "psyduck",
+      "name": "Psyduck",
+      "id": 54,
+      "group": "support-fighters",
+      "reference": "Mago eléctrico",
+      "similarity": "partial",
+      "cost": 3,
+      "hp": 560,
+      "token": false,
+      "count": 1,
+      "scale": 1.6,
+      "platform": null,
+      "rest": {
+        "minWidth": 28.8,
+        "maxWidth": 35.2,
+        "minHeight": 36.8,
+        "maxHeight": 40
+      },
+      "movement": {
+        "minWidth": 28.8,
+        "maxWidth": 35.2,
+        "minHeight": 35.2,
+        "maxHeight": 40
+      },
+      "attack": {
+        "minWidth": 28.8,
+        "maxWidth": 38.4,
+        "minHeight": 33.6,
+        "maxHeight": 40
+      },
+      "mobileRest": {
+        "width": 21.71,
+        "height": 24.67
+      }
+    },
+    {
+      "key": "alakazam",
+      "name": "Alakazam",
+      "id": 65,
+      "group": "support-fighters",
+      "reference": "Arquero mágico",
+      "similarity": "equivalent",
+      "cost": 4,
+      "hp": 529,
+      "token": false,
+      "count": 1,
+      "scale": 1.3548,
+      "platform": null,
+      "rest": {
+        "minWidth": 25.74,
+        "maxWidth": 42,
+        "minHeight": 27.1,
+        "maxHeight": 33.87
+      },
+      "movement": {
+        "minWidth": 23.03,
+        "maxWidth": 33.87,
+        "minHeight": 31.16,
+        "maxHeight": 36.58
+      },
+      "attack": {
+        "minWidth": 23.03,
+        "maxWidth": 42,
+        "minHeight": 27.1,
+        "maxHeight": 35.22
+      },
+      "mobileRest": {
+        "width": 25.9,
+        "height": 20.89
+      }
+    },
+    {
+      "key": "geodude",
+      "name": "Geodude",
+      "id": 74,
+      "group": "support-fighters",
+      "reference": "Caballero",
+      "similarity": "equivalent",
+      "cost": 3,
+      "hp": 1766,
+      "token": false,
+      "count": 1,
+      "scale": 2,
+      "platform": null,
+      "rest": {
+        "minWidth": 38,
+        "maxWidth": 54,
+        "minHeight": 28,
+        "maxHeight": 38
+      },
+      "movement": {
+        "minWidth": 26,
+        "maxWidth": 56,
+        "minHeight": 28,
+        "maxHeight": 46
+      },
+      "attack": {
+        "minWidth": 26,
+        "maxWidth": 56,
+        "minHeight": 28,
+        "maxHeight": 46
+      },
+      "mobileRest": {
+        "width": 33.3,
+        "height": 23.43
+      }
+    },
+    {
+      "key": "magnemite",
+      "name": "Magnemite",
+      "id": 81,
+      "group": "flying",
+      "reference": null,
+      "similarity": "none",
+      "cost": 3,
+      "hp": 400,
+      "token": false,
+      "count": 1,
+      "scale": 1.5238,
+      "platform": null,
+      "rest": {
+        "minWidth": 15.24,
+        "maxWidth": 28.95,
+        "minHeight": 19.81,
+        "maxHeight": 27.43
+      },
+      "movement": {
+        "minWidth": 15.24,
+        "maxWidth": 32,
+        "minHeight": 18.29,
+        "maxHeight": 28.95
+      },
+      "attack": {
+        "minWidth": 13.71,
+        "maxWidth": 28.95,
+        "minHeight": 18.29,
+        "maxHeight": 27.43
+      },
+      "mobileRest": {
+        "width": 17.85,
+        "height": 16.91
+      }
+    },
+    {
+      "key": "scyther",
+      "name": "Scyther",
+      "id": 123,
+      "group": "flying",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 650,
+      "token": false,
+      "count": 1,
+      "scale": 1.6,
+      "platform": null,
+      "rest": {
+        "minWidth": 41.6,
+        "maxWidth": 48,
+        "minHeight": 41.6,
+        "maxHeight": 46.4
+      },
+      "movement": {
+        "minWidth": 36.8,
+        "maxWidth": 51.2,
+        "minHeight": 41.6,
+        "maxHeight": 51.2
+      },
+      "attack": {
+        "minWidth": 36.8,
+        "maxWidth": 44.8,
+        "minHeight": 43.2,
+        "maxHeight": 51.2
+      },
+      "mobileRest": {
+        "width": 29.6,
+        "height": 28.61
+      }
+    },
+    {
+      "key": "lapras",
+      "name": "Lapras",
+      "id": 131,
+      "group": "support-fighters",
+      "reference": "Mago de hielo",
+      "similarity": "partial",
+      "cost": 5,
+      "hp": 1500,
+      "token": false,
+      "count": 1,
+      "scale": 1.3488,
+      "platform": null,
+      "rest": {
+        "minWidth": 43.16,
+        "maxWidth": 58,
+        "minHeight": 45.86,
+        "maxHeight": 55.3
+      },
+      "movement": {
+        "minWidth": 41.81,
+        "maxWidth": 58,
+        "minHeight": 44.51,
+        "maxHeight": 55.3
+      },
+      "attack": {
+        "minWidth": 40.46,
+        "maxWidth": 62.04,
+        "minHeight": 37.77,
+        "maxHeight": 62.04
+      },
+      "mobileRest": {
+        "width": 35.77,
+        "height": 34.1
+      }
+    },
+    {
+      "key": "mewtwo",
+      "name": "Mewtwo",
+      "id": 150,
+      "group": "support-fighters",
+      "reference": null,
+      "similarity": "none",
+      "cost": 6,
+      "hp": 1452,
+      "token": false,
+      "count": 1,
+      "scale": 1.4839,
+      "platform": null,
+      "rest": {
+        "minWidth": 34.13,
+        "maxWidth": 40.07,
+        "minHeight": 41.55,
+        "maxHeight": 46
+      },
+      "movement": {
+        "minWidth": 34.13,
+        "maxWidth": 46,
+        "minHeight": 35.61,
+        "maxHeight": 44.52
+      },
+      "attack": {
+        "minWidth": 29.68,
+        "maxWidth": 60.84,
+        "minHeight": 40.07,
+        "maxHeight": 54.9
+      },
+      "mobileRest": {
+        "width": 24.71,
+        "height": 28.37
+      }
+    },
+    {
+      "key": "treecko",
+      "name": "Treecko",
+      "id": 252,
+      "group": "swarms-tokens",
+      "reference": "Arqueras",
+      "similarity": "equivalent",
+      "cost": 3,
+      "hp": 304,
+      "token": false,
+      "count": 2,
+      "scale": 1.4167,
+      "platform": null,
+      "rest": {
+        "minWidth": 26.92,
+        "maxWidth": 29.75,
+        "minHeight": 29.75,
+        "maxHeight": 34
+      },
+      "movement": {
+        "minWidth": 19.83,
+        "maxWidth": 35.42,
+        "minHeight": 24.08,
+        "maxHeight": 29.75
+      },
+      "attack": {
+        "minWidth": 24.08,
+        "maxWidth": 29.75,
+        "minHeight": 29.75,
+        "maxHeight": 35.42
+      },
+      "mobileRest": {
+        "width": 18.35,
+        "height": 20.97
+      }
+    },
+    {
+      "key": "golem",
+      "name": "Golem",
+      "id": 76,
+      "group": "heavy",
+      "reference": "Gólem",
+      "similarity": "equivalent",
+      "cost": 8,
+      "hp": 5120,
+      "token": false,
+      "count": 1,
+      "scale": 3.25,
+      "platform": null,
+      "rest": {
+        "minWidth": 74.75,
+        "maxWidth": 78,
+        "minHeight": 74.75,
+        "maxHeight": 78
+      },
+      "movement": {
+        "minWidth": 71.5,
+        "maxWidth": 84.5,
+        "minHeight": 71.5,
+        "maxHeight": 78
+      },
+      "attack": {
+        "minWidth": 58.5,
+        "maxWidth": 97.5,
+        "minHeight": 61.75,
+        "maxHeight": 81.25
+      },
+      "mobileRest": {
+        "width": 48.1,
+        "height": 48.1
+      }
+    },
+    {
+      "key": "rapidash",
+      "name": "Rapidash",
+      "id": 78,
+      "group": "heavy",
+      "reference": "Montapuercos",
+      "similarity": "equivalent",
+      "cost": 4,
+      "hp": 1697,
+      "token": false,
+      "count": 1,
+      "scale": 2,
+      "platform": null,
+      "rest": {
+        "minWidth": 32,
+        "maxWidth": 64,
+        "minHeight": 58,
+        "maxHeight": 64
+      },
+      "movement": {
+        "minWidth": 32,
+        "maxWidth": 64,
+        "minHeight": 56,
+        "maxHeight": 70
+      },
+      "attack": {
+        "minWidth": 32,
+        "maxWidth": 74,
+        "minHeight": 58,
+        "maxHeight": 78
+      },
+      "mobileRest": {
+        "width": 39.47,
+        "height": 39.47
+      }
+    },
+    {
+      "key": "roselia",
+      "name": "Roselia",
+      "id": 315,
+      "group": "support-fighters",
+      "reference": "Princesa",
+      "similarity": "equivalent",
+      "cost": 3,
+      "hp": 261,
+      "token": false,
+      "count": 1,
+      "scale": 1.7143,
+      "platform": null,
+      "rest": {
+        "minWidth": 22.29,
+        "maxWidth": 48,
+        "minHeight": 34.29,
+        "maxHeight": 36
+      },
+      "movement": {
+        "minWidth": 22.29,
+        "maxWidth": 48,
+        "minHeight": 34.29,
+        "maxHeight": 36
+      },
+      "attack": {
+        "minWidth": 20.57,
+        "maxWidth": 48,
+        "minHeight": 34.29,
+        "maxHeight": 37.71
+      },
+      "mobileRest": {
+        "width": 29.6,
+        "height": 22.2
+      }
+    },
+    {
+      "key": "graveler",
+      "name": "Graveler",
+      "id": 75,
+      "group": "heavy",
+      "reference": "Lanzarrocas",
+      "similarity": "equivalent",
+      "cost": 5,
+      "hp": 2081,
+      "token": false,
+      "count": 1,
+      "scale": 1.7857,
+      "platform": null,
+      "rest": {
+        "minWidth": 33.93,
+        "maxWidth": 44.64,
+        "minHeight": 42.86,
+        "maxHeight": 50
+      },
+      "movement": {
+        "minWidth": 33.93,
+        "maxWidth": 48.21,
+        "minHeight": 41.07,
+        "maxHeight": 50
+      },
+      "attack": {
+        "minWidth": 33.93,
+        "maxWidth": 62.5,
+        "minHeight": 35.71,
+        "maxHeight": 55.36
+      },
+      "mobileRest": {
+        "width": 27.53,
+        "height": 30.83
+      }
+    },
+    {
+      "key": "nuzleaf",
+      "name": "Nuzleaf",
+      "id": 274,
+      "group": "support-fighters",
+      "reference": "Duende lanzadardos",
+      "similarity": "equivalent",
+      "cost": 3,
+      "hp": 261,
+      "token": false,
+      "count": 1,
+      "scale": 1.2667,
+      "platform": null,
+      "rest": {
+        "minWidth": 25.33,
+        "maxWidth": 29.13,
+        "minHeight": 31.67,
+        "maxHeight": 38
+      },
+      "movement": {
+        "minWidth": 25.33,
+        "maxWidth": 31.67,
+        "minHeight": 29.13,
+        "maxHeight": 38
+      },
+      "attack": {
+        "minWidth": 21.53,
+        "maxWidth": 36.73,
+        "minHeight": 27.87,
+        "maxHeight": 38
+      },
+      "mobileRest": {
+        "width": 17.97,
+        "height": 23.43
+      }
+    },
+    {
+      "key": "sneaselToken",
+      "name": "Sneasel",
+      "id": 215,
+      "group": "swarms-tokens",
+      "reference": "Duende",
+      "similarity": "equivalent",
+      "cost": 0,
+      "hp": 202,
+      "token": true,
+      "count": 1,
+      "scale": 1.0769,
+      "platform": null,
+      "rest": {
+        "minWidth": 22.61,
+        "maxWidth": 28,
+        "minHeight": 26.92,
+        "maxHeight": 30.15
+      },
+      "movement": {
+        "minWidth": 21.54,
+        "maxWidth": 28,
+        "minHeight": 24.77,
+        "maxHeight": 30.15
+      },
+      "attack": {
+        "minWidth": 21.54,
+        "maxWidth": 29.08,
+        "minHeight": 21.54,
+        "maxHeight": 31.23
+      },
+      "mobileRest": {
+        "width": 17.27,
+        "height": 18.59
+      }
+    },
+    {
+      "key": "diglett",
+      "name": "Diglett",
+      "id": 50,
+      "group": "swarms-tokens",
+      "reference": "Esqueletos",
+      "similarity": "equivalent",
+      "cost": 1,
+      "hp": 81,
+      "token": false,
+      "count": 3,
+      "scale": 1.0909,
+      "platform": null,
+      "rest": {
+        "minWidth": 24,
+        "maxWidth": 24,
+        "minHeight": 17.45,
+        "maxHeight": 17.45
+      },
+      "movement": {
+        "minWidth": 17.45,
+        "maxWidth": 33.82,
+        "minHeight": 7.64,
+        "maxHeight": 22.91
+      },
+      "attack": {
+        "minWidth": 24,
+        "maxWidth": 34.91,
+        "minHeight": 17.45,
+        "maxHeight": 28.36
+      },
+      "mobileRest": {
+        "width": 14.8,
+        "height": 10.76
+      }
+    },
+    {
+      "key": "diglettHorde",
+      "name": "Horda Diglett",
+      "id": 50,
+      "group": "swarms-tokens",
+      "reference": "Ejército de esqueletos",
+      "similarity": "partial",
+      "cost": 3,
+      "hp": 81,
+      "token": false,
+      "count": 15,
+      "scale": 1.0909,
+      "platform": null,
+      "rest": {
+        "minWidth": 24,
+        "maxWidth": 24,
+        "minHeight": 17.45,
+        "maxHeight": 17.45
+      },
+      "movement": {
+        "minWidth": 17.45,
+        "maxWidth": 33.82,
+        "minHeight": 7.64,
+        "maxHeight": 22.91
+      },
+      "attack": {
+        "minWidth": 24,
+        "maxWidth": 34.91,
+        "minHeight": 17.45,
+        "maxHeight": 28.36
+      },
+      "mobileRest": {
+        "width": 14.8,
+        "height": 10.76
+      }
+    },
+    {
+      "key": "raltsTrio",
+      "name": "Trío Ralts",
+      "id": 280,
+      "group": "swarms-tokens",
+      "reference": "Duendes con lanza",
+      "similarity": "equivalent",
+      "cost": 2,
+      "hp": 133,
+      "token": false,
+      "count": 3,
+      "scale": 1.4545,
+      "platform": null,
+      "rest": {
+        "minWidth": 18.91,
+        "maxWidth": 27.64,
+        "minHeight": 26.18,
+        "maxHeight": 32
+      },
+      "movement": {
+        "minWidth": 18.91,
+        "maxWidth": 27.64,
+        "minHeight": 24.73,
+        "maxHeight": 32
+      },
+      "attack": {
+        "minWidth": 18.91,
+        "maxWidth": 26.18,
+        "minHeight": 27.64,
+        "maxHeight": 32
+      },
+      "mobileRest": {
+        "width": 17.04,
+        "height": 19.73
+      }
+    },
+    {
+      "key": "poochyenaPack",
+      "name": "Manada Poochyena",
+      "id": 261,
+      "group": "swarms-tokens",
+      "reference": "Duendes",
+      "similarity": "equivalent",
+      "cost": 2,
+      "hp": 202,
+      "token": false,
+      "count": 4,
+      "scale": 1.2593,
+      "platform": null,
+      "rest": {
+        "minWidth": 17.63,
+        "maxWidth": 27.7,
+        "minHeight": 26.45,
+        "maxHeight": 34
+      },
+      "movement": {
+        "minWidth": 17.63,
+        "maxWidth": 31.48,
+        "minHeight": 21.41,
+        "maxHeight": 34
+      },
+      "attack": {
+        "minWidth": 17.63,
+        "maxWidth": 35.26,
+        "minHeight": 22.67,
+        "maxHeight": 31.48
+      },
+      "mobileRest": {
+        "width": 17.08,
+        "height": 20.97
+      }
+    },
+    {
+      "key": "venusaur",
+      "name": "Venusaur",
+      "id": 3,
+      "group": "heavy",
+      "reference": "Mago",
+      "similarity": "partial",
+      "cost": 5,
+      "hp": 1900,
+      "token": false,
+      "count": 1,
+      "scale": 2.2143,
+      "platform": null,
+      "rest": {
+        "minWidth": 55.36,
+        "maxWidth": 59.79,
+        "minHeight": 48.71,
+        "maxHeight": 55.36
+      },
+      "movement": {
+        "minWidth": 53.14,
+        "maxWidth": 62,
+        "minHeight": 48.71,
+        "maxHeight": 57.57
+      },
+      "attack": {
+        "minWidth": 55.36,
+        "maxWidth": 59.79,
+        "minHeight": 48.71,
+        "maxHeight": 59.79
+      },
+      "mobileRest": {
+        "width": 36.87,
+        "height": 34.14
+      }
+    },
+    {
+      "key": "butterfree",
+      "name": "Butterfree",
+      "id": 12,
+      "group": "flying",
+      "reference": "Mago de hielo",
+      "similarity": "partial",
+      "cost": 3,
+      "hp": 440,
+      "token": false,
+      "count": 1,
+      "scale": 1.2667,
+      "platform": null,
+      "rest": {
+        "minWidth": 26.6,
+        "maxWidth": 30.4,
+        "minHeight": 27.87,
+        "maxHeight": 31.67
+      },
+      "movement": {
+        "minWidth": 25.33,
+        "maxWidth": 38,
+        "minHeight": 26.6,
+        "maxHeight": 32.93
+      },
+      "attack": {
+        "minWidth": 19,
+        "maxWidth": 38,
+        "minHeight": 22.8,
+        "maxHeight": 32.93
+      },
+      "mobileRest": {
+        "width": 18.75,
+        "height": 19.53
+      }
+    },
+    {
+      "key": "beedrill",
+      "name": "Beedrill",
+      "id": 15,
+      "group": "swarms-tokens",
+      "reference": "Esbirros",
+      "similarity": "partial",
+      "cost": 3,
+      "hp": 230,
+      "token": false,
+      "count": 3,
+      "scale": 1.2414,
+      "platform": null,
+      "rest": {
+        "minWidth": 28.55,
+        "maxWidth": 36,
+        "minHeight": 26.07,
+        "maxHeight": 32.28
+      },
+      "movement": {
+        "minWidth": 26.07,
+        "maxWidth": 36,
+        "minHeight": 23.59,
+        "maxHeight": 36
+      },
+      "attack": {
+        "minWidth": 26.07,
+        "maxWidth": 36,
+        "minHeight": 23.59,
+        "maxHeight": 36
+      },
+      "mobileRest": {
+        "width": 22.2,
+        "height": 19.9
+      }
+    },
+    {
+      "key": "pidgeot",
+      "name": "Pidgeot",
+      "id": 18,
+      "group": "flying",
+      "reference": "Príncipe",
+      "similarity": "partial",
+      "cost": 4,
+      "hp": 1052,
+      "token": false,
+      "count": 1,
+      "scale": 2,
+      "platform": null,
+      "rest": {
+        "minWidth": 30,
+        "maxWidth": 52,
+        "minHeight": 48,
+        "maxHeight": 50
+      },
+      "movement": {
+        "minWidth": 42,
+        "maxWidth": 62,
+        "minHeight": 48,
+        "maxHeight": 54
+      },
+      "attack": {
+        "minWidth": 42,
+        "maxWidth": 62,
+        "minHeight": 42,
+        "maxHeight": 54
+      },
+      "mobileRest": {
+        "width": 32.07,
+        "height": 30.83
+      }
+    },
+    {
+      "key": "ekans",
+      "name": "Ekans",
+      "id": 23,
+      "group": "swarms-tokens",
+      "reference": null,
+      "similarity": "none",
+      "cost": 2,
+      "hp": 250,
+      "token": false,
+      "count": 2,
+      "scale": 1.3333,
+      "platform": null,
+      "rest": {
+        "minWidth": 22.67,
+        "maxWidth": 36,
+        "minHeight": 32,
+        "maxHeight": 38.67
+      },
+      "movement": {
+        "minWidth": 21.33,
+        "maxWidth": 42.67,
+        "minHeight": 30.67,
+        "maxHeight": 40
+      },
+      "attack": {
+        "minWidth": 18.67,
+        "maxWidth": 53.33,
+        "minHeight": 30.67,
+        "maxHeight": 52
+      },
+      "mobileRest": {
+        "width": 22.2,
+        "height": 23.84
+      }
+    },
+    {
+      "key": "sandshrew",
+      "name": "Sandshrew",
+      "id": 27,
+      "group": "swarms-tokens",
+      "reference": "Guardias",
+      "similarity": "partial",
+      "cost": 3,
+      "hp": 81,
+      "token": false,
+      "count": 3,
+      "scale": 1.5455,
+      "platform": null,
+      "rest": {
+        "minWidth": 26.27,
+        "maxWidth": 34,
+        "minHeight": 29.36,
+        "maxHeight": 34
+      },
+      "movement": {
+        "minWidth": 23.18,
+        "maxWidth": 34,
+        "minHeight": 29.36,
+        "maxHeight": 34
+      },
+      "attack": {
+        "minWidth": 20.09,
+        "maxWidth": 34,
+        "minHeight": 24.73,
+        "maxHeight": 34
+      },
+      "mobileRest": {
+        "width": 20.97,
+        "height": 20.97
+      }
+    },
+    {
+      "key": "nidoqueen",
+      "name": "Nidoqueen",
+      "id": 31,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 6,
+      "hp": 2800,
+      "token": false,
+      "count": 1,
+      "scale": 2.24,
+      "platform": null,
+      "rest": {
+        "minWidth": 49.28,
+        "maxWidth": 56,
+        "minHeight": 51.52,
+        "maxHeight": 56
+      },
+      "movement": {
+        "minWidth": 44.8,
+        "maxWidth": 56,
+        "minHeight": 49.28,
+        "maxHeight": 56
+      },
+      "attack": {
+        "minWidth": 47.04,
+        "maxWidth": 60.48,
+        "minHeight": 47.04,
+        "maxHeight": 56
+      },
+      "mobileRest": {
+        "width": 34.53,
+        "height": 34.53
+      }
+    },
+    {
+      "key": "nidoking",
+      "name": "Nidoking",
+      "id": 34,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 5,
+      "hp": 2200,
+      "token": false,
+      "count": 1,
+      "scale": 1.75,
+      "platform": null,
+      "rest": {
+        "minWidth": 47.25,
+        "maxWidth": 56,
+        "minHeight": 45.5,
+        "maxHeight": 54.25
+      },
+      "movement": {
+        "minWidth": 47.25,
+        "maxWidth": 56,
+        "minHeight": 45.5,
+        "maxHeight": 54.25
+      },
+      "attack": {
+        "minWidth": 47.25,
+        "maxWidth": 56,
+        "minHeight": 45.5,
+        "maxHeight": 54.25
+      },
+      "mobileRest": {
+        "width": 34.53,
+        "height": 33.45
+      }
+    },
+    {
+      "key": "mankey",
+      "name": "Mankey",
+      "id": 56,
+      "group": "swarms-tokens",
+      "reference": "Príncipe",
+      "similarity": "partial",
+      "cost": 2,
+      "hp": 150,
+      "token": false,
+      "count": 3,
+      "scale": 1.2308,
+      "platform": null,
+      "rest": {
+        "minWidth": 22.15,
+        "maxWidth": 29.54,
+        "minHeight": 25.85,
+        "maxHeight": 32
+      },
+      "movement": {
+        "minWidth": 19.69,
+        "maxWidth": 32,
+        "minHeight": 25.85,
+        "maxHeight": 35.69
+      },
+      "attack": {
+        "minWidth": 19.69,
+        "maxWidth": 32,
+        "minHeight": 25.85,
+        "maxHeight": 35.69
+      },
+      "mobileRest": {
+        "width": 18.22,
+        "height": 19.73
+      }
+    },
+    {
+      "key": "arcanine",
+      "name": "Arcanine",
+      "id": 59,
+      "group": "support-fighters",
+      "reference": "Príncipe",
+      "similarity": "partial",
+      "cost": 4,
+      "hp": 1400,
+      "token": false,
+      "count": 1,
+      "scale": 1.5,
+      "platform": null,
+      "rest": {
+        "minWidth": 30,
+        "maxWidth": 48,
+        "minHeight": 43.5,
+        "maxHeight": 48
+      },
+      "movement": {
+        "minWidth": 30,
+        "maxWidth": 48,
+        "minHeight": 37.5,
+        "maxHeight": 46.5
+      },
+      "attack": {
+        "minWidth": 30,
+        "maxWidth": 51,
+        "minHeight": 37.5,
+        "maxHeight": 48
+      },
+      "mobileRest": {
+        "width": 29.6,
+        "height": 29.6
+      }
+    },
+    {
+      "key": "slowbro",
+      "name": "Slowbro",
+      "id": 80,
+      "group": "support-fighters",
+      "reference": "Mago de hielo",
+      "similarity": "equivalent",
+      "cost": 3,
+      "hp": 688,
+      "token": false,
+      "count": 1,
+      "scale": 1.4194,
+      "platform": null,
+      "rest": {
+        "minWidth": 22.71,
+        "maxWidth": 41.16,
+        "minHeight": 28.39,
+        "maxHeight": 36.9
+      },
+      "movement": {
+        "minWidth": 22.71,
+        "maxWidth": 41.16,
+        "minHeight": 26.97,
+        "maxHeight": 36.9
+      },
+      "attack": {
+        "minWidth": 22.71,
+        "maxWidth": 45.42,
+        "minHeight": 28.39,
+        "maxHeight": 44
+      },
+      "mobileRest": {
+        "width": 25.38,
+        "height": 22.76
+      }
+    },
+    {
+      "key": "grimer",
+      "name": "Grimer",
+      "id": 88,
+      "group": "support-fighters",
+      "reference": null,
+      "similarity": "none",
+      "cost": 2,
+      "hp": 900,
+      "token": false,
+      "count": 1,
+      "scale": 1.3913,
+      "platform": null,
+      "rest": {
+        "minWidth": 26.43,
+        "maxWidth": 30.61,
+        "minHeight": 29.22,
+        "maxHeight": 29.22
+      },
+      "movement": {
+        "minWidth": 26.43,
+        "maxWidth": 30.61,
+        "minHeight": 25.04,
+        "maxHeight": 32
+      },
+      "attack": {
+        "minWidth": 26.43,
+        "maxWidth": 50.09,
+        "minHeight": 25.04,
+        "maxHeight": 44.52
+      },
+      "mobileRest": {
+        "width": 18.88,
+        "height": 18.02
+      }
+    },
+    {
+      "key": "cloyster",
+      "name": "Cloyster",
+      "id": 91,
+      "group": "structures",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 865,
+      "token": false,
+      "count": 1,
+      "scale": 1.5556,
+      "platform": false,
+      "rest": {
+        "minWidth": 35.78,
+        "maxWidth": 38.89,
+        "minHeight": 38.89,
+        "maxHeight": 42
+      },
+      "movement": {
+        "minWidth": 35.78,
+        "maxWidth": 42,
+        "minHeight": 38.89,
+        "maxHeight": 43.56
+      },
+      "attack": {
+        "minWidth": 35.78,
+        "maxWidth": 42,
+        "minHeight": 38.89,
+        "maxHeight": 45.11
+      },
+      "mobileRest": {
+        "width": 23.98,
+        "height": 25.9
+      }
+    },
+    {
+      "key": "gastly",
+      "name": "Gastly",
+      "id": 92,
+      "group": "swarms-tokens",
+      "reference": null,
+      "similarity": "none",
+      "cost": 2,
+      "hp": 81,
+      "token": false,
+      "count": 4,
+      "scale": 1,
+      "platform": null,
+      "rest": {
+        "minWidth": 25,
+        "maxWidth": 31,
+        "minHeight": 27,
+        "maxHeight": 28
+      },
+      "movement": {
+        "minWidth": 25,
+        "maxWidth": 32,
+        "minHeight": 27,
+        "maxHeight": 31
+      },
+      "attack": {
+        "minWidth": 25,
+        "maxWidth": 32,
+        "minHeight": 24,
+        "maxHeight": 32
+      },
+      "mobileRest": {
+        "width": 19.12,
+        "height": 17.27
+      }
+    },
+    {
+      "key": "voltorb",
+      "name": "Voltorb",
+      "id": 100,
+      "group": "support-fighters",
+      "reference": "Espíritu eléctrico",
+      "similarity": "partial",
+      "cost": 1,
+      "hp": 230,
+      "token": false,
+      "count": 1,
+      "scale": 1.75,
+      "platform": null,
+      "rest": {
+        "minWidth": 28,
+        "maxWidth": 28,
+        "minHeight": 28,
+        "maxHeight": 28
+      },
+      "movement": {
+        "minWidth": 28,
+        "maxWidth": 28,
+        "minHeight": 28,
+        "maxHeight": 28
+      },
+      "attack": {
+        "minWidth": 28,
+        "maxWidth": 28,
+        "minHeight": 28,
+        "maxHeight": 28
+      },
+      "mobileRest": {
+        "width": 17.27,
+        "height": 17.27
+      }
+    },
+    {
+      "key": "forretress",
+      "name": "Forretress",
+      "id": 205,
+      "group": "heavy",
+      "reference": "Rompemuros",
+      "similarity": "partial",
+      "cost": 4,
+      "hp": 1200,
+      "token": false,
+      "count": 1,
+      "scale": 1.8333,
+      "platform": null,
+      "rest": {
+        "minWidth": 36.67,
+        "maxWidth": 47.67,
+        "minHeight": 36.67,
+        "maxHeight": 36.67
+      },
+      "movement": {
+        "minWidth": 33,
+        "maxWidth": 36.67,
+        "minHeight": 36.67,
+        "maxHeight": 36.67
+      },
+      "attack": {
+        "minWidth": 33,
+        "maxWidth": 47.67,
+        "minHeight": 36.67,
+        "maxHeight": 36.67
+      },
+      "mobileRest": {
+        "width": 29.39,
+        "height": 22.61
+      }
+    },
+    {
+      "key": "electrode",
+      "name": "Electrode",
+      "id": 101,
+      "group": "swarms-tokens",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 1200,
+      "token": true,
+      "count": 1,
+      "scale": 2.3158,
+      "platform": null,
+      "rest": {
+        "minWidth": 44,
+        "maxWidth": 44,
+        "minHeight": 44,
+        "maxHeight": 44
+      },
+      "movement": {
+        "minWidth": 44,
+        "maxWidth": 44,
+        "minHeight": 44,
+        "maxHeight": 44
+      },
+      "attack": {
+        "minWidth": 44,
+        "maxWidth": 44,
+        "minHeight": 44,
+        "maxHeight": 44
+      },
+      "mobileRest": {
+        "width": 27.13,
+        "height": 27.13
+      }
+    },
+    {
+      "key": "exeggutor",
+      "name": "Exeggutor",
+      "id": 103,
+      "group": "swarms-tokens",
+      "reference": null,
+      "similarity": "none",
+      "cost": 5,
+      "hp": 1750,
+      "token": true,
+      "count": 1,
+      "scale": 2,
+      "platform": null,
+      "rest": {
+        "minWidth": 44,
+        "maxWidth": 54,
+        "minHeight": 54,
+        "maxHeight": 58
+      },
+      "movement": {
+        "minWidth": 44,
+        "maxWidth": 56,
+        "minHeight": 52,
+        "maxHeight": 60
+      },
+      "attack": {
+        "minWidth": 42,
+        "maxWidth": 58,
+        "minHeight": 50,
+        "maxHeight": 60
+      },
+      "mobileRest": {
+        "width": 33.3,
+        "height": 35.77
+      }
+    },
+    {
+      "key": "koffing",
+      "name": "Koffing",
+      "id": 109,
+      "group": "flying",
+      "reference": null,
+      "similarity": "none",
+      "cost": 3,
+      "hp": 700,
+      "token": false,
+      "count": 1,
+      "scale": 1.1613,
+      "platform": null,
+      "rest": {
+        "minWidth": 19.74,
+        "maxWidth": 26.71,
+        "minHeight": 23.23,
+        "maxHeight": 30.19
+      },
+      "movement": {
+        "minWidth": 19.74,
+        "maxWidth": 36,
+        "minHeight": 23.23,
+        "maxHeight": 36
+      },
+      "attack": {
+        "minWidth": 19.74,
+        "maxWidth": 61.55,
+        "minHeight": 23.23,
+        "maxHeight": 65.03
+      },
+      "mobileRest": {
+        "width": 16.47,
+        "height": 18.62
+      }
+    },
+    {
+      "key": "chansey",
+      "name": "Chansey",
+      "id": 113,
+      "group": "support-fighters",
+      "reference": null,
+      "similarity": "none",
+      "cost": 3,
+      "hp": 800,
+      "token": false,
+      "count": 1,
+      "scale": 1.75,
+      "platform": null,
+      "rest": {
+        "minWidth": 38.5,
+        "maxWidth": 42,
+        "minHeight": 35,
+        "maxHeight": 40.25
+      },
+      "movement": {
+        "minWidth": 36.75,
+        "maxWidth": 42,
+        "minHeight": 35,
+        "maxHeight": 40.25
+      },
+      "attack": {
+        "minWidth": 38.5,
+        "maxWidth": 47.25,
+        "minHeight": 35,
+        "maxHeight": 47.25
+      },
+      "mobileRest": {
+        "width": 25.9,
+        "height": 24.82
+      }
+    },
+    {
+      "key": "kangaskhan",
+      "name": "Kangaskhan",
+      "id": 115,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 5,
+      "hp": 2400,
+      "token": false,
+      "count": 1,
+      "scale": 1.875,
+      "platform": null,
+      "rest": {
+        "minWidth": 48.75,
+        "maxWidth": 56.25,
+        "minHeight": 48.75,
+        "maxHeight": 56.25
+      },
+      "movement": {
+        "minWidth": 43.13,
+        "maxWidth": 56.25,
+        "minHeight": 45,
+        "maxHeight": 60
+      },
+      "attack": {
+        "minWidth": 43.13,
+        "maxWidth": 56.25,
+        "minHeight": 45,
+        "maxHeight": 60
+      },
+      "mobileRest": {
+        "width": 34.69,
+        "height": 34.69
+      }
+    },
+    {
+      "key": "starmie",
+      "name": "Starmie",
+      "id": 121,
+      "group": "support-fighters",
+      "reference": "Arquero mágico",
+      "similarity": "partial",
+      "cost": 4,
+      "hp": 529,
+      "token": false,
+      "count": 1,
+      "scale": 1.8095,
+      "platform": null,
+      "rest": {
+        "minWidth": 23.52,
+        "maxWidth": 38,
+        "minHeight": 34.38,
+        "maxHeight": 41.62
+      },
+      "movement": {
+        "minWidth": 23.52,
+        "maxWidth": 38,
+        "minHeight": 34.38,
+        "maxHeight": 41.62
+      },
+      "attack": {
+        "minWidth": 23.52,
+        "maxWidth": 41.62,
+        "minHeight": 34.38,
+        "maxHeight": 41.62
+      },
+      "mobileRest": {
+        "width": 23.43,
+        "height": 25.66
+      }
+    },
+    {
+      "key": "mrmime",
+      "name": "Mr. Mime",
+      "id": 122,
+      "group": "support-fighters",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 590,
+      "token": false,
+      "count": 1,
+      "scale": 1.6429,
+      "platform": null,
+      "rest": {
+        "minWidth": 27.93,
+        "maxWidth": 37.79,
+        "minHeight": 39.43,
+        "maxHeight": 46
+      },
+      "movement": {
+        "minWidth": 23,
+        "maxWidth": 42.72,
+        "minHeight": 39.43,
+        "maxHeight": 46
+      },
+      "attack": {
+        "minWidth": 23,
+        "maxWidth": 42.72,
+        "minHeight": 32.86,
+        "maxHeight": 47.64
+      },
+      "mobileRest": {
+        "width": 23.3,
+        "height": 28.37
+      }
+    },
+    {
+      "key": "gyarados",
+      "name": "Gyarados",
+      "id": 130,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 6,
+      "hp": 2600,
+      "token": false,
+      "count": 1,
+      "scale": 1.3125,
+      "platform": null,
+      "rest": {
+        "minWidth": 48.56,
+        "maxWidth": 84,
+        "minHeight": 70.88,
+        "maxHeight": 84
+      },
+      "movement": {
+        "minWidth": 43.31,
+        "maxWidth": 108.94,
+        "minHeight": 64.31,
+        "maxHeight": 94.5
+      },
+      "attack": {
+        "minWidth": 43.31,
+        "maxWidth": 108.94,
+        "minHeight": 64.31,
+        "maxHeight": 94.5
+      },
+      "mobileRest": {
+        "width": 51.8,
+        "height": 51.8
+      }
+    },
+    {
+      "key": "ditto",
+      "name": "Ditto",
+      "id": 132,
+      "group": "support-fighters",
+      "reference": null,
+      "similarity": "none",
+      "cost": 3,
+      "hp": 508,
+      "token": false,
+      "count": 1,
+      "scale": 1.2381,
+      "platform": null,
+      "rest": {
+        "minWidth": 18.57,
+        "maxWidth": 24.76,
+        "minHeight": 22.29,
+        "maxHeight": 26
+      },
+      "movement": {
+        "minWidth": 18.57,
+        "maxWidth": 26,
+        "minHeight": 19.81,
+        "maxHeight": 26
+      },
+      "attack": {
+        "minWidth": 18.57,
+        "maxWidth": 26,
+        "minHeight": 19.81,
+        "maxHeight": 26
+      },
+      "mobileRest": {
+        "width": 15.27,
+        "height": 16.03
+      }
+    },
+    {
+      "key": "articuno",
+      "name": "Articuno",
+      "id": 144,
+      "group": "flying",
+      "reference": "Mago de hielo",
+      "similarity": "partial",
+      "cost": 5,
+      "hp": 1400,
+      "token": false,
+      "count": 1,
+      "scale": 0.9538,
+      "platform": null,
+      "rest": {
+        "minWidth": 42.92,
+        "maxWidth": 60.09,
+        "minHeight": 30.52,
+        "maxHeight": 43.87
+      },
+      "movement": {
+        "minWidth": 29.57,
+        "maxWidth": 62,
+        "minHeight": 30.52,
+        "maxHeight": 53.41
+      },
+      "attack": {
+        "minWidth": 29.57,
+        "maxWidth": 62,
+        "minHeight": 28.61,
+        "maxHeight": 53.41
+      },
+      "mobileRest": {
+        "width": 37.06,
+        "height": 27.06
+      }
+    },
+    {
+      "key": "zapdos",
+      "name": "Zapdos",
+      "id": 145,
+      "group": "flying",
+      "reference": "Dragón eléctrico",
+      "similarity": "partial",
+      "cost": 5,
+      "hp": 1200,
+      "token": false,
+      "count": 1,
+      "scale": 1.3617,
+      "platform": null,
+      "rest": {
+        "minWidth": 47.66,
+        "maxWidth": 61.28,
+        "minHeight": 54.47,
+        "maxHeight": 59.91
+      },
+      "movement": {
+        "minWidth": 36.77,
+        "maxWidth": 61.28,
+        "minHeight": 49.02,
+        "maxHeight": 64
+      },
+      "attack": {
+        "minWidth": 47.66,
+        "maxWidth": 69.45,
+        "minHeight": 43.57,
+        "maxHeight": 68.08
+      },
+      "mobileRest": {
+        "width": 37.79,
+        "height": 36.95
+      }
+    },
+    {
+      "key": "moltres",
+      "name": "Moltres",
+      "id": 146,
+      "group": "flying",
+      "reference": "Bebé dragón",
+      "similarity": "partial",
+      "cost": 5,
+      "hp": 1350,
+      "token": false,
+      "count": 1,
+      "scale": 0.8101,
+      "platform": null,
+      "rest": {
+        "minWidth": 43.75,
+        "maxWidth": 64,
+        "minHeight": 29.16,
+        "maxHeight": 35.64
+      },
+      "movement": {
+        "minWidth": 36.45,
+        "maxWidth": 64,
+        "minHeight": 29.16,
+        "maxHeight": 44.56
+      },
+      "attack": {
+        "minWidth": 36.45,
+        "maxWidth": 72.91,
+        "minHeight": 23.49,
+        "maxHeight": 44.56
+      },
+      "mobileRest": {
+        "width": 39.47,
+        "height": 21.98
+      }
+    },
+    {
+      "key": "dragonite",
+      "name": "Dragonite",
+      "id": 149,
+      "group": "flying",
+      "reference": null,
+      "similarity": "none",
+      "cost": 5,
+      "hp": 1600,
+      "token": false,
+      "count": 1,
+      "scale": 1.8857,
+      "platform": null,
+      "rest": {
+        "minWidth": 43.37,
+        "maxWidth": 50.91,
+        "minHeight": 60.34,
+        "maxHeight": 66
+      },
+      "movement": {
+        "minWidth": 43.37,
+        "maxWidth": 58.46,
+        "minHeight": 56.57,
+        "maxHeight": 66
+      },
+      "attack": {
+        "minWidth": 43.37,
+        "maxWidth": 60.34,
+        "minHeight": 47.14,
+        "maxHeight": 66
+      },
+      "mobileRest": {
+        "width": 31.4,
+        "height": 40.7
+      }
+    },
+    {
+      "key": "meganium",
+      "name": "Meganium",
+      "id": 154,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 5,
+      "hp": 2400,
+      "token": false,
+      "count": 1,
+      "scale": 1.8182,
+      "platform": null,
+      "rest": {
+        "minWidth": 38.18,
+        "maxWidth": 52.73,
+        "minHeight": 52.73,
+        "maxHeight": 58.18
+      },
+      "movement": {
+        "minWidth": 38.18,
+        "maxWidth": 52.73,
+        "minHeight": 49.09,
+        "maxHeight": 58.18
+      },
+      "attack": {
+        "minWidth": 38.18,
+        "maxWidth": 58.18,
+        "minHeight": 43.64,
+        "maxHeight": 58.18
+      },
+      "mobileRest": {
+        "width": 32.52,
+        "height": 35.88
+      }
+    },
+    {
+      "key": "typhlosion",
+      "name": "Typhlosion",
+      "id": 157,
+      "group": "support-fighters",
+      "reference": "Mago",
+      "similarity": "partial",
+      "cost": 5,
+      "hp": 1130,
+      "token": false,
+      "count": 1,
+      "scale": 1.931,
+      "platform": null,
+      "rest": {
+        "minWidth": 36.69,
+        "maxWidth": 44.41,
+        "minHeight": 48.28,
+        "maxHeight": 56
+      },
+      "movement": {
+        "minWidth": 34.76,
+        "maxWidth": 48.28,
+        "minHeight": 46.34,
+        "maxHeight": 56
+      },
+      "attack": {
+        "minWidth": 34.76,
+        "maxWidth": 48.28,
+        "minHeight": 44.41,
+        "maxHeight": 77.24
+      },
+      "mobileRest": {
+        "width": 27.39,
+        "height": 34.53
+      }
+    },
+    {
+      "key": "feraligatr",
+      "name": "Feraligatr",
+      "id": 160,
+      "group": "support-fighters",
+      "reference": "Mini P.E.K.K.A.",
+      "similarity": "partial",
+      "cost": 4,
+      "hp": 1390,
+      "token": false,
+      "count": 1,
+      "scale": 1.3889,
+      "platform": null,
+      "rest": {
+        "minWidth": 33.33,
+        "maxWidth": 44.44,
+        "minHeight": 38.89,
+        "maxHeight": 44.44
+      },
+      "movement": {
+        "minWidth": 33.33,
+        "maxWidth": 44.44,
+        "minHeight": 36.11,
+        "maxHeight": 44.44
+      },
+      "attack": {
+        "minWidth": 33.33,
+        "maxWidth": 51.39,
+        "minHeight": 31.94,
+        "maxHeight": 48.61
+      },
+      "mobileRest": {
+        "width": 27.41,
+        "height": 27.41
+      }
+    },
+    {
+      "key": "crobat",
+      "name": "Crobat",
+      "id": 169,
+      "group": "flying",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 900,
+      "token": false,
+      "count": 1,
+      "scale": 1.375,
+      "platform": null,
+      "rest": {
+        "minWidth": 20.63,
+        "maxWidth": 44,
+        "minHeight": 23.38,
+        "maxHeight": 34.38
+      },
+      "movement": {
+        "minWidth": 20.63,
+        "maxWidth": 44,
+        "minHeight": 23.38,
+        "maxHeight": 38.5
+      },
+      "attack": {
+        "minWidth": 20.63,
+        "maxWidth": 44,
+        "minHeight": 23.38,
+        "maxHeight": 38.5
+      },
+      "mobileRest": {
+        "width": 27.13,
+        "height": 21.2
+      }
+    },
+    {
+      "key": "ampharos",
+      "name": "Ampharos",
+      "id": 181,
+      "group": "structures",
+      "reference": "Tesla",
+      "similarity": "equivalent",
+      "cost": 4,
+      "hp": 1182,
+      "token": false,
+      "count": 1,
+      "scale": 1.625,
+      "platform": true,
+      "rest": {
+        "minWidth": 24.38,
+        "maxWidth": 40.63,
+        "minHeight": 35.75,
+        "maxHeight": 39
+      },
+      "movement": {
+        "minWidth": 27.63,
+        "maxWidth": 37.38,
+        "minHeight": 45.5,
+        "maxHeight": 52
+      },
+      "attack": {
+        "minWidth": 24.38,
+        "maxWidth": 40.63,
+        "minHeight": 39,
+        "maxHeight": 52
+      },
+      "mobileRest": {
+        "width": 25.05,
+        "height": 24.05
+      }
+    },
+    {
+      "key": "espeon",
+      "name": "Espeon",
+      "id": 196,
+      "group": "support-fighters",
+      "reference": "Arquero mágico",
+      "similarity": "partial",
+      "cost": 3,
+      "hp": 460,
+      "token": false,
+      "count": 1,
+      "scale": 1.3571,
+      "platform": null,
+      "rest": {
+        "minWidth": 27.14,
+        "maxWidth": 33.93,
+        "minHeight": 35.28,
+        "maxHeight": 38
+      },
+      "movement": {
+        "minWidth": 28.5,
+        "maxWidth": 38,
+        "minHeight": 33.93,
+        "maxHeight": 39.36
+      },
+      "attack": {
+        "minWidth": 25.78,
+        "maxWidth": 44.78,
+        "minHeight": 29.86,
+        "maxHeight": 42.07
+      },
+      "mobileRest": {
+        "width": 20.92,
+        "height": 23.43
+      }
+    },
+    {
+      "key": "umbreon",
+      "name": "Umbreon",
+      "id": 197,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 3,
+      "hp": 2100,
+      "token": false,
+      "count": 1,
+      "scale": 1.4,
+      "platform": null,
+      "rest": {
+        "minWidth": 23.8,
+        "maxWidth": 33.6,
+        "minHeight": 35,
+        "maxHeight": 37.8
+      },
+      "movement": {
+        "minWidth": 22.4,
+        "maxWidth": 33.6,
+        "minHeight": 33.6,
+        "maxHeight": 40.6
+      },
+      "attack": {
+        "minWidth": 21,
+        "maxWidth": 33.6,
+        "minHeight": 29.4,
+        "maxHeight": 42
+      },
+      "mobileRest": {
+        "width": 20.72,
+        "height": 23.31
+      }
+    },
+    {
+      "key": "wobbuffet",
+      "name": "Wobbuffet",
+      "id": 202,
+      "group": "structures",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 1900,
+      "token": false,
+      "count": 1,
+      "scale": 2,
+      "platform": false,
+      "rest": {
+        "minWidth": 32,
+        "maxWidth": 40,
+        "minHeight": 46,
+        "maxHeight": 50
+      },
+      "movement": {
+        "minWidth": 30,
+        "maxWidth": 40,
+        "minHeight": 44,
+        "maxHeight": 50
+      },
+      "attack": {
+        "minWidth": 32,
+        "maxWidth": 48,
+        "minHeight": 42,
+        "maxHeight": 50
+      },
+      "mobileRest": {
+        "width": 24.67,
+        "height": 30.83
+      }
+    },
+    {
+      "key": "steelix",
+      "name": "Steelix",
+      "id": 208,
+      "group": "heavy",
+      "reference": "Gigante",
+      "similarity": "partial",
+      "cost": 6,
+      "hp": 4500,
+      "token": false,
+      "count": 1,
+      "scale": 1.3115,
+      "platform": null,
+      "rest": {
+        "minWidth": 47.21,
+        "maxWidth": 76.07,
+        "minHeight": 59.02,
+        "maxHeight": 80
+      },
+      "movement": {
+        "minWidth": 47.21,
+        "maxWidth": 91.81,
+        "minHeight": 53.77,
+        "maxHeight": 83.94
+      },
+      "attack": {
+        "minWidth": 47.21,
+        "maxWidth": 91.81,
+        "minHeight": 53.77,
+        "maxHeight": 83.94
+      },
+      "mobileRest": {
+        "width": 46.91,
+        "height": 49.33
+      }
+    },
+    {
+      "key": "scizor",
+      "name": "Scizor",
+      "id": 212,
+      "group": "support-fighters",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 1200,
+      "token": false,
+      "count": 1,
+      "scale": 1.4839,
+      "platform": null,
+      "rest": {
+        "minWidth": 34.13,
+        "maxWidth": 46,
+        "minHeight": 38.58,
+        "maxHeight": 44.52
+      },
+      "movement": {
+        "minWidth": 29.68,
+        "maxWidth": 43.03,
+        "minHeight": 38.58,
+        "maxHeight": 46
+      },
+      "attack": {
+        "minWidth": 29.68,
+        "maxWidth": 46,
+        "minHeight": 38.58,
+        "maxHeight": 44.52
+      },
+      "mobileRest": {
+        "width": 28.37,
+        "height": 27.45
+      }
+    },
+    {
+      "key": "skarmory",
+      "name": "Skarmory",
+      "id": 227,
+      "group": "flying",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 560,
+      "token": false,
+      "count": 1,
+      "scale": 1.3714,
+      "platform": null,
+      "rest": {
+        "minWidth": 37.03,
+        "maxWidth": 42.51,
+        "minHeight": 41.14,
+        "maxHeight": 43.88
+      },
+      "movement": {
+        "minWidth": 38.4,
+        "maxWidth": 45.26,
+        "minHeight": 38.4,
+        "maxHeight": 48
+      },
+      "attack": {
+        "minWidth": 38.4,
+        "maxWidth": 56.23,
+        "minHeight": 26.06,
+        "maxHeight": 48
+      },
+      "mobileRest": {
+        "width": 26.22,
+        "height": 27.06
+      }
+    },
+    {
+      "key": "blissey",
+      "name": "Blissey",
+      "id": 242,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 5,
+      "hp": 1800,
+      "token": false,
+      "count": 1,
+      "scale": 1.9231,
+      "platform": null,
+      "rest": {
+        "minWidth": 42.31,
+        "maxWidth": 50,
+        "minHeight": 44.23,
+        "maxHeight": 50
+      },
+      "movement": {
+        "minWidth": 42.31,
+        "maxWidth": 50,
+        "minHeight": 44.23,
+        "maxHeight": 50
+      },
+      "attack": {
+        "minWidth": 48.08,
+        "maxWidth": 65.39,
+        "minHeight": 48.08,
+        "maxHeight": 67.31
+      },
+      "mobileRest": {
+        "width": 30.83,
+        "height": 30.83
+      }
+    },
+    {
+      "key": "lugia",
+      "name": "Lugia",
+      "id": 249,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 7,
+      "hp": 3300,
+      "token": false,
+      "count": 1,
+      "scale": 1.3125,
+      "platform": null,
+      "rest": {
+        "minWidth": 57.75,
+        "maxWidth": 69.56,
+        "minHeight": 70.88,
+        "maxHeight": 84
+      },
+      "movement": {
+        "minWidth": 82.69,
+        "maxWidth": 103.69,
+        "minHeight": 51.19,
+        "maxHeight": 82.69
+      },
+      "attack": {
+        "minWidth": 39.38,
+        "maxWidth": 103.69,
+        "minHeight": 51.19,
+        "maxHeight": 82.69
+      },
+      "mobileRest": {
+        "width": 42.9,
+        "height": 51.8
+      }
+    },
+    {
+      "key": "hooh",
+      "name": "Ho-Oh",
+      "id": 250,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 7,
+      "hp": 2900,
+      "token": false,
+      "count": 1,
+      "scale": 1.1304,
+      "platform": null,
+      "rest": {
+        "minWidth": 59.91,
+        "maxWidth": 64.43,
+        "minHeight": 61.04,
+        "maxHeight": 71.22
+      },
+      "movement": {
+        "minWidth": 53.13,
+        "maxWidth": 78,
+        "minHeight": 50.87,
+        "maxHeight": 71.22
+      },
+      "attack": {
+        "minWidth": 53.13,
+        "maxWidth": 78,
+        "minHeight": 50.87,
+        "maxHeight": 71.22
+      },
+      "mobileRest": {
+        "width": 39.73,
+        "height": 43.92
+      }
+    },
+    {
+      "key": "sceptile",
+      "name": "Sceptile",
+      "id": 254,
+      "group": "support-fighters",
+      "reference": "Duende lanzadardos",
+      "similarity": "partial",
+      "cost": 4,
+      "hp": 600,
+      "token": false,
+      "count": 1,
+      "scale": 1.5862,
+      "platform": null,
+      "rest": {
+        "minWidth": 36.48,
+        "maxWidth": 44.41,
+        "minHeight": 38.07,
+        "maxHeight": 44.41
+      },
+      "movement": {
+        "minWidth": 31.72,
+        "maxWidth": 44.41,
+        "minHeight": 38.07,
+        "maxHeight": 44.41
+      },
+      "attack": {
+        "minWidth": 36.48,
+        "maxWidth": 60.28,
+        "minHeight": 36.48,
+        "maxHeight": 57.1
+      },
+      "mobileRest": {
+        "width": 27.39,
+        "height": 27.39
+      }
+    },
+    {
+      "key": "blaziken",
+      "name": "Blaziken",
+      "id": 257,
+      "group": "support-fighters",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 1200,
+      "token": false,
+      "count": 1,
+      "scale": 1.5556,
+      "platform": null,
+      "rest": {
+        "minWidth": 34.22,
+        "maxWidth": 42,
+        "minHeight": 45.11,
+        "maxHeight": 49.78
+      },
+      "movement": {
+        "minWidth": 34.22,
+        "maxWidth": 42,
+        "minHeight": 43.56,
+        "maxHeight": 49.78
+      },
+      "attack": {
+        "minWidth": 34.22,
+        "maxWidth": 37.33,
+        "minHeight": 43.56,
+        "maxHeight": 49.78
+      },
+      "mobileRest": {
+        "width": 25.9,
+        "height": 30.7
+      }
+    },
+    {
+      "key": "swampert",
+      "name": "Swampert",
+      "id": 260,
+      "group": "heavy",
+      "reference": "Valquiria",
+      "similarity": "partial",
+      "cost": 5,
+      "hp": 2800,
+      "token": false,
+      "count": 1,
+      "scale": 1.8125,
+      "platform": null,
+      "rest": {
+        "minWidth": 39.88,
+        "maxWidth": 50.75,
+        "minHeight": 41.69,
+        "maxHeight": 52.56
+      },
+      "movement": {
+        "minWidth": 36.25,
+        "maxWidth": 50.75,
+        "minHeight": 41.69,
+        "maxHeight": 54.38
+      },
+      "attack": {
+        "minWidth": 36.25,
+        "maxWidth": 56.19,
+        "minHeight": 41.69,
+        "maxHeight": 54.38
+      },
+      "mobileRest": {
+        "width": 31.3,
+        "height": 32.41
+      }
+    },
+    {
+      "key": "gardevoir",
+      "name": "Gardevoir",
+      "id": 282,
+      "group": "support-fighters",
+      "reference": "Mago",
+      "similarity": "partial",
+      "cost": 5,
+      "hp": 780,
+      "token": false,
+      "count": 1,
+      "scale": 1.9048,
+      "platform": null,
+      "rest": {
+        "minWidth": 32.38,
+        "maxWidth": 40,
+        "minHeight": 43.81,
+        "maxHeight": 45.72
+      },
+      "movement": {
+        "minWidth": 30.48,
+        "maxWidth": 41.91,
+        "minHeight": 41.91,
+        "maxHeight": 49.52
+      },
+      "attack": {
+        "minWidth": 28.57,
+        "maxWidth": 49.52,
+        "minHeight": 38.1,
+        "maxHeight": 51.43
+      },
+      "mobileRest": {
+        "width": 24.67,
+        "height": 28.19
+      }
+    },
+    {
+      "key": "sableye",
+      "name": "Sableye",
+      "id": 302,
+      "group": "support-fighters",
+      "reference": "Bandida",
+      "similarity": "partial",
+      "cost": 3,
+      "hp": 800,
+      "token": false,
+      "count": 1,
+      "scale": 1.1111,
+      "platform": null,
+      "rest": {
+        "minWidth": 17.78,
+        "maxWidth": 24.44,
+        "minHeight": 22.22,
+        "maxHeight": 27.78
+      },
+      "movement": {
+        "minWidth": 17.78,
+        "maxWidth": 24.44,
+        "minHeight": 22.22,
+        "maxHeight": 28.89
+      },
+      "attack": {
+        "minWidth": 17.78,
+        "maxWidth": 30,
+        "minHeight": 22.22,
+        "maxHeight": 28.89
+      },
+      "mobileRest": {
+        "width": 15.07,
+        "height": 17.13
+      }
+    },
+    {
+      "key": "aggron",
+      "name": "Aggron",
+      "id": 306,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 6,
+      "hp": 3000,
+      "token": false,
+      "count": 1,
+      "scale": 1.9375,
+      "platform": null,
+      "rest": {
+        "minWidth": 56.19,
+        "maxWidth": 62,
+        "minHeight": 56.19,
+        "maxHeight": 62
+      },
+      "movement": {
+        "minWidth": 54.25,
+        "maxWidth": 62,
+        "minHeight": 54.25,
+        "maxHeight": 62
+      },
+      "attack": {
+        "minWidth": 54.25,
+        "maxWidth": 89.13,
+        "minHeight": 52.31,
+        "maxHeight": 62
+      },
+      "mobileRest": {
+        "width": 38.23,
+        "height": 38.23
+      }
+    },
+    {
+      "key": "sharpedo",
+      "name": "Sharpedo",
+      "id": 319,
+      "group": "support-fighters",
+      "reference": "Bandida",
+      "similarity": "partial",
+      "cost": 3,
+      "hp": 906,
+      "token": false,
+      "count": 1,
+      "scale": 1.3548,
+      "platform": null,
+      "rest": {
+        "minWidth": 29.81,
+        "maxWidth": 42,
+        "minHeight": 36.58,
+        "maxHeight": 36.58
+      },
+      "movement": {
+        "minWidth": 29.81,
+        "maxWidth": 42,
+        "minHeight": 36.58,
+        "maxHeight": 36.58
+      },
+      "attack": {
+        "minWidth": 29.81,
+        "maxWidth": 42,
+        "minHeight": 36.58,
+        "maxHeight": 36.58
+      },
+      "mobileRest": {
+        "width": 25.9,
+        "height": 22.56
+      }
+    },
+    {
+      "key": "flygon",
+      "name": "Flygon",
+      "id": 330,
+      "group": "flying",
+      "reference": null,
+      "similarity": "none",
+      "cost": 5,
+      "hp": 1650,
+      "token": false,
+      "count": 1,
+      "scale": 1.8788,
+      "platform": null,
+      "rest": {
+        "minWidth": 43.21,
+        "maxWidth": 54.49,
+        "minHeight": 50.73,
+        "maxHeight": 60.12
+      },
+      "movement": {
+        "minWidth": 43.21,
+        "maxWidth": 58.24,
+        "minHeight": 50.73,
+        "maxHeight": 62
+      },
+      "attack": {
+        "minWidth": 43.21,
+        "maxWidth": 88.3,
+        "minHeight": 37.58,
+        "maxHeight": 78.91
+      },
+      "mobileRest": {
+        "width": 33.6,
+        "height": 37.07
+      }
+    },
+    {
+      "key": "altaria",
+      "name": "Altaria",
+      "id": 334,
+      "group": "flying",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 900,
+      "token": false,
+      "count": 1,
+      "scale": 1.0698,
+      "platform": null,
+      "rest": {
+        "minWidth": 24.61,
+        "maxWidth": 27.81,
+        "minHeight": 27.81,
+        "maxHeight": 31.02
+      },
+      "movement": {
+        "minWidth": 27.81,
+        "maxWidth": 46,
+        "minHeight": 21.4,
+        "maxHeight": 32.09
+      },
+      "attack": {
+        "minWidth": 27.81,
+        "maxWidth": 46,
+        "minHeight": 21.4,
+        "maxHeight": 33.16
+      },
+      "mobileRest": {
+        "width": 17.15,
+        "height": 19.13
+      }
+    },
+    {
+      "key": "absol",
+      "name": "Absol",
+      "id": 359,
+      "group": "support-fighters",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 1100,
+      "token": false,
+      "count": 1,
+      "scale": 1.375,
+      "platform": null,
+      "rest": {
+        "minWidth": 23.38,
+        "maxWidth": 44,
+        "minHeight": 34.38,
+        "maxHeight": 42.63
+      },
+      "movement": {
+        "minWidth": 23.38,
+        "maxWidth": 44,
+        "minHeight": 31.63,
+        "maxHeight": 45.38
+      },
+      "attack": {
+        "minWidth": 23.38,
+        "maxWidth": 44,
+        "minHeight": 31.63,
+        "maxHeight": 45.38
+      },
+      "mobileRest": {
+        "width": 27.13,
+        "height": 26.29
+      }
+    },
+    {
+      "key": "salamence",
+      "name": "Salamence",
+      "id": 373,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 6,
+      "hp": 2200,
+      "token": false,
+      "count": 1,
+      "scale": 1.3333,
+      "platform": null,
+      "rest": {
+        "minWidth": 54.67,
+        "maxWidth": 69.33,
+        "minHeight": 41.33,
+        "maxHeight": 46.67
+      },
+      "movement": {
+        "minWidth": 46.67,
+        "maxWidth": 72,
+        "minHeight": 38.67,
+        "maxHeight": 60
+      },
+      "attack": {
+        "minWidth": 46.67,
+        "maxWidth": 73.33,
+        "minHeight": 37.33,
+        "maxHeight": 60
+      },
+      "mobileRest": {
+        "width": 42.75,
+        "height": 28.78
+      }
+    },
+    {
+      "key": "metagross",
+      "name": "Metagross",
+      "id": 376,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 6,
+      "hp": 2800,
+      "token": false,
+      "count": 1,
+      "scale": 1.7297,
+      "platform": null,
+      "rest": {
+        "minWidth": 60.54,
+        "maxWidth": 64,
+        "minHeight": 44.97,
+        "maxHeight": 53.62
+      },
+      "movement": {
+        "minWidth": 57.08,
+        "maxWidth": 74.38,
+        "minHeight": 41.51,
+        "maxHeight": 53.62
+      },
+      "attack": {
+        "minWidth": 60.54,
+        "maxWidth": 69.19,
+        "minHeight": 34.59,
+        "maxHeight": 53.62
+      },
+      "mobileRest": {
+        "width": 39.47,
+        "height": 33.07
+      }
+    },
+    {
+      "key": "kyogre",
+      "name": "Kyogre",
+      "id": 382,
+      "group": "heavy",
+      "reference": null,
+      "similarity": "none",
+      "cost": 8,
+      "hp": 3300,
+      "token": false,
+      "count": 1,
+      "scale": 1.3968,
+      "platform": null,
+      "rest": {
+        "minWidth": 65.65,
+        "maxWidth": 88,
+        "minHeight": 48.89,
+        "maxHeight": 62.86
+      },
+      "movement": {
+        "minWidth": 65.65,
+        "maxWidth": 88,
+        "minHeight": 46.09,
+        "maxHeight": 62.86
+      },
+      "attack": {
+        "minWidth": 64.25,
+        "maxWidth": 88,
+        "minHeight": 46.09,
+        "maxHeight": 64.25
+      },
+      "mobileRest": {
+        "width": 54.27,
+        "height": 38.76
+      }
+    },
+    {
+      "key": "groudon",
+      "name": "Groudon",
+      "id": 383,
+      "group": "heavy",
+      "reference": "Gigante",
+      "similarity": "partial",
+      "cost": 8,
+      "hp": 4500,
+      "token": false,
+      "count": 1,
+      "scale": 1.4286,
+      "platform": null,
+      "rest": {
+        "minWidth": 57.14,
+        "maxWidth": 78.57,
+        "minHeight": 57.14,
+        "maxHeight": 77.14
+      },
+      "movement": {
+        "minWidth": 52.86,
+        "maxWidth": 80,
+        "minHeight": 57.14,
+        "maxHeight": 77.14
+      },
+      "attack": {
+        "minWidth": 52.86,
+        "maxWidth": 87.14,
+        "minHeight": 52.86,
+        "maxHeight": 77.14
+      },
+      "mobileRest": {
+        "width": 48.45,
+        "height": 47.57
+      }
+    },
+    {
+      "key": "rayquaza",
+      "name": "Rayquaza",
+      "id": 384,
+      "group": "heavy",
+      "reference": "Arquero mágico",
+      "similarity": "partial",
+      "cost": 8,
+      "hp": 3000,
+      "token": false,
+      "count": 1,
+      "scale": 1.3125,
+      "platform": null,
+      "rest": {
+        "minWidth": 60.38,
+        "maxWidth": 84,
+        "minHeight": 77.44,
+        "maxHeight": 87.94
+      },
+      "movement": {
+        "minWidth": 59.06,
+        "maxWidth": 84,
+        "minHeight": 77.44,
+        "maxHeight": 90.56
+      },
+      "attack": {
+        "minWidth": 59.06,
+        "maxWidth": 119.44,
+        "minHeight": 77.44,
+        "maxHeight": 105
+      },
+      "mobileRest": {
+        "width": 51.8,
+        "height": 54.23
+      }
+    },
+    {
+      "key": "nidoranF",
+      "name": "Nidoran♀",
+      "id": 29,
+      "group": "swarms-tokens",
+      "reference": null,
+      "similarity": "none",
+      "cost": 0,
+      "hp": 81,
+      "token": true,
+      "count": 1,
+      "scale": 1.2174,
+      "platform": null,
+      "rest": {
+        "minWidth": 18.26,
+        "maxWidth": 23.13,
+        "minHeight": 24.35,
+        "maxHeight": 28
+      },
+      "movement": {
+        "minWidth": 18.26,
+        "maxWidth": 24.35,
+        "minHeight": 20.7,
+        "maxHeight": 28
+      },
+      "attack": {
+        "minWidth": 18.26,
+        "maxWidth": 24.35,
+        "minHeight": 20.7,
+        "maxHeight": 28
+      },
+      "mobileRest": {
+        "width": 14.26,
+        "height": 17.27
+      }
+    },
+    {
+      "key": "nidoranM",
+      "name": "Nidoran♂",
+      "id": 32,
+      "group": "swarms-tokens",
+      "reference": null,
+      "similarity": "none",
+      "cost": 0,
+      "hp": 180,
+      "token": true,
+      "count": 1,
+      "scale": 1,
+      "platform": null,
+      "rest": {
+        "minWidth": 21,
+        "maxWidth": 24,
+        "minHeight": 21,
+        "maxHeight": 23
+      },
+      "movement": {
+        "minWidth": 21,
+        "maxWidth": 26,
+        "minHeight": 21,
+        "maxHeight": 28
+      },
+      "attack": {
+        "minWidth": 21,
+        "maxWidth": 26,
+        "minHeight": 21,
+        "maxHeight": 28
+      },
+      "mobileRest": {
+        "width": 14.8,
+        "height": 14.18
+      }
+    },
+    {
+      "key": "exeggcute",
+      "name": "Exeggcute",
+      "id": 102,
+      "group": "swarms-tokens",
+      "reference": "Esqueleto",
+      "similarity": "equivalent",
+      "cost": 0,
+      "hp": 81,
+      "token": true,
+      "count": 1,
+      "scale": 0.8571,
+      "platform": null,
+      "rest": {
+        "minWidth": 18.86,
+        "maxWidth": 22.28,
+        "minHeight": 18.86,
+        "maxHeight": 21.43
+      },
+      "movement": {
+        "minWidth": 18.86,
+        "maxWidth": 24,
+        "minHeight": 18.86,
+        "maxHeight": 24
+      },
+      "attack": {
+        "minWidth": 18.86,
+        "maxWidth": 24,
+        "minHeight": 17.14,
+        "maxHeight": 24
+      },
+      "mobileRest": {
+        "width": 13.74,
+        "height": 13.21
+      }
+    },
+    {
+      "key": "babyKangaskhan",
+      "name": "Cría",
+      "id": 115,
+      "group": "swarms-tokens",
+      "reference": null,
+      "similarity": "none",
+      "cost": 0,
+      "hp": 400,
+      "token": true,
+      "count": 1,
+      "scale": 1.03125,
+      "platform": null,
+      "rest": {
+        "minWidth": 26.81,
+        "maxWidth": 30.94,
+        "minHeight": 26.81,
+        "maxHeight": 30.94
+      },
+      "movement": {
+        "minWidth": 23.72,
+        "maxWidth": 30.94,
+        "minHeight": 24.75,
+        "maxHeight": 33
+      },
+      "attack": {
+        "minWidth": 23.72,
+        "maxWidth": 30.94,
+        "minHeight": 24.75,
+        "maxHeight": 33
+      },
+      "mobileRest": {
+        "width": 19.08,
+        "height": 19.08
+      }
+    },
+    {
+      "key": "centralElectrode",
+      "name": "Central Electrode",
+      "id": 101,
+      "group": "structures",
+      "reference": "Horno",
+      "similarity": "partial",
+      "cost": 5,
+      "hp": 1000,
+      "token": false,
+      "count": 1,
+      "scale": 2.3158,
+      "platform": true,
+      "rest": {
+        "minWidth": 44,
+        "maxWidth": 44,
+        "minHeight": 44,
+        "maxHeight": 44
+      },
+      "movement": {
+        "minWidth": 44,
+        "maxWidth": 44,
+        "minHeight": 44,
+        "maxHeight": 44
+      },
+      "attack": {
+        "minWidth": 44,
+        "maxWidth": 44,
+        "minHeight": 44,
+        "maxHeight": 44
+      },
+      "mobileRest": {
+        "width": 27.13,
+        "height": 27.13
+      }
+    },
+    {
+      "key": "madriguera",
+      "name": "Madriguera Nidoqueen",
+      "id": 31,
+      "group": "structures",
+      "reference": "Choza de bárbaros",
+      "similarity": "partial",
+      "cost": 5,
+      "hp": 1200,
+      "token": false,
+      "count": 1,
+      "scale": 2.24,
+      "platform": false,
+      "rest": {
+        "minWidth": 49.28,
+        "maxWidth": 56,
+        "minHeight": 51.52,
+        "maxHeight": 56
+      },
+      "movement": {
+        "minWidth": 44.8,
+        "maxWidth": 56,
+        "minHeight": 49.28,
+        "maxHeight": 56
+      },
+      "attack": {
+        "minWidth": 47.04,
+        "maxWidth": 60.48,
+        "minHeight": 47.04,
+        "maxHeight": 56
+      },
+      "mobileRest": {
+        "width": 34.53,
+        "height": 34.53
+      }
+    },
+    {
+      "key": "vivero",
+      "name": "Vivero Exeggutor",
+      "id": 103,
+      "group": "structures",
+      "reference": "Lápida",
+      "similarity": "equivalent",
+      "cost": 3,
+      "hp": 529,
+      "token": false,
+      "count": 1,
+      "scale": 2,
+      "platform": false,
+      "rest": {
+        "minWidth": 44,
+        "maxWidth": 54,
+        "minHeight": 54,
+        "maxHeight": 58
+      },
+      "movement": {
+        "minWidth": 44,
+        "maxWidth": 56,
+        "minHeight": 52,
+        "maxHeight": 60
+      },
+      "attack": {
+        "minWidth": 42,
+        "maxWidth": 58,
+        "minHeight": 50,
+        "maxHeight": 60
+      },
+      "mobileRest": {
+        "width": 33.3,
+        "height": 35.77
+      }
+    },
+    {
+      "key": "regice",
+      "name": "Regice",
+      "id": 378,
+      "group": "structures",
+      "reference": null,
+      "similarity": "none",
+      "cost": 4,
+      "hp": 1000,
+      "token": false,
+      "count": 1,
+      "scale": 1.4194,
+      "platform": false,
+      "rest": {
+        "minWidth": 28.39,
+        "maxWidth": 44,
+        "minHeight": 38.32,
+        "maxHeight": 41.16
+      },
+      "movement": {
+        "minWidth": 28.39,
+        "maxWidth": 44,
+        "minHeight": 34.07,
+        "maxHeight": 38.32
+      },
+      "attack": {
+        "minWidth": 28.39,
+        "maxWidth": 44,
+        "minHeight": 36.9,
+        "maxHeight": 41.16
+      },
+      "mobileRest": {
+        "width": 27.13,
+        "height": 25.38
+      }
+    },
+    {
+      "key": "duskull",
+      "name": "Dusclops",
+      "id": 356,
+      "group": "support-fighters",
+      "reference": "Bruja",
+      "similarity": "partial",
+      "cost": 5,
+      "hp": 839,
+      "token": false,
+      "count": 1,
+      "scale": 1.8,
+      "platform": null,
+      "rest": {
+        "minWidth": 50.4,
+        "maxWidth": 57.6,
+        "minHeight": 50.4,
+        "maxHeight": 54
+      },
+      "movement": {
+        "minWidth": 45,
+        "maxWidth": 57.6,
+        "minHeight": 46.8,
+        "maxHeight": 54
+      },
+      "attack": {
+        "minWidth": 45,
+        "maxWidth": 72,
+        "minHeight": 45,
+        "maxHeight": 55.8
+      },
+      "mobileRest": {
+        "width": 35.52,
+        "height": 33.3
+      }
+    },
+    {
+      "key": "duskullToken",
+      "name": "Duskull",
+      "id": 355,
+      "group": "swarms-tokens",
+      "reference": "Esqueleto",
+      "similarity": "equivalent",
+      "cost": 0,
+      "hp": 81,
+      "token": true,
+      "count": 1,
+      "scale": 0.8,
+      "platform": null,
+      "rest": {
+        "minWidth": 16.8,
+        "maxWidth": 20,
+        "minHeight": 17.6,
+        "maxHeight": 20.8
+      },
+      "movement": {
+        "minWidth": 15.2,
+        "maxWidth": 18.4,
+        "minHeight": 16,
+        "maxHeight": 19.2
+      },
+      "attack": {
+        "minWidth": 15.2,
+        "maxWidth": 20,
+        "minHeight": 16.8,
+        "maxHeight": 20.8
+      },
+      "mobileRest": {
+        "width": 12.33,
+        "height": 12.83
+      }
+    },
+    {
+      "key": "raichu",
+      "name": "Raichu",
+      "id": 26,
+      "group": "support-fighters",
+      "reference": "Mini P.E.K.K.A.",
+      "similarity": "partial",
+      "cost": 3,
+      "hp": 640,
+      "token": false,
+      "count": 1,
+      "scale": 1.4667,
+      "platform": null,
+      "rest": {
+        "minWidth": 35.2,
+        "maxWidth": 44,
+        "minHeight": 38.13,
+        "maxHeight": 44
+      },
+      "movement": {
+        "minWidth": 35.2,
+        "maxWidth": 44,
+        "minHeight": 36.67,
+        "maxHeight": 44
+      },
+      "attack": {
+        "minWidth": 35.2,
+        "maxWidth": 44,
+        "minHeight": 36.67,
+        "maxHeight": 44
+      },
+      "mobileRest": {
+        "width": 27.13,
+        "height": 27.13
+      }
+    },
+    {
+      "key": "registeel",
+      "name": "Registeel",
+      "id": 379,
+      "group": "swarms-tokens",
+      "reference": null,
+      "similarity": "none",
+      "cost": 7,
+      "hp": 3200,
+      "token": true,
+      "count": 1,
+      "scale": 2.2857,
+      "platform": null,
+      "rest": {
+        "minWidth": 59.43,
+        "maxWidth": 70.86,
+        "minHeight": 59.43,
+        "maxHeight": 64
+      },
+      "movement": {
+        "minWidth": 59.43,
+        "maxWidth": 70.86,
+        "minHeight": 59.43,
+        "maxHeight": 66.29
+      },
+      "attack": {
+        "minWidth": 59.43,
+        "maxWidth": 80,
+        "minHeight": 59.43,
+        "maxHeight": 70.86
+      },
+      "mobileRest": {
+        "width": 43.69,
+        "height": 39.47
+      }
+    },
+    {
+      "key": "rhydon",
+      "name": "Rhydon",
+      "id": 112,
+      "group": "heavy",
+      "reference": "P.E.K.K.A.",
+      "similarity": "equivalent",
+      "cost": 7,
+      "hp": 3760,
+      "token": false,
+      "count": 1,
+      "scale": 2.125,
+      "platform": null,
+      "rest": {
+        "minWidth": 53.13,
+        "maxWidth": 68,
+        "minHeight": 57.38,
+        "maxHeight": 65.88
+      },
+      "movement": {
+        "minWidth": 51,
+        "maxWidth": 68,
+        "minHeight": 57.38,
+        "maxHeight": 68
+      },
+      "attack": {
+        "minWidth": 51,
+        "maxWidth": 68,
+        "minHeight": 57.38,
+        "maxHeight": 68
+      },
+      "mobileRest": {
+        "width": 41.93,
+        "height": 40.62
+      }
+    },
+    {
+      "key": "regirock",
+      "name": "Regirock",
+      "id": 377,
+      "group": "heavy",
+      "reference": "Gigante",
+      "similarity": "partial",
+      "cost": 7,
+      "hp": 5700,
+      "token": false,
+      "count": 1,
+      "scale": 2.3226,
+      "platform": null,
+      "rest": {
+        "minWidth": 44.13,
+        "maxWidth": 74.32,
+        "minHeight": 60.39,
+        "maxHeight": 72
+      },
+      "movement": {
+        "minWidth": 44.13,
+        "maxWidth": 74.32,
+        "minHeight": 60.39,
+        "maxHeight": 76.65
+      },
+      "attack": {
+        "minWidth": 44.13,
+        "maxWidth": 74.32,
+        "minHeight": 60.39,
+        "maxHeight": 76.65
+      },
+      "mobileRest": {
+        "width": 45.83,
+        "height": 44.4
+      }
+    },
+    {
+      "key": "celebi",
+      "name": "Celebi",
+      "id": 251,
+      "group": "heavy",
+      "reference": "Esbirro gigante",
+      "similarity": "partial",
+      "cost": 4,
+      "hp": 1350,
+      "token": false,
+      "count": 1,
+      "scale": 1.8462,
+      "platform": null,
+      "rest": {
+        "minWidth": 31.39,
+        "maxWidth": 33.23,
+        "minHeight": 42.46,
+        "maxHeight": 46.16
+      },
+      "movement": {
+        "minWidth": 29.54,
+        "maxWidth": 33.23,
+        "minHeight": 42.46,
+        "maxHeight": 48
+      },
+      "attack": {
+        "minWidth": 29.54,
+        "maxWidth": 33.23,
+        "minHeight": 42.46,
+        "maxHeight": 48
+      },
+      "mobileRest": {
+        "width": 20.49,
+        "height": 28.46
+      }
+    },
+    {
+      "key": "pandilla",
+      "name": "Pandilla Rocket",
+      "id": 261,
+      "group": "swarms-tokens",
+      "reference": "Pandilla de duendes",
+      "similarity": "partial",
+      "cost": 3,
+      "hp": 202,
+      "token": false,
+      "count": 5,
+      "scale": 1.2593,
+      "platform": null,
+      "rest": {
+        "minWidth": 17.63,
+        "maxWidth": 27.7,
+        "minHeight": 26.45,
+        "maxHeight": 34
+      },
+      "movement": {
+        "minWidth": 17.63,
+        "maxWidth": 31.48,
+        "minHeight": 21.41,
+        "maxHeight": 34
+      },
+      "attack": {
+        "minWidth": 17.63,
+        "maxWidth": 35.26,
+        "minHeight": 22.67,
+        "maxHeight": 31.48
+      },
+      "mobileRest": {
+        "width": 17.08,
+        "height": 20.97
+      }
+    },
+    {
+      "key": "shuppetToken",
+      "name": "Shuppet",
+      "id": 353,
+      "group": "swarms-tokens",
+      "reference": "Esqueleto",
+      "similarity": "partial",
+      "cost": 0,
+      "hp": 81,
+      "token": true,
+      "count": 1,
+      "scale": 1.3,
+      "platform": null,
+      "rest": {
+        "minWidth": 19.5,
+        "maxWidth": 24.7,
+        "minHeight": 22.1,
+        "maxHeight": 26
+      },
+      "movement": {
+        "minWidth": 19.5,
+        "maxWidth": 24.7,
+        "minHeight": 22.1,
+        "maxHeight": 26
+      },
+      "attack": {
+        "minWidth": 19.5,
+        "maxWidth": 24.7,
+        "minHeight": 22.1,
+        "maxHeight": 26
+      },
+      "mobileRest": {
+        "width": 15.23,
+        "height": 16.03
+      }
+    },
+    {
+      "key": "poochyenaToken",
+      "name": "Poochyena",
+      "id": 261,
+      "group": "swarms-tokens",
+      "reference": "Duende",
+      "similarity": "equivalent",
+      "cost": 0,
+      "hp": 202,
+      "token": true,
+      "count": 1,
+      "scale": 1.2593,
+      "platform": null,
+      "rest": {
+        "minWidth": 17.63,
+        "maxWidth": 27.7,
+        "minHeight": 26.45,
+        "maxHeight": 34
+      },
+      "movement": {
+        "minWidth": 17.63,
+        "maxWidth": 31.48,
+        "minHeight": 21.41,
+        "maxHeight": 34
+      },
+      "attack": {
+        "minWidth": 17.63,
+        "maxWidth": 35.26,
+        "minHeight": 22.67,
+        "maxHeight": 31.48
+      },
+      "mobileRest": {
+        "width": 17.08,
+        "height": 20.97
+      }
+    },
+    {
+      "key": "raltsToken",
+      "name": "Ralts",
+      "id": 280,
+      "group": "swarms-tokens",
+      "reference": "Duende con lanza",
+      "similarity": "equivalent",
+      "cost": 0,
+      "hp": 133,
+      "token": true,
+      "count": 1,
+      "scale": 1.4545,
+      "platform": null,
+      "rest": {
+        "minWidth": 18.91,
+        "maxWidth": 27.64,
+        "minHeight": 26.18,
+        "maxHeight": 32
+      },
+      "movement": {
+        "minWidth": 18.91,
+        "maxWidth": 27.64,
+        "minHeight": 24.73,
+        "maxHeight": 32
+      },
+      "attack": {
+        "minWidth": 18.91,
+        "maxWidth": 26.18,
+        "minHeight": 27.64,
+        "maxHeight": 32
+      },
+      "mobileRest": {
+        "width": 17.04,
+        "height": 19.73
+      }
+    }
+  ],
+  "sheets": [
+    {
+      "name": "heavy-1.png"
+    },
+    {
+      "name": "heavy-2.png"
+    },
+    {
+      "name": "support-fighters-1.png"
+    },
+    {
+      "name": "support-fighters-2.png"
+    },
+    {
+      "name": "flying-1.png"
+    },
+    {
+      "name": "structures-1.png"
+    },
+    {
+      "name": "swarms-tokens-1.png"
+    },
+    {
+      "name": "all-multi-body-deployments.png"
+    }
+  ],
+  "notes": [
+    "Body bounds come from original opaque raster pixels in all eight directions; attacks include extended hands/projectile origins and are not body-size targets.",
+    "Contact sheets use the actual Renderer.sprite path and current scale, downsampled to the measured mobile CSS scale. Platforms are included where active; no runtime files changed.",
+    "Roles calibrate a readable game hierarchy, not real-world Pokedex sizes or an asserted pixel-for-pixel Clash Royale screen measurement."
+  ],
+  "inputs": [
+    {
+      "file": "dist/unit-sizes.js",
+      "sha256": "92f167a9f1830d0a39c1c767255c671d37e14538d0fd01de4920aff8e2a51026"
+    },
+    {
+      "file": "dist/balance.js",
+      "sha256": "04835d8494d043d17e681b8e048413a79a3373bcd674e2ab6f83fdf505f7dc07"
+    },
+    {
+      "file": "dist/render.js",
+      "sha256": "12c225a19488b8c43e443c95b99a5b3ff90fba1066d166e628260be7a3ddbaa7"
+    },
+    {
+      "file": "dist/pokemon-silhouettes.js",
+      "sha256": "0739104f8d80b383156e5828ba35a121b377585c11b5e6914a178d5b174b71fb"
+    }
+  ]
+}

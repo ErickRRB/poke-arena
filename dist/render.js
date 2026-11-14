@@ -671,9 +671,9 @@ export class Renderer {
     if(spell.delay>0||spell.done)return;
     const id=spell.visualId??`${spell.team}:${spell.key}:${spell.startX}:${spell.startY}:${spell.x}:${spell.y}`;
     this.visualFlights??=new Map();let pose=this.visualFlights.get(id);
-    if(!pose||spell.flightElapsed<pose.logical-1e-7)pose={elapsed:Math.max(0,spell.flightElapsed-1/30),logical:spell.flightElapsed};
-    // Interpolate the last simulation interval at display rate, without early landing.
-    pose.elapsed=Math.max(0,Math.min(spell.flightElapsed,Math.max(pose.elapsed,spell.flightElapsed-1/30)+(this.drawDt||0)));
+    if(!pose)pose={elapsed:Math.max(0,spell.flightElapsed-1/15),logical:spell.flightElapsed};
+    // One monotonic display clock for CPU30/debug60/online15. Never jump at a packet or rewind on correction.
+    pose.elapsed=Math.max(pose.elapsed,Math.min(spell.flightElapsed,pose.elapsed+(this.drawDt||0)));
     pose.logical=spell.flightElapsed;pose.at=this.t;this.visualFlights.set(id,pose);
     const visual={...spell,flightElapsed:Math.min(spell.flightTime,pose.elapsed)};
     const {point,tail,angle}=fireballVisual(visual,this.verticalScale||1),age=this.reduced?0:visual.flightElapsed;
