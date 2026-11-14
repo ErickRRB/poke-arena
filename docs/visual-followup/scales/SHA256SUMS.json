@@ -1,0 +1,215 @@
+{
+  "scope": "QA scripts and scale-audit documents only; no runtime/assets included",
+  "files": [
+    {
+      "file": "docs/visual-followup/scales/air-heavy-1.png",
+      "bytes": 130642,
+      "sha256": "c2f8a94bc00ff2e258e06b09bade5f382099640c8ed8486f51a5ecf6fbe1b49e"
+    },
+    {
+      "file": "docs/visual-followup/scales/air-support-1.png",
+      "bytes": 112241,
+      "sha256": "506309c7b2408e7874108ddfb20c0bb8b2b43abc1ffcf023cf934ae285c49cff"
+    },
+    {
+      "file": "docs/visual-followup/scales/air-support-2.png",
+      "bytes": 122676,
+      "sha256": "e8b5a8c4bb21075798f4e58d955ad08a95ee8dfbc584328a92d8e053eabedfd5"
+    },
+    {
+      "file": "docs/visual-followup/scales/air-support-3.png",
+      "bytes": 66083,
+      "sha256": "7404ff305d16f11078f32ef0e7badcc3cfc2104b13883cabf62f5ff8f5ec2791"
+    },
+    {
+      "file": "docs/visual-followup/scales/all-key-decisions.csv",
+      "bytes": 39738,
+      "sha256": "c0940ede91f872f8de39309b87f7d82d8a039b79d4c6725812c2b31d75f8a012"
+    },
+    {
+      "file": "docs/visual-followup/scales/body-measurements.csv",
+      "bytes": 17514,
+      "sha256": "d615ec3c640d9e510e5c4bec1d2b8b14f8f0e28b987e0bf71856e3a023d4c227"
+    },
+    {
+      "file": "docs/visual-followup/scales/bowler-context/measurements.json",
+      "bytes": 31663,
+      "sha256": "5bba21a940501dc3dcd20eb8a1e6caed91a573617820bfd6a3aba1cc904319d3"
+    },
+    {
+      "file": "docs/visual-followup/scales/bowler-context/role-comparison.png",
+      "bytes": 125063,
+      "sha256": "b671ca6eb7fc08435acbbdb1215ac786a2cc7256b8a4ca8ba91361c69389d84e"
+    },
+    {
+      "file": "docs/visual-followup/scales/candidate-alakazam-rest-1.png",
+      "bytes": 71472,
+      "sha256": "7cddda563a33f5500cf8571e6febe30fc93e865cc56721f888b95b727f8ef7ed"
+    },
+    {
+      "file": "docs/visual-followup/scales/candidate-ampharos-attack-1.png",
+      "bytes": 118546,
+      "sha256": "00273a829aca6646441960e145ba035d67847fe42bc0b5e00557abe4d9cd9d19"
+    },
+    {
+      "file": "docs/visual-followup/scales/candidate-ampharos-attack-2.png",
+      "bytes": 43483,
+      "sha256": "978feadb6b895cf657113e2baa5c5adba32cbad7e317c2535d626f54591e3c45"
+    },
+    {
+      "file": "docs/visual-followup/scales/candidate-ampharos-rest-1.png",
+      "bytes": 115574,
+      "sha256": "8dc18739dbf57a7c7851991a363695159eb4f4227e8c75a90f16d1df1abe49ca"
+    },
+    {
+      "file": "docs/visual-followup/scales/candidate-ampharos-rest-2.png",
+      "bytes": 42564,
+      "sha256": "99379cd543d175358df0fabfc48e7697a97406c11ef0897f63930a5c3ca7b87b"
+    },
+    {
+      "file": "docs/visual-followup/scales/candidate-bowlerConkeldurrCandidate-rest-1.png",
+      "bytes": 134567,
+      "sha256": "647d5d915e3a7544d5d432b32be37580fe4a997e1e3d2e40ee5f05ae7b6503e0"
+    },
+    {
+      "file": "docs/visual-followup/scales/candidate-knightFarfetchdCandidate-rest-1.png",
+      "bytes": 108553,
+      "sha256": "27a3834655fcd08aa5897d812a24ccc7ff65fc2b6a1292e4a549706b63e0f50b"
+    },
+    {
+      "file": "docs/visual-followup/scales/candidate-nuzleaf-rest-1.png",
+      "bytes": 106932,
+      "sha256": "7f73951e02c9e415332a5ca1c2b9dbc28d7368aaac1f9bafd9e76f3569118b10"
+    },
+    {
+      "file": "docs/visual-followup/scales/collisions-separate.csv",
+      "bytes": 8116,
+      "sha256": "ced66ed205c15e516ff57e6b89d711761cf034ba373572da453c16cff4e8ea2c"
+    },
+    {
+      "file": "docs/visual-followup/scales/decisions.json",
+      "bytes": 112020,
+      "sha256": "1fbfcc856500d2c1fd1c1fd9db642d3bd578681470027455ee326a5bc60fbc1f"
+    },
+    {
+      "file": "docs/visual-followup/scales/fighters-cycle-1.png",
+      "bytes": 107900,
+      "sha256": "805a5a11dd89c6a437d133c2951cd5003730a83ae139ac9213cc9264d3186948"
+    },
+    {
+      "file": "docs/visual-followup/scales/fighters-cycle-2.png",
+      "bytes": 121885,
+      "sha256": "d7306b7080249cb184ab94ea9d42441c07283e9a892a1f4c5f6f836a3b5c2e12"
+    },
+    {
+      "file": "docs/visual-followup/scales/frontline-1.png",
+      "bytes": 117594,
+      "sha256": "17481b50d4600029c04afac3650ea4d7891e3342e9a5bf44f877277bb54cdad6"
+    },
+    {
+      "file": "docs/visual-followup/scales/frontline-2.png",
+      "bytes": 128675,
+      "sha256": "53a403349549ba1c3ba1dcbc485eefe538e9ff672a2866b820c27dba3d4a5f9d"
+    },
+    {
+      "file": "docs/visual-followup/scales/frontline-3.png",
+      "bytes": 45700,
+      "sha256": "b2c735a4360765893be59e675e91c35a128b989073578dccebba9d70a3abc752"
+    },
+    {
+      "file": "docs/visual-followup/scales/index.html",
+      "bytes": 4727,
+      "sha256": "d4b515b55feede5440f660b2d705ba1f9d05d33822d29e2952edf9356c38036f"
+    },
+    {
+      "file": "docs/visual-followup/scales/legacy-1.png",
+      "bytes": 62976,
+      "sha256": "bb269b28334650abe3d1ba0f3319efb79f9b343c2b1f2a350f1d44f2b4d78950"
+    },
+    {
+      "file": "docs/visual-followup/scales/measurements.json",
+      "bytes": 9501818,
+      "sha256": "719e2b94ce32cdc1d2afc5bd00b22f1e074f7f9c3c1a0a68784913192e5bff8e"
+    },
+    {
+      "file": "docs/visual-followup/scales/ranged-support-1.png",
+      "bytes": 112728,
+      "sha256": "2aa7a1d1fdf9d340bb4a8df03a34f08274c3a3c37ee9afd43cf19eaeb98a593f"
+    },
+    {
+      "file": "docs/visual-followup/scales/ranged-support-2.png",
+      "bytes": 113740,
+      "sha256": "96443b7a44d1953b1c76a1109a506c9c1dca58b52117a77bc70f51d203e802b4"
+    },
+    {
+      "file": "docs/visual-followup/scales/ranged-support-3.png",
+      "bytes": 118451,
+      "sha256": "1f6288fd4c082bfe8506e916b57cb1ef818e988af1148403e07c4c95bea80bfd"
+    },
+    {
+      "file": "docs/visual-followup/scales/ranged-support-4.png",
+      "bytes": 43093,
+      "sha256": "214c79a6d2db9a4164d8f4267dfb88a78ba907c36b6e227e2490b345319bd7f9"
+    },
+    {
+      "file": "docs/visual-followup/scales/README.md",
+      "bytes": 11179,
+      "sha256": "4d62d967a86819ed8a16f3bac80a8079b15713f9cb7587a869feba48918061fb"
+    },
+    {
+      "file": "docs/visual-followup/scales/replacement-candidates-1.png",
+      "bytes": 45776,
+      "sha256": "e546ef14332d1220eb3df1c7e639db4aa2fa82c195b8f199cad03303c47fcaaa"
+    },
+    {
+      "file": "docs/visual-followup/scales/structures-1.png",
+      "bytes": 117834,
+      "sha256": "6f9f4a22f0435318071f43beda651dfcbfe65d4f5fc0ecde13eb6a31b3822061"
+    },
+    {
+      "file": "docs/visual-followup/scales/structures-2.png",
+      "bytes": 25957,
+      "sha256": "01e0dbccede5d785dcd4ffadbcae4f95112e9f13d4e6c868a90fe753ace92a60"
+    },
+    {
+      "file": "docs/visual-followup/scales/swarms-tokens-1.png",
+      "bytes": 103566,
+      "sha256": "7a8653587417fbc82cc1332d511b4ea2807a1f058a87ab3e3a2e6f60aa8515d3"
+    },
+    {
+      "file": "docs/visual-followup/scales/swarms-tokens-2.png",
+      "bytes": 102748,
+      "sha256": "f4ffc93630d85b1c234502bfff79b8db21e83c4e5449df23b187105765b69767"
+    },
+    {
+      "file": "docs/visual-followup/scales/swarms-tokens-3.png",
+      "bytes": 105011,
+      "sha256": "f8626ada88b1acd0914b862b47e1037ddea3abc8a6414fa9681faca11fe2987c"
+    },
+    {
+      "file": "docs/visual-followup/scales/swarms-tokens-4.png",
+      "bytes": 72765,
+      "sha256": "16d3afb74d884ad703093c29f82f183449e1a2dbf9a1ee229a888873f4c1d404"
+    },
+    {
+      "file": "docs/visual-followup/scales/tanks-1.png",
+      "bytes": 127904,
+      "sha256": "eb4769d33dc0ee1a5f5d595d280227d56cf7a41026955f0ac057a5fbbd11475a"
+    },
+    {
+      "file": "docs/visual-followup/scales/tanks-2.png",
+      "bytes": 116985,
+      "sha256": "b9c260507b732190ef06bd060c3a0faa79cf297c6b0fdcd4d7f0830992f6a30b"
+    },
+    {
+      "file": "scripts/qa-bowler-scale-context.mjs",
+      "bytes": 8706,
+      "sha256": "b877bf78fd10812ed34a96d39df6a63d1781d6745945d61765ce4b5f0c42461f"
+    },
+    {
+      "file": "scripts/qa-visual-scales-followup.mjs",
+      "bytes": 22063,
+      "sha256": "16d071c790ba935c3fbe4dd3f752fbaebac88874cc158cf3a4b2bc079d0eb008"
+    }
+  ]
+}

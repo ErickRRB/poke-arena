@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-14",
+  "result": "PASS",
+  "testedSourceHead": "119ed47fdbc25cd756383e1aa8c3233a9f1a195b",
+  "method": "Run the standalone script in a temporary directory containing only assets/manifest exported by git archive HEAD and the new versionable script. No qa directory or ignored inputs were present.",
+  "script": {
+    "path": "scripts/audit-native-identities.py",
+    "sha256": "5c7b23ed51bbb77ca5886999edbb6a6fdb45d47054750e2848b593f019c1b91f"
+  },
+  "dependencies": {
+    "Python": "3.13.1",
+    "Pillow": "11.2.1",
+    "numpy": "2.2.5",
+    "font": "Windows Consolas, 11 px"
+  },
+  "jsonComparison": {
+    "sources.json": "identical parsed JSON",
+    "motion-profiles.json": "identical parsed JSON",
+    "analysis.json": "identical parsed JSON except repoHeadAtAudit (records the executing clone)"
+  },
+  "sourceFilesVerified": 28,
+  "offsetFilesVerified": 10,
+  "reviewedClips": 7,
+  "directionRows": 56,
+  "approvedContactsUnmodified": true,
+  "contacts": [
+    {
+      "path": "contacts/conkeldurr-attack-native.png",
+      "sha256": "5f591e0ea67c38544bed84f025f5e71672dc6831f2d1422301506eec8683525e",
+      "byteIdentical": true,
+      "rasterIdentical": true
+    },
+    {
+      "path": "contacts/conkeldurr-idle-native.png",
+      "sha256": "4372732b9fdb6fea85cb4bdfe2dfc5b9b3a25befa9e3b7d4b792cef97ecbd21f",
+      "byteIdentical": true,
+      "rasterIdentical": true
+    },
+    {
+      "path": "contacts/conkeldurr-shoot-native.png",
+      "sha256": "c95e0b328688ec478e23b8a08273e695a437cef5b1815a545cd1b7ae1ecada0f",
+      "byteIdentical": true,
+      "rasterIdentical": true
+    },
+    {
+      "path": "contacts/conkeldurr-walk-native.png",
+      "sha256": "68c9b433a9cdc9fb16ea46fc268df84b72452cb0480bddf783be741070def342",
+      "byteIdentical": true,
+      "rasterIdentical": true
+    },
+    {
+      "path": "contacts/farfetchd-attack-native.png",
+      "sha256": "2183c38eba2172d9cef43fed6a225fa7061e544db7a9fca55fd9e69735cbf295",
+      "byteIdentical": true,
+      "rasterIdentical": true
+    },
+    {
+      "path": "contacts/farfetchd-idle-native.png",
+      "sha256": "3db2a6ca94df0a33d9cf6432168053df3a602e55585bc9797db5c5f7e46f96e5",
+      "byteIdentical": true,
+      "rasterIdentical": true
+    },
+    {
+      "path": "contacts/farfetchd-walk-native.png",
+      "sha256": "67285a09958e2e7f75e7ff9609af8a6d5160456f2977c0fbae71512e191c0e02",
+      "byteIdentical": true,
+      "rasterIdentical": true
+    }
+  ]
+}

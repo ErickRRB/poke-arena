@@ -1,0 +1,4307 @@
+{
+  "reviewDate": "2026-11-14",
+  "repoHeadAtAudit": "68f8047d72cbd51ca4cca4c1ab9e5135490e7a23",
+  "method": "Original RGBA frames and Offsets/Shadow markers; all frames × eight directions. Diagnostic contacts are ground anchored and enlarged with nearest-neighbour only. Signatures compare native RGBA plus opaque bounds relative to the ground marker.",
+  "limitations": "This is source-raster/metadata QA, not integrated combat or measured browser frame pacing. Ground-anchored identical drawings exclude translation; XML ReturnFrame is a timing tag, not proof of a restored Idle drawing.",
+  "animations": [
+    {
+      "speciesId": 83,
+      "name": "Idle",
+      "frameSize": [
+        24,
+        32
+      ],
+      "directions": 8,
+      "frames": 4,
+      "nativeDurationsTicks": [
+        30,
+        12,
+        30,
+        12
+      ],
+      "nativeTotalTicks": 84,
+      "secondsAt60TicksPerSecond": 1.4,
+      "hitFrame": null,
+      "hitOnsetNativeTicks": null,
+      "returnFrame": null,
+      "returnOnsetNativeTicks": null,
+      "contact": "contacts/farfetchd-idle-native.png",
+      "perDirection": [
+        {
+          "direction": "S",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              0,
+              0
+            ],
+            "right": [
+              1,
+              -1
+            ]
+          }
+        },
+        {
+          "direction": "SE",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              -1,
+              -1
+            ],
+            "right": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "direction": "E",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              -1,
+              -2
+            ],
+            "left": [
+              1,
+              0
+            ],
+            "right": [
+              -1,
+              -1
+            ]
+          }
+        },
+        {
+          "direction": "NE",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              0
+            ],
+            "left": [
+              0,
+              -1
+            ],
+            "right": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "direction": "N",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              1,
+              -2
+            ],
+            "right": [
+              -2,
+              1
+            ]
+          }
+        },
+        {
+          "direction": "NW",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              3,
+              -1
+            ],
+            "right": [
+              1,
+              0
+            ]
+          }
+        },
+        {
+          "direction": "W",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              -2,
+              -1
+            ],
+            "right": [
+              1,
+              -1
+            ]
+          }
+        },
+        {
+          "direction": "SW",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              -1,
+              -1
+            ],
+            "left": [
+              1,
+              -1
+            ],
+            "right": [
+              1,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "speciesId": 83,
+      "name": "Walk",
+      "frameSize": [
+        24,
+        32
+      ],
+      "directions": 8,
+      "frames": 4,
+      "nativeDurationsTicks": [
+        6,
+        12,
+        6,
+        12
+      ],
+      "nativeTotalTicks": 36,
+      "secondsAt60TicksPerSecond": 0.6,
+      "hitFrame": null,
+      "hitOnsetNativeTicks": null,
+      "returnFrame": null,
+      "returnOnsetNativeTicks": null,
+      "contact": "contacts/farfetchd-walk-native.png",
+      "perDirection": [
+        {
+          "direction": "S",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              0,
+              0
+            ],
+            "right": [
+              1,
+              -1
+            ]
+          }
+        },
+        {
+          "direction": "SE",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              -1,
+              -1
+            ],
+            "right": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "direction": "E",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              -1,
+              -2
+            ],
+            "left": [
+              1,
+              0
+            ],
+            "right": [
+              -1,
+              -1
+            ]
+          }
+        },
+        {
+          "direction": "NE",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              0
+            ],
+            "left": [
+              0,
+              -1
+            ],
+            "right": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "direction": "N",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              1,
+              -2
+            ],
+            "right": [
+              -2,
+              1
+            ]
+          }
+        },
+        {
+          "direction": "NW",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              3,
+              -1
+            ],
+            "right": [
+              1,
+              0
+            ]
+          }
+        },
+        {
+          "direction": "W",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              -2,
+              -1
+            ],
+            "right": [
+              1,
+              -1
+            ]
+          }
+        },
+        {
+          "direction": "SW",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              -1,
+              -1
+            ],
+            "left": [
+              1,
+              -1
+            ],
+            "right": [
+              1,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "speciesId": 83,
+      "name": "Attack",
+      "frameSize": [
+        88,
+        80
+      ],
+      "directions": 8,
+      "frames": 10,
+      "nativeDurationsTicks": [
+        2,
+        6,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "nativeTotalTicks": 21,
+      "secondsAt60TicksPerSecond": 0.35,
+      "hitFrame": 3,
+      "hitOnsetNativeTicks": 9,
+      "returnFrame": 6,
+      "returnOnsetNativeTicks": 13,
+      "contact": "contacts/farfetchd-attack-native.png",
+      "perDirection": [
+        {
+          "direction": "S",
+          "uniqueGroundAnchoredDrawings": 4,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              9
+            ],
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0,
+            9
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": true,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              -4,
+              5
+            ],
+            "body": [
+              -1,
+              3
+            ],
+            "left": [
+              -3,
+              7
+            ],
+            "right": [
+              -2,
+              11
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              35,
+              32
+            ],
+            "body": [
+              44,
+              35
+            ],
+            "right": [
+              53,
+              32
+            ],
+            "head": [
+              44,
+              48
+            ],
+            "foot": [
+              44,
+              48
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              -9,
+              -16
+            ],
+            "body": [
+              0,
+              -13
+            ],
+            "right": [
+              9,
+              -16
+            ],
+            "head": [
+              0,
+              0
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "head"
+        },
+        {
+          "direction": "SE",
+          "uniqueGroundAnchoredDrawings": 6,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              9
+            ],
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5,
+              6,
+              7,
+              8
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0,
+            9
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": true,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              4
+            ],
+            "body": [
+              0,
+              3
+            ],
+            "left": [
+              -8,
+              4
+            ],
+            "right": [
+              7,
+              10
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              46,
+              28
+            ],
+            "body": [
+              47,
+              36
+            ],
+            "right": [
+              37,
+              40
+            ],
+            "head": [
+              59,
+              45
+            ],
+            "foot": [
+              48,
+              48
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              -2,
+              -20
+            ],
+            "body": [
+              -1,
+              -12
+            ],
+            "right": [
+              -11,
+              -8
+            ],
+            "head": [
+              11,
+              -3
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "head"
+        },
+        {
+          "direction": "E",
+          "uniqueGroundAnchoredDrawings": 7,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0
+            ],
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5,
+              6,
+              7,
+              8
+            ],
+            [
+              9
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              6
+            ],
+            "body": [
+              0,
+              5
+            ],
+            "left": [
+              -10,
+              11
+            ],
+            "right": [
+              8,
+              9
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              43,
+              22
+            ],
+            "body": [
+              45,
+              28
+            ],
+            "right": [
+              38,
+              35
+            ],
+            "head": [
+              59,
+              33
+            ],
+            "foot": [
+              48,
+              44
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              -5,
+              -22
+            ],
+            "body": [
+              -3,
+              -16
+            ],
+            "right": [
+              -10,
+              -9
+            ],
+            "head": [
+              11,
+              -11
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "head"
+        },
+        {
+          "direction": "NE",
+          "uniqueGroundAnchoredDrawings": 6,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0
+            ],
+            [
+              1
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5,
+              6,
+              7,
+              8
+            ],
+            [
+              9
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              2,
+              2
+            ],
+            "body": [
+              1,
+              0
+            ],
+            "left": [
+              -4,
+              8
+            ],
+            "right": [
+              4,
+              5
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              38,
+              23
+            ],
+            "body": [
+              49,
+              26
+            ],
+            "right": [
+              53,
+              37
+            ],
+            "head": [
+              59,
+              18
+            ],
+            "foot": [
+              48,
+              40
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              -10,
+              -17
+            ],
+            "body": [
+              1,
+              -14
+            ],
+            "right": [
+              5,
+              -3
+            ],
+            "head": [
+              11,
+              -22
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "head"
+        },
+        {
+          "direction": "N",
+          "uniqueGroundAnchoredDrawings": 7,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0
+            ],
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              9
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              -1,
+              2
+            ],
+            "body": [
+              -1,
+              2
+            ],
+            "left": [
+              1,
+              8
+            ],
+            "right": [
+              0,
+              6
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              55,
+              33
+            ],
+            "body": [
+              43,
+              30
+            ],
+            "right": [
+              31,
+              33
+            ],
+            "head": [
+              43,
+              20
+            ],
+            "foot": [
+              44,
+              41
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              11,
+              -8
+            ],
+            "body": [
+              -1,
+              -11
+            ],
+            "right": [
+              -13,
+              -8
+            ],
+            "head": [
+              -1,
+              -21
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "head"
+        },
+        {
+          "direction": "NW",
+          "uniqueGroundAnchoredDrawings": 6,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0
+            ],
+            [
+              1
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5,
+              6,
+              7,
+              8
+            ],
+            [
+              9
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              1,
+              1
+            ],
+            "left": [
+              9,
+              1
+            ],
+            "right": [
+              -4,
+              6
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              49,
+              23
+            ],
+            "body": [
+              38,
+              26
+            ],
+            "right": [
+              34,
+              37
+            ],
+            "head": [
+              28,
+              18
+            ],
+            "foot": [
+              40,
+              40
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              9,
+              -17
+            ],
+            "body": [
+              -2,
+              -14
+            ],
+            "right": [
+              -6,
+              -3
+            ],
+            "head": [
+              -12,
+              -22
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "head"
+        },
+        {
+          "direction": "W",
+          "uniqueGroundAnchoredDrawings": 7,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0
+            ],
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5,
+              6,
+              7,
+              8
+            ],
+            [
+              9
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              6
+            ],
+            "body": [
+              1,
+              5
+            ],
+            "left": [
+              2,
+              8
+            ],
+            "right": [
+              -5,
+              12
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              44,
+              22
+            ],
+            "body": [
+              42,
+              28
+            ],
+            "right": [
+              49,
+              35
+            ],
+            "head": [
+              28,
+              33
+            ],
+            "foot": [
+              40,
+              44
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              4,
+              -22
+            ],
+            "body": [
+              2,
+              -16
+            ],
+            "right": [
+              9,
+              -9
+            ],
+            "head": [
+              -12,
+              -11
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "head"
+        },
+        {
+          "direction": "SW",
+          "uniqueGroundAnchoredDrawings": 6,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              9
+            ],
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5,
+              6,
+              7,
+              8
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0,
+            9
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": true,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              -1,
+              3
+            ],
+            "body": [
+              0,
+              3
+            ],
+            "left": [
+              2,
+              6
+            ],
+            "right": [
+              -4,
+              13
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              42,
+              28
+            ],
+            "body": [
+              41,
+              36
+            ],
+            "right": [
+              51,
+              40
+            ],
+            "head": [
+              29,
+              45
+            ],
+            "foot": [
+              40,
+              48
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              2,
+              -20
+            ],
+            "body": [
+              1,
+              -12
+            ],
+            "right": [
+              11,
+              -8
+            ],
+            "head": [
+              -11,
+              -3
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "head"
+        }
+      ]
+    },
+    {
+      "speciesId": 534,
+      "name": "Idle",
+      "frameSize": [
+        48,
+        56
+      ],
+      "directions": 8,
+      "frames": 11,
+      "nativeDurationsTicks": [
+        50,
+        4,
+        8,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "nativeTotalTicks": 78,
+      "secondsAt60TicksPerSecond": 1.3,
+      "hitFrame": null,
+      "hitOnsetNativeTicks": null,
+      "returnFrame": null,
+      "returnOnsetNativeTicks": null,
+      "contact": "contacts/conkeldurr-idle-native.png",
+      "perDirection": [
+        {
+          "direction": "S",
+          "uniqueGroundAnchoredDrawings": 6,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              5,
+              8
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              10
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            5,
+            8
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            5,
+            8
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              1
+            ],
+            "body": [
+              0,
+              1
+            ],
+            "left": [
+              0,
+              1
+            ],
+            "right": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "direction": "SE",
+          "uniqueGroundAnchoredDrawings": 6,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              5,
+              8
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              10
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            5,
+            8
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            5,
+            8
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              1
+            ],
+            "body": [
+              0,
+              1
+            ],
+            "left": [
+              0,
+              1
+            ],
+            "right": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "direction": "E",
+          "uniqueGroundAnchoredDrawings": 6,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              5,
+              8
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              10
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            5,
+            8
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            5,
+            8
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              1
+            ],
+            "body": [
+              0,
+              1
+            ],
+            "left": [
+              0,
+              1
+            ],
+            "right": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "direction": "NE",
+          "uniqueGroundAnchoredDrawings": 6,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              5,
+              8
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              10
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            5,
+            8
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            5,
+            8
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              1
+            ],
+            "body": [
+              0,
+              1
+            ],
+            "left": [
+              0,
+              1
+            ],
+            "right": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "direction": "N",
+          "uniqueGroundAnchoredDrawings": 6,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              5,
+              8
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              10
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            5,
+            8
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            5,
+            8
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              1
+            ],
+            "body": [
+              0,
+              1
+            ],
+            "left": [
+              0,
+              1
+            ],
+            "right": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "direction": "NW",
+          "uniqueGroundAnchoredDrawings": 6,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              5,
+              8
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              10
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            5,
+            8
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            5,
+            8
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              1
+            ],
+            "body": [
+              0,
+              1
+            ],
+            "left": [
+              0,
+              1
+            ],
+            "right": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "direction": "W",
+          "uniqueGroundAnchoredDrawings": 6,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              5,
+              8
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              10
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            5,
+            8
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            5,
+            8
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              1
+            ],
+            "body": [
+              0,
+              1
+            ],
+            "left": [
+              0,
+              1
+            ],
+            "right": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "direction": "SW",
+          "uniqueGroundAnchoredDrawings": 6,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              5,
+              8
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              10
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            5,
+            8
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            5,
+            8
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              1
+            ],
+            "body": [
+              0,
+              1
+            ],
+            "left": [
+              0,
+              1
+            ],
+            "right": [
+              0,
+              1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "speciesId": 534,
+      "name": "Walk",
+      "frameSize": [
+        48,
+        48
+      ],
+      "directions": 8,
+      "frames": 4,
+      "nativeDurationsTicks": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "nativeTotalTicks": 56,
+      "secondsAt60TicksPerSecond": 0.9333333333333333,
+      "hitFrame": null,
+      "hitOnsetNativeTicks": null,
+      "returnFrame": null,
+      "returnOnsetNativeTicks": null,
+      "contact": "contacts/conkeldurr-walk-native.png",
+      "perDirection": [
+        {
+          "direction": "S",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              -1,
+              -2
+            ],
+            "right": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "direction": "SE",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              0,
+              -3
+            ],
+            "right": [
+              1,
+              0
+            ]
+          }
+        },
+        {
+          "direction": "E",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              -1,
+              -2
+            ],
+            "right": [
+              1,
+              -2
+            ]
+          }
+        },
+        {
+          "direction": "NE",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              1,
+              -2
+            ],
+            "right": [
+              -1,
+              0
+            ]
+          }
+        },
+        {
+          "direction": "N",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              1,
+              0
+            ],
+            "right": [
+              0,
+              -3
+            ]
+          }
+        },
+        {
+          "direction": "NW",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              -1,
+              -2
+            ],
+            "right": [
+              1,
+              0
+            ]
+          }
+        },
+        {
+          "direction": "W",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              1,
+              -2
+            ],
+            "right": [
+              -1,
+              -2
+            ]
+          }
+        },
+        {
+          "direction": "SW",
+          "uniqueGroundAnchoredDrawings": 3,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              2
+            ],
+            [
+              1
+            ],
+            [
+              3
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              0,
+              -3
+            ],
+            "right": [
+              -1,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "speciesId": 534,
+      "name": "Shoot",
+      "frameSize": [
+        56,
+        56
+      ],
+      "directions": 8,
+      "frames": 12,
+      "nativeDurationsTicks": [
+        2,
+        2,
+        6,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "nativeTotalTicks": 27,
+      "secondsAt60TicksPerSecond": 0.45,
+      "hitFrame": 2,
+      "hitOnsetNativeTicks": 4,
+      "returnFrame": 5,
+      "returnOnsetNativeTicks": 13,
+      "contact": "contacts/conkeldurr-shoot-native.png",
+      "perDirection": [
+        {
+          "direction": "S",
+          "uniqueGroundAnchoredDrawings": 2,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              -1,
+              -2
+            ],
+            "right": [
+              1,
+              -2
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              13,
+              14
+            ],
+            "body": [
+              27,
+              13
+            ],
+            "right": [
+              42,
+              14
+            ],
+            "head": [
+              27,
+              14
+            ],
+            "foot": [
+              28,
+              29
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              -15,
+              -15
+            ],
+            "body": [
+              -1,
+              -16
+            ],
+            "right": [
+              14,
+              -15
+            ],
+            "head": [
+              -1,
+              -15
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body",
+          "leadHand": "right",
+          "leadHandLateralUnitsAtScale": {
+            "1.85": 25.9,
+            "2.05": 28.7
+          }
+        },
+        {
+          "direction": "SE",
+          "uniqueGroundAnchoredDrawings": 2,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              -2,
+              -1
+            ],
+            "body": [
+              -2,
+              -1
+            ],
+            "left": [
+              -2,
+              -3
+            ],
+            "right": [
+              -3,
+              -4
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              39,
+              8
+            ],
+            "body": [
+              22,
+              12
+            ],
+            "right": [
+              13,
+              13
+            ],
+            "head": [
+              29,
+              15
+            ],
+            "foot": [
+              25,
+              29
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              14,
+              -21
+            ],
+            "body": [
+              -3,
+              -17
+            ],
+            "right": [
+              -12,
+              -16
+            ],
+            "head": [
+              4,
+              -14
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body",
+          "leadHand": "left",
+          "leadHandLateralUnitsAtScale": {
+            "1.85": 45.7852,
+            "2.05": 50.7349
+          }
+        },
+        {
+          "direction": "E",
+          "uniqueGroundAnchoredDrawings": 2,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              -2,
+              -1
+            ],
+            "body": [
+              -2,
+              -2
+            ],
+            "left": [
+              -4,
+              0
+            ],
+            "right": [
+              -4,
+              -2
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              31,
+              10
+            ],
+            "body": [
+              19,
+              16
+            ],
+            "right": [
+              25,
+              17
+            ],
+            "head": [
+              27,
+              18
+            ],
+            "foot": [
+              25,
+              32
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              6,
+              -22
+            ],
+            "body": [
+              -6,
+              -16
+            ],
+            "right": [
+              0,
+              -15
+            ],
+            "head": [
+              2,
+              -14
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body",
+          "leadHand": "left",
+          "leadHandLateralUnitsAtScale": {
+            "1.85": 40.7,
+            "2.05": 45.1
+          }
+        },
+        {
+          "direction": "NE",
+          "uniqueGroundAnchoredDrawings": 2,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              -1,
+              1
+            ],
+            "body": [
+              -1,
+              1
+            ],
+            "left": [
+              -2,
+              2
+            ],
+            "right": [
+              -2,
+              3
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              13,
+              13
+            ],
+            "body": [
+              19,
+              22
+            ],
+            "right": [
+              36,
+              20
+            ],
+            "head": [
+              25,
+              20
+            ],
+            "foot": [
+              25,
+              35
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              -12,
+              -22
+            ],
+            "body": [
+              -6,
+              -13
+            ],
+            "right": [
+              11,
+              -15
+            ],
+            "head": [
+              0,
+              -15
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body",
+          "leadHand": "right",
+          "leadHandLateralUnitsAtScale": {
+            "1.85": 5.2326,
+            "2.05": 5.7983
+          }
+        },
+        {
+          "direction": "N",
+          "uniqueGroundAnchoredDrawings": 2,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              1
+            ],
+            "body": [
+              0,
+              1
+            ],
+            "left": [
+              0,
+              0
+            ],
+            "right": [
+              0,
+              -1
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              42,
+              15
+            ],
+            "body": [
+              27,
+              20
+            ],
+            "right": [
+              13,
+              15
+            ],
+            "head": [
+              27,
+              16
+            ],
+            "foot": [
+              28,
+              35
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              14,
+              -20
+            ],
+            "body": [
+              -1,
+              -15
+            ],
+            "right": [
+              -15,
+              -20
+            ],
+            "head": [
+              -1,
+              -19
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body",
+          "leadHand": "left",
+          "leadHandLateralUnitsAtScale": {
+            "1.85": 25.9,
+            "2.05": 28.7
+          }
+        },
+        {
+          "direction": "NW",
+          "uniqueGroundAnchoredDrawings": 2,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              1,
+              1
+            ],
+            "body": [
+              1,
+              1
+            ],
+            "left": [
+              2,
+              2
+            ],
+            "right": [
+              2,
+              3
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              40,
+              13
+            ],
+            "body": [
+              34,
+              22
+            ],
+            "right": [
+              17,
+              20
+            ],
+            "head": [
+              28,
+              20
+            ],
+            "foot": [
+              31,
+              35
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              9,
+              -22
+            ],
+            "body": [
+              3,
+              -13
+            ],
+            "right": [
+              -14,
+              -15
+            ],
+            "head": [
+              -3,
+              -15
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body",
+          "leadHand": "right",
+          "leadHandLateralUnitsAtScale": {
+            "1.85": 1.3081,
+            "2.05": 1.4496
+          }
+        },
+        {
+          "direction": "W",
+          "uniqueGroundAnchoredDrawings": 2,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              2,
+              -1
+            ],
+            "body": [
+              2,
+              -2
+            ],
+            "left": [
+              4,
+              0
+            ],
+            "right": [
+              4,
+              -2
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              23,
+              10
+            ],
+            "body": [
+              35,
+              16
+            ],
+            "right": [
+              29,
+              17
+            ],
+            "head": [
+              27,
+              18
+            ],
+            "foot": [
+              31,
+              32
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              -8,
+              -22
+            ],
+            "body": [
+              4,
+              -16
+            ],
+            "right": [
+              -2,
+              -15
+            ],
+            "head": [
+              -4,
+              -14
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body",
+          "leadHand": "left",
+          "leadHandLateralUnitsAtScale": {
+            "1.85": 40.7,
+            "2.05": 45.1
+          }
+        },
+        {
+          "direction": "SW",
+          "uniqueGroundAnchoredDrawings": 2,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              2,
+              -1
+            ],
+            "body": [
+              2,
+              -1
+            ],
+            "left": [
+              2,
+              -3
+            ],
+            "right": [
+              3,
+              -4
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              16,
+              7
+            ],
+            "body": [
+              33,
+              11
+            ],
+            "right": [
+              42,
+              12
+            ],
+            "head": [
+              26,
+              14
+            ],
+            "foot": [
+              32,
+              28
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              -16,
+              -21
+            ],
+            "body": [
+              1,
+              -17
+            ],
+            "right": [
+              10,
+              -16
+            ],
+            "head": [
+              -6,
+              -14
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body",
+          "leadHand": "left",
+          "leadHandLateralUnitsAtScale": {
+            "1.85": 48.4015,
+            "2.05": 53.634
+          }
+        }
+      ]
+    },
+    {
+      "speciesId": 534,
+      "name": "Attack",
+      "frameSize": [
+        88,
+        80
+      ],
+      "directions": 8,
+      "frames": 14,
+      "nativeDurationsTicks": [
+        2,
+        2,
+        6,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "nativeTotalTicks": 31,
+      "secondsAt60TicksPerSecond": 0.5166666666666667,
+      "hitFrame": 2,
+      "hitOnsetNativeTicks": 4,
+      "returnFrame": 7,
+      "returnOnsetNativeTicks": 17,
+      "contact": "contacts/conkeldurr-attack-native.png",
+      "perDirection": [
+        {
+          "direction": "S",
+          "uniqueGroundAnchoredDrawings": 4,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              3,
+              5,
+              12
+            ],
+            [
+              4,
+              13
+            ],
+            [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            1,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              -1,
+              -2
+            ],
+            "right": [
+              0,
+              1
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              28,
+              28
+            ],
+            "body": [
+              43,
+              23
+            ],
+            "right": [
+              59,
+              28
+            ],
+            "head": [
+              43,
+              27
+            ],
+            "foot": [
+              44,
+              39
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              -16,
+              -11
+            ],
+            "body": [
+              -1,
+              -16
+            ],
+            "right": [
+              15,
+              -11
+            ],
+            "head": [
+              -1,
+              -12
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body"
+        },
+        {
+          "direction": "SE",
+          "uniqueGroundAnchoredDrawings": 4,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              3,
+              5,
+              12
+            ],
+            [
+              4,
+              13
+            ],
+            [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            1,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              0,
+              -3
+            ],
+            "right": [
+              1,
+              0
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              55,
+              20
+            ],
+            "body": [
+              38,
+              22
+            ],
+            "right": [
+              28,
+              25
+            ],
+            "head": [
+              45,
+              28
+            ],
+            "foot": [
+              39,
+              39
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              16,
+              -19
+            ],
+            "body": [
+              -1,
+              -17
+            ],
+            "right": [
+              -11,
+              -14
+            ],
+            "head": [
+              6,
+              -11
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body"
+        },
+        {
+          "direction": "E",
+          "uniqueGroundAnchoredDrawings": 4,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              3,
+              5,
+              12
+            ],
+            [
+              4,
+              13
+            ],
+            [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            1,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              -1,
+              -2
+            ],
+            "right": [
+              1,
+              -2
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              48,
+              23
+            ],
+            "body": [
+              35,
+              27
+            ],
+            "right": [
+              40,
+              30
+            ],
+            "head": [
+              44,
+              31
+            ],
+            "foot": [
+              39,
+              44
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              9,
+              -21
+            ],
+            "body": [
+              -4,
+              -17
+            ],
+            "right": [
+              1,
+              -14
+            ],
+            "head": [
+              5,
+              -13
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body"
+        },
+        {
+          "direction": "NE",
+          "uniqueGroundAnchoredDrawings": 4,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              3,
+              5,
+              12
+            ],
+            [
+              4,
+              13
+            ],
+            [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            1,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              1,
+              -2
+            ],
+            "right": [
+              -1,
+              0
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              30,
+              26
+            ],
+            "body": [
+              36,
+              34
+            ],
+            "right": [
+              53,
+              36
+            ],
+            "head": [
+              43,
+              32
+            ],
+            "foot": [
+              39,
+              49
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              -9,
+              -23
+            ],
+            "body": [
+              -3,
+              -15
+            ],
+            "right": [
+              14,
+              -13
+            ],
+            "head": [
+              4,
+              -17
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body"
+        },
+        {
+          "direction": "N",
+          "uniqueGroundAnchoredDrawings": 4,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              3,
+              5,
+              12
+            ],
+            [
+              4,
+              13
+            ],
+            [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            1,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              1,
+              0
+            ],
+            "right": [
+              0,
+              -3
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              59,
+              30
+            ],
+            "body": [
+              43,
+              32
+            ],
+            "right": [
+              28,
+              29
+            ],
+            "head": [
+              43,
+              31
+            ],
+            "foot": [
+              44,
+              49
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              15,
+              -19
+            ],
+            "body": [
+              -1,
+              -17
+            ],
+            "right": [
+              -16,
+              -20
+            ],
+            "head": [
+              -1,
+              -18
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body"
+        },
+        {
+          "direction": "NW",
+          "uniqueGroundAnchoredDrawings": 4,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              3,
+              5,
+              12
+            ],
+            [
+              4,
+              13
+            ],
+            [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            1,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              -1,
+              -2
+            ],
+            "right": [
+              1,
+              0
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              55,
+              26
+            ],
+            "body": [
+              49,
+              34
+            ],
+            "right": [
+              32,
+              36
+            ],
+            "head": [
+              42,
+              32
+            ],
+            "foot": [
+              49,
+              49
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              6,
+              -23
+            ],
+            "body": [
+              0,
+              -15
+            ],
+            "right": [
+              -17,
+              -13
+            ],
+            "head": [
+              -7,
+              -17
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body"
+        },
+        {
+          "direction": "W",
+          "uniqueGroundAnchoredDrawings": 4,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              3,
+              5,
+              12
+            ],
+            [
+              4,
+              13
+            ],
+            [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            1,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              1,
+              -2
+            ],
+            "right": [
+              -1,
+              -2
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              38,
+              23
+            ],
+            "body": [
+              51,
+              27
+            ],
+            "right": [
+              46,
+              30
+            ],
+            "head": [
+              42,
+              31
+            ],
+            "foot": [
+              49,
+              44
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              -11,
+              -21
+            ],
+            "body": [
+              2,
+              -17
+            ],
+            "right": [
+              -3,
+              -14
+            ],
+            "head": [
+              -7,
+              -13
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body"
+        },
+        {
+          "direction": "SW",
+          "uniqueGroundAnchoredDrawings": 4,
+          "nativeFrameGroupsGroundAnchored": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              3,
+              5,
+              12
+            ],
+            [
+              4,
+              13
+            ],
+            [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          ],
+          "framesIdenticalToIdle0": [
+            0,
+            1,
+            2
+          ],
+          "framesIdenticalToClip0": [
+            0,
+            1,
+            2
+          ],
+          "lastFrameEqualsIdle0": false,
+          "lastFrameEqualsClip0": false,
+          "lastToIdle0MarkerShiftNative": {
+            "head": [
+              0,
+              -1
+            ],
+            "body": [
+              0,
+              -1
+            ],
+            "left": [
+              0,
+              -3
+            ],
+            "right": [
+              -1,
+              0
+            ]
+          },
+          "hitFrameMarkersNative": {
+            "left": [
+              31,
+              20
+            ],
+            "body": [
+              48,
+              22
+            ],
+            "right": [
+              58,
+              25
+            ],
+            "head": [
+              41,
+              28
+            ],
+            "foot": [
+              49,
+              39
+            ]
+          },
+          "hitFrameMarkerPresent": {
+            "left": true,
+            "body": true,
+            "right": true,
+            "head": true,
+            "foot": true
+          },
+          "hitFrameMarkersRelativeToGround": {
+            "left": [
+              -18,
+              -19
+            ],
+            "body": [
+              -1,
+              -17
+            ],
+            "right": [
+              9,
+              -14
+            ],
+            "head": [
+              -8,
+              -11
+            ],
+            "foot": [
+              0,
+              0
+            ]
+          },
+          "hitFrameSelectedEmitter": "body"
+        }
+      ]
+    }
+  ]
+}

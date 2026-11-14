@@ -1,0 +1,51 @@
+{
+  "status": "Approved recommendation for integration; this audit does not apply runtime changes.",
+  "frameConvention": "Zero-based native frame indices; durations are retained without cropping.",
+  "gameplayTiming": "Keep gameplay windup/interval/duration owned by the battle integrator. Native tick times below are source timing, not a request to replace gameplay stats.",
+  "geodude": {
+    "speciesId": 83,
+    "name": "Farfetch'd",
+    "equivalent": "Knight",
+    "idleAnim": "Idle",
+    "moveAnim": "Walk",
+    "attackAnim": "Attack",
+    "emitter": "head",
+    "hitFrame": 3,
+    "returnFrame": 6,
+    "attackFramesOverride": null,
+    "attackGesturesOverride": null,
+    "anchor": "Native ground/foot marker; no body-anchor override proposed.",
+    "reason": "The leek thrust extends from the beak. Hand markers identify raised wings behind the thrust.",
+    "scaleCandidatesOnly": [
+      2.2,
+      2.25
+    ]
+  },
+  "graveler": {
+    "speciesId": 534,
+    "name": "Conkeldurr",
+    "equivalent": "Bowler",
+    "idleAnim": "Idle",
+    "moveAnim": "Walk",
+    "attackAnim": "Shoot",
+    "emitter": "body",
+    "hitFrame": 2,
+    "returnFrame": 5,
+    "attackFramesOverride": null,
+    "attackGesturesOverride": null,
+    "anchor": "Native ground/foot marker; no body-anchor override proposed.",
+    "reason": "Shoot is a central preparation/follow-through cue. Neither reviewed clip releases a native boulder; both concrete pillars remain gripped.",
+    "rollingAdaptation": {
+      "physicsOrigin": "actor.x, actor.y (existing rollingShot path)",
+      "rockVisualCentre": "rollingPose.x, rollingPose.y - 13/verticalScale (existing renderer)",
+      "cueOrigin": "body marker; does not replace the ground rolling origin",
+      "handToGroundTransfer": "Not requested. A hand-origin stone would require an explicit visual transfer back to the existing path; do not shift trajectory/collider to a lateral pillar grip."
+    },
+    "scaleCandidatesOnly": [
+      1.85,
+      2.05
+    ]
+  },
+  "collision": "Keep collision radii separate from native transparent canvases, leek reach, pillar bounds, and visual scale.",
+  "identityLineage": "Geodude #74 remains available as the Golemites split token. Parent integrator owns token key and lineage; do not remove the token when replacing the Knight identity."
+}
