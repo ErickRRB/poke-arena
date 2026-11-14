@@ -326,6 +326,14 @@ export class Game {
         if(target.card.deathStun){this.emit('deathBurst',{unit:target,radius:100,style:'lightning',groundOnly:false});for(const other of this.units)if(other.team!==target.team&&other.hp>0&&distance(other,target)<100)this.damage(other,0,target.team,{stun:target.card.deathStun,sourceId:target.id});}
   }
   retireUnit(unit){if(unit.hp<=0||unit.deathHandled)return;unit.hp=0;this.unitDeath(unit,1-unit.team);}
+  pushUnit(unit,dx,dy,{force=false}={}){
+    const immune=unit.card?.knockbackImmune??CARDS[unit.key]?.knockbackImmune;
+    if(!unit.card||unit.card.structure||unit.hp<=0||unit.leap||unit.dash?.phase==='travel'&&unit.card.dashInvulnerable||immune&&!force)return false;
+    const point=this.constrainMovement(unit,unit.x+dx,unit.y+dy);unit.x=point.x;unit.y=point.y;
+    // A push invalidates preparation, not the remaining attack cooldown.
+    // Keep the target so the unit can finish approaching after displacement.
+    unit.attackSeq++;unit.attack=0;unit.charge=0;unit.dash=null;return true;
+  }
   spawnReinforcements(owner,key,count,delay=.5){
     const children=[],spawnGroup={id:this.nextId,x:owner.x,y:owner.y+(owner.team?1:-1)*(owner.card?.structure?42:24),duration:delay};
     for(let i=0;i<count&&this.units.filter(u=>u.hp>0).length<160;i++){
@@ -381,7 +389,7 @@ export class Game {
     if(ability.effect==='shield')for(const ally of this.units)if(ally.team===team&&ally.hp>0&&distance(unit,ally)<=ability.radius){ally.shield=Math.max(ally.shield||0,ability.shield);ally.maxShield=Math.max(ally.maxShield||0,ally.shield);}
     for(const target of[...this.units,...this.towers])if(target.team!==team&&target.hp>0&&(!target.burrowed||ability.effect==='quake')&&(!ability.groundOnly||!target.card?.flying)&&distance(unit,target)<=ability.radius+target.radius){
       if(ability.damage)this.damage(target,'king'in target?Math.round(ability.damage*.28):ability.damage,team,{stun:ability.stun,slow:ability.slow,burn:ability.burn,sourceId:unit.id,affectsHidden:ability.effect==='quake'});
-      if(ability.knockback&&target.card&&!target.card.structure){const d=distance(unit,target)||1;target.x=clamp(target.x+(target.x-unit.x)/d*ability.knockback,44,556);target.y=clamp(target.y+(target.y-unit.y)/d*ability.knockback,44,756);target.target=null;target.engaged=false;target.attackSeq++;}
+      if(ability.knockback&&target.card&&!target.card.structure){const d=distance(unit,target)||1;this.pushUnit(target,(target.x-unit.x)/d*ability.knockback,(target.y-unit.y)/d*ability.knockback,{force:true});}
     }
     this.emit('ability',{unit,radius:ability.radius});return{ok:true};
   }
@@ -814,7 +822,7 @@ export class Game {
         spell.y+=(spell.team?1:-1)*travelled;spell.travelRemaining=Math.max(0,remaining-travelled);
         for(const target of[...this.units,...this.towers])if(target.team!==spell.team&&target.hp>0&&!target.burrowed&&!target.card?.flying&&!spell.hitIds.includes(target.id)&&Math.abs(target.x-spell.x)<spell.card.splash+target.radius&&target.y>=Math.min(previousY,spell.y)-18-target.radius&&target.y<=Math.max(previousY,spell.y)+18+target.radius){
           spell.hitIds.push(target.id);this.damage(target,'king'in target?spell.card.towerDamage:spell.card.damage,spell.team,{sourceKey:spell.key});
-          if(target.card&&!target.card.structure){target.y=clamp(target.y+(spell.team?1:-1)*spell.card.knockback,42,758);target.attackSeq++;target.attack=0;target.target=null;target.engaged=false;}
+          if(target.card&&!target.card.structure)this.pushUnit(target,0,(spell.team?1:-1)*spell.card.knockback,{force:true});
           this.emit('hit',{x:target.x,y:target.y,key:spell.key,style:'rock',team:spell.team});
         }
         if(spell.travelRemaining<=1e-7)spell.done=true;continue;
@@ -834,13 +842,9 @@ export class Game {
       for (const target of targets) {
         if(spell.card.damage>0)this.damage(target, 'king' in target ? spell.card.towerDamage : spell.card.damage, spell.team, {...spell.card,sourceKey:spell.key});
         if(spell.card.targetLimit)this.emit('beam',{from:{x:target.x,y:target.y-180},to:aimPoint(target),style:'lightning',key:spell.key,team:spell.team});
-        if (target.card && spell.card.knockback && !target.card.building && !target.card.structure) {
+        if (target.card && spell.card.knockback && !target.card.structure) {
           const d = distance(target, spell) || 1;
-          const nx = clamp(target.x + (target.x - spell.x) / d * spell.card.knockback, 46, 554);
-          const ny = clamp(target.y + (target.y - spell.y) / d * spell.card.knockback, 42, 758);
-          const onGround = !target.card.flying;
-          const offBridge = Math.min(...LANES.map(x => Math.abs(nx - x))) > 29;
-          if (!(onGround && ny > RIVER.top && ny < RIVER.bottom && offBridge)) { target.x = nx; target.y = ny; }
+          this.pushUnit(target,(target.x-spell.x)/d*spell.card.knockback,(target.y-spell.y)/d*spell.card.knockback);
         }
       }
       this.emit('spellHit', { key: spell.key, x: spell.x, y: spell.y, radius: spell.card.splash, team: spell.team });
@@ -920,10 +924,7 @@ export class Game {
           const tx=target.x-start.x,ty=target.y-start.y,along=clamp(tx*p.dx+ty*p.dy,0,step);
           if(Math.hypot(tx-p.dx*along,ty-p.dy*along)>p.shotRadius+target.radius*(p.linear?.65:.7))continue;
           p.hitIds.push(target.id);this.damage(target,p.damage,p.team,p);
-          if(p.knockback&&target.hp>0&&target.card&&!target.card.structure&&!target.card.building&&!target.card.knockbackImmune&&target.maxHp<2500){
-            const point=this.constrainMovement(target,target.x+p.dx*p.knockback,target.y+p.dy*p.knockback);
-            target.x=point.x;target.y=point.y;target.attackSeq++;target.attack=0;target.target=null;target.engaged=false;target.charge=0;
-          }
+          if(p.knockback)this.pushUnit(target,p.dx*p.knockback,p.dy*p.knockback);
           const impact=aimPoint(target);this.emit('hit',{key:p.key,style:p.style,x:impact.x,y:impact.y,groundX:target.x,groundY:target.y,impactHeight:target.y-impact.y,team:p.team,targetId:target.id});
         }
         if(p.travelled>=p.totalDistance-1e-7)p.life=0;

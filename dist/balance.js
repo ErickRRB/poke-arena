@@ -2,6 +2,7 @@ import { POKEMON_STATS } from './pokemon-stats.js';
 import { UNIT_SCALES } from './unit-sizes.js';
 import { GROUP_FORMATIONS } from './deployment-formations.js';
 import { CURRENT_REFERENCE_BALANCE } from './current-reference.js';
+import { PUSHBACK_IMMUNITY } from './knockback-profiles.js';
 
 // Shared by browser, CPU and online server. Values are per body / per hit.
 export const THRESHOLDS = Object.freeze({ tower: 109, towerInterval: .8, fragile: 81, scout: 133, meleeSwarm: 202, archers: 304, fireball: 688, log: 268 });
@@ -21,7 +22,7 @@ export const CARD_BALANCE = {
   zubat: {"cost":2,"hp":180,"damage":65,"interval":1.3,"speed":30},
   charizard: {"cost":5,"hp":1526,"damage":72,"interval":1.8,"speed":26,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[5,6,7,6],"moveFrameDuration":5,"movementAnchor":"body","attackFrames":[2,3,4,5,6,7,8,9]},
   thunder: {"cost":2,"damage":192,"towerDamage":58,"splash":60,"stun":0.5},
-  fireball: {"cost":4,"damage":689,"towerDamage":207,"splash":60,"travelSpeed":420,"castDelay":0.15},
+  fireball: {"cost":4,"damage":689,"towerDamage":207,"splash":60,"travelSpeed":420,"castDelay":0.15,"knockback":24},
   bulbasaur: {"cost":2,"hp":400,"damage":85,"interval":1.3,"speed":26},
   gengar: {"cost":4,"hp":650,"damage":125,"interval":1.45,"speed":40,"blink":5},
   machamp: {"cost":4,"hp":1361,"damage":180,"interval":1.8,"speed":26},
@@ -38,7 +39,7 @@ export const CARD_BALANCE = {
   mewtwo: {"cost":6,"hp":1452,"damage":440,"interval":2.8,"speed":26,"windup":0.65,"range":144,"splash":45},
   treecko: {"cost":3,"hp":304,"damage":112,"interval":0.9,"speed":26,"range":120},
   golem: {"cost":8,"hp":5120,"damage":312,"interval":2.5,"speed":18,"windup":0.5,"deathDamage":312},
-  log: {"cost":2,"damage":290,"towerDamage":58,"travelDistance":242.4,"travelSpeed":205},
+  log: {"cost":2,"damage":290,"towerDamage":58,"travelDistance":242.4,"travelSpeed":205,"knockback":24},
   venusaur: {"cost":5,"hp":1900,"damage":140,"interval":1.9,"speed":18},
   butterfree: {"cost":3,"hp":440,"damage":72,"interval":1.6,"speed":26,"style":"powder","color":"#c9ace9","move":"Paralizador"},
   beedrill: {"cost":3,"hp":260,"damage":85,"interval":1.3,"speed":40},
@@ -208,6 +209,7 @@ export function applyBalance(cards) {
     }
   }
   for(const [key,formation]of Object.entries(GROUP_FORMATIONS))cards[key].formation=formation;
+  for(const [key,immune]of Object.entries(PUSHBACK_IMMUNITY))if(cards[key])cards[key].knockbackImmune=immune;
   cards.duskullToken.scale=.8;
   for(const [key,description] of Object.entries(CARD_DESCRIPTIONS))cards[key].description=description;
 }

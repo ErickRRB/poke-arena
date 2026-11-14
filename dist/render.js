@@ -282,13 +282,13 @@ export class Renderer {
   }
   onEvent(event) {
     const {type}=event;
-    if(type==='dashWindup')this.effects.push({kind:'charge',actor:event.unit,style:'shadow',life:event.duration,max:event.duration});
+    if(type==='dashWindup')this.effects.push({kind:'charge',actor:event.unit,seq:event.unit.attackSeq,style:'shadow',life:event.duration,max:event.duration});
     if(type==='cast'&&event.key==='pinMissile'){
       const hitAt=CARDS.pinMissile.castDelay??.55,life=hitAt+.42;
       this.effects.push({...event,kind:'missiles',hitAt,life,max:life});
     }
-    if(type==='attackStart'&&['lightning','aura','psychic'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,style:event.style,life:event.windup,max:event.windup});
-    if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,style:event.style,life:event.windup,max:event.windup});
+    if(type==='attackStart'&&['lightning','aura','psychic'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
+    if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='beam')this.effects.push({...event,kind:'beam',life:.42,max:.42});
     if(type==='flame'){const life=event.length/(event.speed||300)+.18;this.effects.push({...event,kind:'flame',life,max:life});}
     if(type==='melee')this.effects.push({...event,kind:'melee',life:['slam','eruption'].includes(event.style)?.5:.27,max:['slam','eruption'].includes(event.style)?.5:.27});
@@ -475,6 +475,7 @@ export class Renderer {
   }
   drawEffects(c,dt){
     for(const e of this.effects){
+      if(['windup','charge'].includes(e.kind)&&e.seq!==undefined&&(this.frameActors?.get(e.actor.id)||e.actor).attackSeq!==e.seq){e.life=0;continue;}
       let activeDt=dt;
       if(e.delay>0){activeDt=Math.max(0,dt-e.delay);e.delay-=dt;if(e.delay>0)continue;}
       e.life-=activeDt;if(e.life<=0)continue;

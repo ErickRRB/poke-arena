@@ -25,7 +25,7 @@ async function visit(dir){
 }
 await visit(dist);
 const strip=s=>s.replace(/^import .*?;\r?\n/gm,'').replace(/^export \{.*?\} from .*?;\r?\n/gm,'').replace(/^export /gm,'');
-const engine=(await Promise.all(['pokemon-stats.js','unit-sizes.js','sprite-geometry.js','sprite-motion.js','deployment-formations.js','current-reference.js','catalog.js','balance.js','engine.js'].map(async file=>strip(await readFile(path.join(dist,file),'utf8'))))).join('\n'),snapshot=strip(await readFile(path.join(dist,'snapshot.js'),'utf8')),apiSource=strip(await readFile(path.join(root,'worker/api.js'),'utf8'));
+const engine=(await Promise.all(['pokemon-stats.js','unit-sizes.js','sprite-geometry.js','sprite-motion.js','deployment-formations.js','current-reference.js','knockback-profiles.js','catalog.js','balance.js','engine.js'].map(async file=>strip(await readFile(path.join(dist,file),'utf8'))))).join('\n'),snapshot=strip(await readFile(path.join(dist,'snapshot.js'),'utf8')),apiSource=strip(await readFile(path.join(root,'worker/api.js'),'utf8'));
 await mkdir(path.join(dist,'server'),{recursive:true});
 const assetChunks=[];let chunk={},chunkBytes=0;
 for(const [key,value]of Object.entries(assets)){
