@@ -36,4 +36,4 @@ python scripts/artwork-fidelity-contact.py
 python scripts/artwork-fidelity-proof.py
 ```
 
-Los cambios y el Worker están listos localmente. La publicación en Sites quedó pendiente: la revisión automática rechazó el acceso del helper porque solicitaba autorización explícita del usuario para ese destino y la publicación.
+Los cambios y el Worker se verificaron localmente. El usuario autorizó explícitamente su publicación en Poké Arena el 14 de noviembre de 2026.

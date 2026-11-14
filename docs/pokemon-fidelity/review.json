@@ -1276,7 +1276,7 @@
     "limits": "Inspección visual humana del agente, no clasificación automática ni prueba con jugadores."
   },
   "publication": {
-    "status": "local_ready_approval_required",
-    "reason": "La revisión automática bloqueó el helper de Sites por falta de autorización explícita del usuario para subir al destino y publicar."
+    "status": "authorized",
+    "reason": "El usuario autorizó explícitamente publicar estas correcciones en Poké Arena el 14 de noviembre de 2026."
   }
 }
