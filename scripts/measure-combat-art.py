@@ -6,7 +6,7 @@ cards=json.loads(subprocess.check_output(['node','--input-type=module','-e',"imp
 manifest=json.loads((root/'dist/assets/pokemon/manifest.json').read_text())
 profiles={}
 for card in list(cards.values())+[{'id':83,'name':"Farfetch’d"},{'id':534,'name':'Conkeldurr'}]:
- if card.get('spell') or str(card['id']) in profiles: continue
+ if card.get('spell') or not card.get('id') or str(card['id']) in profiles: continue
  meta=manifest[str(card['id'])]['Idle']; im=Image.open(root/'dist'/meta['file']).convert('RGBA'); body=0
  for row in range(8):
   box=im.crop((0,row*meta['height'],meta['width'],(row+1)*meta['height'])).getbbox()
