@@ -1,6 +1,6 @@
 import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, KING_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=26';
 import { BattleArt } from './battle-art.js?v=29';
-import { emissionPoint, animationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=26';
+import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=26';
 import {combatVisual,projectileVisual,movementVisual,fireballVisual} from './combat-visuals.js?v=29';
 import { spellPreviewTargets } from './spell-preview.js?v=28';
 
@@ -111,7 +111,7 @@ export class Renderer {
     for(let x=35;x<W;x+=44){this.tree(c,x,35,.95);this.tree(c,x+18,H+13,.95);}
     this.drawWater(c);
   }
-  resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.frameActors?.clear();}
+  resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.visualFlights?.clear();this.frameActors?.clear();}
   visualActor(unit,dt){
     let pose=this.visualActors.get(unit.id);
     if(!pose||Math.hypot(pose.x-unit.x,pose.y-unit.y)>95){pose={x:unit.x,y:unit.y,dx:unit.dx??0,dy:unit.dy??-1,seq:unit.attackSeq,attack:unit.attack||0};this.visualActors.set(unit.id,pose);}
@@ -126,14 +126,17 @@ export class Renderer {
   }
   visualEmission(actor,shot=0){
     if(!actor)return null;
-    const point=emissionPoint(actor,shot),bob=actor.card?.flying&&!this.reduced?Math.sin(this.t*2.6+actor.id)*1.5:0;
+    const point=emissionPoint(actor,shot,this.reduced?0:this.t),bob=actor.card?.flying&&!this.reduced?Math.sin(this.t*2.6+actor.id)*1.5:0;
     const lunge=attackLunge(actor,this.reduced);
     return{x:point.x+(actor.dx||0)*lunge,y:actor.y+(point.y-actor.y-bob+(actor.dy||0)*lunge)/(this.verticalScale||1)};
   }
   effectSource(effect){
     if(effect.chainFromId){const actor=this.frameActors.get(effect.chainFromId);return actor?this.effectTarget({to:effect.from,targetId:actor.id}):effect.from;}
     const actor=this.frameActors?.get(effect.sourceId||effect.actor?.id);
-    return actor?this.visualEmission(actor,effect.shot||0):effect.from;
+    if(!actor)return effect.from;
+    const from=this.visualEmission(actor,effect.shot||0);
+    if(actor.card?.bolts&&effect.kind==='beam')from.x+=(effect.shot?6:-6);
+    return from;
   }
   updateSpellTargets(game){
     const card=CARDS[this.selection],point=game.state==='playing'&&card?.spell&&this.pointer?game.resolveDeployment(0,this.selection,this.pointer.x,this.pointer.y):null;
@@ -186,13 +189,13 @@ export class Renderer {
     const loopMeta=loopFrames?{durations:loopFrames.map(()=>movement.frameDuration)}:meta;
     const speed=loopFrames?1:(unit.card.flying||unit.moving)?.85:.75;
     const clock=attacking?progress*duration:this.reduced?0:anim==='Hurt'?Math.max(0,.24-unit.hit)*60:(this.t+unit.id*.173)*60*speed;
-    frame=animationFrame(attacking?meta:loopMeta,clock,{loop:!attacking});
+    frame=attacking?attackAnimationFrame(meta,elapsed,unit.attackDuration||.6,windup,unit.card.attackFrames):animationFrame(loopMeta,clock);
     if(loopFrames)frame=loopFrames[frame];
     let direction = directionRow(unit.dx,unit.dy);
     if(img.height/meta.height<8)direction=0;
     const {x,y}=unit;
     const nativeAnchor=this.anchors.get(`${id}-${anim}`)?.[direction]?.[frame]||{x:meta.width/2,y:meta.height*.65};
-    const anchor=loopFrames&&movement.bodyAnchor?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor;
+    const anchor=(loopFrames||attacking)&&movement.bodyAnchor?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor;
     const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:unit.leap.kind==='river'?24:48):0;
     const lift=(leapLift+(unit.card.structure?structureLift(unit.card):unit.card.flying?16+(this.reduced?0:Math.sin(this.t*2.6+unit.id)*1.5):0))/vertical;
     const lunge=attackLunge(unit,this.reduced);
@@ -292,7 +295,7 @@ export class Renderer {
     if(type==='attackStart'&&['lightning','aura','psychic'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,style:event.style,life:event.windup,max:event.windup});
     if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,style:event.style,life:event.windup,max:event.windup});
     if(type==='beam')this.effects.push({...event,kind:'beam',life:.42,max:.42});
-    if(type==='flame')this.effects.push({...event,kind:'flame',life:.42,max:.42});
+    if(type==='flame'){const life=event.length/(event.speed||300)+.18;this.effects.push({...event,kind:'flame',life,max:life});}
     if(type==='melee')this.effects.push({...event,kind:'melee',life:['slam','eruption'].includes(event.style)?.5:.27,max:['slam','eruption'].includes(event.style)?.5:.27});
     if(type==='counter')this.effects.push({...event,kind:'counter',life:.3,max:.3});
     if(type==='attackRelease'&&event.style==='hydro')this.burst(event.from.x,event.from.y,'#b4ebef',8,45);
@@ -376,6 +379,7 @@ export class Renderer {
     this.numbers=this.numbers.filter(n=>n.life>0);
   }
   projectile(c,p){
+    if(p.flameCone)return; // The travelling front is drawn by its matching flame event.
     if(p.rolling){
       c.save();c.fillStyle='#17271f44';c.beginPath();c.ellipse(p.x,p.y+3,18,6,0,0,Math.PI*2);c.fill();
       this.combatArt(c,'rock',p.x,p.y-13/(this.verticalScale||1),38,this.reduced?0:p.travelled/18,38,{frame:0,trim:true});c.restore();return;
@@ -428,7 +432,7 @@ export class Renderer {
   }
   effectTarget(effect){
     const actor=this.frameActors.get(effect.targetId);
-    return actor?{x:actor.x,y:actor.y-('king'in actor?27:actor.card?.structure?43:actor.card?.flying?27:15)/(this.verticalScale||1)}:effect.to;
+    return actor?{x:actor.x,y:actor.y-('king'in actor?27:actor.card?.structure?structureLift(actor.card)+20:actor.card?.flying?27:15)/(this.verticalScale||1)}:effect.to;
   }
   areaImpact(c,e,progress){
     const radius=e.radius,fade=1-progress,color=e.color||'#dfdab0',vertical=this.verticalScale||1;
@@ -487,8 +491,9 @@ export class Renderer {
       }else if(e.kind==='flame'){
         const from=this.effectSource(e),to=this.effectTarget(e);
         if(!from||!to){c.restore();continue;}
-        const dx=to.x-from.x,dy=(to.y-from.y)*(this.verticalScale||1),distance=Math.hypot(dx,dy),angle=e.angle??Math.atan2(dy,dx);
-        const length=e.length||Math.min(190,distance+10),head=Math.min(1,age/.16),body=combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).body;
+        const dx=to.x-from.x,dy=(to.y-from.y)*(this.verticalScale||1),distance=Math.hypot(dx,dy),angle=Math.atan2(dy,dx);
+        const groundTarget=this.frameActors.get(e.targetId)||e.groundTo,groundDistance=groundTarget&&e.groundFrom?Math.hypot(groundTarget.x-e.groundFrom.x,groundTarget.y-e.groundFrom.y):distance;
+        const length=(e.length||Math.min(190,distance+10))*distance/Math.max(1,groundDistance),head=Math.min(1,age*(e.speed||300)/(e.length||length)),body=combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).body;
         if(e.cone&&e.groundFrom){
           const origin=e.groundFrom;c.save();c.globalAlpha*=.12*(1-progress);c.fillStyle='#f4b563';c.beginPath();c.moveTo(origin.x,origin.y);c.arc(origin.x,origin.y,length,e.angle-e.cone,e.angle+e.cone);c.closePath();c.fill();c.restore();
         }
@@ -533,6 +538,7 @@ export class Renderer {
       for(let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++){
         const x=col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
         if(cells[row][col]){
+          c.strokeStyle=card.spell?'#314b3759':'#d9ebbc19';c.lineWidth=card.spell?.9:.55;
           c.strokeRect(x-TILE/2,y-TILE/2,TILE,TILE);
           if((!card.spell||card.rolling)&&row&&!cells[row-1][col]){
             line(c,'#3e5339cc',x-TILE/2,y-TILE/2,x+TILE/2,y-TILE/2,3);
@@ -630,8 +636,15 @@ export class Renderer {
   }
   fireball(c,spell){
     if(spell.delay>0||spell.done)return;
-    const {point,tail,angle}=fireballVisual(spell,this.verticalScale||1),age=this.reduced?0:spell.flightElapsed;
-    if(spell.card?.spawnOnImpact){this.battleArt.draw(c,'pokeball',point.x,point.y,28,28,{frame:0});return;}
+    const id=spell.visualId??`${spell.team}:${spell.key}:${spell.startX}:${spell.startY}:${spell.x}:${spell.y}`;
+    this.visualFlights??=new Map();let pose=this.visualFlights.get(id);
+    if(!pose||spell.flightElapsed<pose.logical-1e-7)pose={elapsed:Math.max(0,spell.flightElapsed-1/30),logical:spell.flightElapsed};
+    // Interpolate the last simulation interval at display rate, without early landing.
+    pose.elapsed=Math.max(0,Math.min(spell.flightElapsed,Math.max(pose.elapsed,spell.flightElapsed-1/30)+(this.drawDt||0)));
+    pose.logical=spell.flightElapsed;pose.at=this.t;this.visualFlights.set(id,pose);
+    const visual={...spell,flightElapsed:Math.min(spell.flightTime,pose.elapsed)};
+    const {point,tail,angle}=fireballVisual(visual,this.verticalScale||1),age=this.reduced?0:visual.flightElapsed;
+    if(spell.card?.spawnOnImpact){this.combatArt(c,'pokeball',point.x,point.y,52,this.reduced?0:age*4,52,{frame:0,trim:true});return;}
     for(let i=tail.length-1;i>=0;i--){c.save();c.globalAlpha=.45-i*.1;const size=36-i*7;
       this.combatArt(c,'fireTrail',tail[i].x,tail[i].y,size,angle-Math.PI/2,size,{age:age+i*.09,fps:8,trim:true});c.restore();}
     const size=this.reduced?58:58+Math.sin(age*5)*2;
@@ -669,6 +682,7 @@ export class Renderer {
     if(this.healthStates.size>300){const ids=new Set(game.units.map(u=>u.id));for(const id of this.healthStates.keys())if(!ids.has(id))this.healthStates.delete(id);}
     const ids=new Set([...game.towers,...game.units].map(u=>u.id));for(const id of this.visualActors.keys())if(!ids.has(id))this.visualActors.delete(id);
     for(const[key,pose]of this.visualProjectiles)if(this.t-pose.at>1)this.visualProjectiles.delete(key);
+    for(const[key,pose]of this.visualFlights||[])if(this.t-pose.at>1)this.visualFlights.delete(key);
     for(const p of this.particles){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=p.gravity*dt;c.globalAlpha=Math.max(0,p.life/p.max);this.combatArt(c,'dust',p.x,p.y,Math.max(8,p.size*3),0,Math.max(8,p.size*3),{progress:1-p.life/p.max});}
     this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;
   }

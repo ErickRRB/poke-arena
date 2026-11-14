@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-14",
+  "assets": {
+    "diglettHorde15": {
+      "mode": "built-in image_gen",
+      "transparentBackground": false,
+      "prompt": "Keep this illustration and its compact irregular Diglett cluster. Remove only the single foremost Diglett at the very bottom-left of the group, the one with the pink nose near image coordinate (320,960) in this 1122x1402 illustration. Replace its body with the same continuous loose soil and grass. Preserve the other fifteen Diglett exactly, their neutral mouthless faces, shared mound, close spacing, environment, camera and lighting. No other changes.",
+      "output": "dist/assets/cards/diglettHorde15.webp"
+    },
+    "zubatSwarm5": {
+      "mode": "built-in image_gen",
+      "transparentBackground": false,
+      "prompt": "Original portrait 4:5 Pokemon trading card illustration. Exactly five Zubat flying together through a wide natural cave opening at twilight. Blue rounded bat bodies, large open mouths with four white fangs, purple inner ears and wing membranes, thin blue two-pronged legs. Zubat are canonically eyeless: the upper face is a smooth unmarked blue surface above the mouth. One nearer diagonal bat, two at middle depth and two smaller distant bats, all anatomically recognizable with two wings per bat. Purple sunset over mountains, coherent soft illustrated light, rocky arch and mossy ground, beautiful original full scene, restrained detail, readable at small size, no typography or borders.",
+      "output": "dist/assets/cards/zubatSwarm5.webp"
+    },
+    "sandshrewTrio3": {
+      "mode": "built-in image_gen",
+      "transparentBackground": false,
+      "prompt": "Use case: precise-object-edit. Update this existing card scene from two to exactly THREE canonical Sandshrew together on the same dry rocky path. Keep the foreground upright Sandshrew and the existing crouched background Sandshrew. Add a third Sandshrew in the middle distance in a distinct pose and orientation, with shared ground, perspective and lighting. Match the canonical yellow segmented plates, cream belly and muzzle, black oval eyes, small ears, clawed limbs and tapering tail of the input. Keep correct limbs and one tail per character. Preserve the earthy setting, vegetation, rocks, painterly style and soft warm light. All three must be separately countable within the card, without clipping the main characters. Portrait 4:5. No physical shields or extra accessories, no new species, no text, no UI, no frame, opaque.",
+      "output": "dist/assets/cards/sandshrewTrio3.webp"
+    },
+    "beedrillSwarm3": {
+      "mode": "built-in image_gen",
+      "transparentBackground": false,
+      "prompt": "Use case: precise-object-edit. Change this existing card illustration from two to exactly THREE Beedrill in one coherent leafy forest flight scene. Preserve the current foreground and background Beedrill and add a third individual at a distinct middle-distance location with a different natural flight orientation. All three must be complete canonical Beedrill: yellow bodies, black striped abdomens, red compound eyes, two black antennae, transparent wings, two pointed metal-white forearm drills and one tail stinger. Preserve accurate limb counts and match the same design as the input. Keep the original lighting, painted detailed forest background, motion and perspective. The three characters must be countable, not clones pasted in rows. Portrait 4:5, all three largely within the central 80 percent of the canvas. No new species, no text, no UI, no border, opaque.",
+      "output": "dist/assets/cards/beedrillSwarm3.webp"
+    },
+    "dusclopsSceneV1": {
+      "mode": "built-in image_gen",
+      "transparentBackground": false,
+      "prompt": "Original portrait 4:5 Pokemon trading card illustration, a complete moonlit castle garden scene. One canonical Dusclops is the large main character: stocky grey bandaged cyclops ghost with a single round pink-red eye, white wisp on the head, massive hands, thick grey feet, no mouth. It extends one hand to release a small purple orb diagonally left. Exactly four small canonical Duskull float near it; each is about one third the height of Dusclops, with a charcoal-grey wispy hood body, a bone-white face mask with two dark oval openings and a single red eye visible through one opening. Dusclops and the four Duskull form one coherent team on ivy-covered ruins, blue moonlight and warm distant lanterns, softly painted vivid storybook scene, accurate character proportions and recognizable silhouettes, no other species, no letters or frame.",
+      "output": "dist/assets/cards/dusclopsSceneV1.webp"
+    }
+  }
+}

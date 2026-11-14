@@ -4,7 +4,7 @@ import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=26';
 const entityCopy=e=>{const{target,...copy}=e;return{...copy,targetId:target?.id??null};};
 export function packGame(game){
   const{onEvent,animations,units,towers,attacks,projectiles,...plain}=game;
-  return{...plain,units:units.map(entityCopy),towers:towers.map(entityCopy),attacks:attacks.map(({attacker,target,...job})=>({...job,attackerId:attacker.id,targetId:target.id})),projectiles:projectiles.map(({target,...p})=>({...p,targetId:target?.id??null}))};
+  return{...plain,units:units.map(entityCopy),towers:towers.map(entityCopy),attacks:attacks.map(({attacker,target,...job})=>({...job,attackerId:attacker.id,targetId:target.id})),projectiles:projectiles.map(({target,...p})=>({...p,targetId:p.rolling||p.linear?null:target?.id??null}))};
 }
 export function unpackGame(data,onEvent=()=>{},animations={}){
   const game=Object.assign(Object.create(Game.prototype),structuredClone(data));game.onEvent=onEvent;game.animations=animations;
@@ -13,7 +13,7 @@ export function unpackGame(data,onEvent=()=>{},animations={}){
   const entities=new Map([...game.units,...game.towers].map(e=>[e.id,e]));
   for(const entity of entities.values()){entity.card=entity.card||CARDS[entity.key];entity.target=entities.get(entity.targetId)||null;}
   game.attacks=game.attacks.map(j=>({...j,attacker:entities.get(j.attackerId),target:entities.get(j.targetId)})).filter(j=>j.attacker&&j.target);
-  game.projectiles=game.projectiles.map(p=>({...p,target:entities.get(p.targetId)})).filter(p=>p.rolling||p.linear||p.target);
+  game.projectiles=game.projectiles.map(p=>({...p,target:entities.get(p.targetId)})).filter(p=>p.rolling||p.linear||p.flameCone||p.target);
   return game;
 }
 export function packEvent(event){

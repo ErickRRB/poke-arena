@@ -1,0 +1,492 @@
+{
+  "date": "2026-11-14",
+  "viewports": [
+    {
+      "width": 390,
+      "height": 844,
+      "searchStarts": "0:00",
+      "clockShiftMs": -7200000,
+      "rectDelta": 0,
+      "boostSize": [
+        76,
+        36
+      ]
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "searchStarts": "0:00",
+      "clockShiftMs": -7200000,
+      "rectDelta": 0,
+      "boostSize": [
+        76,
+        36
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 980,
+      "searchStarts": "0:00",
+      "clockShiftMs": -7200000,
+      "rectDelta": 0,
+      "boostSize": [
+        76,
+        36
+      ]
+    }
+  ],
+  "firstGroup": {
+    "scenes": [
+      {
+        "key": "pikachu",
+        "frames": 180,
+        "events": [
+          {
+            "type": "start",
+            "at": 0
+          },
+          {
+            "type": "spawn",
+            "at": 0
+          },
+          {
+            "type": "spawn",
+            "at": 0
+          },
+          {
+            "type": "attackStart",
+            "at": 0.4333333333333333
+          },
+          {
+            "type": "attackRelease",
+            "key": "pikachu",
+            "at": 1.0333333333333332,
+            "shot": 0
+          },
+          {
+            "type": "damage",
+            "at": 1.0333333333333332
+          },
+          {
+            "type": "beam",
+            "key": "pikachu",
+            "at": 1.0333333333333332,
+            "shot": 0
+          },
+          {
+            "type": "damage",
+            "at": 1.0333333333333332
+          },
+          {
+            "type": "beam",
+            "key": "pikachu",
+            "at": 1.0333333333333332,
+            "shot": 1
+          },
+          {
+            "type": "attackStart",
+            "at": 2.233333333333335
+          },
+          {
+            "type": "attackRelease",
+            "key": "pikachu",
+            "at": 2.833333333333333,
+            "shot": 0
+          },
+          {
+            "type": "damage",
+            "at": 2.833333333333333
+          },
+          {
+            "type": "beam",
+            "key": "pikachu",
+            "at": 2.833333333333333,
+            "shot": 0
+          },
+          {
+            "type": "damage",
+            "at": 2.833333333333333
+          },
+          {
+            "type": "beam",
+            "key": "pikachu",
+            "at": 2.833333333333333,
+            "shot": 1
+          }
+        ],
+        "flightSamples": 0,
+        "uniqueFlightPositions": 0
+      },
+      {
+        "key": "charizard",
+        "frames": 180,
+        "events": [
+          {
+            "type": "start",
+            "at": 0
+          },
+          {
+            "type": "spawn",
+            "at": 0
+          },
+          {
+            "type": "spawn",
+            "at": 0
+          },
+          {
+            "type": "attackStart",
+            "at": 0.4333333333333333
+          },
+          {
+            "type": "attackRelease",
+            "key": "charizard",
+            "at": 0.7333333333333333,
+            "shot": 0
+          },
+          {
+            "type": "flame",
+            "key": "charizard",
+            "at": 0.7333333333333333,
+            "shot": 0
+          },
+          {
+            "type": "attackRelease",
+            "key": "charizard",
+            "at": 0.8666666666666666,
+            "shot": 1
+          },
+          {
+            "type": "flame",
+            "key": "charizard",
+            "at": 0.8666666666666666,
+            "shot": 1
+          },
+          {
+            "type": "attackRelease",
+            "key": "charizard",
+            "at": 0.9999999999999999,
+            "shot": 2
+          },
+          {
+            "type": "flame",
+            "key": "charizard",
+            "at": 0.9999999999999999,
+            "shot": 2
+          },
+          {
+            "type": "damage",
+            "at": 1.0333333333333332
+          },
+          {
+            "type": "hit",
+            "key": "charizard",
+            "at": 1.0333333333333332
+          },
+          {
+            "type": "damage",
+            "at": 1.166666666666667
+          },
+          {
+            "type": "hit",
+            "key": "charizard",
+            "at": 1.166666666666667
+          },
+          {
+            "type": "damage",
+            "at": 1.3000000000000007
+          },
+          {
+            "type": "hit",
+            "key": "charizard",
+            "at": 1.3000000000000007
+          },
+          {
+            "type": "attackStart",
+            "at": 2.233333333333335
+          },
+          {
+            "type": "attackRelease",
+            "key": "charizard",
+            "at": 2.533333333333334,
+            "shot": 0
+          },
+          {
+            "type": "flame",
+            "key": "charizard",
+            "at": 2.533333333333334,
+            "shot": 0
+          },
+          {
+            "type": "attackRelease",
+            "key": "charizard",
+            "at": 2.666666666666667,
+            "shot": 1
+          },
+          {
+            "type": "flame",
+            "key": "charizard",
+            "at": 2.666666666666667,
+            "shot": 1
+          },
+          {
+            "type": "attackRelease",
+            "key": "charizard",
+            "at": 2.8,
+            "shot": 2
+          },
+          {
+            "type": "flame",
+            "key": "charizard",
+            "at": 2.8,
+            "shot": 2
+          },
+          {
+            "type": "damage",
+            "at": 2.833333333333333
+          },
+          {
+            "type": "hit",
+            "key": "charizard",
+            "at": 2.833333333333333
+          },
+          {
+            "type": "damage",
+            "at": 2.966666666666666
+          },
+          {
+            "type": "hit",
+            "key": "charizard",
+            "at": 2.966666666666666
+          }
+        ],
+        "flightSamples": 0,
+        "uniqueFlightPositions": 0
+      },
+      {
+        "key": "sneaselAmbush",
+        "frames": 300,
+        "events": [
+          {
+            "type": "start",
+            "at": 0
+          },
+          {
+            "type": "cast",
+            "key": "sneaselAmbush",
+            "at": 0
+          },
+          {
+            "type": "deploy",
+            "key": "sneaselAmbush",
+            "at": 0
+          },
+          {
+            "type": "spawn",
+            "at": 3.0999999999999988
+          },
+          {
+            "type": "spawn",
+            "at": 3.0999999999999988
+          },
+          {
+            "type": "spawn",
+            "at": 3.0999999999999988
+          },
+          {
+            "type": "spellHit",
+            "key": "sneaselAmbush",
+            "at": 3.0999999999999988
+          },
+          {
+            "type": "attackStart",
+            "at": 4.233333333333328
+          },
+          {
+            "type": "attackStart",
+            "at": 4.233333333333328
+          },
+          {
+            "type": "attackStart",
+            "at": 4.233333333333328
+          },
+          {
+            "type": "attackRelease",
+            "key": "sneaselToken",
+            "at": 4.533333333333327,
+            "shot": 0
+          },
+          {
+            "type": "damage",
+            "at": 4.533333333333327
+          },
+          {
+            "type": "melee",
+            "key": "sneaselToken",
+            "at": 4.533333333333327,
+            "shot": 0
+          },
+          {
+            "type": "hit",
+            "key": "sneaselToken",
+            "at": 4.533333333333327
+          },
+          {
+            "type": "attackRelease",
+            "key": "sneaselToken",
+            "at": 4.533333333333327,
+            "shot": 0
+          },
+          {
+            "type": "damage",
+            "at": 4.533333333333327
+          },
+          {
+            "type": "melee",
+            "key": "sneaselToken",
+            "at": 4.533333333333327,
+            "shot": 0
+          },
+          {
+            "type": "hit",
+            "key": "sneaselToken",
+            "at": 4.533333333333327
+          },
+          {
+            "type": "attackRelease",
+            "key": "sneaselToken",
+            "at": 4.533333333333327,
+            "shot": 0
+          },
+          {
+            "type": "damage",
+            "at": 4.533333333333327
+          },
+          {
+            "type": "melee",
+            "key": "sneaselToken",
+            "at": 4.533333333333327,
+            "shot": 0
+          },
+          {
+            "type": "hit",
+            "key": "sneaselToken",
+            "at": 4.533333333333327
+          }
+        ],
+        "flightSamples": 172,
+        "uniqueFlightPositions": 172
+      }
+    ],
+    "nativeSheets": [
+      {
+        "key": "pikachu",
+        "framesPerDirection": 47,
+        "directions": 8
+      },
+      {
+        "key": "charizard",
+        "framesPerDirection": 58,
+        "directions": 8
+      },
+      {
+        "key": "sneaselToken",
+        "framesPerDirection": 46,
+        "directions": 8
+      }
+    ],
+    "displayIntervals": {
+      "medianMs": 14.199999988079071,
+      "p95Ms": 21.80000001192093,
+      "meanMs": 16.666412213740458
+    },
+    "decoded": [
+      {
+        "key": "75",
+        "channels": 1,
+        "duration": 0.872562358276644,
+        "rate": 44100
+      },
+      {
+        "key": "78",
+        "channels": 1,
+        "duration": 1.4099773242630385,
+        "rate": 44100
+      },
+      {
+        "key": "112",
+        "channels": 1,
+        "duration": 0.9103401360544218,
+        "rate": 44100
+      },
+      {
+        "key": "215",
+        "channels": 1,
+        "duration": 1.1206349206349207,
+        "rate": 44100
+      },
+      {
+        "key": "274",
+        "channels": 1,
+        "duration": 0.6603628117913832,
+        "rate": 44100
+      },
+      {
+        "key": "315",
+        "channels": 1,
+        "duration": 0.6750113378684808,
+        "rate": 44100
+      },
+      {
+        "key": "356",
+        "channels": 1,
+        "duration": 2.5,
+        "rate": 44100
+      },
+      {
+        "key": "6-impact",
+        "channels": 1,
+        "duration": 0.36,
+        "rate": 44100
+      },
+      {
+        "key": "6-release",
+        "channels": 1,
+        "duration": 0.54,
+        "rate": 44100
+      },
+      {
+        "key": "25-impact",
+        "channels": 1,
+        "duration": 0.23,
+        "rate": 44100
+      },
+      {
+        "key": "25-release",
+        "channels": 1,
+        "duration": 0.34,
+        "rate": 44100
+      },
+      {
+        "key": "215-impact",
+        "channels": 1,
+        "duration": 0.15,
+        "rate": 44100
+      },
+      {
+        "key": "215-release",
+        "channels": 1,
+        "duration": 0.24,
+        "rate": 44100
+      }
+    ],
+    "scope": "Frame-by-frame browser review of the first group only; hardware frame rate is measured, not guaranteed."
+  },
+  "battle": {
+    "viewports": 3,
+    "onlineRequests": 0
+  },
+  "loading": {
+    "viewports": 3,
+    "onlineRequests": 0
+  }
+}

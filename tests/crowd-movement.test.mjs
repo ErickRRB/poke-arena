@@ -24,8 +24,8 @@ function follow(s,seconds=20){
 }
 test('an enemy swarm slows a tower seeker without trapping it or rapidly flipping its direction',()=>{
  for(const team of[0,1])for(const lane of[0,1]){
-  const blocked=follow(scene('swarm',team,lane)),clear=follow(scene('empty',team,lane));
-  assert.ok(blocked.advance>120,JSON.stringify(blocked));assert.ok(blocked.advance<clear.advance-35,'swarm should still slow the tank');assert.ok(blocked.reversals<12);assert.ok(blocked.turns<24);
+  const blocked=follow(scene('swarm',team,lane)),early=follow(scene('swarm',team,lane),10),clear=follow(scene('empty',team,lane),10);
+  assert.ok(blocked.advance>120,JSON.stringify(blocked));assert.ok(early.advance<clear.advance-35,'swarm should still slow the tank before both reach the destination');assert.ok(blocked.reversals<12);assert.ok(blocked.turns<24);
  }
 });
 test('nearby large allies and airborne crowds pass each other with stable headings',()=>{

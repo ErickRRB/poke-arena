@@ -1,0 +1,7014 @@
+[
+  {
+    "key": "pikachu",
+    "frame": 0,
+    "time": 0,
+    "engineTime": 0.03333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 1,
+    "time": 0.016666666666666666,
+    "engineTime": 0.03333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 2,
+    "time": 0.03333333333333333,
+    "engineTime": 0.06666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 3,
+    "time": 0.05,
+    "engineTime": 0.06666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 4,
+    "time": 0.06666666666666667,
+    "engineTime": 0.1,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 5,
+    "time": 0.08333333333333333,
+    "engineTime": 0.1,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 6,
+    "time": 0.1,
+    "engineTime": 0.13333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 7,
+    "time": 0.11666666666666667,
+    "engineTime": 0.13333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 8,
+    "time": 0.13333333333333333,
+    "engineTime": 0.16666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 9,
+    "time": 0.15,
+    "engineTime": 0.16666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 10,
+    "time": 0.16666666666666666,
+    "engineTime": 0.19999999999999998,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 11,
+    "time": 0.18333333333333332,
+    "engineTime": 0.19999999999999998,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 12,
+    "time": 0.2,
+    "engineTime": 0.2333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 13,
+    "time": 0.21666666666666667,
+    "engineTime": 0.2333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 14,
+    "time": 0.23333333333333334,
+    "engineTime": 0.26666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 15,
+    "time": 0.25,
+    "engineTime": 0.26666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 16,
+    "time": 0.26666666666666666,
+    "engineTime": 0.3,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 17,
+    "time": 0.2833333333333333,
+    "engineTime": 0.3,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 18,
+    "time": 0.3,
+    "engineTime": 0.3333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 19,
+    "time": 0.31666666666666665,
+    "engineTime": 0.3333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 20,
+    "time": 0.3333333333333333,
+    "engineTime": 0.36666666666666664,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 21,
+    "time": 0.35,
+    "engineTime": 0.36666666666666664,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 22,
+    "time": 0.36666666666666664,
+    "engineTime": 0.39999999999999997,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 23,
+    "time": 0.38333333333333336,
+    "engineTime": 0.39999999999999997,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 24,
+    "time": 0.4,
+    "engineTime": 0.4333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.76,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 25,
+    "time": 0.4166666666666667,
+    "engineTime": 0.4333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.76,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 26,
+    "time": 0.43333333333333335,
+    "engineTime": 0.4666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.7266666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 27,
+    "time": 0.45,
+    "engineTime": 0.4666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.7266666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 28,
+    "time": 0.4666666666666667,
+    "engineTime": 0.49999999999999994,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6933333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 29,
+    "time": 0.48333333333333334,
+    "engineTime": 0.49999999999999994,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6933333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 30,
+    "time": 0.5,
+    "engineTime": 0.5333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.66,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 31,
+    "time": 0.5166666666666667,
+    "engineTime": 0.5333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.66,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 32,
+    "time": 0.5333333333333333,
+    "engineTime": 0.5666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6266666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 33,
+    "time": 0.55,
+    "engineTime": 0.5666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6266666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 34,
+    "time": 0.5666666666666667,
+    "engineTime": 0.6,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5933333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 35,
+    "time": 0.5833333333333334,
+    "engineTime": 0.6,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5933333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 36,
+    "time": 0.6,
+    "engineTime": 0.6333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.56,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 37,
+    "time": 0.6166666666666667,
+    "engineTime": 0.6333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.56,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 38,
+    "time": 0.6333333333333333,
+    "engineTime": 0.6666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5266666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 39,
+    "time": 0.65,
+    "engineTime": 0.6666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5266666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 40,
+    "time": 0.6666666666666666,
+    "engineTime": 0.7,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.4933333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 41,
+    "time": 0.6833333333333333,
+    "engineTime": 0.7,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.4933333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 42,
+    "time": 0.7,
+    "engineTime": 0.7333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.4600000000000001,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 43,
+    "time": 0.7166666666666667,
+    "engineTime": 0.7333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.4600000000000001,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 44,
+    "time": 0.7333333333333333,
+    "engineTime": 0.7666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.42666666666666675,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 45,
+    "time": 0.75,
+    "engineTime": 0.7666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.42666666666666675,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 46,
+    "time": 0.7666666666666667,
+    "engineTime": 0.7999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3933333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 47,
+    "time": 0.7833333333333333,
+    "engineTime": 0.7999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3933333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 48,
+    "time": 0.8,
+    "engineTime": 0.8333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3600000000000001,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 49,
+    "time": 0.8166666666666667,
+    "engineTime": 0.8333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3600000000000001,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 50,
+    "time": 0.8333333333333334,
+    "engineTime": 0.8666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.32666666666666677,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 51,
+    "time": 0.85,
+    "engineTime": 0.8666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.32666666666666677,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 52,
+    "time": 0.8666666666666667,
+    "engineTime": 0.8999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.29333333333333345,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 53,
+    "time": 0.8833333333333333,
+    "engineTime": 0.8999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.29333333333333345,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 54,
+    "time": 0.9,
+    "engineTime": 0.9333333333333332,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.2600000000000001,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 55,
+    "time": 0.9166666666666666,
+    "engineTime": 0.9333333333333332,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.2600000000000001,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 56,
+    "time": 0.9333333333333333,
+    "engineTime": 0.9666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.2266666666666668,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 57,
+    "time": 0.95,
+    "engineTime": 0.9666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.2266666666666668,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 58,
+    "time": 0.9666666666666667,
+    "engineTime": 0.9999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.19333333333333347,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 59,
+    "time": 0.9833333333333333,
+    "engineTime": 0.9999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.19333333333333347,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 60,
+    "time": 1,
+    "engineTime": 1.0333333333333332,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.16000000000000014,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 61,
+    "time": 1.0166666666666666,
+    "engineTime": 1.0333333333333332,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.16000000000000014,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 62,
+    "time": 1.0333333333333334,
+    "engineTime": 1.0666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.12666666666666682,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 63,
+    "time": 1.05,
+    "engineTime": 1.0666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.12666666666666682,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 64,
+    "time": 1.0666666666666667,
+    "engineTime": 1.1,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.09333333333333349,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 65,
+    "time": 1.0833333333333333,
+    "engineTime": 1.1,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.09333333333333349,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 66,
+    "time": 1.1,
+    "engineTime": 1.1333333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.06000000000000016,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 67,
+    "time": 1.1166666666666667,
+    "engineTime": 1.1333333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.06000000000000016,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 68,
+    "time": 1.1333333333333333,
+    "engineTime": 1.166666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.026666666666666825,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 69,
+    "time": 1.15,
+    "engineTime": 1.166666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.026666666666666825,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 70,
+    "time": 1.1666666666666667,
+    "engineTime": 1.2000000000000004,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 71,
+    "time": 1.1833333333333333,
+    "engineTime": 1.2000000000000004,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 72,
+    "time": 1.2,
+    "engineTime": 1.2333333333333338,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 73,
+    "time": 1.2166666666666666,
+    "engineTime": 1.2333333333333338,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 74,
+    "time": 1.2333333333333334,
+    "engineTime": 1.2666666666666673,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 75,
+    "time": 1.25,
+    "engineTime": 1.2666666666666673,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 76,
+    "time": 1.2666666666666666,
+    "engineTime": 1.3000000000000007,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 77,
+    "time": 1.2833333333333334,
+    "engineTime": 1.3000000000000007,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 78,
+    "time": 1.3,
+    "engineTime": 1.3333333333333341,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 79,
+    "time": 1.3166666666666667,
+    "engineTime": 1.3333333333333341,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 80,
+    "time": 1.3333333333333333,
+    "engineTime": 1.3666666666666676,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 81,
+    "time": 1.35,
+    "engineTime": 1.3666666666666676,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 82,
+    "time": 1.3666666666666667,
+    "engineTime": 1.400000000000001,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 83,
+    "time": 1.3833333333333333,
+    "engineTime": 1.400000000000001,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 84,
+    "time": 1.4,
+    "engineTime": 1.4333333333333345,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 85,
+    "time": 1.4166666666666667,
+    "engineTime": 1.4333333333333345,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 86,
+    "time": 1.4333333333333333,
+    "engineTime": 1.466666666666668,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 87,
+    "time": 1.45,
+    "engineTime": 1.466666666666668,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 88,
+    "time": 1.4666666666666666,
+    "engineTime": 1.5000000000000013,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 89,
+    "time": 1.4833333333333334,
+    "engineTime": 1.5000000000000013,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 90,
+    "time": 1.5,
+    "engineTime": 1.5333333333333348,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 91,
+    "time": 1.5166666666666666,
+    "engineTime": 1.5333333333333348,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 92,
+    "time": 1.5333333333333334,
+    "engineTime": 1.5666666666666682,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 93,
+    "time": 1.55,
+    "engineTime": 1.5666666666666682,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 94,
+    "time": 1.5666666666666667,
+    "engineTime": 1.6000000000000016,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 95,
+    "time": 1.5833333333333333,
+    "engineTime": 1.6000000000000016,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 96,
+    "time": 1.6,
+    "engineTime": 1.633333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 97,
+    "time": 1.6166666666666667,
+    "engineTime": 1.633333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 98,
+    "time": 1.6333333333333333,
+    "engineTime": 1.6666666666666685,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 99,
+    "time": 1.65,
+    "engineTime": 1.6666666666666685,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 100,
+    "time": 1.6666666666666667,
+    "engineTime": 1.700000000000002,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 101,
+    "time": 1.6833333333333333,
+    "engineTime": 1.700000000000002,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 102,
+    "time": 1.7,
+    "engineTime": 1.7333333333333354,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 103,
+    "time": 1.7166666666666666,
+    "engineTime": 1.7333333333333354,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 104,
+    "time": 1.7333333333333334,
+    "engineTime": 1.7666666666666688,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 105,
+    "time": 1.75,
+    "engineTime": 1.7666666666666688,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 106,
+    "time": 1.7666666666666666,
+    "engineTime": 1.8000000000000023,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 107,
+    "time": 1.7833333333333334,
+    "engineTime": 1.8000000000000023,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 108,
+    "time": 1.8,
+    "engineTime": 1.8333333333333357,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 109,
+    "time": 1.8166666666666667,
+    "engineTime": 1.8333333333333357,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 110,
+    "time": 1.8333333333333333,
+    "engineTime": 1.8666666666666691,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 111,
+    "time": 1.85,
+    "engineTime": 1.8666666666666691,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 112,
+    "time": 1.8666666666666667,
+    "engineTime": 1.9000000000000026,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 113,
+    "time": 1.8833333333333333,
+    "engineTime": 1.9000000000000026,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 114,
+    "time": 1.9,
+    "engineTime": 1.933333333333336,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 115,
+    "time": 1.9166666666666667,
+    "engineTime": 1.933333333333336,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 116,
+    "time": 1.9333333333333333,
+    "engineTime": 1.9666666666666694,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 117,
+    "time": 1.95,
+    "engineTime": 1.9666666666666694,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 118,
+    "time": 1.9666666666666666,
+    "engineTime": 2.0000000000000027,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 119,
+    "time": 1.9833333333333334,
+    "engineTime": 2.0000000000000027,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 120,
+    "time": 2,
+    "engineTime": 2.033333333333336,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 121,
+    "time": 2.0166666666666666,
+    "engineTime": 2.033333333333336,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 122,
+    "time": 2.033333333333333,
+    "engineTime": 2.066666666666669,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 123,
+    "time": 2.05,
+    "engineTime": 2.066666666666669,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 124,
+    "time": 2.066666666666667,
+    "engineTime": 2.1000000000000023,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 125,
+    "time": 2.0833333333333335,
+    "engineTime": 2.1000000000000023,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 126,
+    "time": 2.1,
+    "engineTime": 2.1333333333333355,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 127,
+    "time": 2.1166666666666667,
+    "engineTime": 2.1333333333333355,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 128,
+    "time": 2.1333333333333333,
+    "engineTime": 2.1666666666666687,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 129,
+    "time": 2.15,
+    "engineTime": 2.1666666666666687,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 130,
+    "time": 2.1666666666666665,
+    "engineTime": 2.200000000000002,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 131,
+    "time": 2.183333333333333,
+    "engineTime": 2.200000000000002,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 132,
+    "time": 2.2,
+    "engineTime": 2.233333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.76,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 133,
+    "time": 2.216666666666667,
+    "engineTime": 2.233333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.76,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 134,
+    "time": 2.2333333333333334,
+    "engineTime": 2.2666666666666684,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.7266666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 135,
+    "time": 2.25,
+    "engineTime": 2.2666666666666684,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.7266666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 136,
+    "time": 2.2666666666666666,
+    "engineTime": 2.3000000000000016,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6933333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 137,
+    "time": 2.283333333333333,
+    "engineTime": 2.3000000000000016,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6933333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 138,
+    "time": 2.3,
+    "engineTime": 2.333333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.66,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 139,
+    "time": 2.316666666666667,
+    "engineTime": 2.333333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.66,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 140,
+    "time": 2.3333333333333335,
+    "engineTime": 2.366666666666668,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6266666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 141,
+    "time": 2.35,
+    "engineTime": 2.366666666666668,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6266666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 142,
+    "time": 2.3666666666666667,
+    "engineTime": 2.4000000000000012,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5933333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 143,
+    "time": 2.3833333333333333,
+    "engineTime": 2.4000000000000012,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5933333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 144,
+    "time": 2.4,
+    "engineTime": 2.4333333333333345,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.56,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 145,
+    "time": 2.4166666666666665,
+    "engineTime": 2.4333333333333345,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.56,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 146,
+    "time": 2.433333333333333,
+    "engineTime": 2.4666666666666677,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5266666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 147,
+    "time": 2.45,
+    "engineTime": 2.4666666666666677,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5266666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 148,
+    "time": 2.466666666666667,
+    "engineTime": 2.500000000000001,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.4933333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 149,
+    "time": 2.4833333333333334,
+    "engineTime": 2.500000000000001,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.4933333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 150,
+    "time": 2.5,
+    "engineTime": 2.533333333333334,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.4600000000000001,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 151,
+    "time": 2.5166666666666666,
+    "engineTime": 2.533333333333334,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.4600000000000001,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 152,
+    "time": 2.533333333333333,
+    "engineTime": 2.5666666666666673,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.42666666666666675,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 153,
+    "time": 2.55,
+    "engineTime": 2.5666666666666673,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.42666666666666675,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 154,
+    "time": 2.566666666666667,
+    "engineTime": 2.6000000000000005,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3933333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 155,
+    "time": 2.5833333333333335,
+    "engineTime": 2.6000000000000005,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3933333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 156,
+    "time": 2.6,
+    "engineTime": 2.6333333333333337,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3600000000000001,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 157,
+    "time": 2.6166666666666667,
+    "engineTime": 2.6333333333333337,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3600000000000001,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 158,
+    "time": 2.6333333333333333,
+    "engineTime": 2.666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.32666666666666677,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 159,
+    "time": 2.65,
+    "engineTime": 2.666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.32666666666666677,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 160,
+    "time": 2.6666666666666665,
+    "engineTime": 2.7,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.29333333333333345,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 161,
+    "time": 2.683333333333333,
+    "engineTime": 2.7,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.29333333333333345,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 162,
+    "time": 2.7,
+    "engineTime": 2.7333333333333334,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.2600000000000001,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 163,
+    "time": 2.716666666666667,
+    "engineTime": 2.7333333333333334,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.2600000000000001,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 164,
+    "time": 2.7333333333333334,
+    "engineTime": 2.7666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.2266666666666668,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 165,
+    "time": 2.75,
+    "engineTime": 2.7666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.2266666666666668,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 166,
+    "time": 2.7666666666666666,
+    "engineTime": 2.8,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.19333333333333347,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 167,
+    "time": 2.783333333333333,
+    "engineTime": 2.8,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.19333333333333347,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 168,
+    "time": 2.8,
+    "engineTime": 2.833333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.16000000000000014,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 169,
+    "time": 2.816666666666667,
+    "engineTime": 2.833333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.16000000000000014,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 170,
+    "time": 2.8333333333333335,
+    "engineTime": 2.8666666666666663,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.12666666666666682,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 171,
+    "time": 2.85,
+    "engineTime": 2.8666666666666663,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.12666666666666682,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 172,
+    "time": 2.8666666666666667,
+    "engineTime": 2.8999999999999995,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.09333333333333349,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 173,
+    "time": 2.8833333333333333,
+    "engineTime": 2.8999999999999995,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.09333333333333349,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 174,
+    "time": 2.9,
+    "engineTime": 2.9333333333333327,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.06000000000000016,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 175,
+    "time": 2.9166666666666665,
+    "engineTime": 2.9333333333333327,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.06000000000000016,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 176,
+    "time": 2.933333333333333,
+    "engineTime": 2.966666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.026666666666666825,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 177,
+    "time": 2.95,
+    "engineTime": 2.966666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.026666666666666825,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 178,
+    "time": 2.966666666666667,
+    "engineTime": 2.999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "pikachu",
+    "frame": 179,
+    "time": 2.9833333333333334,
+    "engineTime": 2.999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 0,
+    "time": 0,
+    "engineTime": 0.03333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 1,
+    "time": 0.016666666666666666,
+    "engineTime": 0.03333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 2,
+    "time": 0.03333333333333333,
+    "engineTime": 0.06666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 3,
+    "time": 0.05,
+    "engineTime": 0.06666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 4,
+    "time": 0.06666666666666667,
+    "engineTime": 0.1,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 5,
+    "time": 0.08333333333333333,
+    "engineTime": 0.1,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 6,
+    "time": 0.1,
+    "engineTime": 0.13333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 7,
+    "time": 0.11666666666666667,
+    "engineTime": 0.13333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 8,
+    "time": 0.13333333333333333,
+    "engineTime": 0.16666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 9,
+    "time": 0.15,
+    "engineTime": 0.16666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 10,
+    "time": 0.16666666666666666,
+    "engineTime": 0.19999999999999998,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 11,
+    "time": 0.18333333333333332,
+    "engineTime": 0.19999999999999998,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 12,
+    "time": 0.2,
+    "engineTime": 0.2333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 13,
+    "time": 0.21666666666666667,
+    "engineTime": 0.2333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 14,
+    "time": 0.23333333333333334,
+    "engineTime": 0.26666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 15,
+    "time": 0.25,
+    "engineTime": 0.26666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 16,
+    "time": 0.26666666666666666,
+    "engineTime": 0.3,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 17,
+    "time": 0.2833333333333333,
+    "engineTime": 0.3,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 18,
+    "time": 0.3,
+    "engineTime": 0.3333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 19,
+    "time": 0.31666666666666665,
+    "engineTime": 0.3333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 20,
+    "time": 0.3333333333333333,
+    "engineTime": 0.36666666666666664,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 21,
+    "time": 0.35,
+    "engineTime": 0.36666666666666664,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 22,
+    "time": 0.36666666666666664,
+    "engineTime": 0.39999999999999997,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 23,
+    "time": 0.38333333333333336,
+    "engineTime": 0.39999999999999997,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 1
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 24,
+    "time": 0.4,
+    "engineTime": 0.4333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.95,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 25,
+    "time": 0.4166666666666667,
+    "engineTime": 0.4333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.95,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 26,
+    "time": 0.43333333333333335,
+    "engineTime": 0.4666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.9166666666666666,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 27,
+    "time": 0.45,
+    "engineTime": 0.4666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.9166666666666666,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 28,
+    "time": 0.4666666666666667,
+    "engineTime": 0.49999999999999994,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.8833333333333333,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 29,
+    "time": 0.48333333333333334,
+    "engineTime": 0.49999999999999994,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.8833333333333333,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 30,
+    "time": 0.5,
+    "engineTime": 0.5333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.85,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 31,
+    "time": 0.5166666666666667,
+    "engineTime": 0.5333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.85,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 32,
+    "time": 0.5333333333333333,
+    "engineTime": 0.5666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.8166666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 33,
+    "time": 0.55,
+    "engineTime": 0.5666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.8166666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 34,
+    "time": 0.5666666666666667,
+    "engineTime": 0.6,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.7833333333333333,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 35,
+    "time": 0.5833333333333334,
+    "engineTime": 0.6,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.7833333333333333,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 36,
+    "time": 0.6,
+    "engineTime": 0.6333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.75,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 37,
+    "time": 0.6166666666666667,
+    "engineTime": 0.6333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.75,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 38,
+    "time": 0.6333333333333333,
+    "engineTime": 0.6666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.7166666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 39,
+    "time": 0.65,
+    "engineTime": 0.6666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.7166666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 40,
+    "time": 0.6666666666666666,
+    "engineTime": 0.7,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6833333333333333,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 41,
+    "time": 0.6833333333333333,
+    "engineTime": 0.7,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6833333333333333,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 42,
+    "time": 0.7,
+    "engineTime": 0.7333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.65,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 43,
+    "time": 0.7166666666666667,
+    "engineTime": 0.7333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.65,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 44,
+    "time": 0.7333333333333333,
+    "engineTime": 0.7666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6166666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 45,
+    "time": 0.75,
+    "engineTime": 0.7666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6166666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 46,
+    "time": 0.7666666666666667,
+    "engineTime": 0.7999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5833333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 47,
+    "time": 0.7833333333333333,
+    "engineTime": 0.7999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5833333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 48,
+    "time": 0.8,
+    "engineTime": 0.8333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.55,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 49,
+    "time": 0.8166666666666667,
+    "engineTime": 0.8333333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.55,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 50,
+    "time": 0.8333333333333334,
+    "engineTime": 0.8666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5166666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 51,
+    "time": 0.85,
+    "engineTime": 0.8666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5166666666666667,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 52,
+    "time": 0.8666666666666667,
+    "engineTime": 0.8999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.4833333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 53,
+    "time": 0.8833333333333333,
+    "engineTime": 0.8999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.4833333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 54,
+    "time": 0.9,
+    "engineTime": 0.9333333333333332,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.45000000000000007,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 55,
+    "time": 0.9166666666666666,
+    "engineTime": 0.9333333333333332,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.45000000000000007,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 56,
+    "time": 0.9333333333333333,
+    "engineTime": 0.9666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.41666666666666674,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 57,
+    "time": 0.95,
+    "engineTime": 0.9666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.41666666666666674,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 58,
+    "time": 0.9666666666666667,
+    "engineTime": 0.9999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3833333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 59,
+    "time": 0.9833333333333333,
+    "engineTime": 0.9999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3833333333333334,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 60,
+    "time": 1,
+    "engineTime": 1.0333333333333332,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3500000000000001,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 61,
+    "time": 1.0166666666666666,
+    "engineTime": 1.0333333333333332,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3500000000000001,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 62,
+    "time": 1.0333333333333334,
+    "engineTime": 1.0666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.31666666666666676,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 63,
+    "time": 1.05,
+    "engineTime": 1.0666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.31666666666666676,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 64,
+    "time": 1.0666666666666667,
+    "engineTime": 1.1,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.28333333333333344,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 65,
+    "time": 1.0833333333333333,
+    "engineTime": 1.1,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.28333333333333344,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 66,
+    "time": 1.1,
+    "engineTime": 1.1333333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.2500000000000001,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 67,
+    "time": 1.1166666666666667,
+    "engineTime": 1.1333333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.2500000000000001,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 68,
+    "time": 1.1333333333333333,
+    "engineTime": 1.166666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.21666666666666679,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 69,
+    "time": 1.15,
+    "engineTime": 1.166666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.21666666666666679,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 70,
+    "time": 1.1666666666666667,
+    "engineTime": 1.2000000000000004,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.18333333333333346,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 71,
+    "time": 1.1833333333333333,
+    "engineTime": 1.2000000000000004,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.18333333333333346,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 72,
+    "time": 1.2,
+    "engineTime": 1.2333333333333338,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.15000000000000013,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 73,
+    "time": 1.2166666666666666,
+    "engineTime": 1.2333333333333338,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.15000000000000013,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 74,
+    "time": 1.2333333333333334,
+    "engineTime": 1.2666666666666673,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.11666666666666681,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 75,
+    "time": 1.25,
+    "engineTime": 1.2666666666666673,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.11666666666666681,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 76,
+    "time": 1.2666666666666666,
+    "engineTime": 1.3000000000000007,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.08333333333333348,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 77,
+    "time": 1.2833333333333334,
+    "engineTime": 1.3000000000000007,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.08333333333333348,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 78,
+    "time": 1.3,
+    "engineTime": 1.3333333333333341,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.05000000000000015,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 79,
+    "time": 1.3166666666666667,
+    "engineTime": 1.3333333333333341,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.05000000000000015,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 80,
+    "time": 1.3333333333333333,
+    "engineTime": 1.3666666666666676,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.016666666666666816,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 81,
+    "time": 1.35,
+    "engineTime": 1.3666666666666676,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.016666666666666816,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 82,
+    "time": 1.3666666666666667,
+    "engineTime": 1.400000000000001,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 83,
+    "time": 1.3833333333333333,
+    "engineTime": 1.400000000000001,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 84,
+    "time": 1.4,
+    "engineTime": 1.4333333333333345,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 85,
+    "time": 1.4166666666666667,
+    "engineTime": 1.4333333333333345,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 86,
+    "time": 1.4333333333333333,
+    "engineTime": 1.466666666666668,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 87,
+    "time": 1.45,
+    "engineTime": 1.466666666666668,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 88,
+    "time": 1.4666666666666666,
+    "engineTime": 1.5000000000000013,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 89,
+    "time": 1.4833333333333334,
+    "engineTime": 1.5000000000000013,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 90,
+    "time": 1.5,
+    "engineTime": 1.5333333333333348,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 91,
+    "time": 1.5166666666666666,
+    "engineTime": 1.5333333333333348,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 92,
+    "time": 1.5333333333333334,
+    "engineTime": 1.5666666666666682,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 93,
+    "time": 1.55,
+    "engineTime": 1.5666666666666682,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 94,
+    "time": 1.5666666666666667,
+    "engineTime": 1.6000000000000016,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 95,
+    "time": 1.5833333333333333,
+    "engineTime": 1.6000000000000016,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 96,
+    "time": 1.6,
+    "engineTime": 1.633333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 97,
+    "time": 1.6166666666666667,
+    "engineTime": 1.633333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 98,
+    "time": 1.6333333333333333,
+    "engineTime": 1.6666666666666685,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 99,
+    "time": 1.65,
+    "engineTime": 1.6666666666666685,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 100,
+    "time": 1.6666666666666667,
+    "engineTime": 1.700000000000002,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 101,
+    "time": 1.6833333333333333,
+    "engineTime": 1.700000000000002,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 102,
+    "time": 1.7,
+    "engineTime": 1.7333333333333354,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 103,
+    "time": 1.7166666666666666,
+    "engineTime": 1.7333333333333354,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 104,
+    "time": 1.7333333333333334,
+    "engineTime": 1.7666666666666688,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 105,
+    "time": 1.75,
+    "engineTime": 1.7666666666666688,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 106,
+    "time": 1.7666666666666666,
+    "engineTime": 1.8000000000000023,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 107,
+    "time": 1.7833333333333334,
+    "engineTime": 1.8000000000000023,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 108,
+    "time": 1.8,
+    "engineTime": 1.8333333333333357,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 109,
+    "time": 1.8166666666666667,
+    "engineTime": 1.8333333333333357,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 110,
+    "time": 1.8333333333333333,
+    "engineTime": 1.8666666666666691,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 111,
+    "time": 1.85,
+    "engineTime": 1.8666666666666691,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 112,
+    "time": 1.8666666666666667,
+    "engineTime": 1.9000000000000026,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 113,
+    "time": 1.8833333333333333,
+    "engineTime": 1.9000000000000026,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 114,
+    "time": 1.9,
+    "engineTime": 1.933333333333336,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 115,
+    "time": 1.9166666666666667,
+    "engineTime": 1.933333333333336,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 116,
+    "time": 1.9333333333333333,
+    "engineTime": 1.9666666666666694,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 117,
+    "time": 1.95,
+    "engineTime": 1.9666666666666694,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 118,
+    "time": 1.9666666666666666,
+    "engineTime": 2.0000000000000027,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 119,
+    "time": 1.9833333333333334,
+    "engineTime": 2.0000000000000027,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 120,
+    "time": 2,
+    "engineTime": 2.033333333333336,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 121,
+    "time": 2.0166666666666666,
+    "engineTime": 2.033333333333336,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 122,
+    "time": 2.033333333333333,
+    "engineTime": 2.066666666666669,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 123,
+    "time": 2.05,
+    "engineTime": 2.066666666666669,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 124,
+    "time": 2.066666666666667,
+    "engineTime": 2.1000000000000023,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 125,
+    "time": 2.0833333333333335,
+    "engineTime": 2.1000000000000023,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 126,
+    "time": 2.1,
+    "engineTime": 2.1333333333333355,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 127,
+    "time": 2.1166666666666667,
+    "engineTime": 2.1333333333333355,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 128,
+    "time": 2.1333333333333333,
+    "engineTime": 2.1666666666666687,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 129,
+    "time": 2.15,
+    "engineTime": 2.1666666666666687,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 130,
+    "time": 2.1666666666666665,
+    "engineTime": 2.200000000000002,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 131,
+    "time": 2.183333333333333,
+    "engineTime": 2.200000000000002,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0,
+      "attackSeq": 2
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 132,
+    "time": 2.2,
+    "engineTime": 2.233333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.95,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 133,
+    "time": 2.216666666666667,
+    "engineTime": 2.233333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.95,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 134,
+    "time": 2.2333333333333334,
+    "engineTime": 2.2666666666666684,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.9166666666666666,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 135,
+    "time": 2.25,
+    "engineTime": 2.2666666666666684,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.9166666666666666,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 136,
+    "time": 2.2666666666666666,
+    "engineTime": 2.3000000000000016,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.8833333333333333,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 137,
+    "time": 2.283333333333333,
+    "engineTime": 2.3000000000000016,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.8833333333333333,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 138,
+    "time": 2.3,
+    "engineTime": 2.333333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.85,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 139,
+    "time": 2.316666666666667,
+    "engineTime": 2.333333333333335,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.85,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 140,
+    "time": 2.3333333333333335,
+    "engineTime": 2.366666666666668,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.8166666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 141,
+    "time": 2.35,
+    "engineTime": 2.366666666666668,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.8166666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 142,
+    "time": 2.3666666666666667,
+    "engineTime": 2.4000000000000012,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.7833333333333333,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 143,
+    "time": 2.3833333333333333,
+    "engineTime": 2.4000000000000012,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.7833333333333333,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 144,
+    "time": 2.4,
+    "engineTime": 2.4333333333333345,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.75,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 145,
+    "time": 2.4166666666666665,
+    "engineTime": 2.4333333333333345,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.75,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 146,
+    "time": 2.433333333333333,
+    "engineTime": 2.4666666666666677,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.7166666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 147,
+    "time": 2.45,
+    "engineTime": 2.4666666666666677,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.7166666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 148,
+    "time": 2.466666666666667,
+    "engineTime": 2.500000000000001,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6833333333333333,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 149,
+    "time": 2.4833333333333334,
+    "engineTime": 2.500000000000001,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6833333333333333,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 150,
+    "time": 2.5,
+    "engineTime": 2.533333333333334,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.65,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 151,
+    "time": 2.5166666666666666,
+    "engineTime": 2.533333333333334,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.65,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 152,
+    "time": 2.533333333333333,
+    "engineTime": 2.5666666666666673,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6166666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 153,
+    "time": 2.55,
+    "engineTime": 2.5666666666666673,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.6166666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 154,
+    "time": 2.566666666666667,
+    "engineTime": 2.6000000000000005,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5833333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 155,
+    "time": 2.5833333333333335,
+    "engineTime": 2.6000000000000005,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5833333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 156,
+    "time": 2.6,
+    "engineTime": 2.6333333333333337,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.55,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 157,
+    "time": 2.6166666666666667,
+    "engineTime": 2.6333333333333337,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.55,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 158,
+    "time": 2.6333333333333333,
+    "engineTime": 2.666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5166666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 159,
+    "time": 2.65,
+    "engineTime": 2.666666666666667,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.5166666666666667,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 160,
+    "time": 2.6666666666666665,
+    "engineTime": 2.7,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.4833333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 161,
+    "time": 2.683333333333333,
+    "engineTime": 2.7,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.4833333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 162,
+    "time": 2.7,
+    "engineTime": 2.7333333333333334,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.45000000000000007,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 163,
+    "time": 2.716666666666667,
+    "engineTime": 2.7333333333333334,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.45000000000000007,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 164,
+    "time": 2.7333333333333334,
+    "engineTime": 2.7666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.41666666666666674,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 165,
+    "time": 2.75,
+    "engineTime": 2.7666666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.41666666666666674,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 166,
+    "time": 2.7666666666666666,
+    "engineTime": 2.8,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3833333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 167,
+    "time": 2.783333333333333,
+    "engineTime": 2.8,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3833333333333334,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 168,
+    "time": 2.8,
+    "engineTime": 2.833333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3500000000000001,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 169,
+    "time": 2.816666666666667,
+    "engineTime": 2.833333333333333,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.3500000000000001,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 170,
+    "time": 2.8333333333333335,
+    "engineTime": 2.8666666666666663,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.31666666666666676,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 171,
+    "time": 2.85,
+    "engineTime": 2.8666666666666663,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.31666666666666676,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 172,
+    "time": 2.8666666666666667,
+    "engineTime": 2.8999999999999995,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.28333333333333344,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 173,
+    "time": 2.8833333333333333,
+    "engineTime": 2.8999999999999995,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.28333333333333344,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 174,
+    "time": 2.9,
+    "engineTime": 2.9333333333333327,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.2500000000000001,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 175,
+    "time": 2.9166666666666665,
+    "engineTime": 2.9333333333333327,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.2500000000000001,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 176,
+    "time": 2.933333333333333,
+    "engineTime": 2.966666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.21666666666666679,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 177,
+    "time": 2.95,
+    "engineTime": 2.966666666666666,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.21666666666666679,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 178,
+    "time": 2.966666666666667,
+    "engineTime": 2.999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.18333333333333346,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "charizard",
+    "frame": 179,
+    "time": 2.9833333333333334,
+    "engineTime": 2.999999999999999,
+    "actor": {
+      "x": 300,
+      "y": 560,
+      "attack": 0.18333333333333346,
+      "attackSeq": 3
+    },
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 0,
+    "time": 0,
+    "engineTime": 0.03333333333333333,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 1,
+    "time": 0.016666666666666666,
+    "engineTime": 0.03333333333333333,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 2,
+    "time": 0.03333333333333333,
+    "engineTime": 0.06666666666666667,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 3,
+    "time": 0.05,
+    "engineTime": 0.06666666666666667,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 4,
+    "time": 0.06666666666666667,
+    "engineTime": 0.1,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 5,
+    "time": 0.08333333333333333,
+    "engineTime": 0.1,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 6,
+    "time": 0.1,
+    "engineTime": 0.13333333333333333,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 7,
+    "time": 0.11666666666666667,
+    "engineTime": 0.13333333333333333,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 8,
+    "time": 0.13333333333333333,
+    "engineTime": 0.16666666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 9,
+    "time": 0.15,
+    "engineTime": 0.16666666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 10,
+    "time": 0.16666666666666666,
+    "engineTime": 0.19999999999999998,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 11,
+    "time": 0.18333333333333332,
+    "engineTime": 0.19999999999999998,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 12,
+    "time": 0.2,
+    "engineTime": 0.2333333333333333,
+    "flight": 0.016666666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 13,
+    "time": 0.21666666666666667,
+    "engineTime": 0.2333333333333333,
+    "flight": 0.03333333333333329,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 14,
+    "time": 0.23333333333333334,
+    "engineTime": 0.26666666666666666,
+    "flight": 0.04999999999999996,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 15,
+    "time": 0.25,
+    "engineTime": 0.26666666666666666,
+    "flight": 0.06666666666666662,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 16,
+    "time": 0.26666666666666666,
+    "engineTime": 0.3,
+    "flight": 0.08333333333333329,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 17,
+    "time": 0.2833333333333333,
+    "engineTime": 0.3,
+    "flight": 0.09999999999999995,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 18,
+    "time": 0.3,
+    "engineTime": 0.3333333333333333,
+    "flight": 0.11666666666666661,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 19,
+    "time": 0.31666666666666665,
+    "engineTime": 0.3333333333333333,
+    "flight": 0.13333333333333328,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 20,
+    "time": 0.3333333333333333,
+    "engineTime": 0.36666666666666664,
+    "flight": 0.14999999999999994,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 21,
+    "time": 0.35,
+    "engineTime": 0.36666666666666664,
+    "flight": 0.1666666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 22,
+    "time": 0.36666666666666664,
+    "engineTime": 0.39999999999999997,
+    "flight": 0.18333333333333326,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 23,
+    "time": 0.38333333333333336,
+    "engineTime": 0.39999999999999997,
+    "flight": 0.19999999999999993,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 24,
+    "time": 0.4,
+    "engineTime": 0.4333333333333333,
+    "flight": 0.2166666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 25,
+    "time": 0.4166666666666667,
+    "engineTime": 0.4333333333333333,
+    "flight": 0.23333333333333325,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 26,
+    "time": 0.43333333333333335,
+    "engineTime": 0.4666666666666666,
+    "flight": 0.24999999999999994,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 27,
+    "time": 0.45,
+    "engineTime": 0.4666666666666666,
+    "flight": 0.2666666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 28,
+    "time": 0.4666666666666667,
+    "engineTime": 0.49999999999999994,
+    "flight": 0.28333333333333327,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 29,
+    "time": 0.48333333333333334,
+    "engineTime": 0.49999999999999994,
+    "flight": 0.29999999999999993,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 30,
+    "time": 0.5,
+    "engineTime": 0.5333333333333333,
+    "flight": 0.3166666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 31,
+    "time": 0.5166666666666667,
+    "engineTime": 0.5333333333333333,
+    "flight": 0.33333333333333326,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 32,
+    "time": 0.5333333333333333,
+    "engineTime": 0.5666666666666667,
+    "flight": 0.3499999999999999,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 33,
+    "time": 0.55,
+    "engineTime": 0.5666666666666667,
+    "flight": 0.3666666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 34,
+    "time": 0.5666666666666667,
+    "engineTime": 0.6,
+    "flight": 0.38333333333333325,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 35,
+    "time": 0.5833333333333334,
+    "engineTime": 0.6,
+    "flight": 0.3999999999999999,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 36,
+    "time": 0.6,
+    "engineTime": 0.6333333333333333,
+    "flight": 0.4166666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 37,
+    "time": 0.6166666666666667,
+    "engineTime": 0.6333333333333333,
+    "flight": 0.43333333333333324,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 38,
+    "time": 0.6333333333333333,
+    "engineTime": 0.6666666666666666,
+    "flight": 0.4499999999999999,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 39,
+    "time": 0.65,
+    "engineTime": 0.6666666666666666,
+    "flight": 0.46666666666666656,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 40,
+    "time": 0.6666666666666666,
+    "engineTime": 0.7,
+    "flight": 0.4833333333333332,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 41,
+    "time": 0.6833333333333333,
+    "engineTime": 0.7,
+    "flight": 0.4999999999999999,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 42,
+    "time": 0.7,
+    "engineTime": 0.7333333333333333,
+    "flight": 0.5166666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 43,
+    "time": 0.7166666666666667,
+    "engineTime": 0.7333333333333333,
+    "flight": 0.5333333333333332,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 44,
+    "time": 0.7333333333333333,
+    "engineTime": 0.7666666666666666,
+    "flight": 0.5499999999999999,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 45,
+    "time": 0.75,
+    "engineTime": 0.7666666666666666,
+    "flight": 0.5666666666666665,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 46,
+    "time": 0.7666666666666667,
+    "engineTime": 0.7999999999999999,
+    "flight": 0.5833333333333333,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 47,
+    "time": 0.7833333333333333,
+    "engineTime": 0.7999999999999999,
+    "flight": 0.5999999999999999,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 48,
+    "time": 0.8,
+    "engineTime": 0.8333333333333333,
+    "flight": 0.6166666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 49,
+    "time": 0.8166666666666667,
+    "engineTime": 0.8333333333333333,
+    "flight": 0.6333333333333332,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 50,
+    "time": 0.8333333333333334,
+    "engineTime": 0.8666666666666666,
+    "flight": 0.6499999999999999,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 51,
+    "time": 0.85,
+    "engineTime": 0.8666666666666666,
+    "flight": 0.6666666666666665,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 52,
+    "time": 0.8666666666666667,
+    "engineTime": 0.8999999999999999,
+    "flight": 0.6833333333333332,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 53,
+    "time": 0.8833333333333333,
+    "engineTime": 0.8999999999999999,
+    "flight": 0.6999999999999998,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 54,
+    "time": 0.9,
+    "engineTime": 0.9333333333333332,
+    "flight": 0.7166666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 55,
+    "time": 0.9166666666666666,
+    "engineTime": 0.9333333333333332,
+    "flight": 0.7333333333333332,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 56,
+    "time": 0.9333333333333333,
+    "engineTime": 0.9666666666666666,
+    "flight": 0.7499999999999999,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 57,
+    "time": 0.95,
+    "engineTime": 0.9666666666666666,
+    "flight": 0.7666666666666665,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 58,
+    "time": 0.9666666666666667,
+    "engineTime": 0.9999999999999999,
+    "flight": 0.7833333333333332,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 59,
+    "time": 0.9833333333333333,
+    "engineTime": 0.9999999999999999,
+    "flight": 0.7999999999999998,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 60,
+    "time": 1,
+    "engineTime": 1.0333333333333332,
+    "flight": 0.8166666666666665,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 61,
+    "time": 1.0166666666666666,
+    "engineTime": 1.0333333333333332,
+    "flight": 0.8333333333333331,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 62,
+    "time": 1.0333333333333334,
+    "engineTime": 1.0666666666666667,
+    "flight": 0.8499999999999999,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 63,
+    "time": 1.05,
+    "engineTime": 1.0666666666666667,
+    "flight": 0.8666666666666665,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 64,
+    "time": 1.0666666666666667,
+    "engineTime": 1.1,
+    "flight": 0.8833333333333332,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 65,
+    "time": 1.0833333333333333,
+    "engineTime": 1.1,
+    "flight": 0.8999999999999998,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 66,
+    "time": 1.1,
+    "engineTime": 1.1333333333333335,
+    "flight": 0.9166666666666665,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 67,
+    "time": 1.1166666666666667,
+    "engineTime": 1.1333333333333335,
+    "flight": 0.9333333333333331,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 68,
+    "time": 1.1333333333333333,
+    "engineTime": 1.166666666666667,
+    "flight": 0.9499999999999998,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 69,
+    "time": 1.15,
+    "engineTime": 1.166666666666667,
+    "flight": 0.9666666666666665,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 70,
+    "time": 1.1666666666666667,
+    "engineTime": 1.2000000000000004,
+    "flight": 0.9833333333333332,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 71,
+    "time": 1.1833333333333333,
+    "engineTime": 1.2000000000000004,
+    "flight": 0.9999999999999998,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 72,
+    "time": 1.2,
+    "engineTime": 1.2333333333333338,
+    "flight": 1.0166666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 73,
+    "time": 1.2166666666666666,
+    "engineTime": 1.2333333333333338,
+    "flight": 1.0333333333333332,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 74,
+    "time": 1.2333333333333334,
+    "engineTime": 1.2666666666666673,
+    "flight": 1.0499999999999998,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 75,
+    "time": 1.25,
+    "engineTime": 1.2666666666666673,
+    "flight": 1.0666666666666664,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 76,
+    "time": 1.2666666666666666,
+    "engineTime": 1.3000000000000007,
+    "flight": 1.0833333333333333,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 77,
+    "time": 1.2833333333333334,
+    "engineTime": 1.3000000000000007,
+    "flight": 1.0999999999999999,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 78,
+    "time": 1.3,
+    "engineTime": 1.3333333333333341,
+    "flight": 1.1166666666666667,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 79,
+    "time": 1.3166666666666667,
+    "engineTime": 1.3333333333333341,
+    "flight": 1.1333333333333333,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 80,
+    "time": 1.3333333333333333,
+    "engineTime": 1.3666666666666676,
+    "flight": 1.1500000000000001,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 81,
+    "time": 1.35,
+    "engineTime": 1.3666666666666676,
+    "flight": 1.1666666666666667,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 82,
+    "time": 1.3666666666666667,
+    "engineTime": 1.400000000000001,
+    "flight": 1.1833333333333336,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 83,
+    "time": 1.3833333333333333,
+    "engineTime": 1.400000000000001,
+    "flight": 1.2000000000000002,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 84,
+    "time": 1.4,
+    "engineTime": 1.4333333333333345,
+    "flight": 1.216666666666667,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 85,
+    "time": 1.4166666666666667,
+    "engineTime": 1.4333333333333345,
+    "flight": 1.2333333333333336,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 86,
+    "time": 1.4333333333333333,
+    "engineTime": 1.466666666666668,
+    "flight": 1.2500000000000004,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 87,
+    "time": 1.45,
+    "engineTime": 1.466666666666668,
+    "flight": 1.266666666666667,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 88,
+    "time": 1.4666666666666666,
+    "engineTime": 1.5000000000000013,
+    "flight": 1.2833333333333339,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 89,
+    "time": 1.4833333333333334,
+    "engineTime": 1.5000000000000013,
+    "flight": 1.3000000000000005,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 90,
+    "time": 1.5,
+    "engineTime": 1.5333333333333348,
+    "flight": 1.3166666666666673,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 91,
+    "time": 1.5166666666666666,
+    "engineTime": 1.5333333333333348,
+    "flight": 1.333333333333334,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 92,
+    "time": 1.5333333333333334,
+    "engineTime": 1.5666666666666682,
+    "flight": 1.3500000000000008,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 93,
+    "time": 1.55,
+    "engineTime": 1.5666666666666682,
+    "flight": 1.3666666666666674,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 94,
+    "time": 1.5666666666666667,
+    "engineTime": 1.6000000000000016,
+    "flight": 1.3833333333333342,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 95,
+    "time": 1.5833333333333333,
+    "engineTime": 1.6000000000000016,
+    "flight": 1.4000000000000008,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 96,
+    "time": 1.6,
+    "engineTime": 1.633333333333335,
+    "flight": 1.4166666666666676,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 97,
+    "time": 1.6166666666666667,
+    "engineTime": 1.633333333333335,
+    "flight": 1.4333333333333342,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 98,
+    "time": 1.6333333333333333,
+    "engineTime": 1.6666666666666685,
+    "flight": 1.450000000000001,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 99,
+    "time": 1.65,
+    "engineTime": 1.6666666666666685,
+    "flight": 1.4666666666666677,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 100,
+    "time": 1.6666666666666667,
+    "engineTime": 1.700000000000002,
+    "flight": 1.4833333333333345,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 101,
+    "time": 1.6833333333333333,
+    "engineTime": 1.700000000000002,
+    "flight": 1.500000000000001,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 102,
+    "time": 1.7,
+    "engineTime": 1.7333333333333354,
+    "flight": 1.516666666666668,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 103,
+    "time": 1.7166666666666666,
+    "engineTime": 1.7333333333333354,
+    "flight": 1.5333333333333345,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 104,
+    "time": 1.7333333333333334,
+    "engineTime": 1.7666666666666688,
+    "flight": 1.5500000000000014,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 105,
+    "time": 1.75,
+    "engineTime": 1.7666666666666688,
+    "flight": 1.566666666666668,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 106,
+    "time": 1.7666666666666666,
+    "engineTime": 1.8000000000000023,
+    "flight": 1.5833333333333348,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 107,
+    "time": 1.7833333333333334,
+    "engineTime": 1.8000000000000023,
+    "flight": 1.6000000000000014,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 108,
+    "time": 1.8,
+    "engineTime": 1.8333333333333357,
+    "flight": 1.6166666666666683,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 109,
+    "time": 1.8166666666666667,
+    "engineTime": 1.8333333333333357,
+    "flight": 1.6333333333333349,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 110,
+    "time": 1.8333333333333333,
+    "engineTime": 1.8666666666666691,
+    "flight": 1.6500000000000017,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 111,
+    "time": 1.85,
+    "engineTime": 1.8666666666666691,
+    "flight": 1.6666666666666683,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 112,
+    "time": 1.8666666666666667,
+    "engineTime": 1.9000000000000026,
+    "flight": 1.6833333333333351,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 113,
+    "time": 1.8833333333333333,
+    "engineTime": 1.9000000000000026,
+    "flight": 1.7000000000000017,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 114,
+    "time": 1.9,
+    "engineTime": 1.933333333333336,
+    "flight": 1.7166666666666686,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 115,
+    "time": 1.9166666666666667,
+    "engineTime": 1.933333333333336,
+    "flight": 1.7333333333333352,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 116,
+    "time": 1.9333333333333333,
+    "engineTime": 1.9666666666666694,
+    "flight": 1.750000000000002,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 117,
+    "time": 1.95,
+    "engineTime": 1.9666666666666694,
+    "flight": 1.7666666666666686,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 118,
+    "time": 1.9666666666666666,
+    "engineTime": 2.0000000000000027,
+    "flight": 1.7833333333333354,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 119,
+    "time": 1.9833333333333334,
+    "engineTime": 2.0000000000000027,
+    "flight": 1.800000000000002,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 120,
+    "time": 2,
+    "engineTime": 2.033333333333336,
+    "flight": 1.8166666666666689,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 121,
+    "time": 2.0166666666666666,
+    "engineTime": 2.033333333333336,
+    "flight": 1.8333333333333355,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 122,
+    "time": 2.033333333333333,
+    "engineTime": 2.066666666666669,
+    "flight": 1.8500000000000023,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 123,
+    "time": 2.05,
+    "engineTime": 2.066666666666669,
+    "flight": 1.866666666666669,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 124,
+    "time": 2.066666666666667,
+    "engineTime": 2.1000000000000023,
+    "flight": 1.8833333333333357,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 125,
+    "time": 2.0833333333333335,
+    "engineTime": 2.1000000000000023,
+    "flight": 1.9000000000000024,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 126,
+    "time": 2.1,
+    "engineTime": 2.1333333333333355,
+    "flight": 1.9166666666666692,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 127,
+    "time": 2.1166666666666667,
+    "engineTime": 2.1333333333333355,
+    "flight": 1.9333333333333358,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 128,
+    "time": 2.1333333333333333,
+    "engineTime": 2.1666666666666687,
+    "flight": 1.9500000000000026,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 129,
+    "time": 2.15,
+    "engineTime": 2.1666666666666687,
+    "flight": 1.9666666666666692,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 130,
+    "time": 2.1666666666666665,
+    "engineTime": 2.200000000000002,
+    "flight": 1.9833333333333358,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 131,
+    "time": 2.183333333333333,
+    "engineTime": 2.200000000000002,
+    "flight": 2.0000000000000027,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 132,
+    "time": 2.2,
+    "engineTime": 2.233333333333335,
+    "flight": 2.0166666666666693,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 133,
+    "time": 2.216666666666667,
+    "engineTime": 2.233333333333335,
+    "flight": 2.033333333333336,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 134,
+    "time": 2.2333333333333334,
+    "engineTime": 2.2666666666666684,
+    "flight": 2.0500000000000025,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 135,
+    "time": 2.25,
+    "engineTime": 2.2666666666666684,
+    "flight": 2.066666666666669,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 136,
+    "time": 2.2666666666666666,
+    "engineTime": 2.3000000000000016,
+    "flight": 2.0833333333333357,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 137,
+    "time": 2.283333333333333,
+    "engineTime": 2.3000000000000016,
+    "flight": 2.1000000000000023,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 138,
+    "time": 2.3,
+    "engineTime": 2.333333333333335,
+    "flight": 2.116666666666669,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 139,
+    "time": 2.316666666666667,
+    "engineTime": 2.333333333333335,
+    "flight": 2.1333333333333355,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 140,
+    "time": 2.3333333333333335,
+    "engineTime": 2.366666666666668,
+    "flight": 2.150000000000002,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 141,
+    "time": 2.35,
+    "engineTime": 2.366666666666668,
+    "flight": 2.1666666666666687,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 142,
+    "time": 2.3666666666666667,
+    "engineTime": 2.4000000000000012,
+    "flight": 2.1833333333333353,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 143,
+    "time": 2.3833333333333333,
+    "engineTime": 2.4000000000000012,
+    "flight": 2.200000000000002,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 144,
+    "time": 2.4,
+    "engineTime": 2.4333333333333345,
+    "flight": 2.2166666666666686,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 145,
+    "time": 2.4166666666666665,
+    "engineTime": 2.4333333333333345,
+    "flight": 2.233333333333335,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 146,
+    "time": 2.433333333333333,
+    "engineTime": 2.4666666666666677,
+    "flight": 2.2500000000000018,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 147,
+    "time": 2.45,
+    "engineTime": 2.4666666666666677,
+    "flight": 2.2666666666666684,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 148,
+    "time": 2.466666666666667,
+    "engineTime": 2.500000000000001,
+    "flight": 2.283333333333335,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 149,
+    "time": 2.4833333333333334,
+    "engineTime": 2.500000000000001,
+    "flight": 2.3000000000000016,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 150,
+    "time": 2.5,
+    "engineTime": 2.533333333333334,
+    "flight": 2.316666666666668,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 151,
+    "time": 2.5166666666666666,
+    "engineTime": 2.533333333333334,
+    "flight": 2.333333333333335,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 152,
+    "time": 2.533333333333333,
+    "engineTime": 2.5666666666666673,
+    "flight": 2.3500000000000014,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 153,
+    "time": 2.55,
+    "engineTime": 2.5666666666666673,
+    "flight": 2.366666666666668,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 154,
+    "time": 2.566666666666667,
+    "engineTime": 2.6000000000000005,
+    "flight": 2.3833333333333346,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 155,
+    "time": 2.5833333333333335,
+    "engineTime": 2.6000000000000005,
+    "flight": 2.4000000000000012,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 156,
+    "time": 2.6,
+    "engineTime": 2.6333333333333337,
+    "flight": 2.416666666666668,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 157,
+    "time": 2.6166666666666667,
+    "engineTime": 2.6333333333333337,
+    "flight": 2.4333333333333345,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 158,
+    "time": 2.6333333333333333,
+    "engineTime": 2.666666666666667,
+    "flight": 2.450000000000001,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 159,
+    "time": 2.65,
+    "engineTime": 2.666666666666667,
+    "flight": 2.4666666666666677,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 160,
+    "time": 2.6666666666666665,
+    "engineTime": 2.7,
+    "flight": 2.4833333333333343,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 161,
+    "time": 2.683333333333333,
+    "engineTime": 2.7,
+    "flight": 2.500000000000001,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 162,
+    "time": 2.7,
+    "engineTime": 2.7333333333333334,
+    "flight": 2.5166666666666675,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 163,
+    "time": 2.716666666666667,
+    "engineTime": 2.7333333333333334,
+    "flight": 2.533333333333334,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 164,
+    "time": 2.7333333333333334,
+    "engineTime": 2.7666666666666666,
+    "flight": 2.5500000000000007,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 165,
+    "time": 2.75,
+    "engineTime": 2.7666666666666666,
+    "flight": 2.5666666666666673,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 166,
+    "time": 2.7666666666666666,
+    "engineTime": 2.8,
+    "flight": 2.583333333333334,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 167,
+    "time": 2.783333333333333,
+    "engineTime": 2.8,
+    "flight": 2.6000000000000005,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 168,
+    "time": 2.8,
+    "engineTime": 2.833333333333333,
+    "flight": 2.616666666666667,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 169,
+    "time": 2.816666666666667,
+    "engineTime": 2.833333333333333,
+    "flight": 2.6333333333333337,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 170,
+    "time": 2.8333333333333335,
+    "engineTime": 2.8666666666666663,
+    "flight": 2.6500000000000004,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 171,
+    "time": 2.85,
+    "engineTime": 2.8666666666666663,
+    "flight": 2.666666666666667,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 172,
+    "time": 2.8666666666666667,
+    "engineTime": 2.8999999999999995,
+    "flight": 2.6833333333333336,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 173,
+    "time": 2.8833333333333333,
+    "engineTime": 2.8999999999999995,
+    "flight": 2.7,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 174,
+    "time": 2.9,
+    "engineTime": 2.9333333333333327,
+    "flight": 2.716666666666667,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 175,
+    "time": 2.9166666666666665,
+    "engineTime": 2.9333333333333327,
+    "flight": 2.7333333333333334,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 176,
+    "time": 2.933333333333333,
+    "engineTime": 2.966666666666666,
+    "flight": 2.75,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 177,
+    "time": 2.95,
+    "engineTime": 2.966666666666666,
+    "flight": 2.7666666666666666,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 178,
+    "time": 2.966666666666667,
+    "engineTime": 2.999999999999999,
+    "flight": 2.783333333333333,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 179,
+    "time": 2.9833333333333334,
+    "engineTime": 2.999999999999999,
+    "flight": 2.8,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 180,
+    "time": 3,
+    "engineTime": 3.0333333333333323,
+    "flight": 2.8166666666666664,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 181,
+    "time": 3.0166666666666666,
+    "engineTime": 3.0333333333333323,
+    "flight": 2.833333333333333,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 182,
+    "time": 3.033333333333333,
+    "engineTime": 3.0666666666666655,
+    "flight": 2.8499999999999996,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 183,
+    "time": 3.05,
+    "engineTime": 3.0666666666666655,
+    "flight": 2.8666666666666663,
+    "spawned": 0
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 184,
+    "time": 3.066666666666667,
+    "engineTime": 3.0999999999999988,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 185,
+    "time": 3.0833333333333335,
+    "engineTime": 3.0999999999999988,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 186,
+    "time": 3.1,
+    "engineTime": 3.133333333333332,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 187,
+    "time": 3.1166666666666667,
+    "engineTime": 3.133333333333332,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 188,
+    "time": 3.1333333333333333,
+    "engineTime": 3.166666666666665,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 189,
+    "time": 3.15,
+    "engineTime": 3.166666666666665,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 190,
+    "time": 3.1666666666666665,
+    "engineTime": 3.1999999999999984,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 191,
+    "time": 3.183333333333333,
+    "engineTime": 3.1999999999999984,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 192,
+    "time": 3.2,
+    "engineTime": 3.2333333333333316,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 193,
+    "time": 3.216666666666667,
+    "engineTime": 3.2333333333333316,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 194,
+    "time": 3.2333333333333334,
+    "engineTime": 3.266666666666665,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 195,
+    "time": 3.25,
+    "engineTime": 3.266666666666665,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 196,
+    "time": 3.2666666666666666,
+    "engineTime": 3.299999999999998,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 197,
+    "time": 3.283333333333333,
+    "engineTime": 3.299999999999998,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 198,
+    "time": 3.3,
+    "engineTime": 3.3333333333333313,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 199,
+    "time": 3.316666666666667,
+    "engineTime": 3.3333333333333313,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 200,
+    "time": 3.3333333333333335,
+    "engineTime": 3.3666666666666645,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 201,
+    "time": 3.35,
+    "engineTime": 3.3666666666666645,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 202,
+    "time": 3.3666666666666667,
+    "engineTime": 3.3999999999999977,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 203,
+    "time": 3.3833333333333333,
+    "engineTime": 3.3999999999999977,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 204,
+    "time": 3.4,
+    "engineTime": 3.433333333333331,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 205,
+    "time": 3.4166666666666665,
+    "engineTime": 3.433333333333331,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 206,
+    "time": 3.433333333333333,
+    "engineTime": 3.466666666666664,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 207,
+    "time": 3.45,
+    "engineTime": 3.466666666666664,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 208,
+    "time": 3.466666666666667,
+    "engineTime": 3.4999999999999973,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 209,
+    "time": 3.4833333333333334,
+    "engineTime": 3.4999999999999973,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 210,
+    "time": 3.5,
+    "engineTime": 3.5333333333333306,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 211,
+    "time": 3.5166666666666666,
+    "engineTime": 3.5333333333333306,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 212,
+    "time": 3.533333333333333,
+    "engineTime": 3.5666666666666638,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 213,
+    "time": 3.55,
+    "engineTime": 3.5666666666666638,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 214,
+    "time": 3.566666666666667,
+    "engineTime": 3.599999999999997,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 215,
+    "time": 3.5833333333333335,
+    "engineTime": 3.599999999999997,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 216,
+    "time": 3.6,
+    "engineTime": 3.63333333333333,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 217,
+    "time": 3.6166666666666667,
+    "engineTime": 3.63333333333333,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 218,
+    "time": 3.6333333333333333,
+    "engineTime": 3.6666666666666634,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 219,
+    "time": 3.65,
+    "engineTime": 3.6666666666666634,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 220,
+    "time": 3.6666666666666665,
+    "engineTime": 3.6999999999999966,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 221,
+    "time": 3.683333333333333,
+    "engineTime": 3.6999999999999966,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 222,
+    "time": 3.7,
+    "engineTime": 3.73333333333333,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 223,
+    "time": 3.716666666666667,
+    "engineTime": 3.73333333333333,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 224,
+    "time": 3.7333333333333334,
+    "engineTime": 3.766666666666663,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 225,
+    "time": 3.75,
+    "engineTime": 3.766666666666663,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 226,
+    "time": 3.7666666666666666,
+    "engineTime": 3.7999999999999963,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 227,
+    "time": 3.783333333333333,
+    "engineTime": 3.7999999999999963,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 228,
+    "time": 3.8,
+    "engineTime": 3.8333333333333295,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 229,
+    "time": 3.816666666666667,
+    "engineTime": 3.8333333333333295,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 230,
+    "time": 3.8333333333333335,
+    "engineTime": 3.8666666666666627,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 231,
+    "time": 3.85,
+    "engineTime": 3.8666666666666627,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 232,
+    "time": 3.8666666666666667,
+    "engineTime": 3.899999999999996,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 233,
+    "time": 3.8833333333333333,
+    "engineTime": 3.899999999999996,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 234,
+    "time": 3.9,
+    "engineTime": 3.933333333333329,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 235,
+    "time": 3.9166666666666665,
+    "engineTime": 3.933333333333329,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 236,
+    "time": 3.933333333333333,
+    "engineTime": 3.9666666666666623,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 237,
+    "time": 3.95,
+    "engineTime": 3.9666666666666623,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 238,
+    "time": 3.966666666666667,
+    "engineTime": 3.9999999999999956,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 239,
+    "time": 3.9833333333333334,
+    "engineTime": 3.9999999999999956,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 240,
+    "time": 4,
+    "engineTime": 4.033333333333329,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 241,
+    "time": 4.016666666666667,
+    "engineTime": 4.033333333333329,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 242,
+    "time": 4.033333333333333,
+    "engineTime": 4.066666666666662,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 243,
+    "time": 4.05,
+    "engineTime": 4.066666666666662,
+    "flight": 2.8666666666666663,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 244,
+    "time": 4.066666666666666,
+    "engineTime": 4.099999999999995,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 245,
+    "time": 4.083333333333333,
+    "engineTime": 4.099999999999995,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 246,
+    "time": 4.1,
+    "engineTime": 4.133333333333328,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 247,
+    "time": 4.116666666666666,
+    "engineTime": 4.133333333333328,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 248,
+    "time": 4.133333333333334,
+    "engineTime": 4.166666666666662,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 249,
+    "time": 4.15,
+    "engineTime": 4.166666666666662,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 250,
+    "time": 4.166666666666667,
+    "engineTime": 4.199999999999995,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 251,
+    "time": 4.183333333333334,
+    "engineTime": 4.199999999999995,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 252,
+    "time": 4.2,
+    "engineTime": 4.233333333333328,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 253,
+    "time": 4.216666666666667,
+    "engineTime": 4.233333333333328,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 254,
+    "time": 4.233333333333333,
+    "engineTime": 4.266666666666661,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 255,
+    "time": 4.25,
+    "engineTime": 4.266666666666661,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 256,
+    "time": 4.266666666666667,
+    "engineTime": 4.2999999999999945,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 257,
+    "time": 4.283333333333333,
+    "engineTime": 4.2999999999999945,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 258,
+    "time": 4.3,
+    "engineTime": 4.333333333333328,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 259,
+    "time": 4.316666666666666,
+    "engineTime": 4.333333333333328,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 260,
+    "time": 4.333333333333333,
+    "engineTime": 4.366666666666661,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 261,
+    "time": 4.35,
+    "engineTime": 4.366666666666661,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 262,
+    "time": 4.366666666666666,
+    "engineTime": 4.399999999999994,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 263,
+    "time": 4.383333333333334,
+    "engineTime": 4.399999999999994,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 264,
+    "time": 4.4,
+    "engineTime": 4.433333333333327,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 265,
+    "time": 4.416666666666667,
+    "engineTime": 4.433333333333327,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 266,
+    "time": 4.433333333333334,
+    "engineTime": 4.466666666666661,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 267,
+    "time": 4.45,
+    "engineTime": 4.466666666666661,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 268,
+    "time": 4.466666666666667,
+    "engineTime": 4.499999999999994,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 269,
+    "time": 4.483333333333333,
+    "engineTime": 4.499999999999994,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 270,
+    "time": 4.5,
+    "engineTime": 4.533333333333327,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 271,
+    "time": 4.516666666666667,
+    "engineTime": 4.533333333333327,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 272,
+    "time": 4.533333333333333,
+    "engineTime": 4.56666666666666,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 273,
+    "time": 4.55,
+    "engineTime": 4.56666666666666,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 274,
+    "time": 4.566666666666666,
+    "engineTime": 4.599999999999993,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 275,
+    "time": 4.583333333333333,
+    "engineTime": 4.599999999999993,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 276,
+    "time": 4.6,
+    "engineTime": 4.633333333333327,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 277,
+    "time": 4.616666666666666,
+    "engineTime": 4.633333333333327,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 278,
+    "time": 4.633333333333334,
+    "engineTime": 4.66666666666666,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 279,
+    "time": 4.65,
+    "engineTime": 4.66666666666666,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 280,
+    "time": 4.666666666666667,
+    "engineTime": 4.699999999999993,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 281,
+    "time": 4.683333333333334,
+    "engineTime": 4.699999999999993,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 282,
+    "time": 4.7,
+    "engineTime": 4.733333333333326,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 283,
+    "time": 4.716666666666667,
+    "engineTime": 4.733333333333326,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 284,
+    "time": 4.733333333333333,
+    "engineTime": 4.7666666666666595,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 285,
+    "time": 4.75,
+    "engineTime": 4.7666666666666595,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 286,
+    "time": 4.766666666666667,
+    "engineTime": 4.799999999999993,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 287,
+    "time": 4.783333333333333,
+    "engineTime": 4.799999999999993,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 288,
+    "time": 4.8,
+    "engineTime": 4.833333333333326,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 289,
+    "time": 4.816666666666666,
+    "engineTime": 4.833333333333326,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 290,
+    "time": 4.833333333333333,
+    "engineTime": 4.866666666666659,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 291,
+    "time": 4.85,
+    "engineTime": 4.866666666666659,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 292,
+    "time": 4.866666666666666,
+    "engineTime": 4.899999999999992,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 293,
+    "time": 4.883333333333334,
+    "engineTime": 4.899999999999992,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 294,
+    "time": 4.9,
+    "engineTime": 4.933333333333326,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 295,
+    "time": 4.916666666666667,
+    "engineTime": 4.933333333333326,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 296,
+    "time": 4.933333333333334,
+    "engineTime": 4.966666666666659,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 297,
+    "time": 4.95,
+    "engineTime": 4.966666666666659,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 298,
+    "time": 4.966666666666667,
+    "engineTime": 4.999999999999992,
+    "spawned": 3
+  },
+  {
+    "key": "sneaselAmbush",
+    "frame": 299,
+    "time": 4.983333333333333,
+    "engineTime": 4.999999999999992,
+    "spawned": 3
+  }
+]

@@ -451,6 +451,7 @@ export const POKEMON_STATS = {
     "attack": 40,
     "specialAttack": 30
   },
+  "356": {"hp":40,"attack":70,"specialAttack":60},
   "359": {
     "hp": 65,
     "attack": 130,

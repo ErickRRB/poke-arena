@@ -30,11 +30,11 @@ for(const key of ['rapidash','roselia','graveler','nuzleaf','sneaselAmbush']){
   CARD_ART[key]={file:`assets/cards/${key}-v1.webp`,columns:1,rows:1,x:0,y:0};
 }
 // Separate files keep corrected anatomy out of the older atlases and browser caches.
-for(const [key,file]of Object.entries({diglett:'diglettV2',diglettHorde:'diglettHordeV2',zubat:'zubatSceneV3',crobat:'crobatSceneV2',raltsTrio:'raltsTrioV2',registeel:'registeelV2',celebi:'celebiV2',duskull:'duskullV2',nuzleaf:'nuzleafV2'})){
+for(const [key,file]of Object.entries({diglett:'diglettV2',diglettHorde:'diglettHorde15',zubat:'zubatSwarm5',beedrill:'beedrillSwarm3',sandshrew:'sandshrewTrio3',crobat:'crobatSceneV2',raltsTrio:'raltsTrioV2',registeel:'registeelV2',celebi:'celebiV2',duskull:'dusclopsSceneV1',nuzleaf:'nuzleafV2'})){
   CARD_ART[key]={file:`assets/cards/${file}.webp`,columns:1,rows:1,x:0,y:0};
 }
 CARD_ART.rhydon={file:'assets/cards/rhydon-v1.webp',columns:1,rows:1,x:0,y:0};
-CARD_ART.pandilla={file:'assets/cards/pandilla-v2.webp',columns:1,rows:1,x:0,y:0};
+CARD_ART.pandilla={file:'assets/cards/pandilla.webp',columns:1,rows:1,x:0,y:0};
 export function cardArtMarkup(key) {
   const art = CARD_ART[key];
   if (!art) return '';

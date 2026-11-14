@@ -1,0 +1,135 @@
+{
+  "checkedOn": "2026-11-14",
+  "scope": "Goblin Barrel base a nivel 11 y su equivalente Emboscada Sneasel. Investigación y recomendación; no confirma cambios aplicados al runtime.",
+  "sources": {
+    "supercellOctober2026": {
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/october-balance-changes-2026/",
+      "kind": "official_patch_notes",
+      "effectiveDate": "2026-10-06",
+      "claims": ["Goblin Barrel First Hit Speed: 0.4 s a 0.3 s"]
+    },
+    "supercellAugust2026": {
+      "url": "https://supercell.com/en/games/clashroyale/blog/news/final-august-balance-changes-826/",
+      "kind": "official_patch_notes",
+      "effectiveDate": "2026-08-04",
+      "claims": ["Goblin Damage: 120 a 125 a nivel 11"]
+    },
+    "royaleApiProjectiles": {
+      "url": "https://royaleapi.github.io/cr-api-data/json/cards_stats_projectile.json",
+      "kind": "extracted_game_data",
+      "row": "GoblinBarrelSpell",
+      "claims": ["speed=400", "gravity=40", "spawn_character_deploy_time=1100", "spawn_character_count=3"],
+      "caveat": "La versión del extracto no consta en esta URL. La fila GoblinBarrel, sin Spell, es distinta y no sirve para la carta base."
+    },
+    "crtoolCurrentCard": {
+      "url": "https://crtool.app/en/units/goblin-barrel/",
+      "kind": "current_game_data_card_page",
+      "declaredGameDataVersion": "16.635.1",
+      "declaredUpdatedOn": "2026-11-09",
+      "claims": ["L11: HP 202 y daño 125 por Goblin", "Hit Speed 1.1 s", "Melee Short", "Ground", "3 Goblins", "3 elixir"]
+    },
+    "royaleToolsHiddenStats": {
+      "url": "https://www.royaletools.com/cards/goblin-barrel",
+      "kind": "current_card_data_page",
+      "claims": ["Projectile speed 400", "First hit 0.3 s", "Range 0.5 tiles", "Goblin speed 120"],
+      "caveat": "Su Deploy time 1 s corresponde al cuerpo genérico. El barril usa el override de proyectil de 1100 ms."
+    },
+    "royaleSimCalibration": {
+      "url": "https://raw.githubusercontent.com/RoyaleGym/RoyaleSim/main/data/calibration.json",
+      "kind": "researchers_measurements",
+      "clientVersion": "16.402 para velocidad de proyectiles; 15.535.29 para secuencia de liberación de Goblins",
+      "keys": ["time.TICK_MS", "time.PROJECTILE_SPEED_TO_SUBTILES_PER_TICK", "spells.LAUNCH_POINT", "spawner.RELEASE_TIMING"],
+      "claims": ["50 ms por tick", "Speed corresponde a millitiles por tick", "Goblins visibles al impactar y luego en despliegue"],
+      "caveat": "El origen exacto del Barril no fue medido directamente. Las capturas de investigación no se distribuyen."
+    }
+  },
+  "reference": {
+    "spell": {
+      "cost": 3,
+      "spawnCount": 3,
+      "impactDamage": 0,
+      "rawProjectileSpeed": 400,
+      "rawGravity": 40,
+      "projectileTilesPerSecond": 8,
+      "projectileSpeedDerivation": "400 millitiles / 50 ms = 8 tiles/s",
+      "spawnDeploySeconds": 1.1,
+      "flightDurationIsFixed": false,
+      "verifiedHardMinimumFlightSeconds": null,
+      "verifiedHardMaximumFlightSeconds": null,
+      "exactVisualArcFormulaVerified": false,
+      "sources": ["royaleApiProjectiles", "royaleSimCalibration", "royaleToolsHiddenStats"]
+    },
+    "spawnedGoblinLevel11": {
+      "hpPerBody": 202,
+      "damagePerHitPerBody": 125,
+      "attackIntervalSeconds": 1.1,
+      "firstHitWindupSeconds": 0.3,
+      "rangeTiles": 0.5,
+      "rawMoveSpeed": 120,
+      "moveTilesPerSecondFromMeasuredConversion": 2.4,
+      "targets": "ground",
+      "sources": ["supercellOctober2026", "supercellAugust2026", "crtoolCurrentCard", "royaleToolsHiddenStats", "royaleSimCalibration"]
+    },
+    "derivedGroupMetrics": {
+      "hpSumAcrossThreeBodies": 606,
+      "damageIfAllThreeConnectOnce": 375,
+      "sustainedDpsPerBody": 113.6363636364,
+      "sustainedDpsIfAllThreeRemainAttacking": 340.9090909091,
+      "minimumNominalImpactToFirstHitSeconds": 1.4,
+      "firstHitDerivation": "1.1 s de despliegue + 0.3 s de windup; supone objetivo en alcance, sin interrupción ni viaje de proyectil. El tick, la adquisición y el movimiento pueden añadir demora.",
+      "caveat": "Son operaciones sobre las estadísticas. No predicen daño garantizado a una torre."
+    }
+  },
+  "pokeArenaReadOnlySnapshotBeforeParentImplementation": {
+    "tilePx": 24,
+    "catalog": {
+      "sneaselAmbush": { "travelSpeed": 500, "castDelay": 0.2, "spawnTotal": 3, "spawnRadius": 42 },
+      "sneaselTokenAfterApplyBalance": { "hp": 202, "damage": 125, "interval": 1.1, "speed": 40, "range": 12, "attackDuration": 0.75, "windup": 0.3 }
+    },
+    "engine": {
+      "summonSpellSpawnDelaySeconds": 0.4,
+      "spawnInitialCooldownSeconds": 0.4,
+      "cooldownCountsDownDuringSpawn": true,
+      "windupStartsWhenAttackStarts": true,
+      "spawnedMeleeHasNoProjectileTravelAfterWindup": true,
+      "nominalCurrentImpactToFirstHitIfAlreadyInRangeSeconds": 0.7,
+      "currentTargetFiltersExcludeDeployingUnits": true,
+      "sourcePaths": ["dist/catalog.js", "dist/balance.js", "dist/engine.js"]
+    }
+  },
+  "recommendation": {
+    "runtimeWasEditedByThisResearchTask": false,
+    "sneaselAmbush": {
+      "travelSpeedPxPerSecond": 192,
+      "flightTimeFormula": "distance(kingOrigin, landingPoint) / 192",
+      "spawnDelaySeconds": 1.1,
+      "derivation": "8 tiles/s * 24 px/tile",
+      "flightExamplesWithoutCastDelay": {
+        "ownKing300_706ToEnemyPrincess158_172Seconds": 2.878,
+        "ownKing300_706ToEnemyKing300_94Seconds": 3.1875
+      }
+    },
+    "sneaselToken": {
+      "hp": 202,
+      "damage": 125,
+      "interval": 1.1,
+      "rangePx": 12,
+      "explicitWindupSeconds": 0.3,
+      "movementPxPerSecondIfUsingClashMeasuredTileConversion": 57.6,
+      "addSeparateFirstAttackDelay": false,
+      "reason": "El windup existente ya aporta los 0.3 s posteriores al despliegue. No agregar otra espera de 0.3 ni sumar de nuevo el cooldown inicial de 0.4, que corre durante el spawn."
+    },
+    "combatDuringDeployment": {
+      "requestedBehavior": "Los Sneasel existen desde el impacto, pueden recibir daño durante los 1.1 s de despliegue y todavía no pueden atacar ni moverse.",
+      "implementationConcern": "validTarget, selección de torres y varios filtros de hechizos/proyectiles descartan spawn>0. Alargar el spawn sin revisar esto aumenta la invulnerabilidad actual.",
+      "scopeSuggestion": "Permitir daño y selección durante despliegue mediante una propiedad explícita para estas unidades; no modificar por accidente todas las invocaciones."
+    },
+    "validation": [
+      "Medir aparición, fin de despliegue, attackStart y primer daño con un objetivo inmóvil ya en alcance.",
+      "Comprobar que el primer daño ocurre cerca de 1.4 s desde impacto, admitiendo precisión de ticks.",
+      "Comprobar una cadencia posterior de 1.1 s por cuerpo.",
+      "Un hechizo sincronizado durante el despliegue debe poder dañar a los Sneasel.",
+      "No tratar las métricas de tres unidades como daño garantizado: defensa, interrupción y colocación cambian el resultado."
+    ]
+  }
+}
