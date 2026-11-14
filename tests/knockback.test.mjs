@@ -47,3 +47,9 @@ test('push traits and interruption survive reconnecting and mirrored snapshots',
   const g=fresh(),unit=g.spawn('rapidash',1,300,520,0);unit.charge=2;unit.cooldown=.7;
   for(const mirrored of[false,true]){const restored=unpackGame(perspective(packGame(g),mirrored?1:0)),copy=restored.units.find(u=>u.id===unit.id),x=copy.x;assert.ok(restored.pushUnit(copy,mirrored?-24:24,0));assert.ok(Math.abs(copy.x-x)>=23.9);assert.equal(copy.charge,0);assert.equal(copy.cooldown,.7);}
 });
+
+test('a remote death cancels a preparation even when the cached event actor is stale',()=>{
+  const r=Object.assign(Object.create(Renderer.prototype),{effects:[{kind:'charge',actor:{id:8,hp:800,attackSeq:1},seq:1}],particles:[],reduced:true});
+  r.onEvent({type:'faint',unit:{id:8,x:300,y:500,hp:0}});assert.equal(r.effects.length,0);
+  for(const key of['gyarados','lugia','hooh'])assert.equal(CARDS[key].knockbackImmune,false,'unreferenced flyers retain their established spell vulnerability');
+});

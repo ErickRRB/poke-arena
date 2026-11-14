@@ -282,6 +282,10 @@ export class Renderer {
   }
   onEvent(event) {
     const {type}=event;
+    if(['faint','structureDown','towerDown'].includes(type)){
+      const id=event.unit?.id??event.tower?.id;
+      this.effects=this.effects.filter(e=>!['windup','charge'].includes(e.kind)||e.actor?.id!==id);
+    }
     if(type==='dashWindup')this.effects.push({kind:'charge',actor:event.unit,seq:event.unit.attackSeq,style:'shadow',life:event.duration,max:event.duration});
     if(type==='cast'&&event.key==='pinMissile'){
       const hitAt=CARDS.pinMissile.castDelay??.55,life=hitAt+.42;

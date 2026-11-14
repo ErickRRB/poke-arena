@@ -840,9 +840,9 @@
     "poochyenaToken": false,
     "raltsToken": false,
     "nidoqueen": true,
-    "gyarados": true,
-    "lugia": true,
-    "hooh": true,
+    "gyarados": false,
+    "lugia": false,
+    "hooh": false,
     "aggron": true,
     "metagross": true,
     "kyogre": true
@@ -873,16 +873,16 @@
       "reason": "Heavy summoning tank keeps the stability previously given by the Bowler HP guard, now consistent across ordinary pushes."
     },
     "gyarados": {
-      "immune": true,
-      "reason": "Heavy airborne tank keeps its established stability."
+      "immune": false,
+      "reason": "No native reference: preserve existing spell push vulnerability. Ground-only rocks already exclude flying units."
     },
     "lugia": {
-      "immune": true,
-      "reason": "Heavy airborne legendary keeps its established stability."
+      "immune": false,
+      "reason": "No native reference: preserve existing spell push vulnerability. Ground-only rocks already exclude flying units."
     },
     "hooh": {
-      "immune": true,
-      "reason": "Heavy airborne legendary keeps its established stability."
+      "immune": false,
+      "reason": "No native reference: preserve existing spell push vulnerability. Ground-only rocks already exclude flying units."
     },
     "aggron": {
       "immune": true,

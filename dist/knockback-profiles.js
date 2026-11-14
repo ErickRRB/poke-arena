@@ -66,9 +66,9 @@ export const PUSHBACK_IMMUNITY={
   "poochyenaToken": false,
   "raltsToken": false,
   "nidoqueen": true,
-  "gyarados": true,
-  "lugia": true,
-  "hooh": true,
+  "gyarados": false,
+  "lugia": false,
+  "hooh": false,
   "aggron": true,
   "metagross": true,
   "kyogre": true
