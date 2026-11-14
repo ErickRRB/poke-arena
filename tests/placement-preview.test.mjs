@@ -36,6 +36,12 @@ test('spells show only their range while aiming, without a central marker or sum
  }
 });
 
+test('leaving the arena removes every spell aiming indicator even if the card stays selected',()=>{
+ for(const [key] of Object.entries(CARDS).filter(([,card])=>card.spell)){
+  const {game,renderer,ctx,calls}=drawing(key);renderer.pointer=null;renderer.drawPlacement(ctx,game);assert.deepEqual(calls,[],key);
+ }
+});
+
 test('no cast or travelling spell announces its landing position after aiming ends',()=>{
  for(const [key,card] of Object.entries(CARDS).filter(([,card])=>card.spell)){
   const calls=[],ctx=new Proxy({}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});

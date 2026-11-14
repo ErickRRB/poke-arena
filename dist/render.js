@@ -605,7 +605,7 @@ export class Renderer {
   }
   drawPlacement(c, game) {
     const key=this.selection,card=CARDS[key],team=this.placementTeam||0;
-    if(!card||this.placementWhenPaused&&!this.pointer||game.state!=='playing'&&!(this.placementWhenPaused&&game.state==='paused'))return;
+    if(!card||(card.spell||this.placementWhenPaused)&&!this.pointer||game.state!=='playing'&&!(this.placementWhenPaused&&game.state==='paused'))return;
     c.save();
     if(this.selection){
       // Keep the terrain bright; legal cells and their frontier carry placement feedback.
