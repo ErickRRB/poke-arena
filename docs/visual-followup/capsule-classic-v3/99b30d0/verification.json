@@ -1,0 +1,256 @@
+{
+  "checkpoint": "99b30d0ad5b72dec7c49c023886b58a0fc4b5bea",
+  "generatedAt": "2026-11-14T21:25:59.330Z",
+  "scope": "Isolated material A/B using the same CapsuleArt class, angle and light at actual 32/40 CSS pixels. V2 is its authentic texture, not a production gameplay recording. No Game, flight physics or input validation is claimed here.",
+  "texture": "assets/battle/pokeball-material-classic-v3.svg",
+  "diametersCss": [
+    32,
+    40
+  ],
+  "phases": 8,
+  "angleRate": 4,
+  "frameCount": 96,
+  "fps": 60,
+  "sourceHashes": {
+    "dist/app.js": {
+      "bytes": 46853,
+      "sha256": "ba869315a257c54adddef2b823d737dbe6652ef4c80e6f52d607c23e2e03b758"
+    },
+    "dist/arena-geometry.js": {
+      "bytes": 4263,
+      "sha256": "e0862d80c919ac3f38dc3e9cb9f6fce740e4843c5b020b5ee70f4e8065b6d021"
+    },
+    "dist/arena-tilemap.js": {
+      "bytes": 2920,
+      "sha256": "7811168f2eaea5c6ce8c60c98171abd814d5709284434d0edb69d0c91c5a3e6d"
+    },
+    "dist/attack-choreography.js": {
+      "bytes": 1897,
+      "sha256": "ba6b152a5555c5c6aa8bf3d5b750c9f00683803db7b57dca40b03ef2389cd437"
+    },
+    "dist/audio.js": {
+      "bytes": 19821,
+      "sha256": "c21ee1a34c9a2d5d7c67f4352a27862fd53d138c45910fe57a610a8b813661c7"
+    },
+    "dist/balance.js": {
+      "bytes": 34713,
+      "sha256": "d203a0b73200a77a262b28def1146695c0b5f7d69cb71ba72946077838369abf"
+    },
+    "dist/battle-art.js": {
+      "bytes": 4781,
+      "sha256": "4752db463f9934ff6f8fb15e204cff8efd6f590ce9db7c837479db1c541c62b2"
+    },
+    "dist/capsule-art.js": {
+      "bytes": 4514,
+      "sha256": "6aee38778155a253fa20c521fd9375dc059dafc8fbe3cbfc8909cf964bb71a9e"
+    },
+    "dist/card-art.js": {
+      "bytes": 5178,
+      "sha256": "d26e733ce85b4fd73f6aed870881020e40c8579ef2e5a99f0e931435dd1518fb"
+    },
+    "dist/card-equivalents.js": {
+      "bytes": 18961,
+      "sha256": "e640abd0a7eb31db8b3348187ae9efe9e2474137a80703e6b92524821f40fc23"
+    },
+    "dist/card-review.js": {
+      "bytes": 14971,
+      "sha256": "9f9249a2105f29fc6d47ee44134b34dbf640cb306966b173e922ff70ac0dcee7"
+    },
+    "dist/catalog.js": {
+      "bytes": 25652,
+      "sha256": "ddd41f821ded4f19fe5a9a92cbe2447fc57d30ee30cbce285b48998b4d5b4ade"
+    },
+    "dist/clash-roster.js": {
+      "bytes": 2414,
+      "sha256": "2e98ecf75b8a58284c2003d3e8e983f90472e755f8542150589ed49aa71b92e1"
+    },
+    "dist/combat-visuals.js": {
+      "bytes": 2452,
+      "sha256": "d7e989039062c09f25c42b1079d57bf30a61b28164a111e41a355826b6939216"
+    },
+    "dist/current-reference.js": {
+      "bytes": 107712,
+      "sha256": "446770234378676d369dd1366fb312c18143600f13f0d1630696944b6a42899f"
+    },
+    "dist/deck-storage.js": {
+      "bytes": 4621,
+      "sha256": "8ba58aeb34a5bd5145f980947d198ecd126dc1133e81143a18a43bc53db93e78"
+    },
+    "dist/deployment-formations.js": {
+      "bytes": 1106,
+      "sha256": "69789b2f1c1716f0b4bab0c2e80df151c7f86dbb3f8ce54a2e031d574c99de44"
+    },
+    "dist/engine.js": {
+      "bytes": 89658,
+      "sha256": "784557fa7a9b66490a45f01750d5ade7f53304575588ce34de44c5d9a921cd7f"
+    },
+    "dist/knockback-profiles.js": {
+      "bytes": 1702,
+      "sha256": "c361762af434877f0fe3398a03a37902df41aaba5ea7691881480852bccd5028"
+    },
+    "dist/loader-art.js": {
+      "bytes": 660,
+      "sha256": "640dc2cc17d21226c8d457a20b71f0a79e702bc1d9729c8ca2e7197657a42473"
+    },
+    "dist/music.js": {
+      "bytes": 5204,
+      "sha256": "ee94c920bbb03c696c6aef34a3188c2bd89676700d96a9b8eac886019a41600e"
+    },
+    "dist/native-descriptions.js": {
+      "bytes": 4091,
+      "sha256": "eb23e3130bf927f2603b638fd5a3039c1fe8346d6da1f5ed10b1b35a9623a583"
+    },
+    "dist/native-formations.js": {
+      "bytes": 2247,
+      "sha256": "999d701d3bae2f7cba2ee7ff9c3ea7d599794e2a36338185bdd3981677c1edf3"
+    },
+    "dist/online-config.js": {
+      "bytes": 302,
+      "sha256": "0105c7ebe7c21be13f15a282e9468e2861c51704f5e23ed82297a04636d66074"
+    },
+    "dist/online-wire.js": {
+      "bytes": 1735,
+      "sha256": "b1b55f59b9c420801b3ca380c93fb3c3fe8ac9daf90cd35f8f37653b4f0386aa"
+    },
+    "dist/online.js": {
+      "bytes": 9134,
+      "sha256": "9f34a80be0e75e1e112c91af75388aa02c85a57f7ff7f6ccaa7c4499db2bfebc"
+    },
+    "dist/pokemon-silhouettes.js": {
+      "bytes": 5655,
+      "sha256": "54d85d7779fc33a8f4b83760dfa5bb26ff0312b1f80cefc2320cb4c09fa11097"
+    },
+    "dist/pokemon-stats.js": {
+      "bytes": 7580,
+      "sha256": "64c1544c59efb2c653737f73252cdab19f44eec203a45e4437a291cd88e3d75a"
+    },
+    "dist/quick-stats.js": {
+      "bytes": 11441,
+      "sha256": "d36a89c656ad0236d024f1b162ef9f4092d0090e94f7dd94dbcc0a096ba611ec"
+    },
+    "dist/render.js": {
+      "bytes": 68572,
+      "sha256": "429affcd63f00027df3744b4953e4818afacb64a8a29f034a2973428a26eaa9e"
+    },
+    "dist/sandbox.js": {
+      "bytes": 4625,
+      "sha256": "6453cb374755733e1fb3838f60f6b4edf2e3b0faf0275b6a4e68453bf72a629d"
+    },
+    "dist/snapshot.js": {
+      "bytes": 4187,
+      "sha256": "0d344d74286013d73ce3f8bbc47a6b7129d4ca6e6d14e15c2daade0f89733138"
+    },
+    "dist/spell-preview.js": {
+      "bytes": 1257,
+      "sha256": "736cb6a5509cc1455b6e679e536524464ad9670a597a11b4bbfecbff53338c25"
+    },
+    "dist/sprite-geometry.js": {
+      "bytes": 680581,
+      "sha256": "4c43ee77d13587c26c7d8ca06faa5381cabf2b69bf63ec9733e4842c4d5aef18"
+    },
+    "dist/sprite-motion.js": {
+      "bytes": 5623,
+      "sha256": "9afd22883f0722d9e69b17c86e65ce8429c2744bcd8afbb1adafb47082530017"
+    },
+    "dist/targeting-art.js": {
+      "bytes": 2276,
+      "sha256": "c62ef1334e110c5ce08f66c364608fd2aa46d4a903b1270a010e9ee85608e60a"
+    },
+    "dist/testing.js": {
+      "bytes": 16218,
+      "sha256": "510f4b889b29f86da71ecad0f50a96a25435ab606edfb999ed8672e8c3e1aeba"
+    },
+    "dist/unit-sizes.js": {
+      "bytes": 2212,
+      "sha256": "f3fac3924d2902e7ecb62e9bbf159a6ae67be94d731c634499325d8cbbe4e4b3"
+    },
+    "dist/wing-motion.js": {
+      "bytes": 4702,
+      "sha256": "a86cb99670e14a63eb1ad182cb562a15df60f68142566652c913089050d1d8d5"
+    },
+    "dist/wing-rigs.js": {
+      "bytes": 9244,
+      "sha256": "27076a5d7287d4a2f070ed724b4ff6d96d043a9e55d114b2f592c9741066820c"
+    },
+    "dist/index.html": {
+      "bytes": 25628,
+      "sha256": "b82a91511bedda39033ca07ea049e5ce5b54bd4bd393a3fbfed0e67925ca90ab"
+    },
+    "dist/assets/ui/pokeball-v2.webp": {
+      "bytes": 4224,
+      "sha256": "93e032372700ab7e69d65004f7cffd93c99800daf4dcf6cda1008af0fbac18e8"
+    },
+    "dist/assets/fonts/fonts.css": {
+      "bytes": 1220,
+      "sha256": "94844991e739fcd72a4408e61e383d157a72be9f7264df4ee927d268f941f461"
+    },
+    "dist/assets/fonts/font-3.ttf": {
+      "bytes": 87556,
+      "sha256": "73bc9e17231e9073780d3c81574c7253cecd5645c93544df1a935054b39a364f"
+    },
+    "dist/assets/fonts/font-4.ttf": {
+      "bytes": 48280,
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9"
+    },
+    "dist/assets/fonts/font-7.ttf": {
+      "bytes": 48200,
+      "sha256": "2a8e7f713ee79fbccdef3cef5c787aff47580299f7da60144961e7db2ec08211"
+    },
+    "dist/style.css": {
+      "bytes": 46143,
+      "sha256": "6cb6b79981258ef94eb5bddd582885d40607296bd848fac2466185d794c309b2"
+    },
+    "dist/card-ui.css": {
+      "bytes": 11555,
+      "sha256": "cc8d098415a98ebcce982da0b2584f63360d66acdae0d559fa1372e39260fce8"
+    },
+    "dist/theme.css": {
+      "bytes": 30599,
+      "sha256": "4003ee0a9a62b15b1b0b40b6ebc93e57b4b338b09a02ca3f437d41dd5615063b"
+    },
+    "dist/transient-ui.css": {
+      "bytes": 1357,
+      "sha256": "24b77a6a1183fecc569de6537aa29219b08d60795525b54009c3d48c04256e16"
+    },
+    "dist/editor.css": {
+      "bytes": 9794,
+      "sha256": "da6d68f1753d6060738af2bdf2d713254c4ab7f8f7186394ef701be63402b888"
+    },
+    "dist/quick-stats.css": {
+      "bytes": 1049,
+      "sha256": "8d6e397abb2dc594f85fdd9098616b39e6c43c216472ad68b4f8913fbf301dc6"
+    },
+    "dist/assets/home-arena.webp": {
+      "bytes": 412792,
+      "sha256": "a6ce3060ba13a056281c5324f66d4e64c085b82b1a9abc0ba8024d59d30a4d07"
+    },
+    "dist/assets/ui/menu-icons-v1.webp": {
+      "bytes": 1006732,
+      "sha256": "d3d2e125f8e0b911ca84c89060c2f773f98100eab4c75f4050927dadaf9e1821"
+    },
+    "dist/assets/ui/stat-icons.webp": {
+      "bytes": 766402,
+      "sha256": "42fd088090aeb419d47f8653de1a3b6b44ec32d19c0ba560a14314f346b3abd3"
+    },
+    "dist/favicon.svg": {
+      "bytes": 612,
+      "sha256": "c4df7922fddddddb71fc81ab2eabdd2df1c027e9b93013e1906870955e3a9d3a"
+    },
+    "dist/assets/battle/pokeball-material-v2.png": {
+      "bytes": 1467772,
+      "sha256": "be89cd1a53b6f11dcd82ac37cb5232ab0d06034f5c4fe721f6919a725450d3bb"
+    },
+    "dist/assets/battle/pokeball-material-classic-v3.svg": {
+      "bytes": 389,
+      "sha256": "4162fe190b18d8bd13770abd60ca7ec89799887930c7624ee4c89f9aa0de2ceb"
+    }
+  },
+  "qaHashes": {
+    "/__qa/native-integrated-harness.mjs": "c20f1798932e7550fedbabfa926cf8eb12b69a44b96e1c7998efab0d1aa72585"
+  },
+  "errors": [],
+  "artifacts": {
+    "comparison.png": "421dd6d481dd421c67475576744d566d0cdcfc0e7406347a34a0ede36bc0809b",
+    "material-cycle.mp4": "cdd773a32967e7048dd2156f0e78af716c98a9c0dfbd048c56d6524366d58a69"
+  }
+}
