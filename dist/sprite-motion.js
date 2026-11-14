@@ -6,7 +6,7 @@ export function attackPoseProgress(meta, elapsed, duration, windup) {
   const total=meta.durations.reduce((sum,value)=>sum+value,0);
   const hit=meta.hitFrame||Math.max(1,Math.floor(meta.durations.length*.3));
   const ratio=meta.durations.slice(0,hit).reduce((sum,value)=>sum+value,0)/total;
-  const progress=elapsed<=windup?ratio*elapsed/Math.max(.001,windup):ratio+(1-ratio)*(elapsed-windup)/Math.max(.001,duration-windup);
+  const progress=windup>0&&elapsed<=windup?ratio*elapsed/Math.max(.001,windup):ratio+(1-ratio)*(elapsed-windup)/Math.max(.001,duration-windup);
   return Math.max(0,Math.min(.999,progress));
 }
 export function animationFrame(meta, clock, {loop=true}={}) {
