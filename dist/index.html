@@ -7,6 +7,7 @@
   <meta name="description" content="Batallas de Pokémon en tiempo real: elegí tus cartas, defendé tus torres y conquistá la arena.">
   <title>Poké Arena · Batalla de torres</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/ui/pokeball-v2.webp" as="image">
   <link rel="preload" href="assets/fonts/font-3.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="assets/fonts/font-4.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="assets/fonts/font-7.ttf" as="font" type="font/ttf" crossorigin>
@@ -15,23 +16,16 @@
   <link rel="stylesheet" href="card-ui.css?v=26">
   <link rel="stylesheet" href="theme.css?v=26">
   <link rel="stylesheet" href="transient-ui.css?v=26">
-  <link rel="stylesheet" href="editor.css?v=30">
+  <link rel="stylesheet" href="editor.css?v=32">
+  <link rel="stylesheet" href="quick-stats.css">
 </head>
 <body class="menu-mode">
   <svg class="svg-defs" aria-hidden="true"><defs>
     <linearGradient id="loading-red" x2="0" y2="1"><stop stop-color="#ff8a69"/><stop offset="1" stop-color="#b93f3d"/></linearGradient>
     <linearGradient id="loading-ivory" x2="0" y2="1"><stop stop-color="#fffdf0"/><stop offset="1" stop-color="#e0d6b2"/></linearGradient>
-    <symbol id="i-loading-ball" viewBox="0 0 64 64">
-      <circle cx="32" cy="32" r="27" fill="url(#loading-ivory)" stroke="#414a50" stroke-width="3"/>
-      <path d="M5 32a27 27 0 0 1 54 0Z" fill="url(#loading-red)"/>
-      <path d="M5 32h54" stroke="#414a50" stroke-width="5"/>
-      <circle cx="32" cy="32" r="27" fill="none" stroke="#414a50" stroke-width="3"/>
-      <ellipse cx="22" cy="15" rx="9" ry="3" fill="#fff6df" opacity=".7" transform="rotate(-25 22 15)"/>
-      <circle cx="32" cy="32" r="9" fill="#dfd9be" stroke="#414a50" stroke-width="3"/>
-      <circle cx="32" cy="32" r="4" fill="#fffdf0"/>
-    </symbol>
+    <symbol id="i-loading-ball" viewBox="0 0 64 64"><image href="assets/ui/pokeball-v2.webp" width="64" height="64"/></symbol>
     <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M8 3v6M16 9v6M10 15v6" fill="none" stroke="#bc4941" stroke-width="4" stroke-linecap="round"/></symbol>
-    <symbol id="i-ball" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="-72" width="96" height="96"/></symbol>
+    <symbol id="i-ball" viewBox="0 0 24 24"><image href="assets/ui/pokeball-v2.webp" width="24" height="24"/></symbol>
     <symbol id="i-sound" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="0" y="-24" width="96" height="96"/></symbol>
     <symbol id="i-mute" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="-24" width="96" height="96"/></symbol>
     <symbol id="i-help" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="0" width="96" height="96"/></symbol>
@@ -81,9 +75,10 @@
       <button id="online-btn" class="primary-btn" disabled>Buscar partida <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
       <button id="start-btn" class="secondary-btn" disabled>Jugar contra CPU</button>
       <div class="menu-options"><button id="menu-deck-btn" class="secondary-btn"><svg aria-hidden="true"><use href="#i-deck"/></svg>Mazo</button><button id="practice-btn" class="secondary-btn" disabled><svg aria-hidden="true"><use href="#i-help"/></svg>Tutorial</button></div>
+      <a class="testing-arena-link" href="testing.html">Arena de pruebas</a>
     </div>
     <div id="menu-loading" class="menu-loading">
-      <div id="menu-loading-badge" class="loading-badge"><span id="menu-load-progress" class="pokeball-loader" role="progressbar" aria-label="Cargando el juego" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><svg viewBox="0 0 64 64" class="loading-ball" aria-hidden="true"><defs><clipPath id="menu-ball-clip"><rect id="menu-load-fill" x="0" y="64" width="64" height="0"/></clipPath></defs><g class="loading-base"><circle cx="32" cy="32" r="27" fill="#a4ab9b" stroke="#56634f" stroke-width="3"/><path d="M5 32h54" stroke="#56634f" stroke-width="5"/><circle cx="32" cy="32" r="9" fill="#d1d5bf" stroke="#56634f" stroke-width="3"/><circle cx="32" cy="32" r="4" fill="#e8ead8"/></g><use class="loading-fill" href="#i-loading-ball" clip-path="url(#menu-ball-clip)"/></svg></span></div>
+      <div id="menu-loading-badge" class="loading-badge"><span id="menu-load-progress" class="pokeball-loader" role="progressbar" aria-label="Cargando el juego" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><svg viewBox="0 0 64 64" class="loading-ball" aria-hidden="true"><defs><clipPath id="menu-ball-clip"><rect id="menu-load-fill" x="0" y="64" width="64" height="0"/></clipPath></defs><use class="loading-base" href="#i-loading-ball"/><use class="loading-fill" href="#i-loading-ball" clip-path="url(#menu-ball-clip)"/></svg></span></div>
       <div id="menu-load-error" class="load-error" role="alert" hidden><p>No se pudo cargar el juego.</p><button id="retry-load" class="secondary-btn">Reintentar</button></div>
     </div>
     <div id="search-panel" class="search-panel" role="region" aria-label="Búsqueda de rival" hidden><div class="search-card"><span class="pokeball-loader is-indeterminate" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span><strong id="search-status" role="status">Buscando rival…</strong><span id="search-time">0:00</span><button id="cancel-search" class="secondary-btn">Cancelar</button></div></div>
@@ -103,7 +98,7 @@
         <div id="battle-overlays" class="battle-overlays">
           <div class="battle-hud">
             <div class="trainer-id"><strong id="enemy-name">Entrenador</strong><span id="connection-loading" class="connection-loading" role="status" aria-label="Reconectando a la partida" hidden><svg viewBox="0 0 64 64" class="loading-ball" aria-hidden="true"><use href="#i-loading-ball"/></svg></span><span id="online-status" class="online-status" role="status" hidden></span></div>
-            <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="phase-label" hidden>Extra</span><span id="boost" hidden>×2</span><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button><button id="match-leave" class="icon-btn" aria-label="Volver al inicio" title="Volver al inicio" hidden><svg aria-hidden="true"><use href="#i-home"/></svg></button></div>
+            <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button><button id="match-leave" class="icon-btn" aria-label="Volver al inicio" title="Volver al inicio" hidden><svg aria-hidden="true"><use href="#i-home"/></svg></button><div class="battle-hud-status"><span id="phase-label" hidden>Extra</span><span id="boost" role="status" aria-label="Multiplicador de elixir" hidden>×2</span></div></div>
           </div>
           <div id="abilities" class="abilities" aria-label="Habilidades disponibles" hidden></div>
           <span id="battle-loading" class="battle-loading" role="status" hidden><span class="pokeball-loader" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span><span class="sr-only">Cargando recursos de batalla…</span></span>

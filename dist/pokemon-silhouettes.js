@@ -88,6 +88,26 @@ export const POKEMON_SILHOUETTES=Object.freeze({
     "body": 24,
     "name": "Golem"
   },
+  "78": {
+    "body": 32,
+    "name": "Rapidash"
+  },
+  "315": {
+    "body": 28,
+    "name": "Roselia"
+  },
+  "75": {
+    "body": 28,
+    "name": "Graveler"
+  },
+  "274": {
+    "body": 30,
+    "name": "Nuzleaf"
+  },
+  "215": {
+    "body": 28,
+    "name": "Sneasel"
+  },
   "50": {
     "body": 22,
     "name": "Diglett"
@@ -348,6 +368,10 @@ export const POKEMON_SILHOUETTES=Object.freeze({
     "body": 31,
     "name": "Regice"
   },
+  "356": {
+    "body": 32,
+    "name": "Dusclops"
+  },
   "355": {
     "body": 26,
     "name": "Duskull"
@@ -360,6 +384,10 @@ export const POKEMON_SILHOUETTES=Object.freeze({
     "body": 31,
     "name": "Registeel"
   },
+  "112": {
+    "body": 32,
+    "name": "Rhydon"
+  },
   "377": {
     "body": 32,
     "name": "Regirock"
@@ -371,29 +399,5 @@ export const POKEMON_SILHOUETTES=Object.freeze({
   "353": {
     "body": 20,
     "name": "Shuppet"
-  },
-  "75": {
-    "body": 28,
-    "name": "Graveler"
-  },
-  "78": {
-    "body": 32,
-    "name": "Rapidash"
-  },
-  "215": {
-    "body": 28,
-    "name": "Sneasel"
-  },
-  "274": {
-    "body": 30,
-    "name": "Nuzleaf"
-  },
-  "315": {
-    "body": 28,
-    "name": "Roselia"
-  },
-  "112": {
-    "body": 32,
-    "name": "Rhydon"
   }
 });

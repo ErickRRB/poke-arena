@@ -1,12 +1,16 @@
 import { POKEMON_STATS } from './pokemon-stats.js';
 import { UNIT_SCALES } from './unit-sizes.js';
+import { GROUP_FORMATIONS } from './deployment-formations.js';
+import { CURRENT_REFERENCE_BALANCE } from './current-reference.js';
+import { PUSHBACK_IMMUNITY } from './knockback-profiles.js';
+import { applyAttackChoreography } from './attack-choreography.js';
 
 // Shared by browser, CPU and online server. Values are per body / per hit.
-export const THRESHOLDS = Object.freeze({ tower: 109, towerInterval: .8, fragile: 81, scout: 133, meleeSwarm: 202, archers: 304, fireball: 689, log: 290 });
+export const THRESHOLDS = Object.freeze({ tower: 109, towerInterval: .8, fragile: 81, scout: 133, meleeSwarm: 202, archers: 304, fireball: 688, log: 268 });
 
 // Explicit health, damage, cadence and speed for every body. No global multipliers.
 export const CARD_BALANCE = {
-  rapidash:{cost:4,hp:1696,damage:318,interval:1.6,speed:40},
+  rapidash:{cost:4,hp:1696,damage:318,interval:1.6,speed:57.6},
   roselia:{cost:3,hp:261,damage:169,interval:3,speed:26},
   graveler:{cost:5,hp:2080,damage:272,interval:2.5,speed:18},
   nuzleaf:{cost:3,hp:260,damage:131,interval:.7,speed:40},
@@ -17,9 +21,9 @@ export const CARD_BALANCE = {
   charmander: {"cost":3,"hp":440,"damage":135,"interval":1.5,"speed":32,"burn":9},
   snorlax: {"cost":5,"hp":4091,"damage":254,"interval":1.5,"speed":18,"windup":0.55,"attackDuration":1.1,"splash":0,"charge":0},
   zubat: {"cost":2,"hp":180,"damage":65,"interval":1.3,"speed":30},
-  charizard: {"cost":5,"hp":1526,"damage":72,"interval":1.8,"speed":26,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[1,2,3,4,5,4,3,2],"movementAnchor":"body"},
+  charizard: {"cost":5,"hp":1526,"damage":72,"interval":1.8,"speed":26,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[5,6,7,6],"moveFrameDuration":5,"movementAnchor":"body","attackFrames":[2,3,4,5,6,7,8,9]},
   thunder: {"cost":2,"damage":192,"towerDamage":58,"splash":60,"stun":0.5},
-  fireball: {"cost":4,"damage":689,"towerDamage":207,"splash":60,"travelSpeed":420,"castDelay":0.15},
+  fireball: {"cost":4,"damage":689,"towerDamage":207,"splash":60,"travelSpeed":420,"castDelay":0.15,"knockback":24},
   bulbasaur: {"cost":2,"hp":400,"damage":85,"interval":1.3,"speed":26},
   gengar: {"cost":4,"hp":650,"damage":125,"interval":1.45,"speed":40,"blink":5},
   machamp: {"cost":4,"hp":1361,"damage":180,"interval":1.8,"speed":26},
@@ -31,16 +35,16 @@ export const CARD_BALANCE = {
   alakazam: {"cost":4,"hp":590,"damage":133,"interval":1.1,"speed":26,"range":168},
   geodude: {"cost":3,"hp":1766,"damage":202,"interval":1.2,"speed":18,"splash":0},
   magnemite: {"cost":3,"hp":400,"damage":81,"interval":1.8,"speed":26},
-  scyther: {"cost":4,"hp":650,"damage":65,"interval":1.2,"speed":40,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[4,5,6,7,6,5],"moveFrameDuration":5,"movementAnchor":"body"},
+  scyther: {"cost":4,"hp":650,"damage":65,"interval":1.2,"speed":40,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[5],"moveFrameDuration":5,"movementAnchor":"body"},
   lapras: {"cost":5,"hp":1500,"damage":160,"interval":1.75,"speed":18},
   mewtwo: {"cost":6,"hp":1452,"damage":440,"interval":2.8,"speed":26,"windup":0.65,"range":144,"splash":45},
   treecko: {"cost":3,"hp":304,"damage":112,"interval":0.9,"speed":26,"range":120},
   golem: {"cost":8,"hp":5120,"damage":312,"interval":2.5,"speed":18,"windup":0.5,"deathDamage":312},
-  log: {"cost":2,"damage":290,"towerDamage":58,"travelDistance":242.4,"travelSpeed":205},
+  log: {"cost":2,"damage":290,"towerDamage":58,"travelDistance":242.4,"travelSpeed":205,"knockback":24},
   venusaur: {"cost":5,"hp":1900,"damage":140,"interval":1.9,"speed":18},
   butterfree: {"cost":3,"hp":440,"damage":72,"interval":1.6,"speed":26,"style":"powder","color":"#c9ace9","move":"Paralizador"},
   beedrill: {"cost":3,"hp":260,"damage":85,"interval":1.3,"speed":40},
-  pidgeot: {"cost":4,"hp":1052,"damage":165,"interval":1.3,"speed":40,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[3,4,5,6,7,6,5,4],"moveFrameDuration":6,"movementAnchor":"body"},
+  pidgeot: {"cost":4,"hp":1052,"damage":165,"interval":1.3,"speed":40,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[4,5,4,5],"moveFrameDuration":6,"movementAnchor":"body"},
   ekans: {"cost":2,"hp":250,"damage":60,"interval":1.2,"speed":32,"burn":12,"burnKind":"poison"},
   sandshrew: {"cost":3,"hp":220,"shield":240,"damage":121,"interval":1.1,"speed":32},
   nidoqueen: {"cost":6,"hp":2800,"damage":165,"interval":1.6,"speed":18},
@@ -49,7 +53,7 @@ export const CARD_BALANCE = {
   arcanine: {"cost":4,"hp":1400,"damage":220,"interval":1.4,"speed":40},
   slowbro: {"cost":3,"hp":688,"damage":90,"interval":1.7,"speed":18,"shield":0,"range":132,"slow":2,"style":"ice","entryDamage":83,"entryRadius":72,"entrySlow":1,"splash":36},
   grimer: {"cost":2,"hp":900,"damage":55,"interval":1.5,"speed":18,"style":"poison","range":85,"color":"#b686c8"},
-  cloyster: {"cost":4,"hp":865,"damage":28,"interval":2.6,"speed":0},
+  cloyster: {"cost":4,"hp":865,"damage":28,"interval":2.6,"speed":0,"platform":false},
   gastly: {"cost":2,"hp":81,"damage":35,"interval":1.3,"speed":32,"count":4,"deathField":6,"style":"lick"},
   voltorb: {"cost":1,"hp":230,"damage":115,"interval":1.4,"speed":40,"stun":0.75,"air":true,"jumpRange":78,"jumpDuration":0.42,"windup":0.1},
   electrode: {"cost":4,"hp":1200,"damage":600,"interval":1.6,"speed":32,"windup":0.5,"splash":60},
@@ -65,7 +69,7 @@ export const CARD_BALANCE = {
   articuno: {"cost":5,"hp":1400,"damage":145,"interval":1.8,"speed":26},
   zapdos: {"cost":5,"hp":1200,"damage":150,"interval":1.8,"speed":26},
   moltres: {"cost":5,"hp":1350,"damage":165,"interval":1.8,"speed":26},
-  dragonite: {"cost":5,"hp":1600,"damage":85,"interval":1.9,"speed":26,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[3,4,5,6,5,4],"moveFrameDuration":7,"movementAnchor":"body"},
+  dragonite: {"cost":5,"hp":1600,"damage":85,"interval":1.9,"speed":26,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[5,6,7,8,9,8,7,6],"moveFrameDuration":5,"movementAnchor":"body"},
   meganium: {"cost":5,"hp":2400,"damage":105,"interval":1.7,"speed":18},
   typhlosion: {"cost":5,"hp":1130,"damage":150,"interval":1.8,"speed":26,"style":"eruption","air":false},
   feraligatr: {"cost":4,"hp":1900,"damage":300,"interval":1.55,"speed":26,"lifesteal":0},
@@ -73,7 +77,7 @@ export const CARD_BALANCE = {
   ampharos: {cost:4,hp:1182,damage:220,interval:1.1,speed:0,range:132,lifetime:25,stun:0,chain:0},
   espeon: {"cost":3,"hp":460,"damage":110,"interval":1,"speed":32},
   umbreon: {"cost":3,"hp":2100,"damage":120,"interval":1.7,"speed":26,"reflect":0,"burn":10,"burnKind":"poison","style":"poison","range":100,"label":"Siniestro","color":"#b5a4d3","move":"Tóxico"},
-  wobbuffet: {"cost":4,"hp":1900,"damage":0,"interval":2,"speed":0,"passive":true,"reflect":0.5,"windup":0},
+  wobbuffet: {"cost":4,"hp":1900,"damage":0,"interval":2,"speed":0,"passive":true,"reflect":0.5,"windup":0,"platform":false},
   steelix: {"cost":6,"hp":4500,"damage":310,"interval":2.2,"speed":18},
   scizor: {"cost":4,"hp":1200,"damage":135,"interval":1.3,"speed":32,"shield":240},
   skarmory: {"cost":4,"hp":560,"damage":81,"interval":1.5,"speed":32},
@@ -84,13 +88,13 @@ export const CARD_BALANCE = {
   blaziken: {"cost":4,"hp":1200,"damage":100,"interval":1.7,"speed":32},
   swampert: {"cost":5,"hp":2800,"damage":190,"interval":1.8,"speed":18},
   gardevoir: {"cost":5,"hp":780,"damage":280,"interval":1.6,"speed":26,"fieldStyle":"psychic","windup":0.45,"range":132,"splash":42},
-  sableye: {"cost":3,"hp":800,"damage":160,"interval":1.2,"speed":40,"lifesteal":0,"label":"Siniestro / fantasma"},
+  sableye: {"cost":3,"hp":800,"damage":160,"interval":1.2,"speed":40,"lifesteal":0,"label":"Siniestro / fantasma","dash":true,"dashWindup":0.8,"dashSpeed":420,"dashMin":84,"dashMax":144,"dashMultiplier":2,"dashInvulnerable":true},
   aggron: {"cost":6,"hp":3000,"damage":220,"interval":1.7,"speed":18},
   sharpedo: {"cost":3,"hp":907,"damage":193,"interval":1,"speed":40},
   flygon: {"cost":5,"hp":1650,"damage":165,"interval":1.8,"speed":32},
   altaria: {"cost":4,"hp":900,"damage":75,"interval":1.6,"speed":26,"style":"song","move":"Voz cautivadora","heal":75},
   absol: {"cost":4,"hp":1100,"damage":200,"interval":1.4,"speed":40,"label":"Siniestro","move":"Tajo umbrío"},
-  salamence: {"cost":6,"hp":2200,"damage":95,"interval":2.2,"speed":26,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[3,4,5,6,7,6,5,4],"movementAnchor":"body"},
+  salamence: {"cost":6,"hp":2200,"damage":95,"interval":2.2,"speed":26,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[5],"movementAnchor":"body"},
   metagross: {"cost":6,"hp":2800,"damage":260,"interval":2.1,"speed":18,"shield":400},
   kyogre: {"cost":8,"hp":3300,"damage":150,"interval":2.25,"speed":18},
   groudon: {"cost":8,"hp":4500,"damage":320,"interval":2.4,"speed":18,"windup":0.55},
@@ -104,9 +108,9 @@ export const CARD_BALANCE = {
   raltsTrio: {"cost":2,"hp":133,"damage":81,"interval":1.6,"speed":40,"scale":1.65,"range":120},
   poochyenaPack: {"cost":2,"hp":202,"damage":125,"interval":1.1,"speed":40,"scale":1.65,"range":12},
   centralElectrode: {cost:5,hp:1000,damage:0,interval:2,speed:0,color:'#ffe18b'},
-  madriguera: {cost:5,hp:1200,damage:0,interval:2,speed:0,color:'#d0b0e5'},
-  vivero: {cost:3,hp:750,damage:0,interval:2,speed:0,color:'#bedb87'},
-  regice: {cost:4,hp:1000,damage:75,interval:1.8,speed:0,color:'#a5eafa',muzzleHeight:45},
+  madriguera: {cost:5,hp:1200,damage:0,interval:2,speed:0,color:'#d0b0e5',platform:false},
+  vivero: {cost:3,hp:750,damage:0,interval:2,speed:0,color:'#bedb87',platform:false},
+  regice: {cost:4,hp:1000,damage:75,interval:1.8,speed:0,color:'#a5eafa',muzzleHeight:45,platform:false},
   duskull: {cost:5,hp:598,damage:90,interval:1.6,speed:26,color:'#b9a4e7',muzzleHeight:22},
   raichu: {cost:3,hp:640,damage:700,interval:2.4,speed:32,color:'#ffd491',muzzleHeight:28},
   registeel: {cost:7,hp:3200,damage:1080,interval:3.1,speed:18,color:'#b9d1dc',muzzleHeight:35},
@@ -115,6 +119,7 @@ export const CARD_BALANCE = {
   celebi: {cost:4,hp:1350,damage:260,interval:1.8,speed:40,color:'#c4e8aa',muzzleHeight:24},
   pandilla: {cost:3,hp:202,damage:125,interval:1.1,speed:40},
   shuppetToken: {cost:0,hp:81,damage:65,interval:1.2,speed:32},
+  duskullToken: {cost:0,hp:81,damage:81,interval:1.1,speed:43.2,range:12,windup:.5},
   poochyenaToken: {cost:0,hp:202,damage:125,interval:1.1,speed:40,range:12},
   raltsToken: {cost:0,hp:133,damage:81,interval:1.6,speed:40,range:120},
   pinMissile: {cost:3,damage:366,towerDamage:110},
@@ -196,6 +201,18 @@ export function applyBalance(cards) {
   cards.roselia.projectileArt='petalShot';
   // Travel speed and arc are simulation data, shared by CPU, browser and server.
   for(const[key,[speed,arc]]of Object.entries({roselia:[230,100],nuzleaf:[460,0],treecko:[380,24],raltsTrio:[400,0],raltsToken:[400,0],sceptile:[460,0],charmander:[270,46],venusaur:[230,65],butterfree:[220,26],slowbro:[310,16],lapras:[300,14],articuno:[310,14],moltres:[270,38],typhlosion:[250,55],gardevoir:[245,35],alakazam:[480,0],starmie:[480,0],espeon:[480,0],rayquaza:[480,0]}))Object.assign(cards[key],{projectileSpeed:speed,projectileArc:arc});
+  for(const [key,values]of Object.entries(CURRENT_REFERENCE_BALANCE))if(cards[key]){
+    Object.assign(cards[key],values);
+    const card=cards[key];
+    if(!card.spell){
+      if(card.burst>1)card.burstSpacing=Math.min(card.burstSpacing,Math.max(0,(card.interval-card.windup-.16)/(card.burst-1)));
+      card.attackDuration=Math.min(card.interval,Math.max(card.attackDuration,card.windup+((card.burst||1)-1)*(card.burstSpacing||0)+.16));
+    }
+  }
+  for(const [key,formation]of Object.entries(GROUP_FORMATIONS))cards[key].formation=formation;
+  for(const [key,immune]of Object.entries(PUSHBACK_IMMUNITY))if(cards[key])cards[key].knockbackImmune=immune;
+  cards.duskullToken.scale=.8;
+  applyAttackChoreography(cards);
   for(const [key,description] of Object.entries(CARD_DESCRIPTIONS))cards[key].description=description;
 }
 
@@ -205,7 +222,7 @@ export const CARD_DESCRIPTIONS = {
   squirtle:'Dispara tres burbujas seguidas al mismo objetivo.',
   charmander:'Lanza ascuas que explotan en área y dejan quemadura.',
   snorlax:'Avanza lentamente hacia las torres y estructuras para golpearlas.',
-  zubat:'Tres Zubat recuperan vida con cada mordida.',
+  zubat:'Cinco Zubat recuperan vida con cada mordida.',
   charizard:'Exhala tres llamaradas que cubren un cono frente a él.',
   thunder:'Una descarga daña y aturde en el área elegida.',
   fireball:'Una bola de fuego explota en la zona elegida y empuja a los rivales.',
@@ -227,22 +244,22 @@ export const CARD_DESCRIPTIONS = {
   golem:'Avanza hacia las estructuras y, al caer, explota y deja dos Geodude.',
   log:'Una rueda de fuego avanza y empuja a los enemigos terrestres.',
   diglett:'Tres Diglett rodean y distraen a un rival.',
-  diglettHorde:'Nueve Diglett rodean a sus enemigos y atacan en grupo.',
+  diglettHorde:'Quince Diglett rodean a sus enemigos y atacan en grupo.',
   raltsTrio:'Tres Ralts atacan a distancia con energía psíquica.',
   poochyenaPack:'Cuatro Poochyena avanzan juntos y muerden a corta distancia.',
   venusaur:'Dispara semillas explosivas que dejan una zona venenosa.',
   butterfree:'Esparce polvo que ralentiza a los enemigos en área.',
-  beedrill:'Dos Beedrill encadenan dos picotazos cada uno.',
+  beedrill:'Tres Beedrill encadenan dos picotazos cada uno.',
   pidgeot:'Toma impulso al volar para hacer una picada de daño doble.',
   ekans:'Dos Ekans envenenan a sus enemigos con cada mordida.',
-  sandshrew:'Dos defensores avanzan protegidos por escudos.',
+  sandshrew:'Tres defensores avanzan protegidos por escudos.',
   nidoqueen:'Resiste en primera línea e invoca Nidoran como refuerzos.',
   nidoking:'Encadena dos puñetazos que envenenan al rival.',
   mankey:'Tres Mankey cargan juntos para dar un primer golpe de daño doble.',
   arcanine:'Toma carrera y golpea con una carga que deja quemadura.',
   slowbro:'Libera frío al aparecer y lanza hielo que ralentiza en área.',
   grimer:'Golpea a corta distancia y deja un charco venenoso al caer.',
-  cloyster:'Defiende desde un bastión con ráfagas de cinco pinchos.',
+  cloyster:'Defiende su posición con ráfagas de cinco pinchos.',
   gastly:'Cuatro Gastly atacan a distancia y dejan niebla dañina al caer.',
   voltorb:'Salta hacia un enemigo y explota al aterrizar, dañando y aturdiendo en área.',
   electrode:'Avanza hacia las estructuras y explota al llegar.',
@@ -277,7 +294,7 @@ export const CARD_DESCRIPTIONS = {
   blaziken:'Encadena tres golpes que dejan quemadura.',
   swampert:'Golpea en área y ralentiza a los rivales.',
   gardevoir:'Lanza energía psíquica que explota y deja una zona dañina.',
-  sableye:'Se acerca con Amago y golpea con sus garras.',
+  sableye:'Prepara Amago, se lanza hacia su objetivo y da un golpe de daño doble.',
   aggron:'Su armadura reduce el daño y devuelve parte de los golpes recibidos.',
   sharpedo:'Toma carrera para dar una primera mordida de daño doble.',
   flygon:'Golpea con sus garras y levanta arena que ralentiza alrededor.',
@@ -292,13 +309,13 @@ export const CARD_DESCRIPTIONS = {
   madriguera:'Libera parejas de Nidoran y deja una última pareja al caer.',
   vivero:'Libera parejas de Exeggcute frágiles que luchan cuerpo a cuerpo y deja cuatro al caer.',
   regice:'Defiende desde el suelo con hielo que daña en área y ralentiza.',
-  duskull:'Ataca a distancia e invoca Shuppet durante el combate y al caer.',
+  duskull:'Dusclops lanza energía espectral e invoca grupos de cuatro Duskull pequeños.',
   raichu:'Prepara un golpe lento que hace mucho daño a un solo rival.',
   registeel:'Avanza lentamente y da golpes devastadores a un solo rival.',
   regirock:'Resiste con su armadura y avanza hacia torres y estructuras.',
   celebi:'Vuela directo hacia las torres y estructuras para atacarlas.',
   rhydon:'Avanza lentamente y prepara un golpe de cuerno muy fuerte contra un objetivo terrestre.',
-  pandilla:'Tres Poochyena van adelante y tres Ralts los cubren a distancia.',
+  pandilla:'Tres Poochyena van adelante y dos Ralts los cubren a distancia.',
   pinMissile:'Una lluvia de pinchos daña a los enemigos en una zona amplia.',
   lightning:'Daña y aturde a los tres enemigos con más vida dentro del área.',
   hyperBeam:'Marca una zona y, tras una demora, la golpea con un rayo devastador.',

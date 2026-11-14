@@ -1,6 +1,6 @@
 import { EXTRA_CARDS } from './catalog.js?v=26';
 import { applyBalance, THRESHOLDS } from './balance.js?v=26';
-import { emissionPoint } from './sprite-motion.js?v=26';
+import { emissionPoint, structureLift } from './sprite-motion.js?v=26';
 export { attackPoseProgress } from './sprite-motion.js?v=26';
 export const W = 600, H = 800;
 export const TILE = 24;
@@ -17,6 +17,13 @@ export const KING_Y = [706, 94];
 // Include the snapped cells beside the lane center when reaching midbridge.
 export const PRINCESS_RANGE = Math.ceil(Math.hypot(PRINCESS_Y[0] - H / 2, TILE));
 export const LANES = [158, 442];
+export function spellOverlapsTarget(card,point,target){
+  const radius=card.splash??card.radius??0;
+  // Crown towers receive spells on their two-cell square footprint. Other
+  // bodies overlap by their full collision radius, rather than 40% of it.
+  if('king'in target){const dx=Math.max(0,Math.abs(target.x-point.x)-TILE),dy=Math.max(0,Math.abs(target.y-point.y)-TILE);return Math.hypot(dx,dy)<radius;}
+  return Math.hypot(target.x-point.x,target.y-point.y)<radius+(target.radius||0);
+}
 export function projectileProfile(card={}){
   const style=card.style;
   return{speed:card.projectileSpeed??({bubble:270,rock:235,egg:235,hydro:420,coin:470,psychic:480}[style]||310),arc:card.projectileArc??({rock:65,egg:55,ember:42,ice:12,bubble:16}[style]||0)};
@@ -88,15 +95,18 @@ export const CPU_DECKS = [
 ];
 // PMD sheets run south, southeast, east, northeast, north, northwest, west, southwest.
 export function directionRow(dx, dy) { return (2 - Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8; }
-export function aimPoint(target) { return { x: target.x, y: target.y - ('king' in target ? 27 : target.card?.structure ? 43 : target.card?.flying ? 27 : 15) }; }
+export function aimPoint(target) { return { x: target.x, y: target.y - ('king' in target ? 27 : target.card?.structure ? structureLift(target.card)+20 : target.card?.flying ? 27 : 15) }; }
 // Compress/extend the original windup so its hit frame coincides with the shared release time.
-export function formationOffsets(card, team = 0) {
+export function isCombatTargetReady(target){return !(target.spawn>0)||!!target.card?.vulnerableDuringDeploy;}
+
+export function formationOffsets(card, team = 0, anchorX = 300) {
   const count = card.count || 1;
   const direction = team ? -1 : 1;
-  const small = { 1: [[0,0]], 2: [[0,0],[1,0]], 3: [[-1,0],[0,1],[1,0]], 4: [[-1,0],[0,1],[1,0],[0,-1]] };
+  const mirror=(team?W-anchorX:anchorX)<W/2?1:-1;
+  const small = { 1: [[0,0]], 2: [[-.5,0],[.5,0]], 3: [[-1,0],[0,1],[1,0]], 4: [[-1,0],[0,1],[1,0],[0,-1]] };
   return Array.from({length:count},(_,i)=>{
     const [x,y] = card.formation?.[i] || small[count]?.[i] || [i % 3 - 1, Math.floor(i / 3) - Math.floor(count / 6)];
-    return { x: x * TILE * direction, y: y * TILE * direction };
+    return { x: x * TILE * direction * mirror, y: y * TILE * direction };
   });
 }
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
@@ -162,21 +172,21 @@ export class Game {
     if (this.towers.some(t => t.team !== team && t.king && t.hp <= 0)) return 3;
     return this.towers.filter(t => t.team !== team && !t.king && t.hp <= 0).length;
   }
-  canDeploy(team, key, x, y, wholeFormation = true) {
+  canDeploy(team, key, x, y) {
     const card = CARDS[key];
     if (!card || !Number.isFinite(x) || !Number.isFinite(y) || x < 44 || x > 556 || y < 40 || y > 760) return false;
-    if (card.rolling) return team ? y <= 356 : y >= 444;
-    if (card.spell) return true;
+    if (card.spell && !card.rolling) return true;
     const lane = x < 300 ? 0 : 1;
     const laneDestroyed = this.towers.some(t => t.team !== team && t.lane === lane && !t.king && t.hp <= 0);
     const inOwnHalf = team === 0 ? y >= 444 : y <= 356;
     const inCaptured = laneDestroyed && (team === 0 ? y >= 252 && y <= 356 : y >= 444 && y <= 548);
     if (!inOwnHalf && !inCaptured) return false;
+    if (card.rolling) return true;
     if([...this.towers, ...this.units.filter(u => u.card.structure)].some(t => {
       const behindKing=t.king&&t.team===team&&(team?y<t.y:y>t.y);
       return t.hp>0&&distance(t,{x,y})<t.radius+(card.structure?38:behindKing?20:27);
     }))return false;
-    return !wholeFormation||!card.formation||formationOffsets(card,team).every(offset=>this.canDeploy(team,key,x+offset.x,y+offset.y,false));
+    return true;
   }
   resolveDeployment(team,key,x,y,reserved){
     const card=CARDS[key];
@@ -191,7 +201,7 @@ export class Game {
     // Include the hover distance in the supplied screenshot, even away from a
     // bridge. Preview and authoritative deployment use this same nearest cell.
     const zones=[{left:44,right:556,top:team?40:444,bottom:team?356:760}];
-    if(!card.rolling)for(const lane of[0,1])if(this.towers.some(t=>t.team!==team&&!t.king&&t.lane===lane&&t.hp<=0))zones.push({left:lane?300:44,right:lane?556:300,top:team?444:252,bottom:team?548:356});
+    for(const lane of[0,1])if(this.towers.some(t=>t.team!==team&&!t.king&&t.lane===lane&&t.hp<=0))zones.push({left:lane?300:44,right:lane?556:300,top:team?444:252,bottom:team?548:356});
     const assist=4*TILE;
     const nearest=snapToCell(team,x,y);
     if(!reserved?.has(`${nearest.x},${nearest.y}`)&&this.canDeploy(team,key,nearest.x,nearest.y))return nearest;
@@ -211,23 +221,20 @@ export class Game {
   }
   deploymentPositions(team,key,x,y){
     const card=CARDS[key];
-    if(card?.formation){
-      const anchor=this.resolveDeployment(team,key,x,y);
-      return anchor?formationOffsets(card,team).map(offset=>({x:anchor.x+offset.x,y:anchor.y+offset.y})):[];
-    }
-    const positions=[],reserved=new Set();
-    for(const offset of formationOffsets(CARDS[key],team)){
-      const p=this.resolveDeployment(team,key,x+offset.x,y+offset.y,reserved);
-      if(p){positions.push(p);reserved.add(`${p.x},${p.y}`);}
-    }
-    return positions;
+    const anchor=this.resolveDeployment(team,key,x,y);if(!anchor)return[];
+    if((card.count||1)===1)return[anchor];
+    return formationOffsets(card,team,anchor.x).map((offset,index)=>{
+      const member=CARDS[card.squad?.[index]]||card;
+      const px=clamp(anchor.x+offset.x,46,554),py=clamp(anchor.y+offset.y,42,758),lane=px<W/2?0:1;
+      return this.constrainMovement({id:this.nextId+index,team,card:member,radius:member.radius||12,x:px,y:py,lane},px,py);
+    });
   }
   deploymentThreats(team,key,x,y,placed=false){
     const card=CARDS[key],point=placed?{x,y}:this.resolveDeployment(team,key,x,y);
     if(!point||card.spell)return[];
-    const positions=placed?formationOffsets(card,team).map(offset=>({x:point.x+offset.x,y:point.y+offset.y})):this.deploymentPositions(team,key,point.x,point.y);
+    const positions=placed?formationOffsets(card,team,point.x).map(offset=>({x:point.x+offset.x,y:point.y+offset.y})):this.deploymentPositions(team,key,point.x,point.y);
     const previews=positions.map(p=>({...p,team,card,hp:card.hp,radius:card.radius||12,spawn:0}));
-    return [...this.towers,...this.units].filter(enemy=>enemy.team!==team&&enemy.hp>0&&(enemy.spawn===undefined||enemy.spawn<=0)&&previews.some(preview=>{
+    return [...this.towers,...this.units].filter(enemy=>enemy.team!==team&&enemy.hp>0&&isCombatTargetReady(enemy)&&previews.some(preview=>{
       if('king'in enemy)return enemy.active&&distance(enemy,preview)<=enemy.range;
       return this.validTarget(enemy,preview)&&distance(enemy,preview)<=enemy.card.range+preview.radius;
     }));
@@ -249,13 +256,13 @@ export class Game {
       const king=this.towers.find(t=>t.team===team&&t.king);
       const origin={x:king.x,y:king.y};
       const travelTime=card.travelSpeed?distance(origin,{x,y})/card.travelSpeed:0;
-      this.spells.push({ key, card, team, x, y, startX:card.rolling?x:origin.x,startY:card.rolling?y:origin.y,
+      this.spells.push({ visualId:this.nextId++,key, card, team, x, y, startX:card.rolling?x:origin.x,startY:card.rolling?y:origin.y,
         delay:card.rolling?0:card.castDelay??.4,flightTime:travelTime,flightElapsed:0,
         travelRemaining:card.rolling?card.travelDistance:0,hitIds:[] });
       this.emit('cast', { key, team, x, y, radius: card.splash });
     } else {
-      const spawnGroup={id:this.nextId,x,y,duration:.75};
-      for (const [i,point] of this.deploymentPositions(team,key,x,y).entries())this.spawn(card.squad?.[i]||key,team,point.x,point.y,.75,spawnGroup);
+      const delay=card.deployTime??.75,spawnGroup={id:this.nextId,x,y,duration:delay};
+      for (const [i,point] of this.deploymentPositions(team,key,x,y).entries())this.spawn(card.squad?.[i]||key,team,point.x,point.y,delay,spawnGroup);
     }
     this.emit('deploy', { team, key, x, y, cost: card.cost });
     return { ok: true, key, x, y };
@@ -274,7 +281,7 @@ export class Game {
     return u;
   }
   damage(target, amount, team, { stun = 0, freeze = 0, slow = 0, burn = 0, burnKind = 'fire', dot = false, sourceId = 0, sourceKey = '', reflected = false, poisonField = 0, affectsHidden = false } = {}) {
-    if (target.hp <= 0 || this.state !== 'playing'||target.burrowed&&!affectsHidden) return;
+    if (target.hp <= 0 || this.state !== 'playing'||target.burrowed&&!affectsHidden||target.dash?.phase==='travel'&&target.card?.dashInvulnerable) return;
     amount*=1-(target.card?.armor||0);const shielded=target.shield>0,absorbed=Math.min(target.shield||0,amount);target.shield=Math.max(0,(target.shield||0)-absorbed);amount=shielded?0:amount;
     const actual = Math.min(target.hp, amount)+absorbed;
     target.hp = Math.max(0, target.hp - amount);
@@ -282,7 +289,12 @@ export class Game {
     target.stun = Math.max(target.stun, stun);
     target.freeze=Math.max(target.freeze||0,freeze);
     target.slow = Math.max(target.slow || 0, slow);
-    if (stun > 0) { target.attackSeq++; target.attack = 0; target.charge = 0; target.target=null;target.engaged=false;target.cooldown=Math.max(target.cooldown,stun+.18); }
+    if (stun > 0) {
+      const interrupted=this.attacks.some(job=>job.attacker===target&&job.seq===target.attackSeq&&!job.done&&job.shot===0);
+      target.attackSeq++;target.attack=0;target.charge=0;target.target=null;target.engaged=false;
+      // A canceled first strike can restart after the stun, without waiting an unused attack cycle.
+      target.cooldown=interrupted?stun:Math.max(target.cooldown,stun);
+    }
     if (burn > 0) target.burn = { remaining: 3, tick: .5, damage: burn, team, kind: burnKind,sourceId,sourceKey };
     this.stats[team].damage += actual;
     if(actual>0)this.emit('damage', { target, amount: actual, dot,sourceId,sourceKey });
@@ -314,6 +326,14 @@ export class Game {
         if(target.card.deathStun){this.emit('deathBurst',{unit:target,radius:100,style:'lightning',groundOnly:false});for(const other of this.units)if(other.team!==target.team&&other.hp>0&&distance(other,target)<100)this.damage(other,0,target.team,{stun:target.card.deathStun,sourceId:target.id});}
   }
   retireUnit(unit){if(unit.hp<=0||unit.deathHandled)return;unit.hp=0;this.unitDeath(unit,1-unit.team);}
+  pushUnit(unit,dx,dy,{force=false}={}){
+    const immune=unit.card?.knockbackImmune??CARDS[unit.key]?.knockbackImmune;
+    if(!unit.card||unit.card.structure||unit.hp<=0||unit.leap||unit.dash?.phase==='travel'&&unit.card.dashInvulnerable||immune&&!force)return false;
+    const point=this.constrainMovement(unit,unit.x+dx,unit.y+dy);unit.x=point.x;unit.y=point.y;
+    // A push invalidates preparation, not the remaining attack cooldown.
+    // Keep the target so the unit can finish approaching after displacement.
+    unit.attackSeq++;unit.attack=0;unit.charge=0;unit.dash=null;return true;
+  }
   spawnReinforcements(owner,key,count,delay=.5){
     const children=[],spawnGroup={id:this.nextId,x:owner.x,y:owner.y+(owner.team?1:-1)*(owner.card?.structure?42:24),duration:delay};
     for(let i=0;i<count&&this.units.filter(u=>u.hp>0).length<160;i++){
@@ -337,11 +357,11 @@ export class Game {
     candidates.sort((a,b)=>distance(a,{x,y})-distance(b,{x,y}));return candidates[0]||null;
   }
   summonSpell(spell){
-    const card=spell.card,points=[],group={id:this.nextId,x:spell.x,y:spell.y,duration:.4};
+    const card=spell.card,points=[],delay=card.spawnDeployTime??.4,group={id:this.nextId,x:spell.x,y:spell.y,duration:delay};
     for(let i=0;i<card.spawnTotal&&this.units.filter(u=>u.hp>0).length<160;i++){
       const angle=-Math.PI/2+i*2*Math.PI/card.spawnTotal+(spell.team?Math.PI:0),radius=card.spawnRadius;
       const point=this.reinforcementPoint(card.spawnKey,spell.x+Math.cos(angle)*radius,spell.y+Math.sin(angle)*radius,points);
-      if(point){points.push(point);this.spawn(card.spawnKey,spell.team,point.x,point.y,.4,group);}
+      if(point){points.push(point);this.spawn(card.spawnKey,spell.team,point.x,point.y,delay,group);}
     }
   }
   finish(winner, reason) {
@@ -369,7 +389,7 @@ export class Game {
     if(ability.effect==='shield')for(const ally of this.units)if(ally.team===team&&ally.hp>0&&distance(unit,ally)<=ability.radius){ally.shield=Math.max(ally.shield||0,ability.shield);ally.maxShield=Math.max(ally.maxShield||0,ally.shield);}
     for(const target of[...this.units,...this.towers])if(target.team!==team&&target.hp>0&&(!target.burrowed||ability.effect==='quake')&&(!ability.groundOnly||!target.card?.flying)&&distance(unit,target)<=ability.radius+target.radius){
       if(ability.damage)this.damage(target,'king'in target?Math.round(ability.damage*.28):ability.damage,team,{stun:ability.stun,slow:ability.slow,burn:ability.burn,sourceId:unit.id,affectsHidden:ability.effect==='quake'});
-      if(ability.knockback&&target.card&&!target.card.structure){const d=distance(unit,target)||1;target.x=clamp(target.x+(target.x-unit.x)/d*ability.knockback,44,556);target.y=clamp(target.y+(target.y-unit.y)/d*ability.knockback,44,756);target.target=null;target.engaged=false;target.attackSeq++;}
+      if(ability.knockback&&target.card&&!target.card.structure){const d=distance(unit,target)||1;this.pushUnit(target,(target.x-unit.x)/d*ability.knockback,(target.y-unit.y)/d*ability.knockback,{force:true});}
     }
     this.emit('ability',{unit,radius:ability.radius});return{ok:true};
   }
@@ -393,7 +413,7 @@ export class Game {
   stepFields(dt){
     for(const f of this.fields){
       const active=Math.min(dt,Math.max(0,f.life));f.life=Math.max(0,f.life-active);f.tick-=active;
-      const targets=[...this.units,...this.towers].filter(t=>t.team!==f.team&&t.hp>0&&(!t.burrowed||f.affectsHidden)&&(t.spawn===undefined||t.spawn<=0)&&(!t.card?.flying||f.air)&&distance(t,f)<f.radius+(t.radius||0)*(f.key ? .4 : 1));
+      const targets=[...this.units,...this.towers].filter(t=>t.team!==f.team&&t.hp>0&&(!t.burrowed||f.affectsHidden)&&isCombatTargetReady(t)&&(!t.card?.flying||f.air)&&(f.key?spellOverlapsTarget(f,f,t):distance(t,f)<f.radius+(t.radius||0)));
       for(const target of targets)if(target.card){
         if(f.slow)target.slow=Math.max(target.slow||0,f.slow);
         if(f.pull&&!target.card.structure&&!target.leap){
@@ -455,7 +475,7 @@ export class Game {
     this.retireUnit(unit);
   }
   validTarget(unit, target) {
-    return !!(target && target.hp > 0 && !target.burrowed && target.team !== unit.team && (!target.card?.flying || unit.card.air) && (!unit.card.building || 'king' in target || target.card?.structure) && (target.spawn === undefined || target.spawn <= 0));
+    return !!(target && target.hp > 0 && !target.burrowed && target.team !== unit.team && (!target.card?.flying || unit.card.air) && (!unit.card.building || 'king' in target || target.card?.structure) && isCombatTargetReady(target));
   }
   updateBurrows(dt){
     for(const unit of this.units){
@@ -539,7 +559,11 @@ export class Game {
     // for every neighbor. Large bodies can gently displace smaller defenders.
     for (const other of this.units) {
       if (other === unit || other.hp <= 0 || other.spawn > 0 || other.card.structure || !!other.card.flying !== !!unit.card.flying) continue;
-      const ox = nx - other.x, oy = ny - other.y, od = Math.hypot(ox, oy);
+      let ox=nx-other.x,oy=ny-other.y,od=Math.hypot(ox,oy);
+      if(od<1e-7){
+        const first=unit.id<other.id?unit:other,sign=(unit.id<other.id?1:-1)*(first.team?-1:1);
+        const angle=((unit.id+other.id)%8)*Math.PI/4;ox=Math.cos(angle)*sign;oy=Math.sin(angle)*sign;od=1;
+      }
       const gap = (unit.radius + other.radius) * .7;
       if (od > .1 && od < gap) {
         const share=other.radius**2/(unit.radius**2+other.radius**2),push=Math.min((gap-od)*4,24);
@@ -574,7 +598,7 @@ export class Game {
         let tx = nx - tower.x, ty = ny - tower.y, td = Math.hypot(tx, ty);
         const gap = tower.radius + unit.radius * .7;
         if (td < gap) {
-          if (Math.abs(tx) < 1) tx = unit.id % 2 ? 1 : -1;
+          if (td < 1e-7) tx = unit.id % 2 ? 1 : -1;
           td = Math.hypot(tx, ty) || 1;
           nx = tower.x + tx / td * gap; ny = tower.y + ty / td * gap;
         }
@@ -605,7 +629,9 @@ export class Game {
     const seq = ++attacker.attackSeq;
     const charged = !!(card?.charge && attacker.charge >= card.charge);
     attacker.charge = 0;
-    for (let shot=0;shot<(card?.burst || 1);shot++) this.attacks.push({ attacker, target, seq, shot, charged, delay: windup + shot*(card?.burstSpacing || 0) });
+    for (let shot=0;shot<(card?.burst || 1);shot++){
+      const delay=windup+shot*(card?.burstSpacing||0);this.attacks.push({attacker,target,seq,shot,charged,delay,releaseAt:this.elapsed+delay});
+    }
     this.emit('attackStart', { attacker, target, style: profile.style, duration, windup });
   }
   muzzle(actor, shot = 0) {
@@ -655,13 +681,11 @@ export class Game {
       }
     } else if(style==='flame') {
       const angle=Math.atan2(a.dy,a.dx);
-      for(const t of [...this.units,...this.towers]){
-        if(!this.validTarget(a,t))continue;
-        const delta=Math.atan2(t.y-a.y,t.x-a.x)-angle;
-        const spread=Math.abs(Math.atan2(Math.sin(delta),Math.cos(delta)));
-        if(t===target||(distance(a,t)<card.range+t.radius+22&&spread<card.cone))this.strike(a,t,amount,{});
-      }
-      this.emit('flame',{from,to,groundFrom:{x:a.x,y:a.y},team:a.team,length:card.range+22,cone:card.cone,angle,sourceId:a.id,targetId:target.id,shot});
+      const speed=card.flameSpeed||300,length=card.range+Math.max(22,target.radius);
+      this.projectiles.push({id:a.id+':'+job.seq+':'+shot,key:a.key,sourceKey:a.key,sourceId:a.id,team:a.team,style,flameCone:true,
+        x:a.x,y:a.y,startX:a.x,startY:a.y,groundX:a.x,groundY:a.y,angle,cone:card.cone,air:!!card.air,
+        totalDistance:length,travelled:0,speed,damage:amount,hitIds:[],life:length/speed+.05});
+      this.emit('flame',{key:a.key,from,to,groundFrom:{x:a.x,y:a.y},groundTo:{x:target.x,y:target.y},team:a.team,length,speed,cone:card.cone,angle,sourceId:a.id,targetId:target.id,shot});
     } else if(card&&card.range<50) {
       this.strike(a,target,amount,card);
       if(card.splash)for(const u of this.units)if(u!==target&&this.validTarget(a,u)&&distance(u,target)<card.splash)this.strike(a,u,amount,card);
@@ -717,7 +741,7 @@ export class Game {
     this.deploy(1, choice.i, x, y);
   }
   spellValue(card,point){
-    return [...this.units,...this.towers].filter(t=>t.team===0&&t.hp>0&&(!card.groundOnly||!t.card?.flying)&&distance(t,point)<card.splash+t.radius*.4)
+    return [...this.units,...this.towers].filter(t=>t.team===0&&t.hp>0&&(!card.groundOnly||!t.card?.flying)&&spellOverlapsTarget(card,point,t))
       .sort((a,b)=>b.hp-a.hp).slice(0,card.targetLimit||Infinity).reduce((sum,t)=>sum+('king'in t?card.towerDamage||card.fieldTowerDamage||0:Math.min(t.hp,(card.damage||0)+(card.fieldDamage||0)*(card.fieldDuration||0)*(t.card.structure?card.buildingMultiplier||1:1))),0);
   }
   tickStatus(entity,dt) {
@@ -731,6 +755,13 @@ export class Game {
     }
   }
   blink(unit,target) {
+    if(unit.card.dash){
+      const d=distance(unit,target),sameBank=unit.y<RIVER.top&&target.y<RIVER.top||unit.y>RIVER.bottom&&target.y>RIVER.bottom;
+      if(unit.dash||unit.blinkCooldown>0||unit.attack>0||d<unit.card.dashMin||d>unit.card.dashMax||!sameBank)return false;
+      unit.attackSeq++;unit.attack=unit.attackDuration=unit.attackWindup=unit.card.dashWindup;unit.engaged=true;this.face(unit,target);
+      unit.dash={phase:'windup',elapsed:0,targetId:target.id,startX:unit.x,startY:unit.y};
+      this.emit('dashWindup',{unit,duration:unit.card.dashWindup});return true;
+    }
     if(!unit.card.blink||unit.blinkCooldown>0||distance(unit,target)>155||distance(unit,target)<65)return false;
     if(!((unit.y<RIVER.top&&target.y<RIVER.top)||(unit.y>RIVER.bottom&&target.y>RIVER.bottom)))return false;
     const from={x:unit.x,y:unit.y},d=distance(unit,target)||1,reach=unit.card.range+target.radius-3;
@@ -738,6 +769,29 @@ export class Game {
     if(x<46||x>554||y<42||y>758||this.towers.some(t=>t.hp>0&&distance(t,{x,y})<t.radius+unit.radius*.7))return false;
     unit.x=x;unit.y=y;unit.blinkCooldown=unit.card.blink;this.face(unit,target);
     this.emit('blink',{from,to:{x,y},unit});return true;
+  }
+  stepDash(unit,dt){
+    const dash=unit.dash,target=[...this.units,...this.towers].find(t=>t.id===dash.targetId);
+    if(!this.validTarget(unit,target)||unit.stun>0){unit.dash=null;unit.attack=0;unit.engaged=false;return;}
+    dash.elapsed+=dt;
+    if(dash.phase==='windup'){
+      if(dash.elapsed+1e-7<unit.card.dashWindup)return;
+      const d=distance(unit,target),reach=unit.card.range+target.radius-3;
+      const sameBank=unit.y<RIVER.top&&target.y<RIVER.top||unit.y>RIVER.bottom&&target.y>RIVER.bottom;
+      if(d<unit.card.dashMin||d>unit.card.dashMax||!sameBank){unit.dash=null;unit.attack=0;unit.engaged=false;return;}
+      const end=this.constrainMovement(unit,target.x+(unit.x-target.x)/d*reach,target.y+(unit.y-target.y)/d*reach);
+      Object.assign(dash,{phase:'travel',elapsed:0,startX:unit.x,startY:unit.y,endX:end.x,endY:end.y,duration:Math.max(.18,Math.hypot(end.x-unit.x,end.y-unit.y)/unit.card.dashSpeed)});
+      unit.blinkCooldown=unit.card.blink;unit.attack=0;unit.moving=true;this.face(unit,target);
+      this.emit('dashStart',{unit,from:{x:dash.startX,y:dash.startY},to:{x:dash.endX,y:dash.endY},duration:dash.duration});return;
+    }
+    const progress=Math.min(1,dash.elapsed/dash.duration);unit.x=dash.startX+(dash.endX-dash.startX)*progress;unit.y=dash.startY+(dash.endY-dash.startY)*progress;unit.moving=true;
+    if(progress<1)return;
+    unit.dash=null;unit.cooldown=unit.card.interval;unit.attackDuration=.4;unit.attackWindup=0;unit.attack=.4;
+    if(distance(unit,target)<=unit.card.range+target.radius+8){
+      const from=this.muzzle(unit),to=aimPoint(target);this.strike(unit,target,unit.card.damage*unit.card.dashMultiplier,unit.card);
+      this.emit('attackRelease',{attacker:unit,target,key:unit.key,style:'dash',from,to,shot:0,charged:true});
+      this.emit('melee',{sourceId:unit.id,targetId:target.id,key:unit.key,team:unit.team,style:'dash',from,to,charged:true});
+    }
   }
   step(dt) {
     if (this.state !== 'playing') return;
@@ -770,7 +824,7 @@ export class Game {
         spell.y+=(spell.team?1:-1)*travelled;spell.travelRemaining=Math.max(0,remaining-travelled);
         for(const target of[...this.units,...this.towers])if(target.team!==spell.team&&target.hp>0&&!target.burrowed&&!target.card?.flying&&!spell.hitIds.includes(target.id)&&Math.abs(target.x-spell.x)<spell.card.splash+target.radius&&target.y>=Math.min(previousY,spell.y)-18-target.radius&&target.y<=Math.max(previousY,spell.y)+18+target.radius){
           spell.hitIds.push(target.id);this.damage(target,'king'in target?spell.card.towerDamage:spell.card.damage,spell.team,{sourceKey:spell.key});
-          if(target.card&&!target.card.structure){target.y=clamp(target.y+(spell.team?1:-1)*spell.card.knockback,42,758);target.attackSeq++;target.attack=0;target.target=null;target.engaged=false;}
+          if(target.card&&!target.card.structure)this.pushUnit(target,0,(spell.team?1:-1)*spell.card.knockback,{force:true});
           this.emit('hit',{x:target.x,y:target.y,key:spell.key,style:'rock',team:spell.team});
         }
         if(spell.travelRemaining<=1e-7)spell.done=true;continue;
@@ -785,18 +839,14 @@ export class Game {
       spell.done = true;
       if(spell.card.spawnOnImpact)this.summonSpell(spell);
       if(spell.card.fieldDuration)this.spellField(spell);
-      let targets = [...this.units, ...this.towers].filter(t => t.team !== spell.team && t.hp > 0 && (!t.burrowed||spell.card.affectsHidden) && (t.spawn === undefined || t.spawn <= 0) && (!spell.card.groundOnly||!t.card?.flying) && distance(t, spell) < spell.card.splash + t.radius * .4);
+      let targets = [...this.units, ...this.towers].filter(t => t.team !== spell.team && t.hp > 0 && (!t.burrowed||spell.card.affectsHidden) && isCombatTargetReady(t) && (!spell.card.groundOnly||!t.card?.flying) && spellOverlapsTarget(spell.card,spell,t));
       if(spell.card.targetLimit)targets=targets.sort((a,b)=>b.hp-a.hp||a.id-b.id).slice(0,spell.card.targetLimit);
       for (const target of targets) {
         if(spell.card.damage>0)this.damage(target, 'king' in target ? spell.card.towerDamage : spell.card.damage, spell.team, {...spell.card,sourceKey:spell.key});
         if(spell.card.targetLimit)this.emit('beam',{from:{x:target.x,y:target.y-180},to:aimPoint(target),style:'lightning',key:spell.key,team:spell.team});
-        if (target.card && spell.card.knockback && !target.card.building && !target.card.structure) {
+        if (target.card && spell.card.knockback && !target.card.structure) {
           const d = distance(target, spell) || 1;
-          const nx = clamp(target.x + (target.x - spell.x) / d * spell.card.knockback, 46, 554);
-          const ny = clamp(target.y + (target.y - spell.y) / d * spell.card.knockback, 42, 758);
-          const onGround = !target.card.flying;
-          const offBridge = Math.min(...LANES.map(x => Math.abs(nx - x))) > 29;
-          if (!(onGround && ny > RIVER.top && ny < RIVER.bottom && offBridge)) { target.x = nx; target.y = ny; }
+          this.pushUnit(target,(target.x-spell.x)/d*spell.card.knockback,(target.y-spell.y)/d*spell.card.knockback);
         }
       }
       this.emit('spellHit', { key: spell.key, x: spell.x, y: spell.y, radius: spell.card.splash, team: spell.team });
@@ -805,7 +855,7 @@ export class Game {
     for (const tower of this.towers) {
       this.tickStatus(tower,dt);tower.anim+=dt;tower.cooldown-=dt;
       if (tower.hp <= 0 || !tower.active || tower.stun > 0) continue;
-      const enemies = this.units.filter(u => u.team !== tower.team && u.hp > 0 && !u.burrowed && u.spawn <= 0 && distance(tower, u) <= tower.range);
+      const enemies = this.units.filter(u => u.team !== tower.team && u.hp > 0 && !u.burrowed && isCombatTargetReady(u) && distance(tower, u) <= tower.range);
       enemies.sort((a, b) => distance(tower, a) - distance(tower, b));
       if(!enemies.includes(tower.target))tower.target=enemies[0]||null;
       if(tower.target){this.face(tower,tower.target);if(tower.cooldown<=0)this.attack(tower,tower.target);}
@@ -813,22 +863,25 @@ export class Game {
     for (const unit of this.units) {
       if (unit.hp <= 0) continue;
       unit.spawn = Math.max(0, unit.spawn - dt);this.tickStatus(unit,dt);
+      if(unit.hp<=0)continue;
       if(unit.spawn<=0&&unit.entryPending){
         unit.entryPending=false;
-        for(const target of [...this.units,...this.towers])if(target.team!==unit.team&&target.hp>0&&!target.burrowed&&(target.spawn===undefined||target.spawn<=0)&&distance(target,unit)<=unit.card.entryRadius+target.radius*.4){
+        for(const target of [...this.units,...this.towers])if(target.team!==unit.team&&target.hp>0&&!target.burrowed&&isCombatTargetReady(target)&&distance(target,unit)<=unit.card.entryRadius+target.radius*.4){
           this.damage(target,'king'in target?Math.round(unit.card.entryDamage*.3):unit.card.entryDamage,unit.team,{stun:unit.card.entryStun||0,slow:unit.card.entrySlow||0,sourceId:unit.id,sourceKey:unit.key});
         }
         this.emit('entry',{unit,x:unit.x,y:unit.y,radius:unit.card.entryRadius,style:unit.card.entryStun?'lightning':'ice'});
       }
       unit.cooldown-=dt;unit.anim+=dt;unit.blinkCooldown=Math.max(0,unit.blinkCooldown-dt);
       unit.moving = false;
+      if(unit.dash&&unit.stun>0){unit.dash=null;unit.attack=0;unit.engaged=false;}
       if(unit.card.structure&&unit.spawn<=0){
         unit.hp=Math.max(0,unit.hp-unit.maxHp/unit.card.lifetime*dt);unit.lifetime=unit.card.lifetime*unit.hp/unit.maxHp;
         if(unit.lifetime<=1e-7||unit.hp<=0){unit.hp=0;this.unitDeath(unit,1-unit.team);continue;}
       }
+      if(unit.spawn<=0&&unit.ttl>0){unit.ttl-=dt;if(unit.ttl<=0){this.retireUnit(unit);continue;}}
       if (unit.spawn > 0 || unit.stun > 0 || unit.burrowed) continue;
+      if(unit.dash){this.stepDash(unit,dt);continue;}
       if(unit.leap){this.stepLeap(unit,dt);continue;}
-      if(unit.ttl>0){unit.ttl-=dt;if(unit.ttl<=0){this.retireUnit(unit);continue;}}
       if(unit.card.summon){unit.summonClock-=dt;if(unit.summonClock<=0){unit.summonClock+=unit.card.summonEvery;unit.summonCycle=unit.card.summonEvery;const alive=this.units.filter(u=>u.parentId===unit.id&&u.hp>0).length;this.spawnReinforcements(unit,unit.card.summon,Math.max(0,Math.min(unit.card.summonCount||1,(unit.card.summonMax||3)-alive)));}}
       if(unit.card.heal){unit.healClock-=dt;if(unit.healClock<=0){unit.healClock=unit.card.healEvery;this.healNearby(unit,unit.card.heal,unit.card.healRadius,unit.card.healAll);}}
       if(unit.card.structure&&unit.target&&distance(unit,unit.target)>unit.card.range+unit.target.radius||unit.card.building&&unit.target?.card?.structure&&!this.withinPullLane(unit,unit.target)){unit.target=null;unit.engaged=false;unit.attackSeq++;unit.attack=0;}
@@ -842,28 +895,38 @@ export class Game {
       const target = unit.target;
       if (!target) continue;
       if(this.startLeap(unit,target))continue;
-      if(unit.card.copy&&target.card&&!target.card.structure&&!target.card.token){const copied={};for(const key of['damage','range','interval','style','burst','burstSpacing','bolts','stun','slow','burn','splash','air','chain','cone','pierce','projectileSpeed','projectileArc','projectileArt','rollingShot','projectileRange','shotRadius','knockback','lifesteal','poisonField','attackDuration'])if(key in target.card)copied[key]=target.card[key];unit.card={...unit.card,...copied,damage:Math.round(target.card.damage*.85),copy:false,attackAnim:'Attack'};this.emit('transform',{unit});}
-      this.blink(unit,target);
+      if(unit.card.copy&&target.card&&!target.card.structure&&!target.card.token){const copied={};for(const key of['damage','range','interval','style','burst','burstSpacing','bolts','stun','slow','burn','burnKind','splash','air','chain','cone','pierce','projectileSpeed','projectileArc','projectileArt','rollingShot','projectileRange','shotRadius','knockback','lifesteal','poisonField','attackDuration','windup'])if(key in target.card)copied[key]=target.card[key];unit.card={...unit.card,...copied,damage:Math.round(target.card.damage*.85),copy:false,attackAnim:'Attack'};this.emit('transform',{unit});}
+      if(this.blink(unit,target))continue;
       const reach = unit.card.range + target.radius;
       if (distance(unit, target) <= reach) { this.face(unit,target);if (unit.cooldown <= 0) this.attack(unit, target); }
       else if(!unit.card.structure&&unit.attack<=0)this.move(unit, target, dt);
     }
-    for(const job of this.attacks){job.delay-=dt;if(job.delay<=0&&!job.done){job.done=true;this.release(job);}}
+    for(const job of this.attacks){job.delay=Number.isFinite(job.releaseAt)?job.releaseAt-this.elapsed:job.delay-dt;if(job.delay<=1e-7&&!job.done){job.done=true;this.release(job);}}
     this.attacks=this.attacks.filter(job=>!job.done&&job.attacker.hp>0&&job.attacker.attackSeq===job.seq&&job.target.hp>0);
     for (const p of this.projectiles) {
       p.life -= dt;
+      if(p.flameCone){
+        p.travelled=Math.min(p.totalDistance,p.travelled+p.speed*dt);
+        for(const target of[...this.units,...this.towers]){
+          if(target.team===p.team||target.hp<=0||target.burrowed||!isCombatTargetReady(target)||target.card?.flying&&!p.air||p.hitIds.includes(target.id))continue;
+          const dx=target.x-p.groundX,dy=target.y-p.groundY,delta=Math.atan2(dy,dx)-p.angle;
+          if(Math.hypot(dx,dy)>p.totalDistance+target.radius||Math.abs(Math.atan2(Math.sin(delta),Math.cos(delta)))>p.cone)continue;
+          const impact=aimPoint(target);if(Math.hypot(dx,dy)>p.travelled+1e-7)continue;
+          p.hitIds.push(target.id);this.damage(target,p.damage,p.team,{sourceId:p.sourceId,sourceKey:p.key});
+          this.emit('hit',{key:p.key,style:p.style,x:impact.x,y:impact.y,groundX:target.x,groundY:target.y,impactHeight:target.y-impact.y,team:p.team,targetId:target.id});
+        }
+        if(p.travelled>=p.totalDistance-1e-7)p.life=0;
+        continue;
+      }
       if(p.rolling||p.linear){
         const step=Math.min(Math.max(0,p.totalDistance-p.travelled),p.speed*dt),start={x:p.x,y:p.y};
         p.x+=p.dx*step;p.y+=p.dy*step;p.travelled+=step;
         for(const target of [...this.units,...this.towers]){
-          if(target.team===p.team||target.hp<=0||target.burrowed||target.spawn>0||target.card?.flying&&!p.air||p.hitIds.includes(target.id))continue;
+          if(target.team===p.team||target.hp<=0||target.burrowed||!isCombatTargetReady(target)||target.card?.flying&&!p.air||p.hitIds.includes(target.id))continue;
           const tx=target.x-start.x,ty=target.y-start.y,along=clamp(tx*p.dx+ty*p.dy,0,step);
           if(Math.hypot(tx-p.dx*along,ty-p.dy*along)>p.shotRadius+target.radius*(p.linear?.65:.7))continue;
           p.hitIds.push(target.id);this.damage(target,p.damage,p.team,p);
-          if(p.knockback&&target.hp>0&&target.card&&!target.card.structure&&!target.card.building&&!target.card.knockbackImmune&&target.maxHp<2500){
-            const point=this.constrainMovement(target,target.x+p.dx*p.knockback,target.y+p.dy*p.knockback);
-            target.x=point.x;target.y=point.y;target.attackSeq++;target.attack=0;target.target=null;target.engaged=false;target.charge=0;
-          }
+          if(p.knockback)this.pushUnit(target,p.dx*p.knockback,p.dy*p.knockback);
           const impact=aimPoint(target);this.emit('hit',{key:p.key,style:p.style,x:impact.x,y:impact.y,groundX:target.x,groundY:target.y,impactHeight:target.y-impact.y,team:p.team,targetId:target.id});
         }
         if(p.travelled>=p.totalDistance-1e-7)p.life=0;
@@ -874,7 +937,7 @@ export class Game {
       const dx = tx - p.x, dy = ty - p.y, d = Math.hypot(dx, dy);
       if (d < p.speed * dt + 7) {
         this.damage(p.target, p.damage, p.team, p);
-        if (p.splash) for (const u of this.units) if (u !== p.target && u.team !== p.team && u.hp > 0 && u.spawn <= 0 && (!u.card.flying || p.air) && distance(u, p.target) < p.splash) this.damage(u, p.damage, p.team, p);
+        if (p.splash) for (const u of this.units) if (u !== p.target && u.team !== p.team && u.hp > 0 && isCombatTargetReady(u) && (!u.card.flying || p.air) && distance(u, p.target) < p.splash) this.damage(u, p.damage, p.team, p);
         const impact=aimPoint(p.target);this.emit('hit', { key: p.key, style:p.style, art:p.art, x: impact.x, y: impact.y, groundX:p.target.x,groundY:p.target.y,impactHeight:p.target.y-impact.y,radius:p.splash||0,groundOnly:!p.air,team: p.team,targetId:p.target.id }); p.life = 0;
       } else { p.trace.push({x:p.x,y:p.y});if(p.trace.length>7)p.trace.shift();p.x += dx / d * p.speed * dt; p.y += dy / d * p.speed * dt;p.travelled+=p.speed*dt; }
     }
