@@ -40,12 +40,12 @@ function scene(buffered=true){
   game.state='playing';game.aiEnabled=false;for(const tower of game.towers){tower.active=false;tower.hp=tower.maxHp=1e6;tower.damage=0;}
   return{game,audio,events};
 }
-export function attackScene(key,{buffered=true}={}){
+export function attackScene(key,{buffered=true,distance=20}={}){
   const card=CARDS[key],{game,audio,events}=scene(buffered);
   const actor=game.spawn(key,0,300,300,0);
   actor.card={...card,speed:0,copy:false};actor.cooldown=0;actor.entryPending=false;
   const target=card.building?game.towers.find(t=>t.team===1&&!t.king):game.spawn('snorlax',1,300,280,0);
-  target.x=300;target.y=280;target.hp=target.maxHp=1e6;
+  target.x=300;target.y=300-distance;target.hp=target.maxHp=1e6;
   if(target.card)target.card={...target.card,passive:true,speed:0,damage:0,armor:0,reflect:0};
   actor.target=target;actor.engaged=true;game.face(actor,target);
   if(!card.jumpRange)game.attack(actor,target);
