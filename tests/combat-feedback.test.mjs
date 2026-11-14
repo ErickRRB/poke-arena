@@ -6,6 +6,16 @@ import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js';
 const fresh=()=>{const events=[],game=new Game({seed:92,onEvent:e=>events.push(e)});game.start();game.aiEnabled=false;game.towers.forEach(t=>t.active=false);return{game,events};};
 const run=(game,seconds)=>{for(let i=0;i<Math.ceil(seconds*60);i++)game.step(1/60);};
 
+test('active crown tower effects have a finite emitter without a troop card',()=>{
+ const{game}=fresh(),renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced:false,verticalScale:1});
+ for(const tower of game.towers){
+  tower.active=true;tower.attack=.3;tower.attackDuration=.6;tower.attackWindup=.2;
+  assert.equal(tower.card,undefined);
+  const emitter=renderer.visualEmission(tower);
+  assert.ok(Number.isFinite(emitter.x)&&Number.isFinite(emitter.y),`${tower.team}/${tower.king}`);
+ }
+});
+
 test('floating combat numbers stay hidden until explicitly enabled and clear immediately when disabled',()=>{
  const renderer=Object.assign(Object.create(Renderer.prototype),{numbers:[],bodyHeights:new Map(),t:0}),target={id:1,x:300,y:500,team:1,hp:900,maxHp:1000,card:CARDS.snorlax};
  renderer.floatingNumber(target,100);renderer.floatingNumber(target,30,'heal');assert.equal(renderer.numbers.length,0);

@@ -329,7 +329,9 @@ export class Game {
   pushUnit(unit,dx,dy,{force=false}={}){
     const immune=unit.card?.knockbackImmune??CARDS[unit.key]?.knockbackImmune;
     if(!unit.card||unit.card.structure||unit.hp<=0||unit.leap||unit.dash?.phase==='travel'&&unit.card.dashInvulnerable||immune&&!force)return false;
-    const point=this.constrainMovement(unit,unit.x+dx,unit.y+dy);unit.x=point.x;unit.y=point.y;
+    const point=this.constrainMovement(unit,unit.x+dx,unit.y+dy);
+    if(unit.key==='golem'&&Math.hypot(point.x-unit.x,point.y-unit.y)>1e-7)unit.pushHurt=.24;
+    unit.x=point.x;unit.y=point.y;
     // A push invalidates preparation, not the remaining attack cooldown.
     // Keep the target so the unit can finish approaching after displacement.
     unit.attackSeq++;unit.attack=0;unit.charge=0;unit.dash=null;return true;
@@ -503,7 +505,7 @@ export class Game {
       if(!this.validTarget(unit,t))return false;
       if(unit.card.building&&t.card?.structure&&!this.withinPullLane(unit,t))return false;
       if(unit.card.structure)return distance(unit,t)<=unit.card.range+t.radius;
-      return 'king'in t||distance(unit,t)<=(t.card.structure?(unit.card.building?unit.card.pullRange||300:Math.max(220,unit.card.sightRange||0)):Math.max(165,unit.card.sightRange||0));
+      return 'king'in t||distance(unit,t)<=(t.card.structure?(unit.card.building?unit.card.pullRange||300:Math.max(220,unit.card.sightRange||0)):(unit.card.sightRange??165));
     });
     candidates.sort((a,b)=>distance(unit,a)-distance(unit,b));return candidates[0]||null;
   }
@@ -746,6 +748,7 @@ export class Game {
   }
   tickStatus(entity,dt) {
     entity.hit=Math.max(0,entity.hit-dt);entity.stun=Math.max(0,entity.stun-dt);
+    if(entity.pushHurt)entity.pushHurt=Math.max(0,entity.pushHurt-dt);
     entity.freeze=Math.max(0,(entity.freeze||0)-dt);
     entity.slow=Math.max(0,(entity.slow||0)-dt);entity.attack=Math.max(0,(entity.attack||0)-dt);
     if(entity.burn&&entity.hp>0){
@@ -885,7 +888,7 @@ export class Game {
       if(unit.card.summon){unit.summonClock-=dt;if(unit.summonClock<=0){unit.summonClock+=unit.card.summonEvery;unit.summonCycle=unit.card.summonEvery;const alive=this.units.filter(u=>u.parentId===unit.id&&u.hp>0).length;this.spawnReinforcements(unit,unit.card.summon,Math.max(0,Math.min(unit.card.summonCount||1,(unit.card.summonMax||3)-alive)));}}
       if(unit.card.heal){unit.healClock-=dt;if(unit.healClock<=0){unit.healClock=unit.card.healEvery;this.healNearby(unit,unit.card.heal,unit.card.healRadius,unit.card.healAll);}}
       if(unit.card.structure&&unit.target&&distance(unit,unit.target)>unit.card.range+unit.target.radius||unit.card.building&&unit.target?.card?.structure&&!this.withinPullLane(unit,unit.target)){unit.target=null;unit.engaged=false;unit.attackSeq++;unit.attack=0;}
-      if(!this.validTarget(unit,unit.target)||(unit.target?.card&&distance(unit,unit.target)>(unit.card.building?unit.card.pullRange||300:Math.max(240,unit.card.sightRange||0)))){unit.target=null;unit.engaged=false;}
+      if(!this.validTarget(unit,unit.target)||(unit.target?.card&&distance(unit,unit.target)>(unit.target.card.structure?(unit.card.building?unit.card.pullRange||300:Math.max(240,unit.card.sightRange||0)):(unit.card.sightRange??165))&&!(unit.engaged&&unit.attack>0&&distance(unit,unit.target)<=unit.card.range+unit.target.radius+12))){if(unit.target){unit.attackSeq++;unit.attack=0;}unit.target=null;unit.engaged=false;}
       if(unit.target&&unit.engaged&&unit.attack<=0&&distance(unit,unit.target)>unit.card.range+unit.target.radius+45)unit.engaged=false;
       if(!unit.engaged){
         const nearest=this.acquire(unit);

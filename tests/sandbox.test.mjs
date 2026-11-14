@@ -4,6 +4,40 @@ import {Game,CARDS} from '../dist/engine.js';
 import {SandboxGame} from '../dist/sandbox.js';
 const run=(g,seconds)=>{for(let i=0;i<Math.round(seconds*60);i++)g.step(1/60);};
 
+test('duel columns use passive immortal lane towers without preparing either team',()=>{
+  const g=new SandboxGame({towerFire:true}),other=new SandboxGame();
+  assert.equal(g.preparedTeams.size,0);assert.equal(g.visibleTowers.length,4);
+  for(const team of[0,1])for(const lane of[0,1]){
+    const tower=g.visibleTowers.find(t=>t.team===team&&t.lane===lane),hp=tower.hp;
+    g.resume();g.damage(tower,99999,1-team);assert.equal(tower.hp,hp);assert.equal(g.measurement(1-team).tower,99999*(lane+1));
+    const enemy=g.spawn('rhydon',1-team,tower.x,tower.y+(team?40:-40),0),before=enemy.hp;
+    run(g,.4);assert.equal(enemy.hp,before,'goal towers never fire');
+  }
+  assert.equal(other.elapsed,0);assert.equal(other.state,'paused');assert.equal(other.preparedTeams.size,0);
+});
+
+test('both sides march to their lane tower until a troop enters sight',()=>{
+  for(const team of[0,1]){
+    const g=new SandboxGame(),a=g.spawn('rhydon',team,158,team?390:410,0),b=g.spawn('roselia',1-team,442,team?410:390,0);
+    b.stun=999;g.resume();run(g,.2);
+    assert.equal(a.target?.labImmortal,true);assert.equal(a.target.team,1-team);assert.equal(a.target.lane,0);
+    b.x=a.x+110;b.y=a.y;run(g,.1);assert.equal(a.target,b);
+    b.x=a.x+190;b.y=a.y;run(g,.1);assert.notEqual(a.target,b,'out-of-sight troops are not pursued');
+    b.x=a.x+110;b.y=a.y;run(g,.1);assert.equal(a.target,b,'a defender can be acquired again');
+    const buildingSeeker=g.spawn('golem',team,442,team?390:410,0);assert.equal(g.acquire(buildingSeeker)?.labImmortal,true);
+  }
+});
+
+test('production targeting honors Rhydon sight for acquisition and pursuit in both directions',()=>{
+  for(const team of[0,1]){
+    const g=new Game({tutorial:true});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);
+    const a=g.spawn('rhydon',team,158,400,0),b=g.spawn('roselia',1-team,308,400,0);b.stun=999;
+    assert.notEqual(g.acquire(a),b,'150 is outside sight 120');
+    b.x=268;assert.equal(g.acquire(a),b);a.target=b;a.engaged=true;
+    b.x=350;run(g,.1);assert.notEqual(a.target,b,'a target outside sight is released');
+  }
+});
+
 test('a prepared side stays frozen, including spawn, cooldown and match clock',()=>{
   const g=new SandboxGame();assert.ok(g.place(1,'geodude',158,304).ok);
   const before=structuredClone(g.units);run(g,10);assert.deepEqual(g.units,before);assert.equal(g.elapsed,0);
@@ -12,7 +46,7 @@ test('a prepared side stays frozen, including spawn, cooldown and match clock',(
 });
 test('encounters within sight give the same interactions as the production engine',()=>{
   for(const pair of[['roselia','diglettHorde'],['rhydon','geodude'],['charmander','pandilla'],['nuzleaf','rhydon']]){
-    const g=new SandboxGame({seed:30}),normal=new Game({seed:30,tutorial:true});normal.towers.forEach(t=>t.hp=0);normal.start();
+    const g=new SandboxGame({seed:30}),normal=new Game({seed:30,tutorial:true});normal.towers.forEach(t=>{if(t.king)t.hp=0;else t.active=false;});normal.start();
     for(const[team,key,y]of[[0,pair[0],448],[1,pair[1],352]]){
       assert.ok(g.place(team,key,158,y).ok);normal.hands[team][0]=key;normal.energy[team]=10;assert.ok(normal.deploy(team,0,158,y).ok);
     }

@@ -7,24 +7,26 @@ export class SandboxGame extends Game {
     super({...options,deck:DEFAULT_DECK,tutorial:true,onEvent});
     this.mode=mode;this.towerFire=towerFire;this.state='paused';this.aiEnabled=false;this.capturedDeployment=false;
     this.samples=[];this.lastTowerHit=new Map();this.preparedTeams=new Set();this.totals=[0,0];this.towerTotals=[0,0];this.hitCounts=[0,0];this.firstHit=[null,null];
-    if(mode==='duel')for(const tower of this.towers)tower.hp=0;
+    if(mode==='duel')for(const tower of this.towers){if(tower.king)tower.hp=0;else{tower.labImmortal=true;tower.active=false;}}
     if(['princess','fireball-check'].includes(mode))for(const tower of this.towers)if(tower.team!==1||tower.king||tower.lane!==(mode==='princess'?0:1))tower.hp=0;
   }
-  get visibleTowers(){return this.mode==='duel'?[]:['princess','fireball-check'].includes(this.mode)?this.towers.filter(t=>t.team===1&&!t.king&&t.lane===(this.mode==='princess'?0:1)):this.towers;}
+  get visibleTowers(){return this.mode==='duel'?this.towers.filter(t=>t.labImmortal):['princess','fireball-check'].includes(this.mode)?this.towers.filter(t=>t.team===1&&!t.king&&t.lane===(this.mode==='princess'?0:1)):this.towers;}
   finish(){} // Destroying a king must never end an experiment.
   canDeploy(team,key,x,y,formation=true){
     if(!CARDS[key]?.spell&&(team?y>356:y<444))return false;
     return super.canDeploy(team,key,x,y,formation);
   }
-  acquire(unit){
-    const target=super.acquire(unit);
-    if(target||this.mode!=='duel'||unit.card.structure||unit.card.passive)return target;
-    // With no towers to march toward, an isolated pair still approaches each
-    // other. Attack range, windup, targeting exclusions and damage stay intact.
-    return this.units.filter(other=>this.validTarget(unit,other)).sort((a,b)=>Math.hypot(a.x-unit.x,a.y-unit.y)-Math.hypot(b.x-unit.x,b.y-unit.y))[0]||null;
-  }
-  attack(actor,target){if('king'in actor&&!this.towerFire)return;super.attack(actor,target);}
+  attack(actor,target){if('king'in actor&&(this.mode==='duel'||!this.towerFire))return;super.attack(actor,target);}
   damage(target,amount,team,options={}){
+    if(target.labImmortal&&this.state==='playing'){
+      super.damage(target,0,team,options);
+      const actual=Math.max(0,amount);if(!actual)return;
+      this.stats[team].damage+=actual;
+      this.emit('damage',{target,amount:actual,dot:!!options.dot,sourceId:options.sourceId||0,sourceKey:options.sourceKey||''});
+      this.samples.push({time:this.elapsed,team,amount:actual,targetId:target.id,tower:true,key:options.sourceKey||''});
+      this.totals[team]+=actual;this.towerTotals[team]+=actual;this.hitCounts[team]++;this.firstHit[team]??=this.elapsed;
+      return;
+    }
     const before=target.hp+(target.shield||0);
     super.damage(target,amount,team,options);
     const actual=Math.max(0,before-target.hp-(target.shield||0));
