@@ -5,7 +5,7 @@ root=pathlib.Path(__file__).resolve().parents[1]
 cards=json.loads(subprocess.check_output(['node','--input-type=module','-e',"import {CARDS} from './dist/engine.js';console.log(JSON.stringify(CARDS))"],cwd=root))
 manifest=json.loads((root/'dist/assets/pokemon/manifest.json').read_text())
 profiles={}
-for card in cards.values():
+for card in list(cards.values())+[{'id':83,'name':"Farfetch’d"},{'id':534,'name':'Conkeldurr'}]:
  if card.get('spell') or str(card['id']) in profiles: continue
  meta=manifest[str(card['id'])]['Idle']; im=Image.open(root/'dist'/meta['file']).convert('RGBA'); body=0
  for row in range(8):
