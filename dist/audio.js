@@ -1,8 +1,10 @@
 // Recorded foley and PokÃ©mon voices follow release/impact events; synthesis is a loading fallback.
 import { BattleMusic } from './music.js?v=26';
 import { CARDS } from './engine.js?v=26';
+export const MAX_EFFECT_VOICES=24;
+const soundStyle=style=>({powder:'leaf',poison:'confusion',egg:'rock',song:'confusion',eruption:'flame',horn:'punch',lick:'shadow'})[style]||style;
 export class SoundSystem {
-  constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.battlePlaying=false;this.intense=false;this.ready=this.preload().catch(()=>false); }
+  constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.effectSlots=[];this.battlePlaying=false;this.intense=false;this.ready=this.preload().catch(()=>false); }
   async preload(){
     const response=await fetch('assets/audio/manifest.json?v=29');if(!response.ok)throw Error('Audio manifest unavailable');
     const manifest=await response.json();
@@ -30,7 +32,7 @@ export class SoundSystem {
   discardContext(){
     clearTimeout(this.recoveryTimer);this.music?.setPlaying(false);
     const previous=this.ctx;if(previous){previous.onstatechange=null;try{previous.close()?.catch(()=>{});}catch{}}
-    this.ctx=null;this.master=null;this.music=null;this.noiseBuffer=null;this.decoded=null;this.resumePending=null;this.needsRebuild=false;this.last.clear();this.voiceSlots=[];
+    this.ctx=null;this.master=null;this.music=null;this.noiseBuffer=null;this.decoded=null;this.resumePending=null;this.needsRebuild=false;this.last.clear();this.voiceSlots=[];this.effectSlots=[];
   }
   watchRecovery(ctx){
     clearTimeout(this.recoveryTimer);const time=ctx.currentTime;
@@ -73,7 +75,7 @@ export class SoundSystem {
     if(reverse){const reversedKey=`reversed:${key}`;if(!this.buffers.has(reversedKey)){const length=Math.min(buffer.length,Math.round(buffer.sampleRate*.65)),reversed=this.ctx.createBuffer(buffer.numberOfChannels,length,buffer.sampleRate);for(let ch=0;ch<buffer.numberOfChannels;ch++)reversed.getChannelData(ch).set(buffer.getChannelData(ch).slice(0,length).reverse());this.buffers.set(reversedKey,reversed);}buffer=this.buffers.get(reversedKey);}
     const source=this.ctx.createBufferSource();source.buffer=buffer;source.playbackRate.value=rate;
     const duration=Math.min(maxDuration,buffer.duration/rate),pan=Math.max(-.65,Math.min(.65,(x-300)/400));
-    const now=this.output(source,volume,duration,pan,delay);source.start(now);source.stop(now+duration+.015);return true;
+    const now=this.output(source,volume,duration,pan,delay,key.startsWith('cries:'));if(now===null)return false;source.start(now);source.stop(now+duration+.015);return true;
   }
   cry(id,x=300){
     if(!id||!this.enabled||!this.ctx)return;
@@ -82,20 +84,22 @@ export class SoundSystem {
     if(this.sample(`cries:${id}`,x,{volume:.22,maxDuration:2.5})){this.last.set(key,now);this.voiceSlots.push(now+Math.min(2.5,this.buffers.get(`cries:${id}`).duration));}
   }
   recorded(style,x,impact,shot,id){
-    style = ({powder:'leaf',poison:'confusion',egg:'rock',song:'confusion',eruption:'flame',horn:'punch',lick:'shadow'})[style] || style;
+    style=soundStyle(style);
     if(id&&this.sample(`combat:${id}-${impact?'impact':'release'}`,x,{volume:impact?.19:.15,maxDuration:impact?.35:.55,rate:1+(shot%2)*.025}))return true;
-    if(!this.buffers.has('foley:punch-1'))return false;
-    const play=(key,options={})=>this.sample(`foley:${key}`,x,options),pan=Math.max(-.65,Math.min(.65,(x-300)/400));
+    let played=false;
+    const play=(key,options={})=>{const result=this.sample(`foley:${key}`,x,options);played=result||played;return result;},pan=Math.max(-.65,Math.min(.65,(x-300)/400));
+    const noise=(...args)=>{played=this.noise(...args)||played;};
     if(style==='punch'){play(`punch-${shot%3+1}`,{volume:.34,rate:1+shot*.045,maxDuration:.2});}
     else if(style==='slam'){play(id===74?'stone':'heavy',{volume:.36,rate:id===74?.85:.62,maxDuration:.5});play('punch-1',{volume:.16,rate:.58,maxDuration:.35});}
     else if(style==='rock'){play(impact?'stone':'heavy',{volume:impact?.32:.15,rate:impact?.75:1.5,maxDuration:impact?.5:.15});}
     else if(style==='bubble'){play('water',{volume:.21,rate:1.3+shot*.13,maxDuration:impact?.22:.17});}
-    else if(style==='hydro'){play('water',{volume:.3,rate:.66,maxDuration:impact?.3:.46});this.noise(.18,1700,.025,pan);}
-    else if(style==='ember'||style==='flame'){play('cloth',{volume:.17,rate:style==='flame'?.58:1.15,maxDuration:style==='flame'?.4:.18});this.noise(style==='flame'?.34:.16,style==='flame'?700:1900,.045,pan,'bandpass');}
-    else if(style==='lightning'){play('metal',{volume:.09,rate:1.7,maxDuration:.16});for(let i=0;i<4;i++)this.noise(.025,3000-i*280,.055,pan,'bandpass',i*.035);}
+    else if(style==='hydro'){play('water',{volume:.3,rate:.66,maxDuration:impact?.3:.46});noise(.18,1700,.025,pan);}
+    else if(style==='ember'||style==='flame'){play('cloth',{volume:.17,rate:style==='flame'?.58:1.15,maxDuration:style==='flame'?.4:.18});noise(style==='flame'?.34:.16,style==='flame'?700:1900,.045,pan,'bandpass');}
+    else if(style==='lightning'){play('metal',{volume:.09,rate:1.7,maxDuration:.16});for(let i=0;i<4;i++)noise(.025,3000-i*280,.055,pan,'bandpass',i*.035);}
     else if(style==='magnet'){play('metal',{volume:.25,rate:.72,maxDuration:.32});play('bell',{volume:.06,rate:1.6,maxDuration:.25});}
-    else if(style==='ice'){play('glass',{volume:.28,rate:1.2,maxDuration:.42});this.noise(.1,3400,.02,pan);}
+    else if(style==='ice'){play('glass',{volume:.28,rate:1.2,maxDuration:.42});noise(.1,3400,.02,pan);}
     else if(style==='coin'){play('coin',{volume:.2,rate:1.65,maxDuration:.28});}
+    else if(style==='heal'){play('bell',{volume:.08,rate:1.5,maxDuration:.2});}
     else if(style==='slash'){play(shot%2?'swish-1':'swish-2',{volume:.28,rate:1.13,maxDuration:.25});}
     else if(style==='vine'||style==='leaf'){play(style==='leaf'?'swish-2':'swish-1',{volume:.24,rate:style==='leaf'?1.5:.72,maxDuration:.35});play('heavy',{volume:.06,rate:1.7,maxDuration:.12});}
     else if(style==='bite'){play('punch-3',{volume:.2,rate:1.65,maxDuration:.13});play('swish-2',{volume:.1,rate:1.5,maxDuration:.1});}
@@ -103,10 +107,13 @@ export class SoundSystem {
     else if(style==='shadow'){play('cloth',{volume:.2,rate:.7,reverse:true,maxDuration:.35});play('bell',{volume:.08,rate:.6,reverse:true,maxDuration:.4});}
     else if(['psychic','confusion','aura'].includes(style)){play('bell',{volume:style==='aura'?.18:.12,rate:style==='confusion'?1.1:style==='psychic'?.68:.45,reverse:!impact,maxDuration:style==='aura'?.7:.42});play('swish-1',{volume:.12,rate:.7,maxDuration:.3});}
     else return false;
-    return true;
+    return played;
   }
-  output(node,volume,duration,pan=0,delay=0) {
-    const now=this.ctx.currentTime+delay,gain=this.ctx.createGain();
+  output(node,volume,duration,pan=0,delay=0,voice=false) {
+    if(!this.enabled||!this.ctx||this.ctx.state!=='running')return null;
+    this.effectSlots=(this.effectSlots||[]).filter(end=>end>this.ctx.currentTime);
+    if(!voice&&this.effectSlots.length>=MAX_EFFECT_VOICES)return null;
+    const now=this.ctx.currentTime+delay,gain=this.ctx.createGain();if(!voice)this.effectSlots.push(now+duration+.015);
     gain.gain.setValueAtTime(0,now);gain.gain.linearRampToValueAtTime(volume,now+.006);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
     node.connect(gain);
     if(this.ctx.createStereoPanner){const stereo=this.ctx.createStereoPanner();stereo.pan.value=pan;gain.connect(stereo);stereo.connect(this.master);}else gain.connect(this.master);
@@ -115,20 +122,20 @@ export class SoundSystem {
   tone(freq,duration=.1,wave='sine',volume=.04,slide=0,pan=0,delay=0) {
     if(!this.enabled||!this.ctx||this.ctx.state!=='running')return;
     const oscillator=this.ctx.createOscillator();oscillator.type=wave;
-    const now=this.output(oscillator,volume,duration,pan,delay);oscillator.frequency.setValueAtTime(freq,now);
+    const now=this.output(oscillator,volume,duration,pan,delay);if(now===null)return false;oscillator.frequency.setValueAtTime(freq,now);
     if(slide)oscillator.frequency.exponentialRampToValueAtTime(Math.max(25,freq+slide),now+duration);
-    oscillator.start(now);oscillator.stop(now+duration+.01);
+    oscillator.start(now);oscillator.stop(now+duration+.01);return true;
   }
   noise(duration,freq,volume,pan=0,type='lowpass',delay=0) {
     if(!this.enabled||!this.ctx||this.ctx.state!=='running')return;
     const source=this.ctx.createBufferSource(),filter=this.ctx.createBiquadFilter();source.buffer=this.noiseBuffer;
     filter.type=type;filter.frequency.setValueAtTime(freq,this.ctx.currentTime+delay);filter.frequency.exponentialRampToValueAtTime(Math.max(50,freq*.4),this.ctx.currentTime+delay+duration);filter.Q.value=type==='bandpass'?1.5:.7;
-    source.connect(filter);const now=this.output(filter,volume,duration,pan,delay);source.start(now);source.stop(now+duration+.01);
+    source.connect(filter);const now=this.output(filter,volume,duration,pan,delay);if(now===null)return false;source.start(now);source.stop(now+duration+.01);return true;
   }
   play(style,x=300,impact=false,shot=0,id=0) {
-    style = ({powder:'leaf',poison:'confusion',egg:'rock',song:'confusion',eruption:'flame',horn:'punch',lick:'shadow'})[style] || style;
+    style=soundStyle(style);
     if(!this.enabled||!this.ctx)return;
-    const now=this.ctx.currentTime,key=`${style}:${impact}`;
+    const now=this.ctx.currentTime,key=`${style}:${impact}:${Math.floor(Math.max(0,Math.min(599,x))/100)}`;
     if(now-(this.last.get(key)??-100)<.035)return;this.last.set(key,now);
     if(this.recorded(style,x,impact,shot,id))return;
     const pan=Math.max(-.65,Math.min(.65,(x-300)/400));
@@ -148,8 +155,16 @@ export class SoundSystem {
       this.tone(94,.3,'sine',.12,-64,pan);this.noise(.22,420,.09,pan);this.tone(48,.35,'triangle',.03,-16,pan);
     }else if(style==='bite'){
       this.tone(1050,.085,'sine',.04,-600,pan);this.noise(.045,2400,.023,pan,'bandpass');
-    }else if(style==='vine'){
+    }else if(style==='vine'||style==='leaf'){
       this.noise(.15,1800,.055,pan,'bandpass');this.tone(250,.15,'triangle',.025,300,pan);
+    }else if(style==='slash'){
+      this.noise(.085,2800,.045,pan,'bandpass');this.tone(950,.09,'triangle',.018,-700,pan);
+    }else if(style==='ice'){
+      this.noise(.12,3600,.035,pan,'highpass');this.tone(1650,.18,'sine',.028,-400,pan);
+    }else if(style==='magnet'){
+      this.tone(580,.14,'sine',.028,180,pan);this.tone(890,.12,'triangle',.015,-110,pan);this.noise(.05,3200,.02,pan,'bandpass');
+    }else if(['psychic','confusion','aura'].includes(style)){
+      const base={psychic:480,confusion:640,aura:220}[style];this.tone(base,.23,'sine',.035,-base*.25,pan);this.tone(base*1.5,.18,'triangle',.018,-base*.15,pan,.03);this.noise(.1,1400,.018,pan,'bandpass');
     }else if(style==='shadow'){
       this.tone(340,.2,'sine',.045,-230,pan);this.tone(510,.25,'sine',.022,-340,pan);this.noise(.11,1400,.03,pan,'bandpass');
     }else if(style==='dash'){
@@ -158,19 +173,29 @@ export class SoundSystem {
       this.noise(impact?.23:.11,impact?500:350,.08,pan);this.tone(impact?83:125,.23,'triangle',.07,-50,pan);
     }else if(style==='coin'){
       this.tone(1340,.12,'sine',.042,300,pan);this.tone(2210,.09,'triangle',.015,-160,pan);
+    }else if(style==='heal'){
+      this.tone(600,.12,'sine',.025,300,pan);this.tone(900,.16,'sine',.02,300,pan,.06);
     }
   }
   event(e) {
+    if(!this.enabled||!this.ctx||this.ctx.state!=='running')return;
     if(e.type==='entry')this.play(e.style,e.x,true,0,e.unit.card.id);
-    if(e.type==='ability'){this.play(e.unit.card.style,e.unit.x,true,0,e.unit.card.id);this.sample('foley:bell',e.unit.x,{volume:.2,rate:.65,maxDuration:.75});}
+    if(e.type==='ability'){
+      const effect=e.unit.card.ability?.effect,style={shield:'magnet',wave:'hydro',quake:'slam',healingFire:'flame',restore:'flame',dash:'dash'}[effect]||e.unit.card.style;
+      this.play(style,e.unit.x,true);this.sample('foley:bell',e.unit.x,{volume:.12,rate:.65,maxDuration:.5});
+    }
     if(e.type==='transform')this.play('shadow',e.unit.x);
     if(e.type==='attackRelease'){const id=e.attacker.card?.id||e.attacker.guard?.id;this.play(e.style,e.from.x,false,e.shot,id);}
-    if(e.type==='hit'&&['bubble','hydro','rock','ember','flame','slash','coin','magnet','ice','confusion','aura'].includes(e.style))this.play(e.style,e.x,true,0,CARDS[e.key]?.id);
-    if(e.type==='beam'&&e.key==='pikachu'&&!e.shot)this.play('lightning',e.to.x,true,0,25);
+    if(e.type==='hit')this.play(soundStyle(e.style)||CARDS[e.key]?.style||'punch',e.x,true,0,CARDS[e.key]?.id);
+    if(e.type==='beam'&&!e.shot)this.play(e.style,e.to.x,true,0,CARDS[e.key]?.id);
+    if(e.type==='deathBurst')this.play(e.style||e.unit.card.style,e.unit.x,true,0,e.unit.card.id);
+    if(e.type==='heal')this.play('heal',e.unit.x,true);
+    if(e.type==='counter')this.play('magnet',e.unit?.x||e.from.x,true);
     if(e.type==='blink')this.play('shadow',e.from.x);
     if(e.type==='leap')this.play('dash',e.unit.x);
     if(e.type==='deploy'){this.cry(CARDS[e.key]?.id,e.x);this.sample('foley:cloth',e.x,{volume:.06,rate:1,maxDuration:.15});}
     if(e.type==='cast'&&e.key==='sneaselAmbush')this.sample('foley:swish-1',e.x,{volume:.18,rate:.85,maxDuration:.4,delay:CARDS.sneaselAmbush.castDelay});
+    if(e.type==='cast'&&e.key==='log')this.play('flame',e.x);
     if(e.type==='structureDown'||e.type==='towerDown'){this.noise(.5,480,.12);this.tone(80,.5,'triangle',.09,-45);}
     if(e.type==='spellHit'){
       const style={pinMissile:'leaf',lightning:'lightning',hyperBeam:'aura',blizzard:'ice',spikes:'rock',stealthRock:'rock',whirlpool:'hydro',nightmare:'shadow',sneaselAmbush:'shadow',log:'flame',earthquake:'slam',thunder:'lightning'}[e.key]||'ember';

@@ -547,7 +547,6 @@ function frame(now){
     }
     if(game.state==='playing'){
       for(const field of game.fields)field.life=Math.max(0,field.life-dt);
-      for(const spell of game.spells){spell.delay=Math.max(0,spell.delay-dt);if(spell.flightTime&&spell.delay<=0)spell.flightElapsed=Math.min(spell.flightTime,spell.flightElapsed+dt);}
     }
     if(game.state==='playing'&&!game.tiebreaker){game.time=Math.max(0,game.time-dt);game.energy[0]=Math.min(10,game.energy[0]+dt*game.multiplier/2.8);}
   }else if(game.state==='playing'&&!(walkthrough&&walkthrough.step<3)){

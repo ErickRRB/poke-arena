@@ -31,13 +31,13 @@ export function emitterPart(profile){return profile.emitter||PARTS[profile.id]||
 export function emissionPoint(actor,shot=0,clock=actor.anim||0) {
   const tower='king'in actor,card=actor.card,profile=card||actor.guard||{},id=profile.id;
   const attacking=actor.attack===undefined||actor.attack>0,moving=!!(profile.flying||actor.moving);
-  const animations=SPRITE_GEOMETRY[id],anim=attacking?actor.attackAnim||profile.attackAnim||'Attack':moving?profile.moveAnim||'Walk':profile.idleAnim||'Idle',meta=animations?.[anim]||animations?.Idle;
+  const animations=SPRITE_GEOMETRY[id],anim=attacking?actor.attackAnim||profile.attackAnim||'Attack':moving?profile.moveAnim||'Walk':actor.hit>0?'Hurt':profile.idleAnim||'Idle',meta=animations?.[anim]||animations?.Idle;
   if(!meta){const height=tower?(actor.king?71:63):card?.muzzleHeight||22;return{x:actor.x+(actor.dx||0)*11,y:actor.y-height+(actor.dy||0)*7};}
   const duration=actor.attackDuration||profile.attackDuration||.75,elapsed=Math.max(0,duration-(actor.attack??duration)),windup=actor.attackWindup??profile.windup??.3;
   let frame;
   if(attacking)frame=attackAnimationFrame(meta,elapsed,duration,windup,profile.attackFrames);
   else if(moving&&profile.moveFrames){const frames=profile.moveFrames;frame=frames[animationFrame({durations:frames.map(()=>profile.moveFrameDuration||8)},(clock+actor.id*.173)*60)];}
-  else frame=animationFrame(meta,(clock+actor.id*.173)*60*(moving?.85:.75));
+  else frame=animationFrame(meta,anim==='Hurt'?Math.max(0,.24-actor.hit)*60:(clock+actor.id*.173)*60*(moving?.85:.75));
   let direction=(2-Math.round(Math.atan2(actor.dy||0,actor.dx||0)/(Math.PI/4))+8)%8;
   if(meta.points.length<8)direction=0;
   const points=meta.points[direction][Math.min(frame,meta.points[direction].length-1)];

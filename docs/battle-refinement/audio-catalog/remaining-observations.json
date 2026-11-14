@@ -1,0 +1,79 @@
+{
+  "inputHashes": {
+    "dist/audio.js": "759b742329fd7a9204d51a260172c41fccc5751cf6c48170dece36aa3925ceba",
+    "dist/engine.js": "a3a03c568bb14ba0637db8ff3aa981846f28488a31e8f84546492751c4b3dd55",
+    "dist/assets/audio/manifest.json": "6112ae0807c10ea754968c9d968ec02b53e7d6fd84dbdba9465d3f329e217cac"
+  },
+  "criticalCoverageGaps": [],
+  "optionalRefinements": [
+    {
+      "keys": [
+        "ampharos"
+      ],
+      "observed": "The real emergence event is burrow and remains silent.",
+      "suggestion": "A brief emergence cue can identify the transition without adding a character voice."
+    },
+    {
+      "keys": [
+        "grimer",
+        "gastly"
+      ],
+      "observed": "Death creates a persistent field without a distinct onset event/cue.",
+      "suggestion": "If adding sound, use one quiet onset for the field, not one sound per DOT victim."
+    },
+    {
+      "keys": [
+        "charmander",
+        "vulpix",
+        "ekans",
+        "nidoking",
+        "arcanine",
+        "koffing",
+        "moltres",
+        "typhlosion",
+        "umbreon",
+        "blaziken",
+        "venusaur",
+        "gardevoir",
+        "nidoranF"
+      ],
+      "observed": "Burn, poison and field damage ticks are quiet.",
+      "suggestion": "This can remain intentional. Any pulse should be sparse and grouped by source or field."
+    },
+    {
+      "keys": [
+        "hyperBeam",
+        "fireball",
+        "thunder",
+        "pinMissile",
+        "lightning",
+        "blizzard",
+        "spikes",
+        "stealthRock",
+        "whirlpool",
+        "nightmare",
+        "earthquake"
+      ],
+      "observed": "These spells have generic deploy cloth and an arrival cue; Sneasel and Rueda fuego additionally have a cast cue.",
+      "suggestion": "A distinct charge sound may help with long-delay spells; instant spells need not add a second cue."
+    }
+  ],
+  "verifiedResolved": [
+    "Complete loading fallback across attack families",
+    "Delayed projectile contact routing, including aliases",
+    "Partial sample failure fallback",
+    "Opposite-lane spatial throttling",
+    "Global FX budget and voice priority",
+    "Death burst effect without pseudo voice",
+    "Reflection cues",
+    "Spatially coalesced healing",
+    "Ability effects distinct from regular attack styles",
+    "Rueda fuego flame launch cue"
+  ],
+  "notABug": [
+    "An ordinary faint without an explosion or successful death-heal need not add a new sound.",
+    "Periodic reinforcements do not play one full character voice per summoned body.",
+    "Quiet DOT ticks avoid overwhelming swarm battles."
+  ],
+  "auditoryReviewStillNeeded": true
+}

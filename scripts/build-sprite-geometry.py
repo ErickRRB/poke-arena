@@ -13,7 +13,7 @@ for card in cards + [{'id':value,'anim':'Shoot'} for value in [31,34,52]]:
 result = {}
 for species,names in sorted(wanted.items(),key=lambda entry:int(entry[0])):
     result[species] = {}
-    for name in sorted(names | {'Idle'}):
+    for name in sorted(names | {'Idle','Walk','Hurt'}):
         meta=manifest[species].get(name) or manifest[species]['Walk']
         base=ROOT/'dist'/meta['file']
         offsets=Image.open(str(base).replace('-Anim.png','-Offsets.png')).convert('RGBA')
@@ -22,7 +22,7 @@ for species,names in sorted(wanted.items(),key=lambda entry:int(entry[0])):
         points=[]
         for row in range(rows):
             line=[]
-            for frame in range(1 if name=='Idle' else frames):
+            for frame in range(frames):
                 parts={};foot=None
                 for y in range(h):
                     for x in range(w):

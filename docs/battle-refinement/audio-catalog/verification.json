@@ -1,0 +1,53 @@
+{
+  "checkedOn": "2026-11-14",
+  "command": "node --test --test-reporter=spec tests/audio-catalog.test.mjs tests/audio-recovery.test.mjs",
+  "exitCode": 0,
+  "tests": 28,
+  "passed": 28,
+  "failed": 0,
+  "catalogTests": 18,
+  "recoveryTests": 10,
+  "inputHashes": {
+    "dist/audio.js": "759b742329fd7a9204d51a260172c41fccc5751cf6c48170dece36aa3925ceba",
+    "dist/engine.js": "a3a03c568bb14ba0637db8ff3aa981846f28488a31e8f84546492751c4b3dd55",
+    "dist/assets/audio/manifest.json": "6112ae0807c10ea754968c9d968ec02b53e7d6fd84dbdba9465d3f329e217cac"
+  },
+  "testHashes": {
+    "tests/audio-catalog.test.mjs": "1717bc2521d401ec6b2e7761b124cfc6e28d6b8ae19bf67f9d46fd69184b9575",
+    "tests/helpers/audio-catalog-harness.mjs": "12f6af1831e284d9ebaaad0de7f50b17063f7e9fa13614a189caa8a00267696f",
+    "tests/audio-recovery.test.mjs": "4be828810f54400949a166d577d4fddafcdec81283a0e2fdc3e47419045c8e1e"
+  },
+  "nativeAudio": {
+    "files": 124,
+    "fullDecodes": 124,
+    "decodeFailures": [],
+    "groups": {
+      "cries": 105,
+      "foley": 13,
+      "combat": 6
+    }
+  },
+  "coverage": {
+    "cards": 121,
+    "units": 108,
+    "spells": 13,
+    "families": 26,
+    "voicesMissing": 0
+  },
+  "loadingSilentFamilies": [],
+  "silentDelayedImpactFamilies": [],
+  "oppositeLaneOutputNodes": 2,
+  "globalFxBudget": 24,
+  "voiceBudget": 3,
+  "stress": {
+    "representativeFamilies": 26,
+    "bursts": 8,
+    "burstSpacingSeconds": 0.04,
+    "totalOutputNodes": 47,
+    "maxSimultaneousOutputNodes": 23,
+    "sumScheduledGainAtPeak": 3.5300000000000002,
+    "note": "Gain sum is an upper-bound scheduling indicator, not measured waveform clipping."
+  },
+  "browserAudibilityVerified": false,
+  "limits": "Real SoundSystem output graph and engine events instrumented; files fully decoded with FFmpeg. Timbre, perceived loudness, browser compressor waveform and enjoyment require real auditory review."
+}
