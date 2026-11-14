@@ -234,12 +234,12 @@ export class Renderer {
     const guardHeight=(this.bodyHeights?.get(tower.guard?.id)||28)*(king?1.15:1.3);
     const structureHeight=king?102*476/574:72*395/309;
     const top=y-Math.max(structureHeight,tower.guard?TOWER_MOUNTS[king?'king':'princess']+guardHeight:0)/vertical;
-    const width=king?68:60,by=enemy?top-13/vertical:y+10/vertical,ratio=Math.max(0,tower.hp/tower.maxHp);
+    const width=king?68:60,by=enemy?top-31/vertical:y+10/vertical,ratio=Math.max(0,tower.hp/tower.maxHp);
     c.save();
     rect(c,'#20352ad9',x-width/2-2,by-2,width+4,10);rect(c,'#435845',x-width/2,by,width,6);
     rect(c,team?'#eb8e71':'#65b9d0',x-width/2,by,width*ratio,6);rect(c,team?'#ffcfb1':'#c7f1f1',x-width/2,by,width*ratio,2);
     const hp=tower.labImmortal?'∞':String(Math.ceil(tower.hp));c.font='600 12px "DM Sans",sans-serif';const labelWidth=c.measureText(hp).width+12;
-    const labelY=enemy?by-12/vertical:by+18;
+    const labelY=by+18/vertical;
     rect(c,'#243b2ad9',x-labelWidth/2,labelY-8,labelWidth,16);text(c,hp,x,labelY,team?'#ffe2ce':'#d5f1ef',11,700);c.restore();
   }
   sprite(c, unit, idle = false) {
