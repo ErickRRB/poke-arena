@@ -1,5 +1,6 @@
 // Technical role review; kept separate from product descriptions.
 export const CARD_REVIEW = {
+  "raltsHut":"Choza de Duendes de4elixir. Edificio independiente que libera Ralts con las mismas estadísticas de duendes con lanza, por proximidad, y deja uno al destruirse.",
   "pikachu": "Doble Impactrueno: Descarga electricidad al aparecer y aturde con dos rayos. Referencia: Mago eléctrico. 4 de elixir.",
   "squirtle": "Burbuja: Dispara tres burbujas seguidas al mismo objetivo. Referencia: Tirador. 2 de elixir.",
   "charmander": "Ascuas: Lanza ascuas que explotan en área y dejan quemadura. Referencia: Mago de área. 3 de elixir.",
@@ -90,7 +91,7 @@ export const CARD_REVIEW = {
   "kyogre": "Doble hidrobomba: Dispara una doble hidrobomba y puede activar una marea que daña y empuja. Referencia: Control con ralentización. 8 de elixir.",
   "groudon": "Pisotón: Busca estructuras y puede activar un terremoto a su alrededor. Referencia: Tanque contra estructuras. 8 de elixir.",
   "rayquaza": "Pulso dragón: Dispara un rayo perforante y puede avanzar con un golpe en área. Referencia: Volador. 8 de elixir.",
-  "centralElectrode": "Central de energía: Libera Voltorb periódicamente y deja uno más al caer. Referencia: Horno adaptado a Voltorb. 5 de elixir.",
+  "centralElectrode": "Horno móvil de4elixir: Electrode avanza y dispara fuego mientras invoca Voltorb ígneos. Conserva el cuerpo y el generador del Horno actual; no tiene duración de edificio ni invocación al morir.",
   "madriguera": "Refugio de la camada: Libera parejas de Nidoran y deja una última pareja al caer. Referencia: Choza de refuerzos. 5 de elixir.",
   "vivero": "Semillero: Libera parejas de Exeggcute frágiles que luchan cuerpo a cuerpo y deja cuatro al caer. Referencia: Invocador inmóvil a distancia. 3 de elixir.",
   "regice": "Viento hielo: Defiende desde el suelo con hielo que daña en área y ralentiza. Referencia: Estructura de control. 4 de elixir.",

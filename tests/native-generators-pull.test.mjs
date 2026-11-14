@@ -55,3 +55,14 @@ test('melee oracle identifies its equal-time convention and runtime keeps it und
   assert.deepEqual([a,b].map(u=>u.hp),result.bodies.map(b=>b.hp));
  }
 });
+test('native death spawns are immediately active, Golemites slide from250 to1500 native and Witch emits a48-unit ring',()=>{
+ const g=fresh(),owner=g.spawn('golem',0,300,550,0);g.damage(owner,99999,1);
+ const children=g.units.filter(u=>u.key==='geodudeToken');assert.equal(children.length,2);assert.ok(children.every(u=>u.spawn===0));
+ assert.deepEqual(children.map(u=>Math.round(Math.abs(u.x-owner.x)*1000)/1000),[6,6]);run(g,.05,60);
+ children.forEach(u=>assert.ok(Math.abs(Math.abs(u.x-owner.x)-15.6)<1e-6));run(g,.2,60);children.forEach(u=>assert.ok(Math.abs(Math.abs(u.x-owner.x)-36)<1e-6));
+ const witch=g.spawn('duskull',0,300,650,0);run(g,1.1,60);const skeletons=g.units.filter(u=>u.parentId===witch.id);assert.equal(skeletons.length,4);skeletons.forEach(u=>assert.ok(Math.abs(Math.hypot(u.x-witch.x,u.y-witch.y)-48)<1e-6));
+});
+test('Tombstone death emits all four skeletons at its emission point with zero deployment time and no delayed wave',()=>{
+ const g=fresh(),owner=g.spawn('vivero',0,168,600,0);g.damage(owner,99999,1);
+ const children=g.units.filter(u=>u.key==='exeggcute');assert.equal(children.length,4);assert.ok(children.every(u=>u.spawn===0));assert.equal(new Set(children.map(u=>`${u.x},${u.y}`)).size,1);assert.equal(children[0].y,564);assert.equal(g.reinforcements.length,0);
+});

@@ -46,12 +46,12 @@ test('returning to the page never unmutes audio or resumes a hidden tab',t=>{
 test('every Pokemon deploys its own recorded voice without electronic cry substitutes',t=>{
  const{sound}=setup(t),samples=[];sound.cry=(id,x)=>samples.push({id,x});
  sound.tone=()=>assert.fail('deployment must not add synthesized Pokemon beeps');sound.noise=()=>assert.fail('deployment must not add noise voices');sound.sample=()=>true;
- for(const[key,card]of Object.entries(CARDS).filter(([,card])=>!card.spell)){
+ for(const[key,card]of Object.entries(CARDS).filter(([,card])=>!card.spell&&card.id)){
   samples.length=0;sound.event({type:'deploy',key,x:180});assert.deepEqual(samples,[{id:card.id,x:180}],key);
  }
  const manifest=JSON.parse(readFileSync(new URL('../dist/assets/audio/manifest.json',import.meta.url)));
- for(const card of Object.values(CARDS).filter(card=>!card.spell)){
-  const file=manifest.cries[card.id];assert.match(file,/^assets\/audio\/voices\/\d+\.mp3$/,card.name);
+ for(const card of Object.values(CARDS).filter(card=>!card.spell&&card.id)){
+  const file=manifest.cries[card.id];assert.match(file,[83,534].includes(card.id)?/^assets\/audio\/cries\/\d+\.ogg$/:/^assets\/audio\/voices\/\d+\.mp3$/,card.name);
   assert.ok(existsSync(new URL('../dist/'+file,import.meta.url)),card.name);
  }
 });

@@ -1,6 +1,6 @@
 import {POKEMON_SILHOUETTES} from './pokemon-silhouettes.js';
 
-export const isRangedAttack=card=>!!card&&(card.rangedAttack??card.range>=50);
+export const isRangedAttack=card=>!!card&&!card.suicide&&(card.rangedAttack??card.range>=50);
 
 // Sizes refer to visible raster bounds, not transparent sheet padding.
 export function combatVisual(card={}){

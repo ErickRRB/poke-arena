@@ -137,12 +137,3 @@ test('a group heal coalesces locally while preserving the other lane',()=>{
   assert.ok(left.length&&right.length);assert.equal(sameGroup.length,0);
   assert.ok([...left,...right].every(output=>output.volume<=.12&&output.duration<=.3));
 });
-
-test('shield, healing fire and dash abilities use their own effect cues',()=>{
-  const shield=featureScene('lugia','ability').outputs,fire=featureScene('hooh','ability').outputs,dash=featureScene('rayquaza','ability').outputs;
-  assert.ok(shield.some(output=>output.sample==='foley:metal'));
-  assert.equal(shield.some(output=>output.sample==='foley:water'),false);
-  assert.ok(fire.some(output=>output.kind==='noise'));
-  assert.equal(fire.some(output=>output.sample==='foley:punch-3'),false);
-  assert.ok(dash.some(output=>output.sample==='foley:cloth'));
-});

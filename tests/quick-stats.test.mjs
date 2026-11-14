@@ -16,16 +16,16 @@ test('a direct spell distinguishes troop and tower damage and shows its radius',
 test('persistent spells show true damage per second and tower immunity instead of false zero impact', () => {
   assert.deepEqual(values('spikes'), { 'Daño / s': '112', Torres: 'No afecta', Duración: '7 s' });
   assert.deepEqual(values('stealthRock'), { 'Daño / s': '60 · 120 al aire', Torres: 'No afecta', Duración: '6 s' });
-  assert.deepEqual(values('earthquake'), { 'Daño / s': '81 · 243 a estructuras', 'Torres / s': '49', Duración: '3 s' });
+  assert.deepEqual(values('earthquake'), { 'Daño / s': '81 · 286 a estructuras', 'Torres / s': '49', Duración: '3 s' });
 });
 
 test('summon spells describe their troops and never claim zero damage', () => {
   assert.deepEqual(values('sneaselAmbush'), { Invoca: '3 Sneasel', 'Daño / invocación': '125 / golpe', 'Vida / invocación': '202' });
-  assert.deepEqual(values('nightmare'), { Invoca: '8 Shuppet', 'Daño / invocación': '65 / golpe', Duración: '5,6 s' });
+  assert.deepEqual(values('nightmare'), { Invoca: '12 Shuppet', 'Daño / invocación': '81 / golpe', Duración: '9 s' });
 });
 
 test('ordinary troops show per-body health, hit or burst damage, and actual cadence', () => {
-  assert.deepEqual(values('charizard'), { Vida: '1.526', 'Daño / ráfaga': '72 × 3', 'Ataque cada': '1,8 s' });
+  assert.deepEqual(values('charizard'), { Vida: '1.152', 'Daño / golpe': '168', 'Ataque cada': '1,5 s' });
   assert.deepEqual(values('snorlax'), { Vida: '3.968', 'Daño a torres / golpe': '253', 'Ataque cada': '1,5 s' });
   assert.deepEqual(values('zubat'), { 'Vida / unidad': '81', 'Daño / golpe y unidad': '81', 'Ataque cada': '1,2 s' });
   assert.equal(values('pikachu')['Daño / rayo'], '117');
@@ -36,12 +36,12 @@ test('a passive reflector shows its useful response instead of an attack it cann
 });
 
 test('healers and passive summoners show the action that defines their card', () => {
-  assert.deepEqual(values('chansey'), { Vida: '800', Cura: '75 cada 2,5 s', 'Daño / golpe': '18' });
-  assert.deepEqual(values('madriguera'), { Vida: '1.200', Invoca: '2 Nidoran♂', Cada: '7 s' });
+  assert.deepEqual(values('chansey'), { Vida: '800', Cura: '75 cada 2,5 s', 'Daño / golpe': '81' });
+  assert.deepEqual(values('madriguera'), { Vida: '1.164', Invoca: '3 Nidoran♂', Cada: '15 s' });
 });
 
 test('mixed groups use real member ranges rather than assigning the leader stats to every body', () => {
-  assert.deepEqual(values('pandilla'), { 'Vida / unidad': '133–202', 'Daño / golpe y unidad': '81–125', Unidades: '5' });
+  assert.deepEqual(values('pandilla'), { 'Vida / unidad': '133–202', 'Daño / golpe y unidad': '81–125', Unidades: '6' });
 });
 
 test('the whole catalog has at most three finite, nonempty quick statistics', () => {

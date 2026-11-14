@@ -3,18 +3,16 @@ import {resolve} from 'node:path';
 import {Game,CARDS} from '../dist/engine.js';
 import {createSandbox,spawnCard,damageTrial} from './balance-sandbox.mjs';
 
-export function towerPushTrial(key,{ability=false,defender=null,seconds=45}={}){
+export function towerPushTrial(key,{defender=null,seconds=45}={}){
   const game=new Game({seed:120112});game.start();game.aiEnabled=false;
   const actors=spawnCard(game,key,0,158,520),target=game.towers.find(t=>t.team===1&&!t.king&&t.lane===0);
   if(defender)spawnCard(game,defender,1,158,250);
-  let firstHit=null,firstTowerHit=null,abilityCost=0;
+  let firstHit=null,firstTowerHit=null;
   game.onEvent=event=>{if(event.type==='damage'&&event.target===target&&firstTowerHit===null)firstTowerHit=game.elapsed;if(event.type==='damage'&&actors.includes(event.target)&&firstHit===null)firstHit=game.elapsed;};
   for(let i=0;i<seconds*30&&target.hp>0&&game.units.some(u=>u.team===0&&u.hp>0);i++){
-    if(ability)for(const actor of actors){if(!actor.card.ability||actor.abilityUsed||actor.hp<=0||actor.spawn>0)continue;
-      if(actor.hp<actor.maxHp*.7||game.units.some(enemy=>enemy.team===1&&enemy.hp>0&&Math.hypot(enemy.x-actor.x,enemy.y-actor.y)<actor.card.ability.radius+enemy.radius)){game.energy[0]=10;const result=game.activateAbility(0,actor.id);if(result.ok)abilityCost+=actor.card.ability.cost;}}
     game.step(1/30);
   }
-  return{key,defender,seconds:+game.elapsed.toFixed(2),damage:Math.round(target.maxHp-target.hp),totalTowerDamage:Math.round(game.stats[0].damage),firstTowerHit:firstTowerHit===null?null:+firstTowerHit.toFixed(2),firstIncomingHit:firstHit===null?null:+firstHit.toFixed(2),survivingHp:Math.round(game.units.filter(u=>u.team===0&&u.hp>0).reduce((sum,u)=>sum+u.hp,0)),deployed:game.stats[0].deployed,abilityCost};
+  return{key,defender,seconds:+game.elapsed.toFixed(2),damage:Math.round(target.maxHp-target.hp),totalTowerDamage:Math.round(game.stats[0].damage),firstTowerHit:firstTowerHit===null?null:+firstTowerHit.toFixed(2),firstIncomingHit:firstHit===null?null:+firstHit.toFixed(2),survivingHp:Math.round(game.units.filter(u=>u.team===0&&u.hp>0).reduce((sum,u)=>sum+u.hp,0)),deployed:game.stats[0].deployed};
 }
 export function buildingDefenseTrial(key){
   const game=new Game({seed:120112});game.start();game.aiEnabled=false;
@@ -45,7 +43,6 @@ export function auditAllRoles(){
       row.openTower=towerPushTrial(key);
       if(card.building)row.defendedTower=['pikachu','magnemite','blastoise'].map(defender=>towerPushTrial(key,{defender}));
       if(card.structure)row.defense=buildingDefenseTrial(key);
-      if(card.ability)row.withAbility=towerPushTrial(key,{ability:true,defender:'pikachu'});
       if(card.summon||card.deathSpawn)row.summons=damageTrial(key,{seconds:30});
     }
     rows.push(row);

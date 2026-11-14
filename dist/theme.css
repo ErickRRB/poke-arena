@@ -156,16 +156,6 @@ input::placeholder{color:#74796d;opacity:1}
 .battle-hud :is(#match-pause,#match-leave){width:44px;height:44px;flex:0 0 44px;pointer-events:auto;touch-action:manipulation}
 .battle-hud :is(#match-pause,#match-leave):hover{background:#fff4c3;border-color:#aa8338}
 .battle-hud :is(#match-pause,#match-leave) svg{width:21px;height:21px}
-#battle-overlays .ability-btn{height:50px;min-height:50px;max-width:205px;padding:4px 7px 4px 4px;gap:7px;border:2px solid #8f743c;border-radius:7px;background:linear-gradient(#fff8dc,#e8d8a6);box-shadow:inset 0 0 0 1px #fffce9,0 3px 0 #4c482c,0 4px 8px #13251b55;color:#4d452e}
-#battle-overlays .ability-btn:hover:not(:disabled){background:linear-gradient(#fffce8,#f6e3a8);border-color:#b5892e}
-#battle-overlays .ability-btn:disabled{filter:saturate(.4);opacity:.8}
-#battle-overlays .ability-btn>.ability-portrait{position:relative;display:block;flex:0 0 36px;width:36px;height:36px;overflow:hidden;border:1px solid #9d7c38;border-radius:4px;background:#e4d49f}
-#battle-overlays .ability-portrait>.card-art{position:absolute;inset:0;border-radius:2px}
-#battle-overlays .ability-portrait>.legend-frame{display:none}
-#battle-overlays .ability-btn>.ability-name{font-size:11px;font-weight:700;max-width:118px;overflow:hidden;text-overflow:ellipsis}
-#battle-overlays .ability-btn>.ability-cost{display:flex;align-items:center;gap:2px;flex-shrink:0;margin-left:2px}
-#battle-overlays .ability-cost svg{width:17px;height:23px}
-#battle-overlays .ability-cost b{font-family:'Barlow Condensed',sans-serif;font-size:22px;line-height:1;color:#733f8f}
 .portrait-dialog{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:32px;border:0;border-radius:0;background:#f7f0d5;box-shadow:none;text-align:center}
 .portrait-dialog[open]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
 .portrait-dialog h2,.portrait-dialog p{margin:0}

@@ -182,10 +182,6 @@ export class SoundSystem {
     if(e.type==='dashWindup'){this.tone(230,.2,'sine',.018,120,(e.unit.x-300)/500);}
     if(e.type==='dashStart')this.play('dash',e.from.x);
     if(e.type==='entry')this.play(e.style,e.x,true,0,e.unit.card.id);
-    if(e.type==='ability'){
-      const effect=e.unit.card.ability?.effect,style={shield:'magnet',wave:'hydro',quake:'slam',healingFire:'flame',restore:'flame',dash:'dash'}[effect]||e.unit.card.style;
-      this.play(style,e.unit.x,true);this.sample('foley:bell',e.unit.x,{volume:.12,rate:.65,maxDuration:.5});
-    }
     if(e.type==='transform')this.play('shadow',e.unit.x);
     if(e.type==='attackRelease'){const id=e.attacker.card?.id||e.attacker.guard?.id;this.play(e.style,e.from.x,false,e.shot,id);}
     if(e.type==='hit')this.play(soundStyle(e.style)||CARDS[e.key]?.style||'punch',e.x,true,0,CARDS[e.key]?.id);
@@ -195,7 +191,7 @@ export class SoundSystem {
     if(e.type==='counter')this.play('magnet',e.unit?.x||e.from.x,true);
     if(e.type==='blink')this.play('shadow',e.from.x);
     if(e.type==='leap')this.play('dash',e.unit.x);
-    if(e.type==='deploy'){this.cry(CARDS[e.key]?.id,e.x);this.sample('foley:cloth',e.x,{volume:.06,rate:1,maxDuration:.15});}
+    if(e.type==='deploy'){if(CARDS[e.key]?.id)this.cry(CARDS[e.key].id,e.x);this.sample('foley:cloth',e.x,{volume:.06,rate:1,maxDuration:.15});}
     if(e.type==='cast'&&e.key==='sneaselAmbush')this.sample('foley:swish-1',e.x,{volume:.18,rate:.85,maxDuration:.4,delay:CARDS.sneaselAmbush.castDelay});
     if(e.type==='cast'&&e.key==='log')this.play('flame',e.x);
     if(e.type==='structureDown'||e.type==='towerDown'){this.noise(.5,480,.12);this.tone(80,.5,'triangle',.09,-45);}

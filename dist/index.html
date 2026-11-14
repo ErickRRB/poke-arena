@@ -23,9 +23,9 @@
   <svg class="svg-defs" aria-hidden="true"><defs>
     <linearGradient id="loading-red" x2="0" y2="1"><stop stop-color="#ff8a69"/><stop offset="1" stop-color="#b93f3d"/></linearGradient>
     <linearGradient id="loading-ivory" x2="0" y2="1"><stop stop-color="#fffdf0"/><stop offset="1" stop-color="#e0d6b2"/></linearGradient>
-    <symbol id="i-loading-ball" viewBox="0 0 64 64"><image href="assets/ui/pokeball-v2.webp" width="64" height="64"/></symbol>
+    <symbol id="i-loading-ball" viewBox="0 0 64 64"><path fill="#495247" d="M20 4h24v4h8v8h4v8h4v16h-4v8h-4v8h-8v4H20v-4h-8v-8H8v-8H4V24h4v-8h4V8h8z"/><path fill="#c75348" d="M20 8h24v4h6v6h4v6h2v6H8v-6h2v-6h4v-6h6z"/><path fill="#f3e6bf" d="M8 34h48v6h-4v8h-4v4h-6v4H22v-4h-6v-4h-4v-8H8z"/><path fill="#d1c398" d="M12 40h4v8h6v4h20v-4h8v4h-8v4H22v-4h-6v-4h-4z"/><path fill="#f39876" d="M20 12h12v4H20zm-6 6h6v6h-6z"/><path fill="#495247" d="M8 28h48v8H8z"/><circle cx="32" cy="32" r="11" fill="#495247"/><circle cx="32" cy="32" r="7" fill="#f8edce"/><circle cx="32" cy="32" r="3" fill="#cabf97"/></symbol>
     <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M8 3v6M16 9v6M10 15v6" fill="none" stroke="#bc4941" stroke-width="4" stroke-linecap="round"/></symbol>
-    <symbol id="i-ball" viewBox="0 0 24 24"><image href="assets/ui/pokeball-v2.webp" width="24" height="24"/></symbol>
+    <symbol id="i-ball" viewBox="0 0 24 24"><g transform="scale(.375)"><path fill="#495247" d="M20 4h24v4h8v8h4v8h4v16h-4v8h-4v8h-8v4H20v-4h-8v-8H8v-8H4V24h4v-8h4V8h8z"/><path fill="#c75348" d="M20 8h24v4h6v6h4v6h2v6H8v-6h2v-6h4v-6h6z"/><path fill="#f3e6bf" d="M8 34h48v6h-4v8h-4v4h-6v4H22v-4h-6v-4h-4v-8H8z"/><path fill="#d1c398" d="M12 40h4v8h6v4h20v-4h8v4h-8v4H22v-4h-6v-4h-4z"/><path fill="#f39876" d="M20 12h12v4H20zm-6 6h6v6h-6z"/><path fill="#495247" d="M8 28h48v8H8z"/><circle cx="32" cy="32" r="11" fill="#495247"/><circle cx="32" cy="32" r="7" fill="#f8edce"/><circle cx="32" cy="32" r="3" fill="#cabf97"/></g></symbol>
     <symbol id="i-sound" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="0" y="-24" width="96" height="96"/></symbol>
     <symbol id="i-mute" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="-24" width="96" height="96"/></symbol>
     <symbol id="i-help" viewBox="0 0 24 24" overflow="hidden"><image href="assets/ui/menu-icons-v1.webp" x="-24" y="0" width="96" height="96"/></symbol>
@@ -100,7 +100,7 @@
             <div class="trainer-id"><strong id="enemy-name">Entrenador</strong><span id="connection-loading" class="connection-loading" role="status" aria-label="Reconectando a la partida" hidden><svg viewBox="0 0 64 64" class="loading-ball" aria-hidden="true"><use href="#i-loading-ball"/></svg></span><span id="online-status" class="online-status" role="status" hidden></span></div>
             <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button><button id="match-leave" class="icon-btn" aria-label="Volver al inicio" title="Volver al inicio" hidden><svg aria-hidden="true"><use href="#i-home"/></svg></button><div class="battle-hud-status"><span id="phase-label" hidden>Extra</span><span id="boost" role="status" aria-label="Multiplicador de elixir" hidden>×2</span></div></div>
           </div>
-          <div id="abilities" class="abilities" aria-label="Habilidades disponibles" hidden></div>
+
           <span id="battle-loading" class="battle-loading" role="status" hidden><span class="pokeball-loader" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span><span class="sr-only">Cargando recursos de batalla…</span></span>
         </div>
       </div>

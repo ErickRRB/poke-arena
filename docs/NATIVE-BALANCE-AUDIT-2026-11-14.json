@@ -15,7 +15,7 @@
   "units": "24u/tile",
   "coverage": 69,
   "troopSpeed": "Native Speed millitiles per50ms, *.48 units/s, measured",
-  "projectileSpeed": "Provisional *.48; native projectile trajectories require additional live calibration. No claim of universal path/trade identity.",
+  "projectileSpeed": "Measured independently:time.PROJECTILE_SPEED_TO_SUBTILES_PER_TICK=18, client16.402 effects stream;981PrincessTower steps plus King/Musketeer/Bomber/Cannon. *.48 at24u/tile and50ms. Pinned ledger a849c29ae632e12f81442c45b0d9b2d2f2f99f15, SHA2567f28b5009d41679ea7ee59442106b02a6edb9cb9f429c1b5471f914fa46c5551. Rows16.635.8 retain cross-version and spell-trace coverage limits; no universal route parity claim.",
   "attackRange": "Range+attacker collision radius+target collision radius; RoyaleSim measured ATTACK_RANGE_RULE",
   "firstAttack": "HitSpeed-LoadTime; RoyaleSim measured progress_credit",
   "towerScaling": "Measured live_levels.json:3052/4824HP and109damage atL11",
@@ -145,7 +145,9 @@
         "summonOffset": 28.8,
         "summonAngle": 20,
         "deathSpawnRadius": 0,
-        "deathSpawnDelay": 1,
+        "deathSpawnDelay": 0,
+        "deathSpawnSlide": false,
+        "deathAtEmission": false,
         "attackKind": "melee"
       }
     },
@@ -2375,7 +2377,9 @@
           0
         ],
         "deathSpawnRadius": 36,
-        "deathSpawnDelay": 1,
+        "deathSpawnDelay": 0,
+        "deathSpawnSlide": true,
+        "deathAtEmission": false,
         "pullRange": 180,
         "attackKind": "melee"
       }
@@ -5400,8 +5404,11 @@
         "summonEvery": 15,
         "firstSummon": 0,
         "summonDeployTime": 1,
+        "summonRadius": 0,
         "deathSpawnRadius": 0,
-        "deathSpawnDelay": 1,
+        "deathSpawnDelay": 0,
+        "deathSpawnSlide": false,
+        "deathAtEmission": false,
         "attackKind": "melee"
       }
     },
@@ -5525,8 +5532,11 @@
         "summonEvery": 4,
         "firstSummon": 0,
         "summonDeployTime": 1,
+        "summonRadius": 0,
         "deathSpawnRadius": 0,
-        "deathSpawnDelay": 1,
+        "deathSpawnDelay": 0,
+        "deathSpawnSlide": false,
+        "deathAtEmission": true,
         "attackKind": "melee"
       }
     },
@@ -5663,6 +5673,7 @@
         "summonEvery": 7,
         "firstSummon": 1,
         "summonDeployTime": 1,
+        "summonRadius": 48,
         "attackKind": "ranged"
       }
     },
@@ -7902,7 +7913,7 @@
       "patch": {
         "nativeReference": "Lightning",
         "cost": 6,
-        "castDelay": 0,
+        "castDelay": 0.5,
         "damage": 1057,
         "towerDamage": 265,
         "splash": 84,

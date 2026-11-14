@@ -281,7 +281,7 @@ export class Renderer {
       marker.remaining=Math.max(marker.remaining,unit.spawn);
     }
     for(const marker of groups.values()){
-      const progress=Math.max(0,Math.min(1,1-marker.remaining/Math.max(.001,marker.duration)));
+      const progress=Math.max(0,Math.min(1,marker.startAt==null?1-marker.remaining/Math.max(.001,marker.duration):(game.elapsed-marker.startAt)/Math.max(.001,marker.duration)));
       this.deploymentIndicator(c,marker,progress);
     }
   }
@@ -345,8 +345,11 @@ export class Renderer {
       this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,shot:event.shot,until:this.t+1/30+1e-7});
     }
     if(type==='cast'&&event.key==='pinMissile'){
-      const hitAt=CARDS.pinMissile.castDelay??.55,life=hitAt+.42;
-      this.effects.push({...event,kind:'missiles',hitAt,life,max:life});
+      const first=(event.castDelay??CARDS.pinMissile.castDelay??.55)+(event.flightTime||0);
+      for(let wave=0;wave<(event.waves||1);wave++){
+        const hitAt=first+wave*(event.waveEvery||0),life=hitAt+.42;
+        this.effects.push({...event,kind:'missiles',wave,hitAt,life,max:life});
+      }
     }
     if(type==='attackStart'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
@@ -369,7 +372,7 @@ export class Renderer {
       if(u.spawn>0&&!this.effects.some(e=>e.kind==='release'&&e.groupId===group.id))this.effects.push({kind:'release',groupId:group.id,x:group.x,y:group.y,color:u.card.color,delay:u.spawn,life:.3,max:.3});
     }
     if(type==='entry')this.effects.push({...event,kind:'entry',life:.36,max:.36});
-    if(type==='ability'||type==='deathBurst'){
+    if(type==='deathBurst'){
       const abilityArt=type==='ability'?{shield:'shield',wave:'hydro',quake:'quake',healingFire:'heal'}[event.unit.card.ability?.effect]:null;
       const art=abilityArt||(event.style==='lightning'?'lightning':{electric:'lightning',water:'hydro',fire:'explosion',grass:'leaf',psychic:'psychic',ghost:'shadow',rock:'dust'}[event.unit.card.type]||'impact');
       this.effects.push({kind:'areaImpact',art,style:event.style||event.unit.card.style,x:event.unit.x,y:event.unit.y,radius:event.radius||55,color:event.unit.card.color,groundOnly:event.groundOnly??!event.unit.card.air,life:.55,max:.55});
@@ -384,7 +387,7 @@ export class Renderer {
       else this.burst(point.x,point.y,color,4,30);
       if(['egg','song'].includes(event.style))this.effects.push({...event,...point,kind:'impact',life:.4,max:.4,radius:CARDS[event.key]?.splash||18});
     }
-    if(['faint','structureDown'].includes(type)&&STRUCTURE_ART[event.unit.card.structureArt])this.effects.push({kind:'structureDeath',art:event.unit.card.structureArt,x:event.unit.x,y:event.unit.y,team:event.unit.team,life:.4,max:.4});
+    if(['faint','structureDown'].includes(type)&&STRUCTURE_ART[event.unit.card?.structureArt])this.effects.push({kind:'structureDeath',art:event.unit.card.structureArt,x:event.unit.x,y:event.unit.y,team:event.unit.team,life:.4,max:.4});
     if(type==='faint'){
       if(event.unit.key==='golem')this.effects.push({kind:'golemDeath',unit:{...event.unit,attack:0,moving:false,deathHurt:true},life:.24,max:.24});
       this.burst(event.unit.x,event.unit.y-15,'#ddd9bd',12,55);

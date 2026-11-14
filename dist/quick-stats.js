@@ -11,6 +11,7 @@ export function quickStats(card, cards = {}, tile = 24) {
   if (!card) return [];
   const area = () => stat(card.rolling ? 'Recorrido' : 'Radio', `${number((card.rolling ? card.travelDistance : card.splash) / tile)} casillas`);
   if (card.spell) {
+    if(card.nativePull)return[stat('Daño a tropas',number(card.fieldPulseDamage)),stat('Daño a torres',number(card.fieldPulseTowerDamage)),stat('Atrae',seconds(card.fieldDuration))];
     if (card.spawnKey) {
       const summoned = cards[card.spawnKey];
       const rows = [stat('Invoca', `${card.spawnTotal} ${summoned?.name || 'Pokémon'}`)];
@@ -22,13 +23,14 @@ export function quickStats(card, cards = {}, tile = 24) {
     if (positive(card.fieldDamage)) {
       let damage = number(card.fieldDamage);
       if (card.airMultiplier > 1) damage += ` · ${number(card.fieldDamage * card.airMultiplier)} al aire`;
-      else if (card.buildingMultiplier > 1) damage += ` · ${number(card.fieldDamage * card.buildingMultiplier)} a estructuras`;
+      else if (card.fieldBuildingDamage>0||card.buildingMultiplier > 1) damage += ` · ${number(card.fieldBuildingDamage||card.fieldDamage * card.buildingMultiplier)} a estructuras`;
       return [stat('Daño / s', damage), stat(positive(card.fieldTowerDamage) ? 'Torres / s' : 'Torres', positive(card.fieldTowerDamage) ? number(card.fieldTowerDamage) : 'No afecta'),
         positive(card.fieldDuration) ? stat('Duración', seconds(card.fieldDuration)) : area()];
     }
     const rows = [];
-    if (positive(card.damage)) rows.push(stat('Daño a tropas', number(card.damage)));
-    if (Number.isFinite(card.towerDamage)) rows.push(stat('Daño a torres', card.towerDamage > 0 ? number(card.towerDamage) : 'No afecta'));
+    const waves=value=>card.waves>1?`${number(value)} × ${card.waves}`:number(value);
+    if (positive(card.damage)) rows.push(stat('Daño a tropas', waves(card.damage)));
+    if (Number.isFinite(card.towerDamage)) rows.push(stat('Daño a torres', card.towerDamage > 0 ? waves(card.towerDamage) : 'No afecta'));
     if (positive(card.freeze)) rows.push(stat('Congela', seconds(card.freeze)));
     else if (positive(card.splash) || positive(card.travelDistance)) rows.push(area());
     else if (positive(card.fieldDuration)) rows.push(stat('Duración', seconds(card.fieldDuration)));
@@ -54,7 +56,7 @@ export function quickStats(card, cards = {}, tile = 24) {
     rows.push(stat('Devuelve daño directo', `${number(card.reflect * 100)} %`));
     if (positive(card.lifetime)) rows.push(stat('Duración', seconds(card.lifetime)));
   } else if (card.passive && card.summon) {
-    rows.push(stat('Invoca', `${card.summonCount || 1} ${cards[card.summon]?.name || 'Pokémon'}`));
+    rows.push(stat(card.summonRequiresEnemy?'Invoca con rivales':'Invoca', `${card.summonCount || 1} ${cards[card.summon]?.name || 'Pokémon'}`));
     if (positive(card.summonEvery)) rows.push(stat('Cada', seconds(card.summonEvery)));
   } else if (positive(card.heal)) {
     rows.push(stat('Cura', `${number(card.heal)}${positive(card.healEvery) ? ` cada ${seconds(card.healEvery)}` : ''}`));

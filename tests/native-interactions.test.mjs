@@ -23,6 +23,12 @@ test('Blissey kills a melee goblin with its basic while Chansey still has a real
  for(const[key,target]of[['blissey','poochyenaToken'],['chansey','diglett']]){const g=fresh(),a=g.spawn(key,0,300,600,0),b=still(g.spawn(target,1,300,570,0));a.card={...a.card,speed:0};g.attack(a,b);a.cooldown=100;run(g,2);assert.equal(b.hp,0,key);}
 });
 for(const hz of[30,60]){
+ for(const team of[0,1])test(`Bandit uses ordinary hits against the same close target after its first dash, team${team} ${hz}Hz`,()=>{
+  const hits=[],dash=[],g=fresh(e=>{if(e.type==='damage'&&e.sourceKey==='sableye')hits.push({at:g.elapsed,amount:e.amount});if(e.type==='dashWindup')dash.push(g.elapsed);});
+  const a=g.spawn('sableye',team,300,team?200:600,0),b=still(g.spawn('geodude',1-team,300,team?325:475,0));b.hp=b.maxHp=10000;
+  run(g,5,hz);assert.equal(dash.length,1);assert.equal(hits[0].amount,389);assert.ok(hits.length>=3);assert.ok(hits.slice(1).every(h=>h.amount===194));
+  assert.ok(Math.abs(hits[1].at-hits[0].at-1)<=2/hz+1e-7);assert.ok(Math.hypot(a.x-b.x,a.y-b.y)-a.radius-b.radius<84);
+ });
  test(`native stationary melee trades agree with the independent event oracle at ${hz}Hz`,()=>{
   for(const[key,nativeName]of[['geodude','Knight'],['machamp','MiniPekka'],['feraligatr','MiniPekka'],['raichu','MiniPekka'],['rhydon','Pekka'],['poochyenaToken','Goblin'],['duskullToken','Skeleton']])for(const[opponent,reference]of[['geodude','Knight'],['rhydon','Pekka']]){
    const expected=meleeExchange(nativeName,reference),g=fresh(),a=g.spawn(key,0,300,600,0),b=g.spawn(opponent,1,300,570,0);

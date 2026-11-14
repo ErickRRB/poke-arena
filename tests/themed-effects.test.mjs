@@ -37,7 +37,7 @@ test('one deployment indicator serves every member of swarms, mixed squads and p
     assert.equal(markers(renderer,game)[0].progress,0,key);
     game.step(.1);
     assert.ok(markers(renderer,game)[0].progress>0,key);
-    for(let i=0;i<11;i++)game.step(.1);
+    for(let i=0;i<16;i++)game.step(.1);
     assert.equal(markers(renderer,game).length,0,key);
   }
 });
@@ -74,7 +74,7 @@ test('group markers survive wire serialization, reconnection and the other playe
 });
 
 test('an automatic reinforcement wave shares one marker and honors its shorter deployment duration',()=>{
-  const{game,renderer}=setup(),owner=game.spawn('madriguera',0,300,520,0);
+  const{game,renderer}=setup(),owner=game.spawn('duskull',0,300,520,0);
   game.spawnReinforcements(owner,'nidoranM',2,.4);
   assert.equal(markers(renderer,game).length,1);
   game.step(.1);game.step(.1);
@@ -84,12 +84,12 @@ test('an automatic reinforcement wave shares one marker and honors its shorter d
 });
 
 test('the summon meter starts empty for the first short cycle and resets to the regular cycle',()=>{
-  const{game}=setup(),owner=game.spawn('madriguera',0,300,520,0);
+  const{game}=setup(),owner=game.spawn('duskull',0,300,520,0);
   assert.equal(owner.summonClock,1);assert.equal(owner.summonCycle,1);
   for(let i=0;i<5;i++)game.step(.1);
   assert.ok(Math.abs(1-owner.summonClock/owner.summonCycle-.5)<1e-6);
   for(let i=0;i<6;i++)game.step(.1);
-  assert.equal(owner.summonCycle,CARDS.madriguera.summonEvery);
+  assert.equal(owner.summonCycle,CARDS.duskull.summonEvery);
   assert.ok(owner.summonClock>6.8);
 });
 
@@ -100,15 +100,14 @@ test('a deployment release waits for readiness and creates no expanding ring',()
   assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
 });
 
-test('Pin misil visibly flies before damage and lands when the simulation hits',()=>{
+test('Pin misil flies in three waves and each lands on its actual simulation deadline',()=>{
   const{game,renderer,ctx,calls}=setup();deploy(game,'pinMissile',300,300);
-  assert.equal(renderer.effects.filter(e=>e.kind==='missiles').length,1);
-  for(let i=0;i<4;i++){game.step(.1);renderer.drawEffects(ctx,.1);}
-  assert.equal(game.spells.length,1);assert.ok(calls.some(c=>c.method==='drawImage'));
-  for(let i=0;i<2;i++){game.step(.1);renderer.drawEffects(ctx,.1);}
-  assert.equal(game.spells.length,0);assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
-  assert.equal(renderer.effects.filter(e=>e.kind==='missiles').length,1);
-  assert.equal(renderer.effects[0].landed,true);
+  const first=game.spells[0].flightTime,volleys=renderer.effects.filter(e=>e.kind==='missiles');assert.equal(volleys.length,3);
+  volleys.forEach((v,i)=>assert.ok(Math.abs(v.hitAt-first-i*.2)<1e-7));
+  while(game.elapsed<first-.03){game.step(1/60);renderer.drawEffects(ctx,1/60);}
+  assert.equal(game.spells.length,1);assert.ok(volleys.every(v=>!v.landed));assert.ok(calls.some(c=>c.method==='drawImage'));
+  while(game.elapsed<first+.42){game.step(1/60);renderer.drawEffects(ctx,1/60);}
+  assert.equal(game.spells.length,0);assert.ok(volleys.every(v=>v.landed));assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
   renderer.drawEffects(ctx,.5);assert.equal(renderer.effects.length,0);
 });
 

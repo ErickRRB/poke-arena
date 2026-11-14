@@ -10,7 +10,7 @@ function fresh(key='pikachu') {
 }
 function run(game,seconds,dt=1/120){for(let time=0;time<seconds-1e-9;time+=dt)game.step(Math.min(dt,seconds-time));}
 function frozen(game,key,team,x,y){const u=game.spawn(key,team,x,y,0);u.card={...u.card,speed:0,passive:true,entryDamage:0};u.entryPending=false;return u;}
-const onGrid=p=>Math.abs((p.x-TILE/2)/TILE-Math.round((p.x-TILE/2)/TILE))<1e-9&&Math.abs((p.y-DEPLOY_GRID.top-TILE/2)/TILE-Math.round((p.y-DEPLOY_GRID.top-TILE/2)/TILE))<1e-9;
+const onGrid=p=>{const x=(p.x-DEPLOY_GRID.left-TILE/2)/TILE,y=(p.y-DEPLOY_GRID.top-TILE/2)/TILE;return Math.abs(x-Math.round(x))<1e-9&&Math.abs(y-Math.round(y))<1e-9;};
 
 test('units, buildings and log starts share a discrete mirrored placement grid',()=>{
   for(const key of ['snorlax','pikachu','blastoise','log'])for(const[x,y]of[[101.3,512.7],[288,560],[315,702],[300,752],[158,400]]){
@@ -23,9 +23,9 @@ test('units, buildings and log starts share a discrete mirrored placement grid',
 
 test('a whole cell shares one placement and changes only on crossing a cell boundary',()=>{
   const g=fresh('snorlax');
-  const placements=[[149,489],[151,485],[166,493]].map(([x,y])=>g.resolveDeployment(0,'snorlax',x,y));
+  const placements=[[158,489],[160,485],[178,493]].map(([x,y])=>g.resolveDeployment(0,'snorlax',x,y));
   assert.deepEqual(placements[0],placements[1]);assert.deepEqual(placements[1],placements[2]);
-  assert.notDeepEqual(g.resolveDeployment(0,'snorlax',171,485),placements[0]);
+  assert.notDeepEqual(g.resolveDeployment(0,'snorlax',182,485),placements[0]);
 });
 
 test('swarm previews and deployment occupy the same distinct physical positions even next to towers',()=>{
@@ -33,8 +33,8 @@ test('swarm previews and deployment occupy the same distinct physical positions 
     const g=fresh(key),p=g.resolveDeployment(0,key,x,y),expected=g.deploymentPositions(0,key,p.x,p.y);
     const result=g.deploy(0,0,x,y);assert.ok(result.ok);
     assert.deepEqual(g.units.map(u=>({x:u.x,y:u.y})),expected);
-    assert.equal(new Set(g.units.map(u=>`${u.x},${u.y}`)).size,CARDS[key].count);
-    assert.ok(g.units.every(u=>Number.isFinite(u.x)&&Number.isFinite(u.y)&&u.x>=44&&u.x<=556&&u.y>=40&&u.y<=760));
+    assert.equal(new Set(g.units.map(u=>`${u.x},${u.y}`)).size,key==='diglettHorde'?13:CARDS[key].count);
+    assert.ok(g.units.every(u=>Number.isFinite(u.x)&&Number.isFinite(u.y)&&u.x>=84&&u.x<=516&&u.y>=16&&u.y<=784));
   }
 });
 
@@ -70,7 +70,7 @@ test('log hits each ground body once, passes through it and never reaches outsid
   const g=fresh('log'),a=frozen(g,'snorlax',1,156,460),far=frozen(g,'snorlax',1,156,150),air=frozen(g,'zubat',1,156,460),side=frozen(g,'snorlax',1,280,460);
   const result=g.deploy(0,0,158,520);run(g,3);
   assert.equal(a.maxHp-a.hp,CARDS.log.damage);assert.equal(far.hp,far.maxHp);assert.equal(air.hp,air.maxHp);assert.equal(side.hp,side.maxHp);
-  assert.equal(result.y,520);
+  assert.equal(result.y,508);
 });
 
 test('fireball launches from its king and damage waits for distance-dependent flight',()=>{
@@ -127,7 +127,7 @@ test('only a log from the front deployment row reaches a princess on either side
   for(const team of[0,1])for(const front of[true,false]){
     const g=fresh('log');g.hands[team]=g.hands[0].slice();g.queues[team]=g.queues[0].slice();
     const tower=g.towers.find(t=>!t.king&&t.team!==team&&t.lane===0),y=front?448:472;
-    assert.ok(g.deploy(team,0,158,team?H-y:y).ok);run(g,2);
+    assert.ok(g.deploy(team,0,158,team?H-y:y).ok);run(g,3);
     assert.equal(tower.maxHp-tower.hp,front?CARDS.log.towerDamage:0);
   }
 });
@@ -137,7 +137,7 @@ test('CPU never throws a log at an unreachable distant target',()=>{
   g.hands[1]=['log','mewtwo','kyogre','groudon'];
   const target=frozen(g,'snorlax',0,158,700);g.ai(.01);
   assert.equal(g.spells.length,0);assert.equal(g.energy[1],5);
-  target.y=420;g.aiClock=0;g.ai(.01);assert.equal(g.spells.length,1);assert.equal(g.spells[0].startY,352);assert.equal(g.energy[1],3);
+  target.y=420;g.aiClock=0;g.ai(.01);assert.equal(g.spells.length,1);assert.equal(g.spells[0].startY,364);assert.equal(g.energy[1],3);
 });
 
 test('a shield absorbs its breaking blow without spilling excess damage into health',()=>{

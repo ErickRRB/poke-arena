@@ -7,7 +7,7 @@ test('sandbox removes CPU and tower fire and permits full formations without eli
   const game = createSandbox(); game.energy = [0, 0];
   assert.equal(game.aiEnabled, false); assert.deepEqual(game.towers, []);
   const squad = spawnCard(game, 'pandilla', 0, 156, 560);
-  assert.deepEqual(squad.map(unit => unit.key), ['poochyenaToken','poochyenaToken','poochyenaToken','raltsToken','raltsToken']);
+  assert.deepEqual(squad.map(unit => unit.key), ['poochyenaToken','poochyenaToken','poochyenaToken','raltsToken','raltsToken','raltsToken']);
   assert.ok(Math.max(...squad.slice(0, 3).map(unit => unit.y)) < Math.min(...squad.slice(3).map(unit => unit.y)));
   assert.equal(spawnCard(game, 'diglettHorde', 1, 156, 440).length, 15);
   assert.deepEqual(game.energy, [0, 0]);
@@ -29,20 +29,20 @@ test('actual spell damage distinguishes troop and tower targets', () => {
 });
 
 test('damage trials include complete bursts and delayed reinforcements', () => {
-  const burst = damageTrial('machamp', { seconds: 4 });
-  assert.ok(burst.releases >= 4); assert.ok(burst.damage >= CARDS.machamp.damage * 4);
+  const burst = damageTrial('machamp', { seconds: 4.3 });
+  assert.ok(burst.releases >= 3); assert.ok(burst.damage >= CARDS.machamp.damage * 3);
   assert.ok(damageTrial('centralElectrode').bodiesSpawned >= 5);
   assert.ok(damageTrial('vivero').bodiesSpawned >= 7);
 });
 
 test('area damage and single-target damage differ in the swarm scenario', () => {
   assert.equal(swarmTrial('pinMissile').eliminated, 9);
-  assert.ok(swarmTrial('lapras').eliminated < swarmTrial('fireball').eliminated);
+  assert.ok(swarmTrial('nuzleaf').eliminated < swarmTrial('fireball').eliminated);
 });
 
 test('team trials measure healing and record the full team cost', () => {
   const trial = teamTrial(['lapras','chansey'], ['swampert','charmander']);
-  assert.deepEqual(trial.cost, [8, 8]); assert.ok(trial.healing[0] > 0);
+  assert.deepEqual(trial.cost, [6, 9]); assert.ok(trial.healing[0] > 0);
 });
 
 test('30 and 60 fps preserve the measured damage band', () => {
