@@ -2,7 +2,7 @@
 export const ORIGINAL_DECISIONS={
  squirtle:['raltsTrio','Un tirador de400PV por2elixir concentra la vida: sobrevive Descarga192y Flechas366, que eliminan cada Ralts133. A cambio tiene menor daño agregado, alcance y velocidad que los tres duendes con lanza; no se aumenta daño para igualar su empuje.'],
  gengar:['charmander','Tirador de área de4 con650HP y teletransporte periódico. Menos vida y daño que Mago5; movilidad y preparación breve pagan la diferencia.'],
- blastoise:['pikachu','Dos cañones sobre un cuerpo móvil resistente. No se balancea como edificio: disparos sin aturdimiento, coste4 y daño repartido entre dos proyectiles completos.'],
+ blastoise:['pikachu','Cuerpo móvil resistente de4elixir y1400PV. Concentra sus cañones en un proyectil completo de170cada1.8s; paga la vida adicional con menos daño agregado y sin la descarga ni el aturdimiento de Mago eléctrico.'],
  vulpix:['bulbasaur','Daño directo más quemadura en un solo objetivo. Menos vida y sin área/control que Mago de hielo; el DOT no se suma como un segundo básico instantáneo.'],
  psyduck:['bulbasaur','Control de un objetivo con menos vida y sin área que Mago de hielo. Caballero puede alcanzarlo; no se le da vida extra para ganar ese intercambio.'],
  magnemite:['pikachu','Un único atacante aéreo de control por3. Menos cuerpo y DPS que Mago eléctrico4, sin descarga de entrada ni segundo rayo.'],
@@ -16,7 +16,7 @@ export const ORIGINAL_DECISIONS={
  mankey:['poochyenaPack','Básico81→101: carga202 alcanza la vida de Duende. Tres cuerpos150HP frente a cuatro Duendes202HP; Zap elimina la escuadra y su DPS sostenido es menor.'],
  arcanine:['eevee','Coste4 frente a Príncipe5, con menos vida y carga440 frente a783. La quemadura13/s no compensa una igualdad artificial de las demás estadísticas.'],
  grimer:['geodude','Tanque barato de2 con900HP y básico81: vida y DPS menores que Caballero3. Su función es retener y dejar su zona, sin alcance antiaéreo.'],
- cloyster:['ampharos','Defensa de4 con descarga de pinchos y cadencia lenta. Se conserva su patrón, separado del disparo único y ocultamiento de Tesla; edificios pierden vida con el tiempo.'],
+ cloyster:['ampharos','Defensa de4elixir: el golpe completo sube de140cada2.6s a210cada1.6s. Conserva865PV, escudo230 y alcance170 frente a Tesla1182PV,220cada1.1s y alcance132. Tiene menos DPS y vida básica a cambio del alcance y la protección contra un paquete grande, con un único impacto por descarga.'],
  gastly:['zubat','Cuatro tiradores aéreos81HP con alcance130 y campo breve al morir. Se diferencian de los cinco Murciélagos de contacto; las pérdidas frente a área siguen siendo intencionales.'],
  koffing:['charizard','Coste3 con700HP y daño90 más veneno, frente a Bebé dragón4 con1152HP/168. Menor cuerpo y básico pagan el área persistente.'],
  chansey:['bulbasaur','Curación de un aliado y DPS bajo. Básico18→81 para matar Esqueleto, manteniendo800HP y curación75cada2.5s; no gana curación propia permanente.'],

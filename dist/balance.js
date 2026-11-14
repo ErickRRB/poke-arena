@@ -56,7 +56,7 @@ export const CARD_BALANCE = {
   arcanine: {"cost":4,"hp":1400,"damage":220,"interval":1.4,"speed":40},
   slowbro: {"cost":3,"hp":688,"damage":90,"interval":1.7,"speed":18,"shield":0,"range":132,"slow":2,"style":"ice","entryDamage":83,"entryRadius":72,"entrySlow":1,"splash":36},
   grimer: {"cost":2,"hp":900,"damage":55,"interval":1.5,"speed":18,"style":"poison","range":85,"color":"#b686c8"},
-  cloyster: {"cost":4,"hp":865,"damage":28,"interval":2.6,"speed":0,"platform":false},
+  cloyster: {"cost":4,"hp":865,"damage":210,"interval":1.6,"burst":1,"burstSpacing":0,"speed":0,"platform":false},
   gastly: {"cost":2,"hp":81,"damage":35,"interval":1.3,"speed":32,"count":4,"deathField":6,"style":"lick"},
   voltorb: {"cost":1,"hp":230,"damage":115,"interval":1.4,"speed":40,"stun":0.75,"air":true,"jumpRange":78,"jumpDuration":0.42,"windup":0.1},
   electrode: {"cost":4,"hp":1200,"damage":600,"interval":1.6,"speed":32,"windup":0.5,"splash":60},
