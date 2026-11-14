@@ -13,6 +13,6 @@ export const GROUP_FORMATIONS={
   sandshrew:[[0,.923],[-.799,-.461],[.799,-.461]],
   zubat:Array.from({length:5},(_,i)=>{const a=(45+i*72)*Math.PI/180;return[Math.cos(a)*1.405,Math.sin(a)*1.405];}),
   treecko:[[-.5,0],[.5,0]],
-  // User-requested five-member gang: three melee in front, two ranged behind.
-  pandilla:[[-.8,-.35],[0,-.65],[.8,-.35],[-.5,.7],[.5,.7]],
+  // Current base Goblin Gang: three melee and three ranged bodies.
+  pandilla:[[-.8,-.35],[0,-.65],[.8,-.35],[-.8,.7],[0,.7],[.8,.7]],
 };

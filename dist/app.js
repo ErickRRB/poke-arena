@@ -1,3 +1,4 @@
+import { screenToWorld, inArena } from './arena-geometry.js?v=26';
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=26';
 import { Renderer } from './render.js?v=32';
 import { SoundSystem } from './audio.js?v=32';
@@ -7,8 +8,10 @@ import { cardArtMarkup } from './card-art.js?v=26';
 import { cardEquivalentLabel } from './card-equivalents.js?v=30';
 import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=26';
 import { bindQuickStats } from './quick-stats.js';
+import { BattlePhaseUi } from './battle-phase-ui.js';
 
 const $ = id => document.getElementById(id);
+const battlePhaseUi = new BattlePhaseUi(document);
 const canvas = $('arena');
 const renderer = new Renderer(canvas);
 function fitDesktop(){
@@ -128,10 +131,7 @@ function updateUi() {
   $('energy-value').textContent = String(Math.floor(energy));
   $('energy-bar').setAttribute('aria-valuenow', energy.toFixed(1));
   [...$('energy-bar').children].forEach((el,i) => el.firstElementChild.style.width = `${Math.max(0,Math.min(1,energy-i))*100}%`);
-  $('boost').hidden = game.multiplier === 1; $('boost').textContent = `×${game.multiplier}`;
-  const total = Math.ceil(game.time); $('timer').textContent = `${Math.floor(total/60)}:${String(total%60).padStart(2,'0')}`;
-  $('battle-clock').classList.toggle('urgent', game.time <= 30 || game.overtime);
-  $('phase-label').hidden=!game.overtime;$('phase-label').textContent=game.tiebreaker?'Desempate':'Extra';
+  battlePhaseUi.update(game,{reduced});
   $('match-pause').hidden=onlineMode||!['playing','paused'].includes(game.state);
   $('match-leave').hidden=onlineMode||!['playing','paused'].includes(game.state);
   $('menu-btn').disabled=!!online?.active&&(onlineMode&&game.state!=='ended'||online.mode==='resume');
@@ -142,10 +142,6 @@ function updateUi() {
     $('match-pause').dataset.action=battleAction;$('match-pause').setAttribute('aria-label',label);$('match-pause').title=`${label} (Espacio)`;
     $('match-pause').querySelector('use').setAttribute('href',battleAction==='resume'?'#i-play':'#i-pause');
   }
-  const abilities=game.units.filter(u=>u.team===0&&u.card.ability&&!u.abilityUsed&&u.hp>0&&u.spawn<=0);
-  $('abilities').hidden=!abilities.length;
-  const signature=abilities.map(u=>`${u.id}:${game.energy[0]>=u.card.ability.cost}`).join(',');
-  if($('abilities').dataset.signature!==signature){$('abilities').dataset.signature=signature;$('abilities').innerHTML=abilities.map(u=>`<button class="ability-btn" data-ability="${u.id}" ${game.energy[0]<u.card.ability.cost?'disabled':''} aria-label="${u.card.name}: ${u.card.ability.name}, ${u.card.ability.cost} de elixir"><span class="ability-portrait">${cardArtMarkup(u.key)}</span><span class="ability-name">${u.card.ability.name}</span><span class="ability-cost" aria-hidden="true"><svg><use href="#i-energy"/></svg><b>${u.card.ability.cost}</b></span></button>`).join('');}
   syncHand();
 }
 function handleEvent(e) {
@@ -161,11 +157,10 @@ function handleEvent(e) {
     live(e.team === 0 ? 'Destruiste una torre. Ahora podés desplegar más adelante en ese carril.' : 'El rival destruyó una de tus torres.');
     if (!reduced) { $('arena-frame').classList.remove('shake'); void $('arena-frame').offsetWidth; $('arena-frame').classList.add('shake'); }
   }
-  if (e.type === 'energyBoost') live(`Elixir por ${e.multiplier}.`);
-  if (e.type === 'overtime') live('Tiempo extra. La primera torre destruida decide la partida.');
   if (e.type === 'end') showResult(e);
 }
 function newGame({ start = false, tutorial = false } = {}) {
+  battlePhaseUi.reset();
   deploying=false;deploymentSerial++;
   sfx.resetMusic();
   $('result-overlay').hidden = true; $('pause-overlay').hidden = true; $('guide').hidden = true;
@@ -212,7 +207,8 @@ function showResult(e) {
 }
 function arenaPoint(clientX,clientY) {
   const r=canvas.getBoundingClientRect();
-  return {x:(clientX-r.left)/r.width*W,y:(clientY-r.top)/r.height*H,inside:clientX>=r.left&&clientX<=r.right&&clientY>=r.top&&clientY<=r.bottom};
+  const point=screenToWorld({x:clientX-r.left,y:clientY-r.top},r.width,r.height);
+  return {...point,inside:inArena(point.x,point.y)};
 }
 async function attemptDeploy(point) {
   if(game.state!=='playing'||deploying)return;
@@ -361,19 +357,20 @@ function renderCardInfo(key){
   const targets=c.spawnOnImpact||c.summon&&c.passive?'Invoca tropas':c.passive?'Contraataca':c.building?'Estructuras':c.rolling||c.groundOnly?'Tierra':c.spell||c.air||c.squad?'Tierra y aire':'Tierra';
   const stats=[],extraStats=[],traits=[];
   if(c.hp)stats.push(['Puntos de vida',number(c.hp),'heart']);
-  const impacts=c.bolts||c.burst||1;
-  if(c.fieldDamage)stats.push(['Daño por segundo',number(c.fieldDamage),'dps']);
-  else if(c.damage>0)stats.push([c.bolts?'Daño de los rayos':c.burst?'Daño por ráfaga':'Daño por golpe',impacts>1?`${number(c.damage)} × ${impacts}`:number(c.damage),'damage']);
+  const impacts=c.waves||c.bolts||c.burst||1;
+  if(c.fieldPulseDamage)stats.push(['Daño por pulso',number(c.fieldPulseDamage),'damage']);
+  else if(c.fieldDamage)stats.push(['Daño por segundo',number(c.fieldDamage),'dps']);
+  else if(c.damage>0)stats.push([c.waves>1?'Daño total':c.bolts>1?'Daño de los rayos':c.burst>1?'Daño por ráfaga':'Daño por golpe',impacts>1?`${number(c.damage)} × ${impacts}`:number(c.damage),'damage']);
   if(!c.spell&&c.interval&&!c.passive){
     stats.push(['Daño por segundo',number(c.damage*impacts/c.interval),'dps']);
     stats.push(['Ataque cada',seconds(c.interval),'attack-speed']);
   }
-  if(c.spell&&c.towerDamage)stats.push(['Daño a torres',number(c.towerDamage),'tower']);
+  if(c.spell&&c.towerDamage)stats.push(['Daño a torres',c.waves>1?`${number(c.towerDamage)} × ${c.waves}`:number(c.towerDamage),'tower']);
   stats.push(['Objetivos',targets,'target']);
-  if(c.speed!==undefined)stats.push(['Movimiento',c.structure||c.speed===0?'Inmóvil':c.speed<=18?'Lento':c.speed<=26?'Medio':c.speed<=32?'Rápido':'Muy rápido','move']);
-  if(c.range&&!c.passive)stats.push(['Alcance',c.range<50?'Cuerpo a cuerpo':tiles(c.range),'range']);
+  if(c.speed!==undefined)stats.push(['Movimiento',c.structure||c.speed===0?'Inmóvil':c.speed<=21.6?'Lento':c.speed<=28.8?'Medio':c.speed<=43.2?'Rápido':'Muy rápido','move']);
+  if(c.range&&!c.passive)stats.push(['Alcance',tiles(c.range),'range']);
   if(c.spell)stats.push([c.rolling?'Recorrido':'Radio',tiles(c.rolling?c.travelDistance:c.splash),'range']);
-  stats.push([c.travelSpeed&&!c.rolling?'Lanzamiento':'Despliegue',seconds(c.spell?(c.rolling?0:c.castDelay??.4):.75),'deploy']);
+  stats.push([c.travelSpeed&&!c.rolling?'Lanzamiento':'Despliegue',seconds(c.spell?(c.rolling?0:c.castDelay??.4):c.deployTime??.75),'deploy']);
   if(c.count>1)traits.push(['Unidades',`×${c.count}`,'units']);
   if(c.spawnKey)stats.push(['Invocaciones',`${c.spawnTotal} ${CARDS[c.spawnKey].name}`,'units']);
   if(c.fieldDuration)stats.push(['Duración',seconds(c.fieldDuration),'duration']);
@@ -392,17 +389,17 @@ function renderCardInfo(key){
   if(c.travelSpeed&&!c.rolling)extraStats.push(['Viaje',`${number(c.travelSpeed/TILE)} casillas / s`,'move']);
   if(c.slow)extraStats.push(['Ralentización',seconds(c.slow),'effect']);
   if(c.splash&&!c.spell)extraStats.push([c.suicide?'Radio de explosión':'Radio de impacto',tiles(c.splash),'range']);
+  if(c.windup&&!c.passive)extraStats.push(['Preparación',seconds(c.windup),'attack-speed']);
+  if(c.dash){extraStats.push(['Daño de embestida',number(c.dashDamage??c.damage*c.dashMultiplier),'damage'],['Prepara embestida',seconds(c.dashWindup),'attack-speed'],['Distancia de embestida',`${number(c.dashMin/TILE)}–${number(c.dashMax/TILE)} casillas`,'range']);}
+  if(c.deathDamage)extraStats.push(['Daño al caer',number(c.deathDamage),'damage'],['Radio al caer',tiles(c.deathRadius),'range']);
   if(c.jumpRange)extraStats.push(['Distancia de salto',tiles(c.jumpRange),'range']);
   if(c.summonSpacing)extraStats.push(['Entre refuerzos',seconds(c.summonSpacing),'attack-speed']);
   if(c.lifesteal)extraStats.push(['Curación por golpe',number(c.lifesteal),'heart']);
-  if(c.summon)stats.push(['Invocación',`${c.summonCount||1} ${CARDS[c.summon].name} / ${seconds(c.summonEvery)}`,'units']);
+  if(c.summon)stats.push([c.summonRequiresEnemy?'Invoca con rivales':'Invocación',`${c.summonCount||1} ${CARDS[c.summon].name} / ${seconds(c.summonEvery)}`,'units']);
   if(c.deathSpawn)extraStats.push(['Al caer',`${c.deathCount||1} ${CARDS[c.deathSpawn].name}`,'units']);
   if(c.targetLimit)extraStats.push(['Objetivos máximos',c.targetLimit,'target']);
   if(c.airMultiplier)extraStats.push(['Daño a voladores',`${number(c.fieldDamage*c.airMultiplier)} / s`,'damage']);
-  if(c.buildingMultiplier)extraStats.push(['Daño a estructuras',`${number(c.fieldDamage*c.buildingMultiplier)} / s`,'damage']);
-  if(c.ability)extraStats.push(['Habilidad',`${c.ability.cost} elixir · 1 uso`,'effect']);
-  if(c.ability?.damage)extraStats.push(['Daño de habilidad',number(c.ability.damage),'damage']);
-  if(c.ability?.stun)extraStats.push(['Aturdimiento de habilidad',seconds(c.ability.stun),'effect']);
+  if(c.fieldBuildingDamage||c.buildingMultiplier)extraStats.push(['Daño a estructuras',`${number(c.fieldBuildingDamage||c.fieldDamage*c.buildingMultiplier)} / s`,'damage']);
   if(c.heal)extraStats.push(['Curación',`${number(c.heal)} / ${seconds(c.healEvery)}`,'heart']);
   if(c.reflect)extraStats.push(['Daño reflejado',`${Math.round(c.reflect*100)} %`,'shield']);
   if(c.armor)extraStats.push(['Reducción de daño',`${Math.round(c.armor*100)} %`,'shield']);
@@ -445,10 +442,10 @@ document.addEventListener('pointerup',e=>{
   if(drag.active){ignoreClickUntil=performance.now()+350;const p=arenaPoint(e.clientX,e.clientY),key=game.hands[0][drag.index];if(p.inside&&game.resolveDeployment(0,key,p.x,p.y))attemptDeploy(p);else cancelSelection();renderer.pointer=null;}
   drag=null;
 });
-document.addEventListener('pointercancel',()=>{if(drag?.active)cancelSelection();drag=null;renderer.pointer=null;});
-canvas.addEventListener('pointermove',e=>{if(e.pointerType!=='touch'&&!drag&&selected>=0)renderer.pointer=arenaPoint(e.clientX,e.clientY);});
-canvas.addEventListener('pointerleave',()=>{if(!drag)renderer.pointer=null;});
-canvas.addEventListener('pointerdown',e=>{if(e.button!==0||drag?.active)return;audioInit();canvas.focus({preventScroll:true});attemptDeploy(arenaPoint(e.clientX,e.clientY));});
+document.addEventListener('pointercancel',()=>{cancelSelection();drag=null;renderer.pointer=null;});
+canvas.addEventListener('pointermove',e=>{if(e.pointerType!=='touch'&&!drag&&selected>=0){const p=arenaPoint(e.clientX,e.clientY);renderer.pointer=p.inside?p:null;}});
+canvas.addEventListener('pointerleave',()=>{renderer.pointer=null;});
+canvas.addEventListener('pointerdown',e=>{if(e.button!==0||drag?.active)return;audioInit();canvas.focus({preventScroll:true});const p=arenaPoint(e.clientX,e.clientY);if(p.inside)attemptDeploy(p);else cancelSelection();});
 document.addEventListener('keydown',e=>{
   if(e.target.closest?.('#hand [data-card]')&&['Space','Enter'].includes(e.code))return;
   if(document.querySelector('dialog[open]')||['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;
@@ -516,7 +513,6 @@ $('reset-filters-btn').addEventListener('click',resetCollectionFilters);
 $('apply-filters-btn').addEventListener('click',()=>{$('collection-filters').hidePopover();$('collection-filters-btn').focus({preventScroll:true});});
 addEventListener('resize',()=>{if($('collection-filters').matches(':popover-open'))positionEditorPopover($('collection-filters'),$('collection-filters-btn'));closeCardActions();},{passive:true});
 $('online-btn').addEventListener('click',beginOnline);$('cancel-search').addEventListener('click',mainMenu);
-$('abilities').addEventListener('click',async e=>{const button=e.target.closest('[data-ability]');if(!button)return;const id=Number(button.dataset.ability);button.disabled=true;const result=onlineMode?await online.send({kind:'ability',unitId:id}):game.activateAbility(0,id);if(!result.ok)live(result.reason);updateUi();});
 function showSearch(){if(!$('search-panel').hidden)return;$('menu-loading').hidden=true;$('search-panel').hidden=false;$('ready-overlay').inert=true;$('cancel-search').focus({preventScroll:true});}
 function createOnlineClient(){
   return new OnlineClient({onSearch:ms=>{const sec=Math.floor(ms/1000);$('search-time').textContent=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;if(ready)showSearch();},onConnection:status=>{

@@ -1,4 +1,4 @@
-export const CAPSULE_TEXTURE='assets/battle/pokeball-material-v2.png';
+export const CAPSULE_TEXTURE='assets/battle/pokeball-material-classic-v3.svg';
 export const CAPSULE_FRAME_SIZE=64,CAPSULE_PHASES=96;
 const TAU=Math.PI*2,AXES=32,SLOTS=256,COLUMNS=16;
 const normals=Array.from({length:CAPSULE_FRAME_SIZE**2},(_,index)=>{
@@ -26,8 +26,8 @@ export function capsulePixels(angle=0,axis=0,texture=null,output=new Uint8Clampe
       red=texture.data[at];green=texture.data[at+1];blue=texture.data[at+2];
     }else{
       // A failed texture still gets the same rotating material and pixel shading.
-      const latch=Math.hypot((u-.5)*2,v-.5),belt=Math.abs(v-.5)<.016;
-      const color=latch<.065?[246,240,215]:latch<.08?[131,143,144]:latch<.102||belt?[32,42,46]:v<.5?[224,42,45]:[244,237,216];
+      const latch=Math.hypot((u-.5)*2,v-.5),belt=Math.abs(v-.5)<5/256;
+      const color=latch<11/256?[247,248,247]:latch<16/256?[204,214,217]:latch<21/256||belt?[29,41,46]:v<.5?[235,50,57]:[247,248,247];
       [red,green,blue]=color;
     }
     const at=index*4;

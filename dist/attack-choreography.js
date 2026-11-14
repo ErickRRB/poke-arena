@@ -4,7 +4,7 @@ const gesture=(prepare,contact,follow,rest=0)=>({prepare,contact,follow,rest});
 const PROFILES={
   snorlax:{attackContactFrame:7},
   lugia:{movementAnchor:'body',attackFrames:[10,2,10],attackContactFrame:2},
-  rayquaza:{movementAnchor:'body',attackContactFrame:2},
+  rayquaza:{movementAnchor:'foot',scale:1.25,attackContactFrame:2},
   beedrill:{movementAnchor:'body',emitter:'hands',attackGestures:[gesture(4,10,16)]},
   koffing:{attackAnim:'Shoot',movementAnchor:'body',attackFrames:[0,1,7,0],attackContactFrame:7},
   kangaskhan:{attackAnim:'Shoot',movementAnchor:'body',emitter:'body',attackFrames:[0,7,8,7,0],attackContactFrame:8},

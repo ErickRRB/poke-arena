@@ -399,5 +399,13 @@ export const POKEMON_SILHOUETTES=Object.freeze({
   "353": {
     "body": 20,
     "name": "Shuppet"
+  },
+  "83": {
+    "body": 21,
+    "name": "Farfetch’d"
+  },
+  "534": {
+    "body": 40,
+    "name": "Conkeldurr"
   }
 });

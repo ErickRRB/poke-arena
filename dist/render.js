@@ -1,7 +1,8 @@
-import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, KING_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=26';
-import { BattleArt } from './battle-art.js?v=32';
+import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=26';
+import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=26';
+import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=32';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=26';
-import {combatVisual,projectileVisual,movementVisual,fireballVisual} from './combat-visuals.js?v=29';
+import {combatVisual,projectileVisual,movementVisual,fireballVisual,isRangedAttack} from './combat-visuals.js?v=29';
 import { spellPreviewTargets } from './spell-preview.js?v=28';
 import {areaGuide,cellGuide,travelGuide} from './targeting-art.js?v=32';
 import { FlightWings } from './wing-motion.js';
@@ -13,7 +14,7 @@ function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.li
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
 const visualScale = unit => unit.scale ?? unit.card?.scale ?? 1.5;
 function attackLunge(unit,reduced){
-  if(reduced||!unit.attack||unit.mounted||!(unit.card?.range<50))return 0;
+  if(reduced||!unit.attack||unit.mounted||!unit.card||isRangedAttack(unit.card))return 0;
   const duration=unit.attackDuration||.75,elapsed=duration-unit.attack;
   const windup=unit.attackWindup??unit.card.windup??.3,spacing=unit.card.burstSpacing||duration;
   let thrust=0;
@@ -37,7 +38,16 @@ export class Renderer {
     this.ctx = canvas.getContext('2d', { alpha: false });
     this.ctx.imageSmoothingEnabled = false;
     this.verticalScale=1;
-    this.resizeObserver=new ResizeObserver(([entry])=>{const{width,height}=entry.contentRect;this.verticalScale=width?height/width*W/H:1;});
+    const resize=(width,height)=>{
+      if(!(width>0&&height>0))return;
+      const changed=width!==this.viewport?.width||height!==this.viewport?.height;
+      this.viewport={width,height};this.projection=arenaProjection(width,height);this.verticalScale=1;
+      const start=screenToWorld({x:0,y:0},width,height),end=screenToWorld({x:width,y:height},width,height);
+      this.worldBounds={left:start.x,top:start.y,right:end.x,bottom:end.y};
+      if(changed&&this.background)this.buildBackground();
+    };
+    resize(canvas.clientWidth||canvas.width,canvas.clientHeight||canvas.height);
+    this.resizeObserver=new ResizeObserver(([entry])=>resize(entry.contentRect.width,entry.contentRect.height));
     this.resizeObserver.observe(canvas);
     this.background = document.createElement('canvas'); this.background.width = W; this.background.height = H;
     this.sprites = new Map(); this.metadata = {};
@@ -69,7 +79,7 @@ export class Renderer {
     if(!this.imageLoads.has(file)){const image=new Image();image.src=file;this.imageLoads.set(file,image.decode().then(()=>image));}
     return this.imageLoads.get(file);
   }
-  ensureSpecies(ids){if(!Object.keys(this.metadata).length)return Promise.resolve();return Promise.all([...new Set(ids)].map(id=>{
+  ensureSpecies(ids){if(!Object.keys(this.metadata).length)return Promise.resolve();return Promise.all([...new Set(ids.filter(Boolean))].map(id=>{
     if(this.speciesLoads.has(id))return this.speciesLoads.get(id);
     this.pendingSpecies.add(id);
     const pending=Promise.all([...this.animationEntries(id).map(async([name,meta])=>{
@@ -104,12 +114,41 @@ export class Renderer {
   tree(c,x,y,scale=1){this.battleArt.draw(c,'tree',x,y-25*scale,65*scale,65*scale,{frame:0});}
   bridge(c,x){
     const image=this.battleArt.images.get('assets/battle/arena-bridge-v2.webp');
-    if(image)c.drawImage(image,x-40,BRIDGE.top,80,BRIDGE.bottom-BRIDGE.top);
+    const width=BRIDGE.halfWidth*2,height=BRIDGE.bottom-BRIDGE.top;
+    if(image){
+      const edge=4;
+      c.drawImage(image,0,0,edge,image.height,x-BRIDGE.halfWidth,BRIDGE.top,edge,height);
+      c.drawImage(image,edge,0,image.width-edge*2,image.height,x-BRIDGE.halfWidth+edge,BRIDGE.top,width-edge*2,height);
+      c.drawImage(image,image.width-edge,0,edge,image.height,x+BRIDGE.halfWidth-edge,BRIDGE.top,edge,height);
+    }else rect(c,'#b9985d',x-BRIDGE.halfWidth,BRIDGE.top,width,height);
   }
   buildBackground(){
-    const c=this.background.getContext('2d');c.imageSmoothingEnabled=false;c.clearRect(0,0,W,H);
+    const bounds=this.worldBounds||{left:0,top:0,right:W,bottom:H},left=Math.floor(bounds.left),top=Math.floor(bounds.top),right=Math.ceil(bounds.right),bottom=Math.ceil(bounds.bottom);
+    this.backgroundOrigin={x:left,y:top};this.background.width=right-left;this.background.height=bottom-top;
+    const c=this.background.getContext('2d');c.imageSmoothingEnabled=false;c.translate(-left,-top);
     const ground=this.battleArt.images.get('assets/battle/arena-ground-v2.webp');
-    if(ground)c.drawImage(ground,0,0,W,H);else rect(c,'#8eaa79',0,0,W,H);
+    const pattern=(x,y,width,height)=>{
+      const tile=document.createElement('canvas');tile.width=width;tile.height=height;
+      tile.getContext('2d').drawImage(ground,x,y,width,height,0,0,width,height);return c.createPattern(tile,'repeat');
+    };
+    this.landscapePattern=ground?pattern(200,224,120,128):null;
+    const path=ground?pattern(146,240,24,72):'#c9bd8c';
+    c.fillStyle=this.landscapePattern||'#8eaa79';c.fillRect(left,top,right-left,bottom-top);
+    // Restrained woodland around the cleared field. NO_DEPLOY stays a rule;
+    // sparse groups of the original canopy give the landscape a quiet edge.
+    c.save();c.beginPath();c.rect(left,top,right-left,bottom-top);c.rect(ARENA.left,ARENA.top,ARENA.width,ARENA.height);c.clip('evenodd');
+    rect(c,'#54745c12',left,top,right-left,bottom-top);
+    const clusters=[...Array.from({length:6},(_,i)=>[48+i*100,ARENA.top-88]),...Array.from({length:6},(_,i)=>[48+i*100,ARENA.bottom+60]),...[168,288,520,672].flatMap(y=>[[ARENA.left-38,y],[ARENA.right+38,y]])];
+    for(const[index,[cx,cy]]of clusters.entries()){
+      const random=this.rng(index*73856093+1832),scale=.8+random()*.45,x=cx+(random()-.5)*16,y=cy+(random()-.5)*18;
+      c.filter='saturate(.38) brightness(.78)';c.globalAlpha=.72;c.save();if(random()<.5){c.translate(x*2,0);c.scale(-1,1);}this.tree(c,x,y,scale);c.restore();
+    }
+    c.restore();
+    const half=TILE/2;
+    for(let row=0;row<DEPLOY_GRID.rows*2;row++)for(let col=0;col<DEPLOY_GRID.columns*2;col++){
+      const x=ARENA.left+col*half,y=ARENA.top+row*half,bits=arenaBits(x+half/2,y+half/2);
+      if(bits&3){c.fillStyle=path;c.fillRect(x,y,half,half);}
+    }
   }
   resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.visualFlights?.clear();this.frameActors?.clear();this.flightWings?.phases.clear();this.attackContacts?.clear();}
   visualActor(unit,dt){
@@ -119,17 +158,25 @@ export class Renderer {
     const blend=1-Math.exp(-dt*(unit.dash?.phase==='travel'?40:24));pose.x+=(unit.x-pose.x)*blend;pose.y+=(unit.y-pose.y)*blend;
     const turn=1-Math.exp(-dt*24);pose.dx+=((unit.dx||0)-pose.dx)*turn;pose.dy+=((unit.dy||0)-pose.dy)*turn;
     if(pose.seq!==unit.attackSeq){pose.seq=unit.attackSeq;pose.attack=unit.attack||0;}else if(!fresh)pose.attack=Math.max(0,Math.min(unit.attack||0,pose.attack-dt));
-    if((unit.card?.attackGestures||Number.isFinite(unit.card?.attackContactFrame))&&unit.attack>0){
-      const card=unit.card,duration=unit.attackDuration||card.attackDuration,windup=unit.attackWindup??card.windup,spacing=card.burstSpacing||duration;
-      const contact=this.attackContacts?.get(unit.id),current=contact?.seq===unit.attackSeq?contact:null,next=(current?.shot??-1)+1;
+    const card=unit.card||unit.guard||{},contact=this.attackContacts?.get(unit.id),current=contact?.seq===unit.attackSeq?contact:null;
+    if(current&&unit.attack>0){
+      const duration=unit.attackDuration||card.attackDuration||.6,windup=unit.attackWindup??card.windup??unit.windup??.18,spacing=card.burstSpacing||duration,next=current.shot+1;
       let elapsed=duration-pose.attack;
       // Do not recover from a predicted contact before its authoritative event
       // arrives. This keeps each native gesture beside the hit at 15 Hz too.
-      if(current&&next<(card.burst||1))elapsed=Math.min(elapsed,windup+next*spacing);
-      if(current&&this.t<current.until)elapsed=Math.min(elapsed,windup+current.shot*spacing);
+      if(next<(card.burst||1))elapsed=Math.min(elapsed,windup+next*spacing);
+      if(this.t<current.until)elapsed=Math.min(elapsed,windup+current.shot*spacing);
       pose.attack=duration-elapsed;
     }
-    return{...unit,x:pose.x,y:pose.y,dx:pose.dx,dy:pose.dy,attack:pose.attack};
+    const displayed={...unit,x:pose.x,y:pose.y,dx:pose.dx,dy:pose.dy,attack:pose.attack},held=contact?.held;
+    if(held&&this.t<held.until&&!(unit.hp<=0||unit.stun>0||unit.freeze>0||unit.pushHurt>0)){
+      // A packet can contain both a release and the next attackStart. Preserve
+      // that released pose for two display frames without rewinding either clock.
+      const duration=Math.max(held.duration,held.elapsed+1/30+1e-7);
+      return{...displayed,card:held.card,guard:held.guard,attackSeq:held.seq,attackAnim:held.animation,attackDuration:duration,attackWindup:held.windup,attack:duration-held.elapsed,dx:held.dx,dy:held.dy};
+    }
+    if(held&&this.t>=held.until)delete contact.held;
+    return displayed;
   }
   projected(point,actor){
     if(!actor)return point;
@@ -163,7 +210,7 @@ export class Renderer {
     if(refresh){
       // Articulated sprites are mutable canvases. Reuse their mask surface,
       // refreshing its pixels for this pose rather than caching a stale wing.
-      const mask=tint.getContext('2d');mask.imageSmoothingEnabled=false;mask.globalCompositeOperation='source-over';mask.clearRect(0,0,sw,sh);mask.drawImage(image,sx,sy,sw,sh,0,0,sw,sh);
+      const mask=tint.getContext('2d',{willReadFrequently:true});mask.imageSmoothingEnabled=false;mask.globalCompositeOperation='source-over';mask.clearRect(0,0,sw,sh);mask.drawImage(image,sx,sy,sw,sh,0,0,sw,sh);
       mask.globalCompositeOperation='source-in';mask.fillStyle='#ff3048';mask.fillRect(0,0,sw,sh);
     }
     cache.delete(key);cache.set(key,tint);if(cache.size>48)cache.delete(cache.keys().next().value);
@@ -185,6 +232,7 @@ export class Renderer {
     rect(c,'#243b2ad9',x-labelWidth/2,by+10,labelWidth,16);text(c,hp,x,by+18,team?'#ffe2ce':'#d5f1ef',11,700);c.restore();
   }
   sprite(c, unit, idle = false) {
+    if(unit.card.structureArt){this.structureSprite(c,unit,idle);return;}
     const id = unit.card.id;
     const burrow=unit.card.burrow&&!unit.preview?(this.reduced?(unit.burrowed?1:0):unit.burrowProgress??(unit.burrowed?1:0)):0;
     if(burrow>=.999){this.platform(c,unit);return;}
@@ -245,6 +293,29 @@ export class Renderer {
     else if(unit.slow>0)this.combatArt(c,'snow',x,by-10,18);
     if(unit.burn)this.combatArt(c,unit.burn.kind==='poison'?'poison':'flame',x,y-lift-9,26);
   }
+  bodyHeight(unit,fallback=22){
+    const art=STRUCTURE_ART[unit.card?.structureArt];
+    return art?art.height-art.baseOffset:(this.bodyHeights.get(unit.card?.id)||fallback)*visualScale(unit)+(unit.card?.structure?structureLift(unit.card):unit.card?.flying?16:0);
+  }
+  structureSprite(c,unit,idle=false){
+    const art=STRUCTURE_ART[unit.card.structureArt];if(!art)return;
+    const vertical=this.verticalScale||1,spawn=unit.spawn>0?Math.max(0,1-unit.spawn/Math.max(.001,unit.spawnGroup?.duration??.75)):1;
+    const x=unit.x,y=unit.y+(art.baseOffset-(this.reduced?0:(1-spawn)*12))/vertical;
+    c.save();if(unit.spawn>0)c.globalAlpha=.2+.8*spawn;
+    if(unit.hit>0&&!this.reduced)c.filter=`brightness(${1+.35*unit.hit/.24})`;
+    const drawn=this.battleArt.structure(c,unit.card.structureArt,unit.team,x,y,art.width,vertical,unit.preview?undefined:this.targetTint(unit));
+    if(drawn){
+      c.globalAlpha*=this.reduced?.12:.08+.08*(.5+.5*Math.sin(this.t*2));c.fillStyle='#ffd7ed';
+      for(const side of[-1,1])c.fillRect(x+side*art.width*.244-2,y-(art.height*.243+2)/vertical,4,4/vertical);
+    }
+    c.restore();if(!drawn||idle)return;
+    const by=unit.y-(this.bodyHeight(unit)+9)/vertical;
+    this.healthBar(c,unit,x,by,44);
+    if(unit.card.summon&&unit.spawn<=0&&Number.isFinite(unit.summonClock)&&Number.isFinite(unit.summonCycle||unit.card.summonEvery))this.summonIndicator(c,unit,x,by-12/vertical);
+    if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
+    else if(unit.slow>0)this.combatArt(c,'snow',x,by-10,18);
+    if(unit.burn)this.combatArt(c,unit.burn.kind==='poison'?'poison':'flame',x,unit.y-9/vertical,26);
+  }
   drawDeployments(c,game){
     const groups=new Map(),vertical=this.verticalScale||1;
     for(const unit of game.units){
@@ -253,16 +324,17 @@ export class Renderer {
       let marker=groups.get(group.id);
       if(!marker){marker={...group,top:H,remaining:0};groups.set(group.id,marker);}
       const lift=unit.card.structure?structureLift(unit.card):unit.card.flying?16:0;
-      marker.top=Math.min(marker.top,(unit.drawY??unit.y)-lift-((this.bodyHeights.get(unit.card.id)||22)*visualScale(unit)+35)/vertical);
+      const height=unit.card.structureArt?(this.bodyHeight(unit)+35)/vertical:lift+((this.bodyHeights.get(unit.card.id)||22)*visualScale(unit)+35)/vertical;
+      marker.top=Math.min(marker.top,(unit.drawY??unit.y)-height);
       marker.remaining=Math.max(marker.remaining,unit.spawn);
     }
     for(const marker of groups.values()){
-      const progress=Math.max(0,Math.min(1,1-marker.remaining/Math.max(.001,marker.duration)));
+      const progress=Math.max(0,Math.min(1,marker.startAt==null?1-marker.remaining/Math.max(.001,marker.duration):(game.elapsed-marker.startAt)/Math.max(.001,marker.duration)));
       this.deploymentIndicator(c,marker,progress);
     }
   }
   deploymentIndicator(c,marker,progress){
-    const vertical=this.verticalScale||1,x=Math.max(28,Math.min(W-28,marker.x)),y=Math.max(18/vertical,marker.top);
+    const vertical=this.verticalScale||1,bounds=this.worldBounds||{left:0,top:0,right:W},x=Math.max(bounds.left+28,Math.min(bounds.right-28,marker.x)),y=Math.max(bounds.top+18/vertical,marker.top);
     c.save();c.translate(Math.round(x),Math.round(y));c.scale(1,1/vertical);
     this.battleArt.draw(c,'pokeball',0,0,24,24,{frame:0,angle:this.reduced?0:Math.sin(progress*Math.PI)*.22});
     rect(c,'#263d3da6',-12,14,24,3);rect(c,'#f6e9bc',-12,14,24*Math.max(0,Math.min(1,progress)),3);
@@ -312,17 +384,24 @@ export class Renderer {
       this.effects=this.effects.filter(e=>!['windup','charge'].includes(e.kind)||e.actor?.id!==id);
     }
     if(type==='dashWindup')this.effects.push({kind:'charge',actor:event.unit,seq:event.unit.attackSeq,style:'shadow',life:event.duration,max:event.duration});
-    if(type==='attackStart'&&(event.attacker?.card?.attackGestures||Number.isFinite(event.attacker?.card?.attackContactFrame))){
+    if(type==='attackStart'&&event.attacker){
       this.attackContacts??=new Map();
-      this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,shot:-1,until:0});
+      const held=this.attackContacts.get(event.attacker.id)?.held;
+      this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,shot:-1,until:0,held:held&&this.t<held.until?held:undefined});
     }
-    if(type==='attackRelease'&&(event.attacker?.card?.attackGestures||Number.isFinite(event.attacker?.card?.attackContactFrame))){
+    if(type==='attackRelease'&&event.attacker){
       this.attackContacts??=new Map();
-      this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,shot:event.shot,until:this.t+1/30+1e-7});
+      const actor=event.attacker,profile=actor.card||actor.guard||{},duration=actor.attackDuration||profile.attackDuration||.6,windup=actor.attackWindup??profile.windup??actor.windup??.18;
+      const shot=event.shot||0,until=this.t+1/30+1e-7,held={seq:actor.attackSeq,card:actor.card,guard:actor.guard,animation:actor.attackAnim||profile.attackAnim||'Attack',duration,windup,elapsed:windup+shot*(profile.burstSpacing||duration),dx:actor.dx,dy:actor.dy,until};
+      const current=this.attackContacts.get(actor.id);
+      this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,shot,until}),held});
     }
     if(type==='cast'&&event.key==='pinMissile'){
-      const hitAt=CARDS.pinMissile.castDelay??.55,life=hitAt+.42;
-      this.effects.push({...event,kind:'missiles',hitAt,life,max:life});
+      const first=(event.castDelay??CARDS.pinMissile.castDelay??.55)+(event.flightTime||0);
+      for(let wave=0;wave<(event.waves||1);wave++){
+        const hitAt=first+wave*(event.waveEvery||0),life=hitAt+.42;
+        this.effects.push({...event,kind:'missiles',wave,hitAt,life,max:life});
+      }
     }
     if(type==='attackStart'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
@@ -341,17 +420,17 @@ export class Renderer {
     if(type==='damage'&&event.amount>0){this.floatingNumber(event.target,event.amount,event.dot?'dot':'damage');const target=event.target,old=this.healthStates.get(target.id);this.healthStates.set(target.id,{chip:Math.max(old?.chip||0,Math.min(1,(target.hp+event.amount)/target.maxHp)),last:target.hp/target.maxHp,at:this.t});}
     if(type==='heal'&&event.amount>0){this.floatingNumber(event.unit,event.amount,'heal');this.effects.push({kind:'artImpact',art:'heal',x:event.unit.x,y:event.unit.y-18,radius:30,life:1.2,max:1.2});}
     if(type==='spawn'){
-      const u=event.unit,group=u.spawnGroup||{id:u.id,x:u.x,y:u.y};this.ensureSpecies([u.card.id]).catch(()=>{});
+      const u=event.unit,group=u.spawnGroup||{id:u.id,x:u.x,y:u.y};if(u.card.id)this.ensureSpecies([u.card.id]).catch(()=>{});
       if(u.spawn>0&&!this.effects.some(e=>e.kind==='release'&&e.groupId===group.id))this.effects.push({kind:'release',groupId:group.id,x:group.x,y:group.y,color:u.card.color,delay:u.spawn,life:.3,max:.3});
     }
     if(type==='entry')this.effects.push({...event,kind:'entry',life:.36,max:.36});
-    if(type==='ability'||type==='deathBurst'){
+    if(type==='deathBurst'){
       const abilityArt=type==='ability'?{shield:'shield',wave:'hydro',quake:'quake',healingFire:'heal'}[event.unit.card.ability?.effect]:null;
       const art=abilityArt||(event.style==='lightning'?'lightning':{electric:'lightning',water:'hydro',fire:'explosion',grass:'leaf',psychic:'psychic',ghost:'shadow',rock:'dust'}[event.unit.card.type]||'impact');
       this.effects.push({kind:'areaImpact',art,style:event.style||event.unit.card.style,x:event.unit.x,y:event.unit.y,radius:event.radius||55,color:event.unit.card.color,groundOnly:event.groundOnly??!event.unit.card.air,life:.55,max:.55});
     }
     if(type==='hit'){
-      if(!event.radius&&CARDS[event.key]?.range<50)return; // Contact is drawn once, by the melee event.
+      if(!event.radius&&CARDS[event.key]&&!isRangedAttack(CARDS[event.key]))return; // Contact is drawn once, by the melee event.
       const color=event.art==='petalShot'?'#ff9ccd':{ember:'#ffc083',hydro:'#91dcff',bubble:'#afeaff',leaf:'#e0f7ac',poison:'#d6a0f0',powder:'#d9b3f4',shadow:'#cda4f5',confusion:'#efb9f8',aura:'#efb9f8',ice:'#c1f5ff',rock:'#e4caa4',slam:'#e4caa4'}[event.style]||CARDS[event.key]?.color||'#eee8bc';
       const point=event.groundY===undefined?event:{x:event.groundX,y:event.groundY-(event.impactHeight||0)/(this.verticalScale||1)};
       const art=event.art||{ember:'explosion',hydro:'hydro',bubble:'bubble',leaf:'leaf',poison:'poison',powder:'poison',shadow:'shadow',confusion:'psychic',aura:'psychic',ice:'ice',rock:'dust'}[event.style];
@@ -360,6 +439,7 @@ export class Renderer {
       else this.burst(point.x,point.y,color,4,30);
       if(['egg','song'].includes(event.style))this.effects.push({...event,...point,kind:'impact',life:.4,max:.4,radius:CARDS[event.key]?.splash||18});
     }
+    if(['faint','structureDown'].includes(type)&&STRUCTURE_ART[event.unit.card?.structureArt])this.effects.push({kind:'structureDeath',art:event.unit.card.structureArt,x:event.unit.x,y:event.unit.y,team:event.unit.team,life:.4,max:.4});
     if(type==='faint'){
       if(event.unit.key==='golem')this.effects.push({kind:'golemDeath',unit:{...event.unit,attack:0,moving:false,deathHurt:true},life:.24,max:.24});
       this.burst(event.unit.x,event.unit.y-15,'#ddd9bd',12,55);
@@ -393,8 +473,7 @@ export class Renderer {
     if(!this.showCombatNumbers)return;
     const combined=this.numbers.find(n=>n.targetId===target.id&&n.kind===kind&&this.t-n.lastAt<.22);
     if(combined){combined.amount+=amount;combined.life=combined.max;combined.lastAt=this.t;return;}
-    const id=target.card?.id,scale=visualScale(target);
-    const height='king'in target?(target.king?83:72):(this.bodyHeights.get(id)||23)*scale+(target.card.structure?structureLift(target.card):target.card.flying?16:0)+13;
+    const height='king'in target?(target.king?83:72):this.bodyHeight(target,23)+13;
     const life=kind==='dot'?.95:1.15;
     if(this.numbers.length>=32)this.numbers.shift();
     this.numbers.push({targetId:target.id,kind,x:Math.max(24,Math.min(W-24,target.x+(target.id%3-1)*7+(kind==='dot'?15:kind==='heal'?-15:0))),y:Math.max(27,Math.min(H-27,target.y-height+(kind==='dot'?12:0))),amount,color:kind==='heal'?'#baf3a2':kind==='dot'?'#ffc27d':target.team?'#ffe8a0':'#ffd2c8',life,max:life,lastAt:this.t});
@@ -451,10 +530,11 @@ export class Renderer {
       const diameter=Math.max(12,visual.projectile,(p.shotRadius||0)*2);
       this.combatArt(c,'psychic',x,y,diameter,0,diameter,{age:this.reduced?0:this.t,trim:true});return;
     }
-    const logicalProgress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),source=this.frameActors.get(p.sourceId),target=this.frameActors.get(p.target.id)||p.target;
-    const targetLift=p.endLiftY??-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15);
-    const start=this.projected({x:p.startX+(p.groundPath?p.liftX||0:0),y:p.startY+(p.groundPath?p.liftY||0:0)},source),end=this.projected({x:p.target.x,y:p.target.y+targetLift},target);
-    const logicalEnd={x:p.target.x,y:p.target.y+(p.groundPath?0:targetLift)};
+    const destination=p.impactPoint||p.target;if(!destination)return;
+    const logicalProgress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),source=this.frameActors.get(p.sourceId),target=p.impactPoint?destination:this.frameActors.get(p.target?.id)||destination;
+    const targetLift=p.endLiftY??-(p.target&&'king'in p.target?27:p.target?.card?.structure?43:p.target?.card?.flying?27:15);
+    const start=this.projected({x:p.startX+(p.groundPath?p.liftX||0:0),y:p.startY+(p.groundPath?p.liftY||0:0)},source||{x:p.startX,y:p.startY}),end=this.projected({x:destination.x,y:destination.y+targetLift},target);
+    const logicalEnd={x:destination.x,y:destination.y+(p.groundPath?0:targetLift)};
     const desired={x:p.x+(start.x-p.startX)*(1-logicalProgress)+(end.x-logicalEnd.x)*logicalProgress,y:p.y+(start.y-p.startY)*(1-logicalProgress)+(end.y-logicalEnd.y)*logicalProgress};
     const pose=this.projectilePose(p,desired),progress=Math.min(1,pose.travelled/Math.max(1,p.totalDistance));
     const x=pose.x,y=pose.y-Math.sin(progress*Math.PI)*(p.arc||0)/(this.verticalScale||1),angle=Math.atan2((end.y-start.y)*(this.verticalScale||1)-Math.PI*(p.arc||0)*Math.cos(progress*Math.PI),end.x-start.x);
@@ -529,7 +609,13 @@ export class Renderer {
       e.life-=activeDt;if(e.life<=0)continue;
       const progress=1-e.life/e.max,age=e.max-e.life;
       c.save();c.globalAlpha=Math.min(1,e.life/Math.min(.2,e.max));
-      if(e.kind==='golemDeath')this.sprite(c,{...e.unit,pushHurt:e.life},true);
+      if(e.kind==='structureDeath'){
+        const art=STRUCTURE_ART[e.art],vertical=this.verticalScale||1;
+        c.save();c.translate(e.x,e.y+art.baseOffset/vertical);if(!this.reduced)c.scale(1,1-progress*.7);
+        this.battleArt.structure(c,e.art,e.team,0,0,art.width,vertical);c.restore();
+        if(!this.reduced&&progress>.2)for(let i=0;i<3;i++)this.combatArt(c,'rubble',e.x+(i-1)*16,e.y+2/vertical,16,0,16,{frame:5+i});
+      }
+      else if(e.kind==='golemDeath')this.sprite(c,{...e.unit,pushHurt:e.life},true);
       else if(e.kind==='missiles')this.drawMissiles(c,e);
       else if(e.kind==='entry')this.entryEffect(c,e,progress);
       else if(e.kind==='areaImpact')this.areaImpact(c,e,progress);
@@ -595,12 +681,17 @@ export class Renderer {
   }
   drawWater(c){
     const bank=this.battleArt.images.get('assets/battle/riverbank-v2.webp');
-    if(bank)c.drawImage(bank,0,RIVER.top-8,W,RIVER.bottom-RIVER.top+16);
-    else rect(c,'#578c8b',0,RIVER.top,W,RIVER.bottom-RIVER.top);
+    const left=this.worldBounds?.left??0,right=this.worldBounds?.right??W,width=right-left,height=RIVER.bottom-RIVER.top;
+    if(bank){
+      const edge=4;
+      c.drawImage(bank,0,0,bank.width,edge,left,RIVER.top-edge,width,edge);
+      c.drawImage(bank,0,edge,bank.width,bank.height-edge*2,left,RIVER.top,width,height);
+      c.drawImage(bank,0,bank.height-edge,bank.width,edge,left,RIVER.bottom,width,edge);
+    }else rect(c,'#578c8b',left,RIVER.top,width,height);
     const frame=this.reduced?0:Math.floor(this.t*3)%10;
-    c.save();c.beginPath();c.rect(0,RIVER.top,W,RIVER.bottom-RIVER.top);c.clip();
+    c.save();c.beginPath();c.rect(left,RIVER.top,width,height);c.clip();
     c.globalAlpha=.1;c.filter='saturate(.3)';
-    for(let x=0;x<W;x+=216)this.battleArt.tile(c,'water',0,frame*144+32,216,24,x,RIVER.top,216,RIVER.bottom-RIVER.top);
+    for(let x=Math.floor(left/216)*216;x<right;x+=216)this.battleArt.tile(c,'water',0,frame*144+32,216,24,x,RIVER.top,216,height);
     c.restore();for(const x of LANES)this.bridge(c,x);
   }
   drawPlacement(c, game) {
@@ -609,9 +700,9 @@ export class Renderer {
     c.save();
     if(this.selection){
       // Keep the terrain bright; legal cells and their frontier carry placement feedback.
-      const cells=Array.from({length:DEPLOY_GRID.rows},(_,row)=>Array.from({length:DEPLOY_GRID.columns},(_,col)=>game.canDeploy(team,key,col*TILE+TILE/2,DEPLOY_GRID.top+row*TILE+TILE/2)));
+      const cells=Array.from({length:DEPLOY_GRID.rows},(_,row)=>Array.from({length:DEPLOY_GRID.columns},(_,col)=>game.canDeploy(team,key,DEPLOY_GRID.left+col*TILE+TILE/2,DEPLOY_GRID.top+row*TILE+TILE/2)));
       if(!card.spell||card.rolling&&key!=='log')for(let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++){
-        const x=col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
+        const x=DEPLOY_GRID.left+col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
         if(cells[row][col]){
           c.strokeStyle='#eef5d525';c.lineWidth=.65;
           c.strokeRect(x-TILE/2,y-TILE/2,TILE,TILE);
@@ -626,7 +717,7 @@ export class Renderer {
       if(this.tutorialSpot)text(c,'D E S P L E G Á  A C Á',300,480,'#e0ecc7aa',10,500);
     }
     if(this.tutorialSpot&&!card.spell){
-      c.strokeStyle='#e6d790';c.lineWidth=2;c.setLineDash([4,4]);c.strokeRect(158-TILE,520-TILE,TILE*2,TILE*2);c.setLineDash([]);text(c,'↓',158,482,'#eee2a3',24);
+      c.strokeStyle='#e6d790';c.lineWidth=2;c.setLineDash([4,4]);c.strokeRect(LANES[0]-TILE,520-TILE,TILE*2,TILE*2);c.setLineDash([]);text(c,'↓',LANES[0],482,'#eee2a3',24);
     }
     const p=this.pointer;
     if(p){
@@ -638,14 +729,13 @@ export class Renderer {
       }
       if(card.rolling&&key!=='log')travelGuide(c,point.x,point.y,card.splash,card.travelDistance,team,valid);
       if(!card.spell&&placement){
-        const range=card.squad?Math.max(...card.squad.map(k=>CARDS[k].range)):card.range;
-        if(!card.passive&&range>=50){
+        const ranged=(card.squad?card.squad.map(k=>CARDS[k]):[card]).filter(isRangedAttack),range=Math.max(...ranged.map(member=>member.range));
+        if(!card.passive&&ranged.length){
         c.fillStyle='#e9e2a92b';c.strokeStyle='#e6ddb182';c.lineWidth=1.2;c.beginPath();c.arc(point.x,point.y,range,0,Math.PI*2);c.fill();c.stroke();
         }
         for(const enemy of game.deploymentThreats(team,key,point.x,point.y)){
-          const id=enemy.card?.id,scale=visualScale(enemy);
-          const height='king'in enemy?(enemy.king?106:96):(this.bodyHeights.get(id)||23)*scale+(enemy.card.structure?structureLift(enemy.card):enemy.card.flying?16:0)+25;
-          const bx=enemy.x+18,by=Math.max(22,enemy.y-height/(this.verticalScale||1));
+          const height='king'in enemy?(enemy.king?106:96):this.bodyHeight(enemy,23)+25;
+          const bx=enemy.x+18,by=Math.max((this.worldBounds?.top??0)+22,enemy.y-height/(this.verticalScale||1));
           ellipse(c,'#ef554944',enemy.x,enemy.y,enemy.radius+7,9);
           placementWarning(c,bx,by,this.verticalScale||1);
         }
@@ -662,7 +752,7 @@ export class Renderer {
           if(!card.spell){const previewCard=CARDS[card.squad?.[index]]||card;c.globalAlpha=.55;this.sprite(c,{...position,card:previewCard,preview:true,team,dx:0,dy:team?1:-1,anim:this.t,id:-1-index,lifetime:card.lifetime},true);c.globalAlpha=1;}
         }
       }
-      if(!valid){line(c,color,p.x-5,p.y-5,p.x+5,p.y+5,2);line(c,color,p.x+5,p.y-5,p.x-5,p.y+5,2);}
+      if(!valid&&!card.spell){line(c,color,p.x-5,p.y-5,p.x+5,p.y+5,2);line(c,color,p.x+5,p.y-5,p.x-5,p.y+5,2);}
     }
     c.restore();
   }
@@ -693,7 +783,6 @@ export class Renderer {
       }
     }
     if(!front){
-      areaGuide(c,f.x,f.y,radius,{team:f.team,pending:true,progress:f.life/(f.duration||3)});
       if(f.key){c.save();c.translate(f.x,Math.min(H-12,f.y+radius+8));c.scale(1,1/(this.verticalScale||1));pixelMeter(c,-18,0,36,f.life/f.duration,CARDS[f.key].color);c.restore();}
     }c.restore();
   }
@@ -731,7 +820,10 @@ export class Renderer {
   draw(game,dt=.016){
     const c=this.ctx;this.t+=dt;this.drawDt=dt;this.battleArt.time=this.reduced?0:this.t;
     this.updateSpellTargets(game);
-    c.imageSmoothingEnabled=false;c.drawImage(this.background,0,0);this.drawWater(c);
+    const {width,height}=this.viewport||{width:W,height:H},projection=this.projection||arenaProjection(width,height),bounds=this.worldBounds||{left:0,top:0,right:W,bottom:H};
+    c.save();c.setTransform(projection.scale*this.canvas.width/width,0,0,projection.scale*this.canvas.height/height,projection.x*this.canvas.width/width,projection.y*this.canvas.height/height);
+    c.imageSmoothingEnabled=false;c.fillStyle=this.landscapePattern||'#8eaa79';c.fillRect(bounds.left,bounds.top,bounds.right-bounds.left,bounds.bottom-bounds.top);
+    c.drawImage(this.background,this.backgroundOrigin?.x||0,this.backgroundOrigin?.y||0);this.drawWater(c);
     this.frameActors=new Map([...(game.visibleTowers??game.towers),...game.units].map(actor=>{
       const pose=this.visualActor(actor,dt);pose.logicalX=actor.x;pose.logicalY=actor.y;return[actor.id,pose];
     }));
@@ -754,6 +846,6 @@ export class Renderer {
     for(const[key,pose]of this.visualProjectiles)if(this.t-pose.at>1)this.visualProjectiles.delete(key);
     for(const[key,pose]of this.visualFlights||[])if(this.t-pose.at>1)this.visualFlights.delete(key);
     for(const p of this.particles){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=p.gravity*dt;c.globalAlpha=Math.max(0,p.life/p.max);this.combatArt(c,'dust',p.x,p.y,Math.max(8,p.size*3),0,Math.max(8,p.size*3),{progress:1-p.life/p.max});}
-    this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;
+    this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;c.restore();
   }
 }

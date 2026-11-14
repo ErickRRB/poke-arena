@@ -4,12 +4,15 @@ import { GROUP_FORMATIONS } from './deployment-formations.js';
 import { CURRENT_REFERENCE_BALANCE } from './current-reference.js';
 import { PUSHBACK_IMMUNITY } from './knockback-profiles.js';
 import { applyAttackChoreography } from './attack-choreography.js';
+import { NATIVE_DESCRIPTIONS } from './native-descriptions.js';
 
 // Shared by browser, CPU and online server. Values are per body / per hit.
 export const THRESHOLDS = Object.freeze({ tower: 109, towerInterval: .8, fragile: 81, scout: 133, meleeSwarm: 202, archers: 304, fireball: 688, log: 268 });
 
 // Explicit health, damage, cadence and speed for every body. No global multipliers.
 export const CARD_BALANCE = {
+  raltsHut:{cost:4,hp:1180,damage:0,interval:10,speed:0},
+  geodudeToken:{cost:0,hp:1039,damage:84,interval:2.5,speed:21.6},
   rapidash:{cost:4,hp:1696,damage:318,interval:1.6,speed:57.6},
   roselia:{cost:3,hp:261,damage:169,interval:3,speed:26},
   graveler:{cost:5,hp:2080,damage:272,interval:2.5,speed:18},
@@ -35,25 +38,25 @@ export const CARD_BALANCE = {
   alakazam: {"cost":4,"hp":590,"damage":133,"interval":1.1,"speed":26,"range":168},
   geodude: {"cost":3,"hp":1766,"damage":202,"interval":1.2,"speed":18,"splash":0},
   magnemite: {"cost":3,"hp":400,"damage":81,"interval":1.8,"speed":26},
-  scyther: {"cost":4,"hp":650,"damage":65,"interval":1.2,"speed":40,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[5],"moveFrameDuration":5,"movementAnchor":"body"},
+  scyther: {"cost":3,"hp":650,"damage":101,"interval":1.2,"speed":40,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[5],"moveFrameDuration":5,"movementAnchor":"body"},
   lapras: {"cost":5,"hp":1500,"damage":160,"interval":1.75,"speed":18},
   mewtwo: {"cost":6,"hp":1452,"damage":440,"interval":2.8,"speed":26,"windup":0.65,"range":144,"splash":45},
   treecko: {"cost":3,"hp":304,"damage":112,"interval":0.9,"speed":26,"range":120},
   golem: {"cost":8,"hp":5120,"damage":312,"interval":2.5,"speed":18,"windup":0.5,"deathDamage":312},
   log: {"cost":2,"damage":290,"towerDamage":58,"travelDistance":242.4,"travelSpeed":205,"knockback":24},
   venusaur: {"cost":5,"hp":1900,"damage":140,"interval":1.9,"speed":18},
-  butterfree: {"cost":3,"hp":440,"damage":72,"interval":1.6,"speed":26,"style":"powder","color":"#c9ace9","move":"Paralizador"},
+  butterfree: {"cost":3,"hp":440,"damage":81,"interval":1.6,"speed":26,"splash":36,"style":"powder","color":"#c9ace9","move":"Paralizador"},
   beedrill: {"cost":3,"hp":260,"damage":85,"interval":1.3,"speed":40},
   pidgeot: {"cost":4,"hp":1052,"damage":165,"interval":1.3,"speed":40,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[4,5,4,5],"moveFrameDuration":6,"movementAnchor":"body"},
   ekans: {"cost":2,"hp":250,"damage":60,"interval":1.2,"speed":32,"burn":12,"burnKind":"poison"},
   sandshrew: {"cost":3,"hp":220,"shield":240,"damage":121,"interval":1.1,"speed":32},
   nidoqueen: {"cost":6,"hp":2800,"damage":165,"interval":1.6,"speed":18},
   nidoking: {"cost":5,"hp":2200,"damage":150,"interval":1.6,"speed":26,"burn":8,"burnKind":"poison","deathSpawn":null,"deathCount":0},
-  mankey: {"cost":2,"hp":150,"damage":80,"interval":1.2,"speed":40},
+  mankey: {"cost":2,"hp":150,"damage":101,"interval":1.2,"speed":40},
   arcanine: {"cost":4,"hp":1400,"damage":220,"interval":1.4,"speed":40},
   slowbro: {"cost":3,"hp":688,"damage":90,"interval":1.7,"speed":18,"shield":0,"range":132,"slow":2,"style":"ice","entryDamage":83,"entryRadius":72,"entrySlow":1,"splash":36},
   grimer: {"cost":2,"hp":900,"damage":55,"interval":1.5,"speed":18,"style":"poison","range":85,"color":"#b686c8"},
-  cloyster: {"cost":4,"hp":865,"damage":28,"interval":2.6,"speed":0,"platform":false},
+  cloyster: {"cost":4,"hp":865,"damage":210,"interval":1.6,"burst":1,"burstSpacing":0,"speed":0,"platform":false},
   gastly: {"cost":2,"hp":81,"damage":35,"interval":1.3,"speed":32,"count":4,"deathField":6,"style":"lick"},
   voltorb: {"cost":1,"hp":230,"damage":115,"interval":1.4,"speed":40,"stun":0.75,"air":true,"jumpRange":78,"jumpDuration":0.42,"windup":0.1},
   electrode: {"cost":4,"hp":1200,"damage":600,"interval":1.6,"speed":32,"windup":0.5,"splash":60},
@@ -80,12 +83,12 @@ export const CARD_BALANCE = {
   wobbuffet: {"cost":4,"hp":1900,"damage":0,"interval":2,"speed":0,"passive":true,"reflect":0.5,"windup":0,"platform":false},
   steelix: {"cost":6,"hp":4500,"damage":310,"interval":2.2,"speed":18},
   scizor: {"cost":4,"hp":1200,"damage":135,"interval":1.3,"speed":32,"shield":240},
-  skarmory: {"cost":4,"hp":560,"damage":81,"interval":1.5,"speed":32},
+  skarmory: {"cost":4,"hp":560,"damage":168,"interval":1.5,"speed":32},
   blissey: {"cost":5,"hp":1800,"damage":35,"interval":2,"speed":18,"heal":95,"style":"egg"},
-  lugia: {"cost":7,"hp":3300,"damage":120,"interval":1.6,"speed":26},
+  lugia: {"cost":7,"hp":3300,"damage":202,"interval":1.6,"speed":26},
   hooh: {"cost":7,"hp":2900,"damage":150,"interval":1.6,"speed":26},
   sceptile: {"cost":4,"hp":600,"damage":115,"interval":1.2,"speed":40},
-  blaziken: {"cost":4,"hp":1200,"damage":100,"interval":1.7,"speed":32},
+  blaziken: {"cost":3,"hp":1200,"damage":100,"interval":1.7,"speed":32},
   swampert: {"cost":5,"hp":2800,"damage":190,"interval":1.8,"speed":18},
   gardevoir: {"cost":5,"hp":780,"damage":280,"interval":1.6,"speed":26,"fieldStyle":"psychic","windup":0.45,"range":132,"splash":42},
   sableye: {"cost":3,"hp":800,"damage":160,"interval":1.2,"speed":40,"lifesteal":0,"label":"Siniestro / fantasma","dash":true,"dashWindup":0.8,"dashSpeed":420,"dashMin":84,"dashMax":144,"dashMultiplier":2,"dashInvulnerable":true},
@@ -97,8 +100,8 @@ export const CARD_BALANCE = {
   salamence: {"cost":6,"hp":2200,"damage":95,"interval":2.2,"speed":26,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[5],"movementAnchor":"body"},
   metagross: {"cost":6,"hp":2800,"damage":260,"interval":2.1,"speed":18,"shield":400},
   kyogre: {"cost":8,"hp":3300,"damage":150,"interval":2.25,"speed":18},
-  groudon: {"cost":8,"hp":4500,"damage":320,"interval":2.4,"speed":18,"windup":0.55},
-  rayquaza: {"cost":8,"hp":3000,"damage":230,"interval":1.8,"speed":32},
+  groudon: {"cost":8,"hp":5120,"damage":320,"interval":2.4,"speed":18,"windup":0.55},
+  rayquaza: {"cost":8,"hp":3000,"damage":230,"interval":1.8,"speed":32,"pierce":true,"projectileRange":264,"shotRadius":6},
   nidoranF: {"cost":0,"hp":81,"damage":35,"interval":1.4,"speed":32,"burnKind":"poison"},
   nidoranM: {"cost":0,"hp":180,"damage":45,"interval":1.4,"speed":32},
   exeggcute: {"cost":0,"hp":81,"damage":81,"interval":1,"speed":32,"suicide":false,"splash":0,"style":"slam","range":26,"air":false,"ttl":0,"attackRoleOverride":true},
@@ -107,7 +110,8 @@ export const CARD_BALANCE = {
   diglettHorde: {"cost":3,"hp":81,"damage":81,"interval":1,"speed":32,"scale":1.5},
   raltsTrio: {"cost":2,"hp":133,"damage":81,"interval":1.6,"speed":40,"scale":1.65,"range":120},
   poochyenaPack: {"cost":2,"hp":202,"damage":125,"interval":1.1,"speed":40,"scale":1.65,"range":12},
-  centralElectrode: {cost:5,hp:1000,damage:0,interval:2,speed:0,color:'#ffe18b'},
+  centralElectrode: {cost:4,color:'#f4b783'},
+  fireSpiritToken: {cost:0,color:'#f4b783'},
   madriguera: {cost:5,hp:1200,damage:0,interval:2,speed:0,color:'#d0b0e5',platform:false},
   vivero: {cost:3,hp:750,damage:0,interval:2,speed:0,color:'#bedb87',platform:false},
   regice: {cost:4,hp:1000,damage:75,interval:1.8,speed:0,color:'#a5eafa',muzzleHeight:45,platform:false},
@@ -168,7 +172,7 @@ export function applyBalance(cards) {
     if (descriptions[key]) [card.role, card.description] = descriptions[key];
   }
   const moves = {
-    geodude:'Puño roca',feraligatr:'Triturar',nidoking:'Puño venenoso',typhlosion:'Erupción',sableye:'Amago',
+    geodude:'Golpe de puerro',feraligatr:'Triturar',nidoking:'Puño venenoso',typhlosion:'Erupción',sableye:'Amago',
     venusaur:'Bomba germen',beedrill:'Doble ataque',pidgeot:'Ataque ala',ekans:'Colmillo venenoso',sandshrew:'Arañazo',
     nidoqueen:'Golpe cuerpo',mankey:'Placaje furioso',arcanine:'Carga ígnea',slowbro:'Confusión',grimer:'Bomba lodo',
     cloyster:'Carámbano',gastly:'Lengüetazo',voltorb:'Autodestrucción',electrode:'Explosión',forretress:'Explosión',koffing:'Gas venenoso',
@@ -177,7 +181,7 @@ export function applyBalance(cards) {
     crobat:'Chupavidas',ampharos:'Rayo',espeon:'Psíquico',wobbuffet:'Contraataque',steelix:'Cola férrea',scizor:'Tijera X',
     skarmory:'Ala de acero',blissey:'Bomba huevo',lugia:'Hidrobomba',hooh:'Ascuas',sceptile:'Hojas gemelas',blaziken:'Puño fuego',
     swampert:'Golpe de barro',gardevoir:'Psíquico',aggron:'Cuerpo pesado',sharpedo:'Triturar',flygon:'Tormenta de arena',
-    salamence:'Lanzallamas',metagross:'Puño meteoro',kyogre:'Doble hidrobomba',groudon:'Pisotón',rayquaza:'Pulso dragón',
+    salamence:'Garra dragón',metagross:'Puño meteoro',kyogre:'Hidrobomba',groudon:'Pisotón',rayquaza:'Pulso dragón',
     diglett:'Arañazo',diglettHorde:'Arañazo',raltsTrio:'Confusión',poochyenaPack:'Mordisco',
   };
   for (const [key, move] of Object.entries(moves)) cards[key].move = move;
@@ -210,16 +214,27 @@ export function applyBalance(cards) {
     }
   }
   for(const [key,formation]of Object.entries(GROUP_FORMATIONS))cards[key].formation=formation;
-  for(const [key,immune]of Object.entries(PUSHBACK_IMMUNITY))if(cards[key])cards[key].knockbackImmune=immune;
+  for(const [key,immune]of Object.entries(PUSHBACK_IMMUNITY))if(cards[key]&&!cards[key].nativeReference)cards[key].knockbackImmune=immune;
   cards.duskullToken.scale=.8;
+  cards.geodudeToken.scale=1.3;
+  // A basic strike is a complete damage event. Native cards retain their
+  // attack count; original combos stop dividing one budget into weak hits.
+  for(const card of Object.values(cards))if(!card.spell&&!card.passive&&!card.nativeReference){
+    const hits=card.burst||1;
+    if(hits>1){card.damage*=hits;card.lifesteal=(card.lifesteal||0)*hits;card.burst=1;card.burstSpacing=0;}
+    if(card.damage>0)card.damage=Math.max(THRESHOLDS.fragile,card.damage);
+  }
+  cards.blissey.damage=THRESHOLDS.meleeSwarm;
   applyAttackChoreography(cards);
   for(const [key,description] of Object.entries(CARD_DESCRIPTIONS))cards[key].description=description;
+  for(const card of Object.values(cards))if(NATIVE_DESCRIPTIONS[card.nativeReference])card.description=NATIVE_DESCRIPTIONS[card.nativeReference];
 }
 
 // Player-facing copy describes the action. Exact values live in statistics.
 export const CARD_DESCRIPTIONS = {
+  geodudeToken:'Avanza hacia las estructuras y explota al caer.',
   pikachu:'Descarga electricidad al aparecer y aturde con dos rayos.',
-  squirtle:'Dispara tres burbujas seguidas al mismo objetivo.',
+  squirtle:'Dispara una burbuja contra un rival de tierra o aire.',
   charmander:'Lanza ascuas que explotan en área y dejan quemadura.',
   snorlax:'Avanza lentamente hacia las torres y estructuras para golpearlas.',
   zubat:'Cinco Zubat recuperan vida con cada mordida.',
@@ -231,15 +246,15 @@ export const CARD_DESCRIPTIONS = {
   machamp:'Encadena cuatro puñetazos contra un mismo rival.',
   eevee:'Toma carrera para golpear con un placaje de daño doble.',
   onix:'Avanza hacia las torres y estructuras y las golpea con su cola.',
-  blastoise:'Avanza disparando dos cañonazos contra tierra y aire.',
-  vulpix:'Lanza dos llamas seguidas que queman a su objetivo.',
+  blastoise:'Avanza y dispara un cañonazo contra tierra y aire.',
+  vulpix:'Lanza una llama que quema a su objetivo.',
   psyduck:'Su onda de confusión aturde e interrumpe ataques.',
   alakazam:'Dispara un rayo que atraviesa a los enemigos alineados.',
   geodude:'Resiste en primera línea y golpea a un rival por ataque.',
   magnemite:'Vuela y descarga electricidad que aturde e interrumpe ataques.',
-  scyther:'Se acerca volando y encadena dos cortes con sus guadañas.',
+  scyther:'Se acerca volando y corta con sus guadañas.',
   lapras:'Resiste al frente y ralentiza con rayos de hielo.',
-  mewtwo:'Lanza esferas explosivas y puede activar una onda que daña y aturde.',
+  mewtwo:'Lanza esferas explosivas de energía psíquica.',
   treecko:'Dos tiradores lanzan semillas desde atrás de la primera línea.',
   golem:'Avanza hacia las estructuras y, al caer, explota y deja dos Geodude.',
   log:'Una rueda de fuego avanza y empuja a los enemigos terrestres.',
@@ -254,44 +269,44 @@ export const CARD_DESCRIPTIONS = {
   ekans:'Dos Ekans envenenan a sus enemigos con cada mordida.',
   sandshrew:'Tres defensores avanzan protegidos por escudos.',
   nidoqueen:'Resiste en primera línea e invoca Nidoran como refuerzos.',
-  nidoking:'Encadena dos puñetazos que envenenan al rival.',
+  nidoking:'Da un puñetazo que envenena al rival.',
   mankey:'Tres Mankey cargan juntos para dar un primer golpe de daño doble.',
   arcanine:'Toma carrera y golpea con una carga que deja quemadura.',
   slowbro:'Libera frío al aparecer y lanza hielo que ralentiza en área.',
   grimer:'Golpea a corta distancia y deja un charco venenoso al caer.',
-  cloyster:'Defiende su posición con ráfagas de cinco pinchos.',
+  cloyster:'Defiende su posición disparando una descarga de pinchos.',
   gastly:'Cuatro Gastly atacan a distancia y dejan niebla dañina al caer.',
   voltorb:'Salta hacia un enemigo y explota al aterrizar, dañando y aturdiendo en área.',
   electrode:'Avanza hacia las estructuras y explota al llegar.',
   forretress:'Avanza hacia las estructuras y explota al llegar.',
   exeggutor:'Lanza huevos que explotan y dañan en área.',
   koffing:'Choca contra los rivales y libera gas venenoso en el impacto.',
-  chansey:'Cura al aliado más herido que tenga cerca.',
+  chansey:'Ataca a distancia y cura al aliado más herido que tenga cerca.',
   kangaskhan:'La madre protege a una cría rápida que pelea a su lado.',
   starmie:'Lanza tres rayos que atraviesan a los enemigos alineados.',
   mrmime:'Protege con escudos a los aliados cercanos al aparecer.',
   gyarados:'Se acerca volando y da mordidas que dañan en área.',
   ditto:'Copia el ataque del primer Pokémon enemigo que enfrenta.',
-  articuno:'Dispara hielo que ralentiza y puede activar una ventisca que congela.',
+  articuno:'Dispara hielo que ralentiza a tierra y aire.',
   zapdos:'Aturde con sus rayos y puede activar una tormenta eléctrica en área.',
   moltres:'Quema en área y puede activar Renacer para curarse y liberar fuego.',
-  dragonite:'Se acerca volando y encadena tres zarpazos al mismo objetivo.',
+  dragonite:'Se acerca volando y golpea con sus garras.',
   meganium:'Avanza como tanque y cura a los aliados cercanos.',
   typhlosion:'Lanza erupciones que explotan en área y dejan quemadura.',
   feraligatr:'Tritura a un rival con mordidas fuertes.',
-  crobat:'Muerde dos veces en área y recupera vida por cada Pokémon alcanzado.',
+  crobat:'Muerde en área y recupera vida por cada Pokémon alcanzado.',
   ampharos:'Se oculta sin enemigos cerca y emerge para disparar a tierra y aire.',
   espeon:'Dispara un rayo rápido que atraviesa a los enemigos alineados.',
   umbreon:'Resiste en primera línea y envenena con sus mordidas.',
   wobbuffet:'Devuelve parte del daño directo a quien lo ataca.',
   steelix:'Avanza protegido por su armadura y golpea torres y estructuras.',
-  scizor:'Avanza con escudo y encadena dos cortes por ataque.',
+  scizor:'Avanza con escudo y golpea a un rival con sus pinzas.',
   skarmory:'Defiende desde el aire con un escudo resistente.',
-  blissey:'Cura al grupo cercano y libera una última curación al caer.',
-  lugia:'Resiste desde el aire y puede proteger al grupo con Aeroescudo.',
-  hooh:'Ataca con picadas y cura a sus aliados con Fuego sagrado.',
+  blissey:'Ataca a distancia, cura al grupo y libera una última curación al caer.',
+  lugia:'Resiste desde el aire y dispara agua en área.',
+  hooh:'Ataca con picadas y cura a un aliado cercano.',
   sceptile:'Encadena dos cortes rápidos con sus hojas.',
-  blaziken:'Encadena tres golpes que dejan quemadura.',
+  blaziken:'Golpea a corta distancia y deja quemadura.',
   swampert:'Golpea en área y ralentiza a los rivales.',
   gardevoir:'Lanza energía psíquica que explota y deja una zona dañina.',
   sableye:'Prepara Amago, se lanza hacia su objetivo y da un golpe de daño doble.',
@@ -300,11 +315,11 @@ export const CARD_DESCRIPTIONS = {
   flygon:'Golpea con sus garras y levanta arena que ralentiza alrededor.',
   altaria:'Su canto daña a los rivales y cura y limpia de efectos a un aliado.',
   absol:'Sus cortes hacen más daño a los Pokémon con poca vida.',
-  salamence:'Encadena tres zarpazos y aumenta su daño al perder la mitad de la vida.',
+  salamence:'Ataca con sus garras y aumenta su daño al perder la mitad de la vida.',
   metagross:'Da golpes en área que interrumpen ataques.',
-  kyogre:'Dispara una doble hidrobomba y puede activar una marea que daña y empuja.',
-  groudon:'Busca estructuras y puede activar un terremoto a su alrededor.',
-  rayquaza:'Dispara un rayo perforante y puede avanzar con un golpe en área.',
+  kyogre:'Dispara una hidrobomba que ralentiza en área.',
+  groudon:'Avanza hacia estructuras y golpea en área.',
+  rayquaza:'Vuela y dispara un rayo que atraviesa a los enemigos alineados.',
   centralElectrode:'Libera Voltorb periódicamente y deja uno más al caer.',
   madriguera:'Libera parejas de Nidoran y deja una última pareja al caer.',
   vivero:'Libera parejas de Exeggcute frágiles que luchan cuerpo a cuerpo y deja cuatro al caer.',
@@ -335,8 +350,8 @@ function applyRoles(cards) {
     onix:'Win condition · terrestre',electrode:'Win condition · explosiva',forretress:'Win condition · explosiva',celebi:'Win condition · aérea',voltorb:'Ciclo · antienjambre',
     exeggutor:'Mini tanque · área',swampert:'Tanque · control',meganium:'Tanque · curación',blissey:'Mini tanque · curación',
     kangaskhan:'Mini tanque · refuerzos',nidoqueen:'Tanque · invocadora',duskull:'Invocador · apoyo',pandilla:'Enjambre · mixto',
-    articuno:'Volador · control',zapdos:'Volador · control',moltres:'Volador · área',lugia:'Tanque aéreo · apoyo',hooh:'Tanque aéreo · curación',
-    kyogre:'Tanque · área',rayquaza:'Tanque aéreo · apoyo',dragonite:'Volador · antitanques',salamence:'Volador · antitanques',
+    articuno:'Dispara hielo que ralentiza a tierra y aire.',zapdos:'Volador · control',moltres:'Volador · área',lugia:'Tanque aéreo · apoyo',hooh:'Tanque aéreo · curación',
+    kyogre:'Dispara una hidrobomba que ralentiza en área.',rayquaza:'Tanque aéreo · apoyo',dragonite:'Volador · antitanques',salamence:'Volador · antitanques',
     absol:'Asesino · rematador',sableye:'Asesino · terrestre',ditto:'Apoyo · copia',mrmime:'Apoyo · escudos',chansey:'Apoyo · curación',
     umbreon:'Mini tanque · terrestre',grimer:'Mini tanque · zona',gengar:'Tirador · área',eevee:'Ciclo · presión',
     treecko:'Tiradores · dúo',raltsTrio:'Enjambre · antiaéreo',diglett:'Ciclo · distracción',diglettHorde:'Enjambre · terrestre'};

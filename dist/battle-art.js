@@ -7,10 +7,13 @@ export const CARD_PLACEHOLDERS=Object.freeze({});
 export const cardPlaceholder=key=>Object.hasOwn(CARD_PLACEHOLDERS,key);
 const ALIASES={aura:'psychic',confusion:'psychic',lightning:'lightningHead',magnet:'lightningHead',powder:'poison',punch:'impact',slam:'dust',eruption:'explosion',dash:'impact'};
 const STRUCTURES={princess:[[161,7,309,395],[794,7,309,395]],king:[[29,428,574,476],[662,428,574,476]],platform:[[92,959,449,271],[725,959,448,271]]};
+export const STRUCTURE_ART=Object.freeze({
+  raltsHut:Object.freeze({file:'assets/battle/ralts-hut-v1.png',bounds:[81,118,1035,1108],width:84,height:84*1108/1035,baseOffset:4})
+});
 
 export class BattleArt {
   constructor(loadImage){this.loadImage=loadImage;this.images=new Map();this.failed=new Set();this.time=0;}
-  files(){return [...new Set([...Object.values(BATTLE_ASSETS).map(asset=>asset.file),CAPSULE_TEXTURE,'assets/battle/structures-v1.png','assets/battle/arena-ground-v2.webp','assets/battle/arena-bridge-v2.webp','assets/battle/riverbank-v2.webp'])];}
+  files(){return [...new Set([...Object.values(BATTLE_ASSETS).map(asset=>asset.file),...Object.values(STRUCTURE_ART).map(asset=>asset.file),CAPSULE_TEXTURE,'assets/battle/structures-v1.png','assets/battle/arena-ground-v2.webp','assets/battle/arena-bridge-v2.webp','assets/battle/riverbank-v2.webp'])];}
   async load(file){try{const image=await this.loadImage(file);this.images.set(file,image);return image;}catch{this.failed.add(file);return null;}}
   async preload(onFile=()=>{}){await Promise.all(this.files().map(file=>this.load(file).then(onFile)));}
   image(name){const meta=BATTLE_ASSETS[ALIASES[name]||name];return meta?this.images.get(meta.file):null;}
@@ -46,8 +49,9 @@ export class BattleArt {
     c.restore();this.draw(c,prefix+'Head',to.x,to.y,width*2,width*2,{age});return true;
   }
   structure(c,kind,team,x,y,width,vertical=1,afterDraw){
-    const image=this.images.get('assets/battle/structures-v1.png');if(!image)return false;
-    const [sx,sy,sw,sh]=STRUCTURES[kind][team],height=sh/sw*width/vertical;
+    const custom=STRUCTURE_ART[kind],image=this.images.get(custom?.file||'assets/battle/structures-v1.png');if(!image)return false;
+    const bounds=custom?.bounds||STRUCTURES[kind]?.[team];if(!bounds)return false;
+    const [sx,sy,sw,sh]=bounds,height=sh/sw*width/vertical;
     const frame=[sx,sy,sw,sh,x-width/2,y-height,width,height];
     c.drawImage(image,...frame);afterDraw?.(c,image,...frame);return true;
   }

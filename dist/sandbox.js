@@ -1,4 +1,4 @@
-import {Game,CARDS,DEFAULT_DECK} from './engine.js?v=26';
+import {Game,CARDS,DEFAULT_DECK,RIVER} from './engine.js?v=26';
 
 // The sandbox uses the production combat rules. Only match lifecycle, card
 // availability and tower recovery differ; card stats are never copied or edited.
@@ -13,7 +13,7 @@ export class SandboxGame extends Game {
   get visibleTowers(){return this.mode==='duel'?this.towers.filter(t=>t.labImmortal):['princess','fireball-check'].includes(this.mode)?this.towers.filter(t=>t.team===1&&!t.king&&t.lane===(this.mode==='princess'?0:1)):this.towers;}
   finish(){} // Destroying a king must never end an experiment.
   canDeploy(team,key,x,y,formation=true){
-    if(!CARDS[key]?.spell&&(team?y>356:y<444))return false;
+    if(!CARDS[key]?.spell&&(team?y>=RIVER.top:y<=RIVER.bottom))return false;
     return super.canDeploy(team,key,x,y,formation);
   }
   attack(actor,target){if('king'in actor&&(this.mode==='duel'||!this.towerFire))return;super.attack(actor,target);}
@@ -47,11 +47,6 @@ export class SandboxGame extends Game {
       if(result.ok)this.preparedTeams.add(team);
       return result;
     }finally{this.state=state;this.hands[team]=hand;this.queues[team]=queue;this.energy[team]=10;}
-  }
-  useAbility(team,id){
-    const state=this.state;this.state='playing';this.energy[team]=10;
-    try{return this.activateAbility(team,id);}
-    finally{this.state=state;this.energy[team]=10;}
   }
   step(dt){
     if(this.state!=='playing')return;
