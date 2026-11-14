@@ -1,0 +1,194 @@
+{
+  "result": "passed-for-svg-change",
+  "productCommit": "70aad50",
+  "capturedBefore": {
+    "head": "910158dc1a25d0641d500db487a2dbf9416ec789",
+    "at": "2026-11-14T21:01:32.002Z"
+  },
+  "capturedProposal": {
+    "head": "cb7cfa6c2113c4413ef53af96e02322cb2a7af52",
+    "at": "2026-11-14T21:04:01.644Z",
+    "note": "The proposal was captured before the integrator committed these identical product bytes as 70aad50. Captured hashes remain the authority; this does not assert a later capture or live deployment."
+  },
+  "actualPublicUrl": "https://poke-arena-erick.eriqrb.chatgpt.site/",
+  "publicDocumentSha256": "c365116fd06ed61226c69a7fa6104e924a9176d0091c466fdb414810bd5b5ea3",
+  "initialStates": 30,
+  "proposalStates": 15,
+  "layoutChanges": 0,
+  "browserErrors": 0,
+  "networkWrites": 0,
+  "alpha": {
+    "raster": {
+      "redOpaque": 0,
+      "redPartial": 854,
+      "samples": [
+        {
+          "x": 32,
+          "y": 14,
+          "rgba": [
+            142,
+            53,
+            40,
+            126
+          ]
+        },
+        {
+          "x": 20,
+          "y": 18,
+          "rgba": [
+            188,
+            85,
+            68,
+            249
+          ]
+        },
+        {
+          "x": 32,
+          "y": 20,
+          "rgba": [
+            159,
+            66,
+            53,
+            228
+          ]
+        }
+      ]
+    },
+    "vector": {
+      "redOpaque": 666,
+      "redPartial": 0,
+      "samples": [
+        {
+          "x": 32,
+          "y": 14,
+          "rgba": [
+            199,
+            83,
+            72,
+            255
+          ]
+        },
+        {
+          "x": 20,
+          "y": 18,
+          "rgba": [
+            199,
+            83,
+            72,
+            255
+          ]
+        },
+        {
+          "x": 32,
+          "y": 20,
+          "rgba": [
+            199,
+            83,
+            72,
+            255
+          ]
+        }
+      ]
+    }
+  },
+  "productFiles": [
+    {
+      "file": "dist/favicon.svg",
+      "commit": "70aad50",
+      "sha256": "c4df7922fddddddb71fc81ab2eabdd2df1c027e9b93013e1906870955e3a9d3a"
+    },
+    {
+      "file": "scripts/sync-loader-art.mjs",
+      "commit": "70aad50",
+      "sha256": "cd21a22b46383568b6c8a9a4a30c54985b23b323c294173affec2ce03a5038ec"
+    }
+  ],
+  "unchanged": [
+    {
+      "file": "dist/style.css",
+      "sha256": "fea575b50835aa43b79534de242a041ef9edc1b2a4affa7559dd8fac5a00cfd9",
+      "unchanged": true
+    },
+    {
+      "file": "dist/transient-ui.css",
+      "sha256": "5b110474064321a12c474fa9018a8abe4184b8f1bf9291ab22751d08fa227063",
+      "unchanged": true
+    },
+    {
+      "file": "dist/editor.css",
+      "sha256": "57e0a104a198862f79f71fb2f4ac528c152789f579106f35fc7db14fc562b539",
+      "unchanged": true
+    },
+    {
+      "file": "dist/theme.css",
+      "sha256": "dc085e8d70c200725014af31ad51d6926d8ef17bf2318f259e17c751c2984e89",
+      "unchanged": true
+    },
+    {
+      "file": "dist/testing.css",
+      "sha256": "a31a7273f84db1241a220d3ee12d32f695d945c75fdb9138a6ad7c50b2696729",
+      "unchanged": true
+    },
+    {
+      "file": "dist/app.js",
+      "sha256": "d1da9f731c9243bd8b24455371d692db4a814d8e5ee20577019990e70abdf98f",
+      "unchanged": true
+    },
+    {
+      "file": "dist/testing.js",
+      "sha256": "bbe776a7d7dafda2046dc0437d4a84a0ed12e8c440f5dded692256f3255ac898",
+      "unchanged": true
+    },
+    {
+      "file": "dist/index.html",
+      "sha256": "df9e4bcb69bcb1f5fe5456f9377557455b2680659e496e616ce3ed102905c6d2",
+      "unchanged": true
+    },
+    {
+      "file": "dist/testing.html",
+      "sha256": "33e57465b3b2a8a3532ac2320b9aedf5ffd7c0646025ba542e2a49ce8313e0a6",
+      "unchanged": true
+    },
+    {
+      "file": "dist/loader-art.js",
+      "sha256": "b06fc38a6937924dc906063532b49b2234acaa1471cec9cd783f0676ea60d9ec",
+      "unchanged": true
+    }
+  ],
+  "symbolsMatchCanonicalShapes": true,
+  "faviconContainsRaster": false,
+  "contrast": {
+    "palette": {
+      "outline": "495247",
+      "red": "c75348",
+      "ivory": "f3e6bf",
+      "referenceBackground": "f7f0d5"
+    },
+    "outlineOnReferenceBackground": 7.12060484390395,
+    "redAgainstOutline": 1.8438347683816223,
+    "ivoryAgainstOutline": 6.540368194580896,
+    "note": "Opaque palette pairs and three background previews. This is not a universal contrast or accessibility certification."
+  },
+  "progressContract": {
+    "viewBox": [
+      0,
+      0,
+      64,
+      64
+    ],
+    "rectWidth": 64,
+    "rectHeight": "64*progress",
+    "rectY": "64*(1-progress)",
+    "appAndMarkupUnchanged": true
+  },
+  "cssOwnedByMain": {
+    "menuBase": ".loading-base: grayscale(1), opacity0.45 from later editor.css",
+    "labBase": ".lab-load-base: grayscale(1), opacity0.35",
+    "note": "These deliberately faded unfilled layers are separate from the raster holes. The foreground and new source shapes are opaque. CSS was not edited."
+  },
+  "limitations": [
+    "Search and reconnection were DOM-only UI states; no matchmaking, socket or reconnect action was invoked.",
+    "The deployment identified as V35 by the task was fetched directly; local branch files do not establish production state.",
+    "The new vector was already opaque; only favicon generation changed. Main owns its additional Canvas SVG output and CSS/progress changes."
+  ]
+}

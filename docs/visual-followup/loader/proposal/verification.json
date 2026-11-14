@@ -1,0 +1,1245 @@
+{
+  "generatedAt": "2026-11-14T21:04:01.644Z",
+  "localHead": "cb7cfa6c2113c4413ef53af96e02322cb2a7af52",
+  "sources": {
+    "dist/app.js": "d1da9f731c9243bd8b24455371d692db4a814d8e5ee20577019990e70abdf98f",
+    "dist/arena-geometry.js": "d41810d040912dfa842592f644c823cfa2294b5a7be11e84e6047034b1455cba",
+    "dist/arena-tilemap.js": "ee9e991d7c778473e2920b57b475971002a24fa774b6ace789f048540fc059c1",
+    "dist/attack-choreography.js": "ba6b152a5555c5c6aa8bf3d5b750c9f00683803db7b57dca40b03ef2389cd437",
+    "dist/audio.js": "d4637d1ee6363402bc436cd23f6fd401b1419d860990c1f4591f2099724ed088",
+    "dist/balance.js": "1254cf4cd56b62d3685771963dd7f87016030c4ece261028cd475be31fc3b636",
+    "dist/battle-art.js": "c3e8f1bb10073a58e5e6511cc9394dffad44221000a6fb158714a10c278b22ff",
+    "dist/capsule-art.js": "6c403e3200f7fa1345fcfca208e7e08abb1bfe424b8c5b902dc742a429b6a058",
+    "dist/card-art.js": "cf7ac4b1b1a46e68dfc3759fea91f26dbd63faeb6f36b15d4d04d92fbdc1bc35",
+    "dist/card-equivalents.js": "c141659366660c083ef361ba9c594ab3645b5eda2a63e87232e0bf387d83affd",
+    "dist/card-review.js": "2a50dbfcd561df3a3d699bf0850546a13f2df31cb0e43b480474eb40ba71836b",
+    "dist/card-ui.css": "cc259571c59dd759c5ec199b2c62017087ac210985b692e5a093242d10fb0a1c",
+    "dist/catalog.js": "8dd25a1cddf2f61b078d2bc47018a20e4d91733677ea325327de4c0404cc7762",
+    "dist/clash-roster.js": "531f0ff72de017228ad0d04aca11c9d0973661de514b10d6bbdfe45b40b4543c",
+    "dist/combat-visuals.js": "d5f35778b6ad2705ece3a4e39931406f65a26d60309cc5a62fc8c18a20604255",
+    "dist/current-reference.js": "a6b5660279cd977686d1f6df8db3b7c0b8c196d65b1ee532d0cd297c310bd53f",
+    "dist/deck-storage.js": "affe8e768a358cf5c09467c6c24e7458717cb1a139d7a14cc8219095c6170feb",
+    "dist/deployment-formations.js": "d832c5a38cdaea2c660e62f66c8338bc026448a406271a5e5453ea7392f05acd",
+    "dist/editor.css": "57e0a104a198862f79f71fb2f4ac528c152789f579106f35fc7db14fc562b539",
+    "dist/engine.js": "62a45760556ff000b6605fc1277687d2908aac44de89b3ff767e2d0c3df3cf81",
+    "dist/favicon.svg": "c4df7922fddddddb71fc81ab2eabdd2df1c027e9b93013e1906870955e3a9d3a",
+    "dist/index.html": "df9e4bcb69bcb1f5fe5456f9377557455b2680659e496e616ce3ed102905c6d2",
+    "dist/knockback-profiles.js": "e2cc17619efc8694b5515ac40d0cd08fac348f0ee1208956039a5a5f4a920b58",
+    "dist/loader-art.js": "b06fc38a6937924dc906063532b49b2234acaa1471cec9cd783f0676ea60d9ec",
+    "dist/music.js": "2d9a9b01bc577d5c6f548a8df9595e1312b6f5276f7c2a07498f3db2855e7162",
+    "dist/native-descriptions.js": "9cd019c0fd73795b2719aeb648bcade4abd3d88145e82b909ea1789600d69427",
+    "dist/native-formations.js": "47dd05a3b1fff4682ad1d014c8e422e2f1a86251cbdd6796b48402cc52b12db3",
+    "dist/online-config.js": "887aec9af4dd2836ede6d745b18cbe439b363ce8444d00b8366d1afd616ad581",
+    "dist/online-wire.js": "083c70bf353c8ace6d995f47d7e8d936595e63cffd9a3b69cfa96cd7b386be88",
+    "dist/online.js": "5058e0279ca17b4b63a6c57b4fbadfee604347d373d2c05e16cd9b9a33e08313",
+    "dist/pokemon-silhouettes.js": "03ebecf4bc077b3fe195510503cf564cb789dcf8faa29d2b7cf3fdd760058742",
+    "dist/pokemon-stats.js": "64c1544c59efb2c653737f73252cdab19f44eec203a45e4437a291cd88e3d75a",
+    "dist/quick-stats.css": "8d6e397abb2dc594f85fdd9098616b39e6c43c216472ad68b4f8913fbf301dc6",
+    "dist/quick-stats.js": "61d2307e64e356fb06ea07897c9a50f52fdc1e033b2888ffaa018233b1ecfdc2",
+    "dist/render.js": "57d9b6be010eb38a50f5ed1f7563a3b29a8ad5101eae4b527aa643635a3405a4",
+    "dist/sandbox.js": "1e6f77d604f7922b78e71ed5f181625a051c836f54ee26630a762d3c78db83c0",
+    "dist/snapshot.js": "1bb962965caa519476f06d099498d630e38f7734da2e1baf61a6f65ff9eb682f",
+    "dist/spell-preview.js": "64497f695736012c0b06932fa43dccc8d097fdb54dda5a9d94a87595c2276b23",
+    "dist/sprite-geometry.js": "864a7ef6b723fa667d13022ffb24df34837a566066c075a9ff2aab74f50635c0",
+    "dist/sprite-motion.js": "5602d5ba5c6ba21b777dfae52c5e6f6f85ee579da2969475aa0e9b37b34d15d1",
+    "dist/style.css": "fea575b50835aa43b79534de242a041ef9edc1b2a4affa7559dd8fac5a00cfd9",
+    "dist/targeting-art.js": "a3207c34acef39771e1f71aa32f9d88949244eeef642e44165655f936b8b43da",
+    "dist/testing.css": "a31a7273f84db1241a220d3ee12d32f695d945c75fdb9138a6ad7c50b2696729",
+    "dist/testing.html": "33e57465b3b2a8a3532ac2320b9aedf5ffd7c0646025ba542e2a49ce8313e0a6",
+    "dist/testing.js": "bbe776a7d7dafda2046dc0437d4a84a0ed12e8c440f5dded692256f3255ac898",
+    "dist/theme.css": "dc085e8d70c200725014af31ad51d6926d8ef17bf2318f259e17c751c2984e89",
+    "dist/transient-ui.css": "5b110474064321a12c474fa9018a8abe4184b8f1bf9291ab22751d08fa227063",
+    "dist/unit-sizes.js": "e99693751d8b6ae1ccb6734926494840ae7d48a04c30c071cef9a506f8a17eb9",
+    "dist/wing-motion.js": "a86cb99670e14a63eb1ad182cb562a15df60f68142566652c913089050d1d8d5",
+    "dist/wing-rigs.js": "a9fa115bcd8f08ff6fc5f98fd7812b3809012c768e8e58411f569b8994f3e8e6",
+    "dist/assets/ui/pokeball-v2.webp": "93e032372700ab7e69d65004f7cffd93c99800daf4dcf6cda1008af0fbac18e8",
+    "dist/assets/fonts/font-3.ttf": "73bc9e17231e9073780d3c81574c7253cecd5645c93544df1a935054b39a364f",
+    "dist/assets/fonts/font-4.ttf": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+    "dist/assets/fonts/font-7.ttf": "2a8e7f713ee79fbccdef3cef5c787aff47580299f7da60144961e7db2ec08211",
+    "dist/assets/fonts/fonts.css": "bebeda83f3df8554ecab4c23785914f9977f8f719aacfe866544e7488a8bed09",
+    "dist/assets/home-arena.webp": "a6ce3060ba13a056281c5324f66d4e64c085b82b1a9abc0ba8024d59d30a4d07",
+    "dist/assets/ui/stat-icons.webp": "42fd088090aeb419d47f8653de1a3b6b44ec32d19c0ba560a14314f346b3abd3",
+    "dist/assets/ui/menu-icons-v1.webp": "d3d2e125f8e0b911ca84c89060c2f773f98100eab4c75f4050927dadaf9e1821",
+    "dist/assets/battle/projectile-bounds.js": "3fb806ea96e8c655feff1148fe71175d7d315b1d71720c476747d8b7ac86f86e",
+    "dist/assets/battle/frame-bounds.js": "3d9f54c5593142cdec764e5606a82c5d041a1252d818b151e8c7611485ae638e",
+    "dist/assets/battle/manifest.js": "0e4f146ef52d0d4225192729358f35bd3ac31025190870b8e15f8eb08492a1ae",
+    "dist/assets/audio/manifest.json": "af8babb5f74d9a4b8cdc19aa32d7c717353d2017d43770ae7b76027ad521a3e3",
+    "dist/assets/pokemon/manifest.json": "98f8facb20949c082d0dcbcbd21622948b0cfef19d17002bd54861b3c7d6db0b",
+    "dist/assets/cards/battle-1.webp": "fd750445c1188a0f7f348354f8b022ad7474bf8373951be720ee4fd816399502",
+    "dist/assets/ui/cost-crystal.webp": "bcacdfcaab87eed31c45681599b414bdd3c16832c957f04722fadbd9f95baf02",
+    "dist/assets/cards/fireballV2.webp": "e6f703a4846f619a302daeafd293ca4bb99812945e1db49a389331626eb7fdec",
+    "dist/assets/cards/blastoise-mobile-v1.png": "95040577ce893c86cf8d7bf91e91a1d0b07660b7567c563537bc3e07537acd56",
+    "dist/assets/cards/zubatSwarm5.webp": "ee845773eaa45f58cb8e98f4ab74690b813d2b57654c99f0ae7879a372b09af8",
+    "dist/assets/legend-frame.svg": "4bdef019d76c51f17f229886c6b1faad943d399412e677ff7b2acbb2c7b37f57",
+    "dist/assets/audio/voices/1.mp3": "8a751db3c220c8f743d4eaa4c8f856e30ed4bc7111bf34589277669254792d45",
+    "dist/assets/audio/voices/4.mp3": "53b5635f1960853383d69c385c181fdb9cb17ddc3543ef246b6cbe1dd1079252",
+    "dist/assets/audio/voices/9.mp3": "4907e898a30978aba37cb8e84d9eef68a02747af63d21522e1a26be7b1c45a73",
+    "dist/assets/audio/voices/3.mp3": "f204eaa9b12acd38af2421d96346855148fe98c3938b9fd743fbf548c3a7ebf7",
+    "dist/assets/audio/voices/6.mp3": "de36b378d1c4b1d74391232e467e0fcdd9e720fb5dfd6ff66efe94573fc929bd",
+    "dist/assets/audio/voices/7.mp3": "98ac86808f593b7299571e7032283b1e298462a895b8ed3f7fa01490f6c9c3f3",
+    "dist/assets/audio/voices/12.mp3": "4a25d599bab58591f931067aa6ef7d1f18fb43911ca16fcd3eeb2c28026e011c",
+    "dist/assets/audio/voices/15.mp3": "c2ca07c6105214a0ed3c96c6c7bd63ad39cbf6e678c59c8468c12e92e7915a00",
+    "dist/assets/audio/voices/18.mp3": "e45a70d1d8bbcd7b77ffd747f7b3f35e53c5282b4c0c3a566896c695ed25a787",
+    "dist/assets/audio/voices/23.mp3": "935ae81d642ba3648744c1252b7e2ba00a16980c3be5cafef6a034df24d63994",
+    "dist/assets/audio/voices/25.mp3": "a60ec854e40a656a3f44059b573fcf262f8d40a2a71256636f7930d89e1af781",
+    "dist/assets/audio/voices/26.mp3": "65a8eec4500c296e21f0ed5bf138c75e030f0cb563018ca7af29caa13bf59627",
+    "dist/assets/audio/voices/27.mp3": "8dac51f5dcc3eda940ba53d5e479605f79383a7a3f3173475459a35efc835ca9",
+    "dist/assets/audio/voices/29.mp3": "ddfee2bb6e37e11144636656a7fe1ba32d7b94cb017667372f94dd75785c717c",
+    "dist/assets/audio/voices/32.mp3": "5d680fb7323b1adc34b166966b1faca9df9dca7985bee6e30216b6bab53860c9",
+    "dist/assets/audio/voices/31.mp3": "9f9ad580bda19f1a90c3a24cc1427d77371bfa8a59edcfa717b1d6de3715b90d",
+    "dist/assets/audio/voices/34.mp3": "b5eb67e0b0ee34415c9ca2e63e560df1a0dee1047d315fac3002c18f22dbebaa",
+    "dist/assets/audio/voices/37.mp3": "503d26f8ed4716bc926f4772d644ab7f0d2789320ef05ce66afddea132ecd641",
+    "dist/assets/audio/voices/41.mp3": "44d06f04dc2e6d1fb494738cde2ce38a845fed3650103fdc2e577ad591dd9b51",
+    "dist/assets/audio/voices/50.mp3": "4aa24a2933d0fa2a8de3141b17187f5356e845dabf227baa3de0abbf531de39a",
+    "dist/assets/audio/voices/54.mp3": "8450b560a8c9868aacf2c5bec991f0da545e9db4f30eafd48427c8af07e3e2f6",
+    "dist/assets/audio/voices/52.mp3": "8bdf775c2fd236437cca64ccb48cf0524e941ce8019acd2a4ce07db0d60238d2",
+    "dist/assets/audio/voices/56.mp3": "ff9df5946a0188c33b4dbadcf9cde550ff3a46efddc2cc608a699c15470fdbd5",
+    "dist/assets/audio/voices/59.mp3": "22f7eb4492cea4755962d721179cbd37be8ca88caa729a85fe95257bd3c95362",
+    "dist/assets/audio/voices/64.mp3": "b7194db68f1c8dffd5c08b6bdd20465d2e1b7d081d7bd39e85242fabf06becaa",
+    "dist/assets/audio/voices/65.mp3": "d9d685cdef09d0eb3e51b829c1933c59e384729f080a4dd1d1354fe5eb0551b0",
+    "dist/assets/audio/voices/68.mp3": "59d56b58e8c6cac212df2d61c0f2449cdd318733f3b538b7d9bb4df1eef4cde5",
+    "dist/assets/audio/voices/74.mp3": "fc2cb95ffaa21ef6e75bbfb84ba7a79b02ca816cd4b0b60d590685293c67ccec",
+    "dist/assets/audio/voices/75.mp3": "ded2c0a4aac25aac733ad16fb0c9c239a6da9b602c2c88280d948c51253fcc99",
+    "dist/assets/audio/voices/76.mp3": "5876179fc846bfbaa2f373554aef22d5e1004a7a1fbf7682be7b86b09e26b9de",
+    "dist/assets/audio/voices/78.mp3": "e3733679171aa58c2c2e5871fb371e5e4d270f368b201bfbec69a41d7f3dcb01",
+    "dist/assets/audio/voices/79.mp3": "6e8f06bf9acb67e83a6b358a8af88842396b7f0e0ca7fcad4ef6ac089caaa427",
+    "dist/assets/audio/voices/80.mp3": "023c474a325b856f0d55f1e31b40c707be168799b3ad1e9af0827dbc0096d46a",
+    "dist/assets/audio/voices/81.mp3": "c02091be940b22620ce0d4200f71cf6f26cf56fcd37a3511cb819a2395aa1f43",
+    "dist/assets/audio/cries/83.ogg": "851dfc31aa191ecbbc48b5f95534738874d4b1572331a4679323268535c003db",
+    "dist/assets/audio/voices/88.mp3": "07da7c3062bf9f958f9c86dcf10afa796768ccf19bc91370ade2d2ef3dd4fccd",
+    "dist/assets/audio/voices/91.mp3": "38693a0dc1230b6e5a27083447a2321f85bf73ca59e428292dfc73ffbe7c9a56",
+    "dist/assets/audio/voices/92.mp3": "51be5e8a37aa909e786de5e024f75e13957fbef4466da9750951da717df837f3",
+    "dist/assets/audio/voices/94.mp3": "c8e24cfabac33d6cf7ebd2a6b7c308158e59eac714eb253f064a999f035c035c",
+    "dist/assets/audio/voices/95.mp3": "59eddb59b21c05ac30ddc460dad4ec8c9e4f0276eabfe2505fb1921bedcf8d05",
+    "dist/assets/audio/voices/100.mp3": "dfa942ee3de51662345ba035aaacebb82f723307d463cf1175a2361d71f22698",
+    "dist/assets/audio/voices/101.mp3": "a5b9ba261022f66de2241e0cb6ef35eb9f06c81754ad51b1ba013a6357a15cd7",
+    "dist/assets/audio/voices/102.mp3": "62bfe67ceac2c3ff094be156625a1bfc88e9baf3f9f2268234dbd0fbe639e739",
+    "dist/assets/audio/voices/103.mp3": "41d4b335d153b31d7894e1da7e151e7b3adf1f2f9bdea6c76c48b4442547d8f1",
+    "dist/assets/audio/voices/109.mp3": "10d4c863fd4d58a518b8f3f64ca8bbbef82f99567dbb6f9d406e176404737189",
+    "dist/assets/audio/voices/113.mp3": "ba2dc93bb11f0df6a511e91d8ef51a79aeafabc2dd761a978f23e4ffee5f8e36",
+    "dist/assets/audio/voices/115.mp3": "df72adebce23d5b4ed0acdee269a5e5717c0aa4d5bc0c248f4000581de648d72",
+    "dist/assets/audio/voices/112.mp3": "3485c1f1b16ac96c7d919c5948e7912b01fcc3afdc876fcd1fcaed9aa9fe3ab9",
+    "dist/assets/audio/voices/121.mp3": "d2e4ab9386b248de40bc55d28f1665c7554e8370d5e4a70cabb3b4a26c979734",
+    "dist/assets/audio/voices/122.mp3": "03376df696942bb91f7ae22ec52d78f62be1f861185bd14b034470eb22b266d1",
+    "dist/assets/audio/voices/123.mp3": "4c151f786fe24dc689655ab064bc472f8c5fd18cc8e811040e74ebd921ac483d",
+    "dist/assets/audio/voices/129.mp3": "4d060f22878b60bc8a144bec5f5c3955acc162895e4cfd7f56c74de8ebf951c1",
+    "dist/assets/audio/voices/130.mp3": "27d7a12808a005f6b13a646afd527e4f168b73ce34e9a4b6856e9fde5e342e5b",
+    "dist/assets/audio/voices/131.mp3": "00ba7a03a6810b78e82d5d26f3c31b4a11e550725f6389d878beb7579c70016d",
+    "dist/assets/audio/voices/132.mp3": "90eb4b7c24d8c71268ab64944a67599f012fbd567ef457c9befe5b56ba0d4fad",
+    "dist/assets/audio/voices/133.mp3": "634fdc9c88bc048e4db3f690059e41fb78dc887e09dbeb17f5396d72277a4bb9",
+    "dist/assets/audio/voices/144.mp3": "99ded3f96d613ff6de6b50a38817c4100611adbd30f0fafbc8088a537cf347b2",
+    "dist/assets/audio/voices/145.mp3": "c39ba3bf9ddec1c96849610731256df36a082ea9c1856193b41e94e4a868332e",
+    "dist/assets/audio/voices/143.mp3": "61cf830fda64fe6fa3471ebc912520bb66b1e11a87e9a81a518ef7d3797babac",
+    "dist/assets/audio/voices/146.mp3": "d8da750c981e172fa820defcd7de1140f46aac7306ea42f3e514d2da132e439d",
+    "dist/assets/audio/voices/149.mp3": "318a96e0c5e7232b2bdd71407b97ecd8a8ca10ca76c694294a0ea293310558da",
+    "dist/assets/audio/voices/150.mp3": "003800fbb05b217a22ee8b9dd3114210b4ce35a1ad6907739a84e1a25c7f833b",
+    "dist/assets/audio/voices/154.mp3": "c953d86b36eeb0950cc8107d08bd8378b29dc38a4a32a693da1a5551c685d96a",
+    "dist/assets/audio/voices/151.mp3": "67feeebb5f2134b989e1e0d7677bdb8e2a8949ba9798a08e1da2ffc518590852",
+    "dist/assets/audio/voices/160.mp3": "d85d95ca2e1b4613caa9bc88d5306d947cfe2a3829e3930ddefac78b51f4fe6a",
+    "dist/assets/audio/voices/157.mp3": "c73a07ea3f3515bc229f3f0e5fed61f99ddaf1f3761494487da74412be28fcfb",
+    "dist/assets/audio/voices/169.mp3": "766eacff3335e986fa53551b66d5232cdc31e0f7e26b96b6e05d6549dfc54add",
+    "dist/assets/audio/voices/181.mp3": "5eb666543abdcb7d548b1537aa3a8048d40fe0071673a7c086daa722195a1d61",
+    "dist/assets/audio/voices/196.mp3": "e13d96cf5f943b3ed5ac815dc875da8e23b6575b7a01ad5f845fe6ed596b58c8",
+    "dist/assets/audio/voices/202.mp3": "d2ecdeb05d55d2300dc0e5234e13a7ad7fe58a10dc4b2ebccdc50dc835334203",
+    "dist/assets/audio/voices/197.mp3": "4623e84fe3bf6f3eb60a51be2d1a05ff242fe91db456d523d3e6b0a513f53207",
+    "dist/assets/audio/voices/205.mp3": "4b4f2dc94781f9a7eec05adac05149022f6e4491612982e90471f67a6843edb0",
+    "dist/assets/audio/voices/208.mp3": "404c81df4c19c5a84d9ed5d4bfb9ce8f91977f44eba4d92aa6698ada37182174",
+    "dist/assets/audio/voices/212.mp3": "5385225b4b525da2a4ef2a154f9be15acc8d2065f4bdf57a1d8a8939102a6c92",
+    "dist/assets/audio/voices/215.mp3": "12cde8963c190ee2de92d5218d14a898320d7a33bea5d8d4e8b8436e1b22d45b",
+    "dist/assets/audio/voices/227.mp3": "ff265de7c49717e731cf81f9570f025d68445f8bfe922324f9c2e62a2fc02698",
+    "dist/assets/audio/voices/242.mp3": "730521775e1d31156addd24d2f03462d5099076dfb3e75316ebf509fe0b01524",
+    "dist/assets/audio/voices/250.mp3": "b184369c9aea576006c892a81b07bded67c0ba5684022592ec10c0943dbb5dee",
+    "dist/assets/audio/voices/249.mp3": "b46509523d526aec9c915aae3cb64831438647bb390ae65d8cd6f8f8e016553e",
+    "dist/assets/audio/voices/251.mp3": "46fbe5eea4c6812ffc122bcb7921ad9a236caf4ed7283d40d71eae3679ff30f0",
+    "dist/assets/audio/voices/252.mp3": "446f708d338f829a18498af0ec1e8ada1dee7cfd61f17d67d796d1a00f9434d0",
+    "dist/assets/audio/voices/254.mp3": "66ef9fc5bebffa21dccbe140b7329c369e65fdd9917153a99189be1a14701910",
+    "dist/assets/audio/voices/257.mp3": "0735d9cd3af9f8846750a625563697dafd8effa48dfbbb7d0c99f7642f54f048",
+    "dist/assets/audio/voices/260.mp3": "30e5df0716c622cdf544c6a5b1b1cde80221c85234aba585bbe04049a5efec95",
+    "dist/assets/audio/voices/261.mp3": "d21d3533c964c00e82dac91c9b55d1c2736af5c63e16f8402fe4458469d34241",
+    "dist/assets/audio/voices/274.mp3": "f8723ee56bfca55c018427dd3a85c30cefc50f9141f3fc160479edcc1931d0e1",
+    "dist/assets/audio/voices/280.mp3": "59c426600d3eb94cc2405c6612757ec0097267f56c377a84973f6930afb63b77",
+    "dist/assets/audio/voices/282.mp3": "9b01baa96e447d13a929825639edd4d7815b8210f69b494f64e3ecbca29871a4",
+    "dist/assets/audio/voices/302.mp3": "6ed7e109543abb381bb25aaf84775910cccfe30223a5b5fad28eeec5415dc88d",
+    "dist/assets/audio/voices/306.mp3": "94b2e2776d2afc6dc676d27fef9794df7178e74a262f5d90b25f002db201c238",
+    "dist/assets/audio/voices/315.mp3": "08fcdfbedbef9cc31c10f58cce09bfa2b67d20ff0831a835bd69f0321313f083",
+    "dist/assets/audio/voices/319.mp3": "7b07e6610157d7ac30457a0f3af47452fead9f2b58f147575d5f28a2d478f579",
+    "dist/assets/audio/voices/330.mp3": "7d46461eb1b9d4c6720dd5537e149abffa44318f688414ab0124fbb7492b6e85",
+    "dist/assets/audio/voices/334.mp3": "999b373a0d08f3340660e5bf3a48717141f8a6838e47d16a802b99d05a60fb95",
+    "dist/assets/audio/voices/353.mp3": "99cf4b5de3461b98c872060c6cf9e5d3248f7d06bdeb46e14219874e18410cf5",
+    "dist/assets/audio/voices/355.mp3": "b76b07d093ae200b3708a1120684b6d8cdd9edc3fe912ae6779c049cdc0c312e",
+    "dist/assets/audio/voices/356.mp3": "49052b7cd35eaced35e5c2e1c8a76355a7519a69322300518ef3947809baa90b",
+    "dist/assets/audio/voices/359.mp3": "d4c494a399c7ef99c2d39a29103e6e3c7d71ea5c9955e60e03c6a70b3cb4cdb3",
+    "dist/assets/audio/voices/373.mp3": "27da5fd2769e650d806902c9e0dc3cf96f67280a009364224223b29298c2e9ec",
+    "dist/assets/audio/voices/376.mp3": "86253228fc2ac65ad4a6b3964858730b8463d83a69c6ebe90091fb44ec8793f6",
+    "dist/assets/audio/voices/377.mp3": "09309c9dae80e48ef40a84cc9cd5da596ff5bf3e59104bb516286264641e2a11",
+    "dist/assets/audio/voices/378.mp3": "d8235cd4b6a42e286e14eb8809379fd4a4a3e49e7d0e3c785b0dc5a997611d20",
+    "dist/assets/audio/voices/379.mp3": "2c108674a1036702c11c949333f2adbc6671f4a2e40b52198d289d7305837b38",
+    "dist/assets/audio/voices/382.mp3": "2cdcad2d941780b48d56a877a5c5f31ba51684fe71baaa07d2b81cae84981820",
+    "dist/assets/audio/voices/383.mp3": "c55b2b43cc9a33db227a30b3f79e4896f0782dd7d8459eb4a2d506b69c5bab20",
+    "dist/assets/audio/voices/384.mp3": "113edbd170dde644d447817ea57e2531023cb304706d1601fd1345d128e7d1f7",
+    "dist/assets/audio/cries/534.ogg": "d6232357a5be5f11c11cd8f36c071edf948686c606dfd4f05ea58ca8fb283a21",
+    "dist/assets/audio/foley/punch-2.ogg": "f92f5cb6ba4ff2766497292ffd90865654317eeca976f5652e0708dbdcdc0dd9",
+    "dist/assets/audio/foley/punch-1.ogg": "b33a8f14068aec24ec69ba85e5e87fdc41228975f6a1a3e44a6e7d6fc3d9f8d8",
+    "dist/assets/audio/foley/heavy.ogg": "f1b07a53ac10c615fff9ba470511fdeb722b5902e1a8520759fc20ad6f546015",
+    "dist/assets/audio/foley/stone.ogg": "142fd6c77f13d25f318265901163f70f8dfe12f87829169a570025be43de7011",
+    "dist/assets/audio/foley/metal.ogg": "fba69c467ddd85da7b1d82e259f936b876d9ba6a3d6f1b24bdd10468e46bfe08",
+    "dist/assets/audio/foley/punch-3.ogg": "6492f9ccbc8d24dcef607bb1b48790b7870961474561f7fe5601e1c73a3018ef",
+    "dist/assets/audio/foley/glass.ogg": "d3d806cb3012c9ddd87010b30295ccb74d6d8b690077d19e67afd09a9d8feb03",
+    "dist/assets/audio/foley/bell.ogg": "9df61e3ae9a83dc65e5a1fd3ed19d480876f3b22b963a1b9ef6fa293592dcec4",
+    "dist/assets/audio/foley/swish-1.ogg": "4cd96dc630bed9840c15f1dd2306da2cc56a4da26a5d3f1a03c5a7265ac5e54f",
+    "dist/assets/audio/foley/coin.ogg": "8a91f969e932df709df80ee124d86a51389eed9b67f22e5e716bc2bbf60d8dab",
+    "dist/assets/audio/foley/swish-2.ogg": "6c2064d0ef988d1ec3d56868e823ea8823a5cac00f2742560052633529407def",
+    "dist/assets/audio/foley/cloth.ogg": "ddb93a3671233f95da0e0b10367f082f7eb42fa6caaddcf776410aa8833c747d",
+    "dist/assets/audio/combat/006-flame-impact.wav": "62075eaf706431d83b7005b8d08026bb510dfd2dde8aae22e707984a5837a81c",
+    "dist/assets/audio/foley/water.wav": "2f1cac78c1d9ff7ff00e10c39c6c0b53ac25a22f307bebba9752a364126ae34e",
+    "dist/assets/audio/combat/006-flame-release.wav": "409e19078d4763da08346116f088cdcbad80c5f6a66eda333f1988dffea275a1",
+    "dist/assets/audio/combat/025-electric-impact.wav": "d69c553e5dc23f127b5d2458213b7e4630183cb07f02af669f755fb0364e8a12",
+    "dist/assets/audio/combat/025-electric-release.wav": "ab79a3f654c3cb106565b780fa7948bebe5dba8506aa582270d7940b157b5aa5",
+    "dist/assets/audio/combat/215-claw-impact.wav": "cd8c2feccd769aebfc962a5cdd1aa233de70cb5712af434002cdcd5cfc1bb9d2",
+    "dist/assets/audio/combat/215-claw-release.wav": "5f8538700a4630c826e661b5578f5799346abc20d96b032cef4616ccfbad552a",
+    "dist/assets/pokemon/25/Walk-Shadow.png": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7",
+    "dist/assets/pokemon/25/Idle-Anim.png": "f1021ac60879698076fdb80705f893d0646d2b9ddf2bdb8c81803fbb7e87ad86",
+    "dist/assets/pokemon/25/Attack-Anim.png": "06822d01f15ebb2c4f2cff9e94bb4ee615b8d25b41527c9297b80d81576be857",
+    "dist/assets/pokemon/25/Idle-Shadow.png": "9b8ac64a8539e9770055aa7078289ab355e5695a599ce371c731114dca24e6de",
+    "dist/assets/pokemon/25/Attack-Shadow.png": "8462e499f657df2640738a69cb624b5bca246a17854dd17731fdffedb81e3255",
+    "dist/assets/battle/Particle__Flamethrower_2.None.png": "175203e3eb6405013017a527692449fef1ff9585392d3ad53d5db06982d38984",
+    "dist/assets/battle/Particle__Flamethrower.None.png": "cdf854eb86da7cccaa4650a7e892f096e0bf0ccbc69512d2ae31bd9f895ffa74",
+    "dist/assets/battle/Particle__Water_Column_Ranger.None.png": "31f2e34d0eb20756d396642ee400d4533e8e72768aeb3c5ffb5cd7161e25eb3b",
+    "dist/assets/battle/Particle__Bubbles_Blue.None.png": "a5f94f956f2345889ced3e4fcddb91a640c030b47cd26c944a61810f828a0937",
+    "dist/assets/battle/Particle__Razor_Leaf.None.png": "4e0a060cd0b3628e43dc1fb378db413886b9a23d86594797ff4cf5e7d02fea31",
+    "dist/assets/battle/Particle__Poison_Ball_Ranger.None.png": "7d85c13486c550a71664499be74db256d7fc4a857bc59fd20413cca11baaf8b1",
+    "dist/assets/battle/Particle__Shadow_Ball.None.png": "bb6db172f0bd7f4230748c154958ec8f5bee01fa6807cdeb3f06640eb59c1f03",
+    "dist/assets/battle/Particle__Aura_Sphere.None.png": "1abf6bef7f0a4b2a913b3c59dc60ffc7b9cca0f9f16a99257fabee8fcffb078b",
+    "dist/assets/battle/Particle__Dizzy_Punch_Hit.None.png": "1ca7ca160f2170bba05a506224b86d30eaac9e85647319cfcb8e54a36100c1a8",
+    "dist/assets/battle/Particle__Ice_Shard_Hit.None.png": "0a3ed5836cfeed2a0df7c8c9f3c43c071d3124336f19b22edbe3e37ef5ee881a",
+    "dist/assets/battle/Particle__Heal_Order.None.png": "59a26037db0e500ece038f6128f65f6c57f372aa1a9bef783e108ac403ba5af7",
+    "dist/assets/battle/Particle__Rock_Wrecker_Boulder.None.png": "a75780cc81d4ea5bf0d281ac656e48231fc2d30321119fd0c9779a407d67ee9b",
+    "dist/assets/battle/Particle__Puff_Brown.None.png": "36653d6d900c5249e139bb3d4bfa0c3c3188618a90d61378855b7fc7b961fd7d",
+    "dist/assets/battle/Particle__Explosion.None.png": "33cff9cb450ae73068809b6a3ee6b3e708f8ab9359377499e371338701df44f2",
+    "dist/assets/battle/Particle__Scratch.Dir1.png": "54ed603821c836df08db212fb73ba5a4bce8c6235fd4316127b3ee380187111c",
+    "dist/assets/battle/Particle__Egg_Bomb_Egg.None.png": "f49dd6a36a09bd0d6e477c9907267ed892313c688a7438bb705dc9e8a6f53137",
+    "dist/assets/battle/Item__Money_Yellow.None.png": "0e85debff04bb121eda7e1e7f0d90364e11ebb8bc1a5d22d4950b66357030dc2",
+    "dist/assets/battle/Particle__Growl.Dir8.png": "05498d575b0b6381a43f45d9d2b2944a59857ff87a20d51e2a618462ce1983a3",
+    "dist/assets/battle/Particle__Megahorn_Front.None.png": "edece3e64754f1057745a957e2a5595fc0650a61cf10a101a26b4e966fb07fc1",
+    "dist/assets/battle/Particle__Lick.None.png": "c7c125faf775af3c1016a25145f0ba27fd1196caee5c58aff99d9745ec1aafab",
+    "dist/assets/battle/Particle__Vine_Whip.Dir1.png": "4532648663f05f7f3b4616d203b8ff7a9856c61b2bc14b2b9bb5ba92c8ee5a06",
+    "dist/assets/battle/Particle__Gust_Blue.None.png": "a2222c9bc1eb66521edada7d61c4312f2f4e037480f2c371b5cf804909b0ca1c",
+    "dist/assets/battle/Particle__Spikes_RSE.Flip.png": "e1f64173c5d6c454fd72c617d6b4abd1199e034e5b6e56d7667395b12df3c9c1",
+    "dist/assets/battle/Particle__Stealth_Rock_Back.None.png": "e4eaf56bfbd286601c2464e32b25431a08ca1fbbd04828c1b292c009f84edc95",
+    "dist/assets/battle/Particle__Stealth_Rock_Front.None.png": "6088eb2cfd3f2f4d16d6c40ef867e42e19d3068b82bd1c562a9a1f5bf06072ec",
+    "dist/assets/battle/Particle__Dark_Void_Back.None.png": "7ff5a778cbb79675815cd0fb109f2ad98ba51b2b0e1b78c13fd91055a0e27652",
+    "dist/assets/battle/Particle__Dark_Void_Front.None.png": "a22b734d84f2ee63911cea7b3f4aae4d99af9a3a596a35fe8b0d6d60f7574609",
+    "dist/assets/battle/Particle__Earth_Power_Eruption.None.png": "e1ab38b8102d2d227a41e651f50d4f7d288ad7d96d66316f79dede031f7db73c",
+    "dist/assets/battle/Particle__Ice_Shard.Dir8.png": "5a93504695050beed6002d43ac88e04557ac76dc6c2e11b07f6569e875a2a07d",
+    "dist/assets/battle/Particle__Ice_Ball.None.png": "c2b9e0f3ef40767f7bfda682dcc1d7931ceff84173e18d13cebd21dbd61c6ded",
+    "dist/assets/battle/Particle__Protect_Blue.None.png": "4e9f1a63669fe090ca95ac7d2684ac97de11845536466ce3335161318213e038",
+    "dist/assets/battle/Particle__Puff_White.None.png": "603018a5b6592b0f529394119bbe33d5d67988f9978d0c467df4d0de7202107e",
+    "dist/assets/battle/Particle__Pin_Missile.Dir5.png": "0e9afd85360ce8358f6e11c94c6ec61c4eaacc9312a304e3b55ca3ce3bb843c5",
+    "dist/assets/battle/Tile__8x8__TownBase.png": "fdb9d3f8eebff459e546bbad8b840ad0c3a33002c818204c5d7ebc61779e0f34",
+    "dist/assets/battle/Tile__24x24__BeachWaves.png": "331d79cd8fb27e7517d58f40d82d69781f227ce2fc7ca47d987df7f23099c9ed",
+    "dist/assets/battle/Object__Tree_Town.Flip.png": "147cf52606863d90214c0c03bdd6eb946f055b5551dba2da69072bcb52619dac",
+    "dist/assets/battle/Object__Fence.Flip.png": "10710bba02f95311f11635a7dbe0f52b4dbc1408fb31d274e0505e487499c92c",
+    "dist/assets/battle/Object__Logs_Large.Flip.png": "1a49caeabb45b0c33792c2f625a259a473b7ccdee26ac72231fa6733646859a8",
+    "dist/assets/battle/Particle__Rock_Pieces.None.png": "7ce6a9100e85d798a50e81337b6be041ddc156796ef478f60a9af98e676c8762",
+    "dist/assets/battle/Particle__Bite.Dir8.png": "c26f5975d8ca805e3b83d304a34084519ea84812d6d347cd385bcc069e2321e6",
+    "dist/assets/battle/Particle__Flame_Wheel.None.png": "73cefc7fe2922f2a628bfb37927adc1979fba0f44d185c7c24eb4d3212129189",
+    "dist/assets/battle/Beam__Lightning__Body.png": "db252b3f73d3d7d2b26aff79695da8ee65a68b5dfcc80dd659177dcdd2a667ff",
+    "dist/assets/battle/Beam__Lightning__Head.png": "ad5507d242139eef9c3e9d6997f14f1d003eb6a34c486c5eaadb47e1bf812381",
+    "dist/assets/battle/Beam__Lightning__Tail.png": "98b591328e9e4bb53a3e5383f74c52539e76d2cc20355f76bf8ddc7eab1b79fd",
+    "dist/assets/battle/Beam__Beam__Body.png": "0487b28a1939bb08c677f54f49ed38b099e731f5b1b3f24db8e909c1cff74c02",
+    "dist/assets/battle/Beam__Beam__Head.png": "f4235573a697b61ef96cf5c5c194f6898bd9fdc9a059e5b0872c02a39285835b",
+    "dist/assets/battle/Beam__Beam__Tail.png": "981ad783ed267614dc3310571140b26a29fab9e795c105086352638ef09cdb1e",
+    "dist/assets/battle/Beam__Column_Blue__Body.png": "6133e7b7544427b2116db3809f01d331441b32f58526925193658fb9f9ac2667",
+    "dist/assets/battle/Beam__Column_Blue__Head.png": "6758c89a9dc7ed53b4dd8136446398766ba74c733e2cf4ebb28a9540cd612ed0",
+    "dist/assets/battle/Beam__Column_Blue__Tail.png": "50ec20bc7744df72b1f60f4cd5b5509a0a3b8ca99ddd7c64a270b27e75f5007d",
+    "dist/assets/battle/Beam__Column_Yellow__Body.png": "96af7bc2c6e13f9b04bbd059b3b690ec35f288546695eed2b1968b53a9c248f6",
+    "dist/assets/battle/Beam__Column_Yellow__Head.png": "90bfbf1c27df80f193073399bf3f8ba6013b10ac3d7fb35fa78b7bd247c86254",
+    "dist/assets/battle/Beam__Column_Yellow__Tail.png": "50ec20bc7744df72b1f60f4cd5b5509a0a3b8ca99ddd7c64a270b27e75f5007d",
+    "dist/assets/battle/Particle__Weather_Ball_Fire_1.None.png": "e0b0c2bdf99d1b406e0b300a688088a82ce906bb726caf1ef8b892766fe25f37",
+    "dist/assets/battle/Particle__Weather_Ball_Fire_3.Flip.png": "7af08ca82cc0942f44efc5d88c034ab092b84783fee63c0e05b085691fbd7b26",
+    "dist/assets/battle/Particle__Hydro_Cannon.None.png": "1ef2d00af95c39861f274b0acf238e21618afc16d8414fc9485fdb120bbb1bb3",
+    "dist/assets/battle/Particle__Ember.None.png": "2875d15af0d787a2185f359679f5a120d14cc63687c5a88e4a3811e2145ad76d",
+    "dist/assets/battle/Particle__Music_Notes.None.png": "5e5b0db6023b959fb32ffff9a473d3b8a2b54b5cd778ef2eccd2b4afb1936fc8",
+    "dist/assets/battle/Particle__Petal_Dance_Flower_Pink.None.png": "f3c8a784cc2972b5c48c03232fbec8a06ff5f61264c9fe74c042986f03689900",
+    "dist/assets/battle/ralts-hut-v1.png": "63b1890d7e39cdd3c885953871116acfb6ca54b9ae8fe83ed373e4f02e924cbb",
+    "dist/assets/battle/pokeball-material-v2.png": "be89cd1a53b6f11dcd82ac37cb5232ab0d06034f5c4fe721f6919a725450d3bb",
+    "dist/assets/pokemon/25/Hurt-Anim.png": "4f096cee94aab6e2c444e6e5a9e77680858d81ad90ddaded05f7e2fea69e3776",
+    "dist/assets/pokemon/25/Hurt-Shadow.png": "ac6de71c1c2d68f7b57c3628d73cabee468c84be9da37305bcf53ed6999365a5",
+    "dist/assets/battle/structures-v1.png": "e4bdce8733b73ba6aa55be17f666f2a1d358b15b02efdb14ede359a70ccdd87b",
+    "dist/assets/pokemon/25/Shock-Anim.png": "fa84f62367baf2fc34cf05479c71157298551faa003ce4d88a95c8b732d13f55",
+    "dist/assets/pokemon/25/Shock-Shadow.png": "cf156d423328b068c1897e2d7f40ef6ef7b21b56d63756bad74e05bb566d69a4",
+    "dist/assets/pokemon/143/Walk-Anim.png": "304247a70ae32ee08cf1927caf71926903d7b67a3e480f15dcd76feb4be801b6",
+    "dist/assets/pokemon/143/Walk-Shadow.png": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3",
+    "dist/assets/pokemon/143/Idle-Anim.png": "b692c89bc7c10a648fb6f72b0cf0ce9e0f84fec54dfa389709893323314e1b39",
+    "dist/assets/pokemon/143/Idle-Shadow.png": "702fed10ab2f61c8eb41c2e6608146335661aa271ce23d4d054c8c130fac93d5",
+    "dist/assets/pokemon/143/Attack-Anim.png": "ee1f27acf84e66dd8d0cce5bca2f62d1492363f92f63d30381b3e6c097961d93",
+    "dist/assets/pokemon/143/Attack-Shadow.png": "ec4f92b6461989fab71b116fccd5e0f2d721b0955c49e6b71448dacc56bbfe4d",
+    "dist/assets/pokemon/143/Hurt-Anim.png": "6a50b495198219fcf599a864527a6a8f56bc7fdaece0891632f406d3de70fb29",
+    "dist/assets/battle/arena-ground-v2.webp": "2c0fa6491949b4a6a03466f2e57447b1a6db8db2ad3c8c2534745df42e0bd611",
+    "dist/assets/battle/arena-bridge-v2.webp": "defac1da7c6bf617a38e5245cc297860ba8e55f342847a272cdfa7de53219755",
+    "dist/assets/pokemon/143/Hurt-Shadow.png": "59e15793497a8122091a82c72c5a51beee94f1f6d7103dfedfb2604d57a02f51",
+    "dist/assets/battle/riverbank-v2.webp": "cec6d62253b803a24c4fe6b80a3f6a4eff9059fa87bf8f3c772b6013567495d1",
+    "dist/assets/pokemon/143/Stomp-Anim.png": "2242f2ed8be643626429dbdcda0480849b7b5673c003e8c90dc902d26db36f6c",
+    "dist/assets/pokemon/143/Stomp-Shadow.png": "a3ca2bca08b9b5a4d4dfedf49df6837f35298b22536cd33e49aa7ffd80570277",
+    "dist/assets/pokemon/68/Walk-Anim.png": "e169fb82de0226d8abfbc73e6b837af41cfb19347f71943bea804dfe5fc6120f",
+    "dist/assets/pokemon/68/Walk-Shadow.png": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3",
+    "dist/assets/pokemon/68/Idle-Anim.png": "e7a664e470fca6878f114a8e87a6e394f55166467eb207a5215efb4f031d76b7",
+    "dist/assets/pokemon/68/Idle-Shadow.png": "68627629e56b25d33bb5cc77f3fc46e329239b0be22464ed1074859f90f99cc2",
+    "dist/assets/pokemon/68/Attack-Anim.png": "26d5247e14c68ec43866d079134e52a59b9a7d761d0ac2ed4dbb804fddaeb2b2",
+    "dist/assets/pokemon/68/Attack-Shadow.png": "772a86ecc5aa90ecf3072f58f5416d2b4dd0bdabb81e481210ef1e3e30faddeb",
+    "dist/assets/pokemon/68/Hurt-Anim.png": "f9f3a887fa9030cab510fb94183e5edc392bc944aa44fa5ab22b54f62eeae37d",
+    "dist/assets/pokemon/68/Hurt-Shadow.png": "ac6de71c1c2d68f7b57c3628d73cabee468c84be9da37305bcf53ed6999365a5",
+    "dist/assets/pokemon/68/Punch-Anim.png": "348a7f9df9eff3e8a692595529cd87d66806d1538f111ba63c0545d290a4dbeb",
+    "dist/assets/pokemon/68/Punch-Shadow.png": "11f04202feb8098b8229f310aa6bf9b0cb9eed09a7cd7fd07a021c17c0939370",
+    "dist/assets/pokemon/9/Walk-Anim.png": "90074aa6cea5dc4fd11a5ca2bd756f71d83798e2efc346d8d609907489f70350",
+    "dist/assets/pokemon/9/Walk-Shadow.png": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7",
+    "dist/assets/pokemon/9/Idle-Anim.png": "eb9bca8db6a6fda567302db7815bf122829a07c2fb77ab5e5fb69fb67779815e",
+    "dist/assets/pokemon/9/Idle-Shadow.png": "bb1edc521886ebe78751de066605a38b72a8e89e76f00631de6341a16b5eb6a4",
+    "dist/assets/pokemon/9/Attack-Anim.png": "a11c75977e2a1e8d5d41d3f441db9a8176f95102eb04bfaea7fe5e099dd1127e",
+    "dist/assets/pokemon/9/Attack-Shadow.png": "e674a691edf4465b575602f7f76b9960a7ae50347020b6538e52beaa0df8bac1",
+    "dist/assets/pokemon/9/Hurt-Anim.png": "8f5e78a8814aa0d16a9da08c56415e6892e09ec687ca9538ccc1e8edecd9961a",
+    "dist/assets/pokemon/9/Hurt-Shadow.png": "83cb0e9aa2b87a9cc7d8a69d62a5f8ed88c42846d97c4338815861fcaf88f084",
+    "dist/assets/pokemon/9/Shoot-Anim.png": "18ef283b80280a7f8625ddfd5b9da950d77b9eb4022875e97e8f28e320e651bf",
+    "dist/assets/pokemon/9/Shoot-Shadow.png": "f08dff112fc8619295c8b4a21426deb069a1bf00c0c3a29613d50858cc3072ad",
+    "dist/assets/pokemon/41/Walk-Anim.png": "37323d0e60074800f58a896d0d7ce9ad940ae9e34357fd10c472cb8b571db139",
+    "dist/assets/pokemon/41/Walk-Shadow.png": "1b6a69c06e982a1999685b59a65f4a11a63deac997048ad8dc6576295cb1cad9",
+    "dist/assets/pokemon/41/Idle-Anim.png": "28ea4512a68af47ba46e29ab48febbb726201a0f3d34fb400618e245cddbce09",
+    "dist/assets/pokemon/41/Idle-Shadow.png": "d61852f67638bac98fee99f030acd6ed4c47f5e0d679d3fe93fdb8d751258220",
+    "dist/assets/pokemon/41/Attack-Anim.png": "f39286bcbde5f5ecb12f21d3a0786e69b4da36a0c50704d6d4237533907d30e7",
+    "dist/assets/pokemon/41/Attack-Shadow.png": "c188b2420a75f983596ea3ca7abd1e394352e8f30345bd9208c41bde7dabac4c",
+    "dist/assets/pokemon/41/Hurt-Anim.png": "55deab15a9ecf226f8508e57b12817c67cbee1fb3756cd779f2a35bc57630add",
+    "dist/assets/pokemon/41/Hurt-Shadow.png": "77efa39429ea5bd928ff1865f3039982c9d6152b457d97c2055abde373da99a5",
+    "dist/assets/pokemon/6/Walk-Anim.png": "ceeb33e0db05817c2566e964d7b2264d0fb8fdecd480f7245faeafc864bc0d9b",
+    "dist/assets/pokemon/6/Walk-Shadow.png": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec",
+    "dist/assets/pokemon/6/Idle-Anim.png": "ceeb33e0db05817c2566e964d7b2264d0fb8fdecd480f7245faeafc864bc0d9b",
+    "dist/assets/pokemon/6/Idle-Shadow.png": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec",
+    "dist/assets/pokemon/6/Attack-Anim.png": "af67973adf681138435e48494a7f04a80809a42b3378fea9486a18744c63f32e",
+    "dist/assets/pokemon/6/Attack-Shadow.png": "26f3b35801eb5a705337d1d05048b4576e6d124878f07546bd78c0acfb932970",
+    "dist/assets/pokemon/6/Hurt-Anim.png": "838924d5af02c21a3c67918807d8089afd09144a54a1898fcd02d977f4ad0aec",
+    "dist/assets/pokemon/6/Hurt-Shadow.png": "03a44da161edeef5b8c0a9c2d20a5e11a30664b078f3c12bf256b33054429860",
+    "dist/assets/pokemon/6/Shoot-Anim.png": "7064487ed8b43e2aa4d73872a1c40320fc883ad224c1a717057918f3eedf9a8a",
+    "dist/assets/pokemon/6/Shoot-Shadow.png": "71d5aa90343c68f2cb2a54b92d7f5c09f10914cfda599e2f7462b67f80dfe06e",
+    "dist/assets/pokemon/6/Hop-Anim.png": "6bc15ac3695849339acb20a0e78847e90e2e39b48540b173f1a293d037276df2",
+    "dist/assets/pokemon/6/Hop-Shadow.png": "30edd9679772a18769dd267a4de294ea18ecc22172a01d059fe43e2a53c774cd",
+    "dist/assets/pokemon/31/Walk-Anim.png": "f487e5b74299137a435e5c9004046748afc33f634a4244d6505e8b9cd7672cdb",
+    "dist/assets/pokemon/31/Walk-Shadow.png": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7",
+    "dist/assets/pokemon/31/Idle-Anim.png": "3bcba822ca88be720f25c8d2e3e41dc86bee8e9f474fc52947fd430889869178",
+    "dist/assets/pokemon/31/Idle-Shadow.png": "710a76bb2e78ffe89642ed1218e0061d32225177d3ecb956acc84384280fc198",
+    "dist/assets/pokemon/31/Attack-Anim.png": "4a7a5958ac3509282bb5beef2e8426c3cefe1540fd6671eb99452f91d3ec4b84",
+    "dist/assets/pokemon/31/Attack-Shadow.png": "85eba87a33cf83bc8522338c76167f1ecac52d93054ec1b2ec082bb35553bce3",
+    "dist/assets/pokemon/31/Hurt-Anim.png": "8200f48ef9c1b0241c1c4c96d893e8840f257ad8ce9b363bc77296ea812a0378",
+    "dist/assets/pokemon/31/Hurt-Shadow.png": "df7815c9541ff2a2416b89ee31260fb0bb23e9f9c037457468f59cf976f1d0bb",
+    "dist/assets/pokemon/31/Shoot-Anim.png": "f4fc11252bf9af6d378023b1b531908e648bb9d224bf8a46b26c2b7c1abfb3c7",
+    "dist/assets/pokemon/31/Shoot-Shadow.png": "9846789ae26eaf71b0ba7f8821546817ebbc7803f07af4d889df2091a2c52845",
+    "dist/assets/pokemon/34/Walk-Anim.png": "47e73a0dbadc870b3dba8ac816b1e43f0359aba2797bef2569883894793cef5c",
+    "dist/assets/pokemon/34/Walk-Shadow.png": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec",
+    "dist/assets/pokemon/34/Idle-Anim.png": "7fc391919541020478125f82630ebbb7500d627e90c881896c3d28ef0c299b53",
+    "dist/assets/pokemon/34/Idle-Shadow.png": "c7b4b5a1cb381754a2bbff9a810ed9d1ce14c2474bc46b8194900bb9fc42e128",
+    "dist/assets/pokemon/34/Attack-Anim.png": "c72da1f2e9d65c63a96a1bea52c8afaaf4a7cc45a85e687b82c8175ff24639c0",
+    "dist/assets/pokemon/34/Attack-Shadow.png": "7a3ba87d8fd56ab6bffc6b49e9eca14993a5feb0792f40c31e84b7132aa6bcc9",
+    "dist/assets/pokemon/34/Hurt-Anim.png": "2c7b394b7eac41d61c26b7368ddc3b92c867f24e790d3fd7399e36eac68e82c2",
+    "dist/assets/pokemon/34/Hurt-Shadow.png": "59e15793497a8122091a82c72c5a51beee94f1f6d7103dfedfb2604d57a02f51",
+    "dist/assets/pokemon/34/Shoot-Anim.png": "b96eef4504ea9e5dd6e85803c813c287abbee187213153dc5955b9f9de5e031c",
+    "dist/assets/pokemon/34/Shoot-Shadow.png": "415525a7ef3ce92c01290641a0699b81c273bc9c5c48a1dbdf5b3805dbf55566",
+    "dist/assets/pokemon/52/Walk-Anim.png": "c58d87c7bc111288963f7df341e7c38f444908104859810bc505107212cc6eb9",
+    "dist/assets/pokemon/52/Walk-Shadow.png": "cb86f32dd498beb9b30b1552e1197aacf34220d6066e68af2abfd90ef2394cb4",
+    "dist/assets/pokemon/52/Idle-Anim.png": "df1b0115a3fbf15518f3a95eb8f0f48071da8d0715646e1f3f2d26f17d74a8e7",
+    "dist/assets/pokemon/52/Idle-Shadow.png": "986ed7e027135db592e146107bff26dac9ab00e787f7e4002bcca92696fc54b3",
+    "dist/assets/pokemon/52/Attack-Anim.png": "0eece85f3e2e23cae74618637db04683deca07400e19b73ac84b75c6f08a2b97",
+    "dist/assets/pokemon/52/Attack-Shadow.png": "e1e720a11ae251ad433abaa0c1acb89f15676b51ccb33a13b12f9b17bf90d04d",
+    "dist/assets/pokemon/52/Hurt-Anim.png": "0867146aa69147f50c872102f1429f17f29af6cc3cbb55f7055c66ddf1837850",
+    "dist/assets/pokemon/52/Hurt-Shadow.png": "c598a4c3fc9b723e5936bd5ed74086c34af796aa188d84466b4472b3fb8eb99c",
+    "dist/assets/pokemon/52/Shoot-Shadow.png": "ca4f27c74ef48124f3e0c9f4564e359aa4b7307cb91d60aa9d3eec970ea84871",
+    "dist/assets/pokemon/52/Shoot-Anim.png": "734209e21f2bb04a878ea70e51956a9348469ba73f1bcf727eca248637b97a7f",
+    "dist/assets/pokemon/25/Walk-Anim.png": "5cfc2c775708c28c11f98e027e883261ab3ae4276e51621eec11c979598651f9",
+    "dist/assets/fonts/font-0.ttf": "cc9fb2539cf27df48255982e896d28f544483537cdb41f9fabd741af8992d719",
+    "dist/assets/fonts/font-1.ttf": "0d85af813fc3ed87db0c6265515689b2eef5cbaf7aab17922528dfc95a2cd73f",
+    "dist/assets/ui/console-pattern.svg": "fa3d95ba6c03c8b1aadcbb5a0f85d50aba80b7dddd7cfa29c3c6d39215b4e1b2",
+    "dist/assets/fonts/font-6.ttf": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+    "dist/assets/fonts/font-2.ttf": "7dde307fa887fc65ff5830cfada77a7decc5dae8d3c816c9d39ba3f1af1c4ed7",
+    "dist/assets/fonts/font-5.ttf": "376427b5322148d8de1e03f263bcca4935a2d60ba71d9f94f4947ab664c711ae",
+    "dist/assets/cards/roselia-v1.webp": "16cbd3586c40f0723905cd348117ec6b3ec77dc7ce416e964bf087f29333705a",
+    "dist/assets/pokemon/315/Walk-Shadow.png": "69e66f73fe2c70d9b9ece3f0e738451ce9fa80615e7f3905bc559caace89c7db",
+    "dist/assets/pokemon/315/Idle-Anim.png": "4f4192f35cb50ecef5027a899384b60c1e4f3564915175040536f273944ff454",
+    "dist/assets/pokemon/315/Idle-Shadow.png": "36ae2e2028a5a96bbea4101d857b54328d00087c3892244854d87f0d052da6b2",
+    "dist/assets/pokemon/315/Attack-Anim.png": "43e77777704223451c60ca2c138e905086fb735c3ecb72b4616256237e45f101",
+    "dist/assets/pokemon/315/Attack-Shadow.png": "d98d1d76266248eca8a0db3d9bbbf72a64d0b0b11615191343a30617975b9bd7",
+    "dist/assets/pokemon/315/Hurt-Anim.png": "2877a2bcb1e9e27e997628466e470ed2a830e703233d2031f90a993b459acdd7",
+    "dist/assets/pokemon/315/Hurt-Shadow.png": "4b04c29b16a65336d214c5853efd6744fca874511c42a13d186aba1f96797d8d",
+    "dist/assets/pokemon/315/Shoot-Anim.png": "4497e761fbc37a013888ec81fb4c60f4faa4843ea33ee05cf0d86a0f879ec0da",
+    "dist/assets/pokemon/315/Shoot-Shadow.png": "329df25e565065cf8e3f13ba40a400dc61e23dd6292026c0c9bf63370584a217",
+    "dist/assets/pokemon/274/Walk-Anim.png": "dfa99ed3374b320f62b5eaaded57f28ab54c5728bad84af71689f6a354f67aaf",
+    "dist/assets/pokemon/274/Walk-Shadow.png": "731bf455d0e68d18cc37c219fc50b1882fbac9987914c80d17b92ceca9974280",
+    "dist/assets/pokemon/274/Idle-Anim.png": "3f912e42b324a157a8510c74f1297f331f442328d451a37af1824a22928c2afb",
+    "dist/assets/pokemon/274/Idle-Shadow.png": "a482460e7610112213cc1704e9d703f075e4e8d57e8cda6d8650f358195dd01d",
+    "dist/assets/pokemon/274/Attack-Anim.png": "29ef5756de2cece53c0cb926c1a3bf771e4c21a3094ece21b85f58a0887ee505",
+    "dist/assets/pokemon/274/Hurt-Anim.png": "b1e985a318590064d8b6c1114a09424971230a2184bb60a588dea1f4c90da11d",
+    "dist/assets/pokemon/274/Attack-Shadow.png": "beaed8bf129c330222e0b8f5080ce22a91e429cef487451725dbc885a1fe4980",
+    "dist/assets/pokemon/274/Hurt-Shadow.png": "3ad3703af4e670dab7868cc42e702619b6dd9a104d6e081ac379e3aaa3220556",
+    "dist/assets/pokemon/274/Shoot-Anim.png": "c194866c51e6e589f8d19277f11115e0e30799e4888719ea3c38a6414293827d",
+    "dist/assets/pokemon/274/Shoot-Shadow.png": "a566f6fbfd9c8508511a6a667482a8111b411912d743a85603b2534cac8f9aa6",
+    "dist/assets/pokemon/534/Walk-Anim.png": "393d51e67b6aaa633525f51ad4d067520bd0d504fc17854339d249689e251873",
+    "dist/assets/pokemon/534/Walk-Shadow.png": "8d3a2245983fc40a6aa64b524304acea38d5c51b9e30015fedef7c4817986e74",
+    "dist/assets/pokemon/534/Idle-Anim.png": "ffe233a72bd1bcc25025f8a2db306ae34dccb00dde2e8330077021c0034b05c0",
+    "dist/assets/pokemon/534/Idle-Shadow.png": "75d4470e265f95d18364db03e284b0c0544c060b5fbbd2cfd52bc632498de560",
+    "dist/assets/pokemon/534/Attack-Anim.png": "0f1c9f92118940c562c8077995508416c31ddf3f07fef9b4258e7c2c0ce8ce2b",
+    "dist/assets/pokemon/534/Attack-Shadow.png": "9b94db684ad02c1c8f15c2bad55fb2f70e1a2eb3390b370bb114fdf6b600d946",
+    "dist/assets/pokemon/534/Hurt-Anim.png": "e097759b3c3120e0f37ced305c607649ec09b3f4efa81c1495094c499989f30f",
+    "dist/assets/pokemon/534/Hurt-Shadow.png": "7cca50e13181556ed1f82330ce64356ed30a804c4788ae240c9ef267cce8f4e9",
+    "dist/assets/pokemon/534/Shoot-Anim.png": "631aa955497aaf02e1ff2e4ac8ccddd0429ac02ff8bae5f1bfc7591f21979ac8",
+    "dist/assets/pokemon/534/Shoot-Shadow.png": "7e8f7595e07fde4f4bd05ebbac2da95979fdd73478bcd01d8b6d3bef43b3b562",
+    "dist/assets/pokemon/112/Walk-Shadow.png": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3",
+    "dist/assets/pokemon/112/Idle-Shadow.png": "d08bd47f0088764ab6e5b99bc6ab238441a1fa9b880f7715b3f654b4c7f40ccf",
+    "dist/assets/pokemon/112/Idle-Anim.png": "61e4008ab8a6a89ab2cc940b1bce67df35fc562f93c3a622375e050807fccc19",
+    "dist/assets/pokemon/112/Walk-Anim.png": "96d89d75637f5d7ae3b5a9ffa3daedb11289255b114ebe8835ed1f988a938ff8",
+    "dist/assets/pokemon/112/Attack-Anim.png": "312f43a696358a9f3a542c7e0dd0b1c607e4a985e8e627d3909d0614d562215e",
+    "dist/assets/pokemon/112/Attack-Shadow.png": "18bd2ce0aa17929b94cbce4f09bbce447f5d8169c1f29c484cbe5f507b18375c",
+    "dist/assets/pokemon/112/Hurt-Anim.png": "1fd29dacf55f734242f532f56860269734eb28810d5e49bdd71f32991905e69d",
+    "dist/assets/pokemon/112/Hurt-Shadow.png": "735198c51da23740c2ec2d0866a4755ec28614b2c1110da81d79cd21f5e83398",
+    "dist/assets/pokemon/88/Walk-Anim.png": "e6279af25a648c8a36bbc4448d11c04f46ce2c6fab94a56b4d3344c5b1acc421",
+    "dist/assets/pokemon/88/Walk-Shadow.png": "c090062b9eb4b0963aa9e7210d12e9f9bd40ca2a1a8e39c133e76e5c72321f0b",
+    "dist/assets/pokemon/88/Idle-Anim.png": "b7ecab6fbf29608cc55b81f71c95375b18f05d3e8546146fc46c5e002e24a18d",
+    "dist/assets/pokemon/88/Idle-Shadow.png": "c0ba6d2d4ef8e26824dace9aca22a63c8cc4bd423ffa67d6755e5ad2ec6423d8",
+    "dist/assets/pokemon/88/Attack-Anim.png": "c3ccd701ecda12ff56fd31cd93cd2af678d9fca136450c69431afe388cd3d028",
+    "dist/assets/pokemon/88/Attack-Shadow.png": "66bac3b4b33013552e4e484f907fa5436a34d6a4ac2f19ad3a12873176e71d31",
+    "dist/assets/pokemon/88/Hurt-Anim.png": "8967d258e9c0e60bf955a848d7dec7766e52cf7d904a31b49e6c71be6d4a0c7c",
+    "dist/assets/pokemon/88/Hurt-Shadow.png": "e0dd999d1d308b65d60432264967497ac4b259b896a24d1323efe912c9951c5f",
+    "dist/assets/pokemon/83/Walk-Anim.png": "2f75ab73c640d52d0e43f7fd62e4734074bd6b46d765243068c223a93befb8fc",
+    "dist/assets/pokemon/83/Walk-Shadow.png": "c0ba6d2d4ef8e26824dace9aca22a63c8cc4bd423ffa67d6755e5ad2ec6423d8",
+    "dist/assets/pokemon/83/Idle-Anim.png": "2f75ab73c640d52d0e43f7fd62e4734074bd6b46d765243068c223a93befb8fc",
+    "dist/assets/pokemon/83/Idle-Shadow.png": "c0ba6d2d4ef8e26824dace9aca22a63c8cc4bd423ffa67d6755e5ad2ec6423d8",
+    "dist/assets/pokemon/83/Attack-Anim.png": "8e956f38e985a5c840d29266a04db5a8888b8ea4163faa7888d2f43941d3fd6b",
+    "dist/assets/pokemon/83/Attack-Shadow.png": "e4fdd4bae4a6adf73f859009eeca88e637cf2bf59a92c8b97b1954cb43d922df",
+    "dist/assets/pokemon/83/Hurt-Anim.png": "7d4b6ec079602bb93c6532b8cba1d6277108613fe2cc268c0d4905c992e85314",
+    "dist/assets/pokemon/83/Hurt-Shadow.png": "4973734d088ad25a7f3a2fe09949b183bc8ba0bc0cfc627e93ef21675f194521",
+    "dist/assets/pokemon/4/Walk-Anim.png": "3e120c93b743fe30d10766114d54e230e851a43e4ffc174bcb7eb424a452a05a",
+    "dist/assets/pokemon/4/Walk-Shadow.png": "986ed7e027135db592e146107bff26dac9ab00e787f7e4002bcca92696fc54b3",
+    "dist/assets/pokemon/4/Idle-Anim.png": "304a2a2d7f07e6a81bec42270b585b57d4ce0af78b20a6905a1bc704e2415350",
+    "dist/assets/pokemon/4/Attack-Anim.png": "4f98b662bdbe7d2e91c765d521f03509bad7500caf7d4f85c8566257cda13894",
+    "dist/assets/pokemon/4/Idle-Shadow.png": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7",
+    "dist/assets/pokemon/4/Attack-Shadow.png": "bda8ebb413b23215d7346740eea9bc860a8dd859f084273e752110bc2d35ce2f",
+    "dist/assets/pokemon/4/Hurt-Anim.png": "86e742d76d27fede779bde33ab956799de900361cf842946086c25eac2042ad1",
+    "dist/assets/pokemon/4/Hurt-Shadow.png": "df7815c9541ff2a2416b89ee31260fb0bb23e9f9c037457468f59cf976f1d0bb",
+    "dist/assets/pokemon/50/Walk-Anim.png": "d739b65aae070b3f20df30d8a9fb85247b93a339bcb435788963052e5a271407",
+    "dist/assets/pokemon/50/Walk-Shadow.png": "053008ee05a85f59fcad6a6d86eeadd1aedf027d66234c0791e395d80d387473",
+    "dist/assets/pokemon/50/Idle-Anim.png": "42645eea007d78c1d1e6a695aa8b6c9b4f64daa878af3bd34f673c647b868bb1",
+    "dist/assets/pokemon/50/Idle-Shadow.png": "55d5147fc9530cf85f92c03b5857c509fb98d3104fd26d358191e8e935f90a3c",
+    "dist/assets/pokemon/50/Attack-Anim.png": "0ea52a3e1d086cb6044fa353a6a2d46f57b437214ae33b86b3742d2b8fa5ddc5",
+    "dist/assets/pokemon/50/Attack-Shadow.png": "e4f02d00ed940f1d5cd45471855c24810d0c088270c7d66b3631a63f3ca0ec94",
+    "dist/assets/pokemon/50/Hurt-Anim.png": "a2351f82e935893eda79b8b95b5f040515f4d01a7718ac3daa15462a63c60e23",
+    "dist/assets/pokemon/50/Hurt-Shadow.png": "4e1bd77932c5463cc98ddf08b9bb6e2639932372571a7b7a765a07795c263510",
+    "dist/assets/pokemon/302/Walk-Anim.png": "cb2f0d0a45e774b8515eedc6b9c8cd0d222a752a40d606c2fd6b968308d0ed8f",
+    "dist/assets/pokemon/302/Walk-Shadow.png": "b2032de1559f978f14a69647771f1956cd65936408006b8bbd9f36e84d1f20b3",
+    "dist/assets/pokemon/302/Idle-Anim.png": "66200943077fd4a16a7db7cc0ec989b09fe56c694cf4265583fa4151ebe929ce",
+    "dist/assets/pokemon/302/Idle-Shadow.png": "a87291e10d63fcaa60192a4db09ab64ad64857698d76bd7bea69d147d37f3472",
+    "dist/assets/pokemon/302/Attack-Anim.png": "67aaf09b9512655905c7adac745c0d371069861e5707c87d5f4d4702f6bc9a55",
+    "dist/assets/pokemon/302/Attack-Shadow.png": "76979b8060f3a6bf02da21682489b2c45a8d0172186e7998e5592ec652156cf4",
+    "dist/assets/pokemon/302/Hurt-Anim.png": "7f15d522775fc26b794d74f36eadacdfd609b6fcff9beb5e7d6adc059de06bb2",
+    "dist/assets/pokemon/302/Hurt-Shadow.png": "db7d3db4e87983e7d724483082216d1420e2c793fda34cedf6420eb36144d721",
+    "dist/assets/pokemon/378/Walk-Anim.png": "d08816f73303e88454c84c8bd4db5ebb01d28d8c53da4f150682b2750b154045",
+    "dist/assets/pokemon/378/Walk-Shadow.png": "8157d303d5419ad70da2fe2b304b067482b316c4d7856374f1543b7d3ef98d30",
+    "dist/assets/pokemon/378/Idle-Anim.png": "412fca19173eeea81331731a564a8ce5aa7a92cb0be1253e61a8a9fd79ad5fcb",
+    "dist/assets/pokemon/378/Idle-Shadow.png": "453d4286360dfe91ffc8c8eb6837607e02c9f4956f2b313deeac8298a8545812",
+    "dist/assets/pokemon/378/Attack-Anim.png": "33f8631ec69482c49d9d6694e704f004f59a36a2fd7518237729a1725335bbed",
+    "dist/assets/pokemon/378/Attack-Shadow.png": "d2bc32d47721b717d11664efc1ace663f4c7fe62f4e459a4c2678289469a1380",
+    "dist/assets/pokemon/378/Hurt-Shadow.png": "737198ec693340ec6a7560fcad447d3c6616b95f350dc019384301d2a450677b",
+    "dist/assets/pokemon/378/Hurt-Anim.png": "c44d7b3a987ea9030031b9715ee4ab14aa425a951b1a3326ba2474470d28fd4e",
+    "dist/assets/pokemon/378/Shoot-Anim.png": "30e97f40f7276cf1139a3e6a17b2f4b9a987cf07d95aa6c5ab2abdde8319f640",
+    "dist/assets/pokemon/378/Shoot-Shadow.png": "eb2a599a34263c46500c2863d0f1577b1c20c138ab746c08d92bce20d478431a",
+    "dist/assets/pokemon/315/Walk-Anim.png": "180907cb7e1649745dd40d7be04811b4e8eca214fd273f5b9cbeefa722c5faba"
+  },
+  "scope": "Public live page and frozen local app. Initial/lab loading is naturally delayed by one asset. Search/reconnection DOM states are exposed without matchmaking, sockets or API writes. No CSS/app/product changes.",
+  "states": [
+    {
+      "kind": "local",
+      "width": 390,
+      "state": "initial-loading",
+      "indicator": {
+        "tag": "svg",
+        "width": 88,
+        "height": 88,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "none",
+        "duration": "0s",
+        "base": {
+          "opacity": "0.45",
+          "filter": "grayscale(1)"
+        },
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\" aria-hidden=\"true\"><defs><clipPath id=\"menu-ball-clip\"><rect id=\"menu-load-fill\" x=\"0\" y=\"0.4102564102564088\" width=\"64\" height=\"63.58974358974359\"></rect></clipPath></defs><use class=\"loading-base\" href=\"#i-loading-ball\"></use><use class=\"loading-fill\" href=\"#i-loading-ball\" clip-path=\"url(#menu-ball-clip)\"></use></svg>"
+      },
+      "before": {
+        "#ready-overlay": {
+          "x": 16,
+          "y": 299.375,
+          "width": 358,
+          "height": 526.625
+        },
+        "#menu-deck-preview": {
+          "x": 37,
+          "y": 361.375,
+          "width": 316,
+          "height": 191.625
+        },
+        "#trainer-name": {
+          "x": 37,
+          "y": 565,
+          "width": 316,
+          "height": 46
+        },
+        "#start-btn": {
+          "x": 37,
+          "y": 686,
+          "width": 316,
+          "height": 44
+        }
+      },
+      "progress": {
+        "role": "progressbar",
+        "label": "Cargando el juego",
+        "now": "99",
+        "fill": "<rect id=\"menu-load-fill\" x=\"0\" y=\"0.4102564102564088\" width=\"64\" height=\"63.58974358974359\"></rect>"
+      },
+      "after": {
+        "#ready-overlay": {
+          "x": 16,
+          "y": 299.375,
+          "width": 358,
+          "height": 526.625
+        },
+        "#menu-deck-preview": {
+          "x": 37,
+          "y": 361.375,
+          "width": 316,
+          "height": 191.625
+        },
+        "#trainer-name": {
+          "x": 37,
+          "y": 565,
+          "width": 316,
+          "height": 46
+        },
+        "#start-btn": {
+          "x": 37,
+          "y": 686,
+          "width": 316,
+          "height": 44
+        }
+      },
+      "layoutChanges": []
+    },
+    {
+      "kind": "local",
+      "width": 390,
+      "state": "search-ui-only",
+      "indicator": {
+        "tag": "svg",
+        "width": 64,
+        "height": 64,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "pokeball-spin",
+        "duration": "1.3s",
+        "base": null,
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\"><use href=\"#i-loading-ball\"></use></svg>"
+      },
+      "layoutChanges": [],
+      "network": "No online action invoked.",
+      "reduced": {
+        "tag": "svg",
+        "width": 64,
+        "height": 64,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "none",
+        "duration": "0s",
+        "base": null,
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\"><use href=\"#i-loading-ball\"></use></svg>"
+      }
+    },
+    {
+      "kind": "local",
+      "width": 390,
+      "state": "reconnection-ui-only",
+      "indicator": {
+        "tag": "svg",
+        "width": 30,
+        "height": 30,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "pokeball-spin",
+        "duration": "1.3s",
+        "base": null,
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\" aria-hidden=\"true\"><use href=\"#i-loading-ball\"></use></svg>"
+      },
+      "layoutChanges": [],
+      "network": "No socket reconnect or online match invoked.",
+      "reduced": {
+        "tag": "svg",
+        "width": 30,
+        "height": 30,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "none",
+        "duration": "0s",
+        "base": null,
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\" aria-hidden=\"true\"><use href=\"#i-loading-ball\"></use></svg>"
+      }
+    },
+    {
+      "kind": "local",
+      "width": 390,
+      "state": "lab-loading",
+      "indicator": {
+        "tag": "SPAN",
+        "width": 62.4716796875,
+        "height": 62.4716796875,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "ball-turn",
+        "duration": "1.2s",
+        "base": {
+          "opacity": "0.35",
+          "filter": "grayscale(1)"
+        },
+        "markup": "<span class=\"lab-load-progress\" aria-hidden=\"true\"><img class=\"lab-load-base\" src=\"favicon.svg\" alt=\"\"><img class=\"lab-load-fill\" src=\"favicon.svg\" alt=\"\"></span>"
+      },
+      "before": {
+        ".lab-toolbar": {
+          "x": 10,
+          "y": 66,
+          "width": 370,
+          "height": 144
+        },
+        ".lab-workspace": {
+          "x": 10,
+          "y": 255,
+          "width": 370,
+          "height": 655.328125
+        },
+        "#choose-card": {
+          "x": 10,
+          "y": 66,
+          "width": 226,
+          "height": 56
+        },
+        "#add-column": {
+          "x": 101.859375,
+          "y": 175,
+          "width": 75.09375,
+          "height": 34
+        }
+      },
+      "after": {
+        ".lab-toolbar": {
+          "x": 10,
+          "y": 66,
+          "width": 370,
+          "height": 144
+        },
+        ".lab-workspace": {
+          "x": 10,
+          "y": 255,
+          "width": 370,
+          "height": 655.328125
+        },
+        "#choose-card": {
+          "x": 10,
+          "y": 66,
+          "width": 226,
+          "height": 56
+        },
+        "#add-column": {
+          "x": 101.859375,
+          "y": 175,
+          "width": 75.09375,
+          "height": 34
+        }
+      },
+      "layoutChanges": [],
+      "reducedAnimation": "none"
+    },
+    {
+      "kind": "local",
+      "width": 390,
+      "state": "lab-column-ui-only",
+      "indicator": {
+        "tag": "svg",
+        "width": 55.81488037109375,
+        "height": 55.81494140625,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "ball-turn",
+        "duration": "1.1s",
+        "base": null,
+        "markup": "<svg class=\"lab-pokeball\" viewBox=\"0 0 64 64\" aria-hidden=\"true\"><path fill=\"#495247\" d=\"M20 4h24v4h8v8h4v8h4v16h-4v8h-4v8h-8v4H20v-4h-8v-8H8v-8H4V24h4v-8h4V8h8z\"></path><path fill=\"#c75348\" d=\"M20 8h24v4h6v6h4v6h2v6H8v-6h2v-6h4v-6h6z\"></path><path fill=\"#f3e6bf\" d=\"M8 34h48v6h-4v8h-4v4h-6v4H22v-4h-6v-4h-4v-8H8z\"></path><path fill=\"#d1c398\" d=\"M12 40h4v8h6v4h20v-4h8v4h-8v4H22v-4h-6v-4h-4z\"></path><path fill=\"#f39876\" d=\"M20 12h12v4H20zm-6 6h6v6h-6z\"></path><path fill=\"#495247\" d=\"M8 28h48v8H8z\"></path><circle cx=\"32\" cy=\"32\" r=\"11\" fill=\"#495247\"></circle><circle cx=\"32\" cy=\"32\" r=\"7\" fill=\"#f8edce\"></circle><circle cx=\"32\" cy=\"32\" r=\"3\" fill"
+      },
+      "layoutChanges": []
+    },
+    {
+      "kind": "local",
+      "width": 768,
+      "state": "initial-loading",
+      "indicator": {
+        "tag": "svg",
+        "width": 88,
+        "height": 88,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "none",
+        "duration": "0s",
+        "base": {
+          "opacity": "0.45",
+          "filter": "grayscale(1)"
+        },
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\" aria-hidden=\"true\"><defs><clipPath id=\"menu-ball-clip\"><rect id=\"menu-load-fill\" x=\"0\" y=\"0.4102564102564088\" width=\"64\" height=\"63.58974358974359\"></rect></clipPath></defs><use class=\"loading-base\" href=\"#i-loading-ball\"></use><use class=\"loading-fill\" href=\"#i-loading-ball\" clip-path=\"url(#menu-ball-clip)\"></use></svg>"
+      },
+      "before": {
+        "#ready-overlay": {
+          "x": 184,
+          "y": 453.125,
+          "width": 400,
+          "height": 552.875
+        },
+        "#menu-deck-preview": {
+          "x": 205,
+          "y": 515.125,
+          "width": 358,
+          "height": 217.875
+        },
+        "#trainer-name": {
+          "x": 205,
+          "y": 745,
+          "width": 358,
+          "height": 46
+        },
+        "#start-btn": {
+          "x": 205,
+          "y": 866,
+          "width": 358,
+          "height": 44
+        }
+      },
+      "progress": {
+        "role": "progressbar",
+        "label": "Cargando el juego",
+        "now": "99",
+        "fill": "<rect id=\"menu-load-fill\" x=\"0\" y=\"0.4102564102564088\" width=\"64\" height=\"63.58974358974359\"></rect>"
+      },
+      "after": {
+        "#ready-overlay": {
+          "x": 184,
+          "y": 453.125,
+          "width": 400,
+          "height": 552.875
+        },
+        "#menu-deck-preview": {
+          "x": 205,
+          "y": 515.125,
+          "width": 358,
+          "height": 217.875
+        },
+        "#trainer-name": {
+          "x": 205,
+          "y": 745,
+          "width": 358,
+          "height": 46
+        },
+        "#start-btn": {
+          "x": 205,
+          "y": 866,
+          "width": 358,
+          "height": 44
+        }
+      },
+      "layoutChanges": []
+    },
+    {
+      "kind": "local",
+      "width": 768,
+      "state": "search-ui-only",
+      "indicator": {
+        "tag": "svg",
+        "width": 64,
+        "height": 64,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "pokeball-spin",
+        "duration": "1.3s",
+        "base": null,
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\"><use href=\"#i-loading-ball\"></use></svg>"
+      },
+      "layoutChanges": [],
+      "network": "No online action invoked.",
+      "reduced": {
+        "tag": "svg",
+        "width": 64,
+        "height": 64,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "none",
+        "duration": "0s",
+        "base": null,
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\"><use href=\"#i-loading-ball\"></use></svg>"
+      }
+    },
+    {
+      "kind": "local",
+      "width": 768,
+      "state": "reconnection-ui-only",
+      "indicator": {
+        "tag": "svg",
+        "width": 30,
+        "height": 30,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "pokeball-spin",
+        "duration": "1.3s",
+        "base": null,
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\" aria-hidden=\"true\"><use href=\"#i-loading-ball\"></use></svg>"
+      },
+      "layoutChanges": [],
+      "network": "No socket reconnect or online match invoked.",
+      "reduced": {
+        "tag": "svg",
+        "width": 30,
+        "height": 30,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "none",
+        "duration": "0s",
+        "base": null,
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\" aria-hidden=\"true\"><use href=\"#i-loading-ball\"></use></svg>"
+      }
+    },
+    {
+      "kind": "local",
+      "width": 768,
+      "state": "lab-loading",
+      "indicator": {
+        "tag": "SPAN",
+        "width": 62.59820556640625,
+        "height": 62.59814453125,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "ball-turn",
+        "duration": "1.2s",
+        "base": {
+          "opacity": "0.35",
+          "filter": "grayscale(1)"
+        },
+        "markup": "<span class=\"lab-load-progress\" aria-hidden=\"true\"><img class=\"lab-load-base\" src=\"favicon.svg\" alt=\"\"><img class=\"lab-load-fill\" src=\"favicon.svg\" alt=\"\"></span>"
+      },
+      "before": {
+        ".lab-toolbar": {
+          "x": 16,
+          "y": 76,
+          "width": 736,
+          "height": 106
+        },
+        ".lab-workspace": {
+          "x": 16,
+          "y": 227,
+          "width": 736,
+          "height": 696.65625
+        },
+        "#choose-card": {
+          "x": 16,
+          "y": 77,
+          "width": 218,
+          "height": 56
+        },
+        "#add-column": {
+          "x": 149.234375,
+          "y": 144,
+          "width": 109.03125,
+          "height": 38
+        }
+      },
+      "after": {
+        ".lab-toolbar": {
+          "x": 16,
+          "y": 76,
+          "width": 736,
+          "height": 106
+        },
+        ".lab-workspace": {
+          "x": 16,
+          "y": 227,
+          "width": 736,
+          "height": 696.65625
+        },
+        "#choose-card": {
+          "x": 16,
+          "y": 77,
+          "width": 218,
+          "height": 56
+        },
+        "#add-column": {
+          "x": 149.234375,
+          "y": 144,
+          "width": 109.03125,
+          "height": 38
+        }
+      },
+      "layoutChanges": [],
+      "reducedAnimation": "none"
+    },
+    {
+      "kind": "local",
+      "width": 768,
+      "state": "lab-column-ui-only",
+      "indicator": {
+        "tag": "svg",
+        "width": 55.81488037109375,
+        "height": 55.814910888671875,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "ball-turn",
+        "duration": "1.1s",
+        "base": null,
+        "markup": "<svg class=\"lab-pokeball\" viewBox=\"0 0 64 64\" aria-hidden=\"true\"><path fill=\"#495247\" d=\"M20 4h24v4h8v8h4v8h4v16h-4v8h-4v8h-8v4H20v-4h-8v-8H8v-8H4V24h4v-8h4V8h8z\"></path><path fill=\"#c75348\" d=\"M20 8h24v4h6v6h4v6h2v6H8v-6h2v-6h4v-6h6z\"></path><path fill=\"#f3e6bf\" d=\"M8 34h48v6h-4v8h-4v4h-6v4H22v-4h-6v-4h-4v-8H8z\"></path><path fill=\"#d1c398\" d=\"M12 40h4v8h6v4h20v-4h8v4h-8v4H22v-4h-6v-4h-4z\"></path><path fill=\"#f39876\" d=\"M20 12h12v4H20zm-6 6h6v6h-6z\"></path><path fill=\"#495247\" d=\"M8 28h48v8H8z\"></path><circle cx=\"32\" cy=\"32\" r=\"11\" fill=\"#495247\"></circle><circle cx=\"32\" cy=\"32\" r=\"7\" fill=\"#f8edce\"></circle><circle cx=\"32\" cy=\"32\" r=\"3\" fill"
+      },
+      "layoutChanges": []
+    },
+    {
+      "kind": "local",
+      "width": 1440,
+      "state": "initial-loading",
+      "indicator": {
+        "tag": "svg",
+        "width": 88,
+        "height": 88,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "none",
+        "duration": "0s",
+        "base": {
+          "opacity": "0.45",
+          "filter": "grayscale(1)"
+        },
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\" aria-hidden=\"true\"><defs><clipPath id=\"menu-ball-clip\"><rect id=\"menu-load-fill\" x=\"0\" y=\"0.4102564102564088\" width=\"64\" height=\"63.58974358974359\"></rect></clipPath></defs><use class=\"loading-base\" href=\"#i-loading-ball\"></use><use class=\"loading-fill\" href=\"#i-loading-ball\" clip-path=\"url(#menu-ball-clip)\"></use></svg>"
+      },
+      "before": {
+        "#ready-overlay": {
+          "x": 913.609375,
+          "y": 231.75,
+          "width": 440,
+          "height": 592.5
+        },
+        "#menu-deck-preview": {
+          "x": 938.609375,
+          "y": 298.75,
+          "width": 390,
+          "height": 237
+        },
+        "#trainer-name": {
+          "x": 938.609375,
+          "y": 552.75,
+          "width": 390,
+          "height": 43.5
+        },
+        "#start-btn": {
+          "x": 938.609375,
+          "y": 671.25,
+          "width": 390,
+          "height": 44
+        }
+      },
+      "progress": {
+        "role": "progressbar",
+        "label": "Cargando el juego",
+        "now": "99",
+        "fill": "<rect id=\"menu-load-fill\" x=\"0\" y=\"0.4102564102564088\" width=\"64\" height=\"63.58974358974359\"></rect>"
+      },
+      "after": {
+        "#ready-overlay": {
+          "x": 913.609375,
+          "y": 231.75,
+          "width": 440,
+          "height": 592.5
+        },
+        "#menu-deck-preview": {
+          "x": 938.609375,
+          "y": 298.75,
+          "width": 390,
+          "height": 237
+        },
+        "#trainer-name": {
+          "x": 938.609375,
+          "y": 552.75,
+          "width": 390,
+          "height": 43.5
+        },
+        "#start-btn": {
+          "x": 938.609375,
+          "y": 671.25,
+          "width": 390,
+          "height": 44
+        }
+      },
+      "layoutChanges": []
+    },
+    {
+      "kind": "local",
+      "width": 1440,
+      "state": "search-ui-only",
+      "indicator": {
+        "tag": "svg",
+        "width": 64,
+        "height": 64,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "pokeball-spin",
+        "duration": "1.3s",
+        "base": null,
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\"><use href=\"#i-loading-ball\"></use></svg>"
+      },
+      "layoutChanges": [],
+      "network": "No online action invoked.",
+      "reduced": {
+        "tag": "svg",
+        "width": 64,
+        "height": 64,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "none",
+        "duration": "0s",
+        "base": null,
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\"><use href=\"#i-loading-ball\"></use></svg>"
+      }
+    },
+    {
+      "kind": "local",
+      "width": 1440,
+      "state": "reconnection-ui-only",
+      "indicator": {
+        "tag": "svg",
+        "width": 30,
+        "height": 30,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "pokeball-spin",
+        "duration": "1.3s",
+        "base": null,
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\" aria-hidden=\"true\"><use href=\"#i-loading-ball\"></use></svg>"
+      },
+      "layoutChanges": [],
+      "network": "No socket reconnect or online match invoked.",
+      "reduced": {
+        "tag": "svg",
+        "width": 30,
+        "height": 30,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "none",
+        "duration": "0s",
+        "base": null,
+        "markup": "<svg viewBox=\"0 0 64 64\" class=\"loading-ball\" aria-hidden=\"true\"><use href=\"#i-loading-ball\"></use></svg>"
+      }
+    },
+    {
+      "kind": "local",
+      "width": 1440,
+      "state": "lab-loading",
+      "indicator": {
+        "tag": "SPAN",
+        "width": 62.3031005859375,
+        "height": 62.3031005859375,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "ball-turn",
+        "duration": "1.2s",
+        "base": {
+          "opacity": "0.35",
+          "filter": "grayscale(1)"
+        },
+        "markup": "<span class=\"lab-load-progress\" aria-hidden=\"true\"><img class=\"lab-load-base\" src=\"favicon.svg\" alt=\"\"><img class=\"lab-load-fill\" src=\"favicon.svg\" alt=\"\"></span>"
+      },
+      "before": {
+        ".lab-toolbar": {
+          "x": 16,
+          "y": 76,
+          "width": 1408,
+          "height": 58
+        },
+        ".lab-workspace": {
+          "x": 16,
+          "y": 179,
+          "width": 1408,
+          "height": 673.328125
+        },
+        "#choose-card": {
+          "x": 16,
+          "y": 77,
+          "width": 218,
+          "height": 56
+        },
+        "#add-column": {
+          "x": 879.390625,
+          "y": 86,
+          "width": 109.03125,
+          "height": 38
+        }
+      },
+      "after": {
+        ".lab-toolbar": {
+          "x": 16,
+          "y": 76,
+          "width": 1408,
+          "height": 58
+        },
+        ".lab-workspace": {
+          "x": 16,
+          "y": 179,
+          "width": 1408,
+          "height": 673.328125
+        },
+        "#choose-card": {
+          "x": 16,
+          "y": 77,
+          "width": 218,
+          "height": 56
+        },
+        "#add-column": {
+          "x": 879.390625,
+          "y": 86,
+          "width": 109.03125,
+          "height": 38
+        }
+      },
+      "layoutChanges": [],
+      "reducedAnimation": "none"
+    },
+    {
+      "kind": "local",
+      "width": 1440,
+      "state": "lab-column-ui-only",
+      "indicator": {
+        "tag": "svg",
+        "width": 55.81488037109375,
+        "height": 55.81488037109375,
+        "opacity": "1",
+        "filter": "none",
+        "animation": "ball-turn",
+        "duration": "1.1s",
+        "base": null,
+        "markup": "<svg class=\"lab-pokeball\" viewBox=\"0 0 64 64\" aria-hidden=\"true\"><path fill=\"#495247\" d=\"M20 4h24v4h8v8h4v8h4v16h-4v8h-4v8h-8v4H20v-4h-8v-8H8v-8H4V24h4v-8h4V8h8z\"></path><path fill=\"#c75348\" d=\"M20 8h24v4h6v6h4v6h2v6H8v-6h2v-6h4v-6h6z\"></path><path fill=\"#f3e6bf\" d=\"M8 34h48v6h-4v8h-4v4h-6v4H22v-4h-6v-4h-4v-8H8z\"></path><path fill=\"#d1c398\" d=\"M12 40h4v8h6v4h20v-4h8v4h-8v4H22v-4h-6v-4h-4z\"></path><path fill=\"#f39876\" d=\"M20 12h12v4H20zm-6 6h6v6h-6z\"></path><path fill=\"#495247\" d=\"M8 28h48v8H8z\"></path><circle cx=\"32\" cy=\"32\" r=\"11\" fill=\"#495247\"></circle><circle cx=\"32\" cy=\"32\" r=\"7\" fill=\"#f8edce\"></circle><circle cx=\"32\" cy=\"32\" r=\"3\" fill"
+      },
+      "layoutChanges": []
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "frames/local-initial-loading.png",
+      "bytes": 350908,
+      "sha256": "f95c5cbb18a9e9a0e1115bf2cb392842d54bd91a1bdaa13dfd89dcb7b712e80a"
+    },
+    {
+      "file": "frames/local-search.png",
+      "bytes": 248421,
+      "sha256": "694351cabe535090fef6b2cf01c600194169c453cd3c14403acb1a8605f87e38"
+    },
+    {
+      "file": "frames/local-reconnection.png",
+      "bytes": 420729,
+      "sha256": "46501366e6b101648b2b14cc8869189c1e35aedaa6a595aa264856d1d881729a"
+    },
+    {
+      "file": "frames/local-lab-loading.png",
+      "bytes": 38411,
+      "sha256": "9cd01a5ddddaf0aea848686da38f997be613fc161bed85c94953109af725d83e"
+    },
+    {
+      "file": "frames/local-lab-column.png",
+      "bytes": 287076,
+      "sha256": "26df258751c7cc933be9a2743d4ed6364fef601b01405cd95536850fd23c1b0c"
+    },
+    {
+      "file": "alpha-comparison.png",
+      "bytes": 41110,
+      "sha256": "48f53945868d3e7dd6515c589e213a872b82a5eb8dac29367878180c2a2f92d6"
+    }
+  ],
+  "errors": [],
+  "apiRequests": [],
+  "browser": "157.0.4341.46",
+  "localDocument": {
+    "url": "http://127.0.0.1:57942/",
+    "sha256": "df9e4bcb69bcb1f5fe5456f9377557455b2680659e496e616ce3ed102905c6d2"
+  },
+  "alpha": {
+    "raster": {
+      "redOpaque": 0,
+      "redPartial": 854,
+      "samples": [
+        {
+          "x": 32,
+          "y": 14,
+          "rgba": [
+            142,
+            53,
+            40,
+            126
+          ]
+        },
+        {
+          "x": 20,
+          "y": 18,
+          "rgba": [
+            188,
+            85,
+            68,
+            249
+          ]
+        },
+        {
+          "x": 32,
+          "y": 20,
+          "rgba": [
+            159,
+            66,
+            53,
+            228
+          ]
+        }
+      ]
+    },
+    "vector": {
+      "redOpaque": 666,
+      "redPartial": 0,
+      "samples": [
+        {
+          "x": 32,
+          "y": 14,
+          "rgba": [
+            199,
+            83,
+            72,
+            255
+          ]
+        },
+        {
+          "x": 20,
+          "y": 18,
+          "rgba": [
+            199,
+            83,
+            72,
+            255
+          ]
+        },
+        {
+          "x": 32,
+          "y": 20,
+          "rgba": [
+            199,
+            83,
+            72,
+            255
+          ]
+        }
+      ]
+    }
+  }
+}

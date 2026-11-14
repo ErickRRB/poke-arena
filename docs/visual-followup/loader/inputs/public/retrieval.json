@@ -1,0 +1,102 @@
+{
+  "retrievedAt": "2026-11-14T20:51:54.968Z",
+  "scope": "Read-only public HTTP GET of the current live source and loading asset. The task identifies this deployment as V35; no native hosting version is inferred from branch files.",
+  "results": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "url": "https://poke-arena-erick.eriqrb.chatgpt.site/",
+        "file": "index.html",
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "date": "Sat, 14 Nov 2026 20:51:56 GMT",
+        "bytes": 26010,
+        "sha256": "b5cede2b1806720e1ec2b0ed4d285b41b72cf56acbf08b617b871f1a785535ab"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "url": "https://poke-arena-erick.eriqrb.chatgpt.site/loader-art.js",
+        "file": "loader-art.js",
+        "status": 404,
+        "contentType": "text/plain;charset=UTF-8",
+        "date": "Sat, 14 Nov 2026 20:51:56 GMT",
+        "bytes": 13,
+        "sha256": "003cb16205827f027fe5903a1ed9fdc53d46a3bdd3e067390a010e136cacb76b"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "url": "https://poke-arena-erick.eriqrb.chatgpt.site/editor.css?v=32",
+        "file": "editor.css",
+        "status": 200,
+        "contentType": "text/css; charset=utf-8",
+        "date": "Sat, 14 Nov 2026 20:51:56 GMT",
+        "bytes": 9859,
+        "sha256": "57e0a104a198862f79f71fb2f4ac528c152789f579106f35fc7db14fc562b539"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "url": "https://poke-arena-erick.eriqrb.chatgpt.site/transient-ui.css?v=26",
+        "file": "transient-ui.css",
+        "status": 200,
+        "contentType": "text/css; charset=utf-8",
+        "date": "Sat, 14 Nov 2026 20:51:56 GMT",
+        "bytes": 1371,
+        "sha256": "5b110474064321a12c474fa9018a8abe4184b8f1bf9291ab22751d08fa227063"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "url": "https://poke-arena-erick.eriqrb.chatgpt.site/testing.html",
+        "file": "testing.html",
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "date": "Sat, 14 Nov 2026 20:51:56 GMT",
+        "bytes": 5422,
+        "sha256": "3300b70d42ee88096c1319b989effbe02cdaeaf8abacf840f08f604374f7a7e1"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "url": "https://poke-arena-erick.eriqrb.chatgpt.site/testing.js?v=26",
+        "file": "testing.js",
+        "status": 200,
+        "contentType": "text/javascript; charset=utf-8",
+        "date": "Sat, 14 Nov 2026 20:51:56 GMT",
+        "bytes": 17114,
+        "sha256": "7539655525892813a18d9f40e12d81d0494a56acd393275e5bb4f0b56c6d2469"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "url": "https://poke-arena-erick.eriqrb.chatgpt.site/testing.css?v=26",
+        "file": "testing.css",
+        "status": 200,
+        "contentType": "text/css; charset=utf-8",
+        "date": "Sat, 14 Nov 2026 20:51:56 GMT",
+        "bytes": 9841,
+        "sha256": "bbec316494b0c4c14d1896dd096ad7eef4dbbe6d42b13e06c06825fdfd45ed8f"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "url": "https://poke-arena-erick.eriqrb.chatgpt.site/assets/ui/pokeball-v2.webp",
+        "file": "assets/ui/pokeball-v2.webp",
+        "status": 200,
+        "contentType": "image/webp",
+        "date": "Sat, 14 Nov 2026 20:51:56 GMT",
+        "bytes": 4224,
+        "sha256": "93e032372700ab7e69d65004f7cffd93c99800daf4dcf6cda1008af0fbac18e8"
+      }
+    }
+  ]
+}
