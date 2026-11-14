@@ -783,7 +783,6 @@ export class Renderer {
       }
     }
     if(!front){
-      areaGuide(c,f.x,f.y,radius,{team:f.team,pending:true,progress:f.life/(f.duration||3)});
       if(f.key){c.save();c.translate(f.x,Math.min(H-12,f.y+radius+8));c.scale(1,1/(this.verticalScale||1));pixelMeter(c,-18,0,36,f.life/f.duration,CARDS[f.key].color);c.restore();}
     }c.restore();
   }
