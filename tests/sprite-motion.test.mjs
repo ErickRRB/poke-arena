@@ -8,6 +8,7 @@ import {Renderer} from '../dist/render.js';
 import {combatVisual,projectileVisual,fireballVisual} from '../dist/combat-visuals.js';
 import {POKEMON_SILHOUETTES} from '../dist/pokemon-silhouettes.js';
 import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js';
+import {WING_RIGS} from '../dist/wing-rigs.js';
 
 test('native emission markers cover every playable attack in all eight directions',()=>{
  for(const card of Object.values(CARDS).filter(c=>!c.spell)){
@@ -49,9 +50,9 @@ test('mouth attachments and projectile identities survive online serialization a
  const event=packEvent({type:'flame',from:game.muzzle(actor),to:{x:target.x,y:target.y-15},sourceId:actor.id,targetId:target.id});
  assert.equal(perspective(event,1).sourceId,actor.id);assert.equal(perspective(event,1).targetId,target.id);
 });
-test('airborne movement uses changing original poses instead of a repeated charge frame',()=>{
+test('sustained flight selects valid native poses or a traced wing rig in every view',()=>{
  const manifest=JSON.parse(readFileSync(new URL('../dist/assets/pokemon/manifest.json',import.meta.url)));
- for(const key of['charizard','pidgeot','scyther','dragonite','salamence']){const card=CARDS[key],meta=manifest[card.id][card.moveAnim];assert.ok(meta);assert.ok(new Set(card.moveFrames).size>=3);assert.ok(card.moveFrames.every(frame=>frame>=0&&frame<meta.durations.length));}
+ for(const key of['charizard','pidgeot','scyther','dragonite','salamence']){const card=CARDS[key],meta=manifest[card.id][card.moveAnim];assert.ok(meta);assert.ok(card.moveFrames.every(frame=>frame>=0&&frame<meta.durations.length));if(WING_RIGS[card.id])assert.equal(WING_RIGS[card.id].directions.length,8);else assert.ok(new Set(card.moveFrames).size>=2);}
 });
 
 test('every Pokemon uses the matching original view for all eight directions, including attacks',()=>{

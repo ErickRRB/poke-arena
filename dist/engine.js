@@ -614,7 +614,9 @@ export class Game {
     const seq = ++attacker.attackSeq;
     const charged = !!(card?.charge && attacker.charge >= card.charge);
     attacker.charge = 0;
-    for (let shot=0;shot<(card?.burst || 1);shot++) this.attacks.push({ attacker, target, seq, shot, charged, delay: windup + shot*(card?.burstSpacing || 0) });
+    for (let shot=0;shot<(card?.burst || 1);shot++){
+      const delay=windup+shot*(card?.burstSpacing||0);this.attacks.push({attacker,target,seq,shot,charged,delay,releaseAt:this.elapsed+delay});
+    }
     this.emit('attackStart', { attacker, target, style: profile.style, duration, windup });
   }
   muzzle(actor, shot = 0) {
@@ -855,7 +857,7 @@ export class Game {
       if (distance(unit, target) <= reach) { this.face(unit,target);if (unit.cooldown <= 0) this.attack(unit, target); }
       else if(!unit.card.structure&&unit.attack<=0)this.move(unit, target, dt);
     }
-    for(const job of this.attacks){job.delay-=dt;if(job.delay<=0&&!job.done){job.done=true;this.release(job);}}
+    for(const job of this.attacks){job.delay=Number.isFinite(job.releaseAt)?job.releaseAt-this.elapsed:job.delay-dt;if(job.delay<=1e-7&&!job.done){job.done=true;this.release(job);}}
     this.attacks=this.attacks.filter(job=>!job.done&&job.attacker.hp>0&&job.attacker.attackSeq===job.seq&&job.target.hp>0);
     for (const p of this.projectiles) {
       p.life -= dt;
