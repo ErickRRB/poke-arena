@@ -177,6 +177,12 @@ test('nearby archers retain independent releases and only the same action is coa
   }
 });
 
+test('the compatible release keeps its archer cue when an older card has no nativeReference field',()=>{
+  const sound=makeSound(),card={...CARDS.treecko};delete card.nativeReference;
+  const outputs=sound.event({type:'attackRelease',key:'treecko',attacker:{id:11,attackSeq:1,card},from:{x:327},shot:0});
+  assert.ok(outputs.some(output=>output.sample==='feedback:bow-release'));
+});
+
 test('rejected generic impacts are absent from every recorded and loading-fallback route',()=>{
   for(const buffered of [true,false]){
     for(const key of Object.keys(CARDS).filter(key=>!CARDS[key].spell&&!CARDS[key].passive&&CARDS[key].damage>0)){

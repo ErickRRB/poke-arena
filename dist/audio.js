@@ -4,7 +4,8 @@ import { CARDS } from './engine.js?v=26';
 export const MAX_EFFECT_VOICES=24;
 const soundStyle=style=>({powder:'leaf',poison:'confusion',egg:'rock',song:'confusion',eruption:'flame',horn:'punch',lick:'shadow'})[style]||style;
 const ATTACK_CUES={Archer:'bow',Princess:'petalBow',BlowdartGoblin:'dart',EliteArcher:'magicArrow',Pekka:'rock',Giant:'body',Golem:'rock',Prince:'body',HogRider:'body'};
-const attackCue=(profile,style)=>ATTACK_CUES[profile?.nativeReference]||style||profile?.style||'punch';
+const SPECIES_CUES={252:'bow',315:'petalBow',274:'dart',254:'dart',65:'magicArrow',121:'magicArrow',196:'magicArrow',112:'rock',143:'body',76:'rock',78:'body'};
+const attackCue=(profile,style)=>ATTACK_CUES[profile?.nativeReference]||SPECIES_CUES[profile?.id]||style||profile?.style||'punch';
 export class SoundSystem {
   constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.effectSlots=[];this.battlePlaying=false;this.intense=false;this.ready=this.preload().catch(()=>false); }
   async preload(){
