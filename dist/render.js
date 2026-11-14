@@ -119,17 +119,25 @@ export class Renderer {
     const blend=1-Math.exp(-dt*(unit.dash?.phase==='travel'?40:24));pose.x+=(unit.x-pose.x)*blend;pose.y+=(unit.y-pose.y)*blend;
     const turn=1-Math.exp(-dt*24);pose.dx+=((unit.dx||0)-pose.dx)*turn;pose.dy+=((unit.dy||0)-pose.dy)*turn;
     if(pose.seq!==unit.attackSeq){pose.seq=unit.attackSeq;pose.attack=unit.attack||0;}else if(!fresh)pose.attack=Math.max(0,Math.min(unit.attack||0,pose.attack-dt));
-    if((unit.card?.attackGestures||Number.isFinite(unit.card?.attackContactFrame))&&unit.attack>0){
-      const card=unit.card,duration=unit.attackDuration||card.attackDuration,windup=unit.attackWindup??card.windup,spacing=card.burstSpacing||duration;
-      const contact=this.attackContacts?.get(unit.id),current=contact?.seq===unit.attackSeq?contact:null,next=(current?.shot??-1)+1;
+    const card=unit.card||unit.guard||{},contact=this.attackContacts?.get(unit.id),current=contact?.seq===unit.attackSeq?contact:null;
+    if(current&&unit.attack>0){
+      const duration=unit.attackDuration||card.attackDuration||.6,windup=unit.attackWindup??card.windup??unit.windup??.18,spacing=card.burstSpacing||duration,next=current.shot+1;
       let elapsed=duration-pose.attack;
       // Do not recover from a predicted contact before its authoritative event
       // arrives. This keeps each native gesture beside the hit at 15 Hz too.
-      if(current&&next<(card.burst||1))elapsed=Math.min(elapsed,windup+next*spacing);
-      if(current&&this.t<current.until)elapsed=Math.min(elapsed,windup+current.shot*spacing);
+      if(next<(card.burst||1))elapsed=Math.min(elapsed,windup+next*spacing);
+      if(this.t<current.until)elapsed=Math.min(elapsed,windup+current.shot*spacing);
       pose.attack=duration-elapsed;
     }
-    return{...unit,x:pose.x,y:pose.y,dx:pose.dx,dy:pose.dy,attack:pose.attack};
+    const displayed={...unit,x:pose.x,y:pose.y,dx:pose.dx,dy:pose.dy,attack:pose.attack},held=contact?.held;
+    if(held&&this.t<held.until&&!(unit.hp<=0||unit.stun>0||unit.freeze>0||unit.pushHurt>0)){
+      // A packet can contain both a release and the next attackStart. Preserve
+      // that released pose for two display frames without rewinding either clock.
+      const duration=Math.max(held.duration,held.elapsed+1/30+1e-7);
+      return{...displayed,card:held.card,guard:held.guard,attackSeq:held.seq,attackAnim:held.animation,attackDuration:duration,attackWindup:held.windup,attack:duration-held.elapsed,dx:held.dx,dy:held.dy};
+    }
+    if(held&&this.t>=held.until)delete contact.held;
+    return displayed;
   }
   projected(point,actor){
     if(!actor)return point;
@@ -337,13 +345,17 @@ export class Renderer {
       this.effects=this.effects.filter(e=>!['windup','charge'].includes(e.kind)||e.actor?.id!==id);
     }
     if(type==='dashWindup')this.effects.push({kind:'charge',actor:event.unit,seq:event.unit.attackSeq,style:'shadow',life:event.duration,max:event.duration});
-    if(type==='attackStart'&&(event.attacker?.card?.attackGestures||Number.isFinite(event.attacker?.card?.attackContactFrame))){
+    if(type==='attackStart'&&event.attacker){
       this.attackContacts??=new Map();
-      this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,shot:-1,until:0});
+      const held=this.attackContacts.get(event.attacker.id)?.held;
+      this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,shot:-1,until:0,held:held&&this.t<held.until?held:undefined});
     }
-    if(type==='attackRelease'&&(event.attacker?.card?.attackGestures||Number.isFinite(event.attacker?.card?.attackContactFrame))){
+    if(type==='attackRelease'&&event.attacker){
       this.attackContacts??=new Map();
-      this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,shot:event.shot,until:this.t+1/30+1e-7});
+      const actor=event.attacker,profile=actor.card||actor.guard||{},duration=actor.attackDuration||profile.attackDuration||.6,windup=actor.attackWindup??profile.windup??actor.windup??.18;
+      const shot=event.shot||0,until=this.t+1/30+1e-7,held={seq:actor.attackSeq,card:actor.card,guard:actor.guard,animation:actor.attackAnim||profile.attackAnim||'Attack',duration,windup,elapsed:windup+shot*(profile.burstSpacing||duration),dx:actor.dx,dy:actor.dy,until};
+      const current=this.attackContacts.get(actor.id);
+      this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,shot,until}),held});
     }
     if(type==='cast'&&event.key==='pinMissile'){
       const first=(event.castDelay??CARDS.pinMissile.castDelay??.55)+(event.flightTime||0);
