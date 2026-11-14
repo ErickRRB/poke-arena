@@ -15,7 +15,7 @@ const wingEdge=(x,y,polygon)=>polygon.some((a,i)=>{
 // Only the visible painted wings move. The head, hands and body remain native,
 // so the gameplay emitter follows the same unmodified attachment marker.
 export class FlightWings{
-  constructor(){this.cache=new Map();this.phases=new Map();}
+  constructor(){this.cache=new Map();this.phases=new Map();this.composites=new Map();}
   clock(key,now,frozen=false){
     const previous=this.phases.get(key);
     const phase=!previous||now<previous.now?now:previous.phase+(frozen?0:now-previous.now);
@@ -49,9 +49,13 @@ export class FlightWings{
       const bodyCanvas=canvas(w,h);bodyCanvas.getContext('2d').putImageData(new ImageData(body,w,h),0,0);
       for(const wing of wings){wing.image=canvas(w,h);wing.image.getContext('2d').putImageData(new ImageData(wing.pixels,w,h),0,0);delete wing.pixels;}
       wings.sort((a,b)=>Number(a.name==='near')-Number(b.name==='near'));
-      const padding=12,resolution=4,composite=canvas((w+padding*2)*resolution,(h+padding*2)*resolution);
+      // The current three rigs use at most 104 native frame/view keys. Keep their
+      // small immutable layers, and share one immediate-use composite per size.
+      const padding=12,resolution=4,size=`${w}:${h}`;
+      let composite=this.composites.get(size);
+      if(!composite){composite=canvas((w+padding*2)*resolution,(h+padding*2)*resolution);this.composites.set(size,composite);}
       entry={body:bodyCanvas,wings,composite,padding,w,h};this.cache.set(key,entry);
-      if(this.cache.size>24)this.cache.delete(this.cache.keys().next().value);
+      if(this.cache.size>128)this.cache.delete(this.cache.keys().next().value);
     }
     const {composite,padding,w,h}=entry,c=composite.getContext('2d');c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,composite.width,composite.height);c.imageSmoothingEnabled=false;c.scale(4,4);
     const frequency=id===123?7.5:id===373?2.2:2.6,amplitude=id===123?.34:.24;

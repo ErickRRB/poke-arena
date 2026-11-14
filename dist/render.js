@@ -123,7 +123,7 @@ export class Renderer {
     const blend=1-Math.exp(-dt*24);pose.x+=(unit.x-pose.x)*blend;pose.y+=(unit.y-pose.y)*blend;
     const turn=1-Math.exp(-dt*24);pose.dx+=((unit.dx||0)-pose.dx)*turn;pose.dy+=((unit.dy||0)-pose.dy)*turn;
     if(pose.seq!==unit.attackSeq){pose.seq=unit.attackSeq;pose.attack=unit.attack||0;}else if(!fresh)pose.attack=Math.max(0,Math.min(unit.attack||0,pose.attack-dt));
-    if(unit.card?.attackGestures&&unit.attack>0){
+    if((unit.card?.attackGestures||Number.isFinite(unit.card?.attackContactFrame))&&unit.attack>0){
       const card=unit.card,duration=unit.attackDuration||card.attackDuration,windup=unit.attackWindup??card.windup,spacing=card.burstSpacing||duration;
       const contact=this.attackContacts?.get(unit.id),current=contact?.seq===unit.attackSeq?contact:null,next=(current?.shot??-1)+1;
       let elapsed=duration-pose.attack;
@@ -161,9 +161,12 @@ export class Renderer {
   tintTarget(c,image,sx,sy,sw,sh,dx,dy,dw,dh){
     const cache=this.targetTintCache??=new Map(),key=image.src+':'+[sx,sy,sw,sh].join(':');
     let tint=cache.get(key);
-    if(!tint){
-      tint=document.createElement('canvas');tint.width=sw;tint.height=sh;
-      const mask=tint.getContext('2d');mask.imageSmoothingEnabled=false;mask.drawImage(image,sx,sy,sw,sh,0,0,sw,sh);
+    const refresh=!tint||!image.src;
+    if(!tint){tint=document.createElement('canvas');tint.width=sw;tint.height=sh;}
+    if(refresh){
+      // Articulated sprites are mutable canvases. Reuse their mask surface,
+      // refreshing its pixels for this pose rather than caching a stale wing.
+      const mask=tint.getContext('2d');mask.imageSmoothingEnabled=false;mask.globalCompositeOperation='source-over';mask.clearRect(0,0,sw,sh);mask.drawImage(image,sx,sy,sw,sh,0,0,sw,sh);
       mask.globalCompositeOperation='source-in';mask.fillStyle='#ff3048';mask.fillRect(0,0,sw,sh);
     }
     cache.delete(key);cache.set(key,tint);if(cache.size>48)cache.delete(cache.keys().next().value);
@@ -307,11 +310,11 @@ export class Renderer {
   }
   onEvent(event) {
     const {type}=event;
-    if(type==='attackStart'&&event.attacker?.card?.attackGestures){
+    if(type==='attackStart'&&(event.attacker?.card?.attackGestures||Number.isFinite(event.attacker?.card?.attackContactFrame))){
       this.attackContacts??=new Map();
       this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,shot:-1,until:0});
     }
-    if(type==='attackRelease'&&event.attacker?.card?.attackGestures){
+    if(type==='attackRelease'&&(event.attacker?.card?.attackGestures||Number.isFinite(event.attacker?.card?.attackContactFrame))){
       this.attackContacts??=new Map();
       this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,shot:event.shot,until:this.t+1/30+1e-7});
     }
