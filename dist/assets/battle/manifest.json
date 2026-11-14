@@ -425,7 +425,7 @@
       "fps": 18
     },
     "pokeball": {
-      "file": "assets/ui/pokeball-v2.webp",
+      "file": "assets/ui/pokeball-pixel-v1.svg",
       "width": 64,
       "height": 64,
       "columns": 1,
