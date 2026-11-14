@@ -27,10 +27,10 @@ test('a push invalidates a pending attack, retains its target and lets its remai
   fireball(g,276,520);assert.ok(unit.attackSeq>seq);assert.equal(unit.target,victim);assert.equal(unit.attack,0);assert.ok(Math.abs(unit.cooldown-(cooldown-1/60))<1e-6);
   run(g,.65);assert.equal(victim.hp,hp,'the canceled strike must not resolve after push');
 });
-test('Log and Marea cancel prepared charges through the same rule',()=>{
+test('Log and a forced push cancel prepared charges through the same rule',()=>{
   const g=fresh(),unit=stationary(g.spawn('arcanine',1,300,500,0));unit.charge=2;g.hands[0][0]='log';g.energy[0]=10;assert.ok(g.deploy(0,0,300,520).ok);g.step(1/60);assert.ok(unit.charge<CARDS.arcanine.charge);
   const sea=fresh(),kyogre=sea.spawn('kyogre',0,300,500,0),enemy=sea.spawn('arcanine',1,330,520,0),victim=stationary(sea.spawn('grimer',0,330,548,0));
-  sea.attack(enemy,victim);enemy.charge=2;const seq=enemy.attackSeq,cooldown=enemy.cooldown;sea.energy[0]=10;assert.ok(sea.activateAbility(0,kyogre.id).ok);
+  sea.attack(enemy,victim);enemy.charge=2;const seq=enemy.attackSeq,cooldown=enemy.cooldown;sea.energy[0]=10;assert.ok(sea.pushUnit(enemy,38,0,{force:true}));
   assert.equal(enemy.charge,0);assert.ok(enemy.attackSeq>seq);assert.equal(enemy.target,victim);assert.equal(enemy.cooldown,cooldown);
 });
 test('push cannot pull an invulnerable dash or an active jump out of its path',()=>{

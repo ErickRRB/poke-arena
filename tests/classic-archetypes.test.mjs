@@ -97,7 +97,7 @@ test('concealment and its transition survive online restoration and the opposite
 });
 
 test('spell aiming resolves to cells and the tower center, and deployment uses that exact preview',()=>{
-  for(const team of[0,1])for(const key of['sneaselAmbush','fireball','thunder','nightmare','earthquake'])for(const[x,y]of[[161,171],[207,173],[53,49],[549,749],[303,407]]){
+  for(const team of[0,1])for(const key of['sneaselAmbush','fireball','thunder','nightmare','earthquake'])for(const[x,y]of[[161,171],[207,173],[97,49],[503,749],[303,407]]){
     const g=fresh(),pointer={x:team?600-x:x,y:team?800-y:y},point=g.resolveDeployment(team,key,pointer.x,pointer.y);
     g.hands[team][0]=key;g.energy[team]=10;const deployed=g.deploy(team,0,pointer.x,pointer.y);assert.ok(deployed.ok);
     assert.deepEqual({x:deployed.x,y:deployed.y},point);assert.deepEqual({x:g.spells[0].x,y:g.spells[0].y},point);
@@ -123,7 +123,7 @@ test('the gang matches the project level-11 Goblin Gang health, damage, cadence,
   const reference=JSON.parse(readFileSync(new URL('../docs/clash-royale-level11.json',import.meta.url))),find=key=>reference.cards.find(card=>card.key===key),gang=find('goblin-gang');
   const g=fresh();g.hands[0][0]='pandilla';g.energy[0]=10;g.deploy(0,0,300,530);assert.equal(CARDS.pandilla.cost,gang.elixir);
   for(const[key,row,base]of[['poochyenaToken',0,find('goblins')],['raltsToken',1,find('spear-goblins')]]){
-    const units=g.units.filter(u=>u.key===key),ref=gang.level11[row];assert.equal(units.length,key==='raltsToken'?2:3);
+    const units=g.units.filter(u=>u.key===key),ref=gang.level11[row];assert.equal(units.length,3);
     for(const u of units){assert.equal(u.hp,Number(ref.Hitpoints));assert.equal(u.card.damage,Number(ref.Damage));assert.equal(u.card.interval,parseFloat(base.traits['Hit Speed']));assert.equal(u.card.speed,57.6);assert.equal(u.card.range,key==='raltsToken'?Number(base.traits.Range)*24:12);}
   }
 });

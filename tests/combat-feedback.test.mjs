@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {Game,CARDS} from '../dist/engine.js';
 import {Renderer} from '../dist/render.js';
 import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js';
+import {emissionPoint} from '../dist/sprite-motion.js';
 const fresh=()=>{const events=[],game=new Game({seed:92,onEvent:e=>events.push(e)});game.start();game.aiEnabled=false;game.towers.forEach(t=>t.active=false);return{game,events};};
 const run=(game,seconds)=>{for(let i=0;i<Math.ceil(seconds*60);i++)game.step(1/60);};
 
@@ -14,6 +15,13 @@ test('active crown tower effects have a finite emitter without a troop card',()=
   const emitter=renderer.visualEmission(tower);
   assert.ok(Number.isFinite(emitter.x)&&Number.isFinite(emitter.y),`${tower.team}/${tower.king}`);
  }
+});
+
+test('a short-range projectile attack keeps its native emitter instead of receiving a melee lunge',()=>{
+ const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced:false,verticalScale:1});
+ const card={...CARDS.beedrill,flying:false,range:38.4,rangedAttack:true},actor={id:6,x:300,y:500,card,dx:1,dy:0,attack:.7,attackDuration:1,attackWindup:.3};
+ const native=emissionPoint(actor,0,1);assert.deepEqual(renderer.visualEmission(actor),native);
+ actor.card={...card,rangedAttack:false};const contact=renderer.visualEmission(actor);assert.equal(contact.x,native.x+3);assert.equal(contact.y,native.y);
 });
 
 test('floating combat numbers stay hidden until explicitly enabled and clear immediately when disabled',()=>{
@@ -53,10 +61,10 @@ test('structure health does not leave a full yellow damage trail while its lifet
  const ctx=new Proxy({}, {get:(o,k)=>o[k]??(()=>{}),set:(o,k,v)=>(o[k]=v,true)});renderer.healthBar(ctx,unit,100,100,44);
  assert.equal(renderer.healthStates.get(1).chip,.5);
 });
-test('Forretress death stun has no hidden one-damage hit',()=>{
+test('Wall Breakers killed before contact have no death explosion or removed death stun',()=>{
  const{game,events}=fresh(),explosive=game.spawn('forretress',0,300,500,0),enemy=game.spawn('geodude',1,350,500,0),hp=enemy.hp;
- game.damage(explosive,9999,1);assert.equal(enemy.hp,hp);assert.equal(enemy.stun,CARDS.forretress.deathStun);
- assert.ok(!events.some(e=>e.type==='damage'&&e.target===enemy));assert.ok(events.some(e=>e.type==='deathBurst'&&e.unit===explosive));
+ game.damage(explosive,9999,1);assert.equal(enemy.hp,hp);assert.equal(enemy.stun,0);
+ assert.ok(!events.some(e=>e.type==='damage'&&e.target===enemy));assert.ok(!events.some(e=>e.type==='deathBurst'&&e.unit===explosive));
 });
 test('expiry and self-removal are not counted as attacks against their own owner',()=>{
  const{game,events}=fresh(),token=game.spawn('shuppetToken',0,300,500,0);token.ttl=.01;run(game,.05);
@@ -75,7 +83,7 @@ test('Blastoise walks, keeps its health over time and cannot lure a building see
 });
 
 test('an area projectile reports the exact ground center and radius it damaged, including the other perspective',()=>{
-  const{game,events}=fresh(),source=game.spawn('roselia',0,300,520,0),target=game.spawn('grimer',1,300,300,0),inside=game.spawn('grimer',1,335,300,0),outside=game.spawn('grimer',1,355,300,0);
+  const{game,events}=fresh(),source=game.spawn('roselia',0,300,520,0),target=game.spawn('grimer',1,300,300,0),inside=game.spawn('grimer',1,335,300,0),outside=game.spawn('grimer',1,365,300,0);
   for(const u of[target,inside,outside])u.card={...u.card,speed:0,damage:0,passive:true};game.attack(source,target);source.cooldown=100;run(game,2);
   assert.equal(target.maxHp-target.hp,CARDS.roselia.damage);assert.equal(inside.maxHp-inside.hp,CARDS.roselia.damage);assert.equal(outside.hp,outside.maxHp);
   const hit=events.find(e=>e.type==='hit'&&e.key==='roselia');assert.equal(hit.radius,48);assert.equal(hit.groundX,target.x);assert.equal(hit.groundY,target.y);assert.equal(hit.art,'petalShot');

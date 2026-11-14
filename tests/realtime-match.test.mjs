@@ -28,6 +28,6 @@ test('wire snapshots hide the opponent hand and preserve custom summoned forms a
 });
 test('the public catalog replaces the duplicated Electrode without changing its explosive role',()=>{
   assert.equal(CARDS.electrode.token,true);assert.equal(CARDS.forretress.id,205);assert.equal(CARDS.forretress.building,true);assert.equal(CARDS.forretress.suicide,true);
-  assert.equal(CARDS.forretress.damage,CARDS.electrode.damage);assert.equal(CARDS.forretress.hp,CARDS.electrode.hp);assert.equal(validDeck(['electrode',...deck.slice(1)]),false);assert.equal(validDeck(['forretress',...deck.slice(1)]),true);
+  assert.equal(CARDS.forretress.nativeReference,'Wallbreakers');assert.equal(CARDS.forretress.count,2);assert.equal(validDeck(['electrode',...deck.slice(1)]),false);assert.equal(validDeck(['forretress',...deck.slice(1)]),true);
   assert.match(CARDS.forretress.role,/^Win condition/);assert.ok(Number.isFinite(CARDS.forretress.scale));
 });

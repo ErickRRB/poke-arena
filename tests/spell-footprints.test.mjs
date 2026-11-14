@@ -9,11 +9,11 @@ test('Fireball keeps a 2.5-cell radius and uses the full footprint of each targe
   const unit={x:300,y:300,radius:12,card:CARDS.geodude};
   assert.equal(spellOverlapsTarget(CARDS.fireball,{x:371.9,y:300},unit),true);
   assert.equal(spellOverlapsTarget(CARDS.fireball,{x:372.1,y:300},unit),false);
-  const tower={x:442,y:172,king:false,radius:29};
-  assert.equal(spellOverlapsTarget(CARDS.fireball,{x:358.1,y:172},tower),true);
-  assert.equal(spellOverlapsTarget(CARDS.fireball,{x:357.9,y:172},tower),false);
-  assert.equal(spellOverlapsTarget(CARDS.fireball,{x:376,y:238},tower),true);
-  assert.equal(spellOverlapsTarget(CARDS.fireball,{x:374,y:240},tower),false,'square corners must not acquire an inflated circular radius');
+  const tower={x:432,y:172,king:false,radius:24};
+  assert.equal(spellOverlapsTarget(CARDS.fireball,{x:348.1,y:172},tower),true);
+  assert.equal(spellOverlapsTarget(CARDS.fireball,{x:347.9,y:172},tower),false);
+  assert.equal(spellOverlapsTarget(CARDS.fireball,{x:365.8,y:238.2},tower),true);
+  assert.equal(spellOverlapsTarget(CARDS.fireball,{x:365.5,y:238.5},tower),false,'square corners must not acquire an inflated circular radius');
 });
 
 test('one cell between a central defense and princess can hit both, with matching preview and CPU valuation',()=>{

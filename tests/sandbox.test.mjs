@@ -31,8 +31,8 @@ test('both sides march to their lane tower until a troop enters sight',()=>{
 test('production targeting honors Rhydon sight for acquisition and pursuit in both directions',()=>{
   for(const team of[0,1]){
     const g=new Game({tutorial:true});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);
-    const a=g.spawn('rhydon',team,158,400,0),b=g.spawn('roselia',1-team,308,400,0);b.stun=999;
-    assert.notEqual(g.acquire(a),b,'150 is outside sight 120');
+    const a=g.spawn('rhydon',team,158,400,0),b=g.spawn('roselia',1-team,338,400,0);b.stun=999;
+    assert.notEqual(g.acquire(a),b,'180 is outside sight plus both radii (150)');
     b.x=268;assert.equal(g.acquire(a),b);a.target=b;a.engaged=true;
     b.x=350;run(g,.1);assert.notEqual(a.target,b,'a target outside sight is released');
   }
@@ -64,8 +64,8 @@ test('any playable card can be deployed repeatedly without changing the deck or 
 });
 test('towers recover rapidly after two quiet seconds, and a later hit resets the wait',()=>{
   const g=new SandboxGame({mode:'towers'}),tower=g.towers.find(t=>t.team===1&&!t.king);g.resume();
-  g.damage(tower,700,0);run(g,1.9);assert.equal(tower.hp,2300);
-  g.damage(tower,100,0);run(g,1.9);assert.equal(tower.hp,2200);run(g,.4);assert.equal(tower.hp,3000);
+  g.damage(tower,700,0);run(g,1.9);assert.equal(tower.hp,tower.maxHp-700);
+  g.damage(tower,100,0);run(g,1.9);assert.equal(tower.hp,tower.maxHp-800);run(g,.4);assert.equal(tower.hp,tower.maxHp);
   assert.equal(g.measurement(0).tower,800);assert.equal(g.measurement(0).total,800);
 });
 test('destroying a royal tower never ends a sandbox and it revives after two seconds',()=>{
@@ -75,7 +75,7 @@ test('destroying a royal tower never ends a sandbox and it revives after two sec
 });
 test('the princess scenario has one real tower, and tower attacks can be switched off',()=>{
   for(const towerFire of[true,false]){
-    const g=new SandboxGame({mode:'princess',towerFire});assert.equal(g.visibleTowers.length,1);assert.equal(g.visibleTowers[0].maxHp,3000);
+    const g=new SandboxGame({mode:'princess',towerFire});assert.equal(g.visibleTowers.length,1);assert.equal(g.visibleTowers[0].maxHp,3052);
     const target=g.spawn('snorlax',0,158,350,0);g.resume();run(g,1.4);
     assert.equal(target.hp<target.maxHp,towerFire);
   }
@@ -89,10 +89,4 @@ test('measurements count real health and shield damage, exclude healing and disc
 test('the sandbox never enables the CPU, runs out of time, or unlocks the other deployment half',()=>{
   const g=new SandboxGame();assert.equal(g.resolveDeployment(0,'geodude',158,280),null);assert.equal(g.resolveDeployment(1,'geodude',158,520),null);
   g.resume();run(g,181);assert.equal(g.state,'playing');assert.equal(g.aiEnabled,false);assert.equal(g.units.length,0);
-});
-
-test('hero abilities are usable in a paused experiment without consuming resources or resuming time',()=>{
-  const g=new SandboxGame(),hero=g.spawn('kyogre',0,300,500,0),target=g.spawn('geodude',1,350,500,0);g.energy[0]=0;
-  assert.ok(g.useAbility(0,hero.id).ok);assert.ok(target.hp<target.maxHp);assert.equal(g.energy[0],10);assert.equal(g.state,'paused');assert.equal(g.elapsed,0);assert.equal(hero.abilityUsed,true);
-  assert.equal(g.useAbility(0,hero.id).ok,false,'normal once-per-body ability rules still apply');
 });

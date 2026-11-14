@@ -70,7 +70,6 @@ export function featureScene(key,feature,{buffered=true}={}){
   actor.card={...actor.card,speed:0};actor.entryPending=false;
   const target=game.spawn('snorlax',1,300,280,0);target.hp=target.maxHp=1e6;target.card={...target.card,passive:true,speed:0,armor:0,reflect:0};
   if(feature==='death')game.damage(actor,1e9,1);
-  else if(feature==='ability'){game.energy[0]=10;game.activateAbility(0,actor.id);}
   else if(feature==='dot'){game.damage(target,1,0,{burn:actor.card.burn||1,burnKind:actor.card.burnKind||'fire',sourceId:actor.id,sourceKey:key});game.tickStatus(target,.5);}
   else if(feature==='field'){game.addField(target.x,target.y,0,actor.card.poisonField||actor.card.deathField||1,actor.id);game.stepFields(.5);}
   else if(feature==='heal'){target.team=0;target.hp-=100;game.healNearby(actor,50,150,true);}

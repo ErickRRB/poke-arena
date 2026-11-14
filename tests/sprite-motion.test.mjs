@@ -11,14 +11,22 @@ import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js';
 import {WING_RIGS} from '../dist/wing-rigs.js';
 
 test('native emission markers cover every playable attack in all eight directions',()=>{
- for(const card of Object.values(CARDS).filter(c=>!c.spell)){
-  assert.ok(SPRITE_GEOMETRY[card.id]?.[card.attackAnim]||SPRITE_GEOMETRY[card.id]?.Idle,card.name);
+ for(const card of Object.values(CARDS).filter(c=>c.id&&!c.spell)){
+  assert.ok(SPRITE_GEOMETRY[card.id]?.[card.attackAnim],card.name+' uses the markers of its actual attack clip');
   for(let direction=0;direction<8;direction++)for(const phase of[0,.25,.5,.9]){
    const angle=(2-direction)*Math.PI/4,actor={card,x:300,y:500,dx:Math.cos(angle),dy:Math.sin(angle),attack:card.attackDuration*(1-phase),attackDuration:card.attackDuration};
    const point=emissionPoint(actor);assert.ok(Number.isFinite(point.x)&&Number.isFinite(point.y),card.name);
    assert.ok(Math.hypot(point.x-actor.x,point.y-actor.y)<190,card.name);
   }
  }
+});
+
+test('a fixed-impact projectile keeps its endpoint when the target moves or disappears, including vertical projection',()=>{
+ const draws=[],context=new Proxy({},{get:(o,key)=>o[key]??(()=>{}),set:(o,key,value)=>(o[key]=value,true)}),renderer=Object.assign(Object.create(Renderer.prototype),{frameActors:new Map([[99,{id:99,x:420,y:320,logicalX:400,logicalY:300}]]),visualProjectiles:new Map(),t:0,drawDt:1/60,reduced:true,verticalScale:1.5,combatArt:(c,art,x,y)=>draws.push({art,x,y})});
+ const shot={id:'fixed',sourceId:8,target:{id:99,x:400,y:300,card:CARDS.snorlax},impactPoint:{x:400,y:300},x:400,y:300,startX:200,startY:500,liftX:0,liftY:-30,endLiftY:-30,groundPath:true,totalDistance:200,travelled:200,arc:100,key:'roselia',style:'leaf'};
+ renderer.projectile(context,shot);assert.deepEqual(draws.pop(),{art:'leaf',x:400,y:280});
+ renderer.projectile(context,{...shot,target:null});assert.deepEqual(draws.pop(),{art:'leaf',x:400,y:280});
+ renderer.projectile(context,{...shot,id:'homing',impactPoint:undefined});assert.deepEqual(draws.pop(),{art:'leaf',x:420,y:300});
 });
 test('Charizard fire attaches to its original head marker instead of the old height constant',()=>{
  const game=new Game({seed:11}),actor=game.spawn('charizard',0,300,500,0),target=game.spawn('snorlax',1,390,500,0);
@@ -60,7 +68,7 @@ test('every Pokemon uses the matching original view for all eight directions, in
  const draws=[],ctx=new Proxy({}, {get:(o,k)=>o[k]??((...args)=>{if(k==='drawImage')draws.push(args)}),set:(o,k,v)=>(o[k]=v,true)});
  const sprites=new Map(Object.entries(metadata).flatMap(([id,animations])=>Object.keys(animations).map(name=>[id+'-'+name,{height:animations[name].height*8}])));
  const renderer=Object.assign(Object.create(Renderer.prototype),{metadata,sprites,speciesLoads:new Map(Object.keys(metadata).map(id=>[Number(id),Promise.resolve()])),anchors:new Map(),bodyHeights:new Map(),reduced:false,verticalScale:1,t:.35,platform(){}});
- for(const [key,card] of Object.entries(CARDS).filter(([,c])=>!c.spell)){
+ for(const [key,card] of Object.entries(CARDS).filter(([,c])=>c.id&&!c.spell)){
   for(let direction=0;direction<8;direction++)for(const attacking of[false,true]){
    const angle=(2-direction)*Math.PI/4,unit={id:8,key,card,x:300,y:500,dx:Math.cos(angle),dy:Math.sin(angle),attack:attacking?card.attackDuration*.6:0,attackDuration:card.attackDuration,attackWindup:card.windup,moving:true,preview:true};
    draws.length=0;renderer.sprite(ctx,unit,true);
@@ -77,7 +85,7 @@ test('every Pokemon uses the matching original view for all eight directions, in
 });
 
 test('projectiles, contact effects and beams fit every individual Pokemon silhouette',()=>{
- for(const [key,card] of Object.entries(CARDS).filter(([,c])=>!c.spell)){
+ for(const [key,card] of Object.entries(CARDS).filter(([,c])=>c.id&&!c.spell)){
   assert.ok(POKEMON_SILHOUETTES[card.id],key+' measured silhouette');
   const v=combatVisual(card),areaSize=card.range>=50&&card.splash?Math.min(34,card.splash*.45):0;assert.ok(v.projectile>=8&&v.projectile<=Math.max(v.body*.55,areaSize),key+' projectile');
   assert.ok(v.impact<=v.body*.8,key+' contact effect');assert.ok(v.beam<v.body*.25,key+' beam');

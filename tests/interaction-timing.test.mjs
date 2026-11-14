@@ -11,7 +11,7 @@ test('Bandit has a vulnerable preparation, visible travel and one double-damage 
   const{g,events,unit,target}=dashScene();run(g,.6);assert.equal(unit.dash.phase,'windup');assert.equal(unit.y,600);assert.equal(target.hp,target.maxHp);
   const health=unit.hp;g.damage(unit,10,1);assert.equal(unit.hp,health-10);
   run(g,.25);assert.equal(unit.dash.phase,'travel');assert.ok(unit.y<600&&unit.y>540);const during=unit.hp;g.damage(unit,100,1);assert.equal(unit.hp,during);
-  run(g,.25);assert.equal(unit.dash,null);assert.equal(target.maxHp-target.hp,CARDS.sableye.damage*2);
+  run(g,.4);assert.equal(unit.dash,null);assert.equal(target.maxHp-target.hp,CARDS.sableye.dashDamage);
   assert.equal(events.filter(e=>e.type==='dashStart').length,1);assert.equal(events.filter(e=>e.type==='damage'&&e.target===target).length,1);
   g.damage(unit,10,1);assert.equal(unit.hp,during-10);
 });
@@ -28,14 +28,14 @@ test('dash state survives reconnection and mirrors its path for the other player
 });
 test('small single troops, including Bandit and Princess, have readable silhouettes',()=>{
   for(const key of['sableye','roselia','pikachu','squirtle','charmander','bulbasaur','ditto'])assert.ok(POKEMON_SILHOUETTES[CARDS[key].id].body*CARDS[key].scale>=41.9,key);
-  assert.equal(CARDS.sableye.radius,undefined); // Artwork size must not invent a larger collision body.
+  assert.equal(CARDS.sableye.radius,14.4); // Artwork size must not invent a larger collision body.
 });
 test('a summoner killed by damage over time cannot create its regular wave after dying',()=>{
   const{g}=setup(),unit=g.spawn('duskull',0,300,500,0);unit.hp=1;unit.summonClock=.5;unit.burn={remaining:3,tick:.5,damage:12,team:1,kind:'fire'};
   run(g,.52);assert.equal(unit.hp,0);assert.equal(g.units.filter(u=>u.parentId===unit.id).length+g.reinforcements.filter(job=>job.parentId===unit.id).length,0);
 });
 test('freezing a summoned unit does not extend its natural lifetime',()=>{
-  const{g}=setup(),unit=g.spawn('shuppetToken',0,300,500,0);g.damage(unit,45,1,{stun:3,freeze:3});run(g,16.5);assert.equal(unit.hp,0);assert.ok(!g.units.includes(unit));
+  const{g}=setup(),unit=g.spawn('nidoranF',0,300,500,0);unit.ttl=2;g.damage(unit,45,1,{stun:3,freeze:3});run(g,16.5);assert.equal(unit.hp,0);assert.ok(!g.units.includes(unit));
 });
 test('Ditto copies a heavy windup and poison identity along with attack damage',()=>{
   for(const key of['rhydon','umbreon']){
