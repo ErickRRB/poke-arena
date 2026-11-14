@@ -2,17 +2,17 @@
 
 Juego web de estrategia en tiempo real inspirado en las batallas de torres de Clash Royale, con Pokémon, dos carriles, puentes y tres torres por equipo. Permite jugar contra la CPU o contra otra persona online.
 
-[Jugar en el navegador](https://poke-arena-erick.eriqrb.chatgpt.site)
+[Jugar en Cloudflare](https://poke-arena-web.eriickramiirez.workers.dev) · [Dirección anterior compatible](https://poke-arena-erick.eriqrb.chatgpt.site)
 
 ## Cómo se juega
 
 Armá un mazo de ocho cartas en la home. Durante la partida tenés cuatro cartas en la mano y una cola rotativa. Cada despliegue consume elixir, que se regenera hasta diez. Podés guardar cuatro mazos en el navegador.
 
-La colección tiene 109 cartas: tropas terrestres y aéreas, estructuras, invocadores y trece hechizos. Las etiquetas muestran su [equivalente de Clash Royale](docs/CARD-EQUIVALENTS.md) cuando lo tienen, y marcan las similitudes parciales. Algunas unidades legendarias tienen una habilidad que consume elixir y se puede activar una vez por despliegue.
+La colección tiene 110 cartas: tropas terrestres y aéreas, estructuras, invocadores y trece hechizos. Las etiquetas muestran su [equivalente de Clash Royale](docs/CARD-EQUIVALENTS.md) cuando lo tienen, y marcan las similitudes parciales. Los activables de los legendarios están retirados.
 
 La partida dura tres minutos. Ganás al destruir la torre central o terminar con más torres que el rival. Un empate lleva a dos minutos extra con muerte súbita y luego a un desempate por vida de las torres. El elixir se acelera en las fases finales.
 
-La CPU utiliza diez estrategias de mazo. Las partidas online usan una simulación autoritativa en el servidor que valida cartas, elixir, colocación y habilidades. La pausa está disponible únicamente contra CPU. El mazo se edita desde la home y los créditos se consultan en Ajustes.
+La CPU utiliza diez estrategias de mazo. Las partidas online usan una simulación autoritativa en el servidor que valida cartas, elixir y colocación. La pausa está disponible únicamente contra CPU. El mazo se edita desde la home y los créditos se consultan en Ajustes.
 
 La vida de las estructuras se reduce con el tiempo y con los golpes. Los números flotantes de daño están ocultos por defecto y pueden activarse en Ajustes → Depuración. La preferencia se guarda en el navegador.
 
@@ -47,6 +47,12 @@ npm run dev
 Las conexiones locales usan WebSocket en el puerto 4180. La versión publicada usa el [servidor de Cloudflare](https://poke-arena-realtime.eriickramiirez.workers.dev).
 
 ## Servidor multijugador
+
+La web y todos sus medios se alojan en Cloudflare Static Assets, con configuración en `realtime/frontend`. El Worker utiliza el binding `ASSETS`, sin cargar las imágenes dentro de su código ni recurrir a GitHub como origen de producción. Las rutas conservan ETag y exigen revalidación para evitar imágenes antiguas tras una actualización.
+
+La dirección anterior de Sites sirve la misma web mediante un proxy pequeño; conserva el almacenamiento del navegador de quienes siguen entrando por ese dominio. Los mazos se guardan por origen: la dirección nueva de Cloudflare tiene su propio almacenamiento local. Las rutas HTTP antiguas `/api/` se atienden por separado en Sites para mantener compatibilidad, sin volver a pasar por el frontend. La partida online actual usa directamente el servidor WebSocket de Cloudflare.
+
+Después de instalar las dependencias de `realtime`, el frontend se comprueba y publica desde `realtime/frontend` con `npm run build` y `npm run deploy`. `npm run build` en la raíz genera el proxy compatible para Sites; no empaqueta las imágenes en módulos JavaScript.
 
 Un Worker de Cloudflare recibe las conexiones WebSocket. Un Durable Object organiza la búsqueda de rival y otro mantiene cada partida, con simulación autoritativa a 30 pasos por segundo y envío de estados a 15 actualizaciones por segundo. El servidor valida el mazo, elixir, objetivos y colocación. Cada jugador recibe su propia mano y los movimientos se confirman mediante identificadores que evitan despliegues duplicados al reenviar.
 
