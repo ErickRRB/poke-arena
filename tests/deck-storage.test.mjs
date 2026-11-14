@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { loadDeck,saveDeck,normalizeDeck,loadDeckLibrary,saveDeckLibrary } from '../dist/deck-storage.js';
 import { DEFAULT_DECK } from '../dist/engine.js';
 const memory=()=>{const values=new Map();return{getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v)};};
-const chosen=['gastly','exeggutor','kyogre','ditto','hooh','treecko','log','sandshrew'];
+const chosen=['gastly','vivero','kyogre','ditto','hooh','treecko','log','sandshrew'];
 
 test('the last chosen deck is written immediately and restored in the same order',()=>{
   const storage=memory();let cookie='';assert.ok(saveDeck(chosen,{storage,cookie,writeCookie:v=>cookie=v,now:100}));
@@ -25,6 +25,14 @@ test('catalog migration preserves valid choices and order while removing retired
 test('Electrode migrates to Forretress across saved decks without filling incomplete slots',()=>{
   const storage=memory();storage.setItem('poke-arena:deck-slots',JSON.stringify({version:1,active:1,slots:[['voltorb','electrode'],['centralElectrode','electrode','gastly'],[],null]}));
   const loaded=loadDeckLibrary({storage,cookie:''});assert.equal(loaded.active,1);assert.deepEqual(loaded.slots,[['voltorb','forretress'],['centralElectrode','forretress','gastly'],[],null]);
+});
+test('retired Exeggutor migrates to the three-elixir nursery in decks, slots and backups',()=>{
+  const storage=memory(),old=['gastly','exeggutor','kyogre'];
+  storage.setItem('poke-arena:deck',JSON.stringify(old));assert.deepEqual(loadDeck({storage,cookie:''}),['gastly','vivero','kyogre']);
+  storage.setItem('poke-arena:deck-slots',JSON.stringify({version:1,active:1,slots:[old,['exeggutor','vivero','ditto'],[],null]}));
+  assert.deepEqual(loadDeckLibrary({storage,cookie:''}).slots,[['gastly','vivero','kyogre'],['vivero','ditto'],[],null]);
+  const cookie='poke_arena_deck='+encodeURIComponent(JSON.stringify({cards:old,updatedAt:100}));
+  assert.deepEqual(loadDeck({storage:memory(),cookie}),['gastly','vivero','kyogre']);
 });
 test('the local cookie backup preserves edits when browser storage is unavailable',()=>{
   const blocked={getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}};let cookie='';

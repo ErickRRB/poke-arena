@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="card-ui.css?v=26">
   <link rel="stylesheet" href="theme.css?v=26">
   <link rel="stylesheet" href="transient-ui.css?v=26">
-  <link rel="stylesheet" href="editor.css?v=26">
+  <link rel="stylesheet" href="editor.css?v=30">
 </head>
 <body class="menu-mode">
   <svg class="svg-defs" aria-hidden="true"><defs>
@@ -133,7 +133,10 @@
 
   <dialog id="deck-dialog" class="modal deck-modal" aria-label="Editar mazo">
     <div class="deck-editor-heading"><div id="deck-slots" class="deck-presets" role="group" aria-label="Mazos guardados"></div><button id="collection-filters-btn" class="icon-btn" aria-label="Filtros y orden de cartas" aria-haspopup="dialog" aria-expanded="false" aria-controls="collection-filters"><svg aria-hidden="true"><use href="#i-filter"/></svg></button><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
-    <div id="deck-scroll" class="deck-scroll"><div class="deck-top"><div class="deck-strip" id="deck-strip" role="group" aria-label="Las ocho cartas de tu mazo"></div></div><div class="collection" id="collection"></div></div>
+    <div id="deck-scroll" class="deck-scroll">
+      <section class="deck-top" aria-labelledby="deck-section-title"><h2 id="deck-section-title" class="editor-section-bar deck-section-bar"><svg aria-hidden="true"><use href="#i-deck"/></svg>Mi mazo</h2><div class="deck-strip" id="deck-strip" role="group" aria-label="Las ocho cartas de tu mazo"></div></section>
+      <section aria-labelledby="collection-section-title"><h2 id="collection-section-title" class="editor-section-bar collection-section-bar">Mi colección</h2><div class="collection" id="collection"></div></section>
+    </div>
     <div class="deck-save-row"><div class="deck-summary"><span>Coste medio <strong id="deck-average">3,4</strong><svg aria-hidden="true"><use href="#i-energy"/></svg></span></div><button id="save-deck-btn" class="primary-btn">Listo</button></div>
     <div id="collection-filters" class="editor-popover filter-popover" tabindex="-1" popover="auto" role="dialog" aria-label="Filtros de cartas"><label class="filter-search"><span class="sr-only">Buscar carta</span><input id="collection-search" type="search" placeholder="Buscar carta" autocomplete="off"></label><label>Orden<select id="collection-sort"><option value="elixir-asc">Menor elixir</option><option value="elixir-desc">Mayor elixir</option><option value="name">Nombre A–Z</option><option value="original">Orden original</option></select></label><label>Rol<select id="role-filter"><option value="">Todos los roles</option><option value="building">Atacan estructuras</option><option value="structure">Estructuras</option><option value="spell">Hechizos</option><option value="summon">Invocadores</option><option value="troop">Tropas</option></select></label><details class="rarity-options"><summary>Rareza</summary><select id="rarity-filter" aria-label="Filtrar rareza"></select></details><div class="filter-actions"><button id="reset-filters-btn" class="secondary-btn">Limpiar</button><button id="apply-filters-btn" class="primary-btn">Listo</button></div></div>
     <div id="card-actions" class="editor-popover card-actions" popover="auto" role="dialog" aria-label="Acciones de la carta"><button id="card-action-info" class="secondary-btn">Info</button><button id="card-action-toggle" class="primary-btn">Usar</button></div>
@@ -158,6 +161,6 @@
   <dialog id="leave-dialog" class="modal small-modal" aria-labelledby="leave-title" aria-describedby="leave-description"><div class="modal-heading"><h2 id="leave-title">¿Volver al inicio?</h2><button class="icon-btn" data-close aria-label="Seguir jugando"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><p id="leave-description">Se perderá esta partida contra CPU.</p><div class="leave-actions"><button class="primary-btn" data-close>Seguir jugando</button><button class="secondary-btn" id="confirm-leave-btn"><svg aria-hidden="true"><use href="#i-home"/></svg>Volver</button></div></dialog>
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
   <dialog id="portrait-dialog" class="modal small-modal portrait-dialog" aria-labelledby="portrait-title" aria-describedby="portrait-description"><h2 id="portrait-title">Jugá en vertical</h2><p id="portrait-description">Girá el teléfono para continuar.</p></dialog>
-  <script type="module" src="app.js?v=29"></script>
+  <script type="module" src="app.js?v=30"></script>
 </body>
 </html>

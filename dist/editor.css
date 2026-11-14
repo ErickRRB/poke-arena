@@ -13,7 +13,11 @@
 #collection-filters-btn{border:2px solid #90967f;border-radius:6px;background:linear-gradient(#fffdf1,#e6e4ce)}
 #collection-filters-btn.has-filters:after{content:'';position:absolute;top:-2px;right:-2px;width:7px;height:7px;border:1px solid #fff6d7;border-radius:50%;background:#bd493f}
 .deck-scroll{position:relative;min-height:0;overflow-y:auto;overscroll-behavior:contain;scroll-padding:12px;scrollbar-gutter:stable}
-.deck-modal .deck-top{position:static;padding:17px 20px 16px;margin:0;background:#f7f0d5;border-bottom:2px solid #b5b79a}
+.deck-modal .deck-top{position:static;padding:0 20px 16px;margin:0;background:#f7f0d5;border-bottom:2px solid #b5b79a}
+.deck-modal .editor-section-bar{display:flex;align-items:center;gap:7px;min-height:32px;margin:0;padding:5px 20px;font:700 12px/1.5 'DM Sans','Segoe UI',sans-serif}
+.deck-modal .deck-section-bar{margin:0 -20px 18px;color:#fff8e1;background:linear-gradient(#c9574b,#ae3e37);border-bottom:2px solid #823c34;box-shadow:inset 0 1px #ed9b7b}
+.deck-section-bar>svg{flex:0 0 20px;width:20px;height:20px}
+.deck-modal .collection-section-bar{color:#535d4b;background:linear-gradient(#eee7c9,#e1d8b6);border-bottom:1px solid #b7b397;box-shadow:inset 0 1px #fff7dc}
 .deck-modal .deck-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px 12px;margin:0}
 .deck-modal .deck-top .deck-slot{position:relative;width:100%;height:auto;aspect-ratio:4/5;min-height:0;padding:0;border-width:2px;border-radius:7px;overflow:visible}
 .deck-top .deck-slot.empty{display:grid;place-items:center;font-size:28px;line-height:1;border:2px dashed #a7ac94;color:#92997f;background:#e9e4c9}
@@ -47,7 +51,7 @@
 .next-card #next-preview{width:38px;border-radius:4px}
 .next-card>.next-name{display:block;max-width:60px;min-height:2.3em;max-height:2.3em;overflow:hidden;color:#46593f;font:600 9px/1.15 'DM Sans','Segoe UI',sans-serif;text-align:center;text-wrap:balance;overflow-wrap:anywhere}
 .battle-console .energy-section{border-radius:4px;border-color:#83916c;background:linear-gradient(#f0efd6,#dfe0ba);box-shadow:inset 0 1px #fffbe8,0 1px #a8b18b}
-@media(max-width:600px){.deck-modal{width:calc(100vw - 16px);max-width:calc(100vw - 16px)}.deck-modal>.deck-editor-heading{padding:8px 10px;gap:6px}.deck-editor-heading>.deck-presets{gap:5px}.deck-editor-heading .deck-preset>span{font-size:14px}.deck-modal .deck-top{padding:15px 14px}.deck-modal .deck-strip{gap:15px 10px}.deck-modal .collection{grid-template-columns:repeat(3,minmax(0,1fr));gap:15px 10px;padding:16px 14px}.deck-strip .card-heading>.card-name{font-size:10px;padding-left:12px;padding-right:2px}.collection .card-heading>.card-name{font-size:11px}.deck-strip .card-heading>.card-quantity{font-size:9px}.deck-save-row .deck-summary{font-size:10px}}
+@media(max-width:600px){.deck-modal{width:calc(100vw - 16px);max-width:calc(100vw - 16px)}.deck-modal>.deck-editor-heading{padding:8px 10px;gap:6px}.deck-editor-heading>.deck-presets{gap:5px}.deck-editor-heading .deck-preset>span{font-size:14px}.deck-modal .deck-top{padding:0 14px 15px}.deck-modal .editor-section-bar{padding-inline:14px}.deck-modal .deck-section-bar{margin-inline:-14px;margin-bottom:16px}.deck-modal .deck-strip{gap:15px 10px}.deck-modal .collection{grid-template-columns:repeat(3,minmax(0,1fr));gap:15px 10px;padding:16px 14px}.deck-strip .card-heading>.card-name{font-size:10px;padding-left:12px;padding-right:2px}.collection .card-heading>.card-name{font-size:11px}.deck-strip .card-heading>.card-quantity{font-size:9px}.deck-save-row .deck-summary{font-size:10px}}
 @media(max-width:360px){.deck-modal .collection{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px 9px}.collection .card-heading>.card-name{font-size:10px;padding-left:12px;padding-right:1px}.deck-strip .card-heading>.card-name{font-size:9px;padding-left:10px;padding-right:0}.card-heading{top:8px;gap:2px}.deck-editor-heading>.icon-btn{flex-basis:32px;width:32px;height:36px}.deck-editor-heading .deck-preset small{font-size:8px;min-width:12px}}
 @media(max-width:940px){.battle-console .next-card{align-self:center;gap:3px;margin:0}.next-card #next-preview{width:36px}.next-card>.next-name{max-width:44px;font-size:8px}}
 .deck-strip .card-heading{top:18px}.deck-strip .card-heading>.card-name{padding-inline:1px}

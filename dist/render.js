@@ -185,7 +185,7 @@ export class Renderer {
     const {x,y}=unit;
     const nativeAnchor=this.anchors.get(`${id}-${anim}`)?.[direction]?.[frame]||{x:meta.width/2,y:meta.height*.65};
     const anchor=loopFrames&&movement.bodyAnchor?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor;
-    const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:48):0;
+    const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:unit.leap.kind==='river'?24:48):0;
     const lift=(leapLift+(unit.card.structure?23:unit.card.flying?16+(this.reduced?0:Math.sin(this.t*2.6+unit.id)*1.5):0))/vertical;
     const lunge=attackLunge(unit,this.reduced);
     const radius=unit.radius||12;
@@ -355,6 +355,10 @@ export class Renderer {
     this.numbers=this.numbers.filter(n=>n.life>0);
   }
   projectile(c,p){
+    if(p.rolling){
+      c.save();c.fillStyle='#17271f44';c.beginPath();c.ellipse(p.x,p.y+3,18,6,0,0,Math.PI*2);c.fill();
+      this.combatArt(c,'rock',p.x,p.y-13/(this.verticalScale||1),38,this.reduced?0:p.travelled/18,38,{frame:0,trim:true});c.restore();return;
+    }
     const progress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),source=this.frameActors.get(p.sourceId),target=this.frameActors.get(p.target.id)||p.target;
     const start=this.projected({x:p.startX,y:p.startY},source),end=this.projected({x:p.target.x,y:p.target.y-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15)},target);
     const logicalEnd={x:p.target.x,y:p.target.y-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15)};
@@ -556,6 +560,7 @@ export class Renderer {
   fireball(c,spell){
     if(spell.delay>0||spell.done)return;
     const {point,tail,angle}=fireballVisual(spell,this.verticalScale||1),age=this.reduced?0:spell.flightElapsed;
+    if(spell.card?.spawnOnImpact){this.battleArt.draw(c,'pokeball',point.x,point.y,28,28,{frame:0});return;}
     for(let i=tail.length-1;i>=0;i--){c.save();c.globalAlpha=.45-i*.1;const size=36-i*7;
       this.combatArt(c,'fireTrail',tail[i].x,tail[i].y,size,angle-Math.PI/2,size,{age:age+i*.09,fps:8,trim:true});c.restore();}
     const size=this.reduced?58:58+Math.sin(age*5)*2;
