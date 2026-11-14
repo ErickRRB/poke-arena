@@ -20,6 +20,14 @@ test('native emission markers cover every playable attack in all eight direction
   }
  }
 });
+
+test('a fixed-impact projectile keeps its endpoint when the target moves or disappears, including vertical projection',()=>{
+ const draws=[],context=new Proxy({},{get:(o,key)=>o[key]??(()=>{}),set:(o,key,value)=>(o[key]=value,true)}),renderer=Object.assign(Object.create(Renderer.prototype),{frameActors:new Map([[99,{id:99,x:420,y:320,logicalX:400,logicalY:300}]]),visualProjectiles:new Map(),t:0,drawDt:1/60,reduced:true,verticalScale:1.5,combatArt:(c,art,x,y)=>draws.push({art,x,y})});
+ const shot={id:'fixed',sourceId:8,target:{id:99,x:400,y:300,card:CARDS.snorlax},impactPoint:{x:400,y:300},x:400,y:300,startX:200,startY:500,liftX:0,liftY:-30,endLiftY:-30,groundPath:true,totalDistance:200,travelled:200,arc:100,key:'roselia',style:'leaf'};
+ renderer.projectile(context,shot);assert.deepEqual(draws.pop(),{art:'leaf',x:400,y:280});
+ renderer.projectile(context,{...shot,target:null});assert.deepEqual(draws.pop(),{art:'leaf',x:400,y:280});
+ renderer.projectile(context,{...shot,id:'homing',impactPoint:undefined});assert.deepEqual(draws.pop(),{art:'leaf',x:420,y:300});
+});
 test('Charizard fire attaches to its original head marker instead of the old height constant',()=>{
  const game=new Game({seed:11}),actor=game.spawn('charizard',0,300,500,0),target=game.spawn('snorlax',1,390,500,0);
  game.face(actor,target);game.attack(actor,target);actor.attack=actor.attackDuration-actor.attackWindup;

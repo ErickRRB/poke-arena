@@ -450,10 +450,11 @@ export class Renderer {
       const diameter=Math.max(12,visual.projectile,(p.shotRadius||0)*2);
       this.combatArt(c,'psychic',x,y,diameter,0,diameter,{age:this.reduced?0:this.t,trim:true});return;
     }
-    const logicalProgress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),source=this.frameActors.get(p.sourceId),target=this.frameActors.get(p.target.id)||p.target;
-    const targetLift=p.endLiftY??-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15);
-    const start=this.projected({x:p.startX+(p.groundPath?p.liftX||0:0),y:p.startY+(p.groundPath?p.liftY||0:0)},source),end=this.projected({x:p.target.x,y:p.target.y+targetLift},target);
-    const logicalEnd={x:p.target.x,y:p.target.y+(p.groundPath?0:targetLift)};
+    const destination=p.impactPoint||p.target;if(!destination)return;
+    const logicalProgress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),source=this.frameActors.get(p.sourceId),target=p.impactPoint?destination:this.frameActors.get(p.target?.id)||destination;
+    const targetLift=p.endLiftY??-(p.target&&'king'in p.target?27:p.target?.card?.structure?43:p.target?.card?.flying?27:15);
+    const start=this.projected({x:p.startX+(p.groundPath?p.liftX||0:0),y:p.startY+(p.groundPath?p.liftY||0:0)},source||{x:p.startX,y:p.startY}),end=this.projected({x:destination.x,y:destination.y+targetLift},target);
+    const logicalEnd={x:destination.x,y:destination.y+(p.groundPath?0:targetLift)};
     const desired={x:p.x+(start.x-p.startX)*(1-logicalProgress)+(end.x-logicalEnd.x)*logicalProgress,y:p.y+(start.y-p.startY)*(1-logicalProgress)+(end.y-logicalEnd.y)*logicalProgress};
     const pose=this.projectilePose(p,desired),progress=Math.min(1,pose.travelled/Math.max(1,p.totalDistance));
     const x=pose.x,y=pose.y-Math.sin(progress*Math.PI)*(p.arc||0)/(this.verticalScale||1),angle=Math.atan2((end.y-start.y)*(this.verticalScale||1)-Math.PI*(p.arc||0)*Math.cos(progress*Math.PI),end.x-start.x);
