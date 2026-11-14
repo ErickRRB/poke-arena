@@ -116,7 +116,7 @@ function choose(index) {
   if (walkthrough?.step === 1) setGuideStep(2);
   updateDetail(); syncHand();
   const c = CARDS[game.hands[0][selected]];
-  live(`${c.name}. ${c.cost} de energía. ${c.spell ? 'Apuntá en cualquier lado.' : 'Apuntá en tu lado de la arena.'}`);
+  live(`${c.name}. ${c.cost} de energía. ${c.spell ? 'Elegí una celda de la arena.' : 'Apuntá en tu lado de la arena.'}`);
 }
 function cancelSelection() { selected = -1; renderer.pointer = null; renderer.selection = null; updateDetail(); syncHand(); }
 function updateUi() {
@@ -148,6 +148,7 @@ function updateUi() {
 }
 function handleEvent(e) {
   renderer.onEvent(e); sfx.event(e);
+  if(e.type==='burrow'&&e.unit.team===0)live(e.hidden?'Ampharos se oculta.':'Ampharos emerge.');
   if (e.type === 'deploy' && e.team === 0) {
     if (walkthrough?.step === 2) {
       setGuideStep(3); walkthrough.start = game.elapsed;
@@ -376,6 +377,7 @@ function renderCardInfo(key){
   if(c.shield)traits.push(['Escudo',number(c.shield),'shield']);
   if(c.flying)traits.push(['Desplazamiento','Vuela','move']);
   if(c.riverJump)traits.push(['Desplazamiento','Salta el río','move']);
+  if(c.burrow)traits.push(['Defensa','Se oculta sin enemigos','effect']);
   if(c.rollingShot)extraStats.push(['Recorrido de la roca',tiles(c.projectileRange),'range']);
   if(c.knockback)extraStats.push(['Empuje',tiles(c.knockback),'effect']);
   if(c.lifetime)extraStats.push(['Duración',seconds(c.lifetime),'duration']);

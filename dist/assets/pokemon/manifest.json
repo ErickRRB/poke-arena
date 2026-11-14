@@ -5673,6 +5673,151 @@
       "shadow": "assets/pokemon/109/Charge-Shadow.png"
     }
   },
+  "112": {
+    "Walk": {
+      "width": 32,
+      "height": 48,
+      "durations": [
+        8,
+        12,
+        8,
+        12
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/112/Walk-Anim.png",
+      "shadow": "assets/pokemon/112/Walk-Shadow.png"
+    },
+    "Idle": {
+      "width": 48,
+      "height": 48,
+      "durations": [
+        40,
+        26
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/112/Idle-Anim.png",
+      "shadow": "assets/pokemon/112/Idle-Shadow.png"
+    },
+    "Attack": {
+      "width": 72,
+      "height": 80,
+      "durations": [
+        2,
+        6,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 3,
+      "file": "assets/pokemon/112/Attack-Anim.png",
+      "shadow": "assets/pokemon/112/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 48,
+      "height": 64,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/112/Hurt-Anim.png",
+      "shadow": "assets/pokemon/112/Hurt-Shadow.png"
+    },
+    "Shoot": {
+      "width": 48,
+      "height": 64,
+      "durations": [
+        2,
+        6,
+        2,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 5,
+      "file": "assets/pokemon/112/Shoot-Anim.png",
+      "shadow": "assets/pokemon/112/Shoot-Shadow.png"
+    },
+    "Double": {
+      "width": 64,
+      "height": 72,
+      "durations": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/112/Double-Anim.png",
+      "shadow": "assets/pokemon/112/Double-Shadow.png"
+    },
+    "Stomp": {
+      "width": 72,
+      "height": 96,
+      "durations": [
+        8,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 5,
+      "file": "assets/pokemon/112/Stomp-Anim.png",
+      "shadow": "assets/pokemon/112/Stomp-Shadow.png"
+    },
+    "Charge": {
+      "width": 48,
+      "height": 48,
+      "durations": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 5,
+      "file": "assets/pokemon/112/Charge-Anim.png",
+      "shadow": "assets/pokemon/112/Charge-Shadow.png"
+    }
+  },
   "113": {
     "Walk": {
       "width": 24,

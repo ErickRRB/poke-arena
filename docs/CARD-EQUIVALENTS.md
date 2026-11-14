@@ -64,7 +64,7 @@ Vivero Exeggutor cuesta 3, genera dos Exeggcute con la vida mínima de Diglett y
 | Nidoqueen | 6 | Sin similitud | Tanque de contacto que produce refuerzos terrestres venenosos. |
 | Nuzleaf | 3 | Duende lanzadardos | Tirador rápido y frágil de largo alcance contra tierra y aire. |
 | Onix | 4 | Parcial de Montapuercos | Ataca estructuras por cuatro de elixir, pero es más lento y no salta el río. |
-| Pandilla Rocket | 3 | Parcial de Pandilla de duendes | Combina atacantes de contacto y tiradores, adaptados a tres Poochyena y dos Ralts. |
+| Pandilla Rocket | 3 | Pandilla de duendes | Tres Poochyena de contacto y tres Ralts a distancia, con la vida, daño, cadencia, alcance y velocidad de los duendes de nivel 11. |
 | Pidgeot | 4 | Parcial de Príncipe | Duplica el primer impacto después de cargar, pero vuela. |
 | Pikachu | 4 | Mago eléctrico | Descarga al aparecer y dos rayos que aturden y pueden repartirse entre objetivos. |
 | Psyduck | 3 | Parcial de Mago eléctrico | Aturde a distancia con un solo disparo y no tiene descarga de entrada. |
@@ -72,7 +72,7 @@ Vivero Exeggutor cuesta 3, genera dos Exeggcute con la vida mínima de Diglett y
 | Rapidash | 4 | Montapuercos | Atacante rápido de estructuras que puede saltar el río. |
 | Rayquaza | 8 | Parcial de Arquero mágico | Ataque perforante en línea, adaptado a un tanque aéreo con habilidad activa. |
 | Regirock | 7 | Parcial de Gigante | Tanque que solo busca estructuras, con armadura y un coste mayor. |
-| Registeel | 7 | P.E.K.K.A. | Unidad terrestre pesada que prepara golpes individuales muy fuertes. |
+| Rhydon | 7 | P.E.K.K.A. | Unidad terrestre pesada que prepara golpes individuales muy fuertes. Reemplaza a Registeel en los mazos guardados. |
 | Roselia | 3 | Princesa | Tiradora frágil de área antiaérea cuyo alcance supera al de las torres. |
 | Sableye | 3 | Parcial de Bandida | Se acerca instantáneamente al enemigo, sin la embestida invulnerable de Bandida. |
 | Salamence | 6 | Sin similitud | Volador de contacto con combo triple y aumento de daño al perder vida. |
@@ -102,7 +102,7 @@ Vivero Exeggutor cuesta 3, genera dos Exeggcute con la vida mínima de Diglett y
 
 | Carta Pokémon | Elixir | Clash Royale | Similitud |
 | --- | --- | --- | --- |
-| Ampharos | 5 | Sin similitud | Estructura de largo alcance cuyos rayos aturden y se encadenan. |
+| Ampharos | 4 | Tesla | Se oculta sin enemigos cerca y emerge para atacar a tierra y aire con una descarga individual. |
 | Central Electrode | 5 | Parcial de Horno | Produce atacantes suicidas periódicamente, pero usa Voltorb eléctricos y no dispara por sí misma. |
 | Cloyster | 4 | Sin similitud | Estructura antiaérea con escudo y ráfagas de cinco proyectiles. |
 | Madriguera Nidoqueen | 5 | Parcial de Choza de bárbaros | Produce parejas de combatientes terrestres y deja refuerzos al morir, con cuerpos más frágiles. |

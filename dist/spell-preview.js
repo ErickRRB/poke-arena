@@ -2,7 +2,7 @@
 export function spellPreviewTargets(game,card,point,team=0){
   if(!card?.spell||!point||!Number.isFinite(point.x)||!Number.isFinite(point.y))return[];
   let targets=[...game.units,...game.towers].filter(target=>{
-    if(target.team===team||target.hp<=0)return false;
+    if(target.team===team||target.hp<=0||target.burrowed&&!card.affectsHidden)return false;
     const radius=target.radius||0;
     if(card.rolling){
       const end=point.y+(team?1:-1)*card.travelDistance;

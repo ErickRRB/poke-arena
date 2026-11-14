@@ -7,7 +7,7 @@ test('sandbox removes CPU and tower fire and permits full formations without eli
   const game = createSandbox(); game.energy = [0, 0];
   assert.equal(game.aiEnabled, false); assert.deepEqual(game.towers, []);
   const squad = spawnCard(game, 'pandilla', 0, 156, 560);
-  assert.deepEqual(squad.map(unit => unit.key), ['poochyenaToken','poochyenaToken','poochyenaToken','raltsToken','raltsToken']);
+  assert.deepEqual(squad.map(unit => unit.key), ['poochyenaToken','poochyenaToken','poochyenaToken','raltsToken','raltsToken','raltsToken']);
   assert.ok(Math.max(...squad.slice(0, 3).map(unit => unit.y)) < Math.min(...squad.slice(3).map(unit => unit.y)));
   assert.equal(spawnCard(game, 'diglettHorde', 1, 156, 440).length, 9);
   assert.deepEqual(game.energy, [0, 0]);

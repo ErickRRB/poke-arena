@@ -161,6 +161,8 @@ export class Renderer {
   }
   sprite(c, unit, idle = false) {
     const id = unit.card.id;
+    const burrow=unit.card.burrow&&!unit.preview?(this.reduced?(unit.burrowed?1:0):unit.burrowProgress??(unit.burrowed?1:0)):0;
+    if(burrow>=.999){this.platform(c,unit);return;}
     if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
     const movement=movementVisual(unit.card);
     let anim = unit.attack > 0 ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving||unit.card.flying ? movement.animation : unit.hit>0?'Hurt':unit.card.idleAnim||'Idle';
@@ -186,7 +188,7 @@ export class Renderer {
     const nativeAnchor=this.anchors.get(`${id}-${anim}`)?.[direction]?.[frame]||{x:meta.width/2,y:meta.height*.65};
     const anchor=loopFrames&&movement.bodyAnchor?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor;
     const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:unit.leap.kind==='river'?24:48):0;
-    const lift=(leapLift+(unit.card.structure?23:unit.card.flying?16+(this.reduced?0:Math.sin(this.t*2.6+unit.id)*1.5):0))/vertical;
+    const lift=(leapLift+(unit.card.structure?(unit.card.burrow?0:23):unit.card.flying?16+(this.reduced?0:Math.sin(this.t*2.6+unit.id)*1.5):0))/vertical;
     const lunge=attackLunge(unit,this.reduced);
     const radius=unit.radius||12;
     if(!unit.mounted&&!unit.preview){
@@ -194,10 +196,11 @@ export class Renderer {
     }
     if(unit.card.structure)this.platform(c,unit);
     c.save();
+    if(burrow>0){c.beginPath();c.rect(x-100,y-180/vertical,200,183/vertical);c.clip();}
     const spawnProgress=unit.spawn>0?Math.max(0,1-unit.spawn/Math.max(.001,unit.spawnGroup?.duration??.75)):1;
     if(unit.spawn>0)c.globalAlpha=.2+.8*spawnProgress;
     if(unit.hit>0&&!this.reduced) c.filter=`brightness(${1+.35*unit.hit/.24})`;
-    const px=x+unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge/vertical-lift-(this.reduced?0:(1-spawnProgress)*12/vertical)-anchor.y*scale/vertical;
+    const px=x+unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge/vertical-lift-(this.reduced?0:(1-spawnProgress)*12/vertical)-anchor.y*scale/vertical+burrow*((this.bodyHeights.get(id)||22)*scale+25)/vertical;
     if(unit.card.charge&&unit.charge>=unit.card.charge&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
     const spriteFrame=[frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px),Math.round(py),meta.width*scale,meta.height*scale/vertical];
     c.drawImage(img,...spriteFrame);
@@ -263,6 +266,14 @@ export class Renderer {
     if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
   }
   platform(c,unit){
+    if(unit.card.burrow){
+      const vertical=this.verticalScale||1;c.save();c.translate(unit.x,unit.y);c.scale(1,1/vertical);
+      rect(c,'#263a32',-25,-9,50,20);rect(c,'#89998b',-23,-7,46,16);rect(c,'#b6c0a5',-20,-5,40,12);
+      line(c,'#495f52',0,-5,0,7,2);for(const x of[-19,17])rect(c,'#465b4e',x,-4,3,3);
+      rect(c,unit.team?'#d75f4e':'#498ca2',-16,7,32,3);
+      if(unit.burrowed){rect(c,'#2f4135',-16,13,32,3);rect(c,unit.team?'#efaf7a':'#b7df9b',-16,13,32*Math.max(0,unit.hp/unit.maxHp),3);}
+      c.restore();return;
+    }
     if(!this.battleArt.structure(c,'platform',unit.team,unit.x,unit.y+4,74,this.verticalScale||1,this.targetTint(unit)))text(c,'PLACEHOLDER',unit.x,unit.y-15,'#ffe3a0',8);
   }
   onEvent(event) {
@@ -272,7 +283,7 @@ export class Renderer {
       this.effects.push({...event,kind:'missiles',hitAt,life,max:life});
     }
     if(type==='attackStart'&&['lightning','aura','psychic'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,style:event.style,life:event.windup,max:event.windup});
-    if(type==='attackStart'&&['slam','eruption'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,style:event.style,life:event.windup,max:event.windup});
+    if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,style:event.style,life:event.windup,max:event.windup});
     if(type==='beam')this.effects.push({...event,kind:'beam',life:.42,max:.42});
     if(type==='flame')this.effects.push({...event,kind:'flame',life:.42,max:.42});
     if(type==='melee')this.effects.push({...event,kind:'melee',life:['slam','eruption'].includes(event.style)?.5:.27,max:['slam','eruption'].includes(event.style)?.5:.27});
@@ -293,15 +304,18 @@ export class Renderer {
     }
     if(type==='entry')this.effects.push({...event,kind:'entry',life:.36,max:.36});
     if(type==='ability'||type==='deathBurst'){
-      const art=event.style==='lightning'?'explosion':{electric:'lightning',water:'hydro',fire:'explosion',grass:'leaf',psychic:'psychic',ghost:'shadow',rock:'dust'}[event.unit.card.type]||'impact';
-      this.effects.push({kind:'artImpact',art,x:event.unit.x,y:event.unit.y-15,radius:Math.min(95,event.radius||55),life:.5,max:.5});
+      const abilityArt=type==='ability'?{shield:'shield',wave:'hydro',quake:'quake',healingFire:'heal'}[event.unit.card.ability?.effect]:null;
+      const art=abilityArt||(event.style==='lightning'?'lightning':{electric:'lightning',water:'hydro',fire:'explosion',grass:'leaf',psychic:'psychic',ghost:'shadow',rock:'dust'}[event.unit.card.type]||'impact');
+      this.effects.push({kind:'areaImpact',art,style:event.style||event.unit.card.style,x:event.unit.x,y:event.unit.y,radius:event.radius||55,color:event.unit.card.color,groundOnly:event.groundOnly??!event.unit.card.air,life:.55,max:.55});
     }
     if(type==='hit'){
-      const color=CARDS[event.key]?.color||'#eee8bc';
-      const art={ember:'explosion',hydro:'hydro',bubble:'bubble',leaf:'leaf',poison:'poison',powder:'poison',shadow:'shadow',confusion:'psychic',aura:'psychic',ice:'ice',rock:'dust'}[event.style];
-      if(art)this.effects.push({kind:'artImpact',art,x:event.x,y:event.y,visualSize:combatVisual(CARDS[event.key]).impact,radius:28,life:art==='ice'?1.1:.6,max:art==='ice'?1.1:.6});
-      else this.burst(event.x,event.y,color,4,30);
-      if(['egg','song'].includes(event.style))this.effects.push({...event,kind:'impact',life:.4,max:.4,radius:CARDS[event.key]?.splash||18});
+      const color=event.art==='petalShot'?'#ff9ccd':{ember:'#ffc083',hydro:'#91dcff',bubble:'#afeaff',leaf:'#e0f7ac',poison:'#d6a0f0',powder:'#d9b3f4',shadow:'#cda4f5',confusion:'#efb9f8',aura:'#efb9f8',ice:'#c1f5ff',rock:'#e4caa4',slam:'#e4caa4'}[event.style]||CARDS[event.key]?.color||'#eee8bc';
+      const point=event.groundY===undefined?event:{x:event.groundX,y:event.groundY-(event.impactHeight||0)/(this.verticalScale||1)};
+      const art=event.art||{ember:'explosion',hydro:'hydro',bubble:'bubble',leaf:'leaf',poison:'poison',powder:'poison',shadow:'shadow',confusion:'psychic',aura:'psychic',ice:'ice',rock:'dust'}[event.style];
+      if(event.radius>0&&!event.structuresOnly){this.effects.push({kind:'areaImpact',art:art||{slam:'dust',eruption:'explosion',bite:'bite',slash:'slash'}[event.style]||'impact',style:event.style,x:event.groundX??event.x,y:event.groundY??event.y,impactX:point.x,impactY:point.y,radius:event.radius,color,groundOnly:event.groundOnly??!CARDS[event.key]?.air,life:.6,max:.6});return;}
+      if(art)this.effects.push({kind:'artImpact',art,x:point.x,y:point.y,visualSize:combatVisual(CARDS[event.key]).impact,radius:28,life:art==='ice'?1.1:.6,max:art==='ice'?1.1:.6});
+      else this.burst(point.x,point.y,color,4,30);
+      if(['egg','song'].includes(event.style))this.effects.push({...event,...point,kind:'impact',life:.4,max:.4,radius:CARDS[event.key]?.splash||18});
     }
     if(type==='faint')this.burst(event.unit.x,event.unit.y-15,'#ddd9bd',12,55);
     if(type==='structureDown'){this.burst(event.unit.x,event.unit.y-10,'#a9b395',28,85);this.burst(event.unit.x,event.unit.y-24,'#a4d5de',10,60);}
@@ -359,16 +373,28 @@ export class Renderer {
       c.save();c.fillStyle='#17271f44';c.beginPath();c.ellipse(p.x,p.y+3,18,6,0,0,Math.PI*2);c.fill();
       this.combatArt(c,'rock',p.x,p.y-13/(this.verticalScale||1),38,this.reduced?0:p.travelled/18,38,{frame:0,trim:true});c.restore();return;
     }
+    if(p.linear){
+      const vertical=this.verticalScale||1,x=p.x+(p.liftX||0),y=p.y+(p.liftY||0)/vertical,length=Math.min(p.travelled,54),visual=combatVisual(CARDS[p.key]);
+      this.battleArt.beam(c,'psychic',{x:x-p.dx*length,y:y-p.dy*length},{x,y},visual.beam,this.reduced?0:this.t);
+      this.combatArt(c,'psychic',x,y,Math.max(12,visual.projectile),0,Math.max(12,visual.projectile),{age:this.reduced?0:this.t,trim:true});return;
+    }
     const progress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),source=this.frameActors.get(p.sourceId),target=this.frameActors.get(p.target.id)||p.target;
-    const start=this.projected({x:p.startX,y:p.startY},source),end=this.projected({x:p.target.x,y:p.target.y-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15)},target);
-    const logicalEnd={x:p.target.x,y:p.target.y-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15)};
+    const targetLift=p.endLiftY??-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15);
+    const start=this.projected({x:p.startX+(p.groundPath?p.liftX||0:0),y:p.startY+(p.groundPath?p.liftY||0:0)},source),end=this.projected({x:p.target.x,y:p.target.y+targetLift},target);
+    const logicalEnd={x:p.target.x,y:p.target.y+(p.groundPath?0:targetLift)};
     const desired={x:p.x+(start.x-p.startX)*(1-progress)+(end.x-logicalEnd.x)*progress,y:p.y+(start.y-p.startY)*(1-progress)+(end.y-logicalEnd.y)*progress};
     const key=p.id||p;let pose=this.visualProjectiles.get(key);
     if(!pose){pose={...desired,at:this.t};this.visualProjectiles.set(key,pose);}
     const blend=1-Math.exp(-this.drawDt*35);pose.x+=(desired.x-pose.x)*blend;pose.y+=(desired.y-pose.y)*blend;pose.at=this.t;
-    const x=pose.x,y=pose.y-Math.sin(progress*Math.PI)*(p.arc||0)/(this.verticalScale||1),angle=Math.atan2((end.y-y)*(this.verticalScale||1),end.x-x);
+    const x=pose.x,y=pose.y-Math.sin(progress*Math.PI)*(p.arc||0)/(this.verticalScale||1),angle=Math.atan2((end.y-start.y)*(this.verticalScale||1)-Math.PI*(p.arc||0)*Math.cos(progress*Math.PI),end.x-start.x);
     const visual=combatVisual(source?.card||CARDS[p.key]),motion=projectileVisual(p.style,this.t,this.reduced),size=visual.projectile;
-    this.combatArt(c,motion.name,x,y,size,['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true});
+    const art=p.art||motion.name;
+    this.combatArt(c,art,x,y,size,['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true});
+    if(!this.reduced)for(let i=1;i<=2;i++){
+      c.save();c.globalAlpha*=.2/i;const gap=size*.65*i;
+      this.combatArt(c,art,x-Math.cos(angle)*gap,y-Math.sin(angle)*gap/(this.verticalScale||1),size*.75,angle,size*.75,{age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true});c.restore();
+    }
+    if(p.splash&&p.style==='leaf')for(const side of[-1,1])this.combatArt(c,art,x+Math.cos(angle+Math.PI/2)*size*.3*side,y+Math.sin(angle+Math.PI/2)*size*.3*side/(this.verticalScale||1),size*.8,angle+side*.25,size*.8,{age:motion.age,trim:true});
   }
   drawMissiles(c,e){
     const age=e.max-e.life,after=age-e.hitAt,count=this.reduced?9:18;
@@ -397,6 +423,28 @@ export class Renderer {
     const actor=this.frameActors.get(effect.targetId);
     return actor?{x:actor.x,y:actor.y-('king'in actor?27:actor.card?.structure?43:actor.card?.flying?27:15)/(this.verticalScale||1)}:effect.to;
   }
+  areaImpact(c,e,progress){
+    const radius=e.radius,fade=1-progress,color=e.color||'#dfdab0',vertical=this.verticalScale||1;
+    c.save();c.beginPath();c.arc(e.x,e.y,radius,0,Math.PI*2);c.clip();
+    c.save();c.globalAlpha*=.12*fade;c.fillStyle=color;c.fill();c.restore();
+    c.save();c.globalAlpha*=.4*fade;c.strokeStyle=color;c.lineWidth=1.5;c.stroke();c.restore();
+    if(['leaf','poison','powder','bite','slash'].includes(e.style)){
+      const count=this.reduced?4:10,size=Math.min(28,Math.max(16,radius*.5)),spread=this.reduced?.72:.25+Math.min(1,progress*2)*.65;
+      for(let i=0;i<count;i++){
+        const angle=i*2.39996,r=Math.sqrt((i+.5)/count)*radius*spread;
+        this.combatArt(c,e.art,e.x+Math.cos(angle)*r,e.y+Math.sin(angle)*r-5/vertical,size,this.reduced?0:angle+progress,size,{progress:this.reduced?.45:progress,trim:true});
+      }
+    }else{
+      const count=this.reduced?4:7,size=Math.min(50,Math.max(22,radius*.7)),spread=this.reduced?.65:Math.min(1,progress*3)*.78;
+      this.combatArt(c,e.art,e.x,e.y-6/vertical,Math.min(72,radius*1.2),0,Math.min(72,radius*1.2),{progress:this.reduced?.45:progress,trim:true});
+      for(let i=0;i<count;i++){
+        const angle=i*Math.PI*2/count,r=radius*spread;
+        c.save();c.globalAlpha*=.65;this.combatArt(c,e.art,e.x+Math.cos(angle)*r,e.y+Math.sin(angle)*r,size,0,size,{progress:this.reduced?.45:progress,trim:true});c.restore();
+      }
+    }
+    c.restore();
+    if(e.impactX!==undefined)this.combatArt(c,e.art,e.impactX,e.impactY,Math.min(40,Math.max(22,radius*.65)),0,Math.min(40,Math.max(22,radius*.65)),{progress:this.reduced?.45:progress,trim:true});
+  }
   drawEffects(c,dt){
     for(const e of this.effects){
       let activeDt=dt;
@@ -406,6 +454,7 @@ export class Renderer {
       c.save();c.globalAlpha=Math.min(1,e.life/Math.min(.2,e.max));
       if(e.kind==='missiles')this.drawMissiles(c,e);
       else if(e.kind==='entry')this.entryEffect(c,e,progress);
+      else if(e.kind==='areaImpact')this.areaImpact(c,e,progress);
       else if(e.kind==='artImpact'){
         const size=e.visualSize??Math.max(24,Math.min(160,(e.radius||30)*1.7));
         this.combatArt(c,e.art,e.x,e.y,size,0,size,{progress:this.reduced?.45:progress});
@@ -417,28 +466,36 @@ export class Renderer {
         if(e.style==='vine'){
           const length=Math.hypot(to.x-from.x,to.y-from.y),angle=Math.atan2(to.y-from.y,to.x-from.x);
           this.combatArt(c,'vine',(from.x+to.x)/2,(from.y+to.y)/2,Math.max(35,length),angle,32,{progress});
-        }else this.battleArt.beam(c,name,from,to,e.kind==='counter'?8:combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).beam,age);
+        }else{
+          if(e.piercing){c.save();c.globalAlpha*=.22;this.battleArt.beam(c,name,from,to,e.width,age);c.restore();}
+          this.battleArt.beam(c,name,from,to,e.kind==='counter'?8:combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).beam,age);
+        }
       }else if(e.kind==='windup'||e.kind==='charge'){
         const actor=this.frameActors.get(e.actor.id)||e.actor,from=this.visualEmission(actor);
         const size=combatVisual(actor.card).charge;
-        this.combatArt(c,e.style==='eruption'?'flame':e.style==='lightning'?'lightning':'psychic',from.x,from.y,size,0,size,{age:age*.6,trim:true});
+        const art={slam:'dust',horn:'horn',eruption:'flame',lightning:'lightning'}[e.style]||'psychic';
+        this.combatArt(c,art,from.x,from.y,size,0,size,{age:age*.6,trim:true});
       }else if(e.kind==='impact'){
         this.combatArt(c,e.style==='song'?'song':'impact',e.x,e.y,Math.max(30,(e.radius||18)*2),0,40,{progress});
       }else if(e.kind==='flame'){
         const from=this.effectSource(e),to=this.effectTarget(e);
         if(!from||!to){c.restore();continue;}
-        const dx=to.x-from.x,dy=(to.y-from.y)*(this.verticalScale||1),distance=Math.hypot(dx,dy),angle=Math.atan2(dy,dx);
-        const length=Math.min(190,distance+10),head=Math.min(1,age/.16),body=combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).body;
+        const dx=to.x-from.x,dy=(to.y-from.y)*(this.verticalScale||1),distance=Math.hypot(dx,dy),angle=e.angle??Math.atan2(dy,dx);
+        const length=e.length||Math.min(190,distance+10),head=Math.min(1,age/.16),body=combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).body;
+        if(e.cone&&e.groundFrom){
+          const origin=e.groundFrom;c.save();c.globalAlpha*=.12*(1-progress);c.fillStyle='#f4b563';c.beginPath();c.moveTo(origin.x,origin.y);c.arc(origin.x,origin.y,length,e.angle-e.cone,e.angle+e.cone);c.closePath();c.fill();c.restore();
+        }
         const count=this.reduced?3:7;
         for(let i=0;i<count;i++){
           const phase=i/Math.max(1,count-1)*head,size=Math.min(16,body*.25)+phase*Math.min(24,body*.4);
-          const x=from.x+Math.cos(angle)*length*phase,y=from.y+Math.sin(angle)*length*phase/(this.verticalScale||1);
+          const spread=e.cone?(i%3-1)*e.cone*.8:0,heading=angle+spread;
+          const x=from.x+Math.cos(heading)*length*phase,y=from.y+Math.sin(heading)*length*phase/(this.verticalScale||1);
           this.combatArt(c,'flame',x,y,size,angle,size,{age:age+i*.07,fps:9,trim:true});
         }
       }else if(e.kind==='melee'){
         const to=this.effectTarget(e),from=this.effectSource(e)||e.from;
         const name={punch:'impact',dash:'impact',slam:'dust',eruption:'explosion'}[e.style]||e.style;
-        const size=combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).impact*(e.charged?1.2:1);
+        const card=this.frameActors.get(e.sourceId)?.card||CARDS[e.key],size=combatVisual(card).impact*(e.charged?1.2:card?.windup>=.6?1.35:1);
         this.combatArt(c,name,to.x,to.y,size,0,size,{progress,direction:directionRow(to.x-from.x,to.y-from.y)});
       }else if(e.kind==='spell'){
         if(e.key==='hyperBeam')this.battleArt.beam(c,'hyper',{x:e.x-45,y:e.y-330/(this.verticalScale||1)},{x:e.x,y:e.y},34*(1-progress*.4),age);
@@ -462,13 +519,15 @@ export class Renderer {
     const key=this.selection,card=CARDS[key];
     if(!card||game.state!=='playing')return;
     c.save();
-    if((!card.spell||card.rolling)&&this.selection){
-      c.fillStyle='#132e2570';c.beginPath();c.rect(35,36,530,339);
-      if(!card.rolling)for(const lane of[0,1]){
-        if(game.towers.some(t=>t.team===1&&!t.king&&t.lane===lane&&t.hp<=0))c.rect(lane?300:44,252,256,104);
+    if(this.selection){
+      if(!card.spell||card.rolling){
+        c.fillStyle='#132e2570';c.beginPath();c.rect(35,36,530,339);
+        if(!card.rolling)for(const lane of[0,1]){
+          if(game.towers.some(t=>t.team===1&&!t.king&&t.lane===lane&&t.hp<=0))c.rect(lane?300:44,252,256,104);
+        }
+        c.fill('evenodd');
       }
-      c.fill('evenodd');
-      c.strokeStyle='#d9ebbc19';c.lineWidth=.55;
+      c.strokeStyle=card.spell?'#314b3759':'#d9ebbc19';c.lineWidth=card.spell?.9:.55;
       for(let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++){
         const x=col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
         if(game.canDeploy(0,key,x,y))c.strokeRect(x-TILE/2,y-TILE/2,TILE,TILE);
@@ -483,6 +542,12 @@ export class Renderer {
       const placement=game.resolveDeployment(0,key,p.x,p.y),point=placement||p;
       const valid=!!placement&&game.energy[0]>=card.cost;
       const color=valid?'#e9dc9e':'#e7947b';
+      if(card.spell&&!card.rolling&&placement){
+        c.fillStyle='#fff0b64d';c.fillRect(point.x-TILE/2,point.y-TILE/2,TILE,TILE);
+        c.strokeStyle='#263e2ce6';c.lineWidth=3;c.strokeRect(point.x-TILE/2,point.y-TILE/2,TILE,TILE);
+        c.strokeStyle='#fff5c4';c.lineWidth=1;c.strokeRect(point.x-TILE/2,point.y-TILE/2,TILE,TILE);
+        ellipse(c,'#263e2c',point.x,point.y,4,4);ellipse(c,'#fff5c4',point.x,point.y,2,2);
+      }
       if(placement&&this.selection&&Math.hypot(point.x-p.x,point.y-p.y)>TILE/2){
         c.strokeStyle=color;c.lineWidth=2;c.setLineDash([3,5]);c.beginPath();c.moveTo(p.x,p.y);c.lineTo(point.x,point.y);c.stroke();c.setLineDash([]);ellipse(c,color,p.x,p.y,3,3);
       }
@@ -545,14 +610,14 @@ export class Renderer {
         for(let i=0;i<3;i++){const a=i*Math.PI*2/3;this.combatArt(c,f.style==='psychic'?'psychic':'poison',f.x+Math.cos(a)*radius*.4,f.y+Math.sin(a)*radius*.4,35,0,35,{age:this.reduced?0:age});}
       }
     }
-    if(f.key&&!front){
+    if(!front){
       // A single tactical boundary is UI, separate from the original raster effect.
       c.strokeStyle=f.team?'#f5af82aa':'#bcecf0aa';c.lineWidth=1;c.setLineDash([3,6]);c.beginPath();c.arc(f.x,f.y,radius,0,Math.PI*2);c.stroke();c.setLineDash([]);
-      c.save();c.translate(f.x,Math.min(H-12,f.y+radius+8));c.scale(1,1/(this.verticalScale||1));pixelMeter(c,-18,0,36,f.life/f.duration,CARDS[f.key].color);c.restore();
+      if(f.key){c.save();c.translate(f.x,Math.min(H-12,f.y+radius+8));c.scale(1,1/(this.verticalScale||1));pixelMeter(c,-18,0,36,f.life/f.duration,CARDS[f.key].color);c.restore();}
     }c.restore();
   }
   frozen(c,actor){
-    if(!(actor.freeze>0)||actor.hp<=0)return;
+    if(!(actor.freeze>0)||actor.hp<=0||actor.burrowed)return;
     const width='king'in actor?88:Math.max(40,(actor.radius||12)*3),y=actor.y-(actor.card?.flying?16:0)/(this.verticalScale||1);
     c.save();c.globalAlpha=Math.min(.75,actor.freeze*2);
     this.combatArt(c,'freeze',actor.x,y-width*.25/(this.verticalScale||1),width,0,width,{frame:0});c.restore();
