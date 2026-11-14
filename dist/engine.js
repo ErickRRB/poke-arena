@@ -558,8 +558,8 @@ export class Game {
     if(p<1)return;
     unit.leap=null;
     if(leap.kind==='river'){const point=this.constrainMovement(unit,unit.x,unit.y);unit.x=point.x;unit.y=point.y;unit.moving=true;return;}
-    const from=this.muzzle(unit),to={x:unit.x,y:unit.y-15};
-    this.emit('attackRelease',{attacker:unit,target:unit.target,key:unit.key,style:'lightning',from,to,shot:0});
+    const from=this.muzzle(unit),to={x:unit.x,y:unit.y-15},style=unit.card.style;
+    this.emit('attackRelease',{attacker:unit,target:unit.target,key:unit.key,style,from,to,shot:0});
     if(unit.card.chain){
       let last=unit;const hits=new Set();
       for(let index=0;index<=unit.card.chain;index++){
@@ -567,7 +567,7 @@ export class Game {
         if(!victim)break;this.strike(unit,victim,unit.card.damage,unit.card);this.emit('beam',{from:aimPoint(last),to:aimPoint(victim),key:unit.key,style:'lightning',team:unit.team,sourceId:unit.id,chainFromId:last.id,targetId:victim.id,shot:index});hits.add(victim.id);last=victim;
       }
     }else for(const target of[...this.units,...this.towers])if(this.validTarget(unit,target)&&spellOverlapsTarget(unit.card,unit,target))this.strike(unit,target,unit.card.damage,unit.card);
-    if(!unit.card.chain){this.emit('deathBurst',{unit,radius:unit.card.splash});this.emit('hit',{x:unit.x,y:unit.y-15,key:unit.key,style:'lightning',team:unit.team});}
+    if(!unit.card.chain){this.emit('deathBurst',{unit,radius:unit.card.splash});this.emit('hit',{x:unit.x,y:unit.y-15,key:unit.key,style,team:unit.team,sourceId:unit.id,attackSeq:unit.attackSeq});}
     this.retireUnit(unit);
   }
   validTarget(unit, target) {
@@ -797,7 +797,7 @@ export class Game {
       this.strike(a,target,amount,card);
       if(card.splash)for(const u of [...this.units,...this.towers])if(u!==target&&u.hp>0&&u.team!==a.team&&!u.burrowed&&isCombatTargetReady(u)&&(!u.card?.flying||card.air)&&spellOverlapsTarget(card,card.selfSplash?a:target,u))this.strike(a,u,amount,card);
       this.emit('melee',{from,to,key:a.key,style,team:a.team,shot,charged,radius:card.splash||0,sourceId:a.id,targetId:target.id});
-      this.emit('hit',{x:to.x,y:to.y,groundX:target.x,groundY:target.y,impactHeight:target.y-to.y,radius:card.splash||0,structuresOnly:!!card.building,groundOnly:!card.air,key:a.key,style,team:a.team,targetId:target.id});
+      this.emit('hit',{x:to.x,y:to.y,groundX:target.x,groundY:target.y,impactHeight:target.y-to.y,radius:card.splash||0,structuresOnly:!!card.building,groundOnly:!card.air,key:a.key,style,team:a.team,targetId:target.id,sourceId:a.id,attackSeq:job.seq});
     } else {
       const motion=projectileProfile(profile),offset=profile.projectileStart||0,x=a.x+a.dx*offset,y=a.y+a.dy*offset,totalDistance=distance({x,y},target);
       this.projectiles.push({ id:a.id+':'+job.seq+':'+shot,x,y,startX:x,startY:y,groundPath:true,liftX:from.x-x,liftY:from.y-y,endLiftY:to.y-target.y,totalDistance,travelled:0,target,impactPoint:card?.projectileHoming===false?{x:target.x,y:target.y}:null,team:a.team,sourceId:a.id,sourceKey:a.key||'tower',damage:amount,speed:motion.speed,key:a.key||'tower',style,art:card?.projectileArt,splash:card?.splash||0,stun:card?.stun||0,slow:card?.slow||0,slowFactor:card?.slowFactor,slowAttackFactor:card?.slowAttackFactor,burn:card?.burn||0,burnKind:card?.burnKind||'fire',poisonField:card?.poisonField||0,air:!card||!!card.air,life:Math.max(3,totalDistance/motion.speed+1),arc:motion.arc,trace:[] });
@@ -1033,7 +1033,7 @@ export class Game {
           if(Math.hypot(dx,dy)>p.totalDistance+target.radius||Math.abs(Math.atan2(Math.sin(delta),Math.cos(delta)))>p.cone)continue;
           const impact=aimPoint(target);if(Math.hypot(dx,dy)>p.travelled+1e-7)continue;
           p.hitIds.push(target.id);this.damage(target,p.damage,p.team,{sourceId:p.sourceId,sourceKey:p.key});
-          this.emit('hit',{key:p.key,style:p.style,x:impact.x,y:impact.y,groundX:target.x,groundY:target.y,impactHeight:target.y-impact.y,team:p.team,targetId:target.id});
+          this.emit('hit',{key:p.key,style:p.style,x:impact.x,y:impact.y,groundX:target.x,groundY:target.y,impactHeight:target.y-impact.y,team:p.team,targetId:target.id,sourceId:p.sourceId,attackId:p.id});
         }
         if(p.travelled>=p.totalDistance-1e-7)p.life=0;
         continue;
@@ -1047,7 +1047,7 @@ export class Game {
           if(Math.hypot(tx-p.dx*along,ty-p.dy*along)>p.shotRadius+target.radius)continue;
           p.hitIds.push(target.id);this.damage(target,p.damage,p.team,p);
           if(p.knockback)this.pushUnit(target,p.dx*p.knockback,p.dy*p.knockback);
-          const impact=aimPoint(target);this.emit('hit',{key:p.key,style:p.style,x:impact.x,y:impact.y,groundX:target.x,groundY:target.y,impactHeight:target.y-impact.y,team:p.team,targetId:target.id});
+          const impact=aimPoint(target);this.emit('hit',{key:p.key,style:p.style,x:impact.x,y:impact.y,groundX:target.x,groundY:target.y,impactHeight:target.y-impact.y,team:p.team,targetId:target.id,sourceId:p.sourceId,attackId:p.id});
         }
         if(p.travelled>=p.totalDistance-1e-7)p.life=0;
         continue;
@@ -1058,7 +1058,7 @@ export class Game {
       if (d <= p.speed * dt + 1e-7) {
         const victims=(p.splash?[...this.units,...this.towers]:[p.target]).filter(u=>u&&u.team!==p.team&&u.hp>0&&!u.burrowed&&isCombatTargetReady(u)&&(!u.card?.flying||p.air)&&spellOverlapsTarget(p,center,u));
         for(const victim of victims)this.damage(victim,p.damage,p.team,p);
-        const impact=p.impactPoint?{x:tx,y:ty+(p.endLiftY??-15)}:aimPoint(p.target);this.emit('hit', { key: p.key, style:p.style, art:p.art, x: impact.x, y: impact.y, groundX:center.x,groundY:center.y,impactHeight:center.y-impact.y,radius:p.splash||0,groundOnly:!p.air,team: p.team,targetId:p.target?.id||0 }); p.life = 0;
+        const impact=p.impactPoint?{x:tx,y:ty+(p.endLiftY??-15)}:aimPoint(p.target);this.emit('hit', { key: p.key, style:p.style, art:p.art, x: impact.x, y: impact.y, groundX:center.x,groundY:center.y,impactHeight:center.y-impact.y,radius:p.splash||0,groundOnly:!p.air,team: p.team,targetId:p.target?.id||0,sourceId:p.sourceId,attackId:p.id }); p.life = 0;
       } else { p.trace.push({x:p.x,y:p.y});if(p.trace.length>7)p.trace.shift();p.x += dx / d * p.speed * dt; p.y += dy / d * p.speed * dt;p.travelled+=p.speed*dt; }
     }
     this.projectiles = this.projectiles.filter(p => p.life > 0);

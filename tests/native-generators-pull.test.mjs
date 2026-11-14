@@ -41,6 +41,16 @@ test('Furnace advances on foot and releases a nonhoming fire projectile while it
  let sawShot=false;for(let i=0;i<600;i++){g.step(1/60);sawShot||=g.projectiles.some(p=>p.key==='centralElectrode'&&p.impactPoint&&!p.target?.card?.flying);}
  assert.ok(u.y<484);assert.ok(sawShot);assert.ok(events.includes('fireSpiritToken'));assert.equal(u.card.structure,false);
 });
+
+for(const hz of [30,60])test(`Fire Spirit release and hit retain fire identity while Electro Spirit chains electricity at ${hz} Hz`,()=>{
+ for(const [key,style,damage] of [['fireSpiritToken','ember',215],['voltorb','lightning',99]]){
+  const g=fresh(),events=[];g.onEvent=e=>{if(['attackRelease','hit','beam'].includes(e.type))events.push(e);};
+  const actor=g.spawn(key,0,300,550,0),target=g.spawn('geodude',1,300,490,0);target.freeze=target.stun=100;const hp=target.hp;
+  run(g,2,hz);assert.equal(actor.hp,0);assert.ok(events.some(e=>e.type==='attackRelease'&&e.key===key&&e.style===style));
+  assert.ok(events.filter(e=>e.key===key).every(e=>e.style===style));assert.equal(hp-target.hp,damage);
+  assert.ok(events.some(e=>e.key===key&&e.type===(key==='voltorb'?'beam':'hit')));
+ }
+});
 test('Tornado water clamp preserves the free axis and mirrored snapshots continue the same clock',()=>{
  const a=fresh(),u=a.spawn('geodude',1,250,428,0);u.freeze=u.stun=100;a.hands[0][0]='whirlpool';a.energy[0]=10;assert.ok(a.deploy(0,0,216,364).ok);
  run(a,.3,60);assert.ok(u.y>=424-1e-5);const b=unpackGame(perspective(packGame(a),1));run(a,1,60);run(b,1,60);
