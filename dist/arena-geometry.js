@@ -8,7 +8,7 @@ export const BRIDGE=Object.freeze({top:RIVER.top,bottom:RIVER.bottom,halfWidth:T
 export const PRINCESS_Y=Object.freeze([628,172]),KING_Y=Object.freeze([712,88]);
 // A uniform camera contains the playable map plus measured drawing overscan.
 // Its aspect is a minimum; wider DOM rectangles show additional landscape.
-export const ARENA_CAMERA=Object.freeze({left:60,top:-56,width:480,height:864});
+export const ARENA_CAMERA=Object.freeze({left:6,top:-88,width:588,height:900});
 export function arenaProjection(width,height){
   const scale=Math.min(width/ARENA_CAMERA.width,height/ARENA_CAMERA.height);
   return{scale,x:(width-ARENA_CAMERA.width*scale)/2-ARENA_CAMERA.left*scale,y:(height-ARENA_CAMERA.height*scale)/2-ARENA_CAMERA.top*scale};

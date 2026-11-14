@@ -1,4 +1,5 @@
-import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, KING_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=26';
+import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=26';
+import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=26';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=32';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=26';
 import {combatVisual,projectileVisual,movementVisual,fireballVisual,isRangedAttack} from './combat-visuals.js?v=29';
@@ -37,7 +38,16 @@ export class Renderer {
     this.ctx = canvas.getContext('2d', { alpha: false });
     this.ctx.imageSmoothingEnabled = false;
     this.verticalScale=1;
-    this.resizeObserver=new ResizeObserver(([entry])=>{const{width,height}=entry.contentRect;this.verticalScale=width?height/width*W/H:1;});
+    const resize=(width,height)=>{
+      if(!(width>0&&height>0))return;
+      const changed=width!==this.viewport?.width||height!==this.viewport?.height;
+      this.viewport={width,height};this.projection=arenaProjection(width,height);this.verticalScale=1;
+      const start=screenToWorld({x:0,y:0},width,height),end=screenToWorld({x:width,y:height},width,height);
+      this.worldBounds={left:start.x,top:start.y,right:end.x,bottom:end.y};
+      if(changed&&this.background)this.buildBackground();
+    };
+    resize(canvas.clientWidth||canvas.width,canvas.clientHeight||canvas.height);
+    this.resizeObserver=new ResizeObserver(([entry])=>resize(entry.contentRect.width,entry.contentRect.height));
     this.resizeObserver.observe(canvas);
     this.background = document.createElement('canvas'); this.background.width = W; this.background.height = H;
     this.sprites = new Map(); this.metadata = {};
@@ -104,12 +114,44 @@ export class Renderer {
   tree(c,x,y,scale=1){this.battleArt.draw(c,'tree',x,y-25*scale,65*scale,65*scale,{frame:0});}
   bridge(c,x){
     const image=this.battleArt.images.get('assets/battle/arena-bridge-v2.webp');
-    if(image)c.drawImage(image,x-40,BRIDGE.top,80,BRIDGE.bottom-BRIDGE.top);
+    const width=BRIDGE.halfWidth*2,height=BRIDGE.bottom-BRIDGE.top;
+    if(image){
+      const edge=4;
+      c.drawImage(image,0,0,edge,image.height,x-BRIDGE.halfWidth,BRIDGE.top,edge,height);
+      c.drawImage(image,edge,0,image.width-edge*2,image.height,x-BRIDGE.halfWidth+edge,BRIDGE.top,width-edge*2,height);
+      c.drawImage(image,image.width-edge,0,edge,image.height,x+BRIDGE.halfWidth-edge,BRIDGE.top,edge,height);
+    }else rect(c,'#b9985d',x-BRIDGE.halfWidth,BRIDGE.top,width,height);
   }
   buildBackground(){
-    const c=this.background.getContext('2d');c.imageSmoothingEnabled=false;c.clearRect(0,0,W,H);
+    const bounds=this.worldBounds||{left:0,top:0,right:W,bottom:H},left=Math.floor(bounds.left),top=Math.floor(bounds.top),right=Math.ceil(bounds.right),bottom=Math.ceil(bounds.bottom);
+    this.backgroundOrigin={x:left,y:top};this.background.width=right-left;this.background.height=bottom-top;
+    const c=this.background.getContext('2d');c.imageSmoothingEnabled=false;c.translate(-left,-top);
     const ground=this.battleArt.images.get('assets/battle/arena-ground-v2.webp');
-    if(ground)c.drawImage(ground,0,0,W,H);else rect(c,'#8eaa79',0,0,W,H);
+    const pattern=(x,y,width,height)=>{
+      const tile=document.createElement('canvas');tile.width=width;tile.height=height;
+      tile.getContext('2d').drawImage(ground,x,y,width,height,0,0,width,height);return c.createPattern(tile,'repeat');
+    };
+    this.landscapePattern=ground?pattern(200,224,120,128):null;
+    const path=ground?pattern(146,240,24,72):'#c9bd8c';
+    c.fillStyle=this.landscapePattern||'#8eaa79';c.fillRect(left,top,right-left,bottom-top);
+    // A cleared field in a continuous forest. NO_DEPLOY bits are rules only;
+    // the decoration follows the outside of ARENA and the visible landscape.
+    c.save();c.beginPath();c.rect(left,top,right-left,bottom-top);c.rect(ARENA.left,ARENA.top,ARENA.width,ARENA.height);c.clip('evenodd');
+    rect(c,'#294d3670',left,top,right-left,bottom-top);
+    const pitch=32;
+    for(let row=Math.floor(top/pitch)-2;row<=Math.ceil(bottom/pitch)+2;row++)for(let col=Math.floor(left/pitch)-2;col<=Math.ceil(right/pitch)+2;col++){
+      const random=this.rng((row*73856093^col*19349663)>>>0),scale=.9+random()*.35,x=col*pitch+(random()-.5)*14,y=row*pitch+(random()-.5)*14;
+      const canopy={left:x-33*scale,right:x+33*scale,top:y-58*scale,bottom:y+8*scale};
+      if(canopy.left>=ARENA.left&&canopy.right<=ARENA.right&&canopy.top>=ARENA.top&&canopy.bottom<=ARENA.bottom)continue;
+      if(canopy.bottom>RIVER.top-5&&canopy.top<RIVER.bottom+5)continue;
+      c.filter=`brightness(${.72+random()*.24})`;c.save();if(random()<.5){c.translate(x*2,0);c.scale(-1,1);}this.tree(c,x,y,scale);c.restore();
+    }
+    c.restore();
+    const half=TILE/2;
+    for(let row=0;row<DEPLOY_GRID.rows*2;row++)for(let col=0;col<DEPLOY_GRID.columns*2;col++){
+      const x=ARENA.left+col*half,y=ARENA.top+row*half,bits=arenaBits(x+half/2,y+half/2);
+      if(bits&3){c.fillStyle=path;c.fillRect(x,y,half,half);}
+    }
   }
   resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.visualFlights?.clear();this.frameActors?.clear();this.flightWings?.phases.clear();this.attackContacts?.clear();}
   visualActor(unit,dt){
@@ -295,7 +337,7 @@ export class Renderer {
     }
   }
   deploymentIndicator(c,marker,progress){
-    const vertical=this.verticalScale||1,x=Math.max(28,Math.min(W-28,marker.x)),y=Math.max(18/vertical,marker.top);
+    const vertical=this.verticalScale||1,bounds=this.worldBounds||{left:0,top:0,right:W},x=Math.max(bounds.left+28,Math.min(bounds.right-28,marker.x)),y=Math.max(bounds.top+18/vertical,marker.top);
     c.save();c.translate(Math.round(x),Math.round(y));c.scale(1,1/vertical);
     this.battleArt.draw(c,'pokeball',0,0,24,24,{frame:0,angle:this.reduced?0:Math.sin(progress*Math.PI)*.22});
     rect(c,'#263d3da6',-12,14,24,3);rect(c,'#f6e9bc',-12,14,24*Math.max(0,Math.min(1,progress)),3);
@@ -642,12 +684,17 @@ export class Renderer {
   }
   drawWater(c){
     const bank=this.battleArt.images.get('assets/battle/riverbank-v2.webp');
-    if(bank)c.drawImage(bank,0,RIVER.top-8,W,RIVER.bottom-RIVER.top+16);
-    else rect(c,'#578c8b',0,RIVER.top,W,RIVER.bottom-RIVER.top);
+    const left=this.worldBounds?.left??0,right=this.worldBounds?.right??W,width=right-left,height=RIVER.bottom-RIVER.top;
+    if(bank){
+      const edge=4;
+      c.drawImage(bank,0,0,bank.width,edge,left,RIVER.top-edge,width,edge);
+      c.drawImage(bank,0,edge,bank.width,bank.height-edge*2,left,RIVER.top,width,height);
+      c.drawImage(bank,0,bank.height-edge,bank.width,edge,left,RIVER.bottom,width,edge);
+    }else rect(c,'#578c8b',left,RIVER.top,width,height);
     const frame=this.reduced?0:Math.floor(this.t*3)%10;
-    c.save();c.beginPath();c.rect(0,RIVER.top,W,RIVER.bottom-RIVER.top);c.clip();
+    c.save();c.beginPath();c.rect(left,RIVER.top,width,height);c.clip();
     c.globalAlpha=.1;c.filter='saturate(.3)';
-    for(let x=0;x<W;x+=216)this.battleArt.tile(c,'water',0,frame*144+32,216,24,x,RIVER.top,216,RIVER.bottom-RIVER.top);
+    for(let x=Math.floor(left/216)*216;x<right;x+=216)this.battleArt.tile(c,'water',0,frame*144+32,216,24,x,RIVER.top,216,height);
     c.restore();for(const x of LANES)this.bridge(c,x);
   }
   drawPlacement(c, game) {
@@ -656,9 +703,9 @@ export class Renderer {
     c.save();
     if(this.selection){
       // Keep the terrain bright; legal cells and their frontier carry placement feedback.
-      const cells=Array.from({length:DEPLOY_GRID.rows},(_,row)=>Array.from({length:DEPLOY_GRID.columns},(_,col)=>game.canDeploy(team,key,col*TILE+TILE/2,DEPLOY_GRID.top+row*TILE+TILE/2)));
+      const cells=Array.from({length:DEPLOY_GRID.rows},(_,row)=>Array.from({length:DEPLOY_GRID.columns},(_,col)=>game.canDeploy(team,key,DEPLOY_GRID.left+col*TILE+TILE/2,DEPLOY_GRID.top+row*TILE+TILE/2)));
       if(!card.spell||card.rolling&&key!=='log')for(let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++){
-        const x=col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
+        const x=DEPLOY_GRID.left+col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
         if(cells[row][col]){
           c.strokeStyle='#eef5d525';c.lineWidth=.65;
           c.strokeRect(x-TILE/2,y-TILE/2,TILE,TILE);
@@ -673,7 +720,7 @@ export class Renderer {
       if(this.tutorialSpot)text(c,'D E S P L E G Á  A C Á',300,480,'#e0ecc7aa',10,500);
     }
     if(this.tutorialSpot&&!card.spell){
-      c.strokeStyle='#e6d790';c.lineWidth=2;c.setLineDash([4,4]);c.strokeRect(158-TILE,520-TILE,TILE*2,TILE*2);c.setLineDash([]);text(c,'↓',158,482,'#eee2a3',24);
+      c.strokeStyle='#e6d790';c.lineWidth=2;c.setLineDash([4,4]);c.strokeRect(LANES[0]-TILE,520-TILE,TILE*2,TILE*2);c.setLineDash([]);text(c,'↓',LANES[0],482,'#eee2a3',24);
     }
     const p=this.pointer;
     if(p){
@@ -696,7 +743,7 @@ export class Renderer {
         }
         for(const enemy of game.deploymentThreats(team,key,point.x,point.y)){
           const height='king'in enemy?(enemy.king?106:96):this.bodyHeight(enemy,23)+25;
-          const bx=enemy.x+18,by=Math.max(22,enemy.y-height/(this.verticalScale||1));
+          const bx=enemy.x+18,by=Math.max((this.worldBounds?.top??0)+22,enemy.y-height/(this.verticalScale||1));
           ellipse(c,'#ef554944',enemy.x,enemy.y,enemy.radius+7,9);
           placementWarning(c,bx,by,this.verticalScale||1);
         }
@@ -790,7 +837,10 @@ export class Renderer {
   draw(game,dt=.016){
     const c=this.ctx;this.t+=dt;this.drawDt=dt;this.battleArt.time=this.reduced?0:this.t;
     this.updateSpellTargets(game);
-    c.imageSmoothingEnabled=false;c.drawImage(this.background,0,0);this.drawWater(c);
+    const {width,height}=this.viewport||{width:W,height:H},projection=this.projection||arenaProjection(width,height),bounds=this.worldBounds||{left:0,top:0,right:W,bottom:H};
+    c.save();c.setTransform(projection.scale*this.canvas.width/width,0,0,projection.scale*this.canvas.height/height,projection.x*this.canvas.width/width,projection.y*this.canvas.height/height);
+    c.imageSmoothingEnabled=false;c.fillStyle=this.landscapePattern||'#8eaa79';c.fillRect(bounds.left,bounds.top,bounds.right-bounds.left,bounds.bottom-bounds.top);
+    c.drawImage(this.background,this.backgroundOrigin?.x||0,this.backgroundOrigin?.y||0);this.drawWater(c);
     this.frameActors=new Map([...(game.visibleTowers??game.towers),...game.units].map(actor=>{
       const pose=this.visualActor(actor,dt);pose.logicalX=actor.x;pose.logicalY=actor.y;return[actor.id,pose];
     }));
@@ -815,6 +865,6 @@ export class Renderer {
     for(const[key,pose]of this.visualProjectiles)if(this.t-pose.at>1)this.visualProjectiles.delete(key);
     for(const[key,pose]of this.visualFlights||[])if(this.t-pose.at>1)this.visualFlights.delete(key);
     for(const p of this.particles){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=p.gravity*dt;c.globalAlpha=Math.max(0,p.life/p.max);this.combatArt(c,'dust',p.x,p.y,Math.max(8,p.size*3),0,Math.max(8,p.size*3),{progress:1-p.life/p.max});}
-    this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;
+    this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;c.restore();
   }
 }
