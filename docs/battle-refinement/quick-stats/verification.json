@@ -1,0 +1,871 @@
+{
+  "generatedAt": "2026-11-14T08:11:31.118Z",
+  "browser": "157.0.4341.46",
+  "viewports": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "served": {
+        "appSha256": "33e2d114bc51c844a6d751cba4a55b70e3a5c36b71e3476411c3b754fb622468",
+        "indexSha256": "5ebc9755f580cc8914676322182d7a8752903077f193f1c4c3b9fd700c6395fb",
+        "cssSha256": "8d6e397abb2dc594f85fdd9098616b39e6c43c216472ad68b4f8913fbf301dc6",
+        "cssApplied": true
+      },
+      "checks": {
+        "shortPressSelects": true,
+        "holdOnlyAndNoLayoutShift": true,
+        "longPressClickIgnored": true,
+        "longPressDragDeploys": true,
+        "selectionChangeHides": true,
+        "pauseHides": true,
+        "blurHides": true,
+        "cancelHides": true,
+        "keyboardSpaceHold": true,
+        "keyboardShortSpaceSelects": true,
+        "keyboardEnterHold": true,
+        "reducedMotion": true,
+        "touchHoldNoAccidentalClick": true,
+        "touchHoldDragDeploys": true,
+        "touchExitAndReentryStaysHidden": true,
+        "cleanup": true
+      },
+      "touchInput": [
+        {
+          "type": "pointerdown",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchstart",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointerup",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchend",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 0
+        },
+        {
+          "type": "pointerdown",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchstart",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointerup",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "pointerdown",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchstart",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointerup",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchend",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 0
+        }
+      ],
+      "before": {
+        "arena": {
+          "x": 10,
+          "y": 2,
+          "width": 370,
+          "height": 677
+        },
+        "hand": {
+          "x": 69,
+          "y": 696,
+          "width": 305,
+          "height": 91
+        },
+        "energy-bar": {
+          "x": 81,
+          "y": 807,
+          "width": 283,
+          "height": 16
+        },
+        "next-card": {
+          "x": 16,
+          "y": 708.296875,
+          "width": 43,
+          "height": 66.390625
+        },
+        "card-0": {
+          "x": 69,
+          "y": 693,
+          "width": 71,
+          "height": 91
+        },
+        "card-1": {
+          "x": 147,
+          "y": 696,
+          "width": 71,
+          "height": 91
+        },
+        "card-2": {
+          "x": 225,
+          "y": 696,
+          "width": 71,
+          "height": 91
+        },
+        "card-3": {
+          "x": 303,
+          "y": 696,
+          "width": 71,
+          "height": 91
+        }
+      },
+      "after": {
+        "arena": {
+          "x": 10,
+          "y": 2,
+          "width": 370,
+          "height": 677
+        },
+        "hand": {
+          "x": 69,
+          "y": 696,
+          "width": 305,
+          "height": 91
+        },
+        "energy-bar": {
+          "x": 81,
+          "y": 807,
+          "width": 283,
+          "height": 16
+        },
+        "next-card": {
+          "x": 16,
+          "y": 708.296875,
+          "width": 43,
+          "height": 66.390625
+        },
+        "card-0": {
+          "x": 69,
+          "y": 693,
+          "width": 71,
+          "height": 91
+        },
+        "card-1": {
+          "x": 147,
+          "y": 696,
+          "width": 71,
+          "height": 91
+        },
+        "card-2": {
+          "x": 225,
+          "y": 696,
+          "width": 71,
+          "height": 91
+        },
+        "card-3": {
+          "x": 303,
+          "y": 696,
+          "width": 71,
+          "height": 91
+        }
+      },
+      "tooltip": {
+        "x": 39.578125,
+        "y": 580.328125,
+        "width": 129.828125,
+        "height": 102.671875
+      }
+    },
+    {
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "served": {
+        "appSha256": "33e2d114bc51c844a6d751cba4a55b70e3a5c36b71e3476411c3b754fb622468",
+        "indexSha256": "5ebc9755f580cc8914676322182d7a8752903077f193f1c4c3b9fd700c6395fb",
+        "cssSha256": "8d6e397abb2dc594f85fdd9098616b39e6c43c216472ad68b4f8913fbf301dc6",
+        "cssApplied": true
+      },
+      "checks": {
+        "shortPressSelects": true,
+        "holdOnlyAndNoLayoutShift": true,
+        "longPressClickIgnored": true,
+        "longPressDragDeploys": true,
+        "selectionChangeHides": true,
+        "pauseHides": true,
+        "blurHides": true,
+        "cancelHides": true,
+        "keyboardSpaceHold": true,
+        "keyboardShortSpaceSelects": true,
+        "keyboardEnterHold": true,
+        "reducedMotion": true,
+        "touchHoldNoAccidentalClick": true,
+        "touchHoldDragDeploys": true,
+        "touchExitAndReentryStaysHidden": true,
+        "cleanup": true
+      },
+      "touchInput": [
+        {
+          "type": "pointerdown",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchstart",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointerup",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchend",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 0
+        },
+        {
+          "type": "pointerdown",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchstart",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointerup",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "pointerdown",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchstart",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointermove",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchmove",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 1
+        },
+        {
+          "type": "pointerup",
+          "constructor": "PointerEvent",
+          "trusted": true,
+          "pointerType": "touch",
+          "touches": null
+        },
+        {
+          "type": "touchend",
+          "constructor": "TouchEvent",
+          "trusted": true,
+          "pointerType": null,
+          "touches": 0
+        }
+      ],
+      "before": {
+        "arena": {
+          "x": 139,
+          "y": 2,
+          "width": 490,
+          "height": 857
+        },
+        "hand": {
+          "x": 198,
+          "y": 876,
+          "width": 425,
+          "height": 91
+        },
+        "energy-bar": {
+          "x": 210,
+          "y": 987,
+          "width": 403,
+          "height": 16
+        },
+        "next-card": {
+          "x": 145,
+          "y": 888.296875,
+          "width": 43,
+          "height": 66.390625
+        },
+        "card-0": {
+          "x": 198,
+          "y": 873,
+          "width": 101,
+          "height": 91
+        },
+        "card-1": {
+          "x": 306,
+          "y": 876,
+          "width": 101,
+          "height": 91
+        },
+        "card-2": {
+          "x": 414,
+          "y": 876,
+          "width": 101,
+          "height": 91
+        },
+        "card-3": {
+          "x": 522,
+          "y": 876,
+          "width": 101,
+          "height": 91
+        }
+      },
+      "after": {
+        "arena": {
+          "x": 139,
+          "y": 2,
+          "width": 490,
+          "height": 857
+        },
+        "hand": {
+          "x": 198,
+          "y": 876,
+          "width": 425,
+          "height": 91
+        },
+        "energy-bar": {
+          "x": 210,
+          "y": 987,
+          "width": 403,
+          "height": 16
+        },
+        "next-card": {
+          "x": 145,
+          "y": 888.296875,
+          "width": 43,
+          "height": 66.390625
+        },
+        "card-0": {
+          "x": 198,
+          "y": 873,
+          "width": 101,
+          "height": 91
+        },
+        "card-1": {
+          "x": 306,
+          "y": 876,
+          "width": 101,
+          "height": 91
+        },
+        "card-2": {
+          "x": 414,
+          "y": 876,
+          "width": 101,
+          "height": 91
+        },
+        "card-3": {
+          "x": 522,
+          "y": 876,
+          "width": 101,
+          "height": 91
+        }
+      },
+      "tooltip": {
+        "x": 183.578125,
+        "y": 760.328125,
+        "width": 129.828125,
+        "height": 102.671875
+      }
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 980
+      },
+      "served": {
+        "appSha256": "33e2d114bc51c844a6d751cba4a55b70e3a5c36b71e3476411c3b754fb622468",
+        "indexSha256": "5ebc9755f580cc8914676322182d7a8752903077f193f1c4c3b9fd700c6395fb",
+        "cssSha256": "8d6e397abb2dc594f85fdd9098616b39e6c43c216472ad68b4f8913fbf301dc6",
+        "cssApplied": true
+      },
+      "checks": {
+        "shortPressSelects": true,
+        "holdOnlyAndNoLayoutShift": true,
+        "longPressClickIgnored": true,
+        "longPressDragDeploys": true,
+        "selectionChangeHides": true,
+        "pauseHides": true,
+        "blurHides": true,
+        "cancelHides": true,
+        "keyboardSpaceHold": true,
+        "keyboardShortSpaceSelects": true,
+        "keyboardEnterHold": true,
+        "reducedMotion": true,
+        "cleanup": true
+      },
+      "touchInput": null,
+      "before": {
+        "arena": {
+          "x": 214.609375,
+          "y": 66,
+          "width": 643,
+          "height": 860
+        },
+        "hand": {
+          "x": 902.734375,
+          "y": 237.875,
+          "width": 317.515625,
+          "height": 359.75
+        },
+        "energy-bar": {
+          "x": 981.21875,
+          "y": 725.4375,
+          "width": 225.625,
+          "height": 20.546875
+        },
+        "next-card": {
+          "x": 902.734375,
+          "y": 611.328125,
+          "width": 317.515625,
+          "height": 82.4375
+        },
+        "card-0": {
+          "x": 902.734375,
+          "y": 234.4486846923828,
+          "width": 151.328125,
+          "height": 172.45310974121094
+        },
+        "card-1": {
+          "x": 1068.90625,
+          "y": 237.875,
+          "width": 151.34375,
+          "height": 172.453125
+        },
+        "card-2": {
+          "x": 902.734375,
+          "y": 425.171875,
+          "width": 151.328125,
+          "height": 172.453125
+        },
+        "card-3": {
+          "x": 1068.90625,
+          "y": 425.171875,
+          "width": 151.34375,
+          "height": 172.453125
+        }
+      },
+      "after": {
+        "arena": {
+          "x": 214.609375,
+          "y": 66,
+          "width": 643,
+          "height": 860
+        },
+        "hand": {
+          "x": 902.734375,
+          "y": 237.875,
+          "width": 317.515625,
+          "height": 359.75
+        },
+        "energy-bar": {
+          "x": 981.21875,
+          "y": 725.4375,
+          "width": 225.625,
+          "height": 20.546875
+        },
+        "next-card": {
+          "x": 902.734375,
+          "y": 611.328125,
+          "width": 317.515625,
+          "height": 82.4375
+        },
+        "card-0": {
+          "x": 902.734375,
+          "y": 234.4486846923828,
+          "width": 151.328125,
+          "height": 172.45310974121094
+        },
+        "card-1": {
+          "x": 1068.90625,
+          "y": 237.875,
+          "width": 151.34375,
+          "height": 172.453125
+        },
+        "card-2": {
+          "x": 902.734375,
+          "y": 425.171875,
+          "width": 151.328125,
+          "height": 172.453125
+        },
+        "card-3": {
+          "x": 1068.90625,
+          "y": 425.171875,
+          "width": 151.34375,
+          "height": 172.453125
+        }
+      },
+      "tooltip": {
+        "x": 913.484375,
+        "y": 121.765625,
+        "width": 129.828125,
+        "height": 102.671875
+      }
+    }
+  ],
+  "integration": {
+    "mode": "real-working-tree",
+    "gitHead": "2b393263842841063eb0c37c1b954d9edc958e4c",
+    "runtime": "Versionable files from the current working tree; source hashes identify the exact tested content, including uncommitted changes.",
+    "instrumentation": "The app.js response only gets appended __qa accessors. No imports, bindings, handlers, HTML or CSS are added or replaced."
+  },
+  "sources": {
+    "dist/app.js": "33e2d114bc51c844a6d751cba4a55b70e3a5c36b71e3476411c3b754fb622468",
+    "dist/index.html": "5ebc9755f580cc8914676322182d7a8752903077f193f1c4c3b9fd700c6395fb",
+    "dist/quick-stats.js": "93af550b551b58d0009a2be6ff0d474ea4684d61a5f8a60d64c1edf9cefa6c20",
+    "dist/quick-stats.css": "8d6e397abb2dc594f85fdd9098616b39e6c43c216472ad68b4f8913fbf301dc6",
+    "tests/quick-stats.test.mjs": "a1d2031e9c47c560d99b6692087284904d24b7270116c39b9ceeac9eba1d01e4",
+    "scripts/qa-quick-stats.mjs": "5caaac9daa504f17befea1c3b6d1c754863eb36873b7fbf70c5273c5710d0c01"
+  },
+  "unitTests": {
+    "command": "node --test tests/quick-stats.test.mjs",
+    "passed": 8,
+    "failed": 0,
+    "catalogKeys": 121
+  },
+  "browserChecks": 45
+}
