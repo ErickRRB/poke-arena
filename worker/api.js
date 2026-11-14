@@ -35,7 +35,6 @@ async function battle(db,player,action,now,animations){
     let result=null;
     if(action?.kind&&!room.nonces.includes(action.nonce)){
       if(action.kind==='leave'){if(game.state!=='ended')game.finish(1-team,'El rival abandonó');result={ok:true};}
-      else if(action.kind==='ability')result=game.activateAbility(team,Number(action.unitId));
       else if(action.kind==='deploy')result=game.hands[team][action.handIndex]===action.key?game.deploy(team,Number(action.handIndex),Number(action.x),Number(action.y)):{ok:false,reason:'La mano cambió. Volvé a elegir la carta.'};
       else result={ok:false,reason:'Acción no válida.'};
       room.nonces.push(action.nonce);room.nonces=room.nonces.slice(-32);

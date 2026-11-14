@@ -1,5 +1,5 @@
 // Preview the current targets, using the same footprints and exclusions as combat.
-import {isCombatTargetReady,spellOverlapsTarget} from './engine.js?v=26';
+import {isCombatTargetReady,spellOverlapsTarget,rollingOverlapsTarget} from './engine.js?v=26';
 export function spellPreviewTargets(game,card,point,team=0){
   if(!card?.spell||!point||!Number.isFinite(point.x)||!Number.isFinite(point.y))return[];
   let targets=[...game.units,...game.towers].filter(target=>{
@@ -7,7 +7,7 @@ export function spellPreviewTargets(game,card,point,team=0){
     const radius=target.radius||0;
     if(card.rolling){
       const end=point.y+(team?1:-1)*card.travelDistance;
-      return !target.card?.flying&&Math.abs(target.x-point.x)<card.splash+radius&&target.y>=Math.min(point.y,end)-18-radius&&target.y<=Math.max(point.y,end)+18+radius;
+      return isCombatTargetReady(target)&&!target.card?.flying&&rollingOverlapsTarget(card,point,{x:point.x,y:end},target);
     }
     return isCombatTargetReady(target)&&(!card.groundOnly||!target.card?.flying)&&spellOverlapsTarget(card,point,target);
   });

@@ -5,21 +5,27 @@ import {Game,CARDS,TILE,KING_Y,formationOffsets} from '../dist/engine.js';
 import {packGame,unpackGame,perspective} from '../dist/snapshot.js';
 import {spellPreviewTargets} from '../dist/spell-preview.js';
 import {structureLift} from '../dist/sprite-motion.js';
-const source=JSON.parse(readFileSync(new URL('../docs/CLASH-REFERENCE-2026-11-14.json',import.meta.url)));
+import {CLASH_ROSTER} from '../dist/clash-roster.js';
+import {laneAt} from '../dist/arena-geometry.js';
+const source=JSON.parse(readFileSync(new URL('../docs/CR-NATIVE-2026-11-03.json',import.meta.url)));
 const fresh=()=>{const g=new Game({seed:9291});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);return g;};
 const run=(g,s)=>{for(let i=0;i<Math.ceil(s*60);i++)g.step(1/60);};
 const still=u=>{u.card={...u.card,speed:0,damage:0,passive:true};return u;};
 
-test('dated current reference is applied per body and total attack without multiplying combos',()=>{
-  for(const[key,ref]of Object.entries({pikachu:'Mago eléctrico',rapidash:'Montapuercos',roselia:'Princesa',rhydon:'P.E.K.K.A.',treecko:'Arqueras',geodude:'Caballero',diglettHorde:'Ejército de esqueletos',beedrill:'Esbirros',sandshrew:'Guardias',duskull:'Bruja'})){
-    const c=CARDS[key],s=source.profiles[ref].stats;
-    assert.equal(c.hp,s.hp,key);assert.equal(c.damage*(c.burst||1)*(c.bolts||1),s.damagePerAttack,key);
-    assert.equal(c.interval,s.intervalSeconds,key);assert.ok(Math.abs(c.speed-s.speedUnitsPerSecond)<1e-8,key);
-    assert.equal(c.windup,s.firstAttackDelaySeconds,key);assert.equal(c.deployTime,s.deployTimeSeconds,key);
+test('raw native fields apply to every mapped body without divided attacks or inherited extras',()=>{
+  for(const[key,name]of Object.entries(CLASH_ROSTER)){
+    const c=CARDS[key],row=source.cards.find(r=>r.name===name)||source.units[name],raw=source.units[row.summon_character||name]?.raw||{},p=source.projectiles[raw.CustomFirstProjectile]||row.projectile;
+    const scale=n=>Math.floor((n||0)*256/100),close=(a,b)=>assert.ok(Math.abs(a-b)<1e-8,key+': '+a+' vs '+b);
+    assert.equal(c.hp,scale(row.hitpoints),key);assert.equal(c.damage,scale(row.damage??p?.damage),key);assert.equal(c.burst,1,key);
+    if(row.hit_speed_ms){close(c.interval,row.hit_speed_ms/1000);close(c.windup,(row.hit_speed_ms-(row.load_time_ms||0))/1000);}
+    close(c.speed,(row.speed||0)*.48);close(c.deployTime,(row.deploy_time_ms||0)/1000);
+    if(row.range_milli!=null)close(c.range,row.range_milli*24/1000);
+    if(row.collision_radius_milli!=null)close(c.radius,row.collision_radius_milli*24/1000);
+    assert.equal(c.flying,!!row.flying_height,key);assert.equal(c.air,!!row.attacks_air,key);assert.equal(c.building,!!row.target_only_buildings,key);assert.equal(c.knockbackImmune,!!row.ignore_pushback,key);
+    assert.equal(c.burn,0,key);assert.equal(c.lifesteal,0,key);assert.equal(c.poisonField,0,key);
   }
-  assert.equal(CARDS.roselia.range,9*TILE);assert.equal(CARDS.ampharos.range,5.5*TILE);
-  assert.equal(CARDS.diglettHorde.count,15);assert.equal(CARDS.pandilla.squad.length,5);
-  assert.equal(CARDS.pandilla.squad.filter(k=>k==='raltsToken').length,2);
+  assert.equal(CARDS.roselia.range,9*TILE);assert.equal(CARDS.ampharos.range,5.5*TILE);assert.equal(CARDS.roselia.splash,48);
+  assert.equal(CARDS.diglettHorde.count,15);assert.equal(CARDS.pandilla.squad.length,6);assert.equal(CARDS.pandilla.squad.filter(k=>k==='raltsToken').length,3);
 });
 
 test('the Hog equivalent covers the measured unbuffed distance in one second on a clear path',()=>{
@@ -37,10 +43,11 @@ test('Poochyena clears both poles of allied towers, including the original stuck
   }
 });
 
-test('all swarm anchors can split behind the king and the archer pair follows separate lanes',()=>{
+test('all swarms deploy behind the king and the archer pair follows separate lanes',()=>{
   for(const team of[0,1])for(const key of['treecko','pandilla','diglett','diglettHorde','raltsTrio','poochyenaPack','zubat','sandshrew','beedrill']){
-    const g=fresh(),y=KING_Y[team]+(team?-54:54),positions=g.deploymentPositions(team,key,300,y);
-    assert.equal(positions.length,CARDS[key].count,key);assert.ok(positions.some(p=>p.x<300)&&positions.some(p=>p.x>300),key);
+    const g=fresh(),y=team?28:772,positions=g.deploymentPositions(team,key,300,y);
+    assert.equal(positions.length,CARDS[key].count,key);
+    if(['treecko','pandilla','raltsTrio'].includes(key))assert.ok(positions.some(p=>laneAt(p.x,team)===0)&&positions.some(p=>laneAt(p.x,team)===1),key);
     g.hands[team][0]=key;g.energy[team]=10;assert.ok(g.deploy(team,0,300,y).ok,key);
     assert.deepEqual(g.units.map(u=>({x:u.x,y:u.y})),positions,key);
     if(key==='treecko'){run(g,6);const units=g.units.filter(u=>u.team===team).sort((a,b)=>a.x-b.x);assert.ok(units[0].x<260&&units[1].x>340,JSON.stringify(units.map(u=>[u.x,u.y])));}
@@ -49,7 +56,7 @@ test('all swarm anchors can split behind the king and the archer pair follows se
 
 test('formations preserve mirrored fractional offsets and spread the army across more than two rows',()=>{
   const g=fresh(),a=g.deploymentPositions(0,'diglettHorde',158,520),b=g.deploymentPositions(1,'diglettHorde',442,280);
-  assert.equal(a.length,15);assert.equal(new Set(a.map(p=>`${p.x},${p.y}`)).size,15);
+  assert.equal(a.length,15);assert.equal(new Set(a.map(p=>`${p.x},${p.y}`)).size,13); // Native spiral repeats its centre at k0/7/14.
   a.forEach((p,i)=>assert.ok(Math.hypot(600-p.x-b[i].x,800-p.y-b[i].y)<1e-7));
   const offsets=formationOffsets(CARDS.diglettHorde);assert.ok(Math.max(...offsets.map(p=>p.y))-Math.min(...offsets.map(p=>p.y))>TILE*3);
 });
@@ -95,13 +102,13 @@ test('Dusclops retains the saved key while its melee evolution family and natura
   assert.equal(CARDS.duskullToken.id,355);assert.ok(CARDS.duskull.range>=100&&CARDS.duskullToken.range<24);
   assert.ok(CARDS.duskullToken.scale<CARDS.duskull.scale/2);
   for(const key of['cloyster','wobbuffet','madriguera','vivero','regice'])assert.equal(structureLift(CARDS[key]),0,key);
-  assert.equal(structureLift(CARDS.centralElectrode),23);
+  assert.equal(structureLift(CARDS.centralElectrode),0);assert.equal(CARDS.centralElectrode.structure,false);
 });
 
-test('flame advances before contact, survives stun after release and restores in either perspective',()=>{
+test('a fire projectile advances before contact, survives stun after release and restores in either perspective',()=>{
   const g=fresh(),dragon=g.spawn('charizard',0,300,560,0),victim=still(g.spawn('snorlax',1,300,460,0));
   dragon.entryPending=false;g.attack(dragon,victim);dragon.cooldown=100;run(g,CARDS.charizard.windup+.02);
-  assert.ok(g.projectiles.some(p=>p.flameCone));assert.equal(victim.hp,victim.maxHp);
+  assert.ok(g.projectiles.some(p=>p.key==='charizard'&&!p.flameCone));assert.equal(victim.hp,victim.maxHp);
   g.damage(dragon,0,1,{stun:2});
   const clone=unpackGame(packGame(g)),other=unpackGame(perspective(packGame(g),1));run(g,.6);run(clone,.6);run(other,.6);
   assert.equal(victim.maxHp-victim.hp,CARDS.charizard.damage);

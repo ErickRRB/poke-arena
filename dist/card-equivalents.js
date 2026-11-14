@@ -1,5 +1,7 @@
-// Gameplay references to base Clash Royale cards; statistics can differ.
+import { CLASH_ROSTER } from './clash-roster.js';
+// Base-card contracts and explicitly retained Pokemon adaptations.
 export const CARD_EQUIVALENTS = {
+  raltsHut:{reference:'Choza de duendes',similarity:'equivalent',reason:'Refugio que libera Ralts cuando hay enemigos cerca y deja uno al caer.'},
   pikachu: { reference: 'Mago eléctrico', similarity: 'equivalent', reason: 'Descarga al aparecer y dos rayos que aturden y pueden repartirse entre objetivos.' },
   squirtle: { reference: null, similarity: 'none', reason: 'Tirador económico con tres burbujas por ataque, sin un equivalente cercano.' },
   charmander: { reference: 'Mago', similarity: 'partial', reason: 'Dispara en área contra tierra y aire, pero añade quemadura y cuesta menos.' },
@@ -124,6 +126,17 @@ export const CARD_EQUIVALENTS = {
   electrode: { reference: null, similarity: 'none', reason: 'Carta retirada de la colección y conservada únicamente para partidas antiguas.' },
 };
 
+for(const key of Object.keys(CLASH_ROSTER))if(CARD_EQUIVALENTS[key]){
+  CARD_EQUIVALENTS[key].similarity='equivalent';
+  CARD_EQUIVALENTS[key].reason='Usa el cuerpo y el ataque de la carta base de referencia.';
+}
+CARD_EQUIVALENTS.geodudeToken={reference:'Golemita',similarity:'equivalent',reason:'Cuerpo pequeño de Gólem que busca estructuras y explota al caer.'};
+CARD_EQUIVALENTS.centralElectrode={reference:'Horno',similarity:'equivalent',reason:'Tropa móvil que dispara fuego e invoca espíritus de fuego.'};
+CARD_EQUIVALENTS.fireSpiritToken={reference:'Espíritu de fuego',similarity:'equivalent',reason:'Cuerpo ígneo invocado por el Horno.'};
+CARD_EQUIVALENTS.whirlpool={reference:'Tornado',similarity:'equivalent',reason:'Área de atracción con duración y daño del Tornado.'};
+for(const key of ['nightmare','pinMissile'])CARD_EQUIVALENTS[key].similarity='equivalent';
+CARD_EQUIVALENTS.nightmare.reason='Doce invocaciones terrestres frágiles con posiciones y tiempos fijos.';
+CARD_EQUIVALENTS.pinMissile.reason='Tres oleadas de daño de área contra tierra y aire.';
 export function cardEquivalentLabel(key) {
   const equivalent = CARD_EQUIVALENTS[key];
   if (!equivalent?.reference || equivalent.similarity === 'none') return '';
