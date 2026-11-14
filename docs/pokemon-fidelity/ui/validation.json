@@ -1,0 +1,48 @@
+{
+  "artworks": 111,
+  "selectable": 109,
+  "corrected": [
+    "diglett",
+    "diglettHorde",
+    "zubat",
+    "crobat",
+    "raltsTrio",
+    "registeel",
+    "celebi",
+    "duskull",
+    "nuzleaf"
+  ],
+  "viewports": [
+    {
+      "width": 390,
+      "height": 844,
+      "loadedFiles": 50,
+      "delayedImages": 9,
+      "layoutDelta": 0,
+      "detailCards": 9,
+      "apiRequests": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "loadedFiles": 50,
+      "delayedImages": 9,
+      "layoutDelta": 0,
+      "detailCards": 9,
+      "apiRequests": 0
+    },
+    {
+      "width": 1440,
+      "height": 980,
+      "loadedFiles": 50,
+      "delayedImages": 9,
+      "layoutDelta": 0,
+      "detailCards": 9,
+      "apiRequests": 0
+    }
+  ],
+  "deck": {
+    "viewports": 1,
+    "onlineRequests": 0
+  }
+}
