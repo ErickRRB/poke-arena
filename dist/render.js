@@ -374,9 +374,17 @@ export class Renderer {
     }
     this.numbers=this.numbers.filter(n=>n.life>0);
   }
-  projectilePose(p,point=p){
+  projectilePose(p,point=p,predict=false){
     const key=p.id||p;let pose=this.visualProjectiles.get(key);
     if(!pose){pose={x:point.x,y:point.y,travelled:p.travelled||0,at:this.t};this.visualProjectiles.set(key,pose);}
+    if(predict){
+      // Piercing heads must reach the body on the damage packet. Predict only
+      // the next room interval, using the authoritative heading and speed.
+      if(pose.logicalTravelled!==p.travelled||pose.logicalX!==p.x||pose.logicalY!==p.y){pose.logicalTravelled=p.travelled;pose.logicalX=p.x;pose.logicalY=p.y;pose.logicalAt=this.t;}
+      const advance=Math.min(Math.max(0,p.totalDistance-p.travelled),(p.speed||0)*Math.min(1/15,Math.max(0,this.t-pose.logicalAt)));
+      pose.travelled=Math.min(p.totalDistance,Math.max(pose.travelled,p.travelled+advance));
+      const ahead=pose.travelled-p.travelled;pose.x=p.x+p.dx*ahead;pose.y=p.y+p.dy*ahead;pose.at=this.t;return pose;
+    }
     const blend=1-Math.exp(-(this.drawDt||0)*35);
     pose.x+=(point.x-pose.x)*blend;pose.y+=(point.y-pose.y)*blend;pose.travelled+=((p.travelled||0)-(pose.travelled||0))*blend;pose.at=this.t;
     return pose;
@@ -390,9 +398,10 @@ export class Renderer {
       this.combatArt(c,'rock',pose.x,pose.y-13/(this.verticalScale||1),38,this.reduced?0:pose.travelled/18,38,{frame:0,trim:true});c.restore();return;
     }
     if(p.linear){
-      const pose=this.projectilePose(p),vertical=this.verticalScale||1,x=pose.x+(p.liftX||0),y=pose.y+(p.liftY||0)/vertical,length=Math.min(pose.travelled,54),visual=combatVisual(CARDS[p.key]);
+      const pose=this.projectilePose(p,p,true),vertical=this.verticalScale||1,x=pose.x+(p.liftX||0),y=pose.y+(p.liftY||0)/vertical,length=Math.min(pose.travelled,54),visual=combatVisual(CARDS[p.key]);
       this.battleArt.beam(c,'psychic',{x:x-p.dx*length,y:y-p.dy*length},{x,y},visual.beam,this.reduced?0:this.t);
-      this.combatArt(c,'psychic',x,y,Math.max(12,visual.projectile),0,Math.max(12,visual.projectile),{age:this.reduced?0:this.t,trim:true});return;
+      const diameter=Math.max(12,visual.projectile,(p.shotRadius||0)*2);
+      this.combatArt(c,'psychic',x,y,diameter,0,diameter,{age:this.reduced?0:this.t,trim:true});return;
     }
     const logicalProgress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),source=this.frameActors.get(p.sourceId),target=this.frameActors.get(p.target.id)||p.target;
     const targetLift=p.endLiftY??-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15);
