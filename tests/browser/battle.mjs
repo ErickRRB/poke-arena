@@ -69,6 +69,18 @@ export async function checkTowerDestructionContinues(page){
   assert.ok(after>before+.2,'CPU simulation must continue after a crown tower falls and the king wakes');
 }
 
+export async function checkSpellPointerCleanup(page){
+  const saved=await page.evaluate(()=>{const g=__qa.game,saved={key:g.hands[0][0],energy:g.energy[0]};g.hands[0][0]='fireball';g.energy[0]=10;__qa.updateUi();return saved;});
+  try{
+    await page.locator('#hand [data-card="0"]').click();
+    const point=await page.locator('#arena').evaluate(async canvas=>{const {worldToScreen}=await import('/arena-geometry.js?v=26'),r=canvas.getBoundingClientRect(),p=worldToScreen({x:300,y:500},r.width,r.height);return{x:r.x+p.x,y:r.y+p.y,left:r.x+1,middle:r.y+r.height/2};});
+    await page.mouse.move(point.x,point.y);await page.waitForFunction(()=>__qa.renderer.pointer!==null);
+    await page.mouse.move(point.left,point.middle);await page.waitForFunction(()=>__qa.renderer.pointer===null&&__qa.renderer.spellTargets.size===0);
+    await page.mouse.move(point.x,point.y);await page.waitForFunction(()=>__qa.renderer.pointer!==null);
+    await page.locator('#arena').dispatchEvent('pointercancel');assert.equal(await page.evaluate(()=>__qa.renderer.pointer===null&&__qa.renderer.selection===null),true);
+  }finally{await page.evaluate(saved=>{__qa.game.hands[0][0]=saved.key;__qa.game.energy[0]=saved.energy;__qa.updateUi();},saved);}
+}
+
 export async function run({browser,url,viewports,output}){
   for(const viewport of viewports){
     const{context,page,errors,apiRequests}=await openPage(browser,viewport);
@@ -84,6 +96,7 @@ export async function run({browser,url,viewports,output}){
       await checkCapturedDeploymentLighting(page);
       await checkSpellHoverFeedback(page);
       await checkTowerDestructionContinues(page);
+      await checkSpellPointerCleanup(page);
       const board=await rects(page,['arena','hand','energy-bar']);await page.locator('#hand [data-card="0"]').click();await page.evaluate(()=>{__qa.renderer.pointer={x:300,y:520};__qa.renderer.draw(__qa.game,0);});stable(board,await rects(page,['arena','hand','energy-bar']),'range');await page.screenshot({path:`${output}/battle-${viewport.width}.png`});
       await page.locator('#match-leave').click();assert.equal(await page.evaluate(()=>__qa.game.state),'paused');await page.locator('#leave-dialog .primary-btn').click();await page.waitForFunction(()=>__qa.game.state==='playing');
       assert.deepEqual(errors,[]);assert.deepEqual(apiRequests,[]);

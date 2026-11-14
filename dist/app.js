@@ -444,10 +444,10 @@ document.addEventListener('pointerup',e=>{
   if(drag.active){ignoreClickUntil=performance.now()+350;const p=arenaPoint(e.clientX,e.clientY),key=game.hands[0][drag.index];if(p.inside&&game.resolveDeployment(0,key,p.x,p.y))attemptDeploy(p);else cancelSelection();renderer.pointer=null;}
   drag=null;
 });
-document.addEventListener('pointercancel',()=>{if(drag?.active)cancelSelection();drag=null;renderer.pointer=null;});
-canvas.addEventListener('pointermove',e=>{if(e.pointerType!=='touch'&&!drag&&selected>=0)renderer.pointer=arenaPoint(e.clientX,e.clientY);});
-canvas.addEventListener('pointerleave',()=>{if(!drag)renderer.pointer=null;});
-canvas.addEventListener('pointerdown',e=>{if(e.button!==0||drag?.active)return;audioInit();canvas.focus({preventScroll:true});attemptDeploy(arenaPoint(e.clientX,e.clientY));});
+document.addEventListener('pointercancel',()=>{cancelSelection();drag=null;renderer.pointer=null;});
+canvas.addEventListener('pointermove',e=>{if(e.pointerType!=='touch'&&!drag&&selected>=0){const p=arenaPoint(e.clientX,e.clientY);renderer.pointer=p.inside?p:null;}});
+canvas.addEventListener('pointerleave',()=>{renderer.pointer=null;});
+canvas.addEventListener('pointerdown',e=>{if(e.button!==0||drag?.active)return;audioInit();canvas.focus({preventScroll:true});const p=arenaPoint(e.clientX,e.clientY);if(p.inside)attemptDeploy(p);else cancelSelection();});
 document.addEventListener('keydown',e=>{
   if(e.target.closest?.('#hand [data-card]')&&['Space','Enter'].includes(e.code))return;
   if(document.querySelector('dialog[open]')||['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;

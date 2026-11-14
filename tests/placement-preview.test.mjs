@@ -42,6 +42,12 @@ test('leaving the arena removes every spell aiming indicator even if the card st
  }
 });
 
+test('an unaffordable spell retains its range without a central invalid-placement cross',()=>{
+ const {game,renderer,ctx,calls}=drawing('fireball');game.energy[0]=0;renderer.drawPlacement(ctx,game);
+ assert.equal(calls.filter(c=>c.method==='arc').length,1);
+ assert.equal(calls.filter(c=>c.method==='moveTo'||c.method==='lineTo').length,8,'only the four range ticks remain');
+});
+
 test('no cast or travelling spell announces its landing position after aiming ends',()=>{
  for(const [key,card] of Object.entries(CARDS).filter(([,card])=>card.spell)){
   const calls=[],ctx=new Proxy({}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
