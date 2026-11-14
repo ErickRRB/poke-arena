@@ -1,0 +1,452 @@
+{
+  "browser": "157.0.4341.46",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "sources": {
+    "dist/render.js": "edde1d5973b3a4cb649ffb9545d06f0f802f5ee5f3b094466c5b9fcd39322853",
+    "dist/spell-preview.js": "402beb01f17f419e69208956133bfd8742d6d988cd344a79781b88529cf61f32",
+    "dist/engine.js": "448927cae6475f64269da61b1b9aca110bf2abbdd11a95bac542c998d8bf3c2e",
+    "scripts/qa-log-preview.mjs": "116b9872142f567101c7202a1897acd909ed09457b2f80032485b0970d738bb8"
+  },
+  "cases": [
+    {
+      "team": 0,
+      "anchor": {
+        "x": 300,
+        "y": 520
+      },
+      "targets": [
+        7
+      ],
+      "ground": 7,
+      "air": 8,
+      "calls": [
+        {
+          "method": "save",
+          "args": []
+        },
+        {
+          "method": "fillRect",
+          "args": [
+            288,
+            508,
+            24,
+            24
+          ]
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            288,
+            508
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            294,
+            508
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            288,
+            508
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            288,
+            514
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            312,
+            508
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            306,
+            508
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            312,
+            508
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            312,
+            514
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            288,
+            532
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            294,
+            532
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            288,
+            532
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            288,
+            526
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            312,
+            532
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            306,
+            532
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            312,
+            532
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            312,
+            526
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "restore",
+          "args": []
+        }
+      ],
+      "board": {
+        "x": 10,
+        "y": 2,
+        "width": 370,
+        "height": 677
+      },
+      "clears": {
+        "exit": true,
+        "returns": true,
+        "release": true
+      }
+    },
+    {
+      "team": 1,
+      "anchor": {
+        "x": 300,
+        "y": 280
+      },
+      "targets": [
+        9
+      ],
+      "ground": 9,
+      "air": 10,
+      "calls": [
+        {
+          "method": "save",
+          "args": []
+        },
+        {
+          "method": "fillRect",
+          "args": [
+            288,
+            268,
+            24,
+            24
+          ]
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            288,
+            268
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            294,
+            268
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            288,
+            268
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            288,
+            274
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            312,
+            268
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            306,
+            268
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            312,
+            268
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            312,
+            274
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            288,
+            292
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            294,
+            292
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            288,
+            292
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            288,
+            286
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            312,
+            292
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            306,
+            292
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "beginPath",
+          "args": []
+        },
+        {
+          "method": "moveTo",
+          "args": [
+            312,
+            292
+          ]
+        },
+        {
+          "method": "lineTo",
+          "args": [
+            312,
+            286
+          ]
+        },
+        {
+          "method": "stroke",
+          "args": []
+        },
+        {
+          "method": "restore",
+          "args": []
+        }
+      ],
+      "board": {
+        "x": 10,
+        "y": 2,
+        "width": 370,
+        "height": 677
+      },
+      "clears": {
+        "exit": true,
+        "returns": true,
+        "release": true
+      }
+    }
+  ],
+  "errors": []
+}
