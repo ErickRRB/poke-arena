@@ -3,6 +3,7 @@ function card(name,id,cost,type,role,stats,description){return{name,id,cost,type
 const ranged=(style,range=135)=>({style,range,attackAnim:'Shoot',air:true});
 const active=(name,cost,damage,radius,effect,extra={})=>({name,cost,damage,radius,effect,...extra});
 export const EXTRA_CARDS={
+geodudeToken:card('Geodude',74,0,'rock','Invocación · estructuras',{token:true,hp:1039,damage:84,speed:21.6,interval:2.5,range:6,building:true,deathDamage:99,deathRadius:48,style:'slam',windup:1,attackRoleOverride:true},'Avanza hacia estructuras y explota al caer.'),
 rapidash:card('Rapidash',78,4,'fire','Corredor · estructuras',{hp:1696,damage:318,speed:40,interval:1.6,range:28,building:true,riverJump:true,style:'slam',move:'Bote',windup:.3,attackRoleOverride:true},'Galopa hacia las estructuras y salta el río para alcanzarlas.'),
 roselia:card('Roselia',315,3,'grass','Tiradora · largo alcance',{hp:261,damage:169,speed:26,interval:3,...ranged('leaf',276),sightRange:300,splash:48,projectileSpeed:260,move:'Danza pétalo',windup:.4,rarity:'legendaria',attackRoleOverride:true},'Lanza pétalos en área desde fuera del alcance de las torres.'),
 graveler:card('Graveler',75,5,'rock','Defensa · empuje',{hp:2080,damage:272,speed:18,interval:2.5,range:120,style:'rock',attackAnim:'Shoot',rollingShot:true,projectileRange:156,projectileSpeed:220,shotRadius:22,knockback:24,knockbackImmune:true,move:'Lanzarrocas',windup:.55,attackRoleOverride:true},'Lanza una roca que rueda en línea, atraviesa y empuja a los rivales terrestres.'),

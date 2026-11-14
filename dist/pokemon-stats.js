@@ -156,6 +156,11 @@ export const POKEMON_STATS = {
     "attack": 35,
     "specialAttack": 95
   },
+  "83": {
+    "hp": 52,
+    "attack": 90,
+    "specialAttack": 58
+  },
   "88": {
     "hp": 80,
     "attack": 80,
@@ -451,7 +456,11 @@ export const POKEMON_STATS = {
     "attack": 40,
     "specialAttack": 30
   },
-  "356": {"hp":40,"attack":70,"specialAttack":60},
+  "356": {
+    "hp": 40,
+    "attack": 70,
+    "specialAttack": 60
+  },
   "359": {
     "hp": 65,
     "attack": 130,
@@ -496,5 +505,10 @@ export const POKEMON_STATS = {
     "hp": 105,
     "attack": 150,
     "specialAttack": 150
+  },
+  "534": {
+    "hp": 105,
+    "attack": 140,
+    "specialAttack": 55
   }
 };

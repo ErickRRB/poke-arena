@@ -10,6 +10,7 @@ export const THRESHOLDS = Object.freeze({ tower: 109, towerInterval: .8, fragile
 
 // Explicit health, damage, cadence and speed for every body. No global multipliers.
 export const CARD_BALANCE = {
+  geodudeToken:{cost:0,hp:1039,damage:84,interval:2.5,speed:21.6},
   rapidash:{cost:4,hp:1696,damage:318,interval:1.6,speed:57.6},
   roselia:{cost:3,hp:261,damage:169,interval:3,speed:26},
   graveler:{cost:5,hp:2080,damage:272,interval:2.5,speed:18},
@@ -212,12 +213,14 @@ export function applyBalance(cards) {
   for(const [key,formation]of Object.entries(GROUP_FORMATIONS))cards[key].formation=formation;
   for(const [key,immune]of Object.entries(PUSHBACK_IMMUNITY))if(cards[key])cards[key].knockbackImmune=immune;
   cards.duskullToken.scale=.8;
+  cards.geodudeToken.scale=1.3;
   applyAttackChoreography(cards);
   for(const [key,description] of Object.entries(CARD_DESCRIPTIONS))cards[key].description=description;
 }
 
 // Player-facing copy describes the action. Exact values live in statistics.
 export const CARD_DESCRIPTIONS = {
+  geodudeToken:'Avanza hacia las estructuras y explota al caer.',
   pikachu:'Descarga electricidad al aparecer y aturde con dos rayos.',
   squirtle:'Dispara tres burbujas seguidas al mismo objetivo.',
   charmander:'Lanza ascuas que explotan en área y dejan quemadura.',

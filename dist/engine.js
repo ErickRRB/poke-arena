@@ -318,7 +318,7 @@ export class Game {
         if(target.card.split){
           this.emit('deathBurst',{unit:target,radius:64});
           for(const other of[...this.units,...this.towers])if(other.team!==target.team&&other.hp>0&&!other.card?.flying&&distance(other,target)<64+other.radius)this.damage(other,target.card.deathDamage,target.team,{sourceId:target.id,sourceKey:target.key});
-          for(const offset of[-20,20]){const small=this.spawn('geodude',target.team,clamp(target.x+offset,44,556),target.y,.4);small.card={...CARDS.geodude,damage:52,building:true,splash:0,speed:28};small.hp=small.maxHp=900;small.scale=CARDS.geodude.scale*.65;}
+          for(const offset of[-20,20])this.spawn('geodudeToken',target.team,clamp(target.x+offset,44,556),target.y,1);
         }
         if(target.card.deathSpawn)this.spawnReinforcements(target,target.card.deathSpawn,target.card.deathCount||1,.4);
         if(target.card.deathField)this.addField(target.x,target.y,target.team,target.card.deathField,target.id);
