@@ -1,0 +1,936 @@
+{
+  "generatedAt": "2026-11-14T21:17:37.706Z",
+  "sourceHead": "7688fbfe2c65980040e55717ea5d69c1d78b9181",
+  "sourceHashes": {
+    "dist/app.js": "d1da9f731c9243bd8b24455371d692db4a814d8e5ee20577019990e70abdf98f",
+    "dist/arena-geometry.js": "39e53227998ec6190148f3baf59c8b27f685719ff287a2bdbdbc092f3a2097b2",
+    "dist/arena-tilemap.js": "ee9e991d7c778473e2920b57b475971002a24fa774b6ace789f048540fc059c1",
+    "dist/attack-choreography.js": "ba1d9e7ce576b5af8250ac5b5d37489515c8fcbf73786783c1ebaa766e7a6136",
+    "dist/audio.js": "d76f16a989c285ddc36a17f68fc986ba8ce45528b2081a9efb64f596c0982dee",
+    "dist/balance.js": "1254cf4cd56b62d3685771963dd7f87016030c4ece261028cd475be31fc3b636",
+    "dist/battle-art.js": "c3e8f1bb10073a58e5e6511cc9394dffad44221000a6fb158714a10c278b22ff",
+    "dist/capsule-art.js": "6c403e3200f7fa1345fcfca208e7e08abb1bfe424b8c5b902dc742a429b6a058",
+    "dist/card-art.js": "cf7ac4b1b1a46e68dfc3759fea91f26dbd63faeb6f36b15d4d04d92fbdc1bc35",
+    "dist/card-equivalents.js": "c141659366660c083ef361ba9c594ab3645b5eda2a63e87232e0bf387d83affd",
+    "dist/card-review.js": "2a50dbfcd561df3a3d699bf0850546a13f2df31cb0e43b480474eb40ba71836b",
+    "dist/card-ui.css": "cc259571c59dd759c5ec199b2c62017087ac210985b692e5a093242d10fb0a1c",
+    "dist/catalog.js": "8dd25a1cddf2f61b078d2bc47018a20e4d91733677ea325327de4c0404cc7762",
+    "dist/clash-roster.js": "531f0ff72de017228ad0d04aca11c9d0973661de514b10d6bbdfe45b40b4543c",
+    "dist/combat-visuals.js": "d5f35778b6ad2705ece3a4e39931406f65a26d60309cc5a62fc8c18a20604255",
+    "dist/current-reference.js": "a6b5660279cd977686d1f6df8db3b7c0b8c196d65b1ee532d0cd297c310bd53f",
+    "dist/deck-storage.js": "affe8e768a358cf5c09467c6c24e7458717cb1a139d7a14cc8219095c6170feb",
+    "dist/deployment-formations.js": "d832c5a38cdaea2c660e62f66c8338bc026448a406271a5e5453ea7392f05acd",
+    "dist/editor.css": "57e0a104a198862f79f71fb2f4ac528c152789f579106f35fc7db14fc562b539",
+    "dist/engine.js": "62a45760556ff000b6605fc1277687d2908aac44de89b3ff767e2d0c3df3cf81",
+    "dist/index.html": "df9e4bcb69bcb1f5fe5456f9377557455b2680659e496e616ce3ed102905c6d2",
+    "dist/knockback-profiles.js": "e2cc17619efc8694b5515ac40d0cd08fac348f0ee1208956039a5a5f4a920b58",
+    "dist/loader-art.js": "b06fc38a6937924dc906063532b49b2234acaa1471cec9cd783f0676ea60d9ec",
+    "dist/music.js": "2d9a9b01bc577d5c6f548a8df9595e1312b6f5276f7c2a07498f3db2855e7162",
+    "dist/native-descriptions.js": "9cd019c0fd73795b2719aeb648bcade4abd3d88145e82b909ea1789600d69427",
+    "dist/native-formations.js": "47dd05a3b1fff4682ad1d014c8e422e2f1a86251cbdd6796b48402cc52b12db3",
+    "dist/online-config.js": "887aec9af4dd2836ede6d745b18cbe439b363ce8444d00b8366d1afd616ad581",
+    "dist/online-wire.js": "083c70bf353c8ace6d995f47d7e8d936595e63cffd9a3b69cfa96cd7b386be88",
+    "dist/online.js": "5058e0279ca17b4b63a6c57b4fbadfee604347d373d2c05e16cd9b9a33e08313",
+    "dist/pokemon-silhouettes.js": "03ebecf4bc077b3fe195510503cf564cb789dcf8faa29d2b7cf3fdd760058742",
+    "dist/pokemon-stats.js": "64c1544c59efb2c653737f73252cdab19f44eec203a45e4437a291cd88e3d75a",
+    "dist/quick-stats.css": "8d6e397abb2dc594f85fdd9098616b39e6c43c216472ad68b4f8913fbf301dc6",
+    "dist/quick-stats.js": "61d2307e64e356fb06ea07897c9a50f52fdc1e033b2888ffaa018233b1ecfdc2",
+    "dist/render.js": "fc07cf776367adabf7258fe8cb5c581d07a7618fa288aeb5b87e4f2b56edb88d",
+    "dist/sandbox.js": "1e6f77d604f7922b78e71ed5f181625a051c836f54ee26630a762d3c78db83c0",
+    "dist/snapshot.js": "1bb962965caa519476f06d099498d630e38f7734da2e1baf61a6f65ff9eb682f",
+    "dist/spell-preview.js": "64497f695736012c0b06932fa43dccc8d097fdb54dda5a9d94a87595c2276b23",
+    "dist/sprite-geometry.js": "864a7ef6b723fa667d13022ffb24df34837a566066c075a9ff2aab74f50635c0",
+    "dist/sprite-motion.js": "5602d5ba5c6ba21b777dfae52c5e6f6f85ee579da2969475aa0e9b37b34d15d1",
+    "dist/style.css": "fea575b50835aa43b79534de242a041ef9edc1b2a4affa7559dd8fac5a00cfd9",
+    "dist/targeting-art.js": "a3207c34acef39771e1f71aa32f9d88949244eeef642e44165655f936b8b43da",
+    "dist/testing.css": "a31a7273f84db1241a220d3ee12d32f695d945c75fdb9138a6ad7c50b2696729",
+    "dist/testing.html": "33e57465b3b2a8a3532ac2320b9aedf5ffd7c0646025ba542e2a49ce8313e0a6",
+    "dist/testing.js": "bbe776a7d7dafda2046dc0437d4a84a0ed12e8c440f5dded692256f3255ac898",
+    "dist/theme.css": "dc085e8d70c200725014af31ad51d6926d8ef17bf2318f259e17c751c2984e89",
+    "dist/transient-ui.css": "5b110474064321a12c474fa9018a8abe4184b8f1bf9291ab22751d08fa227063",
+    "dist/unit-sizes.js": "e99693751d8b6ae1ccb6734926494840ae7d48a04c30c071cef9a506f8a17eb9",
+    "dist/wing-motion.js": "a86cb99670e14a63eb1ad182cb562a15df60f68142566652c913089050d1d8d5",
+    "dist/wing-rigs.js": "a9fa115bcd8f08ff6fc5f98fd7812b3809012c768e8e58411f569b8994f3e8e6",
+    "dist/assets/pokemon/manifest.json": "98f8facb20949c082d0dcbcbd21622948b0cfef19d17002bd54861b3c7d6db0b",
+    "dist/assets/pokemon/76/Idle-Anim.png": "5444c9399764673a6d21b047d61ac3d42f031340f39c9c62a4be3142561bd337",
+    "dist/assets/pokemon/76/Idle-Shadow.png": "a87291e10d63fcaa60192a4db09ab64ad64857698d76bd7bea69d147d37f3472",
+    "dist/assets/pokemon/76/Walk-Anim.png": "b90f014a4a216feab9af0d149d1517930070dadb15c65316e4d55a7ab8d62ddc",
+    "dist/assets/pokemon/76/Walk-Shadow.png": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7",
+    "dist/assets/pokemon/76/Hurt-Anim.png": "6106b195477d469cf58dd8f8f17ffeeebeafd0d9562f02d725a43d72e154b0b7",
+    "dist/assets/pokemon/76/Hurt-Shadow.png": "df7815c9541ff2a2416b89ee31260fb0bb23e9f9c037457468f59cf976f1d0bb",
+    "dist/assets/pokemon/76/Shoot-Anim.png": "dbbbdc9df2732245808df4f19938e1fc0d7ebfba6d3aa03c98507e8bad5ceb99",
+    "dist/assets/pokemon/76/Shoot-Shadow.png": "75116b091cc5a2eb677f195029a8e480aefa1d751af21d9003e13e5d072fcf16",
+    "dist/assets/pokemon/76/Attack-Anim.png": "55d02149b75442c8da5347134a42ca419955022257013d61709c471c2d3ab10c",
+    "dist/assets/pokemon/76/Attack-Shadow.png": "d82e0324dc1eaab7667ed0e2413b255242053844d163c418afbe0c345259ff1a",
+    "dist/assets/pokemon/384/Idle-Anim.png": "5a9602e755974316c712276632ae84d9f353cd7b2c534a0e5328dfee39a1f479",
+    "dist/assets/pokemon/384/Idle-Shadow.png": "5e74c81b3dbe96dd0671ace6cfad94f00af807652d98020dbbd636186254470a",
+    "dist/assets/pokemon/384/Walk-Anim.png": "1c2f10d00434f729bdefb075634f7b772d9505331e7db554c37ad3ec38895e66",
+    "dist/assets/pokemon/384/Walk-Shadow.png": "ece532f71e020c1a6cd71505bb56f9600393db8147470dcc4fadbdd3341f6e6c",
+    "dist/assets/pokemon/384/Hurt-Anim.png": "97ef295a2881155b9b226f0f1a0e63519ac9e3c0cd487b65fe5868e7a2f03b21",
+    "dist/assets/pokemon/384/Hurt-Shadow.png": "4f42e63101ee75e90e9942698481b7de91064fd8a1c38587c22184ae55f43c2b",
+    "dist/assets/pokemon/384/Shoot-Anim.png": "6d6ef529a283b74ebc9685cc98232d5b6a31d2c33c750d381aa2bffe2d7db6e2",
+    "dist/assets/pokemon/384/Shoot-Shadow.png": "564ad770b00e4429af40371ff22122110f570ef8567cff67b2bb8a49f67ddecc",
+    "dist/assets/pokemon/384/Attack-Anim.png": "ea0298a50d51480db1a75eca09125a233c59cba3ef863ea362309b62908e50e3",
+    "dist/assets/pokemon/384/Attack-Shadow.png": "ed4c0d31345bb972e8961aa831c45e40a20ffdb5c07e46b8a351cfe1f5742bad",
+    "dist/assets/pokemon/215/Idle-Anim.png": "95d45ee49d201124cc446dcaa290dbc98ba840ac0642c5490857cc0193be2fba",
+    "dist/assets/pokemon/215/Idle-Shadow.png": "fc2368e53eab92a5fd2db824f96ee07012b69e234e9c18d50c669d4182427599",
+    "dist/assets/pokemon/215/Walk-Anim.png": "6934cebc524a235d2dc09b2a44c614b5b3a8a5b8fa7efa755fa4a9864a079dc8",
+    "dist/assets/pokemon/215/Walk-Shadow.png": "731bf455d0e68d18cc37c219fc50b1882fbac9987914c80d17b92ceca9974280",
+    "dist/assets/pokemon/215/Hurt-Anim.png": "d599a59dec91dc75a8af1dd7c5f75f31c5ea1a2ae7ee8a55b0b1d168ae2fa552",
+    "dist/assets/pokemon/215/Hurt-Shadow.png": "34ba49be43c70e3c5e5baaff866cb2130badcdd397ed57f4886a54de3832b1b3",
+    "dist/assets/pokemon/215/Shoot-Anim.png": "37424d952a7fdaef32cd1824190fa03d11ac5b728701cf6a47baa09bcb59ca91",
+    "dist/assets/pokemon/215/Shoot-Shadow.png": "bacbd0e790552a077d47da2378470da0f8ee2452c1617f554026363bc164d17a",
+    "dist/assets/pokemon/215/Attack-Anim.png": "64eeeeb51be8ec71141a79a1a9c1d035bf3db5d7e4cfe5803e6151266e835971",
+    "dist/assets/pokemon/215/Attack-Shadow.png": "302102e191e700985ac8e2ce876c69a6b01c74df51f1c37b0ca81b6685763fa0",
+    "dist/assets/pokemon/315/Idle-Anim.png": "4f4192f35cb50ecef5027a899384b60c1e4f3564915175040536f273944ff454",
+    "dist/assets/pokemon/315/Idle-Shadow.png": "36ae2e2028a5a96bbea4101d857b54328d00087c3892244854d87f0d052da6b2",
+    "dist/assets/pokemon/315/Walk-Anim.png": "180907cb7e1649745dd40d7be04811b4e8eca214fd273f5b9cbeefa722c5faba",
+    "dist/assets/pokemon/315/Walk-Shadow.png": "69e66f73fe2c70d9b9ece3f0e738451ce9fa80615e7f3905bc559caace89c7db",
+    "dist/assets/pokemon/315/Hurt-Anim.png": "2877a2bcb1e9e27e997628466e470ed2a830e703233d2031f90a993b459acdd7",
+    "dist/assets/pokemon/315/Hurt-Shadow.png": "4b04c29b16a65336d214c5853efd6744fca874511c42a13d186aba1f96797d8d",
+    "dist/assets/pokemon/315/Shoot-Anim.png": "4497e761fbc37a013888ec81fb4c60f4faa4843ea33ee05cf0d86a0f879ec0da",
+    "dist/assets/pokemon/315/Shoot-Shadow.png": "329df25e565065cf8e3f13ba40a400dc61e23dd6292026c0c9bf63370584a217",
+    "dist/assets/pokemon/315/Attack-Anim.png": "43e77777704223451c60ca2c138e905086fb735c3ecb72b4616256237e45f101",
+    "dist/assets/pokemon/315/Attack-Shadow.png": "d98d1d76266248eca8a0db3d9bbbf72a64d0b0b11615191343a30617975b9bd7",
+    "dist/assets/pokemon/25/Idle-Anim.png": "f1021ac60879698076fdb80705f893d0646d2b9ddf2bdb8c81803fbb7e87ad86",
+    "dist/assets/pokemon/25/Idle-Shadow.png": "9b8ac64a8539e9770055aa7078289ab355e5695a599ce371c731114dca24e6de",
+    "dist/assets/pokemon/25/Walk-Anim.png": "5cfc2c775708c28c11f98e027e883261ab3ae4276e51621eec11c979598651f9",
+    "dist/assets/pokemon/25/Walk-Shadow.png": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7",
+    "dist/assets/pokemon/25/Hurt-Anim.png": "4f096cee94aab6e2c444e6e5a9e77680858d81ad90ddaded05f7e2fea69e3776",
+    "dist/assets/pokemon/25/Hurt-Shadow.png": "ac6de71c1c2d68f7b57c3628d73cabee468c84be9da37305bcf53ed6999365a5",
+    "dist/assets/pokemon/25/Shoot-Anim.png": "3c8167cd86262fc6a81382836574b083afd2958ffe41861555c51789c974c0d0",
+    "dist/assets/pokemon/25/Shoot-Shadow.png": "ac5ccb48fe5ca7b74db037fc6556b67bd7ddb84ecf8807181af78dac0aea5af7",
+    "dist/assets/pokemon/25/Attack-Anim.png": "06822d01f15ebb2c4f2cff9e94bb4ee615b8d25b41527c9297b80d81576be857",
+    "dist/assets/pokemon/25/Attack-Shadow.png": "8462e499f657df2640738a69cb624b5bca246a17854dd17731fdffedb81e3255",
+    "dist/assets/battle/arena-ground-v2.webp": "2c0fa6491949b4a6a03466f2e57447b1a6db8db2ad3c8c2534745df42e0bd611",
+    "dist/assets/battle/arena-bridge-v2.webp": "defac1da7c6bf617a38e5245cc297860ba8e55f342847a272cdfa7de53219755",
+    "dist/assets/battle/riverbank-v2.webp": "cec6d62253b803a24c4fe6b80a3f6a4eff9059fa87bf8f3c772b6013567495d1",
+    "dist/assets/battle/Object__Tree_Town.Flip.png": "147cf52606863d90214c0c03bdd6eb946f055b5551dba2da69072bcb52619dac",
+    "scripts/qa-native-camera.mjs": "1f1105c8a1b699532434b176d5b958b97a2e0592632e81810182b85a52176fee",
+    "scripts/qa-native-camera-harness.mjs": "500e819f374a971a4c321f7884b764aa5cec7db87fc6043d3c3f39f5ed315a5a",
+    "scripts/native-camera-legal-scenarios.mjs": "926b4b9b9832d5e6c61a33a584523dae8e7a3696aa0d38ce25479bbe80158eec"
+  },
+  "scope": "Actual UI/Renderer and successful Game.deploy commands after real energy regeneration. All positions, facing, attacks and Log pushes come from Game.step at 60 simulation steps/s; no actor positions, stats, directions or hit timers are assigned. The capture is a deterministic functional check, not a measured 60FPS performance claim.",
+  "viewports": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "layout": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "board": {
+          "x": 10,
+          "y": 2,
+          "width": 370,
+          "height": 677
+        },
+        "bitmap": {
+          "width": 600,
+          "height": 800
+        },
+        "backgroundCache": {
+          "origin": {
+            "x": 30,
+            "y": -149
+          },
+          "width": 540,
+          "height": 990
+        },
+        "verticalScale": 1,
+        "projection": {
+          "scale": 0.6851851851851852,
+          "x": -20.555555555555557,
+          "y": 101.42592592592592
+        },
+        "worldBounds": {
+          "left": 30,
+          "top": -148.027027027027,
+          "right": 570,
+          "bottom": 840.0270270270271
+        },
+        "arena": {
+          "left": 84,
+          "right": 516,
+          "top": 16,
+          "bottom": 784,
+          "width": 432,
+          "height": 768
+        },
+        "camera": {
+          "left": 30,
+          "top": -120,
+          "width": 540,
+          "height": 932
+        },
+        "grid": {
+          "size": 24,
+          "left": 84,
+          "top": 16,
+          "columns": 18,
+          "rows": 32
+        },
+        "lanes": [
+          168,
+          432
+        ],
+        "river": {
+          "top": 376,
+          "bottom": 424
+        },
+        "cellCss": {
+          "width": 16.444444444444446,
+          "height": 16.444444444444446
+        },
+        "rects": {
+          "before": {
+            "arena": {
+              "x": 10,
+              "y": 2,
+              "width": 370,
+              "height": 677
+            },
+            "arena-frame": {
+              "x": 8,
+              "y": 0,
+              "width": 374,
+              "height": 681
+            },
+            "hand": {
+              "x": 69,
+              "y": 696,
+              "width": 305,
+              "height": 91
+            },
+            "energy-bar": {
+              "x": 81,
+              "y": 807,
+              "width": 283,
+              "height": 16
+            },
+            "battle-overlays": {
+              "x": 10,
+              "y": 2,
+              "width": 370,
+              "height": 677
+            }
+          },
+          "selected": {
+            "arena": {
+              "x": 10,
+              "y": 2,
+              "width": 370,
+              "height": 677
+            },
+            "arena-frame": {
+              "x": 8,
+              "y": 0,
+              "width": 374,
+              "height": 681
+            },
+            "hand": {
+              "x": 69,
+              "y": 696,
+              "width": 305,
+              "height": 91
+            },
+            "energy-bar": {
+              "x": 81,
+              "y": 807,
+              "width": 283,
+              "height": 16
+            },
+            "battle-overlays": {
+              "x": 10,
+              "y": 2,
+              "width": 370,
+              "height": 677
+            }
+          },
+          "transient": {
+            "arena": {
+              "x": 10,
+              "y": 2,
+              "width": 370,
+              "height": 677
+            },
+            "arena-frame": {
+              "x": 8,
+              "y": 0,
+              "width": 374,
+              "height": 681
+            },
+            "hand": {
+              "x": 69,
+              "y": 696,
+              "width": 305,
+              "height": 91
+            },
+            "energy-bar": {
+              "x": 81,
+              "y": 807,
+              "width": 283,
+              "height": 16
+            },
+            "battle-overlays": {
+              "x": 10,
+              "y": 2,
+              "width": 370,
+              "height": 677
+            }
+          }
+        },
+        "hud": [
+          {
+            "selector": ".trainer-id",
+            "x": 16,
+            "y": 8,
+            "width": 107.578125,
+            "height": 33.75
+          },
+          {
+            "selector": "#battle-clock",
+            "x": 215,
+            "y": 8,
+            "width": 63,
+            "height": 44
+          },
+          {
+            "selector": "#match-pause",
+            "x": 282,
+            "y": 8,
+            "width": 44,
+            "height": 44
+          },
+          {
+            "selector": "#match-leave",
+            "x": 330,
+            "y": 8,
+            "width": 44,
+            "height": 44
+          }
+        ],
+        "bridgeCalls": [
+          [
+            144,
+            376,
+            4,
+            48
+          ],
+          [
+            148,
+            376,
+            40,
+            48
+          ],
+          [
+            188,
+            376,
+            4,
+            48
+          ],
+          [
+            408,
+            376,
+            4,
+            48
+          ],
+          [
+            412,
+            376,
+            40,
+            48
+          ],
+          [
+            452,
+            376,
+            4,
+            48
+          ]
+        ],
+        "bankCalls": [
+          [
+            30,
+            372,
+            540,
+            4
+          ],
+          [
+            30,
+            376,
+            540,
+            48
+          ],
+          [
+            30,
+            424,
+            540,
+            4
+          ]
+        ],
+        "points": [
+          {
+            "world": {
+              "x": 84,
+              "y": 16
+            },
+            "screen": {
+              "x": 37,
+              "y": 112.38888888888889
+            },
+            "roundTrip": {
+              "x": 84,
+              "y": 15.999999999999998
+            }
+          },
+          {
+            "world": {
+              "x": 516,
+              "y": 784
+            },
+            "screen": {
+              "x": 333.00000000000006,
+              "y": 638.6111111111111
+            },
+            "roundTrip": {
+              "x": 516,
+              "y": 784
+            }
+          },
+          {
+            "world": {
+              "x": 96,
+              "y": 28
+            },
+            "screen": {
+              "x": 45.22222222222223,
+              "y": 120.61111111111111
+            },
+            "roundTrip": {
+              "x": 96,
+              "y": 28.000000000000007
+            }
+          },
+          {
+            "world": {
+              "x": 504,
+              "y": 772
+            },
+            "screen": {
+              "x": 324.7777777777778,
+              "y": 630.3888888888889
+            },
+            "roundTrip": {
+              "x": 504,
+              "y": 772.0000000000001
+            }
+          },
+          {
+            "world": {
+              "x": 168,
+              "y": 376
+            },
+            "screen": {
+              "x": 94.55555555555556,
+              "y": 359.05555555555554
+            },
+            "roundTrip": {
+              "x": 168,
+              "y": 375.99999999999994
+            }
+          },
+          {
+            "world": {
+              "x": 168,
+              "y": 424
+            },
+            "screen": {
+              "x": 94.55555555555556,
+              "y": 391.94444444444446
+            },
+            "roundTrip": {
+              "x": 168,
+              "y": 424
+            }
+          },
+          {
+            "world": {
+              "x": 432,
+              "y": 376
+            },
+            "screen": {
+              "x": 275.44444444444446,
+              "y": 359.05555555555554
+            },
+            "roundTrip": {
+              "x": 431.99999999999994,
+              "y": 375.99999999999994
+            }
+          },
+          {
+            "world": {
+              "x": 432,
+              "y": 424
+            },
+            "screen": {
+              "x": 275.44444444444446,
+              "y": 391.94444444444446
+            },
+            "roundTrip": {
+              "x": 431.99999999999994,
+              "y": 424
+            }
+          }
+        ],
+        "bodies": []
+      },
+      "scenarios": [],
+      "images": [
+        {
+          "file": "390-roles-reading.png"
+        }
+      ],
+      "usefulAreaCss": {
+        "width": 296,
+        "height": 526.2222222222223,
+        "widthFractionOfCanvas": 0.8,
+        "heightFractionOfCanvas": 0.7772854094862959
+      },
+      "reading": {
+        "kind": "Controlled native-size reference, not a simulated paid deployment. All four positions pass actual canDeploy; profile stats and native sprites are unchanged.",
+        "rows": [
+          {
+            "key": "golem",
+            "name": "Golem",
+            "role": "Win condition · tanque",
+            "scale": 3.25,
+            "radius": 18,
+            "hp": 5120,
+            "anchor": {
+              "x": 168,
+              "y": 532
+            },
+            "body": {
+              "key": "golem",
+              "id": 76,
+              "direction": {
+                "x": 0,
+                "y": -1
+              },
+              "opacity": 1,
+              "nativeDestination": {
+                "x": 116,
+                "y": 454,
+                "width": 104,
+                "height": 130
+              },
+              "animation": "Idle",
+              "world": {
+                "left": 122.5,
+                "top": 470.25,
+                "right": 213.5,
+                "bottom": 538.5
+              },
+              "css": {
+                "left": 63.37962962962963,
+                "top": 423.6342592592593,
+                "right": 125.73148148148148,
+                "bottom": 470.39814814814815
+              },
+              "actualCss": {
+                "left": 63.379634416103364,
+                "top": 423.63425898348913,
+                "right": 125.7314892411232,
+                "bottom": 470.39814755465835
+              },
+              "overflowCss": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "source": {
+                "frame": 1,
+                "direction": 4,
+                "size": {
+                  "width": 32,
+                  "height": 40
+                },
+                "alphaValues": [
+                  0,
+                  255
+                ],
+                "components": [
+                  {
+                    "pixels": 376,
+                    "bounds": [
+                      2,
+                      5,
+                      30,
+                      26
+                    ]
+                  }
+                ]
+              },
+              "alpha128": {
+                "sourceBounds": [
+                  2,
+                  5,
+                  30,
+                  26
+                ],
+                "world": {
+                  "left": 122.5,
+                  "top": 470.25,
+                  "right": 213.5,
+                  "bottom": 538.5
+                },
+                "css": {
+                  "left": 63.37962962962963,
+                  "top": 423.6342592592593,
+                  "right": 125.73148148148148,
+                  "bottom": 470.39814814814815
+                },
+                "overflowCss": {
+                  "left": 0,
+                  "top": 0,
+                  "right": 0,
+                  "bottom": 0
+                }
+              },
+              "bodyComponentDiagnostic": {
+                "note": "Largest 8-connected component only. Some Golem Hurt white/gray hit marks touch it diagonally; it is a conservative union, not a semantic body mask.",
+                "sourceBounds": [
+                  2,
+                  5,
+                  30,
+                  26
+                ],
+                "world": {
+                  "left": 122.5,
+                  "top": 470.25,
+                  "right": 213.5,
+                  "bottom": 538.5
+                },
+                "css": {
+                  "left": 63.37962962962963,
+                  "top": 423.6342592592593,
+                  "right": 125.73148148148148,
+                  "bottom": 470.39814814814815
+                },
+                "overflowCss": {
+                  "left": 0,
+                  "top": 0,
+                  "right": 0,
+                  "bottom": 0
+                }
+              },
+              "physicalBodyDiagnostic": {
+                "note": "Full connected native body; no embedded projectile/effect is visible in the Rayquaza poses.",
+                "sourceBounds": [
+                  2,
+                  5,
+                  30,
+                  26
+                ],
+                "world": {
+                  "left": 122.5,
+                  "top": 470.25,
+                  "right": 213.5,
+                  "bottom": 538.5
+                },
+                "css": {
+                  "left": 63.37962962962963,
+                  "top": 423.6342592592593,
+                  "right": 125.73148148148148,
+                  "bottom": 470.39814814814815
+                },
+                "overflowCss": {
+                  "left": 0,
+                  "top": 0,
+                  "right": 0,
+                  "bottom": 0
+                }
+              },
+              "hudOpaqueIntersection": {
+                "sourcePixels": 0,
+                "projectedAreaCss": 0,
+                "note": "Projected alpha>=128 body pixels intersect HUD rectangles; body/effect distinction follows the checked outline bounds. This does not measure browser compositing at subpixel edges."
+              }
+            }
+          },
+          {
+            "key": "rayquaza",
+            "name": "Rayquaza",
+            "role": "Tanque aéreo · apoyo",
+            "scale": 1.25,
+            "radius": 12,
+            "hp": 3000,
+            "anchor": {
+              "x": 432,
+              "y": 532
+            },
+            "body": {
+              "key": "rayquaza",
+              "id": 384,
+              "direction": {
+                "x": 0,
+                "y": -1
+              },
+              "opacity": 1,
+              "nativeDestination": {
+                "x": 382,
+                "y": 430,
+                "width": 100,
+                "height": 160
+              },
+              "animation": "Walk",
+              "world": {
+                "left": 403.25,
+                "top": 447.5,
+                "right": 467,
+                "bottom": 526.25
+              },
+              "css": {
+                "left": 255.74537037037038,
+                "top": 408.0462962962963,
+                "right": 299.425925925926,
+                "bottom": 462.0046296296297
+              },
+              "actualCss": {
+                "left": 255.74538432955742,
+                "top": 408.0462961264327,
+                "right": 299.42594196796415,
+                "bottom": 462.00462909316644
+              },
+              "overflowCss": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "source": {
+                "frame": 11,
+                "direction": 4,
+                "size": {
+                  "width": 80,
+                  "height": 128
+                },
+                "alphaValues": [
+                  0,
+                  255
+                ],
+                "components": [
+                  {
+                    "pixels": 1622,
+                    "bounds": [
+                      17,
+                      14,
+                      68,
+                      77
+                    ]
+                  }
+                ]
+              },
+              "alpha128": {
+                "sourceBounds": [
+                  17,
+                  14,
+                  68,
+                  77
+                ],
+                "world": {
+                  "left": 403.25,
+                  "top": 447.5,
+                  "right": 467,
+                  "bottom": 526.25
+                },
+                "css": {
+                  "left": 255.74537037037038,
+                  "top": 408.0462962962963,
+                  "right": 299.425925925926,
+                  "bottom": 462.0046296296297
+                },
+                "overflowCss": {
+                  "left": 0,
+                  "top": 0,
+                  "right": 0,
+                  "bottom": 0
+                }
+              },
+              "bodyComponentDiagnostic": {
+                "note": "Largest 8-connected component only. Some Golem Hurt white/gray hit marks touch it diagonally; it is a conservative union, not a semantic body mask.",
+                "sourceBounds": [
+                  17,
+                  14,
+                  68,
+                  77
+                ],
+                "world": {
+                  "left": 403.25,
+                  "top": 447.5,
+                  "right": 467,
+                  "bottom": 526.25
+                },
+                "css": {
+                  "left": 255.74537037037038,
+                  "top": 408.0462962962963,
+                  "right": 299.425925925926,
+                  "bottom": 462.0046296296297
+                },
+                "overflowCss": {
+                  "left": 0,
+                  "top": 0,
+                  "right": 0,
+                  "bottom": 0
+                }
+              },
+              "physicalBodyDiagnostic": {
+                "note": "Full connected native body; no embedded projectile/effect is visible in the Rayquaza poses.",
+                "sourceBounds": [
+                  17,
+                  14,
+                  68,
+                  77
+                ],
+                "world": {
+                  "left": 403.25,
+                  "top": 447.5,
+                  "right": 467,
+                  "bottom": 526.25
+                },
+                "css": {
+                  "left": 255.74537037037038,
+                  "top": 408.0462962962963,
+                  "right": 299.425925925926,
+                  "bottom": 462.0046296296297
+                },
+                "overflowCss": {
+                  "left": 0,
+                  "top": 0,
+                  "right": 0,
+                  "bottom": 0
+                }
+              },
+              "hudOpaqueIntersection": {
+                "sourcePixels": 0,
+                "projectedAreaCss": 0,
+                "note": "Projected alpha>=128 body pixels intersect HUD rectangles; body/effect distinction follows the checked outline bounds. This does not measure browser compositing at subpixel edges."
+              }
+            }
+          },
+          {
+            "key": "pikachu",
+            "name": "Pikachu",
+            "role": "Control · antiaéreo",
+            "scale": 1.5556,
+            "radius": 12,
+            "hp": 714,
+            "anchor": {
+              "x": 168,
+              "y": 700
+            },
+            "body": {
+              "key": "pikachu",
+              "id": 25,
+              "direction": {
+                "x": 0,
+                "y": -1
+              },
+              "opacity": 1,
+              "nativeDestination": {
+                "x": 137,
+                "y": 650,
+                "width": 62.224000000000004,
+                "height": 87.1136
+              },
+              "animation": "Idle",
+              "world": {
+                "left": 147.8892,
+                "top": 665.556,
+                "right": 180.5568,
+                "bottom": 702.8904
+              },
+              "css": {
+                "left": 80.77593333333333,
+                "top": 557.4550370370371,
+                "right": 103.15928888888891,
+                "bottom": 583.0360148148148
+              },
+              "actualCss": {
+                "left": 80.77593894932745,
+                "top": 557.455035852072,
+                "right": 103.1592955722046,
+                "bottom": 583.0360134560493
+              },
+              "overflowCss": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              }
+            }
+          },
+          {
+            "key": "roselia",
+            "name": "Roselia",
+            "role": "Tirador · área",
+            "scale": 1.7143,
+            "radius": 12,
+            "hp": 261,
+            "anchor": {
+              "x": 432,
+              "y": 700
+            },
+            "body": {
+              "key": "roselia",
+              "id": 315,
+              "direction": {
+                "x": 0,
+                "y": -1
+              },
+              "opacity": 1,
+              "nativeDestination": {
+                "x": 405,
+                "y": 666,
+                "width": 54.8576,
+                "height": 54.8576
+              },
+              "animation": "Idle",
+              "world": {
+                "left": 410.1429,
+                "top": 671.1429,
+                "right": 454.7147,
+                "bottom": 707.1432
+              },
+              "css": {
+                "left": 260.4682833333334,
+                "top": 561.2830981481482,
+                "right": 291.0082203703704,
+                "bottom": 585.9499703703705
+              },
+              "actualCss": {
+                "left": 260.4682975177264,
+                "top": 561.2830969371748,
+                "right": 291.0082360110211,
+                "bottom": 585.949968991807
+              },
+              "overflowCss": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "findings": [],
+  "browser": "157.0.4341.46",
+  "pageErrors": []
+}

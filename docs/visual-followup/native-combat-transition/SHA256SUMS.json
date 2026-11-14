@@ -1,0 +1,55 @@
+{
+  "status": "provisional_inventory_only_no_runtime_or_visual_validation",
+  "sourceCutGeneratedAt": "2026-11-14T19:10:53.329Z",
+  "baselineInputsSha256": "48adc1edfafb7d91684fcf4501b02d038902d29267dd1635532767faa8c2d6fb",
+  "candidateInputsSha256": "64b53eb1c5b92298187bb76acadc9bc8f2a4dd974b55e6daa8d94b6c89f7661d",
+  "checks": {
+    "nodeSyntax": true,
+    "frozenModuleInputsVerified": 74,
+    "csvDataRows": 123,
+    "csvColumns": 40,
+    "selectedKeysCovered": 115,
+    "structuralCardErrors": 0,
+    "structuralTowerErrors": 0,
+    "missingActiveAssets": 0,
+    "assetHashDriftSincePriorAnalysis": 0,
+    "legacyAndNativeGolemChildren": 2
+  },
+  "files": [
+    {
+      "file": "scripts/inventory-native-combat-transition.mjs",
+      "bytes": 32261,
+      "sha256": "16b9343abbfe57a39a5504acbe47748081c29413b9c0e139cd862ebdd084403b"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/README.md",
+      "bytes": 14572,
+      "sha256": "bdbf404d8f9e9d0d9cc2f508a6e833cdb2d80009fc4bc804004064adddcf9431"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/inventory-provisional.json",
+      "bytes": 1284550,
+      "sha256": "57938f699e14b45e670dc3f185d06d2e61cdeeb13151e879f41a7922c1f5c6f0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/cards-baseline.json",
+      "bytes": 89832,
+      "sha256": "bc169d91027214520bb402918a16f59b09497a75368ce6baa4ef8b647bbc41f0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/cards-main-working-tree.json",
+      "bytes": 155668,
+      "sha256": "88a5d9eaa88871afe1f9164919e3d725ad5624d0cf3726e6e7431c02084bad67"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/all-key-transition.csv",
+      "bytes": 77392,
+      "sha256": "e2bd08e8313073463bb72a18a3026fe9ba19d7cc57f20e85c682b2c422091f8f"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/qa-minimum-provisional.json",
+      "bytes": 14161,
+      "sha256": "ad6c1fd12e7e13bea8f7409c3bff7af796da547f5be222aef33f2f678a820653"
+    }
+  ]
+}

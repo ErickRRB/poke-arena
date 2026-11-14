@@ -1,0 +1,3614 @@
+{
+  "kind": "Native pose/emitter reference, not a combat simulation",
+  "profile": {
+    "movementAnchor": "foot",
+    "scale": 1.25,
+    "attackContactFrame": 2
+  },
+  "frames": 184,
+  "maxEmitterErrorWorld": 0.5645814703759368,
+  "rows": [
+    {
+      "direction": 0,
+      "animation": "Walk",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.4563533909808939,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        43,
+        50
+      ],
+      "head": [
+        40,
+        39
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Walk",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.19442579311970576,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        43,
+        50
+      ],
+      "head": [
+        40,
+        38
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Walk",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.26343915156547837,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        43,
+        46
+      ],
+      "head": [
+        40,
+        36
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Walk",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.30887666397671865,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        43,
+        45
+      ],
+      "head": [
+        40,
+        35
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Walk",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.005219871795191011,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        43,
+        44
+      ],
+      "head": [
+        40,
+        34
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Walk",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.29865323241261876,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        43,
+        43
+      ],
+      "head": [
+        40,
+        33
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Walk",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.4098498841769924,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        43,
+        42
+      ],
+      "head": [
+        40,
+        32
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Walk",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.08871003069469907,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        43,
+        45
+      ],
+      "head": [
+        40,
+        33
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Walk",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.40867454340423137,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        43,
+        46
+      ],
+      "head": [
+        40,
+        35
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Walk",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.49849063677936556,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        43,
+        47
+      ],
+      "head": [
+        40,
+        36
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Walk",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.4491917047411107,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        43,
+        48
+      ],
+      "head": [
+        40,
+        37
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Walk",
+      "frame": 11,
+      "actualFrame": 11,
+      "emitterErrorWorld": 0.26535450073396305,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        43,
+        49
+      ],
+      "head": [
+        40,
+        38
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Shoot",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.23779352278813803,
+      "foot": [
+        56,
+        62
+      ],
+      "body": [
+        57,
+        44
+      ],
+      "head": [
+        56,
+        27
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Shoot",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.48779352278813803,
+      "foot": [
+        56,
+        61
+      ],
+      "body": [
+        57,
+        43
+      ],
+      "head": [
+        56,
+        26
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Shoot",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.012206477211861966,
+      "foot": [
+        56,
+        63
+      ],
+      "body": [
+        61,
+        43
+      ],
+      "head": [
+        56,
+        64
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Shoot",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.012206477211861966,
+      "foot": [
+        56,
+        67
+      ],
+      "body": [
+        61,
+        47
+      ],
+      "head": [
+        56,
+        68
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Shoot",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.2502978187797964,
+      "foot": [
+        57,
+        67
+      ],
+      "body": [
+        62,
+        47
+      ],
+      "head": [
+        57,
+        68
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Shoot",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.012206477211861966,
+      "foot": [
+        56,
+        67
+      ],
+      "body": [
+        61,
+        47
+      ],
+      "head": [
+        56,
+        68
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Shoot",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.2502978187797964,
+      "foot": [
+        57,
+        67
+      ],
+      "body": [
+        62,
+        47
+      ],
+      "head": [
+        57,
+        68
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Shoot",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.012206477211861966,
+      "foot": [
+        56,
+        67
+      ],
+      "body": [
+        61,
+        47
+      ],
+      "head": [
+        56,
+        68
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Shoot",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.2502978187797964,
+      "foot": [
+        57,
+        67
+      ],
+      "body": [
+        62,
+        47
+      ],
+      "head": [
+        57,
+        68
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Shoot",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.012206477211861966,
+      "foot": [
+        56,
+        67
+      ],
+      "body": [
+        61,
+        47
+      ],
+      "head": [
+        56,
+        68
+      ]
+    },
+    {
+      "direction": 0,
+      "animation": "Shoot",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.48779352278813803,
+      "foot": [
+        56,
+        65
+      ],
+      "body": [
+        59,
+        47
+      ],
+      "head": [
+        56,
+        36
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Walk",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.45635339098087946,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        42,
+        48
+      ],
+      "head": [
+        51,
+        36
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Walk",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.19442579311969133,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        42,
+        46
+      ],
+      "head": [
+        51,
+        35
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Walk",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.2634391515654928,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        41,
+        45
+      ],
+      "head": [
+        51,
+        33
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Walk",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.3088766639767042,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        41,
+        44
+      ],
+      "head": [
+        51,
+        32
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Walk",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.005219871795176578,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        41,
+        43
+      ],
+      "head": [
+        51,
+        31
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Walk",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.2986532324126332,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        41,
+        42
+      ],
+      "head": [
+        51,
+        30
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Walk",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.409849884176978,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        41,
+        41
+      ],
+      "head": [
+        51,
+        29
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Walk",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.0887100306947135,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        42,
+        41
+      ],
+      "head": [
+        51,
+        30
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Walk",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.4086745434042458,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        42,
+        44
+      ],
+      "head": [
+        51,
+        32
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Walk",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.49849063677938,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        42,
+        45
+      ],
+      "head": [
+        51,
+        33
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Walk",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.44919170474112513,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        42,
+        46
+      ],
+      "head": [
+        51,
+        34
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Walk",
+      "frame": 11,
+      "actualFrame": 11,
+      "emitterErrorWorld": 0.2653545007339775,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        42,
+        47
+      ],
+      "head": [
+        51,
+        35
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Shoot",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.553665747071268,
+      "foot": [
+        54,
+        62
+      ],
+      "body": [
+        58,
+        42
+      ],
+      "head": [
+        56,
+        14
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Shoot",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.5481263730875104,
+      "foot": [
+        53,
+        61
+      ],
+      "body": [
+        57,
+        41
+      ],
+      "head": [
+        55,
+        13
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Shoot",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.25029781877980967,
+      "foot": [
+        55,
+        63
+      ],
+      "body": [
+        65,
+        58
+      ],
+      "head": [
+        86,
+        57
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Shoot",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.553665747071268,
+      "foot": [
+        58,
+        66
+      ],
+      "body": [
+        68,
+        61
+      ],
+      "head": [
+        89,
+        60
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Shoot",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.5481263730875234,
+      "foot": [
+        59,
+        65
+      ],
+      "body": [
+        69,
+        60
+      ],
+      "head": [
+        90,
+        59
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Shoot",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.553665747071268,
+      "foot": [
+        58,
+        66
+      ],
+      "body": [
+        68,
+        61
+      ],
+      "head": [
+        89,
+        60
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Shoot",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.5481263730875234,
+      "foot": [
+        59,
+        65
+      ],
+      "body": [
+        69,
+        60
+      ],
+      "head": [
+        90,
+        59
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Shoot",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.553665747071268,
+      "foot": [
+        58,
+        66
+      ],
+      "body": [
+        68,
+        61
+      ],
+      "head": [
+        89,
+        60
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Shoot",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.5481263730875234,
+      "foot": [
+        59,
+        65
+      ],
+      "body": [
+        69,
+        60
+      ],
+      "head": [
+        90,
+        59
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Shoot",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.553665747071268,
+      "foot": [
+        58,
+        66
+      ],
+      "body": [
+        68,
+        61
+      ],
+      "head": [
+        89,
+        60
+      ]
+    },
+    {
+      "direction": 1,
+      "animation": "Shoot",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.5481263730875104,
+      "foot": [
+        57,
+        65
+      ],
+      "body": [
+        59,
+        45
+      ],
+      "head": [
+        68,
+        33
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Walk",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.4563533909808939,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        47
+      ],
+      "head": [
+        54,
+        33
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Walk",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.19442579311970576,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        47
+      ],
+      "head": [
+        54,
+        32
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Walk",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.26343915156547837,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        46
+      ],
+      "head": [
+        54,
+        31
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Walk",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.30887666397671865,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        45
+      ],
+      "head": [
+        54,
+        30
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Walk",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.005219871795247855,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        44
+      ],
+      "head": [
+        54,
+        29
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Walk",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.29865323241261876,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        43
+      ],
+      "head": [
+        54,
+        28
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Walk",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.4098498841769924,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        42
+      ],
+      "head": [
+        54,
+        27
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Walk",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.08871003069469907,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        42
+      ],
+      "head": [
+        54,
+        27
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Walk",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.40867454340423137,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        43
+      ],
+      "head": [
+        54,
+        29
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Walk",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.49849063677936556,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        44
+      ],
+      "head": [
+        54,
+        30
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Walk",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.4491917047411107,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        45
+      ],
+      "head": [
+        54,
+        31
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Walk",
+      "frame": 11,
+      "actualFrame": 11,
+      "emitterErrorWorld": 0.26535450073396305,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        46
+      ],
+      "head": [
+        54,
+        32
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Shoot",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.5645814703759368,
+      "foot": [
+        54,
+        64
+      ],
+      "body": [
+        58,
+        47
+      ],
+      "head": [
+        57,
+        17
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Shoot",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.3622875055696162,
+      "foot": [
+        53,
+        64
+      ],
+      "body": [
+        57,
+        47
+      ],
+      "head": [
+        56,
+        17
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Shoot",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.3622875055696162,
+      "foot": [
+        55,
+        64
+      ],
+      "body": [
+        67,
+        52
+      ],
+      "head": [
+        95,
+        38
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Shoot",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.3622875055696162,
+      "foot": [
+        59,
+        64
+      ],
+      "body": [
+        71,
+        52
+      ],
+      "head": [
+        99,
+        38
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Shoot",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.5481263730875041,
+      "foot": [
+        59,
+        65
+      ],
+      "body": [
+        71,
+        53
+      ],
+      "head": [
+        99,
+        39
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Shoot",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.3622875055696162,
+      "foot": [
+        59,
+        64
+      ],
+      "body": [
+        71,
+        52
+      ],
+      "head": [
+        99,
+        38
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Shoot",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.5481263730875041,
+      "foot": [
+        59,
+        65
+      ],
+      "body": [
+        71,
+        53
+      ],
+      "head": [
+        99,
+        39
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Shoot",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.3622875055696162,
+      "foot": [
+        59,
+        64
+      ],
+      "body": [
+        71,
+        52
+      ],
+      "head": [
+        99,
+        38
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Shoot",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.5481263730875041,
+      "foot": [
+        59,
+        65
+      ],
+      "body": [
+        71,
+        53
+      ],
+      "head": [
+        99,
+        39
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Shoot",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.3622875055696162,
+      "foot": [
+        59,
+        64
+      ],
+      "body": [
+        71,
+        52
+      ],
+      "head": [
+        99,
+        38
+      ]
+    },
+    {
+      "direction": 2,
+      "animation": "Shoot",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.3622875055696162,
+      "foot": [
+        57,
+        64
+      ],
+      "body": [
+        56,
+        43
+      ],
+      "head": [
+        71,
+        29
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Walk",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.4563533909809083,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        33,
+        50
+      ],
+      "head": [
+        50,
+        31
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Walk",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.1944257931197202,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        33,
+        49
+      ],
+      "head": [
+        50,
+        30
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Walk",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.26343915156546394,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        35,
+        50
+      ],
+      "head": [
+        50,
+        28
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Walk",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.3088766639767331,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        35,
+        49
+      ],
+      "head": [
+        50,
+        27
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Walk",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.005219871795205444,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        35,
+        48
+      ],
+      "head": [
+        50,
+        26
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Walk",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.29865323241260433,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        35,
+        47
+      ],
+      "head": [
+        50,
+        25
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Walk",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.40984988417700685,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        35,
+        46
+      ],
+      "head": [
+        50,
+        24
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Walk",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.08871003069468464,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        33,
+        44
+      ],
+      "head": [
+        50,
+        25
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Walk",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.40867454340421694,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        33,
+        46
+      ],
+      "head": [
+        50,
+        27
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Walk",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.4984906367793511,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        33,
+        47
+      ],
+      "head": [
+        50,
+        28
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Walk",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.44919170474109626,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        33,
+        48
+      ],
+      "head": [
+        50,
+        29
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Walk",
+      "frame": 11,
+      "actualFrame": 11,
+      "emitterErrorWorld": 0.2653545007339486,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        33,
+        49
+      ],
+      "head": [
+        50,
+        30
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Shoot",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.5536657470712556,
+      "foot": [
+        54,
+        66
+      ],
+      "body": [
+        54,
+        43
+      ],
+      "head": [
+        50,
+        21
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Shoot",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.25029781877978274,
+      "foot": [
+        53,
+        67
+      ],
+      "body": [
+        53,
+        44
+      ],
+      "head": [
+        49,
+        22
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Shoot",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.5481263730874978,
+      "foot": [
+        55,
+        65
+      ],
+      "body": [
+        65,
+        43
+      ],
+      "head": [
+        84,
+        23
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Shoot",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.5536657470712556,
+      "foot": [
+        58,
+        62
+      ],
+      "body": [
+        68,
+        40
+      ],
+      "head": [
+        87,
+        20
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Shoot",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.2502978187798111,
+      "foot": [
+        59,
+        63
+      ],
+      "body": [
+        69,
+        41
+      ],
+      "head": [
+        88,
+        21
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Shoot",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.5536657470712556,
+      "foot": [
+        58,
+        62
+      ],
+      "body": [
+        68,
+        40
+      ],
+      "head": [
+        87,
+        20
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Shoot",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.2502978187798111,
+      "foot": [
+        59,
+        63
+      ],
+      "body": [
+        69,
+        41
+      ],
+      "head": [
+        88,
+        21
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Shoot",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.5536657470712556,
+      "foot": [
+        58,
+        62
+      ],
+      "body": [
+        68,
+        40
+      ],
+      "head": [
+        87,
+        20
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Shoot",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.2502978187798111,
+      "foot": [
+        59,
+        63
+      ],
+      "body": [
+        69,
+        41
+      ],
+      "head": [
+        88,
+        21
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Shoot",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.5536657470712556,
+      "foot": [
+        58,
+        62
+      ],
+      "body": [
+        68,
+        40
+      ],
+      "head": [
+        87,
+        20
+      ]
+    },
+    {
+      "direction": 3,
+      "animation": "Shoot",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.25029781877978274,
+      "foot": [
+        57,
+        63
+      ],
+      "body": [
+        50,
+        45
+      ],
+      "head": [
+        67,
+        26
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Walk",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.4563533909808939,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        50
+      ],
+      "head": [
+        39,
+        27
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Walk",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.19442579311970576,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        49
+      ],
+      "head": [
+        39,
+        26
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Walk",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.26343915156547837,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        48
+      ],
+      "head": [
+        39,
+        24
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Walk",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.30887666397671865,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        47
+      ],
+      "head": [
+        39,
+        23
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Walk",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.005219871795247855,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        46
+      ],
+      "head": [
+        39,
+        22
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Walk",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.29865323241261876,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        45
+      ],
+      "head": [
+        39,
+        21
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Walk",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.4098498841769924,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        44
+      ],
+      "head": [
+        39,
+        20
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Walk",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.08871003069469907,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        44
+      ],
+      "head": [
+        39,
+        21
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Walk",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.40867454340423137,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        46
+      ],
+      "head": [
+        39,
+        23
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Walk",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.49849063677936556,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        47
+      ],
+      "head": [
+        39,
+        24
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Walk",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.4491917047411107,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        48
+      ],
+      "head": [
+        39,
+        25
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Walk",
+      "frame": 11,
+      "actualFrame": 11,
+      "emitterErrorWorld": 0.26535450073396305,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        39,
+        49
+      ],
+      "head": [
+        39,
+        26
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Shoot",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.23779352278813803,
+      "foot": [
+        56,
+        66
+      ],
+      "body": [
+        59,
+        55
+      ],
+      "head": [
+        55,
+        25
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Shoot",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.012206477211861966,
+      "foot": [
+        56,
+        67
+      ],
+      "body": [
+        59,
+        56
+      ],
+      "head": [
+        55,
+        26
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Shoot",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.48779352278813803,
+      "foot": [
+        56,
+        65
+      ],
+      "body": [
+        55,
+        43
+      ],
+      "head": [
+        55,
+        13
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Shoot",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.48779352278813803,
+      "foot": [
+        56,
+        61
+      ],
+      "body": [
+        55,
+        39
+      ],
+      "head": [
+        55,
+        9
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Shoot",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.5481263730875042,
+      "foot": [
+        57,
+        61
+      ],
+      "body": [
+        56,
+        39
+      ],
+      "head": [
+        56,
+        9
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Shoot",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.48779352278813803,
+      "foot": [
+        56,
+        61
+      ],
+      "body": [
+        55,
+        39
+      ],
+      "head": [
+        55,
+        9
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Shoot",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.5481263730875042,
+      "foot": [
+        57,
+        61
+      ],
+      "body": [
+        56,
+        39
+      ],
+      "head": [
+        56,
+        9
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Shoot",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.48779352278813803,
+      "foot": [
+        56,
+        61
+      ],
+      "body": [
+        55,
+        39
+      ],
+      "head": [
+        55,
+        9
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Shoot",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.5481263730875042,
+      "foot": [
+        57,
+        61
+      ],
+      "body": [
+        56,
+        39
+      ],
+      "head": [
+        56,
+        9
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Shoot",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.48779352278813803,
+      "foot": [
+        56,
+        61
+      ],
+      "body": [
+        55,
+        39
+      ],
+      "head": [
+        55,
+        9
+      ]
+    },
+    {
+      "direction": 4,
+      "animation": "Shoot",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.012206477211861966,
+      "foot": [
+        56,
+        63
+      ],
+      "body": [
+        55,
+        45
+      ],
+      "head": [
+        55,
+        22
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Walk",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.4563533909809081,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        44,
+        49
+      ],
+      "head": [
+        28,
+        32
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Walk",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.19442579311971997,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        44,
+        49
+      ],
+      "head": [
+        28,
+        31
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Walk",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.26343915156546416,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        45,
+        46
+      ],
+      "head": [
+        28,
+        29
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Walk",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.30887666397673286,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        45,
+        45
+      ],
+      "head": [
+        28,
+        28
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Walk",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.005219871795205222,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        45,
+        44
+      ],
+      "head": [
+        28,
+        27
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Walk",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.29865323241260455,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        45,
+        43
+      ],
+      "head": [
+        28,
+        26
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Walk",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.40984988417700663,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        45,
+        42
+      ],
+      "head": [
+        28,
+        25
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Walk",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.08871003069468486,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        44,
+        44
+      ],
+      "head": [
+        28,
+        26
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Walk",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.40867454340421716,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        44,
+        45
+      ],
+      "head": [
+        28,
+        28
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Walk",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.49849063677935135,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        44,
+        46
+      ],
+      "head": [
+        28,
+        29
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Walk",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.4491917047410965,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        44,
+        47
+      ],
+      "head": [
+        28,
+        30
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Walk",
+      "frame": 11,
+      "actualFrame": 11,
+      "emitterErrorWorld": 0.26535450073394884,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        44,
+        48
+      ],
+      "head": [
+        28,
+        31
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Shoot",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.5536657470712816,
+      "foot": [
+        58,
+        66
+      ],
+      "body": [
+        61,
+        43
+      ],
+      "head": [
+        65,
+        21
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Shoot",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.2502978187797825,
+      "foot": [
+        59,
+        67
+      ],
+      "body": [
+        62,
+        44
+      ],
+      "head": [
+        66,
+        22
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Shoot",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.548126373087498,
+      "foot": [
+        57,
+        65
+      ],
+      "body": [
+        50,
+        43
+      ],
+      "head": [
+        31,
+        23
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Shoot",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.5536657470712816,
+      "foot": [
+        54,
+        62
+      ],
+      "body": [
+        47,
+        40
+      ],
+      "head": [
+        28,
+        20
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Shoot",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.2502978187798113,
+      "foot": [
+        53,
+        63
+      ],
+      "body": [
+        46,
+        41
+      ],
+      "head": [
+        27,
+        21
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Shoot",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.5536657470712816,
+      "foot": [
+        54,
+        62
+      ],
+      "body": [
+        47,
+        40
+      ],
+      "head": [
+        28,
+        20
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Shoot",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.2502978187798113,
+      "foot": [
+        53,
+        63
+      ],
+      "body": [
+        46,
+        41
+      ],
+      "head": [
+        27,
+        21
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Shoot",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.5536657470712816,
+      "foot": [
+        54,
+        62
+      ],
+      "body": [
+        47,
+        40
+      ],
+      "head": [
+        28,
+        20
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Shoot",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.2502978187798113,
+      "foot": [
+        53,
+        63
+      ],
+      "body": [
+        46,
+        41
+      ],
+      "head": [
+        27,
+        21
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Shoot",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.5536657470712816,
+      "foot": [
+        54,
+        62
+      ],
+      "body": [
+        47,
+        40
+      ],
+      "head": [
+        28,
+        20
+      ]
+    },
+    {
+      "direction": 5,
+      "animation": "Shoot",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.2502978187797825,
+      "foot": [
+        55,
+        63
+      ],
+      "body": [
+        59,
+        44
+      ],
+      "head": [
+        43,
+        27
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Walk",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.45635339098089356,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        49,
+        47
+      ],
+      "head": [
+        29,
+        36
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Walk",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.19442579311970545,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        48,
+        46
+      ],
+      "head": [
+        29,
+        35
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Walk",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.2634391515654787,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        51,
+        45
+      ],
+      "head": [
+        29,
+        33
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Walk",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.3088766639767183,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        51,
+        44
+      ],
+      "head": [
+        29,
+        32
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Walk",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.005219871795190705,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        51,
+        43
+      ],
+      "head": [
+        29,
+        31
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Walk",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.2986532324126191,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        51,
+        42
+      ],
+      "head": [
+        29,
+        30
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Walk",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.4098498841769921,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        51,
+        41
+      ],
+      "head": [
+        29,
+        29
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Walk",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.08871003069469938,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        48,
+        41
+      ],
+      "head": [
+        29,
+        30
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Walk",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.4086745434042317,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        49,
+        43
+      ],
+      "head": [
+        29,
+        32
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Walk",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.4984906367793659,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        49,
+        44
+      ],
+      "head": [
+        29,
+        33
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Walk",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.44919170474111103,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        49,
+        45
+      ],
+      "head": [
+        29,
+        34
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Walk",
+      "frame": 11,
+      "actualFrame": 11,
+      "emitterErrorWorld": 0.2653545007339634,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        49,
+        46
+      ],
+      "head": [
+        29,
+        35
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Shoot",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.5645814703759365,
+      "foot": [
+        58,
+        64
+      ],
+      "body": [
+        53,
+        47
+      ],
+      "head": [
+        54,
+        17
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Shoot",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.362287505569616,
+      "foot": [
+        59,
+        64
+      ],
+      "body": [
+        54,
+        47
+      ],
+      "head": [
+        55,
+        17
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Shoot",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.362287505569616,
+      "foot": [
+        57,
+        64
+      ],
+      "body": [
+        44,
+        52
+      ],
+      "head": [
+        16,
+        38
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Shoot",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.362287505569616,
+      "foot": [
+        53,
+        64
+      ],
+      "body": [
+        40,
+        52
+      ],
+      "head": [
+        12,
+        38
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Shoot",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.5481263730875043,
+      "foot": [
+        53,
+        65
+      ],
+      "body": [
+        40,
+        53
+      ],
+      "head": [
+        12,
+        39
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Shoot",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.362287505569616,
+      "foot": [
+        53,
+        64
+      ],
+      "body": [
+        40,
+        52
+      ],
+      "head": [
+        12,
+        38
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Shoot",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.5481263730875043,
+      "foot": [
+        53,
+        65
+      ],
+      "body": [
+        40,
+        53
+      ],
+      "head": [
+        12,
+        39
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Shoot",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.362287505569616,
+      "foot": [
+        53,
+        64
+      ],
+      "body": [
+        40,
+        52
+      ],
+      "head": [
+        12,
+        38
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Shoot",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.5481263730875043,
+      "foot": [
+        53,
+        65
+      ],
+      "body": [
+        40,
+        53
+      ],
+      "head": [
+        12,
+        39
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Shoot",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.362287505569616,
+      "foot": [
+        53,
+        64
+      ],
+      "body": [
+        40,
+        52
+      ],
+      "head": [
+        12,
+        38
+      ]
+    },
+    {
+      "direction": 6,
+      "animation": "Shoot",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.362287505569616,
+      "foot": [
+        55,
+        64
+      ],
+      "body": [
+        64,
+        43
+      ],
+      "head": [
+        44,
+        32
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Walk",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.45635339098087946,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        46,
+        51
+      ],
+      "head": [
+        32,
+        38
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Walk",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.19442579311969133,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        47,
+        49
+      ],
+      "head": [
+        33,
+        37
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Walk",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.2634391515654928,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        47,
+        49
+      ],
+      "head": [
+        33,
+        35
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Walk",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.3088766639767042,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        47,
+        48
+      ],
+      "head": [
+        33,
+        34
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Walk",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.005219871795176578,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        47,
+        47
+      ],
+      "head": [
+        33,
+        33
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Walk",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.2986532324126332,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        47,
+        46
+      ],
+      "head": [
+        33,
+        32
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Walk",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.409849884176978,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        47,
+        45
+      ],
+      "head": [
+        33,
+        31
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Walk",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.0887100306947135,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        47,
+        44
+      ],
+      "head": [
+        33,
+        32
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Walk",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.4086745434042458,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        46,
+        47
+      ],
+      "head": [
+        32,
+        34
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Walk",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.49849063677938,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        46,
+        48
+      ],
+      "head": [
+        32,
+        35
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Walk",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.44919170474112513,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        46,
+        49
+      ],
+      "head": [
+        32,
+        36
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Walk",
+      "frame": 11,
+      "actualFrame": 11,
+      "emitterErrorWorld": 0.2653545007339775,
+      "foot": [
+        40,
+        68
+      ],
+      "body": [
+        46,
+        50
+      ],
+      "head": [
+        32,
+        37
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Shoot",
+      "frame": 0,
+      "actualFrame": 0,
+      "emitterErrorWorld": 0.5536657470712932,
+      "foot": [
+        58,
+        62
+      ],
+      "body": [
+        53,
+        42
+      ],
+      "head": [
+        55,
+        14
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Shoot",
+      "frame": 1,
+      "actualFrame": 1,
+      "emitterErrorWorld": 0.5481263730875107,
+      "foot": [
+        59,
+        61
+      ],
+      "body": [
+        54,
+        41
+      ],
+      "head": [
+        56,
+        13
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Shoot",
+      "frame": 2,
+      "actualFrame": 2,
+      "emitterErrorWorld": 0.2502978187798092,
+      "foot": [
+        57,
+        63
+      ],
+      "body": [
+        46,
+        58
+      ],
+      "head": [
+        25,
+        57
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Shoot",
+      "frame": 3,
+      "actualFrame": 3,
+      "emitterErrorWorld": 0.5536657470712932,
+      "foot": [
+        54,
+        66
+      ],
+      "body": [
+        43,
+        61
+      ],
+      "head": [
+        22,
+        60
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Shoot",
+      "frame": 4,
+      "actualFrame": 4,
+      "emitterErrorWorld": 0.5481263730875232,
+      "foot": [
+        53,
+        65
+      ],
+      "body": [
+        42,
+        60
+      ],
+      "head": [
+        21,
+        59
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Shoot",
+      "frame": 5,
+      "actualFrame": 5,
+      "emitterErrorWorld": 0.5536657470712932,
+      "foot": [
+        54,
+        66
+      ],
+      "body": [
+        43,
+        61
+      ],
+      "head": [
+        22,
+        60
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Shoot",
+      "frame": 6,
+      "actualFrame": 6,
+      "emitterErrorWorld": 0.5481263730875232,
+      "foot": [
+        53,
+        65
+      ],
+      "body": [
+        42,
+        60
+      ],
+      "head": [
+        21,
+        59
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Shoot",
+      "frame": 7,
+      "actualFrame": 7,
+      "emitterErrorWorld": 0.5536657470712932,
+      "foot": [
+        54,
+        66
+      ],
+      "body": [
+        43,
+        61
+      ],
+      "head": [
+        22,
+        60
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Shoot",
+      "frame": 8,
+      "actualFrame": 8,
+      "emitterErrorWorld": 0.5481263730875232,
+      "foot": [
+        53,
+        65
+      ],
+      "body": [
+        42,
+        60
+      ],
+      "head": [
+        21,
+        59
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Shoot",
+      "frame": 9,
+      "actualFrame": 9,
+      "emitterErrorWorld": 0.5536657470712932,
+      "foot": [
+        54,
+        66
+      ],
+      "body": [
+        43,
+        61
+      ],
+      "head": [
+        22,
+        60
+      ]
+    },
+    {
+      "direction": 7,
+      "animation": "Shoot",
+      "frame": 10,
+      "actualFrame": 10,
+      "emitterErrorWorld": 0.5481263730875107,
+      "foot": [
+        55,
+        65
+      ],
+      "body": [
+        61,
+        48
+      ],
+      "head": [
+        47,
+        35
+      ]
+    }
+  ],
+  "recovery": [
+    {
+      "direction": 0,
+      "shootLastEqualsWalk0": true,
+      "walk0EqualsIdle0": true,
+      "bodyDelta": [
+        0,
+        0
+      ],
+      "headDelta": [
+        0,
+        0
+      ]
+    },
+    {
+      "direction": 1,
+      "shootLastEqualsWalk0": true,
+      "walk0EqualsIdle0": true,
+      "bodyDelta": [
+        0,
+        0
+      ],
+      "headDelta": [
+        0,
+        0
+      ]
+    },
+    {
+      "direction": 2,
+      "shootLastEqualsWalk0": true,
+      "walk0EqualsIdle0": true,
+      "bodyDelta": [
+        0,
+        0
+      ],
+      "headDelta": [
+        0,
+        0
+      ]
+    },
+    {
+      "direction": 3,
+      "shootLastEqualsWalk0": true,
+      "walk0EqualsIdle0": true,
+      "bodyDelta": [
+        0,
+        0
+      ],
+      "headDelta": [
+        0,
+        0
+      ]
+    },
+    {
+      "direction": 4,
+      "shootLastEqualsWalk0": true,
+      "walk0EqualsIdle0": true,
+      "bodyDelta": [
+        0,
+        0
+      ],
+      "headDelta": [
+        0,
+        0
+      ]
+    },
+    {
+      "direction": 5,
+      "shootLastEqualsWalk0": true,
+      "walk0EqualsIdle0": true,
+      "bodyDelta": [
+        0,
+        0
+      ],
+      "headDelta": [
+        0,
+        0
+      ]
+    },
+    {
+      "direction": 6,
+      "shootLastEqualsWalk0": true,
+      "walk0EqualsIdle0": true,
+      "bodyDelta": [
+        0,
+        0
+      ],
+      "headDelta": [
+        0,
+        0
+      ]
+    },
+    {
+      "direction": 7,
+      "shootLastEqualsWalk0": true,
+      "walk0EqualsIdle0": true,
+      "bodyDelta": [
+        0,
+        0
+      ],
+      "headDelta": [
+        0,
+        0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,493 @@
+{
+  "schemaVersion": 1,
+  "result": "PASS for the five documented reachable scenarios in three viewports",
+  "capturedHead": "99b30d0ad5b72dec7c49c023886b58a0fc4b5bea",
+  "sourceNote": "HEAD at capture plus working-tree A540 changes. sourceHashes preserve the frozen bytes; this matrix predates c8d41d1/8126d04 and does not certify later UI changes.",
+  "sourceHashes": {
+    "dist/app.js": "d1da9f731c9243bd8b24455371d692db4a814d8e5ee20577019990e70abdf98f",
+    "dist/arena-geometry.js": "933a1b56f7677bd3d3afca27fe22e70d68c79a272440aefc708b1e0f2ad2a95b",
+    "dist/arena-tilemap.js": "ee9e991d7c778473e2920b57b475971002a24fa774b6ace789f048540fc059c1",
+    "dist/attack-choreography.js": "ba1d9e7ce576b5af8250ac5b5d37489515c8fcbf73786783c1ebaa766e7a6136",
+    "dist/audio.js": "d76f16a989c285ddc36a17f68fc986ba8ce45528b2081a9efb64f596c0982dee",
+    "dist/balance.js": "1254cf4cd56b62d3685771963dd7f87016030c4ece261028cd475be31fc3b636",
+    "dist/battle-art.js": "c3e8f1bb10073a58e5e6511cc9394dffad44221000a6fb158714a10c278b22ff",
+    "dist/capsule-art.js": "6735135f83d8e32701a7250d350ad4f449ffb4a13e9c4e6a47bc69bcc00fdf7a",
+    "dist/card-art.js": "cf7ac4b1b1a46e68dfc3759fea91f26dbd63faeb6f36b15d4d04d92fbdc1bc35",
+    "dist/card-equivalents.js": "c141659366660c083ef361ba9c594ab3645b5eda2a63e87232e0bf387d83affd",
+    "dist/card-review.js": "2a50dbfcd561df3a3d699bf0850546a13f2df31cb0e43b480474eb40ba71836b",
+    "dist/card-ui.css": "cc259571c59dd759c5ec199b2c62017087ac210985b692e5a093242d10fb0a1c",
+    "dist/catalog.js": "8dd25a1cddf2f61b078d2bc47018a20e4d91733677ea325327de4c0404cc7762",
+    "dist/clash-roster.js": "531f0ff72de017228ad0d04aca11c9d0973661de514b10d6bbdfe45b40b4543c",
+    "dist/combat-visuals.js": "d5f35778b6ad2705ece3a4e39931406f65a26d60309cc5a62fc8c18a20604255",
+    "dist/current-reference.js": "a6b5660279cd977686d1f6df8db3b7c0b8c196d65b1ee532d0cd297c310bd53f",
+    "dist/deck-storage.js": "affe8e768a358cf5c09467c6c24e7458717cb1a139d7a14cc8219095c6170feb",
+    "dist/deployment-formations.js": "d832c5a38cdaea2c660e62f66c8338bc026448a406271a5e5453ea7392f05acd",
+    "dist/editor.css": "57e0a104a198862f79f71fb2f4ac528c152789f579106f35fc7db14fc562b539",
+    "dist/engine.js": "62a45760556ff000b6605fc1277687d2908aac44de89b3ff767e2d0c3df3cf81",
+    "dist/index.html": "df9e4bcb69bcb1f5fe5456f9377557455b2680659e496e616ce3ed102905c6d2",
+    "dist/knockback-profiles.js": "e2cc17619efc8694b5515ac40d0cd08fac348f0ee1208956039a5a5f4a920b58",
+    "dist/loader-art.js": "b06fc38a6937924dc906063532b49b2234acaa1471cec9cd783f0676ea60d9ec",
+    "dist/music.js": "2d9a9b01bc577d5c6f548a8df9595e1312b6f5276f7c2a07498f3db2855e7162",
+    "dist/native-descriptions.js": "9cd019c0fd73795b2719aeb648bcade4abd3d88145e82b909ea1789600d69427",
+    "dist/native-formations.js": "47dd05a3b1fff4682ad1d014c8e422e2f1a86251cbdd6796b48402cc52b12db3",
+    "dist/online-config.js": "887aec9af4dd2836ede6d745b18cbe439b363ce8444d00b8366d1afd616ad581",
+    "dist/online-wire.js": "083c70bf353c8ace6d995f47d7e8d936595e63cffd9a3b69cfa96cd7b386be88",
+    "dist/online.js": "5058e0279ca17b4b63a6c57b4fbadfee604347d373d2c05e16cd9b9a33e08313",
+    "dist/pokemon-silhouettes.js": "03ebecf4bc077b3fe195510503cf564cb789dcf8faa29d2b7cf3fdd760058742",
+    "dist/pokemon-stats.js": "64c1544c59efb2c653737f73252cdab19f44eec203a45e4437a291cd88e3d75a",
+    "dist/quick-stats.css": "8d6e397abb2dc594f85fdd9098616b39e6c43c216472ad68b4f8913fbf301dc6",
+    "dist/quick-stats.js": "61d2307e64e356fb06ea07897c9a50f52fdc1e033b2888ffaa018233b1ecfdc2",
+    "dist/render.js": "fc07cf776367adabf7258fe8cb5c581d07a7618fa288aeb5b87e4f2b56edb88d",
+    "dist/sandbox.js": "1e6f77d604f7922b78e71ed5f181625a051c836f54ee26630a762d3c78db83c0",
+    "dist/snapshot.js": "1bb962965caa519476f06d099498d630e38f7734da2e1baf61a6f65ff9eb682f",
+    "dist/spell-preview.js": "64497f695736012c0b06932fa43dccc8d097fdb54dda5a9d94a87595c2276b23",
+    "dist/sprite-geometry.js": "864a7ef6b723fa667d13022ffb24df34837a566066c075a9ff2aab74f50635c0",
+    "dist/sprite-motion.js": "5602d5ba5c6ba21b777dfae52c5e6f6f85ee579da2969475aa0e9b37b34d15d1",
+    "dist/style.css": "fea575b50835aa43b79534de242a041ef9edc1b2a4affa7559dd8fac5a00cfd9",
+    "dist/targeting-art.js": "a3207c34acef39771e1f71aa32f9d88949244eeef642e44165655f936b8b43da",
+    "dist/testing.css": "a31a7273f84db1241a220d3ee12d32f695d945c75fdb9138a6ad7c50b2696729",
+    "dist/testing.html": "33e57465b3b2a8a3532ac2320b9aedf5ffd7c0646025ba542e2a49ce8313e0a6",
+    "dist/testing.js": "bbe776a7d7dafda2046dc0437d4a84a0ed12e8c440f5dded692256f3255ac898",
+    "dist/theme.css": "dc085e8d70c200725014af31ad51d6926d8ef17bf2318f259e17c751c2984e89",
+    "dist/transient-ui.css": "5b110474064321a12c474fa9018a8abe4184b8f1bf9291ab22751d08fa227063",
+    "dist/unit-sizes.js": "e99693751d8b6ae1ccb6734926494840ae7d48a04c30c071cef9a506f8a17eb9",
+    "dist/wing-motion.js": "a86cb99670e14a63eb1ad182cb562a15df60f68142566652c913089050d1d8d5",
+    "dist/wing-rigs.js": "a9fa115bcd8f08ff6fc5f98fd7812b3809012c768e8e58411f569b8994f3e8e6",
+    "dist/assets/pokemon/manifest.json": "98f8facb20949c082d0dcbcbd21622948b0cfef19d17002bd54861b3c7d6db0b",
+    "dist/assets/pokemon/76/Idle-Anim.png": "5444c9399764673a6d21b047d61ac3d42f031340f39c9c62a4be3142561bd337",
+    "dist/assets/pokemon/76/Idle-Shadow.png": "a87291e10d63fcaa60192a4db09ab64ad64857698d76bd7bea69d147d37f3472",
+    "dist/assets/pokemon/76/Walk-Anim.png": "b90f014a4a216feab9af0d149d1517930070dadb15c65316e4d55a7ab8d62ddc",
+    "dist/assets/pokemon/76/Walk-Shadow.png": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7",
+    "dist/assets/pokemon/76/Hurt-Anim.png": "6106b195477d469cf58dd8f8f17ffeeebeafd0d9562f02d725a43d72e154b0b7",
+    "dist/assets/pokemon/76/Hurt-Shadow.png": "df7815c9541ff2a2416b89ee31260fb0bb23e9f9c037457468f59cf976f1d0bb",
+    "dist/assets/pokemon/76/Shoot-Anim.png": "dbbbdc9df2732245808df4f19938e1fc0d7ebfba6d3aa03c98507e8bad5ceb99",
+    "dist/assets/pokemon/76/Shoot-Shadow.png": "75116b091cc5a2eb677f195029a8e480aefa1d751af21d9003e13e5d072fcf16",
+    "dist/assets/pokemon/76/Attack-Anim.png": "55d02149b75442c8da5347134a42ca419955022257013d61709c471c2d3ab10c",
+    "dist/assets/pokemon/76/Attack-Shadow.png": "d82e0324dc1eaab7667ed0e2413b255242053844d163c418afbe0c345259ff1a",
+    "dist/assets/pokemon/384/Idle-Anim.png": "5a9602e755974316c712276632ae84d9f353cd7b2c534a0e5328dfee39a1f479",
+    "dist/assets/pokemon/384/Idle-Shadow.png": "5e74c81b3dbe96dd0671ace6cfad94f00af807652d98020dbbd636186254470a",
+    "dist/assets/pokemon/384/Walk-Anim.png": "1c2f10d00434f729bdefb075634f7b772d9505331e7db554c37ad3ec38895e66",
+    "dist/assets/pokemon/384/Walk-Shadow.png": "ece532f71e020c1a6cd71505bb56f9600393db8147470dcc4fadbdd3341f6e6c",
+    "dist/assets/pokemon/384/Hurt-Anim.png": "97ef295a2881155b9b226f0f1a0e63519ac9e3c0cd487b65fe5868e7a2f03b21",
+    "dist/assets/pokemon/384/Hurt-Shadow.png": "4f42e63101ee75e90e9942698481b7de91064fd8a1c38587c22184ae55f43c2b",
+    "dist/assets/pokemon/384/Shoot-Anim.png": "6d6ef529a283b74ebc9685cc98232d5b6a31d2c33c750d381aa2bffe2d7db6e2",
+    "dist/assets/pokemon/384/Shoot-Shadow.png": "564ad770b00e4429af40371ff22122110f570ef8567cff67b2bb8a49f67ddecc",
+    "dist/assets/pokemon/384/Attack-Anim.png": "ea0298a50d51480db1a75eca09125a233c59cba3ef863ea362309b62908e50e3",
+    "dist/assets/pokemon/384/Attack-Shadow.png": "ed4c0d31345bb972e8961aa831c45e40a20ffdb5c07e46b8a351cfe1f5742bad",
+    "dist/assets/pokemon/215/Idle-Anim.png": "95d45ee49d201124cc446dcaa290dbc98ba840ac0642c5490857cc0193be2fba",
+    "dist/assets/pokemon/215/Idle-Shadow.png": "fc2368e53eab92a5fd2db824f96ee07012b69e234e9c18d50c669d4182427599",
+    "dist/assets/pokemon/215/Walk-Anim.png": "6934cebc524a235d2dc09b2a44c614b5b3a8a5b8fa7efa755fa4a9864a079dc8",
+    "dist/assets/pokemon/215/Walk-Shadow.png": "731bf455d0e68d18cc37c219fc50b1882fbac9987914c80d17b92ceca9974280",
+    "dist/assets/pokemon/215/Hurt-Anim.png": "d599a59dec91dc75a8af1dd7c5f75f31c5ea1a2ae7ee8a55b0b1d168ae2fa552",
+    "dist/assets/pokemon/215/Hurt-Shadow.png": "34ba49be43c70e3c5e5baaff866cb2130badcdd397ed57f4886a54de3832b1b3",
+    "dist/assets/pokemon/215/Shoot-Anim.png": "37424d952a7fdaef32cd1824190fa03d11ac5b728701cf6a47baa09bcb59ca91",
+    "dist/assets/pokemon/215/Shoot-Shadow.png": "bacbd0e790552a077d47da2378470da0f8ee2452c1617f554026363bc164d17a",
+    "dist/assets/pokemon/215/Attack-Anim.png": "64eeeeb51be8ec71141a79a1a9c1d035bf3db5d7e4cfe5803e6151266e835971",
+    "dist/assets/pokemon/215/Attack-Shadow.png": "302102e191e700985ac8e2ce876c69a6b01c74df51f1c37b0ca81b6685763fa0",
+    "dist/assets/pokemon/315/Idle-Anim.png": "4f4192f35cb50ecef5027a899384b60c1e4f3564915175040536f273944ff454",
+    "dist/assets/pokemon/315/Idle-Shadow.png": "36ae2e2028a5a96bbea4101d857b54328d00087c3892244854d87f0d052da6b2",
+    "dist/assets/pokemon/315/Walk-Anim.png": "180907cb7e1649745dd40d7be04811b4e8eca214fd273f5b9cbeefa722c5faba",
+    "dist/assets/pokemon/315/Walk-Shadow.png": "69e66f73fe2c70d9b9ece3f0e738451ce9fa80615e7f3905bc559caace89c7db",
+    "dist/assets/pokemon/315/Hurt-Anim.png": "2877a2bcb1e9e27e997628466e470ed2a830e703233d2031f90a993b459acdd7",
+    "dist/assets/pokemon/315/Hurt-Shadow.png": "4b04c29b16a65336d214c5853efd6744fca874511c42a13d186aba1f96797d8d",
+    "dist/assets/pokemon/315/Shoot-Anim.png": "4497e761fbc37a013888ec81fb4c60f4faa4843ea33ee05cf0d86a0f879ec0da",
+    "dist/assets/pokemon/315/Shoot-Shadow.png": "329df25e565065cf8e3f13ba40a400dc61e23dd6292026c0c9bf63370584a217",
+    "dist/assets/pokemon/315/Attack-Anim.png": "43e77777704223451c60ca2c138e905086fb735c3ecb72b4616256237e45f101",
+    "dist/assets/pokemon/315/Attack-Shadow.png": "d98d1d76266248eca8a0db3d9bbbf72a64d0b0b11615191343a30617975b9bd7",
+    "dist/assets/pokemon/25/Idle-Anim.png": "f1021ac60879698076fdb80705f893d0646d2b9ddf2bdb8c81803fbb7e87ad86",
+    "dist/assets/pokemon/25/Idle-Shadow.png": "9b8ac64a8539e9770055aa7078289ab355e5695a599ce371c731114dca24e6de",
+    "dist/assets/pokemon/25/Walk-Anim.png": "5cfc2c775708c28c11f98e027e883261ab3ae4276e51621eec11c979598651f9",
+    "dist/assets/pokemon/25/Walk-Shadow.png": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7",
+    "dist/assets/pokemon/25/Hurt-Anim.png": "4f096cee94aab6e2c444e6e5a9e77680858d81ad90ddaded05f7e2fea69e3776",
+    "dist/assets/pokemon/25/Hurt-Shadow.png": "ac6de71c1c2d68f7b57c3628d73cabee468c84be9da37305bcf53ed6999365a5",
+    "dist/assets/pokemon/25/Shoot-Anim.png": "3c8167cd86262fc6a81382836574b083afd2958ffe41861555c51789c974c0d0",
+    "dist/assets/pokemon/25/Shoot-Shadow.png": "ac5ccb48fe5ca7b74db037fc6556b67bd7ddb84ecf8807181af78dac0aea5af7",
+    "dist/assets/pokemon/25/Attack-Anim.png": "06822d01f15ebb2c4f2cff9e94bb4ee615b8d25b41527c9297b80d81576be857",
+    "dist/assets/pokemon/25/Attack-Shadow.png": "8462e499f657df2640738a69cb624b5bca246a17854dd17731fdffedb81e3255",
+    "dist/assets/battle/arena-ground-v2.webp": "2c0fa6491949b4a6a03466f2e57447b1a6db8db2ad3c8c2534745df42e0bd611",
+    "dist/assets/battle/arena-bridge-v2.webp": "defac1da7c6bf617a38e5245cc297860ba8e55f342847a272cdfa7de53219755",
+    "dist/assets/battle/riverbank-v2.webp": "cec6d62253b803a24c4fe6b80a3f6a4eff9059fa87bf8f3c772b6013567495d1",
+    "dist/assets/battle/Object__Tree_Town.Flip.png": "147cf52606863d90214c0c03bdd6eb946f055b5551dba2da69072bcb52619dac",
+    "scripts/qa-native-camera.mjs": "471676fbbe17852d128f76eaccd7269aaffe5288f9225046ae8187f7e05f473e",
+    "scripts/qa-native-camera-harness.mjs": "7b18f39202d98cbeb97d0324e2e89634113bfd993113a028cc44991852a51df6",
+    "scripts/native-camera-legal-scenarios.mjs": "926b4b9b9832d5e6c61a33a584523dae8e7a3696aa0d38ce25479bbe80158eec"
+  },
+  "camera": {
+    "left": 30,
+    "top": -122,
+    "width": 540,
+    "height": 934
+  },
+  "rayVisual": {
+    "movementAnchor": "foot",
+    "scale": 1.25,
+    "attackContactFrame": 2
+  },
+  "totalVisibleBodyFrames": 4584,
+  "totalClippedBodyFrames": 0,
+  "totalHudIntersectingBodyFrames": 0,
+  "nativeAudit": {
+    "frames": 184,
+    "recoveryDirections": 8,
+    "maxEmitterErrorWorld": 0.5645814703759368
+  },
+  "physicalTraceMatches": 5,
+  "viewports": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "canvas": {
+        "x": 10,
+        "y": 2,
+        "width": 370,
+        "height": 677
+      },
+      "usefulAreaCss": {
+        "width": 296,
+        "height": 526.2222222222223,
+        "widthFractionOfCanvas": 0.8,
+        "heightFractionOfCanvas": 0.7772854094862959
+      },
+      "cellCss": {
+        "width": 16.444444444444446,
+        "height": 16.444444444444446
+      },
+      "backgroundCache": {
+        "origin": {
+          "x": 30,
+          "y": -150
+        },
+        "width": 540,
+        "height": 990
+      },
+      "visibleBodyFrames": 1528,
+      "clippedBodyFrames": 0,
+      "hudIntersectingBodyFrames": 0,
+      "maxProjectionErrorCss": 0.00001935009595399606
+    },
+    {
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "canvas": {
+        "x": 139,
+        "y": 2,
+        "width": 490,
+        "height": 857
+      },
+      "usefulAreaCss": {
+        "width": 392,
+        "height": 696.8888888888889,
+        "widthFractionOfCanvas": 0.8,
+        "heightFractionOfCanvas": 0.8131725657980035
+      },
+      "cellCss": {
+        "width": 21.77777777777778,
+        "height": 21.77777777777778
+      },
+      "backgroundCache": {
+        "origin": {
+          "x": 29,
+          "y": -128
+        },
+        "width": 541,
+        "height": 946
+      },
+      "visibleBodyFrames": 1528,
+      "clippedBodyFrames": 0,
+      "hudIntersectingBodyFrames": 0,
+      "maxProjectionErrorCss": 0.000025625802891227067
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 980
+      },
+      "canvas": {
+        "x": 214.609375,
+        "y": 66,
+        "width": 643,
+        "height": 860
+      },
+      "usefulAreaCss": {
+        "width": 397.7730192719486,
+        "height": 707.152034261242,
+        "widthFractionOfCanvas": 0.6186205587433105,
+        "heightFractionOfCanvas": 0.8222698072805139
+      },
+      "cellCss": {
+        "width": 22.09850107066381,
+        "height": 22.09850107066381
+      },
+      "backgroundCache": {
+        "origin": {
+          "x": -50,
+          "y": -122
+        },
+        "width": 700,
+        "height": 934
+      },
+      "visibleBodyFrames": 1528,
+      "clippedBodyFrames": 0,
+      "hudIntersectingBodyFrames": 0,
+      "maxProjectionErrorCss": 0.000019039877315663034
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/1440-golem-left-log.png",
+      "hashMode": "binary",
+      "bytes": 768319,
+      "sha256": "c80d90470edc43343e73aba4dd026b3716160f4bb92062668df4ecb0616f2a88"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/1440-golem-right-log.png",
+      "hashMode": "binary",
+      "bytes": 768320,
+      "sha256": "af6053daabcb66f9d3f16b05ba0bfbfae3a90a0cad317c46e4a6ed48207ce742"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/1440-ray-left-defence.png",
+      "hashMode": "binary",
+      "bytes": 771940,
+      "sha256": "b966b547803e2d8b7909c99b7bd5f202ef3ab8c8456b18ff59514e06001228ee"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/1440-ray-right-defence.png",
+      "hashMode": "binary",
+      "bytes": 769310,
+      "sha256": "629802061cfae10665349bcb400f507f8c01a1cd7f9653560b97705f2d3f9318"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/1440-ray-top-defence.png",
+      "hashMode": "binary",
+      "bytes": 775165,
+      "sha256": "0db019320f2c60125aaeb224c72973a343246357f08cb191dd1740feee528950"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/1440-roles-reading.png",
+      "hashMode": "binary",
+      "bytes": 777193,
+      "sha256": "e607cc09211ef82811cba1beb0f5bfc3d3660aeef30ecf8febd21daad07d45d5"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/384-shoot-2-native-contact.png",
+      "hashMode": "binary",
+      "bytes": 72279,
+      "sha256": "b5db75522313c821655b5c30a3493e63794da1dcf72836f67eeb66153d1c11a2"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/390-golem-left-log.png",
+      "hashMode": "binary",
+      "bytes": 326347,
+      "sha256": "d25555e5a96563c2efcfaeabfb89876a9fa687ae8c2849c1ef34663d817259c5"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/390-golem-right-log.png",
+      "hashMode": "binary",
+      "bytes": 326225,
+      "sha256": "9dd358ac3d65263d221a53ca571575aa3e92908481489042bf02d054c9f02d17"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/390-ray-left-defence.png",
+      "hashMode": "binary",
+      "bytes": 327956,
+      "sha256": "4e1667739353beb712a115c9d6b29dda645c9854954c078d4ce43794fd8754b6"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/390-ray-right-defence.png",
+      "hashMode": "binary",
+      "bytes": 326653,
+      "sha256": "74cf8676468abf268169860891186a04f0c7567564b58e820e96fe03aeabad4e"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/390-ray-top-defence.png",
+      "hashMode": "binary",
+      "bytes": 329535,
+      "sha256": "a627524f831fcad7cd8ad1e6a7f9806f29ccf31610a2627961eced8b46102f1d"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/390-roles-reading.png",
+      "hashMode": "binary",
+      "bytes": 330568,
+      "sha256": "29423f9b0c38a1ca91362a1894e28f54477b88e0621e65e982fad31af48f0eb2"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/76-hurt-0-native-contact.png",
+      "hashMode": "binary",
+      "bytes": 19804,
+      "sha256": "30bcf18b1944c5049badfdd7083b35d80b03c6a0c8497661862f2beeaec8a46d"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/76-hurt-1-native-contact.png",
+      "hashMode": "binary",
+      "bytes": 19849,
+      "sha256": "712ac6a80283d1991649a23fa83a5ba01e355e3238b170d6900935cd3f32191b"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/768-golem-left-log.png",
+      "hashMode": "binary",
+      "bytes": 518913,
+      "sha256": "641e7b118d2d7067e54d2189396aa4d2100cd34e8bf85201fd964160aaa82629"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/768-golem-right-log.png",
+      "hashMode": "binary",
+      "bytes": 518709,
+      "sha256": "7c2e0d459e4203812d3d95f99fe959003072c464a6ed8233e4b971d3298b95cf"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/768-ray-left-defence.png",
+      "hashMode": "binary",
+      "bytes": 521820,
+      "sha256": "03f2bf7e6a26a0fef58a0f08057ae0b1e9c1a645a97c7defd8c6f35bb5f5c733"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/768-ray-right-defence.png",
+      "hashMode": "binary",
+      "bytes": 519880,
+      "sha256": "36ece39bbbe53dff76c0b43f8f407b55e73237499a974123282d5d24e0527be9"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/768-ray-top-defence.png",
+      "hashMode": "binary",
+      "bytes": 524325,
+      "sha256": "6e74f3b82882bfa863ed7f71ba67274dc19f31f6e7938f6bf74564293ab20e22"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/768-roles-reading.png",
+      "hashMode": "binary",
+      "bytes": 526777,
+      "sha256": "d4c2dd9ee6a88476eaeb000e212518ad40407c1ce1cc07cf8f7e19fab6c3870c"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-final/legal.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 513114,
+      "sha256": "a5fb05fa7754b9fafab0633b295b7dedb34765067bfec3af55219915d3444f8c"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-foot125/390-roles-reading.png",
+      "hashMode": "binary",
+      "bytes": 330205,
+      "sha256": "9f8a908a14497f63e1fc7d051c5a3b95fc359c327a5a5f50f41ee19be9edb694"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-foot125/reading.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 33338,
+      "sha256": "01c5600506a9d3b32268249693d9d6da0de7ed643114a21c4bceba837571960b"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-selected/legal.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 513985,
+      "sha256": "7a769a3502ae616ab2d90e615ffad65d5a3e54e31a02fe071d85bb1dd17db9c2"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/A540-selected/ray-foot-audit.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 56196,
+      "sha256": "a5a9e9e080e6d4bc3cef1f0adeefa1cc20280fed2c122c2549450518df7d6c68"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/B528-foot115/390-roles-reading.png",
+      "hashMode": "binary",
+      "bytes": 315855,
+      "sha256": "1ec248fc83516f2e37812b4e1d3afdcdd7925987a8674e5dc87773ec4263faeb"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/B528-foot115/reading.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 33285,
+      "sha256": "d6f07342fc86c0f9bb34ee324d86bf5e7fced038ce354b56503c6bfd8cca834d"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/README.md",
+      "hashMode": "lf-normalized-text",
+      "bytes": 7413,
+      "sha256": "97d722ab2996367c353ae3af4ac0cf292626a908c5af5bcc8183e23afff9e999"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/legal-588x900-final/verification.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 7933,
+      "sha256": "4c1d1fcf8bbc54a9684bc8f037aa38758c90997bd32d3e08a9c8f688be0b7da9"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/ray-anchor-review/comparison.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 4139,
+      "sha256": "20ac0f273518680a7f4bb9154515b9606f36f2ab1761d045b3e82f5a9a285d8e"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/ray-anchor-review/native-measurements.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 20436,
+      "sha256": "108a2816a0d1236469e449a713859a6d77a7b19ce45e77da6dac63ad49bded5a"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/ray-anchor-review/physics-A540-final.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 1206,
+      "sha256": "44d2283414b4714ac4bab39e57fc20a1f1419c2d3e519a8064f0596492fa4531"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/ray-anchor-review/physics-A540-foot125.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 1206,
+      "sha256": "44d2283414b4714ac4bab39e57fc20a1f1419c2d3e519a8064f0596492fa4531"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/ray-anchor-review/physics-A540-selected.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 1206,
+      "sha256": "44d2283414b4714ac4bab39e57fc20a1f1419c2d3e519a8064f0596492fa4531"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/ray-anchor-review/physics-B528-foot115.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 1206,
+      "sha256": "b84299d2bac1916cb968a161bc7218cbcb131cbf92d98aa29970581c014c234c"
+    },
+    {
+      "path": "docs/visual-followup/native-camera/ray-anchor-review/physics-baseline.json",
+      "hashMode": "lf-normalized-text",
+      "bytes": 5022,
+      "sha256": "5a4af5f8a16985228f899cc674451614a4d4bf65a8e0dbdc5156595f6547bd8c"
+    },
+    {
+      "path": "scripts/check-ray-visual-physics.mjs",
+      "hashMode": "lf-normalized-text",
+      "bytes": 2058,
+      "sha256": "e142b8d2ed85d944ce449c7e26ee0cb64a332342a76b80be3011b414ca2fddfe"
+    },
+    {
+      "path": "scripts/native-camera-legal-scenarios.mjs",
+      "hashMode": "lf-normalized-text",
+      "bytes": 3032,
+      "sha256": "926b4b9b9832d5e6c61a33a584523dae8e7a3696aa0d38ce25479bbe80158eec"
+    },
+    {
+      "path": "scripts/qa-native-camera-harness.mjs",
+      "hashMode": "lf-normalized-text",
+      "bytes": 22089,
+      "sha256": "7b18f39202d98cbeb97d0324e2e89634113bfd993113a028cc44991852a51df6"
+    },
+    {
+      "path": "scripts/qa-native-camera.mjs",
+      "hashMode": "lf-normalized-text",
+      "bytes": 18355,
+      "sha256": "471676fbbe17852d128f76eaccd7269aaffe5288f9225046ae8187f7e05f473e"
+    },
+    {
+      "path": "scripts/verify-native-camera-evidence.mjs",
+      "hashMode": "lf-normalized-text",
+      "bytes": 5970,
+      "sha256": "b0beb94ee01b7738c6e55a395e4dff2cb9f72883a42ccfb810eef7ccfe0962e3"
+    }
+  ]
+}

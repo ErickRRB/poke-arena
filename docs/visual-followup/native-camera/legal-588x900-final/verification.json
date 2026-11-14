@@ -1,0 +1,248 @@
+{
+  "capturedHead": "4bd550bf0d04e3c64157cfd398b20785f2a62421",
+  "result": "PASS for the five documented reachable scenarios",
+  "camera": {
+    "left": 6,
+    "top": -88,
+    "width": 588,
+    "height": 900
+  },
+  "totalVisibleBodyFrames": 4584,
+  "totalClippedBodyFrames": 0,
+  "totalHudIntersectingBodyFrames": 0,
+  "committedSourceEquivalence": {
+    "dist/engine.js": {
+      "commit": "4bd550b",
+      "capturedSha256": "8c94d6437233235adcba411e706f5a5fd9dc0032457fef48097843027e921288",
+      "lineEndings": "crlf"
+    },
+    "dist/render.js": {
+      "commit": "fd8d6d2",
+      "capturedSha256": "57d9b6be010eb38a50f5ed1f7563a3b29a8ad5101eae4b527aa643635a3405a4",
+      "lineEndings": "crlf"
+    },
+    "dist/arena-geometry.js": {
+      "commit": "fd8d6d2",
+      "capturedSha256": "d41810d040912dfa842592f644c823cfa2294b5a7be11e84e6047034b1455cba",
+      "lineEndings": "crlf"
+    }
+  },
+  "viewports": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "canvas": {
+        "x": 10,
+        "y": 2,
+        "width": 370,
+        "height": 677
+      },
+      "usefulAreaCss": {
+        "width": 271.8367346938776,
+        "height": 483.26530612244903,
+        "widthFractionOfCanvas": 0.7346938775510206,
+        "heightFractionOfCanvas": 0.7138335393241493
+      },
+      "cellCss": {
+        "width": 15.102040816326532,
+        "height": 15.102040816326532
+      },
+      "backgroundCache": {
+        "origin": {
+          "x": 6,
+          "y": -176
+        },
+        "width": 588,
+        "height": 1076
+      },
+      "visibleBodyFrames": 1528,
+      "clippedBodyFrames": 0,
+      "hudIntersectingBodyFrames": 0
+    },
+    {
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "canvas": {
+        "x": 139,
+        "y": 2,
+        "width": 490,
+        "height": 857
+      },
+      "usefulAreaCss": {
+        "width": 360,
+        "height": 640,
+        "widthFractionOfCanvas": 0.7346938775510204,
+        "heightFractionOfCanvas": 0.7467911318553092
+      },
+      "cellCss": {
+        "width": 20,
+        "height": 20
+      },
+      "backgroundCache": {
+        "origin": {
+          "x": 6,
+          "y": -153
+        },
+        "width": 588,
+        "height": 1030
+      },
+      "visibleBodyFrames": 1528,
+      "clippedBodyFrames": 0,
+      "hudIntersectingBodyFrames": 0
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 980
+      },
+      "canvas": {
+        "x": 214.609375,
+        "y": 66,
+        "width": 643,
+        "height": 860
+      },
+      "usefulAreaCss": {
+        "width": 412.8,
+        "height": 733.8666666666667,
+        "widthFractionOfCanvas": 0.64199066874028,
+        "heightFractionOfCanvas": 0.8533333333333334
+      },
+      "cellCss": {
+        "width": 22.933333333333334,
+        "height": 22.933333333333334
+      },
+      "backgroundCache": {
+        "origin": {
+          "x": -37,
+          "y": -88
+        },
+        "width": 674,
+        "height": 900
+      },
+      "visibleBodyFrames": 1528,
+      "clippedBodyFrames": 0,
+      "hudIntersectingBodyFrames": 0
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "docs/visual-followup/native-camera/README.md",
+      "bytes": 6356,
+      "sha256": "2439889797f7c7f14725b863a926068e8b3fce0d02351352eb46aae910460dd6"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/legal.json",
+      "bytes": 460457,
+      "sha256": "bb62bf9c42a4aa1ff0e36c852a56f228bed60e818d0447450ae2b0393eac9599"
+    },
+    {
+      "file": "scripts/qa-native-camera.mjs",
+      "bytes": 16574,
+      "sha256": "ea29bf93349769668ea051eb0c84eb82653d3c511d47e54ee163f72fe75e937e"
+    },
+    {
+      "file": "scripts/qa-native-camera-harness.mjs",
+      "bytes": 17297,
+      "sha256": "8127649364f76622d4d626eb03cc68fd66488a8832800ba0d87b08d8ff87d1e6"
+    },
+    {
+      "file": "scripts/native-camera-legal-scenarios.mjs",
+      "bytes": 3032,
+      "sha256": "926b4b9b9832d5e6c61a33a584523dae8e7a3696aa0d38ce25479bbe80158eec"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/390-ray-left-defence.png",
+      "bytes": 423288,
+      "sha256": "40a3c2f1432f2502e41fb6570906dda3950237e6a0c01c914f66fef8ef6bd388"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/390-ray-right-defence.png",
+      "bytes": 421020,
+      "sha256": "b58533b771bc98d05019aaa84483c85d5bd4d2294f6cf03330fb11033a297c8d"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/390-ray-top-defence.png",
+      "bytes": 422896,
+      "sha256": "55efbc08f5846aeda87d3ff8d2df1a6b2d7bd4a3031870dda18df35844f88625"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/390-golem-left-log.png",
+      "bytes": 421345,
+      "sha256": "4e24e9a12741c55fa3e0bdfcd4415f937b81d82e6fedf45d7a9a7af24a3f7f74"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/390-golem-right-log.png",
+      "bytes": 421280,
+      "sha256": "85afc304bfa1b6081f53224b34608ab38b9545fcd5b6282b7fbb370fe5c96ece"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/768-ray-left-defence.png",
+      "bytes": 669692,
+      "sha256": "5ecf0befc30df9d251dab670a7dfb54a76a81a35cd82e707e0f48fa0dd059523"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/768-ray-right-defence.png",
+      "bytes": 666483,
+      "sha256": "b5774940cce120d90756f5be8c4a3fa8f4dc00b70c8454f2f7998858a7c2af79"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/768-ray-top-defence.png",
+      "bytes": 670533,
+      "sha256": "32e501a37fb58eae73aecdb0ae9897b747150bbb6b159f891b92bb04e1dd31a5"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/768-golem-left-log.png",
+      "bytes": 666701,
+      "sha256": "c4f27c5ad34e52fbf0063b3049b4812c0d9337c2f8edb7088a3334a75e43d72b"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/768-golem-right-log.png",
+      "bytes": 667043,
+      "sha256": "969bb378bdf1f2c69fe278723a3420d93638998b39c46a95e4f945dcf08c1cfd"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/1440-ray-left-defence.png",
+      "bytes": 924226,
+      "sha256": "963294a98e408fa9302812914e510d77829eac1caca19416f51ee157a2bc1246"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/1440-ray-right-defence.png",
+      "bytes": 921608,
+      "sha256": "ff6b322652bc5760e501b0d9fe71439788eaf0376c2a5a4d13024db11810a776"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/1440-ray-top-defence.png",
+      "bytes": 923154,
+      "sha256": "0ae569c34c1e9474e7a9040fcba8b9f226909555a00dd5983fa8f374b24b8bca"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/1440-golem-left-log.png",
+      "bytes": 920433,
+      "sha256": "7b8df68ce67f37d825c075ca96e8fb3ea2b37d791240964ad2ffc849258c69fd"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/1440-golem-right-log.png",
+      "bytes": 920766,
+      "sha256": "4df9fc76725ff6c25fdf9b9744ed6eb6f3f2ac14775b10edd44584e8356a592f"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/384-shoot-2-native-contact.png",
+      "bytes": 72279,
+      "sha256": "b5db75522313c821655b5c30a3493e63794da1dcf72836f67eeb66153d1c11a2"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/76-hurt-0-native-contact.png",
+      "bytes": 19804,
+      "sha256": "30bcf18b1944c5049badfdd7083b35d80b03c6a0c8497661862f2beeaec8a46d"
+    },
+    {
+      "file": "docs/visual-followup/native-camera/legal-588x900-final/76-hurt-1-native-contact.png",
+      "bytes": 19849,
+      "sha256": "712ac6a80283d1991649a23fa83a5ba01e355e3238b170d6900935cd3f32191b"
+    }
+  ]
+}
