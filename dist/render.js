@@ -103,7 +103,7 @@ export class Renderer {
   visualActor(unit,dt){
     let pose=this.visualActors.get(unit.id);
     if(!pose||Math.hypot(pose.x-unit.x,pose.y-unit.y)>95){pose={x:unit.x,y:unit.y,dx:unit.dx??0,dy:unit.dy??-1,seq:unit.attackSeq,attack:unit.attack||0};this.visualActors.set(unit.id,pose);}
-    const blend=unit.dash?.phase==='travel'?1:1-Math.exp(-dt*24);pose.x+=(unit.x-pose.x)*blend;pose.y+=(unit.y-pose.y)*blend;
+    const blend=1-Math.exp(-dt*(unit.dash?.phase==='travel'?40:24));pose.x+=(unit.x-pose.x)*blend;pose.y+=(unit.y-pose.y)*blend;
     const turn=1-Math.exp(-dt*24);pose.dx+=((unit.dx||0)-pose.dx)*turn;pose.dy+=((unit.dy||0)-pose.dy)*turn;
     if(pose.seq!==unit.attackSeq){pose.seq=unit.attackSeq;pose.attack=unit.attack||0;}else pose.attack=Math.max(0,Math.min(unit.attack||0,pose.attack-dt));
     return{...unit,x:pose.x,y:pose.y,dx:pose.dx,dy:pose.dy,attack:pose.attack};
@@ -364,25 +364,31 @@ export class Renderer {
     }
     this.numbers=this.numbers.filter(n=>n.life>0);
   }
+  projectilePose(p,point=p){
+    const key=p.id||p;let pose=this.visualProjectiles.get(key);
+    if(!pose){pose={x:point.x,y:point.y,travelled:p.travelled||0,at:this.t};this.visualProjectiles.set(key,pose);}
+    const blend=1-Math.exp(-(this.drawDt||0)*35);
+    pose.x+=(point.x-pose.x)*blend;pose.y+=(point.y-pose.y)*blend;pose.travelled+=((p.travelled||0)-(pose.travelled||0))*blend;pose.at=this.t;
+    return pose;
+  }
   projectile(c,p){
     if(p.rolling){
-      c.save();c.fillStyle='#17271f44';c.beginPath();c.ellipse(p.x,p.y+3,18,6,0,0,Math.PI*2);c.fill();
-      if(!this.reduced)for(let i=1;i<=3;i++){c.save();c.globalAlpha=.25*(1-i/4);this.combatArt(c,'dust',p.x-p.dx*i*11,p.y-p.dy*i*11,15+i*3,0,12+i*2,{progress:(p.travelled/100+i*.2)%1});c.restore();}
-      this.combatArt(c,'rock',p.x,p.y-13/(this.verticalScale||1),38,this.reduced?0:p.travelled/18,38,{frame:0,trim:true});c.restore();return;
+      const pose=this.projectilePose(p);
+      c.save();c.fillStyle='#17271f44';c.beginPath();c.ellipse(pose.x,pose.y+3,18,6,0,0,Math.PI*2);c.fill();
+      if(!this.reduced)for(let i=1;i<=3;i++){c.save();c.globalAlpha=.25*(1-i/4);this.combatArt(c,'dust',pose.x-p.dx*i*11,pose.y-p.dy*i*11,15+i*3,0,12+i*2,{progress:(pose.travelled/100+i*.2)%1});c.restore();}
+      this.combatArt(c,'rock',pose.x,pose.y-13/(this.verticalScale||1),38,this.reduced?0:pose.travelled/18,38,{frame:0,trim:true});c.restore();return;
     }
     if(p.linear){
-      const vertical=this.verticalScale||1,x=p.x+(p.liftX||0),y=p.y+(p.liftY||0)/vertical,length=Math.min(p.travelled,54),visual=combatVisual(CARDS[p.key]);
+      const pose=this.projectilePose(p),vertical=this.verticalScale||1,x=pose.x+(p.liftX||0),y=pose.y+(p.liftY||0)/vertical,length=Math.min(pose.travelled,54),visual=combatVisual(CARDS[p.key]);
       this.battleArt.beam(c,'psychic',{x:x-p.dx*length,y:y-p.dy*length},{x,y},visual.beam,this.reduced?0:this.t);
       this.combatArt(c,'psychic',x,y,Math.max(12,visual.projectile),0,Math.max(12,visual.projectile),{age:this.reduced?0:this.t,trim:true});return;
     }
-    const progress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),source=this.frameActors.get(p.sourceId),target=this.frameActors.get(p.target.id)||p.target;
+    const logicalProgress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),source=this.frameActors.get(p.sourceId),target=this.frameActors.get(p.target.id)||p.target;
     const targetLift=p.endLiftY??-('king'in p.target?27:p.target.card?.structure?43:p.target.card?.flying?27:15);
     const start=this.projected({x:p.startX+(p.groundPath?p.liftX||0:0),y:p.startY+(p.groundPath?p.liftY||0:0)},source),end=this.projected({x:p.target.x,y:p.target.y+targetLift},target);
     const logicalEnd={x:p.target.x,y:p.target.y+(p.groundPath?0:targetLift)};
-    const desired={x:p.x+(start.x-p.startX)*(1-progress)+(end.x-logicalEnd.x)*progress,y:p.y+(start.y-p.startY)*(1-progress)+(end.y-logicalEnd.y)*progress};
-    const key=p.id||p;let pose=this.visualProjectiles.get(key);
-    if(!pose){pose={...desired,at:this.t};this.visualProjectiles.set(key,pose);}
-    const blend=1-Math.exp(-this.drawDt*35);pose.x+=(desired.x-pose.x)*blend;pose.y+=(desired.y-pose.y)*blend;pose.at=this.t;
+    const desired={x:p.x+(start.x-p.startX)*(1-logicalProgress)+(end.x-logicalEnd.x)*logicalProgress,y:p.y+(start.y-p.startY)*(1-logicalProgress)+(end.y-logicalEnd.y)*logicalProgress};
+    const pose=this.projectilePose(p,desired),progress=Math.min(1,pose.travelled/Math.max(1,p.totalDistance));
     const x=pose.x,y=pose.y-Math.sin(progress*Math.PI)*(p.arc||0)/(this.verticalScale||1),angle=Math.atan2((end.y-start.y)*(this.verticalScale||1)-Math.PI*(p.arc||0)*Math.cos(progress*Math.PI),end.x-start.x);
     const visual=combatVisual(source?.card||CARDS[p.key]),motion=projectileVisual(p.style,this.t,this.reduced),size=p.key==='nuzleaf'?Math.max(16,visual.projectile):visual.projectile;
     const art=p.key==='nuzleaf'?'needle':p.art||motion.name;
