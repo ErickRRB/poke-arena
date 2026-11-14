@@ -1,0 +1,77 @@
+{
+  "mode": "built-in imagegen",
+  "generatedAt": "2026-11-14",
+  "spriteSource": "https://github.com/PMDCollab/SpriteCollab/tree/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite",
+  "assets": [
+    {
+      "key": "rapidash",
+      "file": "dist/assets/cards/rapidash-v1.webp",
+      "original": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d856-1020-7332-9ac3-82845770bcc8\\exec-613d84c1-8c03-4eb8-b333-e1b3d8303eac.png",
+      "prompt": "Use case: stylized-concept. Asset: original illustration for a mobile Pokémon battle card, portrait 4:5, full bleed opaque image. Painterly adventure game key art, detailed but calm natural environment, soft edges and convincing shared lighting, 3D volume with hand-painted textures matching illustrated Pokémon trading game scenes. Recognizable correct Pokémon anatomy and colors. Clear central action reads at 70 pixels wide. Keep the top 15% and bottom 12% visually quieter for UI labels. No text, letters, numbers, frame, border, logo, icon, watermark or card UI. Characters are grounded in the environment, never a cutout on a backdrop. Avoid excessive sparks or noisy detail. Subject: one Kantonian Rapidash, cream white fire horse with one long forehead horn, orange-red flame mane and tail. Scene: a mossy stone arena lane crossing a clear narrow river, a distant stone tower under an afternoon sky. Rapidash is captured in a powerful diagonal leap LEFT to RIGHT over the river with forelegs stretched forward, side three-quarter view, flames sweep naturally behind and reflect subtly in water. Entire recognizable horse fits the center with breathing room. Tower small, far behind. Warm sun, restrained blue-green landscape.",
+      "projectOriginal": "qa/new-card-originals/rapidash-v1.png",
+      "optimization": {
+        "format": "webp",
+        "width": 768,
+        "height": 960,
+        "quality": 88,
+        "semanticEdits": false
+      }
+    },
+    {
+      "key": "roselia",
+      "file": "dist/assets/cards/roselia-v1.webp",
+      "original": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d856-1020-7332-9ac3-82845770bcc8\\exec-ad0dd23f-b6da-4ce4-a3c0-413a9f4365e1.png",
+      "prompt": "Use case: stylized-concept. Asset: original illustration for a mobile Pokémon battle card, portrait 4:5, full bleed opaque image. Painterly adventure game key art, detailed but calm natural environment, soft edges and convincing shared lighting, 3D volume with hand-painted textures matching illustrated Pokémon trading game scenes. Recognizable correct Pokémon anatomy and colors. Clear central action reads at 70 pixels wide. Keep the top 15% and bottom 12% visually quieter for UI labels. No text, letters, numbers, frame, border, logo, icon, watermark or card UI. Characters are grounded in the environment, never a cutout on a backdrop. Avoid excessive sparks or noisy detail. Subject: a single Roselia, small green bipedal Pokémon with three pointed leaf tips on its head, yellow front leaf and one red rose hand and one blue rose hand. Scene: a quiet forest castle garden overlooking a distant stone arena lane. Roselia stands on a low mossy terrace slightly right of center in three-quarter view facing LEFT, extending the red rose hand; a graceful small volley of red and blue sharp petals flies far across the lane toward the upper left. Roselia is the large readable focal silhouette. Gentle afternoon light with warm rose highlights and muted olive foliage, enough garden depth to convey long range.",
+      "projectOriginal": "qa/new-card-originals/roselia-v1.png",
+      "optimization": {
+        "format": "webp",
+        "width": 768,
+        "height": 960,
+        "quality": 88,
+        "semanticEdits": false
+      }
+    },
+    {
+      "key": "graveler",
+      "file": "dist/assets/cards/graveler-v1.webp",
+      "original": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d856-1020-7332-9ac3-82845770bcc8\\exec-c79c5e0b-ec44-473b-ac45-8b9d1f8b1eaf.png",
+      "prompt": "Use case: stylized-concept. Asset: original illustration for a mobile Pokémon battle card, portrait 4:5, full bleed opaque image. Painterly adventure game key art, detailed but calm natural environment, soft edges and convincing shared lighting, 3D volume with hand-painted textures matching illustrated Pokémon trading game scenes. Recognizable correct Pokémon anatomy and colors. Clear central action reads at 70 pixels wide. Keep the top 15% and bottom 12% visually quieter for UI labels. No text, letters, numbers, frame, border, logo, icon, watermark or card UI. Characters are grounded in the environment, never a cutout on a backdrop. Avoid excessive sparks or noisy detail. Subject: one Graveler, stocky grey round rock Pokémon with four muscular stone arms, two short feet and a determined face, canonical Kantonian form. Scene: weathered stone battle lane at the edge of a rocky canyon. Graveler leans forward behind a heavy rounded boulder it has just shoved toward the lower LEFT foreground. The rolling boulder is prominent, touches the ground, has a short clean dust trail and knocks a few loose pebbles aside. Graveler and boulder in one unified perspective; no extra monsters. Slight low viewpoint, warm neutral stone light, quiet canyon and cloudy sky at top, action concentrated in middle.",
+      "projectOriginal": "qa/new-card-originals/graveler-v1.png",
+      "optimization": {
+        "format": "webp",
+        "width": 768,
+        "height": 960,
+        "quality": 88,
+        "semanticEdits": false
+      }
+    },
+    {
+      "key": "nuzleaf",
+      "file": "dist/assets/cards/nuzleaf-v1.webp",
+      "original": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d856-1020-7332-9ac3-82845770bcc8\\exec-516ce279-bdd6-4102-b1f5-47588b239b1b.png",
+      "prompt": "Use case: stylized-concept. Asset: original illustration for a mobile Pokémon battle card, portrait 4:5, full bleed opaque image. Painterly adventure game key art, detailed but calm natural environment, soft edges and convincing shared lighting, 3D volume with hand-painted textures matching illustrated Pokémon trading game scenes. Recognizable correct Pokémon anatomy and colors. Clear central action reads at 70 pixels wide. Keep the top 15% and bottom 12% visually quieter for UI labels. No text, letters, numbers, frame, border, logo, icon, watermark or card UI. Characters are grounded in the environment, never a cutout on a backdrop. Avoid excessive sparks or noisy detail. Subject: one Nuzleaf, small brown bipedal Pokémon with long pointy wooden nose, a single green leaf on the top of its head, round ears, tan shaggy leaf skirt, canonical form. Scene: a shaded bamboo and woodland path beside ancient arena stonework. Nuzleaf braces lightly on a broad tree root, body in three-quarter view facing RIGHT, cheeks puffed as it rapidly spits a tight line of three tiny glowing seeds from its pointed nose toward the right distance. Playful focused expression, slim quick silhouette, leaf lifted by motion. Soft cool forest greens and warm highlights on brown wood, no weapon or blowgun, no other Pokémon.",
+      "projectOriginal": "qa/new-card-originals/nuzleaf-v1.png",
+      "optimization": {
+        "format": "webp",
+        "width": 768,
+        "height": 960,
+        "quality": 88,
+        "semanticEdits": false
+      }
+    },
+    {
+      "key": "sneaselAmbush",
+      "file": "dist/assets/cards/sneaselAmbush-v1.webp",
+      "original": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d856-1020-7332-9ac3-82845770bcc8\\exec-20a532ef-c178-42c4-bb2e-95bb8ca1cabc.png",
+      "prompt": "Use case: stylized-concept. Asset: original illustration for a mobile Pokémon battle card, portrait 4:5, full bleed opaque image. Painterly adventure game key art, detailed but calm natural environment, soft edges and convincing shared lighting, 3D volume with hand-painted textures matching illustrated Pokémon trading game scenes. Recognizable correct Pokémon anatomy and colors. Clear central action reads at 70 pixels wide. Keep the top 15% and bottom 12% visually quieter for UI labels. No text, letters, numbers, frame, border, logo, icon, watermark or card UI. Characters are grounded in the environment, never a cutout on a backdrop. Avoid excessive sparks or noisy detail. Spell illustration. Scene: an opponent's mossy stone arena lane at twilight. Primary focal action is a dark violet spherical deployment capsule dropping through a graceful arcing smoky trail and opening just above the cobbles in a small violet puff, with a crisp pale glint and two capsule halves. Only ONE small recognizable Sneasel Pokémon is visible at the lower right side emerging from shadow: slim dark teal weasel body, one long red left ear feather, small yellow oval forehead mark, white hooked claws, red tail feathers. The capsule and landing/ambush effect dominate the composition. Other two emerging attackers are suggested only by two small paired white claw glints within the smoke, NOT extra detailed characters. The card mechanic will spawn three Sneasel but illustration emphasizes the thrown capsule. Low angled view, stone tower far in the background, restrained purple and blue lighting. Clear silhouette and quiet top/bottom.",
+      "projectOriginal": "qa/new-card-originals/sneaselAmbush-v1.png",
+      "optimization": {
+        "format": "webp",
+        "width": 768,
+        "height": 960,
+        "quality": 88,
+        "semanticEdits": false
+      }
+    }
+  ]
+}

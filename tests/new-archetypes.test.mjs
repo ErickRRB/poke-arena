@@ -77,21 +77,21 @@ test('Central Electrode generates five Voltorb in waves and one final Voltorb wh
   run(g,.8);assert.equal(children.length,0);run(g,.5);assert.equal(children.length,1);run(g,29);assert.equal(owner.hp,0);assert.equal(children.length,6);g.unitDeath(owner,1);assert.equal(children.length,6);
 });
 test('destroying a spawner early releases only one final wave and prevents later production',()=>{
-  for(const [key,child,count]of[['centralElectrode','voltorb',1],['madriguera','nidoranM',2],['vivero','exeggcute',2]]){
+  for(const [key,child,count]of[['centralElectrode','voltorb',1],['madriguera','nidoranM',2],['vivero','exeggcute',4]]){
     const g=fresh();g.towers.forEach(t=>t.hp=0);const owner=g.spawn(key,0,300,520,0);g.damage(owner,99999,1);assert.equal(g.units.filter(u=>u.key===child).length,CARDS[key].summonSpacing?1:count);run(g,10);assert.equal(g.units.filter(u=>u.key===child).length,count);
   }
 });
-test('Exeggutor releases each pair in single file with a real delay, including its last pair and restored online jobs',()=>{
+test('the three-elixir nursery produces fragile melee pairs and leaves four on death in either perspective',()=>{
   for(const team of[0,1]){
     const g=fresh(),spawns=[];
     g.onEvent=e=>{if(e.type==='spawn'&&e.unit.key==='exeggcute')spawns.push({x:e.unit.x,y:e.unit.y,at:g.elapsed,unit:e.unit});};
-    const owner=g.spawn('vivero',team,158,team?270:530,0);run(g,1.1);assert.equal(spawns.length,1);assert.equal(g.reinforcements.length,1);
+    const owner=g.spawn('vivero',team,158,team?270:530,0);run(g,1.1);assert.equal(spawns.length,2);assert.equal(g.reinforcements.length,0);
     const clone=unpackGame(packGame(g)),flipped=unpackGame(perspective(packGame(g),1));run(g,.8);run(clone,.8);run(flipped,.8);
-    assert.equal(spawns.length,2);assert.equal(spawns[0].x,spawns[1].x);assert.equal(spawns[0].y,spawns[1].y);assert.ok(spawns[1].at-spawns[0].at>=.84);
+    assert.equal(spawns.length,2);assert.notEqual(spawns[0].x,spawns[1].x);assert.equal(spawns[0].at,spawns[1].at);
+    assert.equal(CARDS.vivero.cost,3);assert.equal(CARDS.exeggcute.hp,CARDS.diglett.hp);assert.equal(CARDS.exeggcute.damage,CARDS.diglett.damage);assert.ok(CARDS.exeggcute.range<50&&!CARDS.exeggcute.air);assert.equal(CARDS.exeggutor.token,true);
     assert.deepEqual(packGame(clone).units.map(u=>[u.key,u.x,u.y,u.spawn]),packGame(g).units.map(u=>[u.key,u.x,u.y,u.spawn]));
     assert.equal(flipped.units.filter(u=>u.key==='exeggcute'&&u.team===1-team).length,2);
-    run(g,.6);const children=g.units.filter(u=>u.parentId===owner.id);assert.ok((children[0].y-children[1].y)*(team?-1:1)<0,'first child advances ahead of the second');
-    g.damage(owner,99999,1-team);assert.equal(spawns.length,3);run(g,.9);assert.equal(spawns.length,4);assert.ok(spawns[3].at-spawns[2].at>=.84);run(g,8);assert.equal(spawns.length,4);
+    run(g,3);assert.equal(spawns.length,4);g.damage(owner,99999,1-team);assert.equal(spawns.length,8);run(g,8);assert.equal(spawns.length,8);
   }
 });
 test('Duskull invokes pairs, respects its living summon limit and leaves reinforcements on death',()=>{

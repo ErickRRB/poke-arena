@@ -371,5 +371,25 @@ export const POKEMON_SILHOUETTES=Object.freeze({
   "353": {
     "body": 20,
     "name": "Shuppet"
+  },
+  "75": {
+    "body": 28,
+    "name": "Graveler"
+  },
+  "78": {
+    "body": 32,
+    "name": "Rapidash"
+  },
+  "215": {
+    "body": 28,
+    "name": "Sneasel"
+  },
+  "274": {
+    "body": 30,
+    "name": "Nuzleaf"
+  },
+  "315": {
+    "body": 28,
+    "name": "Roselia"
   }
 });

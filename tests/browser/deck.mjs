@@ -8,7 +8,11 @@ export async function run({browser,url,viewports,output}){
       await page.goto(url);await ready(page);await page.locator('#menu-deck-btn').click();
       const cards=await page.locator('#deck-strip [data-deck-info]').evaluateAll(nodes=>nodes.map(node=>({row:node.offsetTop,width:node.offsetWidth,height:node.offsetHeight})));
       assert.equal(cards.length,8);assert.equal(new Set(cards.map(card=>card.row)).size,2);assert.ok(cards.every(card=>card.width>55&&Math.abs(card.width/card.height-.8)<.02));
-      assert.equal(await page.locator('[data-collection]').count(),105);await inViewport(page,'#save-deck-btn',viewport);
+      assert.equal(await page.locator('[data-collection]').count(),109);await inViewport(page,'#save-deck-btn',viewport);
+      assert.equal(await page.locator('#deck-section-title').innerText(),'Mi mazo');assert.equal(await page.locator('#collection-section-title').innerText(),'Mi colección');
+      assert.equal(await page.locator('[data-collection=pikachu] .card-role').innerText(),'Mago eléctrico');assert.equal(await page.locator('[data-collection=onix] .card-role').innerText(),'Parcial de Montapuercos');
+      assert.equal(await page.locator('[data-collection=squirtle] .card-role').count(),0);assert.equal(await page.locator('[data-collection=exeggutor]').count(),0);
+      assert.equal(await page.locator('[data-collection=vivero] .cost-value').innerText(),'3');
       const chosen=await page.locator('#deck-strip [data-deck-info]').evaluateAll(nodes=>nodes.map(node=>node.dataset.deckInfo));
       assert.deepEqual(await page.locator('#collection .selected').evaluateAll(nodes=>nodes.map(node=>node.dataset.collection).sort()),[...chosen].sort());
       const selectedStyle=await page.locator('[data-collection=pikachu]').evaluate(node=>({border:getComputedStyle(node).outlineColor,badge:getComputedStyle(node,'::after').content}));
@@ -24,7 +28,7 @@ export async function run({browser,url,viewports,output}){
       await page.keyboard.press('Escape');assert.equal(await page.locator('#deck-dialog').isVisible(),true);
       await page.locator('[data-deck-info=pikachu]').click();await page.locator('#card-action-info').click();await page.locator('#card-dialog').waitFor({state:'visible'});await page.locator('#card-dialog [data-close]').click();
       const before=await rects(page,['deck-scroll','save-deck-btn']);await page.locator('#collection-filters-btn').click();stable(before,await rects(page,['deck-scroll','save-deck-btn']),'filters');
-      assert.equal(await page.locator('.rarity-options').evaluate(node=>node.open),false);await page.locator('#collection-search').fill('sandshrew');assert.equal(await page.locator('[data-collection]').count(),1);
+      assert.equal(await page.locator('.rarity-options').evaluate(node=>node.open),false);await page.locator('#collection-search').fill('Princesa');assert.equal(await page.locator('[data-collection]').count(),1);assert.equal(await page.locator('[data-collection=roselia] .card-role').innerText(),'Princesa');await page.locator('#collection-search').fill('sandshrew');assert.equal(await page.locator('[data-collection]').count(),1);
       const count=await page.locator('[data-collection=sandshrew]').evaluate(node=>{const name=node.querySelector('.card-name'),quantity=node.querySelector('.card-quantity');return{below:quantity.getBoundingClientRect().top>=name.getBoundingClientRect().bottom,background:getComputedStyle(quantity).backgroundColor};});
       assert.ok(count.below);assert.equal(count.background,'rgba(0, 0, 0, 0)');await page.locator('#apply-filters-btn').click();
       await page.locator('[data-collection=sandshrew]').click();await page.locator('#card-action-toggle').click();await page.locator('#deck-replace-hint').waitFor({state:'visible'});await page.locator('[data-deck-info=pikachu]').click();

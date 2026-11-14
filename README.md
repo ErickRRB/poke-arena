@@ -8,7 +8,7 @@ Juego web de estrategia en tiempo real inspirado en las batallas de torres de Cl
 
 Armá un mazo de ocho cartas en la home. Durante la partida tenés cuatro cartas en la mano y una cola rotativa. Cada despliegue consume elixir, que se regenera hasta diez. Podés guardar cuatro mazos en el navegador.
 
-La colección tiene 105 cartas: tropas terrestres y aéreas, estructuras, invocadores y doce hechizos. Cada carta tiene funciones y estadísticas propias. Algunas unidades legendarias tienen una habilidad que consume elixir y se puede activar una vez por despliegue.
+La colección tiene 109 cartas: tropas terrestres y aéreas, estructuras, invocadores y trece hechizos. Las etiquetas muestran su [equivalente de Clash Royale](docs/CARD-EQUIVALENTS.md) cuando lo tienen, y marcan las similitudes parciales. Algunas unidades legendarias tienen una habilidad que consume elixir y se puede activar una vez por despliegue.
 
 La partida dura tres minutos. Ganás al destruir la torre central o terminar con más torres que el rival. Un empate lleva a dos minutos extra con muerte súbita y luego a un desempate por vida de las torres. El elixir se acelera en las fases finales.
 

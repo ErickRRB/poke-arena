@@ -4,6 +4,7 @@ import { SoundSystem } from './audio.js?v=29';
 import { OnlineClient, hasSavedOnlineSession } from './online.js?v=26';
 import { unpackGame, perspective } from './snapshot.js?v=26';
 import { cardArtMarkup } from './card-art.js?v=26';
+import { cardEquivalentLabel } from './card-equivalents.js?v=30';
 import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=26';
 
 const $ = id => document.getElementById(id);
@@ -60,10 +61,10 @@ function toast(message) {
 function live(message) { $('live-status').textContent = message; }
 
 function cardMarkup(key, index, source = 'card') {
-  const c = CARDS[key];
+  const c = CARDS[key],equivalent=cardEquivalentLabel(key);
   const collection=source!=='card',name=`<span class="card-name">${c.name}</span>`;
   const heading=collection?`<span class="card-heading">${name}${c.count>1?`<span class="card-quantity" aria-hidden="true"><svg><use href="#i-units"/></svg>×${c.count}</span>`:''}</span>`:name;
-  return `<button class="${source==='deck-info'?'deck-slot ':''}pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-${source}="${collection ? key : index}" aria-label="${c.name}, ${RARITIES[c.rarity]}, ${c.cost} de elixir, ${c.role}${c.count>1?`, ${c.count} unidades`:''}" ${collection?'aria-haspopup="dialog" aria-expanded="false"':'aria-pressed="false"'}><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${!collection ? `<span class="card-key">${index + 1}</span>` : ''}${cardArtMarkup(key)}${heading}${source==='deck-info'?'':`<span class="card-role">${c.role}</span>`}</button>`;
+  return `<button class="${source==='deck-info'?'deck-slot ':''}pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-${source}="${collection ? key : index}" aria-label="${c.name}, ${RARITIES[c.rarity]}, ${c.cost} de elixir${equivalent?`, ${equivalent}`:''}${c.count>1?`, ${c.count} unidades`:''}" ${collection?'aria-haspopup="dialog" aria-expanded="false"':'aria-pressed="false"'}><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${!collection ? `<span class="card-key">${index + 1}</span>` : ''}${cardArtMarkup(key)}${heading}${source==='deck-info'||!equivalent?'':`<span class="card-role">${equivalent}</span>`}</button>`;
 }
 function renderMenuDeck(){
   renderDeckSlots();
@@ -274,13 +275,13 @@ function renderCollection() {
   const focused=document.activeElement,reference=$('collection').contains(focused)||$('deck-strip').contains(focused)?focusReference(focused):null;
   renderDeckStrip();
   const term=($('collection-search')?.value||'').toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,''),rarity=$('rarity-filter')?.value||'',role=$('role-filter')?.value||'',order=$('collection-sort').value;
-  const keys=Object.keys(CARDS).filter(k=>{const c=CARDS[k],text=`${c.name} ${c.role} ${c.move}`.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');return !c.token&&(!rarity||c.rarity===rarity)&&(!role||(role==='spell'?c.spell:role==='structure'?c.structure:role==='building'?c.building:role==='summon'?c.summon||c.deathSpawn:!c.spell&&!c.structure))&&text.includes(term);});
+  const keys=Object.keys(CARDS).filter(k=>{const c=CARDS[k],text=`${c.name} ${cardEquivalentLabel(k)} ${c.role} ${c.move}`.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');return !c.token&&(!rarity||c.rarity===rarity)&&(!role||(role==='spell'?c.spell:role==='structure'?c.structure:role==='building'?c.building:role==='summon'?c.summon||c.deathSpawn:!c.spell&&!c.structure))&&text.includes(term);});
   const byName=(a,b)=>CARDS[a].name.localeCompare(CARDS[b].name,'es');
   if(order==='elixir-asc')keys.sort((a,b)=>CARDS[a].cost-CARDS[b].cost||byName(a,b));
   else if(order==='elixir-desc')keys.sort((a,b)=>CARDS[b].cost-CARDS[a].cost||byName(a,b));
   else if(order==='name')keys.sort(byName);
   $('collection').innerHTML=keys.map(k=>`<div class="collection-entry">${cardMarkup(k,0,'collection')}</div>`).join('')||'<div class="collection-empty"><svg aria-hidden="true"><use href="#i-search"/></svg><p role="status">No hay cartas con esos filtros.</p><button class="secondary-btn" data-reset-filters>Ver todas las cartas</button></div>';
-  for(const el of $('collection').querySelectorAll('[data-collection]')){const c=CARDS[el.dataset.collection],included=deckDraft.includes(el.dataset.collection);el.classList.toggle('selected',included);el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir, ${c.role}${c.count>1?`, ${c.count} unidades`:''}${included?', en mazo':''}, acciones de la carta`);}
+  for(const el of $('collection').querySelectorAll('[data-collection]')){const c=CARDS[el.dataset.collection],equivalent=cardEquivalentLabel(el.dataset.collection),included=deckDraft.includes(el.dataset.collection);el.classList.toggle('selected',included);el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir${equivalent?`, ${equivalent}`:''}${c.count>1?`, ${c.count} unidades`:''}${included?', en mazo':''}, acciones de la carta`);}
   $('collection-filters-btn').classList.toggle('has-filters',!!term||!!rarity||!!role||order!=='elixir-asc');
   $('deck-average').textContent=deckDraft.length?(deckDraft.reduce((a,k)=>a+CARDS[k].cost,0)/deckDraft.length).toFixed(1).replace('.',','):'—';
   $('save-deck-btn').disabled=false;
@@ -347,13 +348,13 @@ function toggleDeckCard(key){
 function renderCardInfo(key){
   const c=CARDS[key];inspectedCard=key;
   audioInit();
-  $('card-info-name').textContent=c.name;$('card-info-type').textContent=`${c.label} · ${RARITIES[c.rarity]}`;$('card-info-role').textContent=c.role;$('card-info-cost').textContent=c.cost;
+  $('card-info-name').textContent=c.name;$('card-info-type').textContent=`${c.label} · ${RARITIES[c.rarity]}`;$('card-info-role').textContent=cardEquivalentLabel(key)||c.move||c.name;$('card-info-cost').textContent=c.cost;
   $('card-info-art').innerHTML=cardArtMarkup(key);$('card-dialog').dataset.rarity=c.rarity;
   $('card-info-art').style.setProperty('--card-tint',c.color);
   $('card-info-move').textContent=c.move||c.name;$('card-info-description').textContent=c.description;
   const number=value=>Number(value).toLocaleString('es-AR',{maximumFractionDigits:1});
   const seconds=value=>`${Number(value).toLocaleString('es-AR',{maximumFractionDigits:2})} s`,tiles=value=>`${number(value/TILE)} casillas`;
-  const targets=c.summon&&c.passive?'Invoca tropas':c.passive?'Contraataca':c.building?'Estructuras':c.rolling||c.groundOnly?'Tierra':c.spell||c.air||c.squad?'Tierra y aire':'Tierra';
+  const targets=c.spawnOnImpact||c.summon&&c.passive?'Invoca tropas':c.passive?'Contraataca':c.building?'Estructuras':c.rolling||c.groundOnly?'Tierra':c.spell||c.air||c.squad?'Tierra y aire':'Tierra';
   const stats=[],extraStats=[],traits=[];
   if(c.hp)stats.push(['Puntos de vida',number(c.hp),'heart']);
   const impacts=c.bolts||c.burst||1;
@@ -374,6 +375,9 @@ function renderCardInfo(key){
   if(c.fieldDuration)stats.push(['Duración',seconds(c.fieldDuration),'duration']);
   if(c.shield)traits.push(['Escudo',number(c.shield),'shield']);
   if(c.flying)traits.push(['Desplazamiento','Vuela','move']);
+  if(c.riverJump)traits.push(['Desplazamiento','Salta el río','move']);
+  if(c.rollingShot)extraStats.push(['Recorrido de la roca',tiles(c.projectileRange),'range']);
+  if(c.knockback)extraStats.push(['Empuje',tiles(c.knockback),'effect']);
   if(c.lifetime)extraStats.push(['Duración',seconds(c.lifetime),'duration']);
   if(c.burn)extraStats.push([c.burnKind==='poison'?'Veneno':'Quemadura',`${number(c.burn)} / s`,'effect']);
   if(c.stun)extraStats.push([c.freeze?'Congelación':'Aturdimiento',seconds(c.stun),'effect']);

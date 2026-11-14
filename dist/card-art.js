@@ -26,6 +26,9 @@ for(const key of SCENE_ART)CARD_ART[key]={file:`assets/cards/${key}SceneV2.webp`
 CARD_ART.golem={file:'assets/cards/golemSceneV3.webp',columns:1,rows:1,x:0,y:0};
 CARD_ART.blastoise={file:'assets/cards/blastoise-mobile-v1.png',columns:1,rows:1,x:0,y:0};
 CARD_ART.log={file:'assets/cards/flame-wheel-v1.png',columns:1,rows:1,x:0,y:0};
+for(const key of ['rapidash','roselia','graveler','nuzleaf','sneaselAmbush']){
+  CARD_ART[key]={file:`assets/cards/${key}-v1.webp`,columns:1,rows:1,x:0,y:0};
+}
 export function cardArtMarkup(key) {
   const art = CARD_ART[key];
   if (!art) return '';

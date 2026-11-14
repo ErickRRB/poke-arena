@@ -1,5 +1,10 @@
 // Technical role review; kept separate from product descriptions.
 export const CARD_REVIEW = {
+  rapidash:'Bote: Corre hacia las estructuras y salta el río. Referencia: Montapuercos. 4 de elixir.',
+  roselia:'Danza pétalo: Dispara en área desde fuera del alcance de las torres. Referencia: Princesa. 3 de elixir.',
+  graveler:'Lanzarrocas: La roca rueda en línea y empuja a las tropas terrestres ligeras. Referencia: Lanzarrocas (Bowler). 5 de elixir.',
+  nuzleaf:'Semilladora: Un tirador frágil dispara rápidamente a tierra y aire. Referencia: Duende lanzadardos. 3 de elixir.',
+  sneaselAmbush:'Ataque sorpresa: Una cápsula viaja hasta la zona elegida y libera tres Sneasel. Referencia: Barril de duendes. 3 de elixir.',
   "pikachu": "Doble Impactrueno: Descarga electricidad al aparecer y aturde con dos rayos. Referencia: Mago eléctrico. 4 de elixir.",
   "squirtle": "Burbuja: Dispara tres burbujas seguidas al mismo objetivo. Referencia: Tirador. 2 de elixir.",
   "charmander": "Ascuas: Lanza ascuas que explotan en área y dejan quemadura. Referencia: Mago de área. 3 de elixir.",
@@ -88,7 +93,7 @@ export const CARD_REVIEW = {
   "rayquaza": "Pulso dragón: Dispara un rayo perforante y puede avanzar con un golpe en área. Referencia: Volador. 8 de elixir.",
   "centralElectrode": "Central de energía: Libera Voltorb periódicamente y deja uno más al caer. Referencia: Horno adaptado a Voltorb. 5 de elixir.",
   "madriguera": "Refugio de la camada: Libera parejas de Nidoran y deja una última pareja al caer. Referencia: Choza de refuerzos. 5 de elixir.",
-  "vivero": "Semillero: Libera parejas de Exeggcute en fila y deja otra pareja al caer. Referencia: Invocador inmóvil a distancia. 4 de elixir.",
+  "vivero": "Semillero: Libera parejas de Exeggcute con vida mínima y deja cuatro al caer. Referencia: Lápida. 3 de elixir.",
   "regice": "Viento hielo: Defiende desde el suelo con hielo que daña en área y ralentiza. Referencia: Estructura de control. 4 de elixir.",
   "duskull": "Tinieblas: Ataca a distancia e invoca Shuppet durante el combate y al caer. Referencia: Bruja con refuerzos al caer. 5 de elixir.",
   "raichu": "Puño trueno: Prepara un golpe lento que hace mucho daño a un solo rival. Referencia: Antitanques frágil de golpe lento. 3 de elixir.",
