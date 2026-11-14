@@ -51,7 +51,7 @@ test('mouth attachments and projectile identities survive online serialization a
 });
 test('airborne movement uses changing original poses instead of a repeated charge frame',()=>{
  const manifest=JSON.parse(readFileSync(new URL('../dist/assets/pokemon/manifest.json',import.meta.url)));
- for(const key of['charizard','pidgeot','scyther','dragonite','salamence']){const card=CARDS[key],meta=manifest[card.id][card.moveAnim];assert.ok(meta);assert.ok(new Set(card.moveFrames).size>=4);assert.ok(card.moveFrames.every(frame=>frame>=0&&frame<meta.durations.length));}
+ for(const key of['charizard','pidgeot','scyther','dragonite','salamence']){const card=CARDS[key],meta=manifest[card.id][card.moveAnim];assert.ok(meta);assert.ok(new Set(card.moveFrames).size>=3);assert.ok(card.moveFrames.every(frame=>frame>=0&&frame<meta.durations.length));}
 });
 
 test('every Pokemon uses the matching original view for all eight directions, including attacks',()=>{

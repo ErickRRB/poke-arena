@@ -55,7 +55,7 @@ test('Blastoise walks, keeps its health over time and cannot lure a building see
 });
 
 test('an area projectile reports the exact ground center and radius it damaged, including the other perspective',()=>{
-  const{game,events}=fresh(),source=game.spawn('roselia',0,300,560,0),target=game.spawn('grimer',1,300,300,0),inside=game.spawn('grimer',1,335,300,0),outside=game.spawn('grimer',1,355,300,0);
+  const{game,events}=fresh(),source=game.spawn('roselia',0,300,520,0),target=game.spawn('grimer',1,300,300,0),inside=game.spawn('grimer',1,335,300,0),outside=game.spawn('grimer',1,355,300,0);
   for(const u of[target,inside,outside])u.card={...u.card,speed:0,damage:0,passive:true};game.attack(source,target);source.cooldown=100;run(game,2);
   assert.equal(target.maxHp-target.hp,CARDS.roselia.damage);assert.equal(inside.maxHp-inside.hp,CARDS.roselia.damage);assert.equal(outside.hp,outside.maxHp);
   const hit=events.find(e=>e.type==='hit'&&e.key==='roselia');assert.equal(hit.radius,48);assert.equal(hit.groundX,target.x);assert.equal(hit.groundY,target.y);assert.equal(hit.art,'petalShot');

@@ -95,6 +95,7 @@
     "334": "assets/audio/voices/334.mp3",
     "353": "assets/audio/voices/353.mp3",
     "355": "assets/audio/voices/355.mp3",
+    "356": "assets/audio/voices/356.mp3",
     "359": "assets/audio/voices/359.mp3",
     "373": "assets/audio/voices/373.mp3",
     "376": "assets/audio/voices/376.mp3",
@@ -119,5 +120,13 @@
     "swish-2": "assets/audio/foley/swish-2.ogg",
     "cloth": "assets/audio/foley/cloth.ogg",
     "water": "assets/audio/foley/water.wav"
+  },
+  "combat": {
+    "6-impact": "assets/audio/combat/006-flame-impact.wav",
+    "6-release": "assets/audio/combat/006-flame-release.wav",
+    "25-impact": "assets/audio/combat/025-electric-impact.wav",
+    "25-release": "assets/audio/combat/025-electric-release.wav",
+    "215-impact": "assets/audio/combat/215-claw-impact.wav",
+    "215-release": "assets/audio/combat/215-claw-release.wav"
   }
 }

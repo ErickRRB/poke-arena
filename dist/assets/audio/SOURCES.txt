@@ -7,3 +7,6 @@ Anime deployment voices: HQ Pokemon Anime Cries Gen 1-5, Galladito/RojoY, public
 https://forums.pokemmo.com/index.php?/topic/86447-mod-hq-pokemon-anime-cries-gen-1-5/
 https://www.mediafire.com/file/bwtoaxbvt2fnage/RealCries.zip/file
 Deployment uses numbered anime WAV recordings converted to mono MP3, including Forretress (205). Digital game cries and generated tones are not used as deployment voices. Original Pokemon character recordings belong to their respective owners.
+
+2026-11-14: seven additional short species voices (75,78,112,215,274,315,356) converted from the same locally archived RealCries.zip fan compilation.
+Combat release/impact WAVs for 6,25,215: original deterministic procedural sound synthesis created for this project, seed 14112026. No sampled recordings or cloned voices.

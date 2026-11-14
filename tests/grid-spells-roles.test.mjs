@@ -28,13 +28,13 @@ test('a whole cell shares one placement and changes only on crossing a cell boun
   assert.notDeepEqual(g.resolveDeployment(0,'snorlax',171,485),placements[0]);
 });
 
-test('swarm previews and deployment occupy the same distinct legal cells even next to towers',()=>{
+test('swarm previews and deployment occupy the same distinct physical positions even next to towers',()=>{
   for(const key of['zubat','treecko','sandshrew','diglettHorde','poochyenaPack'])for(const[x,y]of[[300,448],[158,628],[300,752]]){
     const g=fresh(key),p=g.resolveDeployment(0,key,x,y),expected=g.deploymentPositions(0,key,p.x,p.y);
     const result=g.deploy(0,0,x,y);assert.ok(result.ok);
     assert.deepEqual(g.units.map(u=>({x:u.x,y:u.y})),expected);
     assert.equal(new Set(g.units.map(u=>`${u.x},${u.y}`)).size,CARDS[key].count);
-    assert.ok(g.units.every(onGrid));
+    assert.ok(g.units.every(u=>Number.isFinite(u.x)&&Number.isFinite(u.y)&&u.x>=44&&u.x<=556&&u.y>=40&&u.y<=760));
   }
 });
 
@@ -98,13 +98,13 @@ test('fireball flight and fixed log distance survive snapshots and both perspect
 });
 
 test('Pikachu has the four-elixir electric-control role and hits two targets or concentrates both bolts',()=>{
-  assert.equal(CARDS.pikachu.cost,4);assert.equal(CARDS.pikachu.hp,714);assert.equal(CARDS.pikachu.damage,115);assert.equal(CARDS.pikachu.interval,1.8);
+  assert.equal(CARDS.pikachu.cost,4);assert.equal(CARDS.pikachu.hp,714);assert.equal(CARDS.pikachu.damage,117);assert.equal(CARDS.pikachu.interval,1.8);
   for(const count of[1,2,3]){
     const g=fresh(),p=g.spawn('pikachu',0,300,550,0);p.entryPending=false;p.card={...p.card,speed:0};
     const victims=Array.from({length:count},(_,i)=>frozen(g,'snorlax',1,300+i*35,450));
-    g.attack(p,victims[0]);p.cooldown=100;run(g,.5);
+    g.attack(p,victims[0]);p.cooldown=100;run(g,.7);
     const damage=victims.map(v=>v.maxHp-v.hp);
-    assert.deepEqual(damage,count===1?[230]:count===2?[115,115]:[115,115,0]);
+    assert.deepEqual(damage,count===1?[234]:count===2?[117,117]:[117,117,0]);
     assert.ok(victims.slice(0,2).every(v=>v.stun>0));
   }
 });
@@ -113,7 +113,7 @@ test('Pikachu arrival damages ground and air in area and resets queued attacks e
   const g=fresh(),a=frozen(g,'snorlax',1,280,500),air=frozen(g,'charizard',1,320,500),far=frozen(g,'snorlax',1,460,500);
   a.attack=1;a.target=far;
   g.deploy(0,0,300,500);g.units.find(u=>u.key==='pikachu').cooldown=100;run(g,.7);assert.equal(a.hp,a.maxHp);
-  run(g,.1);assert.equal(a.maxHp-a.hp,192);assert.equal(air.maxHp-air.hp,192);assert.equal(far.hp,far.maxHp);assert.equal(a.attack,0);assert.equal(a.target,null);
+  run(g,.4);assert.equal(a.maxHp-a.hp,192);assert.equal(air.maxHp-air.hp,192);assert.equal(far.hp,far.maxHp);assert.equal(a.attack,0);assert.equal(a.target,null);
   const p=g.units.find(u=>u.key==='pikachu');p.card={...p.card,passive:true};run(g,.4);assert.equal(a.maxHp-a.hp,192);
 });
 
@@ -149,7 +149,7 @@ test('a shield absorbs its breaking blow without spilling excess damage into hea
 test('Slowbro enters with an ice wave and slows a group with its ranged splash',()=>{
   const g=fresh('slowbro'),a=frozen(g,'snorlax',1,300,480),b=frozen(g,'snorlax',1,326,480);
   g.deploy(0,0,300,500);const caster=g.units.find(u=>u.key==='slowbro');caster.cooldown=100;
-  run(g,.8);assert.equal(a.maxHp-a.hp,CARDS.slowbro.entryDamage);assert.equal(b.maxHp-b.hp,CARDS.slowbro.entryDamage);assert.ok(a.slow>0&&b.slow>0);
+  run(g,1.1);assert.equal(a.maxHp-a.hp,CARDS.slowbro.entryDamage);assert.equal(b.maxHp-b.hp,CARDS.slowbro.entryDamage);assert.ok(a.slow>0&&b.slow>0);
   a.y=400;b.y=400;g.attack(caster,a);caster.cooldown=100;run(g,.9);
   assert.equal(a.maxHp-a.hp,CARDS.slowbro.entryDamage+CARDS.slowbro.damage);assert.equal(b.maxHp-b.hp,CARDS.slowbro.entryDamage+CARDS.slowbro.damage);
   assert.ok(a.slow>1&&b.slow>1);

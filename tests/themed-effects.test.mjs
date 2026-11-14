@@ -37,7 +37,7 @@ test('one deployment indicator serves every member of swarms, mixed squads and p
     assert.equal(markers(renderer,game)[0].progress,0,key);
     game.step(.1);
     assert.ok(markers(renderer,game)[0].progress>0,key);
-    for(let i=0;i<8;i++)game.step(.1);
+    for(let i=0;i<11;i++)game.step(.1);
     assert.equal(markers(renderer,game).length,0,key);
   }
 });
@@ -96,7 +96,7 @@ test('the summon meter starts empty for the first short cycle and resets to the 
 test('a deployment release waits for readiness and creates no expanding ring',()=>{
   const{game,renderer,ctx,calls}=setup();deploy(game,'zubat');
   renderer.drawEffects(ctx,.5);assert.equal(calls.length,0);
-  renderer.drawEffects(ctx,.26);assert.ok(calls.some(c=>c.method==='drawImage'));
+  renderer.drawEffects(ctx,.51);assert.ok(calls.some(c=>c.method==='drawImage'));
   assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
 });
 
@@ -126,7 +126,7 @@ test('Pikachu entry, attack charge and missile impacts use sparks instead of loa
 });
 
 test('Rueda Fuego preserves the saved card key and sweep while replacing the static placeholder with animated attack assets',()=>{
- assert.equal(CARDS.log.name,'Rueda Fuego');assert.equal(CARDS.log.cost,2);assert.equal(CARDS.log.damage,290);assert.equal(cardPlaceholder('log'),false);
+ assert.equal(CARDS.log.name,'Rueda Fuego');assert.equal(CARDS.log.cost,2);assert.equal(CARDS.log.damage,268);assert.equal(cardPlaceholder('log'),false);
  const{game,renderer,ctx,calls}=setup();deploy(game,'log',300,520);
  const spell=game.spells[0];assert.equal(spell.key,'log');const before=spell.y;game.step(.1);assert.ok(spell.y<before);
  const frames=new Set();

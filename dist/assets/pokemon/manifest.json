@@ -12220,6 +12220,127 @@
       "shadow": "assets/pokemon/355/Charge-Shadow.png"
     }
   },
+  "356": {
+    "Walk": {
+      "width": 40,
+      "height": 48,
+      "durations": [
+        8,
+        12,
+        8,
+        12
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/356/Walk-Anim.png",
+      "shadow": "assets/pokemon/356/Walk-Shadow.png"
+    },
+    "Idle": {
+      "width": 40,
+      "height": 48,
+      "durations": [
+        40,
+        8,
+        12,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/356/Idle-Anim.png",
+      "shadow": "assets/pokemon/356/Idle-Shadow.png"
+    },
+    "Attack": {
+      "width": 72,
+      "height": 88,
+      "durations": [
+        2,
+        6,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 3,
+      "file": "assets/pokemon/356/Attack-Anim.png",
+      "shadow": "assets/pokemon/356/Attack-Shadow.png"
+    },
+    "Hurt": {
+      "width": 48,
+      "height": 64,
+      "durations": [
+        2,
+        8
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/356/Hurt-Anim.png",
+      "shadow": "assets/pokemon/356/Hurt-Shadow.png"
+    },
+    "Shoot": {
+      "width": 48,
+      "height": 56,
+      "durations": [
+        2,
+        6,
+        1,
+        1,
+        4,
+        4,
+        2,
+        4,
+        2,
+        2
+      ],
+      "hitFrame": 1,
+      "file": "assets/pokemon/356/Shoot-Anim.png",
+      "shadow": "assets/pokemon/356/Shoot-Shadow.png"
+    },
+    "Double": {
+      "width": 72,
+      "height": 80,
+      "durations": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 0,
+      "file": "assets/pokemon/356/Double-Anim.png",
+      "shadow": "assets/pokemon/356/Double-Shadow.png"
+    },
+    "Charge": {
+      "width": 40,
+      "height": 48,
+      "durations": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "hitFrame": 5,
+      "file": "assets/pokemon/356/Charge-Anim.png",
+      "shadow": "assets/pokemon/356/Charge-Shadow.png"
+    }
+  },
   "359": {
     "Walk": {
       "width": 40,

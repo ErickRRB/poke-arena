@@ -6,7 +6,7 @@ export const TEST_SUITES=Object.freeze({
   online:['online.test.mjs','online-client.test.mjs','realtime-match.test.mjs'],
   server:['media-route.test.mjs'],
   audio:['audio-recovery.test.mjs'],
-  balance:['balance.test.mjs','balance-sandbox.test.mjs','thresholds.test.mjs','balance-role-audit.test.mjs'],
+  balance:['balance.test.mjs','balance-sandbox.test.mjs','thresholds.test.mjs','balance-role-audit.test.mjs','current-reference.test.mjs'],
   tooling:['test-suites.test.mjs'],
   sandbox:['sandbox.test.mjs'],
 });

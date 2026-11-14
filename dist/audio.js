@@ -83,6 +83,7 @@ export class SoundSystem {
   }
   recorded(style,x,impact,shot,id){
     style = ({powder:'leaf',poison:'confusion',egg:'rock',song:'confusion',eruption:'flame',horn:'punch',lick:'shadow'})[style] || style;
+    if(id&&this.sample(`combat:${id}-${impact?'impact':'release'}`,x,{volume:impact?.19:.15,maxDuration:impact?.35:.55,rate:1+(shot%2)*.025}))return true;
     if(!this.buffers.has('foley:punch-1'))return false;
     const play=(key,options={})=>this.sample(`foley:${key}`,x,options),pan=Math.max(-.65,Math.min(.65,(x-300)/400));
     if(style==='punch'){play(`punch-${shot%3+1}`,{volume:.34,rate:1+shot*.045,maxDuration:.2});}
@@ -166,14 +167,17 @@ export class SoundSystem {
     if(e.type==='ability'){this.play(e.unit.card.style,e.unit.x,true,0,e.unit.card.id);this.sample('foley:bell',e.unit.x,{volume:.2,rate:.65,maxDuration:.75});}
     if(e.type==='transform')this.play('shadow',e.unit.x);
     if(e.type==='attackRelease'){const id=e.attacker.card?.id||e.attacker.guard?.id;this.play(e.style,e.from.x,false,e.shot,id);}
-    if(e.type==='hit'&&['bubble','hydro','rock','ember','coin','magnet','ice','confusion','aura','leaf','poison','shadow'].includes(e.style))this.play(e.style,e.x,true);
+    if(e.type==='hit'&&['bubble','hydro','rock','ember','flame','slash','coin','magnet','ice','confusion','aura','leaf','poison','shadow'].includes(e.style))this.play(e.style,e.x,true,0,CARDS[e.key]?.id);
+    if(e.type==='beam'&&e.key==='pikachu'&&!e.shot)this.play('lightning',e.to.x,true,0,25);
     if(e.type==='blink')this.play('shadow',e.from.x);
     if(e.type==='leap')this.play('dash',e.unit.x);
     if(e.type==='deploy'){this.cry(CARDS[e.key]?.id,e.x);this.sample('foley:cloth',e.x,{volume:.06,rate:1,maxDuration:.15});}
+    if(e.type==='cast'&&e.key==='sneaselAmbush')this.sample('foley:swish-1',e.x,{volume:.18,rate:.85,maxDuration:.4,delay:CARDS.sneaselAmbush.castDelay});
     if(e.type==='structureDown'||e.type==='towerDown'){this.noise(.5,480,.12);this.tone(80,.5,'triangle',.09,-45);}
     if(e.type==='spellHit'){
-      const style={pinMissile:'leaf',lightning:'lightning',hyperBeam:'aura',blizzard:'ice',spikes:'rock',stealthRock:'rock',whirlpool:'hydro',nightmare:'shadow',earthquake:'slam',thunder:'lightning'}[e.key]||'ember';
+      const style={pinMissile:'leaf',lightning:'lightning',hyperBeam:'aura',blizzard:'ice',spikes:'rock',stealthRock:'rock',whirlpool:'hydro',nightmare:'shadow',sneaselAmbush:'shadow',log:'flame',earthquake:'slam',thunder:'lightning'}[e.key]||'ember';
       this.play(style,e.x,true);
+      if(e.key==='sneaselAmbush'){this.cry(215,e.x);this.sample('foley:bell',e.x,{volume:.1,rate:1.4,maxDuration:.25});}
     }
     if(e.type==='step'&&e.unit.key==='snorlax'&&this.ctx){const now=this.ctx.currentTime;if(now-(this.last.get('step')??-1)>.25){this.last.set('step',now);this.tone(60,.07,'sine',.035,-20,(e.unit.x-300)/500);}}
   }

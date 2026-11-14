@@ -32,7 +32,7 @@ test('small single troops, including Bandit and Princess, have readable silhouet
 });
 test('a summoner killed by damage over time cannot create its regular wave after dying',()=>{
   const{g}=setup(),unit=g.spawn('duskull',0,300,500,0);unit.hp=1;unit.summonClock=.5;unit.burn={remaining:3,tick:.5,damage:12,team:1,kind:'fire'};
-  run(g,.52);assert.equal(unit.hp,0);assert.equal(g.units.filter(u=>u.key==='shuppetToken').length+g.reinforcements.filter(job=>job.key==='shuppetToken').length,2);
+  run(g,.52);assert.equal(unit.hp,0);assert.equal(g.units.filter(u=>u.parentId===unit.id).length+g.reinforcements.filter(job=>job.parentId===unit.id).length,0);
 });
 test('freezing a summoned unit does not extend its natural lifetime',()=>{
   const{g}=setup(),unit=g.spawn('shuppetToken',0,300,500,0);g.damage(unit,45,1,{stun:3,freeze:3});run(g,16.5);assert.equal(unit.hp,0);assert.ok(!g.units.includes(unit));
