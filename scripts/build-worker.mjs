@@ -1,9 +1,11 @@
-import{readFile,writeFile,mkdir,readdir}from'node:fs/promises';
+import{readFile,writeFile,mkdir,readdir,unlink}from'node:fs/promises';
 import path from'node:path';
 import{CARDS,DEFAULT_DECK}from'../dist/engine.js';
 const root=path.resolve(import.meta.dirname,'..'),dist=path.join(root,'dist');
 const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.svg':'image/svg+xml','.woff2':'font/woff2','.ogg':'audio/ogg','.mp3':'audio/mpeg','.wav':'audio/wav','.txt':'text/plain','.xml':'text/xml'};
 const assets={},remoteAssets={},spriteCommit='576a7f13b5b7f6ad09a5877d5ae6b2d33458c245',artCommit='1b3b7c0a538dd2226ae08d0d2f8955125075bbd4';
+// Large illustration originals stay byte-identical at this immutable public source.
+const illustrationSource='https://raw.githubusercontent.com/ErickRRB/poke-arena/c0b5ed90c5de98021b879dc227f5b5736d0f73e5/dist';
 const audioManifest=JSON.parse(await readFile(path.join(dist,'assets/audio/manifest.json'),'utf8'));
 const usedAudio=new Set(Object.values(audioManifest).flatMap(group=>Object.values(group)).map(file=>'/'+file));
 const animations=JSON.parse(await readFile(path.join(dist,'assets/pokemon/manifest.json'),'utf8'));
@@ -20,7 +22,11 @@ async function visit(dir){
     if(match&&!embedded.has(key)&&!(defaultIds.has(Number(match[1]))&&match[2]==='art.png')){
       const[id,name]=match.slice(1);
       remoteAssets[key]=name==='art.png'?`https://raw.githubusercontent.com/PokeAPI/sprites/${artCommit}/sprites/pokemon/other/official-artwork/${id}.png`:name==='card.png'?`https://raw.githubusercontent.com/PokeAPI/sprites/${artCommit}/sprites/pokemon/${id}.png`:`https://raw.githubusercontent.com/PMDCollab/SpriteCollab/${spriteCommit}/sprite/${id.padStart(4,'0')}/${name}`;
-    }else assets[key]=[mime[path.extname(file)]||'application/octet-stream',(await readFile(file)).toString('base64')];
+    }else{
+      const data=await readFile(file);
+      if(path.extname(file)==='.png'&&data.length>=512*1024)remoteAssets[key]=illustrationSource+key;
+      else assets[key]=[mime[path.extname(file)]||'application/octet-stream',data.toString('base64')];
+    }
   }
 }
 await visit(dist);
@@ -35,8 +41,11 @@ for(const [key,value]of Object.entries(assets)){
 }
 if(chunkBytes)assetChunks.push(chunk);
 for(const[index,part]of assetChunks.entries())await writeFile(path.join(dist,'server',`asset-chunk-${index}.js`),'export default '+JSON.stringify(part)+';\n');
+for(const file of await readdir(path.join(dist,'server'))){const match=file.match(/^asset-chunk-(\d+)\.js$/);if(match&&Number(match[1])>=assetChunks.length)await unlink(path.join(dist,'server',file));}
 const assetImports=assetChunks.map((_,index)=>`import arenaPart${index} from './asset-chunk-${index}.js';`).join('\n');
 const source=`${assetImports}\n${engine}\n${snapshot}\n${apiSource}\nconst arenaAssets={${assetChunks.map((_,index)=>`...arenaPart${index}`).join(',')}};\nconst arenaRemoteAssets=${JSON.stringify(remoteAssets)};\nconst arenaAnimations=${JSON.stringify(animations)};\nexport default {async fetch(request,env,ctx){const url=new URL(request.url);if(url.pathname.startsWith('/api/'))return api(request,env,arenaAnimations);if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405});const key=url.pathname==='/'?'/index.html':url.pathname,asset=arenaAssets[key];if(!asset){const upstream=arenaRemoteAssets[key];if(!upstream)return new Response('No encontrado',{status:404});const origin=await fetch(upstream);if(!origin.ok)return new Response('Recurso no disponible',{status:502});const response=new Response(origin.body,{headers:{'Content-Type':'image/png','Cache-Control':'public, max-age=31536000, immutable','X-Content-Type-Options':'nosniff'}});return request.method==='HEAD'?new Response(null,{headers:response.headers}):response;}const bytes=Uint8Array.from(atob(asset[1]),c=>c.charCodeAt(0));return new Response(request.method==='HEAD'?null:bytes,{headers:{'Content-Type':asset[0],'Cache-Control':url.pathname==='/'||/\\.(html|js|css|json)$/.test(url.pathname)?'no-cache':'public, max-age=86400','X-Content-Type-Options':'nosniff'}});}};\n`;
 await mkdir(path.join(dist,'server'),{recursive:true});await writeFile(path.join(dist,'server/index.js'),source);
+const workerBytes=Buffer.byteLength(source)+assetChunks.reduce((sum,part)=>sum+Buffer.byteLength('export default '+JSON.stringify(part)+';\n'),0);
+if(workerBytes>=60*1024*1024)throw Error('Hosted Worker must stay below 60 MiB uncompressed; got '+workerBytes+' bytes.');
 await mkdir(path.join(dist,'.openai'),{recursive:true});await writeFile(path.join(dist,'.openai/hosting.json'),await readFile(path.join(root,'.openai/hosting.json')));
-console.log(`Worker built: ${Object.keys(assets).length} embedded assets, ${Object.keys(remoteAssets).length} pinned CDN assets, ${(Buffer.byteLength(source)/1024/1024).toFixed(1)} MiB entrypoint, ${assetChunks.length} asset modules.`);
+console.log(`Worker built: ${Object.keys(assets).length} embedded assets, ${Object.keys(remoteAssets).length} pinned CDN assets, ${(workerBytes/1024/1024).toFixed(1)} MiB total, ${assetChunks.length} asset modules.`);
