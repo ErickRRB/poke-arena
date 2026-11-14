@@ -1,0 +1,60 @@
+{
+  "result": "passed",
+  "checkpoint": "6dfb7c3b05a9e0a7bfb37e717d471bf3bfeefb4a",
+  "capturedAt": "2026-11-14T21:44:31.813Z",
+  "browser": "157.0.4341.46",
+  "sourceReport": {
+    "file": "verification.json",
+    "sha256": "328c9e25888d5a1ec8400bcdac6a769b966eae58e7b6f4c68355652368f9b70e"
+  },
+  "cases": 30,
+  "passed": 306,
+  "total": 306,
+  "groups": [
+    {
+      "key": "roselia",
+      "cases": 6,
+      "passed": 66,
+      "total": 66,
+      "failedChecks": []
+    },
+    {
+      "key": "charmander",
+      "cases": 6,
+      "passed": 66,
+      "total": 66,
+      "failedChecks": []
+    },
+    {
+      "key": "log",
+      "cases": 6,
+      "passed": 66,
+      "total": 66,
+      "failedChecks": []
+    },
+    {
+      "key": "raltsHut",
+      "cases": 6,
+      "passed": 54,
+      "total": 54,
+      "failedChecks": []
+    },
+    {
+      "key": "centralElectrode",
+      "cases": 6,
+      "passed": 54,
+      "total": 54,
+      "failedChecks": []
+    }
+  ],
+  "screenshots": 33,
+  "verifiedScreenshotHashes": 33,
+  "productSourceFiles": 407,
+  "engineURLs": [
+    "/engine.js?v=26"
+  ],
+  "errors": [],
+  "missingRequests": [],
+  "invalidRequests": [],
+  "findings": []
+}
