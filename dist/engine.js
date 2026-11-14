@@ -758,7 +758,11 @@ export class Game {
     const reach=attackReach(a,target);
     if(distance(a,target)>reach+(card?.nativeReference?36:card?card.range<50?12:55:36))return;
     this.face(a,target);
-    const from=this.muzzle(a,shot),to=aimPoint(target),amount=charged?(card?.chargeDamage??card.damage*2):(card?.damage??a.damage);
+    // Due releases drain before actor clocks decrement. Sample the contact
+    // pose explicitly so the projectile does not leave the previous windup.
+    const contactAt=(a.attackWindup??profile.windup??a.windup??.18)+shot*(profile.burstSpacing||0);
+    const poseDuration=Math.max(a.attackDuration||profile.attackDuration||.75,contactAt+1e-7);
+    const from=this.muzzle({...a,attackDuration:poseDuration,attack:poseDuration-contactAt},shot),to=aimPoint(target),amount=charged?(card?.chargeDamage??card.damage*2):(card?.damage??a.damage);
     this.emit('attackRelease',{attacker:a,target,key:a.key||a.guard.id,style,from,to,shot,charged});
     if(card?.rollingShot){
       this.projectiles.push({id:a.id+':'+job.seq+':'+shot,key:a.key,sourceId:a.id,sourceKey:a.key,target,team:a.team,x:a.x,y:a.y,startX:a.x,startY:a.y,dx:a.dx,dy:a.dy,totalDistance:card.projectileRange,travelled:0,speed:card.projectileSpeed,damage:amount,style:'rock',rolling:true,shotRadius:card.shotRadius,knockback:card.knockback,hitIds:[],life:card.projectileRange/card.projectileSpeed+1});
