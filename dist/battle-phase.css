@@ -1,4 +1,6 @@
 /* Phase feedback changes paint only; the clock, hand and arena keep their boxes. */
+.battle-hud .battle-clock {width:76px;min-width:76px;max-width:76px;height:44px;flex:0 0 76px}
+.battle-hud #timer {width:100%;min-width:0}
 .battle-console .energy-section {grid-template-columns:46px minmax(0,1fr) 44px}
 .energy-boost-slot {display:grid;place-items:center;width:44px;height:22px}
 .battle-console #boost {
