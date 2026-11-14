@@ -8,6 +8,12 @@ export async function run({browser,url,viewports,output}){
    await page.goto(url);await ready(page);await page.locator('#start-btn').click();
    await page.evaluate(()=>{__qa.game.aiEnabled=false;__qa.game.step=()=>{};});
    const before=await rects(page,ids),rows=[];
+   let releaseFont;const fontGate=new Promise(resolve=>releaseFont=resolve);
+   await page.route('**/assets/fonts/font-1.ttf?phase-test=late',async route=>{await fontGate;await route.continue();});
+   await page.evaluate(()=>{const font=new FontFace('LateBattleClock',"url('/assets/fonts/font-1.ttf?phase-test=late')",{weight:'600'});document.fonts.add(font);document.getElementById('battle-clock').style.fontFamily="'LateBattleClock',monospace";window.__lateClockFont=font.load();});
+   stable(before,await rects(page,ids),'clock font pending');releaseFont();await page.evaluate(()=>window.__lateClockFont);
+   stable(before,await rects(page,ids),'clock font loaded');await page.locator('#battle-clock').evaluate(el=>el.style.removeProperty('font-family'));
+   stable(before,await rects(page,ids),'clock font restored');
    for(const phase of[
     {name:'normal',time:100,overtime:false,m:1},
     {name:'double',time:60,overtime:false,m:2},
@@ -49,7 +55,7 @@ export async function run({browser,url,viewports,output}){
    });for(const row of restored){assert.equal(row.m,row.time>60?2:3);assert.equal(row.badge,row.m+'×');assert.equal(row.phase,'overtime');}
    await page.locator('#again-btn').dispatchEvent('click');await page.waitForFunction(()=>document.querySelector('.energy-section').dataset.elixir==='1');
    assert.equal(await page.locator('#boost').isHidden(),true);assert.equal(await page.locator('#phase-label').isHidden(),true);stable(before,await rects(page,ids),'fresh match');
-   assert.deepEqual(errors,[]);reports.push({viewport,phases:rows,wireSnapshotPerspectives:restored,reducedStatic:true,pausedPulse:true,stable:true});await context.close();
+   assert.deepEqual(errors,[]);reports.push({viewport,phases:rows,wireSnapshotPerspectives:restored,reducedStatic:true,pausedPulse:true,lateFontStable:true,stable:true});await context.close();
   }catch(error){await page.screenshot({path:output+'/phase-failure-'+viewport.width+'.png'});throw error;}
  }
  return {viewports:reports,method:'Controlled UI clock fixtures, actual shared Game multiplier and wire snapshot restore in both perspectives. Real socket reconnect transport is covered separately by online.'};
