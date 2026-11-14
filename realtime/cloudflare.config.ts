@@ -12,7 +12,7 @@ export default defineConfig({
     env: {
       LOBBY: bindings.durableObject({ worker: 'poke-arena-realtime', exportName: 'ArenaLobby' }),
       ARENAS: bindings.durableObject({ worker: 'poke-arena-realtime', exportName: 'ArenaRoom' }),
-      ALLOWED_ORIGINS: bindings.text('https://poke-arena-erick.eriqrb.chatgpt.site,http://127.0.0.1:4173,http://localhost:4173,http://127.0.0.1:4177'),
+      ALLOWED_ORIGINS: bindings.text('https://poke-arena-erick.eriqrb.chatgpt.site,https://poke-arena-web.eriickramiirez.workers.dev,http://127.0.0.1:4173,http://localhost:4173,http://127.0.0.1:4177'),
     },
     observability: { enabled: true, traces: { enabled: true, headSamplingRate: 0.1 } },
   },

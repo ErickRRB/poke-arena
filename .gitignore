@@ -5,3 +5,5 @@ qa/
 .cloudflare/
 realtime/.wrangler/
 realtime/coverage/
+realtime/frontend/dist/
+realtime/frontend/.wrangler/

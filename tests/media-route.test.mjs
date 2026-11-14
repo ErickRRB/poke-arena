@@ -1,36 +1,53 @@
-import{test}from'node:test';import assert from'node:assert/strict';import{readFileSync,readdirSync,statSync}from'node:fs';import worker from'../dist/server/index.js';
-test('the public test arena and its shared battle dependencies are included in the hosted Worker',async()=>{
-  for(const file of['testing.html','testing.js','testing.css','sandbox.js','quick-stats.js','quick-stats.css','attack-choreography.js','wing-motion.js','wing-rigs.js','knockback-profiles.js','targeting-art.js','audio.js','assets/audio/manifest.json','loader-art.js','assets/ui/pokeball-pixel-v1.svg','assets/audio/feedback/bow-release.ogg','assets/audio/feedback/CREDITS.txt','assets/battle/arena-ground-v2.webp','assets/battle/arena-bridge-v2.webp','assets/battle/riverbank-v2.webp']){
-    const response=await worker.fetch(new Request('https://arena.test/'+file),{});assert.equal(response.status,200,file);assert.deepEqual(Buffer.from(await response.arrayBuffer()),readFileSync(new URL('../dist/'+file,import.meta.url)),file);
-  }
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync,readdirSync,statSync} from 'node:fs';
+import worker from '../dist/server/index.js';
+import frontend from '../realtime/frontend/src/index.js';
+import {WEB_ORIGIN} from '../worker/web-origin.js';
+const mime={'.js':'text/javascript','.html':'text/html','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.ogg':'audio/ogg','.mp3':'audio/mpeg','.txt':'text/plain'};
+function mockAssets(t){
+ return t.mock.method(globalThis,'fetch',async(url,init)=>{
+  const target=new URL(String(url));assert.equal(target.origin,WEB_ORIGIN);
+  try{const bytes=readFileSync(new URL('../dist'+target.pathname,import.meta.url)),ext=target.pathname.slice(target.pathname.lastIndexOf('.'));return new Response(init.method==='HEAD'?null:bytes,{headers:{'Content-Type':mime[ext]||'application/octet-stream','ETag':'"asset"','Cache-Control':'public, max-age=31536000, immutable'}});}catch{return new Response('Missing',{status:404});}
+ });
+}
+test('hosted pages, scripts, sound, loaders and large illustrations preserve bytes through Cloudflare',async t=>{
+ mockAssets(t);
+ for(const file of['index.html','app.js','engine.js','testing.html','testing.js','testing.css','sandbox.js','quick-stats.js','attack-choreography.js','wing-motion.js','wing-rigs.js','knockback-profiles.js','targeting-art.js','battle-phase.css','battle-phase-ui.js','audio.js','assets/audio/manifest.json','loader-art.js','assets/ui/pokeball-pixel-v1.svg','assets/audio/feedback/bow-release.ogg','assets/audio/feedback/CREDITS.txt','assets/battle/arena-ground-v2.webp','assets/battle/arena-bridge-v2.webp','assets/battle/riverbank-v2.webp','assets/battle/structures-v1.png','assets/cards/farfetchd-knight-v1.png','assets/cards/flame-wheel-v1.png']){
+  const r=await worker.fetch(new Request('https://arena.test/'+file),{});assert.equal(r.status,200,file);assert.deepEqual(Buffer.from(await r.arrayBuffer()),readFileSync(new URL('../dist/'+file,import.meta.url)));assert.match(r.headers.get('Cache-Control'),/must-revalidate/);assert.ok(!r.headers.get('Cache-Control').includes('immutable'));
+ }
 });
-test('the hosted Worker preserves resource bytes including its immutable large illustrations',async t=>{
-  const prefix='https://raw.githubusercontent.com/ErickRRB/poke-arena/c0b5ed90c5de98021b879dc227f5b5736d0f73e5/dist/';
-  t.mock.method(globalThis,'fetch',async url=>{assert.ok(String(url).startsWith(prefix));return new Response(readFileSync(new URL('../dist/'+String(url).slice(prefix.length),import.meta.url)),{headers:{'Content-Type':'image/png'}});});
-  for(const file of['index.html','engine.js','spell-preview.js','battle-art.js','combat-visuals.js','pokemon-silhouettes.js','assets/battle/projectile-bounds.js','assets/battle/Particle__Weather_Ball_Fire_1.None.png','assets/battle/Particle__Weather_Ball_Fire_3.Flip.png','assets/audio/voices/205.mp3','assets/cards/flame-wheel-v1.png','assets/battle/Particle__Flame_Wheel.None.png','assets/cards/battle-1.webp','assets/battle/structures-v1.png','assets/battle/Particle__Gust_Blue.None.png','assets/ui/menu-icons-v1.webp']){
-    const response=await worker.fetch(new Request('https://arena.test/'+file),{});assert.equal(response.status,200,file);
-    assert.deepEqual(Buffer.from(await response.arrayBuffer()),readFileSync(new URL('../dist/'+file,import.meta.url)),file);
-  }
+test('the compatibility proxy preserves conditional headers and does not forward private credentials',async t=>{
+ t.mock.method(globalThis,'fetch',async(url,init)=>{assert.equal(new URL(url).origin,WEB_ORIGIN);assert.equal(new URL(url).pathname,'/engine.js');assert.equal(new URL(url).search,'?v=26');assert.equal(init.headers.get('If-None-Match'),'"asset"');assert.equal(init.headers.get('Cookie'),null);assert.equal(init.headers.get('Authorization'),null);assert.equal(init.headers.get('Host'),null);return new Response(null,{status:304,headers:{ETag:'"asset"'}});});
+ const r=await worker.fetch(new Request('https://arena.test/engine.js?v=26',{headers:{'If-None-Match':'"asset"',Cookie:'private',Authorization:'private'}}),{});assert.equal(r.status,304);assert.equal(r.headers.get('ETag'),'"asset"');
 });
-
-test('the complete hosted module set leaves headroom below the platform size limit',()=>{
- const folder=new URL('../dist/server/',import.meta.url),files=readdirSync(folder).filter(file=>file.endsWith('.js'));
- const bytes=files.reduce((sum,file)=>sum+statSync(new URL(file,folder)).size,0);
- assert.ok(bytes<60*1024*1024,'all uploaded modules including stale chunks must fit; got '+bytes);
+test('HEAD and media type are preserved by the compatibility proxy',async t=>{
+ mockAssets(t);const r=await worker.fetch(new Request('https://arena.test/assets/cards/farfetchd-knight-v1.png',{method:'HEAD'}),{});assert.equal(r.status,200);assert.equal(r.headers.get('Content-Type'),'image/png');assert.equal((await r.arrayBuffer()).byteLength,0);
 });
-
-test('large illustration HEAD preserves media headers and an unavailable upstream returns 502',async t=>{
- const file='assets/cards/farfetchd-knight-v1.png',bytes=readFileSync(new URL('../dist/'+file,import.meta.url));
- const mock=t.mock.method(globalThis,'fetch',async()=>new Response(bytes));
- const head=await worker.fetch(new Request('https://arena.test/'+file,{method:'HEAD'}),{});
- assert.equal(head.status,200);assert.equal(head.headers.get('Content-Type'),'image/png');assert.match(head.headers.get('Cache-Control'),/immutable/);assert.equal((await head.arrayBuffer()).byteLength,0);
- mock.mock.mockImplementation(async()=>new Response('Unavailable',{status:503}));
- assert.equal((await worker.fetch(new Request('https://arena.test/'+file),{})).status,502);
+test('retired media and build metadata are rejected without an upstream request',async t=>{
+ const mock=t.mock.method(globalThis,'fetch',()=>{throw Error('must not fetch')});
+ for(const path of['assets/audio/foley/heavy.ogg','assets/audio/foley/punch-1.ogg','assets/ui/pokeball-v2.webp','assets/ui/pokeball-v2.png','server/index.js','.openai/hosting.json','.assetsignore'])assert.equal((await worker.fetch(new Request('https://arena.test/'+path),{})).status,404);
+ assert.equal(mock.mock.callCount(),0);
 });
-
-test('retired generic impacts and translucent loading images are no longer served',async()=>{
-  for(const file of ['assets/audio/foley/heavy.ogg','assets/audio/foley/punch-1.ogg','assets/audio/foley/punch-2.ogg','assets/audio/foley/punch-3.ogg','assets/ui/pokeball-v2.webp','assets/ui/pokeball-v2.png']){
-    const response=await worker.fetch(new Request('https://arena.test/'+file),{});assert.equal(response.status,404,file);
-  }
+test('the legacy API stays in the compatibility Worker without forwarding back to the frontend',async t=>{
+ const mock=t.mock.method(globalThis,'fetch',()=>{throw Error('API loop')});
+ const r=await worker.fetch(new Request('https://arena.test/api/not-a-route'),{DB:{}});assert.equal(r.status,401);assert.equal(r.headers.get('Content-Type'),'application/json');assert.equal(mock.mock.callCount(),0);
 });
-test('hosted media works when the platform forbids access to CacheStorage',async t=>{const descriptor=Object.getOwnPropertyDescriptor(globalThis,'caches');Object.defineProperty(globalThis,'caches',{configurable:true,get(){throw Error('This Worker is not permitted to access the default cache.');}});t.after(()=>descriptor?Object.defineProperty(globalThis,'caches',descriptor):delete globalThis.caches);const bytes=readFileSync(new URL('../dist/assets/pokemon/252/art.png',import.meta.url));t.mock.method(globalThis,'fetch',async url=>{assert.match(String(url),/^https:\/\/raw\.githubusercontent\.com\/PokeAPI\/sprites\/[a-f0-9]{40}\//);return new Response(bytes,{headers:{'Content-Type':'image/png'}});});const response=await worker.fetch(new Request('https://arena.test/assets/pokemon/252/art.png'),{});assert.equal(response.status,200);assert.equal(response.headers.get('Content-Type'),'image/png');assert.deepEqual(Buffer.from(await response.arrayBuffer()),bytes);});
+test('the compatibility Worker has no embedded asset modules and stays below three MiB',()=>{
+ const folder=new URL('../dist/server/',import.meta.url),files=readdirSync(folder).filter(f=>f.endsWith('.js'));assert.deepEqual(files,['index.js']);assert.ok(statSync(new URL('index.js',folder)).size<3*1024*1024);
+});
+test('network failure is explicit and cache storage is not required',async t=>{
+ const descriptor=Object.getOwnPropertyDescriptor(globalThis,'caches');Object.defineProperty(globalThis,'caches',{configurable:true,get(){throw Error('Forbidden')}});
+ t.after(()=>descriptor?Object.defineProperty(globalThis,'caches',descriptor):delete globalThis.caches);
+ const mock=mockAssets(t);assert.equal((await worker.fetch(new Request('https://arena.test/engine.js'),{})).status,200);
+ mock.mock.mockImplementation(async()=>{throw Error('origin unavailable')});const r=await worker.fetch(new Request('https://arena.test/engine.js'),{});assert.equal(r.status,502);assert.equal(r.headers.get('Cache-Control'),'no-store');
+});
+test('Cloudflare frontend uses its asset binding with correct root, query, MIME, ETag and cache headers',async()=>{
+ const r=await frontend.fetch(new Request(WEB_ORIGIN+'/?v=26'),{ASSETS:{fetch:async request=>{const url=new URL(request.url);assert.equal(url.pathname,'/index.html');assert.equal(url.search,'?v=26');return new Response('app',{headers:{'Content-Type':'text/html',ETag:'"root"'}});}}});
+ assert.equal(await r.text(),'app');assert.equal(r.headers.get('Content-Type'),'text/html');assert.equal(r.headers.get('ETag'),'"root"');assert.equal(r.headers.get('Cache-Control'),'public, max-age=0, must-revalidate');
+});
+test('Cloudflare frontend legacy API forwards only to the compatible Site and rejects other origins',async t=>{
+ const mock=t.mock.method(globalThis,'fetch',async request=>{assert.equal(new URL(request.url).origin,'https://poke-arena-erick.eriqrb.chatgpt.site');assert.equal(request.headers.get('Origin'),'https://poke-arena-erick.eriqrb.chatgpt.site');return new Response('legacy',{headers:{'Content-Type':'application/json'}});});
+ const r=await frontend.fetch(new Request(WEB_ORIGIN+'/api/not-a-route',{headers:{Origin:WEB_ORIGIN}}),{});assert.equal(r.status,200);assert.equal(r.headers.get('Access-Control-Allow-Origin'),WEB_ORIGIN);assert.equal(mock.mock.callCount(),1);
+ assert.equal((await frontend.fetch(new Request(WEB_ORIGIN+'/api/not-a-route',{headers:{Origin:'https://unrelated.test'}}),{})).status,403);assert.equal(mock.mock.callCount(),1);
+});
