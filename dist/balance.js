@@ -3,6 +3,7 @@ import { UNIT_SCALES } from './unit-sizes.js';
 import { GROUP_FORMATIONS } from './deployment-formations.js';
 import { CURRENT_REFERENCE_BALANCE } from './current-reference.js';
 import { PUSHBACK_IMMUNITY } from './knockback-profiles.js';
+import { applyAttackChoreography } from './attack-choreography.js';
 
 // Shared by browser, CPU and online server. Values are per body / per hit.
 export const THRESHOLDS = Object.freeze({ tower: 109, towerInterval: .8, fragile: 81, scout: 133, meleeSwarm: 202, archers: 304, fireball: 688, log: 268 });
@@ -34,7 +35,7 @@ export const CARD_BALANCE = {
   alakazam: {"cost":4,"hp":590,"damage":133,"interval":1.1,"speed":26,"range":168},
   geodude: {"cost":3,"hp":1766,"damage":202,"interval":1.2,"speed":18,"splash":0},
   magnemite: {"cost":3,"hp":400,"damage":81,"interval":1.8,"speed":26},
-  scyther: {"cost":4,"hp":650,"damage":65,"interval":1.2,"speed":40,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[4,5,6,7,6,5],"moveFrameDuration":5,"movementAnchor":"body"},
+  scyther: {"cost":4,"hp":650,"damage":65,"interval":1.2,"speed":40,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[5],"moveFrameDuration":5,"movementAnchor":"body"},
   lapras: {"cost":5,"hp":1500,"damage":160,"interval":1.75,"speed":18},
   mewtwo: {"cost":6,"hp":1452,"damage":440,"interval":2.8,"speed":26,"windup":0.65,"range":144,"splash":45},
   treecko: {"cost":3,"hp":304,"damage":112,"interval":0.9,"speed":26,"range":120},
@@ -43,7 +44,7 @@ export const CARD_BALANCE = {
   venusaur: {"cost":5,"hp":1900,"damage":140,"interval":1.9,"speed":18},
   butterfree: {"cost":3,"hp":440,"damage":72,"interval":1.6,"speed":26,"style":"powder","color":"#c9ace9","move":"Paralizador"},
   beedrill: {"cost":3,"hp":260,"damage":85,"interval":1.3,"speed":40},
-  pidgeot: {"cost":4,"hp":1052,"damage":165,"interval":1.3,"speed":40,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[3,4,5,6,7,6,5,4],"moveFrameDuration":6,"movementAnchor":"body"},
+  pidgeot: {"cost":4,"hp":1052,"damage":165,"interval":1.3,"speed":40,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[4,5,4,5],"moveFrameDuration":6,"movementAnchor":"body"},
   ekans: {"cost":2,"hp":250,"damage":60,"interval":1.2,"speed":32,"burn":12,"burnKind":"poison"},
   sandshrew: {"cost":3,"hp":220,"shield":240,"damage":121,"interval":1.1,"speed":32},
   nidoqueen: {"cost":6,"hp":2800,"damage":165,"interval":1.6,"speed":18},
@@ -68,7 +69,7 @@ export const CARD_BALANCE = {
   articuno: {"cost":5,"hp":1400,"damage":145,"interval":1.8,"speed":26},
   zapdos: {"cost":5,"hp":1200,"damage":150,"interval":1.8,"speed":26},
   moltres: {"cost":5,"hp":1350,"damage":165,"interval":1.8,"speed":26},
-  dragonite: {"cost":5,"hp":1600,"damage":85,"interval":1.9,"speed":26,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[3,4,5,6,5,4],"moveFrameDuration":7,"movementAnchor":"body"},
+  dragonite: {"cost":5,"hp":1600,"damage":85,"interval":1.9,"speed":26,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[5,6,7,8,9,8,7,6],"moveFrameDuration":5,"movementAnchor":"body"},
   meganium: {"cost":5,"hp":2400,"damage":105,"interval":1.7,"speed":18},
   typhlosion: {"cost":5,"hp":1130,"damage":150,"interval":1.8,"speed":26,"style":"eruption","air":false},
   feraligatr: {"cost":4,"hp":1900,"damage":300,"interval":1.55,"speed":26,"lifesteal":0},
@@ -93,7 +94,7 @@ export const CARD_BALANCE = {
   flygon: {"cost":5,"hp":1650,"damage":165,"interval":1.8,"speed":32},
   altaria: {"cost":4,"hp":900,"damage":75,"interval":1.6,"speed":26,"style":"song","move":"Voz cautivadora","heal":75},
   absol: {"cost":4,"hp":1100,"damage":200,"interval":1.4,"speed":40,"label":"Siniestro","move":"Tajo umbrío"},
-  salamence: {"cost":6,"hp":2200,"damage":95,"interval":2.2,"speed":26,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[3,4,5,6,7,6,5,4],"movementAnchor":"body"},
+  salamence: {"cost":6,"hp":2200,"damage":95,"interval":2.2,"speed":26,"moveAnim":"Hop","idleAnim":"Hop","moveFrames":[5],"movementAnchor":"body"},
   metagross: {"cost":6,"hp":2800,"damage":260,"interval":2.1,"speed":18,"shield":400},
   kyogre: {"cost":8,"hp":3300,"damage":150,"interval":2.25,"speed":18},
   groudon: {"cost":8,"hp":4500,"damage":320,"interval":2.4,"speed":18,"windup":0.55},
@@ -211,6 +212,7 @@ export function applyBalance(cards) {
   for(const [key,formation]of Object.entries(GROUP_FORMATIONS))cards[key].formation=formation;
   for(const [key,immune]of Object.entries(PUSHBACK_IMMUNITY))if(cards[key])cards[key].knockbackImmune=immune;
   cards.duskullToken.scale=.8;
+  applyAttackChoreography(cards);
   for(const [key,description] of Object.entries(CARD_DESCRIPTIONS))cards[key].description=description;
 }
 

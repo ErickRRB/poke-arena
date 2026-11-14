@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coreografía · comparación de Renderer</title>
+<style>
+  :root{color-scheme:light;font:14px system-ui,sans-serif;color:#243c30;background:#f7f0d5}
+  body{margin:16px auto;padding:0 12px;max-width:1200px}nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+  select,button{font:inherit;padding:8px 12px;border:1px solid #8c9c80;border-radius:6px;background:#fffbed;color:inherit}button{cursor:pointer}
+  .videos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}figure{margin:0}video{display:block;width:100%;background:#243c30}
+  figcaption{padding:6px 0;font-weight:650}p{line-height:1.5}.sheet{width:100%;height:auto;margin-top:12px}
+  a{color:#31573e}@media(max-width:700px){.videos{grid-template-columns:1fr}video{max-width:390px;margin:auto}}
+</style>
+<nav aria-label="Comparación"><label>Carta <select id="card"></select></label><button id="play">Reproducir juntos</button><button id="contact">Primer contacto</button><a href="verification.json">Datos</a><a href="contacts.csv">CSV</a></nav>
+<div class="videos">
+  <figure><video controls muted playsinline preload="metadata" data-mode="engine30"></video><figcaption>Motor 30 Hz · render 60 Hz</figcaption></figure>
+  <figure><video controls muted playsinline preload="metadata" data-mode="engine60"></video><figcaption>Motor 60 Hz · render 60 Hz</figcaption></figure>
+  <figure><video controls muted playsinline preload="metadata" data-mode="snapshots15"></video><figcaption>Snapshots 15 Hz · render 60 Hz</figcaption></figure>
+</div>
+<p>Captura a 60 Hz con poses nativas repetidas. El círculo amarillo marca el emisor. <a href="README.md">Alcance y observación de Machamp</a>.</p>
+<img class="sheet" id="sheet" alt="Preparación, contactos y recuperación en las ocho direcciones">
+<script>
+  const choices=[['machamp','Machamp',.5],['scyther','Scyther',.3],['nidoking','Nidoking',.3],['scizor','Scizor',.3],['dragonite','Dragonite',.3],['salamence','Salamence',.3],['blaziken','Blaziken',.3],['crobat','Crobat',.3],['gardevoir','Gardevoir',.5],['treecko','Treecko',.5],['raltsTrio','Trío Ralts',.5],['raltsToken','Ralts · token',.5]];
+  const select=document.querySelector('#card'),videos=[...document.querySelectorAll('video')];
+  for(const[key,name]of choices){const option=document.createElement('option');option.value=key;option.textContent=name;select.append(option);}
+  function load(){for(const video of videos){video.pause();video.src=`videos/${select.value}-${video.dataset.mode}.mp4`;video.load();}document.querySelector('#sheet').src=`contacts/${select.value}.png`;}
+  select.addEventListener('change',load);
+  document.querySelector('#play').addEventListener('click',()=>{for(const video of videos){video.currentTime=0;video.play();}});
+  document.querySelector('#contact').addEventListener('click',()=>{const time=choices.find(row=>row[0]===select.value)[2];for(const video of videos){video.pause();video.currentTime=video.dataset.mode==='snapshots15'?Math.ceil(time*15-1e-6)/15:time;}});
+  load();
+</script>
+</html>

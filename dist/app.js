@@ -546,7 +546,7 @@ function frame(now){
   const dt=Math.min((now-previous)/1000,.08);previous=now;
   if(onlineMode){
     for(const u of [...game.units,...game.towers]){
-      u.anim+=dt;u.attack=Math.max(0,u.attack-dt);u.hit=Math.max(0,(u.hit||0)-dt);
+      u.anim+=dt;u.hit=Math.max(0,(u.hit||0)-dt);
       if(u.card&&game.state==='playing'&&!game.tiebreaker){const activeDt=Math.max(0,dt-u.spawn);u.spawn=Math.max(0,u.spawn-dt);if(u.card.summon)u.summonClock=Math.max(0,u.summonClock-activeDt);}
     }
     if(game.state==='playing'){
