@@ -471,6 +471,14 @@
       "columns": 44,
       "rows": 1,
       "fps": 8
+    },
+    "petalShot": {
+      "file": "assets/battle/Particle__Petal_Dance_Flower_Pink.None.png",
+      "width": 16,
+      "height": 16,
+      "columns": 8,
+      "rows": 1,
+      "fps": 8
     }
   },
   "sources": [
@@ -827,6 +835,12 @@
       "file": "assets/battle/Particle__Music_Notes.None.png",
       "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Music_Notes.None.png",
       "sha256": "5e5b0db6023b959fb32ffff9a473d3b8a2b54b5cd778ef2eccd2b4afb1936fc8"
+    },
+    {
+      "key": "petalShot",
+      "file": "assets/battle/Particle__Petal_Dance_Flower_Pink.None.png",
+      "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Petal_Dance_Flower_Pink.None.png",
+      "sha256": "f3c8a784cc2972b5c48c03232fbec8a06ff5f61264c9fe74c042986f03689900"
     }
   ]
 }

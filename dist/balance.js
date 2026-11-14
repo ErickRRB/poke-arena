@@ -11,7 +11,7 @@ export const CARD_BALANCE = {
   graveler:{cost:5,hp:2080,damage:272,interval:2.5,speed:18},
   nuzleaf:{cost:3,hp:260,damage:131,interval:.7,speed:40},
   sneaselAmbush:{cost:3,damage:0,towerDamage:0},
-  sneaselToken:{cost:0,hp:202,damage:120,interval:1.1,speed:32},
+  sneaselToken:{cost:0,hp:202,damage:125,interval:1.1,speed:40,range:12},
   pikachu: {"cost":4,"hp":714,"damage":115,"interval":1.8,"speed":32,"bolts":2,"range":120,"air":true,"style":"lightning","attackAnim":"Shock","chain":0,"stun":0.5,"entryDamage":192,"entryRadius":72,"entryStun":0.5,"attackRoleOverride":true},
   squirtle: {"cost":2,"hp":400,"damage":28,"interval":1.45,"speed":26},
   charmander: {"cost":3,"hp":440,"damage":135,"interval":1.5,"speed":32,"burn":9},
@@ -70,7 +70,7 @@ export const CARD_BALANCE = {
   typhlosion: {"cost":5,"hp":1130,"damage":150,"interval":1.8,"speed":26,"style":"eruption","air":false},
   feraligatr: {"cost":4,"hp":1900,"damage":300,"interval":1.55,"speed":26,"lifesteal":0},
   crobat: {"cost":4,"hp":900,"damage":75,"interval":1.5,"speed":40},
-  ampharos: {"cost":5,"hp":1600,"damage":140,"interval":1.65,"speed":0},
+  ampharos: {cost:4,hp:1182,damage:220,interval:1.1,speed:0,range:132,lifetime:25,stun:0,chain:0},
   espeon: {"cost":3,"hp":460,"damage":110,"interval":1,"speed":32},
   umbreon: {"cost":3,"hp":2100,"damage":120,"interval":1.7,"speed":26,"reflect":0,"burn":10,"burnKind":"poison","style":"poison","range":100,"label":"Siniestro","color":"#b5a4d3","move":"Tóxico"},
   wobbuffet: {"cost":4,"hp":1900,"damage":0,"interval":2,"speed":0,"passive":true,"reflect":0.5,"windup":0},
@@ -101,8 +101,8 @@ export const CARD_BALANCE = {
   babyKangaskhan: {"cost":0,"hp":400,"damage":80,"interval":1.3,"speed":40},
   diglett: {"cost":1,"hp":81,"damage":81,"interval":1,"speed":32,"scale":1.5},
   diglettHorde: {"cost":3,"hp":81,"damage":81,"interval":1,"speed":32,"scale":1.5},
-  raltsTrio: {"cost":2,"hp":133,"damage":81,"interval":1.7,"speed":26,"scale":1.65,"range":120},
-  poochyenaPack: {"cost":2,"hp":202,"damage":120,"interval":1.1,"speed":32,"scale":1.65},
+  raltsTrio: {"cost":2,"hp":133,"damage":81,"interval":1.6,"speed":40,"scale":1.65,"range":120},
+  poochyenaPack: {"cost":2,"hp":202,"damage":125,"interval":1.1,"speed":40,"scale":1.65,"range":12},
   centralElectrode: {cost:5,hp:1000,damage:0,interval:2,speed:0,color:'#ffe18b'},
   madriguera: {cost:5,hp:1200,damage:0,interval:2,speed:0,color:'#d0b0e5'},
   vivero: {cost:3,hp:750,damage:0,interval:2,speed:0,color:'#bedb87'},
@@ -110,12 +110,13 @@ export const CARD_BALANCE = {
   duskull: {cost:5,hp:598,damage:90,interval:1.6,speed:26,color:'#b9a4e7',muzzleHeight:22},
   raichu: {cost:3,hp:640,damage:700,interval:2.4,speed:32,color:'#ffd491',muzzleHeight:28},
   registeel: {cost:7,hp:3200,damage:1080,interval:3.1,speed:18,color:'#b9d1dc',muzzleHeight:35},
+  rhydon: {cost:7,hp:3200,damage:1080,interval:3.1,speed:18,color:'#b6b4a6',muzzleHeight:35},
   regirock: {cost:7,hp:5700,damage:220,interval:2.2,speed:18,armor:.2,color:'#dbb38d',muzzleHeight:35},
   celebi: {cost:4,hp:1350,damage:260,interval:1.8,speed:40,color:'#c4e8aa',muzzleHeight:24},
-  pandilla: {cost:3,hp:202,damage:120,interval:1.1,speed:32},
+  pandilla: {cost:3,hp:202,damage:125,interval:1.1,speed:40},
   shuppetToken: {cost:0,hp:81,damage:65,interval:1.2,speed:32},
-  poochyenaToken: {cost:0,hp:202,damage:120,interval:1.1,speed:32},
-  raltsToken: {cost:0,hp:133,damage:81,interval:1.7,speed:26},
+  poochyenaToken: {cost:0,hp:202,damage:125,interval:1.1,speed:40,range:12},
+  raltsToken: {cost:0,hp:133,damage:81,interval:1.6,speed:40,range:120},
   pinMissile: {cost:3,damage:366,towerDamage:110},
   lightning: {cost:6,damage:1056,towerDamage:317},
   hyperBeam: {cost:6,damage:1484,towerDamage:371},
@@ -192,6 +193,9 @@ export function applyBalance(cards) {
   Object.assign(cards.fireball,{name:'Bomba ígnea',move:'Bomba ígnea'});
   Object.assign(cards.log,{name:'Rueda Fuego',move:'Rueda Fuego'});
   applyRoles(cards);
+  cards.roselia.projectileArt='petalShot';
+  // Travel speed and arc are simulation data, shared by CPU, browser and server.
+  for(const[key,[speed,arc]]of Object.entries({roselia:[230,100],nuzleaf:[460,0],treecko:[380,24],raltsTrio:[400,0],raltsToken:[400,0],sceptile:[460,0],charmander:[270,46],venusaur:[230,65],butterfree:[220,26],slowbro:[310,16],lapras:[300,14],articuno:[310,14],moltres:[270,38],typhlosion:[250,55],gardevoir:[245,35],alakazam:[480,0],starmie:[480,0],espeon:[480,0],rayquaza:[480,0]}))Object.assign(cards[key],{projectileSpeed:speed,projectileArc:arc});
   for(const [key,description] of Object.entries(CARD_DESCRIPTIONS))cards[key].description=description;
 }
 
@@ -259,7 +263,7 @@ export const CARD_DESCRIPTIONS = {
   typhlosion:'Lanza erupciones que explotan en área y dejan quemadura.',
   feraligatr:'Tritura a un rival con mordidas fuertes.',
   crobat:'Muerde dos veces en área y recupera vida por cada Pokémon alcanzado.',
-  ampharos:'Defiende desde un faro con rayos que saltan entre rivales y aturden.',
+  ampharos:'Se oculta sin enemigos cerca y emerge para disparar a tierra y aire.',
   espeon:'Dispara un rayo rápido que atraviesa a los enemigos alineados.',
   umbreon:'Resiste en primera línea y envenena con sus mordidas.',
   wobbuffet:'Devuelve parte del daño directo a quien lo ataca.',
@@ -293,7 +297,8 @@ export const CARD_DESCRIPTIONS = {
   registeel:'Avanza lentamente y da golpes devastadores a un solo rival.',
   regirock:'Resiste con su armadura y avanza hacia torres y estructuras.',
   celebi:'Vuela directo hacia las torres y estructuras para atacarlas.',
-  pandilla:'Tres Poochyena van adelante y dos Ralts los cubren a distancia.',
+  rhydon:'Avanza lentamente y prepara un golpe de cuerno muy fuerte contra un objetivo terrestre.',
+  pandilla:'Tres Poochyena van adelante y tres Ralts los cubren a distancia.',
   pinMissile:'Una lluvia de pinchos daña a los enemigos en una zona amplia.',
   lightning:'Daña y aturde a los tres enemigos con más vida dentro del área.',
   hyperBeam:'Marca una zona y, tras una demora, la golpea con un rayo devastador.',

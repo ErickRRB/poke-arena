@@ -53,3 +53,20 @@ test('Blastoise walks, keeps its health over time and cannot lure a building see
  const tank=game.spawn('snorlax',1,158,390,0);assert.notEqual(game.acquire(tank),unit);
  const structure=game.spawn('regice',0,158,475,0);assert.equal(game.acquire(tank),structure);
 });
+
+test('an area projectile reports the exact ground center and radius it damaged, including the other perspective',()=>{
+  const{game,events}=fresh(),source=game.spawn('roselia',0,300,560,0),target=game.spawn('grimer',1,300,300,0),inside=game.spawn('grimer',1,335,300,0),outside=game.spawn('grimer',1,355,300,0);
+  for(const u of[target,inside,outside])u.card={...u.card,speed:0,damage:0,passive:true};game.attack(source,target);source.cooldown=100;run(game,2);
+  assert.equal(target.maxHp-target.hp,CARDS.roselia.damage);assert.equal(inside.maxHp-inside.hp,CARDS.roselia.damage);assert.equal(outside.hp,outside.maxHp);
+  const hit=events.find(e=>e.type==='hit'&&e.key==='roselia');assert.equal(hit.radius,48);assert.equal(hit.groundX,target.x);assert.equal(hit.groundY,target.y);assert.equal(hit.art,'petalShot');
+  const mirrored=perspective(packEvent(hit),1);assert.equal(mirrored.groundX,600-hit.groundX);assert.equal(mirrored.groundY,800-hit.groundY);
+  const renderer=Object.assign(Object.create(Renderer.prototype),{effects:[],verticalScale:1});renderer.onEvent(mirrored);assert.equal(renderer.effects[0].radius,48);assert.equal(renderer.effects[0].y,mirrored.groundY);assert.equal(renderer.effects[0].impactY,mirrored.groundY-hit.impactHeight);
+});
+
+test('area feedback draws the real footprint without increasing single-target contact flashes',()=>{
+  const effects=[],calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{effects,particles:[],verticalScale:1,reduced:false,combatArt:(c,art,x,y,size)=>calls.push({art,x,y,size})});
+  renderer.onEvent({type:'hit',key:'nuzleaf',style:'leaf',x:300,y:280,radius:0});assert.equal(effects[0].kind,'artImpact');assert.ok(effects[0].visualSize<30);
+  const ctx=new Proxy({globalAlpha:1},{get:(o,k)=>o[k]??((...args)=>{if(k==='arc')calls.push({radius:args[2]});}),set:(o,k,v)=>(o[k]=v,true)});
+  renderer.areaImpact(ctx,{x:300,y:300,radius:180,art:'explosion',style:'ember'},.35);assert.ok(calls.some(c=>c.radius===180));assert.ok(calls.filter(c=>c.size).every(c=>c.size<=72));
+  renderer.onEvent({type:'hit',key:'forretress',style:'slam',x:300,y:280,groundX:300,groundY:300,radius:60,structuresOnly:true});assert.equal(effects.filter(e=>e.kind==='areaImpact').length,0);
+});

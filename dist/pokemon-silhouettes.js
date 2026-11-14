@@ -391,5 +391,9 @@ export const POKEMON_SILHOUETTES=Object.freeze({
   "315": {
     "body": 28,
     "name": "Roselia"
+  },
+  "112": {
+    "body": 32,
+    "name": "Rhydon"
   }
 });

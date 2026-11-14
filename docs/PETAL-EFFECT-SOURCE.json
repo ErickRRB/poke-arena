@@ -1,0 +1,78 @@
+{
+  "pin": "03c80dad937911572f8fb19903771a47956fc696",
+  "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Petal_Dance_Flower_Pink.None.png",
+  "file": "dist/assets/battle/Particle__Petal_Dance_Flower_Pink.None.png",
+  "sha256": "f3c8a784cc2972b5c48c03232fbec8a06ff5f61264c9fe74c042986f03689900",
+  "sheet": {
+    "width": 128,
+    "height": 16
+  },
+  "bytes": 701,
+  "alias": "petalShot",
+  "metadata": {
+    "file": "assets/battle/Particle__Petal_Dance_Flower_Pink.None.png",
+    "width": 16,
+    "height": 16,
+    "columns": 8,
+    "rows": 1,
+    "fps": 8
+  },
+  "frameBounds": [
+    [
+      1,
+      2,
+      15,
+      15
+    ],
+    [
+      1,
+      2,
+      15,
+      15
+    ],
+    [
+      4,
+      2,
+      15,
+      15
+    ],
+    [
+      1,
+      2,
+      13,
+      15
+    ],
+    [
+      1,
+      2,
+      15,
+      15
+    ],
+    [
+      3,
+      2,
+      15,
+      15
+    ],
+    [
+      1,
+      2,
+      12,
+      15
+    ],
+    [
+      1,
+      2,
+      15,
+      15
+    ]
+  ],
+  "unionBounds": [
+    1,
+    2,
+    15,
+    15
+  ],
+  "timing": "The raster contains no native timing metadata. fps=8 is the project playback setting, consistent with existing projectile particles.",
+  "usage": "BattleArt.draw(ctx,'petalShot',x,y,size,size,{age,trim:true})"
+}

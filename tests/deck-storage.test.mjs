@@ -4,6 +4,10 @@ import { loadDeck,saveDeck,normalizeDeck,loadDeckLibrary,saveDeckLibrary } from 
 import { DEFAULT_DECK } from '../dist/engine.js';
 const memory=()=>{const values=new Map();return{getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v)};};
 const chosen=['gastly','vivero','kyogre','ditto','hooh','treecko','log','sandshrew'];
+test('saved Registeel selections migrate to Rhydon without duplicating or filling other slots',()=>{
+  assert.deepEqual(normalizeDeck(['gastly','registeel','ditto']),['gastly','rhydon','ditto']);assert.deepEqual(normalizeDeck(['registeel','rhydon','ampharos']),['rhydon','ampharos']);
+  const storage=memory();storage.setItem('poke-arena:deck-slots',JSON.stringify({version:1,active:1,slots:[['registeel'],['ampharos','registeel'],[],null]}));assert.deepEqual(loadDeckLibrary({storage,cookie:''}).slots,[['rhydon'],['ampharos','rhydon'],[],null]);
+});
 
 test('the last chosen deck is written immediately and restored in the same order',()=>{
   const storage=memory();let cookie='';assert.ok(saveDeck(chosen,{storage,cookie,writeCookie:v=>cookie=v,now:100}));

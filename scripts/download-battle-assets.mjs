@@ -8,6 +8,7 @@ const definitions={
 };
 definitions.bite='Particle/Bite.Dir8.png';
 definitions.flameWheel='Particle/Flame_Wheel.None.png';
+definitions.petalShot='Particle/Petal_Dance_Flower_Pink.None.png';
 for(const [name,folder]of [['lightning','Lightning'],['beam','Beam'],['waterBeam','Column_Blue'],['hyper','Column_Yellow']])for(const section of ['Body','Head','Tail'])definitions[name+section]='Beam/'+folder+'/'+section+'.png';
 const destination=path.join(root,'dist/assets/battle');await mkdir(destination,{recursive:true});
 const animations={},sources=[];
@@ -19,7 +20,7 @@ for(const[name,source]of Object.entries(definitions)){
  let rows=Number(source.match(/\.Dir(\d+)\./)?.[1])||1,columns=1;
  if(source.startsWith('Particle/')){const side=height/rows;columns=width/side;if(!Number.isInteger(columns))throw Error('Non-square particle frames: '+source+' '+width+'x'+height);}
  if(source.startsWith('Beam/')){columns=name.startsWith('lightning')?6:name.startsWith('waterBeam')||name.startsWith('hyper')?14:2;rows=1;}
- animations[name]={file:'assets/battle/'+filename,width:width/columns,height:height/rows,columns,rows,fps:['whirlpool','heal','ice','quake'].includes(name)?24:18};
+ animations[name]={file:'assets/battle/'+filename,width:width/columns,height:height/rows,columns,rows,fps:name==='petalShot'?8:['whirlpool','heal','ice','quake'].includes(name)?24:18};
  sources.push({key:name,file:animations[name].file,source:url,sha256:createHash('sha256').update(data).digest('hex')});
 }
 let ball;try{ball=Buffer.from(await readFile(path.join(destination,'poke-ball.png')));}catch{const response=await fetch('https://raw.githubusercontent.com/PokeAPI/sprites/1b3b7c0a538dd2226ae08d0d2f8955125075bbd4/sprites/items/poke-ball.png');if(!response.ok)throw Error('Poké Ball: '+response.status);ball=Buffer.from(await response.arrayBuffer());}

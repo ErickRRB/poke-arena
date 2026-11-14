@@ -1,7 +1,7 @@
 import { CARDS, DEFAULT_DECK } from './engine.js?v=26';
 
 const KEY='poke-arena:deck',STAMP='poke-arena:deck-updated',COOKIE='poke_arena_deck';
-const replacements={shuppet:'diglett',shuppetSwarm:'diglettHorde',nidoranScouts:'raltsTrio',nidoranPack:'poochyenaPack',electrode:'forretress',exeggutor:'vivero'};
+const replacements={shuppet:'diglett',shuppetSwarm:'diglettHorde',nidoranScouts:'raltsTrio',nidoranPack:'poochyenaPack',electrode:'forretress',exeggutor:'vivero',registeel:'rhydon'};
 function browserStorage(){try{return globalThis.localStorage;}catch{return null;}}
 function browserCookie(){try{return globalThis.document?.cookie||'';}catch{return '';}}
 function cookieValue(cookie){

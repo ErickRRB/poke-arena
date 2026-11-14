@@ -16,7 +16,7 @@ output='// Native Idle silhouette in source pixels, measured in all eight direct
 (root/'dist/pokemon-silhouettes.js').write_text(output,encoding='utf-8')
 assets=json.loads((root/'dist/assets/battle/manifest.json').read_text())['animations']; bounds={}
 for name,meta in assets.items():
- if name not in ['hydro','bubble','shadow','psychic','poison','rock','leaf','snow','flame','lightningHead','coin','egg','song','waterBeamHead','fireOrb','fireTrail','hydroShot','emberShot','songShot']: continue
+ if name not in ['hydro','bubble','shadow','psychic','poison','rock','leaf','snow','flame','lightningHead','coin','egg','song','waterBeamHead','fireOrb','fireTrail','hydroShot','emberShot','songShot','petalShot']: continue
  im=Image.open(root/'dist'/meta['file']).convert('RGBA'); union=None
  for row in range(meta['rows']):
   for frame in range(meta['columns']):

@@ -13,7 +13,7 @@ export function unpackGame(data,onEvent=()=>{},animations={}){
   const entities=new Map([...game.units,...game.towers].map(e=>[e.id,e]));
   for(const entity of entities.values()){entity.card=entity.card||CARDS[entity.key];entity.target=entities.get(entity.targetId)||null;}
   game.attacks=game.attacks.map(j=>({...j,attacker:entities.get(j.attackerId),target:entities.get(j.targetId)})).filter(j=>j.attacker&&j.target);
-  game.projectiles=game.projectiles.map(p=>({...p,target:entities.get(p.targetId)})).filter(p=>p.rolling||p.target);
+  game.projectiles=game.projectiles.map(p=>({...p,target:entities.get(p.targetId)})).filter(p=>p.rolling||p.linear||p.target);
   return game;
 }
 export function packEvent(event){
@@ -24,6 +24,8 @@ function turn(value){
   if(!value||typeof value!=='object')return value;
   const copy={};for(const[key,item]of Object.entries(value))copy[key]=['card','guard','stats'].includes(key)?structuredClone(item):turn(item);
   if(typeof copy.x==='number')copy.x=W-copy.x;if(typeof copy.y==='number')copy.y=H-copy.y;
+  if(typeof copy.groundX==='number')copy.groundX=W-copy.groundX;if(typeof copy.groundY==='number')copy.groundY=H-copy.groundY;
+  if(typeof copy.liftX==='number')copy.liftX=-copy.liftX;
   if(typeof copy.startX==='number')copy.startX=W-copy.startX;if(typeof copy.startY==='number')copy.startY=H-copy.startY;
   if(typeof copy.endX==='number')copy.endX=W-copy.endX;if(typeof copy.endY==='number')copy.endY=H-copy.endY;
   if(typeof copy.dx==='number')copy.dx=-copy.dx;if(typeof copy.dy==='number')copy.dy=-copy.dy;

@@ -78,7 +78,7 @@ test('every Pokemon uses the matching original view for all eight directions, in
 test('projectiles, contact effects and beams fit every individual Pokemon silhouette',()=>{
  for(const [key,card] of Object.entries(CARDS).filter(([,c])=>!c.spell)){
   assert.ok(POKEMON_SILHOUETTES[card.id],key+' measured silhouette');
-  const v=combatVisual(card);assert.ok(v.projectile>=8&&v.projectile<=v.body*.55,key+' projectile');
+  const v=combatVisual(card),areaSize=card.range>=50&&card.splash?Math.min(34,card.splash*.45):0;assert.ok(v.projectile>=8&&v.projectile<=Math.max(v.body*.55,areaSize),key+' projectile');
   assert.ok(v.impact<=v.body*.8,key+' contact effect');assert.ok(v.beam<v.body*.25,key+' beam');
  }
  assert.ok(combatVisual(CARDS.squirtle).projectile<combatVisual(CARDS.blastoise).projectile);
@@ -93,8 +93,14 @@ test('projectiles, contact effects and beams fit every individual Pokemon silhou
 test('native projectile launch uses its saved mouth position and does not jump after the source turns',()=>{
  const game=new Game({seed:36}),actor=game.spawn('lugia',0,300,500,0),target=game.spawn('snorlax',1,300,400,0);game.face(actor,target);
  const native=game.muzzle(actor),calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{frameActors:new Map([[actor.id,actor],[target.id,target]]),visualProjectiles:new Map(),t:.4,drawDt:1/60,verticalScale:1,reduced:false,combatArt:(_,name,x,y,size)=>calls.push({name,x,y,size})});
- renderer.projectile({}, {id:'native-launch',key:'lugia',sourceId:actor.id,target,style:'hydro',x:native.x,y:native.y,startX:native.x,startY:native.y,totalDistance:100,travelled:0});
+ renderer.projectile({save(){},restore(){},globalAlpha:1}, {id:'native-launch',key:'lugia',sourceId:actor.id,target,style:'hydro',x:native.x,y:native.y,startX:native.x,startY:native.y,totalDistance:100,travelled:0});
  assert.equal(calls[0].x,native.x);assert.equal(calls[0].y,native.y);assert.equal(calls[0].size,combatVisual(actor.card).projectile);
+});
+
+test('arched projectiles face up while rising and down while descending, unlike a flat dart',()=>{
+ const sample=(travelled,arc)=>{const calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{frameActors:new Map(),visualProjectiles:new Map(),t:.5,drawDt:1/60,verticalScale:1,reduced:true,combatArt:(c,art,x,y,size,angle)=>calls.push({x,y,angle})}),target={id:2,x:400,y:400,card:CARDS.grimer};
+  renderer.projectile({save(){},restore(){},globalAlpha:1},{id:'arc',key:'roselia',style:'leaf',x:200+travelled,y:400,startX:200,startY:400,totalDistance:200,travelled,arc,target});return calls[0];};
+ const rising=sample(50,100),falling=sample(150,100),dart=sample(50,0);assert.ok(rising.angle<-.5);assert.ok(falling.angle>.5);assert.ok(rising.y<dart.y-60);assert.ok(Math.abs(dart.angle)<.1);
 });
 
 test('fireball has a continuous arc and tangent, a spaced trail, and reaches the real impact position',()=>{

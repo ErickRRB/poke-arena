@@ -1,0 +1,29 @@
+{
+  "mode": "built-in imagegen",
+  "generatedAt": "2026-11-14",
+  "spriteSource": "https://github.com/PMDCollab/SpriteCollab/tree/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0112",
+  "artReference": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/112.png",
+  "spritesSpecies": 112,
+  "assets": [
+    {
+      "key": "rhydon",
+      "file": "dist/assets/cards/rhydon-v1.webp",
+      "original": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d856-1020-7332-9ac3-82845770bcc8\\exec-a4281d6f-a71b-4836-a73f-5243506da0ed.png",
+      "prompt": "Original portrait 4:5 full-bleed painterly Pokémon game illustration. A single canonical RHYDON (#112) strides heavily across an ivy-lined stone arena courtyard in warm late-afternoon light. Rhydon is the upright gray rhinoceros Pokémon with a cream segmented belly, a single ivory spiral conical horn on its snout, two pointed ears, narrow red eyes, two short muscular arms ending in three white claws, two broad clawed feet, small dorsal spikes and a long thick segmented tail. Exactly the official Rhydon anatomy and gray/cream colors; do not turn it into orange Rhyperior or four-legged Rhyhorn. Three-quarter side view facing left, head slightly lowered with its distinct snout horn prominent, one heavy foot stepping forward and a little natural dust rising. Show full central silhouette and curved tail. The character and the courtyard share one coherent perspective and natural lighting. Mossy stone ruins and one small distant round tower provide depth. Detailed natural painted textures, clean edges and soft shadows similar to high-quality illustrated adventure-game cards. Calm upper sky and lower ground reserve space for external interface labels. No text, card frame, border, numbers, icons, logo or watermark. No costumes or invented armor."
+    },
+    {
+      "key": "pandilla",
+      "file": "dist/assets/cards/pandilla-v2.webp",
+      "original": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d856-1020-7332-9ac3-82845770bcc8\\exec-f0ab991a-ee78-4f36-b14b-cbd9006753ea.png",
+      "initialPrompt": "Original portrait 4:5 full-bleed painterly Pokémon game illustration in a sunlit overgrown stone arena courtyard, with ivy-covered stone walls, a distant curved stone bridge and muted red arena banners. EXACTLY SIX distinct Pokémon, arranged as TWO ROWS OF THREE, all six heads and all six separate bodies visible with clear space between silhouettes. FRONT ROW: exactly three canonical POOCHYENA, small gray quadrupedal hyena cubs with black face masks, jagged gray fur, black lower legs, red eyes and little red noses, moving forward as a protective line. Their bodies must be separate, each has its own four legs and one short shaggy tail. BACK ROW: exactly three canonical RALTS, each has a small white slender body, two long narrow white arms, a green bowl-shaped head covering the eyes, two flat red head horns visible at front/back angles, and a short white gown-shaped lower body. Each Ralts is standing clearly upright behind the Poochyena, softly shaping a small violet psychic light in its own hand. Position the Ralts heads at upper-left, upper-center and upper-right of the central composition, above the three Poochyena. Preserve canonical Pokémon anatomy: no fusions, no shared limbs, no extra ears, no extra or missing Pokémon. Ground every character in the same scene with shared warm sunlight, soft cast shadows and coherent perspective. Action concentrated in middle, quieter upper 12% and lower 10% for external UI labels. Rich but clean natural hand-painted textures, 3D volume, clear readable silhouettes at small card size. No text, frame, border, card UI, logos, numbers or watermark.",
+      "editPrompt": "Change only the heads of the THREE Ralts in the rear row of this existing image. Preserve the entire composition, scenery, shared lighting, the three Poochyena in the front row and exactly SIX separate Pokémon total. Correct the Ralts anatomy to the official Pokémon #280 design: a smooth green bowl haircut covering the eyes, a small white face below, ONE red flat fin protruding at the FRONT CENTER of the bowl haircut above the middle of the face. Ralts also has a fin on the BACK CENTER of its head, but it is OCCLUDED from these front-facing views and should NOT be visible. Therefore each of the three Ralts must show just ONE centered red forehead fin, never a left-right pair of cat-ear-like horns. Keep their slim white bodies, arms, psychic lights and the rest of every pixel as close to the original as possible. No text, frame or watermark."
+    }
+  ],
+  "optimization": {
+    "format": "webp",
+    "width": 768,
+    "height": 960,
+    "quality": 88,
+    "semanticEdits": false
+  }
+}

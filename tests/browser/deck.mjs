@@ -13,6 +13,9 @@ export async function run({browser,url,viewports,output}){
       assert.equal(await page.locator('[data-collection=pikachu] .card-role').innerText(),'Mago eléctrico');assert.equal(await page.locator('[data-collection=onix] .card-role').innerText(),'Parcial de Montapuercos');
       assert.equal(await page.locator('[data-collection=squirtle] .card-role').count(),0);assert.equal(await page.locator('[data-collection=exeggutor]').count(),0);
       assert.equal(await page.locator('[data-collection=vivero] .cost-value').innerText(),'3');
+      assert.equal(await page.locator('[data-collection=ampharos] .cost-value').innerText(),'4');assert.equal(await page.locator('[data-collection=ampharos] .card-role').innerText(),'Tesla');
+      assert.equal(await page.locator('[data-collection=pandilla] .card-role').innerText(),'Pandilla de duendes');assert.ok((await page.locator('[data-collection=pandilla] .card-quantity').innerText()).includes('6'));
+      assert.equal(await page.locator('[data-collection=rhydon] .card-role').innerText(),'P.E.K.K.A.');assert.equal(await page.locator('[data-collection=registeel]').count(),0);
       const chosen=await page.locator('#deck-strip [data-deck-info]').evaluateAll(nodes=>nodes.map(node=>node.dataset.deckInfo));
       assert.deepEqual(await page.locator('#collection .selected').evaluateAll(nodes=>nodes.map(node=>node.dataset.collection).sort()),[...chosen].sort());
       const selectedStyle=await page.locator('[data-collection=pikachu]').evaluate(node=>({border:getComputedStyle(node).outlineColor,badge:getComputedStyle(node,'::after').content}));

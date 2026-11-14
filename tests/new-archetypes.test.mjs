@@ -40,7 +40,7 @@ test('Pin misil clears archers and flyers across a wider area than the cheap stu
   cast(g,'pinMissile',300,300);run(g,.7);assert.equal(ground.hp,0);assert.equal(air.hp,0);assert.equal(ally.hp,ally.maxHp);assert.ok(CARDS.pinMissile.splash>CARDS.thunder.splash);
 });
 test('Rayo strikes exactly the three enemies with the most current health and discounts crown damage',()=>{
-  const g=fresh(),tower=g.towers.find(t=>t.team===1&&t.lane===0),a=still(g.spawn('snorlax',1,158,220,0)),b=still(g.spawn('registeel',1,185,210,0)),support=still(g.spawn('pikachu',1,145,210,0));
+  const g=fresh(),tower=g.towers.find(t=>t.team===1&&t.lane===0),a=still(g.spawn('snorlax',1,158,220,0)),b=still(g.spawn('rhydon',1,185,210,0)),support=still(g.spawn('pikachu',1,145,210,0));
   cast(g,'lightning',158,210);run(g,.85);
   assert.equal(a.hp,a.maxHp-CARDS.lightning.damage);assert.equal(b.hp,b.maxHp-CARDS.lightning.damage);assert.equal(tower.hp,tower.maxHp-CARDS.lightning.towerDamage);assert.equal(support.hp,support.maxHp);assert.ok(a.stun>0);
 });
@@ -97,18 +97,18 @@ test('the three-elixir nursery produces fragile melee pairs and leaves four on d
 test('Duskull invokes pairs, respects its living summon limit and leaves reinforcements on death',()=>{
   const g=fresh();g.towers.forEach(t=>t.hp=0);const owner=g.spawn('duskull',0,300,520,0);run(g,1.3);assert.equal(g.units.filter(u=>u.parentId===owner.id).length,2);run(g,13);assert.ok(g.units.filter(u=>u.parentId===owner.id&&u.hp>0).length<=6);const before=g.units.filter(u=>u.key==='shuppetToken'&&u.hp>0).length;g.damage(owner,99999,1);assert.equal(g.units.filter(u=>u.key==='shuppetToken'&&u.hp>0).length,before+2);
 });
-test('the mixed gang deploys three melee Poochyena and two ranged Ralts for one card cost',()=>{
-  const g=fresh(),result=cast(g,'pandilla',300,530);assert.ok(result.ok);assert.equal(g.units.filter(u=>u.key==='poochyenaToken').length,3);assert.equal(g.units.filter(u=>u.key==='raltsToken').length,2);assert.ok(g.units.filter(u=>u.key==='raltsToken').every(u=>u.card.air));assert.equal(g.energy[0],7);
+test('the mixed gang deploys three melee Poochyena and three ranged Ralts for one card cost',()=>{
+  const g=fresh(),result=cast(g,'pandilla',300,530);assert.ok(result.ok);assert.equal(g.units.filter(u=>u.key==='poochyenaToken').length,3);assert.equal(g.units.filter(u=>u.key==='raltsToken').length,3);assert.ok(g.units.filter(u=>u.key==='raltsToken').every(u=>u.card.air));assert.equal(g.energy[0],7);
 });
-test('Rocket gang keeps three melee in front and two ranged behind at edges, towers and in either online perspective',()=>{
+test('Rocket gang keeps three melee in front and three ranged behind at edges, towers and in either online perspective',()=>{
   for(const team of[0,1])for(const[x,y]of[[300,530],[300,448],[50,760],[550,760],[158,628],[300,682]]){
     const g=fresh(),cursor={x:team?600-x:x,y:team?800-y:y},anchor=g.resolveDeployment(team,'pandilla',cursor.x,cursor.y);
-    assert.ok(anchor,JSON.stringify({team,cursor}));const preview=g.deploymentPositions(team,'pandilla',anchor.x,anchor.y);assert.equal(preview.length,5);
+    assert.ok(anchor,JSON.stringify({team,cursor}));const preview=g.deploymentPositions(team,'pandilla',anchor.x,anchor.y);assert.equal(preview.length,6);
     cast(g,'pandilla',cursor.x,cursor.y,team);assert.deepEqual(g.units.map(({x,y})=>({x,y})),preview);
     const check=units=>{
       const front=units.filter(u=>u.key==='poochyenaToken'),back=units.filter(u=>u.key==='raltsToken'),direction=units[0].team?-1:1;
-      assert.equal(front.length,3);assert.equal(back.length,2);assert.ok(Math.max(...front.map(u=>u.y*direction))<Math.min(...back.map(u=>u.y*direction)));
-      assert.equal(new Set(front.map(u=>u.y)).size,1);assert.equal(new Set(back.map(u=>u.y)).size,1);assert.equal(new Set(units.map(u=>`${u.x},${u.y}`)).size,5);
+      assert.equal(front.length,3);assert.equal(back.length,3);assert.ok(Math.max(...front.map(u=>u.y*direction))<Math.min(...back.map(u=>u.y*direction)));
+      assert.equal(new Set(front.map(u=>u.y)).size,1);assert.equal(new Set(back.map(u=>u.y)).size,1);assert.equal(new Set(units.map(u=>`${u.x},${u.y}`)).size,6);
     };
     check(g.units);check(unpackGame(perspective(packGame(g),1)).units);
     for(const u of g.units)assert.ok(g.canDeploy(team,u.key,u.x,u.y));
@@ -122,8 +122,8 @@ test('new win conditions ignore adjacent troops and can be pulled to defensive s
   for(const key of['regirock','celebi']){const g=fresh(),unit=g.spawn(key,0,158,450,0),bait=still(g.spawn('pikachu',1,160,430,0));bait.entryPending=false;g.step(1/60);assert.notEqual(unit.target,bait);const structure=g.spawn('regice',1,300,300,0);g.step(1/60);assert.equal(unit.target,structure);assert.ok(CARDS[key].role.startsWith('Win condition'));}
 });
 test('heavy hitters have real windups, lose to distractions and can be interrupted before impact',()=>{
-  for(const key of['raichu','registeel']){const g=fresh(),attacker=g.spawn(key,0,300,530,0),tank=still(g.spawn('snorlax',1,300,495,0));g.attack(attacker,tank);run(g,CARDS[key].windup-.1);assert.equal(tank.hp,tank.maxHp);g.damage(attacker,1,1,{stun:1});run(g,.4);assert.equal(tank.hp,tank.maxHp);const bait=g.spawn('diglett',1,310,530,0);run(g,1);assert.equal(attacker.target,bait);}
-  assert.ok(CARDS.raichu.hp<CARDS.fireball.damage);assert.ok(CARDS.registeel.interval>=3);assert.ok(CARDS.registeel.damage>=1000);
+  for(const key of['raichu','rhydon']){const g=fresh(),attacker=g.spawn(key,0,300,530,0),tank=still(g.spawn('snorlax',1,300,495,0));g.attack(attacker,tank);run(g,CARDS[key].windup-.1);assert.equal(tank.hp,tank.maxHp);g.damage(attacker,1,1,{stun:1});run(g,.4);assert.equal(tank.hp,tank.maxHp);const bait=g.spawn('diglett',1,310,530,0);run(g,1);assert.equal(attacker.target,bait);}
+  assert.ok(CARDS.raichu.hp<CARDS.fireball.damage);assert.ok(CARDS.rhydon.interval>=3);assert.ok(CARDS.rhydon.damage>=1000);
 });
 test('Voltorb leaps before the explosion and damages nearby enemies of both movement types once',()=>{
   const g=fresh(),voltorb=g.spawn('voltorb',0,300,530,0),target=still(g.spawn('snorlax',1,300,460,0)),air=still(g.spawn('charizard',1,325,460,0));voltorb.cooldown=0;
