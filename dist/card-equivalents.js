@@ -44,7 +44,7 @@ export const CARD_EQUIVALENTS = {
   arcanine: { reference: 'Príncipe', similarity: 'partial', reason: 'Toma carrera para dar un golpe de daño doble que también quema.' },
   slowbro: { reference: 'Mago de hielo', similarity: 'equivalent', reason: 'Tirador de área que ralentiza y libera frío al aparecer.' },
   grimer: { reference: null, similarity: 'none', reason: 'Defensor barato que deja una zona venenosa al morir.' },
-  cloyster: { reference: null, similarity: 'none', reason: 'Estructura antiaérea con escudo y ráfagas de cinco proyectiles.' },
+  cloyster: { reference: null, similarity: 'none', reason: 'Defensa antiaérea con escudo y descargas de pinchos de largo alcance.' },
   gastly: { reference: null, similarity: 'none', reason: 'Cuatro tiradores aéreos que dejan campos dañinos al morir.' },
   voltorb: { reference: 'Espíritu eléctrico', similarity: 'partial', reason: 'Salta, daña y aturde al consumirse, con daño en área en lugar de rayos encadenados.' },
   forretress: { reference: 'Rompemuros', similarity: 'partial', reason: 'Busca estructuras y se consume al explotar, adaptado a un solo cuerpo más resistente.' },

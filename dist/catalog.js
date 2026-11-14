@@ -1,4 +1,4 @@
-// Generation I–III cards. Rarity never multiplies stats.
+// Pokemon card catalog. Rarity never multiplies stats.
 function card(name,id,cost,type,role,stats,description){return{name,id,cost,type,label:{grass:'Planta',water:'Agua',fire:'Fuego',electric:'Eléctrico',psychic:'Psíquico',ghost:'Fantasma',flying:'Volador',rock:'Roca',steel:'Acero',fighting:'Lucha',normal:'Normal',poison:'Veneno'}[type]||type,role,hp:700,damage:70,range:30,speed:44,interval:1.4,attackDuration:.75,attackAnim:'Attack',style:'punch',muzzleHeight:26,color:'#b9d49d',move:role.split(' · ')[0],rarity:cost>=6?'epica':cost>=4?'especial':'comun',description,...stats};}
 const ranged=(style,range=135)=>({style,range,attackAnim:'Shoot',air:true});
 export const EXTRA_CARDS={

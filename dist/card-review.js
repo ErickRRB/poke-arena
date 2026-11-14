@@ -47,7 +47,7 @@ export const CARD_REVIEW = {
   "arcanine": "Carga ígnea: Toma carrera y golpea con una carga que deja quemadura. Referencia: Parcial de Príncipe. 4 de elixir. Toma carrera para dar un golpe de daño doble que también quema.",
   "slowbro": "Rayo hielo: Libera frío al aparecer y ralentiza el movimiento y los ataques en área. Referencia: Mago de hielo. 3 de elixir. Libera frío al aparecer y ralentiza el movimiento y los ataques en área.",
   "grimer": "Puño veneno: Golpea a corta distancia y deja un charco venenoso al caer. Referencia: Sin similitud. 2 de elixir. Defensor barato que deja una zona venenosa al morir.",
-  "cloyster": "Carámbano: Defiende su posición disparando una descarga de pinchos. Referencia: Sin similitud. 4 de elixir. Estructura antiaérea con escudo y ráfagas de cinco proyectiles.",
+  "cloyster": "Carámbano: Defiende su posición disparando una descarga de pinchos. Referencia: Sin similitud. 4 de elixir. Defensa antiaérea con escudo y descargas de pinchos de largo alcance.",
   "gastly": "Bola sombra: Cuatro Gastly atacan a distancia y dejan niebla dañina al caer. Referencia: Sin similitud. 2 de elixir. Cuatro tiradores aéreos que dejan campos dañinos al morir.",
   "voltorb": "Autodestrucción: Salta y encadena una descarga que aturde hasta nueve enemigos. Referencia: Espíritu eléctrico. 1 de elixir. Salta y encadena una descarga que aturde hasta nueve enemigos.",
   "forretress": "Explosión: Dos corredores buscan estructuras y explotan al alcanzarlas. Referencia: Rompemuros. 2 de elixir. Dos corredores buscan estructuras y explotan al alcanzarlas.",

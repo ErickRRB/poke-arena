@@ -104,7 +104,7 @@ Vivero Exeggutor cuesta 3, libera parejas de Exeggcute con la vida de Esqueletos
 | Carta Pokémon | Elixir | Clash Royale | Comportamiento |
 | --- | ---: | --- | --- |
 | Ampharos | 4 | Tesla | Se oculta sin enemigos cerca y emerge para disparar a tierra y aire. |
-| Cloyster | 4 | Sin similitud | Estructura antiaérea con escudo y ráfagas de cinco proyectiles. |
+| Cloyster | 4 | Sin similitud | Defensa antiaérea con escudo y descargas de pinchos de largo alcance. |
 | Madriguera Nidoqueen | 6 | Choza de bárbaros | Libera grupos de tres Nidoran y deja uno más al caer. |
 | Refugio Ralts | 4 | Choza de duendes | Libera Ralts cuando hay enemigos cerca y deja uno más al caer. |
 | Regice | 4 | Sin similitud | Estructura antiaérea que dispara en área y ralentiza. |
