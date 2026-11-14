@@ -1,0 +1,1282 @@
+{
+  "date": "2026-11-14",
+  "scope": {
+    "mappedArtworks": 111,
+    "selectableArtworks": 109,
+    "legacyArtworks": [
+      "electrode",
+      "exeggutor"
+    ],
+    "homeScene": "dist/assets/home-arena.webp",
+    "homeSceneReview": "Pikachu, Charizard y Blastoise conservan sus rasgos, colores y apéndices. Sin cambios.",
+    "battleSprites": "Sprites nativos PMDCollab: se conservan sus archivos; el cambio se limita al artwork de cartas."
+  },
+  "method": "Comparación visual de cada escena activa y sus Pokémon secundarios con los art.png oficiales de cada especie. Se revisaron rostro, silueta, colores, alas, brazos, piernas, colas, cuernos, marcas y grupos. Las variaciones de pose, perspectiva, iluminación y expresión no se trataron como errores anatómicos por sí mismas.",
+  "references": [
+    "https://www.pokemon.com/pokedex/",
+    "https://www.pokemon.com/us/pokedex/zubat",
+    "https://www.pokemon.com/us/pokedex/crobat",
+    "https://www.pokemon.com/us/pokedex/ralts",
+    "https://www.pokemon.com/us/pokedex/registeel",
+    "https://github.com/PokeAPI/sprites/tree/master/sprites/pokemon/other/official-artwork"
+  ],
+  "cards": [
+    {
+      "key": "pikachu",
+      "name": "Pikachu",
+      "selectable": true,
+      "asset": "assets/cards/battle-1.webp",
+      "referenceIds": [
+        25
+      ],
+      "decision": "retained",
+      "review": "Orejas de puntas negras, mejillas rojas y cola angular de rayo."
+    },
+    {
+      "key": "snorlax",
+      "name": "Snorlax",
+      "selectable": true,
+      "asset": "assets/cards/battle-1.webp",
+      "referenceIds": [
+        143
+      ],
+      "decision": "retained",
+      "review": "Cuerpo azul y crema, orejas puntiagudas, ojos cerrados y almohadilla plantar."
+    },
+    {
+      "key": "machamp",
+      "name": "Machamp",
+      "selectable": true,
+      "asset": "assets/cards/battle-1.webp",
+      "referenceIds": [
+        68
+      ],
+      "decision": "retained",
+      "review": "Cuatro brazos, cresta de tres lóbulos y cinturón; los rastros de golpes son efectos de movimiento."
+    },
+    {
+      "key": "blastoise",
+      "name": "Blastoise",
+      "selectable": true,
+      "asset": "assets/cards/blastoise-mobile-v1.png",
+      "referenceIds": [
+        9
+      ],
+      "decision": "retained",
+      "review": "Dos cañones del caparazón, cuerpo azul, vientre segmentado y tres garras."
+    },
+    {
+      "key": "zubat",
+      "name": "Zubat",
+      "selectable": true,
+      "asset": "assets/cards/zubatSceneV3.webp",
+      "referenceIds": [
+        41
+      ],
+      "decision": "corrected",
+      "review": "Corregido en los tres individuos: cara sin ojos ni cejas y colmillos superiores e inferiores."
+    },
+    {
+      "key": "thunder",
+      "name": "Impactrueno",
+      "selectable": true,
+      "asset": "assets/cards/battle-1.webp",
+      "referenceIds": [],
+      "decision": "retained",
+      "review": "Escena del rayo sin Pokémon reconocible que corregir."
+    },
+    {
+      "key": "charizard",
+      "name": "Charizard",
+      "selectable": true,
+      "asset": "assets/cards/battle-1.webp",
+      "referenceIds": [
+        6
+      ],
+      "decision": "retained",
+      "review": "Hocico, dos cuernos, alas de interior azul, dos brazos, dos piernas y cola con llama."
+    },
+    {
+      "key": "fireball",
+      "name": "Bomba ígnea",
+      "selectable": true,
+      "asset": "assets/cards/fireballV2.webp",
+      "referenceIds": [
+        6
+      ],
+      "decision": "retained",
+      "review": "Charizard pequeño al fondo y ataque de fuego en primer plano; no se detectó alteración de especie."
+    },
+    {
+      "key": "treecko",
+      "name": "Treecko",
+      "selectable": true,
+      "asset": "assets/cards/treeckoSceneV2.webp",
+      "referenceIds": [
+        252
+      ],
+      "decision": "retained",
+      "review": "Dos Treecko con cola dividida, vientre rojo y ojos amarillos."
+    },
+    {
+      "key": "log",
+      "name": "Rueda Fuego",
+      "selectable": true,
+      "asset": "assets/cards/flame-wheel-v1.png",
+      "referenceIds": [
+        155
+      ],
+      "decision": "retained",
+      "review": "Cyndaquil pequeño con lomo azul oscuro y llamas, detrás de la rueda de fuego."
+    },
+    {
+      "key": "squirtle",
+      "name": "Squirtle",
+      "selectable": true,
+      "asset": "assets/cards/battle-1.webp",
+      "referenceIds": [
+        7
+      ],
+      "decision": "retained",
+      "review": "Cuerpo azul, caparazón marrón, vientre crema y cola enrollada."
+    },
+    {
+      "key": "charmander",
+      "name": "Charmander",
+      "selectable": true,
+      "asset": "assets/cards/battle-1.webp",
+      "referenceIds": [
+        4
+      ],
+      "decision": "retained",
+      "review": "Cuerpo naranja, vientre claro y llama en el extremo de la cola."
+    },
+    {
+      "key": "bulbasaur",
+      "name": "Bulbasaur",
+      "selectable": true,
+      "asset": "assets/cards/battle-1.webp",
+      "referenceIds": [
+        1
+      ],
+      "decision": "retained",
+      "review": "Bulbo dorsal, manchas de la piel y cuatro patas; lianas integradas en el ataque."
+    },
+    {
+      "key": "gengar",
+      "name": "Gengar",
+      "selectable": true,
+      "asset": "assets/cards/battle-1.webp",
+      "referenceIds": [
+        94
+      ],
+      "decision": "retained",
+      "review": "Cuerpo violeta, púas, ojos rojos y sonrisa dentada."
+    },
+    {
+      "key": "eevee",
+      "name": "Eevee",
+      "selectable": true,
+      "asset": "assets/cards/battle-1.webp",
+      "referenceIds": [
+        133
+      ],
+      "decision": "retained",
+      "review": "Pelaje marrón, collar crema, orejas largas e interior oscuro y punta clara de cola."
+    },
+    {
+      "key": "onix",
+      "name": "Onix",
+      "selectable": true,
+      "asset": "assets/cards/battle-1.webp",
+      "referenceIds": [
+        95
+      ],
+      "decision": "retained",
+      "review": "Cabeza con cuerno y cadena de segmentos de roca."
+    },
+    {
+      "key": "vulpix",
+      "name": "Vulpix",
+      "selectable": true,
+      "asset": "assets/cards/battle-2.webp",
+      "referenceIds": [
+        37
+      ],
+      "decision": "retained",
+      "review": "Pelaje rojizo, mechón rizado y abanico de colas rizadas."
+    },
+    {
+      "key": "psyduck",
+      "name": "Psyduck",
+      "selectable": true,
+      "asset": "assets/cards/battle-2.webp",
+      "referenceIds": [
+        54
+      ],
+      "decision": "retained",
+      "review": "Pico ancho claro, tres pelos negros, patas palmeadas y manos en la cabeza."
+    },
+    {
+      "key": "alakazam",
+      "name": "Alakazam",
+      "selectable": true,
+      "asset": "assets/cards/battle-2.webp",
+      "referenceIds": [
+        65
+      ],
+      "decision": "retained",
+      "review": "Bigotes, dos cucharas, hocico angular y placas marrones."
+    },
+    {
+      "key": "geodude",
+      "name": "Geodude",
+      "selectable": true,
+      "asset": "assets/cards/battle-2.webp",
+      "referenceIds": [
+        74
+      ],
+      "decision": "retained",
+      "review": "Cuerpo de roca con dos brazos y sin piernas añadidas."
+    },
+    {
+      "key": "magnemite",
+      "name": "Magnemite",
+      "selectable": true,
+      "asset": "assets/cards/battle-2.webp",
+      "referenceIds": [
+        81
+      ],
+      "decision": "retained",
+      "review": "Un ojo central, tornillo superior y dos imanes laterales con extremos rojos y azules."
+    },
+    {
+      "key": "scyther",
+      "name": "Scyther",
+      "selectable": true,
+      "asset": "assets/cards/battle-2.webp",
+      "referenceIds": [
+        123
+      ],
+      "decision": "retained",
+      "review": "Dos brazos con guadañas, alas, cabeza con cuernos y cuerpo verde."
+    },
+    {
+      "key": "lapras",
+      "name": "Lapras",
+      "selectable": true,
+      "asset": "assets/cards/battle-2.webp",
+      "referenceIds": [
+        131
+      ],
+      "decision": "retained",
+      "review": "Cuerno frontal, orejas enrolladas, caparazón gris con púas y aletas."
+    },
+    {
+      "key": "mewtwo",
+      "name": "Mewtwo",
+      "selectable": true,
+      "asset": "assets/cards/battle-2.webp",
+      "referenceIds": [
+        150
+      ],
+      "decision": "retained",
+      "review": "Cuerpo claro, cola violeta, orejas cortas y dedos redondeados."
+    },
+    {
+      "key": "golem",
+      "name": "Golem",
+      "selectable": true,
+      "asset": "assets/cards/golemSceneV3.webp",
+      "referenceIds": [
+        76
+      ],
+      "decision": "retained",
+      "review": "Cabeza y extremidades saliendo del caparazón de roca segmentado."
+    },
+    {
+      "key": "venusaur",
+      "name": "Venusaur",
+      "selectable": true,
+      "asset": "assets/cards/battle-2.webp",
+      "referenceIds": [
+        3
+      ],
+      "decision": "retained",
+      "review": "Flor, tronco y hojas dorsales sobre el cuerpo de cuatro patas."
+    },
+    {
+      "key": "butterfree",
+      "name": "Butterfree",
+      "selectable": true,
+      "asset": "assets/cards/battle-2.webp",
+      "referenceIds": [
+        12
+      ],
+      "decision": "retained",
+      "review": "Alas claras con nervaduras oscuras, ojos rojos y antenas."
+    },
+    {
+      "key": "beedrill",
+      "name": "Beedrill",
+      "selectable": true,
+      "asset": "assets/cards/beedrillSceneV2.webp",
+      "referenceIds": [
+        15
+      ],
+      "decision": "retained",
+      "review": "Dos individuos con agujas en ambos brazos, abdomen rayado, aguijón posterior y alas."
+    },
+    {
+      "key": "pidgeot",
+      "name": "Pidgeot",
+      "selectable": true,
+      "asset": "assets/cards/battle-2.webp",
+      "referenceIds": [
+        18
+      ],
+      "decision": "retained",
+      "review": "Cresta larga roja y amarilla, pico y plumaje de alas; perspectiva de picada."
+    },
+    {
+      "key": "ekans",
+      "name": "Ekans",
+      "selectable": true,
+      "asset": "assets/cards/ekansSceneV2.webp",
+      "referenceIds": [
+        23
+      ],
+      "decision": "retained",
+      "review": "Dos serpientes violetas con collar amarillo y ojos amarillos."
+    },
+    {
+      "key": "sandshrew",
+      "name": "Sandshrew",
+      "selectable": true,
+      "asset": "assets/cards/sandshrewSceneV2.webp",
+      "referenceIds": [
+        27
+      ],
+      "decision": "retained",
+      "review": "Dos cuerpos de placas amarillas, vientre claro, colas y garras."
+    },
+    {
+      "key": "nidoqueen",
+      "name": "Nidoqueen",
+      "selectable": true,
+      "asset": "assets/cards/nidoqueenSceneV2.webp",
+      "referenceIds": [
+        31,
+        29
+      ],
+      "decision": "retained",
+      "review": "Nidoqueen azul con pecho y vientre crema; Nidoran hembra de tono azul lavanda y cuerno corto."
+    },
+    {
+      "key": "nidoking",
+      "name": "Nidoking",
+      "selectable": true,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        34,
+        32
+      ],
+      "decision": "retained",
+      "review": "Armadura violeta, cuerno grande, vientre claro y Nidoran pequeños en el suelo."
+    },
+    {
+      "key": "mankey",
+      "name": "Mankey",
+      "selectable": true,
+      "asset": "assets/cards/mankeySceneV2.webp",
+      "referenceIds": [
+        56
+      ],
+      "decision": "retained",
+      "review": "Tres individuos de pelaje claro con nariz de cerdo, manos y pies marrones y cola larga."
+    },
+    {
+      "key": "arcanine",
+      "name": "Arcanine",
+      "selectable": true,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        59
+      ],
+      "decision": "retained",
+      "review": "Pelaje naranja a rayas negras, melena y cola crema."
+    },
+    {
+      "key": "slowbro",
+      "name": "Slowbro",
+      "selectable": true,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        80,
+        90
+      ],
+      "decision": "retained",
+      "review": "Slowbro rosado con vientre segmentado y Shellder unido a la cola."
+    },
+    {
+      "key": "grimer",
+      "name": "Grimer",
+      "selectable": true,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        88
+      ],
+      "decision": "retained",
+      "review": "Cuerpo de lodo violeta con brazos, ojos y boca; la expresión de ataque varía."
+    },
+    {
+      "key": "cloyster",
+      "name": "Cloyster",
+      "selectable": true,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        91
+      ],
+      "decision": "retained",
+      "review": "Valvas espinosas violetas y rostro oscuro central."
+    },
+    {
+      "key": "gastly",
+      "name": "Gastly",
+      "selectable": true,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        92
+      ],
+      "decision": "retained",
+      "review": "Dos núcleos esféricos oscuros con gas violeta y colmillos."
+    },
+    {
+      "key": "voltorb",
+      "name": "Voltorb",
+      "selectable": true,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        100
+      ],
+      "decision": "retained",
+      "review": "Mitad superior roja, inferior blanca y dos ojos; sin boca añadida."
+    },
+    {
+      "key": "electrode",
+      "name": "Electrode",
+      "selectable": false,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        101
+      ],
+      "decision": "retained",
+      "review": "Esfera blanca arriba y roja abajo; rostro propio de Electrode. Recurso de compatibilidad."
+    },
+    {
+      "key": "exeggutor",
+      "name": "Exeggutor",
+      "selectable": false,
+      "asset": "assets/cards/exeggutorSceneV2.webp",
+      "referenceIds": [
+        103
+      ],
+      "decision": "retained",
+      "review": "Tres cabezas amarillas, hojas, tronco y dos patas; recurso de compatibilidad."
+    },
+    {
+      "key": "koffing",
+      "name": "Koffing",
+      "selectable": true,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        109
+      ],
+      "decision": "retained",
+      "review": "Esfera violeta con cráteres, colmillos y símbolo de calavera y huesos."
+    },
+    {
+      "key": "chansey",
+      "name": "Chansey",
+      "selectable": true,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        113,
+        25
+      ],
+      "decision": "retained",
+      "review": "Cuerpo rosado, mechones laterales y huevo en la bolsa; Pikachu parcial al costado conserva sus marcas."
+    },
+    {
+      "key": "kangaskhan",
+      "name": "Kangaskhan",
+      "selectable": true,
+      "asset": "assets/cards/kangaskhanSceneV2.webp",
+      "referenceIds": [
+        115
+      ],
+      "decision": "retained",
+      "review": "Adulto con placa abdominal/bolsa y cría separada violeta, acorde a la pareja de la carta."
+    },
+    {
+      "key": "starmie",
+      "name": "Starmie",
+      "selectable": true,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        121
+      ],
+      "decision": "retained",
+      "review": "Dos estrellas superpuestas, brazos violetas, marco dorado y gema roja central."
+    },
+    {
+      "key": "mrmime",
+      "name": "Mr. Mime",
+      "selectable": true,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        122
+      ],
+      "decision": "retained",
+      "review": "Guantes con puntas rosas, mejillas rojas, pies curvos y cuerpo de mimo."
+    },
+    {
+      "key": "gyarados",
+      "name": "Gyarados",
+      "selectable": true,
+      "asset": "assets/cards/battle-3.webp",
+      "referenceIds": [
+        130
+      ],
+      "decision": "retained",
+      "review": "Cuerpo serpentino azul y crema, cresta, bigotes y gran boca."
+    },
+    {
+      "key": "ditto",
+      "name": "Ditto",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        132,
+        150
+      ],
+      "decision": "retained",
+      "review": "Forma amorfa violeta, ojos de punto y boca simple; silueta de transformación de Mewtwo al fondo."
+    },
+    {
+      "key": "articuno",
+      "name": "Articuno",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        144
+      ],
+      "decision": "retained",
+      "review": "Plumaje azul, cresta, pecho claro y cola larga de cinta."
+    },
+    {
+      "key": "zapdos",
+      "name": "Zapdos",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        145
+      ],
+      "decision": "retained",
+      "review": "Plumaje angular amarillo y negro, pico largo y garras."
+    },
+    {
+      "key": "moltres",
+      "name": "Moltres",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        146
+      ],
+      "decision": "retained",
+      "review": "Ave amarilla con alas, cresta y cola de fuego."
+    },
+    {
+      "key": "dragonite",
+      "name": "Dragonite",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        149
+      ],
+      "decision": "retained",
+      "review": "Cuerpo naranja, vientre segmentado, dos antenas y alas pequeñas azules por dentro."
+    },
+    {
+      "key": "meganium",
+      "name": "Meganium",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        154
+      ],
+      "decision": "retained",
+      "review": "Cuatro patas, collar de pétalos rosas y dos antenas con extremos amarillos."
+    },
+    {
+      "key": "typhlosion",
+      "name": "Typhlosion",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        157
+      ],
+      "decision": "retained",
+      "review": "Lomo azul oscuro, vientre crema y collar dorsal de fuego."
+    },
+    {
+      "key": "feraligatr",
+      "name": "Feraligatr",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        160
+      ],
+      "decision": "retained",
+      "review": "Cuerpo azul, crestas rojas, mandíbula y vientre claro."
+    },
+    {
+      "key": "crobat",
+      "name": "Crobat",
+      "selectable": true,
+      "asset": "assets/cards/crobatSceneV2.webp",
+      "referenceIds": [
+        169
+      ],
+      "decision": "corrected",
+      "review": "Corregido: exactamente cuatro alas, ojos amarillos, cuerpo violeta y dos orejas largas."
+    },
+    {
+      "key": "ampharos",
+      "name": "Ampharos",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        181
+      ],
+      "decision": "retained",
+      "review": "Cuerpo amarillo, cuello y cola rayados y esferas rojas frontal y caudal."
+    },
+    {
+      "key": "espeon",
+      "name": "Espeon",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        196
+      ],
+      "decision": "retained",
+      "review": "Pelaje lila, gema roja, orejas grandes y cola bifurcada."
+    },
+    {
+      "key": "umbreon",
+      "name": "Umbreon",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        197
+      ],
+      "decision": "retained",
+      "review": "Pelaje oscuro, anillos amarillos y ojos rojos."
+    },
+    {
+      "key": "wobbuffet",
+      "name": "Wobbuffet",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        202
+      ],
+      "decision": "retained",
+      "review": "Cuerpo azul, brazos largos, pies de base ancha y cola negra con ojos blancos."
+    },
+    {
+      "key": "steelix",
+      "name": "Steelix",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        208
+      ],
+      "decision": "retained",
+      "review": "Cabeza metálica grande y cuerpo segmentado de acero con salientes."
+    },
+    {
+      "key": "scizor",
+      "name": "Scizor",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        212
+      ],
+      "decision": "retained",
+      "review": "Cuerpo rojo, dos pinzas con marcas oscuras, alas transparentes y cresta."
+    },
+    {
+      "key": "skarmory",
+      "name": "Skarmory",
+      "selectable": true,
+      "asset": "assets/cards/battle-4.webp",
+      "referenceIds": [
+        227
+      ],
+      "decision": "retained",
+      "review": "Cuerpo y alas de acero, interior rojo de las plumas y pico alargado."
+    },
+    {
+      "key": "blissey",
+      "name": "Blissey",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        242
+      ],
+      "decision": "retained",
+      "review": "Cuerpo rosado, rizos laterales, plumas blancas y huevo; las siluetas inferiores no alteran a los Pokémon."
+    },
+    {
+      "key": "lugia",
+      "name": "Lugia",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        249
+      ],
+      "decision": "retained",
+      "review": "Cuerpo blanco y azul, alas con dedos y placas dorsales y de cola."
+    },
+    {
+      "key": "hooh",
+      "name": "Ho-Oh",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        250
+      ],
+      "decision": "retained",
+      "review": "Cresta dorada, alas rojas con bordes verdes, abdomen blanco y cola dorada."
+    },
+    {
+      "key": "sceptile",
+      "name": "Sceptile",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        254
+      ],
+      "decision": "retained",
+      "review": "Cuerpo verde, franja roja, semillas amarillas y hojas en brazos y cola."
+    },
+    {
+      "key": "blaziken",
+      "name": "Blaziken",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        257
+      ],
+      "decision": "retained",
+      "review": "Cresta, melena crema, cuerpo rojo y piernas amarillas; las manos repetidas forman el rastro del combo."
+    },
+    {
+      "key": "swampert",
+      "name": "Swampert",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        260
+      ],
+      "decision": "retained",
+      "review": "Cuerpo azul, dos aletas oscuras, branquias naranjas y grandes brazos."
+    },
+    {
+      "key": "gardevoir",
+      "name": "Gardevoir",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        282
+      ],
+      "decision": "retained",
+      "review": "Casco verde, rostro blanco, pieza roja en el pecho y dos brazos finos."
+    },
+    {
+      "key": "sableye",
+      "name": "Sableye",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        302
+      ],
+      "decision": "retained",
+      "review": "Cuerpo violeta, ojos de gema, joya roja del pecho, orejas puntiagudas y garras."
+    },
+    {
+      "key": "aggron",
+      "name": "Aggron",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        306
+      ],
+      "decision": "retained",
+      "review": "Coraza gris, cuerpo oscuro, cuernos y garras; no es una forma Mega."
+    },
+    {
+      "key": "sharpedo",
+      "name": "Sharpedo",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        319
+      ],
+      "decision": "retained",
+      "review": "Cuerpo corto de tiburón azul, estrella amarilla, branquias y boca dentada."
+    },
+    {
+      "key": "flygon",
+      "name": "Flygon",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        330
+      ],
+      "decision": "retained",
+      "review": "Lentes rojas, dos antenas largas, alas romboidales y cola rayada."
+    },
+    {
+      "key": "altaria",
+      "name": "Altaria",
+      "selectable": true,
+      "asset": "assets/cards/altariaSceneV2.webp",
+      "referenceIds": [
+        334
+      ],
+      "decision": "retained",
+      "review": "Cabeza azul, dos plumas largas y alas de nubes blancas."
+    },
+    {
+      "key": "absol",
+      "name": "Absol",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        359
+      ],
+      "decision": "retained",
+      "review": "Un cuerno curvo en la cabeza y una cola en forma de hoz detrás del cuerpo; son dos apéndices distintos."
+    },
+    {
+      "key": "salamence",
+      "name": "Salamence",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        373
+      ],
+      "decision": "retained",
+      "review": "Cuerpo azul, alas rojas, hocico y piezas laterales de la cabeza."
+    },
+    {
+      "key": "metagross",
+      "name": "Metagross",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        376
+      ],
+      "decision": "retained",
+      "review": "Cuerpo azul metálico, cruz plateada sobre el rostro, ojos rojos y cuatro patas."
+    },
+    {
+      "key": "kyogre",
+      "name": "Kyogre",
+      "selectable": true,
+      "asset": "assets/cards/battle-5.webp",
+      "referenceIds": [
+        382
+      ],
+      "decision": "retained",
+      "review": "Cuerpo azul y blanco, patrones rojos y grandes aletas laterales."
+    },
+    {
+      "key": "groudon",
+      "name": "Groudon",
+      "selectable": true,
+      "asset": "assets/cards/battle-6.webp",
+      "referenceIds": [
+        383
+      ],
+      "decision": "retained",
+      "review": "Placas rojas separadas por líneas oscuras, púas claras y extremidades robustas."
+    },
+    {
+      "key": "rayquaza",
+      "name": "Rayquaza",
+      "selectable": true,
+      "asset": "assets/cards/battle-6.webp",
+      "referenceIds": [
+        384
+      ],
+      "decision": "retained",
+      "review": "Cuerpo serpentino verde, marcas amarillas, bordes rojos y pequeños brazos."
+    },
+    {
+      "key": "diglett",
+      "name": "Diglett",
+      "selectable": true,
+      "asset": "assets/cards/diglettV2.webp",
+      "referenceIds": [
+        50
+      ],
+      "decision": "corrected",
+      "review": "Corregidos los tres individuos: ojos negros ovalados, nariz rosa y cuerpo continuo sin boca ni sonrisa."
+    },
+    {
+      "key": "diglettHorde",
+      "name": "Horda Diglett",
+      "selectable": true,
+      "asset": "assets/cards/diglettHordeV2.webp",
+      "referenceIds": [
+        50
+      ],
+      "decision": "corrected",
+      "review": "Corregidos los nueve individuos: caras neutras sin bocas, ojos abiertos y sin marcas de entusiasmo."
+    },
+    {
+      "key": "raltsTrio",
+      "name": "Trío Ralts",
+      "selectable": true,
+      "asset": "assets/cards/raltsTrioV2.webp",
+      "referenceIds": [
+        280
+      ],
+      "decision": "corrected",
+      "review": "Corregidos los tres: flequillo verde bajo que tapa los ojos, aletas rojas delantera y trasera y brazos simples."
+    },
+    {
+      "key": "poochyenaPack",
+      "name": "Manada Poochyena",
+      "selectable": true,
+      "asset": "assets/cards/poochyenaPack.webp",
+      "referenceIds": [
+        261
+      ],
+      "decision": "retained",
+      "review": "Cuatro Poochyena con máscara oscura, nariz roja, pelaje gris y cola erizada."
+    },
+    {
+      "key": "centralElectrode",
+      "name": "Central Electrode",
+      "selectable": true,
+      "asset": "assets/cards/centralElectrode.webp",
+      "referenceIds": [
+        101,
+        100
+      ],
+      "decision": "retained",
+      "review": "Electrode grande blanco arriba/rojo abajo; Voltorb pequeños con el orden de colores inverso."
+    },
+    {
+      "key": "madriguera",
+      "name": "Madriguera Nidoqueen",
+      "selectable": true,
+      "asset": "assets/cards/madriguera.webp",
+      "referenceIds": [
+        31,
+        32
+      ],
+      "decision": "retained",
+      "review": "Nidoqueen azul y Nidoran machos violetas en la madriguera."
+    },
+    {
+      "key": "vivero",
+      "name": "Vivero Exeggutor",
+      "selectable": true,
+      "asset": "assets/cards/vivero.webp",
+      "referenceIds": [
+        103,
+        102
+      ],
+      "decision": "retained",
+      "review": "Exeggutor con tres cabezas, tronco y hojas; huevos rosados de Exeggcute en la base."
+    },
+    {
+      "key": "regice",
+      "name": "Regice",
+      "selectable": true,
+      "asset": "assets/cards/regice.webp",
+      "referenceIds": [
+        378
+      ],
+      "decision": "retained",
+      "review": "Cuerpo de hielo, dos brazos, dos patas puntiagudas y siete puntos amarillos en cruz."
+    },
+    {
+      "key": "duskull",
+      "name": "Duskull",
+      "selectable": true,
+      "asset": "assets/cards/duskullV2.webp",
+      "referenceIds": [
+        355,
+        353
+      ],
+      "decision": "corrected",
+      "review": "Duskull conserva su máscara y un ojo rojo; corregidos los ojos de ambos Shuppet a cian, violeta y amarillo."
+    },
+    {
+      "key": "raichu",
+      "name": "Raichu",
+      "selectable": true,
+      "asset": "assets/cards/raichu.webp",
+      "referenceIds": [
+        26
+      ],
+      "decision": "retained",
+      "review": "Cuerpo naranja, vientre claro, mejillas amarillas, orejas de borde oscuro y larga cola de punta de rayo."
+    },
+    {
+      "key": "registeel",
+      "name": "Registeel",
+      "selectable": true,
+      "asset": "assets/cards/registeelV2.webp",
+      "referenceIds": [
+        379
+      ],
+      "decision": "corrected",
+      "review": "Corregidos antebrazos oscuros y manos de tres dedos claros con marcas rojas; siete puntos rojos faciales."
+    },
+    {
+      "key": "regirock",
+      "name": "Regirock",
+      "selectable": true,
+      "asset": "assets/cards/regirock.webp",
+      "referenceIds": [
+        377
+      ],
+      "decision": "retained",
+      "review": "Cuerpo de rocas claras y anaranjadas y siete puntos naranjas en patrón H."
+    },
+    {
+      "key": "celebi",
+      "name": "Celebi",
+      "selectable": true,
+      "asset": "assets/cards/celebiV2.webp",
+      "referenceIds": [
+        251
+      ],
+      "decision": "corrected",
+      "review": "Corregido a dos alas; se conservan dos antenas de punta azul, cabeza verde y ojos azules."
+    },
+    {
+      "key": "pandilla",
+      "name": "Pandilla Rocket",
+      "selectable": true,
+      "asset": "assets/cards/pandilla.webp",
+      "referenceIds": [
+        261,
+        280
+      ],
+      "decision": "retained",
+      "review": "Tres Poochyena grises y negros y dos Ralts con el flequillo cubriendo los ojos."
+    },
+    {
+      "key": "pinMissile",
+      "name": "Pin misil",
+      "selectable": true,
+      "asset": "assets/cards/pinMissileV2.webp",
+      "referenceIds": [
+        15
+      ],
+      "decision": "retained",
+      "review": "Beedrill pequeño en la esquina conserva abdomen rayado y aguijones; predominan los proyectiles."
+    },
+    {
+      "key": "lightning",
+      "name": "Rayo",
+      "selectable": true,
+      "asset": "assets/cards/lightningV2.webp",
+      "referenceIds": [
+        26
+      ],
+      "decision": "retained",
+      "review": "Raichu pequeño al costado con orejas y cola de rayo; predominan las tres descargas."
+    },
+    {
+      "key": "hyperBeam",
+      "name": "Hiperrayo",
+      "selectable": true,
+      "asset": "assets/cards/hyperBeam.webp",
+      "referenceIds": [
+        6
+      ],
+      "decision": "retained",
+      "review": "Charizard pequeño con alas, cuernos y cola con llama; el haz ocupa la escena."
+    },
+    {
+      "key": "blizzard",
+      "name": "Ventisca",
+      "selectable": true,
+      "asset": "assets/cards/blizzardV2.webp",
+      "referenceIds": [
+        144
+      ],
+      "decision": "retained",
+      "review": "Articuno pequeño con cola larga y alas azules; predominan el viento y cristales."
+    },
+    {
+      "key": "spikes",
+      "name": "Púas",
+      "selectable": true,
+      "asset": "assets/cards/spikesV2.webp",
+      "referenceIds": [
+        302
+      ],
+      "decision": "retained",
+      "review": "Sableye pequeño conserva ojos de gema y orejas puntiagudas."
+    },
+    {
+      "key": "stealthRock",
+      "name": "Trampa rocas",
+      "selectable": true,
+      "asset": "assets/cards/stealthRockV2.webp",
+      "referenceIds": [],
+      "decision": "retained",
+      "review": "Escena de rocas flotantes sin Pokémon que corregir."
+    },
+    {
+      "key": "whirlpool",
+      "name": "Remolino",
+      "selectable": true,
+      "asset": "assets/cards/whirlpoolV2.webp",
+      "referenceIds": [],
+      "decision": "retained",
+      "review": "Escena de agua sin Pokémon que corregir."
+    },
+    {
+      "key": "nightmare",
+      "name": "Pesadilla",
+      "selectable": true,
+      "asset": "assets/cards/nightmareV2.webp",
+      "referenceIds": [
+        353
+      ],
+      "decision": "retained",
+      "review": "Shuppet pequeño con cuerno y cuerpo de tela; no se apreció una alteración facial al tamaño del original."
+    },
+    {
+      "key": "earthquake",
+      "name": "Terremoto",
+      "selectable": true,
+      "asset": "assets/cards/earthquakeV2.webp",
+      "referenceIds": [
+        76
+      ],
+      "decision": "retained",
+      "review": "Golem pequeño de caparazón de roca, sin extremidades agregadas."
+    },
+    {
+      "key": "forretress",
+      "name": "Forretress",
+      "selectable": true,
+      "asset": "assets/cards/forretress.webp",
+      "referenceIds": [
+        205
+      ],
+      "decision": "retained",
+      "review": "Caparazón de dos valvas claras, cuerpo rojo oscuro, ojos y cañones laterales."
+    },
+    {
+      "key": "rapidash",
+      "name": "Rapidash",
+      "selectable": true,
+      "asset": "assets/cards/rapidash-v1.webp",
+      "referenceIds": [
+        78
+      ],
+      "decision": "retained",
+      "review": "Caballo crema con un cuerno, crines y cola de fuego y pezuñas grises."
+    },
+    {
+      "key": "roselia",
+      "name": "Roselia",
+      "selectable": true,
+      "asset": "assets/cards/roselia-v1.webp",
+      "referenceIds": [
+        315
+      ],
+      "decision": "retained",
+      "review": "Cuerpo verde, hojas, cuello amarillo y rosas roja y azul."
+    },
+    {
+      "key": "graveler",
+      "name": "Graveler",
+      "selectable": true,
+      "asset": "assets/cards/graveler-v1.webp",
+      "referenceIds": [
+        75
+      ],
+      "decision": "retained",
+      "review": "Cuatro brazos de roca, dos piernas cortas y rostro en el cuerpo central."
+    },
+    {
+      "key": "nuzleaf",
+      "name": "Nuzleaf",
+      "selectable": true,
+      "asset": "assets/cards/nuzleafV2.webp",
+      "referenceIds": [
+        274
+      ],
+      "decision": "corrected",
+      "review": "Corregidos los muslos claros segmentados, máscara/nariz y manos; se eliminó la falda de hojas y las mejillas infladas."
+    },
+    {
+      "key": "sneaselAmbush",
+      "name": "Emboscada Sneasel",
+      "selectable": true,
+      "asset": "assets/cards/sneaselAmbush-v1.webp",
+      "referenceIds": [
+        215
+      ],
+      "decision": "retained",
+      "review": "Sneasel pequeño con cuerpo oscuro, pluma roja de una oreja, cola roja, gemas amarillas y garras claras."
+    }
+  ],
+  "generation": {
+    "mode": "built-in image_gen.imagegen",
+    "correctedArtworks": [
+      "diglett",
+      "diglettHorde",
+      "zubat",
+      "crobat",
+      "raltsTrio",
+      "registeel",
+      "celebi",
+      "duskull",
+      "nuzleaf"
+    ],
+    "prompts": "prompts.json",
+    "retries": "La primera salida de Zubat y la primera de Crobat fueron rechazadas por el generador; el segundo intento de cada uno produjo las variantes revisadas y aceptadas.",
+    "generatedEdits": 9
+  },
+  "validation": {
+    "unitTests": {
+      "deck": 13,
+      "rendering": 39,
+      "failures": 0
+    },
+    "syntax": "passed",
+    "workerBuild": "passed",
+    "browser": "ui/validation.json",
+    "limits": "Inspección visual humana del agente, no clasificación automática ni prueba con jugadores."
+  },
+  "publication": {
+    "status": "local_ready_approval_required",
+    "reason": "La revisión automática bloqueó el helper de Sites por falta de autorización explícita del usuario para subir al destino y publicar."
+  }
+}

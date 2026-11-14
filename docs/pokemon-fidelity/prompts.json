@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-14",
+  "tool": "built-in image_gen.imagegen",
+  "prompts": [
+    {
+      "key": "diglett",
+      "prompt": "Use case: precise-object-edit. Asset type: existing Pokémon game card illustration. Image 1 is the edit target; image 2 is official Diglett anatomical reference only. Edit image 1 surgically: all THREE Diglett must have neutral canonical faces, two small vertical black oval eyes and one pink oval NOSE only. Completely remove all mouths, smiles, tongues and any mouth line under the noses, replacing those areas with continuous unbroken brown body shading. The pink oval is a nose, not a mouth. Match the simple expression and proportions of the official reference. Keep exactly three separate Diglett at their current positions and sizes. Preserve the entire grassy ruins, bridge, trees, lighting, painted style and composition. No new objects, no text, no frame, opaque image.",
+      "source": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d862-fd7a-7b83-93b1-41eabdd0ca78\\exec-c81bc591-c716-453c-9237-10e7a5beaf61.png"
+    },
+    {
+      "key": "diglettHorde",
+      "prompt": "Use case: precise-object-edit. Asset type: existing Pokémon game card illustration. Image 1 is the edit target; image 2 is official Diglett anatomical reference only. Correct every one of the NINE Diglett in image 1 to have a neutral canonical face: two small vertical black oval eyes and a pink oval NOSE only. Completely remove ALL mouths, smile lines, tongues, closed smiling eyes, eyebrows and yellow cartoon excitement marks. Replace smiling closed eyes with standard open black oval Diglett eyes. Under each pink nose there must only be uninterrupted brown body shading, absolutely no mouth. Preserve exactly nine separate Diglett at their existing locations and sizes, the soil rings, grass, ruins, stone bridges, stream, sunset lighting, painted style and full scene composition. No added Pokémon, no frame, no text, opaque image.",
+      "source": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d862-fd7a-7b83-93b1-41eabdd0ca78\\exec-78a99a97-0e6b-441f-8ed9-ae1237417b4f.png"
+    },
+    {
+      "key": "zubat",
+      "prompt": "Use case: precise-object-edit. Asset type: existing Pokémon game card illustration. Image 1 is the edit target; image 2 is the official Zubat anatomy reference. Fix ALL THREE Zubat in image 1. Canonical Zubat are completely EYELESS: remove every dot, slit, eyebrow, eye crease, nostril or eye-like facial mark above or beside the mouth, leaving smooth uninterrupted blue skin on the whole upper face. Correct the mouths to have FOUR white pointed fangs where visible, two upper and two lower, as in the official reference, with no smiling lips. Preserve the blue bodies, large ears with purple interiors, blue-edged purple membranous wings and two long thin tail-like legs. Keep all three bats in the same positions, with the same scale, flight poses, canyon and cave, purple dusk light, detail and composition. No text, no frame, opaque image.",
+      "source": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d862-fd7a-7b83-93b1-41eabdd0ca78\\exec-c136d574-b1d2-4a4a-95f0-803d43cc000d.png"
+    },
+    {
+      "key": "crobat",
+      "prompt": "Use case: precise-object-edit. Image 1 is the existing Crobat card scene to correct; image 2 is the official anatomy reference. Produce a polished portrait card scene, 4:5 ratio, with exactly ONE canonical Crobat flying above these purple twilight ruins. Correct the wing anatomy to exactly FOUR wings total, two wings on each side, matching the reference: one upper pair with teal inner membranes and one lower pair whose undersides may look purple. Remove the extra intermediate pair of wings from the target and restore the canyon sky behind them. Crobat has a purple compact body, two long pointed ears, yellow eyes, fanged mouth and two tiny feet; keep these. Preserve the original flying attack toward the lower right with green attack energy, canyon atmosphere, painted style and shared lighting. Do not duplicate the character. No extra limbs, no text, no frame. A full scene, not a cutout.",
+      "source": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d862-fd7a-7b83-93b1-41eabdd0ca78\\exec-b336af6a-07ef-4432-bfe2-97ff48f59c3a.png"
+    },
+    {
+      "key": "raltsTrio",
+      "prompt": "Use case: precise-object-edit. Image 1 is the edit target. Image 2 is the official Ralts design reference. Correct ALL THREE Ralts in the target to match the official anatomical silhouette. Their rounded green helmet-like hair should hang low and completely conceal their eyes, so remove the visible closed-eye arcs and extend the green fringe to cover that eye area. Only the small white lower face and tiny mouth should remain visible below the fringe. Keep the two red/pink front-and-back head fins, simple narrow white arms without hands or fingers, and two separated long white legs with flared feet as in the reference. Preserve exactly three Ralts, their original differing poses, positions and scale, psychic purple swirls, full ruins garden, grass, flowers, golden light and illustration style. No added Pokémon, no text, no frame.",
+      "source": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d862-fd7a-7b83-93b1-41eabdd0ca78\\exec-85135932-350f-42aa-9ff1-c1cec80a6dcf.png"
+    },
+    {
+      "key": "registeel",
+      "prompt": "Use case: precise-object-edit. Image 1 is the existing card scene to correct; image 2 is the official Registeel design reference. Correct only Registeel's arm and hand anatomy in image 1 to match the reference. Registeel has rounded silver shoulders, slim dark charcoal forearms and dark hands with exactly THREE long rounded silver/light-gray fingers per hand and three red/pink triangular marks on the back of each hand. Replace the giant fully silver human-like boxing fists and thick cylindrical metal forearms with these canonical three-finger hands and dark tapered forearms. Keep one hand reaching toward the viewer in the same dynamic attack and the other farther back. Preserve the spherical silver-and-black body, EXACTLY SEVEN red facial dots in their current hexagon-and-center pattern, short silver legs, whole ruins scene, stone floor, light, impact action and painted render style. No human knuckles, no five-finger hands, no text, no frame.",
+      "source": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d862-fd7a-7b83-93b1-41eabdd0ca78\\exec-365aee76-dfba-4153-bd2d-5184a7fcaca0.png"
+    },
+    {
+      "key": "celebi",
+      "prompt": "Use case: precise-object-edit. Image 1 is the edit target; image 2 is the official Celebi anatomy reference. Correct Celebi's wings in image 1: Celebi has exactly ONE PAIR of small delicate transparent wings, TWO wings total, one on each side of its back. The target has extra insect-like wings; remove the extra lower wing(s) and restore the sky and ruins visible behind them. Keep only two clearly separate translucent wings attached to the upper back. Preserve the green head, two blue-tipped antennae, blue eyes, arms, legs, flying pose, green leaf attack, full ruins and stream scene, daylight, detail and painted style. The change is limited to the wing count and attachment anatomy. No text, no frame.",
+      "source": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d862-fd7a-7b83-93b1-41eabdd0ca78\\exec-154b143c-825b-4f2d-aa50-447c988a67ac.png"
+    },
+    {
+      "key": "duskull",
+      "prompt": "Use case: precise-object-edit. Image 1 is the existing card scene. Image 2 is the official Shuppet design reference. Correct only the TWO small Shuppet in the background of image 1. Match their official appearance: grayish blue-purple cloth bodies with a single pointed top horn, flared sheet-like hems, and distinctive eyes containing pale cyan outer eye areas, gray-violet central iris areas and bright YELLOW inner pupil regions as shown in the reference. Replace the current plain icy-blue eyes with these recognizable multicolored official Shuppet eyes. Keep their poses, expressions, positions and small scale, and keep the large foreground Duskull, skull mask, single red eye, cloak, purple wisps, moonlit ruins, bridge, torches and all lighting unchanged. Preserve the scene style. No added characters, text or frame.",
+      "source": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d862-fd7a-7b83-93b1-41eabdd0ca78\\exec-d5124739-dc00-4a30-994a-d542c5ebf6ad.png"
+    },
+    {
+      "key": "nuzleaf",
+      "prompt": "Use case: precise-object-edit. Image 1 is the existing Nuzleaf game card illustration to correct. Image 2 is the official Nuzleaf anatomical design reference. Correct Nuzleaf's anatomy in image 1 to match that reference faithfully. Replace the invented skirt of individual brown leaves with the canonical TWO pale cream rounded upper thighs, each segmented by fine horizontal lines, like the official design. They are integral parts of the Pokémon's body and must be clearly separate, above its short brown lower legs and three-toed feet. Replace the inflated round cheek pouches with the smooth canonical brown lower face and single pointed pale-tan wooden nose above a small mouth. Correct the arms to the simple narrow brown limbs ending in chunky rounded brown hands from the official reference. Keep the angular pale tan mask around the eyes, pointed nose, brown head and torso, ONE large green head leaf and the dynamic sideways seed-shooting pose on the tree root. The seeds emerge from its small mouth, not from its nose. Preserve the whole bamboo-and-ruins scene, perspective, lighting, painterly illustration style and composition. Exactly one Nuzleaf, no extra characters, no text or frame.",
+      "source": "C:\\Users\\Mapa\\.codex\\generated_images\\01a1d862-fd7a-7b83-93b1-41eabdd0ca78\\exec-aa8a0da8-5c84-4161-89ef-86769d727222.png"
+    }
+  ]
+}
