@@ -107,12 +107,8 @@
     "384": "assets/audio/voices/384.mp3"
   },
   "foley": {
-    "punch-1": "assets/audio/foley/punch-1.ogg",
-    "punch-2": "assets/audio/foley/punch-2.ogg",
-    "heavy": "assets/audio/foley/heavy.ogg",
     "stone": "assets/audio/foley/stone.ogg",
     "metal": "assets/audio/foley/metal.ogg",
-    "punch-3": "assets/audio/foley/punch-3.ogg",
     "glass": "assets/audio/foley/glass.ogg",
     "bell": "assets/audio/foley/bell.ogg",
     "swish-1": "assets/audio/foley/swish-1.ogg",
@@ -128,5 +124,14 @@
     "25-release": "assets/audio/combat/025-electric-release.wav",
     "215-impact": "assets/audio/combat/215-claw-impact.wav",
     "215-release": "assets/audio/combat/215-claw-release.wav"
+  },
+  "feedback": {
+    "bow-release": "assets/audio/feedback/bow-release.ogg",
+    "petal-rustle": "assets/audio/feedback/petal-rustle.ogg",
+    "dart-air": "assets/audio/feedback/dart-air.ogg",
+    "light-contact": "assets/audio/feedback/light-contact.ogg",
+    "stone-crack": "assets/audio/feedback/stone-crack.ogg",
+    "bite-crunch": "assets/audio/feedback/bite-crunch.ogg",
+    "body-contact": "assets/audio/feedback/body-contact.ogg"
   }
 }
