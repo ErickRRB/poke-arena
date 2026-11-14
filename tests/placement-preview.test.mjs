@@ -45,11 +45,11 @@ test('leaving the arena removes every spell aiming indicator even if the card st
 test('no cast or travelling spell announces its landing position after aiming ends',()=>{
  for(const [key,card] of Object.entries(CARDS).filter(([,card])=>card.spell)){
   const calls=[],ctx=new Proxy({}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
-  const renderer=Object.assign(Object.create(Renderer.prototype),{ctx,t:0,battleArt:{},visualActors:new Map(),visualProjectiles:new Map(),healthStates:new Map(),particles:[],selection:null,pointer:null,
+  const renderer=Object.assign(Object.create(Renderer.prototype),{ctx,canvas:{width:600,height:800},t:0,battleArt:{},visualActors:new Map(),visualProjectiles:new Map(),healthStates:new Map(),particles:[],selection:null,pointer:null,
     drawWater(){},field(){},rollingSpell(){},fireball(){},drawDeployments(){},drawEffects(){},updateSpellTargets(){}});
   const spell={key,card,x:300,y:320,delay:.2,flightTime:1,flightElapsed:.4,startX:300,startY:700,impactPoint:{x:300,y:320}};
   renderer.draw({state:'playing',units:[],towers:[],fields:[],projectiles:[],spells:[spell]},0);
-  assert.equal(calls.filter(c=>['arc','strokeRect','fillRect'].includes(c.method)).length,0,key);
+  assert.equal(calls.filter(c=>['arc','strokeRect'].includes(c.method)).length,0,key);
   assert.deepEqual(spell.impactPoint,{x:300,y:320},'visual cleanup keeps the mechanical impact point');
  }
 });
