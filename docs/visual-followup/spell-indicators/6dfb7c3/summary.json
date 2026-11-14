@@ -1,0 +1,78 @@
+{
+  "checkpoint": "6dfb7c3b05a9e0a7bfb37e717d471bf3bfeefb4a",
+  "capturedAt": "2026-11-14T21:43:07.230Z",
+  "result": "passed-measured-checks",
+  "total": 1319,
+  "passed": 1319,
+  "groups": [
+    {
+      "key": "cases",
+      "cases": 78,
+      "total": 1170,
+      "passed": 1170
+    },
+    {
+      "key": "uiCases",
+      "cases": 13,
+      "total": 78,
+      "passed": 78
+    },
+    {
+      "key": "touchCases",
+      "cases": 13,
+      "total": 65,
+      "passed": 65
+    }
+  ],
+  "materialChecks": {
+    "materialHttp200": true,
+    "realSvgLoaded": true,
+    "textureMatchesAssetPixels": true,
+    "textureUsedOnEveryCapsuleDraw": true,
+    "worldTrajectoryAndAgeUnchanged": true,
+    "svgMatchesImmutableAsset": true
+  },
+  "materialAsset": {
+    "path": "assets/battle/pokeball-material-classic-v3.svg",
+    "url": "http://127.0.0.1:64830/assets/battle/pokeball-material-classic-v3.svg",
+    "httpStatus": 200,
+    "sha256": "4162fe190b18d8bd13770abd60ca7ec89799887930c7624ee4c89f9aa0de2ceb",
+    "loadedImage": {
+      "currentSrc": "http://127.0.0.1:64830/assets/battle/pokeball-material-classic-v3.svg",
+      "complete": true,
+      "width": 512,
+      "height": 256
+    },
+    "texture": {
+      "present": true,
+      "width": 512,
+      "height": 256,
+      "sha256": "480e54d7feaf969539434ad43872bf3017ff27377395d4dd27f973c15164d2c2",
+      "sourceSampleDifferences": 0
+    },
+    "textureBoundForEveryDraw": true
+  },
+  "motion": {
+    "referenceFile": "docs/visual-followup/capsule-v2/verification.json",
+    "referenceSha256": "ceb710caf573e76458f63a1a31f923195d7d7b53dbe1908f7f519c753d69ab69",
+    "referenceHead": "62ff66320dfdda1f58ea411a5d7a330429cc4870",
+    "scope": "World positions and visual age on the same native trajectory, snapshots15/render60 and pause1.0–1.4s. Camera and appearance are intentionally not compared.",
+    "maxPositionError": 0,
+    "maxAgeError": 0,
+    "changedCallCounts": 0
+  },
+  "screenshots": 51,
+  "verifiedScreenshotHashes": 51,
+  "sourceReport": {
+    "file": "verification.json",
+    "sha256": "3f8ddd5f38ee2419b071e2de03ae8cad8c6e98903743c172165ae16a2a4948c8"
+  },
+  "productSourceFiles": 426,
+  "engineURLs": [
+    "/engine.js?v=26"
+  ],
+  "findings": [],
+  "errors": [],
+  "missing": [],
+  "limitation": "The measured aiming and valid-input lifecycle checks do not cover the separate invalid-coordinate X follow-up. This capture remains identified by its original checkpoint."
+}

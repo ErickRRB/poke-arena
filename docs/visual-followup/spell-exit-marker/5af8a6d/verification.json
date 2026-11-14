@@ -1,0 +1,1656 @@
+{
+  "capturedAt": "2026-11-14T21:54:34.677Z",
+  "checkpoint": "5af8a6d4d89c56aa80cfda024d133949f31a3482",
+  "key": "fireball",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "scope": "One native mouse gesture: valid aim → outside playable arena but inside HTML canvas → outside canvas → Escape. The stale inside:false probe is separately labeled synthetic. No casts or physics edits.",
+  "stages": [
+    {
+      "name": "valid-aim",
+      "pointer": {
+        "x": 299.99999999999994,
+        "y": 520.0000032991976,
+        "inside": true
+      },
+      "selection": "fireball",
+      "trace": {
+        "strokes": [
+          {
+            "path": [
+              {
+                "method": "arc",
+                "args": [
+                  288,
+                  532,
+                  60,
+                  0,
+                  6.283185307179586
+                ]
+              }
+            ],
+            "color": "rgba(33, 60, 66, 0.7)"
+          },
+          {
+            "path": [
+              {
+                "method": "arc",
+                "args": [
+                  288,
+                  532,
+                  60,
+                  0,
+                  6.283185307179586
+                ]
+              }
+            ],
+            "color": "#d5f7ed"
+          },
+          {
+            "path": [
+              {
+                "method": "moveTo",
+                "args": [
+                  341,
+                  532
+                ]
+              },
+              {
+                "method": "lineTo",
+                "args": [
+                  351.5,
+                  532
+                ]
+              },
+              {
+                "method": "moveTo",
+                "args": [
+                  288,
+                  585
+                ]
+              },
+              {
+                "method": "lineTo",
+                "args": [
+                  288,
+                  595.5
+                ]
+              },
+              {
+                "method": "moveTo",
+                "args": [
+                  235,
+                  532
+                ]
+              },
+              {
+                "method": "lineTo",
+                "args": [
+                  224.5,
+                  532
+                ]
+              },
+              {
+                "method": "moveTo",
+                "args": [
+                  288,
+                  479
+                ]
+              },
+              {
+                "method": "lineTo",
+                "args": [
+                  288,
+                  468.5
+                ]
+              }
+            ],
+            "color": "#d5f7ed"
+          }
+        ],
+        "texts": [],
+        "fills": 0,
+        "arcs": 1
+      },
+      "diagonalSegments": [],
+      "cursor": "crosshair",
+      "spellCount": 0,
+      "fieldCount": 0,
+      "energySpent": 0
+    },
+    {
+      "name": "outside-playable-inside-canvas",
+      "pointer": {
+        "x": 59.99999969070022,
+        "y": 520.0000032991976,
+        "inside": false
+      },
+      "selection": "fireball",
+      "trace": {
+        "strokes": [],
+        "texts": [],
+        "fills": 0,
+        "arcs": 0
+      },
+      "diagonalSegments": [],
+      "cursor": "crosshair",
+      "spellCount": 0,
+      "fieldCount": 0,
+      "energySpent": 0
+    },
+    {
+      "name": "outside-canvas",
+      "pointer": null,
+      "selection": "fireball",
+      "trace": {
+        "strokes": [],
+        "texts": [],
+        "fills": 0,
+        "arcs": 0
+      },
+      "diagonalSegments": [],
+      "cursor": "crosshair",
+      "spellCount": 0,
+      "fieldCount": 0,
+      "energySpent": 0
+    },
+    {
+      "name": "escape",
+      "pointer": null,
+      "selection": null,
+      "trace": {
+        "strokes": [],
+        "texts": [],
+        "fills": 0,
+        "arcs": 0
+      },
+      "diagonalSegments": [],
+      "cursor": "crosshair",
+      "spellCount": 0,
+      "fieldCount": 0,
+      "energySpent": 0
+    },
+    {
+      "name": "synthetic-stale-inside-false",
+      "pointer": {
+        "x": 300,
+        "y": 520,
+        "inside": false
+      },
+      "selection": "fireball",
+      "trace": {
+        "strokes": [],
+        "texts": [],
+        "fills": 0,
+        "arcs": 0
+      },
+      "diagonalSegments": [],
+      "cursor": "crosshair",
+      "spellCount": 0,
+      "fieldCount": 0,
+      "energySpent": 0
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "valid-aim.png",
+      "bytes": 327614,
+      "sha256": "902bd97f7eef14dd77114ed0824b993bb1a7e3c4ebd3a912ea0dca3eff95725b"
+    },
+    {
+      "file": "outside-playable-inside-canvas.png",
+      "bytes": 323735,
+      "sha256": "008e373fb03e552689cc84b09cb9da116a6d47badba9bddd8611a0dd76b6b0e3"
+    },
+    {
+      "file": "outside-canvas.png",
+      "bytes": 321951,
+      "sha256": "6a7c880565e6f990ad109737c17f0e91adf08c490065bd20726a811535adf798"
+    },
+    {
+      "file": "escape.png",
+      "bytes": 322673,
+      "sha256": "9ba6b08ab08248a43023127d69b30bfdd40532e2b70fa765571d072733812da8"
+    },
+    {
+      "file": "synthetic-stale-inside-false.png",
+      "bytes": 324216,
+      "sha256": "2cd8fe86556de59e56203288f4e4c36005e7188779ac1c07332a77c0c275b4d5"
+    }
+  ],
+  "errors": [],
+  "observation": {
+    "invalidMarginDiagonalSegments": 0,
+    "invalidMarginAreaArcs": 0,
+    "actualCanvasExitClearsPointer": true,
+    "actualCanvasExitDrawsNoMarker": true,
+    "escapeClears": true,
+    "staleFalseDrawsNothing": true,
+    "xIsCanvasDiagonalNotText": false,
+    "noPhysicalCast": true
+  },
+  "sourceHashes": {
+    "dist/app.js": {
+      "bytes": 46853,
+      "sha256": "ba869315a257c54adddef2b823d737dbe6652ef4c80e6f52d607c23e2e03b758"
+    },
+    "dist/arena-geometry.js": {
+      "bytes": 4265,
+      "sha256": "747481d1c712f25541f1805ced236fd7a818e3faab7c5fb417c27f3a2a3e9d0f"
+    },
+    "dist/arena-tilemap.js": {
+      "bytes": 2920,
+      "sha256": "7811168f2eaea5c6ce8c60c98171abd814d5709284434d0edb69d0c91c5a3e6d"
+    },
+    "dist/attack-choreography.js": {
+      "bytes": 1908,
+      "sha256": "ba1d9e7ce576b5af8250ac5b5d37489515c8fcbf73786783c1ebaa766e7a6136"
+    },
+    "dist/audio.js": {
+      "bytes": 19821,
+      "sha256": "c21ee1a34c9a2d5d7c67f4352a27862fd53d138c45910fe57a610a8b813661c7"
+    },
+    "dist/balance.js": {
+      "bytes": 34713,
+      "sha256": "d203a0b73200a77a262b28def1146695c0b5f7d69cb71ba72946077838369abf"
+    },
+    "dist/battle-art.js": {
+      "bytes": 4781,
+      "sha256": "4752db463f9934ff6f8fb15e204cff8efd6f590ce9db7c837479db1c541c62b2"
+    },
+    "dist/capsule-art.js": {
+      "bytes": 4514,
+      "sha256": "6aee38778155a253fa20c521fd9375dc059dafc8fbe3cbfc8909cf964bb71a9e"
+    },
+    "dist/card-art.js": {
+      "bytes": 5178,
+      "sha256": "d26e733ce85b4fd73f6aed870881020e40c8579ef2e5a99f0e931435dd1518fb"
+    },
+    "dist/card-equivalents.js": {
+      "bytes": 18961,
+      "sha256": "e640abd0a7eb31db8b3348187ae9efe9e2474137a80703e6b92524821f40fc23"
+    },
+    "dist/card-review.js": {
+      "bytes": 14971,
+      "sha256": "9f9249a2105f29fc6d47ee44134b34dbf640cb306966b173e922ff70ac0dcee7"
+    },
+    "dist/catalog.js": {
+      "bytes": 25652,
+      "sha256": "ddd41f821ded4f19fe5a9a92cbe2447fc57d30ee30cbce285b48998b4d5b4ade"
+    },
+    "dist/clash-roster.js": {
+      "bytes": 2414,
+      "sha256": "2e98ecf75b8a58284c2003d3e8e983f90472e755f8542150589ed49aa71b92e1"
+    },
+    "dist/combat-visuals.js": {
+      "bytes": 2452,
+      "sha256": "d7e989039062c09f25c42b1079d57bf30a61b28164a111e41a355826b6939216"
+    },
+    "dist/current-reference.js": {
+      "bytes": 107712,
+      "sha256": "446770234378676d369dd1366fb312c18143600f13f0d1630696944b6a42899f"
+    },
+    "dist/deck-storage.js": {
+      "bytes": 4621,
+      "sha256": "8ba58aeb34a5bd5145f980947d198ecd126dc1133e81143a18a43bc53db93e78"
+    },
+    "dist/deployment-formations.js": {
+      "bytes": 1106,
+      "sha256": "69789b2f1c1716f0b4bab0c2e80df151c7f86dbb3f8ce54a2e031d574c99de44"
+    },
+    "dist/engine.js": {
+      "bytes": 89658,
+      "sha256": "784557fa7a9b66490a45f01750d5ade7f53304575588ce34de44c5d9a921cd7f"
+    },
+    "dist/knockback-profiles.js": {
+      "bytes": 1702,
+      "sha256": "c361762af434877f0fe3398a03a37902df41aaba5ea7691881480852bccd5028"
+    },
+    "dist/loader-art.js": {
+      "bytes": 660,
+      "sha256": "640dc2cc17d21226c8d457a20b71f0a79e702bc1d9729c8ca2e7197657a42473"
+    },
+    "dist/music.js": {
+      "bytes": 5204,
+      "sha256": "ee94c920bbb03c696c6aef34a3188c2bd89676700d96a9b8eac886019a41600e"
+    },
+    "dist/native-descriptions.js": {
+      "bytes": 4091,
+      "sha256": "eb23e3130bf927f2603b638fd5a3039c1fe8346d6da1f5ed10b1b35a9623a583"
+    },
+    "dist/native-formations.js": {
+      "bytes": 2247,
+      "sha256": "999d701d3bae2f7cba2ee7ff9c3ea7d599794e2a36338185bdd3981677c1edf3"
+    },
+    "dist/online-config.js": {
+      "bytes": 302,
+      "sha256": "0105c7ebe7c21be13f15a282e9468e2861c51704f5e23ed82297a04636d66074"
+    },
+    "dist/online-wire.js": {
+      "bytes": 1735,
+      "sha256": "b1b55f59b9c420801b3ca380c93fb3c3fe8ac9daf90cd35f8f37653b4f0386aa"
+    },
+    "dist/online.js": {
+      "bytes": 9134,
+      "sha256": "9f34a80be0e75e1e112c91af75388aa02c85a57f7ff7f6ccaa7c4499db2bfebc"
+    },
+    "dist/pokemon-silhouettes.js": {
+      "bytes": 5655,
+      "sha256": "54d85d7779fc33a8f4b83760dfa5bb26ff0312b1f80cefc2320cb4c09fa11097"
+    },
+    "dist/pokemon-stats.js": {
+      "bytes": 7580,
+      "sha256": "64c1544c59efb2c653737f73252cdab19f44eec203a45e4437a291cd88e3d75a"
+    },
+    "dist/quick-stats.js": {
+      "bytes": 11441,
+      "sha256": "d36a89c656ad0236d024f1b162ef9f4092d0090e94f7dd94dbcc0a096ba611ec"
+    },
+    "dist/render.js": {
+      "bytes": 67156,
+      "sha256": "f75e84229876db6d7479cf28e42e62b961bc6aa50cfbcccfb7a1cb9cfe6ee554"
+    },
+    "dist/sandbox.js": {
+      "bytes": 4625,
+      "sha256": "6453cb374755733e1fb3838f60f6b4edf2e3b0faf0275b6a4e68453bf72a629d"
+    },
+    "dist/snapshot.js": {
+      "bytes": 4187,
+      "sha256": "0d344d74286013d73ce3f8bbc47a6b7129d4ca6e6d14e15c2daade0f89733138"
+    },
+    "dist/spell-preview.js": {
+      "bytes": 1257,
+      "sha256": "736cb6a5509cc1455b6e679e536524464ad9670a597a11b4bbfecbff53338c25"
+    },
+    "dist/sprite-geometry.js": {
+      "bytes": 680581,
+      "sha256": "4c43ee77d13587c26c7d8ca06faa5381cabf2b69bf63ec9733e4842c4d5aef18"
+    },
+    "dist/sprite-motion.js": {
+      "bytes": 5623,
+      "sha256": "9afd22883f0722d9e69b17c86e65ce8429c2744bcd8afbb1adafb47082530017"
+    },
+    "dist/targeting-art.js": {
+      "bytes": 2276,
+      "sha256": "c62ef1334e110c5ce08f66c364608fd2aa46d4a903b1270a010e9ee85608e60a"
+    },
+    "dist/testing.js": {
+      "bytes": 16218,
+      "sha256": "510f4b889b29f86da71ecad0f50a96a25435ab606edfb999ed8672e8c3e1aeba"
+    },
+    "dist/unit-sizes.js": {
+      "bytes": 2212,
+      "sha256": "f3fac3924d2902e7ecb62e9bbf159a6ae67be94d731c634499325d8cbbe4e4b3"
+    },
+    "dist/wing-motion.js": {
+      "bytes": 4702,
+      "sha256": "a86cb99670e14a63eb1ad182cb562a15df60f68142566652c913089050d1d8d5"
+    },
+    "dist/wing-rigs.js": {
+      "bytes": 9244,
+      "sha256": "27076a5d7287d4a2f070ed724b4ff6d96d043a9e55d114b2f592c9741066820c"
+    },
+    "dist/index.html": {
+      "bytes": 25633,
+      "sha256": "2f680e4fa45880d4bedaa13a5e8f3691d3503a40ff44c894974c766a67cfb02b"
+    },
+    "dist/assets/ui/pokeball-pixel-v1.svg": {
+      "bytes": 664,
+      "sha256": "256e54e9fa76e424f796d00a57ba3ebdb6224a47a1d93402ce0d69086d607089"
+    },
+    "dist/assets/fonts/font-3.ttf": {
+      "bytes": 87556,
+      "sha256": "73bc9e17231e9073780d3c81574c7253cecd5645c93544df1a935054b39a364f"
+    },
+    "dist/assets/fonts/font-4.ttf": {
+      "bytes": 48280,
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9"
+    },
+    "dist/assets/fonts/fonts.css": {
+      "bytes": 1220,
+      "sha256": "94844991e739fcd72a4408e61e383d157a72be9f7264df4ee927d268f941f461"
+    },
+    "dist/assets/fonts/font-7.ttf": {
+      "bytes": 48200,
+      "sha256": "2a8e7f713ee79fbccdef3cef5c787aff47580299f7da60144961e7db2ec08211"
+    },
+    "dist/style.css": {
+      "bytes": 46143,
+      "sha256": "6cb6b79981258ef94eb5bddd582885d40607296bd848fac2466185d794c309b2"
+    },
+    "dist/card-ui.css": {
+      "bytes": 11555,
+      "sha256": "cc8d098415a98ebcce982da0b2584f63360d66acdae0d559fa1372e39260fce8"
+    },
+    "dist/theme.css": {
+      "bytes": 30599,
+      "sha256": "4003ee0a9a62b15b1b0b40b6ebc93e57b4b338b09a02ca3f437d41dd5615063b"
+    },
+    "dist/transient-ui.css": {
+      "bytes": 1357,
+      "sha256": "24b77a6a1183fecc569de6537aa29219b08d60795525b54009c3d48c04256e16"
+    },
+    "dist/editor.css": {
+      "bytes": 9787,
+      "sha256": "663bfbbe5a652fc7342e03f620df61d6c2d63ab6ff6e05a4da0e552eb5e6f589"
+    },
+    "dist/quick-stats.css": {
+      "bytes": 1049,
+      "sha256": "8d6e397abb2dc594f85fdd9098616b39e6c43c216472ad68b4f8913fbf301dc6"
+    },
+    "dist/assets/home-arena.webp": {
+      "bytes": 412792,
+      "sha256": "a6ce3060ba13a056281c5324f66d4e64c085b82b1a9abc0ba8024d59d30a4d07"
+    },
+    "dist/assets/ui/menu-icons-v1.webp": {
+      "bytes": 1006732,
+      "sha256": "d3d2e125f8e0b911ca84c89060c2f773f98100eab4c75f4050927dadaf9e1821"
+    },
+    "dist/assets/ui/stat-icons.webp": {
+      "bytes": 766402,
+      "sha256": "42fd088090aeb419d47f8653de1a3b6b44ec32d19c0ba560a14314f346b3abd3"
+    },
+    "dist/assets/battle/manifest.js": {
+      "bytes": 7142,
+      "sha256": "a71c3d5899b526b87b48bfc64e47cba072ed94969b646f5492472ac762fa801a"
+    },
+    "dist/assets/battle/projectile-bounds.js": {
+      "bytes": 683,
+      "sha256": "a28fb023065740168ec1bbe7b478467d492cf7b5f6320762936ae9f71e644dfc"
+    },
+    "dist/assets/battle/frame-bounds.js": {
+      "bytes": 754,
+      "sha256": "6251a13e94e02db1bbd7ab823c2c14d93f564c961bda6a1da7c5b29235ccd98a"
+    },
+    "dist/assets/audio/manifest.json": {
+      "bytes": 5682,
+      "sha256": "1ed2ba53588b19f7d061459a7222bc1d2709f2332e117ca14c049403a16b0a84"
+    },
+    "dist/assets/pokemon/manifest.json": {
+      "bytes": 239650,
+      "sha256": "ed22ac565b3b61e72b6e56b7db75ba18af0fc85d063413090ce85c0e3fec268f"
+    },
+    "dist/assets/cards/battle-1.webp": {
+      "bytes": 337104,
+      "sha256": "fd750445c1188a0f7f348354f8b022ad7474bf8373951be720ee4fd816399502"
+    },
+    "dist/assets/ui/cost-crystal.webp": {
+      "bytes": 52758,
+      "sha256": "bcacdfcaab87eed31c45681599b414bdd3c16832c957f04722fadbd9f95baf02"
+    },
+    "dist/assets/cards/blastoise-mobile-v1.png": {
+      "bytes": 2100756,
+      "sha256": "95040577ce893c86cf8d7bf91e91a1d0b07660b7567c563537bc3e07537acd56"
+    },
+    "dist/assets/cards/zubatSwarm5.webp": {
+      "bytes": 154510,
+      "sha256": "ee845773eaa45f58cb8e98f4ab74690b813d2b57654c99f0ae7879a372b09af8"
+    },
+    "dist/assets/legend-frame.svg": {
+      "bytes": 1327,
+      "sha256": "7c483104e84825374704fd5aa2778094efec82ffe77efaf5729fa7afdf757107"
+    },
+    "dist/assets/cards/fireballV2.webp": {
+      "bytes": 38090,
+      "sha256": "e6f703a4846f619a302daeafd293ca4bb99812945e1db49a389331626eb7fdec"
+    },
+    "dist/assets/audio/voices/1.mp3": {
+      "bytes": 12888,
+      "sha256": "8a751db3c220c8f743d4eaa4c8f856e30ed4bc7111bf34589277669254792d45"
+    },
+    "dist/assets/audio/voices/3.mp3": {
+      "bytes": 16023,
+      "sha256": "f204eaa9b12acd38af2421d96346855148fe98c3938b9fd743fbf548c3a7ebf7"
+    },
+    "dist/assets/audio/voices/4.mp3": {
+      "bytes": 13672,
+      "sha256": "53b5635f1960853383d69c385c181fdb9cb17ddc3543ef246b6cbe1dd1079252"
+    },
+    "dist/assets/audio/voices/6.mp3": {
+      "bytes": 20986,
+      "sha256": "de36b378d1c4b1d74391232e467e0fcdd9e720fb5dfd6ff66efe94573fc929bd"
+    },
+    "dist/assets/audio/voices/7.mp3": {
+      "bytes": 15239,
+      "sha256": "98ac86808f593b7299571e7032283b1e298462a895b8ed3f7fa01490f6c9c3f3"
+    },
+    "dist/assets/audio/voices/9.mp3": {
+      "bytes": 19941,
+      "sha256": "4907e898a30978aba37cb8e84d9eef68a02747af63d21522e1a26be7b1c45a73"
+    },
+    "dist/assets/audio/voices/12.mp3": {
+      "bytes": 9188,
+      "sha256": "4a25d599bab58591f931067aa6ef7d1f18fb43911ca16fcd3eeb2c28026e011c"
+    },
+    "dist/assets/audio/voices/15.mp3": {
+      "bytes": 7359,
+      "sha256": "c2ca07c6105214a0ed3c96c6c7bd63ad39cbf6e678c59c8468c12e92e7915a00"
+    },
+    "dist/assets/audio/voices/18.mp3": {
+      "bytes": 5050,
+      "sha256": "e45a70d1d8bbcd7b77ffd747f7b3f35e53c5282b4c0c3a566896c695ed25a787"
+    },
+    "dist/assets/audio/voices/23.mp3": {
+      "bytes": 11278,
+      "sha256": "935ae81d642ba3648744c1252b7e2ba00a16980c3be5cafef6a034df24d63994"
+    },
+    "dist/assets/audio/voices/25.mp3": {
+      "bytes": 10536,
+      "sha256": "a60ec854e40a656a3f44059b573fcf262f8d40a2a71256636f7930d89e1af781"
+    },
+    "dist/assets/audio/voices/26.mp3": {
+      "bytes": 7924,
+      "sha256": "65a8eec4500c296e21f0ed5bf138c75e030f0cb563018ca7af29caa13bf59627"
+    },
+    "dist/assets/audio/voices/27.mp3": {
+      "bytes": 10755,
+      "sha256": "8dac51f5dcc3eda940ba53d5e479605f79383a7a3f3173475459a35efc835ca9"
+    },
+    "dist/assets/audio/voices/29.mp3": {
+      "bytes": 8143,
+      "sha256": "ddfee2bb6e37e11144636656a7fe1ba32d7b94cb017667372f94dd75785c717c"
+    },
+    "dist/assets/audio/voices/31.mp3": {
+      "bytes": 6053,
+      "sha256": "9f9ad580bda19f1a90c3a24cc1427d77371bfa8a59edcfa717b1d6de3715b90d"
+    },
+    "dist/assets/audio/voices/32.mp3": {
+      "bytes": 7359,
+      "sha256": "5d680fb7323b1adc34b166966b1faca9df9dca7985bee6e30216b6bab53860c9"
+    },
+    "dist/assets/audio/voices/34.mp3": {
+      "bytes": 10755,
+      "sha256": "b5eb67e0b0ee34415c9ca2e63e560df1a0dee1047d315fac3002c18f22dbebaa"
+    },
+    "dist/assets/audio/voices/37.mp3": {
+      "bytes": 9972,
+      "sha256": "503d26f8ed4716bc926f4772d644ab7f0d2789320ef05ce66afddea132ecd641"
+    },
+    "dist/assets/audio/voices/41.mp3": {
+      "bytes": 7359,
+      "sha256": "44d06f04dc2e6d1fb494738cde2ce38a845fed3650103fdc2e577ad591dd9b51"
+    },
+    "dist/assets/audio/voices/50.mp3": {
+      "bytes": 7098,
+      "sha256": "4aa24a2933d0fa2a8de3141b17187f5356e845dabf227baa3de0abbf531de39a"
+    },
+    "dist/assets/audio/voices/52.mp3": {
+      "bytes": 7359,
+      "sha256": "8bdf775c2fd236437cca64ccb48cf0524e941ce8019acd2a4ce07db0d60238d2"
+    },
+    "dist/assets/audio/voices/54.mp3": {
+      "bytes": 14412,
+      "sha256": "8450b560a8c9868aacf2c5bec991f0da545e9db4f30eafd48427c8af07e3e2f6"
+    },
+    "dist/assets/audio/voices/56.mp3": {
+      "bytes": 8927,
+      "sha256": "ff9df5946a0188c33b4dbadcf9cde550ff3a46efddc2cc608a699c15470fdbd5"
+    },
+    "dist/assets/audio/voices/59.mp3": {
+      "bytes": 6576,
+      "sha256": "22f7eb4492cea4755962d721179cbd37be8ca88caa729a85fe95257bd3c95362"
+    },
+    "dist/assets/audio/voices/64.mp3": {
+      "bytes": 12845,
+      "sha256": "b7194db68f1c8dffd5c08b6bdd20465d2e1b7d081d7bd39e85242fabf06becaa"
+    },
+    "dist/assets/audio/voices/65.mp3": {
+      "bytes": 15457,
+      "sha256": "d9d685cdef09d0eb3e51b829c1933c59e384729f080a4dd1d1354fe5eb0551b0"
+    },
+    "dist/assets/audio/voices/68.mp3": {
+      "bytes": 13890,
+      "sha256": "59d56b58e8c6cac212df2d61c0f2449cdd318733f3b538b7d9bb4df1eef4cde5"
+    },
+    "dist/assets/audio/voices/74.mp3": {
+      "bytes": 7621,
+      "sha256": "fc2cb95ffaa21ef6e75bbfb84ba7a79b02ca816cd4b0b60d590685293c67ccec"
+    },
+    "dist/assets/audio/voices/75.mp3": {
+      "bytes": 9710,
+      "sha256": "ded2c0a4aac25aac733ad16fb0c9c239a6da9b602c2c88280d948c51253fcc99"
+    },
+    "dist/assets/audio/voices/76.mp3": {
+      "bytes": 23816,
+      "sha256": "5876179fc846bfbaa2f373554aef22d5e1004a7a1fbf7682be7b86b09e26b9de"
+    },
+    "dist/assets/audio/voices/78.mp3": {
+      "bytes": 14978,
+      "sha256": "e3733679171aa58c2c2e5871fb371e5e4d270f368b201bfbec69a41d7f3dcb01"
+    },
+    "dist/assets/audio/voices/79.mp3": {
+      "bytes": 19898,
+      "sha256": "6e8f06bf9acb67e83a6b358a8af88842396b7f0e0ca7fcad4ef6ac089caaa427"
+    },
+    "dist/assets/audio/voices/80.mp3": {
+      "bytes": 15719,
+      "sha256": "023c474a325b856f0d55f1e31b40c707be168799b3ad1e9af0827dbc0096d46a"
+    },
+    "dist/assets/audio/voices/81.mp3": {
+      "bytes": 15719,
+      "sha256": "c02091be940b22620ce0d4200f71cf6f26cf56fcd37a3511cb819a2395aa1f43"
+    },
+    "dist/assets/audio/cries/83.ogg": {
+      "bytes": 10539,
+      "sha256": "851dfc31aa191ecbbc48b5f95534738874d4b1572331a4679323268535c003db"
+    },
+    "dist/assets/audio/voices/88.mp3": {
+      "bytes": 14674,
+      "sha256": "07da7c3062bf9f958f9c86dcf10afa796768ccf19bc91370ade2d2ef3dd4fccd"
+    },
+    "dist/assets/audio/voices/91.mp3": {
+      "bytes": 10755,
+      "sha256": "38693a0dc1230b6e5a27083447a2321f85bf73ca59e428292dfc73ffbe7c9a56"
+    },
+    "dist/assets/audio/voices/92.mp3": {
+      "bytes": 22772,
+      "sha256": "51be5e8a37aa909e786de5e024f75e13957fbef4466da9750951da717df837f3"
+    },
+    "dist/assets/audio/voices/94.mp3": {
+      "bytes": 25906,
+      "sha256": "c8e24cfabac33d6cf7ebd2a6b7c308158e59eac714eb253f064a999f035c035c"
+    },
+    "dist/assets/audio/voices/95.mp3": {
+      "bytes": 11278,
+      "sha256": "59eddb59b21c05ac30ddc460dad4ec8c9e4f0276eabfe2505fb1921bedcf8d05"
+    },
+    "dist/assets/audio/voices/100.mp3": {
+      "bytes": 9972,
+      "sha256": "dfa942ee3de51662345ba035aaacebb82f723307d463cf1175a2361d71f22698"
+    },
+    "dist/assets/audio/voices/101.mp3": {
+      "bytes": 12061,
+      "sha256": "a5b9ba261022f66de2241e0cb6ef35eb9f06c81754ad51b1ba013a6357a15cd7"
+    },
+    "dist/assets/audio/voices/102.mp3": {
+      "bytes": 10797,
+      "sha256": "62bfe67ceac2c3ff094be156625a1bfc88e9baf3f9f2268234dbd0fbe639e739"
+    },
+    "dist/assets/audio/voices/103.mp3": {
+      "bytes": 24078,
+      "sha256": "41d4b335d153b31d7894e1da7e151e7b3adf1f2f9bdea6c76c48b4442547d8f1"
+    },
+    "dist/assets/audio/voices/109.mp3": {
+      "bytes": 11800,
+      "sha256": "10d4c863fd4d58a518b8f3f64ca8bbbef82f99567dbb6f9d406e176404737189"
+    },
+    "dist/assets/audio/voices/112.mp3": {
+      "bytes": 9972,
+      "sha256": "3485c1f1b16ac96c7d919c5948e7912b01fcc3afdc876fcd1fcaed9aa9fe3ab9"
+    },
+    "dist/assets/audio/voices/113.mp3": {
+      "bytes": 11800,
+      "sha256": "ba2dc93bb11f0df6a511e91d8ef51a79aeafabc2dd761a978f23e4ffee5f8e36"
+    },
+    "dist/assets/audio/voices/115.mp3": {
+      "bytes": 11539,
+      "sha256": "df72adebce23d5b4ed0acdee269a5e5717c0aa4d5bc0c248f4000581de648d72"
+    },
+    "dist/assets/audio/voices/121.mp3": {
+      "bytes": 3744,
+      "sha256": "d2e4ab9386b248de40bc55d28f1665c7554e8370d5e4a70cabb3b4a26c979734"
+    },
+    "dist/assets/audio/voices/122.mp3": {
+      "bytes": 16502,
+      "sha256": "03376df696942bb91f7ae22ec52d78f62be1f861185bd14b034470eb22b266d1"
+    },
+    "dist/assets/audio/voices/123.mp3": {
+      "bytes": 12845,
+      "sha256": "4c151f786fe24dc689655ab064bc472f8c5fd18cc8e811040e74ebd921ac483d"
+    },
+    "dist/assets/audio/voices/129.mp3": {
+      "bytes": 14151,
+      "sha256": "4d060f22878b60bc8a144bec5f5c3955acc162895e4cfd7f56c74de8ebf951c1"
+    },
+    "dist/assets/audio/voices/130.mp3": {
+      "bytes": 17286,
+      "sha256": "27d7a12808a005f6b13a646afd527e4f168b73ce34e9a4b6856e9fde5e342e5b"
+    },
+    "dist/assets/audio/voices/131.mp3": {
+      "bytes": 11059,
+      "sha256": "00ba7a03a6810b78e82d5d26f3c31b4a11e550725f6389d878beb7579c70016d"
+    },
+    "dist/assets/audio/voices/132.mp3": {
+      "bytes": 6837,
+      "sha256": "90eb4b7c24d8c71268ab64944a67599f012fbd567ef457c9befe5b56ba0d4fad"
+    },
+    "dist/assets/audio/voices/133.mp3": {
+      "bytes": 7621,
+      "sha256": "634fdc9c88bc048e4db3f690059e41fb78dc887e09dbeb17f5396d72277a4bb9"
+    },
+    "dist/assets/audio/voices/143.mp3": {
+      "bytes": 20725,
+      "sha256": "61cf830fda64fe6fa3471ebc912520bb66b1e11a87e9a81a518ef7d3797babac"
+    },
+    "dist/assets/audio/voices/144.mp3": {
+      "bytes": 14935,
+      "sha256": "99ded3f96d613ff6de6b50a38817c4100611adbd30f0fafbc8088a537cf347b2"
+    },
+    "dist/assets/audio/voices/145.mp3": {
+      "bytes": 14151,
+      "sha256": "c39ba3bf9ddec1c96849610731256df36a082ea9c1856193b41e94e4a868332e"
+    },
+    "dist/assets/audio/voices/146.mp3": {
+      "bytes": 16502,
+      "sha256": "d8da750c981e172fa820defcd7de1140f46aac7306ea42f3e514d2da132e439d"
+    },
+    "dist/assets/audio/voices/149.mp3": {
+      "bytes": 9972,
+      "sha256": "318a96e0c5e7232b2bdd71407b97ecd8a8ca10ca76c694294a0ea293310558da"
+    },
+    "dist/assets/audio/voices/150.mp3": {
+      "bytes": 8665,
+      "sha256": "003800fbb05b217a22ee8b9dd3114210b4ce35a1ad6907739a84e1a25c7f833b"
+    },
+    "dist/assets/audio/voices/151.mp3": {
+      "bytes": 12061,
+      "sha256": "67feeebb5f2134b989e1e0d7677bdb8e2a8949ba9798a08e1da2ffc518590852"
+    },
+    "dist/assets/audio/voices/154.mp3": {
+      "bytes": 8143,
+      "sha256": "c953d86b36eeb0950cc8107d08bd8378b29dc38a4a32a693da1a5551c685d96a"
+    },
+    "dist/assets/audio/voices/157.mp3": {
+      "bytes": 11539,
+      "sha256": "c73a07ea3f3515bc229f3f0e5fed61f99ddaf1f3761494487da74412be28fcfb"
+    },
+    "dist/assets/audio/voices/160.mp3": {
+      "bytes": 17286,
+      "sha256": "d85d95ca2e1b4613caa9bc88d5306d947cfe2a3829e3930ddefac78b51f4fe6a"
+    },
+    "dist/assets/audio/voices/169.mp3": {
+      "bytes": 6837,
+      "sha256": "766eacff3335e986fa53551b66d5232cdc31e0f7e26b96b6e05d6549dfc54add"
+    },
+    "dist/assets/audio/voices/181.mp3": {
+      "bytes": 9710,
+      "sha256": "5eb666543abdcb7d548b1537aa3a8048d40fe0071673a7c086daa722195a1d61"
+    },
+    "dist/assets/audio/voices/196.mp3": {
+      "bytes": 7663,
+      "sha256": "e13d96cf5f943b3ed5ac815dc875da8e23b6575b7a01ad5f845fe6ed596b58c8"
+    },
+    "dist/assets/audio/voices/197.mp3": {
+      "bytes": 8185,
+      "sha256": "4623e84fe3bf6f3eb60a51be2d1a05ff242fe91db456d523d3e6b0a513f53207"
+    },
+    "dist/assets/audio/voices/202.mp3": {
+      "bytes": 15719,
+      "sha256": "d2ecdeb05d55d2300dc0e5234e13a7ad7fe58a10dc4b2ebccdc50dc835334203"
+    },
+    "dist/assets/audio/voices/205.mp3": {
+      "bytes": 8984,
+      "sha256": "4b4f2dc94781f9a7eec05adac05149022f6e4491612982e90471f67a6843edb0"
+    },
+    "dist/assets/audio/voices/208.mp3": {
+      "bytes": 20216,
+      "sha256": "404c81df4c19c5a84d9ed5d4bfb9ce8f91977f44eba4d92aa6698ada37182174"
+    },
+    "dist/assets/audio/voices/212.mp3": {
+      "bytes": 10755,
+      "sha256": "5385225b4b525da2a4ef2a154f9be15acc8d2065f4bdf57a1d8a8939102a6c92"
+    },
+    "dist/assets/audio/voices/215.mp3": {
+      "bytes": 12061,
+      "sha256": "12cde8963c190ee2de92d5218d14a898320d7a33bea5d8d4e8b8436e1b22d45b"
+    },
+    "dist/assets/audio/voices/227.mp3": {
+      "bytes": 7098,
+      "sha256": "ff265de7c49717e731cf81f9570f025d68445f8bfe922324f9c2e62a2fc02698"
+    },
+    "dist/assets/audio/voices/242.mp3": {
+      "bytes": 7359,
+      "sha256": "730521775e1d31156addd24d2f03462d5099076dfb3e75316ebf509fe0b01524"
+    },
+    "dist/assets/audio/voices/249.mp3": {
+      "bytes": 23598,
+      "sha256": "b46509523d526aec9c915aae3cb64831438647bb390ae65d8cd6f8f8e016553e"
+    },
+    "dist/assets/audio/voices/250.mp3": {
+      "bytes": 12888,
+      "sha256": "b184369c9aea576006c892a81b07bded67c0ba5684022592ec10c0943dbb5dee"
+    },
+    "dist/assets/audio/voices/251.mp3": {
+      "bytes": 21465,
+      "sha256": "46fbe5eea4c6812ffc122bcb7921ad9a236caf4ed7283d40d71eae3679ff30f0"
+    },
+    "dist/assets/audio/voices/252.mp3": {
+      "bytes": 7882,
+      "sha256": "446f708d338f829a18498af0ec1e8ada1dee7cfd61f17d67d796d1a00f9434d0"
+    },
+    "dist/assets/audio/voices/254.mp3": {
+      "bytes": 18331,
+      "sha256": "66ef9fc5bebffa21dccbe140b7329c369e65fdd9917153a99189be1a14701910"
+    },
+    "dist/assets/audio/voices/257.mp3": {
+      "bytes": 9188,
+      "sha256": "0735d9cd3af9f8846750a625563697dafd8effa48dfbbb7d0c99f7642f54f048"
+    },
+    "dist/assets/audio/voices/260.mp3": {
+      "bytes": 13946,
+      "sha256": "30e5df0716c622cdf544c6a5b1b1cde80221c85234aba585bbe04049a5efec95"
+    },
+    "dist/assets/audio/voices/261.mp3": {
+      "bytes": 8200,
+      "sha256": "d21d3533c964c00e82dac91c9b55d1c2736af5c63e16f8402fe4458469d34241"
+    },
+    "dist/assets/audio/voices/274.mp3": {
+      "bytes": 7663,
+      "sha256": "f8723ee56bfca55c018427dd3a85c30cefc50f9141f3fc160479edcc1931d0e1"
+    },
+    "dist/assets/audio/voices/280.mp3": {
+      "bytes": 11539,
+      "sha256": "59c426600d3eb94cc2405c6612757ec0097267f56c377a84973f6930afb63b77"
+    },
+    "dist/assets/audio/voices/282.mp3": {
+      "bytes": 15980,
+      "sha256": "9b01baa96e447d13a929825639edd4d7815b8210f69b494f64e3ecbca29871a4"
+    },
+    "dist/assets/audio/voices/302.mp3": {
+      "bytes": 8143,
+      "sha256": "6ed7e109543abb381bb25aaf84775910cccfe30223a5b5fad28eeec5415dc88d"
+    },
+    "dist/assets/audio/voices/306.mp3": {
+      "bytes": 22249,
+      "sha256": "94b2e2776d2afc6dc676d27fef9794df7178e74a262f5d90b25f002db201c238"
+    },
+    "dist/assets/audio/voices/315.mp3": {
+      "bytes": 7663,
+      "sha256": "08fcdfbedbef9cc31c10f58cce09bfa2b67d20ff0831a835bd69f0321313f083"
+    },
+    "dist/assets/audio/voices/319.mp3": {
+      "bytes": 13149,
+      "sha256": "7b07e6610157d7ac30457a0f3af47452fead9f2b58f147575d5f28a2d478f579"
+    },
+    "dist/assets/audio/voices/330.mp3": {
+      "bytes": 11016,
+      "sha256": "7d46461eb1b9d4c6720dd5537e149abffa44318f688414ab0124fbb7492b6e85"
+    },
+    "dist/assets/audio/voices/334.mp3": {
+      "bytes": 15457,
+      "sha256": "999b373a0d08f3340660e5bf3a48717141f8a6838e47d16a802b99d05a60fb95"
+    },
+    "dist/assets/audio/voices/353.mp3": {
+      "bytes": 6576,
+      "sha256": "99cf4b5de3461b98c872060c6cf9e5d3248f7d06bdeb46e14219874e18410cf5"
+    },
+    "dist/assets/audio/voices/355.mp3": {
+      "bytes": 16763,
+      "sha256": "b76b07d093ae200b3708a1120684b6d8cdd9edc3fe912ae6779c049cdc0c312e"
+    },
+    "dist/assets/audio/voices/356.mp3": {
+      "bytes": 25906,
+      "sha256": "49052b7cd35eaced35e5c2e1c8a76355a7519a69322300518ef3947809baa90b"
+    },
+    "dist/assets/audio/voices/359.mp3": {
+      "bytes": 10536,
+      "sha256": "d4c494a399c7ef99c2d39a29103e6e3c7d71ea5c9955e60e03c6a70b3cb4cdb3"
+    },
+    "dist/assets/audio/voices/373.mp3": {
+      "bytes": 16241,
+      "sha256": "27da5fd2769e650d806902c9e0dc3cf96f67280a009364224223b29298c2e9ec"
+    },
+    "dist/assets/audio/voices/376.mp3": {
+      "bytes": 13106,
+      "sha256": "86253228fc2ac65ad4a6b3964858730b8463d83a69c6ebe90091fb44ec8793f6"
+    },
+    "dist/assets/audio/voices/377.mp3": {
+      "bytes": 9710,
+      "sha256": "09309c9dae80e48ef40a84cc9cd5da596ff5bf3e59104bb516286264641e2a11"
+    },
+    "dist/assets/audio/voices/378.mp3": {
+      "bytes": 13106,
+      "sha256": "d8235cd4b6a42e286e14eb8809379fd4a4a3e49e7d0e3c785b0dc5a997611d20"
+    },
+    "dist/assets/audio/voices/379.mp3": {
+      "bytes": 13367,
+      "sha256": "2c108674a1036702c11c949333f2adbc6671f4a2e40b52198d289d7305837b38"
+    },
+    "dist/assets/audio/voices/382.mp3": {
+      "bytes": 25949,
+      "sha256": "2cdcad2d941780b48d56a877a5c5f31ba51684fe71baaa07d2b81cae84981820"
+    },
+    "dist/assets/audio/voices/383.mp3": {
+      "bytes": 25906,
+      "sha256": "c55b2b43cc9a33db227a30b3f79e4896f0782dd7d8459eb4a2d506b69c5bab20"
+    },
+    "dist/assets/audio/voices/384.mp3": {
+      "bytes": 25906,
+      "sha256": "113edbd170dde644d447817ea57e2531023cb304706d1601fd1345d128e7d1f7"
+    },
+    "dist/assets/audio/cries/534.ogg": {
+      "bytes": 16646,
+      "sha256": "d6232357a5be5f11c11cd8f36c071edf948686c606dfd4f05ea58ca8fb283a21"
+    },
+    "dist/assets/audio/foley/stone.ogg": {
+      "bytes": 8713,
+      "sha256": "142fd6c77f13d25f318265901163f70f8dfe12f87829169a570025be43de7011"
+    },
+    "dist/assets/audio/foley/metal.ogg": {
+      "bytes": 6967,
+      "sha256": "fba69c467ddd85da7b1d82e259f936b876d9ba6a3d6f1b24bdd10468e46bfe08"
+    },
+    "dist/assets/audio/foley/glass.ogg": {
+      "bytes": 8605,
+      "sha256": "d3d806cb3012c9ddd87010b30295ccb74d6d8b690077d19e67afd09a9d8feb03"
+    },
+    "dist/assets/audio/foley/bell.ogg": {
+      "bytes": 15577,
+      "sha256": "9df61e3ae9a83dc65e5a1fd3ed19d480876f3b22b963a1b9ef6fa293592dcec4"
+    },
+    "dist/assets/audio/foley/swish-1.ogg": {
+      "bytes": 15532,
+      "sha256": "4cd96dc630bed9840c15f1dd2306da2cc56a4da26a5d3f1a03c5a7265ac5e54f"
+    },
+    "dist/assets/audio/foley/coin.ogg": {
+      "bytes": 25394,
+      "sha256": "8a91f969e932df709df80ee124d86a51389eed9b67f22e5e716bc2bbf60d8dab"
+    },
+    "dist/assets/audio/foley/swish-2.ogg": {
+      "bytes": 15099,
+      "sha256": "6c2064d0ef988d1ec3d56868e823ea8823a5cac00f2742560052633529407def"
+    },
+    "dist/assets/audio/foley/cloth.ogg": {
+      "bytes": 16508,
+      "sha256": "ddb93a3671233f95da0e0b10367f082f7eb42fa6caaddcf776410aa8833c747d"
+    },
+    "dist/assets/audio/foley/water.wav": {
+      "bytes": 529244,
+      "sha256": "2f1cac78c1d9ff7ff00e10c39c6c0b53ac25a22f307bebba9752a364126ae34e"
+    },
+    "dist/assets/audio/combat/006-flame-impact.wav": {
+      "bytes": 31796,
+      "sha256": "62075eaf706431d83b7005b8d08026bb510dfd2dde8aae22e707984a5837a81c"
+    },
+    "dist/assets/audio/combat/006-flame-release.wav": {
+      "bytes": 47672,
+      "sha256": "409e19078d4763da08346116f088cdcbad80c5f6a66eda333f1988dffea275a1"
+    },
+    "dist/assets/audio/combat/025-electric-impact.wav": {
+      "bytes": 20330,
+      "sha256": "d69c553e5dc23f127b5d2458213b7e4630183cb07f02af669f755fb0364e8a12"
+    },
+    "dist/assets/audio/combat/025-electric-release.wav": {
+      "bytes": 30032,
+      "sha256": "ab79a3f654c3cb106565b780fa7948bebe5dba8506aa582270d7940b157b5aa5"
+    },
+    "dist/assets/audio/combat/215-claw-impact.wav": {
+      "bytes": 13274,
+      "sha256": "cd8c2feccd769aebfc962a5cdd1aa233de70cb5712af434002cdcd5cfc1bb9d2"
+    },
+    "dist/assets/audio/combat/215-claw-release.wav": {
+      "bytes": 21212,
+      "sha256": "5f8538700a4630c826e661b5578f5799346abc20d96b032cef4616ccfbad552a"
+    },
+    "dist/assets/audio/feedback/bow-release.ogg": {
+      "bytes": 6381,
+      "sha256": "ac3e1f9868946cfd2fdfe00f65d7170d1e30d66ec626ba7767a5370dacedaba6"
+    },
+    "dist/assets/audio/feedback/petal-rustle.ogg": {
+      "bytes": 9726,
+      "sha256": "fddf83a4743b3440c54d6769bb7029e522e51c173a2017c38503e82afc0a54bb"
+    },
+    "dist/assets/audio/feedback/dart-air.ogg": {
+      "bytes": 9052,
+      "sha256": "423e3d6dbc226adbdc4154345a686cefd59c24d55f30831c2235a37d26b278c0"
+    },
+    "dist/assets/audio/feedback/light-contact.ogg": {
+      "bytes": 8926,
+      "sha256": "647d81fe3929bfa30e07254e24177c547903c38407c6cb85215474b99c6ca09e"
+    },
+    "dist/assets/audio/feedback/stone-crack.ogg": {
+      "bytes": 14067,
+      "sha256": "4249062d1bb59022d98568d6ae4ed95d3fa581960821803f6897642ff2b7f3c5"
+    },
+    "dist/assets/audio/feedback/bite-crunch.ogg": {
+      "bytes": 8958,
+      "sha256": "7cedf347473eb6d2d798c126e6cfe8ea3414432aa49337f8e015f7d46980b0bb"
+    },
+    "dist/assets/audio/feedback/body-contact.ogg": {
+      "bytes": 8660,
+      "sha256": "39f042a95a7c07ce86eb6b2fceb449417853c1f770a0c54562cbbdbc45cfa58c"
+    },
+    "dist/assets/pokemon/25/Walk-Anim.png": {
+      "bytes": 6437,
+      "sha256": "5cfc2c775708c28c11f98e027e883261ab3ae4276e51621eec11c979598651f9"
+    },
+    "dist/assets/pokemon/25/Walk-Shadow.png": {
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    "dist/assets/pokemon/25/Idle-Anim.png": {
+      "bytes": 8301,
+      "sha256": "f1021ac60879698076fdb80705f893d0646d2b9ddf2bdb8c81803fbb7e87ad86"
+    },
+    "dist/assets/pokemon/25/Idle-Shadow.png": {
+      "bytes": 1443,
+      "sha256": "9b8ac64a8539e9770055aa7078289ab355e5695a599ce371c731114dca24e6de"
+    },
+    "dist/assets/pokemon/25/Attack-Anim.png": {
+      "bytes": 15636,
+      "sha256": "06822d01f15ebb2c4f2cff9e94bb4ee615b8d25b41527c9297b80d81576be857"
+    },
+    "dist/assets/pokemon/25/Attack-Shadow.png": {
+      "bytes": 5340,
+      "sha256": "8462e499f657df2640738a69cb624b5bca246a17854dd17731fdffedb81e3255"
+    },
+    "dist/assets/pokemon/25/Hurt-Anim.png": {
+      "bytes": 4577,
+      "sha256": "4f096cee94aab6e2c444e6e5a9e77680858d81ad90ddaded05f7e2fea69e3776"
+    },
+    "dist/assets/pokemon/25/Hurt-Shadow.png": {
+      "bytes": 844,
+      "sha256": "ac6de71c1c2d68f7b57c3628d73cabee468c84be9da37305bcf53ed6999365a5"
+    },
+    "dist/assets/pokemon/25/Shock-Anim.png": {
+      "bytes": 20280,
+      "sha256": "fa84f62367baf2fc34cf05479c71157298551faa003ce4d88a95c8b732d13f55"
+    },
+    "dist/assets/pokemon/25/Shock-Shadow.png": {
+      "bytes": 2926,
+      "sha256": "cf156d423328b068c1897e2d7f40ef6ef7b21b56d63756bad74e05bb566d69a4"
+    },
+    "dist/assets/pokemon/143/Walk-Anim.png": {
+      "bytes": 8608,
+      "sha256": "304247a70ae32ee08cf1927caf71926903d7b67a3e480f15dcd76feb4be801b6"
+    },
+    "dist/assets/pokemon/143/Walk-Shadow.png": {
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    "dist/assets/pokemon/143/Idle-Anim.png": {
+      "bytes": 12874,
+      "sha256": "b692c89bc7c10a648fb6f72b0cf0ce9e0f84fec54dfa389709893323314e1b39"
+    },
+    "dist/assets/pokemon/143/Idle-Shadow.png": {
+      "bytes": 1156,
+      "sha256": "702fed10ab2f61c8eb41c2e6608146335661aa271ce23d4d054c8c130fac93d5"
+    },
+    "dist/assets/pokemon/143/Attack-Anim.png": {
+      "bytes": 22355,
+      "sha256": "ee1f27acf84e66dd8d0cce5bca2f62d1492363f92f63d30381b3e6c097961d93"
+    },
+    "dist/assets/pokemon/143/Attack-Shadow.png": {
+      "bytes": 5102,
+      "sha256": "ec4f92b6461989fab71b116fccd5e0f2d721b0955c49e6b71448dacc56bbfe4d"
+    },
+    "dist/assets/pokemon/143/Hurt-Anim.png": {
+      "bytes": 6289,
+      "sha256": "6a50b495198219fcf599a864527a6a8f56bc7fdaece0891632f406d3de70fb29"
+    },
+    "dist/assets/pokemon/143/Hurt-Shadow.png": {
+      "bytes": 848,
+      "sha256": "59e15793497a8122091a82c72c5a51beee94f1f6d7103dfedfb2604d57a02f51"
+    },
+    "dist/assets/pokemon/143/Stomp-Anim.png": {
+      "bytes": 33687,
+      "sha256": "2242f2ed8be643626429dbdcda0480849b7b5673c003e8c90dc902d26db36f6c"
+    },
+    "dist/assets/pokemon/143/Stomp-Shadow.png": {
+      "bytes": 7996,
+      "sha256": "a3ca2bca08b9b5a4d4dfedf49df6837f35298b22536cd33e49aa7ffd80570277"
+    },
+    "dist/assets/pokemon/68/Walk-Anim.png": {
+      "bytes": 11823,
+      "sha256": "e169fb82de0226d8abfbc73e6b837af41cfb19347f71943bea804dfe5fc6120f"
+    },
+    "dist/assets/pokemon/68/Walk-Shadow.png": {
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    "dist/assets/pokemon/68/Idle-Anim.png": {
+      "bytes": 13623,
+      "sha256": "e7a664e470fca6878f114a8e87a6e394f55166467eb207a5215efb4f031d76b7"
+    },
+    "dist/assets/pokemon/68/Idle-Shadow.png": {
+      "bytes": 2637,
+      "sha256": "68627629e56b25d33bb5cc77f3fc46e329239b0be22464ed1074859f90f99cc2"
+    },
+    "dist/assets/pokemon/68/Attack-Anim.png": {
+      "bytes": 39374,
+      "sha256": "26d5247e14c68ec43866d079134e52a59b9a7d761d0ac2ed4dbb804fddaeb2b2"
+    },
+    "dist/assets/pokemon/68/Attack-Shadow.png": {
+      "bytes": 6356,
+      "sha256": "772a86ecc5aa90ecf3072f58f5416d2b4dd0bdabb81e481210ef1e3e30faddeb"
+    },
+    "dist/assets/pokemon/68/Hurt-Anim.png": {
+      "bytes": 6695,
+      "sha256": "f9f3a887fa9030cab510fb94183e5edc392bc944aa44fa5ab22b54f62eeae37d"
+    },
+    "dist/assets/pokemon/68/Hurt-Shadow.png": {
+      "bytes": 844,
+      "sha256": "ac6de71c1c2d68f7b57c3628d73cabee468c84be9da37305bcf53ed6999365a5"
+    },
+    "dist/assets/pokemon/68/Punch-Anim.png": {
+      "bytes": 33403,
+      "sha256": "348a7f9df9eff3e8a692595529cd87d66806d1538f111ba63c0545d290a4dbeb"
+    },
+    "dist/assets/pokemon/68/Punch-Shadow.png": {
+      "bytes": 5597,
+      "sha256": "11f04202feb8098b8229f310aa6bf9b0cb9eed09a7cd7fd07a021c17c0939370"
+    },
+    "dist/assets/pokemon/9/Walk-Anim.png": {
+      "bytes": 11364,
+      "sha256": "90074aa6cea5dc4fd11a5ca2bd756f71d83798e2efc346d8d609907489f70350"
+    },
+    "dist/assets/pokemon/9/Walk-Shadow.png": {
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    "dist/assets/pokemon/9/Idle-Anim.png": {
+      "bytes": 12987,
+      "sha256": "eb9bca8db6a6fda567302db7815bf122829a07c2fb77ab5e5fb69fb67779815e"
+    },
+    "dist/assets/pokemon/9/Idle-Shadow.png": {
+      "bytes": 2149,
+      "sha256": "bb1edc521886ebe78751de066605a38b72a8e89e76f00631de6341a16b5eb6a4"
+    },
+    "dist/assets/pokemon/9/Attack-Anim.png": {
+      "bytes": 28195,
+      "sha256": "a11c75977e2a1e8d5d41d3f441db9a8176f95102eb04bfaea7fe5e099dd1127e"
+    },
+    "dist/assets/pokemon/9/Attack-Shadow.png": {
+      "bytes": 5433,
+      "sha256": "e674a691edf4465b575602f7f76b9960a7ae50347020b6538e52beaa0df8bac1"
+    },
+    "dist/assets/pokemon/9/Hurt-Anim.png": {
+      "bytes": 3662,
+      "sha256": "8f5e78a8814aa0d16a9da08c56415e6892e09ec687ca9538ccc1e8edecd9961a"
+    },
+    "dist/assets/pokemon/9/Hurt-Shadow.png": {
+      "bytes": 718,
+      "sha256": "83cb0e9aa2b87a9cc7d8a69d62a5f8ed88c42846d97c4338815861fcaf88f084"
+    },
+    "dist/assets/pokemon/9/Shoot-Anim.png": {
+      "bytes": 18999,
+      "sha256": "18ef283b80280a7f8625ddfd5b9da950d77b9eb4022875e97e8f28e320e651bf"
+    },
+    "dist/assets/pokemon/9/Shoot-Shadow.png": {
+      "bytes": 2521,
+      "sha256": "f08dff112fc8619295c8b4a21426deb069a1bf00c0c3a29613d50858cc3072ad"
+    },
+    "dist/assets/pokemon/41/Walk-Anim.png": {
+      "bytes": 11912,
+      "sha256": "37323d0e60074800f58a896d0d7ce9ad940ae9e34357fd10c472cb8b571db139"
+    },
+    "dist/assets/pokemon/41/Walk-Shadow.png": {
+      "bytes": 2007,
+      "sha256": "1b6a69c06e982a1999685b59a65f4a11a63deac997048ad8dc6576295cb1cad9"
+    },
+    "dist/assets/pokemon/41/Idle-Anim.png": {
+      "bytes": 12472,
+      "sha256": "28ea4512a68af47ba46e29ab48febbb726201a0f3d34fb400618e245cddbce09"
+    },
+    "dist/assets/pokemon/41/Idle-Shadow.png": {
+      "bytes": 1730,
+      "sha256": "d61852f67638bac98fee99f030acd6ed4c47f5e0d679d3fe93fdb8d751258220"
+    },
+    "dist/assets/pokemon/41/Attack-Anim.png": {
+      "bytes": 21692,
+      "sha256": "f39286bcbde5f5ecb12f21d3a0786e69b4da36a0c50704d6d4237533907d30e7"
+    },
+    "dist/assets/pokemon/41/Attack-Shadow.png": {
+      "bytes": 5273,
+      "sha256": "c188b2420a75f983596ea3ca7abd1e394352e8f30345bd9208c41bde7dabac4c"
+    },
+    "dist/assets/pokemon/41/Hurt-Anim.png": {
+      "bytes": 4683,
+      "sha256": "55deab15a9ecf226f8508e57b12817c67cbee1fb3756cd779f2a35bc57630add"
+    },
+    "dist/assets/pokemon/41/Hurt-Shadow.png": {
+      "bytes": 737,
+      "sha256": "77efa39429ea5bd928ff1865f3039982c9d6152b457d97c2055abde373da99a5"
+    },
+    "dist/assets/pokemon/6/Walk-Anim.png": {
+      "bytes": 12077,
+      "sha256": "ceeb33e0db05817c2566e964d7b2264d0fb8fdecd480f7245faeafc864bc0d9b"
+    },
+    "dist/assets/pokemon/6/Walk-Shadow.png": {
+      "bytes": 792,
+      "sha256": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec"
+    },
+    "dist/assets/pokemon/6/Idle-Anim.png": {
+      "bytes": 12077,
+      "sha256": "ceeb33e0db05817c2566e964d7b2264d0fb8fdecd480f7245faeafc864bc0d9b"
+    },
+    "dist/assets/pokemon/6/Idle-Shadow.png": {
+      "bytes": 792,
+      "sha256": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec"
+    },
+    "dist/assets/pokemon/6/Attack-Anim.png": {
+      "bytes": 37549,
+      "sha256": "af67973adf681138435e48494a7f04a80809a42b3378fea9486a18744c63f32e"
+    },
+    "dist/assets/pokemon/6/Attack-Shadow.png": {
+      "bytes": 7151,
+      "sha256": "26f3b35801eb5a705337d1d05048b4576e6d124878f07546bd78c0acfb932970"
+    },
+    "dist/assets/pokemon/6/Hurt-Anim.png": {
+      "bytes": 7261,
+      "sha256": "838924d5af02c21a3c67918807d8089afd09144a54a1898fcd02d977f4ad0aec"
+    },
+    "dist/assets/pokemon/6/Hurt-Shadow.png": {
+      "bytes": 1002,
+      "sha256": "03a44da161edeef5b8c0a9c2d20a5e11a30664b078f3c12bf256b33054429860"
+    },
+    "dist/assets/pokemon/6/Shoot-Anim.png": {
+      "bytes": 21959,
+      "sha256": "7064487ed8b43e2aa4d73872a1c40320fc883ad224c1a717057918f3eedf9a8a"
+    },
+    "dist/assets/pokemon/6/Shoot-Shadow.png": {
+      "bytes": 3771,
+      "sha256": "71d5aa90343c68f2cb2a54b92d7f5c09f10914cfda599e2f7462b67f80dfe06e"
+    },
+    "dist/assets/pokemon/6/Hop-Anim.png": {
+      "bytes": 26905,
+      "sha256": "6bc15ac3695849339acb20a0e78847e90e2e39b48540b173f1a293d037276df2"
+    },
+    "dist/assets/pokemon/6/Hop-Shadow.png": {
+      "bytes": 2419,
+      "sha256": "30edd9679772a18769dd267a4de294ea18ecc22172a01d059fe43e2a53c774cd"
+    },
+    "dist/assets/pokemon/31/Walk-Anim.png": {
+      "bytes": 8201,
+      "sha256": "f487e5b74299137a435e5c9004046748afc33f634a4244d6505e8b9cd7672cdb"
+    },
+    "dist/assets/pokemon/31/Walk-Shadow.png": {
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    "dist/assets/pokemon/31/Idle-Anim.png": {
+      "bytes": 8404,
+      "sha256": "3bcba822ca88be720f25c8d2e3e41dc86bee8e9f474fc52947fd430889869178"
+    },
+    "dist/assets/pokemon/31/Idle-Shadow.png": {
+      "bytes": 634,
+      "sha256": "710a76bb2e78ffe89642ed1218e0061d32225177d3ecb956acc84384280fc198"
+    },
+    "dist/assets/pokemon/31/Attack-Anim.png": {
+      "bytes": 18166,
+      "sha256": "4a7a5958ac3509282bb5beef2e8426c3cefe1540fd6671eb99452f91d3ec4b84"
+    },
+    "dist/assets/pokemon/31/Attack-Shadow.png": {
+      "bytes": 4582,
+      "sha256": "85eba87a33cf83bc8522338c76167f1ecac52d93054ec1b2ec082bb35553bce3"
+    },
+    "dist/assets/pokemon/31/Hurt-Anim.png": {
+      "bytes": 5313,
+      "sha256": "8200f48ef9c1b0241c1c4c96d893e8840f257ad8ce9b363bc77296ea812a0378"
+    },
+    "dist/assets/pokemon/31/Hurt-Shadow.png": {
+      "bytes": 815,
+      "sha256": "df7815c9541ff2a2416b89ee31260fb0bb23e9f9c037457468f59cf976f1d0bb"
+    },
+    "dist/assets/pokemon/31/Shoot-Anim.png": {
+      "bytes": 19498,
+      "sha256": "f4fc11252bf9af6d378023b1b531908e648bb9d224bf8a46b26c2b7c1abfb3c7"
+    },
+    "dist/assets/pokemon/31/Shoot-Shadow.png": {
+      "bytes": 4584,
+      "sha256": "9846789ae26eaf71b0ba7f8821546817ebbc7803f07af4d889df2091a2c52845"
+    },
+    "dist/assets/pokemon/34/Walk-Anim.png": {
+      "bytes": 13128,
+      "sha256": "47e73a0dbadc870b3dba8ac816b1e43f0359aba2797bef2569883894793cef5c"
+    },
+    "dist/assets/pokemon/34/Walk-Shadow.png": {
+      "bytes": 792,
+      "sha256": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec"
+    },
+    "dist/assets/pokemon/34/Idle-Anim.png": {
+      "bytes": 8401,
+      "sha256": "7fc391919541020478125f82630ebbb7500d627e90c881896c3d28ef0c299b53"
+    },
+    "dist/assets/pokemon/34/Idle-Shadow.png": {
+      "bytes": 727,
+      "sha256": "c7b4b5a1cb381754a2bbff9a810ed9d1ce14c2474bc46b8194900bb9fc42e128"
+    },
+    "dist/assets/pokemon/34/Attack-Anim.png": {
+      "bytes": 41361,
+      "sha256": "c72da1f2e9d65c63a96a1bea52c8afaaf4a7cc45a85e687b82c8175ff24639c0"
+    },
+    "dist/assets/pokemon/34/Attack-Shadow.png": {
+      "bytes": 6277,
+      "sha256": "7a3ba87d8fd56ab6bffc6b49e9eca14993a5feb0792f40c31e84b7132aa6bcc9"
+    },
+    "dist/assets/pokemon/34/Hurt-Anim.png": {
+      "bytes": 8554,
+      "sha256": "2c7b394b7eac41d61c26b7368ddc3b92c867f24e790d3fd7399e36eac68e82c2"
+    },
+    "dist/assets/pokemon/34/Hurt-Shadow.png": {
+      "bytes": 848,
+      "sha256": "59e15793497a8122091a82c72c5a51beee94f1f6d7103dfedfb2604d57a02f51"
+    },
+    "dist/assets/pokemon/34/Shoot-Anim.png": {
+      "bytes": 31667,
+      "sha256": "b96eef4504ea9e5dd6e85803c813c287abbee187213153dc5955b9f9de5e031c"
+    },
+    "dist/assets/pokemon/34/Shoot-Shadow.png": {
+      "bytes": 4986,
+      "sha256": "415525a7ef3ce92c01290641a0699b81c273bc9c5c48a1dbdf5b3805dbf55566"
+    },
+    "dist/assets/pokemon/52/Walk-Anim.png": {
+      "bytes": 5478,
+      "sha256": "c58d87c7bc111288963f7df341e7c38f444908104859810bc505107212cc6eb9"
+    },
+    "dist/assets/pokemon/52/Walk-Shadow.png": {
+      "bytes": 720,
+      "sha256": "cb86f32dd498beb9b30b1552e1197aacf34220d6066e68af2abfd90ef2394cb4"
+    },
+    "dist/assets/pokemon/52/Idle-Anim.png": {
+      "bytes": 5874,
+      "sha256": "df1b0115a3fbf15518f3a95eb8f0f48071da8d0715646e1f3f2d26f17d74a8e7"
+    },
+    "dist/assets/pokemon/52/Idle-Shadow.png": {
+      "bytes": 502,
+      "sha256": "986ed7e027135db592e146107bff26dac9ab00e787f7e4002bcca92696fc54b3"
+    },
+    "dist/assets/pokemon/52/Attack-Anim.png": {
+      "bytes": 14946,
+      "sha256": "0eece85f3e2e23cae74618637db04683deca07400e19b73ac84b75c6f08a2b97"
+    },
+    "dist/assets/pokemon/52/Attack-Shadow.png": {
+      "bytes": 4952,
+      "sha256": "e1e720a11ae251ad433abaa0c1acb89f15676b51ccb33a13b12f9b17bf90d04d"
+    },
+    "dist/assets/pokemon/52/Hurt-Anim.png": {
+      "bytes": 4639,
+      "sha256": "0867146aa69147f50c872102f1429f17f29af6cc3cbb55f7055c66ddf1837850"
+    },
+    "dist/assets/pokemon/52/Hurt-Shadow.png": {
+      "bytes": 787,
+      "sha256": "c598a4c3fc9b723e5936bd5ed74086c34af796aa188d84466b4472b3fb8eb99c"
+    },
+    "dist/assets/pokemon/52/Shoot-Anim.png": {
+      "bytes": 11295,
+      "sha256": "734209e21f2bb04a878ea70e51956a9348469ba73f1bcf727eca248637b97a7f"
+    },
+    "dist/assets/pokemon/52/Shoot-Shadow.png": {
+      "bytes": 1208,
+      "sha256": "ca4f27c74ef48124f3e0c9f4564e359aa4b7307cb91d60aa9d3eec970ea84871"
+    },
+    "dist/assets/battle/Particle__Flamethrower_2.None.png": {
+      "bytes": 1352,
+      "sha256": "175203e3eb6405013017a527692449fef1ff9585392d3ad53d5db06982d38984"
+    },
+    "dist/assets/battle/Particle__Flamethrower.None.png": {
+      "bytes": 4180,
+      "sha256": "cdf854eb86da7cccaa4650a7e892f096e0bf0ccbc69512d2ae31bd9f895ffa74"
+    },
+    "dist/assets/battle/Particle__Water_Column_Ranger.None.png": {
+      "bytes": 13155,
+      "sha256": "31f2e34d0eb20756d396642ee400d4533e8e72768aeb3c5ffb5cd7161e25eb3b"
+    },
+    "dist/assets/battle/Particle__Bubbles_Blue.None.png": {
+      "bytes": 761,
+      "sha256": "a5f94f956f2345889ced3e4fcddb91a640c030b47cd26c944a61810f828a0937"
+    },
+    "dist/assets/battle/Particle__Razor_Leaf.None.png": {
+      "bytes": 1416,
+      "sha256": "4e0a060cd0b3628e43dc1fb378db413886b9a23d86594797ff4cf5e7d02fea31"
+    },
+    "dist/assets/battle/Particle__Poison_Ball_Ranger.None.png": {
+      "bytes": 2652,
+      "sha256": "7d85c13486c550a71664499be74db256d7fc4a857bc59fd20413cca11baaf8b1"
+    },
+    "dist/assets/battle/Particle__Shadow_Ball.None.png": {
+      "bytes": 658,
+      "sha256": "bb6db172f0bd7f4230748c154958ec8f5bee01fa6807cdeb3f06640eb59c1f03"
+    },
+    "dist/assets/battle/Particle__Aura_Sphere.None.png": {
+      "bytes": 1947,
+      "sha256": "1abf6bef7f0a4b2a913b3c59dc60ffc7b9cca0f9f16a99257fabee8fcffb078b"
+    },
+    "dist/assets/battle/Particle__Dizzy_Punch_Hit.None.png": {
+      "bytes": 3838,
+      "sha256": "1ca7ca160f2170bba05a506224b86d30eaac9e85647319cfcb8e54a36100c1a8"
+    },
+    "dist/assets/battle/Particle__Ice_Shard_Hit.None.png": {
+      "bytes": 17312,
+      "sha256": "0a3ed5836cfeed2a0df7c8c9f3c43c071d3124336f19b22edbe3e37ef5ee881a"
+    },
+    "dist/assets/battle/Particle__Heal_Order.None.png": {
+      "bytes": 15067,
+      "sha256": "59a26037db0e500ece038f6128f65f6c57f372aa1a9bef783e108ac403ba5af7"
+    },
+    "dist/assets/battle/Particle__Rock_Wrecker_Boulder.None.png": {
+      "bytes": 1045,
+      "sha256": "a75780cc81d4ea5bf0d281ac656e48231fc2d30321119fd0c9779a407d67ee9b"
+    },
+    "dist/assets/battle/Particle__Puff_Brown.None.png": {
+      "bytes": 2690,
+      "sha256": "36653d6d900c5249e139bb3d4bfa0c3c3188618a90d61378855b7fc7b961fd7d"
+    },
+    "dist/assets/battle/Particle__Scratch.Dir1.png": {
+      "bytes": 1404,
+      "sha256": "54ed603821c836df08db212fb73ba5a4bce8c6235fd4316127b3ee380187111c"
+    },
+    "dist/assets/battle/Particle__Explosion.None.png": {
+      "bytes": 8399,
+      "sha256": "33cff9cb450ae73068809b6a3ee6b3e708f8ab9359377499e371338701df44f2"
+    },
+    "dist/assets/battle/Particle__Egg_Bomb_Egg.None.png": {
+      "bytes": 721,
+      "sha256": "f49dd6a36a09bd0d6e477c9907267ed892313c688a7438bb705dc9e8a6f53137"
+    },
+    "dist/assets/battle/Item__Money_Yellow.None.png": {
+      "bytes": 275,
+      "sha256": "0e85debff04bb121eda7e1e7f0d90364e11ebb8bc1a5d22d4950b66357030dc2"
+    },
+    "dist/assets/battle/Particle__Growl.Dir8.png": {
+      "bytes": 15088,
+      "sha256": "05498d575b0b6381a43f45d9d2b2944a59857ff87a20d51e2a618462ce1983a3"
+    },
+    "dist/assets/battle/Particle__Megahorn_Front.None.png": {
+      "bytes": 1863,
+      "sha256": "edece3e64754f1057745a957e2a5595fc0650a61cf10a101a26b4e966fb07fc1"
+    },
+    "dist/assets/battle/Particle__Lick.None.png": {
+      "bytes": 362,
+      "sha256": "c7c125faf775af3c1016a25145f0ba27fd1196caee5c58aff99d9745ec1aafab"
+    },
+    "dist/assets/battle/Particle__Vine_Whip.Dir1.png": {
+      "bytes": 1303,
+      "sha256": "4532648663f05f7f3b4616d203b8ff7a9856c61b2bc14b2b9bb5ba92c8ee5a06"
+    },
+    "dist/assets/battle/Particle__Gust_Blue.None.png": {
+      "bytes": 26056,
+      "sha256": "a2222c9bc1eb66521edada7d61c4312f2f4e037480f2c371b5cf804909b0ca1c"
+    },
+    "dist/assets/battle/Particle__Spikes_RSE.Flip.png": {
+      "bytes": 253,
+      "sha256": "e1f64173c5d6c454fd72c617d6b4abd1199e034e5b6e56d7667395b12df3c9c1"
+    },
+    "dist/assets/battle/Particle__Stealth_Rock_Back.None.png": {
+      "bytes": 1791,
+      "sha256": "e4eaf56bfbd286601c2464e32b25431a08ca1fbbd04828c1b292c009f84edc95"
+    },
+    "dist/assets/battle/Particle__Stealth_Rock_Front.None.png": {
+      "bytes": 3805,
+      "sha256": "6088eb2cfd3f2f4d16d6c40ef867e42e19d3068b82bd1c562a9a1f5bf06072ec"
+    },
+    "dist/assets/battle/Particle__Dark_Void_Back.None.png": {
+      "bytes": 7103,
+      "sha256": "7ff5a778cbb79675815cd0fb109f2ad98ba51b2b0e1b78c13fd91055a0e27652"
+    },
+    "dist/assets/battle/Particle__Dark_Void_Front.None.png": {
+      "bytes": 8095,
+      "sha256": "a22b734d84f2ee63911cea7b3f4aae4d99af9a3a596a35fe8b0d6d60f7574609"
+    },
+    "dist/assets/battle/Particle__Earth_Power_Eruption.None.png": {
+      "bytes": 1417,
+      "sha256": "e1ab38b8102d2d227a41e651f50d4f7d288ad7d96d66316f79dede031f7db73c"
+    },
+    "dist/assets/battle/Particle__Ice_Shard.Dir8.png": {
+      "bytes": 9971,
+      "sha256": "5a93504695050beed6002d43ac88e04557ac76dc6c2e11b07f6569e875a2a07d"
+    },
+    "dist/assets/battle/Particle__Ice_Ball.None.png": {
+      "bytes": 409,
+      "sha256": "c2b9e0f3ef40767f7bfda682dcc1d7931ceff84173e18d13cebd21dbd61c6ded"
+    },
+    "dist/assets/battle/Particle__Protect_Blue.None.png": {
+      "bytes": 2516,
+      "sha256": "4e9f1a63669fe090ca95ac7d2684ac97de11845536466ce3335161318213e038"
+    },
+    "dist/assets/battle/Particle__Puff_White.None.png": {
+      "bytes": 2576,
+      "sha256": "603018a5b6592b0f529394119bbe33d5d67988f9978d0c467df4d0de7202107e"
+    },
+    "dist/assets/battle/Particle__Pin_Missile.Dir5.png": {
+      "bytes": 700,
+      "sha256": "0e9afd85360ce8358f6e11c94c6ec61c4eaacc9312a304e3b55ca3ce3bb843c5"
+    },
+    "dist/assets/battle/Tile__8x8__TownBase.png": {
+      "bytes": 102931,
+      "sha256": "fdb9d3f8eebff459e546bbad8b840ad0c3a33002c818204c5d7ebc61779e0f34"
+    },
+    "dist/assets/battle/Tile__24x24__BeachWaves.png": {
+      "bytes": 93141,
+      "sha256": "331d79cd8fb27e7517d58f40d82d69781f227ce2fc7ca47d987df7f23099c9ed"
+    },
+    "dist/assets/battle/Object__Tree_Town.Flip.png": {
+      "bytes": 1788,
+      "sha256": "147cf52606863d90214c0c03bdd6eb946f055b5551dba2da69072bcb52619dac"
+    },
+    "dist/assets/battle/Object__Fence.Flip.png": {
+      "bytes": 609,
+      "sha256": "10710bba02f95311f11635a7dbe0f52b4dbc1408fb31d274e0505e487499c92c"
+    },
+    "dist/assets/battle/Object__Logs_Large.Flip.png": {
+      "bytes": 1040,
+      "sha256": "1a49caeabb45b0c33792c2f625a259a473b7ccdee26ac72231fa6733646859a8"
+    },
+    "dist/assets/battle/Particle__Rock_Pieces.None.png": {
+      "bytes": 1208,
+      "sha256": "7ce6a9100e85d798a50e81337b6be041ddc156796ef478f60a9af98e676c8762"
+    },
+    "dist/assets/battle/Particle__Bite.Dir8.png": {
+      "bytes": 11129,
+      "sha256": "c26f5975d8ca805e3b83d304a34084519ea84812d6d347cd385bcc069e2321e6"
+    },
+    "dist/assets/battle/Particle__Flame_Wheel.None.png": {
+      "bytes": 1498,
+      "sha256": "73cefc7fe2922f2a628bfb37927adc1979fba0f44d185c7c24eb4d3212129189"
+    },
+    "dist/assets/battle/Beam__Lightning__Body.png": {
+      "bytes": 3772,
+      "sha256": "db252b3f73d3d7d2b26aff79695da8ee65a68b5dfcc80dd659177dcdd2a667ff"
+    },
+    "dist/assets/battle/Beam__Lightning__Head.png": {
+      "bytes": 586,
+      "sha256": "ad5507d242139eef9c3e9d6997f14f1d003eb6a34c486c5eaadb47e1bf812381"
+    },
+    "dist/assets/battle/Beam__Lightning__Tail.png": {
+      "bytes": 146,
+      "sha256": "98b591328e9e4bb53a3e5383f74c52539e76d2cc20355f76bf8ddc7eab1b79fd"
+    },
+    "dist/assets/battle/Beam__Beam__Body.png": {
+      "bytes": 198,
+      "sha256": "0487b28a1939bb08c677f54f49ed38b099e731f5b1b3f24db8e909c1cff74c02"
+    },
+    "dist/assets/battle/Beam__Beam__Head.png": {
+      "bytes": 477,
+      "sha256": "f4235573a697b61ef96cf5c5c194f6898bd9fdc9a059e5b0872c02a39285835b"
+    },
+    "dist/assets/battle/Beam__Beam__Tail.png": {
+      "bytes": 790,
+      "sha256": "981ad783ed267614dc3310571140b26a29fab9e795c105086352638ef09cdb1e"
+    },
+    "dist/assets/battle/Beam__Column_Blue__Body.png": {
+      "bytes": 265,
+      "sha256": "6133e7b7544427b2116db3809f01d331441b32f58526925193658fb9f9ac2667"
+    },
+    "dist/assets/battle/Beam__Column_Blue__Head.png": {
+      "bytes": 1462,
+      "sha256": "6758c89a9dc7ed53b4dd8136446398766ba74c733e2cf4ebb28a9540cd612ed0"
+    },
+    "dist/assets/battle/Beam__Column_Blue__Tail.png": {
+      "bytes": 146,
+      "sha256": "50ec20bc7744df72b1f60f4cd5b5509a0a3b8ca99ddd7c64a270b27e75f5007d"
+    },
+    "dist/assets/battle/Beam__Column_Yellow__Body.png": {
+      "bytes": 262,
+      "sha256": "96af7bc2c6e13f9b04bbd059b3b690ec35f288546695eed2b1968b53a9c248f6"
+    },
+    "dist/assets/battle/Beam__Column_Yellow__Head.png": {
+      "bytes": 1497,
+      "sha256": "90bfbf1c27df80f193073399bf3f8ba6013b10ac3d7fb35fa78b7bd247c86254"
+    },
+    "dist/assets/battle/Beam__Column_Yellow__Tail.png": {
+      "bytes": 146,
+      "sha256": "50ec20bc7744df72b1f60f4cd5b5509a0a3b8ca99ddd7c64a270b27e75f5007d"
+    },
+    "dist/assets/battle/Particle__Weather_Ball_Fire_1.None.png": {
+      "bytes": 1050,
+      "sha256": "e0b0c2bdf99d1b406e0b300a688088a82ce906bb726caf1ef8b892766fe25f37"
+    },
+    "dist/assets/battle/Particle__Weather_Ball_Fire_3.Flip.png": {
+      "bytes": 1670,
+      "sha256": "7af08ca82cc0942f44efc5d88c034ab092b84783fee63c0e05b085691fbd7b26"
+    },
+    "dist/assets/battle/Particle__Hydro_Cannon.None.png": {
+      "bytes": 957,
+      "sha256": "1ef2d00af95c39861f274b0acf238e21618afc16d8414fc9485fdb120bbb1bb3"
+    },
+    "dist/assets/battle/Particle__Ember.None.png": {
+      "bytes": 1259,
+      "sha256": "2875d15af0d787a2185f359679f5a120d14cc63687c5a88e4a3811e2145ad76d"
+    },
+    "dist/assets/battle/Particle__Music_Notes.None.png": {
+      "bytes": 3108,
+      "sha256": "5e5b0db6023b959fb32ffff9a473d3b8a2b54b5cd778ef2eccd2b4afb1936fc8"
+    },
+    "dist/assets/battle/Particle__Petal_Dance_Flower_Pink.None.png": {
+      "bytes": 701,
+      "sha256": "f3c8a784cc2972b5c48c03232fbec8a06ff5f61264c9fe74c042986f03689900"
+    },
+    "dist/assets/battle/ralts-hut-v1.png": {
+      "bytes": 955374,
+      "sha256": "63b1890d7e39cdd3c885953871116acfb6ca54b9ae8fe83ed373e4f02e924cbb"
+    },
+    "dist/assets/battle/pokeball-material-classic-v3.svg": {
+      "bytes": 389,
+      "sha256": "4162fe190b18d8bd13770abd60ca7ec89799887930c7624ee4c89f9aa0de2ceb"
+    },
+    "dist/assets/battle/structures-v1.png": {
+      "bytes": 1775352,
+      "sha256": "e4bdce8733b73ba6aa55be17f666f2a1d358b15b02efdb14ede359a70ccdd87b"
+    },
+    "dist/assets/battle/arena-ground-v2.webp": {
+      "bytes": 59436,
+      "sha256": "2c0fa6491949b4a6a03466f2e57447b1a6db8db2ad3c8c2534745df42e0bd611"
+    },
+    "dist/assets/battle/arena-bridge-v2.webp": {
+      "bytes": 4950,
+      "sha256": "defac1da7c6bf617a38e5245cc297860ba8e55f342847a272cdfa7de53219755"
+    },
+    "dist/assets/battle/riverbank-v2.webp": {
+      "bytes": 22974,
+      "sha256": "cec6d62253b803a24c4fe6b80a3f6a4eff9059fa87bf8f3c772b6013567495d1"
+    },
+    "dist/favicon.svg": {
+      "bytes": 664,
+      "sha256": "256e54e9fa76e424f796d00a57ba3ebdb6224a47a1d93402ce0d69086d607089"
+    },
+    "dist/assets/ui/console-pattern.svg": {
+      "bytes": 435,
+      "sha256": "b5adb346e7ce6715ec4e1a9d1241cc75105ce6e3eb76f701340e92e6918c6b22"
+    },
+    "dist/assets/fonts/font-1.ttf": {
+      "bytes": 86636,
+      "sha256": "0d85af813fc3ed87db0c6265515689b2eef5cbaf7aab17922528dfc95a2cd73f"
+    },
+    "dist/assets/fonts/font-6.ttf": {
+      "bytes": 48280,
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a"
+    }
+  },
+  "qaHashes": {
+    "/__qa/native-integrated-harness.mjs": "c20f1798932e7550fedbabfa926cf8eb12b69a44b96e1c7998efab0d1aa72585",
+    "qa-spell-exit-marker.mjs": "37c0b17b9b59d5e82047db60ab44a2c6af3ce6c084ad273f63c184b9385d595f"
+  }
+}

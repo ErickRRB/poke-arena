@@ -1,0 +1,34 @@
+{
+  "before": {
+    "checkpoint": "6dfb7c3b05a9e0a7bfb37e717d471bf3bfeefb4a",
+    "reportSha256": "b5ae445aa0ce58591714e07c2188061f1018c758270ffb3b19688001450e16ac",
+    "observation": {
+      "invalidMarginDiagonalSegments": 2,
+      "invalidMarginAreaArcs": 1,
+      "actualCanvasExitClearsPointer": true,
+      "actualCanvasExitDrawsNoMarker": true,
+      "escapeClears": true,
+      "staleFalseDrawsNothing": false,
+      "xIsCanvasDiagonalNotText": true,
+      "noPhysicalCast": true
+    }
+  },
+  "after": {
+    "checkpoint": "5af8a6d4d89c56aa80cfda024d133949f31a3482",
+    "reportSha256": "af84b2a6335274cbafeb51a073f73d16ebd51753ae24e8838c3c528d700e6940",
+    "observation": {
+      "invalidMarginDiagonalSegments": 0,
+      "invalidMarginAreaArcs": 0,
+      "actualCanvasExitClearsPointer": true,
+      "actualCanvasExitDrawsNoMarker": true,
+      "escapeClears": true,
+      "staleFalseDrawsNothing": true,
+      "xIsCanvasDiagonalNotText": false,
+      "noPhysicalCast": true
+    }
+  },
+  "sameEngine": true,
+  "sameArenaGeometry": true,
+  "sameCapsuleMaterial": true,
+  "scope": "One local native mouse gesture plus a separately labeled synthetic stale inside:false probe; not a new LIVE replay or a rerun of the thirteen-spell matrix."
+}
