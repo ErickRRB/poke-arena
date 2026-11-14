@@ -55,7 +55,7 @@ export class Renderer {
     this.particles = []; this.numbers = [];this.showCombatNumbers=false;
     this.healthStates=new Map();this.speciesLoads=new Map();this.imageLoads=new Map();this.pendingSpecies=new Set();
     this.battleArt=new BattleArt(file=>this.loadImage(file));this.visualActors=new Map();this.visualProjectiles=new Map();this.frameActors=new Map();
-    this.t = 0; this.reduced = false; this.pointer = null; this.selection = null; this.tutorialSpot = false;
+    this.t = 0; this.reduced = false; this.pointer = null; this.selection = null; this.tutorialSpot = false; this.viewerTeam=0;
     this.buildBackground();
   }
   async load(keys=DEFAULT_DECK,onProgress=()=>{}) {
@@ -225,11 +225,22 @@ export class Renderer {
     if(tower.guard)this.sprite(c,{...tower,attack:!tower.active?0:tower.attack,card:{id:tower.guard.id},scale:king?1.15:1.3,x,y:y-TOWER_MOUNTS[king?'king':'princess']/vertical,mounted:true,attackAnim:tower.guard.attackAnim,moving:false},true);
     if(king&&!tower.active)text(c,'z',x+24,y-30/vertical,'#fff5cd',10);
     if(tower.stun>0)this.combatArt(c,'lightning',x,y-55/vertical,26);
-    const width=king?68:60,by=y+10/vertical,ratio=Math.max(0,tower.hp/tower.maxHp);
+    c.restore();
+    if(this.towerHealthQueue)this.towerHealthQueue.push(tower);else this.towerHealth(c,tower);
+  }
+  towerHealth(c,tower){
+    if(tower.hp<=0)return;
+    const {x,y,team,king}=tower,vertical=this.verticalScale||1,enemy=team!==(this.viewerTeam??0);
+    const guardHeight=(this.bodyHeights?.get(tower.guard?.id)||28)*(king?1.15:1.3);
+    const structureHeight=king?102*476/574:72*395/309;
+    const top=y-Math.max(structureHeight,tower.guard?TOWER_MOUNTS[king?'king':'princess']+guardHeight:0)/vertical;
+    const width=king?68:60,by=enemy?top-13/vertical:y+10/vertical,ratio=Math.max(0,tower.hp/tower.maxHp);
+    c.save();
     rect(c,'#20352ad9',x-width/2-2,by-2,width+4,10);rect(c,'#435845',x-width/2,by,width,6);
     rect(c,team?'#eb8e71':'#65b9d0',x-width/2,by,width*ratio,6);rect(c,team?'#ffcfb1':'#c7f1f1',x-width/2,by,width*ratio,2);
     const hp=tower.labImmortal?'∞':String(Math.ceil(tower.hp));c.font='600 12px "DM Sans",sans-serif';const labelWidth=c.measureText(hp).width+12;
-    rect(c,'#243b2ad9',x-labelWidth/2,by+10,labelWidth,16);text(c,hp,x,by+18,team?'#ffe2ce':'#d5f1ef',11,700);c.restore();
+    const labelY=enemy?by-12/vertical:by+18;
+    rect(c,'#243b2ad9',x-labelWidth/2,labelY-8,labelWidth,16);text(c,hp,x,labelY,team?'#ffe2ce':'#d5f1ef',11,700);c.restore();
   }
   sprite(c, unit, idle = false) {
     if(unit.card.structureArt){this.structureSprite(c,unit,idle);return;}
@@ -832,6 +843,7 @@ export class Renderer {
       if(spell.key==='pinMissile')continue;
       if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
     }
+    this.towerHealthQueue=[];
     const objects=[...this.frameActors.values()].sort((a,b)=>a.y-b.y);
     for(const actor of objects){if('king'in actor)this.tower(c,actor);else this.sprite(c,actor);this.frozen(c,actor);}
     for(const field of game.fields||[])if(['stealthRock','nightmare'].includes(field.key))this.field(c,field,true);
@@ -846,6 +858,8 @@ export class Renderer {
     for(const[key,pose]of this.visualProjectiles)if(this.t-pose.at>1)this.visualProjectiles.delete(key);
     for(const[key,pose]of this.visualFlights||[])if(this.t-pose.at>1)this.visualFlights.delete(key);
     for(const p of this.particles){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=p.gravity*dt;c.globalAlpha=Math.max(0,p.life/p.max);this.combatArt(c,'dust',p.x,p.y,Math.max(8,p.size*3),0,Math.max(8,p.size*3),{progress:1-p.life/p.max});}
-    this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;c.restore();
+    this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;
+    for(const tower of this.towerHealthQueue)this.towerHealth(c,tower);delete this.towerHealthQueue;
+    c.restore();
   }
 }
