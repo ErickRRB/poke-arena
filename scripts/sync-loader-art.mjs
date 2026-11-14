@@ -1,0 +1,21 @@
+import fs from 'node:fs';
+import {LOADER_BALL_SHAPES} from '../dist/loader-art.js';
+import {BATTLE_ASSETS} from '../dist/assets/battle/manifest.js';
+let html=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
+html=html.replace(/<symbol id="i-loading-ball"[\s\S]*?<\/symbol>/,`<symbol id="i-loading-ball" viewBox="0 0 64 64">${LOADER_BALL_SHAPES}</symbol>`);
+html=html.replace(/<symbol id="i-ball"[\s\S]*?<\/symbol>/,`<symbol id="i-ball" viewBox="0 0 24 24"><g transform="scale(.375)">${LOADER_BALL_SHAPES}</g></symbol>`);
+html=html.replaceAll('assets/ui/pokeball-v2.webp','assets/ui/pokeball-pixel-v1.svg');
+fs.writeFileSync(new URL('../dist/index.html',import.meta.url),html);
+// Canvas deployment and summoning use the very same opaque vector artwork.
+const asset='assets/ui/pokeball-pixel-v1.svg';
+fs.writeFileSync(new URL('../dist/'+asset,import.meta.url),`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" shape-rendering="crispEdges">${LOADER_BALL_SHAPES}</svg>\n`);
+BATTLE_ASSETS.pokeball.file=asset;
+fs.writeFileSync(new URL('../dist/assets/battle/manifest.js',import.meta.url),'export const BATTLE_ASSETS='+JSON.stringify(BATTLE_ASSETS)+';\n');
+const metadataFile=new URL('../dist/assets/battle/manifest.json',import.meta.url),metadata=JSON.parse(fs.readFileSync(metadataFile,'utf8'));
+metadata.animations.pokeball.file=asset;
+fs.writeFileSync(metadataFile,JSON.stringify(metadata,null,2)+'\n');
+const editor=new URL('../dist/editor.css',import.meta.url);
+fs.writeFileSync(editor,fs.readFileSync(editor,'utf8').replaceAll('assets/ui/pokeball-v2.webp',asset).replace('.loading-base{filter:grayscale(1);opacity:.45}', '.loading-base{filter:grayscale(1)}'));
+const testing=new URL('../dist/testing.html',import.meta.url);
+fs.writeFileSync(testing,fs.readFileSync(testing,'utf8').replaceAll('src="favicon.svg"','src="'+asset+'"'));
+fs.writeFileSync(new URL('../dist/favicon.svg',import.meta.url),fs.readFileSync(new URL('../dist/'+asset,import.meta.url)));

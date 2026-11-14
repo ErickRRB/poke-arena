@@ -1,0 +1,83 @@
+{
+  "archive": "https://opengameart.org/sites/default/files/tinysized.zip",
+  "archiveSha256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+  "rows": [
+    {
+      "key": "bow-release",
+      "author": "dorkster; remix of qubodup and remaxim",
+      "license": "CC-BY-SA-3.0",
+      "url": "https://opengameart.org/content/bow-arrow-shot",
+      "sourceFile": "bow-shoot-original.ogg",
+      "sourceSha256": "ac3e1f9868946cfd2fdfe00f65d7170d1e30d66ec626ba7767a5370dacedaba6",
+      "asset": "assets/audio/feedback/bow-release.ogg",
+      "sha256": "ac3e1f9868946cfd2fdfe00f65d7170d1e30d66ec626ba7767a5370dacedaba6",
+      "transform": "Unmodified original Ogg."
+    },
+    {
+      "key": "petal-rustle",
+      "author": "Vehicle / Jan Schupke",
+      "license": "CC0-1.0",
+      "url": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "sourceFile": "arrow-feathers-01.wav",
+      "sourceSha256": "15493cd9a472a426602ab46fa27b5f012aa0b678dbf07fae0c1f68967ce96f5c",
+      "asset": "assets/audio/feedback/petal-rustle.ogg",
+      "sha256": "fddf83a4743b3440c54d6769bb7029e522e51c173a2017c38503e82afc0a54bb",
+      "transform": "Lossy Ogg encoding, mono44.1kHz; no pitch or source substitution. Runtime trims silence and applies its documented gain envelope."
+    },
+    {
+      "key": "dart-air",
+      "author": "Vehicle / Jan Schupke",
+      "license": "CC0-1.0",
+      "url": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "sourceFile": "compressed-air-spray-01.wav",
+      "sourceSha256": "24439d722c11958197d39a351d6e26ba34c10df438f91e9c811e1e58b15f1135",
+      "asset": "assets/audio/feedback/dart-air.ogg",
+      "sha256": "423e3d6dbc226adbdc4154345a686cefd59c24d55f30831c2235a37d26b278c0",
+      "transform": "Lossy Ogg encoding, mono44.1kHz; no pitch or source substitution. Runtime trims silence and applies its documented gain envelope."
+    },
+    {
+      "key": "light-contact",
+      "author": "Vehicle / Jan Schupke",
+      "license": "CC0-1.0",
+      "url": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "sourceFile": "wood-twigs-break-01.wav",
+      "sourceSha256": "383c87c96cf30a207a9922f16768b1bd5138d7fd66bb7f4c2ff4e15e058b1803",
+      "asset": "assets/audio/feedback/light-contact.ogg",
+      "sha256": "647d81fe3929bfa30e07254e24177c547903c38407c6cb85215474b99c6ca09e",
+      "transform": "Lossy Ogg encoding, mono44.1kHz; no pitch or source substitution. Runtime trims silence and applies its documented gain envelope."
+    },
+    {
+      "key": "stone-crack",
+      "author": "Vehicle / Jan Schupke",
+      "license": "CC0-1.0",
+      "url": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "sourceFile": "wood-twigs-break-02.wav",
+      "sourceSha256": "444587434b25e876f34a585154f5bc339f120aee5edcc9c6605aca415995b354",
+      "asset": "assets/audio/feedback/stone-crack.ogg",
+      "sha256": "4249062d1bb59022d98568d6ae4ed95d3fa581960821803f6897642ff2b7f3c5",
+      "transform": "Lossy Ogg encoding, mono44.1kHz; no pitch or source substitution. Runtime trims silence and applies its documented gain envelope."
+    },
+    {
+      "key": "bite-crunch",
+      "author": "Vehicle / Jan Schupke",
+      "license": "CC0-1.0",
+      "url": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "sourceFile": "apple-cut-02.wav",
+      "sourceSha256": "dce2720987420a130fb25e071d0c53f8b2f4c3f457f2da05665698896da35b6c",
+      "asset": "assets/audio/feedback/bite-crunch.ogg",
+      "sha256": "7cedf347473eb6d2d798c126e6cfe8ea3414432aa49337f8e015f7d46980b0bb",
+      "transform": "Lossy Ogg encoding, mono44.1kHz; no pitch or source substitution. Runtime trims silence and applies its documented gain envelope."
+    },
+    {
+      "key": "body-contact",
+      "author": "Vehicle / Jan Schupke",
+      "license": "CC0-1.0",
+      "url": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "sourceFile": "cloth-pouch-shake-01.wav",
+      "sourceSha256": "96e0cb2529817e56bb4c967fa0bdd42192e71fca76164c706263d5a0e7c302b6",
+      "asset": "assets/audio/feedback/body-contact.ogg",
+      "sha256": "39f042a95a7c07ce86eb6b2fceb449417853c1f770a0c54562cbbdbc45cfa58c",
+      "transform": "Lossy Ogg encoding, mono44.1kHz; no pitch or source substitution. Runtime trims silence and applies its documented gain envelope."
+    }
+  ]
+}

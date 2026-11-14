@@ -27,7 +27,7 @@ test('a failed family-specific sample falls back even when unrelated foley decod
   const audio=makeSound();
   for(const key of['foley:swish-1','foley:swish-2','combat:215-release'])audio.sound.buffers.delete(key);
   audio.event({type:'attackRelease',key:'sneaselToken',style:'slash',attacker:{card:CARDS.sneaselToken},from:{x:180},shot:0});
-  assert.ok(audio.trace.length,'The presence of punch-1 must not hide missing slash samples');
+  assert.ok(audio.trace.length,'Unrelated decoded samples must not hide missing slash samples');
 });
 
 test('the opposite lane remains audible when two different attackers release the same family together',()=>{
@@ -138,11 +138,58 @@ test('a group heal coalesces locally while preserving the other lane',()=>{
   assert.ok([...left,...right].every(output=>output.volume<=.12&&output.duration<=.3));
 });
 
-test('shield, healing fire and dash abilities use their own effect cues',()=>{
-  const shield=featureScene('lugia','ability').outputs,fire=featureScene('hooh','ability').outputs,dash=featureScene('rayquaza','ability').outputs;
-  assert.ok(shield.some(output=>output.sample==='foley:metal'));
-  assert.equal(shield.some(output=>output.sample==='foley:water'),false);
-  assert.ok(fire.some(output=>output.kind==='noise'));
-  assert.equal(fire.some(output=>output.sample==='foley:punch-3'),false);
-  assert.ok(dash.some(output=>output.sample==='foley:cloth'));
+test('archer, princess, dart and magic-arrow releases differ from their actual delayed contacts',()=>{
+  const signatures=[];
+  for(const key of ['treecko','roselia','nuzleaf','alakazam']){
+    const scene=attackScene(key,{distance:60}),release=scene.events.find(e=>e.type==='attackRelease'),impact=scene.events.find(e=>e.type==='hit');
+    assert.ok(release?.outputs.length&&impact?.outputs.length,key+' has release and impact feedback');
+    assert.ok(impact.at>release.at,key+' impact follows the projectile');
+    assert.ok(scene.events.filter(e=>e.type==='attackStart').every(e=>e.outputs.length===0),'preparation must not play a release early');
+    assert.ok(release.outputs.every(o=>o.delay>=0&&o.delay<=.01));
+    assert.ok(!release.outputs.some(o=>o.sample==='foley:heavy'),'a light projectile does not sound like a heavy collision at launch');
+    const signature=outputs=>JSON.stringify(outputs.map(o=>[o.sample,o.volume,o.duration,o.frequency]));
+    assert.notEqual(signature(release.outputs),signature(impact.outputs),key+' has a distinct contact');signatures.push(signature(release.outputs));
+  }
+  assert.equal(new Set(signatures).size,4,'the four projectile families retain distinct cues');
+});
+
+test('spell launch feedback follows cast preparation and does not stand in for the impact',()=>{
+  for(const key of ['fireball','pinMissile','hyperBeam','thunder']){
+    const scene=spellScene(key),cast=scene.events.find(e=>e.type==='cast'),hit=scene.events.find(e=>e.type==='spellHit');
+    assert.ok(cast.outputs.length&&hit.outputs.length,key);
+    const preparation=CARDS[key].castDelay??.4;
+    assert.ok(cast.outputs.every(o=>Math.abs(o.delay-preparation)<1e-6),key+' respects the launch preparation');
+    assert.ok(hit.at>=cast.at+preparation);
+  }
+});
+
+test('Tesla emerge and conceal feedback is short, distinct and remains silent when muted',()=>{
+  const sound=makeSound(),unit={x:180},up=sound.event({type:'burrow',unit,hidden:false},10),down=sound.event({type:'burrow',unit,hidden:true},11);
+  assert.ok(up.length&&down.length);assert.notDeepEqual(up.map(o=>o.frequency),down.map(o=>o.frequency));
+  assert.ok([...up,...down].every(o=>o.volume<=.025&&o.duration<=.14));
+  sound.sound.setEnabled(false);const before=sound.trace.length;sound.event({type:'burrow',unit,hidden:false},12);sound.event({type:'cast',key:'fireball',x:180},12);assert.equal(sound.trace.length,before);
+});
+
+test('nearby archers retain independent releases and only the same action is coalesced',()=>{
+  for(const positions of [[327,340],[297,310]]){
+    const sound=makeSound(),packet=(id,x)=>({type:'attackRelease',key:'treecko',attacker:{id,attackSeq:3,card:CARDS.treecko},from:{x},shot:0});
+    const a=sound.event(packet(11,positions[0]),10),b=sound.event(packet(12,positions[1]),10),duplicate=sound.event(packet(11,positions[0]),10);
+    assert.ok(a.length&&b.length,'world-coordinate bucket boundaries must not silence the second archer');assert.equal(duplicate.length,0);
+  }
+});
+
+test('the compatible release keeps its archer cue when an older card has no nativeReference field',()=>{
+  const sound=makeSound(),card={...CARDS.treecko};delete card.nativeReference;
+  const outputs=sound.event({type:'attackRelease',key:'treecko',attacker:{id:11,attackSeq:1,card},from:{x:327},shot:0});
+  assert.ok(outputs.some(output=>output.sample==='feedback:bow-release'));
+});
+
+test('rejected generic impacts are absent from every recorded and loading-fallback route',()=>{
+  for(const buffered of [true,false]){
+    for(const key of Object.keys(CARDS).filter(key=>!CARDS[key].spell&&!CARDS[key].passive&&CARDS[key].damage>0)){
+      const scene=attackScene(key,{buffered});
+      assert.ok(scene.outputs.every(o=>!/^foley:(heavy|punch-[123])$/.test(o.sample)),key);
+      assert.ok(scene.outputs.every(o=>!o.frequency.some(f=>f.kind==='set'&&[94,155,174,193,48].includes(f.value))),key+' must not restore the old generic drum fallback');
+    }
+  }
 });

@@ -1,0 +1,11 @@
+Bow & Arrow Shot by dorkster, a remix of qubodup Swish - bamboo stick weapon swhoshes and Arrow hit twang; Arrow hit twang derives from remaxim Vibrating Plastic.
+https://opengameart.org/content/bow-arrow-shot
+https://opengameart.org/content/swish-bamboo-stick-weapon-swhoshes
+https://opengameart.org/content/arrow-hit-twang
+License: Creative Commons Attribution-ShareAlike3.0 Unported, https://creativecommons.org/licenses/by-sa/3.0/
+The included bow-release.ogg is unmodified. Its source and license remain available in this directory.
+
+Other feedback recordings: Vehicle / Jan Schupke, Tinysized SFX Library, CC0.
+https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx
+https://creativecommons.org/publicdomain/zero/1.0/
+Recordings converted from WAV to Ogg. Original file names and hashes are in SOURCES.json.

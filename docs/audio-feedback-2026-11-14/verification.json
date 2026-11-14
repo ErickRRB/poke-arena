@@ -1,0 +1,965 @@
+{
+  "rows": [
+    {
+      "key": "treecko",
+      "previewAt": 0,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.6666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.18,
+          "duration": 0.2609297052154195,
+          "pan": -0.27520775000000003,
+          "voice": false
+        },
+        {
+          "at": 0.6666666666666666,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.03617623448371887,
+      "rms": 0.0012863682574520802
+    },
+    {
+      "key": "treecko-pair",
+      "previewAt": 2.1,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.6666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.18,
+          "duration": 0.2609297052154195,
+          "pan": -0.27520775000000003,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.18,
+          "duration": 0.2609297052154195,
+          "pan": -0.18520775,
+          "voice": false
+        },
+        {
+          "at": 0.6666666666666666,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.0706271380186081,
+      "rms": 0.0025709925746985984
+    },
+    {
+      "key": "roselia",
+      "previewAt": 4.2,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "outputs": 2
+        },
+        {
+          "type": "hit",
+          "at": 0.4666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.3,
+          "volume": 0.18,
+          "duration": 0.2609297052154195,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.3,
+          "volume": 0.06,
+          "duration": 0.2,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.4666666666666666,
+          "volume": 0.14,
+          "duration": 0.22,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.072231724858284,
+      "rms": 0.001588540719465463
+    },
+    {
+      "key": "nuzleaf",
+      "previewAt": 6.300000000000001,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.36666666666666664,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.36666666666666664,
+          "volume": 0.15,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.0019096899777650833,
+      "rms": 0.00005196519495223898
+    },
+    {
+      "key": "alakazam",
+      "previewAt": 8.4,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.7,
+          "outputs": 2
+        },
+        {
+          "type": "hit",
+          "at": 0.7333333333333333,
+          "outputs": 2
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.7,
+          "volume": 0.18,
+          "duration": 0.2609297052154195,
+          "pan": -0.28645200000000004,
+          "voice": false
+        },
+        {
+          "at": 0.7,
+          "volume": 0.06,
+          "duration": 0.15,
+          "pan": -0.28645200000000004,
+          "voice": false
+        },
+        {
+          "at": 0.7333333333333333,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.7333333333333333,
+          "volume": 0.07,
+          "duration": 0.16,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.05655558779835701,
+      "rms": 0.0016832877612537344
+    },
+    {
+      "key": "rhydon",
+      "previewAt": 10.5,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 2
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 2
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.08,
+          "duration": 0.12,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.018,
+          "duration": 0.09,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.19,
+          "duration": 0.22,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.025,
+          "duration": 0.07,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.0065564545802772045,
+      "rms": 0.00016249169658441053
+    },
+    {
+      "key": "snorlax",
+      "previewAt": 12.600000000000001,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 2
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 2
+        },
+        {
+          "type": "step",
+          "at": 1.3333333333333341,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.07,
+          "duration": 0.09,
+          "pan": -0.276,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.02,
+          "duration": 0.075,
+          "pan": -0.276,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.14,
+          "duration": 0.12,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.025,
+          "duration": 0.045,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 1.3333333333333341,
+          "volume": 0.035,
+          "duration": 0.07,
+          "pan": -0.24,
+          "voice": false
+        }
+      ],
+      "peak": 0.023060303181409836,
+      "rms": 0.0009105852270688013
+    },
+    {
+      "key": "sableye",
+      "previewAt": 14.700000000000001,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.39999999999999997,
+          "outputs": 2
+        },
+        {
+          "type": "hit",
+          "at": 0.39999999999999997,
+          "outputs": 2
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.39999999999999997,
+          "volume": 0.2,
+          "duration": 0.35,
+          "pan": -0.309,
+          "voice": false
+        },
+        {
+          "at": 0.39999999999999997,
+          "volume": 0.08,
+          "duration": 0.4,
+          "pan": -0.309,
+          "voice": false
+        },
+        {
+          "at": 0.39999999999999997,
+          "volume": 0.2,
+          "duration": 0.35,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.39999999999999997,
+          "volume": 0.08,
+          "duration": 0.4,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.01352217048406601,
+      "rms": 0.0007303514797791165
+    },
+    {
+      "key": "squirtle",
+      "previewAt": 16.8,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.4666666666666666,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4666666666666666,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.6,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.6333333333333333,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.7666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.3,
+          "volume": 0.21,
+          "duration": 0.17,
+          "pan": -0.30456525,
+          "voice": false
+        },
+        {
+          "at": 0.4666666666666666,
+          "volume": 0.21,
+          "duration": 0.17,
+          "pan": -0.30456525,
+          "voice": false
+        },
+        {
+          "at": 0.4666666666666666,
+          "volume": 0.21,
+          "duration": 0.22,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.6,
+          "volume": 0.21,
+          "duration": 0.17,
+          "pan": -0.30456525,
+          "voice": false
+        },
+        {
+          "at": 0.6333333333333333,
+          "volume": 0.21,
+          "duration": 0.22,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.7666666666666666,
+          "volume": 0.21,
+          "duration": 0.22,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.01700214482843876,
+      "rms": 0.0005875756368755775
+    },
+    {
+      "key": "ampharos-up",
+      "previewAt": 18.900000000000002,
+      "events": [
+        {
+          "type": "burrow",
+          "at": 0,
+          "outputs": 2
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.018,
+          "duration": 0.08,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0,
+          "volume": 0.025,
+          "duration": 0.13,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.003992568235844374,
+      "rms": 0.00023333202656721067
+    },
+    {
+      "key": "ampharos-down",
+      "previewAt": 21,
+      "events": [
+        {
+          "type": "burrow",
+          "at": 0,
+          "outputs": 2
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.018,
+          "duration": 0.08,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0,
+          "volume": 0.025,
+          "duration": 0.13,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.0038657698314636946,
+      "rms": 0.00023400445604016134
+    },
+    {
+      "key": "pinMissile",
+      "previewAt": 23.1,
+      "events": [
+        {
+          "type": "cast",
+          "at": 0,
+          "outputs": 2
+        },
+        {
+          "type": "deploy",
+          "at": 0,
+          "outputs": 1
+        },
+        {
+          "type": "spellHit",
+          "at": 0.5666666666666667,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.55,
+          "volume": 0.022,
+          "duration": 0.16,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.55,
+          "volume": 0.018,
+          "duration": 0.08,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0,
+          "volume": 0.06,
+          "duration": 0.15,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.5666666666666667,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.014443997293710709,
+      "rms": 0.0004192485940015265
+    },
+    {
+      "key": "fireball",
+      "previewAt": 25.200000000000003,
+      "events": [
+        {
+          "type": "cast",
+          "at": 0,
+          "outputs": 2
+        },
+        {
+          "type": "deploy",
+          "at": 0,
+          "outputs": 1
+        },
+        {
+          "type": "spellHit",
+          "at": 1.166666666666667,
+          "outputs": 2
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.15,
+          "volume": 0.022,
+          "duration": 0.09,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0.15,
+          "volume": 0.018,
+          "duration": 0.08,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 0,
+          "volume": 0.06,
+          "duration": 0.15,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 1.166666666666667,
+          "volume": 0.17,
+          "duration": 0.18,
+          "pan": -0.3,
+          "voice": false
+        },
+        {
+          "at": 1.166666666666667,
+          "volume": 0.045,
+          "duration": 0.16,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.010460078716278076,
+      "rms": 0.0004680076176459635
+    },
+    {
+      "key": "heal",
+      "previewAt": 27.3,
+      "events": [
+        {
+          "type": "heal",
+          "at": 0,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.08,
+          "duration": 0.2,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.008272196166217327,
+      "rms": 0.0003479397718132372
+    },
+    {
+      "key": "mixed-voices",
+      "previewAt": 29.400000000000002,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "outputs": 2
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.36666666666666664,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4666666666666666,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 2
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 2
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.6666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 0.95437641723356,
+          "pan": 0,
+          "voice": true
+        },
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 1.9974603174603174,
+          "pan": 0,
+          "voice": true
+        },
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 0.6750113378684808,
+          "pan": 0,
+          "voice": true
+        },
+        {
+          "at": 0.3,
+          "volume": 0.18,
+          "duration": 0.2609297052154195,
+          "pan": -0.12,
+          "voice": false
+        },
+        {
+          "at": 0.3,
+          "volume": 0.06,
+          "duration": 0.2,
+          "pan": -0.12,
+          "voice": false
+        },
+        {
+          "at": 0.36666666666666664,
+          "volume": 0.15,
+          "duration": 0.28,
+          "pan": -0.21,
+          "voice": false
+        },
+        {
+          "at": 0.4666666666666666,
+          "volume": 0.14,
+          "duration": 0.22,
+          "pan": -0.12,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.18,
+          "duration": 0.2609297052154195,
+          "pan": -0.27520775000000003,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.08,
+          "duration": 0.12,
+          "pan": -0.03,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.018,
+          "duration": 0.09,
+          "pan": -0.03,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.19,
+          "duration": 0.22,
+          "pan": -0.03,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.025,
+          "duration": 0.07,
+          "pan": -0.03,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.21,
+          "voice": false
+        },
+        {
+          "at": 0.6666666666666666,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.06269960850477219,
+      "rms": 0.006391586708549647
+    },
+    {
+      "key": "mixed-music",
+      "previewAt": 31.5,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "outputs": 2
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.36666666666666664,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4666666666666666,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "outputs": 2
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 2
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.6666666666666666,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 0.95437641723356,
+          "pan": 0,
+          "voice": true
+        },
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 1.9974603174603174,
+          "pan": 0,
+          "voice": true
+        },
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 0.6750113378684808,
+          "pan": 0,
+          "voice": true
+        },
+        {
+          "at": 0.3,
+          "volume": 0.18,
+          "duration": 0.2609297052154195,
+          "pan": -0.12,
+          "voice": false
+        },
+        {
+          "at": 0.3,
+          "volume": 0.06,
+          "duration": 0.2,
+          "pan": -0.12,
+          "voice": false
+        },
+        {
+          "at": 0.36666666666666664,
+          "volume": 0.15,
+          "duration": 0.28,
+          "pan": -0.21,
+          "voice": false
+        },
+        {
+          "at": 0.4666666666666666,
+          "volume": 0.14,
+          "duration": 0.22,
+          "pan": -0.12,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.18,
+          "duration": 0.2609297052154195,
+          "pan": -0.27520775000000003,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.08,
+          "duration": 0.12,
+          "pan": -0.03,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.018,
+          "duration": 0.09,
+          "pan": -0.03,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.19,
+          "duration": 0.22,
+          "pan": -0.03,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.025,
+          "duration": 0.07,
+          "pan": -0.03,
+          "voice": false
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.21,
+          "voice": false
+        },
+        {
+          "at": 0.6666666666666666,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.3,
+          "voice": false
+        }
+      ],
+      "peak": 0.06477855890989304,
+      "rms": 0.00867560750651627
+    }
+  ],
+  "decodedSamples": 129,
+  "sampleRate": 44100,
+  "scope": "Actual Game events and SoundSystem rendered by browser OfflineAudioContext at production master .7 and compressor settings. Controlled stationary targets, one/two/mixed attacks, three simultaneous voices and the real BattleMusic first bar. Peak/RMS verify output and headroom, not perceived quality or speaker balance.",
+  "hashes": {
+    "dist/audio.js": "fb4696866e9136c70cffc5ac123f6ab51c2fdb565f3914d194c2010b8ddea262",
+    "dist/engine.js": "448927cae6475f64269da61b1b9aca110bf2abbdd11a95bac542c998d8bf3c2e",
+    "dist/assets/audio/manifest.json": "0b93fffac960f64af9054034a578f8bae50c74026191d0e6884dd7344cb83be1"
+  },
+  "previewSha256": "259f2a7559773e8a821482c53ea2072b10d26d8bbeeb0d37f2bc6c2d4c4656d2",
+  "retired": {
+    "dist/assets/audio/foley/heavy.ogg": {
+      "publicSourceCommit": "ab068f3",
+      "sha256": "f1b07a53ac10c615fff9ba470511fdeb722b5902e1a8520759fc20ad6f546015",
+      "removedFrom": "Manifest, recorded routes, synthesis fallback, downloader and distributed file."
+    },
+    "dist/assets/audio/foley/punch-1.ogg": {
+      "publicSourceCommit": "ab068f3",
+      "sha256": "b33a8f14068aec24ec69ba85e5e87fdc41228975f6a1a3e44a6e7d6fc3d9f8d8",
+      "removedFrom": "Manifest, recorded routes, synthesis fallback, downloader and distributed file."
+    },
+    "dist/assets/audio/foley/punch-2.ogg": {
+      "publicSourceCommit": "ab068f3",
+      "sha256": "f92f5cb6ba4ff2766497292ffd90865654317eeca976f5652e0708dbdcdc0dd9",
+      "removedFrom": "Manifest, recorded routes, synthesis fallback, downloader and distributed file."
+    },
+    "dist/assets/audio/foley/punch-3.ogg": {
+      "publicSourceCommit": "ab068f3",
+      "sha256": "6492f9ccbc8d24dcef607bb1b48790b7870961474561f7fe5601e1c73a3018ef",
+      "removedFrom": "Manifest, recorded routes, synthesis fallback, downloader and distributed file."
+    }
+  }
+}
