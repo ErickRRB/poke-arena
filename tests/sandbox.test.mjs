@@ -56,3 +56,9 @@ test('the sandbox never enables the CPU, runs out of time, or unlocks the other 
   const g=new SandboxGame();assert.equal(g.resolveDeployment(0,'geodude',158,280),null);assert.equal(g.resolveDeployment(1,'geodude',158,520),null);
   g.resume();run(g,181);assert.equal(g.state,'playing');assert.equal(g.aiEnabled,false);assert.equal(g.units.length,0);
 });
+
+test('hero abilities are usable in a paused experiment without consuming resources or resuming time',()=>{
+  const g=new SandboxGame(),hero=g.spawn('kyogre',0,300,500,0),target=g.spawn('geodude',1,350,500,0);g.energy[0]=0;
+  assert.ok(g.useAbility(0,hero.id).ok);assert.ok(target.hp<target.maxHp);assert.equal(g.energy[0],10);assert.equal(g.state,'paused');assert.equal(g.elapsed,0);assert.equal(hero.abilityUsed,true);
+  assert.equal(g.useAbility(0,hero.id).ok,false,'normal once-per-body ability rules still apply');
+});

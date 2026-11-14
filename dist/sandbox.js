@@ -46,6 +46,11 @@ export class SandboxGame extends Game {
       return result;
     }finally{this.state=state;this.hands[team]=hand;this.queues[team]=queue;this.energy[team]=10;}
   }
+  useAbility(team,id){
+    const state=this.state;this.state='playing';this.energy[team]=10;
+    try{return this.activateAbility(team,id);}
+    finally{this.state=state;this.energy[team]=10;}
+  }
   step(dt){
     if(this.state!=='playing')return;
     this.time=3600;super.step(dt);this.energy=[10,10];

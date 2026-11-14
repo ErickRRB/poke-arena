@@ -31,11 +31,16 @@ export async function run({browser,url,viewports,output}){
     await page.locator('#choose-card').click();await page.locator('#card-search').fill('snorlax');await page.locator('[data-pick="snorlax"]').click();await page.locator('[data-team="0"]').click();
     await free.locator('canvas').scrollIntoViewIfNeeded();box=await free.locator('canvas').boundingBox();const stableBefore=await geometry();await free.locator('canvas').click({position:{x:box.width*442/600,y:box.height*510/800}});await page.waitForSelector('.column-loading:not([hidden])');stable(stableBefore,await geometry(),'species load');await page.waitForSelector('.column-loading:not([hidden])',{state:'hidden'});stable(stableBefore,await geometry(),'species ready');
     await page.locator('#lab-sound').click();assert.equal(await page.locator('#lab-sound').getAttribute('aria-pressed'),'true');await page.locator('#lab-sound').click();assert.equal(await page.locator('#lab-sound').getAttribute('aria-pressed'),'false');
+    const abilityBefore=await geometry();
+    await page.evaluate(async()=>{const c=arenaLab.columns[6];c.game.pause();await c.renderer.ensureSpecies([382]);globalThis.__labHero=c.game.spawn('kyogre',0,300,520,0).id;});
+    await page.waitForSelector(`[data-lab-ability]`);stable(abilityBefore,await geometry(),'ability visible');
+    const ability=free.locator('[data-lab-ability]').first();await ability.scrollIntoViewIfNeeded();const abilityReady=await geometry();await ability.click();
+    await page.waitForFunction(()=>arenaLab.columns[6].game.units.find(u=>u.id===__labHero).abilityUsed);stable(abilityReady,await geometry(),'ability activated');assert.equal(await page.evaluate(()=>arenaLab.columns[6].game.state),'paused');
     await page.locator('#add-column').click();assert.equal(await page.locator('.lab-column').count(),11);
     await page.evaluate(()=>{for(const c of arenaLab.columns)c.game.pause();document.getElementById('lab-columns').scrollLeft=0;});
     await page.screenshot({path:`${output}/sandbox-${viewport.width}.png`,fullPage:true});
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'page must not overflow horizontally');assert.deepEqual(errors,[]);
-    reports.push({viewport,columns:11,independent:true,waitForOpponent:true,stableLoad:true});await context.close();
+    reports.push({viewport,columns:11,independent:true,waitForOpponent:true,stableLoad:true,abilities:true});await context.close();
   }
   return{checks:reports.length,viewports:reports};
 }
