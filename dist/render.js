@@ -12,7 +12,7 @@ function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.li
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
 const visualScale = unit => unit.scale ?? unit.card?.scale ?? 1.5;
 function attackLunge(unit,reduced){
-  if(reduced||!unit.attack||unit.mounted||!(unit.card.range<50))return 0;
+  if(reduced||!unit.attack||unit.mounted||!(unit.card?.range<50))return 0;
   const duration=unit.attackDuration||.75,elapsed=duration-unit.attack;
   const windup=unit.attackWindup??unit.card.windup??.3,spacing=unit.card.burstSpacing||duration;
   let thrust=0;

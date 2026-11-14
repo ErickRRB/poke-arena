@@ -55,6 +55,20 @@ export async function checkSpellHoverFeedback(page){
   for(const[key,value]of Object.entries(result))assert.equal(value,true,key);
 }
 
+export async function checkTowerDestructionContinues(page){
+  const ids=await page.evaluate(async()=>{
+    const{game,renderer}=__qa;game.aiEnabled=false;await renderer.ensureSpecies([112]);
+    const tower=game.towers.find(t=>t.team===1&&!t.king&&t.lane===1);tower.hp=1;
+    const actor=game.spawn('rhydon',0,tower.x,tower.y+36,0);actor.card={...actor.card,damage:999999,speed:0,windup:.1};actor.cooldown=0;actor.hp=actor.maxHp=100000;
+    return{tower:tower.id,actor:actor.id};
+  });
+  await page.waitForFunction(id=>__qa.game.towers.find(t=>t.id===id).hp===0,ids.tower);
+  const before=await page.evaluate(id=>{const actor=__qa.game.units.find(u=>u.id===id);if(actor)actor.card={...actor.card,passive:true};return __qa.game.elapsed;},ids.actor);
+  await page.waitForTimeout(500);
+  const after=await page.evaluate(id=>{const elapsed=__qa.game.elapsed;__qa.game.units=__qa.game.units.filter(u=>u.id!==id);return elapsed;},ids.actor);
+  assert.ok(after>before+.2,'CPU simulation must continue after a crown tower falls and the king wakes');
+}
+
 export async function run({browser,url,viewports,output}){
   for(const viewport of viewports){
     const{context,page,errors,apiRequests}=await openPage(browser,viewport);
@@ -69,6 +83,7 @@ export async function run({browser,url,viewports,output}){
       await page.evaluate(()=>{__qa.game.energy[0]=10;__qa.updateUi();});assert.equal(await page.locator('#hand .unaffordable').count(),0);assert.equal(await page.locator('#next-name').isVisible(),true);
       await checkCapturedDeploymentLighting(page);
       await checkSpellHoverFeedback(page);
+      await checkTowerDestructionContinues(page);
       const board=await rects(page,['arena','hand','energy-bar']);await page.locator('#hand [data-card="0"]').click();await page.evaluate(()=>{__qa.renderer.pointer={x:300,y:520};__qa.renderer.draw(__qa.game,0);});stable(board,await rects(page,['arena','hand','energy-bar']),'range');await page.screenshot({path:`${output}/battle-${viewport.width}.png`});
       await page.locator('#match-leave').click();assert.equal(await page.evaluate(()=>__qa.game.state),'paused');await page.locator('#leave-dialog .primary-btn').click();await page.waitForFunction(()=>__qa.game.state==='playing');
       assert.deepEqual(errors,[]);assert.deepEqual(apiRequests,[]);

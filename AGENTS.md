@@ -32,6 +32,8 @@ Cualquier acceso al inicio durante una partida contra CPU pide confirmación y p
 
 # Ilustraciones y menús
 
+No agregar explicaciones visibles salvo pedido explícito del usuario. No agregar es la regla; agregar es la excepción. No dejar párrafos de instrucciones, consejos ni texto de relleno en las vistas de uso. Conservar etiquetas de controles, datos necesarios y nombres accesibles. La ayuda solicitada por el usuario puede estar dentro de su diálogo de ayuda; no mostrarla por defecto.
+
 Las cartas nuevas y las ilustraciones que se renuevan deben mantener el nivel de las escenas existentes: Pokémon o ataques integrados en un entorno completo, con fondo, iluminación y perspectiva compartidos. Usar ilustraciones originales; los iconos simples y los recortes de personajes sobre un fondo genérico no cumplen ese estándar.
 
 Variar las poses y las orientaciones del conjunto. Combinar vistas frontales, perfiles, diagonales y acciones hacia la izquierda y la derecha; no dar a todas las cartas la misma dirección. Revisar las imágenes dentro de la colección, conservando sus siluetas y acciones legibles al tamaño real de las cartas.
