@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Primer grupo · base aislada</title>
+<style>
+  :root{font:14px system-ui,sans-serif;background:#f7f0d5;color:#243c30;color-scheme:light}body{max-width:800px;margin:16px auto;padding:0 12px}
+  nav{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:12px}select{font:inherit;padding:8px;border:1px solid #8c9c80;border-radius:6px;background:#fffbed;color:inherit}
+  video{display:block;width:100%;background:#243c30}p{line-height:1.5}a{color:#31573e}.frames{display:grid;grid-template-columns:1fr 1fr;gap:10px}.frames img{width:100%;height:auto}
+</style>
+<nav><label>Escenario <select id="scenario"><option value="pikachu">Pikachu contra Charizard</option><option value="charizard">Charizard · frente de fuego</option><option value="sneaselAmbush">Emboscada Sneasel</option></select></label><a href="verification.json">Datos y hashes</a><a href="README.md">Cobertura</a></nav>
+<video controls muted playsinline preload="metadata"></video>
+<p>Base aislada con el tablero anterior. Dos perspectivas; snapshots a 15 Hz y render a 60 Hz. El integrador debe repetir esta prueba en la rama final.</p>
+<script>
+  const select=document.querySelector('select'),video=document.querySelector('video');
+  function load(){video.pause();video.src=`${select.value}-15hz-both-perspectives.mp4`;video.load();}
+  select.addEventListener('change',load);load();
+</script>
+</html>
