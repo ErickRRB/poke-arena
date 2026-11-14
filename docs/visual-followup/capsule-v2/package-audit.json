@@ -1,0 +1,272 @@
+{
+  "checkedAt": "2026-11-14T19:59:32.819Z",
+  "status": "passed",
+  "finalCut": {
+    "generatedAt": "2026-11-14T19:49:04.931Z",
+    "gitHead": "62ff66320dfdda1f58ea411a5d7a330429cc4870",
+    "report": "verification.json",
+    "reportSha256": "ceb710caf573e76458f63a1a31f923195d7d7b53dbe1908f7f519c753d69ab69",
+    "localChanges": "The captured sourceHashes remain authoritative for uncommitted renderer, camera and material changes."
+  },
+  "firstReviewCut": {
+    "generatedAt": "2026-11-14T19:36:18.164Z",
+    "gitHead": null,
+    "report": "first-review.json",
+    "reportSha256": "5af224e50e62f2aa5b76f78b2f4191a93736587d8cf4625e254456db7e6dc5fd",
+    "note": "HEAD was not recorded. Original source and artifact hashes remain unchanged."
+  },
+  "deltaFromNativeBase": {
+    "from": "01ec423b12a46c5d5acfbadf43607f5571b7eb15",
+    "to": "62ff66320dfdda1f58ea411a5d7a330429cc4870",
+    "files": [
+      "dist/sprite-geometry.js",
+      "docs/visual-followup/native-identities/furnace-markers.md",
+      "scripts/build-sprite-geometry.py",
+      "tests/sprite-motion.test.mjs"
+    ],
+    "changedSpecies": {
+      "101": [
+        "Shoot"
+      ]
+    },
+    "capturedGeometryMatchesHead": true,
+    "checkoutLineEndings": "CRLF",
+    "scope": "Only species 101 Shoot changed in served data; capsule scenes contain no species 101. The commit blob reproduces the recorded byte hash with the specified checkout line endings."
+  },
+  "numericSummary": {
+    "file": "numeric-verification.json",
+    "sha256": "22836ae12dee6090f14a0b414fa07e24ce98cb75640c5ffb487342fed76126a7",
+    "kind": "derived-numeric-summary"
+  },
+  "checkedArtifacts": [
+    {
+      "cut": "first-review",
+      "file": "phases-8.png",
+      "sha256": "c6106311ac951a123ff62fe0a06edb0b652347a3838bd70ec7a225870c14f8e9"
+    },
+    {
+      "cut": "first-review",
+      "file": "arena-live-v34-graphic.png",
+      "sha256": "32771fbb8b87bcd31edcf3df19a8521e463d2b312b3910dd99b823aeb4a3c821"
+    },
+    {
+      "cut": "first-review",
+      "file": "arena-proposal.png",
+      "sha256": "7b21e035a4fc88cfcf4e6d769c05e10170b3c2515196a4152570580cab3f67e6"
+    },
+    {
+      "cut": "final",
+      "file": "phases-current.png",
+      "sha256": "8ec8679a5053a92e5191307ffe80038c9b72383574b852997a20a700c476a513"
+    },
+    {
+      "cut": "final",
+      "file": "local30-proposal.mp4",
+      "sha256": "d7fc83e26541fb3385248011f84837c8e9e3ec8ba39c214ecbd5d6a28a1c652b"
+    },
+    {
+      "cut": "final",
+      "file": "frames/local30-proposal-30.png",
+      "sha256": "1233afddc9b86bc16c5bb195f7863de6de0596e85aa85f0d1661e3a328ca45aa"
+    },
+    {
+      "cut": "final",
+      "file": "frames/local30-proposal-60.png",
+      "sha256": "08b97b40ce98f30132a7e25bdab98f124a767179be1ad1b6d41037ed8e81effc"
+    },
+    {
+      "cut": "final",
+      "file": "frames/local30-proposal-72.png",
+      "sha256": "fd52078c37286878ce80f8e50bedfa3225fce803bc6b01c7726c8d9d542b94d1"
+    },
+    {
+      "cut": "final",
+      "file": "frames/local30-proposal-108.png",
+      "sha256": "525d20d79aae72ca55807b4270288e3bf0a8c1285047a5757c2df7be10eada82"
+    },
+    {
+      "cut": "final",
+      "file": "frames/local30-proposal-168.png",
+      "sha256": "1639a3495d975e09885cbfbb9d4c11ee95488a693d7bf390e11613bdb9c29452"
+    },
+    {
+      "cut": "final",
+      "file": "frames/local30-proposal-216.png",
+      "sha256": "7a02ce592742db551b8f41dd44fd9bda23f79d520e08a0b814ba9686bbe94c28"
+    },
+    {
+      "cut": "final",
+      "file": "local30-v34-graphic-replay.mp4",
+      "sha256": "50fa8f0c71e2c19031aaf688036b91dd2de634e7a430daf981873be0e694dc2b"
+    },
+    {
+      "cut": "final",
+      "file": "local30-art-only-ab.mp4",
+      "sha256": "711ad83ec1fedae650889a834d1a05168e12898324269f28902b3706017e216b"
+    },
+    {
+      "cut": "final",
+      "file": "snapshots15-proposal.mp4",
+      "sha256": "4c7fd6153e92d89437fd25531505f906e5794156bcf2213d1280c83f6fa155bf"
+    },
+    {
+      "cut": "final",
+      "file": "frames/snapshots15-proposal-30.png",
+      "sha256": "e060a4eac954251bbd824268eeb558099b7ac7ef0a015725a9db1e4fba4b565f"
+    },
+    {
+      "cut": "final",
+      "file": "frames/snapshots15-proposal-60.png",
+      "sha256": "0b037e8a5becea1d7b3dbc1856338b6c6f002d3650e4bc0818f1a03558b18b94"
+    },
+    {
+      "cut": "final",
+      "file": "frames/snapshots15-proposal-72.png",
+      "sha256": "aee4221a26f4d302736812d4aa2f00e31443d0f0dc47322b2f0f002044cb5e26"
+    },
+    {
+      "cut": "final",
+      "file": "frames/snapshots15-proposal-108.png",
+      "sha256": "33e8c4278e606de7796e23412f04772f065f866999f37f5571def2e6de931778"
+    },
+    {
+      "cut": "final",
+      "file": "frames/snapshots15-proposal-168.png",
+      "sha256": "e778e5dcd5437778cc08a130b1cd4e27c6247f60cec858610cf86a4af8c13b28"
+    },
+    {
+      "cut": "final",
+      "file": "frames/snapshots15-proposal-216.png",
+      "sha256": "64fa626a8a370f73cfc3c37cff9f48eb1af97c78a713104cd4a6eb6de8c551ea"
+    },
+    {
+      "cut": "final",
+      "file": "snapshots15-v34-graphic-replay.mp4",
+      "sha256": "2f0f16486fdcca9cc30b3f4fcb6d3cbb75fa9863929486fb9b7a9f4cf1d3add5"
+    },
+    {
+      "cut": "final",
+      "file": "snapshots15-art-only-ab.mp4",
+      "sha256": "c99c76b53464de3044afa4af9a64886eb471f6775d3adef30f82fa0ac3b0bf8a"
+    },
+    {
+      "cut": "final",
+      "file": "frames/reduced-flight.png",
+      "sha256": "09705bc5c4292389afd672664104806ff922c6fd1655f08149751a6681d30d38"
+    },
+    {
+      "cut": "final",
+      "file": "snapshots15-reduced.mp4",
+      "sha256": "efb640481707480b6d0ea4e7fe5293175ffffe27f163299fafd85c2ba19a387a"
+    }
+  ],
+  "checkedLinks": [
+    {
+      "from": "README.md",
+      "target": "index.html"
+    },
+    {
+      "from": "README.md",
+      "target": "verification.json"
+    },
+    {
+      "from": "README.md",
+      "target": "numeric-verification.json"
+    },
+    {
+      "from": "README.md",
+      "target": "package-audit.json"
+    },
+    {
+      "from": "README.md",
+      "target": "phases-current.png"
+    },
+    {
+      "from": "README.md",
+      "target": "local30-art-only-ab.mp4"
+    },
+    {
+      "from": "README.md",
+      "target": "snapshots15-art-only-ab.mp4"
+    },
+    {
+      "from": "README.md",
+      "target": "local30-proposal.mp4"
+    },
+    {
+      "from": "README.md",
+      "target": "snapshots15-proposal.mp4"
+    },
+    {
+      "from": "README.md",
+      "target": "snapshots15-reduced.mp4"
+    },
+    {
+      "from": "README.md",
+      "target": "frames/reduced-flight.png"
+    },
+    {
+      "from": "README.md",
+      "target": "frames/local30-proposal-108.png"
+    },
+    {
+      "from": "README.md",
+      "target": "frames/local30-proposal-60.png"
+    },
+    {
+      "from": "README.md",
+      "target": "frames/local30-proposal-72.png"
+    },
+    {
+      "from": "README.md",
+      "target": "frames/snapshots15-proposal-216.png"
+    },
+    {
+      "from": "index.html",
+      "target": "README.md"
+    },
+    {
+      "from": "index.html",
+      "target": "verification.json"
+    },
+    {
+      "from": "index.html",
+      "target": "numeric-verification.json"
+    },
+    {
+      "from": "index.html",
+      "target": "package-audit.json"
+    },
+    {
+      "from": "index.html",
+      "target": "phases-current.png"
+    },
+    {
+      "from": "index.html",
+      "target": "local30-art-only-ab.mp4"
+    },
+    {
+      "from": "index.html",
+      "target": "snapshots15-art-only-ab.mp4"
+    },
+    {
+      "from": "index.html",
+      "target": "snapshots15-proposal.mp4"
+    },
+    {
+      "from": "index.html",
+      "target": "snapshots15-reduced.mp4"
+    },
+    {
+      "from": "index.html",
+      "target": "frames/local30-proposal-72.png"
+    },
+    {
+      "from": "index.html",
+      "target": "frames/snapshots15-proposal-216.png"
+    }
+  ],
+  "sourceFilesAtCapture": 383,
+  "sourceDriftAfterCapture": [],
+  "note": "Artifact checks are historical. Current-tree drift is reported separately and never changes recorded capture hashes. This audit does not run the browser or regenerate media."
+}

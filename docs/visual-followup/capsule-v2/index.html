@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cápsula v2 — revisión local</title>
+<style>
+:root{color-scheme:light;font-family:system-ui,sans-serif;color:#26382c;background:#f7f0d9}body{max-width:1180px;margin:24px auto;padding:0 16px}h1{font-size:24px}h2{font-size:18px;margin-top:28px}p{max-width:86ch;line-height:1.5}a{color:#145644}.scroll{overflow:auto;border:1px solid #c1c4a8;border-radius:8px;background:#294638;margin:12px 0}.phases{display:block;width:1152px;height:380px;max-width:none}.ab{display:block;width:780px;height:888px;max-width:none}.pair{display:flex;gap:18px;flex-wrap:wrap}.single{display:block;width:390px;max-width:100%;height:auto}.frame{width:390px;max-width:100%;height:auto}.small{font-size:13px}figure{margin:0}figcaption{margin:8px 0;max-width:390px;line-height:1.4}code{overflow-wrap:anywhere}
+</style>
+<h1>Cápsula v2: vuelo y material</h1>
+<p><strong>80/80 comprobaciones de navegador y 9/9 pruebas unitarias.</strong> Código local congelado con HEAD <code>62ff663</code>, más los cambios locales identificados por hash, cámara 480×864. La cápsula mide 40,08 píxeles CSS en este tablero móvil; no hay cambios de píxeles durante la pausa.</p>
+<p>El lado v34 reproduce la función gráfica publicada sobre la misma trayectoria local. Cada A/B cambia sólo el dibujo de la cápsula; no es una grabación de producción. El material rojo, blanco y la costura giran sobre la esfera. Root y Luna aprobaron la estética tras revisar los clips y fotogramas.</p>
+<p><a href="README.md">Método y procedencia por corte</a> · <a href="verification.json">Resultados, fuentes y hashes</a> · <a href="numeric-verification.json">Resumen numérico</a> · <a href="package-audit.json">Auditoría del paquete</a></p>
+<h2>Ocho fases</h2>
+<p>Fila superior: gráfico v34. Fila central: propuesta a tamaño actual. Fila inferior: ampliación ×3. La tira conserva su tamaño; se puede desplazar horizontalmente.</p>
+<div class="scroll"><img class="phases" src="phases-current.png" alt="Ocho fases de rotación. En la propuesta los hemisferios y la costura pasan por delante y por detrás."></div>
+<h2>Motor 30 Hz, muestras de render a 60 Hz</h2>
+<p>Izquierda: gráfico auténtico v34 reproducido localmente. Derecha: propuesta. Ambos bandos lanzan, pausan y aterrizan sobre la misma trayectoria.</p>
+<div class="scroll"><video class="ab" controls playsinline preload="metadata" src="local30-art-only-ab.mp4" aria-label="Comparación gráfica v34 y propuesta con motor 30 Hz"></video></div>
+<h2>Snapshots públicos 15 Hz, muestras de render a 60 Hz</h2>
+<div class="scroll"><video class="ab" controls playsinline preload="metadata" src="snapshots15-art-only-ab.mp4" aria-label="Comparación gráfica v34 y propuesta con snapshots 15 Hz"></video></div>
+<h2>Propuesta en contexto y movimiento reducido</h2>
+<div class="pair">
+<figure><video class="single" controls playsinline preload="metadata" poster="frames/snapshots15-proposal-108.png" src="snapshots15-proposal.mp4" aria-label="Propuesta con giro del material y pausa"></video><figcaption>Snapshots 15 Hz. La pausa dura 0,4 segundos.</figcaption></figure>
+<figure><video class="single" controls playsinline preload="metadata" poster="frames/reduced-flight.png" src="snapshots15-reduced.mp4" aria-label="Cápsula con movimiento reducido, material fijo y desplazamiento real"></video><figcaption>Movimiento reducido: fase 0; el vuelo conserva su recorrido.</figcaption></figure>
+</div>
+<h2>Pausa y aterrizaje</h2>
+<div class="pair">
+<figure><img class="frame" src="frames/local30-proposal-72.png" alt="La cápsula conserva su pose durante la pausa"><figcaption>192 muestras pausadas en ocho casos, sin cambios de píxeles.</figcaption></figure>
+<figure><img class="frame" src="frames/snapshots15-proposal-216.png" alt="Fin del vuelo y generación de tres Sneasel de cada bando"><figcaption>Final del vuelo. Los sprites nativos 215 están precargados.</figcaption></figure>
+</div>
+<p class="small">Atlas limitado a 256 entradas, 1024×1024; 3.840 accesos calientes, cero fases nuevas. El fixture conserva el HUD como fondo estático y usa lectura frecuente de canvas sólo para comprobar píxeles. No se publicó ningún cambio.</p>
+</html>

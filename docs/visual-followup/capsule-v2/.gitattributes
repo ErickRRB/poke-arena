@@ -1,0 +1,3 @@
+# Preserve the exact bytes used by the capture hashes on every checkout.
+* -text
+** -text
