@@ -1,0 +1,2631 @@
+{
+  "date": "2026-11-14",
+  "reviewer": "catalog_scales",
+  "scope": "Human inspection of all54 contact sheets, covering every observed native raster plus preparation, synthetic release contacts and recovery in8views. Not an inspection of128392 distinct drawings.",
+  "counts": {
+    "bodyCardsInventoried": 108,
+    "speciesInventoried": 100,
+    "sheetsInspected": 54,
+    "bodyCardArtisticVerdicts": 105,
+    "delegatedRigKeys": 3,
+    "samples": 128392,
+    "statusCounts": {
+      "delegated_rig": 3,
+      "reviewed_baseline": 89,
+      "corrected_recaptured_reviewed": 7,
+      "engine_special_case": 2,
+      "optional_followup": 3,
+      "passive_justified": 4
+    }
+  },
+  "baselineInventorySha256BeforeReviewAnnotations": "4a6d036f781fe8dc0bbf11e78c2092539de1529187d751f282bb035049c85a0a",
+  "baselineChangedDuringCapture": [
+    "dist/wing-motion.js"
+  ],
+  "runtimeAfterReview": [
+    {
+      "file": "dist/engine.js",
+      "sha256": "1266297225b674d18865c4dd7b416248a58d539217b92c713dbaaf55365bdd2c"
+    },
+    {
+      "file": "dist/catalog.js",
+      "sha256": "259942731ce9e71f5b0f27ff4d58204a35610f34532a628f2673c83f885a7499"
+    },
+    {
+      "file": "dist/balance.js",
+      "sha256": "2125ea2c9c2d5ed397a7fd7e9b7367cd26def86079dd2964a9ee2fb216637cc2"
+    },
+    {
+      "file": "dist/unit-sizes.js",
+      "sha256": "f89061acbf68469a1432f4b9b8d5937d37c5fed3bf890db53befd8cd55804c8a"
+    },
+    {
+      "file": "dist/render.js",
+      "sha256": "d0ff3184a44c2c7b874a2e3cd36a6ffeeb4396aed690c9bcd8fc89d5a372c71d"
+    },
+    {
+      "file": "dist/sprite-motion.js",
+      "sha256": "566f7f7bff7312a7b83528845f60d4934271a75729f6904d5f8403825374b8b9"
+    },
+    {
+      "file": "dist/combat-visuals.js",
+      "sha256": "dc692eea3c21302ce962f9d6a66b7d7496f25d8eab7457b31d346f09120741d0"
+    },
+    {
+      "file": "dist/attack-choreography.js",
+      "sha256": "ba6b152a5555c5c6aa8bf3d5b750c9f00683803db7b57dca40b03ef2389cd437"
+    },
+    {
+      "file": "dist/wing-motion.js",
+      "sha256": "a86cb99670e14a63eb1ad182cb562a15df60f68142566652c913089050d1d8d5"
+    },
+    {
+      "file": "dist/wing-rigs.js",
+      "sha256": "a9fa115bcd8f08ff6fc5f98fd7812b3809012c768e8e58411f569b8994f3e8e6"
+    },
+    {
+      "file": "dist/sprite-geometry.js",
+      "sha256": "269108bf88e1f79418e8c3b3894cd4d059406ddf3ff93ff0ab62b9831233a13e"
+    },
+    {
+      "file": "dist/assets/pokemon/manifest.json",
+      "sha256": "6e678fc5d7d5c81c3af2676f19744e73e7d60bff53eccfcadf6440a11435144c"
+    }
+  ],
+  "sheets": [
+    {
+      "file": "attack-01.png",
+      "keys": [
+        "charizard",
+        "butterfree",
+        "pidgeot",
+        "magnemite"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "cd84c219e1dbcd748ff4f6a74da857755d6e74e306e92930c5cd79e39968435e",
+      "delegatedKeys": [
+        "charizard"
+      ]
+    },
+    {
+      "file": "attack-02.png",
+      "keys": [
+        "koffing",
+        "scyther",
+        "gyarados",
+        "articuno"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "0185d4b3a270ca0f2a61944066ebb2c6b25c915d2161b22288eda365ce9e1808",
+      "delegatedKeys": [
+        "scyther"
+      ]
+    },
+    {
+      "file": "attack-03.png",
+      "keys": [
+        "zapdos",
+        "moltres",
+        "dragonite",
+        "crobat"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "d9d7ad2a7912d2b8e28f254a4c6ec7ec7779e7ad1caeff9dfdcdc8862f0e5402",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-04.png",
+      "keys": [
+        "skarmory",
+        "lugia",
+        "hooh",
+        "celebi"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "80ee88b6e834d153d2e579d82dc4f54648fb5d7a574de6dec468a587c0d051af",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-05.png",
+      "keys": [
+        "flygon",
+        "altaria",
+        "salamence",
+        "rayquaza"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "5820ec986348a92b9019c8b8e39456bb9ebf43a4c2ff816e1c4607fce91c7e65",
+      "delegatedKeys": [
+        "salamence"
+      ]
+    },
+    {
+      "file": "attack-06.png",
+      "keys": [
+        "venusaur",
+        "nidoqueen",
+        "nidoking",
+        "graveler"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "74c7644dbbfa03d74b60051a1417dad69ece4539ec833ca60f9ad853938138de",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-07.png",
+      "keys": [
+        "golem",
+        "rapidash",
+        "onix",
+        "rhydon"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "a6e11efbeae79733ff92326c5f800c04c913937d8c1110c7ca074b88ab350f03",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-08.png",
+      "keys": [
+        "kangaskhan",
+        "snorlax",
+        "meganium",
+        "umbreon"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "c42f7bac01783a63b7bf0883c4ae03b00802339ca8fefba67e77c69733c634af",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-09.png",
+      "keys": [
+        "forretress",
+        "steelix",
+        "blissey",
+        "swampert"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "daafb7c72ee0d5aaffc55af1b32e7d777a50520fbde286d564bf1de595e2a6a4",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-10.png",
+      "keys": [
+        "aggron",
+        "metagross",
+        "regirock",
+        "kyogre"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "9a831493aac5a5cc1339099b9182b3dfc6dd25f132e6bcde57f74c9e8d699308",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-11.png",
+      "keys": [
+        "groudon",
+        "madriguera",
+        "cloyster",
+        "centralElectrode"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "f66744f6a7b0e9f25bf638991de9a5a53d6f11e0e7314b42accd28367e33b684",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-12.png",
+      "keys": [
+        "vivero",
+        "ampharos",
+        "wobbuffet",
+        "regice"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "8e152462bb17b38d41806b968ca9a013833fc332bd578cff4fd4c8ba7705e164",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-13.png",
+      "keys": [
+        "bulbasaur",
+        "charmander",
+        "squirtle",
+        "blastoise"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "2a40a49f4c382e1c3835f4cdb692211aa451ee1113df6be3e2d5946499d7ce00",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-14.png",
+      "keys": [
+        "pikachu",
+        "raichu",
+        "vulpix",
+        "psyduck"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "c77de94e1c753a4708b61466bd63425aed77f06fc0ff683bfa233dcd37b4bc29",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-15.png",
+      "keys": [
+        "arcanine",
+        "alakazam",
+        "machamp",
+        "geodude"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "3085c22fd06f1f977b9c9dbc737f6330b9dce93616b088885e2feedecdb9d86d",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-16.png",
+      "keys": [
+        "slowbro",
+        "grimer",
+        "gengar",
+        "voltorb"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "854612f679df34a99d231152688efd6d01285879717a7993ec456f28d9e783b1",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-17.png",
+      "keys": [
+        "chansey",
+        "starmie",
+        "mrmime",
+        "lapras"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "7b96bcbee2722175adb567aa44c65aedee8675bb04286b9e4c2f77ad3d88b85e",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-18.png",
+      "keys": [
+        "ditto",
+        "eevee",
+        "mewtwo",
+        "typhlosion"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "fa7e7bab32cf03a62b6f6ebc98652436d266234d0bedd6ebfc6c85e96b5fded0",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-19.png",
+      "keys": [
+        "feraligatr",
+        "espeon",
+        "scizor",
+        "sceptile"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "2c05ca4779c0a779dd8348c02170783c9048d7c4341076b0e4fe679ac7301a48",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-20.png",
+      "keys": [
+        "blaziken",
+        "nuzleaf",
+        "gardevoir",
+        "sableye"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "a07f14c57af6a8f9caf93b69ccf2061bfadef62f1ed60b3a5defce52b9986e87",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-21.png",
+      "keys": [
+        "roselia",
+        "sharpedo",
+        "duskull",
+        "absol"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "8e3192b82e4fbac23309e515ac0bb3d4d22335bae1d857171b602759ef560fd1",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-22.png",
+      "keys": [
+        "beedrill",
+        "ekans",
+        "sandshrew",
+        "nidoranF"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "b8a4496dba0b4986b019d995c8caba6e6c813b49a930f7396757a318a2a6705b",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-23.png",
+      "keys": [
+        "nidoranM",
+        "zubat",
+        "diglett",
+        "diglettHorde"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "c5cbc5a44d9b5e276225d332819806bb3f0597a8872607e6073fc6a5b0c15ee7",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-24.png",
+      "keys": [
+        "mankey",
+        "gastly",
+        "electrode",
+        "exeggcute"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "7b07279f2caeb25830a6d6c6d886c6caafcb4342768a0c517c429b68944ea281",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-25.png",
+      "keys": [
+        "exeggutor",
+        "babyKangaskhan",
+        "sneaselToken",
+        "treecko"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "29d02858257421d06e064d3040b78b88c31c9800fe46fe2e206c27c898462e16",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-26.png",
+      "keys": [
+        "pandilla",
+        "poochyenaPack",
+        "poochyenaToken",
+        "raltsToken"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "9424ca10f797f1fd064022faa1d399666b5e4e94f3c600acd6046a6d15ed8701",
+      "delegatedKeys": []
+    },
+    {
+      "file": "attack-27.png",
+      "keys": [
+        "raltsTrio",
+        "shuppetToken",
+        "duskullToken",
+        "registeel"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "1e7bcb07f8a9fcb2824a7005e2c5deb26b480d4e4e18c770ead3d0e7a1b34332",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-01.png",
+      "keys": [
+        "charizard",
+        "butterfree",
+        "pidgeot",
+        "magnemite"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "f6ee1d44172d38c2b175730cb9d2534ea18fe7c079443fcec1b575c28cb76fe1",
+      "delegatedKeys": [
+        "charizard"
+      ]
+    },
+    {
+      "file": "movement-02.png",
+      "keys": [
+        "koffing",
+        "scyther",
+        "gyarados",
+        "articuno"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "c0b93c4a9072a9c5c89f88e99dbcf41b4f866e8443fafa13a47d8dd6405a6e93",
+      "delegatedKeys": [
+        "scyther"
+      ]
+    },
+    {
+      "file": "movement-03.png",
+      "keys": [
+        "zapdos",
+        "moltres",
+        "dragonite",
+        "crobat"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "e704347a27445cc3e0145e0f1a3d46e5406a6091be0cdc95fb39b09bcbf1def4",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-04.png",
+      "keys": [
+        "skarmory",
+        "lugia",
+        "hooh",
+        "celebi"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "c1d79b565439dc13cdc0fd63e021f1044b593b1049a0e17e1a998dd229c7a215",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-05.png",
+      "keys": [
+        "flygon",
+        "altaria",
+        "salamence",
+        "rayquaza"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "8f9c195cc69115f7812e901cc0bff3363776153847cec4bbf36e11ae8433f6cf",
+      "delegatedKeys": [
+        "salamence"
+      ]
+    },
+    {
+      "file": "movement-06.png",
+      "keys": [
+        "venusaur",
+        "nidoqueen",
+        "nidoking",
+        "graveler"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "9eb7e35a4c9ef7d2a29e2fecadc373eec2cf4b95173775bb8c255a91b541f6bf",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-07.png",
+      "keys": [
+        "golem",
+        "rapidash",
+        "onix",
+        "rhydon"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "c728821e736b80864cd202389d8e4f1d539c0acb32ee2a01cf658a2dc694fe8f",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-08.png",
+      "keys": [
+        "kangaskhan",
+        "snorlax",
+        "meganium",
+        "umbreon"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "be64ade5aae4fd0d2b078a7a05f8ee6b7411d1d70cfe0d4713998511b2537a1d",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-09.png",
+      "keys": [
+        "forretress",
+        "steelix",
+        "blissey",
+        "swampert"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "72e434a6f264bdb6701265d804a151b9035994d6b64e0e6867a6b3d824d06af7",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-10.png",
+      "keys": [
+        "aggron",
+        "metagross",
+        "regirock",
+        "kyogre"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "71fbcf92e8125c475dbc63da7201387e8580ccf974b118fc1ba91a9209a31337",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-11.png",
+      "keys": [
+        "groudon",
+        "madriguera",
+        "cloyster",
+        "centralElectrode"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "54a2aee557718a690b6b0cf8cc16a7d0858fa5420a2067dcc8be55085faeb830",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-12.png",
+      "keys": [
+        "vivero",
+        "ampharos",
+        "wobbuffet",
+        "regice"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "e0cb01600c8345932fb771482ae2282747ddd08520c57fd6036a1b654843d17c",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-13.png",
+      "keys": [
+        "bulbasaur",
+        "charmander",
+        "squirtle",
+        "blastoise"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "2391eb9db639dd6b6c3b404894058281a863c851983f1d45145ab17f6e886526",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-14.png",
+      "keys": [
+        "pikachu",
+        "raichu",
+        "vulpix",
+        "psyduck"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "3f2035860f517fdec3b75fe7d9e651db5685f499149e9e64df51a830d6a560ac",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-15.png",
+      "keys": [
+        "arcanine",
+        "alakazam",
+        "machamp",
+        "geodude"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "7145137c6acebf13895d297e25f947a7482bb35df79374402134b3f9cb4386ba",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-16.png",
+      "keys": [
+        "slowbro",
+        "grimer",
+        "gengar",
+        "voltorb"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "43da1ac980f2a6615b9fe3c1bba67c776dd7a2cbf2ead48e5a88a08b05513a7d",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-17.png",
+      "keys": [
+        "chansey",
+        "starmie",
+        "mrmime",
+        "lapras"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "193bbb1e940f89c39189683849716b8d7368feab04eccd71de8716f59f329dd2",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-18.png",
+      "keys": [
+        "ditto",
+        "eevee",
+        "mewtwo",
+        "typhlosion"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "ea142ff3e0c13f8ce7cdaff81635e64ada4fac91319203b741b1d4dfe240dc91",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-19.png",
+      "keys": [
+        "feraligatr",
+        "espeon",
+        "scizor",
+        "sceptile"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "4ac39e047fce024cb90fe42927277eb34cc2bab30191536ce653821a9658f66c",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-20.png",
+      "keys": [
+        "blaziken",
+        "nuzleaf",
+        "gardevoir",
+        "sableye"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "4674f217abfc80ed61af5efc6db7973ee0dd7caf8e0d2944fc91cc0ec7a54896",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-21.png",
+      "keys": [
+        "roselia",
+        "sharpedo",
+        "duskull",
+        "absol"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "916117d2501f460daaa61eb75010151d1df6ee11abcbd19aeb7c3073c02e9eee",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-22.png",
+      "keys": [
+        "beedrill",
+        "ekans",
+        "sandshrew",
+        "nidoranF"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "7df088a0f60272c218058870e81504146fbedb2dde7bacca72685b47ae5c4823",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-23.png",
+      "keys": [
+        "nidoranM",
+        "zubat",
+        "diglett",
+        "diglettHorde"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "ad6b3fd7b179f9a4a0f0f5dc9639059408fb183dd58a64ea86eb4cc48221134f",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-24.png",
+      "keys": [
+        "mankey",
+        "gastly",
+        "electrode",
+        "exeggcute"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "908629b60eca5b3e2d393902688c9d235e996c85ec92c00e8d835f5bf851e742",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-25.png",
+      "keys": [
+        "exeggutor",
+        "babyKangaskhan",
+        "sneaselToken",
+        "treecko"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "a009cbe39b459870955ff090f7dd517b776c37e91477c4644aaca9f3ef4a32e9",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-26.png",
+      "keys": [
+        "pandilla",
+        "poochyenaPack",
+        "poochyenaToken",
+        "raltsToken"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "efe3e57c4f2e23017f0781eeb25d4091d82787e25064ca7de46574272d2e73bf",
+      "delegatedKeys": []
+    },
+    {
+      "file": "movement-27.png",
+      "keys": [
+        "raltsTrio",
+        "shuppetToken",
+        "duskullToken",
+        "registeel"
+      ],
+      "status": "inspected_all_eight_views",
+      "sha256": "b6fa25c92f7531ca2d5dcb7a70076a1d7a72c822ddee2874bb98771371eb695a",
+      "delegatedKeys": []
+    }
+  ],
+  "cards": [
+    {
+      "key": "charizard",
+      "id": 6,
+      "status": "delegated_rig",
+      "attackClassification": "rig_review_delegated",
+      "movementClassification": "rig_review_delegated",
+      "finding": "",
+      "note": "Imagen incluida e inspeccion de cobertura completada; juicio artistico del rig delegado al otro auditor. wing-motion.js cambio durante captura.",
+      "action": "Usar el informe del auditor de rigs6/123/373.",
+      "fixStatus": "not_required",
+      "emitterReview": "delegated_with_rig",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-01.png",
+      "movementSheet": "movement-01.png"
+    },
+    {
+      "key": "butterfree",
+      "id": 12,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Pulsacion de alas y cuerpo durante el conjuro; conserva el eje del objetivo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-01.png",
+      "movementSheet": "movement-01.png"
+    },
+    {
+      "key": "pidgeot",
+      "id": 18,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Ataque ala con apertura y cierre; Hop usa un ciclo de vuelo de dos dibujos sin despegue.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-01.png",
+      "movementSheet": "movement-01.png"
+    },
+    {
+      "key": "magnemite",
+      "id": 81,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Descarga desde el cuerpo; los imanes y el ojo acompanian carga y retorno.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-01.png",
+      "movementSheet": "movement-01.png"
+    },
+    {
+      "key": "koffing",
+      "id": 109,
+      "status": "corrected_recaptured_reviewed",
+      "attackClassification": "confirmed_defect_in_baseline",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "F02",
+      "note": "Humo amarillo nativo de Attack sale hacia atras respecto del objetivo.",
+      "action": "Shoot [0,1,7,0], contacto7 y body anchor; omitir15 con motas.",
+      "fixStatus": "verified_engine30_engine60_snapshots15_8views",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-02.png",
+      "movementSheet": "movement-02.png",
+      "afterReview": {
+        "key": "koffing",
+        "status": "corrected_recaptured_reviewed",
+        "animation": "Shoot",
+        "note": "Shoot0/1/7 muestra inflado y compresion en el contacto; ya no aparece humo amarillo nativo hacia atras. El gas comun aparece en el impacto sobre el objetivo.",
+        "timelines": 24,
+        "contacts": 24,
+        "allContactsVisible": true,
+        "clockNeverRewinds": true,
+        "recoveryObserved": true,
+        "stableDirection": true,
+        "contactsByShot": {
+          "0": {
+            "frames": [
+              7
+            ],
+            "releaseAt": [
+              0.3
+            ],
+            "renderAt": [
+              0.3,
+              0.333333
+            ],
+            "maxEmitterError": 0
+          }
+        },
+        "sheets": [
+          "contacts/koffing-engine30.png",
+          "contacts/koffing-snapshots15.png"
+        ]
+      },
+      "afterEvidence": "after/review.json"
+    },
+    {
+      "key": "scyther",
+      "id": 123,
+      "status": "delegated_rig",
+      "attackClassification": "rig_review_delegated",
+      "movementClassification": "rig_review_delegated",
+      "finding": "",
+      "note": "Imagen incluida e inspeccion de cobertura completada; juicio artistico del rig delegado al otro auditor. wing-motion.js cambio durante captura.",
+      "action": "Usar el informe del auditor de rigs6/123/373.",
+      "fixStatus": "not_required",
+      "emitterReview": "delegated_with_rig",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-02.png",
+      "movementSheet": "movement-02.png"
+    },
+    {
+      "key": "gyarados",
+      "id": 130,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Mordida frontal y recuperacion del cuello sin cambiar el rumbo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-02.png",
+      "movementSheet": "movement-02.png"
+    },
+    {
+      "key": "articuno",
+      "id": 144,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Carga y descarga con alas y cabeza orientadas al rival.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-02.png",
+      "movementSheet": "movement-02.png"
+    },
+    {
+      "key": "zapdos",
+      "id": 145,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Cabeza elevada durante carga electrica; es una pose de conjuro, no una segunda fase de picotazo faltante.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-03.png",
+      "movementSheet": "movement-03.png"
+    },
+    {
+      "key": "moltres",
+      "id": 146,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Apertura de alas y gesto de emision; el sostenido es coherente con fuego.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-03.png",
+      "movementSheet": "movement-03.png"
+    },
+    {
+      "key": "dragonite",
+      "id": 149,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_choreography_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Combo con nueva preparacion y contacto; Hop recorta el despegue y cicla cuatro dibujos de vuelo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-03.png",
+      "movementSheet": "movement-03.png"
+    },
+    {
+      "key": "crobat",
+      "id": 169,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_choreography_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Dos gestos fisicos diferenciados; alas y boca conservan el frente.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-03.png",
+      "movementSheet": "movement-03.png"
+    },
+    {
+      "key": "skarmory",
+      "id": 227,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "glide_cycle_justified",
+      "finding": "",
+      "note": "Gesto de ala metalica y regreso; el planeo de dos dibujos es deliberado.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-04.png",
+      "movementSheet": "movement-04.png"
+    },
+    {
+      "key": "lugia",
+      "id": 249,
+      "status": "corrected_recaptured_reviewed",
+      "attackClassification": "confirmed_defect_in_baseline",
+      "movementClassification": "glide_cycle_justified",
+      "finding": "F01",
+      "note": "C1 en frame1 erguido; el gesto de vuelo/emision2 llega despues.",
+      "action": "Frames [10,2,10], contacto2 y body anchor; excluir0/1 de pie.",
+      "fixStatus": "verified_engine30_engine60_snapshots15_8views",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-04.png",
+      "movementSheet": "movement-04.png",
+      "afterReview": {
+        "key": "lugia",
+        "status": "corrected_recaptured_reviewed",
+        "animation": "Shoot",
+        "note": "Shoot10/2 mantiene vuelo horizontal. No aparece la postura erguida0/1 durante el ataque; contacto2 y emisor acompanian el frente en8vistas.",
+        "timelines": 24,
+        "contacts": 24,
+        "allContactsVisible": true,
+        "clockNeverRewinds": true,
+        "recoveryObserved": true,
+        "stableDirection": true,
+        "contactsByShot": {
+          "0": {
+            "frames": [
+              2
+            ],
+            "releaseAt": [
+              0.3
+            ],
+            "renderAt": [
+              0.3,
+              0.333333
+            ],
+            "maxEmitterError": 0
+          }
+        },
+        "sheets": [
+          "contacts/lugia-engine30.png",
+          "contacts/lugia-snapshots15.png"
+        ]
+      },
+      "afterEvidence": "after/review.json"
+    },
+    {
+      "key": "hooh",
+      "id": 250,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Ala y cuerpo acompanian la emision sin aterrizar en medio del vuelo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-04.png",
+      "movementSheet": "movement-04.png"
+    },
+    {
+      "key": "celebi",
+      "id": 251,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Conjuro frontal sostenido y recuperacion de brazos/cuerpo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-04.png",
+      "movementSheet": "movement-04.png"
+    },
+    {
+      "key": "flygon",
+      "id": 330,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Golpe frontal con cambios de alas, torso y cola.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-05.png",
+      "movementSheet": "movement-05.png"
+    },
+    {
+      "key": "altaria",
+      "id": 334,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Conjuro y nubes en movimiento; mantiene el frente durante el sostenido.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-05.png",
+      "movementSheet": "movement-05.png"
+    },
+    {
+      "key": "salamence",
+      "id": 373,
+      "status": "delegated_rig",
+      "attackClassification": "rig_review_delegated",
+      "movementClassification": "rig_review_delegated",
+      "finding": "",
+      "note": "Imagen incluida e inspeccion de cobertura completada; juicio artistico del rig delegado al otro auditor. wing-motion.js cambio durante captura.",
+      "action": "Usar el informe del auditor de rigs6/123/373.",
+      "fixStatus": "not_required",
+      "emitterReview": "delegated_with_rig",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-05.png",
+      "movementSheet": "movement-05.png"
+    },
+    {
+      "key": "rayquaza",
+      "id": 384,
+      "status": "corrected_recaptured_reviewed",
+      "attackClassification": "confirmed_defect_in_baseline",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "F05",
+      "note": "C1 en Shoot1 con cuello levantado; frente de disparo2 aparece despues.",
+      "action": "Contacto explicito2 y body anchor.",
+      "fixStatus": "verified_engine30_engine60_snapshots15_8views",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-05.png",
+      "movementSheet": "movement-05.png",
+      "afterReview": {
+        "key": "rayquaza",
+        "status": "corrected_recaptured_reviewed",
+        "animation": "Shoot",
+        "note": "Shoot2 adelanta cabeza al contacto y la emision visual sale de ese gesto; cuerpo/cola recuperan sin soltar el rayo desde cuello retrasado1.",
+        "timelines": 24,
+        "contacts": 24,
+        "allContactsVisible": true,
+        "clockNeverRewinds": true,
+        "recoveryObserved": true,
+        "stableDirection": true,
+        "contactsByShot": {
+          "0": {
+            "frames": [
+              2
+            ],
+            "releaseAt": [
+              0.7
+            ],
+            "renderAt": [
+              0.7,
+              0.733333
+            ],
+            "maxEmitterError": 0
+          }
+        },
+        "sheets": [
+          "contacts/rayquaza-engine30.png",
+          "contacts/rayquaza-snapshots15.png"
+        ]
+      },
+      "afterEvidence": "after/review.json"
+    },
+    {
+      "key": "venusaur",
+      "id": 3,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Carga del bulbo y emision de semilla; dos dibujos de cuerpo bastan para este conjuro.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-06.png",
+      "movementSheet": "movement-06.png"
+    },
+    {
+      "key": "nidoqueen",
+      "id": 31,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Golpe corporal frontal con preparacion; sin vuelta completa.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-06.png",
+      "movementSheet": "movement-06.png"
+    },
+    {
+      "key": "nidoking",
+      "id": 34,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_choreography_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Rafaga coreografiada con mas de un gesto; no repite solo el mismo disparo dibujado.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-06.png",
+      "movementSheet": "movement-06.png"
+    },
+    {
+      "key": "graveler",
+      "id": 75,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Lanzamiento con brazos y tronco; retorno visible al apoyo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-06.png",
+      "movementSheet": "movement-06.png"
+    },
+    {
+      "key": "golem",
+      "id": 76,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Golpe pesado con preparacion, contacto y retorno del cuerpo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-07.png",
+      "movementSheet": "movement-07.png"
+    },
+    {
+      "key": "rapidash",
+      "id": 78,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Alza y baja el frente para la embestida; el sostenido previo corresponde a su windup.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-07.png",
+      "movementSheet": "movement-07.png"
+    },
+    {
+      "key": "onix",
+      "id": 95,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Arco del cuello y golpe frontal, seguido de retorno.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-07.png",
+      "movementSheet": "movement-07.png"
+    },
+    {
+      "key": "rhydon",
+      "id": 112,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "La torsion lateral es acotada, aproximadamente +/-45 grados; contacto2/3 frente al rival. Conservar Megacuerno.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-07.png",
+      "movementSheet": "movement-07.png"
+    },
+    {
+      "key": "kangaskhan",
+      "id": 115,
+      "status": "corrected_recaptured_reviewed",
+      "attackClassification": "confirmed_defect_in_baseline",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "F03",
+      "note": "Attack gira el cuerpo unos270 grados; contacto6 queda perpendicular al objetivo.",
+      "action": "Shoot [0,7,8,7,0], contacto8 y body anchor; Golpe cuerpo frontal.",
+      "fixStatus": "verified_engine30_engine60_snapshots15_8views",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-08.png",
+      "movementSheet": "movement-08.png",
+      "afterReview": {
+        "key": "kangaskhan",
+        "status": "corrected_recaptured_reviewed",
+        "animation": "Shoot",
+        "note": "Shoot0/7/8 carga y baja el cuerpo hacia el rival sin girar270grados; vuelve al apoyo en8vistas. Se aislo la madre para que la cria no se confundiera con su drawImage.",
+        "timelines": 24,
+        "contacts": 24,
+        "allContactsVisible": true,
+        "clockNeverRewinds": true,
+        "recoveryObserved": true,
+        "stableDirection": true,
+        "contactsByShot": {
+          "0": {
+            "frames": [
+              8
+            ],
+            "releaseAt": [
+              0.3
+            ],
+            "renderAt": [
+              0.3,
+              0.333333
+            ],
+            "maxEmitterError": 0
+          }
+        },
+        "sheets": [
+          "contacts/kangaskhan-engine30.png",
+          "contacts/kangaskhan-snapshots15.png"
+        ]
+      },
+      "afterEvidence": "after/review.json"
+    },
+    {
+      "key": "snorlax",
+      "id": 143,
+      "status": "corrected_recaptured_reviewed",
+      "attackClassification": "confirmed_defect_in_baseline",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "F04",
+      "note": "C1 en Stomp4 aun en el aire; apoyo/caida esta en7.",
+      "action": "Contacto explicito7 preservando todo Stomp y latch autoritativo.",
+      "fixStatus": "verified_engine30_engine60_snapshots15_8views",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-08.png",
+      "movementSheet": "movement-08.png",
+      "afterReview": {
+        "key": "snorlax",
+        "status": "corrected_recaptured_reviewed",
+        "animation": "Stomp",
+        "note": "Contacto Stomp7 coincide con el apoyo en tierra en8vistas. Se conserva el salto y toda la recuperacion, sin golpear durante la pose alta4.",
+        "timelines": 24,
+        "contacts": 24,
+        "allContactsVisible": true,
+        "clockNeverRewinds": true,
+        "recoveryObserved": true,
+        "stableDirection": true,
+        "contactsByShot": {
+          "0": {
+            "frames": [
+              7
+            ],
+            "releaseAt": [
+              0.5
+            ],
+            "renderAt": [
+              0.5,
+              0.533333
+            ],
+            "maxEmitterError": 0
+          }
+        },
+        "sheets": [
+          "contacts/snorlax-engine30.png",
+          "contacts/snorlax-snapshots15.png"
+        ]
+      },
+      "afterEvidence": "after/review.json"
+    },
+    {
+      "key": "meganium",
+      "id": 154,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Cuello y flor acompanan golpe y retorno; orientacion estable.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-08.png",
+      "movementSheet": "movement-08.png"
+    },
+    {
+      "key": "umbreon",
+      "id": 197,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Carga y ataque frontal, sin giro que invierta la punteria.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-08.png",
+      "movementSheet": "movement-08.png"
+    },
+    {
+      "key": "forretress",
+      "id": 205,
+      "status": "engine_special_case",
+      "attackClassification": "one_shot_engine_special_case",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "La explosion retira la unidad al primer contacto real. La recuperacion sintetica posterior no demuestra una congelacion en combate.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-09.png",
+      "movementSheet": "movement-09.png"
+    },
+    {
+      "key": "steelix",
+      "id": 208,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Cuello y cabeza se doblan hacia el objetivo y recuperan.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-09.png",
+      "movementSheet": "movement-09.png"
+    },
+    {
+      "key": "blissey",
+      "id": 242,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Preparacion y lanzamiento de huevo; cuerpo sostenido compatible con emision.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-09.png",
+      "movementSheet": "movement-09.png"
+    },
+    {
+      "key": "swampert",
+      "id": 260,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Preparacion de brazos y golpe pesado frontal; espera previa justificada por windup.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-09.png",
+      "movementSheet": "movement-09.png"
+    },
+    {
+      "key": "aggron",
+      "id": 306,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Torso y cabeza cargan el golpe y vuelven al apoyo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-10.png",
+      "movementSheet": "movement-10.png"
+    },
+    {
+      "key": "metagross",
+      "id": 376,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Dos dibujos de carga/contacto para golpe pesado; sostiene la preparacion, no congela un combo de varios impactos.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-10.png",
+      "movementSheet": "movement-10.png"
+    },
+    {
+      "key": "regirock",
+      "id": 377,
+      "status": "optional_followup",
+      "attackClassification": "native_motion_optional_followup",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "W02",
+      "note": "Carga lateral marcada del torso antes del golpe. Revision opcional de gesto; no se afirma una vuelta completa ni un error de hitbox.",
+      "action": "Revisar en contexto si molesta; no confirmado como defecto obligatorio.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-10.png",
+      "movementSheet": "movement-10.png"
+    },
+    {
+      "key": "kyogre",
+      "id": 382,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Sostenido de emision en doble hidrobomba; no requiere dos punetazos independientes.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-10.png",
+      "movementSheet": "movement-10.png"
+    },
+    {
+      "key": "groudon",
+      "id": 383,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Levanta y baja el cuerpo para pisar; termina apoyado.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-11.png",
+      "movementSheet": "movement-11.png"
+    },
+    {
+      "key": "madriguera",
+      "id": 31,
+      "status": "passive_justified",
+      "attackClassification": "passive_no_scheduled_attack",
+      "movementClassification": "stationary_idle_justified",
+      "finding": "",
+      "note": "No tiene ataque programado activo. El clip de ataque forzado es inventario, no una accion alcanzable; Idle quieto es su estado real.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-11.png",
+      "movementSheet": "movement-11.png"
+    },
+    {
+      "key": "cloyster",
+      "id": 91,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "stationary_idle_justified",
+      "finding": "",
+      "note": "Estructura quieta; apertura y emision sostenida de carambanos.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-11.png",
+      "movementSheet": "movement-11.png"
+    },
+    {
+      "key": "centralElectrode",
+      "id": 101,
+      "status": "passive_justified",
+      "attackClassification": "passive_no_scheduled_attack",
+      "movementClassification": "stationary_idle_justified",
+      "finding": "",
+      "note": "No tiene ataque programado activo. El clip de ataque forzado es inventario, no una accion alcanzable; Idle quieto es su estado real.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-11.png",
+      "movementSheet": "movement-11.png"
+    },
+    {
+      "key": "vivero",
+      "id": 103,
+      "status": "passive_justified",
+      "attackClassification": "passive_no_scheduled_attack",
+      "movementClassification": "stationary_idle_justified",
+      "finding": "",
+      "note": "No tiene ataque programado activo. El clip de ataque forzado es inventario, no una accion alcanzable; Idle quieto es su estado real.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-12.png",
+      "movementSheet": "movement-12.png"
+    },
+    {
+      "key": "ampharos",
+      "id": 181,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "stationary_idle_justified",
+      "finding": "",
+      "note": "Tesla quieta: carga electrica, descarga y recuperacion; superficie/podio se evalua en QA de estructura.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-12.png",
+      "movementSheet": "movement-12.png"
+    },
+    {
+      "key": "wobbuffet",
+      "id": 202,
+      "status": "passive_justified",
+      "attackClassification": "passive_no_scheduled_attack",
+      "movementClassification": "stationary_idle_justified",
+      "finding": "",
+      "note": "No tiene ataque programado activo. El clip de ataque forzado es inventario, no una accion alcanzable; Idle quieto es su estado real. El raster unico frontal representa la estructura de contraataque.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-12.png",
+      "movementSheet": "movement-12.png"
+    },
+    {
+      "key": "regice",
+      "id": 378,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "stationary_idle_justified",
+      "finding": "",
+      "note": "Estructura quieta de conjuro; brazos y torso acompanian la emision.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-12.png",
+      "movementSheet": "movement-12.png"
+    },
+    {
+      "key": "bulbasaur",
+      "id": 1,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Dos dibujos de carga/emision del bulbo; compatible con proyectil de semilla.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-13.png",
+      "movementSheet": "movement-13.png"
+    },
+    {
+      "key": "charmander",
+      "id": 4,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Cabeza y cuerpo acompanan la emision; retorno corto y orientacion constante.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-13.png",
+      "movementSheet": "movement-13.png"
+    },
+    {
+      "key": "squirtle",
+      "id": 7,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Compresion y emision frontal de agua, con retorno.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-13.png",
+      "movementSheet": "movement-13.png"
+    },
+    {
+      "key": "blastoise",
+      "id": 9,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Sostenido de rafaga desde el cuerpo/canones; no es un combo fisico congelado.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-13.png",
+      "movementSheet": "movement-13.png"
+    },
+    {
+      "key": "pikachu",
+      "id": 25,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Shock con carga y descarga nativa; esta escena no valida stun del motor.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-14.png",
+      "movementSheet": "movement-14.png"
+    },
+    {
+      "key": "raichu",
+      "id": 26,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Movimiento de cuerpo/cola durante descarga; conserva frente.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-14.png",
+      "movementSheet": "movement-14.png"
+    },
+    {
+      "key": "vulpix",
+      "id": 37,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Carga y emision de fuego desde la cabeza; recuperacion visible.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-14.png",
+      "movementSheet": "movement-14.png"
+    },
+    {
+      "key": "psyduck",
+      "id": 54,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Conjuro psiquico con gesto de cabeza/cuerpo; espera de carga justificada.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-14.png",
+      "movementSheet": "movement-14.png"
+    },
+    {
+      "key": "arcanine",
+      "id": 59,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Gesto frontal con torso, patas y cola; recuperacion sin inversion.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-15.png",
+      "movementSheet": "movement-15.png"
+    },
+    {
+      "key": "alakazam",
+      "id": 65,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Conjuro psiquico sostenido de brazos/cucharas; no requiere lanzamiento fisico adicional.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-15.png",
+      "movementSheet": "movement-15.png"
+    },
+    {
+      "key": "machamp",
+      "id": 68,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_choreography_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Punch usa preparacion/contacto/retorno reales en los cuatro impactos coreografiados.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-15.png",
+      "movementSheet": "movement-15.png"
+    },
+    {
+      "key": "geodude",
+      "id": 74,
+      "status": "optional_followup",
+      "attackClassification": "native_motion_optional_followup",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "W01",
+      "note": "El barrido cambia torso/brazos hacia los laterales. Revision opcional de torsion, sin prueba de vuelta completa o contacto invalido.",
+      "action": "Revisar en contexto si molesta; no confirmado como defecto obligatorio.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-15.png",
+      "movementSheet": "movement-15.png"
+    },
+    {
+      "key": "slowbro",
+      "id": 80,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Carga y emision frontal; retorno de cabeza/cuerpo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-16.png",
+      "movementSheet": "movement-16.png"
+    },
+    {
+      "key": "grimer",
+      "id": 88,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Deformacion del cuerpo acompana el impacto; no hay giro de orientacion completo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-16.png",
+      "movementSheet": "movement-16.png"
+    },
+    {
+      "key": "gengar",
+      "id": 94,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Conjuro frontal y retorno de manos/cuerpo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-16.png",
+      "movementSheet": "movement-16.png"
+    },
+    {
+      "key": "voltorb",
+      "id": 100,
+      "status": "engine_special_case",
+      "attackClassification": "automatic_leap_not_covered",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "El ataque automatico usa stepLeap. Aqui se revisa el clip Attack directo; la trayectoria automatica requiere prueba de motor separada.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-16.png",
+      "movementSheet": "movement-16.png"
+    },
+    {
+      "key": "chansey",
+      "id": 113,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Gesto de preparacion y lanzamiento de huevo; sostenido compatible con proyectil.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-17.png",
+      "movementSheet": "movement-17.png"
+    },
+    {
+      "key": "starmie",
+      "id": 121,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Rafaga psiquica sostenida y recuperacion; no requiere gestos fisicos distintos por rayo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-17.png",
+      "movementSheet": "movement-17.png"
+    },
+    {
+      "key": "mrmime",
+      "id": 122,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Brazos y cuerpo conjuran la barrera/ataque psiquico; no se interpreta como lanzar un objeto.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-17.png",
+      "movementSheet": "movement-17.png"
+    },
+    {
+      "key": "lapras",
+      "id": 131,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Carga y emision de agua desde la cabeza; cambia cuello y aletas.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-17.png",
+      "movementSheet": "movement-17.png"
+    },
+    {
+      "key": "ditto",
+      "id": 132,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Golpe/deformacion frontal y retorno; esta escena no prueba transformacion en combate.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-18.png",
+      "movementSheet": "movement-18.png"
+    },
+    {
+      "key": "eevee",
+      "id": 133,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Pequeno salto/embestida y recuperacion al apoyo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-18.png",
+      "movementSheet": "movement-18.png"
+    },
+    {
+      "key": "mewtwo",
+      "id": 150,
+      "status": "optional_followup",
+      "attackClassification": "native_motion_optional_followup",
+      "movementClassification": "hover_cycle_justified",
+      "finding": "W03",
+      "note": "Shoot7 dibuja una esfera azul despues de C1. Puede ser afterglow; revisar si se lee como una segunda carga, sin cambio exigido aqui.",
+      "action": "Revisar en contexto si molesta; no confirmado como defecto obligatorio.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-18.png",
+      "movementSheet": "movement-18.png"
+    },
+    {
+      "key": "typhlosion",
+      "id": 157,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Preparacion, contacto y recuperacion nativos revisados en las ocho vistas.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-18.png",
+      "movementSheet": "movement-18.png"
+    },
+    {
+      "key": "feraligatr",
+      "id": 160,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Mordida/embestida frontal con apertura y cierre del cuerpo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-19.png",
+      "movementSheet": "movement-19.png"
+    },
+    {
+      "key": "espeon",
+      "id": 196,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Conjuro psiquico sostenido; retorno de cabeza y cola.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-19.png",
+      "movementSheet": "movement-19.png"
+    },
+    {
+      "key": "scizor",
+      "id": 212,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_choreography_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "MultiScratch recorre brazos/pinzas por impacto, con recuperacion entre golpes.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-19.png",
+      "movementSheet": "movement-19.png"
+    },
+    {
+      "key": "sceptile",
+      "id": 254,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Sostenido de hojas gemelas como emision; no aparenta una segunda patada ausente.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-19.png",
+      "movementSheet": "movement-19.png"
+    },
+    {
+      "key": "blaziken",
+      "id": 257,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_choreography_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Combo de golpes con cambios nativos de torso/brazos y recuperacion.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-20.png",
+      "movementSheet": "movement-20.png"
+    },
+    {
+      "key": "nuzleaf",
+      "id": 274,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Preparacion y emision de hoja, con retorno del brazo/cuerpo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-20.png",
+      "movementSheet": "movement-20.png"
+    },
+    {
+      "key": "gardevoir",
+      "id": 282,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_choreography_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Appeal aporta elevacion y cierre de brazos; reemplaza el Shoot de una sola pose.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-20.png",
+      "movementSheet": "movement-20.png"
+    },
+    {
+      "key": "sableye",
+      "id": 302,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Golpe de brazos/cuerpo con preparacion y recuperacion; tamano se integra en auditoria separada.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-20.png",
+      "movementSheet": "movement-20.png"
+    },
+    {
+      "key": "roselia",
+      "id": 315,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Conjuro de rosas frontal; sostenido compatible con su proyectil.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-21.png",
+      "movementSheet": "movement-21.png"
+    },
+    {
+      "key": "sharpedo",
+      "id": 319,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Mordida frontal de mandibula y cuerpo; evita girar hacia atras.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-21.png",
+      "movementSheet": "movement-21.png"
+    },
+    {
+      "key": "duskull",
+      "id": 356,
+      "status": "reviewed_baseline",
+      "attackClassification": "held_cast_justified",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "La carta es Dusclops356: Tinieblas puede salir del ojo con brazos sostenidos; la elevacion posterior es follow-through.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-21.png",
+      "movementSheet": "movement-21.png"
+    },
+    {
+      "key": "absol",
+      "id": 359,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Guadana/cabeza y torso recorren el golpe sin vuelta completa.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-21.png",
+      "movementSheet": "movement-21.png"
+    },
+    {
+      "key": "beedrill",
+      "id": 15,
+      "status": "corrected_recaptured_reviewed",
+      "attackClassification": "confirmed_defect_in_baseline",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "F06",
+      "note": "Los dos contactos usan el mismo sostenido de aguijon sin nueva preparacion.",
+      "action": "Gesto nativo prepare4/contact10/follow16/rest0 para cada release; manos alternadas.",
+      "fixStatus": "verified_engine30_engine60_snapshots15_8views",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-22.png",
+      "movementSheet": "movement-22.png",
+      "afterReview": {
+        "key": "beedrill",
+        "status": "corrected_recaptured_reviewed",
+        "animation": "Attack",
+        "note": "Los dos picotazos ahora tienen contacto10, recuperacion16 y reposo0 antes de nueva preparacion4; las manos alternadas conservan el frente en8vistas. En snapshots15 la pose de contacto espera el evento antes de pasar a recuperacion.",
+        "timelines": 24,
+        "contacts": 48,
+        "allContactsVisible": true,
+        "clockNeverRewinds": true,
+        "recoveryObserved": true,
+        "stableDirection": true,
+        "contactsByShot": {
+          "0": {
+            "frames": [
+              10
+            ],
+            "releaseAt": [
+              0.5
+            ],
+            "renderAt": [
+              0.5,
+              0.533333
+            ],
+            "maxEmitterError": 0
+          },
+          "1": {
+            "frames": [
+              10
+            ],
+            "releaseAt": [
+              0.666667
+            ],
+            "renderAt": [
+              0.666667
+            ],
+            "maxEmitterError": 0
+          }
+        },
+        "sheets": [
+          "contacts/beedrill-engine30.png",
+          "contacts/beedrill-snapshots15.png"
+        ]
+      },
+      "afterEvidence": "after/review.json"
+    },
+    {
+      "key": "ekans",
+      "id": 23,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Mordida frontal con extension/compresion del cuello y retorno.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-22.png",
+      "movementSheet": "movement-22.png"
+    },
+    {
+      "key": "sandshrew",
+      "id": 27,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Se enrolla para el aranazo/impacto; el giro del ovillo no equivale a perder la direccion del cuerpo erguido.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-22.png",
+      "movementSheet": "movement-22.png"
+    },
+    {
+      "key": "nidoranF",
+      "id": 29,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Embestida corta frontal con retorno al apoyo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-22.png",
+      "movementSheet": "movement-22.png"
+    },
+    {
+      "key": "nidoranM",
+      "id": 32,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Embestida corta frontal con retorno al apoyo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-23.png",
+      "movementSheet": "movement-23.png"
+    },
+    {
+      "key": "zubat",
+      "id": 41,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Ataque con alas y boca, sin ojos anadidos al raster nativo; la anatomia del artwork de carta se audita aparte.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-23.png",
+      "movementSheet": "movement-23.png"
+    },
+    {
+      "key": "diglett",
+      "id": 50,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "burrowing_cycle_reviewed",
+      "finding": "",
+      "note": "Ataque sale de tierra y vuelve al nivel del terreno; movimiento se aplana para excavar.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-23.png",
+      "movementSheet": "movement-23.png"
+    },
+    {
+      "key": "diglettHorde",
+      "id": 50,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "burrowing_cycle_reviewed",
+      "finding": "",
+      "note": "Mismo ciclo individual de Diglett; esta escena no prueba distribucion ni separacion de los 15 integrantes.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-23.png",
+      "movementSheet": "movement-23.png"
+    },
+    {
+      "key": "mankey",
+      "id": 56,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Golpe de brazos y salto corto; recupera el apoyo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-24.png",
+      "movementSheet": "movement-24.png"
+    },
+    {
+      "key": "gastly",
+      "id": 92,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_flight_cycle_reviewed",
+      "finding": "",
+      "note": "Lenguetazo/conjuro y pulsacion del gas; mantiene boca frente al objetivo.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-24.png",
+      "movementSheet": "movement-24.png"
+    },
+    {
+      "key": "electrode",
+      "id": 101,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Carga y explosividad del cuerpo; esta escena no prueba muerte por explosion.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-24.png",
+      "movementSheet": "movement-24.png"
+    },
+    {
+      "key": "exeggcute",
+      "id": 102,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "El grupo nativo bascula y ataca; no representa integrantes con rutas independientes.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-24.png",
+      "movementSheet": "movement-24.png"
+    },
+    {
+      "key": "exeggutor",
+      "id": 103,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_cast_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Cabezas y tronco acompanian el conjuro; no requiere plataforma en estas poses.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-25.png",
+      "movementSheet": "movement-25.png"
+    },
+    {
+      "key": "babyKangaskhan",
+      "id": 115,
+      "status": "corrected_recaptured_reviewed",
+      "attackClassification": "confirmed_defect_in_baseline",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "F03",
+      "note": "Reutiliza el giro de Attack de la madre a otra escala.",
+      "action": "Mismo Shoot y contacto8 que la madre; conserva escala de cria.",
+      "fixStatus": "verified_engine30_engine60_snapshots15_8views",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-25.png",
+      "movementSheet": "movement-25.png",
+      "afterReview": {
+        "key": "babyKangaskhan",
+        "status": "corrected_recaptured_reviewed",
+        "animation": "Shoot",
+        "note": "Mismo gesto frontal Shoot8 a la escala de cria, con recuperacion y orientacion estable en8vistas.",
+        "timelines": 24,
+        "contacts": 24,
+        "allContactsVisible": true,
+        "clockNeverRewinds": true,
+        "recoveryObserved": true,
+        "stableDirection": true,
+        "contactsByShot": {
+          "0": {
+            "frames": [
+              8
+            ],
+            "releaseAt": [
+              0.3
+            ],
+            "renderAt": [
+              0.3,
+              0.333333
+            ],
+            "maxEmitterError": 0
+          }
+        },
+        "sheets": [
+          "contacts/babyKangaskhan-engine30.png",
+          "contacts/babyKangaskhan-snapshots15.png"
+        ]
+      },
+      "afterEvidence": "after/review.json"
+    },
+    {
+      "key": "sneaselToken",
+      "id": 215,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Zarpazo con preparacion, contacto y retorno; demora tras spawn se valida con tests del motor.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-25.png",
+      "movementSheet": "movement-25.png"
+    },
+    {
+      "key": "treecko",
+      "id": 252,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_choreography_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Appeal mueve brazos/cuerpo al emitir; reemplaza la antigua pose unica de Shoot.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-25.png",
+      "movementSheet": "movement-25.png"
+    },
+    {
+      "key": "pandilla",
+      "id": 261,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Se observa el cuerpo base Poochyena; composicion y miembros Ralts se prueban con el despliegue real.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-26.png",
+      "movementSheet": "movement-26.png"
+    },
+    {
+      "key": "poochyenaPack",
+      "id": 261,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Mordida frontal con patas y mandibula; caminos/bloqueo no se prueban en esta escena.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-26.png",
+      "movementSheet": "movement-26.png"
+    },
+    {
+      "key": "poochyenaToken",
+      "id": 261,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Mordida frontal con patas y mandibula; caminos/bloqueo no se prueban en esta escena.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-26.png",
+      "movementSheet": "movement-26.png"
+    },
+    {
+      "key": "raltsToken",
+      "id": 280,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_choreography_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Gesto de brazos/cuerpo coherente con conjuro; retorno visible.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-26.png",
+      "movementSheet": "movement-26.png"
+    },
+    {
+      "key": "raltsTrio",
+      "id": 280,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_choreography_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Gesto de brazos/cuerpo coherente con conjuro; cada cuerpo se audita por separado del despliegue.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-27.png",
+      "movementSheet": "movement-27.png"
+    },
+    {
+      "key": "shuppetToken",
+      "id": 353,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Golpe fisico corto de cabeza/cuerpo; mantiene el frente.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-27.png",
+      "movementSheet": "movement-27.png"
+    },
+    {
+      "key": "duskullToken",
+      "id": 355,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Golpe de cuerpo fantasma con retorno; su ciclo de flotacion cambia en ocho vistas.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-27.png",
+      "movementSheet": "movement-27.png"
+    },
+    {
+      "key": "registeel",
+      "id": 379,
+      "status": "reviewed_baseline",
+      "attackClassification": "native_melee_reviewed",
+      "movementClassification": "native_walk_cycle_reviewed",
+      "finding": "",
+      "note": "Carga larga deliberada antes del impacto pesado; el sostenido de0.9s no se confunde con varios impactos congelados.",
+      "action": "Conservar este gesto en el corte auditado.",
+      "fixStatus": "not_required",
+      "emitterReview": "finite_samples_and_visual_attachment_screened_not_live_trajectory",
+      "scaleReview": "baseline_scale_only_parallel_main_calibration_not_integrated",
+      "attackSheet": "attack-27.png",
+      "movementSheet": "movement-27.png"
+    }
+  ],
+  "notValidated": [
+    "Full unisolated combat and target selection; seven-key direct-attack scenes are covered separately in after",
+    "Projectile flight and collision",
+    "Stun, spawn delay and release scheduling",
+    "Swarm formation, split routes and unit blocking",
+    "Audio or voices",
+    "Performance, frame pacing and subjective smoothness",
+    "Reduced motion",
+    "Integrated main branch size calibration",
+    "Three delegated flying wing rigs"
+  ],
+  "regenerationPolicy": "A new capture resets manual review; re-inspect changed gestures before treating fixes as visually verified.",
+  "afterVerification": {
+    "file": "after/verification.json",
+    "sha256": "08210542a44dcf3d08ef73080934daa0869a5d43dbafb62606507ef2581219e2",
+    "review": "after/review.json",
+    "keys": [
+      "beedrill",
+      "snorlax",
+      "lugia",
+      "rayquaza",
+      "koffing",
+      "kangaskhan",
+      "babyKangaskhan"
+    ],
+    "summary": {
+      "keys": 7,
+      "species": 6,
+      "timelines": 168,
+      "contacts": 192,
+      "samples": 12552,
+      "sheets": 14,
+      "videos": 14,
+      "findings": 0
+    }
+  }
+}

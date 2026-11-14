@@ -1,0 +1,796 @@
+{
+  "date": "2026-11-14",
+  "scope": "Human inspection of all14 mobile contact sheets (engine30 and snapshots15,8views each). Videos exported and verified by hash/ffprobe; not a claim that every video was watched or that frame pacing is measured.",
+  "verificationFile": "verification.json",
+  "verificationSha256": "08210542a44dcf3d08ef73080934daa0869a5d43dbafb62606507ef2581219e2",
+  "mediaVerificationFile": "media-verification.json",
+  "summary": {
+    "keys": 7,
+    "species": 6,
+    "timelines": 168,
+    "contacts": 192,
+    "samples": 12552,
+    "sheets": 14,
+    "videos": 14,
+    "findings": 0
+  },
+  "sheets": [
+    {
+      "file": "contacts/beedrill-engine30.png",
+      "sha256": "fe7c02615f90438855760cf61b412856a3cccab0771097338c9cd34b0601eb0a",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/beedrill-snapshots15.png",
+      "sha256": "6eaad60e8cee35a3f78ef8dd6066acce5533f7f35b5bd96a8a4050be2731be96",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/snorlax-engine30.png",
+      "sha256": "80487cf47a8236fd803ead959d3481423dd7f21d40f65608216c96e23d1cca8f",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/snorlax-snapshots15.png",
+      "sha256": "46315acf08fae52f47756aadbb6c73d832c1ca90a600b97d6b5334228cb6089e",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/lugia-engine30.png",
+      "sha256": "a0f74d67f82ae3933b19e57ecc6c4e31a00656e4cf229fd39a232f3f62407489",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/lugia-snapshots15.png",
+      "sha256": "8fb2ecc5993ce05a00e4df99c968625dbb29caec4f424f354a62e07f66c39bbe",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/rayquaza-engine30.png",
+      "sha256": "af64c91bab9b2f84407160296b7eb1321dc9f8cee10cad2fd8d28ee2cd780d32",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/rayquaza-snapshots15.png",
+      "sha256": "c1c99caf21e9934ae7eefa84e1078a20a486af36c5fcb6f80c769ff9c7f04171",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/koffing-engine30.png",
+      "sha256": "a9e91fe03a7805ba9abf09251640bc737034e7144a96012c0b1aa4c33bae14de",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/koffing-snapshots15.png",
+      "sha256": "fcd1e5e445173936b6dc21ae39a5f02317193c1bbad549c90a211889f5f618bd",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/kangaskhan-engine30.png",
+      "sha256": "d3c57109a7ca4a4de0a411b185d473d56dee69df2a4d602a72f0df191fad4c6b",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/kangaskhan-snapshots15.png",
+      "sha256": "5585353e4f9b0cd075519ce15c21e8b21408231c09ea7dfea5fab4c611c0ef5f",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/babyKangaskhan-engine30.png",
+      "sha256": "74893d9bb9a4dc70284e59c1942fdba56403cece87e3e2956987a5a6fa015216",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "file": "contacts/babyKangaskhan-snapshots15.png",
+      "sha256": "282fa14404701e8d0d6ae6e0a0e43d546ffd4a4f12603c1962b1c9901331cead",
+      "status": "inspected_all8views",
+      "missingObservedRasters": [
+        {
+          "direction": 0,
+          "missing": []
+        },
+        {
+          "direction": 1,
+          "missing": []
+        },
+        {
+          "direction": 2,
+          "missing": []
+        },
+        {
+          "direction": 3,
+          "missing": []
+        },
+        {
+          "direction": 4,
+          "missing": []
+        },
+        {
+          "direction": 5,
+          "missing": []
+        },
+        {
+          "direction": 6,
+          "missing": []
+        },
+        {
+          "direction": 7,
+          "missing": []
+        }
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "key": "beedrill",
+      "status": "corrected_recaptured_reviewed",
+      "animation": "Attack",
+      "note": "Los dos picotazos ahora tienen contacto10, recuperacion16 y reposo0 antes de nueva preparacion4; las manos alternadas conservan el frente en8vistas. En snapshots15 la pose de contacto espera el evento antes de pasar a recuperacion.",
+      "timelines": 24,
+      "contacts": 48,
+      "allContactsVisible": true,
+      "clockNeverRewinds": true,
+      "recoveryObserved": true,
+      "stableDirection": true,
+      "contactsByShot": {
+        "0": {
+          "frames": [
+            10
+          ],
+          "releaseAt": [
+            0.5
+          ],
+          "renderAt": [
+            0.5,
+            0.533333
+          ],
+          "maxEmitterError": 0
+        },
+        "1": {
+          "frames": [
+            10
+          ],
+          "releaseAt": [
+            0.666667
+          ],
+          "renderAt": [
+            0.666667
+          ],
+          "maxEmitterError": 0
+        }
+      },
+      "sheets": [
+        "contacts/beedrill-engine30.png",
+        "contacts/beedrill-snapshots15.png"
+      ]
+    },
+    {
+      "key": "snorlax",
+      "status": "corrected_recaptured_reviewed",
+      "animation": "Stomp",
+      "note": "Contacto Stomp7 coincide con el apoyo en tierra en8vistas. Se conserva el salto y toda la recuperacion, sin golpear durante la pose alta4.",
+      "timelines": 24,
+      "contacts": 24,
+      "allContactsVisible": true,
+      "clockNeverRewinds": true,
+      "recoveryObserved": true,
+      "stableDirection": true,
+      "contactsByShot": {
+        "0": {
+          "frames": [
+            7
+          ],
+          "releaseAt": [
+            0.5
+          ],
+          "renderAt": [
+            0.5,
+            0.533333
+          ],
+          "maxEmitterError": 0
+        }
+      },
+      "sheets": [
+        "contacts/snorlax-engine30.png",
+        "contacts/snorlax-snapshots15.png"
+      ]
+    },
+    {
+      "key": "lugia",
+      "status": "corrected_recaptured_reviewed",
+      "animation": "Shoot",
+      "note": "Shoot10/2 mantiene vuelo horizontal. No aparece la postura erguida0/1 durante el ataque; contacto2 y emisor acompanian el frente en8vistas.",
+      "timelines": 24,
+      "contacts": 24,
+      "allContactsVisible": true,
+      "clockNeverRewinds": true,
+      "recoveryObserved": true,
+      "stableDirection": true,
+      "contactsByShot": {
+        "0": {
+          "frames": [
+            2
+          ],
+          "releaseAt": [
+            0.3
+          ],
+          "renderAt": [
+            0.3,
+            0.333333
+          ],
+          "maxEmitterError": 0
+        }
+      },
+      "sheets": [
+        "contacts/lugia-engine30.png",
+        "contacts/lugia-snapshots15.png"
+      ]
+    },
+    {
+      "key": "rayquaza",
+      "status": "corrected_recaptured_reviewed",
+      "animation": "Shoot",
+      "note": "Shoot2 adelanta cabeza al contacto y la emision visual sale de ese gesto; cuerpo/cola recuperan sin soltar el rayo desde cuello retrasado1.",
+      "timelines": 24,
+      "contacts": 24,
+      "allContactsVisible": true,
+      "clockNeverRewinds": true,
+      "recoveryObserved": true,
+      "stableDirection": true,
+      "contactsByShot": {
+        "0": {
+          "frames": [
+            2
+          ],
+          "releaseAt": [
+            0.7
+          ],
+          "renderAt": [
+            0.7,
+            0.733333
+          ],
+          "maxEmitterError": 0
+        }
+      },
+      "sheets": [
+        "contacts/rayquaza-engine30.png",
+        "contacts/rayquaza-snapshots15.png"
+      ]
+    },
+    {
+      "key": "koffing",
+      "status": "corrected_recaptured_reviewed",
+      "animation": "Shoot",
+      "note": "Shoot0/1/7 muestra inflado y compresion en el contacto; ya no aparece humo amarillo nativo hacia atras. El gas comun aparece en el impacto sobre el objetivo.",
+      "timelines": 24,
+      "contacts": 24,
+      "allContactsVisible": true,
+      "clockNeverRewinds": true,
+      "recoveryObserved": true,
+      "stableDirection": true,
+      "contactsByShot": {
+        "0": {
+          "frames": [
+            7
+          ],
+          "releaseAt": [
+            0.3
+          ],
+          "renderAt": [
+            0.3,
+            0.333333
+          ],
+          "maxEmitterError": 0
+        }
+      },
+      "sheets": [
+        "contacts/koffing-engine30.png",
+        "contacts/koffing-snapshots15.png"
+      ]
+    },
+    {
+      "key": "kangaskhan",
+      "status": "corrected_recaptured_reviewed",
+      "animation": "Shoot",
+      "note": "Shoot0/7/8 carga y baja el cuerpo hacia el rival sin girar270grados; vuelve al apoyo en8vistas. Se aislo la madre para que la cria no se confundiera con su drawImage.",
+      "timelines": 24,
+      "contacts": 24,
+      "allContactsVisible": true,
+      "clockNeverRewinds": true,
+      "recoveryObserved": true,
+      "stableDirection": true,
+      "contactsByShot": {
+        "0": {
+          "frames": [
+            8
+          ],
+          "releaseAt": [
+            0.3
+          ],
+          "renderAt": [
+            0.3,
+            0.333333
+          ],
+          "maxEmitterError": 0
+        }
+      },
+      "sheets": [
+        "contacts/kangaskhan-engine30.png",
+        "contacts/kangaskhan-snapshots15.png"
+      ]
+    },
+    {
+      "key": "babyKangaskhan",
+      "status": "corrected_recaptured_reviewed",
+      "animation": "Shoot",
+      "note": "Mismo gesto frontal Shoot8 a la escala de cria, con recuperacion y orientacion estable en8vistas.",
+      "timelines": 24,
+      "contacts": 24,
+      "allContactsVisible": true,
+      "clockNeverRewinds": true,
+      "recoveryObserved": true,
+      "stableDirection": true,
+      "contactsByShot": {
+        "0": {
+          "frames": [
+            8
+          ],
+          "releaseAt": [
+            0.3
+          ],
+          "renderAt": [
+            0.3,
+            0.333333
+          ],
+          "maxEmitterError": 0
+        }
+      },
+      "sheets": [
+        "contacts/babyKangaskhan-engine30.png",
+        "contacts/babyKangaskhan-snapshots15.png"
+      ]
+    }
+  ]
+}
