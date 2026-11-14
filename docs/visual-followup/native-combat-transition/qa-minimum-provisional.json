@@ -1,0 +1,522 @@
+{
+  "status": "provisional_working_tree_inventory_not_validation",
+  "candidateInputHashes": [
+    {
+      "file": "dist/app.js",
+      "bytes": 47270,
+      "sha256": "db4a16c480fa4efc42b8f3e078561b6dad5da34aaaff276c8b5944ad26cba01f"
+    },
+    {
+      "file": "dist/arena-geometry.js",
+      "bytes": 3096,
+      "sha256": "91e28d4dbdbb005011d2f99dbbfe67117897d06fc91b01fab9c85661f85e519b"
+    },
+    {
+      "file": "dist/arena-tilemap.js",
+      "bytes": 2920,
+      "sha256": "7811168f2eaea5c6ce8c60c98171abd814d5709284434d0edb69d0c91c5a3e6d"
+    },
+    {
+      "file": "dist/assets/pokemon/manifest.json",
+      "bytes": 239650,
+      "sha256": "ed22ac565b3b61e72b6e56b7db75ba18af0fc85d063413090ce85c0e3fec268f"
+    },
+    {
+      "file": "dist/attack-choreography.js",
+      "bytes": 1924,
+      "sha256": "8f64e99ac7ab948825497dc3d3d13c0ae503017f373c75e4a19c847215898262"
+    },
+    {
+      "file": "dist/audio.js",
+      "bytes": 17065,
+      "sha256": "79c24560734c919f68c4b8846ff1bc7ac6d0b135156de779dd4c3d3211591698"
+    },
+    {
+      "file": "dist/balance.js",
+      "bytes": 35020,
+      "sha256": "992d2f1d089c084af786f639d452c2ab08373646657460289072f817cc74d6aa"
+    },
+    {
+      "file": "dist/battle-art.js",
+      "bytes": 4425,
+      "sha256": "aab35b88b5ad2d54783427db445e060dba6ab17809d1014982f4431ec10f8251"
+    },
+    {
+      "file": "dist/capsule-art.js",
+      "bytes": 1359,
+      "sha256": "a8a5b458eee3ccfba5596131df951a45ac21232369d8bd000d103d2e30726c5e"
+    },
+    {
+      "file": "dist/card-art.js",
+      "bytes": 4852,
+      "sha256": "82959658e4bc0ca13ebc2ad96d18b081817ccd057e5023327a97d363ccfddb4b"
+    },
+    {
+      "file": "dist/card-equivalents.js",
+      "bytes": 18678,
+      "sha256": "83a7b54898099078dcf57cadebd88b5bf35ecc2a5f0a6f2f806e6f257aac13a6"
+    },
+    {
+      "file": "dist/card-review.js",
+      "bytes": 14836,
+      "sha256": "3b834be599a4724589774db20da7cb329afebd314329a0033386165d9a18b853"
+    },
+    {
+      "file": "dist/catalog.js",
+      "bytes": 25778,
+      "sha256": "4290c7c1349dfe0681dd3a94771dd6642e82927057ea47e55ee2a909d332bbcf"
+    },
+    {
+      "file": "dist/clash-roster.js",
+      "bytes": 2554,
+      "sha256": "34f9fe6004698e90c5fc5d07b0cc1d5ba64cf9574f2245f37946efa33ef170c4"
+    },
+    {
+      "file": "dist/combat-visuals.js",
+      "bytes": 2351,
+      "sha256": "b76e7d4dc5997f64028a7dd48b0d8141ef2da6c54f469f11255baf94f24cae47"
+    },
+    {
+      "file": "dist/current-reference.js",
+      "bytes": 89033,
+      "sha256": "24627e202b740ac1298cc9ca16efc261533af66398a5f1272c456f11014197e0"
+    },
+    {
+      "file": "dist/deck-storage.js",
+      "bytes": 4690,
+      "sha256": "affe8e768a358cf5c09467c6c24e7458717cb1a139d7a14cc8219095c6170feb"
+    },
+    {
+      "file": "dist/deployment-formations.js",
+      "bytes": 1124,
+      "sha256": "d832c5a38cdaea2c660e62f66c8338bc026448a406271a5e5453ea7392f05acd"
+    },
+    {
+      "file": "dist/engine.js",
+      "bytes": 83960,
+      "sha256": "2627c4b6a3c1fbc33346efbf883e3749ca741e5987d24ff401ee49c37847fed9"
+    },
+    {
+      "file": "dist/knockback-profiles.js",
+      "bytes": 1702,
+      "sha256": "c361762af434877f0fe3398a03a37902df41aaba5ea7691881480852bccd5028"
+    },
+    {
+      "file": "dist/music.js",
+      "bytes": 5269,
+      "sha256": "2d9a9b01bc577d5c6f548a8df9595e1312b6f5276f7c2a07498f3db2855e7162"
+    },
+    {
+      "file": "dist/native-descriptions.js",
+      "bytes": 3871,
+      "sha256": "3f4bddcf9ed2539e6b8dc73e46a5aa8760bb3115747fed404617320134c81bc7"
+    },
+    {
+      "file": "dist/online-config.js",
+      "bytes": 302,
+      "sha256": "0105c7ebe7c21be13f15a282e9468e2861c51704f5e23ed82297a04636d66074"
+    },
+    {
+      "file": "dist/online-wire.js",
+      "bytes": 1735,
+      "sha256": "b1b55f59b9c420801b3ca380c93fb3c3fe8ac9daf90cd35f8f37653b4f0386aa"
+    },
+    {
+      "file": "dist/online.js",
+      "bytes": 9277,
+      "sha256": "5058e0279ca17b4b63a6c57b4fbadfee604347d373d2c05e16cd9b9a33e08313"
+    },
+    {
+      "file": "dist/pokemon-silhouettes.js",
+      "bytes": 5943,
+      "sha256": "0739104f8d80b383156e5828ba35a121b377585c11b5e6914a178d5b174b71fb"
+    },
+    {
+      "file": "dist/pokemon-stats.js",
+      "bytes": 7580,
+      "sha256": "64c1544c59efb2c653737f73252cdab19f44eec203a45e4437a291cd88e3d75a"
+    },
+    {
+      "file": "dist/quick-stats.js",
+      "bytes": 11459,
+      "sha256": "6120578912d41931e93321054b7cb9436e09b0108adde52df8b128135199ebda"
+    },
+    {
+      "file": "dist/render.js",
+      "bytes": 61040,
+      "sha256": "639cabac1f9518948c991e7a654f0f85f0e96c3313082f0fa32720fb7fc6819d"
+    },
+    {
+      "file": "dist/sandbox.js",
+      "bytes": 4602,
+      "sha256": "98b5004d10dcb3bdbadee37201d12eb0fcc981ff398c528eafef4f600f6db268"
+    },
+    {
+      "file": "dist/snapshot.js",
+      "bytes": 3327,
+      "sha256": "36710453a251fe9097d3e9633fdc3202adc06c91903320348fb068cdc7476fc0"
+    },
+    {
+      "file": "dist/spell-preview.js",
+      "bytes": 1276,
+      "sha256": "64497f695736012c0b06932fa43dccc8d097fdb54dda5a9d94a87595c2276b23"
+    },
+    {
+      "file": "dist/sprite-geometry.js",
+      "bytes": 665203,
+      "sha256": "269108bf88e1f79418e8c3b3894cd4d059406ddf3ff93ff0ab62b9831233a13e"
+    },
+    {
+      "file": "dist/sprite-motion.js",
+      "bytes": 5680,
+      "sha256": "566f7f7bff7312a7b83528845f60d4934271a75729f6904d5f8403825374b8b9"
+    },
+    {
+      "file": "dist/targeting-art.js",
+      "bytes": 2276,
+      "sha256": "c62ef1334e110c5ce08f66c364608fd2aa46d4a903b1270a010e9ee85608e60a"
+    },
+    {
+      "file": "dist/testing.js",
+      "bytes": 15959,
+      "sha256": "be48865b81dbca2af46e04447551417f8ed4c0e04b05f88cdf4fc747847b3097"
+    },
+    {
+      "file": "dist/unit-sizes.js",
+      "bytes": 2299,
+      "sha256": "734e1c4f61bf26a3f74c717025b4081c27d8bf3254bd9e5a3fe67fcefaea4cac"
+    },
+    {
+      "file": "dist/wing-motion.js",
+      "bytes": 4772,
+      "sha256": "6e0beff3cfc3cd279ebc84cf42d3ea59e8dfc2c78eff59503dd2b8116ac6f2a1"
+    },
+    {
+      "file": "dist/wing-rigs.js",
+      "bytes": 9246,
+      "sha256": "a9fa115bcd8f08ff6fc5f98fd7812b3809012c768e8e58411f569b8994f3e8e6"
+    }
+  ],
+  "groups": [
+    {
+      "id": "P0-frames",
+      "purpose": "Resolve invalid clip indices/geometry before browser QA; valid indices do not prove an appropriate gesture.",
+      "keys": []
+    },
+    {
+      "id": "P1-contact-clock",
+      "purpose": "For each changed cadence/burst/animation: automatic and direct attacks at 30/60 Hz, at least 3 cycles; gesture contact at real attackRelease, target impact at damage, recovery, no clock rewind; snapshots at 15 Hz. Projectile damage need not coincide with release.",
+      "keys": [
+        "alakazam",
+        "ampharos",
+        "arcanine",
+        "articuno",
+        "beedrill",
+        "blastoise",
+        "blaziken",
+        "bulbasaur",
+        "butterfree",
+        "celebi",
+        "charizard",
+        "charmander",
+        "cloyster",
+        "crobat",
+        "diglett",
+        "diglettHorde",
+        "dragonite",
+        "duskullToken",
+        "eevee",
+        "espeon",
+        "exeggcute",
+        "feraligatr",
+        "forretress",
+        "gardevoir",
+        "geodude",
+        "graveler",
+        "groudon",
+        "kyogre",
+        "lapras",
+        "machamp",
+        "mankey",
+        "moltres",
+        "nidoking",
+        "nidoranM",
+        "onix",
+        "pandilla",
+        "pidgeot",
+        "poochyenaToken",
+        "psyduck",
+        "raichu",
+        "raltsToken",
+        "raltsTrio",
+        "rayquaza",
+        "regirock",
+        "rhydon",
+        "roselia",
+        "sableye",
+        "salamence",
+        "sandshrew",
+        "sceptile",
+        "scizor",
+        "scyther",
+        "sharpedo",
+        "shuppetToken",
+        "slowbro",
+        "sneaselToken",
+        "snorlax",
+        "squirtle",
+        "starmie",
+        "steelix",
+        "swampert",
+        "treecko",
+        "typhlosion",
+        "venusaur",
+        "voltorb",
+        "vulpix",
+        "zapdos"
+      ]
+    },
+    {
+      "id": "P1-emitter-delivery",
+      "purpose": "Eight actual views of changed delivery/clip/emitter/projectile origin; verify first release, visual attachment and path handoff, without remeasuring global scales.",
+      "keys": [
+        "alakazam",
+        "ampharos",
+        "beedrill",
+        "bulbasaur",
+        "celebi",
+        "charizard",
+        "charmander",
+        "diglett",
+        "diglettHorde",
+        "duskull",
+        "duskullToken",
+        "espeon",
+        "exeggcute",
+        "feraligatr",
+        "forretress",
+        "gardevoir",
+        "geodude",
+        "geodudeToken",
+        "golem",
+        "graveler",
+        "lapras",
+        "machamp",
+        "moltres",
+        "nidoranM",
+        "nuzleaf",
+        "onix",
+        "pandilla",
+        "pikachu",
+        "poochyenaPack",
+        "poochyenaToken",
+        "raichu",
+        "rapidash",
+        "rhydon",
+        "roselia",
+        "sandshrew",
+        "sceptile",
+        "shuppetToken",
+        "slowbro",
+        "sneaselToken",
+        "snorlax",
+        "starmie",
+        "swampert",
+        "treecko",
+        "typhlosion",
+        "venusaur",
+        "voltorb",
+        "zapdos",
+        "zubat"
+      ]
+    },
+    {
+      "id": "P1-full-windup",
+      "purpose": "Towers with windup=interval and Tesla control: first attack, sustained firing, next sequence, reacquisition, stun, pause and 15 Hz packet batches. Check event order and visible contact independently; Tesla equality is not assumed if absent in this cut. Also verify the two changed King guards after activation.",
+      "keys": [
+        "ampharos"
+      ],
+      "towerGuards": [
+        52,
+        31,
+        34
+      ],
+      "towers": [
+        "princess-team0-lane0",
+        "princess-team0-lane1",
+        "princess-team1-lane0",
+        "princess-team1-lane1"
+      ],
+      "otherChangedTowers": [
+        "king-team0-lane-1",
+        "king-team1-lane-1"
+      ]
+    },
+    {
+      "id": "P2-bodies",
+      "purpose": "Deploy changed counts/squads and produce tokens from their real parent; check body identity, exact members, spawn timing, split lanes and one recovery into idle. No global scale audit.",
+      "keys": [
+        "centralElectrode",
+        "duskull",
+        "forretress",
+        "geodude",
+        "golem",
+        "graveler",
+        "madriguera",
+        "nightmare",
+        "pandilla",
+        "raltsHut",
+        "sneaselAmbush",
+        "vivero"
+      ]
+    },
+    {
+      "id": "P2-deployment-clock",
+      "purpose": "Compare real deployment time and first available attack after spawn. A card whose only control change is deployment delay needs this bounded clock check, not a fresh eight-view pose gallery.",
+      "keys": [
+        "absol",
+        "aggron",
+        "altaria",
+        "arcanine",
+        "articuno",
+        "beedrill",
+        "blastoise",
+        "blaziken",
+        "blissey",
+        "butterfree",
+        "centralElectrode",
+        "chansey",
+        "cloyster",
+        "crobat",
+        "ditto",
+        "dragonite",
+        "ekans",
+        "flygon",
+        "forretress",
+        "gastly",
+        "gengar",
+        "grimer",
+        "groudon",
+        "gyarados",
+        "hooh",
+        "kangaskhan",
+        "koffing",
+        "kyogre",
+        "lugia",
+        "magnemite",
+        "mankey",
+        "meganium",
+        "metagross",
+        "mewtwo",
+        "mrmime",
+        "nidoking",
+        "nidoqueen",
+        "pandilla",
+        "pidgeot",
+        "poochyenaPack",
+        "psyduck",
+        "raltsHut",
+        "raltsTrio",
+        "rayquaza",
+        "regice",
+        "regirock",
+        "salamence",
+        "sandshrew",
+        "scizor",
+        "scyther",
+        "skarmory",
+        "squirtle",
+        "steelix",
+        "treecko",
+        "umbreon",
+        "vulpix",
+        "wobbuffet",
+        "zubat"
+      ]
+    },
+    {
+      "id": "P2-special-paths",
+      "purpose": "Changed entry/death effects, dash/leap/copy/rolling/suicide/summon/spell schedules and ability removals use their actual engine path; a direct Game.attack fixture alone does not cover them.",
+      "keys": [
+        "articuno",
+        "blizzard",
+        "bulbasaur",
+        "duskull",
+        "earthquake",
+        "eevee",
+        "fireball",
+        "forretress",
+        "geodudeToken",
+        "golem",
+        "groudon",
+        "hooh",
+        "hyperBeam",
+        "kyogre",
+        "lapras",
+        "lightning",
+        "log",
+        "lugia",
+        "madriguera",
+        "mewtwo",
+        "moltres",
+        "nightmare",
+        "onix",
+        "pinMissile",
+        "raltsHut",
+        "rayquaza",
+        "sableye",
+        "sharpedo",
+        "slowbro",
+        "sneaselAmbush",
+        "thunder",
+        "vivero",
+        "voltorb",
+        "zapdos"
+      ]
+    },
+    {
+      "id": "P2-range-interaction",
+      "purpose": "Changed attack reach or target eligibility: acquire just inside/outside the new reach and verify beam/cone/projectile/melee outcome against eligible ground/air targets. Reuse a contact-clock or delivery scene when possible.",
+      "keys": [
+        "beedrill",
+        "bulbasaur",
+        "celebi",
+        "charizard",
+        "charmander",
+        "eevee",
+        "espeon",
+        "forretress",
+        "gardevoir",
+        "geodudeToken",
+        "golem",
+        "lapras",
+        "moltres",
+        "nidoranM",
+        "onix",
+        "pandilla",
+        "raichu",
+        "sableye",
+        "sceptile",
+        "shuppetToken",
+        "starmie",
+        "swampert",
+        "typhlosion",
+        "venusaur",
+        "voltorb",
+        "zapdos"
+      ]
+    },
+    {
+      "id": "P2-copy-contract",
+      "purpose": "Ditto is a dependency case despite only movement metadata changing on its own card: transform into a changed explicit rangedAttack target below range 50 and a non-homing projectile target; verify delivery, projectile start and homing policy survive the copy.",
+      "keys": [
+        "ditto"
+      ],
+      "targets": [
+        "forretress",
+        "graveler"
+      ],
+      "staticRiskOnly": true
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "status": "cloyster_native_mode_verified",
+  "sourceCommit": "d7e379cb2aa37839708b664793557c82de85b1c0",
+  "scope": "Cloyster only: 48 matrix cases and 96 releases; 8 views; local30/local60/public15; direct and automatic. One south control with 3 releases. No product edits or commit/index writes.",
+  "files": [
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/all-key-transition.csv",
+      "bytes": 87169,
+      "sha256": "0e8acfc60bb5279365abed581d3834ac09b590fa0cc8a23f6580a07187c7f494"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/cards-baseline.json",
+      "bytes": 89832,
+      "sha256": "bc169d91027214520bb402918a16f59b09497a75368ce6baa4ef8b647bbc41f0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/cards-main-working-tree.json",
+      "bytes": 173927,
+      "sha256": "1ced1cbd7af570f4bae24f8e97c669db03d9f987315bdfac318e5771c5d5eae0"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/cloyster/progress.json",
+      "bytes": 57,
+      "sha256": "91ffd16de2722be62c2f78288c101256cf7aeccdc3c730d5865665c298f9492a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/cloyster/qa-native-contact-browser.mjs",
+      "bytes": 9789,
+      "sha256": "e2dab0d783f3d81c0e2b040b4c5480fe31779d52159e19c02fa099113b0273b2"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/cloyster/qa-native-contact-harness.mjs",
+      "bytes": 18694,
+      "sha256": "43aa64be590d099ab1014b630acb7e8edbd9977f2838e28631f0ad4abb2e7516"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/cloyster/summary.json",
+      "bytes": 177806,
+      "sha256": "ccebeab4435bcafc26a69fa14caad87e240966656da661b4cd4d3a3745d5244e"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/cloyster/traces/cloyster.json.gz",
+      "bytes": 204323,
+      "sha256": "d514caa6906eee03b3bb4d2e9696d9b90b23be340aacb256d58878586d8657d5"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/control-runner-used.mjs",
+      "bytes": 9680,
+      "sha256": "8263e84c98b72c012ddd666f8597a0f6e6de494d3db56724631a4991f4ccee1e"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/frozen-inputs.json",
+      "bytes": 14162,
+      "sha256": "6480e52ad52855957e500b74891f4600bc982381f893491cc86260cc02ad6680"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/inventory-provisional.json",
+      "bytes": 1405941,
+      "sha256": "546c1e4a2aab35d474053ee18919a5555ec4349082e0819e53b6a6a405177044"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/qa-minimum-provisional.json",
+      "bytes": 14893,
+      "sha256": "6ba52a3dfefca28ff6130460043ccf4a4cdbe8e917281a5eb7dcab198df0bae9"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/README.md",
+      "bytes": 2021,
+      "sha256": "a8f6de0369da9c1d47d817b9949dee76e61ed651bd15338f288ebeaada82986b"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/south-control/contacts/cloyster-public15-0-automatic-viewer0.png",
+      "bytes": 30447,
+      "sha256": "ed235cf69efdf24fa5e77535965bfc2ee1424d9beea0dd8fa9bf80ded45fde3a"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/south-control/progress.json",
+      "bytes": 56,
+      "sha256": "f9059d2a1645648563e2e8d61e31056ecf9ae7995f113b21d6bd243a392b4fa3"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/south-control/qa-native-contact-browser.mjs",
+      "bytes": 9680,
+      "sha256": "8263e84c98b72c012ddd666f8597a0f6e6de494d3db56724631a4991f4ccee1e"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/south-control/qa-native-contact-harness.mjs",
+      "bytes": 18694,
+      "sha256": "43aa64be590d099ab1014b630acb7e8edbd9977f2838e28631f0ad4abb2e7516"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/south-control/summary.json",
+      "bytes": 144493,
+      "sha256": "12fba60883a2744854d35f9c434e19deaf3f3ed32cc0cc4a5d3bfbbac3542f27"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/south-control/traces/cloyster.json.gz",
+      "bytes": 6380,
+      "sha256": "f3aafa4efc13f6a6cf69d3116561565384dcf9b1085c9622fd7ca2483d9e4f15"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/verification.json",
+      "bytes": 1859,
+      "sha256": "6b26f1b685dafc95779be64982228b587e28d1296f99eee1c56ca9b1f426218e"
+    },
+    {
+      "file": "docs/visual-followup/native-combat-transition/checkpoint-d7e379c/verify-cloyster.mjs",
+      "bytes": 5151,
+      "sha256": "07f8bee693ce0c1bac06391f6b0f7510475bfcd7d3f9b7e5307e20ad00420441"
+    }
+  ]
+}

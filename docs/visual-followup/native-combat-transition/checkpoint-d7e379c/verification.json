@@ -1,0 +1,60 @@
+{
+  "status": "cloyster_native_mode_verified",
+  "checkpoint": "d7e379cb2aa37839708b664793557c82de85b1c0",
+  "sourceWorkingTreeUsed": false,
+  "scope": "Cloyster only, eight views, direct single attack and automatic three cycles; local30/local60/publicSnapshot15 with Renderer60, viewer0. No balance calibration, other-card, camera or scale QA.",
+  "contract": {
+    "damage": 210,
+    "interval": 1.6,
+    "burst": 1,
+    "animation": "Shoot",
+    "windup": 0.3,
+    "attackDuration": 0.75
+  },
+  "cases": 48,
+  "releases": 96,
+  "damageEvents": 96,
+  "observedFinalAndIntermediateRecoveries": 96,
+  "cadenceComparisons": 48,
+  "contactRasterDifferences": 0,
+  "markerFailures": 0,
+  "releaseClockFailures": 0,
+  "clockRewinds": 0,
+  "maxDrawnMarkerRoundingError": 0.554642,
+  "maxEventToVisualEmitterError": 0.007211,
+  "engineImportAudit": {
+    "engineSpecifier": "/engine.js?v=26",
+    "engineReferences": [
+      {
+        "file": "render.js",
+        "reference": "./engine.js?v=26"
+      },
+      {
+        "file": "snapshot.js",
+        "reference": "./engine.js?v=26"
+      },
+      {
+        "file": "online-wire.js",
+        "reference": "./engine.js?v=26"
+      },
+      {
+        "file": "spell-preview.js",
+        "reference": "./engine.js?v=26"
+      }
+    ],
+    "requestedEngineURLs": [
+      "/frozen/engine.js?v=26"
+    ]
+  },
+  "servedGitObjectsVerified": 781,
+  "gitExportCRLFTextFiles": 30,
+  "control": {
+    "cases": 1,
+    "releases": 3,
+    "mode": "public15",
+    "direction": 0,
+    "trigger": "automatic",
+    "png": "south-control/contacts/cloyster-public15-0-automatic-viewer0.png"
+  },
+  "fixtureNotes": "The single south control uses an adapted runner copy saved here; only its root resolution and fixed direction0 differ. Prior scripts and product source remain unchanged. All data and labels identify d7e379c directly."
+}

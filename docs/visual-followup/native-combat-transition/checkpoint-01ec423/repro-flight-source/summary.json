@@ -1,0 +1,4543 @@
+{
+  "status": "real_game_and_real_renderer_sprite_numeric_and_raster_readback",
+  "generatedAt": "2026-11-14T20:07:05.815Z",
+  "candidateCommit": "01ec423b12a46c5d5acfbadf43607f5571b7eb15",
+  "gitCheckpoint": {
+    "commit": "01ec423b12a46c5d5acfbadf43607f5571b7eb15",
+    "archiveSha256": "753e0c5c8754df041687952f94cbc7a20ee263058e2ec3b13a3d76627b191634",
+    "archiveBytes": 40775680,
+    "frozenAt": "2026-11-14T19:41:08.125Z",
+    "source": "git archive from immutable commit; no working-tree bytes"
+  },
+  "sourceHashes": [
+    {
+      "file": "dist/app.js",
+      "bytes": 48052,
+      "sha256": "d1ac4b276f7c4f900624725ff91059a0d061ba1da91e61aa82172c055c6eb291"
+    },
+    {
+      "file": "dist/arena-geometry.js",
+      "bytes": 4324,
+      "sha256": "291e476708913207d4b5f46a63f4fc077f3cf79c6c3cc03543b44f90e2ba4423"
+    },
+    {
+      "file": "dist/arena-tilemap.js",
+      "bytes": 2988,
+      "sha256": "ee9e991d7c778473e2920b57b475971002a24fa774b6ace789f048540fc059c1"
+    },
+    {
+      "file": "dist/assets/pokemon/manifest.json",
+      "bytes": 253443,
+      "sha256": "98f8facb20949c082d0dcbcbd21622948b0cfef19d17002bd54861b3c7d6db0b"
+    },
+    {
+      "file": "dist/attack-choreography.js",
+      "bytes": 1924,
+      "sha256": "8f64e99ac7ab948825497dc3d3d13c0ae503017f373c75e4a19c847215898262"
+    },
+    {
+      "file": "dist/audio.js",
+      "bytes": 17386,
+      "sha256": "a8b2a1b4d2c40790654a8851075eae90ef575603bab3db8757d7ba281eef0791"
+    },
+    {
+      "file": "dist/balance.js",
+      "bytes": 35064,
+      "sha256": "9358cf9ca0406673c1f01fdb6c79abe0f61a2dea724eb85f9fcbf39c5b461b1c"
+    },
+    {
+      "file": "dist/battle-art.js",
+      "bytes": 4773,
+      "sha256": "8a2102b7fd5c4ab1a8200f011a9b775c74f3268f948cf65da63910a4547d6dbe"
+    },
+    {
+      "file": "dist/capsule-art.js",
+      "bytes": 1381,
+      "sha256": "0e7401f1191814b399e1b394087da428109efa6d34040cba13dc1064b8751876"
+    },
+    {
+      "file": "dist/card-art.js",
+      "bytes": 5124,
+      "sha256": "6dbebc46dc8546d187a06b2035ed83b878276c99473117573204108e79cb82c2"
+    },
+    {
+      "file": "dist/card-equivalents.js",
+      "bytes": 19105,
+      "sha256": "c141659366660c083ef361ba9c594ab3645b5eda2a63e87232e0bf387d83affd"
+    },
+    {
+      "file": "dist/card-review.js",
+      "bytes": 14836,
+      "sha256": "3b834be599a4724589774db20da7cb329afebd314329a0033386165d9a18b853"
+    },
+    {
+      "file": "dist/catalog.js",
+      "bytes": 25758,
+      "sha256": "8dd25a1cddf2f61b078d2bc47018a20e4d91733677ea325327de4c0404cc7762"
+    },
+    {
+      "file": "dist/clash-roster.js",
+      "bytes": 2436,
+      "sha256": "531f0ff72de017228ad0d04aca11c9d0973661de514b10d6bbdfe45b40b4543c"
+    },
+    {
+      "file": "dist/combat-visuals.js",
+      "bytes": 2473,
+      "sha256": "93006993a0fb9d14203302972d679d81752260cf0e9253612d73ded68f4e2739"
+    },
+    {
+      "file": "dist/current-reference.js",
+      "bytes": 112670,
+      "sha256": "e573f67b5d73ebdd675ba44cbdc4078e197bfb98f847b5db5e6194b95635341a"
+    },
+    {
+      "file": "dist/deck-storage.js",
+      "bytes": 4690,
+      "sha256": "affe8e768a358cf5c09467c6c24e7458717cb1a139d7a14cc8219095c6170feb"
+    },
+    {
+      "file": "dist/deployment-formations.js",
+      "bytes": 1124,
+      "sha256": "d832c5a38cdaea2c660e62f66c8338bc026448a406271a5e5453ea7392f05acd"
+    },
+    {
+      "file": "dist/engine.js",
+      "bytes": 87315,
+      "sha256": "cec3940d0776a12ac9c7549b69bc43c899a6e3ceca22ebf08a4e21d6f1a5d6b2"
+    },
+    {
+      "file": "dist/knockback-profiles.js",
+      "bytes": 1777,
+      "sha256": "e2cc17619efc8694b5515ac40d0cd08fac348f0ee1208956039a5a5f4a920b58"
+    },
+    {
+      "file": "dist/music.js",
+      "bytes": 5269,
+      "sha256": "2d9a9b01bc577d5c6f548a8df9595e1312b6f5276f7c2a07498f3db2855e7162"
+    },
+    {
+      "file": "dist/native-descriptions.js",
+      "bytes": 4100,
+      "sha256": "9cd019c0fd73795b2719aeb648bcade4abd3d88145e82b909ea1789600d69427"
+    },
+    {
+      "file": "dist/native-formations.js",
+      "bytes": 2281,
+      "sha256": "47dd05a3b1fff4682ad1d014c8e422e2f1a86251cbdd6796b48402cc52b12db3"
+    },
+    {
+      "file": "dist/online-config.js",
+      "bytes": 306,
+      "sha256": "887aec9af4dd2836ede6d745b18cbe439b363ce8444d00b8366d1afd616ad581"
+    },
+    {
+      "file": "dist/online-wire.js",
+      "bytes": 1773,
+      "sha256": "083c70bf353c8ace6d995f47d7e8d936595e63cffd9a3b69cfa96cd7b386be88"
+    },
+    {
+      "file": "dist/online.js",
+      "bytes": 9277,
+      "sha256": "5058e0279ca17b4b63a6c57b4fbadfee604347d373d2c05e16cd9b9a33e08313"
+    },
+    {
+      "file": "dist/pokemon-silhouettes.js",
+      "bytes": 6066,
+      "sha256": "03ebecf4bc077b3fe195510503cf564cb789dcf8faa29d2b7cf3fdd760058742"
+    },
+    {
+      "file": "dist/pokemon-stats.js",
+      "bytes": 7580,
+      "sha256": "64c1544c59efb2c653737f73252cdab19f44eec203a45e4437a291cd88e3d75a"
+    },
+    {
+      "file": "dist/quick-stats.js",
+      "bytes": 11273,
+      "sha256": "a287c2954418ba091297b089a2af235d82a4fd6d1f7eda08bb3781e89cbaaae4"
+    },
+    {
+      "file": "dist/render.js",
+      "bytes": 63663,
+      "sha256": "209bb080341674f0827259f8a5954762e19cf6fd73f4034ba21afe1e767de7a9"
+    },
+    {
+      "file": "dist/sandbox.js",
+      "bytes": 4693,
+      "sha256": "1e6f77d604f7922b78e71ed5f181625a051c836f54ee26630a762d3c78db83c0"
+    },
+    {
+      "file": "dist/snapshot.js",
+      "bytes": 4246,
+      "sha256": "1bb962965caa519476f06d099498d630e38f7734da2e1baf61a6f65ff9eb682f"
+    },
+    {
+      "file": "dist/spell-preview.js",
+      "bytes": 1276,
+      "sha256": "64497f695736012c0b06932fa43dccc8d097fdb54dda5a9d94a87595c2276b23"
+    },
+    {
+      "file": "dist/sprite-geometry.js",
+      "bytes": 678080,
+      "sha256": "efafdc523d7e6256043999cc7f88b30f73887253c71a2a6c6c334b7dafec1f12"
+    },
+    {
+      "file": "dist/sprite-motion.js",
+      "bytes": 5680,
+      "sha256": "566f7f7bff7312a7b83528845f60d4934271a75729f6904d5f8403825374b8b9"
+    },
+    {
+      "file": "dist/targeting-art.js",
+      "bytes": 2308,
+      "sha256": "a3207c34acef39771e1f71aa32f9d88949244eeef642e44165655f936b8b43da"
+    },
+    {
+      "file": "dist/testing.js",
+      "bytes": 17114,
+      "sha256": "7539655525892813a18d9f40e12d81d0494a56acd393275e5bb4f0b56c6d2469"
+    },
+    {
+      "file": "dist/unit-sizes.js",
+      "bytes": 2326,
+      "sha256": "e99693751d8b6ae1ccb6734926494840ae7d48a04c30c071cef9a506f8a17eb9"
+    },
+    {
+      "file": "dist/wing-motion.js",
+      "bytes": 4772,
+      "sha256": "6e0beff3cfc3cd279ebc84cf42d3ea59e8dfc2c78eff59503dd2b8116ac6f2a1"
+    },
+    {
+      "file": "dist/wing-rigs.js",
+      "bytes": 9246,
+      "sha256": "a9fa115bcd8f08ff6fc5f98fd7812b3809012c768e8e58411f569b8994f3e8e6"
+    }
+  ],
+  "servedFiles": [
+    {
+      "file": "dist/engine.js",
+      "bytes": 87315,
+      "sha256": "cec3940d0776a12ac9c7549b69bc43c899a6e3ceca22ebf08a4e21d6f1a5d6b2"
+    },
+    {
+      "file": "dist/catalog.js",
+      "bytes": 25758,
+      "sha256": "8dd25a1cddf2f61b078d2bc47018a20e4d91733677ea325327de4c0404cc7762"
+    },
+    {
+      "file": "dist/balance.js",
+      "bytes": 35064,
+      "sha256": "9358cf9ca0406673c1f01fdb6c79abe0f61a2dea724eb85f9fcbf39c5b461b1c"
+    },
+    {
+      "file": "dist/sprite-motion.js",
+      "bytes": 5680,
+      "sha256": "566f7f7bff7312a7b83528845f60d4934271a75729f6904d5f8403825374b8b9"
+    },
+    {
+      "file": "dist/native-formations.js",
+      "bytes": 2281,
+      "sha256": "47dd05a3b1fff4682ad1d014c8e422e2f1a86251cbdd6796b48402cc52b12db3"
+    },
+    {
+      "file": "dist/current-reference.js",
+      "bytes": 112670,
+      "sha256": "e573f67b5d73ebdd675ba44cbdc4078e197bfb98f847b5db5e6194b95635341a"
+    },
+    {
+      "file": "dist/arena-geometry.js",
+      "bytes": 4324,
+      "sha256": "291e476708913207d4b5f46a63f4fc077f3cf79c6c3cc03543b44f90e2ba4423"
+    },
+    {
+      "file": "dist/pokemon-stats.js",
+      "bytes": 7580,
+      "sha256": "64c1544c59efb2c653737f73252cdab19f44eec203a45e4437a291cd88e3d75a"
+    },
+    {
+      "file": "dist/unit-sizes.js",
+      "bytes": 2326,
+      "sha256": "e99693751d8b6ae1ccb6734926494840ae7d48a04c30c071cef9a506f8a17eb9"
+    },
+    {
+      "file": "dist/knockback-profiles.js",
+      "bytes": 1777,
+      "sha256": "e2cc17619efc8694b5515ac40d0cd08fac348f0ee1208956039a5a5f4a920b58"
+    },
+    {
+      "file": "dist/deployment-formations.js",
+      "bytes": 1124,
+      "sha256": "d832c5a38cdaea2c660e62f66c8338bc026448a406271a5e5453ea7392f05acd"
+    },
+    {
+      "file": "dist/sprite-geometry.js",
+      "bytes": 678080,
+      "sha256": "efafdc523d7e6256043999cc7f88b30f73887253c71a2a6c6c334b7dafec1f12"
+    },
+    {
+      "file": "dist/attack-choreography.js",
+      "bytes": 1924,
+      "sha256": "8f64e99ac7ab948825497dc3d3d13c0ae503017f373c75e4a19c847215898262"
+    },
+    {
+      "file": "dist/native-descriptions.js",
+      "bytes": 4100,
+      "sha256": "9cd019c0fd73795b2719aeb648bcade4abd3d88145e82b909ea1789600d69427"
+    },
+    {
+      "file": "dist/arena-tilemap.js",
+      "bytes": 2988,
+      "sha256": "ee9e991d7c778473e2920b57b475971002a24fa774b6ace789f048540fc059c1"
+    },
+    {
+      "file": "dist/render.js",
+      "bytes": 63663,
+      "sha256": "209bb080341674f0827259f8a5954762e19cf6fd73f4034ba21afe1e767de7a9"
+    },
+    {
+      "file": "dist/battle-art.js",
+      "bytes": 4773,
+      "sha256": "8a2102b7fd5c4ab1a8200f011a9b775c74f3268f948cf65da63910a4547d6dbe"
+    },
+    {
+      "file": "dist/combat-visuals.js",
+      "bytes": 2473,
+      "sha256": "93006993a0fb9d14203302972d679d81752260cf0e9253612d73ded68f4e2739"
+    },
+    {
+      "file": "dist/spell-preview.js",
+      "bytes": 1276,
+      "sha256": "64497f695736012c0b06932fa43dccc8d097fdb54dda5a9d94a87595c2276b23"
+    },
+    {
+      "file": "dist/targeting-art.js",
+      "bytes": 2308,
+      "sha256": "a3207c34acef39771e1f71aa32f9d88949244eeef642e44165655f936b8b43da"
+    },
+    {
+      "file": "dist/wing-motion.js",
+      "bytes": 4772,
+      "sha256": "6e0beff3cfc3cd279ebc84cf42d3ea59e8dfc2c78eff59503dd2b8116ac6f2a1"
+    },
+    {
+      "file": "dist/capsule-art.js",
+      "bytes": 1381,
+      "sha256": "0e7401f1191814b399e1b394087da428109efa6d34040cba13dc1064b8751876"
+    },
+    {
+      "file": "dist/assets/battle/manifest.js",
+      "bytes": 7138,
+      "sha256": "0e4f146ef52d0d4225192729358f35bd3ac31025190870b8e15f8eb08492a1ae"
+    },
+    {
+      "file": "dist/assets/battle/projectile-bounds.js",
+      "bytes": 685,
+      "sha256": "3fb806ea96e8c655feff1148fe71175d7d315b1d71720c476747d8b7ac86f86e"
+    },
+    {
+      "file": "dist/assets/battle/frame-bounds.js",
+      "bytes": 755,
+      "sha256": "3d9f54c5593142cdec764e5606a82c5d041a1252d818b151e8c7611485ae638e"
+    },
+    {
+      "file": "dist/pokemon-silhouettes.js",
+      "bytes": 6066,
+      "sha256": "03ebecf4bc077b3fe195510503cf564cb789dcf8faa29d2b7cf3fdd760058742"
+    },
+    {
+      "file": "dist/wing-rigs.js",
+      "bytes": 9246,
+      "sha256": "a9fa115bcd8f08ff6fc5f98fd7812b3809012c768e8e58411f569b8994f3e8e6"
+    },
+    {
+      "file": "dist/online-wire.js",
+      "bytes": 1773,
+      "sha256": "083c70bf353c8ace6d995f47d7e8d936595e63cffd9a3b69cfa96cd7b386be88"
+    },
+    {
+      "file": "dist/snapshot.js",
+      "bytes": 4246,
+      "sha256": "1bb962965caa519476f06d099498d630e38f7734da2e1baf61a6f65ff9eb682f"
+    },
+    {
+      "file": "dist/assets/pokemon/manifest.json",
+      "bytes": 253443,
+      "sha256": "98f8facb20949c082d0dcbcbd21622948b0cfef19d17002bd54861b3c7d6db0b"
+    },
+    {
+      "file": "dist/assets/pokemon/65/Walk-Anim.png",
+      "bytes": 6224,
+      "sha256": "472a6e8e1517ff6ddc6ae027d90d34d580cfc3acd57363c4907de959c2e37c0c"
+    },
+    {
+      "file": "dist/assets/pokemon/65/Walk-Shadow.png",
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    {
+      "file": "dist/assets/pokemon/65/Idle-Anim.png",
+      "bytes": 7015,
+      "sha256": "9ffb292d6af152f830201880c5138991f3d1f0a98cdc0a2e832f6b12605d1a1e"
+    },
+    {
+      "file": "dist/assets/pokemon/65/Idle-Shadow.png",
+      "bytes": 1210,
+      "sha256": "97eb7083e7d9298767040ec4cad03b05637d70e68f79d7d7a0f95620c7b407a1"
+    },
+    {
+      "file": "dist/assets/pokemon/65/Attack-Shadow.png",
+      "bytes": 4950,
+      "sha256": "f8ee3794364cf3074110577b7f3da023c318064ef99ad1b327104cd2519863dd"
+    },
+    {
+      "file": "dist/assets/pokemon/65/Attack-Anim.png",
+      "bytes": 15050,
+      "sha256": "b0a0627a33079516055c4114da3291d2f12ec9daaa78f6d61a81908280403eb5"
+    },
+    {
+      "file": "dist/assets/pokemon/65/Hurt-Shadow.png",
+      "bytes": 844,
+      "sha256": "ac6de71c1c2d68f7b57c3628d73cabee468c84be9da37305bcf53ed6999365a5"
+    },
+    {
+      "file": "dist/assets/pokemon/65/Hurt-Anim.png",
+      "bytes": 5818,
+      "sha256": "3e3fc242f39f069c1db815689bb9276107a012d3a8c7253d4c17ca9ba15c1188"
+    },
+    {
+      "file": "dist/assets/pokemon/65/Shoot-Anim.png",
+      "bytes": 10737,
+      "sha256": "575d0aed56d42b50b6db9fbae8db91650e2c832623f599429f3852bff12c0e6a"
+    },
+    {
+      "file": "dist/assets/pokemon/65/Shoot-Shadow.png",
+      "bytes": 1969,
+      "sha256": "8eeffa3bc26e4fe24826ba350c76e0f44a53cc2b3fa2ca2afd933955d8d6ce95"
+    },
+    {
+      "file": "dist/assets/pokemon/181/Walk-Shadow.png",
+      "bytes": 597,
+      "sha256": "bd4852e1670f77c84a8844685deb14474c14b06cb6ce41a55d0fe0014e2d4774"
+    },
+    {
+      "file": "dist/assets/pokemon/181/Walk-Anim.png",
+      "bytes": 7370,
+      "sha256": "f0c0b901ac087471d8ffc65b863ec89f59172d7ec963160aaab729b5de37b568"
+    },
+    {
+      "file": "dist/assets/pokemon/181/Idle-Shadow.png",
+      "bytes": 1261,
+      "sha256": "3422479b897e0979a9e3efef1b5a1cc41365df596ffc39a17a20158b9fb2b9cb"
+    },
+    {
+      "file": "dist/assets/pokemon/181/Idle-Anim.png",
+      "bytes": 11055,
+      "sha256": "2446e1cc66e6d983feb7d69418a9cf8d3bb95dd67c48c7e65d3af09c2d3563f2"
+    },
+    {
+      "file": "dist/assets/pokemon/181/Attack-Anim.png",
+      "bytes": 19736,
+      "sha256": "cecb5b2341ca648ee1b78a7892a38399f0e88ea518be8927e67237489224c057"
+    },
+    {
+      "file": "dist/assets/pokemon/181/Attack-Shadow.png",
+      "bytes": 5949,
+      "sha256": "1f679fda6e3d1e9c8dfe277f79aeebe4f7aa9447dd42794f3de77a2ca0613e38"
+    },
+    {
+      "file": "dist/assets/pokemon/181/Hurt-Anim.png",
+      "bytes": 4916,
+      "sha256": "490b9403d402fe8cf71b5723b13f4c6002b8b0c7f3a0064c0624cc6204b9bda6"
+    },
+    {
+      "file": "dist/assets/pokemon/181/Hurt-Shadow.png",
+      "bytes": 969,
+      "sha256": "db7d3db4e87983e7d724483082216d1420e2c793fda34cedf6420eb36144d721"
+    },
+    {
+      "file": "dist/assets/pokemon/181/Shoot-Anim.png",
+      "bytes": 14631,
+      "sha256": "baa2e9a1fa40d6390505a48b58d3c428dd15123fad396771cfeb89edca036d85"
+    },
+    {
+      "file": "dist/assets/pokemon/181/Shoot-Shadow.png",
+      "bytes": 3171,
+      "sha256": "e3b2eae0d86b992cb410f131efac128ee567ca8f40875548f213409dfaf04604"
+    },
+    {
+      "file": "dist/assets/pokemon/59/Walk-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/59/Walk-Anim.png",
+      "bytes": 11192,
+      "sha256": "334750447c22099cf87fc6cf7804f4490bb47f87581c5134a05c0998aeb4537e"
+    },
+    {
+      "file": "dist/assets/pokemon/59/Idle-Anim.png",
+      "bytes": 4427,
+      "sha256": "c0adf6e40d44a363f2742667be42d8c1e4d900304bb8bba2d9e85e55289a0a22"
+    },
+    {
+      "file": "dist/assets/pokemon/59/Idle-Shadow.png",
+      "bytes": 337,
+      "sha256": "875ebb5f2f91af0fa064e77b60580c851b43742d3467a7ac3932e7b935a1d4f1"
+    },
+    {
+      "file": "dist/assets/pokemon/59/Attack-Anim.png",
+      "bytes": 40290,
+      "sha256": "92a8d3b4c19ea58a8f650d720e4a1dff3164e6adab1fb52d9f59a276834dd5b8"
+    },
+    {
+      "file": "dist/assets/pokemon/59/Attack-Shadow.png",
+      "bytes": 6792,
+      "sha256": "73faa53a1a192fa0300f05140d3e3753c274a392bd3fc116367f3015a46a062d"
+    },
+    {
+      "file": "dist/assets/pokemon/59/Hurt-Anim.png",
+      "bytes": 6909,
+      "sha256": "f54455e4e6c34b128abee8dcd85003d272e4371aec0a7017a5c44dc3dfa8070a"
+    },
+    {
+      "file": "dist/assets/pokemon/59/Hurt-Shadow.png",
+      "bytes": 787,
+      "sha256": "c598a4c3fc9b723e5936bd5ed74086c34af796aa188d84466b4472b3fb8eb99c"
+    },
+    {
+      "file": "dist/assets/pokemon/144/Walk-Shadow.png",
+      "bytes": 2169,
+      "sha256": "0a62a31ae0de494c8abecf16ebb6700b07127f629a18da63a8daac69ad6f307f"
+    },
+    {
+      "file": "dist/assets/pokemon/144/Walk-Anim.png",
+      "bytes": 21343,
+      "sha256": "2f1475714c40f7c68938bf6a2c5aa86c2edbd992a687562efb759630928045fd"
+    },
+    {
+      "file": "dist/assets/pokemon/144/Idle-Anim.png",
+      "bytes": 21345,
+      "sha256": "14b0ad8cb151d32b2f0cd518b1904181fae4fa85d3058ae3f6763537025bac5e"
+    },
+    {
+      "file": "dist/assets/pokemon/144/Idle-Shadow.png",
+      "bytes": 2169,
+      "sha256": "0a62a31ae0de494c8abecf16ebb6700b07127f629a18da63a8daac69ad6f307f"
+    },
+    {
+      "file": "dist/assets/pokemon/144/Attack-Anim.png",
+      "bytes": 37607,
+      "sha256": "b293e46c8a98e88a3b04ed52dd39687251f2f6177f6518202539e71d53a01703"
+    },
+    {
+      "file": "dist/assets/pokemon/144/Attack-Shadow.png",
+      "bytes": 6203,
+      "sha256": "b8c05fb0cb685ad6ab9aaadb1bc691ca3a16165fafd7f3f72d02f64b49b789b0"
+    },
+    {
+      "file": "dist/assets/pokemon/144/Hurt-Anim.png",
+      "bytes": 11850,
+      "sha256": "d6a91e7b652d6394e168af33e0f1ef6ee6a5c146720b442d28e1e1c82e0dc10d"
+    },
+    {
+      "file": "dist/assets/pokemon/144/Hurt-Shadow.png",
+      "bytes": 1458,
+      "sha256": "c19fcc837d3a17b02e137bfe18184d3adff1a02ed055f2d297ce76d49384487f"
+    },
+    {
+      "file": "dist/assets/pokemon/144/Shoot-Anim.png",
+      "bytes": 63867,
+      "sha256": "216af7270836fb384509a8f7d06d3eddab69b1371e0b1acdfba35651e7ab8bac"
+    },
+    {
+      "file": "dist/assets/pokemon/144/Shoot-Shadow.png",
+      "bytes": 10285,
+      "sha256": "1df040df6e7b03ce9979d70e61968bb692c02ab5ae81fdeeeb1c66cef91130bc"
+    },
+    {
+      "file": "dist/assets/pokemon/15/Walk-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/15/Walk-Anim.png",
+      "bytes": 8257,
+      "sha256": "832dfdb59cdd0cd8a17671e077266028198d9497fcc0c31f5016f3abe4ddb0b0"
+    },
+    {
+      "file": "dist/assets/pokemon/15/Attack-Anim.png",
+      "bytes": 27280,
+      "sha256": "ce93e28493426109af24ff6bd1b61d37f26fab406122967e44481e128da5474f"
+    },
+    {
+      "file": "dist/assets/pokemon/15/Attack-Shadow.png",
+      "bytes": 7561,
+      "sha256": "98977bdf4805124ce7dc7a1417bd776b5f0a0ff829dc4d952d3a2c168d41d007"
+    },
+    {
+      "file": "dist/assets/pokemon/15/Hurt-Shadow.png",
+      "bytes": 848,
+      "sha256": "59e15793497a8122091a82c72c5a51beee94f1f6d7103dfedfb2604d57a02f51"
+    },
+    {
+      "file": "dist/assets/pokemon/15/Hurt-Anim.png",
+      "bytes": 4726,
+      "sha256": "b4972eededcb5758b6cb6c8dc189388c63aaa94954baf51a1309a9bce3f51688"
+    },
+    {
+      "file": "dist/assets/pokemon/9/Walk-Anim.png",
+      "bytes": 11364,
+      "sha256": "90074aa6cea5dc4fd11a5ca2bd756f71d83798e2efc346d8d609907489f70350"
+    },
+    {
+      "file": "dist/assets/pokemon/9/Walk-Shadow.png",
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    {
+      "file": "dist/assets/pokemon/9/Idle-Shadow.png",
+      "bytes": 2149,
+      "sha256": "bb1edc521886ebe78751de066605a38b72a8e89e76f00631de6341a16b5eb6a4"
+    },
+    {
+      "file": "dist/assets/pokemon/9/Attack-Anim.png",
+      "bytes": 28195,
+      "sha256": "a11c75977e2a1e8d5d41d3f441db9a8176f95102eb04bfaea7fe5e099dd1127e"
+    },
+    {
+      "file": "dist/assets/pokemon/9/Idle-Anim.png",
+      "bytes": 12987,
+      "sha256": "eb9bca8db6a6fda567302db7815bf122829a07c2fb77ab5e5fb69fb67779815e"
+    },
+    {
+      "file": "dist/assets/pokemon/9/Attack-Shadow.png",
+      "bytes": 5433,
+      "sha256": "e674a691edf4465b575602f7f76b9960a7ae50347020b6538e52beaa0df8bac1"
+    },
+    {
+      "file": "dist/assets/pokemon/9/Hurt-Shadow.png",
+      "bytes": 718,
+      "sha256": "83cb0e9aa2b87a9cc7d8a69d62a5f8ed88c42846d97c4338815861fcaf88f084"
+    },
+    {
+      "file": "dist/assets/pokemon/9/Hurt-Anim.png",
+      "bytes": 3662,
+      "sha256": "8f5e78a8814aa0d16a9da08c56415e6892e09ec687ca9538ccc1e8edecd9961a"
+    },
+    {
+      "file": "dist/assets/pokemon/9/Shoot-Anim.png",
+      "bytes": 18999,
+      "sha256": "18ef283b80280a7f8625ddfd5b9da950d77b9eb4022875e97e8f28e320e651bf"
+    },
+    {
+      "file": "dist/assets/pokemon/9/Shoot-Shadow.png",
+      "bytes": 2521,
+      "sha256": "f08dff112fc8619295c8b4a21426deb069a1bf00c0c3a29613d50858cc3072ad"
+    },
+    {
+      "file": "dist/assets/pokemon/257/Walk-Anim.png",
+      "bytes": 10043,
+      "sha256": "61581ec6b6f5af40ca96777f6777fee1e0f574a2747885073dce2b2dfee22633"
+    },
+    {
+      "file": "dist/assets/pokemon/257/Walk-Shadow.png",
+      "bytes": 597,
+      "sha256": "bd4852e1670f77c84a8844685deb14474c14b06cb6ce41a55d0fe0014e2d4774"
+    },
+    {
+      "file": "dist/assets/pokemon/257/Idle-Anim.png",
+      "bytes": 6396,
+      "sha256": "3fa9230c38bc55a4d25d5345aa1b8787e12918f7783d8c54d93a567c99582e61"
+    },
+    {
+      "file": "dist/assets/pokemon/257/Idle-Shadow.png",
+      "bytes": 503,
+      "sha256": "845b71acdd65e8a6b307f397f0575f4d7c1e55ab93a824303cd5a117253889b7"
+    },
+    {
+      "file": "dist/assets/pokemon/257/Attack-Anim.png",
+      "bytes": 22740,
+      "sha256": "b18362eba01ff6ed02ae8bc40d263efce898b0ccaf77bf65c058bb6d2f78d5f0"
+    },
+    {
+      "file": "dist/assets/pokemon/257/Attack-Shadow.png",
+      "bytes": 4602,
+      "sha256": "fdd89aca88d30d5ec92ae8760af17de110e789b3e59c5a4f88ce965883a68b8d"
+    },
+    {
+      "file": "dist/assets/pokemon/257/Hurt-Anim.png",
+      "bytes": 6369,
+      "sha256": "7f756ef419dbacadba19dac185d114907094576393b0164996e7c8b6ecf416af"
+    },
+    {
+      "file": "dist/assets/pokemon/257/Hurt-Shadow.png",
+      "bytes": 815,
+      "sha256": "df7815c9541ff2a2416b89ee31260fb0bb23e9f9c037457468f59cf976f1d0bb"
+    },
+    {
+      "file": "dist/assets/pokemon/1/Walk-Anim.png",
+      "bytes": 12213,
+      "sha256": "84e8e7a58f68204a47f990becc7e8c324e486e5127557261e8ccbe55e9e979b2"
+    },
+    {
+      "file": "dist/assets/pokemon/1/Walk-Shadow.png",
+      "bytes": 1862,
+      "sha256": "1be89652e291dea28cdb83add389792a1e58e0573a4c891eb54963b8839e630a"
+    },
+    {
+      "file": "dist/assets/pokemon/1/Idle-Anim.png",
+      "bytes": 7322,
+      "sha256": "bae238b6ae50dc97781a03b2210dc3ee1954c9f6207826e49091227bb9c783d1"
+    },
+    {
+      "file": "dist/assets/pokemon/1/Attack-Shadow.png",
+      "bytes": 5060,
+      "sha256": "b1ae42e82b7e0ce7e9252a894c5cf74122611c170bbddbc9d75d994a067bd2c5"
+    },
+    {
+      "file": "dist/assets/pokemon/1/Attack-Anim.png",
+      "bytes": 19578,
+      "sha256": "f8b6b5fc9132d9fb701741086bacfc0e80d0a8d2b45473abb425d4c6b427a252"
+    },
+    {
+      "file": "dist/assets/pokemon/1/Idle-Shadow.png",
+      "bytes": 495,
+      "sha256": "6785087105a1b704b818b35e0ed6ef94dcdf9b0b5862e4065db01b99611dc7ad"
+    },
+    {
+      "file": "dist/assets/pokemon/1/Hurt-Anim.png",
+      "bytes": 4861,
+      "sha256": "cbafac2615cfa0023288e2b2d01ba8c180a54164aa49430a06acd83756880976"
+    },
+    {
+      "file": "dist/assets/pokemon/1/Hurt-Shadow.png",
+      "bytes": 787,
+      "sha256": "c598a4c3fc9b723e5936bd5ed74086c34af796aa188d84466b4472b3fb8eb99c"
+    },
+    {
+      "file": "dist/assets/pokemon/1/Shoot-Anim.png",
+      "bytes": 5992,
+      "sha256": "f929da013301ae7362d57fadc49a94593b3c908c812c1e285c35c30ccbf47c31"
+    },
+    {
+      "file": "dist/assets/pokemon/1/Shoot-Shadow.png",
+      "bytes": 620,
+      "sha256": "b1639bea77323f6b9aeeaa5e0854a0c43c1894c9d4798cfe390e363908c00b2b"
+    },
+    {
+      "file": "dist/assets/pokemon/12/Walk-Anim.png",
+      "bytes": 19861,
+      "sha256": "36da453a32e920275d475f669d3e58ece66f5dffda5f95c998b0aac660819ad5"
+    },
+    {
+      "file": "dist/assets/pokemon/12/Walk-Shadow.png",
+      "bytes": 3057,
+      "sha256": "d6fa8ebab912ef8e4fa7d1b869ad8b29994dd756a81ba145aef29a77b1ce5640"
+    },
+    {
+      "file": "dist/assets/pokemon/12/Idle-Anim.png",
+      "bytes": 10914,
+      "sha256": "936ff1e2ef4d01aa3a30dc8436465bc179dea60142f5c34461091011bf934aea"
+    },
+    {
+      "file": "dist/assets/pokemon/12/Idle-Shadow.png",
+      "bytes": 991,
+      "sha256": "090430950c8c4cdb45a93bd3cc038858fe937ddf268af6c1a0c4037ca55ac460"
+    },
+    {
+      "file": "dist/assets/pokemon/12/Attack-Anim.png",
+      "bytes": 34388,
+      "sha256": "5ce2c76805199f27dd95d25657327cdad276194af026dc3e25ef83516ae7f092"
+    },
+    {
+      "file": "dist/assets/pokemon/12/Attack-Shadow.png",
+      "bytes": 6333,
+      "sha256": "8725afc3e8c1040862b1cc8ad231a83a05075990a9ba4fca27d217a9e0405d68"
+    },
+    {
+      "file": "dist/assets/pokemon/12/Hurt-Shadow.png",
+      "bytes": 969,
+      "sha256": "db7d3db4e87983e7d724483082216d1420e2c793fda34cedf6420eb36144d721"
+    },
+    {
+      "file": "dist/assets/pokemon/12/Hurt-Anim.png",
+      "bytes": 7432,
+      "sha256": "b614de88bd704c0c448586a1a41b29752619b1cf073869703dad9a795f3ae8cb"
+    },
+    {
+      "file": "dist/assets/pokemon/12/Shoot-Shadow.png",
+      "bytes": 4199,
+      "sha256": "5ddc9ff1fccd893623b08e01395bca270974f849a76481d9544f3113c80b9d04"
+    },
+    {
+      "file": "dist/assets/pokemon/12/Shoot-Anim.png",
+      "bytes": 39503,
+      "sha256": "f3e83c07e5eeacd84515eb519e1dd472f0154e7eaeec3e9214346c23b41bcec4"
+    },
+    {
+      "file": "dist/assets/pokemon/251/Walk-Anim.png",
+      "bytes": 8348,
+      "sha256": "24393e1a801b69ddc53093853bebe784f74f12120dc077b5dba92b7c6d4c2409"
+    },
+    {
+      "file": "dist/assets/pokemon/251/Walk-Shadow.png",
+      "bytes": 923,
+      "sha256": "89562329ff792f5ade50f272bc4c1049b97b6826eb65e9884027dafea3abf955"
+    },
+    {
+      "file": "dist/assets/pokemon/251/Idle-Anim.png",
+      "bytes": 7170,
+      "sha256": "1b3e0ed9027c5556c75bbcf2dcce0495ca3e98a5987ee2aaf88346522c08b76b"
+    },
+    {
+      "file": "dist/assets/pokemon/251/Idle-Shadow.png",
+      "bytes": 639,
+      "sha256": "cc3dacd2ec0beb048310fbe9c094620600ce5ff328d0eddec83b6b2229912acd"
+    },
+    {
+      "file": "dist/assets/pokemon/251/Attack-Anim.png",
+      "bytes": 22007,
+      "sha256": "24ba83b7285edec36cbbffe05d8768bf748c53c53d009281053964511cdfc7a5"
+    },
+    {
+      "file": "dist/assets/pokemon/251/Attack-Shadow.png",
+      "bytes": 6724,
+      "sha256": "54d248a17d9903122cc8c59ceaa96ed190b2c578d982d1b2bdc32ba01b6591e1"
+    },
+    {
+      "file": "dist/assets/pokemon/251/Hurt-Anim.png",
+      "bytes": 4844,
+      "sha256": "14daad5b07238a12a1f032775effb769a87d6eeec3dfa65f5e660ce0ffe4a772"
+    },
+    {
+      "file": "dist/assets/pokemon/251/Hurt-Shadow.png",
+      "bytes": 876,
+      "sha256": "63811f8deb06158d9f428ad3097f5080770118f31ed354a0afaab471b3d2466a"
+    },
+    {
+      "file": "dist/assets/pokemon/251/Shoot-Anim.png",
+      "bytes": 13923,
+      "sha256": "c527aef567a7277c658d02140a74c89acb64560453ca58ce1d36070e8febf580"
+    },
+    {
+      "file": "dist/assets/pokemon/251/Shoot-Shadow.png",
+      "bytes": 2968,
+      "sha256": "c6578e1471cc46790b54ba0e044180294888fffd147cef4e67feba9ecdec7d00"
+    },
+    {
+      "file": "dist/assets/pokemon/101/Idle-Anim.png",
+      "bytes": 4040,
+      "sha256": "024e0bc04f7721ae57d73ac51bc82e9ccc58b76f3e87b3bcb5b20384ad662d86"
+    },
+    {
+      "file": "dist/assets/pokemon/101/Walk-Anim.png",
+      "bytes": 7552,
+      "sha256": "c02d24fb693354bde6ea34fb7a618ebdca7d4ad975ea13fbe3f554aad42edca1"
+    },
+    {
+      "file": "dist/assets/pokemon/101/Idle-Shadow.png",
+      "bytes": 922,
+      "sha256": "9ec76600d89e1b8650c902397c6a1a0227ac685623ffe1a8200a36a47af4dc24"
+    },
+    {
+      "file": "dist/assets/pokemon/101/Attack-Shadow.png",
+      "bytes": 5740,
+      "sha256": "fd7954b98ae030f2bedde31d013440972ab1c1ca334ffbdb4afc67b532dcc0fd"
+    },
+    {
+      "file": "dist/assets/pokemon/101/Attack-Anim.png",
+      "bytes": 16000,
+      "sha256": "3ae548b86e2a4ce85b64facb6480ee95d0e06d5ee9d100adcf359ab6b89b681f"
+    },
+    {
+      "file": "dist/assets/pokemon/101/Walk-Shadow.png",
+      "bytes": 2175,
+      "sha256": "6d8a81fac822ffb26f98e7057a18b78bce027303d2f5b5dc0a9d2163e71ca147"
+    },
+    {
+      "file": "dist/assets/pokemon/101/Hurt-Anim.png",
+      "bytes": 4860,
+      "sha256": "64565f81afe895b717921da361c11f272a8b42296ebc89b1cbce3cfa4fce3227"
+    },
+    {
+      "file": "dist/assets/pokemon/101/Charge-Anim.png",
+      "bytes": 3960,
+      "sha256": "bbeb786d61ff92ac9dd49a2a0be5ffd0c114712ac94002cd1372e5d4f1430ce6"
+    },
+    {
+      "file": "dist/assets/pokemon/101/Hurt-Shadow.png",
+      "bytes": 881,
+      "sha256": "c9f80ce48d650caabda2bbe00522e3da7cf868137f0d292652a23d5ebc480874"
+    },
+    {
+      "file": "dist/assets/pokemon/101/Charge-Shadow.png",
+      "bytes": 1491,
+      "sha256": "cff6b41d21845dfdb13691040dc03bef0c3e41f242191a2fe743a3972bdc1ad5"
+    },
+    {
+      "file": "dist/assets/pokemon/6/Walk-Anim.png",
+      "bytes": 12077,
+      "sha256": "ceeb33e0db05817c2566e964d7b2264d0fb8fdecd480f7245faeafc864bc0d9b"
+    },
+    {
+      "file": "dist/assets/pokemon/6/Walk-Shadow.png",
+      "bytes": 792,
+      "sha256": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec"
+    },
+    {
+      "file": "dist/assets/pokemon/6/Idle-Anim.png",
+      "bytes": 12077,
+      "sha256": "ceeb33e0db05817c2566e964d7b2264d0fb8fdecd480f7245faeafc864bc0d9b"
+    },
+    {
+      "file": "dist/assets/pokemon/6/Idle-Shadow.png",
+      "bytes": 792,
+      "sha256": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec"
+    },
+    {
+      "file": "dist/assets/pokemon/6/Attack-Anim.png",
+      "bytes": 37549,
+      "sha256": "af67973adf681138435e48494a7f04a80809a42b3378fea9486a18744c63f32e"
+    },
+    {
+      "file": "dist/assets/pokemon/6/Attack-Shadow.png",
+      "bytes": 7151,
+      "sha256": "26f3b35801eb5a705337d1d05048b4576e6d124878f07546bd78c0acfb932970"
+    },
+    {
+      "file": "dist/assets/pokemon/6/Hurt-Shadow.png",
+      "bytes": 1002,
+      "sha256": "03a44da161edeef5b8c0a9c2d20a5e11a30664b078f3c12bf256b33054429860"
+    },
+    {
+      "file": "dist/assets/pokemon/6/Hurt-Anim.png",
+      "bytes": 7261,
+      "sha256": "838924d5af02c21a3c67918807d8089afd09144a54a1898fcd02d977f4ad0aec"
+    },
+    {
+      "file": "dist/assets/pokemon/6/Shoot-Anim.png",
+      "bytes": 21959,
+      "sha256": "7064487ed8b43e2aa4d73872a1c40320fc883ad224c1a717057918f3eedf9a8a"
+    },
+    {
+      "file": "dist/assets/pokemon/6/Shoot-Shadow.png",
+      "bytes": 3771,
+      "sha256": "71d5aa90343c68f2cb2a54b92d7f5c09f10914cfda599e2f7462b67f80dfe06e"
+    },
+    {
+      "file": "dist/assets/pokemon/6/Hop-Anim.png",
+      "bytes": 26905,
+      "sha256": "6bc15ac3695849339acb20a0e78847e90e2e39b48540b173f1a293d037276df2"
+    },
+    {
+      "file": "dist/assets/pokemon/6/Hop-Shadow.png",
+      "bytes": 2419,
+      "sha256": "30edd9679772a18769dd267a4de294ea18ecc22172a01d059fe43e2a53c774cd"
+    },
+    {
+      "file": "dist/assets/pokemon/4/Walk-Anim.png",
+      "bytes": 5626,
+      "sha256": "3e120c93b743fe30d10766114d54e230e851a43e4ffc174bcb7eb424a452a05a"
+    },
+    {
+      "file": "dist/assets/pokemon/4/Walk-Shadow.png",
+      "bytes": 502,
+      "sha256": "986ed7e027135db592e146107bff26dac9ab00e787f7e4002bcca92696fc54b3"
+    },
+    {
+      "file": "dist/assets/pokemon/4/Idle-Anim.png",
+      "bytes": 6423,
+      "sha256": "304a2a2d7f07e6a81bec42270b585b57d4ce0af78b20a6905a1bc704e2415350"
+    },
+    {
+      "file": "dist/assets/pokemon/4/Idle-Shadow.png",
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    {
+      "file": "dist/assets/pokemon/4/Attack-Anim.png",
+      "bytes": 16284,
+      "sha256": "4f98b662bdbe7d2e91c765d521f03509bad7500caf7d4f85c8566257cda13894"
+    },
+    {
+      "file": "dist/assets/pokemon/4/Attack-Shadow.png",
+      "bytes": 4839,
+      "sha256": "bda8ebb413b23215d7346740eea9bc860a8dd859f084273e752110bc2d35ce2f"
+    },
+    {
+      "file": "dist/assets/pokemon/4/Hurt-Shadow.png",
+      "bytes": 815,
+      "sha256": "df7815c9541ff2a2416b89ee31260fb0bb23e9f9c037457468f59cf976f1d0bb"
+    },
+    {
+      "file": "dist/assets/pokemon/4/Hurt-Anim.png",
+      "bytes": 5055,
+      "sha256": "86e742d76d27fede779bde33ab956799de900361cf842946086c25eac2042ad1"
+    },
+    {
+      "file": "dist/assets/pokemon/91/Walk-Anim.png",
+      "bytes": 15545,
+      "sha256": "18041ab9c58b8d7a623f99a29085300a1bca99dfabde8a93cb45f8e165f04074"
+    },
+    {
+      "file": "dist/assets/pokemon/91/Walk-Shadow.png",
+      "bytes": 963,
+      "sha256": "98b12e753f426562b6f50a2a0960b253155343cc1310bd22dbd560378051005f"
+    },
+    {
+      "file": "dist/assets/pokemon/91/Idle-Anim.png",
+      "bytes": 13798,
+      "sha256": "527854b3a7883a10390a2f0b5577b365c0e3468d4f6bf0525a7182f9ba01c513"
+    },
+    {
+      "file": "dist/assets/pokemon/91/Idle-Shadow.png",
+      "bytes": 963,
+      "sha256": "98b12e753f426562b6f50a2a0960b253155343cc1310bd22dbd560378051005f"
+    },
+    {
+      "file": "dist/assets/pokemon/91/Attack-Anim.png",
+      "bytes": 30008,
+      "sha256": "b40529592e43cd44a4fa31dcaaca9dd8d4ca62ec87cf0bcf7c1547fea127ef16"
+    },
+    {
+      "file": "dist/assets/pokemon/91/Attack-Shadow.png",
+      "bytes": 6043,
+      "sha256": "003ffaf893e77c5bd9a0ff06b0f5fad7d237747e2f76826b4e1c92266fd439d9"
+    },
+    {
+      "file": "dist/assets/pokemon/91/Hurt-Anim.png",
+      "bytes": 6007,
+      "sha256": "d7e37657d9622952244a674a6351db3d31967082eaa36414938dd21a31b2435b"
+    },
+    {
+      "file": "dist/assets/pokemon/91/Hurt-Shadow.png",
+      "bytes": 802,
+      "sha256": "20ce4ed6a229d23fb065544b3db4a5f77b92814c9c6028c1cca425c0e7233a5f"
+    },
+    {
+      "file": "dist/assets/pokemon/91/Shoot-Anim.png",
+      "bytes": 23973,
+      "sha256": "00dfda03a049793a564ddb356a500bf668d4681e6d3ef76ff0d15e2323714771"
+    },
+    {
+      "file": "dist/assets/pokemon/91/Shoot-Shadow.png",
+      "bytes": 4402,
+      "sha256": "c9b3a004aad66fcbee47eb70a238cc806b7d3ef18518d8da5517765e62d1c6ab"
+    },
+    {
+      "file": "dist/assets/pokemon/169/Walk-Anim.png",
+      "bytes": 13953,
+      "sha256": "f4f8140e8de24f19528c99151d46ff8a56110b339d1daae185f2b86de7c38848"
+    },
+    {
+      "file": "dist/assets/pokemon/169/Walk-Shadow.png",
+      "bytes": 2379,
+      "sha256": "dee1c5f1237312cb316ffb3ac5b892ef05bc9b027cfc6e120c8e68264fb5fe6f"
+    },
+    {
+      "file": "dist/assets/pokemon/169/Idle-Anim.png",
+      "bytes": 13953,
+      "sha256": "f4f8140e8de24f19528c99151d46ff8a56110b339d1daae185f2b86de7c38848"
+    },
+    {
+      "file": "dist/assets/pokemon/169/Idle-Shadow.png",
+      "bytes": 2379,
+      "sha256": "dee1c5f1237312cb316ffb3ac5b892ef05bc9b027cfc6e120c8e68264fb5fe6f"
+    },
+    {
+      "file": "dist/assets/pokemon/169/Attack-Anim.png",
+      "bytes": 31483,
+      "sha256": "ce35ae163cb4b02bbf723946db75cc8d258356975257af9be448b5d091b4f38f"
+    },
+    {
+      "file": "dist/assets/pokemon/169/Attack-Shadow.png",
+      "bytes": 6315,
+      "sha256": "7f284abe4937a06c13795f4a490c5f58578c8c57665ce00adad419ee38a4dce9"
+    },
+    {
+      "file": "dist/assets/pokemon/169/Hurt-Anim.png",
+      "bytes": 4734,
+      "sha256": "7f145ec39e886aebf6a831961608de5e1b252d475c59eb061ab7f42c96156320"
+    },
+    {
+      "file": "dist/assets/pokemon/169/Hurt-Shadow.png",
+      "bytes": 874,
+      "sha256": "36ccf0caa545929fd14ae836d96a4e73dcab35de37b30efa2c69b1b1b18cb329"
+    },
+    {
+      "file": "dist/assets/pokemon/50/Walk-Anim.png",
+      "bytes": 4607,
+      "sha256": "d739b65aae070b3f20df30d8a9fb85247b93a339bcb435788963052e5a271407"
+    },
+    {
+      "file": "dist/assets/pokemon/50/Walk-Shadow.png",
+      "bytes": 630,
+      "sha256": "053008ee05a85f59fcad6a6d86eeadd1aedf027d66234c0791e395d80d387473"
+    },
+    {
+      "file": "dist/assets/pokemon/50/Idle-Anim.png",
+      "bytes": 1540,
+      "sha256": "42645eea007d78c1d1e6a695aa8b6c9b4f64daa878af3bd34f673c647b868bb1"
+    },
+    {
+      "file": "dist/assets/pokemon/50/Idle-Shadow.png",
+      "bytes": 370,
+      "sha256": "55d5147fc9530cf85f92c03b5857c509fb98d3104fd26d358191e8e935f90a3c"
+    },
+    {
+      "file": "dist/assets/pokemon/50/Attack-Anim.png",
+      "bytes": 16939,
+      "sha256": "0ea52a3e1d086cb6044fa353a6a2d46f57b437214ae33b86b3742d2b8fa5ddc5"
+    },
+    {
+      "file": "dist/assets/pokemon/50/Attack-Shadow.png",
+      "bytes": 4032,
+      "sha256": "e4f02d00ed940f1d5cd45471855c24810d0c088270c7d66b3631a63f3ca0ec94"
+    },
+    {
+      "file": "dist/assets/pokemon/50/Hurt-Anim.png",
+      "bytes": 2942,
+      "sha256": "a2351f82e935893eda79b8b95b5f040515f4d01a7718ac3daa15462a63c60e23"
+    },
+    {
+      "file": "dist/assets/pokemon/50/Hurt-Shadow.png",
+      "bytes": 698,
+      "sha256": "4e1bd77932c5463cc98ddf08b9bb6e2639932372571a7b7a765a07795c263510"
+    },
+    {
+      "file": "dist/assets/pokemon/149/Walk-Anim.png",
+      "bytes": 13408,
+      "sha256": "04ae6ed9a69da739e09b2d8fca24905cb81c6f963865ee4e343dd82f25d06637"
+    },
+    {
+      "file": "dist/assets/pokemon/149/Walk-Shadow.png",
+      "bytes": 874,
+      "sha256": "4090a7bc313605af4b2332d40009b8d0999eda05cd4c35879159c1805dd70b92"
+    },
+    {
+      "file": "dist/assets/pokemon/149/Idle-Anim.png",
+      "bytes": 18801,
+      "sha256": "83b0d9d108d844c8cc2db0190ca4e36e0fdd491b5014c3bf31bc36b0424ba0c2"
+    },
+    {
+      "file": "dist/assets/pokemon/149/Idle-Shadow.png",
+      "bytes": 1363,
+      "sha256": "677e11cefe9be462b2a1a9ffa432de2f7762bd1ffc80b6857ed43c8f828f5505"
+    },
+    {
+      "file": "dist/assets/pokemon/149/Attack-Anim.png",
+      "bytes": 36253,
+      "sha256": "c3b2b04ae5e83faae34eb08dc2ee83a44286cbfd491b7ee9b820816ee64b002f"
+    },
+    {
+      "file": "dist/assets/pokemon/149/Attack-Shadow.png",
+      "bytes": 6275,
+      "sha256": "79045a1d5c43204aa09fde5048dbdb4f484f8509c96301a4e29acf9173618ea2"
+    },
+    {
+      "file": "dist/assets/pokemon/149/Hurt-Anim.png",
+      "bytes": 8129,
+      "sha256": "ee8e8a9a4a737d4e33347486d4677a0e23880fde92c043480dcbf734f1dd6054"
+    },
+    {
+      "file": "dist/assets/pokemon/149/Hurt-Shadow.png",
+      "bytes": 876,
+      "sha256": "63811f8deb06158d9f428ad3097f5080770118f31ed354a0afaab471b3d2466a"
+    },
+    {
+      "file": "dist/assets/pokemon/149/Hop-Anim.png",
+      "bytes": 36972,
+      "sha256": "871d645a165ce5642014755f3259bfe7d45c5d63f210e29dced5da542203e776"
+    },
+    {
+      "file": "dist/assets/pokemon/149/Hop-Shadow.png",
+      "bytes": 2187,
+      "sha256": "9a05ac5740f02c7e9c2f2482549e7bce0c5d74940956476000c48128902ab7c5"
+    },
+    {
+      "file": "dist/assets/pokemon/355/Walk-Anim.png",
+      "bytes": 9071,
+      "sha256": "4d7ec2c6b8035a64702452145664dc25725da5813443798f67314d4634d6e898"
+    },
+    {
+      "file": "dist/assets/pokemon/355/Walk-Shadow.png",
+      "bytes": 923,
+      "sha256": "89562329ff792f5ade50f272bc4c1049b97b6826eb65e9884027dafea3abf955"
+    },
+    {
+      "file": "dist/assets/pokemon/355/Idle-Anim.png",
+      "bytes": 6848,
+      "sha256": "0f4660e7c89fa210a6d36d769a5218ca074b10682a13895b53b9598f7caca61f"
+    },
+    {
+      "file": "dist/assets/pokemon/355/Idle-Shadow.png",
+      "bytes": 991,
+      "sha256": "da315862c3637db9bae507ab7c7056fbe0c6cc1f28c95553d9afc4613877ccea"
+    },
+    {
+      "file": "dist/assets/pokemon/355/Attack-Shadow.png",
+      "bytes": 5113,
+      "sha256": "d4ffcbb97fafb48f557594b9a70c2bdbabdcae44183b93bb9ebcd6efa4f90cc7"
+    },
+    {
+      "file": "dist/assets/pokemon/355/Attack-Anim.png",
+      "bytes": 16240,
+      "sha256": "10776878d1d4adffcf7d5d411b486c4539c2664d490069245debc1c5bdeae7ee"
+    },
+    {
+      "file": "dist/assets/pokemon/355/Hurt-Anim.png",
+      "bytes": 4840,
+      "sha256": "ba3da4a6c1f5a9857c979104e8412394ddb812723e2ce61160b90f367f0151d4"
+    },
+    {
+      "file": "dist/assets/pokemon/355/Hurt-Shadow.png",
+      "bytes": 856,
+      "sha256": "638c0c2c88026829f2028c415e8930c89e75feff7841f1d214d120becfb5c8c0"
+    },
+    {
+      "file": "dist/assets/pokemon/133/Walk-Anim.png",
+      "bytes": 14849,
+      "sha256": "037329dca93572a20115e679f10a85d4981b7cb961b6c8f0fd9c78745ba98cc0"
+    },
+    {
+      "file": "dist/assets/pokemon/133/Walk-Shadow.png",
+      "bytes": 2257,
+      "sha256": "8af1557b7ec889e911360b32ed0344cd234e916da8897ef72eb9e1055948bd6a"
+    },
+    {
+      "file": "dist/assets/pokemon/133/Idle-Anim.png",
+      "bytes": 3926,
+      "sha256": "1dec7d7524844f35a8f7c8c0574d9741edad6cb319a980a5097a825a58bbe4de"
+    },
+    {
+      "file": "dist/assets/pokemon/133/Idle-Shadow.png",
+      "bytes": 383,
+      "sha256": "011747c99b3240c8032a6db3df2589fdcf15055e0aa918e6212d9f83c1d79934"
+    },
+    {
+      "file": "dist/assets/pokemon/133/Attack-Anim.png",
+      "bytes": 19975,
+      "sha256": "bbb12fdef01b8c5ab3e50a036a3f2c53813691c131f4720058823338712ff0d6"
+    },
+    {
+      "file": "dist/assets/pokemon/133/Attack-Shadow.png",
+      "bytes": 4909,
+      "sha256": "024ea5cdcee9a4118879c0f66f34954ed1633a6e9581cda4d301a7cf88f5a94d"
+    },
+    {
+      "file": "dist/assets/pokemon/133/Hurt-Anim.png",
+      "bytes": 5554,
+      "sha256": "88acd2fcdb83a00dd529c10b350e29eecc24af9c79ae96ba2e8d5430b720ca48"
+    },
+    {
+      "file": "dist/assets/pokemon/133/Hurt-Shadow.png",
+      "bytes": 793,
+      "sha256": "6006903f76b46552bd5f391130a9bc1f63407b771d4e9a57a2145e75267b9ea0"
+    },
+    {
+      "file": "dist/assets/pokemon/196/Walk-Anim.png",
+      "bytes": 9534,
+      "sha256": "a092b26721bc59b495cc3f2c84cd7e7c36890644a2afd460c51706a53d9025ca"
+    },
+    {
+      "file": "dist/assets/pokemon/196/Walk-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/196/Idle-Anim.png",
+      "bytes": 6521,
+      "sha256": "d0c2fb41f3c1b0906716d1416887256bb6f2a6612eb3f27e85a052e2ae5e63c1"
+    },
+    {
+      "file": "dist/assets/pokemon/196/Idle-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/196/Attack-Shadow.png",
+      "bytes": 5264,
+      "sha256": "0e0c37e86ed3be723dc687d9d8c7768a3170053d28bd8c96687bbd6900f2019e"
+    },
+    {
+      "file": "dist/assets/pokemon/196/Attack-Anim.png",
+      "bytes": 24653,
+      "sha256": "90f0320a448449cfc2190d601b28bca0d87437bf6bb0408f13f42d62de115989"
+    },
+    {
+      "file": "dist/assets/pokemon/196/Hurt-Anim.png",
+      "bytes": 5925,
+      "sha256": "9ab77941d25b47ccbb752f107326e673ba38a2c28033dc102e5793f309746d66"
+    },
+    {
+      "file": "dist/assets/pokemon/196/Hurt-Shadow.png",
+      "bytes": 851,
+      "sha256": "737198ec693340ec6a7560fcad447d3c6616b95f350dc019384301d2a450677b"
+    },
+    {
+      "file": "dist/assets/pokemon/196/Shoot-Anim.png",
+      "bytes": 17272,
+      "sha256": "b390a9c9d69b9485687f94b09a12005a9980b63d56bf1e3f0779dad4d417968c"
+    },
+    {
+      "file": "dist/assets/pokemon/196/Shoot-Shadow.png",
+      "bytes": 3269,
+      "sha256": "b827824f3422461d23541ea843971422951329d9d3c3b3ae520b730925f9d688"
+    },
+    {
+      "file": "dist/assets/pokemon/102/Walk-Anim.png",
+      "bytes": 8154,
+      "sha256": "8b82a76f6d7a5f7cc7da507c18e98c74d30c05c7f726301aa350beaf8da6547f"
+    },
+    {
+      "file": "dist/assets/pokemon/102/Walk-Shadow.png",
+      "bytes": 502,
+      "sha256": "986ed7e027135db592e146107bff26dac9ab00e787f7e4002bcca92696fc54b3"
+    },
+    {
+      "file": "dist/assets/pokemon/102/Idle-Anim.png",
+      "bytes": 9295,
+      "sha256": "0eef8530fdc97a63170508be9229a133cb158c42f48dd287b3a6b44a6619281c"
+    },
+    {
+      "file": "dist/assets/pokemon/102/Idle-Shadow.png",
+      "bytes": 663,
+      "sha256": "d5beab8011ba1f0d5b7502d2e1acca4d7774de0faa2966494463c6fc81d0921e"
+    },
+    {
+      "file": "dist/assets/pokemon/102/Attack-Anim.png",
+      "bytes": 19352,
+      "sha256": "70828e815a024a94fbcd5d153ee7f74addbf5ac64abff884421c65f5aaf2d8c4"
+    },
+    {
+      "file": "dist/assets/pokemon/102/Attack-Shadow.png",
+      "bytes": 4743,
+      "sha256": "dccba2bff67f93d67ee4a7e10118b6ccc6c004f3fa82090c49f876c4721f97bb"
+    },
+    {
+      "file": "dist/assets/pokemon/102/Hurt-Anim.png",
+      "bytes": 5144,
+      "sha256": "0c1c3b69248bf6083f6c10920f80b6cdcb6a6ae6ccf95cd2c5f0957aab7b2ced"
+    },
+    {
+      "file": "dist/assets/pokemon/102/Hurt-Shadow.png",
+      "bytes": 801,
+      "sha256": "07458a3a736c607dc33bd4e4741ea49614b228193a08733f242357236ff1aaf1"
+    },
+    {
+      "file": "dist/assets/pokemon/160/Walk-Anim.png",
+      "bytes": 12133,
+      "sha256": "413da3e3c92678723723d5e1fe0ad9df77dadb96d940563b0a44b4cb6a84373d"
+    },
+    {
+      "file": "dist/assets/pokemon/160/Walk-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/160/Idle-Anim.png",
+      "bytes": 15617,
+      "sha256": "0de49226cd123d8ef3d6a141487cda9f07ff40a5a07f5f0029e6212039cb2cda"
+    },
+    {
+      "file": "dist/assets/pokemon/160/Idle-Shadow.png",
+      "bytes": 1443,
+      "sha256": "9b8ac64a8539e9770055aa7078289ab355e5695a599ce371c731114dca24e6de"
+    },
+    {
+      "file": "dist/assets/pokemon/160/Attack-Anim.png",
+      "bytes": 30043,
+      "sha256": "d25a5ac9c02fcc67cf043c245453e399de423ad7708bfc38eb5dd9340dc3f772"
+    },
+    {
+      "file": "dist/assets/pokemon/160/Attack-Shadow.png",
+      "bytes": 5740,
+      "sha256": "0799fdd052aa49bdd1e94de52d3a36d07572e8d5a0705911206de4afc109533b"
+    },
+    {
+      "file": "dist/assets/pokemon/160/Hurt-Anim.png",
+      "bytes": 8661,
+      "sha256": "0f4ae882b4099045d92495e6f56392ac20d0dc6d0b72c754a99f495a8d5738e8"
+    },
+    {
+      "file": "dist/assets/pokemon/160/Hurt-Shadow.png",
+      "bytes": 969,
+      "sha256": "db7d3db4e87983e7d724483082216d1420e2c793fda34cedf6420eb36144d721"
+    },
+    {
+      "file": "dist/assets/pokemon/100/Walk-Anim.png",
+      "bytes": 7405,
+      "sha256": "d3a33aeb5b4f150932fd782a6b9019907aa443c223107a67b82e2c116e2b8e4c"
+    },
+    {
+      "file": "dist/assets/pokemon/100/Walk-Shadow.png",
+      "bytes": 2245,
+      "sha256": "6e883391493cbe5be89056fffb89fb402aec734cdab14f46a6021966e45189c8"
+    },
+    {
+      "file": "dist/assets/pokemon/100/Idle-Anim.png",
+      "bytes": 2258,
+      "sha256": "2de296b57c639916d81517ccb2aaf17d5e6c47f5986d4f65b7c62d97e72583a3"
+    },
+    {
+      "file": "dist/assets/pokemon/100/Idle-Shadow.png",
+      "bytes": 504,
+      "sha256": "ff99ca7deb380ed3d9bfea9c38922f293ddb62414ff98e15d8971aa9ca307e39"
+    },
+    {
+      "file": "dist/assets/pokemon/100/Attack-Anim.png",
+      "bytes": 14582,
+      "sha256": "7e5e498e7207a54b7d7604537ccd835f1691ec4da2c1ecc30606a981e9cdf3d0"
+    },
+    {
+      "file": "dist/assets/pokemon/100/Attack-Shadow.png",
+      "bytes": 6582,
+      "sha256": "c277038d64c1f457a3da2be24623544043ba00fcd50d81aa989159398b6fe0c5"
+    },
+    {
+      "file": "dist/assets/pokemon/100/Hurt-Anim.png",
+      "bytes": 5257,
+      "sha256": "6bf6a175b7e919529db695cf39bd28e6a7a6e7482ccbdc2836afcf1b75445f68"
+    },
+    {
+      "file": "dist/assets/pokemon/100/Hurt-Shadow.png",
+      "bytes": 803,
+      "sha256": "7cca50e13181556ed1f82330ce64356ed30a804c4788ae240c9ef267cce8f4e9"
+    },
+    {
+      "file": "dist/assets/pokemon/205/Walk-Anim.png",
+      "bytes": 8810,
+      "sha256": "390605d8db6bd63b3d9836ea9185b164c9090264ce4ddf7ef131df88c31f9e0d"
+    },
+    {
+      "file": "dist/assets/pokemon/205/Walk-Shadow.png",
+      "bytes": 660,
+      "sha256": "e07f274100f92c94a33e4d1d11c81af02b0273cd5c3a2d472b2f60fcc203ed96"
+    },
+    {
+      "file": "dist/assets/pokemon/205/Idle-Anim.png",
+      "bytes": 6432,
+      "sha256": "2b8bff5e0ab874972a2f61780042286129791c3d9d05d16d83acaf55bcedae14"
+    },
+    {
+      "file": "dist/assets/pokemon/205/Idle-Shadow.png",
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    {
+      "file": "dist/assets/pokemon/205/Attack-Anim.png",
+      "bytes": 20488,
+      "sha256": "8f6303344ab74376b65c4d2846f0d4fb15a1232b2fccba53f7953912d861bf11"
+    },
+    {
+      "file": "dist/assets/pokemon/205/Attack-Shadow.png",
+      "bytes": 5450,
+      "sha256": "32780d79fb5007336602864504089a13aeab1f4b79ef337342ea203a89f373cb"
+    },
+    {
+      "file": "dist/assets/pokemon/205/Hurt-Anim.png",
+      "bytes": 4899,
+      "sha256": "a506c1b7d2eba1021ee28a0f5178604fc13450db7ea9b1654bb0b8878297b576"
+    },
+    {
+      "file": "dist/assets/pokemon/205/Hurt-Shadow.png",
+      "bytes": 787,
+      "sha256": "c598a4c3fc9b723e5936bd5ed74086c34af796aa188d84466b4472b3fb8eb99c"
+    },
+    {
+      "file": "dist/assets/pokemon/282/Walk-Anim.png",
+      "bytes": 5667,
+      "sha256": "c6b11a75ad15cfb7fb703dcbe30a2d5189d662eab46748ef0494bee04d8df93c"
+    },
+    {
+      "file": "dist/assets/pokemon/282/Walk-Shadow.png",
+      "bytes": 514,
+      "sha256": "68c83e91a9a39ef3355b8f1a3bb474180faa46ef443a58acac567a6b54127560"
+    },
+    {
+      "file": "dist/assets/pokemon/282/Idle-Anim.png",
+      "bytes": 6272,
+      "sha256": "2fe861f10c7f0fa574e73891ee98753598755a958416c879f03e5d8b3a19f7c6"
+    },
+    {
+      "file": "dist/assets/pokemon/282/Idle-Shadow.png",
+      "bytes": 514,
+      "sha256": "68c83e91a9a39ef3355b8f1a3bb474180faa46ef443a58acac567a6b54127560"
+    },
+    {
+      "file": "dist/assets/pokemon/282/Attack-Anim.png",
+      "bytes": 16819,
+      "sha256": "7fae0d27e0f22dd1105f766a78ed183b8fe7003979b9df1dd506c1bd9605d7a8"
+    },
+    {
+      "file": "dist/assets/pokemon/282/Attack-Shadow.png",
+      "bytes": 4874,
+      "sha256": "c394e9390430fab4cb700b55df50f42743c012028602d84da8772a7a0815868d"
+    },
+    {
+      "file": "dist/assets/pokemon/282/Hurt-Anim.png",
+      "bytes": 4377,
+      "sha256": "10272146972f9a456512dba68d3b04a1fc8a50ac9448fe18395cbbce7781adda"
+    },
+    {
+      "file": "dist/assets/pokemon/282/Hurt-Shadow.png",
+      "bytes": 805,
+      "sha256": "c663246b82041c89bd426c64d928f17c75b140a2bfadae684db6985e1fe2257d"
+    },
+    {
+      "file": "dist/assets/pokemon/282/Appeal-Anim.png",
+      "bytes": 9262,
+      "sha256": "3cdb5e32876284234a312ea2606d8e46d8aca469cca01fa34e85c1ce0525caf3"
+    },
+    {
+      "file": "dist/assets/pokemon/282/Appeal-Shadow.png",
+      "bytes": 1733,
+      "sha256": "169c0cd05a71b7b7115332bc8ac262aeadb45b57de71ef135c9dd6bec475cf52"
+    },
+    {
+      "file": "dist/assets/pokemon/83/Walk-Anim.png",
+      "bytes": 5806,
+      "sha256": "2f75ab73c640d52d0e43f7fd62e4734074bd6b46d765243068c223a93befb8fc"
+    },
+    {
+      "file": "dist/assets/pokemon/83/Walk-Shadow.png",
+      "bytes": 463,
+      "sha256": "c0ba6d2d4ef8e26824dace9aca22a63c8cc4bd423ffa67d6755e5ad2ec6423d8"
+    },
+    {
+      "file": "dist/assets/pokemon/83/Idle-Anim.png",
+      "bytes": 5806,
+      "sha256": "2f75ab73c640d52d0e43f7fd62e4734074bd6b46d765243068c223a93befb8fc"
+    },
+    {
+      "file": "dist/assets/pokemon/83/Idle-Shadow.png",
+      "bytes": 463,
+      "sha256": "c0ba6d2d4ef8e26824dace9aca22a63c8cc4bd423ffa67d6755e5ad2ec6423d8"
+    },
+    {
+      "file": "dist/assets/pokemon/83/Attack-Anim.png",
+      "bytes": 21305,
+      "sha256": "8e956f38e985a5c840d29266a04db5a8888b8ea4163faa7888d2f43941d3fd6b"
+    },
+    {
+      "file": "dist/assets/pokemon/83/Attack-Shadow.png",
+      "bytes": 5323,
+      "sha256": "e4fdd4bae4a6adf73f859009eeca88e637cf2bf59a92c8b97b1954cb43d922df"
+    },
+    {
+      "file": "dist/assets/pokemon/83/Hurt-Anim.png",
+      "bytes": 5632,
+      "sha256": "7d4b6ec079602bb93c6532b8cba1d6277108613fe2cc268c0d4905c992e85314"
+    },
+    {
+      "file": "dist/assets/pokemon/83/Hurt-Shadow.png",
+      "bytes": 822,
+      "sha256": "4973734d088ad25a7f3a2fe09949b183bc8ba0bc0cfc627e93ef21675f194521"
+    },
+    {
+      "file": "dist/assets/pokemon/534/Walk-Anim.png",
+      "bytes": 15401,
+      "sha256": "393d51e67b6aaa633525f51ad4d067520bd0d504fc17854339d249689e251873"
+    },
+    {
+      "file": "dist/assets/pokemon/534/Walk-Shadow.png",
+      "bytes": 955,
+      "sha256": "8d3a2245983fc40a6aa64b524304acea38d5c51b9e30015fedef7c4817986e74"
+    },
+    {
+      "file": "dist/assets/pokemon/534/Idle-Anim.png",
+      "bytes": 21937,
+      "sha256": "ffe233a72bd1bcc25025f8a2db306ae34dccb00dde2e8330077021c0034b05c0"
+    },
+    {
+      "file": "dist/assets/pokemon/534/Idle-Shadow.png",
+      "bytes": 1927,
+      "sha256": "75d4470e265f95d18364db03e284b0c0544c060b5fbbd2cfd52bc632498de560"
+    },
+    {
+      "file": "dist/assets/pokemon/534/Attack-Anim.png",
+      "bytes": 44868,
+      "sha256": "0f1c9f92118940c562c8077995508416c31ddf3f07fef9b4258e7c2c0ce8ce2b"
+    },
+    {
+      "file": "dist/assets/pokemon/534/Attack-Shadow.png",
+      "bytes": 7196,
+      "sha256": "9b94db684ad02c1c8f15c2bad55fb2f70e1a2eb3390b370bb114fdf6b600d946"
+    },
+    {
+      "file": "dist/assets/pokemon/534/Hurt-Shadow.png",
+      "bytes": 803,
+      "sha256": "7cca50e13181556ed1f82330ce64356ed30a804c4788ae240c9ef267cce8f4e9"
+    },
+    {
+      "file": "dist/assets/pokemon/534/Hurt-Anim.png",
+      "bytes": 8742,
+      "sha256": "e097759b3c3120e0f37ced305c607649ec09b3f4efa81c1495094c499989f30f"
+    },
+    {
+      "file": "dist/assets/pokemon/534/Shoot-Anim.png",
+      "bytes": 23288,
+      "sha256": "631aa955497aaf02e1ff2e4ac8ccddd0429ac02ff8bae5f1bfc7591f21979ac8"
+    },
+    {
+      "file": "dist/assets/pokemon/534/Shoot-Shadow.png",
+      "bytes": 3748,
+      "sha256": "7e8f7595e07fde4f4bd05ebbac2da95979fdd73478bcd01d8b6d3bef43b3b562"
+    },
+    {
+      "file": "dist/assets/pokemon/383/Walk-Anim.png",
+      "bytes": 27791,
+      "sha256": "32b4ba4d0e19eedacad89682b892c18fad8dc2301c6dc6e585b205fdf1e19579"
+    },
+    {
+      "file": "dist/assets/pokemon/383/Walk-Shadow.png",
+      "bytes": 1866,
+      "sha256": "2febb53176b69feb441d736314698ee82aefe3dd71f4d9a186146afd0d02e5ab"
+    },
+    {
+      "file": "dist/assets/pokemon/383/Idle-Anim.png",
+      "bytes": 34023,
+      "sha256": "7a7a2d8b83f1e79552fdf502bc4d8accbdc3e2589cc5d0deade17aaa8389ba74"
+    },
+    {
+      "file": "dist/assets/pokemon/383/Idle-Shadow.png",
+      "bytes": 4761,
+      "sha256": "1ce7c110b1270e1c2336655275c13b5981c31599ece4539983d913dc5b9e6690"
+    },
+    {
+      "file": "dist/assets/pokemon/383/Attack-Anim.png",
+      "bytes": 58688,
+      "sha256": "c68d6f2a9eba1c4e4471c5941286648724d7bcb46804b02e09e36cbfd21ac0ea"
+    },
+    {
+      "file": "dist/assets/pokemon/383/Attack-Shadow.png",
+      "bytes": 6182,
+      "sha256": "4191820603c09ae1de3235899508765dfc9910c07eeeaf3fc2405d52ccd69a3c"
+    },
+    {
+      "file": "dist/assets/pokemon/383/Hurt-Anim.png",
+      "bytes": 12247,
+      "sha256": "6737e95f5bc76adf8666cf0c6409b8e3e521e10d58eba3c74757894b226fdf87"
+    },
+    {
+      "file": "dist/assets/pokemon/383/Hurt-Shadow.png",
+      "bytes": 1368,
+      "sha256": "7c857f3dca1256fa2850ae417b0f458b0ad12ac415b8db07bb6c70502ea45c88"
+    },
+    {
+      "file": "dist/assets/pokemon/382/Walk-Anim.png",
+      "bytes": 44910,
+      "sha256": "30b4030193457b062f23a0d6afce4a7c84f72738c1583456c3b19fe059dcffa5"
+    },
+    {
+      "file": "dist/assets/pokemon/382/Walk-Shadow.png",
+      "bytes": 3464,
+      "sha256": "129f0e8ccadce0b7e1c309855f43b6a2be762aef903821e32239aee87dc0f012"
+    },
+    {
+      "file": "dist/assets/pokemon/382/Idle-Anim.png",
+      "bytes": 44910,
+      "sha256": "30b4030193457b062f23a0d6afce4a7c84f72738c1583456c3b19fe059dcffa5"
+    },
+    {
+      "file": "dist/assets/pokemon/382/Idle-Shadow.png",
+      "bytes": 3464,
+      "sha256": "129f0e8ccadce0b7e1c309855f43b6a2be762aef903821e32239aee87dc0f012"
+    },
+    {
+      "file": "dist/assets/pokemon/382/Attack-Anim.png",
+      "bytes": 46787,
+      "sha256": "9f9e2f4c6c9fbdb835785e022c5faffa3e88914856b47787c0ba7d04ad2b921b"
+    },
+    {
+      "file": "dist/assets/pokemon/382/Attack-Shadow.png",
+      "bytes": 4971,
+      "sha256": "20b61bdd4bd794d4028749a1b939a1c549187ec7b11df460767819ee67d48bed"
+    },
+    {
+      "file": "dist/assets/pokemon/382/Hurt-Anim.png",
+      "bytes": 15081,
+      "sha256": "26f55b374851f10674edc1a1074da70f90bfc1b71c5e5c7be2bc1937ef4805ec"
+    },
+    {
+      "file": "dist/assets/pokemon/382/Hurt-Shadow.png",
+      "bytes": 1350,
+      "sha256": "097fc62fb05f55737bd07e2c803546c25ccd85a2fa93d42bc3772eafdb25e9d5"
+    },
+    {
+      "file": "dist/assets/pokemon/382/Shoot-Anim.png",
+      "bytes": 45801,
+      "sha256": "d54f5c22c7497b545cb3443dc9f36f3ae1482b0d757d18c30aafde505716cbab"
+    },
+    {
+      "file": "dist/assets/pokemon/382/Shoot-Shadow.png",
+      "bytes": 4656,
+      "sha256": "2ebbde53fa5cc0569a9ed45e480be95f07f15291996afc31ed87307612a586e8"
+    },
+    {
+      "file": "dist/assets/pokemon/131/Walk-Anim.png",
+      "bytes": 16761,
+      "sha256": "7f2fac19960cf6ca7683329caff196e8d71e3e41f9ac027b57f38f088c8db9ca"
+    },
+    {
+      "file": "dist/assets/pokemon/131/Walk-Shadow.png",
+      "bytes": 1245,
+      "sha256": "cd3b7a35c62a2106720c1129e742c36e83d33db7f384509b05b87431c96473b6"
+    },
+    {
+      "file": "dist/assets/pokemon/131/Idle-Anim.png",
+      "bytes": 13427,
+      "sha256": "ee0f45de0b35013b8e4584107fc2e83606bca65eaed067abafb10771f3f4ec48"
+    },
+    {
+      "file": "dist/assets/pokemon/131/Idle-Shadow.png",
+      "bytes": 1245,
+      "sha256": "cd3b7a35c62a2106720c1129e742c36e83d33db7f384509b05b87431c96473b6"
+    },
+    {
+      "file": "dist/assets/pokemon/131/Attack-Anim.png",
+      "bytes": 47904,
+      "sha256": "2f079bd77737aeab62734b081c839c985eda48e298b07224e4a32ce340ccb7d1"
+    },
+    {
+      "file": "dist/assets/pokemon/131/Attack-Shadow.png",
+      "bytes": 6820,
+      "sha256": "5bca5f2efb8fea5e754d8b9f10fc6d485b62b9523853b541dc7e12bdf5257c5d"
+    },
+    {
+      "file": "dist/assets/pokemon/131/Hurt-Anim.png",
+      "bytes": 11466,
+      "sha256": "26deafaf3bf4e451bd3ed1b8d8c5ab565a1b601e44a63cbdf89248c052bdb5a1"
+    },
+    {
+      "file": "dist/assets/pokemon/131/Hurt-Shadow.png",
+      "bytes": 1291,
+      "sha256": "cd5d76eec48f7d470fffc9763f3896e1df14c3ac03344dd9282cb260be55a192"
+    },
+    {
+      "file": "dist/assets/pokemon/131/Shoot-Anim.png",
+      "bytes": 37690,
+      "sha256": "42502e865e92bb99f07c0b799c6887a8bf18729d7e55f10cadc1d3993060b5f1"
+    },
+    {
+      "file": "dist/assets/pokemon/131/Shoot-Shadow.png",
+      "bytes": 4998,
+      "sha256": "3bd0ecbf93caa27314a477d45015a81c2ad3a1e9f9130ceeb7c731d78388ed3e"
+    },
+    {
+      "file": "dist/assets/pokemon/68/Walk-Anim.png",
+      "bytes": 11823,
+      "sha256": "e169fb82de0226d8abfbc73e6b837af41cfb19347f71943bea804dfe5fc6120f"
+    },
+    {
+      "file": "dist/assets/pokemon/68/Idle-Shadow.png",
+      "bytes": 2637,
+      "sha256": "68627629e56b25d33bb5cc77f3fc46e329239b0be22464ed1074859f90f99cc2"
+    },
+    {
+      "file": "dist/assets/pokemon/68/Walk-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/68/Idle-Anim.png",
+      "bytes": 13623,
+      "sha256": "e7a664e470fca6878f114a8e87a6e394f55166467eb207a5215efb4f031d76b7"
+    },
+    {
+      "file": "dist/assets/pokemon/68/Attack-Anim.png",
+      "bytes": 39374,
+      "sha256": "26d5247e14c68ec43866d079134e52a59b9a7d761d0ac2ed4dbb804fddaeb2b2"
+    },
+    {
+      "file": "dist/assets/pokemon/68/Attack-Shadow.png",
+      "bytes": 6356,
+      "sha256": "772a86ecc5aa90ecf3072f58f5416d2b4dd0bdabb81e481210ef1e3e30faddeb"
+    },
+    {
+      "file": "dist/assets/pokemon/68/Hurt-Anim.png",
+      "bytes": 6695,
+      "sha256": "f9f3a887fa9030cab510fb94183e5edc392bc944aa44fa5ab22b54f62eeae37d"
+    },
+    {
+      "file": "dist/assets/pokemon/68/Hurt-Shadow.png",
+      "bytes": 844,
+      "sha256": "ac6de71c1c2d68f7b57c3628d73cabee468c84be9da37305bcf53ed6999365a5"
+    },
+    {
+      "file": "dist/assets/pokemon/68/Punch-Anim.png",
+      "bytes": 33403,
+      "sha256": "348a7f9df9eff3e8a692595529cd87d66806d1538f111ba63c0545d290a4dbeb"
+    },
+    {
+      "file": "dist/assets/pokemon/68/Punch-Shadow.png",
+      "bytes": 5597,
+      "sha256": "11f04202feb8098b8229f310aa6bf9b0cb9eed09a7cd7fd07a021c17c0939370"
+    },
+    {
+      "file": "dist/assets/pokemon/56/Walk-Anim.png",
+      "bytes": 14559,
+      "sha256": "a88e9011f7aa2e62b3f1893924fd7d89ce1eef19a46bfe39ce07ab90f5ac6e15"
+    },
+    {
+      "file": "dist/assets/pokemon/56/Walk-Shadow.png",
+      "bytes": 1275,
+      "sha256": "43925d858f993aa5c4e2ffd1fee0d837940e434f62ac3ee8d98c2d4d1e3944cd"
+    },
+    {
+      "file": "dist/assets/pokemon/56/Idle-Anim.png",
+      "bytes": 11987,
+      "sha256": "a64e1b52f08d9b0b5b98d99e32048a8b1901e9c9438c4c867951dfd116e7f1d9"
+    },
+    {
+      "file": "dist/assets/pokemon/56/Idle-Shadow.png",
+      "bytes": 944,
+      "sha256": "9b8aa4b7fcf5ffba0620236cb4a48171cc5c14cd6173e541b4c88abef1c2aae6"
+    },
+    {
+      "file": "dist/assets/pokemon/56/Attack-Anim.png",
+      "bytes": 28282,
+      "sha256": "003c8d641a578e23f9e86ba42633729142d2a889d211cd82592066de2ee24bad"
+    },
+    {
+      "file": "dist/assets/pokemon/56/Attack-Shadow.png",
+      "bytes": 6431,
+      "sha256": "53e722df94d7f049ce06f14c7cfea8f01acbd87c176f1dc193e9bdde3068acc8"
+    },
+    {
+      "file": "dist/assets/pokemon/56/Hurt-Anim.png",
+      "bytes": 6241,
+      "sha256": "0077eba6138e5f42669d6e8ef93602dbcb2a2f96c4fa7b36d6b13549a2474c5e"
+    },
+    {
+      "file": "dist/assets/pokemon/56/Hurt-Shadow.png",
+      "bytes": 851,
+      "sha256": "737198ec693340ec6a7560fcad447d3c6616b95f350dc019384301d2a450677b"
+    },
+    {
+      "file": "dist/assets/pokemon/146/Walk-Anim.png",
+      "bytes": 29706,
+      "sha256": "2ad929f43ac6509fa6f9fc2d19a6391e9fccef983e6baa2af808f444133b0dac"
+    },
+    {
+      "file": "dist/assets/pokemon/146/Walk-Shadow.png",
+      "bytes": 2087,
+      "sha256": "cefe468161ec2c2baa20f7435b34fbda185c41d715243f19112ebeec4f87eeab"
+    },
+    {
+      "file": "dist/assets/pokemon/146/Idle-Anim.png",
+      "bytes": 29249,
+      "sha256": "1023d555131e72e4347d9d864bf1e94b209f0b99f9d1597da272aee99e79cd71"
+    },
+    {
+      "file": "dist/assets/pokemon/146/Idle-Shadow.png",
+      "bytes": 2087,
+      "sha256": "cefe468161ec2c2baa20f7435b34fbda185c41d715243f19112ebeec4f87eeab"
+    },
+    {
+      "file": "dist/assets/pokemon/146/Attack-Anim.png",
+      "bytes": 74775,
+      "sha256": "406afebeea21a5740dc1c649035461093715f5c732addb7b44bea1597877ba93"
+    },
+    {
+      "file": "dist/assets/pokemon/146/Attack-Shadow.png",
+      "bytes": 9894,
+      "sha256": "3dc9a6f9f5881192e50cc2ad4e6d68ccd22e99054481acbee85ba8b68ffea016"
+    },
+    {
+      "file": "dist/assets/pokemon/146/Hurt-Shadow.png",
+      "bytes": 1633,
+      "sha256": "8f89cdabda926a0420d446d0c750687dab50bee363a441f1c703282b178fb499"
+    },
+    {
+      "file": "dist/assets/pokemon/146/Shoot-Anim.png",
+      "bytes": 64079,
+      "sha256": "53358d3d01b9f89b6079c391f75d6c5fd66c0af485bada0d1033ea80fd32ed58"
+    },
+    {
+      "file": "dist/assets/pokemon/146/Hurt-Anim.png",
+      "bytes": 16266,
+      "sha256": "06bcae65c0bc051c9cf40158a693c69658782fb279f736cbd277a03d6225c5fe"
+    },
+    {
+      "file": "dist/assets/pokemon/146/Shoot-Shadow.png",
+      "bytes": 8295,
+      "sha256": "984848cbf0773bae1ac0a58ed75d961c0774484054d8c574fe55e4366ae5c6a7"
+    },
+    {
+      "file": "dist/assets/pokemon/34/Walk-Anim.png",
+      "bytes": 13128,
+      "sha256": "47e73a0dbadc870b3dba8ac816b1e43f0359aba2797bef2569883894793cef5c"
+    },
+    {
+      "file": "dist/assets/pokemon/34/Walk-Shadow.png",
+      "bytes": 792,
+      "sha256": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec"
+    },
+    {
+      "file": "dist/assets/pokemon/34/Idle-Anim.png",
+      "bytes": 8401,
+      "sha256": "7fc391919541020478125f82630ebbb7500d627e90c881896c3d28ef0c299b53"
+    },
+    {
+      "file": "dist/assets/pokemon/34/Idle-Shadow.png",
+      "bytes": 727,
+      "sha256": "c7b4b5a1cb381754a2bbff9a810ed9d1ce14c2474bc46b8194900bb9fc42e128"
+    },
+    {
+      "file": "dist/assets/pokemon/34/Attack-Anim.png",
+      "bytes": 41361,
+      "sha256": "c72da1f2e9d65c63a96a1bea52c8afaaf4a7cc45a85e687b82c8175ff24639c0"
+    },
+    {
+      "file": "dist/assets/pokemon/34/Attack-Shadow.png",
+      "bytes": 6277,
+      "sha256": "7a3ba87d8fd56ab6bffc6b49e9eca14993a5feb0792f40c31e84b7132aa6bcc9"
+    },
+    {
+      "file": "dist/assets/pokemon/34/Hurt-Anim.png",
+      "bytes": 8554,
+      "sha256": "2c7b394b7eac41d61c26b7368ddc3b92c867f24e790d3fd7399e36eac68e82c2"
+    },
+    {
+      "file": "dist/assets/pokemon/34/Hurt-Shadow.png",
+      "bytes": 848,
+      "sha256": "59e15793497a8122091a82c72c5a51beee94f1f6d7103dfedfb2604d57a02f51"
+    },
+    {
+      "file": "dist/assets/pokemon/34/Shoot-Anim.png",
+      "bytes": 31667,
+      "sha256": "b96eef4504ea9e5dd6e85803c813c287abbee187213153dc5955b9f9de5e031c"
+    },
+    {
+      "file": "dist/assets/pokemon/34/Shoot-Shadow.png",
+      "bytes": 4986,
+      "sha256": "415525a7ef3ce92c01290641a0699b81c273bc9c5c48a1dbdf5b3805dbf55566"
+    },
+    {
+      "file": "dist/assets/pokemon/32/Walk-Anim.png",
+      "bytes": 13025,
+      "sha256": "526d8779bf170b841fde3b324b17b83d4bc0ddc70fb46b07b6b911060ecc1ee7"
+    },
+    {
+      "file": "dist/assets/pokemon/32/Walk-Shadow.png",
+      "bytes": 2100,
+      "sha256": "b91f67009cfe0a2192980b5d594f327a6d19e631ab97c702fb2c6b9088d2c85e"
+    },
+    {
+      "file": "dist/assets/pokemon/32/Idle-Anim.png",
+      "bytes": 10717,
+      "sha256": "0c41f6e99f4418645f35cfce79a5002bfc6af245f3060a40f0c718223423d768"
+    },
+    {
+      "file": "dist/assets/pokemon/32/Idle-Shadow.png",
+      "bytes": 669,
+      "sha256": "3663469be3cd3881d44f891f3c05fe6c84d2f5122c92587509664872783b1c5f"
+    },
+    {
+      "file": "dist/assets/pokemon/32/Attack-Anim.png",
+      "bytes": 20461,
+      "sha256": "7e727f27d3f7ddf0dc40665372aa44b509e0eccf84f07c11440ddb1e01aad088"
+    },
+    {
+      "file": "dist/assets/pokemon/32/Hurt-Anim.png",
+      "bytes": 5304,
+      "sha256": "7ee7d5bc7bb2cbed7f645a0fa362c5b75813a1dcb1dcb68a8edb59426df7e987"
+    },
+    {
+      "file": "dist/assets/pokemon/32/Attack-Shadow.png",
+      "bytes": 4879,
+      "sha256": "2a162f27e288c27f41c68a71882d20ebbd98a5cebb70514011ae6e59f1b54083"
+    },
+    {
+      "file": "dist/assets/pokemon/32/Hurt-Shadow.png",
+      "bytes": 737,
+      "sha256": "77efa39429ea5bd928ff1865f3039982c9d6152b457d97c2055abde373da99a5"
+    },
+    {
+      "file": "dist/assets/pokemon/95/Walk-Anim.png",
+      "bytes": 24660,
+      "sha256": "f6a619b7f34f8dab42165d9f1a61b92113f42675d175c6d75ccdf7c68acf03b0"
+    },
+    {
+      "file": "dist/assets/pokemon/95/Walk-Shadow.png",
+      "bytes": 2431,
+      "sha256": "de80bd56fa39be14d6751f6a29b226b00362b4a9e75136329a362cb3b47cd6b2"
+    },
+    {
+      "file": "dist/assets/pokemon/95/Idle-Shadow.png",
+      "bytes": 2450,
+      "sha256": "163e17667fdb56585c84a96edf388a1bd88af94d2a522e9034776a72fdf07cb8"
+    },
+    {
+      "file": "dist/assets/pokemon/95/Idle-Anim.png",
+      "bytes": 24718,
+      "sha256": "905c8e04bef0f755573db9daf33457a8ac288721301ef366641b6aa1f4a9ac9d"
+    },
+    {
+      "file": "dist/assets/pokemon/95/Attack-Anim.png",
+      "bytes": 60023,
+      "sha256": "e6c85899ef134fd1103d3e9a65a0aea0796761c3fbcf604a97111e4834239d08"
+    },
+    {
+      "file": "dist/assets/pokemon/95/Attack-Shadow.png",
+      "bytes": 10468,
+      "sha256": "70e680a8bfb517ac1328ef59ec397a65d0c907233865ddfe89a203f7f664c1da"
+    },
+    {
+      "file": "dist/assets/pokemon/95/Hurt-Anim.png",
+      "bytes": 12222,
+      "sha256": "b8fa560fed71882b5f28ccfe5c6019ed1bfb4193a2d7f3b15e90d4a419618d32"
+    },
+    {
+      "file": "dist/assets/pokemon/95/Hurt-Shadow.png",
+      "bytes": 1475,
+      "sha256": "4f20abd0b62127160502cc40ddaec247111b32e616e4d9ae5db2e07ba06ce633"
+    },
+    {
+      "file": "dist/assets/pokemon/261/Walk-Anim.png",
+      "bytes": 8643,
+      "sha256": "0e58d590669af1b42a89d07f2ed53fe459f8e2b7af7f000a0d612884a6397491"
+    },
+    {
+      "file": "dist/assets/pokemon/261/Walk-Shadow.png",
+      "bytes": 669,
+      "sha256": "3663469be3cd3881d44f891f3c05fe6c84d2f5122c92587509664872783b1c5f"
+    },
+    {
+      "file": "dist/assets/pokemon/261/Idle-Anim.png",
+      "bytes": 7504,
+      "sha256": "d20e29bfa9cb3ec6a72dffa264e3c67c7b43314ac77b51d12fa66fd389833af8"
+    },
+    {
+      "file": "dist/assets/pokemon/261/Idle-Shadow.png",
+      "bytes": 568,
+      "sha256": "c26e2efafd267bec017d95d43769e15a0230a1217348a8f299729bb5a44e117a"
+    },
+    {
+      "file": "dist/assets/pokemon/261/Attack-Anim.png",
+      "bytes": 18802,
+      "sha256": "117af2cf15839ceaa6a79e3af41dd21b692019cf372adbb86ed15ec8b96c1fd1"
+    },
+    {
+      "file": "dist/assets/pokemon/261/Attack-Shadow.png",
+      "bytes": 5456,
+      "sha256": "f872bec706673437a95cabc3a6de0dabece150077ade4d48830333049f002e7d"
+    },
+    {
+      "file": "dist/assets/pokemon/261/Hurt-Anim.png",
+      "bytes": 5424,
+      "sha256": "240958382bfa58bc2bb3c50c58d60302e51585c3c38fda46ab66dca738f2dbe8"
+    },
+    {
+      "file": "dist/assets/pokemon/261/Hurt-Shadow.png",
+      "bytes": 851,
+      "sha256": "737198ec693340ec6a7560fcad447d3c6616b95f350dc019384301d2a450677b"
+    },
+    {
+      "file": "dist/assets/pokemon/18/Walk-Anim.png",
+      "bytes": 8417,
+      "sha256": "8861506f95b77d7a3ead8d972cab92ed943195f7fdc6ab79535bf6ff4b706978"
+    },
+    {
+      "file": "dist/assets/pokemon/18/Walk-Shadow.png",
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    {
+      "file": "dist/assets/pokemon/18/Idle-Anim.png",
+      "bytes": 7881,
+      "sha256": "5396ba5a5185250dc886137c36a219ac793726850c2590265f8fa2ff2701d0cc"
+    },
+    {
+      "file": "dist/assets/pokemon/18/Idle-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/18/Attack-Anim.png",
+      "bytes": 34686,
+      "sha256": "cebd01dbc3522ff49f8d26805a0fef7419446c9741c41e3b34bc205b4c3e6379"
+    },
+    {
+      "file": "dist/assets/pokemon/18/Attack-Shadow.png",
+      "bytes": 5986,
+      "sha256": "329cd52821c1c6d91410cdf2f30bca1a804c2d6a444f44aa81d10152e225ae4e"
+    },
+    {
+      "file": "dist/assets/pokemon/18/Hurt-Anim.png",
+      "bytes": 8713,
+      "sha256": "11c83ccf8ffed012086f65eb8b6f3aae7783857f6f04531a1ca986c5421efbf3"
+    },
+    {
+      "file": "dist/assets/pokemon/18/Hurt-Shadow.png",
+      "bytes": 881,
+      "sha256": "f5365ac074cbe511672d0f1fb32a5a546863dbb1463af6568e721bb7d8c231ef"
+    },
+    {
+      "file": "dist/assets/pokemon/18/Hop-Anim.png",
+      "bytes": 23021,
+      "sha256": "fbb306436aec667b5d9abd8312fe22b77df2683462481a442e97a414dc7de0c2"
+    },
+    {
+      "file": "dist/assets/pokemon/18/Hop-Shadow.png",
+      "bytes": 1856,
+      "sha256": "4a746123bc57746067540d21cda3cbd77ef9b536a0134bba2e70a44e12f00f8b"
+    },
+    {
+      "file": "dist/assets/pokemon/54/Walk-Anim.png",
+      "bytes": 6223,
+      "sha256": "890be68026823e8c9807c5978d7420665bac67db0f7f5126a30bbf4c1ce9611e"
+    },
+    {
+      "file": "dist/assets/pokemon/54/Walk-Shadow.png",
+      "bytes": 481,
+      "sha256": "b2032de1559f978f14a69647771f1956cd65936408006b8bbd9f36e84d1f20b3"
+    },
+    {
+      "file": "dist/assets/pokemon/54/Idle-Anim.png",
+      "bytes": 6223,
+      "sha256": "890be68026823e8c9807c5978d7420665bac67db0f7f5126a30bbf4c1ce9611e"
+    },
+    {
+      "file": "dist/assets/pokemon/54/Idle-Shadow.png",
+      "bytes": 481,
+      "sha256": "b2032de1559f978f14a69647771f1956cd65936408006b8bbd9f36e84d1f20b3"
+    },
+    {
+      "file": "dist/assets/pokemon/54/Attack-Anim.png",
+      "bytes": 23312,
+      "sha256": "ea03d66f893d0a8a8f5580de2f87a344c0051d373c74a4656264675634d149ca"
+    },
+    {
+      "file": "dist/assets/pokemon/54/Attack-Shadow.png",
+      "bytes": 5166,
+      "sha256": "761261874b61b113cab1b7c7cd0def88a14342034529e08bf5e09ea465cfa93f"
+    },
+    {
+      "file": "dist/assets/pokemon/54/Hurt-Anim.png",
+      "bytes": 5366,
+      "sha256": "e57d8d6453a2f55fbddb47560d5169172cb45903f1edfd7bba4061cc36dd3004"
+    },
+    {
+      "file": "dist/assets/pokemon/54/Hurt-Shadow.png",
+      "bytes": 787,
+      "sha256": "c598a4c3fc9b723e5936bd5ed74086c34af796aa188d84466b4472b3fb8eb99c"
+    },
+    {
+      "file": "dist/assets/pokemon/54/Shoot-Anim.png",
+      "bytes": 14519,
+      "sha256": "09077a7b230e4fb7b23f670e9e98f59ea219febfb100b5354117d3fe60cb8293"
+    },
+    {
+      "file": "dist/assets/pokemon/54/Shoot-Shadow.png",
+      "bytes": 2890,
+      "sha256": "c9ee7537ce8d224a86499cfaf7890c2a5df271d79a1fed3d6013a3fa50f38311"
+    },
+    {
+      "file": "dist/assets/pokemon/26/Walk-Anim.png",
+      "bytes": 10731,
+      "sha256": "6526184cf16f5b97a1fc2d051e423f96b83843e2bf052ac9b1f1b12f90c90a70"
+    },
+    {
+      "file": "dist/assets/pokemon/26/Walk-Shadow.png",
+      "bytes": 675,
+      "sha256": "671311df7daf3867dfc1a5f254552684d033122934178f1980684860c8477d09"
+    },
+    {
+      "file": "dist/assets/pokemon/26/Idle-Anim.png",
+      "bytes": 16242,
+      "sha256": "1277a3583989551b251b87fbe60ad04bd01ea19b23f2ba43e7aef5b3fecdd366"
+    },
+    {
+      "file": "dist/assets/pokemon/26/Idle-Shadow.png",
+      "bytes": 1143,
+      "sha256": "d9a485ba748e338816ce1cbcbf29405fff3507bb3bf201be85c05efd1d80f8a4"
+    },
+    {
+      "file": "dist/assets/pokemon/26/Attack-Anim.png",
+      "bytes": 25286,
+      "sha256": "b58a6e6f8beb0c480e250672abd0160efd38c33b4e9b3e5b5819fc19c4a0bb45"
+    },
+    {
+      "file": "dist/assets/pokemon/26/Attack-Shadow.png",
+      "bytes": 4962,
+      "sha256": "dedee8d3dd02f037544b2d75174eb0d6dbda9399b63fe32ef338fbfa96db7253"
+    },
+    {
+      "file": "dist/assets/pokemon/26/Hurt-Anim.png",
+      "bytes": 6695,
+      "sha256": "c570c1415cb09c914076086e4c1623d2c6d131fe5693aa2b89b8a415eae21664"
+    },
+    {
+      "file": "dist/assets/pokemon/26/Hurt-Shadow.png",
+      "bytes": 885,
+      "sha256": "0157103db8a36b8ee433520fda7d929ab58e8ded99d9ed246c3824d2af9c8a72"
+    },
+    {
+      "file": "dist/assets/pokemon/280/Walk-Anim.png",
+      "bytes": 5395,
+      "sha256": "8192c42fcb3b9caa6597f50e6dbd6f4dc3a7344c9e50c6dcc08a9227e054abdd"
+    },
+    {
+      "file": "dist/assets/pokemon/280/Walk-Shadow.png",
+      "bytes": 463,
+      "sha256": "c0ba6d2d4ef8e26824dace9aca22a63c8cc4bd423ffa67d6755e5ad2ec6423d8"
+    },
+    {
+      "file": "dist/assets/pokemon/280/Idle-Anim.png",
+      "bytes": 3638,
+      "sha256": "a497787d2f184ba8cbf0c1fbb72d84fe716bf0b151c9b0241679a06d6d09e758"
+    },
+    {
+      "file": "dist/assets/pokemon/280/Idle-Shadow.png",
+      "bytes": 408,
+      "sha256": "3a85eb80bdf16b6786145ed3b313b6043234a6d772a4116e935e6f7101cf61c2"
+    },
+    {
+      "file": "dist/assets/pokemon/280/Attack-Anim.png",
+      "bytes": 16670,
+      "sha256": "fec817e7a42de1c243335933340600a6cd2f5710464b1b640e486806c7cac0a0"
+    },
+    {
+      "file": "dist/assets/pokemon/280/Attack-Shadow.png",
+      "bytes": 5120,
+      "sha256": "f85613622d412779160ef7dd5d6761183726084bb6e3f3c5e904ae08c8148061"
+    },
+    {
+      "file": "dist/assets/pokemon/280/Hurt-Anim.png",
+      "bytes": 4265,
+      "sha256": "a6fa64b5d40a79b711f39cf202ef0250e3b685b21a4b539a47a2444ae20c0637"
+    },
+    {
+      "file": "dist/assets/pokemon/280/Hurt-Shadow.png",
+      "bytes": 803,
+      "sha256": "7cca50e13181556ed1f82330ce64356ed30a804c4788ae240c9ef267cce8f4e9"
+    },
+    {
+      "file": "dist/assets/pokemon/384/Walk-Anim.png",
+      "bytes": 60173,
+      "sha256": "1c2f10d00434f729bdefb075634f7b772d9505331e7db554c37ad3ec38895e66"
+    },
+    {
+      "file": "dist/assets/pokemon/384/Walk-Shadow.png",
+      "bytes": 5842,
+      "sha256": "ece532f71e020c1a6cd71505bb56f9600393db8147470dcc4fadbdd3341f6e6c"
+    },
+    {
+      "file": "dist/assets/pokemon/384/Idle-Anim.png",
+      "bytes": 35148,
+      "sha256": "5a9602e755974316c712276632ae84d9f353cd7b2c534a0e5328dfee39a1f479"
+    },
+    {
+      "file": "dist/assets/pokemon/384/Idle-Shadow.png",
+      "bytes": 2325,
+      "sha256": "5e74c81b3dbe96dd0671ace6cfad94f00af807652d98020dbbd636186254470a"
+    },
+    {
+      "file": "dist/assets/pokemon/384/Attack-Anim.png",
+      "bytes": 113963,
+      "sha256": "ea0298a50d51480db1a75eca09125a233c59cba3ef863ea362309b62908e50e3"
+    },
+    {
+      "file": "dist/assets/pokemon/384/Attack-Shadow.png",
+      "bytes": 11207,
+      "sha256": "ed4c0d31345bb972e8961aa831c45e40a20ffdb5c07e46b8a351cfe1f5742bad"
+    },
+    {
+      "file": "dist/assets/pokemon/384/Hurt-Anim.png",
+      "bytes": 21337,
+      "sha256": "97ef295a2881155b9b226f0f1a0e63519ac9e3c0cd487b65fe5868e7a2f03b21"
+    },
+    {
+      "file": "dist/assets/pokemon/384/Hurt-Shadow.png",
+      "bytes": 1711,
+      "sha256": "4f42e63101ee75e90e9942698481b7de91064fd8a1c38587c22184ae55f43c2b"
+    },
+    {
+      "file": "dist/assets/pokemon/384/Shoot-Anim.png",
+      "bytes": 83009,
+      "sha256": "6d6ef529a283b74ebc9685cc98232d5b6a31d2c33c750d381aa2bffe2d7db6e2"
+    },
+    {
+      "file": "dist/assets/pokemon/384/Shoot-Shadow.png",
+      "bytes": 7441,
+      "sha256": "564ad770b00e4429af40371ff22122110f570ef8567cff67b2bb8a49f67ddecc"
+    },
+    {
+      "file": "dist/assets/pokemon/377/Walk-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/377/Walk-Anim.png",
+      "bytes": 13171,
+      "sha256": "a3f2101da357c1de9f0a93b9a0c88fcc4a59017b33de958362abf499a5e24740"
+    },
+    {
+      "file": "dist/assets/pokemon/377/Idle-Anim.png",
+      "bytes": 13387,
+      "sha256": "10e408362ef084f3ccb843c5c4560b616befac52889ae78569ed1e3c76f345a2"
+    },
+    {
+      "file": "dist/assets/pokemon/377/Idle-Shadow.png",
+      "bytes": 1207,
+      "sha256": "97d7b10997fadcb42529dd6cfd112e646a84b774acf4aab00b5dbc4ba07dbc4d"
+    },
+    {
+      "file": "dist/assets/pokemon/377/Attack-Anim.png",
+      "bytes": 37787,
+      "sha256": "1e9a98599d6f28153dc6a0fc9929e184a0efe6358aff1c93aed17664e827befe"
+    },
+    {
+      "file": "dist/assets/pokemon/377/Attack-Shadow.png",
+      "bytes": 5110,
+      "sha256": "3ab0f356ed774da1caa824d1ab81119438fac24689ceea6d600bf26988d7a6b6"
+    },
+    {
+      "file": "dist/assets/pokemon/377/Hurt-Anim.png",
+      "bytes": 7341,
+      "sha256": "6bd482ac2a2671cee16715e998d77e7339a52a8ae296aa08781e947d463e04f1"
+    },
+    {
+      "file": "dist/assets/pokemon/377/Hurt-Shadow.png",
+      "bytes": 737,
+      "sha256": "77efa39429ea5bd928ff1865f3039982c9d6152b457d97c2055abde373da99a5"
+    },
+    {
+      "file": "dist/assets/pokemon/112/Walk-Anim.png",
+      "bytes": 11409,
+      "sha256": "96d89d75637f5d7ae3b5a9ffa3daedb11289255b114ebe8835ed1f988a938ff8"
+    },
+    {
+      "file": "dist/assets/pokemon/112/Walk-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/112/Idle-Anim.png",
+      "bytes": 9039,
+      "sha256": "61e4008ab8a6a89ab2cc940b1bce67df35fc562f93c3a622375e050807fccc19"
+    },
+    {
+      "file": "dist/assets/pokemon/112/Idle-Shadow.png",
+      "bytes": 582,
+      "sha256": "d08bd47f0088764ab6e5b99bc6ab238441a1fa9b880f7715b3f654b4c7f40ccf"
+    },
+    {
+      "file": "dist/assets/pokemon/112/Attack-Shadow.png",
+      "bytes": 5063,
+      "sha256": "18bd2ce0aa17929b94cbce4f09bbce447f5d8169c1f29c484cbe5f507b18375c"
+    },
+    {
+      "file": "dist/assets/pokemon/112/Attack-Anim.png",
+      "bytes": 33329,
+      "sha256": "312f43a696358a9f3a542c7e0dd0b1c607e4a985e8e627d3909d0614d562215e"
+    },
+    {
+      "file": "dist/assets/pokemon/112/Hurt-Anim.png",
+      "bytes": 7538,
+      "sha256": "1fd29dacf55f734242f532f56860269734eb28810d5e49bdd71f32991905e69d"
+    },
+    {
+      "file": "dist/assets/pokemon/112/Hurt-Shadow.png",
+      "bytes": 852,
+      "sha256": "735198c51da23740c2ec2d0866a4755ec28614b2c1110da81d79cd21f5e83398"
+    },
+    {
+      "file": "dist/assets/pokemon/315/Walk-Anim.png",
+      "bytes": 6877,
+      "sha256": "180907cb7e1649745dd40d7be04811b4e8eca214fd273f5b9cbeefa722c5faba"
+    },
+    {
+      "file": "dist/assets/pokemon/315/Walk-Shadow.png",
+      "bytes": 484,
+      "sha256": "69e66f73fe2c70d9b9ece3f0e738451ce9fa80615e7f3905bc559caace89c7db"
+    },
+    {
+      "file": "dist/assets/pokemon/315/Idle-Anim.png",
+      "bytes": 19161,
+      "sha256": "4f4192f35cb50ecef5027a899384b60c1e4f3564915175040536f273944ff454"
+    },
+    {
+      "file": "dist/assets/pokemon/315/Idle-Shadow.png",
+      "bytes": 881,
+      "sha256": "36ae2e2028a5a96bbea4101d857b54328d00087c3892244854d87f0d052da6b2"
+    },
+    {
+      "file": "dist/assets/pokemon/315/Attack-Anim.png",
+      "bytes": 18879,
+      "sha256": "43e77777704223451c60ca2c138e905086fb735c3ecb72b4616256237e45f101"
+    },
+    {
+      "file": "dist/assets/pokemon/315/Hurt-Anim.png",
+      "bytes": 4868,
+      "sha256": "2877a2bcb1e9e27e997628466e470ed2a830e703233d2031f90a993b459acdd7"
+    },
+    {
+      "file": "dist/assets/pokemon/315/Attack-Shadow.png",
+      "bytes": 4831,
+      "sha256": "d98d1d76266248eca8a0db3d9bbbf72a64d0b0b11615191343a30617975b9bd7"
+    },
+    {
+      "file": "dist/assets/pokemon/315/Hurt-Shadow.png",
+      "bytes": 823,
+      "sha256": "4b04c29b16a65336d214c5853efd6744fca874511c42a13d186aba1f96797d8d"
+    },
+    {
+      "file": "dist/assets/pokemon/315/Shoot-Anim.png",
+      "bytes": 15338,
+      "sha256": "4497e761fbc37a013888ec81fb4c60f4faa4843ea33ee05cf0d86a0f879ec0da"
+    },
+    {
+      "file": "dist/assets/pokemon/315/Shoot-Shadow.png",
+      "bytes": 3599,
+      "sha256": "329df25e565065cf8e3f13ba40a400dc61e23dd6292026c0c9bf63370584a217"
+    },
+    {
+      "file": "dist/assets/pokemon/302/Walk-Anim.png",
+      "bytes": 6412,
+      "sha256": "cb2f0d0a45e774b8515eedc6b9c8cd0d222a752a40d606c2fd6b968308d0ed8f"
+    },
+    {
+      "file": "dist/assets/pokemon/302/Walk-Shadow.png",
+      "bytes": 481,
+      "sha256": "b2032de1559f978f14a69647771f1956cd65936408006b8bbd9f36e84d1f20b3"
+    },
+    {
+      "file": "dist/assets/pokemon/302/Idle-Anim.png",
+      "bytes": 4484,
+      "sha256": "66200943077fd4a16a7db7cc0ec989b09fe56c694cf4265583fa4151ebe929ce"
+    },
+    {
+      "file": "dist/assets/pokemon/302/Idle-Shadow.png",
+      "bytes": 470,
+      "sha256": "a87291e10d63fcaa60192a4db09ab64ad64857698d76bd7bea69d147d37f3472"
+    },
+    {
+      "file": "dist/assets/pokemon/302/Attack-Shadow.png",
+      "bytes": 4769,
+      "sha256": "76979b8060f3a6bf02da21682489b2c45a8d0172186e7998e5592ec652156cf4"
+    },
+    {
+      "file": "dist/assets/pokemon/302/Attack-Anim.png",
+      "bytes": 18326,
+      "sha256": "67aaf09b9512655905c7adac745c0d371069861e5707c87d5f4d4702f6bc9a55"
+    },
+    {
+      "file": "dist/assets/pokemon/302/Hurt-Anim.png",
+      "bytes": 6089,
+      "sha256": "7f15d522775fc26b794d74f36eadacdfd609b6fcff9beb5e7d6adc059de06bb2"
+    },
+    {
+      "file": "dist/assets/pokemon/302/Hurt-Shadow.png",
+      "bytes": 969,
+      "sha256": "db7d3db4e87983e7d724483082216d1420e2c793fda34cedf6420eb36144d721"
+    },
+    {
+      "file": "dist/assets/pokemon/373/Walk-Anim.png",
+      "bytes": 17769,
+      "sha256": "5da192948813dd4421611210df06582d72e3536561b0272cba6e59bd984c3591"
+    },
+    {
+      "file": "dist/assets/pokemon/373/Walk-Shadow.png",
+      "bytes": 1652,
+      "sha256": "6fd3bd22831b2f268d092c2be034168b7d542fbe59f6e2a8da57b577266ea840"
+    },
+    {
+      "file": "dist/assets/pokemon/373/Idle-Anim.png",
+      "bytes": 19314,
+      "sha256": "e63f13a9be399d5d48e50e61eb7a0f51632f30d51db4f4ce115bd2df6b27873c"
+    },
+    {
+      "file": "dist/assets/pokemon/373/Idle-Shadow.png",
+      "bytes": 3051,
+      "sha256": "4b4aedf24864ca2fb91fe5f6afffabd39c80fc6bc4441985bf1dfd599891791c"
+    },
+    {
+      "file": "dist/assets/pokemon/373/Attack-Anim.png",
+      "bytes": 39184,
+      "sha256": "a957d4de7a07f3f13bf8d67208a0e3c4b7ced581759aa1f53d6811aa01ca0b35"
+    },
+    {
+      "file": "dist/assets/pokemon/373/Attack-Shadow.png",
+      "bytes": 4950,
+      "sha256": "17208c818ea10436df3e23ba14d7b2a58d5d2916530cc85c8e0ebdf2f627deab"
+    },
+    {
+      "file": "dist/assets/pokemon/373/Hurt-Anim.png",
+      "bytes": 11586,
+      "sha256": "9d5c3b72070cf627374f385bca100cb5a545b0dc7a6948e089083d4f66308a77"
+    },
+    {
+      "file": "dist/assets/pokemon/373/Hurt-Shadow.png",
+      "bytes": 1297,
+      "sha256": "146d71d60fcc5572668aa11452328745d964e14a8063ba6d7da812c6f2699804"
+    },
+    {
+      "file": "dist/assets/pokemon/373/Hop-Anim.png",
+      "bytes": 43245,
+      "sha256": "487479624aff827708e00cd0c98a479acd64b8c77a35139f3482bbef77dd0954"
+    },
+    {
+      "file": "dist/assets/pokemon/373/Hop-Shadow.png",
+      "bytes": 2840,
+      "sha256": "bc171e6968c04588ec209b7b2389ef9ed97cc53e971f8194a41da4599589529d"
+    },
+    {
+      "file": "dist/assets/pokemon/27/Walk-Anim.png",
+      "bytes": 5128,
+      "sha256": "23fc8ce093564ac34e54c1fe41b185c93364c35a3e6ff37c1583c47c9ae02e99"
+    },
+    {
+      "file": "dist/assets/pokemon/27/Walk-Shadow.png",
+      "bytes": 484,
+      "sha256": "69e66f73fe2c70d9b9ece3f0e738451ce9fa80615e7f3905bc559caace89c7db"
+    },
+    {
+      "file": "dist/assets/pokemon/27/Idle-Anim.png",
+      "bytes": 4408,
+      "sha256": "d17af3f49298103936ed3726b5402be7413f1cee3c789b763e74b453fd65f0d0"
+    },
+    {
+      "file": "dist/assets/pokemon/27/Idle-Shadow.png",
+      "bytes": 514,
+      "sha256": "68c83e91a9a39ef3355b8f1a3bb474180faa46ef443a58acac567a6b54127560"
+    },
+    {
+      "file": "dist/assets/pokemon/27/Attack-Anim.png",
+      "bytes": 15164,
+      "sha256": "a3f665fc7aa892cd889ce94d64665011b22776f0e880555d18050fdf56b79995"
+    },
+    {
+      "file": "dist/assets/pokemon/27/Attack-Shadow.png",
+      "bytes": 5267,
+      "sha256": "7da270a506ce9c780a791e52c2f50397859f528bd5c8426ed7f23b0e81fdffd2"
+    },
+    {
+      "file": "dist/assets/pokemon/27/Hurt-Anim.png",
+      "bytes": 3046,
+      "sha256": "a91f238aa315477cca530e0bbbd62a817470afee21fed6f468551021aac0cde9"
+    },
+    {
+      "file": "dist/assets/pokemon/27/Hurt-Shadow.png",
+      "bytes": 736,
+      "sha256": "698903e1ad774ea45deaeb2b33d7e7c26cad316b95c9bb6b6ff57cd3f31b4a14"
+    },
+    {
+      "file": "dist/assets/pokemon/254/Walk-Anim.png",
+      "bytes": 9335,
+      "sha256": "89f6a836fb1b0ccee94fec63ad2380ea10063782ef1655955e2bcb59bf1e550a"
+    },
+    {
+      "file": "dist/assets/pokemon/254/Walk-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/254/Idle-Anim.png",
+      "bytes": 6124,
+      "sha256": "3b4a7ccdabbf3346c2e2864c73cb4d52f3780ddc71396bc23dc7c671e9bda4b9"
+    },
+    {
+      "file": "dist/assets/pokemon/254/Idle-Shadow.png",
+      "bytes": 537,
+      "sha256": "6ac90dc4a5498a3e2981479ac96747d7bc4a4e26606741c5b169889aa3f33580"
+    },
+    {
+      "file": "dist/assets/pokemon/254/Attack-Anim.png",
+      "bytes": 21762,
+      "sha256": "fbc1925e2d935939f5b22dbf998e652f88e80e4377b43d0d3e3b6b5e6d96ccf6"
+    },
+    {
+      "file": "dist/assets/pokemon/254/Attack-Shadow.png",
+      "bytes": 5098,
+      "sha256": "7d9b8aff0f1e38da6ba1033a0982b089e86051d2163fa04da5d8ca7fd3651052"
+    },
+    {
+      "file": "dist/assets/pokemon/254/Hurt-Anim.png",
+      "bytes": 6224,
+      "sha256": "9c84539e614a22a257073e345e9601d341fad179d92885d4a8b02dabff3e7b92"
+    },
+    {
+      "file": "dist/assets/pokemon/254/Hurt-Shadow.png",
+      "bytes": 848,
+      "sha256": "59e15793497a8122091a82c72c5a51beee94f1f6d7103dfedfb2604d57a02f51"
+    },
+    {
+      "file": "dist/assets/pokemon/254/Shoot-Anim.png",
+      "bytes": 23626,
+      "sha256": "c2d4fce7be58c68bc06d87771b7732c08bdbecee10f5742db7f548b2b684ce82"
+    },
+    {
+      "file": "dist/assets/pokemon/254/Shoot-Shadow.png",
+      "bytes": 3633,
+      "sha256": "d4570d93c16349e98bb42bf8d8fdf9e766080c0671ef2ea795098476065707d9"
+    },
+    {
+      "file": "dist/assets/pokemon/212/Walk-Anim.png",
+      "bytes": 10345,
+      "sha256": "e047334a8f116d7ff06a8c006f2735dd94c4454b493cba00d3fb2d0a8c90d107"
+    },
+    {
+      "file": "dist/assets/pokemon/212/Walk-Shadow.png",
+      "bytes": 792,
+      "sha256": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec"
+    },
+    {
+      "file": "dist/assets/pokemon/212/Idle-Anim.png",
+      "bytes": 12953,
+      "sha256": "e8fe0570c10f952e719c8ddd15afe315450ac7d0af4efeb2c1292e00010c3b88"
+    },
+    {
+      "file": "dist/assets/pokemon/212/Idle-Shadow.png",
+      "bytes": 1156,
+      "sha256": "702fed10ab2f61c8eb41c2e6608146335661aa271ce23d4d054c8c130fac93d5"
+    },
+    {
+      "file": "dist/assets/pokemon/212/Attack-Anim.png",
+      "bytes": 24768,
+      "sha256": "eb60db06364972eb3d4b071d05d51bc1719a74d258259aa301c140bdfb0cdd69"
+    },
+    {
+      "file": "dist/assets/pokemon/212/Attack-Shadow.png",
+      "bytes": 5273,
+      "sha256": "b0f73b33ada92652bc01884c7079124666836d734a2581cf48146d397ed64156"
+    },
+    {
+      "file": "dist/assets/pokemon/212/Hurt-Anim.png",
+      "bytes": 6173,
+      "sha256": "75895265d131496daa7d9914c56477e1ee8352bad8b7c26cddb797c7db3c4437"
+    },
+    {
+      "file": "dist/assets/pokemon/212/Hurt-Shadow.png",
+      "bytes": 851,
+      "sha256": "737198ec693340ec6a7560fcad447d3c6616b95f350dc019384301d2a450677b"
+    },
+    {
+      "file": "dist/assets/pokemon/212/MultiScratch-Anim.png",
+      "bytes": 35641,
+      "sha256": "bb896f1b41499c1b00e854342828654b02c0ff241ebb97f4379e3cad71156505"
+    },
+    {
+      "file": "dist/assets/pokemon/212/MultiScratch-Shadow.png",
+      "bytes": 6726,
+      "sha256": "a6b53bfdb765546f12cb8b256753c352f05e9fe0b86803357a77bcb108b96574"
+    },
+    {
+      "file": "dist/assets/pokemon/123/Walk-Anim.png",
+      "bytes": 9467,
+      "sha256": "beca8bf4fbe76c844a2120fb97da09948d06295b6196f4179e774c06b5d2cf84"
+    },
+    {
+      "file": "dist/assets/pokemon/123/Walk-Shadow.png",
+      "bytes": 792,
+      "sha256": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec"
+    },
+    {
+      "file": "dist/assets/pokemon/123/Idle-Anim.png",
+      "bytes": 7699,
+      "sha256": "19c9a0e548f5f137ec1021d9ab7b94526d2db082d06ed3f307e13acd67cbb365"
+    },
+    {
+      "file": "dist/assets/pokemon/123/Idle-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/123/Attack-Anim.png",
+      "bytes": 21945,
+      "sha256": "a510bf490ff90537f1c014726468174582d5933007a2d74200901dac814b642f"
+    },
+    {
+      "file": "dist/assets/pokemon/123/Attack-Shadow.png",
+      "bytes": 5080,
+      "sha256": "c3d332d8ce9cc00992469a7ea5c3a892cec114a89b57570ca1ff0c4ee6f11c61"
+    },
+    {
+      "file": "dist/assets/pokemon/123/Hurt-Anim.png",
+      "bytes": 6487,
+      "sha256": "5da4aa285b56da702faa84648ce683b74a6b28ff5c6c7cf11aaaec61a51a513d"
+    },
+    {
+      "file": "dist/assets/pokemon/123/Hurt-Shadow.png",
+      "bytes": 822,
+      "sha256": "4973734d088ad25a7f3a2fe09949b183bc8ba0bc0cfc627e93ef21675f194521"
+    },
+    {
+      "file": "dist/assets/pokemon/123/Hop-Anim.png",
+      "bytes": 27641,
+      "sha256": "ff33fb05308b553fa45a07c46474e1e2e6773317e66193512753764ce579425c"
+    },
+    {
+      "file": "dist/assets/pokemon/123/Hop-Shadow.png",
+      "bytes": 2433,
+      "sha256": "1d7f457d1d4907215524178d32d73df60b605ff9534fd5261491e73573e5eb34"
+    },
+    {
+      "file": "dist/assets/pokemon/123/Slice-Anim.png",
+      "bytes": 29802,
+      "sha256": "9b5805aea6e345559a27006f56ae06cc5fb0863c31307cf9f48669a9cbffcec2"
+    },
+    {
+      "file": "dist/assets/pokemon/123/Slice-Shadow.png",
+      "bytes": 6541,
+      "sha256": "82b330b72908693115035b9097fe7ae43d6ab818c9f15e5e44821696f36a2e59"
+    },
+    {
+      "file": "dist/assets/pokemon/319/Walk-Anim.png",
+      "bytes": 12237,
+      "sha256": "911a28a00814e53bb9474620dd06719540676e1d3df4b08c075355bbe2594ac7"
+    },
+    {
+      "file": "dist/assets/pokemon/319/Walk-Shadow.png",
+      "bytes": 1275,
+      "sha256": "43925d858f993aa5c4e2ffd1fee0d837940e434f62ac3ee8d98c2d4d1e3944cd"
+    },
+    {
+      "file": "dist/assets/pokemon/319/Idle-Anim.png",
+      "bytes": 7773,
+      "sha256": "174e506febe2f729bfad2f8aaaa23e1904186e7533b08ae220791e8a60834d61"
+    },
+    {
+      "file": "dist/assets/pokemon/319/Attack-Anim.png",
+      "bytes": 20155,
+      "sha256": "0a530e44c6e6416ec2a9adb9c80254f86bf5465c73bc196d9f1035924211e133"
+    },
+    {
+      "file": "dist/assets/pokemon/319/Idle-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/319/Attack-Shadow.png",
+      "bytes": 4949,
+      "sha256": "b5bbf0285991095e7ade7631a07c5a4da47bd9e00aadc9eb50c0950a2ef736ad"
+    },
+    {
+      "file": "dist/assets/pokemon/319/Hurt-Anim.png",
+      "bytes": 6744,
+      "sha256": "e146e7d2a659272c196e511271354ea9ab95054fa3f738543f9c8c8df68ff78b"
+    },
+    {
+      "file": "dist/assets/pokemon/319/Hurt-Shadow.png",
+      "bytes": 969,
+      "sha256": "db7d3db4e87983e7d724483082216d1420e2c793fda34cedf6420eb36144d721"
+    },
+    {
+      "file": "dist/assets/pokemon/353/Walk-Anim.png",
+      "bytes": 4999,
+      "sha256": "c0a3b55fe07af0c2e3d7b695f8f41e7bbf4924e9df430d94e2a3adb43911c0c9"
+    },
+    {
+      "file": "dist/assets/pokemon/353/Idle-Anim.png",
+      "bytes": 4999,
+      "sha256": "c0a3b55fe07af0c2e3d7b695f8f41e7bbf4924e9df430d94e2a3adb43911c0c9"
+    },
+    {
+      "file": "dist/assets/pokemon/353/Walk-Shadow.png",
+      "bytes": 607,
+      "sha256": "de3b6bf43501fa097d8cb3ba55bc03969b03ed4720d391501eef4100144b252b"
+    },
+    {
+      "file": "dist/assets/pokemon/353/Idle-Shadow.png",
+      "bytes": 607,
+      "sha256": "de3b6bf43501fa097d8cb3ba55bc03969b03ed4720d391501eef4100144b252b"
+    },
+    {
+      "file": "dist/assets/pokemon/353/Attack-Anim.png",
+      "bytes": 15069,
+      "sha256": "f9342ff94f868b96d5a456316b5daa6d49baafd188cdc85b46b1b50aab157f39"
+    },
+    {
+      "file": "dist/assets/pokemon/353/Attack-Shadow.png",
+      "bytes": 5884,
+      "sha256": "afade119072daf84c8821f9040f6220561d63a5e0c57ea7069f8c4c7d7b0c41c"
+    },
+    {
+      "file": "dist/assets/pokemon/353/Hurt-Anim.png",
+      "bytes": 3174,
+      "sha256": "bd8bd32f142339f871dfffd79184ca11441ac55e3ee9f3ec72f3af67ed848d92"
+    },
+    {
+      "file": "dist/assets/pokemon/353/Hurt-Shadow.png",
+      "bytes": 805,
+      "sha256": "c663246b82041c89bd426c64d928f17c75b140a2bfadae684db6985e1fe2257d"
+    },
+    {
+      "file": "dist/assets/pokemon/80/Idle-Anim.png",
+      "bytes": 6583,
+      "sha256": "dfeb09e5d386bf7f61d5d630615f065f74f1f4eaa728336509a688ffaba45dd7"
+    },
+    {
+      "file": "dist/assets/pokemon/80/Walk-Anim.png",
+      "bytes": 9204,
+      "sha256": "55efb36975eb95833c98a4ccc7614072c8985db884844c5502ae6d3d0676fc6b"
+    },
+    {
+      "file": "dist/assets/pokemon/80/Idle-Shadow.png",
+      "bytes": 537,
+      "sha256": "6ac90dc4a5498a3e2981479ac96747d7bc4a4e26606741c5b169889aa3f33580"
+    },
+    {
+      "file": "dist/assets/pokemon/80/Walk-Shadow.png",
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    {
+      "file": "dist/assets/pokemon/80/Attack-Anim.png",
+      "bytes": 59576,
+      "sha256": "9af00870557cfb82dd5c598b412ca24a68cf3efd29bd716641567845ecea1378"
+    },
+    {
+      "file": "dist/assets/pokemon/80/Attack-Shadow.png",
+      "bytes": 7134,
+      "sha256": "4913f9ac012aebc164db78a79e40f7f07403bf85acbee8397b0304c37b5b53d3"
+    },
+    {
+      "file": "dist/assets/pokemon/80/Hurt-Shadow.png",
+      "bytes": 860,
+      "sha256": "27460f4e95792f39094074aaddec0c52b77358c4be98ca5fbfcfdcaacc074877"
+    },
+    {
+      "file": "dist/assets/pokemon/80/Hurt-Anim.png",
+      "bytes": 6623,
+      "sha256": "7f69d13f9eeb7f85236c2ecd32716668d4be41d6ee8dbb34075dfdc70c141a0c"
+    },
+    {
+      "file": "dist/assets/pokemon/80/Shoot-Anim.png",
+      "bytes": 18614,
+      "sha256": "799ede18d550c0e9329b99437313cfc53532212bbc124c01a60d8ccfdaf822a1"
+    },
+    {
+      "file": "dist/assets/pokemon/80/Shoot-Shadow.png",
+      "bytes": 3970,
+      "sha256": "3d87f431dd933d18f9aa4f7deef7f06826299dcda07a07d1c6d9fcc8841d9ae7"
+    },
+    {
+      "file": "dist/assets/pokemon/215/Walk-Anim.png",
+      "bytes": 7938,
+      "sha256": "6934cebc524a235d2dc09b2a44c614b5b3a8a5b8fa7efa755fa4a9864a079dc8"
+    },
+    {
+      "file": "dist/assets/pokemon/215/Walk-Shadow.png",
+      "bytes": 551,
+      "sha256": "731bf455d0e68d18cc37c219fc50b1882fbac9987914c80d17b92ceca9974280"
+    },
+    {
+      "file": "dist/assets/pokemon/215/Idle-Anim.png",
+      "bytes": 12751,
+      "sha256": "95d45ee49d201124cc446dcaa290dbc98ba840ac0642c5490857cc0193be2fba"
+    },
+    {
+      "file": "dist/assets/pokemon/215/Idle-Shadow.png",
+      "bytes": 1085,
+      "sha256": "fc2368e53eab92a5fd2db824f96ee07012b69e234e9c18d50c669d4182427599"
+    },
+    {
+      "file": "dist/assets/pokemon/215/Attack-Shadow.png",
+      "bytes": 5066,
+      "sha256": "302102e191e700985ac8e2ce876c69a6b01c74df51f1c37b0ca81b6685763fa0"
+    },
+    {
+      "file": "dist/assets/pokemon/215/Attack-Anim.png",
+      "bytes": 22330,
+      "sha256": "64eeeeb51be8ec71141a79a1a9c1d035bf3db5d7e4cfe5803e6151266e835971"
+    },
+    {
+      "file": "dist/assets/pokemon/215/Hurt-Anim.png",
+      "bytes": 6423,
+      "sha256": "d599a59dec91dc75a8af1dd7c5f75f31c5ea1a2ae7ee8a55b0b1d168ae2fa552"
+    },
+    {
+      "file": "dist/assets/pokemon/215/Hurt-Shadow.png",
+      "bytes": 1037,
+      "sha256": "34ba49be43c70e3c5e5baaff866cb2130badcdd397ed57f4886a54de3832b1b3"
+    },
+    {
+      "file": "dist/assets/pokemon/143/Walk-Anim.png",
+      "bytes": 8608,
+      "sha256": "304247a70ae32ee08cf1927caf71926903d7b67a3e480f15dcd76feb4be801b6"
+    },
+    {
+      "file": "dist/assets/pokemon/143/Walk-Shadow.png",
+      "bytes": 571,
+      "sha256": "0843ac7aa314a5a302a0c1998ceb6f73720007a70ca7d3e0684e86d5e608f0c3"
+    },
+    {
+      "file": "dist/assets/pokemon/143/Idle-Anim.png",
+      "bytes": 12874,
+      "sha256": "b692c89bc7c10a648fb6f72b0cf0ce9e0f84fec54dfa389709893323314e1b39"
+    },
+    {
+      "file": "dist/assets/pokemon/143/Idle-Shadow.png",
+      "bytes": 1156,
+      "sha256": "702fed10ab2f61c8eb41c2e6608146335661aa271ce23d4d054c8c130fac93d5"
+    },
+    {
+      "file": "dist/assets/pokemon/143/Attack-Anim.png",
+      "bytes": 22355,
+      "sha256": "ee1f27acf84e66dd8d0cce5bca2f62d1492363f92f63d30381b3e6c097961d93"
+    },
+    {
+      "file": "dist/assets/pokemon/143/Attack-Shadow.png",
+      "bytes": 5102,
+      "sha256": "ec4f92b6461989fab71b116fccd5e0f2d721b0955c49e6b71448dacc56bbfe4d"
+    },
+    {
+      "file": "dist/assets/pokemon/143/Hurt-Anim.png",
+      "bytes": 6289,
+      "sha256": "6a50b495198219fcf599a864527a6a8f56bc7fdaece0891632f406d3de70fb29"
+    },
+    {
+      "file": "dist/assets/pokemon/143/Hurt-Shadow.png",
+      "bytes": 848,
+      "sha256": "59e15793497a8122091a82c72c5a51beee94f1f6d7103dfedfb2604d57a02f51"
+    },
+    {
+      "file": "dist/assets/pokemon/143/Stomp-Anim.png",
+      "bytes": 33687,
+      "sha256": "2242f2ed8be643626429dbdcda0480849b7b5673c003e8c90dc902d26db36f6c"
+    },
+    {
+      "file": "dist/assets/pokemon/143/Stomp-Shadow.png",
+      "bytes": 7996,
+      "sha256": "a3ca2bca08b9b5a4d4dfedf49df6837f35298b22536cd33e49aa7ffd80570277"
+    },
+    {
+      "file": "dist/assets/pokemon/7/Walk-Anim.png",
+      "bytes": 5656,
+      "sha256": "0e71a8bf34299cf73e59eccebc0b9fc16dfb9bd9554d8009b2323c8e3c00504f"
+    },
+    {
+      "file": "dist/assets/pokemon/7/Walk-Shadow.png",
+      "bytes": 502,
+      "sha256": "986ed7e027135db592e146107bff26dac9ab00e787f7e4002bcca92696fc54b3"
+    },
+    {
+      "file": "dist/assets/pokemon/7/Idle-Anim.png",
+      "bytes": 7956,
+      "sha256": "d796b3b94475e4e2a5089bf10f392559989d4104d29c2fe387cfe003bcba5447"
+    },
+    {
+      "file": "dist/assets/pokemon/7/Idle-Shadow.png",
+      "bytes": 791,
+      "sha256": "3e55af3971cd731d2afd16aecc8c4a8740bee977600cedd4b6ae689aa7e836f2"
+    },
+    {
+      "file": "dist/assets/pokemon/7/Attack-Anim.png",
+      "bytes": 16131,
+      "sha256": "30f303366cf48558bed41d2a65fce9c9bf25d1cef57b3020e317b881af655ddb"
+    },
+    {
+      "file": "dist/assets/pokemon/7/Attack-Shadow.png",
+      "bytes": 4793,
+      "sha256": "7ccdab0a54973ad8dfab7f0c2d78a641291e58cba72bb71ce2d53a89aab454e6"
+    },
+    {
+      "file": "dist/assets/pokemon/7/Hurt-Anim.png",
+      "bytes": 4764,
+      "sha256": "b08cd8679617df5ca9d1e87ed773a8b3265eae46ef945f4bec2c9153b645eceb"
+    },
+    {
+      "file": "dist/assets/pokemon/7/Hurt-Shadow.png",
+      "bytes": 787,
+      "sha256": "c598a4c3fc9b723e5936bd5ed74086c34af796aa188d84466b4472b3fb8eb99c"
+    },
+    {
+      "file": "dist/assets/pokemon/7/Shoot-Anim.png",
+      "bytes": 11798,
+      "sha256": "0fda6308174a800e100b56df4a197df981eba1fe98c39d36ef706bd2d8b53fba"
+    },
+    {
+      "file": "dist/assets/pokemon/7/Shoot-Shadow.png",
+      "bytes": 2547,
+      "sha256": "e4f57def2375e751f81f833d4e9f96b8e8a5c9e5c283efd8c4d4803992cf9e5f"
+    },
+    {
+      "file": "dist/assets/pokemon/121/Walk-Anim.png",
+      "bytes": 6800,
+      "sha256": "d37b87824f6020808cc22de7a3fc6cd6ad76a4d0d0f64e6becef6786118e9fda"
+    },
+    {
+      "file": "dist/assets/pokemon/121/Walk-Shadow.png",
+      "bytes": 481,
+      "sha256": "b2032de1559f978f14a69647771f1956cd65936408006b8bbd9f36e84d1f20b3"
+    },
+    {
+      "file": "dist/assets/pokemon/121/Idle-Anim.png",
+      "bytes": 5414,
+      "sha256": "3a88a772a7f54e9e8e26282ac9c8f36037ce53a473ada858bbc847ff03c633cb"
+    },
+    {
+      "file": "dist/assets/pokemon/121/Idle-Shadow.png",
+      "bytes": 617,
+      "sha256": "d43095d363f8b30949442be6355167ab004f37d6e80a38d3f4162c59147ad0b5"
+    },
+    {
+      "file": "dist/assets/pokemon/121/Attack-Anim.png",
+      "bytes": 27494,
+      "sha256": "41462cf09b9cb49745ac07527aa9ea80e187ed6795196d211b3156bba170006f"
+    },
+    {
+      "file": "dist/assets/pokemon/121/Attack-Shadow.png",
+      "bytes": 6031,
+      "sha256": "a9e19109de55254582f3804fd3ccb5dd24c9299e4771473b70e6907cd4e27b56"
+    },
+    {
+      "file": "dist/assets/pokemon/121/Hurt-Anim.png",
+      "bytes": 5277,
+      "sha256": "ff49efaa4762e3b7d4dc4ad54f0751c0490150ee64b959cd9864884a93bd3caa"
+    },
+    {
+      "file": "dist/assets/pokemon/121/Hurt-Shadow.png",
+      "bytes": 859,
+      "sha256": "a9dd506184959de57a4745844c03e5aa6ad71724120c415c4d60dbbe3f5a344f"
+    },
+    {
+      "file": "dist/assets/pokemon/121/Shoot-Anim.png",
+      "bytes": 15045,
+      "sha256": "c0308ddbf99f0baffee28d1e354128096459e81ac46f3fb861dd8ca718acb3f1"
+    },
+    {
+      "file": "dist/assets/pokemon/121/Shoot-Shadow.png",
+      "bytes": 2657,
+      "sha256": "266265672944e80ae196335ed8ac71e3ce59e18814be36746303fe3b992567af"
+    },
+    {
+      "file": "dist/assets/pokemon/208/Walk-Anim.png",
+      "bytes": 25651,
+      "sha256": "e6969e79d4bd420048e2bfe6cd36ea5cc15730036d6d5864ba0fdadefaf2f525"
+    },
+    {
+      "file": "dist/assets/pokemon/208/Walk-Shadow.png",
+      "bytes": 2083,
+      "sha256": "e1414c2499840486181922b6fd4fcc9980da56a6d14655a19e68be4ca1a7a84d"
+    },
+    {
+      "file": "dist/assets/pokemon/208/Idle-Anim.png",
+      "bytes": 20513,
+      "sha256": "7f0a0672823aab21be5c8ce358c6b2f01ba933c8424684445ce574fc24e6eac2"
+    },
+    {
+      "file": "dist/assets/pokemon/208/Idle-Shadow.png",
+      "bytes": 2056,
+      "sha256": "a88231c5de50bfcdfef349d64d1b75058ea1168c93a358fbaec7525ec948b211"
+    },
+    {
+      "file": "dist/assets/pokemon/208/Attack-Anim.png",
+      "bytes": 60825,
+      "sha256": "dc8d2a20d29abf08e84b0021456bacfe5ad3adecb614941aceac7c9e5423afe1"
+    },
+    {
+      "file": "dist/assets/pokemon/208/Attack-Shadow.png",
+      "bytes": 9972,
+      "sha256": "9b07aafff98933bf6aa2f90ffe4cc97c27f361496d5235eac2d5f8009a863066"
+    },
+    {
+      "file": "dist/assets/pokemon/208/Hurt-Anim.png",
+      "bytes": 15495,
+      "sha256": "74e32e7a2cb2805f99c2751a4b64dce024a6e5a37c8819eca8c7f9f32c0e1274"
+    },
+    {
+      "file": "dist/assets/pokemon/208/Hurt-Shadow.png",
+      "bytes": 1432,
+      "sha256": "1d6fa61a741017694d0065cc6a7cc0882b6f8cb17527433d067ba388c5e2a89c"
+    },
+    {
+      "file": "dist/assets/pokemon/260/Walk-Anim.png",
+      "bytes": 11065,
+      "sha256": "92f436a81c2602b707e879a10b59a6b587a6afe958d71b68d9b5797f02e7cdc1"
+    },
+    {
+      "file": "dist/assets/pokemon/260/Walk-Shadow.png",
+      "bytes": 551,
+      "sha256": "731bf455d0e68d18cc37c219fc50b1882fbac9987914c80d17b92ceca9974280"
+    },
+    {
+      "file": "dist/assets/pokemon/260/Idle-Anim.png",
+      "bytes": 15286,
+      "sha256": "c4057b76bf34116c7e3e7e637c0ca54d4b3ef4f5c74a1007a52275b2e4bb7a8c"
+    },
+    {
+      "file": "dist/assets/pokemon/260/Idle-Shadow.png",
+      "bytes": 1038,
+      "sha256": "08001278147019310437b9081bed9f617caf81a49e803fb357eaa441f1bd6af8"
+    },
+    {
+      "file": "dist/assets/pokemon/260/Attack-Anim.png",
+      "bytes": 27540,
+      "sha256": "70c6470830cc2cc652354a0609c02042ae7c562c9bf4154d044926e2bc8eec01"
+    },
+    {
+      "file": "dist/assets/pokemon/260/Attack-Shadow.png",
+      "bytes": 5660,
+      "sha256": "7822100861716f91abb76d74b18a3a0ca5316c2a3d78960d5da98d3558fc1b4a"
+    },
+    {
+      "file": "dist/assets/pokemon/260/Hurt-Anim.png",
+      "bytes": 6715,
+      "sha256": "6bc58ee24522133b439e9afde77ad87ccdeb98e3a924a772443fb65d479f666c"
+    },
+    {
+      "file": "dist/assets/pokemon/260/Hurt-Shadow.png",
+      "bytes": 823,
+      "sha256": "4b04c29b16a65336d214c5853efd6744fca874511c42a13d186aba1f96797d8d"
+    },
+    {
+      "file": "dist/assets/pokemon/252/Walk-Anim.png",
+      "bytes": 6309,
+      "sha256": "1f94a5fbb85d432258df75aa6c729fef62aedd7add8bcdfa480696a3c98fc5ac"
+    },
+    {
+      "file": "dist/assets/pokemon/252/Walk-Shadow.png",
+      "bytes": 502,
+      "sha256": "986ed7e027135db592e146107bff26dac9ab00e787f7e4002bcca92696fc54b3"
+    },
+    {
+      "file": "dist/assets/pokemon/252/Idle-Anim.png",
+      "bytes": 6090,
+      "sha256": "e705f7dfd597dd7b0fe48fb7ee1533d8d1cb19396103f7cb61de84ebbcebefb3"
+    },
+    {
+      "file": "dist/assets/pokemon/252/Idle-Shadow.png",
+      "bytes": 495,
+      "sha256": "6785087105a1b704b818b35e0ed6ef94dcdf9b0b5862e4065db01b99611dc7ad"
+    },
+    {
+      "file": "dist/assets/pokemon/252/Attack-Anim.png",
+      "bytes": 17285,
+      "sha256": "65ccf90cb1fe7906af49b4e7b839d61c263ce682773d72191cfd44aa4dec9a0c"
+    },
+    {
+      "file": "dist/assets/pokemon/252/Attack-Shadow.png",
+      "bytes": 4783,
+      "sha256": "fcd4d091384984348589ca6fe8847b77fffeb063134126013aab255de62997c8"
+    },
+    {
+      "file": "dist/assets/pokemon/252/Hurt-Anim.png",
+      "bytes": 5750,
+      "sha256": "f1ff9e876e690aed390bf9367de076ab603d50244b54627c70a239b9f539a285"
+    },
+    {
+      "file": "dist/assets/pokemon/252/Hurt-Shadow.png",
+      "bytes": 848,
+      "sha256": "59e15793497a8122091a82c72c5a51beee94f1f6d7103dfedfb2604d57a02f51"
+    },
+    {
+      "file": "dist/assets/pokemon/252/Appeal-Anim.png",
+      "bytes": 16991,
+      "sha256": "1989369d6b964a41b6d0500d5d0c81511d575ba05753681a34f9991d87240981"
+    },
+    {
+      "file": "dist/assets/pokemon/252/Appeal-Shadow.png",
+      "bytes": 3305,
+      "sha256": "4f24a364efda3fe9d1861b464a52219f5d0f986662f5ccb7a1f106ba21d9569b"
+    },
+    {
+      "file": "dist/assets/pokemon/157/Walk-Anim.png",
+      "bytes": 8477,
+      "sha256": "f529daa8da9ea40fb4cb51cd077dc85a262cb7cbf740921ab55979be6adfc7af"
+    },
+    {
+      "file": "dist/assets/pokemon/157/Walk-Shadow.png",
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    {
+      "file": "dist/assets/pokemon/157/Idle-Anim.png",
+      "bytes": 8939,
+      "sha256": "1a1e58c7f731d997b9596545ed02b48eda027bd375546a9da333f9c5cbc7a316"
+    },
+    {
+      "file": "dist/assets/pokemon/157/Idle-Shadow.png",
+      "bytes": 597,
+      "sha256": "bd4852e1670f77c84a8844685deb14474c14b06cb6ce41a55d0fe0014e2d4774"
+    },
+    {
+      "file": "dist/assets/pokemon/157/Attack-Anim.png",
+      "bytes": 37947,
+      "sha256": "3d026f49932230b3fb1ff5aec0467d5fd6731f8a9f49383260c209399f20a587"
+    },
+    {
+      "file": "dist/assets/pokemon/157/Attack-Shadow.png",
+      "bytes": 6648,
+      "sha256": "283f9ad690c75843eae89b6b5724c12c900c18a68667464cee3f5e6dbe034fce"
+    },
+    {
+      "file": "dist/assets/pokemon/157/Hurt-Anim.png",
+      "bytes": 5767,
+      "sha256": "9d0f47836fdd7d634a68d6aaba07417060141630c72b742954256647f1ef59ad"
+    },
+    {
+      "file": "dist/assets/pokemon/157/Hurt-Shadow.png",
+      "bytes": 802,
+      "sha256": "20ce4ed6a229d23fb065544b3db4a5f77b92814c9c6028c1cca425c0e7233a5f"
+    },
+    {
+      "file": "dist/assets/pokemon/157/Shoot-Anim.png",
+      "bytes": 19657,
+      "sha256": "3689d44d69ec86944c294ba944b8967f13e2e81d675fb39fb482ca8d485c07c5"
+    },
+    {
+      "file": "dist/assets/pokemon/157/Shoot-Shadow.png",
+      "bytes": 3154,
+      "sha256": "837951ca21610fea286f9dc88b1104b4c5ddb0e01c5494ae4c6d7998357222a5"
+    },
+    {
+      "file": "dist/assets/pokemon/3/Walk-Anim.png",
+      "bytes": 11481,
+      "sha256": "53547ad2b27a60f270a9cd698ab53fe55df8352d6ebc54fecae955362d8563c3"
+    },
+    {
+      "file": "dist/assets/pokemon/3/Walk-Shadow.png",
+      "bytes": 502,
+      "sha256": "986ed7e027135db592e146107bff26dac9ab00e787f7e4002bcca92696fc54b3"
+    },
+    {
+      "file": "dist/assets/pokemon/3/Idle-Anim.png",
+      "bytes": 11481,
+      "sha256": "53547ad2b27a60f270a9cd698ab53fe55df8352d6ebc54fecae955362d8563c3"
+    },
+    {
+      "file": "dist/assets/pokemon/3/Idle-Shadow.png",
+      "bytes": 502,
+      "sha256": "986ed7e027135db592e146107bff26dac9ab00e787f7e4002bcca92696fc54b3"
+    },
+    {
+      "file": "dist/assets/pokemon/3/Attack-Anim.png",
+      "bytes": 31123,
+      "sha256": "6868234db16c2d0ae6c40caaca121f81e96d7c118951ab46eb88b7bbb287a69c"
+    },
+    {
+      "file": "dist/assets/pokemon/3/Hurt-Anim.png",
+      "bytes": 7638,
+      "sha256": "10876419c84fc961fc0fb2cc7caecf943b0035464b53cd956aae34c3d7e9f318"
+    },
+    {
+      "file": "dist/assets/pokemon/3/Attack-Shadow.png",
+      "bytes": 5241,
+      "sha256": "f21df2403d8a411f17fba82890d5ceea06495b9244ba64845f28dc1310dc56c3"
+    },
+    {
+      "file": "dist/assets/pokemon/3/Hurt-Shadow.png",
+      "bytes": 796,
+      "sha256": "cf5d7a397b79c7fcedc932af4254950ec5974ed8547c94fabd8519d97b9e68bd"
+    },
+    {
+      "file": "dist/assets/pokemon/3/Shoot-Anim.png",
+      "bytes": 10942,
+      "sha256": "889d71d1812d6ab574e54688a9f66f720de983b70d0e93713e8aa5a13a4cc066"
+    },
+    {
+      "file": "dist/assets/pokemon/3/Shoot-Shadow.png",
+      "bytes": 1274,
+      "sha256": "0f8a1d658e8c0442f915eabe1ac732abaf2faa883c39a5850eb595e16bce9e07"
+    },
+    {
+      "file": "dist/assets/pokemon/37/Walk-Anim.png",
+      "bytes": 8926,
+      "sha256": "e2d911614423ffa3675f60d653d947394d5a587cf53a688cd13ab3322c157925"
+    },
+    {
+      "file": "dist/assets/pokemon/37/Walk-Shadow.png",
+      "bytes": 1572,
+      "sha256": "6472e72a597310faa54f312085511720e8c01be366a19a29df5639bcc83bc123"
+    },
+    {
+      "file": "dist/assets/pokemon/37/Idle-Anim.png",
+      "bytes": 5734,
+      "sha256": "365953294d7e2fc734e7ae2889cde72ef085ce3e6e5896f6b964bf36022a386a"
+    },
+    {
+      "file": "dist/assets/pokemon/37/Idle-Shadow.png",
+      "bytes": 502,
+      "sha256": "986ed7e027135db592e146107bff26dac9ab00e787f7e4002bcca92696fc54b3"
+    },
+    {
+      "file": "dist/assets/pokemon/37/Attack-Anim.png",
+      "bytes": 22086,
+      "sha256": "b9fb6516c1050a257cd80001c0b03f0b14e574727408d98adb8751338d95966a"
+    },
+    {
+      "file": "dist/assets/pokemon/37/Attack-Shadow.png",
+      "bytes": 5206,
+      "sha256": "7c37f91095503758e1f7d9836cb5be3b94f02deee183d620ef92a524a120a1d0"
+    },
+    {
+      "file": "dist/assets/pokemon/37/Hurt-Anim.png",
+      "bytes": 5540,
+      "sha256": "bc0a225deafffdf982286279cdb7784bed63f984e91212ba7b25dda979715531"
+    },
+    {
+      "file": "dist/assets/pokemon/37/Hurt-Shadow.png",
+      "bytes": 821,
+      "sha256": "d83f84f7103e55cf3ed90216e39f46c56ff41d3644030fe13692b21615093097"
+    },
+    {
+      "file": "dist/assets/pokemon/37/Shoot-Anim.png",
+      "bytes": 16189,
+      "sha256": "663684a20421dae0d78aa4329e0ecac95a9d19240725d96761a2c3555483a3f1"
+    },
+    {
+      "file": "dist/assets/pokemon/37/Shoot-Shadow.png",
+      "bytes": 3683,
+      "sha256": "bdda95f65cf53d4f90e9e06e52a1f0be55049c785e8ef61d10e5e0cca7101ece"
+    },
+    {
+      "file": "dist/assets/pokemon/145/Walk-Anim.png",
+      "bytes": 19160,
+      "sha256": "6e5df7ace5c8d492de5a900c0f0963ce07763d48885e47c1731232025b5598d2"
+    },
+    {
+      "file": "dist/assets/pokemon/145/Walk-Shadow.png",
+      "bytes": 1648,
+      "sha256": "6fcb2efc996c36340be35ffbe024df1669da5d79ad98e0b62cc156021131fcf9"
+    },
+    {
+      "file": "dist/assets/pokemon/145/Idle-Anim.png",
+      "bytes": 19160,
+      "sha256": "6e5df7ace5c8d492de5a900c0f0963ce07763d48885e47c1731232025b5598d2"
+    },
+    {
+      "file": "dist/assets/pokemon/145/Idle-Shadow.png",
+      "bytes": 1648,
+      "sha256": "6fcb2efc996c36340be35ffbe024df1669da5d79ad98e0b62cc156021131fcf9"
+    },
+    {
+      "file": "dist/assets/pokemon/145/Attack-Shadow.png",
+      "bytes": 6041,
+      "sha256": "035b5f39117268e94e149f4cdfbdbfcc36d4c7616c0cf3d4e4acd73e5bdb1687"
+    },
+    {
+      "file": "dist/assets/pokemon/145/Attack-Anim.png",
+      "bytes": 32165,
+      "sha256": "259c1bfd19d57a1355680eaaeb7e01ed3d0182e0f791986642c8af3b72023d77"
+    },
+    {
+      "file": "dist/assets/pokemon/145/Hurt-Anim.png",
+      "bytes": 11732,
+      "sha256": "01d5fcb33222022642713cad3acf91a91b66c352dda1589385d4fb52fe42f1c8"
+    },
+    {
+      "file": "dist/assets/pokemon/145/Hurt-Shadow.png",
+      "bytes": 1551,
+      "sha256": "4e35b6ccddd473e0923585609ec22d801e1931e0ff9d3d1feb70427091b44eb1"
+    },
+    {
+      "file": "dist/assets/pokemon/145/Shoot-Anim.png",
+      "bytes": 45728,
+      "sha256": "865a1c2fd8c4cd05ff12bc9642e2d3470c711e4078ce0c9422984a08e7d02e90"
+    },
+    {
+      "file": "dist/assets/pokemon/145/Shoot-Shadow.png",
+      "bytes": 7460,
+      "sha256": "827e3ec825a1f8fddd5dc59b0cce6bb36652b2f0f5d6adc68040354a7311cd2d"
+    },
+    {
+      "file": "dist/assets/pokemon/356/Walk-Anim.png",
+      "bytes": 11112,
+      "sha256": "e15d73c67444534877641de7a84c6cd6ee97d91811448ba5434b2b988a9ca4b3"
+    },
+    {
+      "file": "dist/assets/pokemon/356/Walk-Shadow.png",
+      "bytes": 792,
+      "sha256": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec"
+    },
+    {
+      "file": "dist/assets/pokemon/356/Idle-Anim.png",
+      "bytes": 8766,
+      "sha256": "165a210f06178cde57a670abd2aa72c397ea91772cb17db893d060b9adcec666"
+    },
+    {
+      "file": "dist/assets/pokemon/356/Idle-Shadow.png",
+      "bytes": 792,
+      "sha256": "d7574bee72119c7a75aa9cc70f5c3f46f237f94053074ff14f4e981a5aa56dec"
+    },
+    {
+      "file": "dist/assets/pokemon/356/Attack-Anim.png",
+      "bytes": 27482,
+      "sha256": "5e56be335dc29790d8dfad0ad44a977069f4f54764aab792331c462f13627421"
+    },
+    {
+      "file": "dist/assets/pokemon/356/Attack-Shadow.png",
+      "bytes": 5275,
+      "sha256": "2c1a9f3b5e2e369824d068195e1a5e7366a61149ec0cd6c71b8dac79122db226"
+    },
+    {
+      "file": "dist/assets/pokemon/356/Hurt-Anim.png",
+      "bytes": 6684,
+      "sha256": "d299f1edce9ef703b5f47349dce6383fad3466b55fb998c225c0db486c56421b"
+    },
+    {
+      "file": "dist/assets/pokemon/356/Hurt-Shadow.png",
+      "bytes": 889,
+      "sha256": "5bb267a40e2b2d673b5b3dd3baadfb49b95e190a56d75958ce06eb8ae962e0be"
+    },
+    {
+      "file": "dist/assets/pokemon/356/Shoot-Anim.png",
+      "bytes": 19936,
+      "sha256": "ef39996cd87f84c8819baa3e24d585eed2e60be8b545106839abf8bd51b3d899"
+    },
+    {
+      "file": "dist/assets/pokemon/356/Shoot-Shadow.png",
+      "bytes": 3190,
+      "sha256": "de62eb0dcef56dd970e7267b94846beda87c7bbc5ba728c905c1a3c8da8cb4e9"
+    },
+    {
+      "file": "dist/assets/pokemon/74/Walk-Anim.png",
+      "bytes": 6580,
+      "sha256": "a0d4753f962a93ee469bfb66e3a0acd8799f5d0a989f1527397689470384e0b2"
+    },
+    {
+      "file": "dist/assets/pokemon/74/Walk-Shadow.png",
+      "bytes": 502,
+      "sha256": "986ed7e027135db592e146107bff26dac9ab00e787f7e4002bcca92696fc54b3"
+    },
+    {
+      "file": "dist/assets/pokemon/74/Idle-Anim.png",
+      "bytes": 4762,
+      "sha256": "bbb71a05296140ae78b132f62a5408f5830a3c10e30127b23022bf9a9486d93f"
+    },
+    {
+      "file": "dist/assets/pokemon/74/Idle-Shadow.png",
+      "bytes": 467,
+      "sha256": "8dc3b00d54052ddf25c9fa8117bee6b4eff433a6ccab1927ff63548f936ee3ce"
+    },
+    {
+      "file": "dist/assets/pokemon/74/Attack-Anim.png",
+      "bytes": 25172,
+      "sha256": "b264b2379b8af8547d1ba9258bb5d76f62bfee78ff2ee108441df4f5b52e7d71"
+    },
+    {
+      "file": "dist/assets/pokemon/74/Attack-Shadow.png",
+      "bytes": 6673,
+      "sha256": "28a1056e22b425a7eb0b8ef2876844fab82da76138499a1daac39bccaf1e089a"
+    },
+    {
+      "file": "dist/assets/pokemon/74/Hurt-Anim.png",
+      "bytes": 3988,
+      "sha256": "9597cfcc589886b381d56afd20bd59f9967394cc402be44ac6af98067b5cacc1"
+    },
+    {
+      "file": "dist/assets/pokemon/74/Hurt-Shadow.png",
+      "bytes": 737,
+      "sha256": "77efa39429ea5bd928ff1865f3039982c9d6152b457d97c2055abde373da99a5"
+    },
+    {
+      "file": "dist/assets/pokemon/76/Walk-Anim.png",
+      "bytes": 8704,
+      "sha256": "b90f014a4a216feab9af0d149d1517930070dadb15c65316e4d55a7ab8d62ddc"
+    },
+    {
+      "file": "dist/assets/pokemon/76/Walk-Shadow.png",
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    {
+      "file": "dist/assets/pokemon/76/Idle-Anim.png",
+      "bytes": 6198,
+      "sha256": "5444c9399764673a6d21b047d61ac3d42f031340f39c9c62a4be3142561bd337"
+    },
+    {
+      "file": "dist/assets/pokemon/76/Idle-Shadow.png",
+      "bytes": 470,
+      "sha256": "a87291e10d63fcaa60192a4db09ab64ad64857698d76bd7bea69d147d37f3472"
+    },
+    {
+      "file": "dist/assets/pokemon/76/Attack-Anim.png",
+      "bytes": 33305,
+      "sha256": "55d02149b75442c8da5347134a42ca419955022257013d61709c471c2d3ab10c"
+    },
+    {
+      "file": "dist/assets/pokemon/76/Hurt-Anim.png",
+      "bytes": 7143,
+      "sha256": "6106b195477d469cf58dd8f8f17ffeeebeafd0d9562f02d725a43d72e154b0b7"
+    },
+    {
+      "file": "dist/assets/pokemon/76/Attack-Shadow.png",
+      "bytes": 6861,
+      "sha256": "d82e0324dc1eaab7667ed0e2413b255242053844d163c418afbe0c345259ff1a"
+    },
+    {
+      "file": "dist/assets/pokemon/76/Hurt-Shadow.png",
+      "bytes": 815,
+      "sha256": "df7815c9541ff2a2416b89ee31260fb0bb23e9f9c037457468f59cf976f1d0bb"
+    },
+    {
+      "file": "dist/assets/pokemon/274/Walk-Anim.png",
+      "bytes": 7452,
+      "sha256": "dfa99ed3374b320f62b5eaaded57f28ab54c5728bad84af71689f6a354f67aaf"
+    },
+    {
+      "file": "dist/assets/pokemon/274/Walk-Shadow.png",
+      "bytes": 551,
+      "sha256": "731bf455d0e68d18cc37c219fc50b1882fbac9987914c80d17b92ceca9974280"
+    },
+    {
+      "file": "dist/assets/pokemon/274/Idle-Anim.png",
+      "bytes": 11463,
+      "sha256": "3f912e42b324a157a8510c74f1297f331f442328d451a37af1824a22928c2afb"
+    },
+    {
+      "file": "dist/assets/pokemon/274/Idle-Shadow.png",
+      "bytes": 1810,
+      "sha256": "a482460e7610112213cc1704e9d703f075e4e8d57e8cda6d8650f358195dd01d"
+    },
+    {
+      "file": "dist/assets/pokemon/274/Attack-Anim.png",
+      "bytes": 21726,
+      "sha256": "29ef5756de2cece53c0cb926c1a3bf771e4c21a3094ece21b85f58a0887ee505"
+    },
+    {
+      "file": "dist/assets/pokemon/274/Attack-Shadow.png",
+      "bytes": 5374,
+      "sha256": "beaed8bf129c330222e0b8f5080ce22a91e429cef487451725dbc885a1fe4980"
+    },
+    {
+      "file": "dist/assets/pokemon/274/Hurt-Anim.png",
+      "bytes": 5783,
+      "sha256": "b1e985a318590064d8b6c1114a09424971230a2184bb60a588dea1f4c90da11d"
+    },
+    {
+      "file": "dist/assets/pokemon/274/Hurt-Shadow.png",
+      "bytes": 885,
+      "sha256": "3ad3703af4e670dab7868cc42e702619b6dd9a104d6e081ac379e3aaa3220556"
+    },
+    {
+      "file": "dist/assets/pokemon/274/Shoot-Anim.png",
+      "bytes": 15187,
+      "sha256": "c194866c51e6e589f8d19277f11115e0e30799e4888719ea3c38a6414293827d"
+    },
+    {
+      "file": "dist/assets/pokemon/25/Walk-Anim.png",
+      "bytes": 6437,
+      "sha256": "5cfc2c775708c28c11f98e027e883261ab3ae4276e51621eec11c979598651f9"
+    },
+    {
+      "file": "dist/assets/pokemon/274/Shoot-Shadow.png",
+      "bytes": 2748,
+      "sha256": "a566f6fbfd9c8508511a6a667482a8111b411912d743a85603b2534cac8f9aa6"
+    },
+    {
+      "file": "dist/assets/pokemon/25/Walk-Shadow.png",
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    {
+      "file": "dist/assets/pokemon/25/Idle-Anim.png",
+      "bytes": 8301,
+      "sha256": "f1021ac60879698076fdb80705f893d0646d2b9ddf2bdb8c81803fbb7e87ad86"
+    },
+    {
+      "file": "dist/assets/pokemon/25/Idle-Shadow.png",
+      "bytes": 1443,
+      "sha256": "9b8ac64a8539e9770055aa7078289ab355e5695a599ce371c731114dca24e6de"
+    },
+    {
+      "file": "dist/assets/pokemon/25/Attack-Anim.png",
+      "bytes": 15636,
+      "sha256": "06822d01f15ebb2c4f2cff9e94bb4ee615b8d25b41527c9297b80d81576be857"
+    },
+    {
+      "file": "dist/assets/pokemon/25/Attack-Shadow.png",
+      "bytes": 5340,
+      "sha256": "8462e499f657df2640738a69cb624b5bca246a17854dd17731fdffedb81e3255"
+    },
+    {
+      "file": "dist/assets/pokemon/25/Hurt-Anim.png",
+      "bytes": 4577,
+      "sha256": "4f096cee94aab6e2c444e6e5a9e77680858d81ad90ddaded05f7e2fea69e3776"
+    },
+    {
+      "file": "dist/assets/pokemon/25/Hurt-Shadow.png",
+      "bytes": 844,
+      "sha256": "ac6de71c1c2d68f7b57c3628d73cabee468c84be9da37305bcf53ed6999365a5"
+    },
+    {
+      "file": "dist/assets/pokemon/25/Shock-Anim.png",
+      "bytes": 20280,
+      "sha256": "fa84f62367baf2fc34cf05479c71157298551faa003ce4d88a95c8b732d13f55"
+    },
+    {
+      "file": "dist/assets/pokemon/25/Shock-Shadow.png",
+      "bytes": 2926,
+      "sha256": "cf156d423328b068c1897e2d7f40ef6ef7b21b56d63756bad74e05bb566d69a4"
+    },
+    {
+      "file": "dist/assets/pokemon/78/Walk-Anim.png",
+      "bytes": 13915,
+      "sha256": "61880189382705dcf971baee5b4b7ce8acdf63c7ce89dfc4ae259f752b118cf0"
+    },
+    {
+      "file": "dist/assets/pokemon/78/Walk-Shadow.png",
+      "bytes": 1070,
+      "sha256": "53efc4b85c7013c48c68378b735ddffcc81d0f8598f2d4a7d23fbf8dc4d86f72"
+    },
+    {
+      "file": "dist/assets/pokemon/78/Idle-Anim.png",
+      "bytes": 18133,
+      "sha256": "229a95285bb13c5b72f40ae6ced1c42c1efe17a4f1f770f97766fd0e977110db"
+    },
+    {
+      "file": "dist/assets/pokemon/78/Idle-Shadow.png",
+      "bytes": 3588,
+      "sha256": "b29fe9c1b26198b07fe2941d3d9554e034bc41723de0001b1e78931ba07929af"
+    },
+    {
+      "file": "dist/assets/pokemon/78/Attack-Shadow.png",
+      "bytes": 5291,
+      "sha256": "f03bd1d607828724abeba65f4995d089d3585b1650621df4e09afd654b707776"
+    },
+    {
+      "file": "dist/assets/pokemon/78/Attack-Anim.png",
+      "bytes": 31149,
+      "sha256": "35525b6883efca9325536b6e5e996f4070cc1d97f17bae60a3d58a3ef7deb543"
+    },
+    {
+      "file": "dist/assets/pokemon/78/Hurt-Anim.png",
+      "bytes": 7642,
+      "sha256": "601db131dda9dc6b11256b2c1d720a9c2427f95ade2a30055e8e4954075e1317"
+    },
+    {
+      "file": "dist/assets/pokemon/78/Hurt-Shadow.png",
+      "bytes": 881,
+      "sha256": "c9f80ce48d650caabda2bbe00522e3da7cf868137f0d292652a23d5ebc480874"
+    },
+    {
+      "file": "dist/assets/pokemon/41/Walk-Anim.png",
+      "bytes": 11912,
+      "sha256": "37323d0e60074800f58a896d0d7ce9ad940ae9e34357fd10c472cb8b571db139"
+    },
+    {
+      "file": "dist/assets/pokemon/41/Walk-Shadow.png",
+      "bytes": 2007,
+      "sha256": "1b6a69c06e982a1999685b59a65f4a11a63deac997048ad8dc6576295cb1cad9"
+    },
+    {
+      "file": "dist/assets/pokemon/41/Idle-Anim.png",
+      "bytes": 12472,
+      "sha256": "28ea4512a68af47ba46e29ab48febbb726201a0f3d34fb400618e245cddbce09"
+    },
+    {
+      "file": "dist/assets/pokemon/41/Idle-Shadow.png",
+      "bytes": 1730,
+      "sha256": "d61852f67638bac98fee99f030acd6ed4c47f5e0d679d3fe93fdb8d751258220"
+    },
+    {
+      "file": "dist/assets/pokemon/41/Attack-Anim.png",
+      "bytes": 21692,
+      "sha256": "f39286bcbde5f5ecb12f21d3a0786e69b4da36a0c50704d6d4237533907d30e7"
+    },
+    {
+      "file": "dist/assets/pokemon/41/Attack-Shadow.png",
+      "bytes": 5273,
+      "sha256": "c188b2420a75f983596ea3ca7abd1e394352e8f30345bd9208c41bde7dabac4c"
+    },
+    {
+      "file": "dist/assets/pokemon/41/Hurt-Anim.png",
+      "bytes": 4683,
+      "sha256": "55deab15a9ecf226f8508e57b12817c67cbee1fb3756cd779f2a35bc57630add"
+    },
+    {
+      "file": "dist/assets/pokemon/41/Hurt-Shadow.png",
+      "bytes": 737,
+      "sha256": "77efa39429ea5bd928ff1865f3039982c9d6152b457d97c2055abde373da99a5"
+    },
+    {
+      "file": "dist/assets/pokemon/378/Walk-Anim.png",
+      "bytes": 12098,
+      "sha256": "d08816f73303e88454c84c8bd4db5ebb01d28d8c53da4f150682b2750b154045"
+    },
+    {
+      "file": "dist/assets/pokemon/378/Walk-Shadow.png",
+      "bytes": 1107,
+      "sha256": "8157d303d5419ad70da2fe2b304b067482b316c4d7856374f1543b7d3ef98d30"
+    },
+    {
+      "file": "dist/assets/pokemon/378/Idle-Anim.png",
+      "bytes": 7853,
+      "sha256": "412fca19173eeea81331731a564a8ce5aa7a92cb0be1253e61a8a9fd79ad5fcb"
+    },
+    {
+      "file": "dist/assets/pokemon/378/Idle-Shadow.png",
+      "bytes": 522,
+      "sha256": "453d4286360dfe91ffc8c8eb6837607e02c9f4956f2b313deeac8298a8545812"
+    },
+    {
+      "file": "dist/assets/pokemon/378/Attack-Anim.png",
+      "bytes": 23999,
+      "sha256": "33f8631ec69482c49d9d6694e704f004f59a36a2fd7518237729a1725335bbed"
+    },
+    {
+      "file": "dist/assets/pokemon/378/Attack-Shadow.png",
+      "bytes": 4919,
+      "sha256": "d2bc32d47721b717d11664efc1ace663f4c7fe62f4e459a4c2678289469a1380"
+    },
+    {
+      "file": "dist/assets/pokemon/378/Hurt-Anim.png",
+      "bytes": 6746,
+      "sha256": "c44d7b3a987ea9030031b9715ee4ab14aa425a951b1a3326ba2474470d28fd4e"
+    },
+    {
+      "file": "dist/assets/pokemon/378/Hurt-Shadow.png",
+      "bytes": 851,
+      "sha256": "737198ec693340ec6a7560fcad447d3c6616b95f350dc019384301d2a450677b"
+    },
+    {
+      "file": "dist/assets/pokemon/378/Shoot-Anim.png",
+      "bytes": 18966,
+      "sha256": "30e97f40f7276cf1139a3e6a17b2f4b9a987cf07d95aa6c5ab2abdde8319f640"
+    },
+    {
+      "file": "dist/assets/pokemon/31/Walk-Anim.png",
+      "bytes": 8201,
+      "sha256": "f487e5b74299137a435e5c9004046748afc33f634a4244d6505e8b9cd7672cdb"
+    },
+    {
+      "file": "dist/assets/pokemon/378/Shoot-Shadow.png",
+      "bytes": 4000,
+      "sha256": "eb2a599a34263c46500c2863d0f1577b1c20c138ab746c08d92bce20d478431a"
+    },
+    {
+      "file": "dist/assets/pokemon/31/Walk-Shadow.png",
+      "bytes": 535,
+      "sha256": "1ec150c932f208ce21ceccbfc72b21ef85a17cd42133734ce2a2e0638c49eed7"
+    },
+    {
+      "file": "dist/assets/pokemon/31/Idle-Anim.png",
+      "bytes": 8404,
+      "sha256": "3bcba822ca88be720f25c8d2e3e41dc86bee8e9f474fc52947fd430889869178"
+    },
+    {
+      "file": "dist/assets/pokemon/31/Idle-Shadow.png",
+      "bytes": 634,
+      "sha256": "710a76bb2e78ffe89642ed1218e0061d32225177d3ecb956acc84384280fc198"
+    },
+    {
+      "file": "dist/assets/pokemon/31/Attack-Anim.png",
+      "bytes": 18166,
+      "sha256": "4a7a5958ac3509282bb5beef2e8426c3cefe1540fd6671eb99452f91d3ec4b84"
+    },
+    {
+      "file": "dist/assets/pokemon/31/Attack-Shadow.png",
+      "bytes": 4582,
+      "sha256": "85eba87a33cf83bc8522338c76167f1ecac52d93054ec1b2ec082bb35553bce3"
+    },
+    {
+      "file": "dist/assets/pokemon/31/Hurt-Anim.png",
+      "bytes": 5313,
+      "sha256": "8200f48ef9c1b0241c1c4c96d893e8840f257ad8ce9b363bc77296ea812a0378"
+    },
+    {
+      "file": "dist/assets/pokemon/31/Hurt-Shadow.png",
+      "bytes": 815,
+      "sha256": "df7815c9541ff2a2416b89ee31260fb0bb23e9f9c037457468f59cf976f1d0bb"
+    },
+    {
+      "file": "dist/assets/pokemon/31/Shoot-Anim.png",
+      "bytes": 19498,
+      "sha256": "f4fc11252bf9af6d378023b1b531908e648bb9d224bf8a46b26c2b7c1abfb3c7"
+    },
+    {
+      "file": "dist/assets/pokemon/31/Shoot-Shadow.png",
+      "bytes": 4584,
+      "sha256": "9846789ae26eaf71b0ba7f8821546817ebbc7803f07af4d889df2091a2c52845"
+    },
+    {
+      "file": "dist/assets/pokemon/52/Walk-Anim.png",
+      "bytes": 5478,
+      "sha256": "c58d87c7bc111288963f7df341e7c38f444908104859810bc505107212cc6eb9"
+    },
+    {
+      "file": "dist/assets/pokemon/52/Walk-Shadow.png",
+      "bytes": 720,
+      "sha256": "cb86f32dd498beb9b30b1552e1197aacf34220d6066e68af2abfd90ef2394cb4"
+    },
+    {
+      "file": "dist/assets/pokemon/52/Idle-Anim.png",
+      "bytes": 5874,
+      "sha256": "df1b0115a3fbf15518f3a95eb8f0f48071da8d0715646e1f3f2d26f17d74a8e7"
+    },
+    {
+      "file": "dist/assets/pokemon/52/Idle-Shadow.png",
+      "bytes": 502,
+      "sha256": "986ed7e027135db592e146107bff26dac9ab00e787f7e4002bcca92696fc54b3"
+    },
+    {
+      "file": "dist/assets/pokemon/52/Attack-Shadow.png",
+      "bytes": 4952,
+      "sha256": "e1e720a11ae251ad433abaa0c1acb89f15676b51ccb33a13b12f9b17bf90d04d"
+    },
+    {
+      "file": "dist/assets/pokemon/52/Attack-Anim.png",
+      "bytes": 14946,
+      "sha256": "0eece85f3e2e23cae74618637db04683deca07400e19b73ac84b75c6f08a2b97"
+    },
+    {
+      "file": "dist/assets/pokemon/52/Hurt-Anim.png",
+      "bytes": 4639,
+      "sha256": "0867146aa69147f50c872102f1429f17f29af6cc3cbb55f7055c66ddf1837850"
+    },
+    {
+      "file": "dist/assets/pokemon/52/Shoot-Anim.png",
+      "bytes": 11295,
+      "sha256": "734209e21f2bb04a878ea70e51956a9348469ba73f1bcf727eca248637b97a7f"
+    },
+    {
+      "file": "dist/assets/pokemon/52/Hurt-Shadow.png",
+      "bytes": 787,
+      "sha256": "c598a4c3fc9b723e5936bd5ed74086c34af796aa188d84466b4472b3fb8eb99c"
+    },
+    {
+      "file": "dist/assets/pokemon/52/Shoot-Shadow.png",
+      "bytes": 1208,
+      "sha256": "ca4f27c74ef48124f3e0c9f4564e359aa4b7307cb91d60aa9d3eec970ea84871"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Flamethrower_2.None.png",
+      "bytes": 1352,
+      "sha256": "175203e3eb6405013017a527692449fef1ff9585392d3ad53d5db06982d38984"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Flamethrower.None.png",
+      "bytes": 4180,
+      "sha256": "cdf854eb86da7cccaa4650a7e892f096e0bf0ccbc69512d2ae31bd9f895ffa74"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Water_Column_Ranger.None.png",
+      "bytes": 13155,
+      "sha256": "31f2e34d0eb20756d396642ee400d4533e8e72768aeb3c5ffb5cd7161e25eb3b"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Bubbles_Blue.None.png",
+      "bytes": 761,
+      "sha256": "a5f94f956f2345889ced3e4fcddb91a640c030b47cd26c944a61810f828a0937"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Razor_Leaf.None.png",
+      "bytes": 1416,
+      "sha256": "4e0a060cd0b3628e43dc1fb378db413886b9a23d86594797ff4cf5e7d02fea31"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Poison_Ball_Ranger.None.png",
+      "bytes": 2652,
+      "sha256": "7d85c13486c550a71664499be74db256d7fc4a857bc59fd20413cca11baaf8b1"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Shadow_Ball.None.png",
+      "bytes": 658,
+      "sha256": "bb6db172f0bd7f4230748c154958ec8f5bee01fa6807cdeb3f06640eb59c1f03"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Aura_Sphere.None.png",
+      "bytes": 1947,
+      "sha256": "1abf6bef7f0a4b2a913b3c59dc60ffc7b9cca0f9f16a99257fabee8fcffb078b"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Dizzy_Punch_Hit.None.png",
+      "bytes": 3838,
+      "sha256": "1ca7ca160f2170bba05a506224b86d30eaac9e85647319cfcb8e54a36100c1a8"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Ice_Shard_Hit.None.png",
+      "bytes": 17312,
+      "sha256": "0a3ed5836cfeed2a0df7c8c9f3c43c071d3124336f19b22edbe3e37ef5ee881a"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Heal_Order.None.png",
+      "bytes": 15067,
+      "sha256": "59a26037db0e500ece038f6128f65f6c57f372aa1a9bef783e108ac403ba5af7"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Rock_Wrecker_Boulder.None.png",
+      "bytes": 1045,
+      "sha256": "a75780cc81d4ea5bf0d281ac656e48231fc2d30321119fd0c9779a407d67ee9b"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Puff_Brown.None.png",
+      "bytes": 2690,
+      "sha256": "36653d6d900c5249e139bb3d4bfa0c3c3188618a90d61378855b7fc7b961fd7d"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Scratch.Dir1.png",
+      "bytes": 1404,
+      "sha256": "54ed603821c836df08db212fb73ba5a4bce8c6235fd4316127b3ee380187111c"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Explosion.None.png",
+      "bytes": 8399,
+      "sha256": "33cff9cb450ae73068809b6a3ee6b3e708f8ab9359377499e371338701df44f2"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Egg_Bomb_Egg.None.png",
+      "bytes": 721,
+      "sha256": "f49dd6a36a09bd0d6e477c9907267ed892313c688a7438bb705dc9e8a6f53137"
+    },
+    {
+      "file": "dist/assets/battle/Item__Money_Yellow.None.png",
+      "bytes": 275,
+      "sha256": "0e85debff04bb121eda7e1e7f0d90364e11ebb8bc1a5d22d4950b66357030dc2"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Growl.Dir8.png",
+      "bytes": 15088,
+      "sha256": "05498d575b0b6381a43f45d9d2b2944a59857ff87a20d51e2a618462ce1983a3"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Megahorn_Front.None.png",
+      "bytes": 1863,
+      "sha256": "edece3e64754f1057745a957e2a5595fc0650a61cf10a101a26b4e966fb07fc1"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Lick.None.png",
+      "bytes": 362,
+      "sha256": "c7c125faf775af3c1016a25145f0ba27fd1196caee5c58aff99d9745ec1aafab"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Vine_Whip.Dir1.png",
+      "bytes": 1303,
+      "sha256": "4532648663f05f7f3b4616d203b8ff7a9856c61b2bc14b2b9bb5ba92c8ee5a06"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Gust_Blue.None.png",
+      "bytes": 26056,
+      "sha256": "a2222c9bc1eb66521edada7d61c4312f2f4e037480f2c371b5cf804909b0ca1c"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Spikes_RSE.Flip.png",
+      "bytes": 253,
+      "sha256": "e1f64173c5d6c454fd72c617d6b4abd1199e034e5b6e56d7667395b12df3c9c1"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Stealth_Rock_Back.None.png",
+      "bytes": 1791,
+      "sha256": "e4eaf56bfbd286601c2464e32b25431a08ca1fbbd04828c1b292c009f84edc95"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Stealth_Rock_Front.None.png",
+      "bytes": 3805,
+      "sha256": "6088eb2cfd3f2f4d16d6c40ef867e42e19d3068b82bd1c562a9a1f5bf06072ec"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Dark_Void_Back.None.png",
+      "bytes": 7103,
+      "sha256": "7ff5a778cbb79675815cd0fb109f2ad98ba51b2b0e1b78c13fd91055a0e27652"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Dark_Void_Front.None.png",
+      "bytes": 8095,
+      "sha256": "a22b734d84f2ee63911cea7b3f4aae4d99af9a3a596a35fe8b0d6d60f7574609"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Earth_Power_Eruption.None.png",
+      "bytes": 1417,
+      "sha256": "e1ab38b8102d2d227a41e651f50d4f7d288ad7d96d66316f79dede031f7db73c"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Ice_Shard.Dir8.png",
+      "bytes": 9971,
+      "sha256": "5a93504695050beed6002d43ac88e04557ac76dc6c2e11b07f6569e875a2a07d"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Ice_Ball.None.png",
+      "bytes": 409,
+      "sha256": "c2b9e0f3ef40767f7bfda682dcc1d7931ceff84173e18d13cebd21dbd61c6ded"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Protect_Blue.None.png",
+      "bytes": 2516,
+      "sha256": "4e9f1a63669fe090ca95ac7d2684ac97de11845536466ce3335161318213e038"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Puff_White.None.png",
+      "bytes": 2576,
+      "sha256": "603018a5b6592b0f529394119bbe33d5d67988f9978d0c467df4d0de7202107e"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Pin_Missile.Dir5.png",
+      "bytes": 700,
+      "sha256": "0e9afd85360ce8358f6e11c94c6ec61c4eaacc9312a304e3b55ca3ce3bb843c5"
+    },
+    {
+      "file": "dist/assets/battle/Tile__8x8__TownBase.png",
+      "bytes": 102931,
+      "sha256": "fdb9d3f8eebff459e546bbad8b840ad0c3a33002c818204c5d7ebc61779e0f34"
+    },
+    {
+      "file": "dist/assets/battle/Tile__24x24__BeachWaves.png",
+      "bytes": 93141,
+      "sha256": "331d79cd8fb27e7517d58f40d82d69781f227ce2fc7ca47d987df7f23099c9ed"
+    },
+    {
+      "file": "dist/assets/battle/Object__Tree_Town.Flip.png",
+      "bytes": 1788,
+      "sha256": "147cf52606863d90214c0c03bdd6eb946f055b5551dba2da69072bcb52619dac"
+    },
+    {
+      "file": "dist/assets/battle/Object__Fence.Flip.png",
+      "bytes": 609,
+      "sha256": "10710bba02f95311f11635a7dbe0f52b4dbc1408fb31d274e0505e487499c92c"
+    },
+    {
+      "file": "dist/assets/battle/Object__Logs_Large.Flip.png",
+      "bytes": 1040,
+      "sha256": "1a49caeabb45b0c33792c2f625a259a473b7ccdee26ac72231fa6733646859a8"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Rock_Pieces.None.png",
+      "bytes": 1208,
+      "sha256": "7ce6a9100e85d798a50e81337b6be041ddc156796ef478f60a9af98e676c8762"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Bite.Dir8.png",
+      "bytes": 11129,
+      "sha256": "c26f5975d8ca805e3b83d304a34084519ea84812d6d347cd385bcc069e2321e6"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Flame_Wheel.None.png",
+      "bytes": 1498,
+      "sha256": "73cefc7fe2922f2a628bfb37927adc1979fba0f44d185c7c24eb4d3212129189"
+    },
+    {
+      "file": "dist/assets/battle/Beam__Lightning__Body.png",
+      "bytes": 3772,
+      "sha256": "db252b3f73d3d7d2b26aff79695da8ee65a68b5dfcc80dd659177dcdd2a667ff"
+    },
+    {
+      "file": "dist/assets/battle/Beam__Lightning__Head.png",
+      "bytes": 586,
+      "sha256": "ad5507d242139eef9c3e9d6997f14f1d003eb6a34c486c5eaadb47e1bf812381"
+    },
+    {
+      "file": "dist/assets/battle/Beam__Lightning__Tail.png",
+      "bytes": 146,
+      "sha256": "98b591328e9e4bb53a3e5383f74c52539e76d2cc20355f76bf8ddc7eab1b79fd"
+    },
+    {
+      "file": "dist/assets/battle/Beam__Beam__Body.png",
+      "bytes": 198,
+      "sha256": "0487b28a1939bb08c677f54f49ed38b099e731f5b1b3f24db8e909c1cff74c02"
+    },
+    {
+      "file": "dist/assets/battle/Beam__Beam__Head.png",
+      "bytes": 477,
+      "sha256": "f4235573a697b61ef96cf5c5c194f6898bd9fdc9a059e5b0872c02a39285835b"
+    },
+    {
+      "file": "dist/assets/battle/Beam__Beam__Tail.png",
+      "bytes": 790,
+      "sha256": "981ad783ed267614dc3310571140b26a29fab9e795c105086352638ef09cdb1e"
+    },
+    {
+      "file": "dist/assets/battle/Beam__Column_Blue__Body.png",
+      "bytes": 265,
+      "sha256": "6133e7b7544427b2116db3809f01d331441b32f58526925193658fb9f9ac2667"
+    },
+    {
+      "file": "dist/assets/battle/Beam__Column_Blue__Head.png",
+      "bytes": 1462,
+      "sha256": "6758c89a9dc7ed53b4dd8136446398766ba74c733e2cf4ebb28a9540cd612ed0"
+    },
+    {
+      "file": "dist/assets/battle/Beam__Column_Blue__Tail.png",
+      "bytes": 146,
+      "sha256": "50ec20bc7744df72b1f60f4cd5b5509a0a3b8ca99ddd7c64a270b27e75f5007d"
+    },
+    {
+      "file": "dist/assets/battle/Beam__Column_Yellow__Body.png",
+      "bytes": 262,
+      "sha256": "96af7bc2c6e13f9b04bbd059b3b690ec35f288546695eed2b1968b53a9c248f6"
+    },
+    {
+      "file": "dist/assets/battle/Beam__Column_Yellow__Head.png",
+      "bytes": 1497,
+      "sha256": "90bfbf1c27df80f193073399bf3f8ba6013b10ac3d7fb35fa78b7bd247c86254"
+    },
+    {
+      "file": "dist/assets/battle/Beam__Column_Yellow__Tail.png",
+      "bytes": 146,
+      "sha256": "50ec20bc7744df72b1f60f4cd5b5509a0a3b8ca99ddd7c64a270b27e75f5007d"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Weather_Ball_Fire_1.None.png",
+      "bytes": 1050,
+      "sha256": "e0b0c2bdf99d1b406e0b300a688088a82ce906bb726caf1ef8b892766fe25f37"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Weather_Ball_Fire_3.Flip.png",
+      "bytes": 1670,
+      "sha256": "7af08ca82cc0942f44efc5d88c034ab092b84783fee63c0e05b085691fbd7b26"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Hydro_Cannon.None.png",
+      "bytes": 957,
+      "sha256": "1ef2d00af95c39861f274b0acf238e21618afc16d8414fc9485fdb120bbb1bb3"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Ember.None.png",
+      "bytes": 1259,
+      "sha256": "2875d15af0d787a2185f359679f5a120d14cc63687c5a88e4a3811e2145ad76d"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Music_Notes.None.png",
+      "bytes": 3108,
+      "sha256": "5e5b0db6023b959fb32ffff9a473d3b8a2b54b5cd778ef2eccd2b4afb1936fc8"
+    },
+    {
+      "file": "dist/assets/battle/Particle__Petal_Dance_Flower_Pink.None.png",
+      "bytes": 701,
+      "sha256": "f3c8a784cc2972b5c48c03232fbec8a06ff5f61264c9fe74c042986f03689900"
+    },
+    {
+      "file": "dist/assets/battle/ralts-hut-v1.png",
+      "bytes": 955374,
+      "sha256": "63b1890d7e39cdd3c885953871116acfb6ca54b9ae8fe83ed373e4f02e924cbb"
+    },
+    {
+      "file": "dist/assets/battle/arena-ground-v2.webp",
+      "bytes": 59436,
+      "sha256": "2c0fa6491949b4a6a03466f2e57447b1a6db8db2ad3c8c2534745df42e0bd611"
+    },
+    {
+      "file": "dist/assets/battle/arena-bridge-v2.webp",
+      "bytes": 4950,
+      "sha256": "defac1da7c6bf617a38e5245cc297860ba8e55f342847a272cdfa7de53219755"
+    },
+    {
+      "file": "dist/assets/battle/riverbank-v2.webp",
+      "bytes": 22974,
+      "sha256": "cec6d62253b803a24c4fe6b80a3f6a4eff9059fa87bf8f3c772b6013567495d1"
+    },
+    {
+      "file": "dist/assets/battle/structures-v1.png",
+      "bytes": 1775352,
+      "sha256": "e4bdce8733b73ba6aa55be17f666f2a1d358b15b02efdb14ede359a70ccdd87b"
+    }
+  ],
+  "harnessSha256": "da7e60e898920d695cfb538cb9a6f0df21bb75c4336a391ee40ecf1906328aec",
+  "runnerSha256": "65a4444e1e76466f4f00bc889a521b07cd9ad9547b7e3719f4cb77a3c64cce4b",
+  "keys": [
+    "beedrill",
+    "treecko"
+  ],
+  "scope": "Immutable checkpoint only. Real Game automatic three starts and direct single attacks. Local engine 30/60 Hz; publicSnapshot/publicEvent/unpackEvent at 15 Hz over engine 30 Hz; Renderer.visualActor/sprite/tower/visualEmission at 60 Hz. Canvas source crop only; no whole-board camera or scale validation. Passive resistant structure target, no AI/other towers, companions isolated. Exact trimmed native RGBA equivalence filters duplicate contact drawings; actual drawImage destinations checked against native emitter geometry with 1.01 world-unit tolerance for rounding.",
+  "cases": [
+    {
+      "key": "beedrill",
+      "mode": "local30",
+      "direction": 0,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 8.667304
+    },
+    {
+      "key": "beedrill",
+      "mode": "local30",
+      "direction": 1,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 5.451891
+    },
+    {
+      "key": "beedrill",
+      "mode": "local30",
+      "direction": 2,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 3.819698
+    },
+    {
+      "key": "beedrill",
+      "mode": "local30",
+      "direction": 3,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 2.370942
+    },
+    {
+      "key": "beedrill",
+      "mode": "local30",
+      "direction": 4,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 4.569424
+    },
+    {
+      "key": "beedrill",
+      "mode": "local30",
+      "direction": 5,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 2.370942
+    },
+    {
+      "key": "beedrill",
+      "mode": "local30",
+      "direction": 6,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 3.819698
+    },
+    {
+      "key": "beedrill",
+      "mode": "local30",
+      "direction": 7,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 5.451891
+    },
+    {
+      "key": "treecko",
+      "mode": "local30",
+      "direction": 0,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 13.439996
+    },
+    {
+      "key": "treecko",
+      "mode": "local30",
+      "direction": 1,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 11.421801
+    },
+    {
+      "key": "treecko",
+      "mode": "local30",
+      "direction": 2,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 13.439996
+    },
+    {
+      "key": "treecko",
+      "mode": "local30",
+      "direction": 3,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 12.10429
+    },
+    {
+      "key": "treecko",
+      "mode": "local30",
+      "direction": 4,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 12.828764
+    },
+    {
+      "key": "treecko",
+      "mode": "local30",
+      "direction": 5,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 12.10429
+    },
+    {
+      "key": "treecko",
+      "mode": "local30",
+      "direction": 6,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 13.439996
+    },
+    {
+      "key": "treecko",
+      "mode": "local30",
+      "direction": 7,
+      "trigger": "direct",
+      "team": 0,
+      "starts": 1,
+      "releases": 1,
+      "damageEvents": 1,
+      "leaps": 0,
+      "intervals": [],
+      "clockRewinds": 0,
+      "earlyReleases": 0,
+      "lateReleases": 0,
+      "missingContactRasters": [],
+      "markerFindings": [],
+      "retiredReleases": 0,
+      "recoveries": [
+        {
+          "seq": 1,
+          "observed": true,
+          "replacedBeforeRest": false
+        }
+      ],
+      "maximumEngineToDrawnSourceError": 11.421801
+    }
+  ],
+  "findings": [],
+  "pageErrors": []
+}

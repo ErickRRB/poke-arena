@@ -1,0 +1,402 @@
+[
+  {
+    "key": "treecko",
+    "direction": 0,
+    "at": 0.5,
+    "sourceFrame": 5,
+    "drawnFrame": 6,
+    "releaseFrom": {
+      "x": 287.2497,
+      "y": 584.4163
+    },
+    "drawnMarker": {
+      "x": 291.8338,
+      "y": 597.501
+    },
+    "visualMarker": {
+      "x": 291.4998,
+      "y": 597.1666
+    },
+    "launch": {
+      "x": 287.2497,
+      "y": 584.4163
+    },
+    "launchError": 13.864463455179207,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "treecko",
+      "groundPath": true,
+      "startX": 300,
+      "startY": 610.8,
+      "liftX": -12.750299999999982,
+      "liftY": -26.383699999999976,
+      "endLiftY": -20,
+      "totalDistance": 49.200000000000045,
+      "travelled": 9.6,
+      "x": 300,
+      "y": 620.4,
+      "arc": 24,
+      "launch": {
+        "x": 287.2497,
+        "y": 584.4163
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "leaf",
+      "x": 289.737563,
+      "y": 581.454252
+    },
+    "expectedResidualAtFirstDraw": 11.159202293193022
+  },
+  {
+    "key": "treecko",
+    "direction": 1,
+    "at": 0.5,
+    "sourceFrame": 5,
+    "drawnFrame": 6,
+    "releaseFrom": {
+      "x": 308.085258,
+      "y": 579.751258
+    },
+    "drawnMarker": {
+      "x": 309.502758,
+      "y": 591.419258
+    },
+    "visualMarker": {
+      "x": 309.501958,
+      "y": 591.084858
+    },
+    "launch": {
+      "x": 308.08525817690696,
+      "y": 579.751258176907
+    },
+    "launchError": 11.753787713761394,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "treecko",
+      "groundPath": true,
+      "startX": 307.63675323681474,
+      "startY": 607.6367532368147,
+      "liftX": 0.44850494009222075,
+      "liftY": -27.885495059907726,
+      "endLiftY": -20,
+      "totalDistance": 49.2,
+      "travelled": 9.6,
+      "x": 314.4249783362056,
+      "y": 614.4249783362055,
+      "arc": 24,
+      "launch": {
+        "x": 308.08525817690696,
+        "y": 579.751258176907
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "leaf",
+      "x": 314.78597,
+      "y": 574.270469
+    },
+    "expectedResidualAtFirstDraw": 9.460365720832343
+  },
+  {
+    "key": "treecko",
+    "direction": 2,
+    "at": 0.5,
+    "sourceFrame": 5,
+    "drawnFrame": 6,
+    "releaseFrom": {
+      "x": 295.7499,
+      "y": 584.4163
+    },
+    "drawnMarker": {
+      "x": 300.0008,
+      "y": 596.8342
+    },
+    "visualMarker": {
+      "x": 300,
+      "y": 597.1666
+    },
+    "launch": {
+      "x": 295.7499,
+      "y": 584.4163
+    },
+    "launchError": 13.125333946989722,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "treecko",
+      "groundPath": true,
+      "startX": 310.8,
+      "startY": 600,
+      "liftX": -15.050099999999986,
+      "liftY": -15.583700000000022,
+      "endLiftY": -20,
+      "totalDistance": 49.19999999999999,
+      "travelled": 9.6,
+      "x": 320.40000000000003,
+      "y": 600,
+      "arc": 24,
+      "launch": {
+        "x": 295.7499,
+        "y": 584.4163
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "leaf",
+      "x": 308.286505,
+      "y": 569.746935
+    },
+    "expectedResidualAtFirstDraw": 10.564293176845386
+  },
+  {
+    "key": "treecko",
+    "direction": 3,
+    "at": 0.5,
+    "sourceFrame": 5,
+    "drawnFrame": 6,
+    "releaseFrom": {
+      "x": 308.085258,
+      "y": 587.664642
+    },
+    "drawnMarker": {
+      "x": 303.835958,
+      "y": 598.999042
+    },
+    "visualMarker": {
+      "x": 303.835158,
+      "y": 598.998242
+    },
+    "launch": {
+      "x": 308.08525817690696,
+      "y": 587.664641823093
+    },
+    "launchError": 12.104758542149094,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "treecko",
+      "groundPath": true,
+      "startX": 307.63675323681474,
+      "startY": 592.3632467631853,
+      "liftX": 0.44850494009222075,
+      "liftY": -4.698604940092309,
+      "endLiftY": -20,
+      "totalDistance": 49.2,
+      "travelled": 9.6,
+      "x": 314.4249783362056,
+      "y": 585.5750216637945,
+      "arc": 24,
+      "launch": {
+        "x": 308.08525817690696,
+        "y": 587.664641823093
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "leaf",
+      "x": 314.78597,
+      "y": 564.083131
+    },
+    "expectedResidualAtFirstDraw": 9.742854436363906
+  },
+  {
+    "key": "treecko",
+    "direction": 4,
+    "at": 0.5,
+    "sourceFrame": 5,
+    "drawnFrame": 6,
+    "releaseFrom": {
+      "x": 308.5002,
+      "y": 580.1662
+    },
+    "drawnMarker": {
+      "x": 310.2509,
+      "y": 592.9173
+    },
+    "visualMarker": {
+      "x": 309.9169,
+      "y": 592.9165
+    },
+    "launch": {
+      "x": 308.5002,
+      "y": 580.1662
+    },
+    "launchError": 12.870722656478879,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "treecko",
+      "groundPath": true,
+      "startX": 300,
+      "startY": 589.2,
+      "liftX": 8.500200000000007,
+      "liftY": -9.033800000000042,
+      "endLiftY": -20,
+      "totalDistance": 49.200000000000045,
+      "travelled": 9.6,
+      "x": 300,
+      "y": 579.6,
+      "arc": 24,
+      "launch": {
+        "x": 308.5002,
+        "y": 580.1662
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "leaf",
+      "x": 306.841624,
+      "y": 554.618806
+    },
+    "expectedResidualAtFirstDraw": 10.359362138141538
+  },
+  {
+    "key": "treecko",
+    "direction": 5,
+    "at": 0.5,
+    "sourceFrame": 5,
+    "drawnFrame": 6,
+    "releaseFrom": {
+      "x": 289.081342,
+      "y": 587.664642
+    },
+    "drawnMarker": {
+      "x": 292.998642,
+      "y": 598.999042
+    },
+    "visualMarker": {
+      "x": 293.331442,
+      "y": 598.998242
+    },
+    "launch": {
+      "x": 289.081341823093,
+      "y": 587.664641823093
+    },
+    "launchError": 11.992241994150458,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "treecko",
+      "groundPath": true,
+      "startX": 292.36324676318526,
+      "startY": 592.3632467631853,
+      "liftX": -3.281904940092261,
+      "liftY": -4.698604940092309,
+      "endLiftY": -20,
+      "totalDistance": 49.2,
+      "travelled": 9.6,
+      "x": 285.5750216637944,
+      "y": 585.5750216637945,
+      "arc": 24,
+      "launch": {
+        "x": 289.081341823093,
+        "y": 587.664641823093
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "leaf",
+      "x": 282.933488,
+      "y": 564.083131
+    },
+    "expectedResidualAtFirstDraw": 9.652292336755247
+  },
+  {
+    "key": "treecko",
+    "direction": 6,
+    "at": 0.5,
+    "sourceFrame": 5,
+    "drawnFrame": 6,
+    "releaseFrom": {
+      "x": 301.4167,
+      "y": 584.4163
+    },
+    "drawnMarker": {
+      "x": 296.8338,
+      "y": 596.8342
+    },
+    "visualMarker": {
+      "x": 297.1666,
+      "y": 597.1666
+    },
+    "launch": {
+      "x": 301.4167,
+      "y": 584.4163
+    },
+    "launchError": 13.23658614673741,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "treecko",
+      "groundPath": true,
+      "startX": 289.2,
+      "startY": 600,
+      "liftX": 12.216700000000003,
+      "liftY": -15.583700000000022,
+      "endLiftY": -20,
+      "totalDistance": 49.19999999999999,
+      "travelled": 9.6,
+      "x": 279.59999999999997,
+      "y": 600,
+      "arc": 24,
+      "launch": {
+        "x": 301.4167,
+        "y": 584.4163
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "leaf",
+      "x": 289.432954,
+      "y": 569.746935
+    },
+    "expectedResidualAtFirstDraw": 10.653837630300842
+  },
+  {
+    "key": "treecko",
+    "direction": 7,
+    "at": 0.5,
+    "sourceFrame": 5,
+    "drawnFrame": 6,
+    "releaseFrom": {
+      "x": 289.081342,
+      "y": 579.751258
+    },
+    "drawnMarker": {
+      "x": 287.331842,
+      "y": 591.419258
+    },
+    "visualMarker": {
+      "x": 287.664642,
+      "y": 591.084858
+    },
+    "launch": {
+      "x": 289.081341823093,
+      "y": 579.751258176907
+    },
+    "launchError": 11.798430806793844,
+    "projectile": {
+      "id": "7:1:0",
+      "key": "treecko",
+      "groundPath": true,
+      "startX": 292.36324676318526,
+      "startY": 607.6367532368147,
+      "liftX": -3.281904940092261,
+      "liftY": -27.885495059907726,
+      "endLiftY": -20,
+      "totalDistance": 49.2,
+      "travelled": 9.6,
+      "x": 285.5750216637944,
+      "y": 614.4249783362055,
+      "arc": 24,
+      "launch": {
+        "x": 289.081341823093,
+        "y": 579.751258176907
+      }
+    },
+    "actualProjectileDraw": {
+      "id": "7:1:0",
+      "name": "leaf",
+      "x": 282.933488,
+      "y": 574.270469
+    },
+    "expectedResidualAtFirstDraw": 9.496297966443827
+  }
+]
