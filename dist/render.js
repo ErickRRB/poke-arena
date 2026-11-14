@@ -699,7 +699,7 @@ export class Renderer {
   }
   drawPlacement(c, game) {
     const key=this.selection,card=CARDS[key],team=this.placementTeam||0;
-    if(!card||this.placementWhenPaused&&!this.pointer||game.state!=='playing'&&!(this.placementWhenPaused&&game.state==='paused'))return;
+    if(!card||(card.spell||this.placementWhenPaused)&&!this.pointer||game.state!=='playing'&&!(this.placementWhenPaused&&game.state==='paused'))return;
     c.save();
     if(this.selection){
       // Keep the terrain bright; legal cells and their frontier carry placement feedback.
@@ -727,12 +727,7 @@ export class Renderer {
       const placement=game.resolveDeployment(team,key,p.x,p.y),point=placement||p;
       const valid=!!placement&&game.energy[team]>=card.cost;
       const color=valid?'#e9dc9e':'#e7947b';
-      if(card.spell&&!card.rolling&&placement){
-        // Local cell intersections explain snapping without covering the board.
-        c.fillStyle='#edfad15c';
-        for(let row=-2;row<=2;row++)for(let col=-2;col<=2;col++)c.fillRect(point.x+(col-.5)*TILE-1,point.y+(row-.5)*TILE-1,2,2);
-      }
-      if(key!=='log'&&placement&&this.selection&&Math.hypot(point.x-p.x,point.y-p.y)>TILE/2){
+      if(!card.spell&&placement&&this.selection&&Math.hypot(point.x-p.x,point.y-p.y)>TILE/2){
         c.strokeStyle=color;c.lineWidth=2;c.setLineDash([3,5]);c.beginPath();c.moveTo(p.x,p.y);c.lineTo(point.x,point.y);c.stroke();c.setLineDash([]);ellipse(c,color,p.x,p.y,3,3);
       }
       if(card.rolling&&key!=='log')travelGuide(c,point.x,point.y,card.splash,card.travelDistance,team,valid);
@@ -749,15 +744,7 @@ export class Renderer {
         }
       }
       if(card.spell&&!card.rolling){
-        areaGuide(c,point.x,point.y,card.splash,{team,valid});cellGuide(c,point.x,point.y,TILE,valid);
-        if(card.spawnOnImpact&&placement){
-          const reserved=[];
-          for(let i=0;i<card.spawnTotal;i++){
-            const angle=-Math.PI/2+i*2*Math.PI/card.spawnTotal+(team?Math.PI:0);
-            const spawn=game.reinforcementPoint(card.spawnKey,point.x+Math.cos(angle)*card.spawnRadius,point.y+Math.sin(angle)*card.spawnRadius,reserved);
-            if(spawn){reserved.push(spawn);c.save();c.globalAlpha=.5;this.sprite(c,{...spawn,id:-20-i,card:CARDS[card.spawnKey],team,preview:true,dx:0,dy:team?1:-1,anim:this.t},true);c.restore();}
-          }
-        }
+        areaGuide(c,point.x,point.y,card.splash,{team,valid});
       }
       if((!card.spell||card.rolling)&&valid&&this.selection){
         const positions=card.rolling?[point]:game.deploymentPositions(team,key,point.x,point.y);
@@ -848,8 +835,6 @@ export class Renderer {
     for(const spell of game.spells){
       if(spell.key==='pinMissile')continue;
       if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
-      const total=(spell.card.castDelay??.4)+(spell.flightTime||0),remaining=(spell.delay||0)+Math.max(0,(spell.flightTime||0)-(spell.flightElapsed||0));
-      areaGuide(c,spell.x,spell.y,spell.card.splash,{team:spell.team,pending:true,progress:1-remaining/total});
     }
     const objects=[...this.frameActors.values()].sort((a,b)=>a.y-b.y);
     for(const actor of objects){if('king'in actor)this.tower(c,actor);else this.sprite(c,actor);this.frozen(c,actor);}
