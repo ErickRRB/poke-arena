@@ -365,14 +365,22 @@ export class Renderer {
   }
   drawNumbers(c,dt){
     if(!this.showCombatNumbers){this.numbers=[];return;}
+    const occupied=[];
     for(const n of this.numbers){
       n.life-=dt;if(n.life<=0)continue;
       const age=n.max-n.life,progress=age/n.max,size=n.kind==='dot'?17:n.amount>=160?23:20;
       const scale=this.reduced?1:age<.1?.8+age*3.2:age<.22?1.12-(age-.1):1;
       const value=`${n.kind==='heal'?'+':''}${Math.round(n.amount)}`;
       c.save();c.globalAlpha=progress<.62?1:(1-progress)/.38;
-      c.translate(n.x,n.y-(this.reduced?0:progress*30));c.scale(scale,scale);
       c.font=`800 ${size}px "Barlow Condensed", "Segoe UI", sans-serif`;c.textAlign='center';c.textBaseline='middle';c.lineJoin='round';
+      const peak=this.reduced?1:1.12,width=((c.measureText?.(value)?.width??value.length*size*.58)+8)*peak,height=(size+8)*peak;
+      const baseY=n.y-(this.reduced?0:progress*30);let y=baseY-(n.rise||0),below=(n.rise||0)<0;
+      for(let i=0;i<occupied.length;i++){
+        const other=occupied.find(other=>Math.abs(n.x-other.x)<(width+other.width)/2+3&&Math.abs(y-other.y)<(height+other.height)/2+3);
+        if(!other)break;const gap=(height+other.height)/2+3;if(other.y-gap<height/2+4)below=true;const next=other.y+(below?gap:-gap);
+        if(Math.abs(baseY-next)>96||next>H-height/2-4)break;y=next;n.rise=baseY-y;
+      }
+      occupied.push({x:n.x,y,width,height});c.translate(n.x,y);c.scale(scale,scale);
       c.strokeStyle='#0c180f';c.lineWidth=4.5;c.shadowColor='#08110d';c.shadowBlur=3;c.shadowOffsetY=2;c.strokeText(value,0,0);
       c.shadowBlur=0;c.shadowOffsetY=0;c.fillStyle=n.color;c.fillText(value,0,0);c.restore();
     }

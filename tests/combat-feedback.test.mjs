@@ -18,6 +18,16 @@ test('hiding combat numbers preserves damage, health feedback and healing effect
  assert.equal(renderer.numbers.length,0);assert.equal(renderer.healthStates.get(1).chip,1);assert.equal(renderer.healthStates.get(1).last,.8);
  renderer.onEvent({type:'heal',unit:target,amount:40});assert.equal(renderer.effects[0].art,'heal');assert.equal(renderer.numbers.length,0);
 });
+test('nearby combat numbers separate without moving their anchors or drifting while paused',()=>{
+ const renderer=Object.assign(Object.create(Renderer.prototype),{showCombatNumbers:true,reduced:false,numbers:[]});
+ const number=(x,amount)=>({x,y:300,amount,kind:'damage',life:1,max:1,color:'#fff'});
+ renderer.numbers=[number(300,168),number(325,168),number(348,168),number(500,80)];
+ const points=[],values=[],c=new Proxy({measureText:value=>({width:value.length*10}),translate:(x,y)=>points.push({x,y}),fillText:value=>values.push(value)},{get:(o,k)=>o[k]??(()=>{}),set:(o,k,v)=>(o[k]=v,true)});
+ renderer.drawNumbers(c,0);const first=points.splice(0);assert.equal(first[0].y,300);assert.equal(first[3].y,300);
+ for(let i=0;i<3;i++)for(let j=i+1;j<3;j++)assert.ok(Math.abs(first[i].x-first[j].x)>=45.56||Math.abs(first[i].y-first[j].y)>=37.72,'nearby labels must not overlap');
+ assert.deepEqual(renderer.numbers.map(n=>({x:n.x,y:n.y})),[300,325,348,500].map(x=>({x,y:300})));
+ renderer.drawNumbers(c,0);assert.deepEqual(points,first);assert.deepEqual(values,['168','168','168','80','168','168','168','80']);
+});
 test('a structure has one shared health and lifetime budget after time, hits and reconnection',()=>{
  for(const key of Object.keys(CARDS).filter(k=>CARDS[k].structure)){
   const{game}=fresh(),unit=game.spawn(key,0,300,500,0);run(game,2);
