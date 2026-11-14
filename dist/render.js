@@ -458,7 +458,7 @@ export class Renderer {
     c.save();c.beginPath();c.arc(e.x,e.y,radius,0,Math.PI*2);c.clip();
     c.save();c.globalAlpha*=.09*Math.max(0,1-progress*2);c.fillStyle=color;c.fill();c.restore();
     // A brief expanding ground ripple communicates the true splash boundary.
-    c.save();c.globalAlpha*=.35*Math.max(0,1-progress*2.2);c.strokeStyle=color;c.lineWidth=2*(1-progress)+.5;c.beginPath();c.arc(e.x,e.y,radius*(.35+.65*Math.min(1,progress*3)),0,Math.PI*2);c.stroke();c.restore();
+    c.save();c.globalAlpha*=.5*Math.max(0,1-progress*1.45);c.beginPath();c.arc(e.x,e.y,radius*(.35+.65*Math.min(1,progress*4)),0,Math.PI*2);c.strokeStyle='#293c3f';c.lineWidth=3*(1-progress)+1;c.stroke();c.strokeStyle=color;c.lineWidth=1.5*(1-progress)+.5;c.stroke();c.restore();
     if(['leaf','poison','powder','bite','slash'].includes(e.style)){
       const count=this.reduced?4:8,size=Math.min(17,Math.max(10,radius*.27)),spread=this.reduced?.72:.15+Math.sin(Math.min(1,progress)*Math.PI/2)*.75;
       for(let i=0;i<count;i++){
