@@ -1,4 +1,9 @@
 import{test}from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';import worker from'../dist/server/index.js';
+test('the public test arena and its shared battle dependencies are included in the hosted Worker',async()=>{
+  for(const file of['testing.html','testing.js','testing.css','sandbox.js','quick-stats.js','quick-stats.css','attack-choreography.js','wing-motion.js','wing-rigs.js','knockback-profiles.js','targeting-art.js','assets/ui/pokeball-v2.webp','assets/battle/arena-ground-v2.webp','assets/battle/arena-bridge-v2.webp','assets/battle/riverbank-v2.webp']){
+    const response=await worker.fetch(new Request('https://arena.test/'+file),{});assert.equal(response.status,200,file);assert.deepEqual(Buffer.from(await response.arrayBuffer()),readFileSync(new URL('../dist/'+file,import.meta.url)),file);
+  }
+});
 test('the hosted Worker serves the same bytes from its separate resource modules',async()=>{
   for(const file of['index.html','engine.js','spell-preview.js','battle-art.js','combat-visuals.js','pokemon-silhouettes.js','assets/battle/projectile-bounds.js','assets/battle/Particle__Weather_Ball_Fire_1.None.png','assets/battle/Particle__Weather_Ball_Fire_3.Flip.png','assets/audio/voices/205.mp3','assets/cards/flame-wheel-v1.png','assets/battle/Particle__Flame_Wheel.None.png','assets/cards/battle-1.webp','assets/battle/structures-v1.png','assets/battle/Particle__Gust_Blue.None.png','assets/ui/menu-icons-v1.webp']){
     const response=await worker.fetch(new Request('https://arena.test/'+file),{});assert.equal(response.status,200,file);

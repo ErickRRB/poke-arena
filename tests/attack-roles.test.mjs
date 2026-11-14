@@ -50,7 +50,7 @@ test('special attackers release attacks that hit from behind the front line', ()
 
 test('new groups deploy real grounded species and retain original animation assets', () => {
   const manifest = JSON.parse(readFileSync(new URL('../dist/assets/pokemon/manifest.json', import.meta.url)));
-  for (const [key, id, count] of [['diglett', 50, 3], ['diglettHorde', 50, 9], ['raltsTrio', 280, 3], ['poochyenaPack', 261, 4]]) {
+  for (const [key, id, count] of [['diglett', 50, 3], ['diglettHorde', 50, 15], ['raltsTrio', 280, 3], ['poochyenaPack', 261, 4]]) {
     const card = CARDS[key];
     assert.equal(card.id, id); assert.equal(card.count, count); assert.ok(!card.flying);
     assert.ok(manifest[id].Walk && manifest[id][card.attackAnim], key);

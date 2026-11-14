@@ -1,0 +1,1061 @@
+{
+  "date": "2026-11-14",
+  "runtimeModified": false,
+  "sourceMetrics": "metrics.json",
+  "integratorCommit": "c617eb1a5dafcff8b8acb7792cbe084f793d5c01",
+  "coverage": {
+    "allKeys": 121,
+    "bodyKeys": 108,
+    "species": 100,
+    "spellsWithoutBody": [
+      "thunder",
+      "fireball",
+      "log",
+      "sneaselAmbush",
+      "pinMissile",
+      "lightning",
+      "hyperBeam",
+      "blizzard",
+      "spikes",
+      "stealthRock",
+      "whirlpool",
+      "nightmare",
+      "earthquake"
+    ]
+  },
+  "mainCalibrations": {
+    "1": 2,
+    "4": 1.9091,
+    "7": 1.8261,
+    "12": 1.68,
+    "25": 1.5556,
+    "37": 1.9091,
+    "81": 2.2105,
+    "88": 1.9091,
+    "100": 2.625,
+    "109": 1.6154,
+    "132": 2,
+    "133": 2,
+    "196": 1.5,
+    "197": 1.5556,
+    "302": 1.8,
+    "315": 1.5,
+    "334": 1.4483
+  },
+  "recommendations": [
+    {
+      "id": 41,
+      "key": "zubat",
+      "priority": "clear",
+      "currentScale": 1.44,
+      "mainScale": 1.44,
+      "proposedScale": 1.12,
+      "reason": "Five fragile bats currently occupy nearly the same individual width and height as the three Minion analogues. A smaller silhouette keeps the five-body swarm readable and distinguishes it from Beedrill.",
+      "targetRole": "Small flying swarm",
+      "measurements": {
+        "current": {
+          "width": 36,
+          "height": 34.56
+        },
+        "integratedMain": {
+          "width": 36,
+          "height": 34.56
+        },
+        "proposed": {
+          "width": 28,
+          "height": 26.88
+        },
+        "mobileProposed": {
+          "width": 17.27,
+          "height": 16.58
+        }
+      }
+    },
+    {
+      "id": 100,
+      "key": "voltorb",
+      "priority": "clear",
+      "currentScale": 1.75,
+      "mainScale": 2.625,
+      "proposedScale": 1.875,
+      "reason": "The parallel increase makes the one-elixir Electric Spirit analogue 42x42 arena units, almost the same body as its evolved Electrode (44x44) and as a four-elixir electric mage. Thirty arena units preserve recognition without losing the small suicide-runner role.",
+      "targetRole": "Small one-elixir spirit",
+      "measurements": {
+        "current": {
+          "width": 28,
+          "height": 28
+        },
+        "integratedMain": {
+          "width": 42,
+          "height": 42
+        },
+        "proposed": {
+          "width": 30,
+          "height": 30
+        },
+        "mobileProposed": {
+          "width": 18.5,
+          "height": 18.5
+        }
+      }
+    },
+    {
+      "id": 197,
+      "key": "umbreon",
+      "priority": "moderate",
+      "currentScale": 1.4,
+      "mainScale": 1.5556,
+      "proposedScale": 1.7778,
+      "reason": "The parallel increase gives Eevee and Umbreon the same maximum body height (42 units), while Umbreon acts as a 2100-HP front-line mini tank. A 48-unit body gives a modest tank silhouette, comparable to Arcanine and below heavy tanks.",
+      "targetRole": "Slender mini tank",
+      "measurements": {
+        "current": {
+          "width": 33.6,
+          "height": 37.8
+        },
+        "integratedMain": {
+          "width": 37.33,
+          "height": 42
+        },
+        "proposed": {
+          "width": 42.67,
+          "height": 48
+        },
+        "mobileProposed": {
+          "width": 26.31,
+          "height": 29.6
+        }
+      }
+    },
+    {
+      "id": 315,
+      "key": "roselia",
+      "priority": "preserve-parent",
+      "currentScale": 1.7143,
+      "mainScale": 1.5,
+      "proposedScale": 1.7143,
+      "reason": "Keep the parent correction. A trailing Object.assign in main would otherwise reduce the Princess analogue from 36 to 31.5 units in height. At 36 units it is readable beside the archers while staying fragile.",
+      "targetRole": "Visible ranged support",
+      "measurements": {
+        "current": {
+          "width": 48,
+          "height": 36
+        },
+        "integratedMain": {
+          "width": 42,
+          "height": 31.5
+        },
+        "proposed": {
+          "width": 48,
+          "height": 36
+        },
+        "mobileProposed": {
+          "width": 29.6,
+          "height": 22.2
+        }
+      }
+    }
+  ],
+  "proposedOverrides": {
+    "1": 2,
+    "4": 1.9091,
+    "7": 1.8261,
+    "12": 1.68,
+    "25": 1.5556,
+    "37": 1.9091,
+    "41": 1.12,
+    "81": 2.2105,
+    "88": 1.9091,
+    "100": 1.875,
+    "109": 1.6154,
+    "132": 2,
+    "133": 2,
+    "196": 1.5,
+    "197": 1.7778,
+    "302": 1.8,
+    "315": 1.7143,
+    "334": 1.4483
+  },
+  "allBodyDecisions": [
+    {
+      "key": "pikachu",
+      "id": 25,
+      "reference": "Mago eléctrico",
+      "role": "support-fighters",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "squirtle",
+      "id": 7,
+      "reference": null,
+      "role": "support-fighters",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "charmander",
+      "id": 4,
+      "reference": "Mago",
+      "role": "support-fighters",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "snorlax",
+      "id": 143,
+      "reference": "Gigante",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "zubat",
+      "id": 41,
+      "reference": "Murciélagos",
+      "role": "swarms-tokens",
+      "decision": "clear",
+      "reason": "Five fragile bats currently occupy nearly the same individual width and height as the three Minion analogues. A smaller silhouette keeps the five-body swarm readable and distinguishes it from Beedrill."
+    },
+    {
+      "key": "charizard",
+      "id": 6,
+      "reference": "Bebé dragón",
+      "role": "flying",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "bulbasaur",
+      "id": 1,
+      "reference": "Mago de hielo",
+      "role": "support-fighters",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "gengar",
+      "id": 94,
+      "reference": null,
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "machamp",
+      "id": 68,
+      "reference": "Mini P.E.K.K.A.",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "eevee",
+      "id": 133,
+      "reference": "Príncipe",
+      "role": "support-fighters",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "onix",
+      "id": 95,
+      "reference": "Montapuercos",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "blastoise",
+      "id": 9,
+      "reference": null,
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "vulpix",
+      "id": 37,
+      "reference": null,
+      "role": "support-fighters",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "psyduck",
+      "id": 54,
+      "reference": "Mago eléctrico",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "alakazam",
+      "id": 65,
+      "reference": "Arquero mágico",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "geodude",
+      "id": 74,
+      "reference": "Caballero",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "magnemite",
+      "id": 81,
+      "reference": null,
+      "role": "flying",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "scyther",
+      "id": 123,
+      "reference": null,
+      "role": "flying",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "lapras",
+      "id": 131,
+      "reference": "Mago de hielo",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "mewtwo",
+      "id": 150,
+      "reference": null,
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "treecko",
+      "id": 252,
+      "reference": "Arqueras",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Individual bodies and combined formation remain readable at the measured mobile scale."
+    },
+    {
+      "key": "golem",
+      "id": 76,
+      "reference": "Gólem",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "rapidash",
+      "id": 78,
+      "reference": "Montapuercos",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "roselia",
+      "id": 315,
+      "reference": "Princesa",
+      "role": "support-fighters",
+      "decision": "preserve-parent",
+      "reason": "Keep the parent correction. A trailing Object.assign in main would otherwise reduce the Princess analogue from 36 to 31.5 units in height. At 36 units it is readable beside the archers while staying fragile."
+    },
+    {
+      "key": "graveler",
+      "id": 75,
+      "reference": "Lanzarrocas",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "nuzleaf",
+      "id": 274,
+      "reference": "Duende lanzadardos",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "sneaselToken",
+      "id": 215,
+      "reference": "Duende",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Small summoned body or retired snapshot key; its size remains subordinate to its parent or contemporary troop."
+    },
+    {
+      "key": "diglett",
+      "id": 50,
+      "reference": "Esqueletos",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Individual bodies and combined formation remain readable at the measured mobile scale."
+    },
+    {
+      "key": "diglettHorde",
+      "id": 50,
+      "reference": "Ejército de esqueletos",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Individual bodies and combined formation remain readable at the measured mobile scale."
+    },
+    {
+      "key": "raltsTrio",
+      "id": 280,
+      "reference": "Duendes con lanza",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Individual bodies and combined formation remain readable at the measured mobile scale."
+    },
+    {
+      "key": "poochyenaPack",
+      "id": 261,
+      "reference": "Duendes",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Individual bodies and combined formation remain readable at the measured mobile scale."
+    },
+    {
+      "key": "venusaur",
+      "id": 3,
+      "reference": "Mago",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "butterfree",
+      "id": 12,
+      "reference": "Mago de hielo",
+      "role": "flying",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "beedrill",
+      "id": 15,
+      "reference": "Esbirros",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Individual bodies and combined formation remain readable at the measured mobile scale."
+    },
+    {
+      "key": "pidgeot",
+      "id": 18,
+      "reference": "Príncipe",
+      "role": "flying",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "ekans",
+      "id": 23,
+      "reference": null,
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Individual bodies and combined formation remain readable at the measured mobile scale."
+    },
+    {
+      "key": "sandshrew",
+      "id": 27,
+      "reference": "Guardias",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Individual bodies and combined formation remain readable at the measured mobile scale."
+    },
+    {
+      "key": "nidoqueen",
+      "id": 31,
+      "reference": null,
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "nidoking",
+      "id": 34,
+      "reference": null,
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "mankey",
+      "id": 56,
+      "reference": "Príncipe",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Individual bodies and combined formation remain readable at the measured mobile scale."
+    },
+    {
+      "key": "arcanine",
+      "id": 59,
+      "reference": "Príncipe",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "slowbro",
+      "id": 80,
+      "reference": "Mago de hielo",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "grimer",
+      "id": 88,
+      "reference": null,
+      "role": "support-fighters",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "cloyster",
+      "id": 91,
+      "reference": null,
+      "role": "structures",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "gastly",
+      "id": 92,
+      "reference": null,
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Individual bodies and combined formation remain readable at the measured mobile scale."
+    },
+    {
+      "key": "voltorb",
+      "id": 100,
+      "reference": "Espíritu eléctrico",
+      "role": "support-fighters",
+      "decision": "clear",
+      "reason": "The parallel increase makes the one-elixir Electric Spirit analogue 42x42 arena units, almost the same body as its evolved Electrode (44x44) and as a four-elixir electric mage. Thirty arena units preserve recognition without losing the small suicide-runner role."
+    },
+    {
+      "key": "forretress",
+      "id": 205,
+      "reference": "Rompemuros",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "electrode",
+      "id": 101,
+      "reference": null,
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Small summoned body or retired snapshot key; its size remains subordinate to its parent or contemporary troop."
+    },
+    {
+      "key": "exeggutor",
+      "id": 103,
+      "reference": null,
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Small summoned body or retired snapshot key; its size remains subordinate to its parent or contemporary troop."
+    },
+    {
+      "key": "koffing",
+      "id": 109,
+      "reference": null,
+      "role": "flying",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "chansey",
+      "id": 113,
+      "reference": null,
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "kangaskhan",
+      "id": 115,
+      "reference": null,
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "starmie",
+      "id": 121,
+      "reference": "Arquero mágico",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "mrmime",
+      "id": 122,
+      "reference": null,
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "gyarados",
+      "id": 130,
+      "reference": null,
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "ditto",
+      "id": 132,
+      "reference": null,
+      "role": "support-fighters",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "articuno",
+      "id": 144,
+      "reference": "Mago de hielo",
+      "role": "flying",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "zapdos",
+      "id": 145,
+      "reference": "Dragón eléctrico",
+      "role": "flying",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "moltres",
+      "id": 146,
+      "reference": "Bebé dragón",
+      "role": "flying",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "dragonite",
+      "id": 149,
+      "reference": null,
+      "role": "flying",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "meganium",
+      "id": 154,
+      "reference": null,
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "typhlosion",
+      "id": 157,
+      "reference": "Mago",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "feraligatr",
+      "id": 160,
+      "reference": "Mini P.E.K.K.A.",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "crobat",
+      "id": 169,
+      "reference": null,
+      "role": "flying",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "ampharos",
+      "id": 181,
+      "reference": "Tesla",
+      "role": "structures",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "espeon",
+      "id": 196,
+      "reference": "Arquero mágico",
+      "role": "support-fighters",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "umbreon",
+      "id": 197,
+      "reference": null,
+      "role": "heavy",
+      "decision": "moderate",
+      "reason": "The parallel increase gives Eevee and Umbreon the same maximum body height (42 units), while Umbreon acts as a 2100-HP front-line mini tank. A 48-unit body gives a modest tank silhouette, comparable to Arcanine and below heavy tanks."
+    },
+    {
+      "key": "wobbuffet",
+      "id": 202,
+      "reference": null,
+      "role": "structures",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "steelix",
+      "id": 208,
+      "reference": "Gigante",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "scizor",
+      "id": 212,
+      "reference": null,
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "skarmory",
+      "id": 227,
+      "reference": null,
+      "role": "flying",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "blissey",
+      "id": 242,
+      "reference": null,
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "lugia",
+      "id": 249,
+      "reference": null,
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "hooh",
+      "id": 250,
+      "reference": null,
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "sceptile",
+      "id": 254,
+      "reference": "Duende lanzadardos",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "blaziken",
+      "id": 257,
+      "reference": null,
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "swampert",
+      "id": 260,
+      "reference": "Valquiria",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "gardevoir",
+      "id": 282,
+      "reference": "Mago",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "sableye",
+      "id": 302,
+      "reference": "Bandida",
+      "role": "support-fighters",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "aggron",
+      "id": 306,
+      "reference": null,
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "sharpedo",
+      "id": 319,
+      "reference": "Bandida",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "flygon",
+      "id": 330,
+      "reference": null,
+      "role": "flying",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "altaria",
+      "id": 334,
+      "reference": null,
+      "role": "flying",
+      "decision": "accept-main-calibration",
+      "reason": "The parallel calibration improves single-body readability; preserve its distinction from swarms and large tanks."
+    },
+    {
+      "key": "absol",
+      "id": 359,
+      "reference": null,
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "salamence",
+      "id": 373,
+      "reference": null,
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "metagross",
+      "id": 376,
+      "reference": null,
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "kyogre",
+      "id": 382,
+      "reference": null,
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "groudon",
+      "id": 383,
+      "reference": "Gigante",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "rayquaza",
+      "id": 384,
+      "reference": "Arquero mágico",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "nidoranF",
+      "id": 29,
+      "reference": null,
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Small summoned body or retired snapshot key; its size remains subordinate to its parent or contemporary troop."
+    },
+    {
+      "key": "nidoranM",
+      "id": 32,
+      "reference": null,
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Small summoned body or retired snapshot key; its size remains subordinate to its parent or contemporary troop."
+    },
+    {
+      "key": "exeggcute",
+      "id": 102,
+      "reference": "Esqueleto",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Small summoned body or retired snapshot key; its size remains subordinate to its parent or contemporary troop."
+    },
+    {
+      "key": "babyKangaskhan",
+      "id": 115,
+      "reference": null,
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Small summoned body or retired snapshot key; its size remains subordinate to its parent or contemporary troop."
+    },
+    {
+      "key": "centralElectrode",
+      "id": 101,
+      "reference": "Horno",
+      "role": "structures",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "madriguera",
+      "id": 31,
+      "reference": "Choza de bárbaros",
+      "role": "structures",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "vivero",
+      "id": 103,
+      "reference": "Lápida",
+      "role": "structures",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "regice",
+      "id": 378,
+      "reference": null,
+      "role": "structures",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "duskull",
+      "id": 356,
+      "reference": "Bruja",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "duskullToken",
+      "id": 355,
+      "reference": "Esqueleto",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Small summoned body or retired snapshot key; its size remains subordinate to its parent or contemporary troop."
+    },
+    {
+      "key": "raichu",
+      "id": 26,
+      "reference": "Mini P.E.K.K.A.",
+      "role": "support-fighters",
+      "decision": "keep-current",
+      "reason": "Body remains readable and fits its support, fighter or flying role."
+    },
+    {
+      "key": "registeel",
+      "id": 379,
+      "reference": null,
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Small summoned body or retired snapshot key; its size remains subordinate to its parent or contemporary troop."
+    },
+    {
+      "key": "rhydon",
+      "id": 112,
+      "reference": "P.E.K.K.A.",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "regirock",
+      "id": 377,
+      "reference": "Gigante",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "celebi",
+      "id": 251,
+      "reference": "Esbirro gigante",
+      "role": "heavy",
+      "decision": "keep-current",
+      "reason": "Body mass and/or span remain above ordinary fighters while retaining the species silhouette."
+    },
+    {
+      "key": "pandilla",
+      "id": 261,
+      "reference": "Pandilla de duendes",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Individual bodies and combined formation remain readable at the measured mobile scale."
+    },
+    {
+      "key": "shuppetToken",
+      "id": 353,
+      "reference": "Esqueleto",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Small summoned body or retired snapshot key; its size remains subordinate to its parent or contemporary troop."
+    },
+    {
+      "key": "poochyenaToken",
+      "id": 261,
+      "reference": "Duende",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Small summoned body or retired snapshot key; its size remains subordinate to its parent or contemporary troop."
+    },
+    {
+      "key": "raltsToken",
+      "id": 280,
+      "reference": "Duende con lanza",
+      "role": "swarms-tokens",
+      "decision": "keep-current",
+      "reason": "Small summoned body or retired snapshot key; its size remains subordinate to its parent or contemporary troop."
+    }
+  ],
+  "spellsWithoutBody": [
+    "thunder",
+    "fireball",
+    "log",
+    "sneaselAmbush",
+    "pinMissile",
+    "lightning",
+    "hyperBeam",
+    "blizzard",
+    "spikes",
+    "stealthRock",
+    "whirlpool",
+    "nightmare",
+    "earthquake"
+  ],
+  "limits": "Role/silhouette review at actual mobile scale. Not a claim of exact Clash Royale pixel matching or balance."
+}

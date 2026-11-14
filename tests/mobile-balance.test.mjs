@@ -55,12 +55,12 @@ test('inactive kings do not warn, while active towers warn within their actual r
   enemy.spawn=1;assert.ok(!g.deploymentThreats(0,'pikachu',158,480).includes(enemy));
 });
 
-test('each Zubat dies to exactly two tower hits',()=>{
+test('each Zubat matches the current one-shot bat health tier',()=>{
   const g=fresh(),tower=g.towers.find(t=>!t.king),zubat=g.spawn('zubat',1,158,500,0);
-  g.damage(zubat,tower.damage,0);assert.ok(zubat.hp>0);g.damage(zubat,tower.damage,0);assert.equal(zubat.hp,0);
+  assert.equal(zubat.hp,81);g.damage(zubat,tower.damage,0);assert.equal(zubat.hp,0);
 });
 
-test('three unsupported Zubat deployed at the bridge deal zero tower damage',()=>{
+test('five unsupported Zubat deployed at the bridge deal zero tower damage',()=>{
   const g=new Game({seed:18,deck:['zubat',...DEFAULT_DECK.filter(k=>k!=='zubat')]});g.start();g.aiEnabled=false;
   const tower=g.towers.find(t=>t.team===1&&t.lane===0);g.towers.forEach(t=>t.active=t===tower);
   g.deploy(0,0,158,444);run(g,12);
@@ -68,8 +68,8 @@ test('three unsupported Zubat deployed at the bridge deal zero tower damage',()=
 });
 
 test('movement has four slower tiers with a readable gap between tanks and runners',()=>{
-  assert.equal(CARDS.snorlax.speed,18);assert.equal(CARDS.treecko.speed,26);assert.equal(CARDS.zubat.speed,30);assert.equal(CARDS.pikachu.speed,32);assert.equal(CARDS.eevee.speed,40);
-  for(const c of Object.values(CARDS))if(!c.spell)assert.ok(c.speed>=0&&c.speed<=40,c.name);
+  assert.equal(CARDS.snorlax.speed,21.6);assert.equal(CARDS.treecko.speed,28.8);assert.equal(CARDS.zubat.speed,57.6);assert.equal(CARDS.pikachu.speed,43.2);assert.equal(CARDS.eevee.speed,57.6);
+  for(const c of Object.values(CARDS))if(!c.spell)assert.ok(c.speed>=0&&c.speed<=57.6,c.name);
 });
 
 test('central defensive structures pull marching win conditions before either bridge',()=>{

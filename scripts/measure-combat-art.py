@@ -14,9 +14,9 @@ for card in cards.values():
  profiles[str(card['id'])]={'body':body,'name':card['name']}
 output='// Native Idle silhouette in source pixels, measured in all eight directions.\nexport const POKEMON_SILHOUETTES=Object.freeze('+json.dumps(profiles,ensure_ascii=False,indent=2)+');\n'
 (root/'dist/pokemon-silhouettes.js').write_text(output,encoding='utf-8')
-assets=json.loads((root/'dist/assets/battle/manifest.json').read_text())['animations']; bounds={}
+assets=json.loads(subprocess.check_output(['node','--input-type=module','-e',"import {BATTLE_ASSETS} from './dist/assets/battle/manifest.js';console.log(JSON.stringify(BATTLE_ASSETS))"],cwd=root)); bounds={}
 for name,meta in assets.items():
- if name not in ['hydro','bubble','shadow','psychic','poison','rock','leaf','snow','flame','lightningHead','coin','egg','song','waterBeamHead','fireOrb','fireTrail','hydroShot','emberShot','songShot','petalShot']: continue
+ if name not in ['hydro','bubble','shadow','psychic','poison','rock','leaf','snow','flame','lightningHead','coin','egg','song','waterBeamHead','fireOrb','fireTrail','hydroShot','emberShot','songShot','petalShot','pokeball']: continue
  im=Image.open(root/'dist'/meta['file']).convert('RGBA'); union=None
  for row in range(meta['rows']):
   for frame in range(meta['columns']):

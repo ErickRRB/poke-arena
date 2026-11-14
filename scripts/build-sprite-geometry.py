@@ -5,6 +5,17 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
+
+def painted_pixels(image):
+    # Attachment sheets are mostly transparent. Inspect their occupied rectangle
+    # rather than the much larger animation cell; coordinates remain native.
+    bounds = image.getbbox()
+    if bounds:
+        left, top, right, bottom = bounds
+        for y in range(top, bottom):
+            for x in range(left, right):
+                yield x, y, image.getpixel((x, y))
+
 manifest = json.loads((ROOT/'dist/assets/pokemon/manifest.json').read_text())
 cards = json.loads(subprocess.check_output(['node','--input-type=module','-e',"import {CARDS} from './dist/engine.js'; console.log(JSON.stringify(Object.values(CARDS).filter(c=>c.id).flatMap(c=>[c.attackAnim||'Attack',c.moveAnim,c.idleAnim].filter(Boolean).map(anim=>({id:c.id,anim})))))"],cwd=ROOT,text=True))
 wanted = {}
@@ -13,7 +24,7 @@ for card in cards + [{'id':value,'anim':'Shoot'} for value in [31,34,52]]:
 result = {}
 for species,names in sorted(wanted.items(),key=lambda entry:int(entry[0])):
     result[species] = {}
-    for name in sorted(names | {'Idle'}):
+    for name in sorted(names | {'Idle','Walk','Hurt'}):
         meta=manifest[species].get(name) or manifest[species]['Walk']
         base=ROOT/'dist'/meta['file']
         offsets=Image.open(str(base).replace('-Anim.png','-Offsets.png')).convert('RGBA')
@@ -22,19 +33,17 @@ for species,names in sorted(wanted.items(),key=lambda entry:int(entry[0])):
         points=[]
         for row in range(rows):
             line=[]
-            for frame in range(1 if name=='Idle' else frames):
+            for frame in range(frames):
                 parts={};foot=None
-                for y in range(h):
-                    for x in range(w):
-                        sx,sy=frame*w+x,row*h+y
-                        r,g,b,a=offsets.getpixel((sx,sy))
-                        if a:
-                            if r>240:parts['left']=[x,y]
-                            if g>240:parts['body']=[x,y]
-                            if b>240:parts['right']=[x,y]
-                            if max(r,g,b)<16:parts['head']=[x,y]
-                        r,g,b,a=shadows.getpixel((sx,sy))
-                        if a and min(r,g,b)>240:foot=[x,y]
+                bounds=(frame*w,row*h,(frame+1)*w,(row+1)*h)
+                for x,y,(r,g,b,a) in painted_pixels(offsets.crop(bounds)):
+                    if a:
+                        if r>240:parts['left']=[x,y]
+                        if g>240:parts['body']=[x,y]
+                        if b>240:parts['right']=[x,y]
+                        if max(r,g,b)<16:parts['head']=[x,y]
+                for x,y,(r,g,b,a) in painted_pixels(shadows.crop(bounds)):
+                    if a and min(r,g,b)>240:foot=[x,y]
                 foot=foot or [w//2,int(h*.65)];body=parts.get('body',foot)
                 line.append(foot+body+parts.get('head',body)+parts.get('left',body)+parts.get('right',body))
             points.append(line)

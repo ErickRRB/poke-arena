@@ -24,11 +24,11 @@ export async function checkCapturedDeploymentLighting(page){
     return results;
   });
   for(const result of results){
-    assert.ok(result.before.left>0&&result.before.right>0,'enemy territory starts shaded');assert.equal(result.before.own,0);
+    assert.deepEqual(result.before,{left:0,right:0,own:0},'placement preserves the terrain brightness');
     assert.deepEqual(result.ownDown,result.before,'losing an allied tower must not unlock enemy territory');
     assert.equal(result.leftDown.left,result.before.own,'captured territory must be as clear as the home side');assert.equal(result.leftDown.right,result.before.right,'the other lane remains shaded');
     assert.equal(result.bothDown.left,0);assert.equal(result.bothDown.right,0);
-    assert.ok(result.rolling.left>0&&result.rolling.right>0,'rolling spells keep their original deployment side');
+    assert.deepEqual(result.rolling,{left:0,right:0,own:0},'captured rolling placement keeps terrain bright');
     assert.deepEqual(result.spell,{left:0,right:0,own:0});
   }
 }

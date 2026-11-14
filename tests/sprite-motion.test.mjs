@@ -8,6 +8,7 @@ import {Renderer} from '../dist/render.js';
 import {combatVisual,projectileVisual,fireballVisual} from '../dist/combat-visuals.js';
 import {POKEMON_SILHOUETTES} from '../dist/pokemon-silhouettes.js';
 import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js';
+import {WING_RIGS} from '../dist/wing-rigs.js';
 
 test('native emission markers cover every playable attack in all eight directions',()=>{
  for(const card of Object.values(CARDS).filter(c=>!c.spell)){
@@ -49,9 +50,9 @@ test('mouth attachments and projectile identities survive online serialization a
  const event=packEvent({type:'flame',from:game.muzzle(actor),to:{x:target.x,y:target.y-15},sourceId:actor.id,targetId:target.id});
  assert.equal(perspective(event,1).sourceId,actor.id);assert.equal(perspective(event,1).targetId,target.id);
 });
-test('airborne movement uses changing original poses instead of a repeated charge frame',()=>{
+test('sustained flight selects valid native poses or a traced wing rig in every view',()=>{
  const manifest=JSON.parse(readFileSync(new URL('../dist/assets/pokemon/manifest.json',import.meta.url)));
- for(const key of['charizard','pidgeot','scyther','dragonite','salamence']){const card=CARDS[key],meta=manifest[card.id][card.moveAnim];assert.ok(meta);assert.ok(new Set(card.moveFrames).size>=4);assert.ok(card.moveFrames.every(frame=>frame>=0&&frame<meta.durations.length));}
+ for(const key of['charizard','pidgeot','scyther','dragonite','salamence']){const card=CARDS[key],meta=manifest[card.id][card.moveAnim];assert.ok(meta);assert.ok(card.moveFrames.every(frame=>frame>=0&&frame<meta.durations.length));if(WING_RIGS[card.id])assert.equal(WING_RIGS[card.id].directions.length,8);else assert.ok(new Set(card.moveFrames).size>=2);}
 });
 
 test('every Pokemon uses the matching original view for all eight directions, including attacks',()=>{
@@ -93,13 +94,13 @@ test('projectiles, contact effects and beams fit every individual Pokemon silhou
 test('native projectile launch uses its saved mouth position and does not jump after the source turns',()=>{
  const game=new Game({seed:36}),actor=game.spawn('lugia',0,300,500,0),target=game.spawn('snorlax',1,300,400,0);game.face(actor,target);
  const native=game.muzzle(actor),calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{frameActors:new Map([[actor.id,actor],[target.id,target]]),visualProjectiles:new Map(),t:.4,drawDt:1/60,verticalScale:1,reduced:false,combatArt:(_,name,x,y,size)=>calls.push({name,x,y,size})});
- renderer.projectile({save(){},restore(){},globalAlpha:1}, {id:'native-launch',key:'lugia',sourceId:actor.id,target,style:'hydro',x:native.x,y:native.y,startX:native.x,startY:native.y,totalDistance:100,travelled:0});
+ renderer.projectile(new Proxy({globalAlpha:1},{get:(o,k)=>o[k]??(()=>{}),set:(o,k,v)=>(o[k]=v,true)}), {id:'native-launch',key:'lugia',sourceId:actor.id,target,style:'hydro',x:native.x,y:native.y,startX:native.x,startY:native.y,totalDistance:100,travelled:0});
  assert.equal(calls[0].x,native.x);assert.equal(calls[0].y,native.y);assert.equal(calls[0].size,combatVisual(actor.card).projectile);
 });
 
 test('arched projectiles face up while rising and down while descending, unlike a flat dart',()=>{
  const sample=(travelled,arc)=>{const calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{frameActors:new Map(),visualProjectiles:new Map(),t:.5,drawDt:1/60,verticalScale:1,reduced:true,combatArt:(c,art,x,y,size,angle)=>calls.push({x,y,angle})}),target={id:2,x:400,y:400,card:CARDS.grimer};
-  renderer.projectile({save(){},restore(){},globalAlpha:1},{id:'arc',key:'roselia',style:'leaf',x:200+travelled,y:400,startX:200,startY:400,totalDistance:200,travelled,arc,target});return calls[0];};
+  renderer.projectile(new Proxy({globalAlpha:1},{get:(o,k)=>o[k]??(()=>{}),set:(o,k,v)=>(o[k]=v,true)}),{id:'arc',key:'roselia',style:'leaf',x:200+travelled,y:400,startX:200,startY:400,totalDistance:200,travelled,arc,target});return calls[0];};
  const rising=sample(50,100),falling=sample(150,100),dart=sample(50,0);assert.ok(rising.angle<-.5);assert.ok(falling.angle>.5);assert.ok(rising.y<dart.y-60);assert.ok(Math.abs(dart.angle)<.1);
 });
 

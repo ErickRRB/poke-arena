@@ -2,9 +2,10 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 
 const args=process.argv.slice(2),groups=['deck','battle','loading','online'];
+groups.push('sandbox');
 const selected=args[0]==='all'?groups:[args[0]];
 if(!selected.every(name=>groups.includes(name))){
-  console.error('Uso: npm run test:ui:deck [-- --matrix]\nSecciones: deck, battle, loading, online. all es explícito.');process.exitCode=2;
+  console.error('Uso: npm run test:ui:deck [-- --matrix]\nSecciones: deck, battle, loading, online, sandbox. all es explícito.');process.exitCode=2;
 }else{
   let playwright;
   for(const location of[process.env.POKE_ARENA_PLAYWRIGHT_MODULE,new URL('../qa/node_modules/playwright/index.mjs',import.meta.url).href,'playwright'].filter(Boolean)){
