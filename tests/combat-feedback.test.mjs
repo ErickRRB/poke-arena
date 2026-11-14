@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {Game,CARDS} from '../dist/engine.js';
 import {Renderer} from '../dist/render.js';
 import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js';
+import {emissionPoint} from '../dist/sprite-motion.js';
 const fresh=()=>{const events=[],game=new Game({seed:92,onEvent:e=>events.push(e)});game.start();game.aiEnabled=false;game.towers.forEach(t=>t.active=false);return{game,events};};
 const run=(game,seconds)=>{for(let i=0;i<Math.ceil(seconds*60);i++)game.step(1/60);};
 
@@ -14,6 +15,13 @@ test('active crown tower effects have a finite emitter without a troop card',()=
   const emitter=renderer.visualEmission(tower);
   assert.ok(Number.isFinite(emitter.x)&&Number.isFinite(emitter.y),`${tower.team}/${tower.king}`);
  }
+});
+
+test('a short-range projectile attack keeps its native emitter instead of receiving a melee lunge',()=>{
+ const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced:false,verticalScale:1});
+ const card={...CARDS.beedrill,flying:false,range:38.4,rangedAttack:true},actor={id:6,x:300,y:500,card,dx:1,dy:0,attack:.7,attackDuration:1,attackWindup:.3};
+ const native=emissionPoint(actor,0,1);assert.deepEqual(renderer.visualEmission(actor),native);
+ actor.card={...card,rangedAttack:false};const contact=renderer.visualEmission(actor);assert.equal(contact.x,native.x+3);assert.equal(contact.y,native.y);
 });
 
 test('floating combat numbers stay hidden until explicitly enabled and clear immediately when disabled',()=>{

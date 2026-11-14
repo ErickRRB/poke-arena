@@ -1,7 +1,7 @@
 import { W, H, TILE, DEPLOY_GRID, LANES, RIVER, BRIDGE, PRINCESS_Y, KING_Y, CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=26';
 import { BattleArt } from './battle-art.js?v=32';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=26';
-import {combatVisual,projectileVisual,movementVisual,fireballVisual} from './combat-visuals.js?v=29';
+import {combatVisual,projectileVisual,movementVisual,fireballVisual,isRangedAttack} from './combat-visuals.js?v=29';
 import { spellPreviewTargets } from './spell-preview.js?v=28';
 import {areaGuide,cellGuide,travelGuide} from './targeting-art.js?v=32';
 import { FlightWings } from './wing-motion.js';
@@ -13,7 +13,7 @@ function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.li
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
 const visualScale = unit => unit.scale ?? unit.card?.scale ?? 1.5;
 function attackLunge(unit,reduced){
-  if(reduced||!unit.attack||unit.mounted||!(unit.card?.range<50))return 0;
+  if(reduced||!unit.attack||unit.mounted||!unit.card||isRangedAttack(unit.card))return 0;
   const duration=unit.attackDuration||.75,elapsed=duration-unit.attack;
   const windup=unit.attackWindup??unit.card.windup??.3,spacing=unit.card.burstSpacing||duration;
   let thrust=0;
@@ -350,7 +350,7 @@ export class Renderer {
       this.effects.push({kind:'areaImpact',art,style:event.style||event.unit.card.style,x:event.unit.x,y:event.unit.y,radius:event.radius||55,color:event.unit.card.color,groundOnly:event.groundOnly??!event.unit.card.air,life:.55,max:.55});
     }
     if(type==='hit'){
-      if(!event.radius&&CARDS[event.key]?.range<50)return; // Contact is drawn once, by the melee event.
+      if(!event.radius&&CARDS[event.key]&&!isRangedAttack(CARDS[event.key]))return; // Contact is drawn once, by the melee event.
       const color=event.art==='petalShot'?'#ff9ccd':{ember:'#ffc083',hydro:'#91dcff',bubble:'#afeaff',leaf:'#e0f7ac',poison:'#d6a0f0',powder:'#d9b3f4',shadow:'#cda4f5',confusion:'#efb9f8',aura:'#efb9f8',ice:'#c1f5ff',rock:'#e4caa4',slam:'#e4caa4'}[event.style]||CARDS[event.key]?.color||'#eee8bc';
       const point=event.groundY===undefined?event:{x:event.groundX,y:event.groundY-(event.impactHeight||0)/(this.verticalScale||1)};
       const art=event.art||{ember:'explosion',hydro:'hydro',bubble:'bubble',leaf:'leaf',poison:'poison',powder:'poison',shadow:'shadow',confusion:'psychic',aura:'psychic',ice:'ice',rock:'dust'}[event.style];
@@ -642,8 +642,8 @@ export class Renderer {
       }
       if(card.rolling&&key!=='log')travelGuide(c,point.x,point.y,card.splash,card.travelDistance,team,valid);
       if(!card.spell&&placement){
-        const range=card.squad?Math.max(...card.squad.map(k=>CARDS[k].range)):card.range;
-        if(!card.passive&&range>=50){
+        const ranged=(card.squad?card.squad.map(k=>CARDS[k]):[card]).filter(isRangedAttack),range=Math.max(...ranged.map(member=>member.range));
+        if(!card.passive&&ranged.length){
         c.fillStyle='#e9e2a92b';c.strokeStyle='#e6ddb182';c.lineWidth=1.2;c.beginPath();c.arc(point.x,point.y,range,0,Math.PI*2);c.fill();c.stroke();
         }
         for(const enemy of game.deploymentThreats(team,key,point.x,point.y)){
