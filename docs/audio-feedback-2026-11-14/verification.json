@@ -52,6 +52,11 @@
           "type": "hit",
           "at": 0.6666666666666666,
           "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.6666666666666666,
+          "outputs": 1
         }
       ],
       "outputs": [
@@ -75,10 +80,17 @@
           "duration": 0.11,
           "pan": -0.3,
           "voice": false
+        },
+        {
+          "at": 0.6666666666666666,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.21,
+          "voice": false
         }
       ],
       "peak": 0.0706271380186081,
-      "rms": 0.0025709925746985984
+      "rms": 0.002571129885033403
     },
     {
       "key": "roselia",
@@ -132,7 +144,7 @@
         },
         {
           "type": "hit",
-          "at": 0.49999999999999994,
+          "at": 0.4333333333333333,
           "outputs": 1
         }
       ],
@@ -145,7 +157,7 @@
           "voice": false
         },
         {
-          "at": 0.49999999999999994,
+          "at": 0.4333333333333333,
           "volume": 0.1,
           "duration": 0.11,
           "pan": -0.3,
@@ -153,7 +165,7 @@
         }
       ],
       "peak": 0.0019096899777650833,
-      "rms": 0.00005196519495223898
+      "rms": 0.000052037277149199413
     },
     {
       "key": "alakazam",
@@ -166,7 +178,7 @@
         },
         {
           "type": "hit",
-          "at": 0.7333333333333333,
+          "at": 0.7666666666666666,
           "outputs": 2
         }
       ],
@@ -186,22 +198,22 @@
           "voice": false
         },
         {
-          "at": 0.7333333333333333,
+          "at": 0.7666666666666666,
           "volume": 0.1,
           "duration": 0.11,
           "pan": -0.3,
           "voice": false
         },
         {
-          "at": 0.7333333333333333,
+          "at": 0.7666666666666666,
           "volume": 0.07,
           "duration": 0.16,
           "pan": -0.3,
           "voice": false
         }
       ],
-      "peak": 0.05655558779835701,
-      "rms": 0.0016832877612537344
+      "peak": 0.03835775703191757,
+      "rms": 0.0016814211011730766
     },
     {
       "key": "rhydon",
@@ -249,7 +261,7 @@
         }
       ],
       "peak": 0.0065564545802772045,
-      "rms": 0.00016249169658441053
+      "rms": 0.00016249169680855689
     },
     {
       "key": "snorlax",
@@ -264,11 +276,6 @@
           "type": "hit",
           "at": 0.49999999999999994,
           "outputs": 2
-        },
-        {
-          "type": "step",
-          "at": 1.3333333333333341,
-          "outputs": 1
         }
       ],
       "outputs": [
@@ -299,17 +306,10 @@
           "duration": 0.045,
           "pan": -0.3,
           "voice": false
-        },
-        {
-          "at": 1.3333333333333341,
-          "volume": 0.035,
-          "duration": 0.07,
-          "pan": -0.24,
-          "voice": false
         }
       ],
-      "peak": 0.023060303181409836,
-      "rms": 0.0009105852270688013
+      "peak": 0.007547164801508188,
+      "rms": 0.00015684765782456568
     },
     {
       "key": "sableye",
@@ -357,7 +357,7 @@
         }
       ],
       "peak": 0.01352217048406601,
-      "rms": 0.0007303514797791165
+      "rms": 0.0007303514801515282
     },
     {
       "key": "squirtle",
@@ -369,28 +369,8 @@
           "outputs": 1
         },
         {
-          "type": "attackRelease",
-          "at": 0.4666666666666666,
-          "outputs": 1
-        },
-        {
           "type": "hit",
-          "at": 0.4666666666666666,
-          "outputs": 1
-        },
-        {
-          "type": "attackRelease",
-          "at": 0.6,
-          "outputs": 1
-        },
-        {
-          "type": "hit",
-          "at": 0.6333333333333333,
-          "outputs": 1
-        },
-        {
-          "type": "hit",
-          "at": 0.7666666666666666,
+          "at": 0.49999999999999994,
           "outputs": 1
         }
       ],
@@ -403,43 +383,15 @@
           "voice": false
         },
         {
-          "at": 0.4666666666666666,
-          "volume": 0.21,
-          "duration": 0.17,
-          "pan": -0.30456525,
-          "voice": false
-        },
-        {
-          "at": 0.4666666666666666,
-          "volume": 0.21,
-          "duration": 0.22,
-          "pan": -0.3,
-          "voice": false
-        },
-        {
-          "at": 0.6,
-          "volume": 0.21,
-          "duration": 0.17,
-          "pan": -0.30456525,
-          "voice": false
-        },
-        {
-          "at": 0.6333333333333333,
-          "volume": 0.21,
-          "duration": 0.22,
-          "pan": -0.3,
-          "voice": false
-        },
-        {
-          "at": 0.7666666666666666,
+          "at": 0.49999999999999994,
           "volume": 0.21,
           "duration": 0.22,
           "pan": -0.3,
           "voice": false
         }
       ],
-      "peak": 0.01700214482843876,
-      "rms": 0.0005875756368755775
+      "peak": 0.01700069196522236,
+      "rms": 0.0003213617545182471
     },
     {
       "key": "ampharos-up",
@@ -515,42 +467,66 @@
         },
         {
           "type": "spellHit",
-          "at": 0.5666666666666667,
+          "at": 0.6,
+          "outputs": 1
+        },
+        {
+          "type": "spellHit",
+          "at": 0.7999999999999999,
+          "outputs": 1
+        },
+        {
+          "type": "spellHit",
+          "at": 0.9999999999999999,
           "outputs": 1
         }
       ],
       "outputs": [
         {
-          "at": 0.55,
+          "at": 0,
           "volume": 0.022,
           "duration": 0.16,
-          "pan": -0.3,
+          "pan": -0.33,
           "voice": false
         },
         {
-          "at": 0.55,
+          "at": 0,
           "volume": 0.018,
           "duration": 0.08,
-          "pan": -0.3,
+          "pan": -0.33,
           "voice": false
         },
         {
           "at": 0,
           "volume": 0.06,
           "duration": 0.15,
-          "pan": -0.3,
+          "pan": -0.33,
           "voice": false
         },
         {
-          "at": 0.5666666666666667,
+          "at": 0.6,
           "volume": 0.1,
           "duration": 0.11,
-          "pan": -0.3,
+          "pan": -0.33,
+          "voice": false
+        },
+        {
+          "at": 0.7999999999999999,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.33,
+          "voice": false
+        },
+        {
+          "at": 0.9999999999999999,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.33,
           "voice": false
         }
       ],
-      "peak": 0.014443997293710709,
-      "rms": 0.0004192485940015265
+      "peak": 0.0035915598273277283,
+      "rms": 0.00011577046276725254
     },
     {
       "key": "fireball",
@@ -568,49 +544,49 @@
         },
         {
           "type": "spellHit",
-          "at": 1.166666666666667,
+          "at": 1.0666666666666667,
           "outputs": 2
         }
       ],
       "outputs": [
         {
-          "at": 0.15,
+          "at": 0,
           "volume": 0.022,
           "duration": 0.09,
-          "pan": -0.3,
+          "pan": -0.33,
           "voice": false
         },
         {
-          "at": 0.15,
+          "at": 0,
           "volume": 0.018,
           "duration": 0.08,
-          "pan": -0.3,
+          "pan": -0.33,
           "voice": false
         },
         {
           "at": 0,
           "volume": 0.06,
           "duration": 0.15,
-          "pan": -0.3,
+          "pan": -0.33,
           "voice": false
         },
         {
-          "at": 1.166666666666667,
+          "at": 1.0666666666666667,
           "volume": 0.17,
           "duration": 0.18,
-          "pan": -0.3,
+          "pan": -0.33,
           "voice": false
         },
         {
-          "at": 1.166666666666667,
+          "at": 1.0666666666666667,
           "volume": 0.045,
           "duration": 0.16,
-          "pan": -0.3,
+          "pan": -0.33,
           "voice": false
         }
       ],
-      "peak": 0.010460078716278076,
-      "rms": 0.0004680076176459635
+      "peak": 0.009339620359241962,
+      "rms": 0.00029705269581246376
     },
     {
       "key": "heal",
@@ -650,6 +626,11 @@
         },
         {
           "type": "hit",
+          "at": 0.4333333333333333,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
           "at": 0.4666666666666666,
           "outputs": 1
         },
@@ -667,11 +648,6 @@
           "type": "hit",
           "at": 0.49999999999999994,
           "outputs": 2
-        },
-        {
-          "type": "hit",
-          "at": 0.49999999999999994,
-          "outputs": 1
         },
         {
           "type": "hit",
@@ -723,6 +699,13 @@
           "voice": false
         },
         {
+          "at": 0.4333333333333333,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.21,
+          "voice": false
+        },
+        {
           "at": 0.4666666666666666,
           "volume": 0.14,
           "duration": 0.22,
@@ -765,13 +748,6 @@
           "voice": false
         },
         {
-          "at": 0.49999999999999994,
-          "volume": 0.1,
-          "duration": 0.11,
-          "pan": -0.21,
-          "voice": false
-        },
-        {
           "at": 0.6666666666666666,
           "volume": 0.1,
           "duration": 0.11,
@@ -780,7 +756,7 @@
         }
       ],
       "peak": 0.06269960850477219,
-      "rms": 0.006391586708549647
+      "rms": 0.006391589874008089
     },
     {
       "key": "mixed-music",
@@ -798,6 +774,11 @@
         },
         {
           "type": "hit",
+          "at": 0.4333333333333333,
+          "outputs": 1
+        },
+        {
+          "type": "hit",
           "at": 0.4666666666666666,
           "outputs": 1
         },
@@ -815,11 +796,6 @@
           "type": "hit",
           "at": 0.49999999999999994,
           "outputs": 2
-        },
-        {
-          "type": "hit",
-          "at": 0.49999999999999994,
-          "outputs": 1
         },
         {
           "type": "hit",
@@ -871,6 +847,13 @@
           "voice": false
         },
         {
+          "at": 0.4333333333333333,
+          "volume": 0.1,
+          "duration": 0.11,
+          "pan": -0.21,
+          "voice": false
+        },
+        {
           "at": 0.4666666666666666,
           "volume": 0.14,
           "duration": 0.22,
@@ -913,13 +896,6 @@
           "voice": false
         },
         {
-          "at": 0.49999999999999994,
-          "volume": 0.1,
-          "duration": 0.11,
-          "pan": -0.21,
-          "voice": false
-        },
-        {
           "at": 0.6666666666666666,
           "volume": 0.1,
           "duration": 0.11,
@@ -928,18 +904,18 @@
         }
       ],
       "peak": 0.06477855890989304,
-      "rms": 0.00867560750651627
+      "rms": 0.00867560422031841
     }
   ],
-  "decodedSamples": 129,
+  "decodedSamples": 131,
   "sampleRate": 44100,
   "scope": "Actual Game events and SoundSystem rendered by browser OfflineAudioContext at production master .7 and compressor settings. Controlled stationary targets, one/two/mixed attacks, three simultaneous voices and the real BattleMusic first bar. Peak/RMS verify output and headroom, not perceived quality or speaker balance.",
   "hashes": {
     "dist/audio.js": "fb4696866e9136c70cffc5ac123f6ab51c2fdb565f3914d194c2010b8ddea262",
-    "dist/engine.js": "448927cae6475f64269da61b1b9aca110bf2abbdd11a95bac542c998d8bf3c2e",
-    "dist/assets/audio/manifest.json": "0b93fffac960f64af9054034a578f8bae50c74026191d0e6884dd7344cb83be1"
+    "dist/engine.js": "62a45760556ff000b6605fc1277687d2908aac44de89b3ff767e2d0c3df3cf81",
+    "dist/assets/audio/manifest.json": "1ed2ba53588b19f7d061459a7222bc1d2709f2332e117ca14c049403a16b0a84"
   },
-  "previewSha256": "259f2a7559773e8a821482c53ea2072b10d26d8bbeeb0d37f2bc6c2d4c4656d2",
+  "previewSha256": "ecd29905d44e09ebd561dde0c37afb79200823462d82e2d08a21a102fced45ce",
   "retired": {
     "dist/assets/audio/foley/heavy.ogg": {
       "publicSourceCommit": "ab068f3",

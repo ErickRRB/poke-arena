@@ -1,5 +1,7 @@
 # Simulación de balance
 
+> Informe histórico del catálogo de 105 cartas. Para el motor final de 110 cartas, usar la [matriz de 372 casos](NATIVE-TRADE-MATRIX-2026-11-14.json), [valores vigentes](BALANCE.md) y [revisión de los 50 originales](ORIGINAL-CATALOG-REVIEW-2026-11-14.md). Los números de este corte se conservan como evidencia de su fecha.
+
 Catálogo de 105 cartas revisado el 13 de noviembre de 2026. Los escenarios ejecutan el mismo motor que el navegador y el servidor autoritativo.
 
 ## Referencia de nivel 11

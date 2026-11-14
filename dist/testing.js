@@ -1,3 +1,5 @@
+import { screenToWorld, inArena, ARENA, LANES } from './arena-geometry.js?v=26';
+import { LOADER_BALL_SHAPES } from './loader-art.js?v=26';
 import {CARDS,W,H,TILE} from './engine.js?v=26';
 import {SandboxGame} from './sandbox.js?v=1';
 import {Renderer} from './render.js?v=32';
@@ -12,7 +14,7 @@ $('lab-sound').setAttribute('aria-pressed',String(soundEnabled));$('lab-sound').
 sfx=new SoundSystem(soundEnabled);
 function focusColumn(column){activeColumn=column.id;for(const item of columns)item.element.classList.toggle('active-column',item.id===column.id);if(soundEnabled){sfx??=new SoundSystem(true);sfx.unlock(true);}}
 function columnEvent(column,event){column.renderer.onEvent(event);if(activeColumn===column.id&&soundEnabled)sfx?.event(event);}
-const loaderMarkup='<img class="lab-pokeball" src="favicon.svg" alt="">';
+const loaderMarkup=`<svg class="lab-pokeball" viewBox="0 0 64 64" aria-hidden="true">${LOADER_BALL_SHAPES}</svg>`;
 const presetOptions=`<option value="free">Vacía · libre</option><option value="princess">Torre princesa</option><option value="towers">Torres completas</option><option value="fireball-check">Torre + defensa central</option><optgroup label="Rival preparado">${catalog.filter(key=>!CARDS[key].spell).map(key=>`<option value="${key}">${CARDS[key].name} · ${cardEquivalentLabel(key)||'Función propia'}</option>`).join('')}</optgroup>`;
 function notice(message){$('lab-notice').textContent=message;$('lab-notice').classList.add('visible');clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>$('lab-notice').classList.remove('visible'),3500);}
 function choose(key){selected=key;$('chosen-name').textContent=CARDS[key].name;$('chosen-equivalent').textContent=cardEquivalentLabel(key)||'Función propia';$('chosen-art').innerHTML=cardArtMarkup(key);for(const column of columns)column.renderer.selection=key;}
@@ -30,7 +32,7 @@ function reset(column){
   if(preset==='fireball-check'){
     column.game.place(1,'regice',300,232);for(const unit of column.game.units)unit.spawn=0;
   }else if(CARDS[preset]){
-    column.game.place(1,preset,158,304);for(const unit of column.game.units)unit.spawn=0;
+    column.game.place(1,preset,LANES[0],304);for(const unit of column.game.units)unit.spawn=0;
   }else if(mode!=='duel')column.game.preparedTeams.add(1);
   column.started=false;column.accumulator=0;cleanVisuals(column.renderer);syncColumn(column);syncTabs();
 }
@@ -45,9 +47,6 @@ function syncColumn(column){
   element.querySelector('.column-state').textContent=playing?'En marcha':!column.started&&game.preparedTeams.size===1?'Esperando al otro bando':'En pausa';
   element.querySelector('.column-time').textContent=`${game.elapsed.toFixed(1)} s`;
   element.querySelector('.column-count').textContent=`${game.units.length} unidades`;
-  const abilities=game.units.filter(u=>u.hp>0&&u.spawn<=0&&u.card.ability&&!u.abilityUsed),actions=element.querySelector('.column-abilities');
-  const signature=abilities.map(u=>u.id).join(',');actions.hidden=!abilities.length;
-  if(actions.dataset.signature!==signature){actions.dataset.signature=signature;actions.innerHTML=abilities.map(u=>`<button data-lab-ability="${u.id}" data-ability-team="${u.team}" aria-label="${u.card.ability.name} de ${u.card.name}, bando ${u.team?'rojo':'azul'}">${u.card.ability.name}</button>`).join('');}
   for(const value of[0,1]){
     const measure=game.measurement(value);
     for(const key of['total','dps','hp'])element.querySelector(`[data-metric="${value}-${key}"]`).textContent=Math.round(measure[key]).toLocaleString('es-AR');
@@ -75,7 +74,7 @@ const observer=new IntersectionObserver(entries=>{for(const entry of entries){co
 function addColumn(preset='free'){
   if(columns.length>=24){notice('Podés comparar hasta 24 columnas a la vez.');return;}
   const id=nextColumn++,element=document.createElement('section');element.className='lab-column';element.setAttribute('aria-label',`Prueba ${id}`);
-  element.innerHTML=`<div class="column-heading"><strong>Prueba ${id}</strong><button class="column-close" aria-label="Cerrar prueba ${id}">×</button></div><label class="column-preset"><span class="sr-only">Escenario de la prueba ${id}</span><select>${presetOptions}</select></label><div class="column-arena"><canvas width="600" height="800" tabindex="0" role="application" aria-label="Prueba ${id}. Tocá tu mitad para colocar la carta. Flechas para apuntar, Enter para colocar."></canvas><span class="column-state">En pausa</span><div class="column-abilities" role="group" aria-label="Habilidades de la prueba ${id}" hidden></div><div class="column-loading" role="status" aria-label="Cargando carta" hidden>${loaderMarkup}</div></div><div class="column-actions"><button class="column-play">Iniciar</button><button class="column-step" aria-label="Avanzar 0,1 segundos en la prueba ${id}">+0,1 s</button><button class="column-clear" title="Reiniciar este escenario">Reiniciar</button></div><div class="column-metrics"><span class="metric-team">Bando</span><span>Daño</span><span>DPS · 5 s</span><span>Vida</span>${[0,1].map(team=>`<span class="metric-team ${team?'red':'blue'}">${team?'Rojo':'Azul'}</span>${['total','dps','hp'].map(key=>`<output data-metric="${team}-${key}" aria-label="${key==='total'?'Daño total':key==='dps'?'Daño por segundo':'Vida restante, incluido escudo'} del bando ${team?'rojo':'azul'}">0</output>`).join('')}`).join('')}</div><div class="column-footer"><span class="column-time">0,0 s</span><span class="column-count">0 unidades</span></div>`;
+  element.innerHTML=`<div class="column-heading"><strong>Prueba ${id}</strong><button class="column-close" aria-label="Cerrar prueba ${id}">×</button></div><label class="column-preset"><span class="sr-only">Escenario de la prueba ${id}</span><select>${presetOptions}</select></label><div class="column-arena"><canvas width="600" height="800" tabindex="0" role="application" aria-label="Prueba ${id}. Tocá tu mitad para colocar la carta. Flechas para apuntar, Enter para colocar."></canvas><span class="column-state">En pausa</span><div class="column-loading" role="status" aria-label="Cargando carta" hidden>${loaderMarkup}</div></div><div class="column-actions"><button class="column-play">Iniciar</button><button class="column-step" aria-label="Avanzar 0,1 segundos en la prueba ${id}">+0,1 s</button><button class="column-clear" title="Reiniciar este escenario">Reiniciar</button></div><div class="column-metrics"><span class="metric-team">Bando</span><span>Daño</span><span>DPS · 5 s</span><span>Vida</span>${[0,1].map(team=>`<span class="metric-team ${team?'red':'blue'}">${team?'Rojo':'Azul'}</span>${['total','dps','hp'].map(key=>`<output data-metric="${team}-${key}" aria-label="${key==='total'?'Daño total':key==='dps'?'Daño por segundo':'Vida restante, incluido escudo'} del bando ${team?'rojo':'azul'}">0</output>`).join('')}`).join('')}</div><div class="column-footer"><span class="column-time">0,0 s</span><span class="column-count">0 unidades</span></div>`;
   element.querySelector('select').value=preset;$('lab-columns').append(element);
   const canvas=element.querySelector('canvas'),renderer=new Renderer(canvas),column={id,element,canvas,renderer,visible:true,loading:false,accumulator:0,started:false};
   const source=columns[0]?.renderer;
@@ -85,20 +84,19 @@ function addColumn(preset='free'){
   }
   renderer.selection=selected;renderer.placementTeam=team;renderer.placementWhenPaused=true;renderer.showCombatNumbers=$('damage-numbers').checked;renderer.reduced=$('reduced-motion').checked;
   columns.push(column);reset(column);observer.observe(canvas);
-  const point=event=>{const rect=canvas.getBoundingClientRect();return{x:(event.clientX-rect.left)/rect.width*W,y:(event.clientY-rect.top)/rect.height*H};};
+  const point=event=>{const rect=canvas.getBoundingClientRect();return screenToWorld({x:event.clientX-rect.left,y:event.clientY-rect.top},rect.width,rect.height);};
   canvas.addEventListener('pointermove',event=>{renderer.pointer=point(event);});canvas.addEventListener('pointerleave',()=>{renderer.pointer=null;});
   canvas.addEventListener('pointerdown',event=>{if(event.button!==0)return;const p=point(event);renderer.pointer=p;place(column,p.x,p.y);});
   canvas.addEventListener('keydown',event=>{
     if(!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter',' '].includes(event.key))return;event.preventDefault();
-    const p=renderer.pointer||{x:158,y:team?290:510};
+    const p=renderer.pointer||{x:LANES[0],y:team?290:510};
     if(event.key==='Enter'){place(column,p.x,p.y);return;}
     if(event.key===' '){column.game.state==='playing'?column.game.pause():play(column);syncColumn(column);return;}
-    renderer.pointer={x:Math.min(556,Math.max(44,p.x+(event.key==='ArrowLeft'?-TILE:event.key==='ArrowRight'?TILE:0))),y:Math.min(760,Math.max(40,p.y+(event.key==='ArrowUp'?-TILE:event.key==='ArrowDown'?TILE:0)))};
+    renderer.pointer={x:Math.min(ARENA.right-TILE/2,Math.max(ARENA.left+TILE/2,p.x+(event.key==='ArrowLeft'?-TILE:event.key==='ArrowRight'?TILE:0))),y:Math.min(ARENA.bottom-TILE/2,Math.max(ARENA.top+TILE/2,p.y+(event.key==='ArrowUp'?-TILE:event.key==='ArrowDown'?TILE:0)))};
   });
   element.querySelector('.column-play').addEventListener('click',()=>{column.game.state==='playing'?column.game.pause():play(column);syncColumn(column);});
   element.querySelector('.column-step').addEventListener('click',()=>{focusColumn(column);column.game.resume();for(let i=0;i<6;i++){column.game.step(1/60);renderer.draw(column.game,1/60);}column.game.pause();column.started=true;syncColumn(column);});
   element.querySelector('.column-clear').addEventListener('click',()=>reset(column));element.querySelector('select').addEventListener('change',()=>reset(column));
-  element.querySelector('.column-abilities').addEventListener('click',event=>{const button=event.target.closest('[data-lab-ability]');if(!button)return;focusColumn(column);const result=column.game.useAbility(Number(button.dataset.abilityTeam),Number(button.dataset.labAbility));if(!result.ok)notice(result.reason);syncColumn(column);canvas.focus({preventScroll:true});});
   element.querySelector('.column-close').addEventListener('click',()=>{if(columns.length===1){notice('Conservá al menos una columna de prueba.');return;}observer.unobserve(canvas);renderer.resizeObserver.disconnect();columns.splice(columns.indexOf(column),1);element.remove();syncTabs();});
   return column;
 }

@@ -1,0 +1,313 @@
+{
+  "url": "http://127.0.0.1:60469",
+  "groups": {
+    "phases": {
+      "viewports": [
+        {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "phases": [
+            {
+              "name": "normal",
+              "time": 100,
+              "overtime": false,
+              "m": 1,
+              "multiplier": 1,
+              "phase": "regular",
+              "beat": "strong",
+              "color": "rgb(61, 73, 68)",
+              "background": "rgba(255, 249, 223, 0.933)",
+              "bar": "linear-gradient(rgb(240, 239, 214), rgb(223, 224, 186))",
+              "boost": "1×",
+              "boostHidden": true,
+              "announcement": ""
+            },
+            {
+              "name": "double",
+              "time": 60,
+              "overtime": false,
+              "m": 2,
+              "multiplier": 2,
+              "phase": "regular",
+              "beat": "strong",
+              "color": "rgb(61, 73, 68)",
+              "background": "rgba(255, 249, 223, 0.933)",
+              "bar": "linear-gradient(rgb(246, 220, 250), rgb(227, 179, 239))",
+              "boost": "2×",
+              "boostHidden": false,
+              "announcement": "Elixir doble."
+            },
+            {
+              "name": "overtime-double",
+              "time": 100,
+              "overtime": true,
+              "m": 2,
+              "multiplier": 2,
+              "phase": "overtime",
+              "beat": "strong",
+              "color": "rgb(255, 248, 232)",
+              "background": "rgb(223, 63, 80)",
+              "bar": "linear-gradient(rgb(246, 220, 250), rgb(227, 179, 239))",
+              "boost": "2×",
+              "boostHidden": false,
+              "announcement": "Tiempo extra. Elixir doble. Primera torre destruida gana."
+            },
+            {
+              "name": "overtime-triple",
+              "time": 55,
+              "overtime": true,
+              "m": 3,
+              "multiplier": 3,
+              "phase": "overtime",
+              "beat": "strong",
+              "color": "rgb(255, 248, 232)",
+              "background": "rgb(223, 63, 80)",
+              "bar": "linear-gradient(rgb(255, 226, 243), rgb(241, 173, 211))",
+              "boost": "3×",
+              "boostHidden": false,
+              "announcement": "Tiempo extra. Elixir triple. Primera torre destruida gana."
+            }
+          ],
+          "wireSnapshotPerspectives": [
+            {
+              "time": 100,
+              "team": 0,
+              "m": 2,
+              "badge": "2×",
+              "phase": "overtime"
+            },
+            {
+              "time": 100,
+              "team": 1,
+              "m": 2,
+              "badge": "2×",
+              "phase": "overtime"
+            },
+            {
+              "time": 55,
+              "team": 0,
+              "m": 3,
+              "badge": "3×",
+              "phase": "overtime"
+            },
+            {
+              "time": 55,
+              "team": 1,
+              "m": 3,
+              "badge": "3×",
+              "phase": "overtime"
+            }
+          ],
+          "reducedStatic": true,
+          "pausedPulse": true,
+          "stable": true
+        },
+        {
+          "viewport": {
+            "width": 768,
+            "height": 1024
+          },
+          "phases": [
+            {
+              "name": "normal",
+              "time": 100,
+              "overtime": false,
+              "m": 1,
+              "multiplier": 1,
+              "phase": "regular",
+              "beat": "strong",
+              "color": "rgb(61, 73, 68)",
+              "background": "rgba(255, 249, 223, 0.933)",
+              "bar": "linear-gradient(rgb(240, 239, 214), rgb(223, 224, 186))",
+              "boost": "1×",
+              "boostHidden": true,
+              "announcement": ""
+            },
+            {
+              "name": "double",
+              "time": 60,
+              "overtime": false,
+              "m": 2,
+              "multiplier": 2,
+              "phase": "regular",
+              "beat": "strong",
+              "color": "rgb(61, 73, 68)",
+              "background": "rgba(255, 249, 223, 0.933)",
+              "bar": "linear-gradient(rgb(246, 220, 250), rgb(227, 179, 239))",
+              "boost": "2×",
+              "boostHidden": false,
+              "announcement": "Elixir doble."
+            },
+            {
+              "name": "overtime-double",
+              "time": 100,
+              "overtime": true,
+              "m": 2,
+              "multiplier": 2,
+              "phase": "overtime",
+              "beat": "strong",
+              "color": "rgb(255, 248, 232)",
+              "background": "rgb(223, 63, 80)",
+              "bar": "linear-gradient(rgb(246, 220, 250), rgb(227, 179, 239))",
+              "boost": "2×",
+              "boostHidden": false,
+              "announcement": "Tiempo extra. Elixir doble. Primera torre destruida gana."
+            },
+            {
+              "name": "overtime-triple",
+              "time": 55,
+              "overtime": true,
+              "m": 3,
+              "multiplier": 3,
+              "phase": "overtime",
+              "beat": "strong",
+              "color": "rgb(255, 248, 232)",
+              "background": "rgb(223, 63, 80)",
+              "bar": "linear-gradient(rgb(255, 226, 243), rgb(241, 173, 211))",
+              "boost": "3×",
+              "boostHidden": false,
+              "announcement": "Tiempo extra. Elixir triple. Primera torre destruida gana."
+            }
+          ],
+          "wireSnapshotPerspectives": [
+            {
+              "time": 100,
+              "team": 0,
+              "m": 2,
+              "badge": "2×",
+              "phase": "overtime"
+            },
+            {
+              "time": 100,
+              "team": 1,
+              "m": 2,
+              "badge": "2×",
+              "phase": "overtime"
+            },
+            {
+              "time": 55,
+              "team": 0,
+              "m": 3,
+              "badge": "3×",
+              "phase": "overtime"
+            },
+            {
+              "time": 55,
+              "team": 1,
+              "m": 3,
+              "badge": "3×",
+              "phase": "overtime"
+            }
+          ],
+          "reducedStatic": true,
+          "pausedPulse": true,
+          "stable": true
+        },
+        {
+          "viewport": {
+            "width": 1440,
+            "height": 980
+          },
+          "phases": [
+            {
+              "name": "normal",
+              "time": 100,
+              "overtime": false,
+              "m": 1,
+              "multiplier": 1,
+              "phase": "regular",
+              "beat": "strong",
+              "color": "rgb(61, 73, 68)",
+              "background": "rgba(255, 249, 223, 0.933)",
+              "bar": "linear-gradient(rgb(240, 239, 214), rgb(223, 224, 186))",
+              "boost": "1×",
+              "boostHidden": true,
+              "announcement": ""
+            },
+            {
+              "name": "double",
+              "time": 60,
+              "overtime": false,
+              "m": 2,
+              "multiplier": 2,
+              "phase": "regular",
+              "beat": "strong",
+              "color": "rgb(61, 73, 68)",
+              "background": "rgba(255, 249, 223, 0.933)",
+              "bar": "linear-gradient(rgb(246, 220, 250), rgb(227, 179, 239))",
+              "boost": "2×",
+              "boostHidden": false,
+              "announcement": "Elixir doble."
+            },
+            {
+              "name": "overtime-double",
+              "time": 100,
+              "overtime": true,
+              "m": 2,
+              "multiplier": 2,
+              "phase": "overtime",
+              "beat": "strong",
+              "color": "rgb(255, 248, 232)",
+              "background": "rgb(223, 63, 80)",
+              "bar": "linear-gradient(rgb(246, 220, 250), rgb(227, 179, 239))",
+              "boost": "2×",
+              "boostHidden": false,
+              "announcement": "Tiempo extra. Elixir doble. Primera torre destruida gana."
+            },
+            {
+              "name": "overtime-triple",
+              "time": 55,
+              "overtime": true,
+              "m": 3,
+              "multiplier": 3,
+              "phase": "overtime",
+              "beat": "strong",
+              "color": "rgb(255, 248, 232)",
+              "background": "rgb(223, 63, 80)",
+              "bar": "linear-gradient(rgb(255, 226, 243), rgb(241, 173, 211))",
+              "boost": "3×",
+              "boostHidden": false,
+              "announcement": "Tiempo extra. Elixir triple. Primera torre destruida gana."
+            }
+          ],
+          "wireSnapshotPerspectives": [
+            {
+              "time": 100,
+              "team": 0,
+              "m": 2,
+              "badge": "2×",
+              "phase": "overtime"
+            },
+            {
+              "time": 100,
+              "team": 1,
+              "m": 2,
+              "badge": "2×",
+              "phase": "overtime"
+            },
+            {
+              "time": 55,
+              "team": 0,
+              "m": 3,
+              "badge": "3×",
+              "phase": "overtime"
+            },
+            {
+              "time": 55,
+              "team": 1,
+              "m": 3,
+              "badge": "3×",
+              "phase": "overtime"
+            }
+          ],
+          "reducedStatic": true,
+          "pausedPulse": true,
+          "stable": true
+        }
+      ],
+      "method": "Controlled UI clock fixtures, actual shared Game multiplier and wire snapshot restore in both perspectives. Real socket reconnect transport is covered separately by online."
+    }
+  }
+}

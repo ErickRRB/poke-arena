@@ -35,6 +35,7 @@ export const UNIT_SCALES = {
   "79": 1.8333,
   "80": 1.4194,
   "81": 1.5238,
+  "83": 2.2,
   "88": 1.3913,
   "91": 1.5556,
   "92": 1,
@@ -67,7 +68,7 @@ export const UNIT_SCALES = {
   "157": 1.931,
   "160": 1.3889,
   "169": 1.375,
-  "181": 1.625,
+  "181": 1.85,
   "196": 1.3571,
   "197": 1.7778,
   "202": 2,
@@ -85,7 +86,7 @@ export const UNIT_SCALES = {
   "257": 1.5556,
   "260": 1.8125,
   "261": 1.2593,
-  "274": 1.2667,
+  "274": 1.55,
   "280": 1.4545,
   "282": 1.9048,
   "302": 1.1111,
@@ -105,7 +106,8 @@ export const UNIT_SCALES = {
   "379": 2.2857,
   "382": 1.3968,
   "383": 1.4286,
-  "384": 1.3125
+  "384": 1.3125,
+  "534": 2.05
 };
 // Small single troops need a readable silhouette on the portrait arena.
 // These calibrations change artwork and emitters, never collision radii.

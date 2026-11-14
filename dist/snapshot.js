@@ -1,19 +1,35 @@
 import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=26';
+import { BOARD_VERSION, migrateLegacyX, migrateLegacyY } from './arena-geometry.js?v=26';
 
 // Entity references are IDs on the wire; full cards preserve summoned forms.
-const entityCopy=e=>{const{target,...copy}=e;return{...copy,targetId:target?.id??null};};
+const entityCopy=e=>{const{target,abilityUsed,...copy}=e;return{...copy,targetId:target?.id??null};};
 export function packGame(game){
   const{onEvent,animations,units,towers,attacks,projectiles,...plain}=game;
   return{...plain,units:units.map(entityCopy),towers:towers.map(entityCopy),attacks:attacks.map(({attacker,target,...job})=>({...job,attackerId:attacker.id,targetId:target.id})),projectiles:projectiles.map(({target,...p})=>({...p,targetId:p.rolling||p.linear?null:target?.id??null}))};
 }
 export function unpackGame(data,onEvent=()=>{},animations={}){
-  const game=Object.assign(Object.create(Game.prototype),structuredClone(data));game.onEvent=onEvent;game.animations=animations;
+  const restored=structuredClone(data);
+  if((restored.boardVersion||1)<BOARD_VERSION){
+    for(const tower of restored.towers||[])if(tower.king&&tower.y===(tower.team?118:682))tower.y=tower.team?94:706;
+    const migrate=value=>{
+      if(!value||typeof value!=='object')return;
+      if(Array.isArray(value)){value.forEach(migrate);return;}
+      for(const[key,item]of Object.entries(value)){
+        if(['card','guard','stats','spawnSchedule'].includes(key))continue;
+        if(['x','groundX','startX','endX'].includes(key)&&typeof item==='number')value[key]=migrateLegacyX(item);
+        else if(['y','groundY','startY','endY'].includes(key)&&typeof item==='number')value[key]=migrateLegacyY(item);
+        else migrate(item);
+      }
+    };
+    migrate(restored);restored.boardVersion=BOARD_VERSION;
+  }
+  const game=Object.assign(Object.create(Game.prototype),restored);game.onEvent=onEvent;game.animations=animations;
   game.reinforcements??=[];
   for(const tower of game.towers)if(tower.king){if(tower.y===(tower.team?118:682))tower.y=KING_Y[tower.team];}else tower.range=PRINCESS_RANGE;
   const entities=new Map([...game.units,...game.towers].map(e=>[e.id,e]));
-  for(const entity of entities.values()){entity.card=entity.card||CARDS[entity.key];entity.target=entities.get(entity.targetId)||null;}
+  for(const entity of entities.values()){entity.card=entity.card||CARDS[entity.key];if(entity.card?.ability)delete entity.card.ability;delete entity.abilityUsed;entity.target=entities.get(entity.targetId)||null;}
   game.attacks=game.attacks.map(j=>({...j,attacker:entities.get(j.attackerId),target:entities.get(j.targetId)})).filter(j=>j.attacker&&j.target);
-  game.projectiles=game.projectiles.map(p=>({...p,target:entities.get(p.targetId)})).filter(p=>p.rolling||p.linear||p.flameCone||p.target);
+  game.projectiles=game.projectiles.map(p=>({...p,target:entities.get(p.targetId)})).filter(p=>p.rolling||p.linear||p.flameCone||p.impactPoint||p.target);
   return game;
 }
 export function packEvent(event){
@@ -22,7 +38,7 @@ export function packEvent(event){
 function turn(value){
   if(Array.isArray(value))return value.map(turn);
   if(!value||typeof value!=='object')return value;
-  const copy={};for(const[key,item]of Object.entries(value))copy[key]=['card','guard','stats'].includes(key)?structuredClone(item):turn(item);
+  const copy={};for(const[key,item]of Object.entries(value))copy[key]=['card','guard','stats','spawnSchedule'].includes(key)?structuredClone(item):turn(item);
   if(typeof copy.x==='number')copy.x=W-copy.x;if(typeof copy.y==='number')copy.y=H-copy.y;
   if(typeof copy.groundX==='number')copy.groundX=W-copy.groundX;if(typeof copy.groundY==='number')copy.groundY=H-copy.groundY;
   if(typeof copy.liftX==='number')copy.liftX=-copy.liftX;
