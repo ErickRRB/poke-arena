@@ -1,0 +1,3932 @@
+{
+  "asOf": "2026-11-14",
+  "level": 11,
+  "coverage": 121,
+  "source": "CLASH-REFERENCE-2026-11-14.json",
+  "policy": "No invented values for unresolved fields. Custom roles and extra mechanics remain explicit adaptations, not claims of exact Clash Royale parity.",
+  "cards": [
+    {
+      "key": "pikachu",
+      "reference": "Mago eléctrico",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.6,
+        "hp": 714,
+        "interval": 1.8,
+        "range": 120,
+        "sightRange": 132,
+        "damage": 117,
+        "stun": 0.5,
+        "entryDamage": 192
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/electro-wizard/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "spawnIntervalSeconds",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Descarga al aparecer y dos rayos que aturden y pueden repartirse entre objetivos."
+    },
+    {
+      "key": "squirtle",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Tirador económico con tres burbujas por ataque, sin un equivalente cercano."
+    },
+    {
+      "key": "charmander",
+      "reference": "Mago",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/wizard/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Dispara en área contra tierra y aire, pero añade quemadura y cuesta menos."
+    },
+    {
+      "key": "snorlax",
+      "reference": "Gigante",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6,
+        "windup": 0.5,
+        "hp": 3968,
+        "interval": 1.5,
+        "range": 28.799999999999997,
+        "sightRange": 180,
+        "damage": 253
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/giant/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tanque lento que ignora tropas y golpea torres y estructuras."
+    },
+    {
+      "key": "zubat",
+      "reference": "Murciélagos",
+      "similarity": "partial",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.6,
+        "hp": 81,
+        "interval": 1.2,
+        "range": 28.799999999999997,
+        "sightRange": 132,
+        "damage": 81,
+        "count": 5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/bats/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Enjambre aéreo barato, adaptado a tres cuerpos que recuperan vida al morder."
+    },
+    {
+      "key": "charizard",
+      "reference": "Bebé dragón",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.3
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/baby-dragon/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Volador resistente de daño en área, con tres llamaradas en cono por ataque."
+    },
+    {
+      "key": "thunder",
+      "reference": "Descarga",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "damage": 192,
+        "towerDamage": 48,
+        "splash": 60,
+        "stun": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/zap/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "intervalSeconds",
+        "rangeTiles",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "count",
+        "shieldHp",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Daño de área con aturdimiento por dos de elixir."
+    },
+    {
+      "key": "fireball",
+      "reference": "Bola de fuego",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "damage": 688,
+        "towerDamage": 159,
+        "splash": 60,
+        "travelSpeed": 288
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/fireball/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "intervalSeconds",
+        "rangeTiles",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "count",
+        "shieldHp",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Proyectil de cuatro de elixir que explota en área y empuja."
+    },
+    {
+      "key": "bulbasaur",
+      "reference": "Mago de hielo",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/ice-wizard/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Ralentiza a distancia, pero golpea a un solo objetivo y cuesta menos."
+    },
+    {
+      "key": "gengar",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Combina teletransporte periódico con disparos de sombra de área."
+    },
+    {
+      "key": "machamp",
+      "reference": "Mini P.E.K.K.A.",
+      "similarity": "partial",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.5,
+        "hp": 1390,
+        "interval": 1.6,
+        "range": 19.200000000000003,
+        "sightRange": 132,
+        "damage": 188.75
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/mini-pekka/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Antitanques terrestre de cuatro de elixir que reparte cada ataque en cuatro golpes."
+    },
+    {
+      "key": "eevee",
+      "reference": "Príncipe",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/prince/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Duplica el primer golpe al tomar carrera, adaptado a una unidad pequeña de ciclo."
+    },
+    {
+      "key": "onix",
+      "reference": "Montapuercos",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "windup": 0.6
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/hog-rider/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Ataca estructuras por cuatro de elixir, pero es más lento y no salta el río."
+    },
+    {
+      "key": "blastoise",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Unidad móvil resistente que dispara dos cañonazos contra tierra y aire."
+    },
+    {
+      "key": "vulpix",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Lanza dos disparos que queman a un solo objetivo."
+    },
+    {
+      "key": "psyduck",
+      "reference": "Mago eléctrico",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.6
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/electro-wizard/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "spawnIntervalSeconds",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Aturde a distancia con un solo disparo y no tiene descarga de entrada."
+    },
+    {
+      "key": "alakazam",
+      "reference": "Arquero mágico",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.7,
+        "hp": 529,
+        "interval": 1.1,
+        "range": 168,
+        "sightRange": 180,
+        "damage": 135,
+        "projectileSpeed": 480
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/magic-archer/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tirador de largo alcance que atraviesa a los enemigos alineados."
+    },
+    {
+      "key": "geodude",
+      "reference": "Caballero",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.5,
+        "hp": 1766,
+        "interval": 1.2,
+        "range": 28.799999999999997,
+        "sightRange": 132,
+        "damage": 202
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/knight/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Defensor terrestre económico y resistente que golpea a un objetivo por ataque."
+    },
+    {
+      "key": "magnemite",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Volador individual que aturde con un disparo sin encadenar rayos."
+    },
+    {
+      "key": "scyther",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Volador de contacto que encadena dos cortes por ataque."
+    },
+    {
+      "key": "lapras",
+      "reference": "Mago de hielo",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/ice-wizard/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Ralentiza a distancia, pero tiene más resistencia y no hace daño en área."
+    },
+    {
+      "key": "mewtwo",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Combina esferas explosivas fuertes con una habilidad activa de control."
+    },
+    {
+      "key": "treecko",
+      "reference": "Arqueras",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.5,
+        "hp": 304,
+        "interval": 0.9,
+        "range": 120,
+        "sightRange": 132,
+        "damage": 112,
+        "count": 2,
+        "projectileSpeed": 288
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/archers/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Dos tiradores de tres de elixir que atacan a tierra y aire."
+    },
+    {
+      "key": "golem",
+      "reference": "Gólem",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 3,
+        "speed": 21.6,
+        "windup": 1,
+        "hp": 5120,
+        "interval": 2.5,
+        "range": 18,
+        "sightRange": 180,
+        "damage": 312,
+        "deathDamage": 225
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/golem/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tanque que busca estructuras, explota al caer y deja dos cuerpos pequeños."
+    },
+    {
+      "key": "log",
+      "reference": "El Tronco",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "damage": 268,
+        "towerDamage": 35,
+        "travelSpeed": 172.79999999999998,
+        "travelDistance": 242.39999999999998,
+        "splash": 46.8
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/the-log/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "intervalSeconds",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "count",
+        "shieldHp",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Avanza por el suelo, daña una vez a cada enemigo que alcanza y lo empuja."
+    },
+    {
+      "key": "rapidash",
+      "reference": "Montapuercos",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.6,
+        "hp": 1697,
+        "interval": 1.6,
+        "range": 19.200000000000003,
+        "sightRange": 228,
+        "damage": 317
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/hog-rider/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Atacante rápido de estructuras que puede saltar el río."
+    },
+    {
+      "key": "roselia",
+      "reference": "Princesa",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1.2,
+        "speed": 28.8,
+        "windup": 0.3,
+        "hp": 261,
+        "interval": 3,
+        "range": 216,
+        "sightRange": 228,
+        "damage": 168,
+        "splash": 48,
+        "projectileSpeed": 288
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/princess/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tiradora frágil de área antiaérea cuyo alcance supera al de las torres."
+    },
+    {
+      "key": "graveler",
+      "reference": "Lanzarrocas",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6,
+        "windup": 0.5,
+        "hp": 2081,
+        "interval": 2.5,
+        "range": 96,
+        "sightRange": 132,
+        "damage": 289,
+        "projectileSpeed": 81.6
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/bowler/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Lanza una roca terrestre que rueda en línea, atraviesa enemigos y los empuja."
+    },
+    {
+      "key": "nuzleaf",
+      "reference": "Duende lanzadardos",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.35,
+        "hp": 261,
+        "interval": 0.8,
+        "range": 156,
+        "sightRange": 168,
+        "damage": 143,
+        "projectileSpeed": 384
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/dart-goblin/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tirador rápido y frágil de largo alcance contra tierra y aire."
+    },
+    {
+      "key": "sneaselAmbush",
+      "reference": "Barril de duendes",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "splash": 36,
+        "travelSpeed": 192,
+        "spawnDeployTime": 1.1,
+        "spawnTotal": 3
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/goblin-barrel/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "damagePerHit",
+        "hitsPerAttack",
+        "damagePerAttack",
+        "intervalSeconds",
+        "rangeTiles",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Cápsula que viaja hasta el punto elegido y despliega tres atacantes terrestres."
+    },
+    {
+      "key": "sneaselToken",
+      "reference": "Duende",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.3,
+        "hp": 202,
+        "interval": 1.1,
+        "range": 12,
+        "sightRange": 132,
+        "damage": 125,
+        "vulnerableDuringDeploy": true
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/goblins/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "cost",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Atacante terrestre de vida y daño equivalentes al cuerpo del barril."
+    },
+    {
+      "key": "diglett",
+      "reference": "Esqueletos",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.5,
+        "hp": 81,
+        "interval": 1.1,
+        "range": 12,
+        "sightRange": 132,
+        "damage": 81,
+        "count": 3
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/skeletons/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tres atacantes terrestres de vida mínima por uno de elixir."
+    },
+    {
+      "key": "diglettHorde",
+      "reference": "Ejército de esqueletos",
+      "similarity": "partial",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.5,
+        "hp": 81,
+        "interval": 1.1,
+        "range": 12,
+        "sightRange": 132,
+        "damage": 81,
+        "count": 15
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/skeleton-army/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Enjambre terrestre de vida mínima, adaptado a nueve unidades."
+    },
+    {
+      "key": "raltsTrio",
+      "reference": "Duendes con lanza",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.5,
+        "hp": 133,
+        "interval": 1.6,
+        "range": 120,
+        "sightRange": 132,
+        "damage": 81,
+        "count": 3,
+        "projectileSpeed": 240
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/spear-goblins/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tres tiradores baratos y frágiles que alcanzan tierra y aire."
+    },
+    {
+      "key": "poochyenaPack",
+      "reference": "Duendes",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.6,
+        "hp": 202,
+        "interval": 1.1,
+        "range": 12,
+        "sightRange": 132,
+        "damage": 125,
+        "count": 4
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/goblins/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Cuatro atacantes terrestres rápidos por dos de elixir."
+    },
+    {
+      "key": "venusaur",
+      "reference": "Mago",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/wizard/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Dispara en área contra tierra y aire, con más resistencia y una zona venenosa adicional."
+    },
+    {
+      "key": "butterfree",
+      "reference": "Mago de hielo",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/ice-wizard/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Daño de área con ralentización, adaptado a una unidad voladora."
+    },
+    {
+      "key": "beedrill",
+      "reference": "Esbirros",
+      "similarity": "partial",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.5,
+        "hp": 230,
+        "interval": 1.2,
+        "sightRange": 132,
+        "damage": 53.5,
+        "count": 3
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/minions/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Grupo aéreo de contacto, adaptado a dos cuerpos con golpes dobles."
+    },
+    {
+      "key": "pidgeot",
+      "reference": "Príncipe",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/prince/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Duplica el primer impacto después de cargar, pero vuela."
+    },
+    {
+      "key": "ekans",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Pareja terrestre que aplica veneno con sus mordidas."
+    },
+    {
+      "key": "sandshrew",
+      "reference": "Guardias",
+      "similarity": "partial",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.5,
+        "hp": 81,
+        "interval": 1,
+        "range": 38.400000000000006,
+        "sightRange": 132,
+        "damage": 117,
+        "shield": 256,
+        "count": 3
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/guards/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Enjambre con escudos individuales, adaptado a dos cuerpos."
+    },
+    {
+      "key": "nidoqueen",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Tanque de contacto que produce refuerzos terrestres venenosos."
+    },
+    {
+      "key": "nidoking",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Luchador resistente con dos golpes venenosos por ataque."
+    },
+    {
+      "key": "mankey",
+      "reference": "Príncipe",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/prince/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "La carga duplica el primer golpe, repartida entre tres atacantes frágiles."
+    },
+    {
+      "key": "arcanine",
+      "reference": "Príncipe",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/prince/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Toma carrera para dar un golpe de daño doble que también quema."
+    },
+    {
+      "key": "slowbro",
+      "reference": "Mago de hielo",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.5,
+        "hp": 688,
+        "interval": 1.7,
+        "range": 132,
+        "sightRange": 132,
+        "damage": 89,
+        "splash": 36,
+        "entryDamage": 84,
+        "projectileSpeed": 336
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/ice-wizard/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tirador de área que ralentiza y libera frío al aparecer."
+    },
+    {
+      "key": "grimer",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Defensor barato que deja una zona venenosa al morir."
+    },
+    {
+      "key": "cloyster",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Estructura antiaérea con escudo y ráfagas de cinco proyectiles."
+    },
+    {
+      "key": "gastly",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Cuatro tiradores aéreos que dejan campos dañinos al morir."
+    },
+    {
+      "key": "voltorb",
+      "reference": "Espíritu eléctrico",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.2
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/electro-spirit/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "intervalSeconds",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Salta, daña y aturde al consumirse, con daño en área en lugar de rayos encadenados."
+    },
+    {
+      "key": "forretress",
+      "reference": "Rompemuros",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.2
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/wall-breakers/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "intervalSeconds",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Busca estructuras y se consume al explotar, adaptado a un solo cuerpo más resistente."
+    },
+    {
+      "key": "electrode",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Carta retirada de la colección y conservada únicamente para partidas antiguas."
+    },
+    {
+      "key": "exeggutor",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Carta retirada de la colección y conservada únicamente para partidas antiguas."
+    },
+    {
+      "key": "koffing",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Volador de contacto que aplica veneno y deja una zona dañina."
+    },
+    {
+      "key": "chansey",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Cura periódicamente a un aliado y ataca a distancia."
+    },
+    {
+      "key": "kangaskhan",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "La madre resistente y su cría rápida combaten juntas a corta distancia."
+    },
+    {
+      "key": "starmie",
+      "reference": "Arquero mágico",
+      "similarity": "partial",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.7,
+        "hp": 529,
+        "interval": 1.1,
+        "range": 168,
+        "sightRange": 180,
+        "damage": 45,
+        "projectileSpeed": 480
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/magic-archer/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Sus rayos perforan una línea, con tres impactos por ataque."
+    },
+    {
+      "key": "mrmime",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Tirador con escudo propio que protege a los aliados al aparecer."
+    },
+    {
+      "key": "gyarados",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Tanque aéreo de contacto con daño de área."
+    },
+    {
+      "key": "ditto",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Copia el ataque de un enemigo, en lugar de repetir la última carta propia como Espejo."
+    },
+    {
+      "key": "articuno",
+      "reference": "Mago de hielo",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/ice-wizard/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tirador aéreo que ralentiza y tiene una congelación activa adicional."
+    },
+    {
+      "key": "zapdos",
+      "reference": "Dragón eléctrico",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/electro-dragon/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Volador con rayos encadenados que aturden y una habilidad de tormenta adicional."
+    },
+    {
+      "key": "moltres",
+      "reference": "Bebé dragón",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.3
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/baby-dragon/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Volador de disparo en área, con quemadura y curación activa; no revive al morir."
+    },
+    {
+      "key": "dragonite",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Volador resistente que encadena tres golpes de contacto."
+    },
+    {
+      "key": "meganium",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Tanque de ataque a distancia que cura al grupo."
+    },
+    {
+      "key": "typhlosion",
+      "reference": "Mago",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/wizard/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tirador antiaéreo con explosiones de área que también queman."
+    },
+    {
+      "key": "feraligatr",
+      "reference": "Mini P.E.K.K.A.",
+      "similarity": "partial",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.5,
+        "hp": 1390,
+        "interval": 1.6,
+        "range": 19.200000000000003,
+        "sightRange": 132,
+        "damage": 755
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/mini-pekka/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Defensor terrestre de objetivo único para enfrentar unidades resistentes, con distinta resistencia y cadencia."
+    },
+    {
+      "key": "crobat",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Volador de contacto con golpes dobles, daño en área y robo de vida."
+    },
+    {
+      "key": "ampharos",
+      "reference": "Tesla",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "windup": 0.4,
+        "hp": 1182,
+        "interval": 1.1,
+        "speed": 0,
+        "range": 132,
+        "sightRange": 132,
+        "damage": 220,
+        "lifetime": 25,
+        "stun": 0
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/tesla/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Estructura de cuatro elixires que se oculta sin enemigos cerca y emerge para atacar a tierra y aire."
+    },
+    {
+      "key": "espeon",
+      "reference": "Arquero mágico",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.7
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/magic-archer/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Dispara un rayo perforante con menor alcance y coste."
+    },
+    {
+      "key": "umbreon",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Defensor terrestre resistente cuyas mordidas envenenan."
+    },
+    {
+      "key": "wobbuffet",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Defensa inmóvil que devuelve parte del daño directo que recibe."
+    },
+    {
+      "key": "steelix",
+      "reference": "Gigante",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/giant/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Ignora tropas y busca estructuras, con armadura y daño de área adicionales."
+    },
+    {
+      "key": "scizor",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Luchador con escudo y combo doble, sin carga ni daño de área."
+    },
+    {
+      "key": "skarmory",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Defensor aéreo de contacto protegido por un escudo."
+    },
+    {
+      "key": "blissey",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Cura periódicamente al grupo y libera una curación final al morir."
+    },
+    {
+      "key": "lugia",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Tanque aéreo de disparo en área con una habilidad para dar escudos."
+    },
+    {
+      "key": "hooh",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Tanque aéreo de contacto con quemadura y curación."
+    },
+    {
+      "key": "sceptile",
+      "reference": "Duende lanzadardos",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.35
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/dart-goblin/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tirador rápido de apoyo, con ráfagas dobles y más resistencia."
+    },
+    {
+      "key": "blaziken",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Encadena tres golpes de contacto que aplican quemadura."
+    },
+    {
+      "key": "swampert",
+      "reference": "Valquiria",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6,
+        "windup": 0.1
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/valkyrie/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Defensor de contacto con daño de área cuyos golpes también ralentizan."
+    },
+    {
+      "key": "gardevoir",
+      "reference": "Mago",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/wizard/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Proyectil antiaéreo de área que deja una zona dañina adicional."
+    },
+    {
+      "key": "sableye",
+      "reference": "Bandida",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.4
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/bandit/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Se acerca instantáneamente al enemigo, sin la embestida invulnerable de Bandida."
+    },
+    {
+      "key": "aggron",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Tanque de área que combina reducción y reflejo de daño."
+    },
+    {
+      "key": "sharpedo",
+      "reference": "Bandida",
+      "similarity": "partial",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.4,
+        "hp": 906,
+        "interval": 1,
+        "range": 18,
+        "sightRange": 144,
+        "damage": 194
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/bandit/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Atacante rápido de tres de elixir con primer golpe doble, sin embestida invulnerable."
+    },
+    {
+      "key": "flygon",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Volador de contacto con daño de área y ralentización."
+    },
+    {
+      "key": "altaria",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Volador de apoyo que cura y elimina estados de un aliado."
+    },
+    {
+      "key": "absol",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Aumenta el daño contra enemigos que están por debajo de un umbral de vida."
+    },
+    {
+      "key": "salamence",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Volador de contacto con combo triple y aumento de daño al perder vida."
+    },
+    {
+      "key": "metagross",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Tanque con escudo y golpes de área que aturden, sin saltos ni impacto de entrada."
+    },
+    {
+      "key": "kyogre",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Tanque de doble disparo con ralentización y una habilidad de oleada."
+    },
+    {
+      "key": "groudon",
+      "reference": "Gigante",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/giant/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Busca estructuras, con golpes de área y un terremoto activo adicionales."
+    },
+    {
+      "key": "rayquaza",
+      "reference": "Arquero mágico",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.7
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/magic-archer/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Ataque perforante en línea, adaptado a un tanque aéreo con habilidad activa."
+    },
+    {
+      "key": "nidoranF",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Invocación terrestre que aplica veneno."
+    },
+    {
+      "key": "nidoranM",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Invocación terrestre con estadísticas propias."
+    },
+    {
+      "key": "exeggcute",
+      "reference": "Esqueleto",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.5,
+        "hp": 81,
+        "interval": 1.1,
+        "range": 12,
+        "sightRange": 132,
+        "damage": 81
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/skeletons/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "cost",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Cuerpo de vida y daño mínimos que ataca solo a tierra a corta distancia."
+    },
+    {
+      "key": "babyKangaskhan",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Acompañante rápido de la madre, con estadísticas propias."
+    },
+    {
+      "key": "centralElectrode",
+      "reference": "Horno",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/furnace/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Produce atacantes suicidas periódicamente, pero usa Voltorb eléctricos y no dispara por sí misma."
+    },
+    {
+      "key": "madriguera",
+      "reference": "Choza de bárbaros",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/barbarian-hut/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "damagePerHit",
+        "hitsPerAttack",
+        "damagePerAttack",
+        "intervalSeconds",
+        "rangeTiles",
+        "firstAttackDelaySeconds",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds"
+      ],
+      "reason": "Produce parejas de combatientes terrestres y deja refuerzos al morir, con cuerpos más frágiles."
+    },
+    {
+      "key": "vivero",
+      "reference": "Lápida",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "hp": 529,
+        "speed": 0,
+        "lifetime": 30,
+        "summonCount": 2,
+        "deathCount": 4
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/tombstone/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "damagePerHit",
+        "hitsPerAttack",
+        "damagePerAttack",
+        "intervalSeconds",
+        "rangeTiles",
+        "firstAttackDelaySeconds",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds"
+      ],
+      "reason": "Estructura de tres de elixir que produce parejas de unidades terrestres mínimas y libera cuatro al morir."
+    },
+    {
+      "key": "regice",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Estructura antiaérea que dispara en área y ralentiza."
+    },
+    {
+      "key": "duskull",
+      "reference": "Bruja",
+      "similarity": "partial",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 28.8,
+        "windup": 0.7,
+        "hp": 839,
+        "interval": 1.1,
+        "range": 132,
+        "sightRange": 132,
+        "damage": 135,
+        "splash": 36,
+        "summonEvery": 7,
+        "summonCount": 4,
+        "projectileSpeed": 288,
+        "summonMax": 12,
+        "deathSpawn": null,
+        "deathCount": 0
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/witch/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "firstSpawnDelaySeconds",
+        "deathSpawnCount"
+      ],
+      "reason": "Tirador que invoca tropas frágiles, pero dispara a un objetivo y deja refuerzos al morir."
+    },
+    {
+      "key": "duskullToken",
+      "reference": "Esqueleto",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.5,
+        "hp": 81,
+        "interval": 1.1,
+        "range": 12,
+        "sightRange": 132,
+        "damage": 81
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/skeletons/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "cost",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Duskull pequeño de contacto invocado por su evolución Dusclops."
+    },
+    {
+      "key": "raichu",
+      "reference": "Mini P.E.K.K.A.",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/mini-pekka/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Antitanques de golpe fuerte, más frágil y con una preparación muy lenta."
+    },
+    {
+      "key": "registeel",
+      "reference": null,
+      "similarity": "none",
+      "policy": "Pokemon-specific body; normalize nominal movement and default deployment only",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6
+      },
+      "source": null,
+      "unknown": [],
+      "reason": "Carta retirada, conservada para restaurar partidas anteriores; los mazos guardados se convierten a Rhydon."
+    },
+    {
+      "key": "rhydon",
+      "reference": "P.E.K.K.A.",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6,
+        "windup": 0.5,
+        "hp": 3760,
+        "interval": 1.8,
+        "range": 28.799999999999997,
+        "sightRange": 120,
+        "damage": 842
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/pekka/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Unidad terrestre pesada de siete elixires que prepara golpes individuales muy fuertes."
+    },
+    {
+      "key": "regirock",
+      "reference": "Gigante",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 21.6,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/giant/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tanque que solo busca estructuras, con armadura y un coste mayor."
+    },
+    {
+      "key": "celebi",
+      "reference": "Esbirro gigante",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.8
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/minion-giant/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Vuela, ignora tropas y dispara a estructuras, pero no aplica toxina."
+    },
+    {
+      "key": "pandilla",
+      "reference": "Pandilla de duendes",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "count": 5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/goblin-gang/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "damagePerHit",
+        "hitsPerAttack",
+        "damagePerAttack",
+        "intervalSeconds",
+        "rangeTiles",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tres Poochyena de contacto y dos Ralts a distancia por indicación del usuario, con estadísticas por cuerpo de los duendes de nivel 11."
+    },
+    {
+      "key": "shuppetToken",
+      "reference": "Esqueleto",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {
+        "deployTime": 1,
+        "speed": 43.2,
+        "windup": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/skeletons/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "cost",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Cuerpo de vida mínima, con menos daño y una duración limitada."
+    },
+    {
+      "key": "poochyenaToken",
+      "reference": "Duende",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.6,
+        "hp": 202,
+        "interval": 1.1,
+        "range": 12,
+        "sightRange": 132,
+        "damage": 125
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/goblins/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "cost",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "projectileSpeedNative",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Atacante terrestre de contacto de la pandilla."
+    },
+    {
+      "key": "raltsToken",
+      "reference": "Duende con lanza",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "deployTime": 1,
+        "speed": 57.6,
+        "windup": 0.5,
+        "hp": 133,
+        "interval": 1.6,
+        "range": 120,
+        "sightRange": 132,
+        "damage": 81,
+        "projectileSpeed": 240
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/spear-goblins/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "cost",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "radiusTiles",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "splashRadiusTiles",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Tirador frágil de la pandilla que alcanza tierra y aire."
+    },
+    {
+      "key": "pinMissile",
+      "reference": "Flechas",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {},
+      "source": {
+        "url": "https://crtool.app/en/units/arrows/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "intervalSeconds",
+        "rangeTiles",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "count",
+        "shieldHp",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Hechizo antienjambre de área amplia que resuelve el daño en un golpe en lugar de varias oleadas."
+    },
+    {
+      "key": "lightning",
+      "reference": "Rayo",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "damage": 1057,
+        "towerDamage": 265,
+        "splash": 84,
+        "stun": 0.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/lightning/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "intervalSeconds",
+        "rangeTiles",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "count",
+        "shieldHp",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Golpea y aturde a los tres objetivos con más vida dentro del área elegida."
+    },
+    {
+      "key": "hyperBeam",
+      "reference": "Cohete",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "damage": 1484,
+        "towerDamage": 342,
+        "splash": 48
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/rocket/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "intervalSeconds",
+        "rangeTiles",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "count",
+        "shieldHp",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Hechizo caro y demorado de daño muy alto en un área pequeña."
+    },
+    {
+      "key": "blizzard",
+      "reference": "Hielo",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "damage": 148,
+        "towerDamage": 38,
+        "splash": 72,
+        "freeze": 3.5,
+        "stun": 3.5
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/freeze/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "intervalSeconds",
+        "rangeTiles",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "count",
+        "shieldHp",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "widthTiles",
+        "lifetimeSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Congela a los enemigos y causa daño leve dentro del área elegida."
+    },
+    {
+      "key": "spikes",
+      "reference": "Veneno",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {},
+      "source": {
+        "url": "https://crtool.app/en/units/poison/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "damagePerHit",
+        "hitsPerAttack",
+        "damagePerAttack",
+        "intervalSeconds",
+        "rangeTiles",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "count",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "buildingDamagePerSecond",
+        "widthTiles",
+        "lifetimeSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Zona persistente de daño que solo afecta a enemigos terrestres."
+    },
+    {
+      "key": "stealthRock",
+      "reference": "Veneno",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {},
+      "source": {
+        "url": "https://crtool.app/en/units/poison/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "damagePerHit",
+        "hitsPerAttack",
+        "damagePerAttack",
+        "intervalSeconds",
+        "rangeTiles",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "count",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "buildingDamagePerSecond",
+        "widthTiles",
+        "lifetimeSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Zona persistente de daño con daño adicional a voladores."
+    },
+    {
+      "key": "whirlpool",
+      "reference": "Tornado",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {},
+      "source": {
+        "url": "https://crtool.app/en/units/tornado/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "hitsPerAttack",
+        "damagePerAttack",
+        "intervalSeconds",
+        "rangeTiles",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "count",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "widthTiles",
+        "lifetimeSeconds",
+        "durationSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Atrae a las tropas al centro mientras las daña, durante más tiempo."
+    },
+    {
+      "key": "nightmare",
+      "reference": "Cementerio",
+      "similarity": "partial",
+      "policy": "Retain distinct Pokemon health, attack budget and role; update deployment, preparation and nominal movement tier",
+      "changes": {},
+      "source": {
+        "url": "https://crtool.app/en/units/graveyard/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "damagePerHit",
+        "hitsPerAttack",
+        "damagePerAttack",
+        "intervalSeconds",
+        "rangeTiles",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "damagePerSecond",
+        "crownTowerDamagePerSecond",
+        "buildingDamagePerSecond",
+        "widthTiles",
+        "lifetimeSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Invoca cuerpos frágiles sucesivamente en una zona, adaptado a ocho Shuppet."
+    },
+    {
+      "key": "earthquake",
+      "reference": "Terremoto",
+      "similarity": "equivalent",
+      "policy": "Current reference body/attack budget, retaining documented Pokemon mechanics",
+      "changes": {
+        "splash": 84,
+        "fieldDamage": 81,
+        "fieldTowerDamage": 49,
+        "fieldDuration": 3
+      },
+      "source": {
+        "url": "https://crtool.app/en/units/earthquake/",
+        "gameVersion": "16.635.1",
+        "dataUpdated": "November 9, 2026",
+        "localEvidence": "docs/clash-royale-level11.json",
+        "localCollected": "2026-11-13"
+      },
+      "unknown": [
+        "hp",
+        "damagePerHit",
+        "hitsPerAttack",
+        "damagePerAttack",
+        "intervalSeconds",
+        "rangeTiles",
+        "speedNative",
+        "speedUnitsPerSecond",
+        "deployTimeSeconds",
+        "firstAttackDelaySeconds",
+        "count",
+        "shieldHp",
+        "crownTowerDamagePerHit",
+        "buildingDamagePerSecond",
+        "widthTiles",
+        "lifetimeSeconds",
+        "stunSeconds",
+        "spawnIntervalSeconds",
+        "spawnDamage",
+        "deathDamage",
+        "chargeDamage",
+        "deployDelaySeconds",
+        "projectileSpeedNative",
+        "collisionRadiusTiles",
+        "sightRangeTiles",
+        "splashRadiusTiles",
+        "mass",
+        "firstSpawnDelaySeconds",
+        "spawnCount",
+        "deathSpawnCount"
+      ],
+      "reason": "Daño terrestre continuo, ralentización y daño extra contra estructuras."
+    }
+  ]
+}

@@ -1,0 +1,908 @@
+{
+  "source": {
+    "repository": "RoyaleGym/RoyaleSim",
+    "path": "data/derived/cards-160635007-20261103.json",
+    "blobSha": "6dd5bd2272b948fd04759007fc2ba2750a58ad39",
+    "immutableUrl": "https://api.github.com/repos/RoyaleGym/RoyaleSim/git/blobs/6dd5bd2272b948fd04759007fc2ba2750a58ad39",
+    "derivedFrom": "Supercell csv_logic/ of the 160635007 client: the 2026-11-03 update folder over the install-time pack, decoded by tools/decode_sc_assets.py (each pack's MANIFEST.json carries its per-file hashes)",
+    "generatedBy": "tools/extract_cards.py",
+    "overlayRule": "effective row = CSV row + TOML overlay (table-level *.toml, then csv_logic/characters/*.toml [KIND.Name] sections in file-name order); overlay wins; a TOML value on a CSV-typed column is coerced to that type and the build fails on a mismatch",
+    "warning": "Native game asset extraction mirrored by an independent project. Base forms only; no inference from HP, cost, rarity or mass. Absent native boolean means the extractor resolves the native default false; null below means not applicable or unknown."
+  },
+  "vintage": "160635007 client, content 16.635.8 (the 2026-11-03 update)",
+  "nativeReferences": [
+    {
+      "key": "pikachu",
+      "reference": "Mago eléctrico",
+      "similarity": "equivalent",
+      "nativeUnit": "ElectroWizard",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "charmander",
+      "reference": "Mago",
+      "similarity": "partial",
+      "nativeUnit": "Wizard",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "snorlax",
+      "reference": "Gigante",
+      "similarity": "equivalent",
+      "nativeUnit": "Giant",
+      "ignorePushback": true,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "zubat",
+      "reference": "Murciélagos",
+      "similarity": "partial",
+      "nativeUnit": "Bat",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "charizard",
+      "reference": "Bebé dragón",
+      "similarity": "partial",
+      "nativeUnit": "BabyDragon",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "thunder",
+      "reference": "Descarga",
+      "similarity": "equivalent",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "fireball",
+      "reference": "Bola de fuego",
+      "similarity": "equivalent",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "bulbasaur",
+      "reference": "Mago de hielo",
+      "similarity": "partial",
+      "nativeUnit": "IceWizard",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "machamp",
+      "reference": "Mini P.E.K.K.A.",
+      "similarity": "partial",
+      "nativeUnit": "MiniPekka",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "eevee",
+      "reference": "Príncipe",
+      "similarity": "partial",
+      "nativeUnit": "Prince",
+      "ignorePushback": true,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "onix",
+      "reference": "Montapuercos",
+      "similarity": "partial",
+      "nativeUnit": "HogRider",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "psyduck",
+      "reference": "Mago eléctrico",
+      "similarity": "partial",
+      "nativeUnit": "ElectroWizard",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "alakazam",
+      "reference": "Arquero mágico",
+      "similarity": "equivalent",
+      "nativeUnit": "EliteArcher",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "geodude",
+      "reference": "Caballero",
+      "similarity": "equivalent",
+      "nativeUnit": "Knight",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "lapras",
+      "reference": "Mago de hielo",
+      "similarity": "partial",
+      "nativeUnit": "IceWizard",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "treecko",
+      "reference": "Arqueras",
+      "similarity": "equivalent",
+      "nativeUnit": "Archer",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "golem",
+      "reference": "Gólem",
+      "similarity": "equivalent",
+      "nativeUnit": "Golem",
+      "ignorePushback": true,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "log",
+      "reference": "El Tronco",
+      "similarity": "equivalent",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "diglett",
+      "reference": "Esqueletos",
+      "similarity": "equivalent",
+      "nativeUnit": "Skeleton",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "diglettHorde",
+      "reference": "Ejército de esqueletos",
+      "similarity": "partial",
+      "nativeUnit": "Skeleton",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "raltsTrio",
+      "reference": "Duendes con lanza",
+      "similarity": "equivalent",
+      "nativeUnit": "SpearGoblin",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "poochyenaPack",
+      "reference": "Duendes",
+      "similarity": "equivalent",
+      "nativeUnit": "Goblin",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "venusaur",
+      "reference": "Mago",
+      "similarity": "partial",
+      "nativeUnit": "Wizard",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "butterfree",
+      "reference": "Mago de hielo",
+      "similarity": "partial",
+      "nativeUnit": "IceWizard",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "beedrill",
+      "reference": "Esbirros",
+      "similarity": "partial",
+      "nativeUnit": "Minion",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "pidgeot",
+      "reference": "Príncipe",
+      "similarity": "partial",
+      "nativeUnit": "Prince",
+      "ignorePushback": true,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "sandshrew",
+      "reference": "Guardias",
+      "similarity": "partial",
+      "nativeUnit": "SkeletonWarrior",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "mankey",
+      "reference": "Príncipe",
+      "similarity": "partial",
+      "nativeUnit": "Prince",
+      "ignorePushback": true,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "arcanine",
+      "reference": "Príncipe",
+      "similarity": "partial",
+      "nativeUnit": "Prince",
+      "ignorePushback": true,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "slowbro",
+      "reference": "Mago de hielo",
+      "similarity": "equivalent",
+      "nativeUnit": "IceWizard",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "voltorb",
+      "reference": "Espíritu eléctrico",
+      "similarity": "partial",
+      "nativeUnit": "ElectroSpirit",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "forretress",
+      "reference": "Rompemuros",
+      "similarity": "partial",
+      "nativeUnit": "Wallbreaker",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "starmie",
+      "reference": "Arquero mágico",
+      "similarity": "partial",
+      "nativeUnit": "EliteArcher",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "articuno",
+      "reference": "Mago de hielo",
+      "similarity": "partial",
+      "nativeUnit": "IceWizard",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "zapdos",
+      "reference": "Dragón eléctrico",
+      "similarity": "partial",
+      "nativeUnit": "ElectroDragon",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "moltres",
+      "reference": "Bebé dragón",
+      "similarity": "partial",
+      "nativeUnit": "BabyDragon",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "typhlosion",
+      "reference": "Mago",
+      "similarity": "partial",
+      "nativeUnit": "Wizard",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "feraligatr",
+      "reference": "Mini P.E.K.K.A.",
+      "similarity": "partial",
+      "nativeUnit": "MiniPekka",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "ampharos",
+      "reference": "Tesla",
+      "similarity": "equivalent",
+      "nativeUnit": "Tesla",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "buildings",
+      "transferToPokemon": "reference-equivalent",
+      "note": "Buildings never move; ignorePushback=false is not permission to push a building."
+    },
+    {
+      "key": "espeon",
+      "reference": "Arquero mágico",
+      "similarity": "partial",
+      "nativeUnit": "EliteArcher",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "steelix",
+      "reference": "Gigante",
+      "similarity": "partial",
+      "nativeUnit": "Giant",
+      "ignorePushback": true,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "sceptile",
+      "reference": "Duende lanzadardos",
+      "similarity": "partial",
+      "nativeUnit": "BlowdartGoblin",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "swampert",
+      "reference": "Valquiria",
+      "similarity": "partial",
+      "nativeUnit": "Valkyrie",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "gardevoir",
+      "reference": "Mago",
+      "similarity": "partial",
+      "nativeUnit": "Wizard",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "sableye",
+      "reference": "Bandida",
+      "similarity": "partial",
+      "nativeUnit": "Assassin",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "sharpedo",
+      "reference": "Bandida",
+      "similarity": "partial",
+      "nativeUnit": "Assassin",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "groudon",
+      "reference": "Gigante",
+      "similarity": "partial",
+      "nativeUnit": "Giant",
+      "ignorePushback": true,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "rayquaza",
+      "reference": "Arquero mágico",
+      "similarity": "partial",
+      "nativeUnit": "EliteArcher",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "centralElectrode",
+      "reference": "Horno",
+      "similarity": "partial",
+      "nativeUnit": "Furnace_rework",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "madriguera",
+      "reference": "Choza de bárbaros",
+      "similarity": "partial",
+      "nativeUnit": "BarbarianHut",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "buildings",
+      "transferToPokemon": "requires-explicit-adaptation-decision",
+      "note": "Buildings never move; ignorePushback=false is not permission to push a building."
+    },
+    {
+      "key": "vivero",
+      "reference": "Lápida",
+      "similarity": "equivalent",
+      "nativeUnit": "Tombstone",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "buildings",
+      "transferToPokemon": "reference-equivalent",
+      "note": "Buildings never move; ignorePushback=false is not permission to push a building."
+    },
+    {
+      "key": "duskull",
+      "reference": "Bruja",
+      "similarity": "partial",
+      "nativeUnit": "Witch",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "raichu",
+      "reference": "Mini P.E.K.K.A.",
+      "similarity": "partial",
+      "nativeUnit": "MiniPekka",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "rhydon",
+      "reference": "P.E.K.K.A.",
+      "similarity": "equivalent",
+      "nativeUnit": "Pekka",
+      "ignorePushback": true,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "regirock",
+      "reference": "Gigante",
+      "similarity": "partial",
+      "nativeUnit": "Giant",
+      "ignorePushback": true,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "celebi",
+      "reference": "Esbirro gigante",
+      "similarity": "partial",
+      "nativeUnit": "MinionGiant",
+      "ignorePushback": true,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "pandilla",
+      "reference": "Pandilla de duendes",
+      "similarity": "equivalent",
+      "nativeUnit": "Goblin",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "pinMissile",
+      "reference": "Flechas",
+      "similarity": "partial",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "lightning",
+      "reference": "Rayo",
+      "similarity": "equivalent",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "hyperBeam",
+      "reference": "Cohete",
+      "similarity": "equivalent",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "blizzard",
+      "reference": "Hielo",
+      "similarity": "equivalent",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "spikes",
+      "reference": "Veneno",
+      "similarity": "partial",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "stealthRock",
+      "reference": "Veneno",
+      "similarity": "partial",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "whirlpool",
+      "reference": "Tornado",
+      "similarity": "partial",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "nightmare",
+      "reference": "Cementerio",
+      "similarity": "partial",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "earthquake",
+      "reference": "Terremoto",
+      "similarity": "equivalent",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "rapidash",
+      "reference": "Montapuercos",
+      "similarity": "equivalent",
+      "nativeUnit": "HogRider",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "roselia",
+      "reference": "Princesa",
+      "similarity": "equivalent",
+      "nativeUnit": "Princess",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "graveler",
+      "reference": "Lanzarrocas",
+      "similarity": "equivalent",
+      "nativeUnit": "Bowler",
+      "ignorePushback": true,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "nuzleaf",
+      "reference": "Duende lanzadardos",
+      "similarity": "equivalent",
+      "nativeUnit": "BlowdartGoblin",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "sneaselAmbush",
+      "reference": "Barril de duendes",
+      "similarity": "equivalent",
+      "nativeUnit": null,
+      "ignorePushback": null,
+      "status": "not-applicable-spell",
+      "sourceTable": null,
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "sneaselToken",
+      "reference": "Duende",
+      "similarity": "equivalent",
+      "nativeUnit": "Goblin",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "exeggcute",
+      "reference": "Esqueleto",
+      "similarity": "equivalent",
+      "nativeUnit": "Skeleton",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "shuppetToken",
+      "reference": "Esqueleto",
+      "similarity": "partial",
+      "nativeUnit": "Skeleton",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "requires-explicit-adaptation-decision"
+    },
+    {
+      "key": "poochyenaToken",
+      "reference": "Duende",
+      "similarity": "equivalent",
+      "nativeUnit": "Goblin",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    },
+    {
+      "key": "raltsToken",
+      "reference": "Duende con lanza",
+      "similarity": "equivalent",
+      "nativeUnit": "SpearGoblin",
+      "ignorePushback": false,
+      "status": "native-flag-confirmed",
+      "sourceTable": "characters",
+      "transferToPokemon": "reference-equivalent"
+    }
+  ],
+  "appliedProfiles": {
+    "pikachu": false,
+    "charmander": false,
+    "snorlax": true,
+    "zubat": false,
+    "charizard": false,
+    "bulbasaur": false,
+    "machamp": false,
+    "eevee": false,
+    "onix": true,
+    "psyduck": false,
+    "alakazam": false,
+    "geodude": false,
+    "lapras": false,
+    "treecko": false,
+    "golem": true,
+    "diglett": false,
+    "diglettHorde": false,
+    "raltsTrio": false,
+    "poochyenaPack": false,
+    "venusaur": false,
+    "butterfree": false,
+    "beedrill": false,
+    "pidgeot": false,
+    "sandshrew": false,
+    "mankey": false,
+    "arcanine": false,
+    "slowbro": false,
+    "voltorb": false,
+    "forretress": false,
+    "starmie": false,
+    "articuno": false,
+    "zapdos": false,
+    "moltres": false,
+    "typhlosion": false,
+    "feraligatr": false,
+    "ampharos": false,
+    "espeon": false,
+    "steelix": true,
+    "sceptile": false,
+    "swampert": false,
+    "gardevoir": false,
+    "sableye": false,
+    "sharpedo": false,
+    "groudon": true,
+    "rayquaza": false,
+    "centralElectrode": false,
+    "madriguera": false,
+    "vivero": false,
+    "duskull": false,
+    "raichu": false,
+    "rhydon": true,
+    "regirock": true,
+    "celebi": true,
+    "pandilla": false,
+    "rapidash": false,
+    "roselia": false,
+    "graveler": true,
+    "nuzleaf": false,
+    "sneaselToken": false,
+    "exeggcute": false,
+    "shuppetToken": false,
+    "poochyenaToken": false,
+    "raltsToken": false,
+    "nidoqueen": true,
+    "gyarados": false,
+    "lugia": false,
+    "hooh": false,
+    "aggron": true,
+    "metagross": true,
+    "kyogre": true
+  },
+  "adaptations": {
+    "eevee": {
+      "immune": false,
+      "reason": "Small charging adaptation keeps its existing push vulnerability."
+    },
+    "pidgeot": {
+      "immune": false,
+      "reason": "Flying charging adaptation keeps its existing spell push vulnerability."
+    },
+    "mankey": {
+      "immune": false,
+      "reason": "Small charging swarm remains pushable."
+    },
+    "arcanine": {
+      "immune": false,
+      "reason": "Charging adaptation retains its existing push vulnerability."
+    },
+    "onix": {
+      "immune": true,
+      "reason": "Heavy rock building seeker retains its existing stability as a Pokemon adaptation."
+    },
+    "nidoqueen": {
+      "immune": true,
+      "reason": "Heavy summoning tank keeps the stability previously given by the Bowler HP guard, now consistent across ordinary pushes."
+    },
+    "gyarados": {
+      "immune": false,
+      "reason": "No native reference: preserve existing spell push vulnerability. Ground-only rocks already exclude flying units."
+    },
+    "lugia": {
+      "immune": false,
+      "reason": "No native reference: preserve existing spell push vulnerability. Ground-only rocks already exclude flying units."
+    },
+    "hooh": {
+      "immune": false,
+      "reason": "No native reference: preserve existing spell push vulnerability. Ground-only rocks already exclude flying units."
+    },
+    "aggron": {
+      "immune": true,
+      "reason": "Armored defensive tank keeps its established stability."
+    },
+    "metagross": {
+      "immune": true,
+      "reason": "Heavy steel body keeps its established stability."
+    },
+    "kyogre": {
+      "immune": true,
+      "reason": "Heavy legendary body keeps its established stability."
+    }
+  },
+  "rules": {
+    "partialReferences": "Deliberately adopt the reference body rule unless an explicit Pokemon adaptation below overrides it.",
+    "ordinaryPush": "Only movable bodies without explicit immunity are pushed.",
+    "forcePush": "Log and custom wave abilities retain their force-push identity.",
+    "interruption": "Invalidate windup and reset charge; preserve remaining cooldown and target.",
+    "airborne": "Dash invulnerability and active jumps also block push.",
+    "default": "Unlisted Pokemon remain pushable; unknown native flags are not presented as facts."
+  }
+}

@@ -1,0 +1,273 @@
+{
+  "date": "2026-11-14",
+  "sourceRepository": "https://github.com/PMDCollab/SpriteCollab",
+  "pin": "576a7f13b5b7f6ad09a5877d5ae6b2d33458c245",
+  "scope": "Cinco animaciones nativas importadas sin modificar sus PNG ni sus tiempos originales. Perfiles de combate, coreografia y geometria se integran por separado.",
+  "manifestEntries": {
+    "68": {
+      "Punch": {
+        "width": 72,
+        "height": 88,
+        "durations": [
+          2,
+          6,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          4
+        ],
+        "hitFrame": 3,
+        "file": "assets/pokemon/68/Punch-Anim.png",
+        "shadow": "assets/pokemon/68/Punch-Shadow.png"
+      }
+    },
+    "123": {
+      "Slice": {
+        "width": 88,
+        "height": 80,
+        "durations": [
+          2,
+          2,
+          4,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "hitFrame": 3,
+        "file": "assets/pokemon/123/Slice-Anim.png",
+        "shadow": "assets/pokemon/123/Slice-Shadow.png"
+      }
+    },
+    "212": {
+      "MultiScratch": {
+        "width": 72,
+        "height": 80,
+        "durations": [
+          1,
+          2,
+          6,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          4,
+          2,
+          2,
+          2
+        ],
+        "hitFrame": 4,
+        "file": "assets/pokemon/212/MultiScratch-Anim.png",
+        "shadow": "assets/pokemon/212/MultiScratch-Shadow.png"
+      }
+    },
+    "252": {
+      "Appeal": {
+        "width": 40,
+        "height": 48,
+        "durations": [
+          2,
+          3,
+          4,
+          1,
+          1,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          2
+        ],
+        "hitFrame": 6,
+        "file": "assets/pokemon/252/Appeal-Anim.png",
+        "shadow": "assets/pokemon/252/Appeal-Shadow.png"
+      }
+    },
+    "282": {
+      "Appeal": {
+        "width": 32,
+        "height": 40,
+        "durations": [
+          1,
+          6,
+          1,
+          4,
+          5,
+          4,
+          5,
+          4
+        ],
+        "hitFrame": 4,
+        "file": "assets/pokemon/282/Appeal-Anim.png",
+        "shadow": "assets/pokemon/282/Appeal-Shadow.png"
+      }
+    }
+  },
+  "files": [
+    {
+      "id": 68,
+      "name": "Punch",
+      "suffix": "Anim",
+      "file": "dist/assets/pokemon/68/Punch-Anim.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0068/Punch-Anim.png",
+      "bytes": 33403,
+      "sha256": "348a7f9df9eff3e8a692595529cd87d66806d1538f111ba63c0545d290a4dbeb",
+      "auditFile": "qa/combo-pose-audit/native-candidates/68/Punch-Anim.png"
+    },
+    {
+      "id": 68,
+      "name": "Punch",
+      "suffix": "Offsets",
+      "file": "dist/assets/pokemon/68/Punch-Offsets.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0068/Punch-Offsets.png",
+      "bytes": 3198,
+      "sha256": "ab1030dc9cb6525fdadbe22255e3d1d34af3ddba4ad21a77071e92affbe41ec6",
+      "auditFile": "qa/combo-pose-audit/native-candidates/68/Punch-Offsets.png"
+    },
+    {
+      "id": 68,
+      "name": "Punch",
+      "suffix": "Shadow",
+      "file": "dist/assets/pokemon/68/Punch-Shadow.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0068/Punch-Shadow.png",
+      "bytes": 5597,
+      "sha256": "11f04202feb8098b8229f310aa6bf9b0cb9eed09a7cd7fd07a021c17c0939370",
+      "auditFile": "qa/combo-pose-audit/native-candidates/68/Punch-Shadow.png"
+    },
+    {
+      "id": 123,
+      "name": "Slice",
+      "suffix": "Anim",
+      "file": "dist/assets/pokemon/123/Slice-Anim.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0123/Slice-Anim.png",
+      "bytes": 29802,
+      "sha256": "9b5805aea6e345559a27006f56ae06cc5fb0863c31307cf9f48669a9cbffcec2",
+      "auditFile": "qa/combo-pose-audit/native-candidates/123/Slice-Anim.png"
+    },
+    {
+      "id": 123,
+      "name": "Slice",
+      "suffix": "Offsets",
+      "file": "dist/assets/pokemon/123/Slice-Offsets.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0123/Slice-Offsets.png",
+      "bytes": 3962,
+      "sha256": "6a1e8893207dc6cb0be228d84c57c182de63803f16e17189750a016fab8c5e78",
+      "auditFile": "qa/combo-pose-audit/native-candidates/123/Slice-Offsets.png"
+    },
+    {
+      "id": 123,
+      "name": "Slice",
+      "suffix": "Shadow",
+      "file": "dist/assets/pokemon/123/Slice-Shadow.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0123/Slice-Shadow.png",
+      "bytes": 6541,
+      "sha256": "82b330b72908693115035b9097fe7ae43d6ab818c9f15e5e44821696f36a2e59",
+      "auditFile": "qa/combo-pose-audit/native-candidates/123/Slice-Shadow.png"
+    },
+    {
+      "id": 212,
+      "name": "MultiScratch",
+      "suffix": "Anim",
+      "file": "dist/assets/pokemon/212/MultiScratch-Anim.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0212/MultiScratch-Anim.png",
+      "bytes": 35641,
+      "sha256": "bb896f1b41499c1b00e854342828654b02c0ff241ebb97f4379e3cad71156505",
+      "auditFile": "qa/combo-pose-audit/native-candidates/212/MultiScratch-Anim.png"
+    },
+    {
+      "id": 212,
+      "name": "MultiScratch",
+      "suffix": "Offsets",
+      "file": "dist/assets/pokemon/212/MultiScratch-Offsets.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0212/MultiScratch-Offsets.png",
+      "bytes": 3740,
+      "sha256": "468061374222886c4bf32e77c40504e08751d6c9bf36e6d009a5fcbec8530f14",
+      "auditFile": "qa/combo-pose-audit/native-candidates/212/MultiScratch-Offsets.png"
+    },
+    {
+      "id": 212,
+      "name": "MultiScratch",
+      "suffix": "Shadow",
+      "file": "dist/assets/pokemon/212/MultiScratch-Shadow.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0212/MultiScratch-Shadow.png",
+      "bytes": 6726,
+      "sha256": "a6b53bfdb765546f12cb8b256753c352f05e9fe0b86803357a77bcb108b96574",
+      "auditFile": "qa/combo-pose-audit/native-candidates/212/MultiScratch-Shadow.png"
+    },
+    {
+      "id": 252,
+      "name": "Appeal",
+      "suffix": "Anim",
+      "file": "dist/assets/pokemon/252/Appeal-Anim.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0252/Appeal-Anim.png",
+      "bytes": 16991,
+      "sha256": "1989369d6b964a41b6d0500d5d0c81511d575ba05753681a34f9991d87240981",
+      "auditFile": "qa/combo-pose-audit/native-candidates/252/Appeal-Anim.png"
+    },
+    {
+      "id": 252,
+      "name": "Appeal",
+      "suffix": "Offsets",
+      "file": "dist/assets/pokemon/252/Appeal-Offsets.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0252/Appeal-Offsets.png",
+      "bytes": 1800,
+      "sha256": "17ba958f4c79881ac3f6b9c2286152d3e69bd0bce501071e020c07105044fbee",
+      "auditFile": "qa/combo-pose-audit/native-candidates/252/Appeal-Offsets.png"
+    },
+    {
+      "id": 252,
+      "name": "Appeal",
+      "suffix": "Shadow",
+      "file": "dist/assets/pokemon/252/Appeal-Shadow.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0252/Appeal-Shadow.png",
+      "bytes": 3305,
+      "sha256": "4f24a364efda3fe9d1861b464a52219f5d0f986662f5ccb7a1f106ba21d9569b",
+      "auditFile": "qa/combo-pose-audit/native-candidates/252/Appeal-Shadow.png"
+    },
+    {
+      "id": 282,
+      "name": "Appeal",
+      "suffix": "Anim",
+      "file": "dist/assets/pokemon/282/Appeal-Anim.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0282/Appeal-Anim.png",
+      "bytes": 9262,
+      "sha256": "3cdb5e32876284234a312ea2606d8e46d8aca469cca01fa34e85c1ce0525caf3",
+      "auditFile": "qa/combo-pose-audit/native-candidates/282/Appeal-Anim.png"
+    },
+    {
+      "id": 282,
+      "name": "Appeal",
+      "suffix": "Offsets",
+      "file": "dist/assets/pokemon/282/Appeal-Offsets.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0282/Appeal-Offsets.png",
+      "bytes": 911,
+      "sha256": "553f421507393a205b456b16325191b275e842e6b1a37502242707dab956d014",
+      "auditFile": "qa/combo-pose-audit/native-candidates/282/Appeal-Offsets.png"
+    },
+    {
+      "id": 282,
+      "name": "Appeal",
+      "suffix": "Shadow",
+      "file": "dist/assets/pokemon/282/Appeal-Shadow.png",
+      "url": "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/576a7f13b5b7f6ad09a5877d5ae6b2d33458c245/sprite/0282/Appeal-Shadow.png",
+      "bytes": 1733,
+      "sha256": "169c0cd05a71b7b7115332bc8ac262aeadb45b57de71ef135c9dd6bec475cf52",
+      "auditFile": "qa/combo-pose-audit/native-candidates/282/Appeal-Shadow.png"
+    }
+  ]
+}

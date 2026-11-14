@@ -1,0 +1,187 @@
+{
+  "file": "dist/assets/cards/diglettHorde15.webp",
+  "method": "manual marking of distinct pink nose centers on 768x960 artwork; coordinates allow visual recount",
+  "count": 15,
+  "heads": [
+    {
+      "number": 1,
+      "noseCenter": [
+        379,
+        258
+      ],
+      "rgb": [
+        244,
+        132,
+        122
+      ]
+    },
+    {
+      "number": 2,
+      "noseCenter": [
+        273,
+        302
+      ],
+      "rgb": [
+        242,
+        133,
+        120
+      ]
+    },
+    {
+      "number": 3,
+      "noseCenter": [
+        514,
+        308
+      ],
+      "rgb": [
+        248,
+        132,
+        121
+      ]
+    },
+    {
+      "number": 4,
+      "noseCenter": [
+        624,
+        333
+      ],
+      "rgb": [
+        252,
+        142,
+        129
+      ]
+    },
+    {
+      "number": 5,
+      "noseCenter": [
+        150,
+        373
+      ],
+      "rgb": [
+        239,
+        123,
+        108
+      ]
+    },
+    {
+      "number": 6,
+      "noseCenter": [
+        420,
+        349
+      ],
+      "rgb": [
+        245,
+        133,
+        121
+      ]
+    },
+    {
+      "number": 7,
+      "noseCenter": [
+        467,
+        389
+      ],
+      "rgb": [
+        244,
+        130,
+        121
+      ]
+    },
+    {
+      "number": 8,
+      "noseCenter": [
+        310,
+        411
+      ],
+      "rgb": [
+        242,
+        128,
+        116
+      ]
+    },
+    {
+      "number": 9,
+      "noseCenter": [
+        401,
+        445
+      ],
+      "rgb": [
+        242,
+        130,
+        117
+      ]
+    },
+    {
+      "number": 10,
+      "noseCenter": [
+        628,
+        450
+      ],
+      "rgb": [
+        248,
+        134,
+        122
+      ]
+    },
+    {
+      "number": 11,
+      "noseCenter": [
+        216,
+        470
+      ],
+      "rgb": [
+        243,
+        130,
+        123
+      ]
+    },
+    {
+      "number": 12,
+      "noseCenter": [
+        522,
+        488
+      ],
+      "rgb": [
+        246,
+        129,
+        121
+      ]
+    },
+    {
+      "number": 13,
+      "noseCenter": [
+        282,
+        532
+      ],
+      "rgb": [
+        240,
+        126,
+        112
+      ]
+    },
+    {
+      "number": 14,
+      "noseCenter": [
+        444,
+        566
+      ],
+      "rgb": [
+        240,
+        133,
+        119
+      ]
+    },
+    {
+      "number": 15,
+      "noseCenter": [
+        620,
+        545
+      ],
+      "rgb": [
+        242,
+        133,
+        122
+      ]
+    }
+  ]
+}
