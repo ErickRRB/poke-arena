@@ -6,14 +6,14 @@
  background:none;border:0;border-radius:0;box-shadow:none;color:#fff7e7;
  text-shadow:-1px -1px #243426,1px -1px #243426,-1px 1px #243426,1px 1px #243426,0 2px 2px #14271ddd;
 }
-.battle-hud .trainer-id {height:44px;padding:0;gap:0;justify-content:center}
+.battle-hud .trainer-id {width:100%;height:44px;padding:0;gap:0;justify-content:center}
 .battle-hud .trainer-id>strong {color:inherit;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .battle-hud :is(#match-pause,#match-leave) {width:44px;height:44px;flex:0 0 44px;padding:0}
 .battle-hud :is(#match-pause,#match-leave):is(:hover,:active) {background:none;border:0;transform:none}
 .battle-hud :is(#match-pause,#match-leave):focus-visible {outline:2px solid #fff4b4;outline-offset:-3px}
 .battle-hud :is(#match-pause,#match-leave)>svg {width:31px;height:31px;filter:none}
 .battle-hud .connection-loading {position:absolute;left:0;top:44px;width:24px;height:24px}
-.battle-hud .online-status {top:44px;left:0;padding:0;font-weight:700}
+.battle-hud .online-status {top:48px;left:30px;max-width:min(230px,calc(100% - 30px));padding:0;font-weight:700}
 .battle-hud-status {position:absolute;inset:42px 0 auto;display:grid;grid-template-columns:76px minmax(0,1fr);height:52px;align-items:start;gap:0;pointer-events:none}
 .battle-hud #phase-label {grid-column:1;grid-row:1;display:grid;place-items:center;width:76px;height:18px;flex:none;margin:0;padding:0;font-size:11px;line-height:18px;font-weight:800;letter-spacing:0;text-align:center;white-space:nowrap}
 .battle-hud #boost {grid-column:2;grid-row:1;justify-self:end;position:relative;display:grid;place-items:center;width:44px;height:50px;margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;color:#bd56df}
