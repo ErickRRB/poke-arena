@@ -6,6 +6,7 @@ import { unpackGame, perspective } from './snapshot.js?v=26';
 import { cardArtMarkup } from './card-art.js?v=26';
 import { cardEquivalentLabel } from './card-equivalents.js?v=30';
 import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=26';
+import { bindQuickStats } from './quick-stats.js';
 
 const $ = id => document.getElementById(id);
 const canvas = $('arena');
@@ -33,6 +34,7 @@ let reduced = store.get('reduced', matchMedia('(prefers-reduced-motion: reduce)'
 let combatNumbers = store.get('combat-numbers', false) === true;
 let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true;
 let toastTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
+const quickStats=bindQuickStats({hand:$('hand'),cards:CARDS,getCard:el=>CARDS[game?.hands[0][Number(el.dataset.card)]],isPlaying:()=>game?.state==='playing'&&!document.body.classList.contains('menu-mode'),getSelection:()=>selected});
 const sfx=new SoundSystem(sound);
 let inspectedCard=null;
 let cardActionKey=null,cardActionReference=null,replacementKey=null;
@@ -118,7 +120,7 @@ function choose(index) {
   const c = CARDS[game.hands[0][selected]];
   live(`${c.name}. ${c.cost} de energía. ${c.spell ? 'Elegí una celda de la arena.' : 'Apuntá en tu lado de la arena.'}`);
 }
-function cancelSelection() { selected = -1; renderer.pointer = null; renderer.selection = null; updateDetail(); syncHand(); }
+function cancelSelection() { quickStats.hide(); selected = -1; renderer.pointer = null; renderer.selection = null; updateDetail(); syncHand(); }
 function updateUi() {
   $('battle-loading').hidden=!renderer.pendingSpecies.size;
   sfx.setBattleState(game.state==='playing'&&!document.hidden&&!document.body.classList.contains('menu-mode')&&!document.querySelector('dialog[open]'),game.overtime||game.time<=60);
@@ -226,6 +228,7 @@ async function attemptDeploy(point) {
   finally{if(serial===deploymentSerial){deploying=false;syncHand();}}
 }
 function togglePause() {
+  quickStats.hide();
   if(onlineMode)return;
   if(document.querySelector('dialog[open]'))return;
   if(game.state==='playing'){cancelSelection();game.pause();$('pause-overlay').hidden=false;$('resume-btn').focus({preventScroll:true});live('Partida en pausa.');}
@@ -430,7 +433,7 @@ $('collection').addEventListener('click',e=>{
 $('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){toggleDeckCard(inspectedCard);closeModal($('card-dialog'),false);}});
 $('save-deck-btn').addEventListener('click',()=>closeModal($('deck-dialog')));
 
-$('hand').addEventListener('click',e=>{const el=e.target.closest('[data-card]');if(el&&performance.now()>ignoreClickUntil)choose(Number(el.dataset.card));});
+$('hand').addEventListener('click',e=>{const el=e.target.closest('[data-card]');if(el&&!quickStats.isHoldClick(e)&&performance.now()>ignoreClickUntil)choose(Number(el.dataset.card));});
 $('hand').addEventListener('pointerdown',e=>{const el=e.target.closest('[data-card]');if(!el||e.button!==0)return;drag={index:Number(el.dataset.card),x:e.clientX,y:e.clientY,active:false};});
 document.addEventListener('pointermove',e=>{
   if(!drag)return;
@@ -447,6 +450,7 @@ canvas.addEventListener('pointermove',e=>{if(e.pointerType!=='touch'&&!drag&&sel
 canvas.addEventListener('pointerleave',()=>{if(!drag)renderer.pointer=null;});
 canvas.addEventListener('pointerdown',e=>{if(e.button!==0||drag?.active)return;audioInit();canvas.focus({preventScroll:true});attemptDeploy(arenaPoint(e.clientX,e.clientY));});
 document.addEventListener('keydown',e=>{
+  if(e.target.closest?.('#hand [data-card]')&&['Space','Enter'].includes(e.code))return;
   if(document.querySelector('dialog[open]')||['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;
   if(e.key>='1'&&e.key<='4'){e.preventDefault();choose(Number(e.key)-1);return;}
   if(e.key==='Escape'){if(game.state==='paused')togglePause();else cancelSelection();return;}
