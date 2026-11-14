@@ -1,0 +1,36 @@
+{
+  "artworks": 112,
+  "selectable": 109,
+  "corrected": [
+    "pandilla"
+  ],
+  "viewports": [
+    {
+      "width": 390,
+      "height": 844,
+      "loadedFiles": 52,
+      "delayedImages": 1,
+      "layoutDelta": 0,
+      "detailCards": 1,
+      "apiRequests": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "loadedFiles": 52,
+      "delayedImages": 1,
+      "layoutDelta": 0,
+      "detailCards": 1,
+      "apiRequests": 0
+    },
+    {
+      "width": 1440,
+      "height": 980,
+      "loadedFiles": 52,
+      "delayedImages": 1,
+      "layoutDelta": 0,
+      "detailCards": 1,
+      "apiRequests": 0
+    }
+  ]
+}

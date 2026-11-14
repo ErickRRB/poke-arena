@@ -10,8 +10,9 @@ import {openPage,ready,stable} from '../tests/browser/helpers.mjs';
 import {run as reviewDeck} from '../tests/browser/deck.mjs';
 
 const root=path.resolve(import.meta.dirname,'..'),dist=path.join(root,'dist');
-const output=path.join(root,'docs/pokemon-fidelity/ui');
-const keys=['diglett','diglettHorde','zubat','crobat','raltsTrio','registeel','celebi','duskull','nuzleaf'];
+const requested=process.argv.slice(2);
+const output=path.join(root,requested.length?'docs/visual-followup/card-ui':'docs/pokemon-fidelity/ui');
+const keys=requested.length?requested:['diglett','diglettHorde','zubat','crobat','raltsTrio','registeel','celebi','duskull','nuzleaf'];
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.webp':'image/webp','.png':'image/png','.woff2':'font/woff2','.svg':'image/svg+xml'};
 const server=http.createServer(async(req,res)=>{
   const pathname=new URL(req.url,'http://localhost').pathname;
@@ -29,12 +30,13 @@ try{
   const {chromium}=await import(pathToFileURL(module).href);
   browser=await chromium.launch({...(process.platform==='win32'?{channel:'msedge'}:{}),headless:true});
   const report={artworks:Object.keys(CARD_ART).length,selectable:Object.keys(CARD_ART).filter(key=>!CARDS[key]?.token).length,corrected:keys,viewports:[]};
-  report.deck=await reviewDeck({browser,url,viewports:[{width:390,height:844}],output});
+  if(!requested.length)report.deck=await reviewDeck({browser,url,viewports:[{width:390,height:844}],output});
   for(const viewport of [{width:390,height:844},{width:768,height:1024},{width:1440,height:980}]){
     const {context,page,errors,apiRequests}=await openPage(browser,viewport,{deckOnly:true,reducedMotion:'reduce'});
     try{
       await page.goto(url);await ready(page);
-      assert.ok((await (await page.request.get(url+'/card-art.js?v=26')).text()).includes("diglett:'diglettV2'"));
+      const servedSource=await (await page.request.get(url+'/card-art.js?v=26')).text();
+      for(const key of keys)assert.ok(servedSource.includes(path.basename(CARD_ART[key].file).split('.')[0]));
       for(const key of keys){
         const file=CARD_ART[key].file,response=await page.request.get(url+'/'+file);
         const actual=createHash('sha256').update(await response.body()).digest('hex');
@@ -83,7 +85,7 @@ try{
       }
       assert.deepEqual(errors,[]);assert.deepEqual(apiRequests,[]);
       report.viewports.push({...viewport,loadedFiles:images.length,delayedImages:pending.size,layoutDelta:0,detailCards:keys.length,apiRequests:0});
-      console.log(`Artwork UI ${viewport.width}: all nine cards load; no layout movement.`);
+      console.log(`Artwork UI ${viewport.width}: ${keys.length} cards load; no layout movement.`);
     }finally{await context.close();}
   }
   await writeFile(path.join(output,'validation.json'),JSON.stringify(report,null,2)+'\n');
