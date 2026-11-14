@@ -213,7 +213,7 @@ export class Renderer {
     if(refresh){
       // Articulated sprites are mutable canvases. Reuse their mask surface,
       // refreshing its pixels for this pose rather than caching a stale wing.
-      const mask=tint.getContext('2d');mask.imageSmoothingEnabled=false;mask.globalCompositeOperation='source-over';mask.clearRect(0,0,sw,sh);mask.drawImage(image,sx,sy,sw,sh,0,0,sw,sh);
+      const mask=tint.getContext('2d',{willReadFrequently:true});mask.imageSmoothingEnabled=false;mask.globalCompositeOperation='source-over';mask.clearRect(0,0,sw,sh);mask.drawImage(image,sx,sy,sw,sh,0,0,sw,sh);
       mask.globalCompositeOperation='source-in';mask.fillStyle='#ff3048';mask.fillRect(0,0,sw,sh);
     }
     cache.delete(key);cache.set(key,tint);if(cache.size>48)cache.delete(cache.keys().next().value);
