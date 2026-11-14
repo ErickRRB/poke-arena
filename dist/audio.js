@@ -227,7 +227,7 @@ export class SoundSystem {
     if(e.type==='cast'&&e.key==='sneaselAmbush')this.sample('foley:swish-1',e.x,{volume:.18,rate:.85,maxDuration:.4,delay:CARDS.sneaselAmbush.castDelay});
     if(e.type==='cast'&&e.key==='log')this.play('flame',e.x);
     if(e.type==='cast'&&e.key!=='log'&&e.key!=='sneaselAmbush'){
-      const pan=Math.max(-.65,Math.min(.65,(e.x-300)/400)),delay=Math.max(0,e.castDelay??CARDS[e.key]?.castDelay??0);
+      const pan=Math.max(-.65,Math.min(.65,(e.x-300)/400)),delay=Math.max(0,e.castDelay??CARDS[e.key]?.castDelay??.4);
       this.noise(e.key==='pinMissile'?.16:.09,e.key==='fireball'?950:2800,.022,pan,'bandpass',delay);
       this.tone(e.key==='fireball'?150:640,.08,'triangle',.018,-90,pan,delay);
     }

@@ -157,8 +157,9 @@ test('spell launch feedback follows cast preparation and does not stand in for t
   for(const key of ['fireball','pinMissile','hyperBeam','thunder']){
     const scene=spellScene(key),cast=scene.events.find(e=>e.type==='cast'),hit=scene.events.find(e=>e.type==='spellHit');
     assert.ok(cast.outputs.length&&hit.outputs.length,key);
-    assert.ok(cast.outputs.every(o=>Math.abs(o.delay-CARDS[key].castDelay)<1e-6),key+' respects the launch preparation');
-    assert.ok(hit.at>=cast.at+CARDS[key].castDelay);
+    const preparation=CARDS[key].castDelay??.4;
+    assert.ok(cast.outputs.every(o=>Math.abs(o.delay-preparation)<1e-6),key+' respects the launch preparation');
+    assert.ok(hit.at>=cast.at+preparation);
   }
 });
 
