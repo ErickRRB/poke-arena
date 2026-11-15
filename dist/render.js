@@ -342,7 +342,12 @@ export class Renderer {
     if(unit.card.structureArt){this.structureSprite(c,unit,idle);return;}
     const id = unit.card.id;
     const burrow=unit.card.burrow&&!unit.preview?(this.reduced?(unit.burrowed?1:0):unit.burrowProgress??(unit.burrowed?1:0)):0;
-    if(burrow>=.999){this.platform(c,unit);return;}
+    const buriedHealthY=unit.y-25/(this.verticalScale||1);
+    if(burrow>=.999){
+      this.platform(c,unit);
+      if(!idle)this.queueUnitHealth(c,unit,unit.x,buriedHealthY,44);
+      return;
+    }
     if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
     const movement=movementVisual(unit.card);
     const preparation=dashPreparation(unit,this.reduced);
@@ -401,7 +406,8 @@ export class Renderer {
     c.restore();
     if(unit.shield>0&&!unit.mounted){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
     if(idle)return;
-    const by=y-lift-((this.bodyHeights.get(id)||22)*scale+9+(id===6?12:0))/vertical;
+    const bodyHealthY=y-lift-((this.bodyHeights.get(id)||22)*scale+9+(id===6?12:0))/vertical;
+    const by=bodyHealthY+(buriedHealthY-bodyHealthY)*burrow;
     this.queueUnitHealth(c,unit,x,by,unit.maxHp<=1?18:unit.card.count?30:unit.maxHp>=1800?52:44);
     if(unit.card.ability&&!unit.abilityUsed){ellipse(c,'#382448',x+27,by+4,6,6);text(c,'◆',x+27,by+4,'#e9beff',10,800);}
     if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
@@ -505,15 +511,14 @@ export class Renderer {
     if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
   }
   platform(c,unit){
-    if(unit.card.platform===false)return;
     if(unit.card.burrow){
       const vertical=this.verticalScale||1;c.save();c.translate(unit.x,unit.y);c.scale(1,1/vertical);
       rect(c,'#263a32',-25,-9,50,20);rect(c,'#89998b',-23,-7,46,16);rect(c,'#b6c0a5',-20,-5,40,12);
       line(c,'#495f52',0,-5,0,7,2);for(const x of[-19,17])rect(c,'#465b4e',x,-4,3,3);
       rect(c,unit.team?'#d75f4e':'#498ca2',-16,7,32,3);
-      if(unit.burrowed){rect(c,'#2f4135',-16,13,32,3);rect(c,unit.team?'#efaf7a':'#b7df9b',-16,13,32*Math.max(0,unit.hp/unit.maxHp),3);}
       c.restore();return;
     }
+    if(unit.card.platform===false)return;
     if(!this.battleArt.structure(c,'platform',unit.team,unit.x,unit.y+4,74,this.verticalScale||1,this.targetTint(unit)))text(c,'PLACEHOLDER',unit.x,unit.y-15,'#ffe3a0',8);
   }
   onEvent(event,game) {
