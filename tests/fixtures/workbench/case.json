@@ -1,0 +1,22 @@
+{
+  "id": "dev-fixture",
+  "source": "tests/fixtures/workbench/fixture.html",
+  "adapter": "tests/fixtures/workbench/adapter.mjs",
+  "viewport": {
+    "width": 320,
+    "height": 240,
+    "dpr": 1
+  },
+  "durationMs": 2000,
+  "sampleMs": 50,
+  "clock": "natural-app",
+  "expectedEvent": "impact",
+  "extractIntervalMs": 120,
+  "crop": {
+    "x": 0,
+    "y": 40,
+    "width": 160,
+    "height": 140
+  },
+  "recordCanvas": "canvas"
+}
