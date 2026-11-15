@@ -776,7 +776,7 @@ export class Renderer {
         this.combatArt(c,'rock',x,y-(this.reduced?8:8+Math.sin(age*2+i)*3),20+i%3*3,0,20+i%3*3,{frame:i%2});
       }
     }else if(f.key==='nightmare'){
-      this.combatArt(c,front?'nightmareFront':'nightmareBack',f.x,f.y,radius*2.4,0,radius*2.4,{age:this.reduced?.3:age,blend:!this.reduced});
+      this.softNightmare(c,f,front,age);
     }else if(!front){
       if(f.key==='whirlpool'){
         this.softWhirlpool(c,f,age);
@@ -791,6 +791,18 @@ export class Renderer {
     if(!front){
       if(f.key){c.save();c.translate(f.x,Math.min(H-12,f.y+radius+8));c.scale(1,1/(this.verticalScale||1));pixelMeter(c,-18,0,36,f.life/f.duration,CARDS[f.key].color);c.restore();}
     }c.restore();
+  }
+  softNightmare(c,field,front,age){
+    const radius=field.radius,size=Math.ceil(radius*2),surface=this.fieldSurface??=this.canvas.ownerDocument.createElement('canvas');
+    if(surface.width!==size||surface.height!==size){surface.width=size;surface.height=size;}
+    const portal=surface.getContext('2d');portal.setTransform(1,0,0,1,0,0);portal.globalAlpha=1;portal.globalCompositeOperation='source-over';portal.clearRect(0,0,size,size);portal.imageSmoothingEnabled=false;
+    this.battleArt.draw(portal,front?'nightmareFront':'nightmareBack',size/2,size/2,radius*2.4,radius*2.4,{age:this.reduced?.3:Math.max(0,age),blend:!this.reduced});
+    // Keep the native central drawing and its front/back layering, while its
+    // purple/black rim dissolves into the real field radius instead of a ring.
+    const fade=portal.createRadialGradient(size/2,size/2,0,size/2,size/2,radius);
+    fade.addColorStop(0,'#fff');fade.addColorStop(.48,'#fff');fade.addColorStop(.72,'#ffffff9c');fade.addColorStop(1,'#ffffff00');
+    portal.globalCompositeOperation='destination-in';portal.fillStyle=fade;portal.fillRect(0,0,size,size);portal.globalCompositeOperation='source-over';
+    c.drawImage(surface,field.x-radius,field.y-radius,radius*2,radius*2);
   }
   softWhirlpool(c,field,age){
     const radius=field.radius,size=Math.ceil(radius*2),surface=this.fieldSurface??=this.canvas.ownerDocument.createElement('canvas');
