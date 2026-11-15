@@ -14,10 +14,10 @@ try{
   const{SoundSystem,AUDIO_LEVELS}=await import('/audio.js?v=36'),{Game,CARDS}=await import('/engine.js?v=34');
   const preload=new SoundSystem();await preload.ready;preload.ctx=new OfflineAudioContext(2,44100,44100);await preload.decodeSamples();
   if(preload.buffers.size!==preload.encoded.size)throw Error('Some recordings failed browser decoding');
-  const rate=44100,span=2.7,keys=['treecko','treecko-pair','roselia','nuzleaf','alakazam','rhydon','snorlax','sableye','squirtle','pikachu','charizard','gastly','grimer','lapras','exeggcute','ampharos-up','ampharos-down','pinMissile','fireball','heal','mixed-voices','cold-roselia','blastoiseCannon','octillery','diglett','diglett-group','diglett-tower','diglett-structure','skeleton-army','summon-skeletons','death-skeletons','cold-diglett','cold-diglett-tower','cold-diglett-structure','cold-summon-skeletons','zapdos','voltorb'];
-  const rows=[],demo=[new Float32Array(Math.ceil(keys.length*span*rate)),new Float32Array(Math.ceil(keys.length*span*rate))];
+  const rate=44100,span=2.7,sceneFrames=Math.round(span*rate),keys=['treecko','treecko-pair','roselia','nuzleaf','alakazam','rhydon','snorlax','sableye','squirtle','pikachu','charizard','gastly','grimer','lapras','exeggcute','ampharos-up','ampharos-down','pinMissile','fireball','heal','mixed-voices','cold-roselia','blastoiseCannon','octillery','diglett','diglett-group','diglett-tower','diglett-structure','skeleton-army','summon-skeletons','death-skeletons','cold-diglett','cold-diglett-tower','cold-diglett-structure','cold-summon-skeletons','zapdos','voltorb'];
+  const rows=[],demo=[new Float32Array(keys.length*sceneFrames),new Float32Array(keys.length*sceneFrames)];
   for(let index=0;index<keys.length;index++){
-   const key=keys[index],ctx=new OfflineAudioContext(2,Math.ceil(span*rate),rate);let clock=0;
+   const key=keys[index],ctx=new OfflineAudioContext(2,sceneFrames,rate);let clock=0;
    Object.defineProperty(ctx,'state',{get:()=> 'running'});Object.defineProperty(ctx,'currentTime',{get:()=>clock});
    const sound=Object.assign(Object.create(SoundSystem.prototype),{enabled:true,ctx,last:new Map(),buffers:new Map(preload.buffers),voiceSlots:[],effectSlots:[]});sound.createMixGraph();
    if(key.startsWith('cold-'))sound.buffers=new Map();
@@ -30,7 +30,7 @@ try{
    else if(key==='heal')emit({type:'heal',unit:{x:180}});
    else{
     let game;game=new Game({seed:937,onEvent:e=>{clock=game?.elapsed||0;emit(e);}});game.start();game.aiEnabled=false;for(const tower of game.towers)tower.active=false;
-    const base=key.replace(/^cold-/,''),spell=!!CARDS[base]?.spell,target=base==='diglett-tower'?game.towers.find(t=>t.team===1&&!t.king):game.spawn(base==='diglett-structure'?'regice':'snorlax',1,180,440,0);target.x=180;target.y=440;target.hp=target.maxHp=1e8;
+    const base=key.replace(/^cold-/,''),spell=!!CARDS[base]?.spell,target=base==='diglett-tower'||CARDS[base]?.building?game.towers.find(t=>t.team===1&&!t.king):game.spawn(base==='diglett-structure'?'regice':'snorlax',1,180,440,0);target.x=180;target.y=440;target.hp=target.maxHp=1e8;
     if(target.card)target.card={...target.card,passive:true,speed:0,damage:0,structure:base==='diglett-structure',lifetime:1e12};
     if(spell){game.hands[0][0]=key;game.energy[0]=10;game.deploy(0,0,180,440);}
     else if(['diglett-group','skeleton-army'].includes(base)){
@@ -50,7 +50,7 @@ try{
     while(game.elapsed<span-.1){game.step(1/30);clock=game.elapsed;}
    }
    const buffer=await ctx.startRendering();let peak=0,sum=0,nonzero=0;
-   for(let channel=0;channel<2;channel++){const data=buffer.getChannelData(channel);demo[channel].set(data,Math.floor(index*span*rate));for(const sample of data){peak=Math.max(peak,Math.abs(sample));sum+=sample*sample;if(Math.abs(sample)>1e-6)nonzero++;}}
+   for(let channel=0;channel<2;channel++){const data=buffer.getChannelData(channel);demo[channel].set(data,index*sceneFrames);for(const sample of data){peak=Math.max(peak,Math.abs(sample));sum+=sample*sample;if(Math.abs(sample)>1e-6)nonzero++;}}
    if(!nonzero||peak>=.98)throw Error(key+' silent or clipping: '+peak);
    if(/diglett|skeletons|skeleton-army/.test(key)&&!events.some(e=>['hit','melee'].includes(e.type)))throw Error(key+' did not reach a real attack contact');
    rows.push({key,previewAt:index*span,events,outputs,peak,rms:Math.sqrt(sum/buffer.length/2)});
