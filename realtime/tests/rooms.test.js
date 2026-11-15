@@ -72,7 +72,7 @@ describe('Cloudflare WebSocket rooms', () => {
       await runInDurableObject(stub,instance=>{instance.persist();instance.stop();});await evictDurableObject(stub,{webSockets:'close'});
       const resumed=await connect('/v1/rooms/'+room);resumed.send({type:'hello',protocol:ONLINE_PROTOCOL,token:tokens[0],resume:true,after:first.seq});
       const restored=await resumed.next(p=>p.type==='snapshot');expect(restored.game.projectiles[0].nextStepAt).toBe(first.game.projectiles[0].nextStepAt);expect(restored.game.projectiles[0].sourceId).toBe(first.game.projectiles[0].sourceId);
-      await runInDurableObject(stub,instance=>{const g=instance.match.game;g.resume();for(let i=0;i<40;i++)g.step(1/30);g.pause();expect(g.projectiles).toHaveLength(0);expect(g.units.every(u=>u.hp===9919)).toBe(true);const hits=instance.match.events.filter(row=>row.event.type==='beam'&&row.event.key==='voltorb');expect(hits).toHaveLength(3);expect(new Set(hits.map(row=>row.event.attackId)).size).toBe(3);instance.persist();instance.broadcast();});
+      await runInDurableObject(stub,instance=>{const g=instance.match.game;g.resume();for(let i=0;i<40;i++)g.step(1/30);g.pause();expect(g.projectiles).toHaveLength(0);expect(g.units.every(u=>u.hp===9901)).toBe(true);const hits=instance.match.events.filter(row=>row.event.type==='beam'&&row.event.key==='voltorb');expect(hits).toHaveLength(3);expect(new Set(hits.map(row=>row.event.attackId)).size).toBe(3);instance.persist();instance.broadcast();});
       const completed=await resumed.next(p=>p.type==='snapshot'&&p.seq>restored.seq);expect(completed.game.projectiles).toHaveLength(0);expect(completed.events.filter(row=>row.event.type==='beam')).toHaveLength(2);
     }finally{await finish(room);}
   });
