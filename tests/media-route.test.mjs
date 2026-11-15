@@ -64,7 +64,41 @@ test('Cloudflare retires every old HTTP API route without an external request or
 });
 test('public Cloudflare media supports anonymous cross-origin playback and byte-range seeking without an API proxy',async t=>{
  const external=t.mock.method(globalThis,'fetch',()=>{throw Error('No external upstream')});let calls=0;
- const env={ASSETS:{fetch:async request=>{calls++;assert.equal(request.headers.get('Range'),'bytes=100-199');return new Response(new Uint8Array(100),{status:206,headers:{'Content-Type':'audio/mpeg','Content-Range':'bytes 100-199/8000000','Accept-Ranges':'bytes',ETag:'"music"'}});}}};
- const r=await frontend.fetch(new Request(WEB_ORIGIN+'/assets/audio/music/test.mp3',{headers:{Origin:'https://legacy.example',Range:'bytes=100-199'}}),env);assert.equal(r.status,206);assert.equal(r.headers.get('Content-Range'),'bytes 100-199/8000000');assert.equal(r.headers.get('Access-Control-Allow-Origin'),'*');assert.equal(r.headers.get('Access-Control-Allow-Credentials'),null);assert.match(r.headers.get('Access-Control-Expose-Headers'),/Content-Range/);assert.equal(calls,1);
+ const bytes=Uint8Array.from({length:8000},(_,i)=>i%251);
+ const env={ASSETS:{fetch:async request=>{calls++;assert.equal(request.headers.get('Range'),'bytes=100-199');return new Response(bytes,{status:200,headers:{'Content-Type':'audio/mpeg','Content-Length':String(bytes.length),ETag:'"music"'}});}}};
+ const r=await frontend.fetch(new Request(WEB_ORIGIN+'/assets/audio/music/test.mp3',{headers:{Origin:'https://legacy.example',Range:'bytes=100-199'}}),env);assert.equal(r.status,206);assert.equal(r.headers.get('Content-Range'),'bytes 100-199/8000');assert.equal(r.headers.get('Content-Length'),'100');assert.deepEqual(new Uint8Array(await r.arrayBuffer()),bytes.slice(100,200));assert.equal(r.headers.get('Access-Control-Allow-Origin'),'*');assert.equal(r.headers.get('Access-Control-Allow-Credentials'),null);assert.match(r.headers.get('Access-Control-Expose-Headers'),/Content-Range/);assert.equal(calls,1);
  const preflight=await frontend.fetch(new Request(WEB_ORIGIN+'/assets/audio/music/test.mp3',{method:'OPTIONS',headers:{Origin:'https://legacy.example','Access-Control-Request-Method':'GET','Access-Control-Request-Headers':'range'}}),{});assert.equal(preflight.status,204);assert.equal(preflight.headers.get('Access-Control-Allow-Origin'),'*');assert.match(preflight.headers.get('Access-Control-Allow-Headers'),/Range/);assert.equal(external.mock.callCount(),0);
+});
+
+test('full asset bindings support open, suffix and clamped byte ranges while HEAD stays bodyless',async()=>{
+ const bytes=Uint8Array.from({length:8000},(_,i)=>i%251),env={ASSETS:{fetch:async req=>new Response(req.method==='HEAD'?null:bytes,{headers:{'Content-Length':'8000','Content-Type':'audio/mpeg'}})}};
+ for(const[range,start,end]of[['bytes=0-0',0,0],['bytes=7990-',7990,7999],['bytes=-64',7936,7999],['bytes=7990-9999',7990,7999],['bytes=-9000',0,7999]]){
+  const r=await frontend.fetch(new Request(WEB_ORIGIN+'/music.mp3',{headers:{Range:range}}),env);assert.equal(r.status,206,range);assert.equal(r.headers.get('Content-Range'),`bytes ${start}-${end}/8000`);assert.deepEqual(new Uint8Array(await r.arrayBuffer()),bytes.slice(start,end+1));
+ }
+ const head=await frontend.fetch(new Request(WEB_ORIGIN+'/music.mp3',{method:'HEAD',headers:{Range:'bytes=100-199'}}),env);assert.equal(head.status,200);assert.equal(head.headers.get('Accept-Ranges'),'bytes');assert.equal(head.headers.get('Content-Length'),'8000');assert.equal((await head.arrayBuffer()).byteLength,0);
+});
+
+test('unsatisfiable ranges return416 and unsupported range syntax preserves the full asset',async()=>{
+ const bytes=new Uint8Array(8000),env={ASSETS:{fetch:async()=>new Response(bytes,{headers:{'Content-Length':'8000'}})}};
+ for(const range of['bytes=8000-','bytes=90071992547409999-','bytes=150-100','bytes=-0']){const r=await frontend.fetch(new Request(WEB_ORIGIN+'/music.mp3',{headers:{Range:range,Origin:'https://legacy.example'}}),env);assert.equal(r.status,416,range);assert.equal(r.headers.get('Content-Range'),'bytes */8000');assert.equal(r.headers.get('Access-Control-Allow-Origin'),'*');assert.equal((await r.arrayBuffer()).byteLength,0);}
+ for(const range of['items=0-1','bytes=','bytes=0-1,10-20']){const r=await frontend.fetch(new Request(WEB_ORIGIN+'/music.mp3',{headers:{Range:range}}),env);assert.equal(r.status,200);assert.equal((await r.arrayBuffer()).byteLength,8000);}
+});
+
+test('If-Range validators and upstream304 responses retain their HTTP semantics',async()=>{
+ const env={ASSETS:{fetch:async()=>new Response(new Uint8Array(8000),{headers:{'Content-Length':'8000',ETag:'"music"','Last-Modified':'Sun, 15 Nov 2026 05:00:00 GMT'}})}};
+ for(const[validator,status]of[['"music"',206],['"older"',200],['W/"music"',200],['Sun, 15 Nov 2026 05:00:00 GMT',206],['Sat, 14 Nov 2026 05:00:00 GMT',200]]){const r=await frontend.fetch(new Request(WEB_ORIGIN+'/music.mp3',{headers:{Range:'bytes=100-199','If-Range':validator}}),env);assert.equal(r.status,status,validator);await r.arrayBuffer();}
+ const r=await frontend.fetch(new Request(WEB_ORIGIN+'/music.mp3',{headers:{Range:'bytes=100-199','If-None-Match':'"music"'}}),{ASSETS:{fetch:async()=>new Response(null,{status:304,headers:{ETag:'"music"'}})}});assert.equal(r.status,304);assert.equal((await r.arrayBuffer()).byteLength,0);assert.equal(r.headers.get('Content-Range'),null);
+});
+
+test('a small range stops the upstream stream without buffering the whole music file',async()=>{
+ let reads=0,cancelled=false;const chunk=65536,size=8*1024*1024;
+ const env={ASSETS:{fetch:async()=>new Response(new ReadableStream({pull(c){reads++;c.enqueue(new Uint8Array(chunk).fill(reads));},cancel(){cancelled=true;}}),{headers:{'Content-Length':String(size),'Content-Type':'audio/mpeg'}})}};
+ const r=await frontend.fetch(new Request(WEB_ORIGIN+'/music.mp3',{headers:{Range:'bytes=65530-65545'}}),env);const bytes=new Uint8Array(await r.arrayBuffer());assert.equal(bytes.length,16);assert.deepEqual([...bytes],[...new Uint8Array(6).fill(1),...new Uint8Array(10).fill(2)]);assert.ok(cancelled);assert.ok(reads<=3,`only boundary chunks may be read, got ${reads}`);
+});
+
+test('client cancellation and source failures propagate through a streaming range',async()=>{
+ let cancelled=false;const env={ASSETS:{fetch:async()=>new Response(new ReadableStream({pull(c){c.enqueue(new Uint8Array(65536));},cancel(){cancelled=true;}}),{headers:{'Content-Length':'8000000'}})}};
+ const r=await frontend.fetch(new Request(WEB_ORIGIN+'/music.mp3',{headers:{Range:'bytes=0-'}}),env),reader=r.body.getReader();await reader.read();await reader.cancel();assert.ok(cancelled);
+ const broken={ASSETS:{fetch:async()=>new Response(new ReadableStream({pull(c){c.error(new Error('source unavailable'));}}),{headers:{'Content-Length':'8000'}})}};
+ const failed=await frontend.fetch(new Request(WEB_ORIGIN+'/music.mp3',{headers:{Range:'bytes=100-199'}}),broken);await assert.rejects(failed.arrayBuffer(),/source unavailable/);
 });

@@ -27,6 +27,8 @@ La entrega sigue estas etapas obligatorias:
 
 Nadie aprueba en solitario su propio cambio. No marcar el trabajo terminado mientras queden hallazgos que impidan que el resultado completo cumpla este estándar.
 
+Al servir música, comprobar en la plataforma publicada las respuestas `206`, `416` y `If-Range`, sus cuerpos y cabeceras, además del avance real de reproducción y la transición al final de una pieza. Que el MP3 cargue o que el servidor local soporte rangos no demuestra que la búsqueda temporal funcione en producción. Las pruebas deben reproducir el comportamiento real del binding de archivos; no suponer que devuelve fragmentos si la plataforma entrega el archivo completo.
+
 ## Selección de pruebas
 
 Elegir las pruebas por la sección modificada. Para el editor o guardado del mazo, usar `npm run test:deck` y `npm run test:ui:deck`; no ejecutar conexión entre usuarios, audio, combate ni balance. Usar los grupos `battle`, `placement`, `rendering`, `online`, `server`, `audio`, `balance` y `tooling` solo cuando el cambio alcance esas áreas. Se pueden combinar con `npm test -- deck rendering`.
