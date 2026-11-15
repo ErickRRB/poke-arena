@@ -18,11 +18,20 @@ export function validateCase(c) {
   const q=c.crop;
   if (!q || ![q.x,q.y,q.width,q.height].every(Number.isFinite) || q.x<0 || q.y<0 || q.width<=0 || q.height<=0 || q.x+q.width>width || q.y+q.height>height) throw Error('invalid fixed crop');
   inRoot(c.source); inRoot(c.adapter);
+  if (c.runtime && (c.source !== 'dist/index.html' || typeof c.runtime.root !== 'string' || !/^[a-f0-9]{40}$/.test(c.runtime.sha || '') || !/^[a-f0-9]{40}$/.test(c.runtime.tree || ''))) throw Error('runtime requires dist/index.html, repository root, full SHA and tree');
 }
 export function pngSize(data) {
   const signature=Buffer.from([137,80,78,71,13,10,26,10]);
   if (data.length<24 || !data.subarray(0,8).equals(signature) || data.readUInt32BE(8)!==13 || data.toString('ascii',12,16)!=='IHDR') throw Error('invalid PNG');
   return {width:data.readUInt32BE(16),height:data.readUInt32BE(20)};
+}
+export function timestampAnomalies(frames) {
+  return frames.flatMap((frame,index)=>{
+    const previous=frames[index-1]?.timestamp;
+    if(!Number.isFinite(frame.timestamp)) return [{index,reason:'missing',value:frame.timestamp??null}];
+    if(index && Number.isFinite(previous) && frame.timestamp<previous) return [{index,reason:'decreased',value:frame.timestamp,previous}];
+    return [];
+  });
 }
 export function selectFrames(pts, interval) {
   const selected=[]; let last=-Infinity;
@@ -37,7 +46,7 @@ function viewer(c, selected, result) {
   const first=result.samples[0], viewport=first.viewport, image=result.capture.frames[0];
   const eventSamples=result.samples.filter(sample=>sample.events?.some(event=>event.type===c.expectedEvent)).length;
   const conditions=esc(JSON.stringify({requested:c.viewport,observed:first,capture:cadence},null,2));
-  return `<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(c.id)} · evidencia</title><style>body{font:14px system-ui;margin:16px;overflow-wrap:anywhere} .row{display:flex;flex-wrap:wrap;gap:12px;align-items:start}.full,.crop{overflow:auto;flex:none;max-width:100%}.full{width:${width}px;height:${height}px}.crop{width:${q.width}px;height:${q.height}px}.row img{display:block;width:${width}px;height:${height}px;max-width:none}.crop img{margin-left:-${q.x}px;margin-top:-${q.y}px}section{margin:24px 0}video{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%}.table-wrap{max-width:100%;overflow-x:auto}td{overflow-wrap:anywhere}</style><h1>${esc(c.id)}</h1><p>Secuencia de cuadros recibidos de CDP; puede omitir presentaciones. No demuestra fluidez.</p><p><a href="run.json">Manifiesto completo</a></p>${c.recordCanvas ? '<p>Video de canvas (sin interfaz completa):</p><video controls src="canvas.webm"></video>' : ''}<h2 id="capture-summary">Condiciones y cadencia observadas</h2><p>Viewport solicitado ${width} × ${height}, DPR ${esc(c.viewport.dpr)}; observado ${esc(viewport.width)} × ${esc(viewport.height)}, DPR ${esc(first.dpr)}.</p><p>Fuente: ${esc(c.source)}; cuadros ${esc(image.format)} de ${image.width} × ${image.height} píxeles capturados (dimensiones de imagen, no DPR físico inferido). Evento ${esc(c.expectedEvent)} presente en ${eventSamples} muestras; las repeticiones no implican eventos distintos.</p><p>Cuadros CDP recibidos: ${cadence.count}; duración: ${cadence.durationSeconds.toFixed(3)} s; media: ${cadence.meanDeliveredFps?.toFixed(2) ?? '—'} por segundo; hueco máximo: ${cadence.maxGapMs?.toFixed(2) ?? '—'} ms. Son valores de entrega, no fluidez.</p><details><summary>Condiciones y huecos completos</summary><pre>${conditions}</pre></details><details><summary>Tiempos, poses, HP y eventos observados (${result.samples.length})</summary><div class="table-wrap"><table><thead><tr><th>Muestra</th><th>Época (ms)</th><th>Reloj página (ms)</th><th>Juego (s)</th><th>Pose</th><th>HP</th><th>Eventos</th></tr></thead><tbody>${samples}</tbody></table></div></details>${frames}</html>`;
+  return `<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(c.id)} · evidencia</title><style>body{font:14px system-ui;margin:16px;overflow-wrap:anywhere} .row{display:flex;flex-wrap:wrap;gap:12px;align-items:start}.full,.crop{overflow:auto;flex:none;max-width:100%}.full{width:${width}px;height:${height}px}.crop{width:${q.width}px;height:${q.height}px}.row img{display:block;width:${width}px;height:${height}px;max-width:none}.crop img{margin-left:-${q.x}px;margin-top:-${q.y}px}section{margin:24px 0}video{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%}.table-wrap{max-width:100%;overflow-x:auto}td{overflow-wrap:anywhere}</style><h1>${esc(c.id)}</h1><p>Secuencia de cuadros recibidos de CDP; puede omitir presentaciones. No demuestra fluidez.</p><p><a href="run.json">Manifiesto completo</a></p>${c.recordCanvas ? '<p>Video de canvas (sin interfaz completa):</p><video controls src="canvas.webm"></video>' : ''}<h2 id="capture-summary">Condiciones y cadencia observadas</h2><p>Viewport solicitado ${width} × ${height}, DPR ${esc(c.viewport.dpr)}; observado ${esc(viewport.width)} × ${esc(viewport.height)}, DPR ${esc(first.dpr)}.</p><p>Fuente: ${esc(c.source)}; herramientas ${esc(result.git.sha)}; runtime ${esc(result.runtime?.sha ?? result.git.sha)}; cuadros ${esc(image.format)} de ${image.width} × ${image.height} píxeles capturados (dimensiones de imagen, no DPR físico inferido). Evento ${esc(c.expectedEvent)} presente en ${eventSamples} muestras; las repeticiones no implican eventos distintos.</p><p>Cuadros CDP recibidos: ${cadence.count}; duración: ${cadence.durationSeconds.toFixed(3)} s; media: ${cadence.meanDeliveredFps?.toFixed(2) ?? '—'} por segundo; hueco máximo: ${cadence.maxGapMs?.toFixed(2) ?? '—'} ms. Son valores de entrega, no fluidez.</p><details><summary>Condiciones y huecos completos</summary><pre>${conditions}</pre></details><details><summary>Tiempos, poses, HP y eventos observados (${result.samples.length})</summary><div class="table-wrap"><table><thead><tr><th>Muestra</th><th>Época (ms)</th><th>Reloj página (ms)</th><th>Juego (s)</th><th>Pose</th><th>HP</th><th>Eventos</th></tr></thead><tbody>${samples}</tbody></table></div></details>${frames}</html>`;
 
 }
 async function playwright() {
@@ -45,9 +54,22 @@ async function playwright() {
   try { return await import('playwright'); } catch { return import(pathToFileURL(path.resolve(root,'../pokemon-arena/qa/node_modules/playwright/index.mjs'))); }
 }
 function command(exe,args) { return execFileSync(exe,args,{cwd:root,encoding:'utf8',windowsHide:true,maxBuffer:32*1024*1024}); }
-function serve() {
+function runtimeSource(config) {
+  if (!config.runtime) return null;
+  const cwd=path.resolve(root,config.runtime.root), git=(...args)=>execFileSync('git',args,{cwd,encoding:'utf8',windowsHide:true,maxBuffer:32*1024*1024}).trim();
+  const sha=git('rev-parse','HEAD'),tree=git('rev-parse','HEAD^{tree}'),status=git('status','--porcelain','--','dist');
+  if(sha!==config.runtime.sha || tree!==config.runtime.tree || status) throw Error('runtime SHA/tree mismatch or dirty dist');
+  const blobs=new Map(git('ls-tree','-r','HEAD','--','dist').split(/\r?\n/).filter(Boolean).map(line=>{const m=/^\d+ blob ([a-f0-9]+)\t(.+)$/.exec(line);if(!m) throw Error('unsupported runtime tree entry');return [m[2],m[1]];}));
+  return {cwd,sha,tree,status,blobs,served:new Map(),errors:[]};
+}
+function serve(runtime) {
   const mime={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.ogg':'audio/ogg','.mp3':'audio/mpeg'};
-  const server=createServer(async(req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);const file=inRoot(pathname.replace(/^\//,''));const data=await readFile(file);res.writeHead(200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store'});res.end(data);}catch{res.writeHead(404).end();}});
+  const server=createServer(async(req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);const relative=pathname.replace(/^\//,''); const runtimeFile=runtime && relative.startsWith('dist/');
+    const file=runtimeFile?path.resolve(runtime.cwd,relative):inRoot(relative);
+    if(runtimeFile && !file.startsWith(path.join(runtime.cwd,'dist')+path.sep)) throw Error('invalid runtime path');
+    const data=await readFile(file);
+    if(runtimeFile){const blobId=bytes=>createHash('sha1').update(Buffer.from(`blob ${bytes.length}\0`)).update(bytes).digest('hex'); let blob=blobId(data); if(blob!==runtime.blobs.get(relative)) blob=blobId(Buffer.from(data.toString('utf8').replace(/\r\n/g,'\n'),'utf8'));if(runtime.blobs.get(relative)!==blob){runtime.errors.push('runtime blob mismatch: '+relative);throw Error('runtime blob mismatch');}runtime.served.set(relative,{path:relative,gitBlob:blob,sha256:sha(data)});}
+    res.writeHead(200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store'});res.end(data);}catch{res.writeHead(404).end();}});
   return new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',()=>resolve(server));});
 }
 export async function runCase(c,{mode='capture',out='workbench-runs',observeDurationMs,headless}={}) {
@@ -55,14 +77,15 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
   if (!['capture','observe'].includes(mode)) throw Error('mode must be capture or observe');
   if (observeDurationMs !== undefined && (mode !== 'observe' || !Number.isFinite(observeDurationMs) || observeDurationMs<100)) throw Error('observe duration must be at least 100 ms and only applies to observe');
   const result={schema:1,id:c.id,mode,status:'running',requested:c,limitations:['Emulación de navegador; no dispositivo físico.','La semilla del motor no determina Math.random del renderer.','Una secuencia de imágenes no demuestra fluidez perceptual.'],samples:[]};
-  let dir,server,browser,context,cdp; const captured=[]; let pending=Promise.resolve();
+  let dir,server,browser,context,cdp,runtime;  const captured=[]; let pending=Promise.resolve();
   if (mode==='capture') { await mkdir(out,{recursive:true}); dir=path.resolve(out,`${new Date().toISOString().replace(/[:.]/g,'-')}-${randomUUID()}`); await mkdir(dir); await mkdir(path.join(dir,'frames'));  }
   try {
-    for (const p of [c.source,c.adapter]) { const data=await readFile(inRoot(p)); (result.inputs ||= []).push({path:p,sha256:sha(data)}); }
+    runtime=runtimeSource(c);
+    for (const p of [c.source,c.adapter,'scripts/review-workbench.mjs']) { const data=await readFile(runtime && p===c.source?path.join(runtime.cwd,p):inRoot(p)); (result.inputs ||= []).push({path:p,origin:runtime && p===c.source?'runtime':'tooling',sha256:sha(data)}); }
     result.git={sha:command('git',['rev-parse','HEAD']).trim(),tree:command('git',['rev-parse','HEAD^{tree}']).trim(),status:command('git',['status','--porcelain']).trim()};
     const adapter=await import(pathToFileURL(inRoot(c.adapter)).href+'?v='+Date.now());
     if (typeof adapter.prepare!=='function' || typeof adapter.observe!=='function') throw Error('adapter requires prepare and observe');
-    server=await serve(); const pw=await playwright(); browser=await pw.chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL||'msedge',headless:headless ?? mode!=='observe'});
+    server=await serve(runtime); const pw=await playwright(); browser=await pw.chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL||'msedge',headless:headless ?? mode!=='observe'});
     const viewport={width:c.viewport.width,height:c.viewport.height};
     context=await browser.newContext({viewport,deviceScaleFactor:c.viewport.dpr});
     const page=await context.newPage();
@@ -80,7 +103,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
       cdp=await context.newCDPSession(page); await cdp.send('Page.enable');
       cdp.on('Page.screencastFrame', frame=> {
         const index=captured.length, name=`frames/${String(index).padStart(5,'0')}.png`;
-        const entry={index,path:name,timestamp:frame.metadata.timestamp,deviceWidth:frame.metadata.deviceWidth,deviceHeight:frame.metadata.deviceHeight}; captured.push(entry);
+        const entry={index,path:name,timestamp:frame.metadata?.timestamp??null,metadata:frame.metadata??null,receivedAtEpochMs:Date.now(),receivedAtMonotonicMs:performance.now(),deviceWidth:frame.metadata?.deviceWidth,deviceHeight:frame.metadata?.deviceHeight}; captured.push(entry);
         pending=pending.then(()=>writeFile(path.join(dir,name),Buffer.from(frame.data,'base64')));
         cdp.send('Page.screencastFrameAck',{sessionId:frame.sessionId}).catch(()=>{});
       });
@@ -94,7 +117,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
     if (observed.some(s=>!Number.isFinite(s.wallTime)||!Number.isFinite(s.epochMs)||!Number.isFinite(s.gameTime)||!s.canvas||s.pose==null||s.hp==null)) throw Error('required observed state missing');
     if (dir) {
       await cdp.send('Page.stopScreencast'); await pending;
-      if (captured.length < 2 || captured.some((f,i)=>!Number.isFinite(f.timestamp)||(i && f.timestamp<captured[i-1].timestamp))) throw Error('missing or unordered original CDP timestamps');
+      const anomalies=timestampAnomalies(captured); if (captured.length<2 || anomalies.length) throw Error('missing or unordered original CDP timestamps: '+JSON.stringify(anomalies.slice(0,10)));
       if (c.recordCanvas) {
         const b64=await page.evaluate(async()=>{const v=window.__workbenchRecording;await new Promise(resolve=>{v.recorder.onstop=resolve;v.recorder.stop()});v.stream.getTracks().forEach(t=>t.stop());const data=new Uint8Array(await new Blob(v.chunks,{type:'video/webm'}).arrayBuffer());let binary='';for(let i=0;i<data.length;i+=8192)binary+=String.fromCharCode(...data.subarray(i,i+8192));return btoa(binary);});
         const bytes=Buffer.from(b64,'base64'),file=path.join(dir,'canvas.webm'); await writeFile(file,bytes);
@@ -108,12 +131,15 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
       const gaps=pts.slice(1).map((t,i)=>t-pts[i]); if(c.maxGapMs !== undefined && gaps.some(g=>g*1000>c.maxGapMs)) throw Error('requested maximum gap exceeded');
       result.capture={kind:'cdp-screencast',clock:'CDP metadata.timestamp (seconds since epoch)',origin,frames:captured,selected,observedCadence: {count:captured.length, durationSeconds:pts.at(-1), meanDeliveredFps:pts.at(-1)>0?(pts.length-1)/pts.at(-1):null,maxGapMs:gaps.length?Math.max(...gaps)*1000:null,gapsSeconds:gaps},limitations:'CDP delivers browser frames opportunistically; timestamps describe delivered frames, not every display presentation. No continuous video or perceptual fluency is claimed.'};
       for (const frame of captured) { const bytes=await readFile(path.join(dir,frame.path)); const size=pngSize(bytes); if(size.width!==viewport.width || size.height!==viewport.height) throw Error('captured frame size differs from CSS viewport'); Object.assign(frame,{format:'png',width:size.width,height:size.height,sha256:sha(bytes)}); }
-      await writeFile(path.join(dir,'index.html'),viewer(c,selected,result));
+      result.selectedFrames=selected;
     }
+    if(runtime) { if(runtime.errors.length) throw Error(runtime.errors.join('; ')); const current=runtimeSource(c); for(const entry of runtime.served.values()){const bytes=await readFile(path.join(runtime.cwd,entry.path));if(sha(bytes)!==entry.sha256) throw Error('runtime changed during run: '+entry.path);} result.runtime={root:runtime.cwd,sha:runtime.sha,tree:runtime.tree,status:current.status,servedFiles:[...runtime.served.values()].sort((a,b)=>a.path.localeCompare(b.path))}; }
+    for(const input of result.inputs) {const filename=input.origin==='runtime'?path.join(runtime.cwd,input.path):inRoot(input.path);if(sha(await readFile(filename))!==input.sha256) throw Error('input changed during run: '+input.path);}
+    if(dir) await writeFile(path.join(dir,'index.html'),viewer(c,result.selectedFrames,result));
     result.observation={durationMs:result.samples.at(-1).epochMs-result.samples[0].epochMs,firstEpochMs:result.samples[0].epochMs,lastEpochMs:result.samples.at(-1).epochMs,firstGameTime:result.samples[0].gameTime,lastGameTime:result.samples.at(-1).gameTime,events:result.samples.flatMap((sample,index)=>(sample.events||[]).map(event=>({event,sampleIndex:index,epochMs:sample.epochMs,gameTime:sample.gameTime})))};
     result.status='complete';
-  } catch(e) { result.status='failed'; result.error=e.message; }
-  finally { if(context) await context.close(); if(browser) await browser.close(); if(server) await new Promise(r=>server.close(r)); if(dir) await writeFile(path.join(dir,'run.json'),JSON.stringify(result,null,2)); }
+  } catch(e) { result.status='failed'; result.error=e.message; if(runtime) result.runtimeDebug={served:[...runtime.served.keys()],errors:runtime.errors}; result.captureDebug={count:captured.length,anomalies:timestampAnomalies(captured),metadataPath:dir?'cdp-frames.json':null}; }
+  finally { if(context) await context.close(); if(browser) await browser.close(); if(server) await new Promise(r=>server.close(r)); if(dir) { await pending; await writeFile(path.join(dir,'cdp-frames.json'),JSON.stringify({clock:'CDP metadata.timestamp; receipt clocks are diagnostics only, not presentation time',frames:captured},null,2)); await writeFile(path.join(dir,'run.json'),JSON.stringify(result,null,2)); } }
   if(result.status!=='complete') throw Object.assign(Error(result.error),{runDirectory:dir});
   return {directory:dir,result};
 }
