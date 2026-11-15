@@ -14,7 +14,7 @@
   "durationMs":7500,
   "sampleMs":100,
   "clock":"natural-app",
-  "expectedEvent":"cast",
+  "expectedEvent":"damage",
   "extractIntervalMs":100,
   "recordCanvas":"#arena",
   "crop":{"x":10,"y":2,"width":370,"height":686},

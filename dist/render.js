@@ -1005,7 +1005,7 @@ export class Renderer {
       if(!card.spell&&placement){
         const ranged=(card.squad?card.squad.map(k=>CARDS[k]):[card]).filter(isRangedAttack),range=Math.max(...ranged.map(member=>member.range));
         if(!card.passive&&ranged.length){
-        softDisc(c,point.x,point.y,range,{color:'#fff6df',opacity:.2});
+        softDisc(c,point.x,point.y,range,{color:'#fff6df',opacity:.23});
         }
         for(const enemy of game.deploymentThreats(team,key,point.x,point.y)){
           const height='king'in enemy?(enemy.king?106:96):this.bodyHeight(enemy,23)+25;
@@ -1051,7 +1051,7 @@ export class Renderer {
   field(c,f,front=false){
     const radius=f.radius,age=f.visualAge??(f.duration?Math.max(0,f.duration-f.life):this.t);
     c.save();c.globalAlpha=Math.min(1,f.life/(f.key==='whirlpool'?.12:.4));
-    if(!front&&f.key!=='spikes')softDisc(c,f.x,f.y,radius,{color:CARDS[f.key]?.color||'#b8cad1',opacity:f.key==='whirlpool'?.24:.1});
+    if(!front&&f.key!=='spikes')softDisc(c,f.x,f.y,radius,{color:CARDS[f.key]?.color||'#b8cad1',opacity:f.key==='whirlpool'?.24:f.key==='stealthRock'?.22:.1});
     if(f.key==='stealthRock'){
       for(let i=0;i<9;i++){
         const a=i*2.39996,r=Math.sqrt((i+.5)/9)*radius*.83,x=f.x+Math.cos(a)*r,y=f.y+Math.sin(a)*r;
