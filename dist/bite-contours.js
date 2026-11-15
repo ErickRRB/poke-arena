@@ -28,9 +28,9 @@ export function contourContact(mask,from){
 }
 
 export class BiteContours{
-  constructor(){this.records=new Map();this.maxEntries=12;this.maxSide=512;this.surface=null;this.frames=new Map();this.frameBytes=0;this.maxFrameEntries=32;this.maxFrameBytes=512*1024;}
+  constructor(){this.records=new Map();this.maxEntries=12;this.maxSide=512;this.surface=null;this.frames=new Map();this.frameBytes=0;this.maxFrameEntries=64;this.maxFrameBytes=512*1024;}
   beginFrame(){this.records.clear();}
-  contact(actor,from,box,paint,frameKey){
+  contact(actor,from,box,paint,frameKey,offset={x:0,y:0}){
     let mask=this.records.get(actor.id);
     if(!this.records.has(actor.id)){
       mask=frameKey&&this.frames.get(frameKey);
@@ -63,7 +63,7 @@ export class BiteContours{
       if(this.records.size>=this.maxEntries)this.records.delete(this.records.keys().next().value);
       this.records.set(actor.id,mask);
     }
-    const local=contourContact(mask,{x:from.x-actor.x,y:from.y-actor.y});
-    return local?{x:actor.x+local.x,y:actor.y+local.y}:null;
+    const local=contourContact(mask,{x:from.x-actor.x-offset.x,y:from.y-actor.y-offset.y});
+    return local?{x:actor.x+offset.x+local.x,y:actor.y+offset.y+local.y}:null;
   }
 }

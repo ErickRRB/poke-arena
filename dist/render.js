@@ -292,27 +292,40 @@ export class Renderer {
     const scale=tower?1.3:visualScale(target),vertical=this.verticalScale||1,entries=Object.values(this.metadata?.[profile.id]||{});
     const width=Math.max(tower?110:50,...entries.map(m=>m.width||0))*scale+24;
     const height=Math.max(tower?150:60,...entries.map(m=>m.height||0))*scale+80;
-    const contours=this.biteContours??=new BiteContours();let box={left:-width,right:width,top:-height/vertical,bottom:32/vertical},frameKey;
+    const contours=this.biteContours??=new BiteContours();let box={left:-width,right:width,top:-height/vertical,bottom:32/vertical},frameKey,paintShift={x:0,y:0},offset={x:0,y:0};
     const pose=!tower&&!profile.structureArt?this.nativeSpritePose(target):null;
     if(pose&&!pose.preparation&&!target.leap&&!profile.burrow&&!(target.spawn>0)){
       // Keep the old sampling scale and grid phase. A tighter native-cell window
       // then reads the identical pixels without the surrounding atlas padding.
-      const s=Math.min(1,512/(box.right-box.left),512/(box.bottom-box.top)),pad=24;
-      const x=(target.dx||0)*pose.lunge-pose.anchor.x*pose.scale;
-      const y=(target.dy||0)*pose.lunge/vertical-pose.lift-pose.anchor.y*pose.scale/vertical;
+      const s=Math.min(1,512/(box.right-box.left),512/(box.bottom-box.top));
+      let x=(target.dx||0)*pose.lunge-pose.anchor.x*pose.scale;
+      let y=(target.dy||0)*pose.lunge/vertical-pose.lift-pose.anchor.y*pose.scale/vertical;
+      const immutable=!profile.flying&&!profile.structure&&pose.anim!=='Hop';
+      // A ground PNG has no wing padding, platform, spawn lift or preparation
+      // here. Two sampling pixels cover the native cell and raster alignment.
+      const pad=immutable?2/s:24;
+      if(immutable){
+        // Rigid attack displacement does not change a native cell's pixels.
+        // Preserve its exact snapped translation on the original mask grid.
+        paintShift={x:(target.dx||0)*pose.lunge,y:(target.dy||0)*pose.lunge/vertical};
+        const baseX=-pose.anchor.x*pose.scale,baseY=-pose.lift-pose.anchor.y*pose.scale/vertical;
+        offset={x:(Math.round((baseX+paintShift.x-box.left)*s)-Math.round((baseX-box.left)*s))/s,
+          y:(Math.round((baseY+paintShift.y-box.top)*s)-Math.round((baseY-box.top)*s))/s};
+        x=baseX;y=baseY;
+      }
       const l=Math.max(0,Math.floor((x-pad-box.left)*s)),t=Math.max(0,Math.floor((y-pad-box.top)*s));
       const rr=Math.min(Math.ceil((box.right-box.left)*s),Math.ceil((x+pose.meta.width*pose.scale+pad-box.left)*s));
       const bb=Math.min(Math.ceil((box.bottom-box.top)*s),Math.ceil((y+pose.meta.height*pose.scale/vertical+pad-box.top)*s));
       box={left:box.left+l/s,top:box.top+t/s,right:box.left+rr/s,bottom:box.top+bb/s,scale:s};
       // Ground PNG frame masks are immutable and shareable across actors.
       // Hover/wing rigs and other continuously deforming bodies stay per-draw.
-      if(!profile.flying&&pose.anim!=='Hop')frameKey=[profile.id,pose.anim,pose.frame,pose.direction,pose.scale,vertical,pose.anchor.x,pose.anchor.y,pose.lift,(target.dx||0)*pose.lunge,(target.dy||0)*pose.lunge,profile.structure,profile.platform,this.nativeSpriteSampler?.enabled,pose.img.src,box.left,box.top,s].join(':');
+      if(immutable)frameKey=[profile.id,pose.anim,pose.frame,pose.direction,pose.scale,vertical,pose.anchor.x,pose.anchor.y,pose.lift,this.nativeSpriteSampler?.enabled,pose.img.src,box.left,box.top,s].join(':');
     }
     const point=contours.contact(target,from,box,c=>{
       const previous=this.silhouettePass;this.silhouettePass=true;
-      try{const local={...target,x:0,y:0};if(tower)this.tower(c,local);else this.sprite(c,local,true);}
+      try{const local={...target,x:-paintShift.x,y:-paintShift.y};if(tower)this.tower(c,local);else this.sprite(c,local,true);}
       finally{this.silhouettePass=previous;}
-    },frameKey);
+    },frameKey,offset);
     // A newly requested species may not have painted its first frame yet.
     // Once loaded, every target uses its current body pixels, never a fixed hit.
     return point||biteSurface(from,target,vertical);

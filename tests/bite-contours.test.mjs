@@ -39,6 +39,8 @@ test('immutable ground poses share compact masks across actors and evict within 
   contours.beginFrame();const translated=contours.contact({id:2,x:100,y:40},{x:90,y:44},box,paint,'pose-a');
   assert.equal(reads,1);assert.equal(paints,1);assert.deepEqual(translated,{x:first.x+100,y:first.y+40});
   assert.equal(contours.frames.get('pose-a').alpha.length,4,'padding is not retained as alpha cache');
+  contours.beginFrame();const shifted=contours.contact({id:2,x:100,y:40},{x:92,y:43},box,paint,'pose-a',{x:2,y:-1});
+  assert.deepEqual(shifted,{x:translated.x+2,y:translated.y-1},'rigid displacement follows the actor without a new mask');assert.equal(reads,1);
   for(const key of['pose-b','pose-c']){contours.beginFrame();contours.contact({id:1,x:0,y:0},{x:-10,y:4},box,paint,key);}
   assert.equal(contours.frames.size,2);assert.ok(!contours.frames.has('pose-a'));assert.ok(contours.frameBytes<=contours.maxFrameBytes);
   contours.beginFrame();contours.contact({id:1,x:0,y:0},{x:-10,y:4},box,paint,'pose-a');assert.equal(reads,4,'an evicted pose is read again');
