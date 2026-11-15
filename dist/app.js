@@ -1,6 +1,6 @@
 import { screenToWorld, inArena } from './arena-geometry.js?v=34';
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=34';
-import { Renderer } from './render.js?v=34';
+import { Renderer } from './render.js?v=35';
 import { SoundSystem } from './audio.js?v=34';
 import { OnlineClient, hasSavedOnlineSession } from './online.js?v=34';
 import { unpackGame, perspective } from './snapshot.js?v=34';
