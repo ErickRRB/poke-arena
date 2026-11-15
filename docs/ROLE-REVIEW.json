@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-14",
+  "date": "2026-11-15",
   "baseline": "Clash Royale level 11 role references, adapted per Pokémon; not a universal stats multiplier.",
   "cards": [
     {
@@ -250,8 +250,8 @@
       "attackRuleException": true
     },
     {
-      "key": "blastoise",
-      "name": "Blastoise",
+      "key": "octillery",
+      "name": "Octillery",
       "role": "Mini tanque · antiaéreo",
       "reference": "Sin similitud",
       "cost": 4,
@@ -263,9 +263,9 @@
       "interval": 1.8,
       "directDps": 94.4,
       "range": 120,
-      "scale": 1.7241,
+      "scale": null,
       "description": "Avanza y dispara un cañonazo contra tierra y aire.",
-      "pokemonIdentity": "Doble hidrobomba",
+      "pokemonIdentity": "Hidrobomba",
       "attackRuleException": true
     },
     {
@@ -478,6 +478,25 @@
       "description": "Una rueda de fuego avanza y empuja a los enemigos terrestres.",
       "pokemonIdentity": "Rueda Fuego",
       "attackRuleException": false
+    },
+    {
+      "key": "blastoiseCannon",
+      "name": "Blastoise",
+      "role": "Estructura · defensa",
+      "reference": "Cañón",
+      "cost": 3,
+      "hp": 824,
+      "shield": 0,
+      "count": 1,
+      "damage": 202,
+      "impacts": 1,
+      "interval": 1,
+      "directDps": 202,
+      "range": 132,
+      "scale": 1.7241,
+      "description": "Defiende su posición disparando contra un rival terrestre por ataque.",
+      "pokemonIdentity": "Hidrobomba",
+      "attackRuleException": true
     },
     {
       "key": "raltsHut",

@@ -1,6 +1,7 @@
 // Base stats from PokéAPI. Game damage and health remain in balance.js.
 // Source: https://raw.githubusercontent.com/PokeAPI/pokeapi/master/data/v2/csv/pokemon_stats.csv
 export const POKEMON_STATS = {
+  "224": {"hp":75,"attack":105,"specialAttack":105},
   "1": {
     "hp": 45,
     "attack": 49,

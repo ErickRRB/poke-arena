@@ -11,6 +11,7 @@ export const THRESHOLDS = Object.freeze({ tower: 109, towerInterval: .8, fragile
 
 // Explicit health, damage, cadence and speed for every body. No global multipliers.
 export const CARD_BALANCE = {
+  blastoiseCannon:{cost:3,hp:824,damage:202,interval:1,speed:0},
   raltsHut:{cost:4,hp:1180,damage:0,interval:10,speed:0},
   geodudeToken:{cost:0,hp:1039,damage:84,interval:2.5,speed:21.6},
   rapidash:{cost:4,hp:1696,damage:318,interval:1.6,speed:57.6},
@@ -32,7 +33,7 @@ export const CARD_BALANCE = {
   machamp: {"cost":4,"hp":1361,"damage":180,"interval":1.8,"speed":26},
   eevee: {"cost":2,"hp":300,"damage":90,"interval":0.95,"speed":40},
   onix: {"cost":4,"hp":1950,"damage":240,"interval":1.8,"speed":30},
-  blastoise: {"cost":4,"hp":1400,"damage":85,"interval":1.8,"speed":26,"range":120,"structure":false,"lifetime":0,"radius":19,"attackRoleOverride":true},
+  octillery: {"cost":4,"hp":1400,"damage":85,"interval":1.8,"speed":26,"range":120,"structure":false,"lifetime":0,"radius":19,"attackRoleOverride":true},
   vulpix: {"cost":3,"hp":440,"damage":75,"interval":1.4,"speed":32,"burn":7},
   psyduck: {"cost":3,"hp":560,"damage":110,"interval":1.4,"speed":26},
   alakazam: {"cost":4,"hp":590,"damage":133,"interval":1.1,"speed":26,"range":168},
@@ -246,7 +247,7 @@ export const CARD_DESCRIPTIONS = {
   machamp:'Encadena cuatro puñetazos contra un mismo rival.',
   eevee:'Toma carrera para golpear con un placaje de daño doble.',
   onix:'Avanza hacia las torres y estructuras y las golpea con su cola.',
-  blastoise:'Avanza y dispara un cañonazo contra tierra y aire.',
+  octillery:'Avanza y dispara un cañonazo contra tierra y aire.',
   vulpix:'Lanza una llama que quema a su objetivo.',
   psyduck:'Su onda de confusión aturde e interrumpe ataques.',
   alakazam:'Dispara un rayo que atraviesa a los enemigos alineados.',
@@ -344,7 +345,7 @@ export const CARD_DESCRIPTIONS = {
 
 // Labels describe the job and target profile; attacks and rarity have their own fields.
 function applyRoles(cards) {
-  const roles={blastoise:'Mini tanque · antiaéreo',pikachu:'Control · antiaéreo',machamp:'Antitanques · terrestre',raichu:'Antitanques · frágil',registeel:'Antitanques · pesado',
+  const roles={octillery:'Mini tanque · antiaéreo',pikachu:'Control · antiaéreo',machamp:'Antitanques · terrestre',raichu:'Antitanques · frágil',registeel:'Antitanques · pesado',
     feraligatr:'Antitanques · terrestre',nidoking:'Antitanques · terrestre',geodude:'Mini tanque · terrestre',
     snorlax:'Win condition · tanque',golem:'Win condition · tanque',steelix:'Win condition · tanque',groudon:'Win condition · tanque',regirock:'Win condition · tanque',
     onix:'Win condition · terrestre',electrode:'Win condition · explosiva',forretress:'Win condition · explosiva',celebi:'Win condition · aérea',voltorb:'Ciclo · antienjambre',

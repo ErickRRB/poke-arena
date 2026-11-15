@@ -1,4 +1,5 @@
 export const NATIVE_DESCRIPTIONS={
+ Cannon:'Defiende su posición disparando contra un rival terrestre por ataque.',
  FirespiritHut:'Avanza, dispara fuego y libera Voltorb ígneos periódicamente.',
  FireSpirits:'Salta hacia un rival y explota en área contra tierra y aire.',
  Tornado:'Atrae y daña a las tropas dentro del remolino.',

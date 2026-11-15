@@ -1,4 +1,6 @@
 import { EXTRA_CARDS } from './catalog.js?v=26';
+import { currentCardKey, currentDeck } from './card-key-migrations.js?v=1';
+export { currentCardKey, currentDeck } from './card-key-migrations.js?v=1';
 import { applyBalance, THRESHOLDS } from './balance.js?v=26';
 import { REFERENCE_TOWERS } from './current-reference.js?v=26';
 import { emissionPoint, structureLift } from './sprite-motion.js?v=26';
@@ -55,8 +57,8 @@ Object.assign(CARDS.gengar, { move: 'Garra umbría', style: 'shadow', attackAnim
 Object.assign(CARDS.machamp, { move: 'Puño dinámico', style: 'punch', attackAnim: 'Double', attackDuration: .85, damage: 34, burst: 4, burstSpacing: .13, interval: 1.35, role: 'Cuerpo a cuerpo · combo', description: 'Encadena cuatro puñetazos a corta distancia. Cada golpe hace daño por separado; no alcanza voladores.' });
 Object.assign(CARDS.eevee, { move: 'Ataque rápido', style: 'dash', attackAnim: 'Attack', attackDuration: .55, charge: 1.5, description: 'Tras correr 1,5 segundos, acelera y duplica el daño de su siguiente placaje. La carga se pierde al atacar o quedar aturdido.' });
 Object.assign(CARDS.onix, { move: 'Lanzarrocas', style: 'rock', attackAnim: 'Shoot', attackDuration: .95, hp: 1050, range: 172, speed: 24, interval: 2.1, role: 'Asedio · estructuras', description: 'Lanza grandes rocas a las estructuras desde lejos. Ignora a los Pokémon y necesita protección a corta distancia.' });
-CARDS.blastoise = { name: 'Blastoise', id: 9, cost: 4, type: 'water', label: 'Agua', role: 'Estructura', move: 'Doble hidrobomba', style: 'hydro', attackAnim: 'Shoot', attackDuration: .8, structure: true, lifetime: 35, hp: 1150, damage: 70, range: 175, speed: 0, interval: 1.8, burst: 2, burstSpacing: .16, air: true, radius: 28, color: '#79c9ed', description: 'Permanece sobre un bastión y dispara sus dos cañones contra tierra y aire. Dura 35 segundos, atrae tanques y no se desplaza.' };
-for(const [key,height]of Object.entries({pikachu:22,squirtle:20,charmander:22,snorlax:30,zubat:25,charizard:50,bulbasaur:18,gengar:22,machamp:30,eevee:15,onix:72,blastoise:56}))CARDS[key].muzzleHeight=height;
+CARDS.octillery = { name: 'Octillery', id: 224, cost: 4, type: 'water', label: 'Agua', role: 'Estructura', move: 'Hidrobomba', style: 'hydro', attackAnim: 'Shoot', attackDuration: .8, structure: true, lifetime: 35, hp: 1150, damage: 70, range: 175, speed: 0, interval: 1.8, burst: 2, burstSpacing: .16, air: true, radius: 28, color: '#79c9ed', description: 'Permanece sobre un bastión y dispara sus dos cañones contra tierra y aire. Dura 35 segundos, atrae tanques y no se desplaza.' };
+for(const [key,height]of Object.entries({pikachu:22,squirtle:20,charmander:22,snorlax:30,zubat:25,charizard:50,bulbasaur:18,gengar:22,machamp:30,eevee:15,onix:72,octillery:56}))CARDS[key].muzzleHeight=height;
 Object.assign(CARDS,{
   vulpix:{name:'Vulpix',id:37,cost:3,type:'fire',label:'Fuego',role:'Ráfaga · quemadura',move:'Pirotecnia',style:'ember',attackAnim:'Shoot',attackDuration:.85,hp:285,damage:29,range:116,speed:60,interval:1.45,burst:2,burstSpacing:.18,burn:9,air:true,muzzleHeight:19,color:'#edaa72',description:'Lanza dos pequeñas llamas al mismo objetivo y lo quema. Corre rápido, pero tiene poca vida.'},
   psyduck:{name:'Psyduck',id:54,cost:3,type:'water',label:'Agua / psíquico',role:'Control',move:'Confusión',style:'confusion',attackAnim:'Shoot',attackDuration:.8,hp:460,damage:65,range:122,speed:36,interval:1.55,stun:.4,air:true,muzzleHeight:22,color:'#f0cf79',description:'Su onda de confusión aturde durante 0,4 segundos. Interrumpe la preparación de ataques terrestres y aéreos.'},
@@ -74,13 +76,13 @@ CARDS.mewtwo.description='Esfera de daño en área. Onda psíquica: 2 de elixir,
 CARDS.pikachu.description='Rayo que salta a otros dos rivales. Aturde, interrumpe el ataque y hace buscar el objetivo más cercano.';
 CARDS.magnemite.description='Volador eléctrico. Aturde, interrumpe el ataque y hace buscar el objetivo más cercano.';
 CARDS.thunder.description='Daña, aturde 0,75 s y reinicia el objetivo enemigo. Daño reducido a torres.';
-const rarityGroups={comun:['squirtle','zubat','eevee','geodude','treecko','bulbasaur'],especial:['pikachu','charmander','vulpix','psyduck','magnemite','lapras'],epica:['snorlax','machamp','onix','blastoise','gengar','scyther','golem','thunder','fireball'],legendaria:['charizard','mewtwo','log']};
+const rarityGroups={comun:['squirtle','zubat','eevee','geodude','treecko','bulbasaur'],especial:['pikachu','charmander','vulpix','psyduck','magnemite','lapras'],epica:['snorlax','machamp','onix','octillery','gengar','scyther','golem','thunder','fireball'],legendaria:['charizard','mewtwo','log']};
 export const RARITIES={comun:'Común',especial:'Especial',epica:'Épica',legendaria:'Legendaria'};
 for(const[rarity,keys]of Object.entries(rarityGroups))for(const key of keys)CARDS[key].rarity=rarity;
 CARDS.alakazam.rarity='epica';
 Object.assign(CARDS,structuredClone(EXTRA_CARDS));
 applyBalance(CARDS);
-export const DEFAULT_DECK = ['pikachu', 'snorlax', 'machamp', 'blastoise', 'zubat', 'thunder', 'charizard', 'fireball'];
+export const DEFAULT_DECK = ['pikachu', 'snorlax', 'machamp', 'blastoiseCannon', 'zubat', 'thunder', 'charizard', 'fireball'];
 export const CPU_DECKS = [
   {name:'Carga eléctrica',cards:['forretress','raichu','raltsHut','treecko','voltorb','pikachu','pinMissile','lightning']},
   {name:'Camada venenosa',cards:['snorlax','nidoqueen','madriguera','poochyenaPack','butterfree','grimer','spikes','fireball']},
@@ -91,7 +93,7 @@ export const CPU_DECKS = [
   {name:'Emboscada Rocket',cards:['forretress','pandilla','roselia','graveler','raltsHut','voltorb','sneaselAmbush','log']},
   {name:'Carga veloz',cards:['rapidash','lapras','vivero','nuzleaf','poochyenaPack','zubat','thunder','fireball']},
   {name:'Bosque vivo',cards:['golem','vivero','meganium','sceptile','gastly','diglett','spikes','pinMissile']},
-  {name:'Presión aérea',cards:['celebi','pidgeot','cloyster','blastoise','pandilla','zubat','whirlpool','lightning']},
+  {name:'Presión aérea',cards:['celebi','pidgeot','cloyster','octillery','pandilla','zubat','whirlpool','lightning']},
 ];
 // PMD sheets run south, southeast, east, northeast, north, northwest, west, southwest.
 export function directionRow(dx, dy) { return (2 - Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8; }
@@ -115,6 +117,7 @@ const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 
 export class Game {
   constructor({ deck = DEFAULT_DECK, cpuDeck, difficulty = 'normal', seed = Date.now(), onEvent = () => {}, tutorial = false, animations = {} } = {}) {
+    deck=currentDeck(deck);cpuDeck=currentDeck(cpuDeck);
     const valid = Array.isArray(deck) && deck.length === 8 && new Set(deck).size === 8 && deck.every(k => CARDS[k]&&!CARDS[k].token);
     if (!valid) throw new Error('El mazo necesita ocho cartas diferentes.');
     this.boardVersion=BOARD_VERSION;
@@ -260,6 +263,7 @@ export class Game {
     return { ok: true, key, x, y };
   }
   spawn(key, team, x, y, delay = .75, spawnGroup = null) {
+    key=currentCardKey(key);
     const card = CARDS[key];
     const u = { id: this.nextId++, key, card, team, x, y, hp: card.hp, maxHp: card.hp, radius: card.radius || 12, lane: laneAt(x,team), cooldown: 0, spawn: delay, stun: 0, slow: 0, hit: 0, attack: 0, attackDuration: 0, attackSeq: 0, anim: this.random() * 2, dx: 0, dy: team ? 1 : -1, moving: false, target: null, engaged:false,charge: 0, blinkCooldown: 0, stepClock: .2, burn: null, lifetime: card.lifetime || 0 };
     u.createdAt=this.elapsed;

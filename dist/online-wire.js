@@ -1,7 +1,7 @@
 import { CARDS } from './engine.js?v=26';
 import { packGame } from './snapshot.js?v=26';
 
-export const ONLINE_PROTOCOL = 3;
+export const ONLINE_PROTOCOL = 4;
 export const SIMULATION_HZ = 30;
 export const SNAPSHOT_HZ = 15;
 export const RECONNECT_GRACE = 25000;

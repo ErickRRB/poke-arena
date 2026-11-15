@@ -1,11 +1,11 @@
-import { Game, CARDS, DEFAULT_DECK } from '../dist/engine.js';
+import { Game, CARDS, DEFAULT_DECK, currentDeck } from '../dist/engine.js';
 import { packGame, unpackGame, packEvent } from '../dist/snapshot.js';
 
 const json=(data,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store'}});
-const validDeck=deck=>Array.isArray(deck)&&deck.length===8&&new Set(deck).size===8&&deck.every(k=>CARDS[k]&&!CARDS[k].token);
+const validDeck=input=>{const deck=currentDeck(input);return Array.isArray(deck)&&deck.length===8&&new Set(deck).size===8&&deck.every(k=>CARDS[k]&&!CARDS[k].token);};
 const hash=async token=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token)))].map(v=>v.toString(16).padStart(2,'0')).join('');
 const safeName=name=>String(name||'Entrenador').replace(/[<>\x00-\x1f]/g,'').trim().slice(0,20)||'Entrenador';
-function freshRoom(players,now){const g=new Game({deck:JSON.parse(players[0].deck),seed:crypto.getRandomValues(new Uint32Array(1))[0]});g.hands[1]=JSON.parse(players[1].deck).slice(0,4);g.queues[1]=JSON.parse(players[1].deck).slice(4);g.aiEnabled=false;return{players:players.map(p=>({id:p.id,name:p.name})),seen:[now,now],starts:now+2200,last:now+2200,game:packGame(g),events:[],seq:0,nonces:[]};}
+function freshRoom(players,now){const g=new Game({deck:JSON.parse(players[0].deck),seed:crypto.getRandomValues(new Uint32Array(1))[0]});g.hands[1]=currentDeck(JSON.parse(players[1].deck)).slice(0,4);g.queues[1]=currentDeck(JSON.parse(players[1].deck)).slice(4);g.aiEnabled=false;return{players:players.map(p=>({id:p.id,name:p.name})),seen:[now,now],starts:now+2200,last:now+2200,game:packGame(g),events:[],seq:0,nonces:[]};}
 async function match(db,player,now){
   await db.prepare('UPDATE arena_players SET joined=COALESCE(joined,?),seen=? WHERE id=? AND room_id IS NULL').bind(now,now,player.id).run();
   await db.prepare('UPDATE arena_queue SET player_id=? WHERE id=1 AND (player_id IS NULL OR NOT EXISTS(SELECT 1 FROM arena_players WHERE id=player_id AND seen>? AND joined IS NOT NULL AND room_id IS NULL))').bind(player.id,now-15000).run();

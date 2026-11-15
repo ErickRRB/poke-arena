@@ -19,7 +19,7 @@ for(const row of retiredAudio.rows){
  allowed.push('/'+row.file);
 }
 const strip=s=>s.replace(/^import .*?;\r?\n/gm,'').replace(/^export \{.*?\} from .*?;\r?\n/gm,'').replace(/^export /gm,'');
-const engine=(await Promise.all(['arena-tilemap.js','arena-geometry.js','native-formations.js','pokemon-stats.js','unit-sizes.js','sprite-geometry.js','sprite-motion.js','deployment-formations.js','current-reference.js','knockback-profiles.js','attack-choreography.js','native-descriptions.js','catalog.js','balance.js','engine.js'].map(async file=>strip(await readFile(path.join(dist,file),'utf8'))))).join('\n');
+const engine=(await Promise.all(['card-key-migrations.js','arena-tilemap.js','arena-geometry.js','native-formations.js','pokemon-stats.js','unit-sizes.js','sprite-geometry.js','sprite-motion.js','deployment-formations.js','current-reference.js','knockback-profiles.js','attack-choreography.js','native-descriptions.js','catalog.js','balance.js','engine.js'].map(async file=>strip(await readFile(path.join(dist,file),'utf8'))))).join('\n');
 const snapshot=strip(await readFile(path.join(dist,'snapshot.js'),'utf8')),apiSource=strip(await readFile(path.join(root,'worker/api.js'),'utf8'));
 const animations=JSON.parse(await readFile(path.join(dist,'assets/pokemon/manifest.json'),'utf8'));
 async function hostedFetch(request,env){

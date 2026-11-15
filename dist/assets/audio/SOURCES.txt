@@ -1,3 +1,3 @@
-Deployment voices: HQ Pokémon Anime Cries Gen1–5, Galladito/RojoY (PokéMMO), with the PokeAPI cries fallback for species83/534.
+Deployment voices: HQ Pokémon Anime Cries Gen1–5, Galladito/RojoY (PokéMMO), with the PokeAPI cries fallback for species83/224/534.
 Attack sounds: PRSFX recordings from Pokémon Reborn via the pinned PokéRogue asset repository; see moves/SOURCES.json, CREDITS.txt and LICENSE-POKEMON-REBORN.txt.
 Sound credits: Pokémon Mystery Universe, Amethyst; original rip Neslug. Pokémon remains owned by Nintendo, Creatures and GAME FREAK. These Pokémon recordings are not claimed as CC0.

@@ -8,6 +8,10 @@ import {publicSnapshot,publicEvent,unpackEvent,RECONNECT_GRACE} from '../dist/on
 const deck=['diglett','voltorb','bulbasaur','eevee','ekans','gastly','grimer','squirtle'];
 const match=()=>new RealtimeMatch({id:'room',seed:12,now:1000,players:[{id:'a',name:'Uno',deck,tokenHash:'a'},{id:'b',name:'Dos',deck,tokenHash:'b'}]});
 
+test('persisted mobile Blastoise and its recent events migrate without becoming a Cannon',()=>{
+  const room=match(),unit=room.game.spawn('octillery',0,300,500,0),stored=JSON.parse(JSON.stringify(room.serialize())),old=stored.game.units.find(u=>u.id===unit.id);old.key='blastoise';old.card={...old.card,id:9,name:'Blastoise'};stored.game.hands[0][0]='blastoise';stored.events=[{seq:1,event:{type:'hit',key:'blastoise',unit:{key:'blastoise',card:{...old.card}}}}];const restored=new RealtimeMatch({stored});assert.equal(restored.game.hands[0][0],'octillery');assert.equal(restored.game.units[0].card.id,224);assert.equal(restored.game.units[0].card.damage,170);assert.equal(restored.events[0].event.key,'octillery');assert.equal(restored.events[0].event.unit.card.id,224);assert.equal(validDeck(['blastoise',...deck.slice(0,7)]),true);assert.equal(validDeck(['blastoise','octillery',...deck.slice(0,6)]),false);
+});
+
 test('continuous simulation advances without player commands and persistence restores it',()=>{
   const room=match();room.advance(3200);assert.equal(room.game.state,'playing');room.advance(4200);assert.ok(room.game.elapsed>.95&&room.game.elapsed<1.05);
   const action={nonce:crypto.randomUUID(),kind:'deploy',handIndex:0,key:'diglett',x:130,y:600},result=room.action(0,action,4200);assert.equal(result.ok,true);

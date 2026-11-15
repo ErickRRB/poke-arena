@@ -3,6 +3,7 @@ import { env } from 'cloudflare:workers';
 import { runInDurableObject, evictDurableObject } from 'cloudflare:test';
 import worker from '../src/index.js';
 import { ONLINE_PROTOCOL } from '../../dist/online-wire.js';
+import { unpackGame } from '../../dist/snapshot.js';
 
 const deck = ['diglett','voltorb','bulbasaur','eevee','ekans','gastly','grimer','squirtle'];
 const sockets = [];
@@ -25,11 +26,11 @@ async function connect(path = '/v1/lobby', origin = 'http://127.0.0.1:4173') {
   expect(response.status).toBe(101);const ws = response.webSocket;ws.accept();sockets.push(ws);
   return { ws, ...messages(ws), send: packet => ws.send(typeof packet === 'string' ? packet : JSON.stringify(packet)) };
 }
-async function join() {
+async function join({decks=[deck,deck]}={}) {
   const a = await connect(), b = await connect();
-  a.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Uno', deck });
+  a.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Uno', deck:decks[0] });
   const tokenA = (await a.next(p => p.type === 'welcome')).token;
-  b.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Dos', deck });
+  b.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Dos', deck:decks[1] });
   const tokenB = (await b.next(p => p.type === 'welcome')).token;
   const roomA = await a.next(p => p.type === 'matched'), roomB = await b.next(p => p.type === 'matched');
   expect(roomA.roomId).toBe(roomB.roomId);
@@ -46,6 +47,14 @@ async function finish(room) {
 }
 
 describe('Cloudflare WebSocket rooms', () => {
+  it('streams the separate Cannon and mobile replacement to two current clients',async()=>{
+    const{players,room}=await join({decks:[['blastoiseCannon',...deck.slice(0,7)],['octillery',...deck.slice(0,7)]]});
+    try{
+      await runInDurableObject(env.ARENAS.getByName(room),instance=>{const now=Date.now();instance.match.starts=now-1;instance.match.last=now;instance.match.game.start();instance.match.game.energy=[10,10];instance.persist();instance.broadcast();});
+      for(const player of players){const packet=await player.next(p=>p.type==='snapshot'&&p.game.state==='playing'),team=packet.team,nonce=crypto.randomUUID();player.send({type:'action',kind:'deploy',nonce,handIndex:0,key:packet.game.hands[team][0],x:300,y:team?200:600});expect((await player.next(p=>p.type==='result'&&p.nonce===nonce)).result.ok).toBe(true);}
+      for(const player of players){const packet=await player.next(p=>p.type==='snapshot'&&p.game.units.some(u=>u.key==='blastoiseCannon')&&p.game.units.some(u=>u.key==='octillery'));expect(packet.protocol).toBe(ONLINE_PROTOCOL);const game=unpackGame(packet.game),cannon=game.units.find(u=>u.key==='blastoiseCannon'),mobile=game.units.find(u=>u.key==='octillery');expect(cannon.card.id).toBe(9);expect(cannon.card.cost).toBe(3);expect(cannon.card.structure).toBe(true);expect(mobile.card.id).toBe(224);expect(mobile.card.cost).toBe(4);expect(mobile.card.structure).toBe(false);}
+    }finally{await finish(room);}
+  });
   it('rejects an old protocol in both handshakes before creating a session or reading a room', async () => {
     for (const path of ['/v1/lobby','/v1/rooms/'+crypto.randomUUID()]) {
       const player=await connect(path);player.send({type:'hello',protocol:ONLINE_PROTOCOL-1,mode:'search',deck});

@@ -76,7 +76,7 @@ test('burn and spell hits keep their origin through event serialization',()=>{
  assert.equal(dot.sourceId,source.id);assert.equal(dot.sourceKey,'charmander');const restored=perspective(packEvent(dot),1);assert.equal(restored.sourceId,source.id);assert.equal(restored.sourceKey,'charmander');
 });
 test('Blastoise walks, keeps its health over time and cannot lure a building seeker',()=>{
- const{game}=fresh(),unit=game.spawn('blastoise',0,158,530,0),hp=unit.hp;run(game,4);
+ const{game}=fresh(),unit=game.spawn('octillery',0,158,530,0),hp=unit.hp;run(game,4);
  assert.ok(unit.y<500);assert.equal(unit.hp,hp);assert.equal(unit.lifetime,0);assert.equal(unit.card.structure,false);
  const tank=game.spawn('snorlax',1,158,390,0);assert.notEqual(game.acquire(tank),unit);
  const structure=game.spawn('regice',0,158,475,0);assert.equal(game.acquire(tank),structure);

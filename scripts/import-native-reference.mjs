@@ -5,7 +5,7 @@ const hash=createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).dig
 if(hash!=='6dd5bd2272b948fd04759007fc2ba2750a58ad39')throw Error('Unexpected native reference revision');
 const data=JSON.parse(bytes),old=JSON.parse(await fs.readFile('docs/KNOCKBACK-REVIEW-2026-11-14.json','utf8'));
 const names=new Set(old.nativeReferences.map(row=>row.nativeUnit).filter(Boolean));
-for(const name of['GoblinHut','GoblinHut_Rework','SpearGoblin_Dummy','FirespiritHut','Furnace_rework','FireSpirits'])names.add(name);
+for(const name of['GoblinHut','GoblinHut_Rework','SpearGoblin_Dummy','FirespiritHut','Furnace_rework','FireSpirits','Cannon'])names.add(name);
 for(const name of ['Skeletons','SkeletonArmy','Archers','Goblins','GoblinGang','Minions','Guards','Bats','SpearGoblins','Golemite','Graveyard_rework_Skeleton','BarrelGoblin','Barbarian','Graveyard','Zap','Fireball','Log','Arrows','Lightning','Rocket','Freeze','Poison','Tornado','Earthquake','GoblinBarrel'])names.add(name);
 const cards=data.cards.filter(card=>names.has(card.name)||names.has(card.summon_character));
 for(const card of cards){for(const name of[card.spawner?.character,card.interval_spawner?.character,card.death_spawn?.character,card.second_summon?.character,card.spell?.spawn?.character])if(name)names.add(name);}

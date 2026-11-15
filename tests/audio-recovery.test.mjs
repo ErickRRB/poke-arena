@@ -51,7 +51,7 @@ test('every Pokemon deploys its own recorded voice without electronic cry substi
  }
  const manifest=JSON.parse(readFileSync(new URL('../dist/assets/audio/manifest.json',import.meta.url)));
  for(const card of Object.values(CARDS).filter(card=>!card.spell&&card.id)){
-  const file=manifest.cries[card.id];assert.match(file,[83,534].includes(card.id)?/^assets\/audio\/cries\/\d+\.ogg$/:/^assets\/audio\/voices\/\d+\.mp3$/,card.name);
+  const file=manifest.cries[card.id];assert.match(file,[83,224,534].includes(card.id)?/^assets\/audio\/cries\/\d+\.ogg$/:/^assets\/audio\/voices\/\d+\.mp3$/,card.name);
   assert.ok(existsSync(new URL('../dist/'+file,import.meta.url)),card.name);
  }
 });

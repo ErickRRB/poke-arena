@@ -1,6 +1,6 @@
 # Equivalencias de Poké Arena con Clash Royale
 
-Las 110 cartas jugables se comparan por su comportamiento con las cartas base de Clash Royale. «Parcial de» señala una adaptación que conserva diferencias. «Sin similitud» queda sin etiqueta en las cartas del juego. Las correspondencias identifican el perfil de referencia; las pruebas de interacciones y sus límites se documentan por separado en la matriz de combate.
+Las 111 cartas jugables se comparan por su comportamiento con las cartas base de Clash Royale. «Parcial de» señala una adaptación que conserva diferencias. «Sin similitud» queda sin etiqueta en las cartas del juego. Las correspondencias identifican el perfil de referencia; las pruebas de interacciones y sus límites se documentan por separado en la matriz de combate.
 
 Vivero Exeggutor cuesta 3, libera parejas de Exeggcute con la vida de Esqueletos y deja cuatro al caer. Refugio Ralts es otra carta: cuesta 4 y libera tiradores cuando hay enemigos cerca. La Pandilla lleva tres Poochyena y tres Ralts. Exeggutor suelto y Registeel están retirados; los mazos guardados migran al Vivero y a Rhydon, respectivamente.
 
@@ -15,7 +15,6 @@ Vivero Exeggutor cuesta 3, libera parejas de Exeggcute con la vida de Esqueletos
 | Arcanine | 4 | Parcial de Príncipe | Toma carrera para dar un golpe de daño doble que también quema. |
 | Articuno | 5 | Parcial de Mago de hielo | Tirador aéreo que ralentiza a un objetivo y tiene más resistencia. |
 | Beedrill | 3 | Esbirros | Tres voladores atacan a tierra y aire a corta distancia. |
-| Blastoise | 4 | Sin similitud | Unidad móvil resistente que dispara agua contra tierra y aire. |
 | Blaziken | 3 | Sin similitud | Luchador de contacto que concentra su daño en un golpe y aplica quemadura. |
 | Blissey | 5 | Sin similitud | Cura periódicamente al grupo y libera una curación final al morir. |
 | Bulbasaur | 3 | Mago de hielo | Libera frío al aparecer y ralentiza el movimiento y los ataques en área. |
@@ -64,6 +63,7 @@ Vivero Exeggutor cuesta 3, libera parejas de Exeggcute con la vida de Esqueletos
 | Nidoking | 5 | Sin similitud | Luchador resistente cuyos puñetazos aplican veneno. |
 | Nidoqueen | 6 | Sin similitud | Tanque de contacto que produce refuerzos terrestres venenosos. |
 | Nuzleaf | 3 | Duende lanzadardos | Dispara semillas rápidamente desde larga distancia contra tierra y aire. |
+| Octillery | 4 | Sin similitud | Unidad móvil resistente que dispara agua contra tierra y aire. |
 | Onix | 4 | Montapuercos | Corre hacia las estructuras y salta el río para alcanzarlas. |
 | Pandilla Rocket | 3 | Pandilla de duendes | Tres Poochyena van adelante y tres Ralts los cubren a distancia. |
 | Pidgeot | 4 | Parcial de Príncipe | Duplica el primer impacto después de cargar, pero vuela. |
@@ -104,6 +104,7 @@ Vivero Exeggutor cuesta 3, libera parejas de Exeggcute con la vida de Esqueletos
 | Carta Pokémon | Elixir | Clash Royale | Comportamiento |
 | --- | ---: | --- | --- |
 | Ampharos | 4 | Tesla | Se oculta sin enemigos cerca y emerge para disparar a tierra y aire. |
+| Blastoise | 3 | Cañón | Defiende su posición disparando contra un rival terrestre por ataque. |
 | Cloyster | 4 | Sin similitud | Defensa antiaérea con escudo y descargas de pinchos de largo alcance. |
 | Madriguera Nidoqueen | 6 | Choza de bárbaros | Libera grupos de tres Nidoran y deja uno más al caer. |
 | Refugio Ralts | 4 | Choza de duendes | Libera Ralts cuando hay enemigos cerca y deja uno más al caer. |

@@ -90,7 +90,7 @@ test('projectiles, contact effects and beams fit every individual Pokemon silhou
   const v=combatVisual(card),areaSize=card.range>=50&&card.splash?Math.min(34,card.splash*.45):0;assert.ok(v.projectile>=8&&v.projectile<=Math.max(v.body*.55,areaSize),key+' projectile');
   assert.ok(v.impact<=v.body*.8,key+' contact effect');assert.ok(v.beam<v.body*.25,key+' beam');
  }
- assert.ok(combatVisual(CARDS.squirtle).projectile<combatVisual(CARDS.blastoise).projectile);
+ assert.ok(combatVisual(CARDS.squirtle).projectile<combatVisual(CARDS.blastoiseCannon).projectile);
  assert.ok(combatVisual(CARDS.raltsToken).projectile<combatVisual(CARDS.gardevoir).projectile);
  assert.equal(projectileVisual('hydro').name,'hydroShot','a moving shot must use the original water orb');
  assert.equal(projectileVisual('hydro').frame,0,'do not loop water impact disappearance during flight');
