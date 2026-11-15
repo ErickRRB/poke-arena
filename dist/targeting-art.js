@@ -9,7 +9,7 @@ export function softDisc(c,x,y,radius,{color='#fff4ce',opacity=.2}={}){
   glow.addColorStop(.82,rgba(opacity));glow.addColorStop(1,rgba(0));
   c.save();c.fillStyle=glow;c.beginPath();c.arc(x,y,radius,0,Math.PI*2);c.fill();c.restore();
 }
-export function areaGuide(c,x,y,radius,{team=0,valid=true,color}={}){
+export function areaGuide(c,x,y,radius,{team=0,valid=true,color,emphasis=false}={}){
   let fill=color||(team?'#ffd8b2':'#e5f3ed'),opacity=.25;
   if(valid&&/^#[\da-f]{6}$/i.test(fill)){
     const value=Number.parseInt(fill.slice(1),16),r=value>>16,g=value>>8&255,b=value&255;
@@ -17,13 +17,13 @@ export function areaGuide(c,x,y,radius,{team=0,valid=true,color}={}){
     // veil keeps their targeting area visible without drawing an outline.
     if(g>r+12&&g>b+25||r>=g&&g>=b&&r-b<80&&r-g<35){fill='#fff1b8';opacity=.38;}
   }
-  softDisc(c,x,y,radius,{color:valid?fill:'#ed8873',opacity:valid?opacity:.3});
+  softDisc(c,x,y,radius,{color:valid?fill:'#ed8873',opacity:valid?(emphasis?Math.min(.52,opacity*1.65):opacity):emphasis?.45:.3});
 }
-export function cellGuide(c,x,y,size,valid=true){
+export function cellGuide(c,x,y,size,valid=true,emphasis=false){
   const half=size/2;
   c.save();
   for(let inset=0;inset<5;inset++){
-    c.fillStyle=valid?`rgba(247,235,190,${.025+inset*.008})`:`rgba(237,136,115,${.03+inset*.008})`;
+    c.fillStyle=valid?`rgba(247,235,190,${(emphasis?2.3:1)*(.025+inset*.008)})`:`rgba(237,136,115,${(emphasis?2:1)*(.03+inset*.008)})`;
     c.fillRect(x-half+inset,y-half+inset,size-inset*2,size-inset*2);
   }
   c.restore();

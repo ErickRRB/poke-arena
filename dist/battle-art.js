@@ -8,7 +8,7 @@ export const cardPlaceholder=key=>Object.hasOwn(CARD_PLACEHOLDERS,key);
 const ALIASES={aura:'psychic',confusion:'psychic',lightning:'lightningHead',magnet:'lightningHead',powder:'poison',punch:'impact',slam:'dust',eruption:'explosion',dash:'impact'};
 const STRUCTURES={princess:[[161,7,309,395],[794,7,309,395]],king:[[29,428,574,476],[662,428,574,476]],platform:[[92,959,449,271],[725,959,448,271]]};
 export const STRUCTURE_ART=Object.freeze({
-  raltsHut:Object.freeze({file:'assets/battle/ralts-hut-v1.png',bounds:[81,118,1035,1108],width:84,height:84*1108/1035,baseOffset:4})
+  raltsHut:Object.freeze({file:'assets/battle/ralts-hut-v1.png',bounds:[81,118,1035,1108],width:74,height:74*1108/1035,baseOffset:4})
 });
 
 export class BattleArt {

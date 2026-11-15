@@ -306,7 +306,7 @@ export class Renderer {
     if(unit.shield>0&&!unit.mounted){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
     if(idle)return;
     const by=y-lift-((this.bodyHeights.get(id)||22)*scale+9)/vertical;
-    this.healthBar(c,unit,x,by,unit.maxHp<=1?18:unit.card.count?30:unit.maxHp>=1800?52:44);
+    this.queueUnitHealth(c,unit,x,by,unit.maxHp<=1?18:unit.card.count?30:unit.maxHp>=1800?52:44);
     if(unit.card.ability&&!unit.abilityUsed){ellipse(c,'#382448',x+27,by+4,6,6);text(c,'◆',x+27,by+4,'#e9beff',10,800);}
     if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
     else if(unit.slow>0)this.combatArt(c,'snow',x,by-10,18);
@@ -329,7 +329,7 @@ export class Renderer {
     }
     c.restore();if(!drawn||idle)return;
     const by=unit.y-(this.bodyHeight(unit)+9)/vertical;
-    this.healthBar(c,unit,x,by,44);
+    this.queueUnitHealth(c,unit,x,by,44);
     if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
     else if(unit.slow>0)this.combatArt(c,'snow',x,by-10,18);
     if(unit.burn)this.combatArt(c,unit.burn.kind==='poison'?'poison':'flame',x,unit.y-9/vertical,26);
@@ -362,6 +362,10 @@ export class Renderer {
   combatArt(c,name,x,y,size,angle=0,height=size,options={}){
     if(!this.battleArt)return false;
     return this.battleArt.draw(c,name,x,y,size,height/(this.verticalScale||1),{age:this.t,angle,...options});
+  }
+  queueUnitHealth(c,unit,x,y,width){
+    if(this.unitHealthQueue)this.unitHealthQueue.push({unit,x,y,width});
+    else this.healthBar(c,unit,x,y,width);
   }
   healthBar(c,unit,x,y,width){
     const ratio=Math.max(0,unit.hp/unit.maxHp);let h=this.healthStates.get(unit.id);
@@ -588,9 +592,20 @@ export class Renderer {
   areaImpact(c,e,progress){
     const radius=e.radius,fade=1-progress,color=e.color||'#dfdab0',vertical=this.verticalScale||1;
     c.save();
-    softDisc(c,e.x,e.y,radius,{color,opacity:.27*Math.max(0,1-progress*1.45)});
+    const petals=e.art==='petalShot';
+    softDisc(c,e.x,e.y,radius,{color:petals?'#ed8da9':color,opacity:(petals?.5:.27)*Math.max(0,1-progress*1.45)});
     c.beginPath();c.arc(e.x,e.y,radius,0,Math.PI*2);c.clip();
-    if(['leaf','poison','powder','bite','slash'].includes(e.style)){
+    if(petals){
+      softDisc(c,e.x,e.y,radius*.6,{color:'#fff2cf',opacity:.32*Math.max(0,1-progress*2)});
+      const count=this.reduced?6:10,size=Math.max(15,Math.min(23,radius*.4)),spread=this.reduced?.74:.2+.72*Math.sin(progress*Math.PI/2);
+      for(let i=0;i<count;i++){
+        const angle=i*2.39996+(this.reduced?0:progress*.65),r=Math.sqrt((i+.5)/count)*radius*spread;
+        const lift=this.reduced?3:Math.sin(progress*Math.PI)*(5+i%3*3);
+        c.save();c.globalAlpha*=Math.min(1,fade*1.35);
+        this.combatArt(c,'petalShot',e.x+Math.cos(angle)*r,e.y+Math.sin(angle)*r-lift/vertical,size,this.reduced?angle:angle+progress,size,{age:i*.1+progress*.6,trim:true});
+        c.restore();
+      }
+    }else if(['leaf','poison','powder','bite','slash'].includes(e.style)){
       const count=this.reduced?4:8,size=Math.min(17,Math.max(10,radius*.27)),spread=this.reduced?.72:.15+Math.sin(Math.min(1,progress)*Math.PI/2)*.75;
       for(let i=0;i<count;i++){
         const angle=i*2.39996+(e.style==='leaf'?progress*.55:0),r=Math.sqrt((i+.5)/count)*radius*spread;
@@ -740,11 +755,9 @@ export class Renderer {
           placementWarning(c,bx,by,this.verticalScale||1);
         }
       }
-      if(card.spell&&!card.rolling){
-        areaGuide(c,point.x,point.y,card.splash,{team,valid,color:card.color});
-      }
-      if((!card.spell||card.rolling)&&valid&&this.selection){
-        const positions=card.rolling?[point]:game.deploymentPositions(team,key,point.x,point.y);
+      if(card.spell)this.spellPlacement(c,key,card,point,team,valid);
+      if(!card.spell&&valid&&this.selection){
+        const positions=game.deploymentPositions(team,key,point.x,point.y);
         for(const [index,position]of positions.entries()){
           cellGuide(c,position.x,position.y,TILE,valid);
           if(!card.spell){const previewCard=CARDS[card.squad?.[index]]||card;c.globalAlpha=.55;this.sprite(c,{...position,card:previewCard,preview:true,team,dx:0,dy:team?1:-1,anim:this.t,id:-1-index,lifetime:card.lifetime},true);c.globalAlpha=1;}
@@ -752,6 +765,19 @@ export class Renderer {
       }
       if(!valid&&!card.spell){line(c,color,p.x-5,p.y-5,p.x+5,p.y+5,2);line(c,color,p.x+5,p.y-5,p.x-5,p.y+5,2);}
     }
+    c.restore();
+  }
+  spellPlacement(c,key,card,point,team,valid){
+    if(!card.rolling&&card.splash>0)areaGuide(c,point.x,point.y,card.splash,{team,valid,color:card.color,emphasis:true});
+    else cellGuide(c,point.x,point.y,TILE,valid,true);
+    if(key==='log'){
+      c.save();c.translate(point.x,point.y);c.scale(1,24/88);
+      softDisc(c,0,0,44,{color:valid?'#fff0b5':'#ef9881',opacity:valid?.48:.4});c.restore();
+    }
+    // Only the held location is illustrated. Nothing is stored for after release.
+    c.save();c.globalAlpha*=valid?.6:.32;
+    if(key==='log')this.combatArt(c,'flameWheel',point.x,point.y-14,88,0,80,{frame:2});
+    else if(card.spawnOnImpact&&spellVisualProfile(key)?.flight==='capsule')this.capsule(c,point.x,point.y-22,42,0,0);
     c.restore();
   }
   field(c,f,front=false){
@@ -874,7 +900,7 @@ export class Renderer {
       if(spell.key==='pinMissile')continue;
       if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
     }
-    this.towerHealthQueue=[];
+    this.towerHealthQueue=[];this.unitHealthQueue=[];
     const objects=[...this.frameActors.values()].sort((a,b)=>a.y-b.y);
     for(const actor of objects){if('king'in actor)this.tower(c,actor);else this.sprite(c,actor);this.frozen(c,actor);}
     for(const field of game.fields||[])if(['stealthRock','nightmare'].includes(field.key))this.field(c,field,true);
@@ -890,6 +916,7 @@ export class Renderer {
     for(const[key,pose]of this.visualFlights||[])if(this.t-pose.at>1)this.visualFlights.delete(key);
     for(const p of this.particles){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=p.gravity*dt;c.globalAlpha=Math.max(0,p.life/p.max);this.combatArt(c,'dust',p.x,p.y,Math.max(8,p.size*3),0,Math.max(8,p.size*3),{progress:1-p.life/p.max});}
     this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;
+    for(const {unit,x,y,width} of this.unitHealthQueue)this.healthBar(c,unit,x,y,width);delete this.unitHealthQueue;
     for(const tower of this.towerHealthQueue)this.towerHealth(c,tower);delete this.towerHealthQueue;
     c.restore();
   }

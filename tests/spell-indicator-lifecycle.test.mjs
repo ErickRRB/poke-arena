@@ -12,16 +12,19 @@ function fixture(key, team = 0) {
   const game = new Game({ seed: 3601 }); game.start(); game.aiEnabled = false; game.energy[team] = 10;
   const pointer = team ? { x: 311, y: 281 } : { x: 289, y: 519 }, recorded = context();
   const renderer = Object.assign(Object.create(Renderer.prototype), { selection: key, pointer, placementTeam: team, t: 0, reduced: false,
-    sprite() { recorded.calls.push({ method: 'ghostSprite', args: [] }); }, combatArt() { recorded.calls.push({ method: 'previewArt', args: [] }); } });
+    sprite() { recorded.calls.push({ method: 'ghostSprite', args: [] }); }, combatArt(...args) { recorded.calls.push({ method: 'previewArt', args }); }, capsule(...args){recorded.calls.push({method:'capsuleGhost',args});} });
   return { game, renderer, ...recorded };
 }
 for (const [key, card] of spells) for (const team of [0, 1]) {
-  test(`${key} shows only its area or Log anchor while aiming, team${team}`, () => {
+  test(`${key} shows its exact area or initial ground ghost while aiming, team${team}`, () => {
     const { game, renderer, ctx, calls } = fixture(key, team), point = game.resolveDeployment(team, key, renderer.pointer.x, renderer.pointer.y);
     assert.ok(point); renderer.drawPlacement(ctx, game);
-    assert.equal(calls.filter(call => ['ghostSprite', 'previewArt', 'drawImage', 'ellipse', 'closePath', 'strokeRect'].includes(call.method)).length, 0, 'No center art, summon ghost, cell reticle, grid or connector.');
+    assert.equal(calls.filter(call => ['ghostSprite', 'drawImage', 'ellipse', 'closePath', 'strokeRect'].includes(call.method)).length, 0, 'No summon troops, hard reticle, grid or connector.');
+    assert.equal(calls.filter(call=>call.method==='previewArt').length,key==='log'?1:0);
+    assert.equal(calls.filter(call=>call.method==='capsuleGhost').length,card.spawnOnImpact?1:0);
     if (card.rolling) {
-      assert.equal(key, 'log'); assert.equal(calls.filter(call => call.method === 'arc').length, 0);
+      assert.equal(key, 'log'); assert.equal(calls.filter(call => call.method === 'arc').length, 1);
+      assert.ok(calls.some(call=>call.method==='scale'&&call.args[0]===1&&call.args[1]<.3),'The ground hint is shallow, not a circular damage area.');
       const fills=calls.filter(call=>call.method==='fillRect').map(call=>call.args);
       assert.deepEqual(fills[0],[point.x-12,point.y-12,24,24]);
       assert.ok(fills.every(([x,y,w,h])=>x>=point.x-12&&y>=point.y-12&&x+w<=point.x+12&&y+h<=point.y+12));

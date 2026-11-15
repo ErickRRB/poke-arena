@@ -53,3 +53,16 @@ test('the real draw pass paints tower health after attacking units, effects and 
   const lastForeground=Math.max(...calls.map((c,i)=>['attacker','effect','placement'].includes(c.method)?i:-1));
   const labels=calls.flatMap((c,i)=>c.method==='fillText'&&/^\d+$/.test(c.args[0])?[i]:[]);assert.equal(labels.length,6);assert.ok(labels.every(i=>i>lastForeground));
 });
+
+test('troop and structure health stays above foreground bodies and effects',()=>{
+  const game=new Game();game.start();game.aiEnabled=false;
+  for(const [key,x,y]of[['raltsToken',300,510],['raltsHut',300,548],['raltsToken',365,515],['snorlax',365,550]])game.spawn(key,0,x,y,0);
+  const{ctx,calls,renderer}=drawing();
+  Object.assign(renderer,{ctx,canvas:{width:600,height:800},viewport:{width:600,height:800},t:0,background:{},battleArt:{},healthStates:new Map(),visualActors:new Map(),visualProjectiles:new Map(),visualFlights:new Map(),particles:[],
+    visualActor:actor=>({...actor}),drawWater(){},tower(){},sprite(c,actor){calls.push({method:'body',id:actor.id});this.queueUnitHealth(c,actor,actor.x,actor.y-40,30);},frozen(){},drawDeployments(){},
+    drawEffects(){calls.push({method:'effect'});},drawPlacement(){calls.push({method:'placement'});},healthBar(_c,actor){calls.push({method:'unitHealth',id:actor.id});}});
+  renderer.draw(game,0);
+  const lastForeground=Math.max(...calls.map((c,i)=>['body','effect','placement'].includes(c.method)?i:-1));
+  const bars=calls.flatMap((c,i)=>c.method==='unitHealth'?[i]:[]);assert.equal(bars.length,4);assert.ok(bars.every(i=>i>lastForeground));
+  assert.equal(renderer.unitHealthQueue,undefined);
+});

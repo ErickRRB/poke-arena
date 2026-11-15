@@ -6,7 +6,7 @@ import {spellPreviewTargets} from '../dist/spell-preview.js';
 function drawing(key){
   const calls=[];const ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}})}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
   const game=new Game({seed:433});game.start();game.aiEnabled=false;game.energy[0]=10;game.deploymentThreats=()=>[];
-  const renderer=Object.assign(Object.create(Renderer.prototype),{selection:key,pointer:{x:288,y:508},t:0,reduced:true,sprite(){}});
+  const renderer=Object.assign(Object.create(Renderer.prototype),{selection:key,pointer:{x:288,y:508},t:0,reduced:true,sprite(){},combatArt(){},capsule(){}});
   return{game,renderer,ctx,calls};
 }
 test('a troop preview draws one range circle and a cell marker, without a second footprint circle',()=>{
@@ -24,11 +24,11 @@ test('melee troops never show explosion, jump, splash or short attack reach as a
     const{game,renderer,ctx,calls}=drawing(key);renderer.drawPlacement(ctx,game);assert.equal(calls.filter(c=>c.method==='arc').length,0,key);
   }
 });
-test('a spell has one target boundary and Rueda Fuego has no circular area',()=>{
-  for(const[key,radii]of[['spikes',[CARDS.spikes.splash]],['log',[]]]){const{game,renderer,ctx,calls}=drawing(key);renderer.drawPlacement(ctx,game);assert.deepEqual(calls.filter(c=>c.method==='arc').map(c=>c.args[2]),radii);}
+test('a spell has one target footprint and Rueda Fuego has a shallow ground anchor',()=>{
+  for(const[key,radii]of[['spikes',[CARDS.spikes.splash]],['log',[44]]]){const{game,renderer,ctx,calls}=drawing(key);renderer.drawPlacement(ctx,game);assert.deepEqual(calls.filter(c=>c.method==='arc').map(c=>c.args[2]),radii);}
 });
 
-test('spells show only their range while aiming, without a central marker or summon ghosts',()=>{
+test('all non-rolling spells keep the exact radius while aiming without extra troop ghosts',()=>{
  for(const [key,card] of Object.entries(CARDS).filter(([,card])=>card.spell&&!card.rolling)){
   const {game,renderer,ctx,calls}=drawing(key);let ghosts=0;renderer.sprite=()=>ghosts++;renderer.drawPlacement(ctx,game);
   assert.equal(ghosts,0,key);assert.equal(calls.filter(c=>['fillRect','strokeRect','setLineDash','closePath'].includes(c.method)).length,0,key);
@@ -70,7 +70,8 @@ test('Rueda Fuego previews only its deployment cell, with no path, corridor or s
     const fills=calls.filter(c=>c.method==='fillRect').map(c=>c.args);
     assert.deepEqual(fills[0],[anchor.x-12,anchor.y-12,24,24]);
     assert.ok(fills.every(([x,y,w,h])=>x>=anchor.x-12&&y>=anchor.y-12&&x+w<=anchor.x+12&&y+h<=anchor.y+12));
-    assert.equal(calls.filter(c=>['arc','ellipse','strokeRect','setLineDash','closePath'].includes(c.method)).length,0);
+    assert.equal(calls.filter(c=>['ellipse','strokeRect','setLineDash','closePath'].includes(c.method)).length,0);
+    assert.ok(calls.some(c=>c.method==='scale'&&c.args[0]===1&&c.args[1]<.3));
     const points=calls.filter(c=>['moveTo','lineTo'].includes(c.method));
     assert.equal(points.length,0);
     for(const {args:[x,y]}of points){assert.ok(Math.abs(x-anchor.x)<=12);assert.ok(Math.abs(y-anchor.y)<=12);}
