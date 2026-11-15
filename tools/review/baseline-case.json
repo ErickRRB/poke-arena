@@ -2,13 +2,29 @@
   "id": "baseline-natural-deploy",
   "source": "dist/index.html",
   "adapter": "tools/review/baseline-adapter.mjs",
-  "viewport": {"width": 390, "height": 844, "dpr": 1},
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "dpr": 1
+  },
   "durationMs": 2200,
   "sampleMs": 100,
   "clock": "natural-app",
   "expectedEvent": "deploy",
   "extractIntervalMs": 100,
   "recordCanvas": "#arena",
-  "crop": {"x": 10, "y": 2, "width": 370, "height": 686},
-  "requiredObservations": ["clock", "canvas", "events", "actorState", "hp"]
+  "crop": {
+    "x": 10,
+    "y": 2,
+    "width": 370,
+    "height": 686
+  },
+  "requiredObservations": [
+    "clock",
+    "canvas",
+    "events",
+    "actorState",
+    "hp"
+  ],
+  "requireWebSocketIsolation": true
 }

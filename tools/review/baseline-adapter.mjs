@@ -1,12 +1,29 @@
 const network = new WeakMap();
 const supported = new Set(['clock','canvas','events','actorState','hp']);
-export async function prepare(page, config) {
+function validate(config) {
   const requested=config.requiredObservations ?? [];
-  if (!Array.isArray(requested) || requested.some(x=>!supported.has(x))) throw Error('unsupported required observation: '+requested.filter(x=>!supported.has(x)).join(', '));
+  if (!Array.isArray(requested) || requested.some(x=>!supported.has(x))) throw Error('unsupported required observation: '+(Array.isArray(requested)?requested.filter(x=>!supported.has(x)).join(', '):'invalid list'));
   if ('seed' in config) throw Error('seed injection is not supported by this transparent adapter');
-  const origin=new URL(page.url()).origin;
-  const blocked=[];network.set(page,blocked);
-  await page.route('**/*', route=>{const u=new URL(route.request().url());if(u.origin!==origin||u.pathname.startsWith('/api/')){blocked.push({origin:u.origin,pathname:u.pathname});return route.abort('blockedbyclient');}return route.continue();});
+}
+export async function beforeNavigate(page,config) {
+  validate(config);
+  const state={origin:null,requests:[],blocked:[],webSockets:[],webSocketIsolation:'unavailable'};
+  network.set(page,state);
+  if(typeof page.routeWebSocket==='function'){
+    await page.routeWebSocket('**/*',async ws=>{const u=new URL(ws.url());state.webSockets.push({origin:u.origin,pathname:u.pathname});await ws.close({code:1008,reason:'local review isolation'});});
+    state.webSocketIsolation='blocked-before-navigation';
+  }else if(config.requireWebSocketIsolation!==false)throw Error('WebSocket isolation unavailable in this Playwright version');
+  await page.route('**/*',route=>{
+    const request=route.request(),u=new URL(request.url());
+    if(!state.origin&&request.isNavigationRequest()&&request.frame()===page.mainFrame()&&u.protocol==='http:'&&u.hostname==='127.0.0.1'&&u.pathname==='/'+config.source){state.origin=u.origin;}
+    const item={origin:u.origin,pathname:u.pathname};state.requests.push(item);
+    if(!state.origin||u.origin!==state.origin||u.pathname==='/api'||u.pathname.startsWith('/api/')){state.blocked.push(item);return route.abort('blockedbyclient');}
+    return route.continue();
+  });
+}
+export async function prepare(page, config) {
+  validate(config);
+  if(!network.has(page)||!network.get(page).origin)throw Error('beforeNavigate isolation did not observe initial local navigation');
   await page.waitForFunction(()=>!document.querySelector('#start-btn')?.disabled);
   await page.evaluate(async()=>{
     const {Game,CARDS}=await import('./engine.js?v=34');
@@ -31,7 +48,6 @@ export async function observe(page) {
   const result=await page.evaluate(()=>{const q=globalThis.__reviewAdapter,g=q.game,r=q.renderer,c=r.canvas,b=c.getBoundingClientRect(),now=performance.now();
     return {wallTime:now,epochMs:performance.timeOrigin+now,gameTime:g.elapsed,viewport:{width:innerWidth,height:innerHeight},dpr:devicePixelRatio,canvas:{x:b.x,y:b.y,width:b.width,height:b.height,pixelWidth:c.width,pixelHeight:c.height},state:g.state,pose:g.units.map(u=>({id:u.id,key:u.key,x:u.x,y:u.y,dx:u.dx,dy:u.dy,moving:u.moving,attack:u.attack})),hp:g.units.map(u=>({id:u.id,hp:u.hp,maxHp:u.maxHp})),events:q.events.slice(),instrumentation:{kind:'transparent-prototype-wrappers',stepCalls:q.steps,drawCalls:q.draws,lastStepDt:q.lastStepDt,lastDrawDt:q.lastDrawDt,unsupported:q.unsupported,seed:'Game constructor uses its normal seed; not fixed or reproducible',visualRandom:'not controlled'},action:q.action};
   });
-  result.instrumentation.blockedAfterPrepare=network.get(page).slice();
-  result.instrumentation.networkLimit='Routing begins after initial navigation; pre-navigation requests and WebSockets are not observed by this adapter.';
+  const n=network.get(page);result.instrumentation.network={origin:n.origin,requests:n.requests.slice(),blocked:n.blocked.slice(),webSockets:n.webSockets.slice(),webSocketIsolation:n.webSocketIsolation,limitations:'Page routing covers requests and page-created WebSockets; no explicit Service Worker interception is configured.'};
   return result;
 }
