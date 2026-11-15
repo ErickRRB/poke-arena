@@ -1,4 +1,4 @@
-import { SPRITE_GEOMETRY } from './sprite-geometry.js';
+import { SPRITE_GEOMETRY } from './sprite-geometry.js?v=34';
 
 export const TOWER_MOUNTS = Object.freeze({ princess: 46, king: 59 });
 export const structureLift = card => card.structure && card.platform !== false && !card.burrow ? 23 : 0;

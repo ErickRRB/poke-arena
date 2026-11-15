@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { Renderer } from '../dist/render.js';
-import { Game, CARDS } from '../dist/engine.js';
+import { Game, CARDS } from '../dist/engine.js?v=34';
 import {spellPreviewTargets} from '../dist/spell-preview.js';
 function drawing(key){
   const calls=[];const ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}})}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});

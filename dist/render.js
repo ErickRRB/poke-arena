@@ -1,14 +1,14 @@
-import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=26';
-import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=26';
-import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=32';
-import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=26';
-import {combatVisual,projectileVisual,movementVisual,fireballVisual,isRangedAttack} from './combat-visuals.js?v=29';
-import { spellPreviewTargets } from './spell-preview.js?v=28';
-import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=32';
-import { FlightWings } from './wing-motion.js';
-import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js';
-import { WHIRLPOOL_BOUNDS } from './assets/battle/frame-bounds.js';
-import { BATTLE_ASSETS } from './assets/battle/manifest.js';
+import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=34';
+import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
+import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=34';
+import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
+import {combatVisual,projectileVisual,movementVisual,fireballVisual,isRangedAttack} from './combat-visuals.js?v=34';
+import { spellPreviewTargets } from './spell-preview.js?v=34';
+import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=34';
+import { FlightWings } from './wing-motion.js?v=34';
+import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
+import { WHIRLPOOL_BOUNDS } from './assets/battle/frame-bounds.js?v=34';
+import { BATTLE_ASSETS } from './assets/battle/manifest.js?v=34';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -61,7 +61,7 @@ export class Renderer {
     this.buildBackground();
   }
   async load(keys=DEFAULT_DECK,onProgress=()=>{}) {
-    const response = await fetch('assets/pokemon/manifest.json?v=26');
+    const response = await fetch('assets/pokemon/manifest.json?v=34');
     if (!response.ok) throw new Error('No se pudo cargar el archivo de sprites.');
     this.metadata = await response.json();
     const ids=[...new Set([...keys.map(k=>CARDS[k]?.id),31,34,52].filter(Boolean))];

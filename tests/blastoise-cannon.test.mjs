@@ -1,5 +1,5 @@
 import test from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';
-import{Game,CARDS,DEFAULT_DECK}from'../dist/engine.js';import{packGame,unpackGame,migrateLegacyCardIdentity}from'../dist/snapshot.js';
+import{Game,CARDS,DEFAULT_DECK}from'../dist/engine.js?v=34';import{packGame,unpackGame,migrateLegacyCardIdentity}from'../dist/snapshot.js?v=34';
 const native=JSON.parse(readFileSync(new URL('../docs/CR-NATIVE-2026-11-03.json',import.meta.url))),row=native.cards.find(c=>c.name==='Cannon');
 const make=()=>{const events=[];let game;game=new Game({seed:775,deck:['blastoiseCannon',...DEFAULT_DECK.filter(k=>k!=='blastoiseCannon')],onEvent:e=>events.push({event:e,at:game.elapsed})});game.start();game.aiEnabled=false;for(const t of game.towers)t.active=false;return{game,events}};
 const run=(g,s)=>{for(let i=0;i<Math.round(s*30);i++)g.step(1/30)};

@@ -1,6 +1,6 @@
-import { Game, CARDS, currentDeck } from '../../dist/engine.js?v=26';
-import { packGame, unpackGame, migrateLegacyCardIdentity } from '../../dist/snapshot.js?v=26';
-import { publicSnapshot, publicEvent, SIMULATION_HZ, RECONNECT_GRACE, ONLINE_PROTOCOL } from '../../dist/online-wire.js';
+import { Game, CARDS, currentDeck } from '../../dist/engine.js?v=34';
+import { packGame, unpackGame, migrateLegacyCardIdentity } from '../../dist/snapshot.js?v=34';
+import { publicSnapshot, publicEvent, SIMULATION_HZ, RECONNECT_GRACE, ONLINE_PROTOCOL } from '../../dist/online-wire.js?v=34';
 
 export const validDeck = input => {const deck=currentDeck(input);return Array.isArray(deck) && deck.length === 8 && new Set(deck).size === 8 && deck.every(key => CARDS[key] && !CARDS[key].token);};
 export const safeName = name => String(name || 'Entrenador').replace(/[<>\x00-\x1f]/g, '').trim().slice(0, 20) || 'Entrenador';

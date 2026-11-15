@@ -1,4 +1,4 @@
-import { ARENA_TILEMAP } from './arena-tilemap.js?v=26';
+import { ARENA_TILEMAP } from './arena-tilemap.js?v=34';
 export const W=600,H=800,TILE=24,BOARD_VERSION=2;
 export const ARENA=Object.freeze({left:84,right:516,top:16,bottom:784,width:432,height:768});
 export const DEPLOY_GRID=Object.freeze({size:TILE,left:ARENA.left,top:ARENA.top,columns:18,rows:32});

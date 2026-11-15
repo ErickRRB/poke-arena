@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, DEFAULT_DECK, W, H, TILE, LANES, RIVER, BRIDGE, DEPLOY_GRID, KING_Y, snapToCell, attackReach, PRINCESS_RANGE } from '../dist/engine.js';
-import { packGame, unpackGame, perspective } from '../dist/snapshot.js';
+import { Game, DEFAULT_DECK, W, H, TILE, LANES, RIVER, BRIDGE, DEPLOY_GRID, KING_Y, snapToCell, attackReach, PRINCESS_RANGE } from '../dist/engine.js?v=34';
+import { packGame, unpackGame, perspective } from '../dist/snapshot.js?v=34';
 
 function arena(team=0,lane=0){
   const events=[],game=new Game({seed:9182,cpuDeck:DEFAULT_DECK,onEvent:event=>events.push(event)});

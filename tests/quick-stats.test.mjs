@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { CARDS } from '../dist/engine.js';
+import { CARDS } from '../dist/engine.js?v=34';
 import { quickStats, QUICK_STATS_HOLD_MS } from '../dist/quick-stats.js';
 
 const stats = key => quickStats(CARDS[key], CARDS);

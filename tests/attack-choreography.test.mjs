@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {CARDS} from '../dist/engine.js';
+import {CARDS} from '../dist/engine.js?v=34';
 import {SPRITE_GEOMETRY} from '../dist/sprite-geometry.js';
 import {attackAnimationFrame,emissionPoint} from '../dist/sprite-motion.js';
 import {FlightWings} from '../dist/wing-motion.js';

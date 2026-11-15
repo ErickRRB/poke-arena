@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { CARDS } from '../dist/engine.js';
+import { CARDS } from '../dist/engine.js?v=34';
 import { createSandbox, spawnCard, damageTrial, swarmTrial, duelTrial, teamTrial } from '../scripts/balance-sandbox.mjs';
 
 test('sandbox removes CPU and tower fire and permits full formations without elixir', () => {

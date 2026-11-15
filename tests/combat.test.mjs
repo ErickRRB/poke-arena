@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, CARDS, directionRow } from '../dist/engine.js';
+import { Game, CARDS, directionRow } from '../dist/engine.js?v=34';
 import {readFileSync}from'node:fs';
 const animations=JSON.parse(readFileSync(new URL('../dist/assets/pokemon/manifest.json',import.meta.url)));
 function fresh(){const events=[],g=new Game({seed:21,animations,onEvent:e=>events.push(e)});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);return{g,events};}

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,CARDS} from '../dist/engine.js?v=26';
+import {Game,CARDS} from '../dist/engine.js?v=34';
 import {Renderer} from '../dist/render.js';
 import {softDisc} from '../dist/targeting-art.js';
 

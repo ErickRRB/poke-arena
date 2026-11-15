@@ -1,5 +1,5 @@
-import { Game, CARDS, DEFAULT_DECK, currentDeck } from '../dist/engine.js';
-import { packGame, unpackGame, packEvent } from '../dist/snapshot.js';
+import { Game, CARDS, DEFAULT_DECK, currentDeck } from '../dist/engine.js?v=34';
+import { packGame, unpackGame, packEvent } from '../dist/snapshot.js?v=34';
 
 const json=(data,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store'}});
 const validDeck=input=>{const deck=currentDeck(input);return Array.isArray(deck)&&deck.length===8&&new Set(deck).size===8&&deck.every(k=>CARDS[k]&&!CARDS[k].token);};

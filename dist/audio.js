@@ -1,12 +1,12 @@
 // Recorded Pokémon moves follow release/contact events, including cold-load fallbacks.
-import { BattleMusic } from './music.js?v=26';
-import { CARDS } from './engine.js?v=26';
+import { BattleMusic } from './music.js?v=34';
+import { CARDS } from './engine.js?v=34';
 export const MAX_EFFECT_VOICES=24;
-import {ATTACK_AUDIO,soundStyle,attackCue,prepareSample,installAttackFallbacks} from './attack-audio.js?v=1';
+import {ATTACK_AUDIO,soundStyle,attackCue,prepareSample,installAttackFallbacks} from './attack-audio.js?v=34';
 export class SoundSystem {
   constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.effectSlots=[];this.battlePlaying=false;this.intense=false;this.ready=this.preload().catch(()=>false); }
   async preload(){
-    const response=await fetch('assets/audio/manifest.json?v=33');if(!response.ok)throw Error('Audio manifest unavailable');
+    const response=await fetch('assets/audio/manifest.json?v=34');if(!response.ok)throw Error('Audio manifest unavailable');
     const manifest=await response.json();
     const results=await Promise.allSettled(Object.entries(manifest).flatMap(([group,entries])=>Object.entries(entries).map(async([id,file])=>{const r=await fetch(file);if(!r.ok)throw Error(`Audio unavailable: ${file}`);this.encoded.set(`${group}:${id}`,await r.arrayBuffer());})));
     this.failedAssets=results.filter(result=>result.status==='rejected').length;

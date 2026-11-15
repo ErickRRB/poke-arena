@@ -1,7 +1,7 @@
 import { DurableObject } from 'cloudflare:workers';
 import animations from '../../dist/assets/pokemon/manifest.json' with { type: 'json' };
 import { RealtimeMatch, validDeck, safeName } from './match.js';
-import { ONLINE_PROTOCOL, SIMULATION_HZ, SNAPSHOT_HZ, RECONNECT_GRACE } from '../../dist/online-wire.js';
+import { ONLINE_PROTOCOL, SIMULATION_HZ, SNAPSHOT_HZ, RECONNECT_GRACE } from '../../dist/online-wire.js?v=34';
 
 const OPEN = 1;
 const tokenHash = async token => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token)))].map(byte => byte.toString(16).padStart(2, '0')).join('');

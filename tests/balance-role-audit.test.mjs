@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {CARDS} from '../dist/engine.js';
+import {CARDS} from '../dist/engine.js?v=34';
 import {towerPushTrial,weakSpellTrial} from '../scripts/audit-role-balance.mjs';
 test('native Tornado eliminates readied skeleton bodies with its single84-damage pulse',()=>{
  assert.equal(CARDS.whirlpool.splash,132);assert.equal(CARDS.whirlpool.fieldDuration,1.05);

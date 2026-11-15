@@ -1,14 +1,14 @@
-import { screenToWorld, inArena } from './arena-geometry.js?v=26';
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=26';
-import { Renderer } from './render.js?v=32';
-import { SoundSystem } from './audio.js?v=33';
-import { OnlineClient, hasSavedOnlineSession } from './online.js?v=26';
-import { unpackGame, perspective } from './snapshot.js?v=26';
-import { cardArtMarkup } from './card-art.js?v=26';
-import { cardEquivalentLabel } from './card-equivalents.js?v=30';
-import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=26';
-import { bindQuickStats } from './quick-stats.js';
-import { BattlePhaseUi } from './battle-phase-ui.js';
+import { screenToWorld, inArena } from './arena-geometry.js?v=34';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=34';
+import { Renderer } from './render.js?v=34';
+import { SoundSystem } from './audio.js?v=34';
+import { OnlineClient, hasSavedOnlineSession } from './online.js?v=34';
+import { unpackGame, perspective } from './snapshot.js?v=34';
+import { cardArtMarkup } from './card-art.js?v=34';
+import { cardEquivalentLabel } from './card-equivalents.js?v=34';
+import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=34';
+import { bindQuickStats } from './quick-stats.js?v=34';
+import { BattlePhaseUi } from './battle-phase-ui.js?v=34';
 
 const $ = id => document.getElementById(id);
 const battlePhaseUi = new BattlePhaseUi(document);

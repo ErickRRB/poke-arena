@@ -66,7 +66,7 @@ export async function run({browser,url,viewports,output}){
    await page.evaluate(()=>document.getElementById('connection-loading').hidden=true);stable(before,await rects(page,ids),'triple recovered overlay');
    // Restore both perspectives from real wire snapshots already inside each boost phase.
    const restored=await page.evaluate(async()=>{
-    const {Game}=await import('/engine.js?v=26'),{packGame,unpackGame,perspective}=await import('/snapshot.js?v=26'),rows=[];
+    const {Game}=await import('/engine.js?v=34'),{packGame,unpackGame,perspective}=await import('/snapshot.js?v=34'),rows=[];
     for(const time of[100,55])for(const team of[0,1]){const source=new Game();source.start();Object.assign(source,{time,overtime:true,elapsed:.75});const model=unpackGame(perspective(packGame(source),team));Object.assign(__qa.game,model);__qa.game.step=()=>{};__qa.updateUi();rows.push({time,team,m:__qa.game.multiplier,badge:document.getElementById('boost').textContent,phase:document.getElementById('battle-clock').dataset.phase});}return rows;
    });for(const row of restored){assert.equal(row.m,row.time>60?2:3);assert.equal(row.badge.trim(),'×'+row.m);assert.equal(row.phase,'overtime');}
    const fieldIds=['arena','arena-frame','hand','energy-bar'],fieldBefore=await rects(page,fieldIds);

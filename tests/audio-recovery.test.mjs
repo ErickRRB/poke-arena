@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {SoundSystem} from '../dist/audio.js';
-import {CARDS} from '../dist/engine.js';
+import {CARDS} from '../dist/engine.js?v=34';
 import {readFileSync,existsSync} from 'node:fs';
 function setup(t){
   const originalWindow=globalThis.window,originalDocument=globalThis.document,instances=[];

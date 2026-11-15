@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {Game} from '../dist/engine.js?v=26';
+import {Game} from '../dist/engine.js?v=34';
 import {Renderer} from '../dist/render.js';
-import {packGame,unpackGame,perspective} from '../dist/snapshot.js';
+import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
 import {SandboxGame} from '../dist/sandbox.js';
 
 function drawing(viewerTeam=0){

@@ -1,5 +1,5 @@
 import{test}from'node:test';import assert from'node:assert/strict';import{readFileSync,existsSync}from'node:fs';
-import{Game,CARDS,DEFAULT_DECK,RARITIES}from'../dist/engine.js';import{packGame,unpackGame,perspective}from'../dist/snapshot.js';
+import{Game,CARDS,DEFAULT_DECK,RARITIES}from'../dist/engine.js?v=34';import{packGame,unpackGame,perspective}from'../dist/snapshot.js?v=34';
 const fresh=()=>{const g=new Game({seed:51});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);return g;};
 const run=(g,t)=>{for(let i=0;i<Math.ceil(t*30);i++)g.step(1/30);};
 test('all playable Pokemon and body-free buildings have complete catalog profiles',()=>{const cards=Object.values(CARDS).filter(c=>!c.token);assert.equal(cards.length,110);const manifest=JSON.parse(readFileSync(new URL('../dist/assets/pokemon/manifest.json',import.meta.url)));for(const c of cards){assert.ok(RARITIES[c.rarity],c.name);assert.ok(c.cost>=1&&c.cost<=8);assert.ok(c.damage>0||c.passive||c.fieldDuration||c.spawnOnImpact);if(!c.spell){if(c.structureArt){assert.ok(c.structure&&c.passive&&!c.id);continue;}assert.ok(c.id<=386||c.id===534);assert.ok(c.hp>0);for(const name of['Walk','Idle','Attack','Hurt'])assert.ok(manifest[c.id][name],`${c.name}/${name}`);assert.ok(existsSync(new URL(`../dist/assets/pokemon/${c.id}/art.png`,import.meta.url)));}}});

@@ -1,5 +1,5 @@
-import { CARDS } from './engine.js?v=26';
-import { packGame } from './snapshot.js?v=26';
+import { CARDS } from './engine.js?v=34';
+import { packGame } from './snapshot.js?v=34';
 
 export const ONLINE_PROTOCOL = 4;
 export const SIMULATION_HZ = 30;

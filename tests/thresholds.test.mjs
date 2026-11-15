@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { Game, CARDS, DEFAULT_DECK, formationOffsets, attackPoseProgress } from '../dist/engine.js';
+import { Game, CARDS, DEFAULT_DECK, formationOffsets, attackPoseProgress } from '../dist/engine.js?v=34';
 import { CARD_BALANCE, THRESHOLDS, cardThresholds } from '../dist/balance.js';
 import { CARD_REVIEW } from '../dist/card-review.js';
-import { packGame, unpackGame } from '../dist/snapshot.js';
+import { packGame, unpackGame } from '../dist/snapshot.js?v=34';
 import { cardArtMarkup } from '../dist/card-art.js';
 const animations=JSON.parse(readFileSync(new URL('../dist/assets/pokemon/manifest.json',import.meta.url)));
 function fresh(options={}) { const g=new Game({seed:14,...options});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);return g; }

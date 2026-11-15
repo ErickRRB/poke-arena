@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, CARDS, CPU_DECKS, DEFAULT_DECK, TILE, RIVER } from '../dist/engine.js';
-import { packGame, unpackGame, perspective } from '../dist/snapshot.js';
+import { Game, CARDS, CPU_DECKS, DEFAULT_DECK, TILE, RIVER } from '../dist/engine.js?v=34';
+import { packGame, unpackGame, perspective } from '../dist/snapshot.js?v=34';
 const fresh=()=>{const g=new Game({seed:9182});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);return g;};
 const run=(g,s)=>{for(let i=0;i<Math.ceil(s*60);i++)g.step(1/60);};
 const still=u=>{u.card={...u.card,speed:0,damage:0,passive:true};if(u.card.structure){u.card.lifetime=1e15;u.lifetime=1e15;}return u;};

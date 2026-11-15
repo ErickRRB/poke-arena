@@ -1,5 +1,5 @@
 // Original Pokémon move recordings. Local release/contact timing is owned by Game.
-import { FALLBACK_PCM } from './attack-audio-fallback.js?v=1';
+import { FALLBACK_PCM } from './attack-audio-fallback.js?v=34';
 const cue=(release,contact,fallback,releaseTime=.3,contactTime=.28,volume=.32)=>({release:[].concat(release),contact:[].concat(contact),fallback,releaseTime,contactTime,volume});
 export const ATTACK_AUDIO=Object.freeze({
  punch:cue('quick-attack',['pound','horn-attack'],'pound',.2,.23),

@@ -1,5 +1,5 @@
-import { CARDS } from './engine.js?v=26';
-import { cardPlaceholder } from './battle-art.js?v=26';
+import { CARDS } from './engine.js?v=34';
+import { cardPlaceholder } from './battle-art.js?v=34';
 // Each atlas contains opaque, full-bleed battle scenes in row-major order.
 const sheets = [
   ['pikachu','snorlax','machamp','octillery','zubat','thunder','charizard','fireball','treecko','log','squirtle','charmander','bulbasaur','gengar','eevee','onix'],

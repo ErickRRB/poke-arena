@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { loadDeck,saveDeck,normalizeDeck,loadDeckLibrary,saveDeckLibrary } from '../dist/deck-storage.js';
-import { DEFAULT_DECK } from '../dist/engine.js';
+import { DEFAULT_DECK } from '../dist/engine.js?v=34';
 const memory=()=>{const values=new Map();return{getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v)};};
 const chosen=['gastly','vivero','kyogre','ditto','hooh','treecko','log','sandshrew'];
 

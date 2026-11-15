@@ -263,7 +263,7 @@
       "interval": 1.8,
       "directDps": 94.4,
       "range": 120,
-      "scale": null,
+      "scale": 1.9231,
       "description": "Avanza y dispara un cañonazo contra tierra y aire.",
       "pokemonIdentity": "Hidrobomba",
       "attackRuleException": true

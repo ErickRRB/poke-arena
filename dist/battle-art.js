@@ -1,7 +1,7 @@
-import {BATTLE_ASSETS} from './assets/battle/manifest.js';
-import {PROJECTILE_BOUNDS} from './assets/battle/projectile-bounds.js';
-import {WHIRLPOOL_BOUNDS} from './assets/battle/frame-bounds.js';
-import {CAPSULE_TEXTURE} from './capsule-art.js';
+import {BATTLE_ASSETS} from './assets/battle/manifest.js?v=34';
+import {PROJECTILE_BOUNDS} from './assets/battle/projectile-bounds.js?v=34';
+import {WHIRLPOOL_BOUNDS} from './assets/battle/frame-bounds.js?v=34';
+import {CAPSULE_TEXTURE} from './capsule-art.js?v=34';
 
 export const CARD_PLACEHOLDERS=Object.freeze({});
 export const cardPlaceholder=key=>Object.hasOwn(CARD_PLACEHOLDERS,key);

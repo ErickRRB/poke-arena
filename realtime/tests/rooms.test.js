@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { env } from 'cloudflare:workers';
 import { runInDurableObject, evictDurableObject } from 'cloudflare:test';
 import worker from '../src/index.js';
-import { ONLINE_PROTOCOL } from '../../dist/online-wire.js';
-import { unpackGame } from '../../dist/snapshot.js';
+import { ONLINE_PROTOCOL } from '../../dist/online-wire.js?v=34';
+import { unpackGame } from '../../dist/snapshot.js?v=34';
 
 const deck = ['diglett','voltorb','bulbasaur','eevee','ekans','gastly','grimer','squirtle'];
 const sockets = [];

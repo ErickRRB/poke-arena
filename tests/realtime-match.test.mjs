@@ -1,9 +1,9 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {RealtimeMatch,validDeck} from '../realtime/src/match.js';
-import {Game,CARDS} from '../dist/engine.js?v=26';
-import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=26';
-import {publicSnapshot,publicEvent,unpackEvent,RECONNECT_GRACE} from '../dist/online-wire.js';
+import {Game,CARDS} from '../dist/engine.js?v=34';
+import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
+import {publicSnapshot,publicEvent,unpackEvent,RECONNECT_GRACE} from '../dist/online-wire.js?v=34';
 
 const deck=['diglett','voltorb','bulbasaur','eevee','ekans','gastly','grimer','squirtle'];
 const match=()=>new RealtimeMatch({id:'room',seed:12,now:1000,players:[{id:'a',name:'Uno',deck,tokenHash:'a'},{id:'b',name:'Dos',deck,tokenHash:'b'}]});

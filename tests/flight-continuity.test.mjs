@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {Renderer} from '../dist/render.js';
-import {CARDS} from '../dist/engine.js';
+import {CARDS} from '../dist/engine.js?v=34';
 import {CapsuleArt,capsulePixels,CAPSULE_FRAME_SIZE} from '../dist/capsule-art.js';
 for(const hz of[15,30,60])for(const team of[0,1])test(`capsule flight remains continuous at ${hz}Hz authority and 60Hz display, team ${team}`,()=>{
   const points=[],ctx={save(){},restore(){},globalAlpha:1},r=Object.assign(Object.create(Renderer.prototype),{t:0,drawDt:1/60,reduced:false,verticalScale:1,capsule:(c,x,y)=>points.push({x,y})});

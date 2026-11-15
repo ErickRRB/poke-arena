@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, CARDS } from '../dist/engine.js';
+import { Game, CARDS } from '../dist/engine.js?v=34';
 import { Renderer } from '../dist/render.js';
 import {BattleArt,cardPlaceholder} from '../dist/battle-art.js';
 import {BATTLE_ASSETS} from '../dist/assets/battle/manifest.js';
-import { packGame, unpackGame, packEvent, perspective } from '../dist/snapshot.js';
+import { packGame, unpackGame, packEvent, perspective } from '../dist/snapshot.js?v=34';
 
 function setup(){
   const calls=[],ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}})}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});

@@ -2,6 +2,7 @@ import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { Game, CARDS } from '../dist/engine.js';
 import { CARD_REVIEW } from '../dist/card-review.js';
 
+const tradeMatrix=JSON.parse(await readFile(new URL('../docs/NATIVE-TRADE-MATRIX-2026-11-14.json',import.meta.url),'utf8'));
 const reviews=JSON.parse(await readFile(new URL('../docs/ROLE-REVIEW.json',import.meta.url),'utf8'));
 const references=Object.fromEntries(reviews.cards.map(c=>[c.key,c.reference]));
 const playable=Object.entries(CARDS).filter(([,c])=>!c.token);
@@ -24,7 +25,7 @@ const content=[
   '',
   'Revisión del 14 de noviembre de 2026. '+playable.length+' cartas. Valores efectivos compartidos entre CPU, navegador y servidor. Las correspondencias y excepciones están en [CARD-EQUIVALENTS.md](CARD-EQUIVALENTS.md).',
   '',
-  'Esta tabla incluye el daño directo por unidad. La [matriz final de 372 encuentros](NATIVE-TRADE-MATRIX-2026-11-14.json) conserva los perfiles efectivos, posiciones y fuentes verificables. La [revisión de los 50 originales](ORIGINAL-CATALOG-REVIEW-2026-11-14.md) explica sus presupuestos. Los informes anteriores de 105 cartas son históricos. El sandbox registra por separado efectos, invocaciones, curación y empuje posterior.',
+  'Esta tabla incluye el daño directo por unidad. La [matriz final de '+tradeMatrix.total+' encuentros](NATIVE-TRADE-MATRIX-2026-11-14.json) conserva los perfiles efectivos, posiciones y fuentes verificables. La [revisión de los 50 originales](ORIGINAL-CATALOG-REVIEW-2026-11-14.md) explica sus presupuestos. Los informes anteriores de 105 cartas son históricos. El sandbox registra por separado efectos, invocaciones, curación y empuje posterior.',
   '',
   '| Carta | Rol | Elixir | Unidades | PV | Escudo | Daño | Ataque cada (s) | DPS directo | Alcance | Referencia | Identidad y decisión |',
   '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |',

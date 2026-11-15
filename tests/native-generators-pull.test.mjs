@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,CARDS} from '../dist/engine.js';
-import {packGame,unpackGame,perspective} from '../dist/snapshot.js';
+import {Game,CARDS} from '../dist/engine.js?v=34';
+import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
 import {native,meleeExchange} from './helpers/native-oracle.mjs';
 const run=(g,time,hz)=>{for(let i=0;i<Math.round(time*hz);i++)g.step(1/hz);};
 const fresh=()=>{const g=new Game({tutorial:true,seed:76});g.start();g.towers.forEach(t=>t.hp=0);return g;};

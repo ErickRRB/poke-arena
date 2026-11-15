@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { CARDS, Game } from '../dist/engine.js?v=26';
-import { packGame, unpackGame } from '../dist/snapshot.js?v=26';
+import { CARDS, Game } from '../dist/engine.js?v=34';
+import { packGame, unpackGame } from '../dist/snapshot.js?v=34';
 
 const EPSILON = 1e-7;
 const ACTIVE_KEYS = Object.keys(CARDS).filter(key => !CARDS[key].spell && !CARDS[key].passive && CARDS[key].damage > 0);

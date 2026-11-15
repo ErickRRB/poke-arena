@@ -3,7 +3,7 @@ import {openPage,ready,rects,stable} from './helpers.mjs';
 
 export async function checkCapturedDeploymentLighting(page){
   const results=await page.evaluate(async()=>{
-    const{renderer,game}=__qa,{packGame,unpackGame,perspective}=await import('/snapshot.js?v=26');
+    const{renderer,game}=__qa,{packGame,unpackGame,perspective}=await import('/snapshot.js?v=34');
     const canvas=document.createElement('canvas');canvas.width=600;canvas.height=800;const c=canvas.getContext('2d',{willReadFrequently:true});
     const selection=renderer.selection,pointer=renderer.pointer,results=[];renderer.pointer=null;
     try{

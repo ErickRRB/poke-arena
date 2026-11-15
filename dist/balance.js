@@ -1,10 +1,10 @@
-import { POKEMON_STATS } from './pokemon-stats.js';
-import { UNIT_SCALES } from './unit-sizes.js';
-import { GROUP_FORMATIONS } from './deployment-formations.js';
-import { CURRENT_REFERENCE_BALANCE } from './current-reference.js';
-import { PUSHBACK_IMMUNITY } from './knockback-profiles.js';
-import { applyAttackChoreography } from './attack-choreography.js';
-import { NATIVE_DESCRIPTIONS } from './native-descriptions.js';
+import { POKEMON_STATS } from './pokemon-stats.js?v=34';
+import { UNIT_SCALES } from './unit-sizes.js?v=34';
+import { GROUP_FORMATIONS } from './deployment-formations.js?v=34';
+import { CURRENT_REFERENCE_BALANCE } from './current-reference.js?v=34';
+import { PUSHBACK_IMMUNITY } from './knockback-profiles.js?v=34';
+import { applyAttackChoreography } from './attack-choreography.js?v=34';
+import { NATIVE_DESCRIPTIONS } from './native-descriptions.js?v=34';
 
 // Shared by browser, CPU and online server. Values are per body / per hit.
 export const THRESHOLDS = Object.freeze({ tower: 109, towerInterval: .8, fragile: 81, scout: 133, meleeSwarm: 202, archers: 304, fireball: 688, log: 268 });

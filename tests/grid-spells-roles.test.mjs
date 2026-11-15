@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, CARDS, DEFAULT_DECK, TILE, DEPLOY_GRID, W, H } from '../dist/engine.js';
-import { packGame, unpackGame, perspective } from '../dist/snapshot.js';
+import { Game, CARDS, DEFAULT_DECK, TILE, DEPLOY_GRID, W, H } from '../dist/engine.js?v=34';
+import { packGame, unpackGame, perspective } from '../dist/snapshot.js?v=34';
 
 function fresh(key='pikachu') {
   const game=new Game({deck:[key,...DEFAULT_DECK.filter(k=>k!==key).slice(0,7)],seed:611});

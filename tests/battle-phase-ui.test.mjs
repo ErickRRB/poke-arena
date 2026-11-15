@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {Game} from '../dist/engine.js';
-import {packGame,unpackGame,perspective} from '../dist/snapshot.js';
+import {Game} from '../dist/engine.js?v=34';
+import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
 import {BattlePhaseUi} from '../dist/battle-phase-ui.js';
 function fixture(){
  const elements=new Map();

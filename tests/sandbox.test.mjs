@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,CARDS} from '../dist/engine.js';
+import {Game,CARDS} from '../dist/engine.js?v=34';
 import {SandboxGame} from '../dist/sandbox.js';
 const run=(g,seconds)=>{for(let i=0;i<Math.round(seconds*60);i++)g.step(1/60);};
 

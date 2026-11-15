@@ -1,13 +1,13 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {Game,CARDS} from '../dist/engine.js';
+import {Game,CARDS} from '../dist/engine.js?v=34';
 import {SPRITE_GEOMETRY} from '../dist/sprite-geometry.js';
 import {emissionPoint,animationFrame,attackPoseProgress} from '../dist/sprite-motion.js';
 import {Renderer} from '../dist/render.js';
 import {combatVisual,projectileVisual,fireballVisual} from '../dist/combat-visuals.js';
 import {POKEMON_SILHOUETTES} from '../dist/pokemon-silhouettes.js';
-import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js';
+import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js?v=34';
 import {WING_RIGS} from '../dist/wing-rigs.js';
 
 test('native emission markers cover every playable attack in all eight directions',()=>{

@@ -1,13 +1,13 @@
-import { EXTRA_CARDS } from './catalog.js?v=26';
-import { currentCardKey, currentDeck } from './card-key-migrations.js?v=1';
-export { currentCardKey, currentDeck } from './card-key-migrations.js?v=1';
-import { applyBalance, THRESHOLDS } from './balance.js?v=26';
-import { REFERENCE_TOWERS } from './current-reference.js?v=26';
-import { emissionPoint, structureLift } from './sprite-motion.js?v=26';
-import { nativeFormationOffsets } from './native-formations.js?v=26';
-export { attackPoseProgress } from './sprite-motion.js?v=26';
-import { W,H,TILE,BOARD_VERSION,ARENA,DEPLOY_GRID,RIVER,BRIDGE,PRINCESS_Y,KING_Y,LANES,snapToCell,inArena,arenaBits,inKingBlock,onBridge,pullPosition,laneAt } from './arena-geometry.js?v=26';
-export { W,H,TILE,BOARD_VERSION,ARENA,DEPLOY_GRID,RIVER,BRIDGE,PRINCESS_Y,KING_Y,LANES,snapToCell } from './arena-geometry.js?v=26';
+import { EXTRA_CARDS } from './catalog.js?v=34';
+import { currentCardKey, currentDeck } from './card-key-migrations.js?v=34';
+export { currentCardKey, currentDeck } from './card-key-migrations.js?v=34';
+import { applyBalance, THRESHOLDS } from './balance.js?v=34';
+import { REFERENCE_TOWERS } from './current-reference.js?v=34';
+import { emissionPoint, structureLift } from './sprite-motion.js?v=34';
+import { nativeFormationOffsets } from './native-formations.js?v=34';
+export { attackPoseProgress } from './sprite-motion.js?v=34';
+import { W,H,TILE,BOARD_VERSION,ARENA,DEPLOY_GRID,RIVER,BRIDGE,PRINCESS_Y,KING_Y,LANES,snapToCell,inArena,arenaBits,inKingBlock,onBridge,pullPosition,laneAt } from './arena-geometry.js?v=34';
+export { W,H,TILE,BOARD_VERSION,ARENA,DEPLOY_GRID,RIVER,BRIDGE,PRINCESS_Y,KING_Y,LANES,snapToCell } from './arena-geometry.js?v=34';
 // Native attack ranges measure the gap between collision bodies.
 export const PRINCESS_RANGE = 7.5 * TILE;
 

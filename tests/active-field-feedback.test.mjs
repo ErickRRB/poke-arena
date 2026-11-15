@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Game} from '../dist/engine.js?v=26';
+import {Game} from '../dist/engine.js?v=34';
 import {Renderer} from '../dist/render.js';
 
 for(const key of['spikes','stealthRock','whirlpool','nightmare','earthquake'])test(`${key}: active field keeps its actual effect without a targeting outline`,()=>{

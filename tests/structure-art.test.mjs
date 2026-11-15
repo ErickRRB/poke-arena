@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {BattleArt,STRUCTURE_ART} from '../dist/battle-art.js';
 import {Renderer} from '../dist/render.js';
-import {Game} from '../dist/engine.js';
+import {Game} from '../dist/engine.js?v=34';
 
 const context=()=>new Proxy({globalAlpha:1},{get:(o,key)=>o[key]??(()=>{}),set:(o,key,value)=>(o[key]=value,true)});
 function fixture(){

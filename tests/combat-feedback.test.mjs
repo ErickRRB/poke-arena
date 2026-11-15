@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,CARDS} from '../dist/engine.js';
+import {Game,CARDS} from '../dist/engine.js?v=34';
 import {Renderer} from '../dist/render.js';
-import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js';
+import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js?v=34';
 import {emissionPoint} from '../dist/sprite-motion.js';
 const fresh=()=>{const events=[],game=new Game({seed:92,onEvent:e=>events.push(e)});game.start();game.aiEnabled=false;game.towers.forEach(t=>t.active=false);return{game,events};};
 const run=(game,seconds)=>{for(let i=0;i<Math.ceil(seconds*60);i++)game.step(1/60);};

@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,CARDS} from '../dist/engine.js';
+import {Game,CARDS} from '../dist/engine.js?v=34';
 import {Renderer} from '../dist/render.js';
-import {packGame,unpackGame} from '../dist/snapshot.js';
+import {packGame,unpackGame} from '../dist/snapshot.js?v=34';
 
 test('Golem reacts to an effective forced push, never ordinary chip or an immune fireball',()=>{
   const game=new Game({tutorial:true});game.start();game.aiEnabled=false;game.towers.forEach(t=>t.stun=999);

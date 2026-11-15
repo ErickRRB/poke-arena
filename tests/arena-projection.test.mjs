@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {ARENA,TILE,DEPLOY_GRID,worldToScreen,screenToWorld} from '../dist/arena-geometry.js?v=26';
-import {Game} from '../dist/engine.js?v=26';
-import {packGame,unpackGame,perspective} from '../dist/snapshot.js';
+import {Game} from '../dist/engine.js?v=34';
+import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
 
 const sizes=[[320,430],[370,533],[370,557],[370,677],[410,765],[490,857],[643,860]];
 for(const[width,height]of sizes)test(`the full native board and every deployment center have one uniform invertible projection at${width}x${height}`,()=>{

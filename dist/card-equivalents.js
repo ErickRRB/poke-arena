@@ -1,5 +1,5 @@
-import { CLASH_ROSTER } from './clash-roster.js';
-import { NATIVE_DESCRIPTIONS } from './native-descriptions.js';
+import { CLASH_ROSTER } from './clash-roster.js?v=34';
+import { NATIVE_DESCRIPTIONS } from './native-descriptions.js?v=34';
 // Base-card contracts and explicitly retained Pokemon adaptations.
 export const CARD_EQUIVALENTS = {
   blastoiseCannon:{reference:'Cañón',similarity:'equivalent',reason:'Estructura de tres elixires que dispara a un rival terrestre por ataque.'},

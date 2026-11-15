@@ -18,7 +18,7 @@ test('hosted pages, scripts, sound, loaders and large illustrations preserve byt
  }
 });
 test('the compatibility proxy preserves conditional headers and does not forward private credentials',async t=>{
- t.mock.method(globalThis,'fetch',async(url,init)=>{assert.equal(new URL(url).origin,WEB_ORIGIN);assert.equal(new URL(url).pathname,'/engine.js');assert.equal(new URL(url).search,'?v=26');assert.equal(init.headers.get('If-None-Match'),'"asset"');assert.equal(init.headers.get('Cookie'),null);assert.equal(init.headers.get('Authorization'),null);assert.equal(init.headers.get('Host'),null);return new Response(null,{status:304,headers:{ETag:'"asset"'}});});
+ t.mock.method(globalThis,'fetch',async(url,init)=>{assert.equal(new URL(url).origin,WEB_ORIGIN);assert.equal(new URL(url).pathname,'/engine.js?v=34');assert.equal(new URL(url).search,'?v=26');assert.equal(init.headers.get('If-None-Match'),'"asset"');assert.equal(init.headers.get('Cookie'),null);assert.equal(init.headers.get('Authorization'),null);assert.equal(init.headers.get('Host'),null);return new Response(null,{status:304,headers:{ETag:'"asset"'}});});
  const r=await worker.fetch(new Request('https://arena.test/engine.js?v=26',{headers:{'If-None-Match':'"asset"',Cookie:'private',Authorization:'private'}}),{});assert.equal(r.status,304);assert.equal(r.headers.get('ETag'),'"asset"');
 });
 test('HEAD and media type are preserved by the compatibility proxy',async t=>{

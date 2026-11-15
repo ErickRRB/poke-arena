@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,LANES,RIVER,directionRow} from '../dist/engine.js';
-import {packGame,unpackGame,perspective} from '../dist/snapshot.js';
+import {Game,LANES,RIVER,directionRow} from '../dist/engine.js?v=34';
+import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
 
 function scene(kind,team=0,lane=0){
  const g=new Game({seed:42});g.start();g.aiEnabled=false;g.towers.forEach(t=>{t.active=false;t.hp=t.maxHp=1e8;});

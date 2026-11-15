@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, CARDS, DEFAULT_DECK, LANES, RIVER, BRIDGE } from '../dist/engine.js';
+import { Game, CARDS, DEFAULT_DECK, LANES, RIVER, BRIDGE } from '../dist/engine.js?v=34';
 const fresh=()=>{const g=new Game({seed:18});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);return g;};
 const run=(g,seconds)=>{for(let i=0;i<Math.ceil(seconds*60);i++)g.step(1/60);};
 

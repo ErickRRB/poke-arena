@@ -1,6 +1,6 @@
-import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=26';
-import { BOARD_VERSION, migrateLegacyX, migrateLegacyY } from './arena-geometry.js?v=26';
-import { currentDeck } from './card-key-migrations.js?v=1';
+import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=34';
+import { BOARD_VERSION, migrateLegacyX, migrateLegacyY } from './arena-geometry.js?v=34';
+import { currentDeck } from './card-key-migrations.js?v=34';
 
 // Persisted matches retain the old mobile card's numbers and entity references.
 // Only its retired key and visual identity change; Cannon is a separate card.

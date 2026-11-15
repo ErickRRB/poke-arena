@@ -1,11 +1,11 @@
-import { screenToWorld, inArena, ARENA, LANES } from './arena-geometry.js?v=26';
-import { LOADER_BALL_SHAPES } from './loader-art.js?v=26';
-import {CARDS,W,H,TILE} from './engine.js?v=26';
-import {SandboxGame} from './sandbox.js?v=1';
-import {Renderer} from './render.js?v=32';
-import {cardArtMarkup} from './card-art.js?v=26';
-import {cardEquivalentLabel} from './card-equivalents.js?v=30';
-import {SoundSystem} from './audio.js?v=32';
+import { screenToWorld, inArena, ARENA, LANES } from './arena-geometry.js?v=34';
+import { LOADER_BALL_SHAPES } from './loader-art.js?v=34';
+import {CARDS,W,H,TILE} from './engine.js?v=34';
+import {SandboxGame} from './sandbox.js?v=34';
+import {Renderer} from './render.js?v=34';
+import {cardArtMarkup} from './card-art.js?v=34';
+import {cardEquivalentLabel} from './card-equivalents.js?v=34';
+import {SoundSystem} from './audio.js?v=34';
 
 const $=id=>document.getElementById(id),columns=[],catalog=Object.keys(CARDS).filter(key=>!CARDS[key].token).sort((a,b)=>CARDS[a].name.localeCompare(CARDS[b].name,'es'));
 let selected='roselia',team=0,nextColumn=1,speed=1,noticeTimer,ready=false,last=performance.now(),uiClock=0,sfx,activeColumn=null;
