@@ -25,6 +25,20 @@ test('the visible breath finishes its gesture after the physical recovery, witho
  actor.stun=.5;assert.equal(renderer.visualActor(actor,1/60).attack,0);
 });
 
+test('Charizard anticipation moves the displayed mouth with the body and returns to its native release point',()=>{
+ const r=Object.assign(Object.create(Renderer.prototype),{t:0,reduced:false,verticalScale:1});
+ for(const [dx,dy]of [[1,0],[0,-1],[-1,0],[0,1]]){
+  const a={id:0,x:220,y:540,card:CARDS.charizard,dx,dy,attackDuration:.72,attackWindup:.3,attack:.57};
+  const saved=JSON.stringify(a),native=emissionPoint({...a,card:attackVisualProfile(a.card)},0,0),shown=r.visualEmission(a);
+  assert.ok((shown.x-native.x)*dx+(shown.y-native.y)*dy< -8,'The windup visibly withdraws opposite the aim.');
+  assert.equal(JSON.stringify(a),saved);
+  a.attack=.42;const release=r.visualEmission(a),nativeRelease=emissionPoint({...a,card:attackVisualProfile(a.card)},0,0);
+  assert.ok(Math.hypot(release.x-nativeRelease.x,release.y-nativeRelease.y)<1e-8,'Presentation must meet the native emission at the unchanged release time.');
+  r.reduced=true;a.attack=.57;const held=r.visualEmission(a),nativeReduced=emissionPoint({...a,card:attackVisualProfile(a.card)},0,0);
+  assert.deepEqual(held,nativeReduced);r.reduced=false;
+ }
+});
+
 test('Charizard fire uses the shot clock and retains its discharge at immediate contact',()=>{
  const actor={id:7,key:'charizard',x:300,y:550,dx:0,dy:-1,hp:100,card:CARDS.charizard,attackSeq:2,attackDuration:.46,attackWindup:.3,attack:.16};
  const target={id:8,x:300,y:460,card:CARDS.snorlax,hp:1e6},draws=[],ctx=new Proxy({globalAlpha:1},{get:(o,k)=>o[k]??(()=>{}),set:(o,k,v)=>(o[k]=v,true)});

@@ -19,6 +19,12 @@ function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.li
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
 const visualScale = unit => unit.scale ?? unit.card?.scale ?? 1.5;
 function attackLunge(unit,reduced){
+  if(!reduced&&!unit.mounted&&unit.dash?.phase!=='windup'&&unit.card?.id===6&&unit.card.attackAnim==='Shoot'&&unit.attack>0){
+    const elapsed=(unit.attackDuration||unit.card.attackDuration)-unit.attack,windup=unit.attackWindup??unit.card.windup;
+    // Draw back while inhaling, then meet the unchanged native mouth point at
+    // release. The sprite and visual emitter use this same presentation offset.
+    return windup>0&&elapsed<windup?-14*Math.sin(Math.PI*Math.max(0,elapsed)/windup):0;
+  }
   if(reduced||!unit.attack||unit.mounted||unit.dash?.phase==='windup'||!unit.card||isRangedAttack(unit.card))return 0;
   const duration=unit.attackDuration||.75,elapsed=duration-unit.attack;
   const windup=unit.attackWindup??unit.card.windup??.3,spacing=unit.card.burstSpacing||duration;
@@ -609,11 +615,11 @@ export class Renderer {
     const fireHead=p.key==='charizard',art=p.key==='nuzleaf'?'needle':p.art||motion.name;
     if(arc>25){c.save();c.globalAlpha=.18;ellipse(c,'#233b31',p.x,p.y,Math.max(4,size*.25),2);c.restore();}
     if(fireHead){
-      const fireAge=Math.max(0,pose.travelled)/Math.max(1,p.speed||240);
+      const fireAge=Math.max(0,pose.travelled)/Math.max(1,p.speed||240),fireSize=size*.78;
       const mouth=source&&this.visualEmission(source),available=mouth?Math.hypot(x-mouth.x,(y-mouth.y)*(this.verticalScale||1)):pose.travelled;
-      for(let i=this.reduced?1:2;i>0;i--){const shift=Math.min(available*.7,i*8),tailSize=Math.max(12,size-i*4);c.save();c.globalAlpha*=i===1?.6:.32;
+      for(let i=this.reduced?1:2;i>0;i--){const shift=Math.min(available*.7,i*8),tailSize=Math.max(10,fireSize-i*4);c.save();c.globalAlpha*=i===1?.6:.32;
         this.combatArt(c,'fireTrail',x-Math.cos(angle)*shift,y-Math.sin(angle)*shift/(this.verticalScale||1),tailSize,angle-Math.PI/2,tailSize,{frame:this.reduced?5:undefined,frames:[3,4,5,6,5,4],fps:12,age:fireAge+i*.04,trim:true});c.restore();}
-      this.livingFire(c,x,y,size,angle,fireAge);return;
+      this.livingFire(c,x,y,fireSize,angle,fireAge);return;
     }
     this.combatArt(c,art,x,y,size,art==='needle'?0:['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true});
     if(!this.reduced&&!fireHead&&p.style!=='coin'&&p.style!=='rock'){

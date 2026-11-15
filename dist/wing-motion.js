@@ -24,7 +24,9 @@ export class FlightWings{
     return phase;
   }
   frame(id,animation,direction,index,image,meta,clock,reduced){
-    if(!WING_RIGS[id]||reduced||!image.naturalWidth||!(animation==='Hop'||id===6&&animation==='Shoot'))return null;
+    // Hover articulation must not mask the authored folded/spread wings in
+    // Charizard's Shoot preparation and release. Those frames draw unchanged.
+    if(!WING_RIGS[id]||reduced||!image.naturalWidth||animation!=='Hop')return null;
     const rig=WING_RIGS[id]?.directions[direction],points=SPRITE_GEOMETRY[id]?.[animation]?.points[direction]?.[index];
     if(!rig||!points)return null;
     const key=`${id}:${animation}:${direction}:${index}`;
