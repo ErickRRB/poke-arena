@@ -32,38 +32,49 @@
       "distancePerTurn": 201.06192982974676,
       "source": "fire-texture-original-v1.png"
     },
-    "offlineReproductionExact": true
+    "offlineReproductionExact": true,
+    "reproductionDefinition": "Unchanged V2 bake PNGs; production Q85 encoder reproduces the reviewed Q85 asset bytes. RGB is compressed with loss; alpha is exact.",
+    "encoderArguments": [
+      "--quality",
+      "85"
+    ]
   },
   "encoding": {
     "pillow": "11.2.1",
     "libwebp": "1.5.0",
     "options": {
-      "lossless": true,
-      "quality": 100,
+      "lossless": false,
+      "quality": 85,
       "method": 6,
       "exact": true
     },
-    "rgbaExact": true
+    "rgbaExact": false,
+    "alphaExact": true,
+    "rgbaHashDecoder": "Pillow/libwebp reference decode. Full browser RGBA equivalence is not asserted; browser alpha and received asset bytes are separate contracts."
   },
   "atlases": [
     {
       "mode": "normal",
       "file": "normal.webp",
-      "bytes": 3932416,
-      "sha256": "82c8969c842231969c688f42c6baff6e70e72b6a1b5d0cdde69b2c480c21cf36",
+      "bytes": 815302,
+      "sha256": "82b0ebcf8d8da5e56b8e5b1cb3bdc53fe88bbe0fe79346012ddaaaf213c7e8ab",
       "width": 3088,
       "height": 968,
-      "rgbaSha256": "6216d3ac889f39187af57668709f4ceb5ecc6fda00a8186e6ed81951e1c19f9b",
+      "rgbaSha256": "7fb11372bdc71688e45e3448f007fa1ff8583274246b4c58903a50cdfc3eee19",
+      "sourceRgbaSha256": "6216d3ac889f39187af57668709f4ceb5ecc6fda00a8186e6ed81951e1c19f9b",
+      "alphaSha256": "256769a3be25e027e18d26aacbe5c63c92ae4142c4a98d82b127ffc4e061465b",
       "authoredPngSha256": "94e1ff577b1b405214c4ac572d2fd62bf470950aa3344a4642f9d5efbf0c024a"
     },
     {
       "mode": "reduced",
       "file": "reduced.webp",
-      "bytes": 3920376,
-      "sha256": "3618bc4bf15034e89d4d3056ade0aedc0f1c799f8f20b9027da7e8a17bfa5d5a",
+      "bytes": 800002,
+      "sha256": "86138bd852f82922aa248e513b0305811acb18052c77db07063d9266ff0a12e8",
       "width": 3088,
       "height": 968,
-      "rgbaSha256": "a7b1ccaed97d2d6287469accd8a8c751014beeb204c7dc3485633e61b41c23fe",
+      "rgbaSha256": "f1fd6aa78b3cc094220d5b8062ddb8367549ff8dc027134ac1727fcd88691754",
+      "sourceRgbaSha256": "a7b1ccaed97d2d6287469accd8a8c751014beeb204c7dc3485633e61b41c23fe",
+      "alphaSha256": "7a37a1f232f2dce2cf2884c14721ed668691d297bb0c151350dad63f53c41bc2",
       "authoredPngSha256": "2b9978ffd7b56838c130bae1d5c6cdd46a8d0b0bb05238e6f72cae0c5ba09836"
     }
   ],
