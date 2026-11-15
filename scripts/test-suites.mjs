@@ -4,7 +4,7 @@ export const TEST_SUITES=Object.freeze({
   placement:['arena-layout.test.mjs','placement-targeting.test.mjs','mobile-balance.test.mjs','spell-footprints.test.mjs'],
   rendering:['vine-contact.test.mjs','field-motion.test.mjs','charizard-presentation.test.mjs','vfx-assets.test.mjs','electric-hop-render.test.mjs','spell-carriers.test.mjs','initial-card-marker.test.mjs','arena-projection.test.mjs','tower-health-overlay.test.mjs','soft-area-guides.test.mjs','placement-preview.test.mjs','active-field-feedback.test.mjs','spell-indicator-lifecycle.test.mjs','battle-phase-ui.test.mjs','themed-effects.test.mjs','sprite-motion.test.mjs','attack-choreography.test.mjs','attack-contact-clock.test.mjs','native-contact-delivery.test.mjs','zero-windup-contact.test.mjs','projectile-contact-origin.test.mjs','combat-feedback.test.mjs','projectile-continuity.test.mjs','flight-continuity.test.mjs','golem-hurt.test.mjs','quick-stats.test.mjs','structure-art.test.mjs','replacement-identities.test.mjs'],
   online:['online.test.mjs','online-client.test.mjs','realtime-match.test.mjs'],
-  server:['media-route.test.mjs'],
+  server:['asset-origin.test.mjs','media-route.test.mjs'],
   audio:['audio-recovery.test.mjs','audio-catalog.test.mjs','music.test.mjs','clean-audio-bank.test.mjs'],
   balance:['balance.test.mjs','balance-sandbox.test.mjs','thresholds.test.mjs','balance-role-audit.test.mjs','current-reference.test.mjs','native-interactions.test.mjs','native-arena.test.mjs','native-generators-pull.test.mjs','catalog-initialization.test.mjs'],
   tooling:['test-suites.test.mjs'],
