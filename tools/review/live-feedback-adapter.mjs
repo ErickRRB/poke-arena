@@ -79,6 +79,19 @@ export async function prepare(page,config){
       return result;
     }});
   },config);
+  if(config.previewKey){
+    await page.waitForFunction(()=>__reviewAdapter.fixture.ready);
+    await page.evaluate(key=>{__reviewAdapter.game.hands[0][0]=key;},config.previewKey);
+    await page.waitForTimeout(150);
+    await page.locator('#hand [data-card="0"]').click();
+    const point=await page.evaluate(()=>{const r=__reviewAdapter.renderer,b=r.canvas.getBoundingClientRect(),p=r.projection;return{x:b.x+p.x+288*p.scale,y:b.y+p.y+556*p.scale};});
+    await page.mouse.move(point.x,point.y);
+    await page.waitForFunction(key=>__reviewAdapter.renderer.selection===key&&__reviewAdapter.renderer.pointer,config.previewKey);
+    await page.evaluate(config=>{
+      const q=__reviewAdapter;q.fixture.preview={key:q.renderer.selection,pointer:{...q.renderer.pointer},at:q.game.elapsed,method:'Actual hand click and canvas mouse move; real Escape key handler clears it.'};
+      setTimeout(()=>document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true})),config.previewDurationMs);
+    },config);
+  }
 }
 export async function observe(page,config){
   const sample=await baseline.observe(page,config);
@@ -87,7 +100,7 @@ export async function observe(page,config){
     return {...f,age:f.ready?g.elapsed-f.startGameTime:null,rects:q.fixtureRects(),actors:f.actors.map(a=>{
       const u=g.units.find(u=>u.id===a.id);
       return {...a,current:u?{x:u.x,y:u.y,hp:u.hp,maxHp:u.maxHp,lifetime:u.lifetime,burrowed:u.burrowed,burrowProgress:u.burrowProgress,spawn:u.spawn,attack:u.attack,attackSeq:u.attackSeq}:null};
-    }),fields:g.fields.map(f=>({id:f.id,key:f.key,life:f.life,duration:f.duration,x:f.x,y:f.y,radius:f.radius})),canvasClean:r.canvas.toDataURL().startsWith('data:image/png')};
+    }),selection:r.selection,pointer:r.pointer,fields:g.fields.map(f=>({id:f.id,key:f.key,life:f.life,duration:f.duration,x:f.x,y:f.y,radius:f.radius})),canvasClean:r.canvas.toDataURL().startsWith('data:image/png')};
   });
   if(sample.instrumentation.lastStepDt!==1/30)throw Error('Native Game step changed');
   if(fixture.error)throw Error(fixture.error);
