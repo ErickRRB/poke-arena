@@ -91,7 +91,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs'}={}) {
     if (observed.some(s=>!Number.isFinite(s.wallTime)||!Number.isFinite(s.epochMs)||!Number.isFinite(s.gameTime)||!s.canvas||s.pose==null||s.hp==null)) throw Error('required observed state missing');
     if (dir) {
       await cdp.send('Page.stopScreencast'); await pending;
-      if (!captured.length || captured.some((f,i)=>!Number.isFinite(f.timestamp)||(i && f.timestamp<captured[i-1].timestamp))) throw Error('missing or unordered original CDP timestamps');
+      if (captured.length < 2 || captured.some((f,i)=>!Number.isFinite(f.timestamp)||(i && f.timestamp<captured[i-1].timestamp))) throw Error('missing or unordered original CDP timestamps');
       if (c.recordCanvas) {
         const b64=await page.evaluate(async()=>{const v=window.__workbenchRecording;await new Promise(resolve=>{v.recorder.onstop=resolve;v.recorder.stop()});v.stream.getTracks().forEach(t=>t.stop());const data=new Uint8Array(await new Blob(v.chunks,{type:'video/webm'}).arrayBuffer());let binary='';for(let i=0;i<data.length;i+=8192)binary+=String.fromCharCode(...data.subarray(i,i+8192));return btoa(binary);});
         const bytes=Buffer.from(b64,'base64'),file=path.join(dir,'canvas.webm'); await writeFile(file,bytes);
