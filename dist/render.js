@@ -1,10 +1,10 @@
 import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=34';
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
-import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=34';
+import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
-import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile} from './combat-visuals.js?v=34';
+import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile} from './combat-visuals.js?v=36';
 import { spellPreviewTargets } from './spell-preview.js?v=34';
-import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=35';
+import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
 import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
