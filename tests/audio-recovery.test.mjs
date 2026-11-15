@@ -3,6 +3,10 @@ import assert from 'node:assert/strict';
 import {SoundSystem,AUDIO_LEVELS} from '../dist/audio.js';
 import {CARDS} from '../dist/engine.js?v=34';
 import {readFileSync,existsSync} from 'node:fs';
+import{publicAssetUrl,PUBLIC_ASSET_ORIGIN}from'../dist/online-config.js?v=36';
+test('new audio stays local during development and uses Cloudflare directly from legacy origins',()=>{
+ const file='assets/audio/music/new-track.mp3';for(const hostname of['localhost','127.0.0.1'])assert.equal(publicAssetUrl(file,{hostname,origin:'http://'+hostname+':4173'}),file);assert.equal(publicAssetUrl(file,{hostname:'poke-arena-web.eriickramiirez.workers.dev',origin:PUBLIC_ASSET_ORIGIN}),file);assert.equal(publicAssetUrl(file,{hostname:'legacy.chatgpt.site',origin:'https://legacy.chatgpt.site'}),PUBLIC_ASSET_ORIGIN+'/'+file);
+});
 function setup(t){
   const originalWindow=globalThis.window,originalDocument=globalThis.document,instances=[];
   const param=()=>({value:0,setTargetAtTime(){},setValueAtTime(){},linearRampToValueAtTime(){},exponentialRampToValueAtTime(){},cancelScheduledValues(){}});

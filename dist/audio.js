@@ -1,15 +1,16 @@
 // Recorded combat cues follow real release/contact events, including cold loads.
-import { BattleMusic } from './music.js?v=34';
+import { BattleMusic } from './music.js?v=36';
 import { CARDS } from './engine.js?v=34';
+import {publicAssetUrl} from './online-config.js?v=36';
 export const MAX_EFFECT_VOICES=12;
 export const AUDIO_LEVELS=Object.freeze({master:.8,effects:.65,voices:.7,ui:.55,music:.65});
-import {ATTACK_AUDIO,soundStyle,attackCue,prepareSample,installAttackFallbacks} from './attack-audio.js?v=34';
+import {ATTACK_AUDIO,soundStyle,attackCue,prepareSample,installAttackFallbacks} from './attack-audio.js?v=36';
 export class SoundSystem {
   constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.effectSlots=[];this.battlePlaying=false;this.intense=false;this.ready=this.preload().catch(()=>false); }
   async preload(){
-    const response=await fetch('assets/audio/manifest.json?v=34');if(!response.ok)throw Error('Audio manifest unavailable');
+    const response=await fetch(publicAssetUrl('assets/audio/manifest.json?v=36'),{credentials:'omit'});if(!response.ok)throw Error('Audio manifest unavailable');
     const manifest=await response.json();
-    const results=await Promise.allSettled(Object.entries(manifest).filter(([group])=>['cries','moves'].includes(group)).flatMap(([group,entries])=>Object.entries(entries).map(async([id,file])=>{const r=await fetch(file);if(!r.ok)throw Error(`Audio unavailable: ${file}`);this.encoded.set(`${group}:${id}`,await r.arrayBuffer());})));
+    const results=await Promise.allSettled(Object.entries(manifest).filter(([group])=>['cries','moves'].includes(group)).flatMap(([group,entries])=>Object.entries(entries).map(async([id,file])=>{const r=await fetch(publicAssetUrl(file),{credentials:'omit'});if(!r.ok)throw Error(`Audio unavailable: ${file}`);this.encoded.set(`${group}:${id}`,await r.arrayBuffer());})));
     this.failedAssets=results.filter(result=>result.status==='rejected').length;
     this.bytesReady=true;if(this.ctx)await this.decodeSamples();return this.failedAssets===0;
   }
@@ -68,6 +69,7 @@ export class SoundSystem {
         Promise.resolve(ctx.resume()).then(()=>{if(this.ctx===ctx){this.resumePending=null;this.syncMusic();}}).catch(()=>{if(this.ctx===ctx)this.needsRebuild=true;});
         this.watchRecovery(ctx);
       }
+      if(userGesture)this.music?.userGesture?.();
       this.syncMusic();
     }catch{this.discardContext();}
   }

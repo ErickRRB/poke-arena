@@ -62,3 +62,9 @@ test('Cloudflare retires every old HTTP API route without an external request or
  }
  const foreign=await frontend.fetch(new Request(WEB_ORIGIN+'/api/session',{method:'POST',headers:{Origin:'https://unrelated.test'},body:'private'}),env);assert.equal(foreign.status,410);assert.equal(foreign.headers.get('Access-Control-Allow-Origin'),null);assert.equal(mock.mock.callCount(),0);
 });
+test('public Cloudflare media supports anonymous cross-origin playback and byte-range seeking without an API proxy',async t=>{
+ const external=t.mock.method(globalThis,'fetch',()=>{throw Error('No external upstream')});let calls=0;
+ const env={ASSETS:{fetch:async request=>{calls++;assert.equal(request.headers.get('Range'),'bytes=100-199');return new Response(new Uint8Array(100),{status:206,headers:{'Content-Type':'audio/mpeg','Content-Range':'bytes 100-199/8000000','Accept-Ranges':'bytes',ETag:'"music"'}});}}};
+ const r=await frontend.fetch(new Request(WEB_ORIGIN+'/assets/audio/music/test.mp3',{headers:{Origin:'https://legacy.example',Range:'bytes=100-199'}}),env);assert.equal(r.status,206);assert.equal(r.headers.get('Content-Range'),'bytes 100-199/8000000');assert.equal(r.headers.get('Access-Control-Allow-Origin'),'*');assert.equal(r.headers.get('Access-Control-Allow-Credentials'),null);assert.match(r.headers.get('Access-Control-Expose-Headers'),/Content-Range/);assert.equal(calls,1);
+ const preflight=await frontend.fetch(new Request(WEB_ORIGIN+'/assets/audio/music/test.mp3',{method:'OPTIONS',headers:{Origin:'https://legacy.example','Access-Control-Request-Method':'GET','Access-Control-Request-Headers':'range'}}),{});assert.equal(preflight.status,204);assert.equal(preflight.headers.get('Access-Control-Allow-Origin'),'*');assert.match(preflight.headers.get('Access-Control-Allow-Headers'),/Range/);assert.equal(external.mock.callCount(),0);
+});

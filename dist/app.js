@@ -1,7 +1,7 @@
 import { screenToWorld, inArena } from './arena-geometry.js?v=34';
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=34';
 import { Renderer } from './render.js?v=35';
-import { SoundSystem } from './audio.js?v=34';
+import { SoundSystem } from './audio.js?v=36';
 import { OnlineClient, hasSavedOnlineSession } from './online.js?v=34';
 import { unpackGame, perspective } from './snapshot.js?v=34';
 import { cardArtMarkup } from './card-art.js?v=34';
@@ -233,6 +233,7 @@ function togglePause() {
   if(document.querySelector('dialog[open]'))return;
   if(game.state==='playing'){cancelSelection();game.pause();$('pause-overlay').hidden=false;$('resume-btn').focus({preventScroll:true});live('Partida en pausa.');}
   else if(game.state==='paused'){game.resume();$('pause-overlay').hidden=true;canvas.focus({preventScroll:true});live('Partida reanudada.');}
+  updateUi();
 }
 const modalFocus = new WeakMap();
 function focusReference(element) {
