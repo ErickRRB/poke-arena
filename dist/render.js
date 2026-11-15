@@ -112,6 +112,20 @@ export class Renderer {
   }
   rng(seed) { let s = seed; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
   tree(c,x,y,scale=1){this.battleArt.draw(c,'tree',x,y-25*scale,65*scale,65*scale,{frame:0});}
+  drawPerimeter(c){
+    // Native wood and canopy sit wholly outside the 18 × 32 playable cells.
+    // The grass itself is continuous across this physical boundary.
+    const fence=(x,y,angle=0)=>{c.save();c.translate(x,y);c.rotate(angle);this.battleArt.tile(c,'fence',0,24,48,24,-16,0,32,16);c.restore();};
+    c.save();c.filter='saturate(.55) brightness(.9)';c.globalAlpha=.85;
+    for(let x=ARENA.left+16;x<ARENA.right;x+=32){fence(x,ARENA.top-16);fence(x,ARENA.bottom);}
+    for(let y=ARENA.top+16;y<ARENA.bottom;y+=32){
+      if(y+16>RIVER.top&&y-16<RIVER.bottom)continue;
+      fence(ARENA.left,y,Math.PI/2);fence(ARENA.right,y,-Math.PI/2);
+    }
+    c.filter='saturate(.5) brightness(.9)';c.globalAlpha=.9;
+    for(const y of[144,288,544,688]){this.tree(c,ARENA.left-28,y,.72);this.tree(c,ARENA.right+28,y,.72);}
+    c.restore();
+  }
   bridge(c,x){
     const image=this.battleArt.images.get('assets/battle/arena-bridge-v2.webp');
     const width=BRIDGE.halfWidth*2,height=BRIDGE.bottom-BRIDGE.top;
@@ -134,16 +148,7 @@ export class Renderer {
     this.landscapePattern=ground?pattern(200,224,120,128):null;
     const path=ground?pattern(146,240,24,72):'#c9bd8c';
     c.fillStyle=this.landscapePattern||'#8eaa79';c.fillRect(left,top,right-left,bottom-top);
-    // Restrained woodland around the cleared field. NO_DEPLOY stays a rule;
-    // sparse groups of the original canopy give the landscape a quiet edge.
-    c.save();c.beginPath();c.rect(left,top,right-left,bottom-top);c.rect(ARENA.left,ARENA.top,ARENA.width,ARENA.height);c.clip('evenodd');
-    rect(c,'#54745c12',left,top,right-left,bottom-top);
-    const clusters=[...Array.from({length:6},(_,i)=>[48+i*100,ARENA.top-88]),...Array.from({length:6},(_,i)=>[48+i*100,ARENA.bottom+60]),...[168,288,520,672].flatMap(y=>[[ARENA.left-38,y],[ARENA.right+38,y]])];
-    for(const[index,[cx,cy]]of clusters.entries()){
-      const random=this.rng(index*73856093+1832),scale=.8+random()*.45,x=cx+(random()-.5)*16,y=cy+(random()-.5)*18;
-      c.filter='saturate(.38) brightness(.78)';c.globalAlpha=.72;c.save();if(random()<.5){c.translate(x*2,0);c.scale(-1,1);}this.tree(c,x,y,scale);c.restore();
-    }
-    c.restore();
+    this.drawPerimeter(c);
     const half=TILE/2;
     for(let row=0;row<DEPLOY_GRID.rows*2;row++)for(let col=0;col<DEPLOY_GRID.columns*2;col++){
       const x=ARENA.left+col*half,y=ARENA.top+row*half,bits=arenaBits(x+half/2,y+half/2);
