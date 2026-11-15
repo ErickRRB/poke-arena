@@ -22,7 +22,13 @@ Declarar `adapterDependencies` con todos los imports locales del adaptador, incl
 
 En ese modo el runner bloquea API, otros orígenes, WebSockets y Service Workers antes de navegar. Los conjuntos completos de assets versionados de `dist` y Build Output deben coincidir en ambos sentidos, además de sus bytes y blobs Git; no hay excepciones CF implícitas. Se registra todo el inventario y se vuelve a comprobar al terminar. Cada respuesta se compara con esos bytes. Un `206` se verifica por su rango y se registra como parcial, sin afirmar que se recibió el archivo remoto completo. Se exigen index, app, renderer y engine observados. Los errores o recursos faltantes impiden certificar la identidad.
 
-El cierre drena respuestas, cierra página, contexto y navegador y vuelve a drenar las respuestas tardías incluso si falla la observación o la red. No vuelve a accionar `observe` para consultar la red. `publicNetwork`, `publicResponses` y `publicBuild` conservan el resultado y sus errores; un fallo CDP sigue siendo un fallo global aunque otras fases estén completas. Este modo sólo prepara evidencia técnica: no activa versiones, escribe estado compartido ni decide calidad visual.
+El cierre drena respuestas, cierra página, contexto y navegador y vuelve a drenar las respuestas tardías incluso si falla la observación o la red. No vuelve a accionar `observe` para consultar la red. `publicNetwork`, `publicResponses` y `publicBuild` conservan el resultado y sus errores. Este modo sólo prepara evidencia técnica: no activa versiones, escribe estado compartido ni decide calidad visual.
+
+## Canales de captura
+
+El caso puede declarar `captureSurface`: `canvas` exige `recordCanvas` y valida sólo video de canvas; `dom` exige CDP y no acepta `recordCanvas`; `both` exige ambos. Elegir antes de ejecutar según la superficie que contiene el criterio. Canvas no demuestra movimiento del HUD u otro DOM: si se requiere, elegir `dom` o `both`. Sin `captureSurface` se conserva el comportamiento anterior: CDP obligatorio y canvas adicional cuando se indica `recordCanvas`.
+
+En `canvas` el visor agrega `context.png` del viewport completo con tamaño/DPR y rectángulos observados; es una imagen estática, no una grabación temporal de la interfaz. El video conserva sus PTS y reloj de inicio. El canal CDP omitido queda `not_started`; un fallo de cualquier canal seleccionado sigue fallando el run. Los ACK CDP pendientes se drenan antes del cierre y sus errores hacen fallar CDP. No se ordenan ni reparan timestamps. Los runs históricos mantienen sus estados y no se reinterpretan con esta opción.
 
 Validación focal: `node --test tests/review-baseline-adapter.test.mjs`; además del evento y estado, comprueba avance real, `dt=1/30`, canvas, primer request, bloqueo de API/host ajeno/WebSocket mediante servidores locales y fallos para datos no soportados.
 
