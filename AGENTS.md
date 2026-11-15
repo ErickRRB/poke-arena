@@ -8,7 +8,9 @@ El servidor multijugador se publica por separado desde `realtime`, también con 
 
 GitHub `main` conserva el código y su historial completo. No reescribir ni forzar el historial. La rama `site-publication`, su worktree y las versiones existentes de Sites son históricos: no sincronizarlos, igualar sus árboles, generar archivos de entrega ni publicar nuevas versiones de Sites como parte de una corrección normal.
 
-Sites queda como puente legado existente y aloja la API HTTP antigua. Conservar su enlace, configuración y almacenamiento por origen para quienes tienen mazos guardados allí. No borrarlo, modificarlo ni redirigirlo automáticamente al publicar en Cloudflare. Usar el flujo de Sites únicamente ante un pedido explícito de mantenimiento de ese legado. `npm run build` en la raíz genera el Worker de compatibilidad para Sites y no forma parte del despliegue habitual del frontend.
+La aplicación de Cloudflare no debe depender de Sites en ejecución. Sus medios usan `ASSETS` y sus partidas usan el servicio WebSocket de Cloudflare. El namespace HTTP `/api` está retirado del frontend: responder `410` con indicación de actualizar, sin reenviar credenciales, sesiones ni acciones a otro origen. No reintroducir ese proxy ni crear una migración D1 para estados temporales que el cliente actual no usa.
+
+Sites queda como puente legado existente y aloja la API HTTP antigua sólo en su propio origen. Conservar su enlace, configuración y almacenamiento por origen para quienes tienen mazos guardados allí. No borrarlo, modificarlo ni redirigirlo automáticamente al publicar en Cloudflare. Usar el flujo de Sites únicamente ante un pedido explícito de mantenimiento de ese legado. `npm run build` en la raíz genera el Worker de compatibilidad para Sites y no forma parte del despliegue habitual del frontend.
 
 ## Selección de pruebas
 

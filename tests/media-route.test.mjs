@@ -52,8 +52,13 @@ test('Cloudflare frontend uses its asset binding with correct root, query, MIME,
  const r=await frontend.fetch(new Request(WEB_ORIGIN+'/?v=34'),{ASSETS:{fetch:async request=>{const url=new URL(request.url);assert.equal(url.pathname,'/index.html');assert.equal(url.search,'?v=34');return new Response('app',{headers:{'Content-Type':'text/html',ETag:'"root"'}});}}});
  assert.equal(await r.text(),'app');assert.equal(r.headers.get('Content-Type'),'text/html');assert.equal(r.headers.get('ETag'),'"root"');assert.equal(r.headers.get('Cache-Control'),'public, max-age=0, must-revalidate');
 });
-test('Cloudflare frontend legacy API forwards only to the compatible Site and rejects other origins',async t=>{
- const mock=t.mock.method(globalThis,'fetch',async request=>{assert.equal(new URL(request.url).origin,'https://poke-arena-erick.eriqrb.chatgpt.site');assert.equal(request.headers.get('Origin'),'https://poke-arena-erick.eriqrb.chatgpt.site');return new Response('legacy',{headers:{'Content-Type':'application/json'}});});
- const r=await frontend.fetch(new Request(WEB_ORIGIN+'/api/not-a-route',{headers:{Origin:WEB_ORIGIN}}),{});assert.equal(r.status,200);assert.equal(r.headers.get('Access-Control-Allow-Origin'),WEB_ORIGIN);assert.equal(mock.mock.callCount(),1);
- assert.equal((await frontend.fetch(new Request(WEB_ORIGIN+'/api/not-a-route',{headers:{Origin:'https://unrelated.test'}}),{})).status,403);assert.equal(mock.mock.callCount(),1);
+test('Cloudflare retires every old HTTP API route without an external request or asset lookup',async t=>{
+ const mock=t.mock.method(globalThis,'fetch',()=>{throw Error('No external API forwarding')});
+ const env={get ASSETS(){throw Error('Retired API must not look up an asset')}};
+ for(const path of['/api','/api/','/api/session','/api/resume','/api/queue','/api/cancel','/api/battle','/api/not-a-route','/api/__proto__','/api/%2Funknown','/api/%00'])for(const method of['GET','POST','HEAD','OPTIONS']){
+  const request=new Request(WEB_ORIGIN+path+'?after=1',{method,headers:{Origin:WEB_ORIGIN,Authorization:'Bearer private-retired-token'},...(method==='POST'?{body:'invalid legacy payload'}:{})});
+  const response=await frontend.fetch(request,env);assert.equal(response.status,410,path+' '+method);assert.equal(response.headers.get('Content-Type'),'application/json');assert.equal(response.headers.get('Cache-Control'),'no-store');assert.equal(response.headers.get('X-Content-Type-Options'),'nosniff');assert.equal(response.headers.get('Access-Control-Allow-Origin'),null);assert.equal(request.bodyUsed,false);
+  if(method==='HEAD')assert.equal((await response.arrayBuffer()).byteLength,0);else{const body=await response.json();assert.equal(body.code,'legacy_api_retired');assert.equal(body.updateRequired,true);assert.match(body.error,/Actualizá la página/);assert.ok(!JSON.stringify(body).includes('private-retired-token'));}
+ }
+ const foreign=await frontend.fetch(new Request(WEB_ORIGIN+'/api/session',{method:'POST',headers:{Origin:'https://unrelated.test'},body:'private'}),env);assert.equal(foreign.status,410);assert.equal(foreign.headers.get('Access-Control-Allow-Origin'),null);assert.equal(mock.mock.callCount(),0);
 });

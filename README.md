@@ -50,7 +50,9 @@ Las conexiones locales usan WebSocket en el puerto 4180. La versión publicada u
 
 La web y todos sus medios se alojan en Cloudflare Static Assets, con configuración en `realtime/frontend`. [Cloudflare es la dirección principal del juego](https://poke-arena-web.eriickramiirez.workers.dev) y el único destino habitual de publicación de la aplicación. El Worker utiliza el binding `ASSETS`, sin cargar las imágenes dentro de su código ni recurrir a GitHub como origen de producción. Las rutas conservan ETag y exigen revalidación para evitar imágenes antiguas tras una actualización.
 
-La dirección anterior de Sites sirve la misma web mediante un proxy pequeño; conserva el almacenamiento del navegador de quienes siguen entrando por ese dominio. Los mazos se guardan por origen: la dirección nueva de Cloudflare tiene su propio almacenamiento local. Las rutas HTTP antiguas `/api/` se atienden por separado en Sites para mantener compatibilidad, sin volver a pasar por el frontend. La partida online actual usa directamente el servidor WebSocket de Cloudflare.
+La aplicación actual funciona directamente en Cloudflare: sus recursos usan el binding `ASSETS` y las partidas usan el servidor WebSocket de Cloudflare. El frontend responde `410` y pide actualizar ante llamadas al antiguo namespace HTTP `/api`; no reenvía sesiones, acciones ni otras solicitudes a Sites. Los mazos se guardan en el navegador y las sesiones actuales en Durable Objects, sin depender de la base D1 antigua.
+
+La dirección anterior de Sites conserva su puente y su API HTTP para las versiones antiguas. Sus datos y configuración se mantienen sin migraciones ni borrados. Los mazos se guardan por origen: esa dirección y la nueva de Cloudflare tienen almacenamiento local propio.
 
 Con Node.js 22.18 o superior y las dependencias de `realtime` instaladas, el frontend se comprueba y publica directamente con el CLI `cf` desde `realtime/frontend`:
 

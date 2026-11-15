@@ -1,15 +1,12 @@
-const LEGACY_SITE='https://poke-arena-erick.eriqrb.chatgpt.site';
 export default {
  async fetch(request,env){
   const url=new URL(request.url);
-  if(url.pathname.startsWith('/api/')){
-   const origin=request.headers.get('origin');
-   if(origin&&origin!==url.origin&&origin!==LEGACY_SITE)return new Response('Origin not allowed',{status:403});
-   const proxy=new Request(LEGACY_SITE+url.pathname+url.search,request);
-   if(origin)proxy.headers.set('Origin',LEGACY_SITE);
-   const upstream=await fetch(proxy),headers=new Headers(upstream.headers);
-   if(origin)headers.set('Access-Control-Allow-Origin',origin);
-   return new Response(upstream.body,{status:upstream.status,headers});
+  if(url.pathname==='/api'||url.pathname.startsWith('/api/')){
+   // Current clients use the Cloudflare WebSocket service. Old HTTP clients
+   // must reload instead of forwarding their session or actions to Sites.
+   return new Response(request.method==='HEAD'?null:JSON.stringify({code:'legacy_api_retired',error:'Esta versión del modo online fue retirada. Actualizá la página para conectar.',updateRequired:true}),{
+    status:410,headers:{'Content-Type':'application/json','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'},
+   });
   }
   if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405});
   const assetUrl=new URL(request.url);if(assetUrl.pathname==='/')assetUrl.pathname='/index.html';
