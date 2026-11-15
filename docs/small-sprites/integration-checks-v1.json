@@ -1,0 +1,25 @@
+{
+  "version": "small-sprites-integration-checks-v1",
+  "createdAt": "2026-11-15T08:58:47Z",
+  "request": "Root pide integrar sólo densidad, muestreo, alineación y visibilidad de Art desde 0e8 sobre Main 00e7; conservar fuente revisada, política, historial y VFX congelado separado.",
+  "base": "00e7ae11b2f1a5da98a23412e14f89db2ff45404",
+  "source": "0e8b8b0b1d1e82713e0bd969c56b0137b574824a",
+  "nativePlan": {
+    "version": "native-fidelity-v1",
+    "hash": "1791ac5092c501f9d143f74b216448556d93d15d46db77b62d43f1b6ca32c32b",
+    "originalCommit": "4f656f3ebadb862c8976bd3f43683f7509574a7a",
+    "chronology": "Se importa el plan histórico intacto; esta matriz complementaria se registra antes de aplicar hunks a la integración. El audit independiente de suficiencia se hizo después de los prototipos y no se retrofecha."
+  },
+  "scope": "Mismos seis criterios de native-fidelity-v1, con revalidación de sus intersecciones; el bundle integrado queda pendiente hasta recheck o transferencia independiente justificada. No altera criterios ni umbral DPR1.",
+  "coverage": [
+    "DPR1/1.25/2/3: cuatro poses y ocho direcciones con caché limpia y estado realmente observado; comparar capturas fuente/integración y resolver diferencias antes de una transferencia.",
+    "CPU por UI: mazo antes del inicio, cartas por toques, HP/AI/torres/clocks intactos; conservar video, PTS y trazas. Elegir todos los cuadros codificados de ventanas spawn/walk/contact/death por eventos antes del juicio; declarar oclusiones y límites de capacidad.",
+    "DPR con CSS fijo 1→3, selección y despliegue, pose/cache/destino y rectángulos arena/mano/elixir; tablet y escritorio según riesgo ya identificado.",
+    "Laboratorio10/24: instancias compartidas, visibilidad asentada tras IntersectionObserver, scroll de una columna a otra, backing de visibles y ocultas, cierre de columna y controles sin desplazamiento transitorio.",
+    "Pausa y reduced motion: no cambio de reglas/tiempos, dibujo dt0 estable, destinos/efectos relevantes alineados; rendering/tooling focales.",
+    "Bootstrap legado aislado por hostname con Worker congelado y frontend candidato locales: módulos nuevos directos a origen canónico simulado, CORS/canvas limpio, almacenamiento por origen intacto; sin publicar Sites ni usar API/matchmaking real.",
+    "Comparar todo dist con 0e8 y congelados Main6ea/6558 como artefactos; no sustituir renderer ni aplicar sus VFX. Entregar diff y riesgos de integración para Main."
+  ],
+  "exclusions": "No afirma corregidos VFX pendientes, fluidez perceptual continua, catálogo entero ni hardware físico. No publica. Preview, wrapper de promoción y verificación pública requieren revisión de Main y decisión de Root; no se aprueban por este bundle local.",
+  "history": "Conservar hallazgos 9696 y rechazo humano del atlas; no cerrarlos en bloque por integrar. Registros originales se preservan con rutas/hashes y decisiones reales; propuestas de transferencia se separan de pases aceptados."
+}
