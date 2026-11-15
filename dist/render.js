@@ -10,7 +10,7 @@ import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 import * as onlineConfig from './online-config.js?v=36';
 const publicAssetUrl=onlineConfig.publicAssetUrl||((file)=>file);
-const {whirlpoolPhase,earthquakePhase,earthquakeFissures}=await import(publicAssetUrl('./field-motion.js?v=36'));
+const {whirlpoolPhase,nightmareFrame,earthquakePhase,earthquakeFissures}=await import(publicAssetUrl('./field-motion.js?v=36'));
 const {flameFrame,rollingFirePose,drawFireWheel,FIRE_WHEEL_FILES,loadFireWheelMaterial}=await import(publicAssetUrl('./fire-material.js?v=38'));
 const {canvasBackingSize,alignedSpriteRect}=await import(publicAssetUrl('./canvas-raster.js?v=36'));
 const {NativeSpriteSampler}=await import(publicAssetUrl('./native-sprite-sampling.js?v=36'));
@@ -1068,10 +1068,11 @@ export class Renderer {
     const radius=field.radius,size=Math.ceil(radius*2),surface=this.fieldSurface??=this.canvas.ownerDocument.createElement('canvas');
     if(surface.width!==size||surface.height!==size){surface.width=size;surface.height=size;}
     const portal=surface.getContext('2d');portal.setTransform(1,0,0,1,0,0);portal.globalAlpha=1;portal.globalCompositeOperation='source-over';portal.clearRect(0,0,size,size);portal.imageSmoothingEnabled=false;
-    this.battleArt.draw(portal,front?'nightmareFront':'nightmareBack',size/2,size/2,radius*2.4,radius*2.4,{age:this.reduced?.3:Math.max(0,age),blend:!this.reduced});
+    const phase={progress:nightmareFrame(age,this.reduced)/39,blend:!this.reduced};
+    this.battleArt.draw(portal,front?'nightmareFront':'nightmareBack',size/2,size/2,radius*2.4,radius*2.4,phase);
     // Both opaque halves belong to the ground beneath the actors. Above them,
     // screen compositing keeps only the purple wisps; black cannot hide a body.
-    if(!front)this.battleArt.draw(portal,'nightmareFront',size/2,size/2,radius*2.4,radius*2.4,{age:this.reduced?.3:Math.max(0,age),blend:!this.reduced});
+    if(!front)this.battleArt.draw(portal,'nightmareFront',size/2,size/2,radius*2.4,radius*2.4,phase);
     if(!front){portal.globalCompositeOperation='source-atop';portal.globalAlpha=.26;portal.fillStyle='#5d3d7e';portal.fillRect(0,0,size,size);portal.globalAlpha=1;portal.globalCompositeOperation='source-over';}
     const fade=portal.createRadialGradient(size/2,size/2,0,size/2,size/2,radius);
     fade.addColorStop(0,'#fff');fade.addColorStop(.48,'#fff');fade.addColorStop(.72,'#ffffff9c');fade.addColorStop(1,'#ffffff00');
