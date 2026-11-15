@@ -21,41 +21,40 @@ export function rollingFirePose(spell,previous,dt=0){
     spin:direction*travelled/32};
 }
 
-// A complete fire wheel has a rim, an inner surface and rotating hot seams.
-// The structure turns with distance; individual flames burn on the cast clock.
+// The upright face and its offset back edge give the wheel thickness. Surface
+// landmarks roll with distance; tongues and hot currents use the cast clock.
 export function drawFireWheel(c,pose,drawFlame,{vertical=1,reduced=false,opacity=1}={}){
   const age=reduced?.4:pose.age,spin=reduced?.35:pose.spin;
   c.save();c.translate(pose.x,pose.y);c.scale(1,1/vertical);c.globalAlpha*=opacity;
-  c.fillStyle='#372b2638';c.beginPath();c.ellipse(0,5,43,7,0,0,Math.PI*2);c.fill();
-  c.translate(0,-17);c.lineJoin='round';c.lineCap='round';
-  const ring=(rx,ry,width,color,shift=0)=>{
+  c.fillStyle='#372b2638';c.beginPath();c.ellipse(1,4,35,6,0,0,Math.PI*2);c.fill();
+  c.translate(-3,-35);c.lineJoin='round';c.lineCap='round';
+  const ring=(rx,ry,width,color,offsetX=0,offsetY=0)=>{
     c.beginPath();
     for(let i=0;i<=48;i++){
-      const a=i*Math.PI/24,ripple=reduced?0:1.1*Math.sin(a*5-age*9)+.6*Math.sin(a*9+age*6);
-      const x=Math.cos(a)*(rx+ripple),y=Math.sin(a)*(ry+ripple*.7)+shift;
+      const a=i*Math.PI/24,ripple=reduced?0:.8*Math.sin(a*5-age*9)+.5*Math.sin(a*9+age*6);
+      const x=Math.cos(a)*(rx+ripple)+offsetX,y=Math.sin(a)*(ry+ripple)+offsetY;
       if(i===0)c.moveTo(x,y);else c.lineTo(x,y);
     }
     c.strokeStyle=color;c.lineWidth=width;c.stroke();
   };
-  ring(32,25,12,'#a83d23',3);
-  ring(33,25,10,'#ee6b23');ring(31,23,6,'#ffb83d');ring(28,21,2.5,'#ffeb96');
-  c.fillStyle='#e57d2528';c.beginPath();c.ellipse(0,0,23,17,0,0,Math.PI*2);c.fill();
-  // Unequal seams are landmarks, so rotation is perceptible on a symmetric rim.
-  for(let i=0;i<5;i++){
-    const a=spin+i*Math.PI*2/5,arc=i===0?.45:.19;
-    c.beginPath();c.ellipse(0,0,33,25,0,a,a+arc);
-    c.strokeStyle=i===0?'#fff2bd':'#ffdb70';c.lineWidth=i===0?4:2.5;c.stroke();
-    const inner=a+.09;c.strokeStyle='#d54c22';c.lineWidth=2;c.beginPath();
-    c.moveTo(Math.cos(inner)*24,Math.sin(inner)*17);c.lineTo(Math.cos(inner)*34,Math.sin(inner)*26);c.stroke();
+  ring(25,30,12,'#8f3023',8,1);ring(25,30,8,'#c64a21',7,0);
+  ring(25,30,12,'#b3421f');ring(25,30,9,'#ed6b21');ring(24,29,4,'#ffba43');
+  c.fillStyle='#ec8b2424';c.beginPath();c.ellipse(2,0,19,24,0,0,Math.PI*2);c.fill();
+  for(let i=0;i<7;i++){
+    const a=spin+i*Math.PI*2/7,arc=i===0?.52:.22;
+    c.beginPath();c.ellipse(0,0,25,30,0,a,a+arc);
+    c.strokeStyle=i===0?'#fff0ad':'#ffd366';c.lineWidth=i===0?5:3;c.stroke();
+    const inner=a+.12;c.strokeStyle='#ce4a20';c.lineWidth=3;c.beginPath();
+    c.moveTo(Math.cos(inner)*20,Math.sin(inner)*24);c.lineTo(Math.cos(inner)*29,Math.sin(inner)*35);c.stroke();
   }
-  for(let i=0;i<8;i++){
-    const a=i*Math.PI/4+spin*.25,x=Math.cos(a)*33,y=Math.sin(a)*24;
-    const size=15+(reduced?0:2*Math.sin(age*11+i*1.7));
-    drawFlame('emberShot',x,y,size,a+Math.PI*.7,{frame:flameFrame(age,reduced,i),trim:true});
+  for(let i=0;i<11;i++){
+    const a=i*Math.PI*2/11+spin*.18,x=Math.cos(a)*25,y=Math.sin(a)*30;
+    const size=16+(reduced?0:3*Math.sin(age*11+i*1.7));
+    drawFlame('emberShot',x,y,size,a+Math.PI*.6,{frame:flameFrame(age,reduced,i),trim:true});
   }
   for(let i=0;i<2;i++){
-    const a=spin+i*Math.PI;c.save();c.globalAlpha*=.75;
-    drawFlame('emberShot',Math.cos(a)*10,Math.sin(a)*7,18,a-Math.PI/2,{frame:flameFrame(age,reduced,i*3),trim:true});c.restore();
+    const a=spin+i*Math.PI;c.save();c.globalAlpha*=.6;
+    drawFlame('emberShot',Math.cos(a)*10,Math.sin(a)*14,18,a-Math.PI/2,{frame:flameFrame(age,reduced,i*3),trim:true});c.restore();
   }
   c.restore();
 }

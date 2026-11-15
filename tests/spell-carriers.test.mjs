@@ -15,12 +15,12 @@ test('every spell has an explicit material; key/native identity wins over missin
  assert.equal(spellVisualProfile({key:'unknown',card:{style:'ember'}}),null);
 });
 
-test('only Fireball uses its orb/trail; capsules, needles, energy and instant/field spells retain their own routes',()=>{
+test('only Fireball uses its fire head/trail; other spells retain their own routes',()=>{
  for(const[key,card]of Object.entries(CARDS).filter(([,c])=>c.spell)){
   const{r,calls,c}=renderer(),spell={key,card,visualId:key,team:0,startX:300,startY:712,x:300,y:268,flightTime:1,flightElapsed:.5,delay:0};
   r.spellFlight(c,spell);const names=calls.map(c=>c.name);
-  if(key==='fireball')assert.ok(names.includes('fireOrb')&&names.includes('fireTrail'));
-  else assert.ok(!names.includes('fireOrb')&&!names.includes('fireTrail'),key);
+  if(key==='fireball')assert.ok(names.includes('emberShot')&&names.includes('fireTrail'));
+  else assert.ok(!names.includes('emberShot')&&!names.includes('fireTrail'),key);
   if(key==='pinMissile')assert.ok(names.length>0&&names.every(n=>n==='needle'));
   if(key==='hyperBeam')assert.deepEqual(names,['hyperHead']);
   if(key==='sneaselAmbush')assert.deepEqual(names,['capsule']);

@@ -652,6 +652,16 @@ export class Renderer {
     }else this.combatArt(c,'ice',e.x,e.y,radius*2,0,radius*2,{progress});
   }
   livingFire(c,x,y,size,angle,age){
+    const vertical=this.verticalScale||1,phase=this.reduced?.4:age;
+    // A dense hot body remains visible while the native flame silhouettes
+    // change around it. Their transparent centers must not empty the fireball.
+    c.save();c.translate(x,y);c.scale(1,1/vertical);c.rotate(angle);
+    ellipse(c,'#c34520',0,0,size*.28,size*.25);
+    ellipse(c,'#f08224',size*.025,-size*.025,size*.23,size*.205);
+    ellipse(c,'#ffd15a',size*.07,-size*.025,size*.15,size*.14);
+    const turn=phase*12;
+    ellipse(c,'#fff1ae',Math.cos(turn)*size*.075,Math.sin(turn)*size*.065,size*.085,size*.075);
+    c.restore();
     this.combatArt(c,'emberShot',x,y,size*1.35,angle-Math.PI/2,size*1.35,{frame:flameFrame(age,this.reduced),trim:true});
     c.save();c.globalAlpha*=.6;
     this.combatArt(c,'emberShot',x+Math.cos(angle)*size*.08,y+Math.sin(angle)*size*.08/(this.verticalScale||1),size*.8,angle-Math.PI/2,size*.8,{frame:flameFrame(age,this.reduced,3),trim:true});c.restore();
@@ -765,8 +775,8 @@ export class Renderer {
         if(from&&to){
           const dx=to.x-from.x,dy=(to.y-from.y)*(this.verticalScale||1),distance=Math.hypot(dx,dy),length=Math.min(e.key==='charizard'?50:30,distance);
           if(e.key==='charizard'){
-            const angle=Math.atan2(dy,dx),length=Math.min(30,distance);
-            if(length>2){c.save();c.translate(from.x,from.y);c.rotate(angle);this.combatArt(c,'vfxFireJet',0,0,length,0,16,{age:.18+age,frames:[3,4,5,6,7,8,9,10],fps:16,frame:this.reduced?6:undefined,anchor:'pivot'});c.restore();}
+            const angle=Math.atan2(dy,dx),length=Math.min(38,distance);
+            if(length>2){c.save();c.translate(from.x,from.y);c.scale(1,1/(this.verticalScale||1));c.rotate(angle);this.combatArt(c,'vfxFireJet',0,0,length,0,20*(this.verticalScale||1),{age:.18+age,frames:[3,4,5,6,7,8,9,10],fps:16,frame:this.reduced?6:undefined,anchor:'pivot'});c.restore();}
           }else if(length>2){c.save();c.translate(from.x,from.y);c.rotate(Math.atan2(dy,dx));this.combatArt(c,'vfxFireJet',0,0,length,0,Math.min(17,8+length*.45),{age:this.reduced?.4:age,anchor:'pivot',blend:!this.reduced});c.restore();}
         }
       }
