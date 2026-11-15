@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Game,CARDS} from '../dist/engine.js?v=34';
 import {Renderer} from '../dist/render.js';
-import {softDisc} from '../dist/targeting-art.js';
+import {softDisc,areaGuide} from '../dist/targeting-art.js';
 
 function drawing(){
   const calls=[],gradients=[];
@@ -17,6 +17,18 @@ test('small, medium and large areas fade to transparent at the exact mechanical 
     assert.equal(calls.filter(c=>['stroke','moveTo','lineTo'].includes(c.method)).length,0);
     assert.deepEqual(calls.find(c=>c.method==='arc').args,[300,500,radius,0,Math.PI*2]);
   }
+});
+test('grass green and muted ground previews gain a visible soft veil while the accepted orange/purple/blue palettes stay unchanged',()=>{
+ for(const color of['#b6df80','#d5c9a9','#cfb994']){
+  const{ctx,calls,gradients}=drawing();areaGuide(ctx,288,532,84,{color});
+  assert.equal(gradients[0].stops[0][1],'rgba(255,241,184,0.20900000000000002)');
+  assert.equal(gradients[0].stops.at(-1)[1],'rgba(255,241,184,0)');
+  assert.equal(gradients[0].args[5],84);assert.equal(calls.filter(c=>['stroke','moveTo','lineTo'].includes(c.method)).length,0);
+ }
+ for(const color of['#ffc178','#bd9fe9','#a5eafa']){
+  const before=drawing(),after=drawing();softDisc(before.ctx,288,532,48,{color,opacity:.25});areaGuide(after.ctx,288,532,48,{color});
+  assert.deepEqual(after.gradients.map(({args,stops})=>({args,stops})),before.gradients.map(({args,stops})=>({args,stops})),color+' retains its approved blend');
+ }
 });
 for(const team of [0,1])for(const destroyed of [false,true])test(`no tower-hole frontier segments with side${team} and expanded territory${destroyed}`,()=>{
   const game=new Game();game.start();game.aiEnabled=false;

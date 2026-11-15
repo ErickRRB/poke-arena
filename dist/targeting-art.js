@@ -10,7 +10,14 @@ export function softDisc(c,x,y,radius,{color='#fff4ce',opacity=.2}={}){
   c.save();c.fillStyle=glow;c.beginPath();c.arc(x,y,radius,0,Math.PI*2);c.fill();c.restore();
 }
 export function areaGuide(c,x,y,radius,{team=0,valid=true,color}={}){
-  softDisc(c,x,y,radius,{color:valid?color||(team?'#ffd8b2':'#e5f3ed'):'#ed8873',opacity:valid?.25:.3});
+  let fill=color||(team?'#ffd8b2':'#e5f3ed'),opacity=.25;
+  if(valid&&/^#[\da-f]{6}$/i.test(fill)){
+    const value=Number.parseInt(fill.slice(1),16),r=value>>16,g=value>>8&255,b=value&255;
+    // Grass greens and muted sand share the arena's palette. A warm light
+    // veil keeps their targeting area visible without drawing an outline.
+    if(g>r+12&&g>b+25||r>=g&&g>=b&&r-b<80&&r-g<35){fill='#fff1b8';opacity=.38;}
+  }
+  softDisc(c,x,y,radius,{color:valid?fill:'#ed8873',opacity:valid?opacity:.3});
 }
 export function cellGuide(c,x,y,size,valid=true){
   const half=size/2;
