@@ -28,7 +28,8 @@ export function petalPreparation(unit,reduced=false){
   const duration=unit.attackDuration||unit.card.attackDuration||.6,windup=unit.attackWindup??unit.card.windup??.18;
   const elapsed=duration-unit.attack;if(!(windup>0)||elapsed>=windup-1e-7)return null;
   const progress=Math.max(0,elapsed/windup);
-  return{progress,energy:reduced?.65:progress,converge:reduced?1:progress*progress*(3-2*progress)};
+  const tension=reduced?0:Math.sin(Math.PI*progress);
+  return{progress,energy:reduced?.65:progress,scaleX:1+.05*tension,scaleY:1-.1*tension};
 }
 const MOTIONS={
   hydro:{name:'hydroShot',fps:8,frame:0},bubble:{name:'bubble',fps:8,frames:[2,3,4,3]},shadow:{name:'shadow',fps:6},

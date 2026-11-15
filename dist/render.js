@@ -351,6 +351,7 @@ export class Renderer {
     if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
     const movement=movementVisual(unit.card);
     const preparation=dashPreparation(unit,this.reduced);
+    const petals=!unit.preview&&petalPreparation(unit,this.reduced);
     const golemHurt=unit.key==='golem'&&(unit.deathHurt||unit.pushHurt>0);
     let anim = golemHurt?'Hurt':unit.attack > 0||preparation ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving||unit.card.flying ? movement.animation : unit.hit>0&&unit.key!=='golem'?'Hurt':unit.card.idleAnim||'Idle';
     if (!this.sprites.has(`${id}-${anim}`)) anim = 'Walk';
@@ -392,6 +393,7 @@ export class Renderer {
       const height=Math.max(16,(this.bodyHeights.get(id)||22)*scale/vertical),shear=(unit.dx||0)*preparation.lean/height;
       c.translate(x,y);c.transform(preparation.scaleX,0,shear,preparation.scaleY,0,0);c.translate(-x,-y);
     }
+    if(petals){c.translate(x,y);c.scale(petals.scaleX,petals.scaleY);c.translate(-x,-y);}
     if(burrow>0){c.beginPath();c.rect(x-100,y-180/vertical,200,183/vertical);c.clip();}
     const spawnProgress=unit.spawn>0?Math.max(0,1-unit.spawn/Math.max(.001,unit.spawnGroup?.duration??.75)):1;
     if(unit.spawn>0)c.globalAlpha=.2+.8*spawnProgress;
@@ -400,12 +402,12 @@ export class Renderer {
     if((unit.dash?.phase==='travel'||unit.card.charge&&unit.charge>=unit.card.charge)&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9/vertical),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
     const articulated=this.nativeSpriteSampler?.frame(id,anim,direction,frame,meta,scale,vertical,c.getTransform?.(),img)||this.flightWings.frame(id,anim,direction,frame,img,meta,flightClock+(unit.id||0)*.173,this.reduced);
     const spriteImage=articulated?.image||img,spriteFrame=alignedSpriteRect(articulated?[0,0,articulated.image.width,articulated.image.height,px-articulated.padding*scale,py-articulated.padding*scale/vertical,articulated.width*scale,articulated.height*scale/vertical]:[frame*meta.width,direction*meta.height,meta.width,meta.height,px,py,meta.width*scale,meta.height*scale/vertical],c.getTransform?.());
+    if(petals)this.petalWindup(c,unit,petals);
     c.drawImage(spriteImage,...spriteFrame);
+    if(petals)this.petalWindup(c,unit,petals,{image:spriteImage,frame:spriteFrame});
     if(preparation&&!unit.preview)this.dashWindup(c,unit,preparation,true);
     if(!unit.preview&&this.spellTargets?.has(unit.id))this.tintTarget(c,spriteImage,...spriteFrame);
     c.restore();
-    const petals=!unit.preview&&petalPreparation(unit,this.reduced);
-    if(petals)this.petalWindup(c,unit,petals);
     if(unit.shield>0&&!unit.mounted){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
     if(idle)return;
     const bodyHealthY=y-lift-((this.bodyHeights.get(id)||22)*scale+9+(id===6?12:0))/vertical;
@@ -420,16 +422,22 @@ export class Renderer {
     const art=STRUCTURE_ART[unit.card?.structureArt];
     return art?art.height-art.baseOffset:(this.bodyHeights.get(unit.card?.id)||fallback)*visualScale(unit)+(unit.card?.structure?structureLift(unit.card):unit.card?.flying?16:0);
   }
-  petalWindup(c,unit,preparation){
-    const from=this.visualEmission(unit),size=combatVisual(unit.card).charge,energy=preparation.energy;
-    c.save();c.globalAlpha*=.5+.4*energy;
-    if(!this.reduced)for(const shot of[0,1]){
-      const hand=this.visualEmission({...unit,card:{...unit.card,emitter:'hands'}},shot),t=preparation.converge;
-      this.combatArt(c,'petalShot',hand.x+(from.x-hand.x)*t,hand.y+(from.y-hand.y)*t,size*.43,0,size*.43,{frame:shot?4:1,trim:true});
+  petalWindup(c,unit,preparation,raster){
+    const energy=preparation.energy,vertical=this.verticalScale||1,scale=visualScale(unit);
+    for(const shot of[0,1]){
+      const marker=this.visualEmission({...unit,card:{...unit.card,emitter:'hands'}},shot);
+      const x=marker.x-unit.dx*scale,y=marker.y-unit.dy*scale/vertical;
+      c.save();
+      if(raster){
+        c.beginPath();c.ellipse(x,y,8,8/vertical,0,0,Math.PI*2);c.clip();
+        c.globalCompositeOperation='screen';c.globalAlpha*=.22+.5*energy;
+        c.drawImage(raster.image,...raster.frame);
+      }else{
+        c.translate(x,y);c.scale(1,1/vertical);
+        softDisc(c,0,0,9+4*energy,{color:'#fff0ce',opacity:.4+.35*energy});
+      }
+      c.restore();
     }
-    const bloom=size*(.55+.55*energy);
-    this.combatArt(c,'petalShot',from.x,from.y,bloom,this.reduced?0:(1-preparation.progress)*.5,bloom,{frame:this.reduced?0:Math.floor(preparation.progress*4),trim:true});
-    c.restore();
   }
   dashWindup(c,unit,preparation,front=false){
     const vertical=this.verticalScale||1,energy=preparation.energy;
