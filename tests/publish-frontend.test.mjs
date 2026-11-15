@@ -43,14 +43,14 @@ function fixture(t){
  const plan={version:'fixture-1',createdAt:'2026-01-01T00:00:00Z',request:'synthetic request',scope:'synthetic frontend',exclusions:'not real product quality',criteria:[criterion('ready'),criterion('public')]};
  const reviewFile=join(root,'review.json'),planReviewFile=join(root,'plan-review.json'),proofFile=join(root,'proof.json'),manifestFile=join(root,'release.json'),decisionFile=join(root,'root-decision.json');
  writeFileSync(join(root,'evidence.txt'),'synthetic evidence');
- const review={plan,candidate,scope:{mode:'partial',criteria:['ready'],dependencies:[],noDependenciesReason:'synthetic independent stage',description:'synthetic prepublication only',integrationRisk:'synthetic fixture'},previousPlans:[],previousFindings:[],findings:[],records:[{id:'ready',planVersion:plan.version,planHash:jsonHash(plan),status:'pass',observedResult:'synthetic checks passed',coverage:'synthetic fixture',limits:'not real quality',author:'Main',reviewer:'Independent reviewer',method:'synthetic technical fixture',reviewedAt:'2026-01-02T00:00:00Z',candidate,context:'synthetic frontend',evidence:[{path:'evidence.txt',sha256:hash('synthetic evidence'),kind:'technical'}]},{id:'public',planVersion:plan.version,planHash:jsonHash(plan),status:'not_evaluated'}]};
+ const review={plan,candidate,authorship:{planAuthors:['Main'],scopeAuthors:['Main']},scope:{mode:'partial',criteria:['ready'],dependencies:[],noDependenciesReason:'synthetic independent stage',description:'synthetic prepublication only',integrationRisk:'synthetic fixture'},previousPlans:[],previousFindings:[],findings:[],records:[{id:'ready',planVersion:plan.version,planHash:jsonHash(plan),status:'pass',observedResult:'synthetic checks passed',coverage:'synthetic fixture',limits:'not real quality',author:'Main',reviewer:'Independent reviewer',method:'synthetic technical fixture',reviewedAt:'2026-01-02T00:00:00Z',candidate,context:'synthetic frontend',evidence:[{path:'evidence.txt',sha256:hash('synthetic evidence'),kind:'technical'}]},{id:'public',planVersion:plan.version,planHash:jsonHash(plan),status:'not_evaluated'}]};
  const planReview={outcome:'sufficient',author:'Main',reviewer:'Independent reviewer',reviewedAt:'2026-01-01T12:00:00Z',chronology:'Synthetic scope review before the synthetic verdict.',candidate,planHash:jsonHash(plan),basis:{requestAndDiff:'Synthetic request and diff inspected.',sharedPathsAndRisks:'Synthetic shared path checked.',exclusionsAndLimits:'Synthetic postpublication remains pending.'}};
  const origin='https://12345678-poke-arena-web.eriickramiirez.workers.dev';
  const proof={version:versionId,origin,source:{...candidate,status:''},resources:['index.html','app.js','render.js'].map(file=>({file,url:origin+'/'+file,bytes:readFileSync(join(assets,file)).length,sha256:hash(readFileSync(join(assets,file)))})),errors:[],canonicalRequests:[],externalOrigins:[],canvas:{clean:true}};
  writeJson(reviewFile,review);writeJson(planReviewFile,planReview);writeJson(proofFile,proof);
  const decide=()=>{
   const m=readJson(manifestFile);
-  writeJson(decisionFile,{schemaVersion:1,outcome:'approve_publication',reviewer:'/root',reviewedAt:new Date().toISOString(),reason:'Synthetic decision only, not real product approval.',manifestSha256:hash(readFileSync(manifestFile)),reviewSha256:m.review.sha256,planReviewSha256:m.planReview.sha256,planHash:m.planHash,scopeHash:m.scopeHash,candidate:m.candidate,versionId:m.versionId,globalOpen:true});
+  writeJson(decisionFile,{schemaVersion:1,outcome:'approve_publication',reviewer:'/root',reviewedAt:new Date().toISOString(),reason:'Synthetic decision only, not real product approval.',manifestSha256:hash(readFileSync(manifestFile)),reviewSha256:m.review.sha256,planReviewSha256:m.planReview.sha256,planHash:m.planHash,scopeHash:m.scopeHash,authorshipHash:m.authorshipHash,candidate:m.candidate,versionId:m.versionId,globalOpen:true});
  };
  const prepare=()=>{prepareManifest({source,review:reviewFile,planReview:planReviewFile,previewProof:proofFile,versionId,output:manifestFile});decide();};
  prepare();
@@ -116,6 +116,31 @@ test('Root quality decision must match hashes, candidate, scope, version and act
   const decision=structuredClone(original);change(decision);writeJson(f.decisionFile,decision);
   await assert.rejects(f.run(),/QUALITY_ROOT/);assert.equal(f.calls.length,0);
  }
+});
+test('counterexample: product author cannot review a plan declared as written by someone else',async t=>{
+ const f=fixture(t),review=readJson(f.reviewFile),p=readJson(f.planReviewFile);
+ review.authorship.planAuthors=['Art'];p.author='Art';p.reviewer='Main';
+ writeJson(f.reviewFile,review);writeJson(f.planReviewFile,p);f.prepare();
+ await assert.rejects(f.run({dryRun:true}),/QUALITY_PLAN.*author of the plan or scoped change/);assert.equal(f.calls.length,0);
+});
+test('legitimate separate plan author and code author permit a third independent reviewer',async t=>{
+ const f=fixture(t),review=readJson(f.reviewFile),p=readJson(f.planReviewFile);
+ review.authorship.planAuthors=['Art'];p.author='Art';p.reviewer='Independent reviewer';
+ writeJson(f.reviewFile,review);writeJson(f.planReviewFile,p);f.prepare();
+ assert.equal((await f.run({dryRun:true})).status,'dry_run_only');assert.equal(f.calls.length,1);
+});
+test('declared authorship cannot omit available scoped authors or contradict plan author facts',t=>{
+ const f=fixture(t),original=readJson(f.reviewFile);
+ for(const change of [r=>r.authorship.scopeAuthors=['Art'],r=>r.plan.author='Art',r=>r.plan.authors=['Art'],r=>delete r.authorship]){
+  const review=structuredClone(original);change(review);writeJson(f.reviewFile,review);assert.throws(()=>f.prepare(),/QUALITY_AUTHOR/);
+ }
+ assert.equal(f.calls.length,0);
+});
+test('plan-review author and Root authorship binding must match declared authority',async t=>{
+ const f=fixture(t),p=readJson(f.planReviewFile);p.author='Art';writeJson(f.planReviewFile,p);f.prepare();
+ await assert.rejects(f.run(),/QUALITY_PLAN.*contradicts/);assert.equal(f.calls.length,0);
+ p.author='Main';writeJson(f.planReviewFile,p);f.prepare();const d=readJson(f.decisionFile);d.authorshipHash='0'.repeat(64);writeJson(f.decisionFile,d);
+ await assert.rejects(f.run(),/QUALITY_ROOT.*authorshipHash/);assert.equal(f.calls.length,0);
 });
 test('dirty source, altered Worker bundle and extra Build Output files reject before mutation',async t=>{
  const f=fixture(t);writeFileSync(join(f.source,'untracked.txt'),'dirty');await assert.rejects(f.run(),/QUALITY_SOURCE/);rmSync(join(f.source,'untracked.txt'));

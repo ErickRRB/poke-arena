@@ -19,6 +19,8 @@ Comprobar en navegador la versión propia y conservar una prueba JSON con `sourc
 
 Antes del veredicto, Root o un revisor existente coteja plan, pedido, diff, rutas compartidas, riesgos y exclusiones. Puede registrar ese cotejo como parte de su revisión; no requiere otra persona ni una captura por trámite. El recibo vinculado tiene esta forma mínima, con razones reales y cronología honesta:
 
+El review JSON declara además `authorship: {"planAuthors": ["Main"], "scopeAuthors": ["Main"]}`. Usar identificadores de actor consistentes en esa autoridad, los records y el cotejo, sin cambiar de alias entre campos. Todos los autores de records del alcance deben figurar en `scopeAuthors`; los coautores adicionales también se declaran. Si el plan contiene `author` o `authors`, deben coincidir con esta autoridad. El `author` del cotejo pertenece a `planAuthors` y su `reviewer` no puede ser ninguno de los autores del plan o cambio. No basta con comparar dos campos autodeclarados del propio cotejo. Estos identificadores no autentican personas ni permiten detectar aliases falsos no declarados; Root examina su coherencia semántica.
+
 ```json
 {
   "outcome": "sufficient",
@@ -62,6 +64,7 @@ Root ejecuta el guard real y examina plan, evidencias, límites y veredictos ind
   "planReviewSha256": "DEL MANIFEST",
   "planHash": "DEL MANIFEST",
   "scopeHash": "DEL MANIFEST",
+  "authorshipHash": "DEL MANIFEST",
   "candidate": {"sha": "SHA COMPLETO", "tree": "ÁRBOL COMPLETO"},
   "versionId": "UUID COMPLETO REVISADO",
   "globalOpen": true
