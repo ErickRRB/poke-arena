@@ -102,3 +102,16 @@ test('client cancellation and source failures propagate through a streaming rang
  const broken={ASSETS:{fetch:async()=>new Response(new ReadableStream({pull(c){c.error(new Error('source unavailable'));}}),{headers:{'Content-Length':'8000'}})}};
  const failed=await frontend.fetch(new Request(WEB_ORIGIN+'/music.mp3',{headers:{Range:'bytes=100-199'}}),broken);await assert.rejects(failed.arrayBuffer(),/source unavailable/);
 });
+
+test('published music uses pinned file lengths when ASSETS omits Content-Length inside the Worker',async()=>{
+ const sources=JSON.parse(readFileSync(new URL('../dist/assets/audio/music/SOURCES.json',import.meta.url)));
+ for(const track of sources.tracks){
+  const bytes=readFileSync(new URL('../dist/assets/audio/music/'+track.file,import.meta.url));assert.equal(bytes.length,track.bytes);
+  const env={ASSETS:{fetch:async req=>{assert.equal(req.headers.get('Accept-Encoding'),'identity');return new Response(req.method==='HEAD'?null:bytes,{headers:{'Content-Type':'audio/mpeg',ETag:'"pinned"'}});}}};
+  for(const[range,status,start,end]of[['bytes=100-199',206,100,199],['bytes=-16',206,bytes.length-16,bytes.length-1],[`bytes=${bytes.length}-`,416]]){
+   const r=await frontend.fetch(new Request(WEB_ORIGIN+'/assets/audio/music/'+track.file,{headers:{Range:range,'If-Range':'"pinned"',Origin:'https://legacy.example'}}),env);assert.equal(r.status,status,track.file+' '+range);const body=Buffer.from(await r.arrayBuffer());if(status===206){assert.equal(r.headers.get('Content-Range'),`bytes ${start}-${end}/${bytes.length}`);assert.equal(r.headers.get('Content-Length'),String(end-start+1));assert.deepEqual(body,bytes.subarray(start,end+1));}else{assert.equal(body.length,0);assert.equal(r.headers.get('Content-Range'),'bytes */'+bytes.length);}
+  }
+  const head=await frontend.fetch(new Request(WEB_ORIGIN+'/assets/audio/music/'+track.file,{method:'HEAD'}),env);assert.equal(head.headers.get('Content-Length'),String(bytes.length));assert.equal((await head.arrayBuffer()).byteLength,0);
+ }
+ const unknown=await frontend.fetch(new Request(WEB_ORIGIN+'/unknown.mp3',{headers:{Range:'bytes=0-2'}}),{ASSETS:{fetch:async()=>new Response('unknown',{headers:{'Content-Type':'audio/mpeg'}})}});assert.equal(unknown.status,200);assert.equal(unknown.headers.get('Accept-Ranges'),null);assert.equal(await unknown.text(),'unknown');
+});

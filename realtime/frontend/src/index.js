@@ -1,3 +1,6 @@
+import musicSources from '../../../dist/assets/audio/music/SOURCES.json' with {type:'json'};
+const musicSizes=new Map(musicSources.tracks.map(track=>['/assets/audio/music/'+track.file,track.bytes]));
+
 function byteRange(value,size){
  const match=/^bytes=(\d*)-(\d*)$/.exec(value.trim());
  // Unsupported multipart/invalid ranges can be ignored and served normally.
@@ -43,13 +46,18 @@ export default {
   }
   if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405});
   const assetUrl=new URL(request.url);if(assetUrl.pathname==='/')assetUrl.pathname='/index.html';
-  const upstream=await env.ASSETS.fetch(new Request(assetUrl,request)),headers=new Headers(upstream.headers);
+  const assetRequest=new Request(assetUrl,request),musicSize=musicSizes.get(assetUrl.pathname);
+  if(musicSize)assetRequest.headers.set('Accept-Encoding','identity');
+  const upstream=await env.ASSETS.fetch(assetRequest),headers=new Headers(upstream.headers);
   headers.set('Cache-Control','public, max-age=0, must-revalidate');
   headers.set('X-Content-Type-Options','nosniff');
   headers.set('Access-Control-Allow-Origin','*');
   headers.set('Access-Control-Expose-Headers','Content-Length, Content-Range, Accept-Ranges, ETag');
-  const size=Number(headers.get('Content-Length')??NaN),range=request.headers.get('Range'),ifRange=request.headers.get('If-Range');
-  if(upstream.status===200&&Number.isSafeInteger(size)&&size>=0&&!headers.has('Content-Encoding')){
+  // ASSETS may omit Content-Length inside the Worker even when the outer edge
+  // response gains it. The imported source manifest pins these exact MP3 bytes.
+  const size=Number(headers.get('Content-Length')??musicSize??NaN),range=request.headers.get('Range'),ifRange=request.headers.get('If-Range'),encoding=headers.get('Content-Encoding');
+  if(upstream.status===200&&Number.isSafeInteger(size)&&size>=0&&(!encoding||encoding==='identity')){
+   if(musicSize)headers.set('Content-Length',String(size));
    headers.set('Accept-Ranges','bytes');
    const etag=headers.get('ETag'),modified=headers.get('Last-Modified');
    const matches=!ifRange||(etag&&!etag.startsWith('W/')&&ifRange===etag)||(modified&&ifRange===modified);
