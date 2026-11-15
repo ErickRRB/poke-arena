@@ -14,6 +14,15 @@ const FIRE_GESTURE=Object.freeze([0,1,2,3,4,5,6,7,8,9,10]);
 export function attackVisualProfile(card){
   return card?.id===6&&card.attackAnim==='Shoot'?{...card,attackFrames:FIRE_GESTURE,attackContactFrame:2}:card;
 }
+export function dashPreparation(unit,reduced=false){
+  if(unit.dash?.phase!=='windup'||unit.hp<=0||unit.stun>0)return null;
+  const duration=Math.max(.001,unit.card?.dashWindup||unit.attackWindup||.8);
+  const progress=Math.max(0,Math.min(1,(unit.dash.elapsed||0)/duration));
+  const tension=reduced?.65:Math.max(0,Math.min(1,(progress-.08)/.68));
+  const ease=tension*tension*(3-2*tension);
+  return{progress,frame:reduced?2:progress<.14?0:progress<.38?1:2,
+    scaleX:1+.07*ease,scaleY:1-.2*ease,lean:3.5*ease,energy:reduced?.6:progress};
+}
 const MOTIONS={
   hydro:{name:'hydroShot',fps:8,frame:0},bubble:{name:'bubble',fps:8,frames:[2,3,4,3]},shadow:{name:'shadow',fps:6},
   aura:{name:'psychic',fps:9},confusion:{name:'psychic',fps:9},psychic:{name:'psychic',fps:9},

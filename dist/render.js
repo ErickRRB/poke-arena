@@ -2,7 +2,7 @@ import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
-import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile} from './combat-visuals.js?v=36';
+import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation} from './combat-visuals.js?v=36';
 import { spellPreviewTargets } from './spell-preview.js?v=34';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
@@ -18,7 +18,7 @@ function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.li
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
 const visualScale = unit => unit.scale ?? unit.card?.scale ?? 1.5;
 function attackLunge(unit,reduced){
-  if(reduced||!unit.attack||unit.mounted||!unit.card||isRangedAttack(unit.card))return 0;
+  if(reduced||!unit.attack||unit.mounted||unit.dash?.phase==='windup'||!unit.card||isRangedAttack(unit.card))return 0;
   const duration=unit.attackDuration||.75,elapsed=duration-unit.attack;
   const windup=unit.attackWindup??unit.card.windup??.3,spacing=unit.card.burstSpacing||duration;
   let thrust=0;
@@ -177,7 +177,14 @@ export class Renderer {
       if(this.t<current.until)elapsed=Math.min(elapsed,windup+current.shot*spacing);
       pose.attack=duration-elapsed;
     }
-    const displayed={...unit,x:pose.x,y:pose.y,dx:pose.dx,dy:pose.dy,attack:pose.attack},held=contact?.held;
+    let dash=unit.dash;
+    if(dash?.phase==='windup'){
+      const logical=dash.elapsed||0,duration=unit.card?.dashWindup||.8;
+      if(pose.dashSeq!==unit.attackSeq||pose.dashPhase!=='windup')pose.dashElapsed=logical;
+      else if(!(unit.freeze>0||unit.stun>0))pose.dashElapsed=Math.max(logical,Math.min(logical+1/15,duration,pose.dashElapsed+Math.max(0,dt)));
+      pose.dashSeq=unit.attackSeq;pose.dashPhase='windup';dash={...dash,elapsed:pose.dashElapsed};
+    }else{pose.dashPhase=dash?.phase;delete pose.dashElapsed;}
+    const displayed={...unit,x:pose.x,y:pose.y,dx:pose.dx,dy:pose.dy,attack:pose.attack,dash},held=contact?.held;
     if(held&&this.t<held.until&&!(unit.hp<=0||unit.stun>0||unit.freeze>0||unit.pushHurt>0)){
       // A packet can contain both a release and the next attackStart. Preserve
       // that released pose for two display frames without rewinding either clock.
@@ -272,14 +279,15 @@ export class Renderer {
     if(burrow>=.999){this.platform(c,unit);return;}
     if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
     const movement=movementVisual(unit.card);
+    const preparation=dashPreparation(unit,this.reduced);
     const golemHurt=unit.key==='golem'&&(unit.deathHurt||unit.pushHurt>0);
-    let anim = golemHurt?'Hurt':unit.attack > 0 ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving||unit.card.flying ? movement.animation : unit.hit>0&&unit.key!=='golem'?'Hurt':unit.card.idleAnim||'Idle';
+    let anim = golemHurt?'Hurt':unit.attack > 0||preparation ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving||unit.card.flying ? movement.animation : unit.hit>0&&unit.key!=='golem'?'Hurt':unit.card.idleAnim||'Idle';
     if (!this.sprites.has(`${id}-${anim}`)) anim = 'Walk';
     const meta = this.metadata[id]?.[anim], img = this.sprites.get(`${id}-${anim}`);
     if (!meta || !img) return;
     const scale = visualScale(unit),vertical=this.verticalScale||1;
     let frame = 0;
-    const attacking=unit.attack>0&&!golemHurt;
+    const attacking=(unit.attack>0||!!preparation)&&!golemHurt;
     this.flightWings??=new FlightWings();
     const flightClock=this.flightWings.clock(unit.id,this.t,unit.freeze>0);
     const duration = meta.durations.reduce((a,b)=>a+b,0);
@@ -292,6 +300,7 @@ export class Renderer {
     const clock=attacking?progress*duration:this.reduced?0:anim==='Hurt'?Math.max(0,.24-(golemHurt?unit.pushHurt:unit.hit))*60:(flightClock+unit.id*.173)*60*speed;
     const poseProfile=attackVisualProfile(unit.card);
     frame=attacking?attackAnimationFrame(meta,elapsed,unit.attackDuration||.6,windup,poseProfile.attackFrames,poseProfile):animationFrame(loopMeta,clock);
+    if(preparation)frame=Math.min(meta.durations.length-1,preparation.frame);
     if(loopFrames)frame=loopFrames[frame];
     let direction = directionRow(unit.dx,unit.dy);
     if(img.height/meta.height<8)direction=0;
@@ -306,7 +315,12 @@ export class Renderer {
       ellipse(c,'#15382a65',x,y+2,radius+2,unit.card.flying?6:4);
     }
     if(unit.card.structure)this.platform(c,unit);
+    if(preparation&&!unit.preview)this.dashWindup(c,unit,preparation);
     c.save();
+    if(preparation){
+      const height=Math.max(16,(this.bodyHeights.get(id)||22)*scale/vertical),shear=(unit.dx||0)*preparation.lean/height;
+      c.translate(x,y);c.transform(preparation.scaleX,0,shear,preparation.scaleY,0,0);c.translate(-x,-y);
+    }
     if(burrow>0){c.beginPath();c.rect(x-100,y-180/vertical,200,183/vertical);c.clip();}
     const spawnProgress=unit.spawn>0?Math.max(0,1-unit.spawn/Math.max(.001,unit.spawnGroup?.duration??.75)):1;
     if(unit.spawn>0)c.globalAlpha=.2+.8*spawnProgress;
@@ -316,6 +330,7 @@ export class Renderer {
     const articulated=this.flightWings.frame(id,anim,direction,frame,img,meta,flightClock+(unit.id||0)*.173,this.reduced);
     const spriteImage=articulated?.image||img,spriteFrame=articulated?[0,0,articulated.image.width,articulated.image.height,Math.round(px-articulated.padding*scale),Math.round(py-articulated.padding*scale/vertical),articulated.width*scale,articulated.height*scale/vertical]:[frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px),Math.round(py),meta.width*scale,meta.height*scale/vertical];
     c.drawImage(spriteImage,...spriteFrame);
+    if(preparation&&!unit.preview)this.dashWindup(c,unit,preparation,true);
     if(!unit.preview&&this.spellTargets?.has(unit.id))this.tintTarget(c,spriteImage,...spriteFrame);
     c.restore();
     if(unit.shield>0&&!unit.mounted){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
@@ -330,6 +345,21 @@ export class Renderer {
   bodyHeight(unit,fallback=22){
     const art=STRUCTURE_ART[unit.card?.structureArt];
     return art?art.height-art.baseOffset:(this.bodyHeights.get(unit.card?.id)||fallback)*visualScale(unit)+(unit.card?.structure?structureLift(unit.card):unit.card?.flying?16:0);
+  }
+  dashWindup(c,unit,preparation,front=false){
+    const vertical=this.verticalScale||1,energy=preparation.energy;
+    if(!front){
+      c.save();c.translate(unit.x,unit.y+2/vertical);c.scale(1,.3/vertical);
+      softDisc(c,0,0,(unit.radius||14)+8,{color:'#b99adf',opacity:.18+.16*energy});c.restore();return;
+    }
+    const profile={...unit.card,emitter:'hands',attackFrames:[preparation.frame],attackContactFrame:preparation.frame};
+    const pose={...unit,card:profile,attackAnim:unit.card.attackAnim,attack:1,attackDuration:1,attackWindup:0};
+    const size=8+12*energy;
+    for(const shot of[0,1]){
+      const point=emissionPoint(pose,shot);
+      c.save();c.globalAlpha*=.38+.3*energy;
+      this.combatArt(c,'shadow',point.x,unit.y+(point.y-unit.y)/vertical,size,0,size,{frame:this.reduced?0:Math.floor(preparation.progress*6)%2,trim:true});c.restore();
+    }
   }
   structureSprite(c,unit,idle=false){
     const art=STRUCTURE_ART[unit.card.structureArt];if(!art)return;
@@ -414,7 +444,8 @@ export class Renderer {
       const id=event.unit?.id??event.tower?.id;
       this.effects=this.effects.filter(e=>!['windup','charge'].includes(e.kind)||e.actor?.id!==id);
     }
-    if(type==='dashWindup')this.effects.push({kind:'charge',actor:event.unit,seq:event.unit.attackSeq,style:'shadow',life:event.duration,max:event.duration});
+    // Dash preparation is drawn from its live state, so pause, cancellation and
+    // reconnect do not leave an independent charge timer behind the actor.
     if(type==='attackStart'&&event.attacker){
       this.attackContacts??=new Map();
       const held=this.attackContacts.get(event.attacker.id)?.held;
