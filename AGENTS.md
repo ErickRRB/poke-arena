@@ -18,7 +18,9 @@ Aplicar un estándar absoluto de resultado terminado a todo Poké Arena. Una mej
 
 Antes de implementar o revisar, registrar un plan versionado con criterios y cobertura derivados del pedido. Antes del veredicto, Root o un revisor existente coteja explícitamente su suficiencia contra pedido, diff, rutas compartidas, riesgos y exclusiones; deja un recibo breve con razones y límites, sin crear un agente o etapa redundante. La estructura, fecha y hashes no prueban suficiencia. Corregir y versionar omisiones justificadamente, conservando fallos e historia, sin fingir preregistro. Mantener decisiones técnicas, visuales/perceptuales y de uso separadas; un criterio requerido no evaluado bloquea el cierre. Entregar al revisor fresco un paquete de reproducción separado de las conclusiones del autor. El movimiento se evalúa con el bucle natural a escala y contexto reales, por reproducción o secuencia densa con tiempos y método declarados, sin fingir capacidades perceptuales. La publicación parcial identifica su alcance aprobado y conserva abiertos los demás criterios.
 
-La entrega sigue estas etapas obligatorias:
+Usar [Desarrollo con menos retrabajo](docs/development-workflow.md) y su checklist de diez puntos según el riesgo. Definir desde el inicio la acción completa, sus contratos y la incertidumbre principal; mostrar una primera demostración antes de extender la solución o una matriz amplia. No exigir un expediente de publicación a cada prototipo local.
+
+Las etapas se aplican a las dimensiones pertinentes del cambio:
 
 1. El autor verifica que la implementación funciona y documenta el alcance y sus límites.
 2. Una persona o agente que no sea autor realiza la revisión técnica independiente.
@@ -28,6 +30,12 @@ La entrega sigue estas etapas obligatorias:
 6. Se publica en Cloudflare con la autorización vigente y se comprueba el resultado público. No pedir nuevamente un permiso de publicación ya otorgado.
 
 Nadie aprueba en solitario su propio cambio. No marcar el trabajo terminado mientras queden hallazgos que impidan que el resultado completo cumpla este estándar.
+
+Una misma persona independiente del autor puede revisar aspectos técnicos, visuales y de uso si tiene capacidad y expresa conclusiones separadas. Para documentación o cambios de bajo impacto, revisar el diff y la vista afectada cuando corresponda; no ejecutar combate, video ni matrices sin un riesgo concreto. Reutilizar evidencia válida de artefactos y condiciones idénticos, sin convertir identidad de bytes en juicio de calidad.
+
+El orquestador es responsable también de la eficiencia. Revisar el proceso al comenzar un lote, tras la primera demostración, antes de integrar y al cerrarlo; intervenir si se repite un fallo, se pierde una restricción conocida o otra iteración no aportaría información nueva. Detener esa iteración, identificar la causa y cambiar método, contrato, herramienta o responsable antes de seguir. No responder automáticamente con más tests, agentes o formularios. Leer la skill [orquestar-calidad](.agents/skills/orquestar-calidad/SKILL.md) al coordinar varios hilos o corregir un bucle de retrabajo.
+
+Mantener una ficha autoritativa y un runner parametrizable por trabajo relacionado. Autor y revisor pueden observar la misma captura íntegra con juicios independientes; no recapturar ni abrir worktrees por rutina. Cada ejecución conserva una salida nueva y sus condiciones realmente observadas. Las mejoras de proceso no reanudan cambios que el usuario haya pedido pausar.
 
 Al servir música, comprobar en la plataforma publicada las respuestas `206`, `416` y `If-Range`, sus cuerpos y cabeceras, además del avance real de reproducción y la transición al final de una pieza. Que el MP3 cargue o que el servidor local soporte rangos no demuestra que la búsqueda temporal funcione en producción. Las pruebas deben reproducir el comportamiento real del binding de archivos; no suponer que devuelve fragmentos si la plataforma entrega el archivo completo.
 
