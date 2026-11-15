@@ -7,12 +7,14 @@ import {createHash} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
 
 const root=path.resolve(import.meta.dirname,'..'),main=path.resolve(root,'../pokemon-arena');
-const out=path.resolve(root,'../.supervision/mobile-board-20261114/art-completion');
+const cardsOnly=process.argv.includes('--cards-only');
+const fieldsOnly=process.argv.includes('--fields-only');
+const out=path.resolve(root,`../.supervision/mobile-board-20261114/${cardsOnly?'art-cards-final':fieldsOnly?'art-fields-final':'art-completion'}`);
 await mkdir(out,{recursive:true});
 const git=(...args)=>execFileSync('git',args,{cwd:root,windowsHide:true,maxBuffer:32_000_000});
 const art=git('rev-parse','HEAD^{commit}').toString().trim();
 const mainSha=execFileSync('git',['rev-parse','HEAD'],{cwd:main,windowsHide:true}).toString().trim();
-const overrides=new Set(['render.js','arena-geometry.js','targeting-art.js','sprite-motion.js','sprite-geometry.js','attack-choreography.js','unit-sizes.js','card-art.js','assets/pokemon/manifest.json']);
+const overrides=new Set(['render.js','arena-geometry.js','targeting-art.js','sprite-motion.js','sprite-geometry.js','pokemon-silhouettes.js','attack-choreography.js','unit-sizes.js','card-art.js','assets/pokemon/manifest.json']);
 const cache=new Map(),sourceHashes={},missing=[],hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 function source(file){
  if(!cache.has(file)){
@@ -38,13 +40,41 @@ const browser=await chromium.launch({channel:'msedge',headless:true});
 const report={mainSha,art,engineSpecifier,scope:'Immutable Main commit plus explicit immutable Art modules/assets. Real CPU start/screens; controlled native renderer and Game samples for pixel, temporal and attachment review. Not a device Safari or subjective animation-quality claim.',cases:[],images:[],missing};
 async function save(name,data){const bytes=Buffer.from(data.split(',')[1],'base64');await writeFile(path.join(out,name),bytes);report.images.push({file:name,bytes:bytes.length,sha256:hash(bytes)});}
 try{
- for(const [width,height] of [[390,700],[390,844],[768,1024],[1440,900]]){
+ for(const [width,height] of cardsOnly||fieldsOnly?[[390,700]]:[[390,700],[390,844],[768,1024],[1440,900]]){
   const context=await browser.newContext({viewport:{width,height}}),page=await context.newPage(),errors=[];
-  page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>localStorage.setItem('poke-arena:sound','false'));
-  await page.goto(`http://127.0.0.1:${server.address().port}`);await page.waitForFunction(()=>globalThis.__artQA&&!document.getElementById('start-btn').disabled);await page.locator('#start-btn').click();
+  page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(cardsOnly=>{localStorage.setItem('poke-arena:sound','false');if(cardsOnly)localStorage.setItem('poke-arena:deck',JSON.stringify(['octillery','blastoiseCannon','fireball','pikachu','snorlax','machamp','zubat','charizard']));},cardsOnly);
+  await page.goto(`http://127.0.0.1:${server.address().port}`);await page.waitForFunction(()=>globalThis.__artQA&&!document.getElementById('start-btn').disabled);
+  if(cardsOnly){
+   await page.locator('#menu-deck-btn').click();report.cards=[];
+   for(const key of ['octillery','blastoiseCannon']){
+    const card=page.locator(`[data-collection="${key}"]`);await card.scrollIntoViewIfNeeded();
+    const dimensions=await card.evaluate(async el=>{const art=el.querySelector('.card-art'),bg=getComputedStyle(art).backgroundImage,url=bg.match(/url\(["']?(.*?)["']?\)/)?.[1];if(url){const image=new Image();image.src=url;await image.decode();}const b=el.getBoundingClientRect();return{width:b.width,height:b.height,text:el.innerText,background:bg};});
+    await card.screenshot({path:path.join(out,`real-card-${key}.png`)});report.cards.push({key,...dimensions});
+   }
+   await page.locator('#deck-dialog [data-close]').click();
+  }
+  await page.locator('#start-btn').click();
   const frame=await page.evaluate(()=>{const r=__artQA.renderer,b=r.canvas.getBoundingClientRect();return{viewport:{width:innerWidth,height:innerHeight},arena:{x:b.x,y:b.y,width:b.width,height:b.height},projection:r.projection,worldBounds:r.worldBounds};});
   await page.screenshot({path:path.join(out,`perimeter-${width}x${height}.png`)});
-  if(width===390&&height===700){
+  if(cardsOnly){
+   const first=page.locator('#hand [data-card="0"]');assert.ok((await first.innerText()).includes('Octillery'));await first.click();
+   const point=await page.evaluate(async()=>{const{worldToScreen}=await import('/arena-geometry.js?v=26'),b=document.getElementById('arena').getBoundingClientRect();return worldToScreen({x:168,y:532},b.width,b.height);});
+   await page.locator('#arena').click({position:point});assert.ok(!(await first.innerText()).includes('Octillery'),'real paid deployment cycles the card');await page.waitForTimeout(1300);
+   await page.screenshot({path:path.join(out,'octillery-real-paid-deployment.png')});
+   report.identities=await page.evaluate(async engineSpecifier=>{
+    const{Game,CARDS}=await import('/'+engineSpecifier),{POKEMON_SILHOUETTES}=await import('/pokemon-silhouettes.js');
+    const r=__artQA.renderer,draw=r.draw.bind(r);r.draw=()=>{};__artQA.game.step=()=>{};await r.ensureSpecies([9,224,143]);const result=[];
+    const capture=()=>{const b=r.canvas.getBoundingClientRect(),copy=Object.assign(document.createElement('canvas'),{width:Math.round(b.width),height:Math.round(b.height)}),c=copy.getContext('2d');c.imageSmoothingEnabled=false;c.drawImage(r.canvas,0,0,copy.width,copy.height);return copy.toDataURL();};
+    for(const key of['blastoiseCannon','octillery']){
+     r.resetVisuals();r.effects=[];r.particles=[];r.numbers=[];r.selection=null;r.pointer=null;r.t=0;const events=[],samples=[];
+     const game=new Game({seed:20261114,onEvent:e=>{r.onEvent(e);events.push({type:e.type,time:game.elapsed,key:e.key});}});game.start();game.aiEnabled=false;game.towers.forEach(t=>t.active=false);
+     const actor=game.spawn(key,0,300,550,0);game.spawn('snorlax',1,300,440,0);
+     for(let frame=0;frame<180;frame++){game.step(1/60);draw(game,1/60);if([18,20,54,56,60,90,120,179].includes(frame))samples.push({frame,x:actor.x,y:actor.y,png:capture()});}
+     result.push({key,species:CARDS[key].id,body:POKEMON_SILHOUETTES[CARDS[key].id],events,samples});
+    }return result;
+   },engineSpecifier);
+   for(const identity of report.identities){assert.ok(identity.body?.body>0,'measured native silhouette exists');for(const sample of identity.samples){await save(`native-combat-${identity.key}-${sample.frame}.png`,sample.png);delete sample.png;}}
+  }else if(width===390&&height===700){
    const detail=await page.evaluate(async engineSpecifier=>{
     const {Game,CARDS}=await import('/'+engineSpecifier),{ARENA}=await import('/arena-geometry.js?v=26');
     const {packGame}=await import('/snapshot.js?v=26'),{emissionPoint,attackAnimationFrame}=await import('/sprite-motion.js?v=26');
@@ -118,5 +148,5 @@ try{
  }
  report.sourceHashes=sourceHashes;report.runnerSha256=hash(await readFile(new URL(import.meta.url)));
  await writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');
- console.log(JSON.stringify({perimeter:report.detail.counts,grassEqual:report.detail.grassEqual,fieldFrames:report.detail.fields.length,identities:report.detail.identities.map(({key,id,scale,platform})=>({key,id,scale,platform})),images:report.images.length}));
+ console.log(JSON.stringify(cardsOnly?{cards:report.cards,identities:report.identities.map(({key,species,body})=>({key,species,body})),images:report.images.length}:{perimeter:report.detail.counts,grassEqual:report.detail.grassEqual,fieldFrames:report.detail.fields.length,identities:report.detail.identities.map(({key,id,scale,platform})=>({key,id,scale,platform})),images:report.images.length}));
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}

@@ -17,7 +17,7 @@ try{
   const{Game,CARDS}=await import('/engine.js?v=26'),{packGame,unpackGame,perspective}=await import('/snapshot.js?v=26'),{SandboxGame}=await import('/sandbox.js'),{softDisc}=await import('/targeting-art.js?v=32');
   const app=__nativeIntegratedApp,r=app.renderer,draw=r.draw.bind(r);r.draw=()=>{};app.game.step=()=>{};
   const keys=Object.entries(CARDS).filter(([,c])=>c.spell).map(([key])=>key),ranges=['pikachu','regice','roselia'];
-  await r.ensureSpecies([...new Set([25,7,41,143,31,34,52,...ranges.map(k=>CARDS[k].id)])]);
+  await r.ensureSpecies([...new Set([25,7,41,76,143,31,34,52,...ranges.map(k=>CARDS[k].id)])]);
   const rows=[],health=[],proof=[],reset=()=>{r.resetVisuals();r.effects=[];r.particles=[];r.selection=null;r.pointer=null;r.t=1;r.viewerTeam=0;r.placementTeam=0;};
   const capture=()=>{const b=r.canvas.getBoundingClientRect(),copy=document.createElement('canvas');copy.width=Math.round(b.width);copy.height=Math.round(b.height);const c=copy.getContext('2d');c.imageSmoothingEnabled=false;c.drawImage(r.canvas,0,0,copy.width,copy.height);return copy.toDataURL();};
   for(const view of[0,1])for(const key of keys){
