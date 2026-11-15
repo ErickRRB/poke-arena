@@ -479,6 +479,14 @@
       "columns": 8,
       "rows": 1,
       "fps": 8
+    },
+    "hyperImpact": {
+      "file": "assets/battle/Particle__Draco_Meteor_Explosion.None.png",
+      "width": 104,
+      "height": 104,
+      "columns": 7,
+      "rows": 1,
+      "fps": 24
     }
   },
   "sources": [
@@ -841,6 +849,12 @@
       "file": "assets/battle/Particle__Petal_Dance_Flower_Pink.None.png",
       "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Petal_Dance_Flower_Pink.None.png",
       "sha256": "f3c8a784cc2972b5c48c03232fbec8a06ff5f61264c9fe74c042986f03689900"
+    },
+    {
+      "key": "hyperImpact",
+      "file": "assets/battle/Particle__Draco_Meteor_Explosion.None.png",
+      "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Draco_Meteor_Explosion.None.png",
+      "sha256": "b0c103bfea5f16104a732903a68cfc3ce8b8c89b1972aad9c4fe141361154027"
     }
   ]
 }
