@@ -34,10 +34,13 @@ export function selectFrames(pts, interval) {
   for (let i=0;i<pts.length;i++) if (Number.isFinite(pts[i]) && pts[i]>=last+interval-1e-9) { selected.push({index:i,pts:pts[i]}); last=pts[i]; }
   return selected;
 }
-function viewer(c, selected) {
+function viewer(c, selected, result) {
   const {width,height}=c.viewport, q=c.crop;
   const frames=selected.map(f=>`<section><p>Tiempo original ${f.pts.toFixed(6)} s · cuadro ${f.index}</p><div class="row"><div class="full"><img src="${f.path}" alt="Contexto completo"></div><div class="crop"><img src="${f.path}" alt="Recorte fijo"></div></div></section>`).join('\n');
-  return `<!doctype html><html lang="es"><meta charset="utf-8"><title>${esc(c.id)} · evidencia</title><style>body{font:14px system-ui;margin:16px} .row{display:flex;gap:12px;align-items:start}.full,.crop{overflow:hidden;flex:none}.full{width:${width}px;height:${height}px}.crop{width:${q.width}px;height:${q.height}px}.row img{display:block;width:${width}px;height:${height}px;max-width:none}.crop img{margin-left:-${q.x}px;margin-top:-${q.y}px}section{margin:24px 0}video{max-width:100%}</style><h1>${esc(c.id)}</h1><p>Secuencia de cuadros recibidos de CDP con tiempos originales; no es video continuo ni un veredicto perceptual. CDP puede omitir presentaciones o alterar el ritmo.</p><p><a href="run.json">Manifiesto</a></p>${c.recordCanvas ? '<p>Video de canvas (sin interfaz completa):</p><video controls src="canvas.webm"></video>' : ''}${frames}</html>`;
+  const cadence=result.capture.observedCadence;
+  const samples=result.samples.map((sample,i)=>`<tr><td>${i+1}</td><td>${esc(sample.epochMs)}</td><td>${esc(sample.wallTime)}</td><td>${esc(sample.gameTime)}</td><td>${esc(JSON.stringify(sample.pose))}</td><td>${esc(JSON.stringify(sample.hp))}</td><td>${esc(JSON.stringify(sample.events))}</td></tr>`).join('');
+  const conditions=esc(JSON.stringify({requested:c.viewport, observed:result.samples[0], capture:cadence}));
+  return `<!doctype html><html lang="es"><meta charset="utf-8"><title>${esc(c.id)} · evidencia</title><style>body{font:14px system-ui;margin:16px} .row{display:flex;gap:12px;align-items:start}.full,.crop{overflow:hidden;flex:none}.full{width:${width}px;height:${height}px}.crop{width:${q.width}px;height:${q.height}px}.row img{display:block;width:${width}px;height:${height}px;max-width:none}.crop img{margin-left:-${q.x}px;margin-top:-${q.y}px}section{margin:24px 0}video{max-width:100%}</style><h1>${esc(c.id)}</h1><p>Secuencia de cuadros recibidos de CDP con tiempos originales; no es video continuo ni un veredicto perceptual. CDP puede omitir presentaciones o alterar el ritmo.</p><p><a href="run.json">Manifiesto completo</a></p><h2>Condiciones y cadencia observadas</h2><pre>${conditions}</pre><p>Media de cuadros CDP recibidos: ${esc(cadence.meanDeliveredFps)} por segundo; hueco máximo: ${esc(cadence.maxGapMs)} ms. Son valores de entrega, no fluidez.</p><details><summary>Tiempos, poses, HP y eventos observados (${result.samples.length})</summary><table><thead><tr><th>Muestra</th><th>Época (ms)</th><th>Reloj página (ms)</th><th>Juego (s)</th><th>Pose</th><th>HP</th><th>Eventos</th></tr></thead><tbody>${samples}</tbody></table></details>${c.recordCanvas ? '<p>Video de canvas (sin interfaz completa):</p><video controls src="canvas.webm"></video>' : ''}${frames}</html>`;
 }
 async function playwright() {
   if (process.env.PLAYWRIGHT_MODULE) return import(pathToFileURL(path.resolve(process.env.PLAYWRIGHT_MODULE)));
@@ -49,9 +52,10 @@ function serve() {
   const server=createServer(async(req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);const file=inRoot(pathname.replace(/^\//,''));const data=await readFile(file);res.writeHead(200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store'});res.end(data);}catch{res.writeHead(404).end();}});
   return new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',()=>resolve(server));});
 }
-export async function runCase(c,{mode='capture',out='workbench-runs'}={}) {
+export async function runCase(c,{mode='capture',out='workbench-runs',observeDurationMs,headless}={}) {
   validateCase(c);
   if (!['capture','observe'].includes(mode)) throw Error('mode must be capture or observe');
+  if (observeDurationMs !== undefined && (mode !== 'observe' || !Number.isFinite(observeDurationMs) || observeDurationMs<100)) throw Error('observe duration must be at least 100 ms and only applies to observe');
   const result={schema:1,id:c.id,mode,status:'running',requested:c,limitations:['Emulación de navegador; no dispositivo físico.','La semilla del motor no determina Math.random del renderer.','Una secuencia de imágenes no demuestra fluidez perceptual.'],samples:[]};
   let dir,server,browser,context,cdp; const captured=[]; let pending=Promise.resolve();
   if (mode==='capture') { await mkdir(out,{recursive:true}); dir=path.resolve(out,`${new Date().toISOString().replace(/[:.]/g,'-')}-${randomUUID()}`); await mkdir(dir); await mkdir(path.join(dir,'frames'));  }
@@ -60,10 +64,11 @@ export async function runCase(c,{mode='capture',out='workbench-runs'}={}) {
     result.git={sha:command('git',['rev-parse','HEAD']).trim(),tree:command('git',['rev-parse','HEAD^{tree}']).trim(),status:command('git',['status','--porcelain']).trim()};
     const adapter=await import(pathToFileURL(inRoot(c.adapter)).href+'?v='+Date.now());
     if (typeof adapter.prepare!=='function' || typeof adapter.observe!=='function') throw Error('adapter requires prepare and observe');
-    server=await serve(); const pw=await playwright(); browser=await pw.chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL||'msedge',headless:mode!=='observe'});
+    server=await serve(); const pw=await playwright(); browser=await pw.chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL||'msedge',headless:headless ?? mode!=='observe'});
     const viewport={width:c.viewport.width,height:c.viewport.height};
     context=await browser.newContext({viewport,deviceScaleFactor:c.viewport.dpr});
     const page=await context.newPage();
+    if (adapter.beforeNavigate !== undefined) { if (typeof adapter.beforeNavigate !== 'function') throw Error('beforeNavigate must be a function'); await adapter.beforeNavigate(page,c); }
     await page.goto(`http://127.0.0.1:${server.address().port}/${c.source.split('/').map(encodeURIComponent).join('/')}`);
     await adapter.prepare(page,c);
     if (dir && c.recordCanvas) {
@@ -84,7 +89,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs'}={}) {
       await cdp.send('Page.startScreencast',{format:'jpeg',quality:100,maxWidth:viewport.width,maxHeight:viewport.height,everyNthFrame:1});
     }
     const start=Date.now();
-    do { result.samples.push(await adapter.observe(page,c)); await page.waitForTimeout(c.sampleMs); } while(Date.now()-start<c.durationMs);
+    do { result.samples.push(await adapter.observe(page,c)); await page.waitForTimeout(c.sampleMs); } while(Date.now()-start<(observeDurationMs ?? c.durationMs));
     const observed=result.samples;
     if (!observed.length || observed.some(s=>s.viewport?.width!==viewport.width || s.viewport?.height!==viewport.height || s.dpr!==c.viewport.dpr)) throw Error('observed viewport or DPR differs from requested');
     if (observed[0].events?.some(e=>e.type===c.expectedEvent) || !observed.slice(1).some(s=>s.events?.some(e=>e.type===c.expectedEvent && Number.isFinite(e.at) && e.at>=observed[0].gameTime && e.at<=s.gameTime))) throw Error('expected event not observed during case');
@@ -105,8 +110,9 @@ export async function runCase(c,{mode='capture',out='workbench-runs'}={}) {
       const gaps=pts.slice(1).map((t,i)=>t-pts[i]); if(c.maxGapMs !== undefined && gaps.some(g=>g*1000>c.maxGapMs)) throw Error('requested maximum gap exceeded');
       result.capture={kind:'cdp-screencast',clock:'CDP metadata.timestamp (seconds since epoch)',origin,frames:captured,selected,observedCadence: {count:captured.length, durationSeconds:pts.at(-1), meanDeliveredFps:pts.at(-1)>0?(pts.length-1)/pts.at(-1):null,maxGapMs:gaps.length?Math.max(...gaps)*1000:null,gapsSeconds:gaps},limitations:'CDP delivers browser frames opportunistically; timestamps describe delivered frames, not every display presentation. No continuous video or perceptual fluency is claimed.'};
       for (const frame of captured) { const bytes=await readFile(path.join(dir,frame.path)); const size=jpegSize(bytes); if(size.width!==viewport.width || size.height!==viewport.height) throw Error('captured frame size differs from CSS viewport'); frame.sha256=sha(bytes); }
-      await writeFile(path.join(dir,'index.html'),viewer(c,selected));
+      await writeFile(path.join(dir,'index.html'),viewer(c,selected,result));
     }
+    result.observation={durationMs:result.samples.at(-1).epochMs-result.samples[0].epochMs,firstEpochMs:result.samples[0].epochMs,lastEpochMs:result.samples.at(-1).epochMs,firstGameTime:result.samples[0].gameTime,lastGameTime:result.samples.at(-1).gameTime,events:result.samples.at(-1).events};
     result.status='complete';
   } catch(e) { result.status='failed'; result.error=e.message; }
   finally { if(context) await context.close(); if(browser) await browser.close(); if(server) await new Promise(r=>server.close(r)); if(dir) await writeFile(path.join(dir,'run.json'),JSON.stringify(result,null,2)); }
@@ -114,6 +120,12 @@ export async function runCase(c,{mode='capture',out='workbench-runs'}={}) {
   return {directory:dir,result};
 }
 if (process.argv[1] && import.meta.url===pathToFileURL(path.resolve(process.argv[1])).href) {
-  try { if(process.argv[2]==='--help'){ console.log('capture|observe case.json [--out directory] — local fixture, CDP timestamps, no perceptual verdict. Case: id, source, adapter, viewport {width,height,dpr}, durationMs, sampleMs, clock natural-app, expectedEvent, extractIntervalMs, crop {x,y,width,height}; optional maxGapMs and recordCanvas selector. Adapter exports prepare(page,case) and observe(page,case); observations include wallTime, epochMs, gameTime, viewport, dpr, canvas, pose, hp, events [{type,at: gameTime}]. Playwright and Edge required.'); process.exit(0); } const [mode,file,flag,out]=process.argv.slice(2); if(!['capture','observe'].includes(mode)||!file||(flag&&flag!=='--out')||(flag&&!out)) throw Error('usage: node scripts/review-workbench.mjs capture|observe case.json [--out directory]'); const c=JSON.parse(await readFile(file,'utf8')); const r=await runCase(c,{mode,out}); console.log(JSON.stringify({status:r.result.status,directory:r.directory},null,2)); }
+  try {
+    if(process.argv[2]==='--help'){ console.log('capture|observe case.json [--out directory] [--duration-ms milliseconds for observe] — local case, CDP timestamps, no perceptual verdict. Adapter exports optional beforeNavigate(page,case), prepare(page,case), observe(page,case). See tests/fixtures/workbench/case.json for case schema. Playwright, Edge and optional canvas ffprobe required.'); process.exit(0); }
+    const [mode,file,...args]=process.argv.slice(2); if(!['capture','observe'].includes(mode)||!file||args.length%2) throw Error('usage: capture|observe case.json [--out directory] [--duration-ms milliseconds]');
+    let out,observeDurationMs; const seen=new Set();
+    for(let i=0;i<args.length;i+=2){const flag=args[i],value=args[i+1];if(seen.has(flag)||!value) throw Error('duplicate or missing option');seen.add(flag);if(flag==='--out')out=value;else if(flag==='--duration-ms')observeDurationMs=Number(value);else throw Error('unknown option: '+flag);}
+    const c=JSON.parse(await readFile(file,'utf8')); const r=await runCase(c,{mode,out,observeDurationMs}); console.log(JSON.stringify({status:r.result.status,directory:r.directory,observation:r.result.observation},null,2));
+  }
   catch(e) {console.error(e.message, e.runDirectory||'');process.exitCode=1;}
 }
