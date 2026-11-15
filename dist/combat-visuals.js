@@ -20,11 +20,11 @@ export function attackVisualProfile(card){
 export function biteMotion(unit,reduced=false){
   if(!directedBite(unit.card)||unit.mounted||unit.attack<=0||unit.hp<=0||unit.stun>0)return null;
   const duration=unit.attackDuration||unit.card.attackDuration,windup=unit.attackWindup??unit.card.windup;
-  const elapsed=Math.max(0,duration-unit.attack),start=Math.max(0,windup-.16);
+  const elapsed=Math.max(0,duration-unit.attack),start=Math.min(.12,windup*.25);
   const ease=p=>{p=Math.max(0,Math.min(1,p));return p*p*(3-2*p);};
   const reach=elapsed<windup?ease((elapsed-start)/Math.max(.001,windup-start)):
-    1-ease((elapsed-windup-.06)/Math.max(.001,duration-windup-.06));
-  const drawback=reduced||elapsed>=start?0:-6*Math.sin(Math.PI*elapsed/Math.max(.001,start));
+    1-ease((elapsed-windup-.1)/Math.max(.001,duration-windup-.1));
+  const drawback=reduced||elapsed>=start?0:-6*Math.sin(Math.PI*elapsed/Math.max(.001,start))**2;
   return{reach,drawback,elapsed};
 }
 export function biteSurface(from,target,vertical=1){

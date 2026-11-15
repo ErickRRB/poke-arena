@@ -105,3 +105,31 @@ test('bite recovery returns to the native body, while reduced keeps the structur
     assert.equal(biteMotion({...actor,card,attack:.28}),null);
   }
 });
+
+test('bite head follows a progressive route while its contact stays fixed to the moving target',()=>{
+  const actor={id:7,card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,attackSeq:2,attackTargetId:8,attackDuration:1,attackWindup:.6};
+  const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced:false,verticalScale:1,visualActors:new Map([[7,{}]]),frameActors:new Map()});
+  let surface,previous;
+  for(const elapsed of[0,.12,.2,.3,.4,.5,.6]){
+    const target={id:8,card:CARDS.snorlax,x:334+elapsed*18,y:541+elapsed*12,radius:18,hp:3968};
+    renderer.t=1+elapsed;renderer.frameActors=new Map([[7,{...actor,attack:1-elapsed}],[8,target]]);
+    renderer.prepareBiteActors();const shown=renderer.frameActors.get(7),head=renderer.visualEmission(shown);
+    const local={x:shown.biteContact.x-target.x,y:shown.biteContact.y-target.y};
+    if(!surface)surface=local;
+    assert.ok(Math.hypot(local.x-surface.x,local.y-surface.y)<1e-7,'wing frames do not steer the target-local contact');
+    if(elapsed>=.12&&previous)assert.ok(head.x>=previous.x,'approach does not reverse between native poses');
+    if(elapsed===.3)assert.ok(head.x>actor.x+12,'approach is already visible halfway through windup');
+    if(elapsed===.6)assert.ok(Math.hypot(head.x-shown.biteContact.x,head.y-shown.biteContact.y)<1e-7);
+    previous=head;
+  }
+});
+
+test('release retains its original attack target through a logical retarget',()=>{
+  const first={id:8},next={id:9},actor={id:7,card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,
+    attackSeq:2,attack:.16,attackDuration:.76,attackWindup:.6,target:first};
+  const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,effects:[],visualActors:new Map()});
+  renderer.onEvent({type:'attackStart',attacker:actor,target:first});
+  actor.target=next;renderer.onEvent({type:'attackRelease',attacker:actor,target:first});
+  assert.equal(renderer.attackContacts.get(7).targetId,8);
+  assert.equal(renderer.visualActor(actor,0).attackTargetId,8);
+});

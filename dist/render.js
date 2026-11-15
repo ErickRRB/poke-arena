@@ -222,7 +222,7 @@ export class Renderer {
   presentAttack(actor,pose,dt){
     const bite=directedBite(actor.card)&&!actor.mounted;
     if(!bite&&(actor.card?.id!==6||actor.card.attackAnim!=='Shoot'))return actor;
-    const duration=(actor.attackWindup??actor.card.windup??.3)+(bite?.28:.42);
+    const duration=(actor.attackWindup??actor.card.windup??.3)+(bite?.4:.42);
     let show=pose.presentation;
     if(actor.hp<=0||actor.stun>0||actor.pushHurt>0){delete pose.presentation;return actor;}
     if(actor.attack>0){
@@ -238,6 +238,7 @@ export class Renderer {
     return show&&show.elapsed<duration?{...actor,attackDuration:duration,attack:duration-show.elapsed}:actor;
   }
   prepareBiteActors(){
+    const updates=[];
     for(const[id,actor]of this.frameActors){
       if(!directedBite(actor.card)||actor.mounted)continue;
       const pose=this.visualActors.get(id),motion=biteMotion(actor,this.reduced),old=pose?.bite;
@@ -246,18 +247,28 @@ export class Renderer {
       const target=this.frameActors.get(actor.attackTargetId);
       if(!(actor.freeze>0&&bite)){
         if(!target&&!bite)continue;
-        const length=target?Math.hypot(target.x-actor.x,target.y-actor.y):0;
-        const dx=length?(target.x-actor.x)/length:bite?.dx??actor.dx,dy=length?(target.y-actor.y)/length:bite?.dy??actor.dy;
-        const facing={...actor,dx,dy},mouth=this.visualEmission(facing);
-        const point=target?biteSurface(mouth,target,this.verticalScale||1):bite.point;
-        bite=pose.bite={seq:actor.attackSeq,dx,dy,point,
-          x:(point.x-mouth.x)*motion.reach+dx*motion.drawback,
-          y:(point.y-mouth.y)*motion.reach+dy*motion.drawback/(this.verticalScale||1),
+        const vertical=this.verticalScale||1;
+        if(!bite){
+          const length=Math.hypot(target.x-actor.x,target.y-actor.y)||1,dx=(target.x-actor.x)/length,dy=(target.y-actor.y)/length;
+          const mouth=this.visualEmission({...actor,dx,dy}),point=biteSurface(mouth,target,vertical);
+          // One target-local contact and launch marker per attack. Native wing
+          // frames may change without steering the trajectory to another pixel.
+          bite={seq:actor.attackSeq,dx,dy,point,launch:{x:mouth.x-actor.x,y:(mouth.y-actor.y)*vertical},surface:{x:point.x-target.x,y:(point.y-target.y)*vertical}};
+        }
+        const mouth=this.visualEmission({...actor,dx:bite.dx,dy:bite.dy});
+        const point=target?{x:target.x+bite.surface.x,y:target.y+bite.surface.y/vertical}:bite.point;
+        const origin={x:actor.x+bite.launch.x,y:actor.y+bite.launch.y/vertical};
+        const head={x:origin.x+(point.x-origin.x)*motion.reach+bite.dx*motion.drawback,
+          y:origin.y+(point.y-origin.y)*motion.reach+bite.dy*motion.drawback/vertical};
+        bite=pose.bite={...bite,point,x:head.x-mouth.x,y:head.y-mouth.y,
           sortY:target?.y??bite?.sortY??actor.y};
       }
-      this.frameActors.set(id,{...actor,x:actor.x+bite.x,y:actor.y+bite.y,dx:bite.dx,dy:bite.dy,
-        biteContact:bite.point,visualSortY:bite.sortY+.01});
+      updates.push([id,{...actor,x:actor.x+bite.x,y:actor.y+bite.y,dx:bite.dx,dy:bite.dy,
+        biteContact:bite.point,visualSortY:bite.sortY+.01}]);
     }
+    // Simultaneous bites read the same unmodified target poses, rather than
+    // chasing an already displaced actor encountered earlier in Map order.
+    for(const[id,actor]of updates)this.frameActors.set(id,actor);
   }
   projected(point,actor){
     if(!actor)return point;
@@ -520,7 +531,7 @@ export class Renderer {
       const actor=event.attacker,profile=actor.card||actor.guard||{},duration=actor.attackDuration||profile.attackDuration||.6,windup=actor.attackWindup??profile.windup??actor.windup??.18;
       const shot=event.shot||0,until=this.t+1/30+1e-7,held={seq:actor.attackSeq,targetId:event.target?.id??actor.target?.id,card:actor.card,guard:actor.guard,animation:actor.attackAnim||profile.attackAnim||'Attack',duration,windup,elapsed:windup+shot*(profile.burstSpacing||duration),dx:actor.dx,dy:actor.dy,until};
       const current=this.attackContacts.get(actor.id);
-      this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,shot,until}),held});
+      this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,targetId:held.targetId??current?.targetId,shot,until}),held});
       if(profile.style==='ember'&&isRangedAttack(profile)&&!profile.suicide){const life=profile.id===6?.18:.16;this.effects.push({...event,kind:'muzzleFlame',sourceId:actor.id,targetId:event.target?.id,attackId:`${actor.id}:${actor.attackSeq}:${shot}`,life,max:life});}
     }
     if(type==='attackStart'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
