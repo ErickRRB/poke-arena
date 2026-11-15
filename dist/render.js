@@ -434,15 +434,16 @@ export class Renderer {
     if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
   }
   healthReadout(c,unit,x,y,width){
-    // Preserve the native meter's top two rows over a crossing head, without
-    // painting the whole opaque HUD box back across the moving fire body.
+    // Keep the native meter's upper half and complete shield legible while a
+    // moving head passes; the larger health box remains behind that head.
     const ratio=Math.max(0,unit.hp/unit.maxHp),chip=this.healthStates?.get(unit.id)?.chip??ratio;
-    rect(c,'#32413b',x-width/2,y,width,2);
-    if(chip>ratio)rect(c,'#ffe2a2',x-width/2,y,width*chip,2);
+    rect(c,'#32413b',x-width/2,y,width,4);
+    if(chip>ratio)rect(c,'#ffe2a2',x-width/2,y,width*chip,4);
+    rect(c,unit.team?'#ef615a':'#43baf1',x-width/2,y,width*ratio,4);
     rect(c,unit.team?'#ffaaa0':'#a3e5ff',x-width/2,y,width*ratio,2);
-    if(unit.maxHp>1)for(let i=1;i<4;i++)rect(c,'#061a243d',x-width/2+width*i/4,y,1,2);
-    if(unit.hit>.12){c.save();c.globalAlpha=(unit.hit-.12)/.12;rect(c,'#fff5cf',x-width/2,y,width*ratio,2);c.restore();}
-    if(unit.shield>0){rect(c,'#102a36',x-width/2,y+11,width,2);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),2);}
+    if(unit.maxHp>1)for(let i=1;i<4;i++)rect(c,'#061a243d',x-width/2+width*i/4,y,1,4);
+    if(unit.hit>.12){c.save();c.globalAlpha=(unit.hit-.12)/.12;rect(c,'#fff5cf',x-width/2,y,width*ratio,3);c.restore();}
+    if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
   }
   platform(c,unit){
     if(unit.card.platform===false)return;
