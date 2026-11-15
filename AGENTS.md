@@ -12,6 +12,21 @@ La aplicación de Cloudflare no debe depender de Sites en ejecución. Sus medios
 
 Sites queda como puente legado existente y aloja la API HTTP antigua sólo en su propio origen. Conservar su enlace, configuración y almacenamiento por origen para quienes tienen mazos guardados allí. No borrarlo, modificarlo ni redirigirlo automáticamente al publicar en Cloudflare. Usar el flujo de Sites únicamente ante un pedido explícito de mantenimiento de ese legado. `npm run build` en la raíz genera el Worker de compatibilidad para Sites y no forma parte del despliegue habitual del frontend.
 
+## Calidad de la entrega completa
+
+Aplicar un estándar absoluto de resultado terminado a todo Poké Arena. Una mejora respecto de una versión mala puede seguir siendo inaceptable. Pasar pruebas, conservar números o fuentes 1:1 y no introducir regresiones no demuestran calidad visual, sonora ni de uso. Evaluar el conjunto: sprite, pose, emisor, trayectoria, velocidad, visibilidad, área física e impacto deben funcionar juntos. Corregir una trayectoria no justifica perder el gesto del personaje o volver casi invisible su ataque; Charizard debe conservar una pose legible y fuego visible que salga de su boca.
+
+La entrega sigue estas etapas obligatorias:
+
+1. El autor verifica que la implementación funciona y documenta el alcance y sus límites.
+2. Una persona o agente que no sea autor realiza la revisión técnica independiente.
+3. Un revisor independiente examina la calidad visual y de uso en movimiento, a tamaño real y en contexto de juego, incluido móvil. Para audio se entregan clips reales de combate y se distingue la verificación técnica de una audición humana o una aprobación perceptual que efectivamente hayan ocurrido.
+4. Se corrigen los hallazgos y se vuelve a verificar el resultado. La evidencia identifica fecha, SHA y árbol o hashes de los archivos del candidato final; las capturas de versiones anteriores no aprueban un cambio posterior.
+5. Root decide la calidad final del conjunto con los informes y las evidencias de los autores y revisores. Root coordina y revisa el resultado; no reemplaza al autor ni hace las pruebas iniciales.
+6. Se publica en Cloudflare con la autorización vigente y se comprueba el resultado público. No pedir nuevamente un permiso de publicación ya otorgado.
+
+Nadie aprueba en solitario su propio cambio. No marcar el trabajo terminado mientras queden hallazgos que impidan que el resultado completo cumpla este estándar.
+
 ## Selección de pruebas
 
 Elegir las pruebas por la sección modificada. Para el editor o guardado del mazo, usar `npm run test:deck` y `npm run test:ui:deck`; no ejecutar conexión entre usuarios, audio, combate ni balance. Usar los grupos `battle`, `placement`, `rendering`, `online`, `server`, `audio`, `balance` y `tooling` solo cuando el cambio alcance esas áreas. Se pueden combinar con `npm test -- deck rendering`.
