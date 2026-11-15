@@ -7,6 +7,8 @@ import { spellPreviewTargets } from './spell-preview.js?v=28';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=32';
 import { FlightWings } from './wing-motion.js';
 import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js';
+import { WHIRLPOOL_BOUNDS } from './assets/battle/frame-bounds.js';
+import { BATTLE_ASSETS } from './assets/battle/manifest.js';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -795,9 +797,15 @@ export class Renderer {
     if(surface.width!==size||surface.height!==size){surface.width=size;surface.height=size;}
     const water=surface.getContext('2d');water.setTransform(1,0,0,1,0,0);water.globalAlpha=1;water.globalCompositeOperation='source-over';water.clearRect(0,0,size,size);water.imageSmoothingEnabled=false;
     this.battleArt.draw(water,'whirlpool',size/2,size/2,radius*1.95,radius*1.95,{age:this.reduced?.8:age,trim:true,blend:!this.reduced});
-    const fade=water.createRadialGradient(size/2,size/2,0,size/2,size/2,radius);
-    fade.addColorStop(0,'#fff');fade.addColorStop(.5,'#fff');fade.addColorStop(.75,'#ffffffa6');fade.addColorStop(1,'#ffffff00');
-    water.globalCompositeOperation='destination-in';water.fillStyle=fade;water.fillRect(0,0,size,size);water.globalCompositeOperation='source-over';
+    // Early native frames are a shallow ellipse. A circular mask leaves their
+    // upper/lower rim untouched, so follow the native silhouette as it rises.
+    const phase=(this.reduced?.8:age)*BATTLE_ASSETS.whirlpool.fps,frame=Math.floor(phase)%WHIRLPOOL_BOUNDS.length;
+    const aspect=at=>{const b=WHIRLPOOL_BOUNDS[at];return(b[3]-b[1])/(b[2]-b[0]);};
+    const next=(frame+1)%WHIRLPOOL_BOUNDS.length,mix=this.reduced?0:phase-Math.floor(phase),height=aspect(frame)*(1-mix)+aspect(next)*mix;
+    water.save();water.translate(size/2,size/2);water.scale(1,Math.min(1,height));
+    const fade=water.createRadialGradient(0,0,0,0,0,radius);
+    fade.addColorStop(0,'#fff');fade.addColorStop(.28,'#fff');fade.addColorStop(.55,'#ffffff61');fade.addColorStop(.8,'#ffffff14');fade.addColorStop(1,'#ffffff00');
+    water.globalCompositeOperation='destination-in';water.fillStyle=fade;water.fillRect(-size,-size,size*2,size*2);water.restore();
     c.drawImage(surface,field.x-radius,field.y-radius,radius*2,radius*2);
   }
   frozen(c,actor){
