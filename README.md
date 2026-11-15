@@ -155,6 +155,8 @@ Los sprites y animaciones de la arena provienen de Pokémon Mystery Dungeon, con
 
 Las ilustraciones anteriores y sus variantes se conservan en [artwork/imagenes-viejas](artwork/imagenes-viejas/README.md), con un visor local para compararlas.
 
-Las voces utilizan la compilación [HQ Pokémon Anime Cries Gen 1–5, de Galladito/RojoY](https://forums.pokemmo.com/index.php?/topic/86447-mod-hq-pokemon-anime-cries-gen-1-5/). Los efectos incluyen recursos de Kenney y receptron bajo CC0, con sus fuentes y licencias en `dist/assets/audio/`. La música de batalla es una composición original secuenciada con Web Audio. Las fuentes son Barlow Condensed y DM Sans.
+Las voces utilizan la compilación [HQ Pokémon Anime Cries Gen 1–5, de Galladito/RojoY](https://forums.pokemmo.com/index.php?/topic/86447-mod-hq-pokemon-anime-cries-gen-1-5/). Los efectos usan grabaciones CC0 de Kenney y lentikula, recopiladas por untamedpixels; los recortes, fundidos y fuentes se documentan en [los recursos de combate](dist/assets/audio/clean-v1/SOURCES.json). La música reproduce completas «Rynos Theme» y «Five Armies», de Kevin MacLeod, bajo CC BY 4.0, con [atribución y fuentes](dist/assets/audio/music/CREDITS.txt). Se transmite por separado de los efectos y conserva su posición al pausar o recuperar el contexto de audio. Las fuentes tipográficas son Barlow Condensed y DM Sans.
+
+La aceptación de una entrega incluye revisión técnica y revisión visual y de uso independientes, con evidencia del candidato final en juego. Las pruebas y la mejora respecto de una versión anterior no bastan para aprobar su calidad. El proceso completo está en [AGENTS.md](AGENTS.md#calidad-de-la-entrega-completa).
 
 Pokémon pertenece a Nintendo, Creatures y GAME FREAK. Poké Arena es un juego de fans sin afiliación oficial.
