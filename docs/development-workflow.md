@@ -20,6 +20,8 @@ El modo de observación sirve para ver el resultado vivo durante la autoría. La
 
 Antes de una prueba cara, comprobar lo que la invalidaría: conflictos sin resolver, recursos de otra versión, estado o DPR diferentes al solicitado, o un fixture que nunca produce el evento que pretende observar. El modo exploratorio puede declarar un árbol sucio y hashes de archivos; esa salida no se presenta como aprobación de un candidato congelado.
 
+Si el caso depende de un encuentro concreto, antes de la captura completa o una matriz usá las herramientas existentes para comprobar con Game nativo que los actores e IDs observados se encuentran y producen el primer contacto, salto de cadena o estímulo de ocultamiento requerido. Revisá también una vista estática real a escala de uso para detectar torre u otra oclusión, anclas y encuadre. Registrá lo observado frente a lo solicitado y conservá los fallos: una simulación rápida o pose diagnóstica no sustituye la acción posterior con el bucle natural. Omití este paso cuando el cambio no dependa de encuentros o visibilidad, por ejemplo documentación o un color aislado.
+
 ## Checklist de desarrollo
 
 Responder lo pertinente en la ficha; no crear diez formularios ni exigir categorías ajenas al cambio.
