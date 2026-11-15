@@ -4,17 +4,22 @@ function validate(config) {
   const requested=config.requiredObservations ?? [];
   if (!Array.isArray(requested) || requested.some(x=>!supported.has(x))) throw Error('unsupported required observation: '+(Array.isArray(requested)?requested.filter(x=>!supported.has(x)).join(', '):'invalid list'));
   if ('seed' in config) throw Error('seed injection is not supported by this transparent adapter');
-  if(config.scenario){const x=config.scenario;if(!x.attacker?.key || !Number.isInteger(x.attacker.id) || !x.target?.key || !Number.isInteger(x.target.id) || !['north','east'].includes(x.orientation) || !Array.isArray(x.preload) || !x.preload.length || x.preload.some(p=>!Number.isInteger(p.id)||!p.animation) || !Number.isFinite(x.preRollMs) || x.preRollMs<400 || config.durationMs<x.preRollMs+3000) throw Error('invalid contact scenario');}
+  if(config.scenario){
+    const x=config.scenario, tower=x.targetTower;
+    const targetValid=tower ? x.keepTowers===true && tower.team===1 && [0,1].includes(tower.lane) && Number.isFinite(tower.initialHp) && tower.initialHp>0 : x.target?.key && Number.isInteger(x.target.id) && ['north','east'].includes(x.orientation);
+    if(!x.attacker?.key || !Number.isInteger(x.attacker.id) || !targetValid || !Array.isArray(x.preload) || !x.preload.length || x.preload.some(p=>!Number.isInteger(p.id)||!p.animation) || !Number.isFinite(x.preRollMs) || x.preRollMs<400 || config.durationMs<x.preRollMs+3000) throw Error('invalid contact scenario');
+  }
 
 }
 export async function beforeNavigate(page,config) {
   validate(config);
-  const state={origin:null,requests:[],blocked:[],webSockets:[],webSocketIsolation:'unavailable'};
+  const state={origin:null,requests:[],blocked:[],webSockets:[],pageErrors:[],webSocketIsolation:'unavailable'};
   network.set(page,state);
   if(typeof page.routeWebSocket==='function'){
     await page.routeWebSocket('**/*',async ws=>{const u=new URL(ws.url());state.webSockets.push({origin:u.origin,pathname:u.pathname});await ws.close({code:1008,reason:'local review isolation'});});
     state.webSocketIsolation='blocked-before-navigation';
   }else if(config.requireWebSocketIsolation!==false)throw Error('WebSocket isolation unavailable in this Playwright version');
+  page.on('pageerror',error=>state.pageErrors.push(error.message));
   await page.route('**/*',route=>{
     const request=route.request(),u=new URL(request.url());
     if(!state.origin&&request.isNavigationRequest()&&request.frame()===page.mainFrame()&&u.protocol==='http:'&&u.hostname==='127.0.0.1'&&u.pathname==='/'+config.source){state.origin=u.origin;}
@@ -33,25 +38,37 @@ export async function prepare(page, config) {
     const step=Game.prototype.step, emit=Game.prototype.emit, draw=Renderer.prototype.draw;
     const q=globalThis.__reviewAdapter={game:null,renderer:null,events:[],steps:0,draws:0,observations:0,action:false,CARDS,originals:{step,emit,draw},unsupported:['exact sprite frame','emitter position','visual particle seed','game constructor seed']};
     Game.prototype.step=function(...args){const value=step.apply(this,args);q.game=this;q.steps++;q.lastStepDt=args[0];return value;};
-    Game.prototype.emit=function(type,data){const value=emit.apply(this,arguments);q.events.push({type,at:this.elapsed,key:data?.key??data?.unit?.key??null,attackerId:data?.attacker?.id??data?.sourceId??null,targetId:data?.target?.id??data?.targetId??null,sourceKey:data?.sourceKey??null,amount:data?.amount??null});if(q.events.length>500)q.events.shift();return value;};
+    Game.prototype.emit=function(type,data){const value=emit.apply(this,arguments);q.events.push({type,at:this.elapsed,key:data?.key??data?.unit?.key??null,attackerId:data?.attacker?.id??data?.sourceId??null,targetId:data?.target?.id??data?.targetId??data?.tower?.id??null,sourceKey:data?.sourceKey??null,amount:data?.amount??null});if(q.events.length>500)q.events.shift();return value;};
     Renderer.prototype.draw=function(...args){const value=draw.apply(this,args);q.renderer=this;q.draws++;q.lastDrawDt=args[1];return value;};
   });
   await page.locator('#start-btn').click();
   await page.waitForFunction(()=>globalThis.__reviewAdapter?.game?.state==='playing' && globalThis.__reviewAdapter?.renderer);
   if(config.scenario) await page.evaluate(async scenario=>{
     const q=__reviewAdapter,g=q.game,r=q.renderer;
-    const actor=q.CARDS[scenario.attacker.key], target=q.CARDS[scenario.target.key];
-    if(actor?.id!==scenario.attacker.id || target?.id!==scenario.target.id) throw Error('scenario species ID mismatch');
-    if(!scenario.preload.some(p=>p.id===actor.id && p.animation===(actor.attackAnim||'Attack')) || !scenario.preload.some(p=>p.id===target.id)) throw Error('actor and target must be preloaded');
+    const actor=q.CARDS[scenario.attacker.key], target=scenario.target?q.CARDS[scenario.target.key]:null;
+    if(actor?.id!==scenario.attacker.id || (scenario.target && target?.id!==scenario.target.id)) throw Error('scenario species ID mismatch');
+    if(!scenario.preload.some(p=>p.id===actor.id && p.animation===(actor.attackAnim||'Attack')) || (target && !scenario.preload.some(p=>p.id===target.id))) throw Error('actor and target must be preloaded');
     await r.ensureSpecies(scenario.preload.map(p=>p.id));
     for(const p of scenario.preload) if(!r.metadata[p.id]?.[p.animation] || !r.sprites.get(p.id+'-'+p.animation)?.width) throw Error('missing preloaded animation '+p.id+' '+p.animation);
-    q.action=true;g.aiEnabled=false;g.towers.forEach(t=>t.active=false);
+    q.action=true;g.aiEnabled=false;if(!scenario.keepTowers)g.towers.forEach(t=>t.active=false);
     g.units=[];g.projectiles=[];g.spells=[];g.fields=[];g.attacks=[];r.resetVisuals();r.effects=[];r.particles=[];q.events=[];
-    q.fixture={scenario,ready:false,limits:'Isolated authored setup with original Game.step and app rAF; passive durable target, no network, visual RNG uncontrolled. Logical pose is not a sprite frame.'};
+    q.fixture={scenario,ready:false,limits:'Isolated authored setup with original Game.step and app rAF; target and tower conditions as declared, no network, visual RNG uncontrolled. Logical pose is not a sprite frame.'};
     setTimeout(()=>{
-      const a=g.spawn(scenario.attacker.key,0,220,540,0), t=g.spawn(scenario.target.key,1,scenario.orientation==='north'?220:310,scenario.orientation==='north'?435:540,0);
-      a.entryPending=t.entryPending=false;t.hp=t.maxHp=1e7;t.card={...t.card,passive:true,speed:0,damage:0};
-      q.fixture.actors=[{id:a.id,key:a.key},{id:t.id,key:t.key}];q.fixture.startEpochMs=performance.timeOrigin+performance.now();q.fixture.startGameTime=g.elapsed;q.fixture.ready=true;
+      let t, a;
+      if(scenario.targetTower){
+        t=g.towers.find(t=>t.team===scenario.targetTower.team && !t.king && t.lane===scenario.targetTower.lane);
+        if(!t || !t.active || scenario.targetTower.initialHp>t.maxHp) {q.fixture.error='invalid or inactive native princess tower';return;}
+        t.hp=scenario.targetTower.initialHp;
+        a=g.spawn(scenario.attacker.key,0,t.x,t.y+60,0);a.entryPending=false;
+        q.fixture.targetTower={id:t.id,team:t.team,lane:t.lane,initialHp:t.hp,maxHp:t.maxHp,active:t.active};
+        q.fixture.actors=[{id:a.id,key:a.key}];
+      }else{
+        a=g.spawn(scenario.attacker.key,0,220,540,0);t=g.spawn(scenario.target.key,1,scenario.orientation==='north'?220:310,scenario.orientation==='north'?435:540,0);
+        a.entryPending=t.entryPending=false;t.hp=t.maxHp=1e7;t.card={...t.card,passive:true,speed:0,damage:0};
+        q.fixture.actors=[{id:a.id,key:a.key},{id:t.id,key:t.key}];
+      }
+
+      q.fixture.startEpochMs=performance.timeOrigin+performance.now();q.fixture.startGameTime=g.elapsed;q.fixture.ready=true;
     },scenario.preRollMs);
   },config.scenario);
 }
@@ -64,8 +81,8 @@ export async function observe(page) {
     await page.waitForFunction(()=>__reviewAdapter.events.some(e=>e.type==='deploy'),null,{timeout:5000});
   }
   const result=await page.evaluate(()=>{const q=globalThis.__reviewAdapter,g=q.game,r=q.renderer,c=r.canvas,b=c.getBoundingClientRect(),now=performance.now();
-    return {wallTime:now,epochMs:performance.timeOrigin+now,gameTime:g.elapsed,viewport:{width:innerWidth,height:innerHeight},dpr:devicePixelRatio,canvas:{x:b.x,y:b.y,width:b.width,height:b.height,pixelWidth:c.width,pixelHeight:c.height},state:g.state,fixture:q.fixture??null,pose:g.units.map(u=>({id:u.id,key:u.key,x:u.x,y:u.y,dx:u.dx,dy:u.dy,moving:u.moving,attack:u.attack})),hp:g.units.map(u=>({id:u.id,hp:u.hp,maxHp:u.maxHp})),events:q.events.slice(),instrumentation:{kind:'transparent-prototype-wrappers',stepCalls:q.steps,drawCalls:q.draws,lastStepDt:q.lastStepDt,lastDrawDt:q.lastDrawDt,unsupported:q.unsupported,seed:'Game constructor uses its normal seed; not fixed or reproducible',visualRandom:'not controlled'},action:q.action};
+    return {wallTime:now,epochMs:performance.timeOrigin+now,gameTime:g.elapsed,viewport:{width:innerWidth,height:innerHeight},dpr:devicePixelRatio,canvas:{x:b.x,y:b.y,width:b.width,height:b.height,pixelWidth:c.width,pixelHeight:c.height},state:g.state,fixture:q.fixture??null,pose:g.units.map(u=>({id:u.id,key:u.key,x:u.x,y:u.y,dx:u.dx,dy:u.dy,moving:u.moving,attack:u.attack,targetId:u.target?.id??null})),towers:g.towers.map(t=>({id:t.id,team:t.team,lane:t.lane,king:t.king,hp:t.hp,maxHp:t.maxHp,active:t.active})),rects:Object.fromEntries(['arena','hand','energy-bar'].map(id=>{const el=document.getElementById(id);if(!el)return[id,null];const r=el.getBoundingClientRect();return[id,{x:r.x,y:r.y,width:r.width,height:r.height}];})),hp:g.units.map(u=>({id:u.id,hp:u.hp,maxHp:u.maxHp})),events:q.events.slice(),instrumentation:{kind:'transparent-prototype-wrappers',stepCalls:q.steps,drawCalls:q.draws,lastStepDt:q.lastStepDt,lastDrawDt:q.lastDrawDt,unsupported:q.unsupported,seed:'Game constructor uses its normal seed; not fixed or reproducible',visualRandom:'not controlled'},action:q.action};
   });
-  const n=network.get(page);result.instrumentation.network={origin:n.origin,requests:n.requests.slice(),blocked:n.blocked.slice(),webSockets:n.webSockets.slice(),webSocketIsolation:n.webSocketIsolation,limitations:'Page routing covers requests and page-created WebSockets; no explicit Service Worker interception is configured.'};
+  const n=network.get(page);result.instrumentation.pageErrors=n.pageErrors.slice();result.instrumentation.network={origin:n.origin,requests:n.requests.slice(),blocked:n.blocked.slice(),webSockets:n.webSockets.slice(),webSocketIsolation:n.webSocketIsolation,limitations:'Page routing covers requests and page-created WebSockets; no explicit Service Worker interception is configured.'};
   return result;
 }
