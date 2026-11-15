@@ -1,3 +1,0 @@
-Pokémon Reborn Team; their credits identify Pokémon Mystery Universe, Amethyst and original rip by Neslug for sound. Pokémon belongs to Nintendo / Creatures / GAME FREAK. Pagefault Games distributes this bank with LicenseRef-POKEMON-REBORN; do not relabel it CC0.
-Source repository: https://github.com/pagefaultgames/pokerogue-assets/tree/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/audio/battle_anims
-https://github.com/pagefaultgames/pokerogue-assets/blob/6f2ea545c2e997df09d8f83d3956c82d7cdcbaf3/LICENSES/LicenseRef-POKEMON-REBORN.txt

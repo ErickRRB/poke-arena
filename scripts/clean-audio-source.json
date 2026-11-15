@@ -1,0 +1,751 @@
+{
+  "version": 1,
+  "title": "Clean elemental combat recordings",
+  "archive": {
+    "url": "https://opengameart.org/sites/default/files/150gameeffectsounds.zip",
+    "page": "https://opengameart.org/content/150-combat-sound-effects",
+    "curator": "untamedpixels",
+    "sha256": "11891df177ed5f74bcf6798e149733258e5550dc1a4951af323bbf66be30cd47",
+    "bytes": 38273150
+  },
+  "license": "CC0-1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "upstream": {
+    "s02": {
+      "author": "Kenney",
+      "title": "Impact Sounds",
+      "url": "https://kenney.nl/assets/impact-sounds"
+    },
+    "s06": {
+      "author": "lentikula",
+      "title": "Basic Spell Impacts",
+      "url": "https://lentikula.itch.io/freecc0-basic-spell-impacts-sfx"
+    },
+    "s07": {
+      "author": "lentikula",
+      "title": "Druid Spell Impacts",
+      "url": "https://lentikula.itch.io/druid-spell-impacts"
+    },
+    "s08": {
+      "author": "lentikula",
+      "title": "Healing Spell Impacts",
+      "url": "https://lentikula.itch.io/healing-spell-impacts"
+    }
+  },
+  "sources": [
+    {
+      "key": "punch-medium-1",
+      "file": "01_combat_melee/impact_punch_medium_000_48kHz_16bit_0.36s_bd322da3_s02.wav",
+      "sha256": "516eabdbbc1b78d67677f5a4c067996ddf7465e3b31b9e64f0653d4d7f29f6c4",
+      "bytes": 69652,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 17402,
+      "sourceId": "s02"
+    },
+    {
+      "key": "punch-medium-2",
+      "file": "01_combat_melee/impact_punch_medium_001_48kHz_16bit_0.35s_bfeb7339_s02.wav",
+      "sha256": "9eb96944a2db0e23328ec62624aad89ea66ba4c0100dea62a8c7374ceca7325a",
+      "bytes": 66944,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 16725,
+      "sourceId": "s02"
+    },
+    {
+      "key": "punch-medium-3",
+      "file": "01_combat_melee/impact_punch_medium_002_48kHz_16bit_0.42s_212c5895_s02.wav",
+      "sha256": "ac2f203af5279f0dbc67cb7a097b09be0d3b059fa03748fb1589c7daeb85e5c2",
+      "bytes": 80248,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 20051,
+      "sourceId": "s02"
+    },
+    {
+      "key": "punch-heavy-1",
+      "file": "01_combat_melee/impact_punch_heavy_000_48kHz_16bit_0.65s_8fb58ba7_s02.wav",
+      "sha256": "37fe8a282ff9b680849c17fec0eb300a7d239670d768af5ad449f37aa739ad74",
+      "bytes": 124660,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 31154,
+      "sourceId": "s02"
+    },
+    {
+      "key": "punch-heavy-3",
+      "file": "01_combat_melee/impact_punch_heavy_002_48kHz_16bit_0.46s_565485a1_s02.wav",
+      "sha256": "61a0e015e236d56cc37c6bc490abe21a12e278dcaf745eb2a5ad0b37f2792413",
+      "bytes": 87884,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 21960,
+      "sourceId": "s02"
+    },
+    {
+      "key": "punch-heavy-5",
+      "file": "01_combat_melee/impact_punch_heavy_004_48kHz_16bit_0.54s_b437d453_s02.wav",
+      "sha256": "18ff4dd84da090a586be22511a6495fc3919521a7482116de615a787c0783778",
+      "bytes": 103024,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 25745,
+      "sourceId": "s02"
+    },
+    {
+      "key": "fire-1",
+      "file": "04_magic_spells/Fire Spell Impact 1_s06.wav",
+      "sha256": "39f98c3cd805332b523b42d47e29915157f1d73ac49fe7898eabff216a153a70",
+      "bytes": 575532,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 143872,
+      "sourceId": "s06"
+    },
+    {
+      "key": "fire-3",
+      "file": "04_magic_spells/Fire Spell Impact 3_s06.wav",
+      "sha256": "6ab93274c70aca162d480558ad49c7ea6cee9fe3f019680fbc17b1ac0eca5860",
+      "bytes": 360044,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 90000,
+      "sourceId": "s06"
+    },
+    {
+      "key": "fire-5",
+      "file": "04_magic_spells/Fire Spell Impact 5_s06.wav",
+      "sha256": "f744960a424a942af15d39a68798cb6b3dbc1b21601f686e2bb72685277ffc47",
+      "bytes": 360044,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 90000,
+      "sourceId": "s06"
+    },
+    {
+      "key": "water-1",
+      "file": "04_magic_spells/Water Spell Impact 1_s06.wav",
+      "sha256": "25a6e78d2fd01456393359e4a09bd6f474cbe440701b515464fcfa7fc86250e5",
+      "bytes": 405044,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 101250,
+      "sourceId": "s06"
+    },
+    {
+      "key": "water-3",
+      "file": "04_magic_spells/Water Spell Impact 3_s06.wav",
+      "sha256": "f1a2e7552a4730ea28a0caa47ecb129386093af303420939f257afb717be41eb",
+      "bytes": 586796,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 146688,
+      "sourceId": "s06"
+    },
+    {
+      "key": "lightning-1",
+      "file": "04_magic_spells/Lightning Spell Impact 1_s06.wav",
+      "sha256": "d1d1f3a9cc3751220ee70fa60ab52ef45bd0077d8e80ad5bc83700c6ef72cc42",
+      "bytes": 706604,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 176640,
+      "sourceId": "s06"
+    },
+    {
+      "key": "lightning-4",
+      "file": "04_magic_spells/Lightning Spell Impact 4_s06.wav",
+      "sha256": "73029865acfaca4dbf344965a1375eeb1aa94500ef335b7760172275e9081c17",
+      "bytes": 715820,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 178944,
+      "sourceId": "s06"
+    },
+    {
+      "key": "ice-3",
+      "file": "04_magic_spells/Ice Spell Impact 3_s06.wav",
+      "sha256": "2d980f6d91ef3460a8ade383a9f7497aa4d4f1abcc132e61697ca03c9d9b434a",
+      "bytes": 375180,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 93784,
+      "sourceId": "s06"
+    },
+    {
+      "key": "ice-5",
+      "file": "04_magic_spells/Ice Spell Impact 5_s06.wav",
+      "sha256": "25944f89343d8579cf268438a40ed6ac719c93d76ba2e2bea7c5834bd9e204c4",
+      "bytes": 345132,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 86272,
+      "sourceId": "s06"
+    },
+    {
+      "key": "earth-2",
+      "file": "04_magic_spells/Earth Spell Impact 2_s07.wav",
+      "sha256": "c8e3704eaed4f76b0418336a7da6f867299a6a00b3d74d0d98defe58a84882cb",
+      "bytes": 360044,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 90000,
+      "sourceId": "s07"
+    },
+    {
+      "key": "earth-4",
+      "file": "04_magic_spells/Earth Spell Impact 4_s07.wav",
+      "sha256": "5fd2740d8ffac130306955da7b60cc2050a8384189e0a0214c4f72bf8812e364",
+      "bytes": 360044,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 90000,
+      "sourceId": "s07"
+    },
+    {
+      "key": "plant-1",
+      "file": "04_magic_spells/Plant Spell Impact 1_s07.wav",
+      "sha256": "8ee79493516e348e45774f16fb4c8e7ba982939c77ab9901dce0d82e61ae2b42",
+      "bytes": 360044,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 90000,
+      "sourceId": "s07"
+    },
+    {
+      "key": "plant-2",
+      "file": "04_magic_spells/Plant Spell Impact 2_s07.wav",
+      "sha256": "e6edcdfd9b47cd5079b95a6d5ada948e59bbae6370088d7dbd39e3f2f1979182",
+      "bytes": 652332,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 163072,
+      "sourceId": "s07"
+    },
+    {
+      "key": "wind-1",
+      "file": "04_magic_spells/Wind Spell Impact 1_s07.wav",
+      "sha256": "da9549fc91e83486914635d0968d7c5176175ef345dc3cd359ed8ce0a752cc36",
+      "bytes": 685100,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 171264,
+      "sourceId": "s07"
+    },
+    {
+      "key": "wind-5",
+      "file": "04_magic_spells/Wind Spell Impact 5_s07.wav",
+      "sha256": "953d53d29163521fb4365dccb279f7a14e88cdacdae6cc3b3d47bfb167d7b44e",
+      "bytes": 632876,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 158208,
+      "sourceId": "s07"
+    },
+    {
+      "key": "healing-4",
+      "file": "04_magic_spells/Healing Spell Impact 4_s08.wav",
+      "sha256": "671d761809b8f4601e17a937f0f2b648f5eaac863a555945210cdf360e07415b",
+      "bytes": 384044,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 96000,
+      "sourceId": "s08"
+    },
+    {
+      "key": "healing-9",
+      "file": "04_magic_spells/Healing Spell Impact 9_s08.wav",
+      "sha256": "390867a2be0713f8eadae25be01b35cd9cd131c11f608528acaf88b9b55f3676",
+      "bytes": 352300,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 88064,
+      "sourceId": "s08"
+    },
+    {
+      "key": "healing-10",
+      "file": "04_magic_spells/Healing Spell Impact 10_s08.wav",
+      "sha256": "b2cf213585ee02f6461f93f164ec06c8485429e32a2bb5da1a32838328557c3d",
+      "bytes": 384044,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 96000,
+      "sourceId": "s08"
+    },
+    {
+      "key": "healing-12",
+      "file": "04_magic_spells/Healing Spell Impact 12_s08.wav",
+      "sha256": "cc57c42789fa120e71e06a368c82f71ce81dc36b2b5bf1e5125cc41d71c8a0fd",
+      "bytes": 379948,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 94976,
+      "sourceId": "s08"
+    },
+    {
+      "key": "healing-15",
+      "file": "04_magic_spells/Healing Spell Impact 15_s08.wav",
+      "sha256": "ec3d466415dfff523efadcd8344d7fc9e3150237824b5a091ba8363c9660e198",
+      "bytes": 384044,
+      "rate": 48000,
+      "bits": 16,
+      "channels": 2,
+      "frames": 96000,
+      "sourceId": "s08"
+    }
+  ],
+  "clips": [
+    {
+      "key": "punch-medium-1",
+      "sourceKey": "punch-medium-1",
+      "startFrame": 0,
+      "endFrame": 15360,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.32
+    },
+    {
+      "key": "punch-medium-2",
+      "sourceKey": "punch-medium-2",
+      "startFrame": 0,
+      "endFrame": 14640,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.32
+    },
+    {
+      "key": "punch-medium-3",
+      "sourceKey": "punch-medium-3",
+      "startFrame": 0,
+      "endFrame": 18960,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.32
+    },
+    {
+      "key": "punch-heavy-1",
+      "sourceKey": "punch-heavy-1",
+      "startFrame": 0,
+      "endFrame": 28320,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.32
+    },
+    {
+      "key": "punch-heavy-3",
+      "sourceKey": "punch-heavy-3",
+      "startFrame": 0,
+      "endFrame": 21840,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.32
+    },
+    {
+      "key": "punch-heavy-5",
+      "sourceKey": "punch-heavy-5",
+      "startFrame": 0,
+      "endFrame": 24000,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.32
+    },
+    {
+      "key": "fire-1",
+      "sourceKey": "fire-1",
+      "startFrame": 23136,
+      "endFrame": 108240,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "fire-3",
+      "sourceKey": "fire-3",
+      "startFrame": 11616,
+      "endFrame": 90000,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "fire-5",
+      "sourceKey": "fire-5",
+      "startFrame": 8016,
+      "endFrame": 84720,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "water-1",
+      "sourceKey": "water-1",
+      "startFrame": 11856,
+      "endFrame": 94800,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "water-3",
+      "sourceKey": "water-3",
+      "startFrame": 18336,
+      "endFrame": 129360,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "lightning-1",
+      "sourceKey": "lightning-1",
+      "startFrame": 21936,
+      "endFrame": 168480,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "lightning-4",
+      "sourceKey": "lightning-4",
+      "startFrame": 24096,
+      "endFrame": 168720,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "ice-3",
+      "sourceKey": "ice-3",
+      "startFrame": 17376,
+      "endFrame": 87360,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "ice-5",
+      "sourceKey": "ice-5",
+      "startFrame": 4176,
+      "endFrame": 62400,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "earth-2",
+      "sourceKey": "earth-2",
+      "startFrame": 19776,
+      "endFrame": 66720,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "earth-4",
+      "sourceKey": "earth-4",
+      "startFrame": 4176,
+      "endFrame": 79680,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "plant-1",
+      "sourceKey": "plant-1",
+      "startFrame": 9936,
+      "endFrame": 84720,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "plant-2",
+      "sourceKey": "plant-2",
+      "startFrame": 17136,
+      "endFrame": 105600,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "wind-1",
+      "sourceKey": "wind-1",
+      "startFrame": 23376,
+      "endFrame": 146160,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "wind-5",
+      "sourceKey": "wind-5",
+      "startFrame": 10656,
+      "endFrame": 91680,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "healing-4",
+      "sourceKey": "healing-4",
+      "startFrame": 10896,
+      "endFrame": 70560,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "healing-9",
+      "sourceKey": "healing-9",
+      "startFrame": 2496,
+      "endFrame": 60240,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "healing-10",
+      "sourceKey": "healing-10",
+      "startFrame": 11616,
+      "endFrame": 54240,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "healing-12",
+      "sourceKey": "healing-12",
+      "startFrame": 20736,
+      "endFrame": 69840,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "healing-15",
+      "sourceKey": "healing-15",
+      "startFrame": 9936,
+      "endFrame": 67680,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 576,
+      "role": "contact",
+      "fallbackSeconds": 0.48
+    },
+    {
+      "key": "air-flight-a",
+      "sourceKey": "wind-5",
+      "startFrame": 2640,
+      "endFrame": 9840,
+      "fadeInFrames": 144,
+      "fadeOutFrames": 1200,
+      "role": "release"
+    },
+    {
+      "key": "air-flight-b",
+      "sourceKey": "wind-1",
+      "startFrame": 6960,
+      "endFrame": 19440,
+      "fadeInFrames": 144,
+      "fadeOutFrames": 1200,
+      "role": "release"
+    },
+    {
+      "key": "leaf-flight",
+      "sourceKey": "plant-2",
+      "startFrame": 1920,
+      "endFrame": 14400,
+      "fadeInFrames": 144,
+      "fadeOutFrames": 1200,
+      "role": "release"
+    },
+    {
+      "key": "petal-flight",
+      "sourceKey": "plant-1",
+      "startFrame": 2640,
+      "endFrame": 9360,
+      "fadeInFrames": 144,
+      "fadeOutFrames": 1200,
+      "role": "release"
+    },
+    {
+      "key": "fire-flight",
+      "sourceKey": "fire-5",
+      "startFrame": 3120,
+      "endFrame": 14400,
+      "fadeInFrames": 144,
+      "fadeOutFrames": 1200,
+      "role": "release"
+    },
+    {
+      "key": "water-flight",
+      "sourceKey": "water-3",
+      "startFrame": 4800,
+      "endFrame": 20640,
+      "fadeInFrames": 144,
+      "fadeOutFrames": 1200,
+      "role": "release"
+    },
+    {
+      "key": "electric-flight",
+      "sourceKey": "lightning-4",
+      "startFrame": 2880,
+      "endFrame": 23040,
+      "fadeInFrames": 144,
+      "fadeOutFrames": 1200,
+      "role": "release"
+    },
+    {
+      "key": "magic-flight",
+      "sourceKey": "healing-12",
+      "startFrame": 5760,
+      "endFrame": 20880,
+      "fadeInFrames": 144,
+      "fadeOutFrames": 1200,
+      "role": "release"
+    },
+    {
+      "key": "shadow-flight",
+      "sourceKey": "healing-15",
+      "startFrame": 1920,
+      "endFrame": 14160,
+      "fadeInFrames": 144,
+      "fadeOutFrames": 1200,
+      "role": "release"
+    },
+    {
+      "key": "ice-flight",
+      "sourceKey": "ice-5",
+      "startFrame": 1200,
+      "endFrame": 11040,
+      "fadeInFrames": 144,
+      "fadeOutFrames": 1200,
+      "role": "release"
+    },
+    {
+      "key": "electric-tap-a",
+      "sourceKey": "lightning-4",
+      "startFrame": 24096,
+      "endFrame": 50496,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 2160,
+      "role": "contact",
+      "fallbackSeconds": 0.55
+    },
+    {
+      "key": "electric-tap-b",
+      "sourceKey": "lightning-1",
+      "startFrame": 21936,
+      "endFrame": 48336,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 2160,
+      "role": "contact",
+      "fallbackSeconds": 0.55
+    },
+    {
+      "key": "water-tap",
+      "sourceKey": "water-1",
+      "startFrame": 11856,
+      "endFrame": 38256,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 2160,
+      "role": "contact",
+      "fallbackSeconds": 0.55
+    },
+    {
+      "key": "fire-tap",
+      "sourceKey": "fire-5",
+      "startFrame": 8016,
+      "endFrame": 36816,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 2160,
+      "role": "contact",
+      "fallbackSeconds": 0.6
+    },
+    {
+      "key": "leaf-tap",
+      "sourceKey": "plant-1",
+      "startFrame": 9936,
+      "endFrame": 31536,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 2160,
+      "role": "contact",
+      "fallbackSeconds": 0.45
+    },
+    {
+      "key": "ice-tap",
+      "sourceKey": "ice-5",
+      "startFrame": 4176,
+      "endFrame": 30576,
+      "fadeInFrames": 96,
+      "fadeOutFrames": 2160,
+      "role": "contact",
+      "fallbackSeconds": 0.55
+    }
+  ],
+  "fallbackKeys": [
+    "punch-medium-1",
+    "punch-heavy-3",
+    "earth-2",
+    "wind-5",
+    "healing-4",
+    "healing-9",
+    "healing-10",
+    "healing-12",
+    "healing-15",
+    "electric-tap-a",
+    "ice-tap",
+    "leaf-tap",
+    "water-tap",
+    "fire-tap"
+  ]
+}

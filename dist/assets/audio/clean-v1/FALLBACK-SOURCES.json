@@ -1,0 +1,160 @@
+{
+  "archiveSha256": "11891df177ed5f74bcf6798e149733258e5550dc1a4951af323bbf66be30cd47",
+  "license": "CC0-1.0",
+  "excerpts": [
+    {
+      "key": "punch-medium-1",
+      "sourceSha256": "516eabdbbc1b78d67677f5a4c067996ddf7465e3b31b9e64f0653d4d7f29f6c4",
+      "clipSha256": "bea144996259276b960977b2861f786355d2724430e7216abba2a8fa631548c1",
+      "frames": 15360,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "46284a5cb69e52873aafb0de6131c6079956e1deb6c38384f84db69e131ac477",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "punch-heavy-3",
+      "sourceSha256": "61a0e015e236d56cc37c6bc490abe21a12e278dcaf745eb2a5ad0b37f2792413",
+      "clipSha256": "4f9e8e9e8d18d686325129ce4d7f580358aafe08e3638c5cb30959147030037f",
+      "frames": 15360,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "865f8b5fbd00259a0b90149bdcc118a68694dd3afdb39a39af1dee93b3458836",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "earth-2",
+      "sourceSha256": "c8e3704eaed4f76b0418336a7da6f867299a6a00b3d74d0d98defe58a84882cb",
+      "clipSha256": "a035545321b5a63499f8ef5d1dd281eebeadafc452a79b24a3fbc4173f1ca062",
+      "frames": 23040,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "e66833fa3debfde1ffa5ccd4a9e15a6f39edefaf8ce2f83a0808d8a445853704",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "wind-5",
+      "sourceSha256": "953d53d29163521fb4365dccb279f7a14e88cdacdae6cc3b3d47bfb167d7b44e",
+      "clipSha256": "bf80a61179f40bbb6a8d52e9bebd101c8c8f75a2171316f191742748e3a3ad5f",
+      "frames": 23040,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "3cdfd916e24b7326db80f5e0fcf43d4d2f4c24b1822abb251f275460f7ad0098",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "healing-4",
+      "sourceSha256": "671d761809b8f4601e17a937f0f2b648f5eaac863a555945210cdf360e07415b",
+      "clipSha256": "144540d38e593ee1521a3f0145c6997ba5fdb52ccff5fe99c7a44db25b48760b",
+      "frames": 23040,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "b610aa6557497324dd41614ef1315316aee86ec30b484bf4a63757c20f72d790",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "healing-9",
+      "sourceSha256": "390867a2be0713f8eadae25be01b35cd9cd131c11f608528acaf88b9b55f3676",
+      "clipSha256": "b80d311a13a6389b5ce3e48299ce6c7519eb53c7a91e581a7be8081a2e0d603e",
+      "frames": 23040,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "9ca1a4d0d75b235a3820ff640587b7030efe0c3561ccf8e3204a569503737ae5",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "healing-10",
+      "sourceSha256": "b2cf213585ee02f6461f93f164ec06c8485429e32a2bb5da1a32838328557c3d",
+      "clipSha256": "4254b9107ceeb434384fb6c6c45d5b277fd9717230df50ff853e20e2e44a2500",
+      "frames": 23040,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "dce5340735519b8da84958268c0ba381a79df4c5ad533a04cffd65b92bc614e5",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "healing-12",
+      "sourceSha256": "cc57c42789fa120e71e06a368c82f71ce81dc36b2b5bf1e5125cc41d71c8a0fd",
+      "clipSha256": "838316783b0fd45a7df7161c3b4e434d771625da55b1dd999cf1b96e829b90d5",
+      "frames": 23040,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "fd25a103604f55996b6e67cbca968ab837e8781fe145f9f2a79ac671eb7be8d6",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "healing-15",
+      "sourceSha256": "ec3d466415dfff523efadcd8344d7fc9e3150237824b5a091ba8363c9660e198",
+      "clipSha256": "3277c2b129f5e5f6d60204cefd2a7194209fa8aa2bf0e2fb8bd2d8844d0f0f61",
+      "frames": 23040,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "d544b5378e678ffd1c1e82386bcdfe686b2cf6e5f8c30c22c439f991f0ccb184",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "electric-tap-a",
+      "sourceSha256": "73029865acfaca4dbf344965a1375eeb1aa94500ef335b7760172275e9081c17",
+      "clipSha256": "627b59fdde4f1bd4a2753e2b09b8f045cc15fbae23f1cfbe219ffec2421969ed",
+      "frames": 26400,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "bddd27380c941c80886cd372b73b9ff1665e817f2eca3d9e88446b3cb1ca7e83",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "ice-tap",
+      "sourceSha256": "25944f89343d8579cf268438a40ed6ac719c93d76ba2e2bea7c5834bd9e204c4",
+      "clipSha256": "996d18bdb956abac0b0dbd95b67ab527e772ef1344c512f4605613e1cc351bbd",
+      "frames": 26400,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "18dc3339682b3f2522a5f797237f5747c60382fd2ad47d3faa68fcca2357c405",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "leaf-tap",
+      "sourceSha256": "8ee79493516e348e45774f16fb4c8e7ba982939c77ab9901dce0d82e61ae2b42",
+      "clipSha256": "15acdf1a63bdfbbd864d04010819e310c0805a580b01bf5409161f979b8dacd3",
+      "frames": 21600,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "92613c398643526aa4800dc5c286c18a7fc594171f19ad77f483d1f782dd65fc",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "water-tap",
+      "sourceSha256": "25a6e78d2fd01456393359e4a09bd6f474cbe440701b515464fcfa7fc86250e5",
+      "clipSha256": "daae5399e1c07a2c704c9ddb33c8902d008fbae016619071ee45041759a56386",
+      "frames": 26400,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "344de279ce6c8bc902b688f51325d0ef3f3713e8ea1f26ab390fcf5ce26cb6ce",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "fire-tap",
+      "sourceSha256": "f744960a424a942af15d39a68798cb6b3dbc1b21601f686e2bb72685277ffc47",
+      "clipSha256": "e57cabdbc1e2828e16f5c67a969c4052c2c0dba7fe69ff6e90bae25a06a81fea",
+      "frames": 28800,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "05ea6912a7ba038498f038a96b9ae95b209d81c95e9085843746e6ae2686a4b3",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    }
+  ]
+}

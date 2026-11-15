@@ -1,0 +1,9 @@
+Clean combat recordings — CC0 1.0 Universal.
+Kenney: Impact Sounds.
+lentikula: Basic Spell Impacts, Druid Spell Impacts, Healing Spell Impacts.
+Curated archive: untamedpixels, https://opengameart.org/content/150-combat-sound-effects
+Kenney — Impact Sounds: https://kenney.nl/assets/impact-sounds
+lentikula — Basic Spell Impacts: https://lentikula.itch.io/freecc0-basic-spell-impacts-sfx
+lentikula — Druid Spell Impacts: https://lentikula.itch.io/druid-spell-impacts
+lentikula — Healing Spell Impacts: https://lentikula.itch.io/healing-spell-impacts
+Recorded sources split into event-aligned phases; original sample rate and PCM16 retained. Only exact frame cuts and short linear edge fades listed for each clip. No synthesis, EQ, pitch shift, resampling or old PRSFX data. File metadata and tests do not establish perceived quality.

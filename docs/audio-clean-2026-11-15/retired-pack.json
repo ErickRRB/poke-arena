@@ -1,0 +1,261 @@
+{
+  "reason": "Replaced the rejected 12kHz/8bit PRSFX bank and unsigned8-bit loading excerpts; not pitch shifted or upsampled.",
+  "files": [
+    {
+      "key": "acid",
+      "path": "assets/audio/moves/acid.wav",
+      "sha256": "80dea09ebf392a76075ca36d06b0e6e763349a1517cb554a15b6ba29ad0df4b6"
+    },
+    {
+      "key": "agility",
+      "path": "assets/audio/moves/agility.wav",
+      "sha256": "3c5ebab69d4d3d85677c898520b22cb07d1ac4f853dd27165cc7f91591ac2ea0"
+    },
+    {
+      "key": "aura-sphere1",
+      "path": "assets/audio/moves/aura-sphere1.wav",
+      "sha256": "81399cf7fd6b7878e3f3934a8d9048db98a6945750c53532a56625e6046fb963"
+    },
+    {
+      "key": "aura-sphere2",
+      "path": "assets/audio/moves/aura-sphere2.wav",
+      "sha256": "0cf2df58244c6eca2fa941d10c48ced2b655e83631912274d131a4db6e4f3b81"
+    },
+    {
+      "key": "bite",
+      "path": "assets/audio/moves/bite.wav",
+      "sha256": "4bb5714a6c8604de417c5ba3c1235760e3d90867981cd634a6143767feee8a63"
+    },
+    {
+      "key": "body-slam1",
+      "path": "assets/audio/moves/body-slam1.wav",
+      "sha256": "eb210e32a23f5c143ac9d64ac6dd06bafc423f927ddcf1e801327447fbe4b342"
+    },
+    {
+      "key": "body-slam2",
+      "path": "assets/audio/moves/body-slam2.wav",
+      "sha256": "3b38c4d17bab5251f6e15b677bdadbef8a65b4dd06f4f75b0e7a7a8dda9a5950"
+    },
+    {
+      "key": "bubble",
+      "path": "assets/audio/moves/bubble.wav",
+      "sha256": "687a8c018569ddcfcaa41a8656afdda63fd7a8230ba2e5554121367328033b07"
+    },
+    {
+      "key": "bubblebeam",
+      "path": "assets/audio/moves/bubblebeam.wav",
+      "sha256": "32affa85cef819817460f93b0ca32a822498749f8cc1daf73d6686a926741053"
+    },
+    {
+      "key": "bullet-seed",
+      "path": "assets/audio/moves/bullet-seed.wav",
+      "sha256": "ba8006eb3e2b24d14d90ab4e12bfb2654f2802af838bf5b350eb3fb16a5eef01"
+    },
+    {
+      "key": "confusion",
+      "path": "assets/audio/moves/confusion.wav",
+      "sha256": "9ada4d94c1d0959892cbef13b9abfd6260f4386bca4c34b10477860cb73ef48c"
+    },
+    {
+      "key": "discharge",
+      "path": "assets/audio/moves/discharge.wav",
+      "sha256": "d69e4c862654b10e27bc7cd8d72262c98c60b0af74bc2c6d4119a71308d8faff"
+    },
+    {
+      "key": "egg-bomb1",
+      "path": "assets/audio/moves/egg-bomb1.wav",
+      "sha256": "4a232203a3be6bc8e3292ed8da4e905cf2b95f624a312cbad0c57aeaa7d25e0a"
+    },
+    {
+      "key": "egg-bomb2",
+      "path": "assets/audio/moves/egg-bomb2.wav",
+      "sha256": "4beba30d23752713159c4a703ed088ca55c67c4d8b88d0c6a5fb92f3618ea957"
+    },
+    {
+      "key": "ember",
+      "path": "assets/audio/moves/ember.wav",
+      "sha256": "e3f149200c489f8ecc0d682bddd567fba9b4891f5f670691afd82080e935a0b9"
+    },
+    {
+      "key": "explosion2",
+      "path": "assets/audio/moves/explosion2.wav",
+      "sha256": "6c80b6a7007ffa31493f8039b6f2a6f223fc2d99554137e9fac5d10b24e1e6a6"
+    },
+    {
+      "key": "feint-attack1",
+      "path": "assets/audio/moves/feint-attack1.wav",
+      "sha256": "74932a9206d698a963f6532b29133ea0f8ed1ee45c38ebb09777c99ab4ac193e"
+    },
+    {
+      "key": "feint-attack2",
+      "path": "assets/audio/moves/feint-attack2.wav",
+      "sha256": "e7f20ace3b43a75210d8a074464c441f717186a7c7f4249deb12139e883ae83f"
+    },
+    {
+      "key": "fire-blast",
+      "path": "assets/audio/moves/fire-blast.wav",
+      "sha256": "26dbc37442aa51c815efde3be757d547377d1b5fdc3d82f2ed98562415fbb2ef"
+    },
+    {
+      "key": "fire-spin",
+      "path": "assets/audio/moves/fire-spin.wav",
+      "sha256": "5285aefd6e9685bc24211fcde379d9f4bd717ab60b42cc677ad59c34f765a2cb"
+    },
+    {
+      "key": "fury-attack",
+      "path": "assets/audio/moves/fury-attack.wav",
+      "sha256": "6478a6294fb024a2a80fcde6ba289a14b59088cdf8ff999b3b510bc6bcd0e7d8"
+    },
+    {
+      "key": "gust",
+      "path": "assets/audio/moves/gust.wav",
+      "sha256": "627982338973fc54febee2033c999a639caec8377ffecc224c886b83e4318182"
+    },
+    {
+      "key": "healing-pulse",
+      "path": "assets/audio/moves/healing-pulse.wav",
+      "sha256": "d8445ff5c084242f8eacbf760bd56344355b441bee08f381a752b723498f1e2c"
+    },
+    {
+      "key": "horn-attack",
+      "path": "assets/audio/moves/horn-attack.wav",
+      "sha256": "296ee08a14b5a464be397cf229e8db315098a2fcb052b8ff6aa754c4843532a1"
+    },
+    {
+      "key": "hydro-pump",
+      "path": "assets/audio/moves/hydro-pump.wav",
+      "sha256": "aead2cb541599e3c9e445c4c0883b99e759aaa6fb598481ac8642889f06820c1"
+    },
+    {
+      "key": "ice-beam",
+      "path": "assets/audio/moves/ice-beam.wav",
+      "sha256": "8ea2823831feedabf204c896aee17f4ee25e58bdd214c847c6523adfa89a49a4"
+    },
+    {
+      "key": "icy-wind1",
+      "path": "assets/audio/moves/icy-wind1.wav",
+      "sha256": "7e6b4519bc21fa39217b6840903b750e99d0ebbcf4febbe493e4c2ca4f789b94"
+    },
+    {
+      "key": "pay-day1",
+      "path": "assets/audio/moves/pay-day1.wav",
+      "sha256": "18ef1dd0da645dd2ea36c07aae4009a28ae46a94fbf511040763b0eab12c1d70"
+    },
+    {
+      "key": "petal-blizzard2",
+      "path": "assets/audio/moves/petal-blizzard2.wav",
+      "sha256": "6bb42897fcc54898a2c31748ab76a1d00592b775152577281481ffed010b6c06"
+    },
+    {
+      "key": "petal-dance",
+      "path": "assets/audio/moves/petal-dance.wav",
+      "sha256": "06078df32fb4bac3ef4d683266f11a6d294a59b6e64b0c06ea7ca564e9813fb7"
+    },
+    {
+      "key": "poison-sting",
+      "path": "assets/audio/moves/poison-sting.wav",
+      "sha256": "8b535be25059a23fc0a0fd3c3c8bf319002cb79174b8f7f71aaac7bea4a24bfe"
+    },
+    {
+      "key": "pound",
+      "path": "assets/audio/moves/pound.wav",
+      "sha256": "848c8c6d06e29b3f3e37d5a627ffe7a937e94f34711d1e480cb2472875a5fe2a"
+    },
+    {
+      "key": "psybeam",
+      "path": "assets/audio/moves/psybeam.wav",
+      "sha256": "8fac5b83339f69051ce260eafeede15b722f92ca1a28a5655b957fc15c001fb1"
+    },
+    {
+      "key": "psychic",
+      "path": "assets/audio/moves/psychic.wav",
+      "sha256": "0880f33845d36453722959a5a92d055e470bc96757404df63047c0219c22a1ec"
+    },
+    {
+      "key": "quick-attack",
+      "path": "assets/audio/moves/quick-attack.wav",
+      "sha256": "602c82ce2d4136f8c7dd7b13a3af14332bd2b96115e95526a09b29eed550b6e6"
+    },
+    {
+      "key": "razor-leaf2",
+      "path": "assets/audio/moves/razor-leaf2.wav",
+      "sha256": "c618a58cc2fbf3e109cdbf414cd127c69466cbc359f8803eda5505fa2c90fa38"
+    },
+    {
+      "key": "recover",
+      "path": "assets/audio/moves/recover.wav",
+      "sha256": "041f7a94bed145331bed9697df0592f2b2d4867bd52e32c4cf51ef2eab35d84a"
+    },
+    {
+      "key": "rock-slide",
+      "path": "assets/audio/moves/rock-slide.wav",
+      "sha256": "8ca6928335bf4238f40e3ec8a9012899b8dc647dfbec9f9613724233501746fd"
+    },
+    {
+      "key": "rock-throw1",
+      "path": "assets/audio/moves/rock-throw1.wav",
+      "sha256": "bd5e437019434998483fcfbdb17c8447434a80b95d7210ada385eb5914ba0afb"
+    },
+    {
+      "key": "rock-throw2",
+      "path": "assets/audio/moves/rock-throw2.wav",
+      "sha256": "b1936de5d81652fb3ac9883f9c0fb8d05a5b1b3212cd93d7460a218a0665448b"
+    },
+    {
+      "key": "shadow-ball1",
+      "path": "assets/audio/moves/shadow-ball1.wav",
+      "sha256": "4889cabd9631f1bc31618991961d92815e49c9266daffdd505f73afdb8d4858e"
+    },
+    {
+      "key": "shadow-ball2",
+      "path": "assets/audio/moves/shadow-ball2.wav",
+      "sha256": "4f75d358d7eea908cf3641d8c04925575f74736e3eca2a773ddde8b02d013b60"
+    },
+    {
+      "key": "slash",
+      "path": "assets/audio/moves/slash.wav",
+      "sha256": "bd0258e825366353a573b4819c9638e6c330e31c17736795d35999dfaf715dea"
+    },
+    {
+      "key": "sludge-bomb2",
+      "path": "assets/audio/moves/sludge-bomb2.wav",
+      "sha256": "2a892e6b59cde0da5032ac080931121183ce9bdb0dca4bc07db4e7dcf7507c34"
+    },
+    {
+      "key": "stomp",
+      "path": "assets/audio/moves/stomp.wav",
+      "sha256": "c656314dac8aa3aaedc38ceea25213784be40d8bd001b014386ed9439b440e7d"
+    },
+    {
+      "key": "stone-edge",
+      "path": "assets/audio/moves/stone-edge.wav",
+      "sha256": "6fb9c935da9bf0628e8d365e15489906a4d632987df4e93212f7ede9ca62e855"
+    },
+    {
+      "key": "strength",
+      "path": "assets/audio/moves/strength.wav",
+      "sha256": "5ca28d18eda279b63b830e0ae3d0baa732fcb28246111765cca46bc1b1e203ba"
+    },
+    {
+      "key": "thunderbolt1",
+      "path": "assets/audio/moves/thunderbolt1.wav",
+      "sha256": "400f8915be2aa4ea67b617fee6df19bd5a4ab60eb19bd51eb6a16ac530bc103c"
+    },
+    {
+      "key": "thundershock",
+      "path": "assets/audio/moves/thundershock.wav",
+      "sha256": "d319b7c2280117e4231856492f6cec52bf53e44aa3657dfb75d90fe76519d96c"
+    },
+    {
+      "key": "water-gun",
+      "path": "assets/audio/moves/water-gun.wav",
+      "sha256": "357dd90b0c4dee2e8531f5b343ee3f694e6c4c8c5665796b8c99185b2999533f"
+    }
+  ],
+  "metadata": [
+    "SOURCES.json",
+    "FALLBACK-SOURCES.json",
+    "CREDITS.txt",
+    "LICENSE-POKEMON-REBORN.txt"
+  ]
+}

@@ -11,4 +11,4 @@ const ids=Object.keys(sprites);
 for(let i=0;i<ids.length;i+=4)await Promise.all(ids.slice(i,i+4).map(async id=>{try{await readFile(path.join(root,`voices/${id}.mp3`));manifest.cries[id]=`assets/audio/voices/${id}.mp3`;}catch{manifest.cries[id]=await get(`https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`,`cries/${id}.ogg`);}}));
 await writeFile(path.join(root,'manifest.json'),JSON.stringify(manifest,null,2));
 await import('./import-pokemon-audio.mjs');
-console.log(`Saved ${ids.length} Pokémon voices and the pinned Pokémon move bank.`);
+console.log(`Saved ${ids.length} Pokémon voices and the pinned clean combat bank.`);
