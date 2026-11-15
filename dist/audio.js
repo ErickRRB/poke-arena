@@ -97,6 +97,7 @@ export class SoundSystem {
     if(!keys.length)return false;
     const key=keys[Math.abs((Number(shot)||0)+(Number(id)||0))%keys.length];
     const settings={volume:impact?cue.volume:cue.releaseVolume??cue.volume*.55,maxDuration:impact?cue.contactTime:cue.releaseTime,priority:impact?2:1,...options};
+    if(id===274&&soundStyle(style)==='dart')settings.volume*=1.4;
     if(this.sample('moves:'+key,x,settings))return true;
     // The same clean phase has an embedded PCM excerpt for cold downloads.
     const fallback=(impact?cue.contactFallback:cue.releaseFallback)??cue.fallback;
