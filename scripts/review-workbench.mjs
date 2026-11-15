@@ -14,12 +14,21 @@ export function validatePublicOrigin(value){
   if(url.protocol!=='https:'||url.origin!==value||url.username||url.password)throw Error('publicOrigin must be an explicit HTTPS origin without credentials, path, query or fragment');
   return url.origin;
 }
+// Missing captureSurface preserves the original CDP plus optional canvas contract.
+export function captureChannels(c) {
+  const surface=c.captureSurface;
+  if(surface!==undefined&&!['canvas','dom','both'].includes(surface))throw Error('captureSurface must be canvas, dom or both');
+  if((surface==='canvas'||surface==='both')&&!c.recordCanvas)throw Error('canvas capture requires recordCanvas');
+  if(surface==='dom'&&c.recordCanvas)throw Error('dom capture cannot declare recordCanvas');
+  return {cdp:surface!=='canvas',canvas:surface==='canvas'||surface==='both'||surface===undefined&&!!c.recordCanvas};
+}
 export function validateCase(c) {
   if (!c || !/^[\w-]+$/.test(c.id || '') || !c.source || !c.adapter || c.clock !== 'natural-app' || !c.expectedEvent) throw Error('case requires id, source, adapter, natural-app clock and expectedEvent');
   const {width,height,dpr}=c.viewport || {};
   if (![width,height,dpr,c.durationMs,c.sampleMs,c.extractIntervalMs].every(Number.isFinite) || width<1 || height<1 || dpr<=0 || c.durationMs<100 || c.sampleMs<10 || c.extractIntervalMs<=0) throw Error('invalid viewport or timing');
   if (c.maxGapMs !== undefined && (!Number.isFinite(c.maxGapMs) || c.maxGapMs<=0)) throw Error('invalid maximum gap');
   if (c.recordCanvas !== undefined && (typeof c.recordCanvas !== 'string' || !c.recordCanvas.trim())) throw Error('invalid canvas selector');
+  captureChannels(c);
   const q=c.crop;
   if (!q || ![q.x,q.y,q.width,q.height].every(Number.isFinite) || q.x<0 || q.y<0 || q.width<=0 || q.height<=0 || q.x+q.width>width || q.y+q.height>height) throw Error('invalid fixed crop');
   inRoot(c.source); inRoot(c.adapter);
@@ -27,6 +36,11 @@ export function validateCase(c) {
   if(c.adapterDependencies!==undefined&&(!Array.isArray(c.adapterDependencies)||c.adapterDependencies.some(p=>typeof p!=='string'||!p.trim())||new Set(c.adapterDependencies.map(inRoot)).size!==c.adapterDependencies.length||c.adapterDependencies.some(p=>inRoot(p)===inRoot(c.adapter))))throw Error('adapterDependencies must list distinct local dependency paths');
   if(c.publicOrigin!==undefined){validatePublicOrigin(c.publicOrigin);if(!c.runtime||typeof c.runtime.buildOutput!=='string'||!c.runtime.buildOutput.trim())throw Error('publicOrigin requires frozen runtime and buildOutput');if(!Array.isArray(c.adapterDependencies))throw Error('publicOrigin requires explicit adapterDependencies, empty for a standalone adapter');}
 }
+export function ackTracker(send) {
+  const jobs=[],errors=[];
+  return {ack(sessionId){jobs.push(Promise.resolve().then(()=>send(sessionId)).catch(error=>{errors.push(String(error?.message||error));}));},async drain(){await drainResponses(jobs);if(errors.length)throw Error('CDP acknowledgement failed: '+errors.join('; '));}};
+}
+export function requiredChannelsComplete(channels,phases){return (!channels.cdp||phases.cdp==='complete')&&(!channels.canvas||phases.canvas==='complete');}
 function inputDefinitions(c){return [['source',c.source],['adapter',c.adapter],['runner','scripts/review-workbench.mjs'],...(c.adapterDependencies||[]).map((p,i)=>['adapterDependency:'+i,p])];}
 export function inputInventory(c){return{expectedInputs:['case',...inputDefinitions(c).map(([role])=>role)],inputs:[{role:'case',origin:'case',sha256:sha(Buffer.from(JSON.stringify(c)))}],adapterDependencyCoverage:{declared:c.adapterDependencies??null,limits:'Caller-declared local Node-side imports, including transitives; no automatic import discovery or ESM-cache invalidation. Without a declaration only primary inputs are recorded.'}};}
 export async function recordInputs(result,c,runtime){
@@ -56,8 +70,12 @@ export function selectFrames(pts, interval) {
   for (let i=0;i<pts.length;i++) if (Number.isFinite(pts[i]) && pts[i]>=last+interval-1e-9) { selected.push({index:i,pts:pts[i]}); last=pts[i]; }
   return selected;
 }
-function viewer(c, selected, result) {
+export function viewer(c, selected, result) {
   const {width,height}=c.viewport, q=c.crop;
+  if(!result.capture){
+    const first=result.samples[0];
+    return `<!doctype html><html lang="es"><meta charset="utf-8"><title>${esc(c.id)} · evidencia</title><h1>${esc(c.id)}</h1><p>Canvas únicamente: el contexto es una captura estática, no evidencia temporal del DOM.</p><p><a href="run.json">Manifiesto completo</a></p><img src="context.png" width="${width}" height="${height}" alt="Contexto estático completo"><video controls src="canvas.webm" width="${esc(first.canvas.width)}" height="${esc(first.canvas.height)}"></video><pre>${esc(JSON.stringify({viewport:first.viewport,dpr:first.dpr,canvas:first.canvas,rects:first.rects,canvasCaptureStartEpochMs:result.canvasCaptureStartEpochMs,observations:result.observation},null,2))}</pre></html>`;
+  }
   const frames=selected.map(f=>`<section><p>Tiempo original ${f.pts.toFixed(6)} s · cuadro ${f.index}</p><div class="row"><div class="full"><img src="${f.path}" alt="Contexto completo"></div><div class="crop"><img src="${f.path}" alt="Recorte fijo"></div></div></section>`).join('\n');
   const cadence=result.capture.observedCadence;
   const samples=result.samples.map((sample,i)=>`<tr><td>${i+1}</td><td>${esc(sample.epochMs)}</td><td>${esc(sample.wallTime)}</td><td>${esc(sample.gameTime)}</td><td>${esc(JSON.stringify(sample.pose))}</td><td>${esc(JSON.stringify(sample.hp))}</td><td>${esc(JSON.stringify(sample.events))}</td></tr>`).join('');
@@ -138,12 +156,13 @@ function serve(runtime) {
 }
 export async function runCase(c,{mode='capture',out='workbench-runs',observeDurationMs,headless,additionalCdpAnomalies=()=>[]}={}) {
   validateCase(c);
+  const channels=captureChannels(c);
   if (!['capture','observe'].includes(mode)) throw Error('mode must be capture or observe');
   if (observeDurationMs !== undefined && (mode !== 'observe' || !Number.isFinite(observeDurationMs) || observeDurationMs<100)) throw Error('observe duration must be at least 100 ms and only applies to observe');
   const result={schema:1,id:c.id,mode,status:'running',requested:structuredClone(c),limitations:['Emulación de navegador; no dispositivo físico.','La semilla del motor no determina Math.random del renderer.','Una secuencia de imágenes no demuestra fluidez perceptual.'],samples:[]};
   Object.assign(result,inputInventory(c));
   result.phases={observation:'not_started',cdp:'not_started',canvas:'not_started',runtime:'not_started',resources:'not_started',inputs:'not_started',metadata:'not_started'}; result.errors=[];
-  let dir,server,browser,context,cdp,runtime,page,adapter,remote,cdpStarted=false,canvasStarted=false; const captured=[]; let pending=Promise.resolve();
+  let dir,server,browser,context,cdp,runtime,page,adapter,remote,acks,cdpStarted=false,canvasStarted=false; const captured=[]; let pending=Promise.resolve();
   const fail=(phase,error)=>{const message=error.message||String(error);result.phases[phase]='failed';result.errors.push({phase,error:message});result.error??=message;result.status='failed';};
   const finalize=async(phase,fn)=>{try{await fn();result.phases[phase]='complete';}catch(error){fail(phase,error);}};
   if (mode==='capture') { await mkdir(out,{recursive:true}); dir=path.resolve(out,`${new Date().toISOString().replace(/[:.]/g,'-')}-${randomUUID()}`); await mkdir(dir); await mkdir(path.join(dir,'frames'));  }
@@ -162,20 +181,21 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
     if(remote){await isolatePublicPage(page,remote);page.on('response',response=>collectPublicResponse(response,remote,runtime));}
     await page.goto(remote?remote.origin+'/':`http://127.0.0.1:${server.address().port}/${c.source.split('/').map(encodeURIComponent).join('/')}`);
     await adapter.prepare(page,c);
-    if (dir && c.recordCanvas) {
+    if (dir && channels.canvas) {
       result.canvasCaptureStartEpochMs=await page.evaluate(selector=>{
         const canvas=document.querySelector(selector); if(!canvas || typeof canvas.captureStream!=='function') throw Error('recordCanvas requires a canvas with captureStream');
         const stream=canvas.captureStream(), recorder=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp8'}), chunks=[];
         window.__workbenchRecording={stream,recorder,chunks}; recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)}; recorder.start(); return performance.timeOrigin+performance.now();
       },c.recordCanvas); canvasStarted=true;
     }
-    if (dir) {
+    if (dir && channels.cdp) {
       cdp=await context.newCDPSession(page); await cdp.send('Page.enable');
+      acks=ackTracker(sessionId=>cdp.send('Page.screencastFrameAck',{sessionId}));
       cdp.on('Page.screencastFrame', frame=> {
         const index=captured.length, name=`frames/${String(index).padStart(5,'0')}.png`;
         const entry={index,path:name,timestamp:frame.metadata?.timestamp??null,metadata:frame.metadata??null,receivedAtEpochMs:Date.now(),receivedAtMonotonicMs:performance.now(),deviceWidth:frame.metadata?.deviceWidth,deviceHeight:frame.metadata?.deviceHeight}; captured.push(entry);
         pending=pending.then(()=>writeFile(path.join(dir,name),Buffer.from(frame.data,'base64')));
-        cdp.send('Page.screencastFrameAck',{sessionId:frame.sessionId}).catch(()=>{});
+        acks.ack(frame.sessionId);
       });
       await cdp.send('Page.startScreencast',{format:'png',maxWidth:viewport.width,maxHeight:viewport.height,everyNthFrame:1}); cdpStarted=true;
     }
@@ -190,7 +210,10 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
   } catch(e) { fail('observation',e); }
   finally {
     if(cdpStarted) await finalize('cdp',async()=>{
-      await cdp.send('Page.stopScreencast'); await pending;
+      const errors=[];try{await cdp.send('Page.stopScreencast');}catch(error){errors.push(error.message);}
+      try{await pending;}catch(error){errors.push(error.message);}
+      try{await acks.drain();}catch(error){errors.push(error.message);}
+      if(errors.length)throw Error(errors.join('; '));
       const anomalies=[...timestampAnomalies(captured),...additionalCdpAnomalies(captured)]; if(captured.length<2 || anomalies.length) { result.captureDebug={count:captured.length,anomalies,metadataPath:'cdp-frames.json'}; throw Error('missing or unordered original CDP timestamps: '+JSON.stringify(anomalies.slice(0,10))); }
       const origin=captured[0].timestamp,pts=captured.map(f=>f.timestamp-origin);
       const selected=selectFrames(pts,c.extractIntervalMs/1000).map(f=>({...f,path:captured[f.index].path}));
@@ -206,6 +229,11 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
       const timestamps=(probe.frames||[]).map(f=>Number(f.best_effort_timestamp_time));
       if(!timestamps.length||timestamps.some((v,i)=>!Number.isFinite(v)||(i&&v<timestamps[i-1])))throw Error('missing or unordered canvas video PTS');
       result.canvasVideo={...result.canvasVideo,verification:'complete',stream:probe.streams?.[0],pts:timestamps,limitations:'Canvas only, MediaRecorder timestamps; cadence and capture loss depend on browser. This is not full DOM context.'};
+    });
+    if(dir&&channels.canvas&&!channels.cdp&&page)await finalize('contextImage',async()=>{
+      const bytes=await page.screenshot({type:'png'}),size=pngSize(bytes);
+      if(size.width!==c.viewport.width*c.viewport.dpr||size.height!==c.viewport.height*c.viewport.dpr)throw Error('context image differs from viewport and DPR');
+      await writeFile(path.join(dir,'context.png'),bytes);result.contextImage={path:'context.png',sha256:sha(bytes),...size,limitations:'Static viewport context only; not a temporal DOM recording.'};
     });
     if(remote&&page)await finalize('publicNetwork',()=>finishPublicPage(page,remote));
     if(context) await finalize('contextClose',()=>context.close());
@@ -230,7 +258,8 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
     }
     await finalize('inputs',()=>rehashInputs(result,c,runtime));
     if(dir && cdpStarted) await finalize('metadata',async()=>{await pending;await writeFile(path.join(dir,'cdp-frames.json'),JSON.stringify({clock:'CDP metadata.timestamp; receipt clocks are diagnostics only, not presentation time',frames:captured},null,2));});
-    if(dir && !result.error && result.phases.cdp==='complete') await finalize('viewer',()=>writeFile(path.join(dir,'index.html'),viewer(c,result.selectedFrames,result)));
+    if(dir&&!result.error&&!requiredChannelsComplete(channels,result.phases))fail('capture',Error('required capture channel incomplete'));
+    if(dir && !result.error && requiredChannelsComplete(channels,result.phases)) await finalize('viewer',()=>writeFile(path.join(dir,'index.html'),viewer(c,result.selectedFrames||[],result)));
     if(!result.error) result.status='complete';
     if(dir) await writeFile(path.join(dir,'run.json'),JSON.stringify(result,null,2));
   }
