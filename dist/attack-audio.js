@@ -67,8 +67,10 @@ export function prepareSample(ctx,buffer,move=false){
  for(let ch=0;ch<buffer.numberOfChannels;ch++){const data=buffer.getChannelData(ch);for(let i=0;i<data.length;i++)data[i]*=gain;}
  return buffer;
 }
-export function installAttackFallbacks(ctx,buffers){
- for(const[key,{rate,bits,channels,data}]of Object.entries(FALLBACK_PCM)){
+export function installAttackFallbacks(ctx,buffers,onlyKey){
+ if(onlyKey&&!FALLBACK_PCM[onlyKey])return;
+ const entries=onlyKey?[[onlyKey,FALLBACK_PCM[onlyKey]]]:Object.entries(FALLBACK_PCM);
+ for(const[key,{rate,bits,channels,data}]of entries){
   const id='fallback:'+key;if(buffers.has(id))continue;
   if(bits!==16||rate<44100||channels!==1)throw Error('Unsupported clean fallback '+key);
   const bytes=Uint8Array.from(atob(data),value=>value.charCodeAt(0)),view=new DataView(bytes.buffer),frames=bytes.length/2;

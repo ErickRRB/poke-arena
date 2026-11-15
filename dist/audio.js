@@ -99,7 +99,7 @@ export class SoundSystem {
     // The same clean phase has an embedded PCM excerpt for cold downloads.
     const fallback=(impact?cue.contactFallback:cue.releaseFallback)??cue.fallback;
     if(!fallback)return false;
-    installAttackFallbacks(this.ctx,this.buffers);
+    installAttackFallbacks(this.ctx,this.buffers,fallback);
     return this.sample('fallback:'+fallback,x,settings);
   }
   output(node,volume,duration,pan=0,delay=0,voice=false,recording=false,priority=1) {

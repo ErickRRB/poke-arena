@@ -70,6 +70,13 @@ test('cold/failure PCM is sourced from the new recordings at 48kHz/16bit',()=>{
  assert.equal(buffers.get('fallback:punch-medium-1'),first);
 });
 
+test('a cold phase prepares only its requested fallback and reuses it on the next attack',()=>{
+ const buffers=new Map();installAttackFallbacks(context,buffers,'air-flight-a');assert.equal(buffers.size,1);const first=buffers.get('fallback:air-flight-a');assert.ok(first);
+ installAttackFallbacks(context,buffers,'air-flight-a');assert.equal(buffers.size,1);assert.equal(buffers.get('fallback:air-flight-a'),first);
+ installAttackFallbacks(context,buffers,'punch-medium-1');assert.equal(buffers.size,2);assert.ok(buffers.has('fallback:punch-medium-1'));
+ installAttackFallbacks(context,buffers,'missing-phase');assert.equal(buffers.size,2);
+});
+
 test('normalization measures the retained recording and never raises quiet SFX',()=>{
  const input=context.createBuffer(2,480000,48000);
  for(let ch=0;ch<2;ch++){
