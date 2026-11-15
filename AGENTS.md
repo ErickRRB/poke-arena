@@ -16,6 +16,8 @@ Sites queda como puente legado existente y aloja la API HTTP antigua sólo en su
 
 Aplicar un estándar absoluto de resultado terminado a todo Poké Arena. Una mejora respecto de una versión mala puede seguir siendo inaceptable. Pasar pruebas, conservar números o fuentes 1:1 y no introducir regresiones no demuestran calidad visual, sonora ni de uso. Evaluar el conjunto: sprite, pose, emisor, trayectoria, velocidad, visibilidad, área física e impacto deben funcionar juntos. Corregir una trayectoria no justifica perder el gesto del personaje o volver casi invisible su ataque; Charizard debe conservar una pose legible y fuego visible que salga de su boca.
 
+Antes de implementar o revisar, registrar un plan versionado con criterios y cobertura derivados del pedido. Mantener decisiones técnicas, visuales/perceptuales y de uso separadas; un criterio requerido no evaluado bloquea el cierre. Entregar al revisor fresco un paquete de reproducción separado de las conclusiones del autor. El movimiento se evalúa con el bucle natural a escala y contexto reales, por reproducción o secuencia densa con tiempos y método declarados, sin fingir capacidades perceptuales. La publicación parcial identifica su alcance aprobado y conserva abiertos los demás criterios.
+
 La entrega sigue estas etapas obligatorias:
 
 1. El autor verifica que la implementación funciona y documenta el alcance y sus límites.
