@@ -79,7 +79,7 @@ function addColumn(preset='free'){
   const canvas=element.querySelector('canvas'),renderer=new Renderer(canvas),column={id,element,canvas,renderer,visible:true,loading:false,accumulator:0,started:false};
   const source=columns[0]?.renderer;
   if(source){
-    for(const key of['metadata','sprites','anchors','bodyHeights','speciesLoads','imageLoads','pendingSpecies'])renderer[key]=source[key];
+    for(const key of['metadata','sprites','anchors','bodyHeights','speciesLoads','imageLoads','pendingSpecies','nativeSpriteSampler'])renderer[key]=source[key];
     renderer.battleArt.images=source.battleArt.images;renderer.buildBackground();
   }
   renderer.selection=selected;renderer.placementTeam=team;renderer.placementWhenPaused=true;renderer.showCombatNumbers=$('damage-numbers').checked;renderer.reduced=$('reduced-motion').checked;
@@ -97,7 +97,7 @@ function addColumn(preset='free'){
   element.querySelector('.column-play').addEventListener('click',()=>{column.game.state==='playing'?column.game.pause():play(column);syncColumn(column);});
   element.querySelector('.column-step').addEventListener('click',()=>{focusColumn(column);column.game.resume();for(let i=0;i<6;i++){column.game.step(1/60);renderer.draw(column.game,1/60);}column.game.pause();column.started=true;syncColumn(column);});
   element.querySelector('.column-clear').addEventListener('click',()=>reset(column));element.querySelector('select').addEventListener('change',()=>reset(column));
-  element.querySelector('.column-close').addEventListener('click',()=>{if(columns.length===1){notice('Conservá al menos una columna de prueba.');return;}observer.unobserve(canvas);renderer.resizeObserver.disconnect();columns.splice(columns.indexOf(column),1);element.remove();syncTabs();});
+  element.querySelector('.column-close').addEventListener('click',()=>{if(columns.length===1){notice('Conservá al menos una columna de prueba.');return;}observer.unobserve(canvas);renderer.resizeObserver.disconnect();renderer.visibilityObserver?.disconnect();columns.splice(columns.indexOf(column),1);element.remove();syncTabs();});
   return column;
 }
 $('choose-card').addEventListener('click',()=>{renderPicker();$('card-picker').showModal();$('card-search').focus();});$('card-search').addEventListener('input',renderPicker);

@@ -12,6 +12,8 @@ import * as onlineConfig from './online-config.js?v=36';
 const publicAssetUrl=onlineConfig.publicAssetUrl||((file)=>file);
 const {whirlpoolPhase,earthquakePhase,earthquakeFissures}=await import(publicAssetUrl('./field-motion.js?v=36'));
 const {flameFrame,rollingFirePose,drawFireWheel}=await import(publicAssetUrl('./fire-material.js?v=37'));
+const {canvasBackingSize,alignedSpriteRect}=await import(publicAssetUrl('./canvas-raster.js?v=36'));
+const {NativeSpriteSampler}=await import(publicAssetUrl('./native-sprite-sampling.js?v=36'));
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -53,6 +55,7 @@ export class Renderer {
       if(!(width>0&&height>0))return;
       const changed=width!==this.viewport?.width||height!==this.viewport?.height;
       this.viewport={width,height};this.projection=arenaProjection(width,height);this.verticalScale=1;
+      this.resizeBacking();
       const start=screenToWorld({x:0,y:0},width,height),end=screenToWorld({x:width,y:height},width,height);
       this.worldBounds={left:start.x,top:start.y,right:end.x,bottom:end.y};
       if(changed&&this.background)this.buildBackground();
@@ -60,6 +63,10 @@ export class Renderer {
     resize(canvas.clientWidth||canvas.width,canvas.clientHeight||canvas.height);
     this.resizeObserver=new ResizeObserver(([entry])=>resize(entry.contentRect.width,entry.contentRect.height));
     this.resizeObserver.observe(canvas);
+    if(typeof IntersectionObserver==='function'){
+      this.visibilityObserver=new IntersectionObserver(([entry])=>{this.rasterVisible=entry.isIntersecting;this.resizeBacking();});
+      this.visibilityObserver.observe(canvas);
+    }
     this.background = document.createElement('canvas'); this.background.width = W; this.background.height = H;
     this.sprites = new Map(); this.metadata = {};
     this.anchors = new Map(); this.bodyHeights = new Map(); this.effects = [];
@@ -67,7 +74,16 @@ export class Renderer {
     this.healthStates=new Map();this.speciesLoads=new Map();this.imageLoads=new Map();this.pendingSpecies=new Set();
     this.battleArt=new BattleArt(file=>this.loadImage(file));this.visualActors=new Map();this.visualProjectiles=new Map();this.frameActors=new Map();
     this.t = 0; this.reduced = false; this.pointer = null; this.selection = null; this.tutorialSpot = false; this.viewerTeam=0;
+    this.nativeSpriteSampler=new NativeSpriteSampler();
     this.buildBackground();
+  }
+  resizeBacking(deviceRatio=globalThis.devicePixelRatio||1){
+    if(!this.viewport)return;
+    const size=canvasBackingSize(this.viewport.width,this.viewport.height,this.rasterVisible===false?1:deviceRatio);
+    if(!size)return;
+    if(this.canvas.width!==size.width)this.canvas.width=size.width;
+    if(this.canvas.height!==size.height)this.canvas.height=size.height;
+    this.pixelRatio=size.ratio;this.ctx.imageSmoothingEnabled=false;
   }
   async load(keys=DEFAULT_DECK,onProgress=()=>{}) {
     const response = await fetch('assets/pokemon/manifest.json?v=34');
@@ -334,8 +350,8 @@ export class Renderer {
     if(unit.hit>0&&!this.reduced) c.filter=`brightness(${1+.35*unit.hit/.24})`;
     const px=x+unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge/vertical-lift-(this.reduced?0:(1-spawnProgress)*12/vertical)-anchor.y*scale/vertical+burrow*((this.bodyHeights.get(id)||22)*scale+25)/vertical;
     if((unit.dash?.phase==='travel'||unit.card.charge&&unit.charge>=unit.card.charge)&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9/vertical),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
-    const articulated=this.flightWings.frame(id,anim,direction,frame,img,meta,flightClock+(unit.id||0)*.173,this.reduced);
-    const spriteImage=articulated?.image||img,spriteFrame=articulated?[0,0,articulated.image.width,articulated.image.height,Math.round(px-articulated.padding*scale),Math.round(py-articulated.padding*scale/vertical),articulated.width*scale,articulated.height*scale/vertical]:[frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px),Math.round(py),meta.width*scale,meta.height*scale/vertical];
+    const articulated=this.nativeSpriteSampler?.frame(id,anim,direction,frame,meta,scale,vertical,c.getTransform?.(),img)||this.flightWings.frame(id,anim,direction,frame,img,meta,flightClock+(unit.id||0)*.173,this.reduced);
+    const spriteImage=articulated?.image||img,spriteFrame=alignedSpriteRect(articulated?[0,0,articulated.image.width,articulated.image.height,px-articulated.padding*scale,py-articulated.padding*scale/vertical,articulated.width*scale,articulated.height*scale/vertical]:[frame*meta.width,direction*meta.height,meta.width,meta.height,px,py,meta.width*scale,meta.height*scale/vertical],c.getTransform?.());
     c.drawImage(spriteImage,...spriteFrame);
     if(preparation&&!unit.preview)this.dashWindup(c,unit,preparation,true);
     if(!unit.preview&&this.spellTargets?.has(unit.id))this.tintTarget(c,spriteImage,...spriteFrame);
@@ -1116,6 +1132,7 @@ export class Renderer {
     this.fireWheel(c,pose);
   }
   draw(game,dt=.016){
+    this.resizeBacking();
     const c=this.ctx;this.t+=dt;this.drawDt=dt;this.gameElapsed=game.elapsed||0;this.battleArt.time=this.reduced?0:this.t;
     this.updateSpellTargets(game);
     const {width,height}=this.viewport||{width:W,height:H},projection=this.projection||arenaProjection(width,height),bounds=this.worldBounds||{left:0,top:0,right:W,bottom:H};
