@@ -36,3 +36,9 @@ test('Lightning draws only each actual vertical target beam, while Zap retains i
  r.onEvent({type:'beam',key:'lightning',style:'lightning',from:{x:300,y:80},to:{x:300,y:250},team:0});assert.equal(r.effects.length,1);assert.equal(r.effects[0].kind,'beam');
  r.onEvent({type:'spellHit',key:'thunder',x:300,y:268,radius:60,team:0});assert.equal(r.effects.at(-1).kind,'entry');
 });
+test('the primary contact starts at the living caster emitter; later hops start at the previous victim',()=>{
+ const{r}=fixture(),from={x:250,y:499};r.visualEmission=()=>from;r.frameActors.set(1,{id:1,x:250,y:580,hp:100,card:CARDS.zapdos});r.frameActors.set(2,{id:2,x:300,y:480,hp:100,card:CARDS.grimer});
+ assert.deepEqual(r.effectSource({hop:0,sourceId:1,chainFromId:1,from}),from);
+ assert.deepEqual(r.effectSource({hop:1,sourceId:1,chainFromId:2,from}),{x:300,y:465});
+ r.frameActors.get(1).hp=0;assert.deepEqual(r.effectSource({hop:0,sourceId:1,chainFromId:1,from}),from);
+});
