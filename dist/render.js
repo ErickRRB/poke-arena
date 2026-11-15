@@ -426,7 +426,7 @@ export class Renderer {
       const shot=event.shot||0,until=this.t+1/30+1e-7,held={seq:actor.attackSeq,card:actor.card,guard:actor.guard,animation:actor.attackAnim||profile.attackAnim||'Attack',duration,windup,elapsed:windup+shot*(profile.burstSpacing||duration),dx:actor.dx,dy:actor.dy,until};
       const current=this.attackContacts.get(actor.id);
       this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,shot,until}),held});
-      if(profile.style==='ember'&&isRangedAttack(profile)&&!profile.suicide){const life=profile.id===6?.46:.16;this.effects.push({...event,kind:'muzzleFlame',sourceId:actor.id,targetId:event.target?.id,attackId:`${actor.id}:${actor.attackSeq}:${shot}`,life,max:life});}
+      if(profile.style==='ember'&&isRangedAttack(profile)&&!profile.suicide){const life=profile.id===6?.18:.16;this.effects.push({...event,kind:'muzzleFlame',sourceId:actor.id,targetId:event.target?.id,attackId:`${actor.id}:${actor.attackSeq}:${shot}`,life,max:life});}
     }
     if(type==='attackStart'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
@@ -458,7 +458,7 @@ export class Renderer {
       this.effects.push({kind:'areaImpact',art,style:event.style||event.unit.card.style,x:event.unit.x,y:event.unit.y,radius:event.radius||55,color:event.unit.card.color,groundOnly:event.groundOnly??!event.unit.card.air,life:.55,max:.55});
     }
     if(type==='hit'){
-      for(const effect of this.effects)if(effect.kind==='muzzleFlame'&&effect.sourceId===event.sourceId)effect.life=Math.min(effect.life,.035);
+      for(const effect of this.effects)if(effect.kind==='muzzleFlame'&&effect.key!=='charizard'&&effect.sourceId===event.sourceId)effect.life=Math.min(effect.life,.035);
       if(!event.radius&&CARDS[event.key]&&!isRangedAttack(CARDS[event.key]))return; // Contact is drawn once, by the melee event.
       const color=event.art==='petalShot'?'#ff9ccd':{ember:'#ffc083',hydro:'#91dcff',bubble:'#afeaff',leaf:'#e0f7ac',poison:'#d6a0f0',powder:'#d9b3f4',shadow:'#cda4f5',confusion:'#efb9f8',aura:'#efb9f8',ice:'#c1f5ff',rock:'#e4caa4',slam:'#e4caa4'}[event.style]||CARDS[event.key]?.color||'#eee8bc';
       const point=event.groundY===undefined?event:{x:event.groundX,y:event.groundY-(event.impactHeight||0)/(this.verticalScale||1)};
@@ -570,10 +570,15 @@ export class Renderer {
     const x=pose.x,y=pose.y-Math.sin(progress*Math.PI)*arc/(this.verticalScale||1),angle=Math.atan2((end.y-start.y)*(this.verticalScale||1)-Math.PI*arc*Math.cos(progress*Math.PI),end.x-start.x);
     pose.renderedPoint={x,y};
     const visual=combatVisual(source?.card||CARDS[p.key]),motion=projectileVisual(p.style,this.t,this.reduced),size=p.key==='nuzleaf'?Math.max(16,visual.projectile):visual.projectile;
-    const art=p.key==='nuzleaf'?'needle':p.art||motion.name;
+    const fireHead=p.key==='charizard',art=fireHead?'fireOrb':p.key==='nuzleaf'?'needle':p.art||motion.name;
     if(arc>25){c.save();c.globalAlpha=.18;ellipse(c,'#233b31',p.x,p.y,Math.max(4,size*.25),2);c.restore();}
-    this.combatArt(c,art,x,y,size,art==='needle'?0:['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true});
-    if(!this.reduced&&p.style!=='coin'&&p.style!=='rock'){
+    if(fireHead){
+      const mouth=source&&this.visualEmission(source),available=mouth?Math.hypot(x-mouth.x,(y-mouth.y)*(this.verticalScale||1)):pose.travelled;
+      for(let i=this.reduced?1:2;i>0;i--){const shift=Math.min(available*.7,i*8),tailSize=Math.max(12,size-i*4);c.save();c.globalAlpha*=i===1?.6:.32;
+        this.combatArt(c,'fireTrail',x-Math.cos(angle)*shift,y-Math.sin(angle)*shift/(this.verticalScale||1),tailSize,angle-Math.PI/2,tailSize,{frame:this.reduced?5:undefined,frames:[3,4,5,6,5,4],fps:12,age:this.t+i*.04,trim:true});c.restore();}
+    }
+    this.combatArt(c,art,x,y,size,art==='needle'?0:['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:fireHead?1:motion.frame,frames:fireHead?undefined:motion.frames,trim:true});
+    if(!this.reduced&&!fireHead&&p.style!=='coin'&&p.style!=='rock'){
       const vertical=this.verticalScale||1,color=p.art==='petalShot'?'#f5c3df':{ember:'#f6c580',hydro:'#a5e6f2',bubble:'#c4eef1',ice:'#dbffff',poison:'#d5a3df',powder:'#d5a3df',shadow:'#b99add',leaf:'#e2edb1',psychic:'#d5baff'}[p.style]||'#e6eac9';
       const length=Math.min(p.travelled,Math.max(16,size*1.5)),bend=Math.sin(progress*Math.PI)*Math.min(8,arc*.05);
       c.save();c.lineCap='round';
@@ -669,7 +674,10 @@ export class Renderer {
         const from=this.effectSource(e),to=this.visualProjectiles.get(e.attackId)?.renderedPoint||this.effectTarget(e)||e.to;
         if(from&&to){
           const dx=to.x-from.x,dy=(to.y-from.y)*(this.verticalScale||1),distance=Math.hypot(dx,dy),length=Math.min(e.key==='charizard'?50:30,distance);
-          if(length>2){c.save();c.translate(from.x,from.y);c.rotate(Math.atan2(dy,dx));this.combatArt(c,'vfxFireJet',0,0,length,0,Math.min(e.key==='charizard'?28:17,8+length*.45),{age:this.reduced?.4:age,anchor:'pivot',blend:!this.reduced});c.restore();}
+          if(e.key==='charizard'){
+            const angle=Math.atan2(dy,dx),offset=Math.min(4,distance*.3),size=(this.reduced?22:24+4*Math.sin(progress*Math.PI))*(1-progress*.25);
+            this.combatArt(c,'fireOrb',from.x+Math.cos(angle)*offset,from.y+Math.sin(angle)*offset/(this.verticalScale||1),size,angle-Math.PI/2,size,{frame:1,trim:true});
+          }else if(length>2){c.save();c.translate(from.x,from.y);c.rotate(Math.atan2(dy,dx));this.combatArt(c,'vfxFireJet',0,0,length,0,Math.min(17,8+length*.45),{age:this.reduced?.4:age,anchor:'pivot',blend:!this.reduced});c.restore();}
         }
       }
       else if(e.kind==='areaImpact')this.areaImpact(c,e,progress);

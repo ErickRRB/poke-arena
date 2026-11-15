@@ -24,3 +24,16 @@ test('the visible breath finishes its gesture after the physical recovery, witho
  const paused=renderer.visualActor(actor,0);assert.equal(renderer.visualActor(actor,0).attack,paused.attack);
  actor.stun=.5;assert.equal(renderer.visualActor(actor,1/60).attack,0);
 });
+
+test('Charizard keeps a solid fire head in transit and a distinct discharge even at immediate contact',()=>{
+ const actor={id:7,key:'charizard',x:300,y:550,dx:0,dy:-1,hp:100,card:CARDS.charizard,attackSeq:2,attackDuration:.46,attackWindup:.3,attack:.16};
+ const target={id:8,x:300,y:460,card:CARDS.snorlax,hp:1e6},draws=[],ctx=new Proxy({globalAlpha:1},{get:(o,k)=>o[k]??(()=>{}),set:(o,k,v)=>(o[k]=v,true)});
+ const renderer=Object.assign(Object.create(Renderer.prototype),{t:0,reduced:false,drawDt:1/60,verticalScale:1,frameActors:new Map([[7,actor],[8,target]]),visualProjectiles:new Map(),effects:[],particles:[],combatArt(...args){draws.push(args);}});
+ const from=emissionPoint(actor),shot={id:'7:2:0',key:'charizard',sourceId:7,style:'ember',x:300,y:534,startX:300,startY:538,liftX:from.x-300,liftY:from.y-538,groundPath:true,endLiftY:-15,target,totalDistance:78,travelled:4,speed:240,arc:42};
+ const saved=JSON.stringify(shot);
+ for(const time of[0,.05,.1,.15]){renderer.t=time;renderer.projectile(ctx,shot);}
+ const heads=draws.filter(args=>args[1]==='fireOrb');assert.equal(heads.length,4);assert.ok(heads.every(args=>args[7].frame===1));assert.equal(JSON.stringify(shot),saved);
+ renderer.onEvent({type:'attackRelease',attacker:actor,target,key:'charizard',from,to:target,style:'ember',shot:0});
+ const discharge=renderer.effects.find(effect=>effect.kind==='muzzleFlame');assert.ok(discharge);
+ renderer.onEvent({type:'hit',key:'charizard',sourceId:7,style:'ember',radius:36,x:300,y:460});assert.equal(discharge.life,discharge.max);
+});
