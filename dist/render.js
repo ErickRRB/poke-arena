@@ -307,7 +307,6 @@ export class Renderer {
     const by=y-lift-((this.bodyHeights.get(id)||22)*scale+9)/vertical;
     this.healthBar(c,unit,x,by,unit.maxHp<=1?18:unit.card.count?30:unit.maxHp>=1800?52:44);
     if(unit.card.ability&&!unit.abilityUsed){ellipse(c,'#382448',x+27,by+4,6,6);text(c,'◆',x+27,by+4,'#e9beff',10,800);}
-    if(unit.card.summon&&unit.spawn<=0)this.summonIndicator(c,unit,x,by-(unit.shield>0?13:12)/vertical);
     if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
     else if(unit.slow>0)this.combatArt(c,'snow',x,by-10,18);
     if(unit.burn)this.combatArt(c,unit.burn.kind==='poison'?'poison':'flame',x,y-lift-9,26);
@@ -330,7 +329,6 @@ export class Renderer {
     c.restore();if(!drawn||idle)return;
     const by=unit.y-(this.bodyHeight(unit)+9)/vertical;
     this.healthBar(c,unit,x,by,44);
-    if(unit.card.summon&&unit.spawn<=0&&Number.isFinite(unit.summonClock)&&Number.isFinite(unit.summonCycle||unit.card.summonEvery))this.summonIndicator(c,unit,x,by-12/vertical);
     if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
     else if(unit.slow>0)this.combatArt(c,'snow',x,by-10,18);
     if(unit.burn)this.combatArt(c,unit.burn.kind==='poison'?'poison':'flame',x,unit.y-9/vertical,26);
@@ -338,8 +336,9 @@ export class Renderer {
   drawDeployments(c,game){
     const groups=new Map(),vertical=this.verticalScale||1;
     for(const unit of game.units){
-      if(unit.hp<=0||unit.spawn<=0)continue;
-      const group=unit.spawnGroup||{id:unit.id,x:unit.x,y:unit.y,duration:.75};
+      const group=unit.spawnGroup;
+      if(unit.hp<=0||unit.spawn<=0||unit.spawnCause!=='card'||group?.spawnCause!=='card')continue;
+      if(!Number.isFinite(group.startAt)||!Number.isFinite(group.duration)||game.elapsed+1e-7>=group.startAt+group.duration)continue;
       let marker=groups.get(group.id);
       if(!marker){marker={...group,top:H,remaining:0};groups.set(group.id,marker);}
       const lift=unit.card.structure?structureLift(unit.card):unit.card.flying?16:0;
@@ -357,13 +356,6 @@ export class Renderer {
     c.save();c.translate(Math.round(x),Math.round(y));c.scale(1,1/vertical);
     this.battleArt.draw(c,'pokeball',0,0,24,24,{frame:0,angle:this.reduced?0:Math.sin(progress*Math.PI)*.22});
     rect(c,'#263d3da6',-12,14,24,3);rect(c,'#f6e9bc',-12,14,24*Math.max(0,Math.min(1,progress)),3);
-    c.restore();
-  }
-  summonIndicator(c,unit,x,y){
-    const progress=1-Math.min(1,Math.max(0,unit.summonClock)/Math.max(.001,unit.summonCycle||unit.card.summonEvery));
-    c.save();c.translate(Math.round(x),Math.round(y));c.scale(1,1/(this.verticalScale||1));
-    this.battleArt.draw(c,'pokeball',-23,0,21,21,{frame:0});
-    rect(c,'#263d3da6',-9,-1,30,3);rect(c,unit.card.color||'#bea2d8',-9,-1,30*progress,3);
     c.restore();
   }
   combatArt(c,name,x,y,size,angle=0,height=size,options={}){
@@ -432,8 +424,7 @@ export class Renderer {
     if(type==='damage'&&event.amount>0){this.floatingNumber(event.target,event.amount,event.dot?'dot':'damage');const target=event.target,old=this.healthStates.get(target.id);this.healthStates.set(target.id,{chip:Math.max(old?.chip||0,Math.min(1,(target.hp+event.amount)/target.maxHp)),last:target.hp/target.maxHp,at:this.t});}
     if(type==='heal'&&event.amount>0){this.floatingNumber(event.unit,event.amount,'heal');this.effects.push({kind:'artImpact',art:'heal',x:event.unit.x,y:event.unit.y-18,radius:30,life:1.2,max:1.2});}
     if(type==='spawn'){
-      const u=event.unit,group=u.spawnGroup||{id:u.id,x:u.x,y:u.y};if(u.card.id)this.ensureSpecies([u.card.id]).catch(()=>{});
-      if(u.spawn>0&&!this.effects.some(e=>e.kind==='release'&&e.groupId===group.id))this.effects.push({kind:'release',groupId:group.id,x:group.x,y:group.y,color:u.card.color,delay:u.spawn,life:.3,max:.3});
+      const u=event.unit;if(u.card.id)this.ensureSpecies([u.card.id]).catch(()=>{});
     }
     if(type==='entry')this.effects.push({...event,kind:'entry',life:.36,max:.36});
     if(type==='deathBurst'){
@@ -624,8 +615,6 @@ export class Renderer {
       else if(e.kind==='artImpact'){
         const size=e.visualSize??Math.max(24,Math.min(160,(e.radius||30)*1.7));
         this.combatArt(c,e.art,e.x,e.y,size,0,size,{progress:this.reduced?.45:progress});
-      }else if(e.kind==='release'){
-        this.combatArt(c,'puff',e.x,e.y-12,45,0,45,{progress:this.reduced?.4:progress});
       }else if(e.kind==='beam'||e.kind==='counter'){
         const from=this.effectSource(e),to=this.effectTarget(e),name=e.style==='lightning'?'lightning':'psychic';
         if(!from||!to){c.restore();continue;}

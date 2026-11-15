@@ -33,7 +33,7 @@ test('one deployment indicator serves every member of swarms, mixed squads and p
     const count=CARDS[key].squad?.length||CARDS[key].count|| (CARDS[key].spawnWith?2:1);
     assert.equal(game.units.length,count,key);
     assert.equal(markers(renderer,game).length,1,key);
-    assert.equal(renderer.effects.filter(e=>e.kind==='release').length,1,key);
+    assert.equal(renderer.effects.filter(e=>e.kind==='release').length,0,key);
     assert.equal(markers(renderer,game)[0].progress,0,key);
     game.step(.1);
     assert.ok(markers(renderer,game)[0].progress>0,key);
@@ -73,12 +73,12 @@ test('group markers survive wire serialization, reconnection and the other playe
   assert.deepEqual(perspective(event,1).unit.spawnGroup,restored.units[0].spawnGroup);
 });
 
-test('an automatic reinforcement wave shares one marker and honors its shorter deployment duration',()=>{
+test('an automatic reinforcement wave never adds a card deployment marker',()=>{
   const{game,renderer}=setup(),owner=game.spawn('duskull',0,300,520,0);
   game.spawnReinforcements(owner,'nidoranM',2,.4);
-  assert.equal(markers(renderer,game).length,1);
+  assert.equal(markers(renderer,game).length,0);
   game.step(.1);game.step(.1);
-  assert.ok(Math.abs(markers(renderer,game)[0].progress-.5)<1e-6);
+  assert.equal(markers(renderer,game).length,0);
   for(let i=0;i<3;i++)game.step(.1);
   assert.equal(markers(renderer,game).length,0);
 });
@@ -93,10 +93,10 @@ test('the summon meter starts empty for the first short cycle and resets to the 
   assert.ok(owner.summonClock>6.8);
 });
 
-test('a deployment release waits for readiness and creates no expanding ring',()=>{
+test('a spawn never queues an additional release overlay after the initial marker',()=>{
   const{game,renderer,ctx,calls}=setup();deploy(game,'zubat');
   renderer.drawEffects(ctx,.5);assert.equal(calls.length,0);
-  renderer.drawEffects(ctx,.51);assert.ok(calls.some(c=>c.method==='drawImage'));
+  renderer.drawEffects(ctx,.51);assert.equal(calls.length,0);
   assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
 });
 
