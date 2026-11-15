@@ -13,6 +13,10 @@ export function migrateLegacyCardIdentity(value){
     const profile=CARDS.octillery,visual=['name','id','scale','move','attackAnim','attackFrames','attackGestures','attackContactFrame','emitter','muzzleHeight','movementAnchor'];
     value.card={...value.card,...Object.fromEntries(visual.map(key=>[key,profile[key]]))};
   }
+  if((value.key==='madriguera'||value.sourceKey==='madriguera')&&value.card?.id===31){
+    const {name,id,structureArt}=CARDS.madriguera;
+    value.card={...value.card,name,id,structureArt};
+  }
   if(value.hands)value.hands=value.hands.map(currentDeck);
   if(value.queues)value.queues=value.queues.map(currentDeck);
   for(const[field,item]of Object.entries(value))if(!['card','guard','stats','hands','queues'].includes(field))migrateLegacyCardIdentity(item);
