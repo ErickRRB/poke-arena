@@ -4,7 +4,7 @@ import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=34';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
 import {combatVisual,projectileVisual,movementVisual,isRangedAttack} from './combat-visuals.js?v=34';
 import { spellPreviewTargets } from './spell-preview.js?v=34';
-import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=34';
+import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=35';
 import { FlightWings } from './wing-motion.js?v=34';
 import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import { WHIRLPOOL_BOUNDS } from './assets/battle/frame-bounds.js?v=34';
@@ -198,6 +198,7 @@ export class Renderer {
     return{x:point.x+(actor.dx||0)*lunge,y:actor.y+(point.y-actor.y-bob+(actor.dy||0)*lunge)/(this.verticalScale||1)};
   }
   effectSource(effect){
+    if(effect.hop===0&&effect.chainFromId===effect.sourceId){const actor=this.frameActors.get(effect.sourceId);return actor&&actor.hp>0?this.visualEmission(actor,effect.shot||0):effect.from;}
     if(effect.chainFromId){const actor=this.frameActors.get(effect.chainFromId);return actor?this.effectTarget({to:effect.from,targetId:actor.id}):effect.from;}
     const actor=this.frameActors?.get(effect.sourceId||effect.actor?.id);
     if(!actor)return effect.from;
