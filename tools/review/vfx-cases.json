@@ -1,0 +1,810 @@
+[
+  {
+    "id": "vfx-north-integrated",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "north-short",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 7200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true
+  },
+  {
+    "id": "vfx-east",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "east-short",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 7200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true
+  },
+  {
+    "id": "vfx-concurrent-integrated",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "concurrent-heads",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 7200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true
+  },
+  {
+    "id": "vfx-north-partial-shield",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "north-short",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 7200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "hpRatio": 0.35,
+    "shield": true
+  },
+  {
+    "id": "vfx-moltres-north",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "north-short",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 7200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "attacker": "moltres",
+    "hpRatio": 0.35,
+    "shield": true
+  },
+  {
+    "id": "vfx-octillery-north",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "north-short",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 7200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "attacker": "octillery",
+    "hpRatio": 0.35,
+    "shield": true
+  },
+  {
+    "id": "vfx-wire-north-short",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "north-short",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 7200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "snapshots": true
+  },
+  {
+    "id": "vfx-wire-east-short",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "east-short",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 7200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "snapshots": true
+  },
+  {
+    "id": "vfx-wheel-0",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "wheel",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 3400,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "cast",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "team": 0
+  },
+  {
+    "id": "vfx-wheel-1",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "wheel",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 3400,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "cast",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "team": 1
+  },
+  {
+    "id": "vfx-fireball-short-0",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "fireball",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 3400,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "cast",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "team": 0,
+    "long": false
+  },
+  {
+    "id": "vfx-fireball-long-0",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "fireball",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 3400,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "cast",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "team": 0,
+    "long": true
+  },
+  {
+    "id": "vfx-fireball-short-1",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "fireball",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 3400,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "cast",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "team": 1,
+    "long": false
+  },
+  {
+    "id": "vfx-fireball-long-1",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "fireball",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 3400,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "cast",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "team": 1,
+    "long": true
+  },
+  {
+    "id": "vfx-north-dpr3",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "north-short",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 3
+    },
+    "durationMs": 7200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true
+  },
+  {
+    "id": "vfx-wheel-dpr3",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "wheel",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 3
+    },
+    "durationMs": 3400,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "cast",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true
+  },
+  {
+    "id": "vfx-reduced-pause-north-short",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "north-short",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 8500,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "snapshots": false,
+    "reduced": true,
+    "pauseAtMs": 600
+  },
+  {
+    "id": "vfx-reduced-pause-wheel",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "wheel",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 4200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "cast",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "snapshots": false,
+    "reduced": true,
+    "pauseAtMs": 600
+  },
+  {
+    "id": "vfx-reduced-pause-fireball",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "fireball",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 4200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "cast",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "snapshots": false,
+    "reduced": true,
+    "pauseAtMs": 600
+  },
+  {
+    "id": "vfx-wire-reduced-pause-north-short",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "north-short",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 8500,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "snapshots": true,
+    "reduced": true,
+    "pauseAtMs": 600
+  },
+  {
+    "id": "vfx-wire-reduced-pause-wheel",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "wheel",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 4200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "cast",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "snapshots": true,
+    "reduced": true,
+    "pauseAtMs": 600
+  },
+  {
+    "id": "vfx-wire-reduced-pause-fireball",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "fireball",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 1
+    },
+    "durationMs": 4200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "cast",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 10,
+      "y": 2,
+      "width": 370,
+      "height": 686
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "snapshots": true,
+    "reduced": true,
+    "pauseAtMs": 600
+  },
+  {
+    "id": "vfx-context-820",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "concurrent-heads",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 820,
+      "height": 1180,
+      "dpr": 1
+    },
+    "durationMs": 7200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 0,
+      "y": 0,
+      "width": 820,
+      "height": 1180
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "contextOnly": true
+  },
+  {
+    "id": "vfx-context-1365",
+    "source": "dist/index.html",
+    "adapter": "tools/review/vfx-adapter.mjs",
+    "scene": "concurrent-heads",
+    "preRollMs": 400,
+    "viewport": {
+      "width": 1365,
+      "height": 900,
+      "dpr": 1
+    },
+    "durationMs": 7200,
+    "sampleMs": 100,
+    "clock": "natural-app",
+    "expectedEvent": "attackRelease",
+    "extractIntervalMs": 33.333333,
+    "recordCanvas": "#arena",
+    "crop": {
+      "x": 0,
+      "y": 0,
+      "width": 1365,
+      "height": 900
+    },
+    "requiredObservations": [
+      "clock",
+      "canvas",
+      "events",
+      "actorState",
+      "hp"
+    ],
+    "requireWebSocketIsolation": true,
+    "contextOnly": true
+  }
+]

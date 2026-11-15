@@ -5,7 +5,7 @@
  "scene":"north-short",
  "preRollMs":400,
  "viewport":{"width":390,"height":844,"dpr":1},
- "durationMs":5800,
+ "durationMs":7200,
  "sampleMs":100,
  "clock":"natural-app",
  "expectedEvent":"attackRelease",
