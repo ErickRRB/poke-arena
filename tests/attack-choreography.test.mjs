@@ -100,10 +100,22 @@ test('bite recovery returns to the native body, while reduced keeps the structur
   assert.equal(biteMotion({...actor,attack:.28}).reach,1);
   assert.ok(biteMotion({...actor,attack:.00001}).reach<1e-6);
   assert.equal(biteMotion({...actor,attack:0}),null);
-  for(const key of['poochyenaPack','poochyenaToken','crobat','ekans']){
+  for(const key of['poochyenaPack','poochyenaToken','ekans']){
     const card=CARDS[key];assert.equal(attackVisualProfile(card),card,key+' existing profile is unchanged');
     assert.equal(biteMotion({...actor,card,attack:.28}),null);
   }
+});
+
+test('Crobat shares the directed contact while retaining its native gestures, duration and purple head',()=>{
+  const card=CARDS.crobat,actor={id:7,card,x:266,y:523,dx:1,dy:0,hp:card.hp,attackSeq:2,attackTargetId:8,attackDuration:card.attackDuration,attackWindup:card.windup,attack:card.attackDuration-card.windup};
+  const target={id:8,card:CARDS.snorlax,x:334,y:541,radius:18,hp:3968};
+  const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced:false,verticalScale:1,visualActors:new Map([[7,{}]]),frameActors:new Map([[7,actor],[8,target]])});
+  assert.equal(attackVisualProfile(card),card,'native Crobat gestures are not replaced by Zubat frames');
+  const presented=renderer.presentAttack(actor,{},0);assert.equal(presented.attackDuration,card.attackDuration,'the complete native recovery remains');
+  renderer.prepareBiteActors();const shown=renderer.frameActors.get(7),mouth=renderer.visualEmission(shown);
+  assert.ok(Math.hypot(mouth.x-shown.biteContact.x,mouth.y-shown.biteContact.y)<1e-7);
+  assert.equal(renderer.drawBiteGesture({},shown),false,'no blue Zubat head is painted onto Crobat');
+  assert.equal(shown.card.scale,card.scale);
 });
 
 test('bite head follows a progressive route while its contact stays fixed to the moving target',()=>{

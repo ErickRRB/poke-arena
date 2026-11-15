@@ -270,7 +270,8 @@ export class Renderer {
   presentAttack(actor,pose,dt){
     const bite=directedBite(actor.card)&&!actor.mounted;
     if(!bite&&(actor.card?.id!==6||actor.card.attackAnim!=='Shoot'))return actor;
-    const duration=(actor.attackWindup??actor.card.windup??.3)+(bite?.4:.42);
+    const recovery=(actor.attackWindup??actor.card.windup??.3)+(bite?.4:.42);
+    const duration=bite?Math.max(actor.attackDuration||actor.card.attackDuration||recovery,recovery):recovery;
     let show=pose.presentation;
     if(actor.hp<=0||actor.stun>0||actor.pushHurt>0){delete pose.presentation;return actor;}
     if(actor.attack>0){
@@ -354,7 +355,7 @@ export class Renderer {
     for(const[id,actor]of updates)this.frameActors.set(id,actor);
   }
   drawBiteGesture(c,unit){
-    if(!unit.biteContact||unit.preview||this.silhouettePass)return false;
+    if(unit.card?.id!==41||!unit.biteContact||unit.preview||this.silhouettePass)return false;
     const contact=this.attackContacts?.get(unit.id);
     const released=contact?.seq===unit.attackSeq&&contact.shot>=0||contact?.held?.seq===unit.attackSeq&&this.t<contact.held.until;
     const jaw=biteJaw(unit,released);if(!jaw)return false;
@@ -1038,7 +1039,7 @@ export class Renderer {
         const card=source?.card||CARDS[e.key],size=combatVisual(card).impact*(bite?1:e.charged?1.2:card?.windup>=.6?1.35:1);
         const angle=Math.atan2((to.y-from.y)*(this.verticalScale||1),to.x-from.x);
         if(['slash','horn','dash'].includes(e.style)&&!this.reduced&&progress<.5){c.save();c.globalAlpha*=.45*(1-progress*2);this.combatArt(c,'slash',(from.x+to.x)/2,(from.y+to.y)/2,size*.85,angle+Math.PI/4,size*.65,{progress:progress*2,trim:true});c.restore();}
-        this.combatArt(c,name,to.x,to.y,size,0,size,{progress,direction:directionRow(to.x-from.x,to.y-from.y)});
+        this.combatArt(c,name,to.x,to.y,size,0,size,{progress,direction:bite?directionRow(source.dx,source.dy):directionRow(to.x-from.x,to.y-from.y)});
       }else if(e.kind==='spell'){
         this.combatArt(c,'snow',e.x,e.y,e.radius*2.4,0,e.radius*2.4,{direction:0,progress});
       }else if(e.kind==='blink'){

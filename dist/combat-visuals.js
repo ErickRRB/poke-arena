@@ -12,9 +12,9 @@ export function combatVisual(card={}){
 }
 const FIRE_GESTURE=Object.freeze([0,1,2,3,4,5,6,7,8,9,10]);
 const ZUBAT_GESTURES=Object.freeze([Object.freeze({rest:1,prepare:6,contact:6,follow:10})]);
-export const directedBite=card=>card?.id===41&&card.style==='bite'&&card.attackAnim==='Attack';
+export const directedBite=card=>[41,169].includes(card?.id)&&card.style==='bite'&&card.attackAnim==='Attack';
 export function attackVisualProfile(card){
-  if(directedBite(card))return{...card,attackGestures:ZUBAT_GESTURES};
+  if(card?.id===41&&directedBite(card))return{...card,attackGestures:ZUBAT_GESTURES};
   return card?.id===6&&card.attackAnim==='Shoot'?{...card,attackFrames:FIRE_GESTURE,attackContactFrame:2}:card;
 }
 export function biteMotion(unit,reduced=false){
