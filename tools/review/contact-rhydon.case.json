@@ -1,0 +1,57 @@
+{
+  "id": "contact-rhydon",
+  "source": "dist/index.html",
+  "adapter": "tools/review/baseline-adapter.mjs",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "dpr": 1
+  },
+  "durationMs": 7200,
+  "sampleMs": 100,
+  "clock": "natural-app",
+  "expectedEvent": "damage",
+  "extractIntervalMs": 33.333333,
+  "recordCanvas": "#arena",
+  "crop": {
+    "x": 10,
+    "y": 2,
+    "width": 370,
+    "height": 686
+  },
+  "requiredObservations": [
+    "clock",
+    "canvas",
+    "events",
+    "actorState",
+    "hp"
+  ],
+  "requireWebSocketIsolation": true,
+  "runtime": {
+    "root": "../pokemon-arena-small-sprites-integrated",
+    "sha": "5b378fd37998c621533885a37c6ecd8e906f2a62",
+    "tree": "2c4910d56a0fe0f273021d287733c0f9231ca828"
+  },
+  "scenario": {
+    "attacker": {
+      "key": "rhydon",
+      "id": 112
+    },
+    "target": {
+      "key": "snorlax",
+      "id": 143
+    },
+    "orientation": "east",
+    "preRollMs": 500,
+    "preload": [
+      {
+        "id": 112,
+        "animation": "Attack"
+      },
+      {
+        "id": 143,
+        "animation": "Idle"
+      }
+    ]
+  }
+}
