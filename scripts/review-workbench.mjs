@@ -19,15 +19,10 @@ export function validateCase(c) {
   if (!q || ![q.x,q.y,q.width,q.height].every(Number.isFinite) || q.x<0 || q.y<0 || q.width<=0 || q.height<=0 || q.x+q.width>width || q.y+q.height>height) throw Error('invalid fixed crop');
   inRoot(c.source); inRoot(c.adapter);
 }
-export function jpegSize(data) {
-  if (data[0] !== 0xff || data[1] !== 0xd8) throw Error('invalid JPEG');
-  for (let i=2; i+8<data.length;) {
-    if (data[i] !== 0xff) throw Error('invalid JPEG segment');
-    const marker=data[i+1], length=data.readUInt16BE(i+2);
-    if ([0xc0,0xc1,0xc2].includes(marker)) return {width:data.readUInt16BE(i+7),height:data.readUInt16BE(i+5)};
-    if (length<2) break; i+=2+length;
-  }
-  throw Error('JPEG size unavailable');
+export function pngSize(data) {
+  const signature=Buffer.from([137,80,78,71,13,10,26,10]);
+  if (data.length<24 || !data.subarray(0,8).equals(signature) || data.readUInt32BE(8)!==13 || data.toString('ascii',12,16)!=='IHDR') throw Error('invalid PNG');
+  return {width:data.readUInt32BE(16),height:data.readUInt32BE(20)};
 }
 export function selectFrames(pts, interval) {
   const selected=[]; let last=-Infinity;
@@ -39,9 +34,10 @@ function viewer(c, selected, result) {
   const frames=selected.map(f=>`<section><p>Tiempo original ${f.pts.toFixed(6)} s · cuadro ${f.index}</p><div class="row"><div class="full"><img src="${f.path}" alt="Contexto completo"></div><div class="crop"><img src="${f.path}" alt="Recorte fijo"></div></div></section>`).join('\n');
   const cadence=result.capture.observedCadence;
   const samples=result.samples.map((sample,i)=>`<tr><td>${i+1}</td><td>${esc(sample.epochMs)}</td><td>${esc(sample.wallTime)}</td><td>${esc(sample.gameTime)}</td><td>${esc(JSON.stringify(sample.pose))}</td><td>${esc(JSON.stringify(sample.hp))}</td><td>${esc(JSON.stringify(sample.events))}</td></tr>`).join('');
-  const first=result.samples[0], viewport=first.viewport;
+  const first=result.samples[0], viewport=first.viewport, image=result.capture.frames[0];
+  const eventSamples=result.samples.filter(sample=>sample.events?.some(event=>event.type===c.expectedEvent)).length;
   const conditions=esc(JSON.stringify({requested:c.viewport,observed:first,capture:cadence},null,2));
-  return `<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(c.id)} · evidencia</title><style>body{font:14px system-ui;margin:16px;overflow-wrap:anywhere} .row{display:flex;flex-wrap:wrap;gap:12px;align-items:start}.full,.crop{overflow:auto;flex:none;max-width:100%}.full{width:${width}px;height:${height}px}.crop{width:${q.width}px;height:${q.height}px}.row img{display:block;width:${width}px;height:${height}px;max-width:none}.crop img{margin-left:-${q.x}px;margin-top:-${q.y}px}section{margin:24px 0}video{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%}.table-wrap{max-width:100%;overflow-x:auto}td{overflow-wrap:anywhere}</style><h1>${esc(c.id)}</h1><p>Secuencia de cuadros recibidos de CDP; puede omitir presentaciones. No demuestra fluidez.</p><p><a href="run.json">Manifiesto completo</a></p>${c.recordCanvas ? '<p>Video de canvas (sin interfaz completa):</p><video controls src="canvas.webm"></video>' : ''}${frames}<h2>Condiciones y cadencia observadas</h2><p>Viewport solicitado ${width} × ${height}, DPR ${esc(c.viewport.dpr)}; observado ${esc(viewport.width)} × ${esc(viewport.height)}, DPR ${esc(first.dpr)}.</p><p>Cuadros CDP recibidos: ${cadence.count}; duración: ${cadence.durationSeconds.toFixed(3)} s; media: ${cadence.meanDeliveredFps?.toFixed(2) ?? '—'} por segundo; hueco máximo: ${cadence.maxGapMs?.toFixed(2) ?? '—'} ms. Son valores de entrega, no fluidez.</p><details><summary>Condiciones y huecos completos</summary><pre>${conditions}</pre></details><details><summary>Tiempos, poses, HP y eventos observados (${result.samples.length})</summary><div class="table-wrap"><table><thead><tr><th>Muestra</th><th>Época (ms)</th><th>Reloj página (ms)</th><th>Juego (s)</th><th>Pose</th><th>HP</th><th>Eventos</th></tr></thead><tbody>${samples}</tbody></table></div></details></html>`;
+  return `<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(c.id)} · evidencia</title><style>body{font:14px system-ui;margin:16px;overflow-wrap:anywhere} .row{display:flex;flex-wrap:wrap;gap:12px;align-items:start}.full,.crop{overflow:auto;flex:none;max-width:100%}.full{width:${width}px;height:${height}px}.crop{width:${q.width}px;height:${q.height}px}.row img{display:block;width:${width}px;height:${height}px;max-width:none}.crop img{margin-left:-${q.x}px;margin-top:-${q.y}px}section{margin:24px 0}video{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%}.table-wrap{max-width:100%;overflow-x:auto}td{overflow-wrap:anywhere}</style><h1>${esc(c.id)}</h1><p>Secuencia de cuadros recibidos de CDP; puede omitir presentaciones. No demuestra fluidez.</p><p><a href="run.json">Manifiesto completo</a></p>${c.recordCanvas ? '<p>Video de canvas (sin interfaz completa):</p><video controls src="canvas.webm"></video>' : ''}<h2 id="capture-summary">Condiciones y cadencia observadas</h2><p>Viewport solicitado ${width} × ${height}, DPR ${esc(c.viewport.dpr)}; observado ${esc(viewport.width)} × ${esc(viewport.height)}, DPR ${esc(first.dpr)}.</p><p>Fuente: ${esc(c.source)}; cuadros ${esc(image.format)} de ${image.width} × ${image.height} píxeles capturados (dimensiones de imagen, no DPR físico inferido). Evento ${esc(c.expectedEvent)} presente en ${eventSamples} muestras; las repeticiones no implican eventos distintos.</p><p>Cuadros CDP recibidos: ${cadence.count}; duración: ${cadence.durationSeconds.toFixed(3)} s; media: ${cadence.meanDeliveredFps?.toFixed(2) ?? '—'} por segundo; hueco máximo: ${cadence.maxGapMs?.toFixed(2) ?? '—'} ms. Son valores de entrega, no fluidez.</p><details><summary>Condiciones y huecos completos</summary><pre>${conditions}</pre></details><details><summary>Tiempos, poses, HP y eventos observados (${result.samples.length})</summary><div class="table-wrap"><table><thead><tr><th>Muestra</th><th>Época (ms)</th><th>Reloj página (ms)</th><th>Juego (s)</th><th>Pose</th><th>HP</th><th>Eventos</th></tr></thead><tbody>${samples}</tbody></table></div></details>${frames}</html>`;
 
 }
 async function playwright() {
@@ -83,12 +79,12 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
     if (dir) {
       cdp=await context.newCDPSession(page); await cdp.send('Page.enable');
       cdp.on('Page.screencastFrame', frame=> {
-        const index=captured.length, name=`frames/${String(index).padStart(5,'0')}.jpg`;
+        const index=captured.length, name=`frames/${String(index).padStart(5,'0')}.png`;
         const entry={index,path:name,timestamp:frame.metadata.timestamp,deviceWidth:frame.metadata.deviceWidth,deviceHeight:frame.metadata.deviceHeight}; captured.push(entry);
         pending=pending.then(()=>writeFile(path.join(dir,name),Buffer.from(frame.data,'base64')));
         cdp.send('Page.screencastFrameAck',{sessionId:frame.sessionId}).catch(()=>{});
       });
-      await cdp.send('Page.startScreencast',{format:'jpeg',quality:100,maxWidth:viewport.width,maxHeight:viewport.height,everyNthFrame:1});
+      await cdp.send('Page.startScreencast',{format:'png',maxWidth:viewport.width,maxHeight:viewport.height,everyNthFrame:1});
     }
     const start=Date.now();
     do { result.samples.push(await adapter.observe(page,c)); await page.waitForTimeout(c.sampleMs); } while(Date.now()-start<(observeDurationMs ?? c.durationMs));
@@ -111,7 +107,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
       const selected=selectFrames(pts,c.extractIntervalMs/1000).map(f=>({...f,path:captured[f.index].path}));
       const gaps=pts.slice(1).map((t,i)=>t-pts[i]); if(c.maxGapMs !== undefined && gaps.some(g=>g*1000>c.maxGapMs)) throw Error('requested maximum gap exceeded');
       result.capture={kind:'cdp-screencast',clock:'CDP metadata.timestamp (seconds since epoch)',origin,frames:captured,selected,observedCadence: {count:captured.length, durationSeconds:pts.at(-1), meanDeliveredFps:pts.at(-1)>0?(pts.length-1)/pts.at(-1):null,maxGapMs:gaps.length?Math.max(...gaps)*1000:null,gapsSeconds:gaps},limitations:'CDP delivers browser frames opportunistically; timestamps describe delivered frames, not every display presentation. No continuous video or perceptual fluency is claimed.'};
-      for (const frame of captured) { const bytes=await readFile(path.join(dir,frame.path)); const size=jpegSize(bytes); if(size.width!==viewport.width || size.height!==viewport.height) throw Error('captured frame size differs from CSS viewport'); frame.sha256=sha(bytes); }
+      for (const frame of captured) { const bytes=await readFile(path.join(dir,frame.path)); const size=pngSize(bytes); if(size.width!==viewport.width || size.height!==viewport.height) throw Error('captured frame size differs from CSS viewport'); Object.assign(frame,{format:'png',width:size.width,height:size.height,sha256:sha(bytes)}); }
       await writeFile(path.join(dir,'index.html'),viewer(c,selected,result));
     }
     result.observation={durationMs:result.samples.at(-1).epochMs-result.samples[0].epochMs,firstEpochMs:result.samples[0].epochMs,lastEpochMs:result.samples.at(-1).epochMs,firstGameTime:result.samples[0].gameTime,lastGameTime:result.samples.at(-1).gameTime,events:result.samples.flatMap((sample,index)=>(sample.events||[]).map(event=>({event,sampleIndex:index,epochMs:sample.epochMs,gameTime:sample.gameTime})))};
