@@ -18,26 +18,32 @@ export function rollingFirePose(spell,previous,dt=0){
   return{kind:'rollingFire',elapsed,logical,travelled,direction,startY,
     x:spell.x,y:startY+direction*travelled,endY:startY+direction*distance,
     age:previous?previous.age+Math.max(0,dt):logical,
-    spin:direction*travelled/32};
+    spin:direction*travelled/32,halfWidth:Math.max(0,spell.card.splash||0)};
 }
 
-// A solid disc with an oblique face and visible depth. The rim and radial
-// currents preserve wheel identity while native flames keep the material alive.
-export function drawFireWheel(c,pose,drawFlame,{vertical=1,reduced=false,opacity=1}={}){
-  const age=reduced?.4:pose.age,spin=pose.spin;
+export function fireWheelGeometry(halfWidth){
+  if(!Number.isFinite(halfWidth)||halfWidth<=0)throw Error('A fire wheel needs its native rolling half-width');
+  const faceRadius=Math.min(15,halfWidth*.45);
+  return{halfWidth,left:-halfWidth,right:halfWidth,faceRadius,front:-halfWidth+faceRadius,back:halfWidth-faceRadius,depth:2*(halfWidth-faceRadius),radiusY:29};
+}
+
+// The primary opaque mass is separate from shadow and loose tongues. Its
+// symmetric width follows the native corridor through the entire active cast.
+export function drawFireWheelBody(c,pose,{vertical=1,opacity=1,halfWidth=pose.halfWidth}={}){
+  const g=fireWheelGeometry(halfWidth),spin=pose.spin;
   c.save();c.translate(pose.x,pose.y);c.scale(1,1/vertical);c.globalAlpha*=opacity;
   const face=(x,y,rx,ry,color)=>{
     c.fillStyle=color;c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);c.fill();
   };
-  face(2,4,32,6,'#372b2638');c.translate(-5,-29);c.lineJoin='round';c.lineCap='round';
-  face(12,0,15,29,'#72231d');
-  c.fillStyle='#b83c1d';c.fillRect(-4,-28,16,56);
-  face(8,0,15,28,'#ce4b1b');
-  face(-4,0,16,29,'#81271d');face(-4,0,14,27,'#f39c2b');
+  c.translate(0,-29);c.lineJoin='round';c.lineCap='round';
+  face(g.back,0,g.faceRadius,29,'#72231d');
+  c.fillStyle='#bd421c';c.fillRect(g.front,-28,g.depth,56);
+  face(g.back-2,0,g.faceRadius-1,28,'#ce4b1b');
+  face(g.front,0,g.faceRadius,29,'#81271d');face(g.front,0,g.faceRadius-1,27,'#f39c2b');
   // Opaque hot material fills the face; the darker center is never a hole.
-  face(-4,0,10.5,21.5,'#9f3020');
-  c.save();c.beginPath();c.ellipse(-4,0,10.5,21.5,0,0,Math.PI*2);c.clip();
-  c.translate(-4,0);c.scale(.5,1);c.rotate(spin);
+  face(g.front,0,g.faceRadius*.7,21.5,'#9f3020');
+  c.save();c.beginPath();c.ellipse(g.front,0,g.faceRadius*.7,21.5,0,0,Math.PI*2);c.clip();
+  c.translate(g.front,0);c.scale(g.faceRadius/30,1);c.rotate(spin);
   for(let i=0;i<4;i++){
     c.save();c.rotate(i*Math.PI/2);
     c.beginPath();c.moveTo(0,0);c.bezierCurveTo(7,-5,15,-2,26,5);c.strokeStyle='#eb651f';c.lineWidth=10;c.stroke();
@@ -48,11 +54,22 @@ export function drawFireWheel(c,pose,drawFlame,{vertical=1,reduced=false,opacity
   // Hot seams move over the exposed cylindrical edge with distance travelled.
   for(let i=0;i<6;i++){
     const a=spin+i*Math.PI/3;if(Math.cos(a)<0)continue;
-    const x=-4+Math.cos(a)*14,y=Math.sin(a)*27;
-    c.beginPath();c.moveTo(x,y);c.lineTo(x+16,y);c.strokeStyle=i%2?'#f18422':'#ffca57';c.lineWidth=3;c.stroke();
+    const x=g.front+Math.cos(a)*(g.faceRadius-1),y=Math.sin(a)*27;
+    c.beginPath();c.moveTo(x,y);c.lineTo(x+g.depth,y);c.strokeStyle=i%2?'#f18422':'#ffca57';c.lineWidth=3;c.stroke();
   }
-  for(let i=0;i<6;i++){
-    const a=i*Math.PI/3+spin*.12,x=-4+Math.cos(a)*15,y=Math.sin(a)*28;
+  c.restore();
+}
+
+export function drawFireWheel(c,pose,drawFlame,{vertical=1,reduced=false,opacity=1,halfWidth=pose.halfWidth}={}){
+  const g=fireWheelGeometry(halfWidth),age=reduced?.4:pose.age,spin=pose.spin;
+  c.save();c.translate(pose.x,pose.y);c.scale(1,1/vertical);c.globalAlpha*=opacity;
+  c.fillStyle='#372b2638';c.beginPath();c.ellipse(0,4,halfWidth,6,0,0,Math.PI*2);c.fill();c.restore();
+  drawFireWheelBody(c,pose,{vertical,opacity,halfWidth});
+  c.save();c.translate(pose.x,pose.y);c.scale(1,1/vertical);c.globalAlpha*=opacity;c.translate(0,-29);
+  // Loose native flames remain a bounded material detail, not extra reach.
+  c.beginPath();c.rect(-halfWidth-3,-50,halfWidth*2+6,100);c.clip();
+  for(let i=0;i<12;i++){
+    const a=i*Math.PI/3+spin*.12,center=i<6?g.front:g.back,x=center+Math.cos(a)*Math.max(1,g.faceRadius-7),y=Math.sin(a)*28;
     const size=14+(reduced?0:2*Math.sin(age*11+i*1.7));
     drawFlame('emberShot',x,y,size,a+Math.PI*.6,{frame:flameFrame(age,reduced,i),trim:true});
   }

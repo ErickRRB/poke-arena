@@ -50,3 +50,12 @@ test('Fireball material follows its cast clock; pause and reduced motion preserv
  r.reduced=true;r.spellFlight(c,spell);assert.equal(seen[2].age,0);assert.equal(JSON.stringify(spell),saved);
  r.reduced=false;r.spellFlight(c,{...spell,visualId:2,flightElapsed:0});assert.equal(seen[3].age,0,'A new cast starts at its own phase.');
 });
+
+test('rolling extinction preserves the actual cast footprint instead of using the current catalogue width',()=>{
+ const card={...CARDS.log,splash:CARDS.log.splash*.6},spell={card,team:0,x:288,y:508,startY:508,travelRemaining:1};
+ const pose=rollingFirePose(spell,null,0),painted=[],r=Object.assign(Object.create(Renderer.prototype),{t:2,frameActors:new Map(),visualFlights:new Map([['rollingFire:9',{...pose,at:1}]]),effects:[],reduced:false,fireWheel:(_c,p,_reduced,opacity)=>painted.push({halfWidth:p.halfWidth,opacity}),combatArt(){}});
+ r.drawEffects(context(),.016);
+ assert.equal(r.effects[0].halfWidth,card.splash);
+ assert.equal(painted[0].halfWidth,card.splash);
+ assert.ok(painted[0].opacity<=1,'Only the disappeared cast enters the extinction pass.');
+});

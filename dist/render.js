@@ -720,7 +720,7 @@ export class Renderer {
   }
   fireWheel(c,pose,reduced=this.reduced,opacity=1){
     const vertical=this.verticalScale||1;
-    drawFireWheel(c,pose,(name,x,y,size,angle,options)=>this.combatArt(c,name,x,y,size,angle,size*vertical,options),{vertical,reduced,opacity});
+    drawFireWheel(c,pose,(name,x,y,size,angle,options)=>this.combatArt(c,name,x,y,size,angle,size*vertical,options),{vertical,reduced,opacity,halfWidth:pose.halfWidth??CARDS.log.splash});
   }
   effectTarget(effect){
     const actor=this.frameActors.get(effect.targetId);
@@ -799,7 +799,7 @@ export class Renderer {
   drawEffects(c,dt){
     for(const pose of this.visualFlights?.values()||[])if(pose.kind==='rollingFire'&&!pose.ended&&pose.at<this.t-1e-7){
       pose.ended=true;
-      this.effects.push({kind:'rollingFireEnd',x:pose.x,y:pose.endY,spin:pose.spin,age:pose.age,direction:pose.direction,life:.28,max:.28});
+      this.effects.push({kind:'rollingFireEnd',x:pose.x,y:pose.endY,spin:pose.spin,age:pose.age,direction:pose.direction,halfWidth:pose.halfWidth,life:.28,max:.28});
     }
     for(const e of this.effects){
       if(['windup','charge'].includes(e.kind)&&e.seq!==undefined&&(this.frameActors?.get(e.actor.id)||e.actor).attackSeq!==e.seq){e.life=0;continue;}
@@ -965,7 +965,7 @@ export class Renderer {
     }
     // Only the held location is illustrated. Nothing is stored for after release.
     c.save();c.globalAlpha*=valid?.6:.32;
-    if(key==='log')this.fireWheel(c,{x:point.x,y:point.y,age:.4,spin:.35,direction:team?1:-1},true);
+    if(key==='log')this.fireWheel(c,{x:point.x,y:point.y,age:.4,spin:.35,direction:team?1:-1,halfWidth:card.splash},true);
     else if(card.spawnOnImpact&&spellVisualProfile(key)?.flight==='capsule')this.capsule(c,point.x,point.y-22,42,0,0);
     c.restore();
   }
