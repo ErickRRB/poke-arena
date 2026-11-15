@@ -134,6 +134,18 @@ test('release retains its original attack target through a logical retarget',()=
   assert.equal(renderer.visualActor(actor,0).attackTargetId,8);
 });
 
+test('flight phase is shared before mouth contact and painting, so a paused redraw does not correct the bob',()=>{
+  const actor={id:7,card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,attackSeq:2,attackTargetId:8,attackDuration:1,attackWindup:.6,attack:.4};
+  const target={id:8,card:CARDS.snorlax,x:334,y:541,radius:18,hp:3968},wings=new FlightWings();wings.clock(7,.98);
+  const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced:false,verticalScale:1,visualActors:new Map([[7,{}]]),frameActors:new Map([[7,actor],[8,target]]),flightWings:wings});
+  renderer.prepareBiteActors();const shown=renderer.frameActors.get(7),before={x:shown.x,y:shown.y};
+  wings.clock(7,1); // The ordinary sprite painter consumes this same phase.
+  const mouth=renderer.visualEmission(shown);
+  assert.ok(Math.hypot(mouth.x-shown.biteContact.x,mouth.y-shown.biteContact.y)<1e-7);
+  renderer.frameActors=new Map([[7,actor],[8,target]]);renderer.prepareBiteActors();
+  const paused=renderer.frameActors.get(7);assert.deepEqual({x:paused.x,y:paused.y},before);
+});
+
 test('Zubat raises, folds and reopens native wings while its jaw closes only on released contact',()=>{
   const card=CARDS.zubat,meta=SPRITE_GEOMETRY[41].Attack,profile=attackVisualProfile(card);
   const phases=[0,.3,.6,.75,.94].map(t=>attackAnimationFrame(meta,t,1,.6,profile.attackFrames,profile));

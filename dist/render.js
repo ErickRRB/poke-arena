@@ -291,17 +291,36 @@ export class Renderer {
     const scale=tower?1.3:visualScale(target),vertical=this.verticalScale||1,entries=Object.values(this.metadata?.[profile.id]||{});
     const width=Math.max(tower?110:50,...entries.map(m=>m.width||0))*scale+24;
     const height=Math.max(tower?150:60,...entries.map(m=>m.height||0))*scale+80;
-    const contours=this.biteContours??=new BiteContours(),box={left:-width,right:width,top:-height/vertical,bottom:32/vertical};
+    const contours=this.biteContours??=new BiteContours();let box={left:-width,right:width,top:-height/vertical,bottom:32/vertical},frameKey;
+    const pose=!tower&&!profile.structureArt?this.nativeSpritePose(target):null;
+    if(pose&&!pose.preparation&&!target.leap&&!profile.burrow&&!(target.spawn>0)){
+      // Keep the old sampling scale and grid phase. A tighter native-cell window
+      // then reads the identical pixels without the surrounding atlas padding.
+      const s=Math.min(1,512/(box.right-box.left),512/(box.bottom-box.top)),pad=24;
+      const x=(target.dx||0)*pose.lunge-pose.anchor.x*pose.scale;
+      const y=(target.dy||0)*pose.lunge/vertical-pose.lift-pose.anchor.y*pose.scale/vertical;
+      const l=Math.max(0,Math.floor((x-pad-box.left)*s)),t=Math.max(0,Math.floor((y-pad-box.top)*s));
+      const rr=Math.min(Math.ceil((box.right-box.left)*s),Math.ceil((x+pose.meta.width*pose.scale+pad-box.left)*s));
+      const bb=Math.min(Math.ceil((box.bottom-box.top)*s),Math.ceil((y+pose.meta.height*pose.scale/vertical+pad-box.top)*s));
+      box={left:box.left+l/s,top:box.top+t/s,right:box.left+rr/s,bottom:box.top+bb/s,scale:s};
+      // Ground PNG frame masks are immutable and shareable across actors.
+      // Hover/wing rigs and other continuously deforming bodies stay per-draw.
+      if(!profile.flying&&pose.anim!=='Hop')frameKey=[profile.id,pose.anim,pose.frame,pose.direction,pose.scale,vertical,pose.anchor.x,pose.anchor.y,pose.lift,(target.dx||0)*pose.lunge,(target.dy||0)*pose.lunge,profile.structure,profile.platform,this.nativeSpriteSampler?.enabled,pose.img.src,box.left,box.top,s].join(':');
+    }
     const point=contours.contact(target,from,box,c=>{
       const previous=this.silhouettePass;this.silhouettePass=true;
       try{const local={...target,x:0,y:0};if(tower)this.tower(c,local);else this.sprite(c,local,true);}
       finally{this.silhouettePass=previous;}
-    });
+    },frameKey);
     // A newly requested species may not have painted its first frame yet.
     // Once loaded, every target uses its current body pixels, never a fixed hit.
     return point||biteSurface(from,target,vertical);
   }
   prepareBiteActors(){
+    // Geometry and painting consume one flight phase. Advancing it here avoids
+    // a subpixel bob correction on the first paused draw after a live frame.
+    this.flightWings??=new FlightWings();
+    for(const actor of this.frameActors.values())if(directedBite(actor.card))this.flightWings.clock(actor.id,this.t,actor.freeze>0);
     const updates=[];
     for(const[id,actor]of this.frameActors){
       if(!directedBite(actor.card)||actor.mounted)continue;
@@ -420,11 +439,8 @@ export class Renderer {
     const labelY=by+18/vertical;
     rect(c,'#243b2ad9',x-labelWidth/2,labelY-8,labelWidth,16);text(c,hp,x,labelY,team?'#ffe2ce':'#d5f1ef',11,700);c.restore();
   }
-  sprite(c, unit, idle = false) {
-    if(unit.card.structureArt){this.structureSprite(c,unit,idle);return;}
+  nativeSpritePose(unit){
     const id = unit.card.id;
-    const burrow=unit.card.burrow&&!unit.preview?(this.reduced?(unit.burrowed?1:0):unit.burrowProgress??(unit.burrowed?1:0)):0;
-    if(burrow>=.999){this.platform(c,unit);return;}
     if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
     const movement=movementVisual(unit.card);
     const preparation=dashPreparation(unit,this.reduced);
@@ -452,12 +468,19 @@ export class Renderer {
     if(loopFrames)frame=loopFrames[frame];
     let direction = directionRow(unit.dx,unit.dy);
     if(img.height/meta.height<8)direction=0;
-    const {x,y}=unit;
     const nativeAnchor=this.anchors.get(`${id}-${anim}`)?.[direction]?.[frame]||{x:meta.width/2,y:meta.height*.65};
     const anchor=(loopFrames||attacking)&&movement.bodyAnchor?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor;
     const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:unit.leap.kind==='river'?24:48):0;
     const lift=(leapLift+(unit.card.structure?structureLift(unit.card):unit.card.flying?16+(this.reduced?0:Math.sin(flightClock*2.6+unit.id)*1.5):0))/vertical;
     const lunge=attackLunge(unit,this.reduced);
+    return{id,meta,img,scale,vertical,anim,frame,direction,anchor,lift,lunge,flightClock,preparation};
+  }
+  sprite(c, unit, idle = false) {
+    if(unit.card.structureArt){this.structureSprite(c,unit,idle);return;}
+    const burrow=unit.card.burrow&&!unit.preview?(this.reduced?(unit.burrowed?1:0):unit.burrowProgress??(unit.burrowed?1:0)):0;
+    if(burrow>=.999){this.platform(c,unit);return;}
+    const pose=this.nativeSpritePose(unit);if(!pose)return;
+    const {id,meta,img,scale,vertical,anim,frame,direction,anchor,lift,lunge,flightClock,preparation}=pose,{x,y}=unit;
     const radius=unit.radius||12;
     if(!unit.mounted&&!unit.preview&&!this.silhouettePass){
       ellipse(c,'#15382a65',x,y+2,radius+2,unit.card.flying?6:4);
@@ -474,7 +497,7 @@ export class Renderer {
     if(unit.spawn>0)c.globalAlpha=.2+.8*spawnProgress;
     if(unit.hit>0&&!this.reduced) c.filter=`brightness(${1+.35*unit.hit/.24})`;
     const px=x+unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge/vertical-lift-(this.reduced?0:(1-spawnProgress)*12/vertical)-anchor.y*scale/vertical+burrow*((this.bodyHeights.get(id)||22)*scale+25)/vertical;
-    if((unit.dash?.phase==='travel'||unit.card.charge&&unit.charge>=unit.card.charge)&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9/vertical),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
+    if(!this.silhouettePass&&(unit.dash?.phase==='travel'||unit.card.charge&&unit.charge>=unit.card.charge)&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9/vertical),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
     const articulated=this.nativeSpriteSampler?.frame(id,anim,direction,frame,meta,scale,vertical,c.getTransform?.(),img)||this.flightWings.frame(id,anim,direction,frame,img,meta,flightClock+(unit.id||0)*.173,this.reduced);
     const spriteImage=articulated?.image||img,spriteFrame=alignedSpriteRect(articulated?[0,0,articulated.image.width,articulated.image.height,px-articulated.padding*scale,py-articulated.padding*scale/vertical,articulated.width*scale,articulated.height*scale/vertical]:[frame*meta.width,direction*meta.height,meta.width,meta.height,px,py,meta.width*scale,meta.height*scale/vertical],c.getTransform?.());
     c.drawImage(spriteImage,...spriteFrame);

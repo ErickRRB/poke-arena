@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {contourContact} from '../dist/bite-contours.js';
+import {contourContact,BiteContours} from '../dist/bite-contours.js';
 
 function mask(width,height,points,{left=0,top=0,scale=1}={}){
   const alpha=new Uint8Array(width*height),bounds={left:width,right:-1,top:height,bottom:-1};
@@ -28,4 +28,18 @@ test('disjoint parts, transparent centers and empty frames never create an inven
   assert.ok([[2.5,1.5],[9.5,10.5]].some(([x,y])=>p.x===x&&p.y===y));
   assert.equal(contourContact(mask(8,8,[]),{x:0,y:0}),null);
   assert.equal(contourContact(null,{x:0,y:0}),null);
+});
+
+test('immutable ground poses share compact masks across actors and evict within the cache bound',()=>{
+  let reads=0,paints=0;
+  const context={imageSmoothingEnabled:false,setTransform(){},getImageData(x,y,w,h){reads++;const data=new Uint8ClampedArray(w*h*4);for(const[px,py]of[[3,4],[4,4],[3,5],[4,5]])data[(py*w+px)*4+3]=255;return{data};}};
+  const contours=new BiteContours();contours.surface={getContext(){return context;}};contours.maxFrameEntries=2;
+  const box={left:0,right:20,top:0,bottom:20},paint=()=>paints++;
+  const first=contours.contact({id:1,x:0,y:0},{x:-10,y:4},box,paint,'pose-a');
+  contours.beginFrame();const translated=contours.contact({id:2,x:100,y:40},{x:90,y:44},box,paint,'pose-a');
+  assert.equal(reads,1);assert.equal(paints,1);assert.deepEqual(translated,{x:first.x+100,y:first.y+40});
+  assert.equal(contours.frames.get('pose-a').alpha.length,4,'padding is not retained as alpha cache');
+  for(const key of['pose-b','pose-c']){contours.beginFrame();contours.contact({id:1,x:0,y:0},{x:-10,y:4},box,paint,key);}
+  assert.equal(contours.frames.size,2);assert.ok(!contours.frames.has('pose-a'));assert.ok(contours.frameBytes<=contours.maxFrameBytes);
+  contours.beginFrame();contours.contact({id:1,x:0,y:0},{x:-10,y:4},box,paint,'pose-a');assert.equal(reads,4,'an evicted pose is read again');
 });

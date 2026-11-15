@@ -28,23 +28,38 @@ export function contourContact(mask,from){
 }
 
 export class BiteContours{
-  constructor(){this.records=new Map();this.maxEntries=12;this.maxSide=512;this.surface=null;}
+  constructor(){this.records=new Map();this.maxEntries=12;this.maxSide=512;this.surface=null;this.frames=new Map();this.frameBytes=0;this.maxFrameEntries=32;this.maxFrameBytes=512*1024;}
   beginFrame(){this.records.clear();}
-  contact(actor,from,box,paint){
+  contact(actor,from,box,paint,frameKey){
     let mask=this.records.get(actor.id);
     if(!this.records.has(actor.id)){
-      const scale=Math.min(1,this.maxSide/(box.right-box.left),this.maxSide/(box.bottom-box.top));
+      mask=frameKey&&this.frames.get(frameKey);
+      if(mask){this.frames.delete(frameKey);this.frames.set(frameKey,mask);}
+      else{
+      const scale=box.scale||Math.min(1,this.maxSide/(box.right-box.left),this.maxSide/(box.bottom-box.top));
       const width=clamp(Math.ceil((box.right-box.left)*scale),1,this.maxSide),height=clamp(Math.ceil((box.bottom-box.top)*scale),1,this.maxSide);
       const surface=this.surface??=document.createElement('canvas');surface.width=width;surface.height=height;
       const c=surface.getContext('2d',{willReadFrequently:true});c.imageSmoothingEnabled=false;c.setTransform(scale,0,0,scale,-box.left*scale,-box.top*scale);
       paint(c);
-      const rgba=c.getImageData(0,0,width,height).data,alpha=new Uint8Array(width*height);
+      const rgba=c.getImageData(0,0,width,height).data;
       const bounds={left:width,right:-1,top:height,bottom:-1};
       for(let y=0;y<height;y++)for(let x=0;x<width;x++){
-        const a=rgba[(y*width+x)*4+3];alpha[y*width+x]=a;
+        const a=rgba[(y*width+x)*4+3];
         if(a>=96){bounds.left=Math.min(bounds.left,x);bounds.right=Math.max(bounds.right,x);bounds.top=Math.min(bounds.top,y);bounds.bottom=Math.max(bounds.bottom,y);}
       }
-      mask=bounds.right<0?null:{width,height,scale,alpha,left:box.left,top:box.top,bounds};
+      mask=null;
+      if(bounds.right>=0){
+        const w=bounds.right-bounds.left+1,h=bounds.bottom-bounds.top+1,alpha=new Uint8Array(w*h);
+        for(let y=0;y<h;y++)for(let x=0;x<w;x++)alpha[y*w+x]=rgba[((y+bounds.top)*width+x+bounds.left)*4+3];
+        mask={width:w,height:h,scale,alpha,left:box.left+bounds.left/scale,top:box.top+bounds.top/scale,bounds:{left:0,top:0,right:w-1,bottom:h-1}};
+        if(frameKey&&alpha.length<=this.maxFrameBytes){
+          while(this.frames.size&&(this.frames.size>=this.maxFrameEntries||this.frameBytes+alpha.length>this.maxFrameBytes)){
+            const oldest=this.frames.keys().next().value;this.frameBytes-=this.frames.get(oldest).alpha.length;this.frames.delete(oldest);
+          }
+          this.frames.set(frameKey,mask);this.frameBytes+=alpha.length;
+        }
+      }
+      }
       if(this.records.size>=this.maxEntries)this.records.delete(this.records.keys().next().value);
       this.records.set(actor.id,mask);
     }
