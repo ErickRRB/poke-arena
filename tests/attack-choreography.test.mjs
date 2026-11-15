@@ -5,6 +5,7 @@ import {SPRITE_GEOMETRY} from '../dist/sprite-geometry.js';
 import {attackAnimationFrame,emissionPoint} from '../dist/sprite-motion.js';
 import {FlightWings} from '../dist/wing-motion.js';
 import {Renderer} from '../dist/render.js';
+import {attackVisualProfile,biteMotion,biteJaw} from '../dist/combat-visuals.js';
 
 // Contacts chosen by reviewing original eight-direction rasters, not HitFrame
 // metadata (several original HitFrames repeat a preparation drawing).
@@ -57,4 +58,138 @@ test('spell targeting refreshes the moving wing silhouette while reusing its tin
     image.revision=2;renderer.tintTarget(context,image,0,0,64,64,0,0,64,64);
     assert.deepEqual(shown,[1,2]);assert.equal(surfaces,1);
   }finally{globalThis.document=previous;}
+});
+
+test('directed Zubat bite meets the target surface with its native mouth and preserves logical actors',()=>{
+  for(const reduced of[false,true]){
+    const actor=Object.freeze({id:7,key:'zubat',card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,
+      attackSeq:2,attackTargetId:8,attackAnim:'Attack',attackDuration:.88,attackWindup:.6,attack:.28});
+    const target=Object.freeze({id:8,key:'snorlax',card:CARDS.snorlax,x:334,y:541,radius:18,hp:3968});
+    const before=JSON.stringify([actor,target]);
+    const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced,verticalScale:1,visualActors:new Map([[7,{}]]),frameActors:new Map([[7,actor],[8,target]])});
+    renderer.prepareBiteActors();const shown=renderer.frameActors.get(7),mouth=renderer.visualEmission(shown);
+    assert.ok(Math.hypot(mouth.x-shown.biteContact.x,mouth.y-shown.biteContact.y)<1e-7,'contact shares the drawn native mouth');
+    assert.ok(shown.x>actor.x+15,'the body closes the visible gap rather than adding a distant flash');
+    assert.equal(shown.card,actor.card);assert.equal(shown.card.scale,1.12);
+    assert.equal(JSON.stringify([actor,target]),before,'Game positions and native card stay untouched');
+    const meta=SPRITE_GEOMETRY[41].Attack,profile=attackVisualProfile(actor.card);
+    assert.equal(attackAnimationFrame(meta,.6,.88,.6,profile.attackFrames,profile),6);
+    assert.equal(CARDS.zubat.attackDuration,.76,'display recovery does not alter native timing');
+  }
+});
+
+test('bite freeze retains the current pose despite target movement; stun cancels the presentation',()=>{
+  const actor={id:7,card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,attackSeq:2,attackTargetId:8,attackDuration:.88,attackWindup:.6,attack:.28};
+  const target={id:8,card:CARDS.snorlax,x:334,y:541,radius:18,hp:3968};
+  const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced:false,verticalScale:1,visualActors:new Map([[7,{}]]),frameActors:new Map([[7,actor],[8,target]])});
+  renderer.prepareBiteActors();const first=renderer.frameActors.get(7);
+  renderer.frameActors=new Map([[7,{...actor,freeze:.5}],[8,{...target,x:target.x+30}]]);
+  renderer.prepareBiteActors();const held=renderer.frameActors.get(7);
+  assert.equal(held.x,first.x);assert.equal(held.y,first.y);assert.deepEqual(held.biteContact,first.biteContact);
+  renderer.frameActors=new Map([[7,{...actor,stun:.5}],[8,target]]);renderer.prepareBiteActors();
+  assert.equal(renderer.frameActors.get(7).biteContact,undefined);
+  assert.equal(renderer.visualActors.get(7).bite,undefined);
+});
+
+test('bite recovery returns to the native body, while reduced keeps the structural approach',()=>{
+  const actor={card:CARDS.zubat,hp:81,attackDuration:.88,attackWindup:.6};
+  for(const elapsed of[.44,.5,.6,.66,.75,.86]){
+    const normal=biteMotion({...actor,attack:.88-elapsed}),reduced=biteMotion({...actor,attack:.88-elapsed},true);
+    assert.equal(normal.reach,reduced.reach,'essential contact is retained in reduced motion');
+  }
+  assert.equal(biteMotion({...actor,attack:.28}).reach,1);
+  assert.ok(biteMotion({...actor,attack:.00001}).reach<1e-6);
+  assert.equal(biteMotion({...actor,attack:0}),null);
+  for(const key of['poochyenaPack','poochyenaToken','ekans']){
+    const card=CARDS[key];assert.equal(attackVisualProfile(card),card,key+' existing profile is unchanged');
+    assert.equal(biteMotion({...actor,card,attack:.28}),null);
+  }
+});
+
+test('Crobat shares the directed contact while retaining its native gestures, duration and purple head',()=>{
+  const card=CARDS.crobat,actor={id:7,card,x:266,y:523,dx:1,dy:0,hp:card.hp,attackSeq:2,attackTargetId:8,attackDuration:card.attackDuration,attackWindup:card.windup,attack:card.attackDuration-card.windup};
+  const target={id:8,card:CARDS.snorlax,x:334,y:541,radius:18,hp:3968};
+  const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced:false,verticalScale:1,visualActors:new Map([[7,{}]]),frameActors:new Map([[7,actor],[8,target]])});
+  assert.equal(attackVisualProfile(card),card,'native Crobat gestures are not replaced by Zubat frames');
+  const presented=renderer.presentAttack(actor,{},0);assert.equal(presented.attackDuration,card.attackDuration,'the complete native recovery remains');
+  renderer.prepareBiteActors();const shown=renderer.frameActors.get(7),mouth=renderer.visualEmission(shown);
+  assert.ok(Math.hypot(mouth.x-shown.biteContact.x,mouth.y-shown.biteContact.y)<1e-7);
+  assert.equal(renderer.drawBiteGesture({},shown),false,'no blue Zubat head is painted onto Crobat');
+  assert.equal(shown.card.scale,card.scale);
+});
+
+test('bite head follows a progressive route while its contact stays fixed to the moving target',()=>{
+  const actor={id:7,card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,attackSeq:2,attackTargetId:8,attackDuration:1,attackWindup:.6};
+  const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced:false,verticalScale:1,visualActors:new Map([[7,{}]]),frameActors:new Map()});
+  let surface,previous;
+  for(const elapsed of[0,.12,.2,.3,.4,.5,.6]){
+    const target={id:8,card:CARDS.snorlax,x:334+elapsed*18,y:541+elapsed*12,radius:18,hp:3968};
+    renderer.t=1+elapsed;renderer.frameActors=new Map([[7,{...actor,attack:1-elapsed}],[8,target]]);
+    renderer.prepareBiteActors();const shown=renderer.frameActors.get(7),head=renderer.visualEmission(shown);
+    const local={x:shown.biteContact.x-target.x,y:shown.biteContact.y-target.y};
+    if(!surface)surface=local;
+    assert.ok(Math.hypot(local.x-surface.x,local.y-surface.y)<1e-7,'wing frames do not steer the target-local contact');
+    if(elapsed>=.12&&previous)assert.ok(head.x>=previous.x,'approach does not reverse between native poses');
+    if(elapsed===.3)assert.ok(head.x>actor.x+12,'approach is already visible halfway through windup');
+    if(elapsed===.6)assert.ok(Math.hypot(head.x-shown.biteContact.x,head.y-shown.biteContact.y)<1e-7);
+    previous=head;
+  }
+});
+
+test('release retains its original attack target through a logical retarget',()=>{
+  const first={id:8},next={id:9},actor={id:7,card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,
+    attackSeq:2,attack:.16,attackDuration:.76,attackWindup:.6,target:first};
+  const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,effects:[],visualActors:new Map()});
+  renderer.onEvent({type:'attackStart',attacker:actor,target:first});
+  actor.target=next;renderer.onEvent({type:'attackRelease',attacker:actor,target:first});
+  assert.equal(renderer.attackContacts.get(7).targetId,8);
+  assert.equal(renderer.visualActor(actor,0).attackTargetId,8);
+});
+
+test('flight phase is shared before mouth contact and painting, so a paused redraw does not correct the bob',()=>{
+  const actor={id:7,card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,attackSeq:2,attackTargetId:8,attackDuration:1,attackWindup:.6,attack:.4};
+  const target={id:8,card:CARDS.snorlax,x:334,y:541,radius:18,hp:3968},wings=new FlightWings();wings.clock(7,.98);
+  const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced:false,verticalScale:1,visualActors:new Map([[7,{}]]),frameActors:new Map([[7,actor],[8,target]]),flightWings:wings});
+  renderer.prepareBiteActors();const shown=renderer.frameActors.get(7),before={x:shown.x,y:shown.y};
+  wings.clock(7,1); // The ordinary sprite painter consumes this same phase.
+  const mouth=renderer.visualEmission(shown);
+  assert.ok(Math.hypot(mouth.x-shown.biteContact.x,mouth.y-shown.biteContact.y)<1e-7);
+  renderer.frameActors=new Map([[7,actor],[8,target]]);renderer.prepareBiteActors();
+  const paused=renderer.frameActors.get(7);assert.deepEqual({x:paused.x,y:paused.y},before);
+});
+
+test('Zubat raises, folds and reopens native wings while its jaw closes only on released contact',()=>{
+  const card=CARDS.zubat,meta=SPRITE_GEOMETRY[41].Attack,profile=attackVisualProfile(card);
+  const phases=[0,.3,.6,.75,.94].map(t=>attackAnimationFrame(meta,t,1,.6,profile.attackFrames,profile));
+  assert.deepEqual(phases,[1,6,6,10,1],'raised preparation, folded entry/contact and reopened recovery');
+  const actor={card,hp:81,attackDuration:1,attackWindup:.6};
+  const jaw=(elapsed,released=false)=>biteJaw({...actor,attack:1-elapsed},released);
+  assert.equal(jaw(.01).frame,3);assert.equal(jaw(.12).frame,0,'the mouth opens during preparation');
+  assert.equal(jaw(.3).frame,0);assert.equal(jaw(.6).frame,2,'predicted contact waits for authority');
+  assert.equal(jaw(.6,true).frame,3,'the released native bite closes');
+  assert.ok(jaw(.12).opening>.4&&jaw(.12).opening<.7,'physical preparation is partly open');
+  assert.equal(jaw(.3).opening,1,'the approach holds a physical open mouth');
+  assert.ok(jaw(.6).opening>0,'predicted contact does not fully close the jaw');
+  assert.equal(jaw(.6,true).opening,0,'physical closure belongs to release');
+  assert.ok(jaw(.84,true).opening>.1,'the jaw relaxes during wing recovery');
+  assert.equal(jaw(.9,true).legacyOpacity,0,'the old mark still ends at its original time');
+  assert.ok(jaw(.999,true).opacity<.02,'the physical head returns to the original body');
+  assert.equal(jaw(1,true),null,'no extra head remains after the action');
+});
+
+test('the physical mouth stays at the emission marker in both genuine profile views without an atlas request',()=>{
+  const actor={id:7,card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,
+    attackSeq:2,attackDuration:1,attackWindup:.6,attack:.7,biteContact:{x:300,y:495}};
+  const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,verticalScale:1,reduced:false,
+    attackContacts:new Map([[7,{seq:2,shot:-1}]])});
+  for(const dx of[1,-1]){
+    const shown={...actor,dx},locations=[],scales=[],colors=[];
+    const context={globalAlpha:1,save(){},restore(){},translate(x,y){locations.push({x,y});},scale(x,y){scales.push([x,y]);},beginPath(){},moveTo(){},lineTo(){},closePath(){},fill(){colors.push(this.fillStyle);},drawImage(){throw Error('No raster Bite atlas belongs to the physical profile head');}};
+    const before=JSON.stringify(shown),mouth=renderer.visualEmission(shown);
+    assert.equal(renderer.drawBiteGesture(context,shown),true);
+    assert.deepEqual(locations[0],mouth,'the head shares the current emitter without a second offset');
+    assert.deepEqual(scales[0],[dx,1],'only the local jaw mirrors, not the genuine body view');
+    assert.ok(colors.includes('#1e1631'),'a filled cavity belongs to the physical head');
+    assert.equal(JSON.stringify(shown),before,'drawing does not write into the logical actor');
+  }
 });

@@ -11,8 +11,43 @@ export function combatVisual(card={}){
   return {body,projectile:Math.max(floor,Math.min(areaProjectile?34:28,Math.max(body*ratio,areaProjectile))),impact:Math.max(16,Math.min(42,body*.6)),beam:Math.max(4,Math.min(11,body*.16)),charge:Math.max(12,Math.min(26,body*.4))};
 }
 const FIRE_GESTURE=Object.freeze([0,1,2,3,4,5,6,7,8,9,10]);
+const ZUBAT_GESTURES=Object.freeze([Object.freeze({rest:1,prepare:6,contact:6,follow:10})]);
+export const directedBite=card=>[41,169].includes(card?.id)&&card.style==='bite'&&card.attackAnim==='Attack';
 export function attackVisualProfile(card){
+  if(card?.id===41&&directedBite(card))return{...card,attackGestures:ZUBAT_GESTURES};
   return card?.id===6&&card.attackAnim==='Shoot'?{...card,attackFrames:FIRE_GESTURE,attackContactFrame:2}:card;
+}
+export function biteMotion(unit,reduced=false){
+  if(!directedBite(unit.card)||unit.mounted||unit.attack<=0||unit.hp<=0||unit.stun>0)return null;
+  const duration=unit.attackDuration||unit.card.attackDuration,windup=unit.attackWindup??unit.card.windup;
+  const elapsed=Math.max(0,duration-unit.attack),start=Math.min(.12,windup*.25);
+  const ease=p=>{p=Math.max(0,Math.min(1,p));return p*p*(3-2*p);};
+  const reach=elapsed<windup?ease((elapsed-start)/Math.max(.001,windup-start)):
+    1-ease((elapsed-windup-.1)/Math.max(.001,duration-windup-.1));
+  const drawback=reduced||elapsed>=start?0:-6*Math.sin(Math.PI*elapsed/Math.max(.001,start))**2;
+  return{reach,drawback,elapsed};
+}
+export function biteJaw(unit,released=false){
+  const motion=biteMotion(unit);if(!motion)return null;
+  const windup=unit.attackWindup??unit.card.windup,elapsed=motion.elapsed,duration=unit.attackDuration||unit.card.attackDuration;
+  let frame=3-Math.min(3,Math.floor(elapsed/Math.max(.001,Math.min(.12,windup*.25))*4));
+  if(elapsed>windup-.08)frame=Math.min(2,Math.max(0,Math.floor((elapsed-windup+.08)/.08*3)));
+  if(released)frame=3;
+  const ease=p=>{p=Math.max(0,Math.min(1,p));return p*p*(3-2*p);};
+  let opening=ease(elapsed/Math.max(.001,Math.min(.22,windup*.4)));
+  if(elapsed>windup-.04)opening=1-.85*ease((elapsed-windup+.04)/.04);
+  if(released)opening=elapsed<=windup+.1?0:.12*ease((elapsed-windup-.1)/.14);
+  const opacity=Math.min(1,elapsed/.04,Math.max(0,(duration-elapsed)/.08));
+  const legacyOpacity=elapsed<=windup+.1?1:Math.max(0,1-(elapsed-windup-.1)/.14);
+  return{frame,opening,opacity,legacyOpacity};
+}
+export function biteSurface(from,target,vertical=1){
+  const profile=target.card||target.guard||{},body=combatVisual(profile).body,tower='king'in target;
+  const lift=profile.flying?16:profile.structure&&profile.platform!==false?23:0;
+  const rx=tower?(target.king?46:32):Math.max(target.radius||12,body*.4),ry=tower?35:body*.5;
+  const center={x:target.x,y:target.y-(tower?35:lift+body*.5)/vertical};
+  const dx=from.x-center.x,dy=(from.y-center.y)*vertical,divisor=Math.hypot(dx/rx,dy/ry)||1;
+  return{x:center.x+dx/divisor,y:center.y+dy/divisor/vertical};
 }
 export function dashPreparation(unit,reduced=false){
   if(unit.dash?.phase!=='windup'||unit.hp<=0||unit.stun>0)return null;

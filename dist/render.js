@@ -2,7 +2,7 @@ import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTar
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
-import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation} from './combat-visuals.js?v=36';
+import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
 import { spellPreviewTargets } from './spell-preview.js?v=34';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
@@ -14,12 +14,18 @@ const {whirlpoolPhase,earthquakePhase,earthquakeFissures}=await import(publicAss
 const {flameFrame,rollingFirePose,drawFireWheel,FIRE_WHEEL_FILES,loadFireWheelMaterial}=await import(publicAssetUrl('./fire-material.js?v=38'));
 const {canvasBackingSize,alignedSpriteRect}=await import(publicAssetUrl('./canvas-raster.js?v=36'));
 const {NativeSpriteSampler}=await import(publicAssetUrl('./native-sprite-sampling.js?v=36'));
+const {BiteContours}=await import(publicAssetUrl('./bite-contours.js?v=39'));
+const {drawEastMouth}=await import(publicAssetUrl('./bite-mouth.js?v=39'));
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
 function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.lineWidth = width; c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); }
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
 const visualScale = unit => unit.scale ?? unit.card?.scale ?? 1.5;
+// Union of the four original Bite frames' opaque bounds in each genuine view.
+// Compact the padding, not the bat: this mouth articulation uses the existing
+// preloaded native atlas and stays attached through preparation and recovery.
+const BITE_JAW_BOUNDS=[[14,6,43,50],[14,5,44,52],[17,4,41,52],[16,3,46,54],[13,5,44,52],[10,3,40,54],[15,4,39,52],[12,5,42,52]];
 const spikeMaterials=new WeakMap();
 export function spikesContactPoint(field,target){
   if(!field||!target||field.team===target.team||field.air===false&&target.card?.flying||!spellOverlapsTarget(field,field,target))return null;
@@ -63,6 +69,7 @@ function spikeMaterial(doc,radius,vertical){
   const result={ground,node,origin};if(cache.size>=8)cache.delete(cache.keys().next().value);cache.set(key,result);return result;
 }
 function attackLunge(unit,reduced){
+  if(directedBite(unit.card))return 0; // The complete bite pose is applied once to the displayed actor.
   if(!reduced&&!unit.mounted&&unit.dash?.phase!=='windup'&&unit.card?.id===6&&unit.card.attackAnim==='Shoot'&&unit.attack>0){
     const elapsed=(unit.attackDuration||unit.card.attackDuration)-unit.attack,windup=unit.attackWindup??unit.card.windup;
     // Draw back while inhaling, then meet the unchanged native mouth point at
@@ -225,7 +232,7 @@ export class Renderer {
       if(bits&3){c.fillStyle=path;c.fillRect(x,y,half,half);}
     }
   }
-  resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.visualFlights?.clear();this.visualFields?.clear();this.frameActors?.clear();this.flightWings?.phases.clear();this.attackContacts?.clear();this.effects=this.effects?.filter(e=>e.kind!=='spikeContact')||[];}
+  resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.visualFlights?.clear();this.visualFields?.clear();this.frameActors?.clear();this.flightWings?.phases.clear();this.attackContacts?.clear();this.biteJawActors?.clear();this.biteContours?.beginFrame();this.effects=this.effects?.filter(e=>e.kind!=='spikeContact')||[];}
   visualActor(unit,dt){
     let pose=this.visualActors.get(unit.id);
     const fresh=!pose||Math.hypot(pose.x-unit.x,pose.y-unit.y)>95;
@@ -250,28 +257,135 @@ export class Renderer {
       else if(!(unit.freeze>0||unit.stun>0))pose.dashElapsed=Math.max(logical,Math.min(logical+1/15,duration,pose.dashElapsed+Math.max(0,dt)));
       pose.dashSeq=unit.attackSeq;pose.dashPhase='windup';dash={...dash,elapsed:pose.dashElapsed};
     }else{pose.dashPhase=dash?.phase;delete pose.dashElapsed;}
-    const displayed={...unit,x:pose.x,y:pose.y,dx:pose.dx,dy:pose.dy,attack:pose.attack,dash},held=contact?.held;
+    const displayed={...unit,x:pose.x,y:pose.y,dx:pose.dx,dy:pose.dy,attack:pose.attack,dash,attackTargetId:current?.targetId??unit.target?.id??unit.targetId},held=contact?.held;
     if(held&&this.t<held.until&&!(unit.hp<=0||unit.stun>0||unit.freeze>0||unit.pushHurt>0)){
       // A packet can contain both a release and the next attackStart. Preserve
       // that released pose for two display frames without rewinding either clock.
       const duration=Math.max(held.duration,held.elapsed+1/30+1e-7);
-      return this.presentAttack({...displayed,card:held.card,guard:held.guard,attackSeq:held.seq,attackAnim:held.animation,attackDuration:duration,attackWindup:held.windup,attack:duration-held.elapsed,dx:held.dx,dy:held.dy},pose,dt);
+      return this.presentAttack({...displayed,card:held.card,guard:held.guard,attackSeq:held.seq,attackAnim:held.animation,attackDuration:duration,attackWindup:held.windup,attack:duration-held.elapsed,dx:held.dx,dy:held.dy,attackTargetId:held.targetId??displayed.attackTargetId},pose,dt);
     }
     if(held&&this.t>=held.until)delete contact.held;
     return this.presentAttack(displayed,pose,dt);
   }
   presentAttack(actor,pose,dt){
-    if(actor.card?.id!==6||actor.card.attackAnim!=='Shoot')return actor;
-    const duration=(actor.attackWindup??actor.card.windup??.3)+.42;
+    const bite=directedBite(actor.card)&&!actor.mounted;
+    if(!bite&&(actor.card?.id!==6||actor.card.attackAnim!=='Shoot'))return actor;
+    const recovery=(actor.attackWindup??actor.card.windup??.3)+(bite?.4:.42);
+    const duration=bite?Math.max(actor.attackDuration||actor.card.attackDuration||recovery,recovery):recovery;
     let show=pose.presentation;
     if(actor.hp<=0||actor.stun>0||actor.pushHurt>0){delete pose.presentation;return actor;}
     if(actor.attack>0){
       const elapsed=(actor.attackDuration||actor.card.attackDuration)-actor.attack;
       if(!show||show.seq!==actor.attackSeq)show=pose.presentation={seq:actor.attackSeq,elapsed};
       else if(!(actor.freeze>0))show.elapsed=elapsed;
-    }else if(show?.seq===actor.attackSeq&&show.elapsed<duration&&!actor.moving){if(!(actor.freeze>0))show.elapsed+=Math.max(0,dt);}
+    }else if(show?.seq===actor.attackSeq&&show.elapsed<duration&&(!actor.moving||bite)){
+      const contact=this.attackContacts?.get(actor.id);
+      if(bite&&contact?.seq===actor.attackSeq&&contact.shot<0){delete pose.presentation;return actor;}
+      if(!(actor.freeze>0))show.elapsed+=Math.max(0,dt);
+    }
     else{delete pose.presentation;return actor;}
     return show&&show.elapsed<duration?{...actor,attackDuration:duration,attack:duration-show.elapsed}:actor;
+  }
+  biteTargetSurface(from,target){
+    const profile=target.card||target.guard||{},tower='king'in target;
+    if(!tower&&!Object.keys(this.metadata?.[profile.id]||{}).length)return biteSurface(from,target,this.verticalScale||1);
+    const scale=tower?1.3:visualScale(target),vertical=this.verticalScale||1,entries=Object.values(this.metadata?.[profile.id]||{});
+    const width=Math.max(tower?110:50,...entries.map(m=>m.width||0))*scale+24;
+    const height=Math.max(tower?150:60,...entries.map(m=>m.height||0))*scale+80;
+    const contours=this.biteContours??=new BiteContours();let box={left:-width,right:width,top:-height/vertical,bottom:32/vertical},frameKey,paintShift={x:0,y:0},offset={x:0,y:0};
+    const pose=!tower&&!profile.structureArt?this.nativeSpritePose(target):null;
+    if(pose&&!pose.preparation&&!target.leap&&!profile.burrow&&!(target.spawn>0)){
+      // Keep the old sampling scale and grid phase. A tighter native-cell window
+      // then reads the identical pixels without the surrounding atlas padding.
+      const s=Math.min(1,512/(box.right-box.left),512/(box.bottom-box.top));
+      let x=(target.dx||0)*pose.lunge-pose.anchor.x*pose.scale;
+      let y=(target.dy||0)*pose.lunge/vertical-pose.lift-pose.anchor.y*pose.scale/vertical;
+      const immutable=!profile.flying&&!profile.structure&&pose.anim!=='Hop';
+      // A ground PNG has no wing padding, platform, spawn lift or preparation
+      // here. Two sampling pixels cover the native cell and raster alignment.
+      const pad=immutable?2/s:24;
+      if(immutable){
+        // Rigid attack displacement does not change a native cell's pixels.
+        // Preserve its exact snapped translation on the original mask grid.
+        paintShift={x:(target.dx||0)*pose.lunge,y:(target.dy||0)*pose.lunge/vertical};
+        const baseX=-pose.anchor.x*pose.scale,baseY=-pose.lift-pose.anchor.y*pose.scale/vertical;
+        offset={x:(Math.round((baseX+paintShift.x-box.left)*s)-Math.round((baseX-box.left)*s))/s,
+          y:(Math.round((baseY+paintShift.y-box.top)*s)-Math.round((baseY-box.top)*s))/s};
+        x=baseX;y=baseY;
+      }
+      const l=Math.max(0,Math.floor((x-pad-box.left)*s)),t=Math.max(0,Math.floor((y-pad-box.top)*s));
+      const rr=Math.min(Math.ceil((box.right-box.left)*s),Math.ceil((x+pose.meta.width*pose.scale+pad-box.left)*s));
+      const bb=Math.min(Math.ceil((box.bottom-box.top)*s),Math.ceil((y+pose.meta.height*pose.scale/vertical+pad-box.top)*s));
+      box={left:box.left+l/s,top:box.top+t/s,right:box.left+rr/s,bottom:box.top+bb/s,scale:s};
+      // Ground PNG frame masks are immutable and shareable across actors.
+      // Hover/wing rigs and other continuously deforming bodies stay per-draw.
+      if(immutable)frameKey=[profile.id,pose.anim,pose.frame,pose.direction,pose.scale,vertical,pose.anchor.x,pose.anchor.y,pose.lift,this.nativeSpriteSampler?.enabled,pose.img.src,box.left,box.top,s].join(':');
+    }
+    const point=contours.contact(target,from,box,c=>{
+      const previous=this.silhouettePass;this.silhouettePass=true;
+      try{const local={...target,x:-paintShift.x,y:-paintShift.y};if(tower)this.tower(c,local);else this.sprite(c,local,true);}
+      finally{this.silhouettePass=previous;}
+    },frameKey,offset);
+    // A newly requested species may not have painted its first frame yet.
+    // Once loaded, every target uses its current body pixels, never a fixed hit.
+    return point||biteSurface(from,target,vertical);
+  }
+  prepareBiteActors(){
+    // Geometry and painting consume one flight phase. Advancing it here avoids
+    // a subpixel bob correction on the first paused draw after a live frame.
+    this.flightWings??=new FlightWings();
+    for(const actor of this.frameActors.values())if(directedBite(actor.card))this.flightWings.clock(actor.id,this.t,actor.freeze>0);
+    const updates=[];
+    for(const[id,actor]of this.frameActors){
+      if(!directedBite(actor.card)||actor.mounted)continue;
+      const pose=this.visualActors.get(id),motion=biteMotion(actor,this.reduced),old=pose?.bite;
+      if(!pose||!motion){if(pose)delete pose.bite;continue;}
+      let bite=old?.seq===actor.attackSeq?old:null;
+      const target=this.frameActors.get(actor.attackTargetId);
+      if(!(actor.freeze>0&&bite)){
+        if(!target&&!bite)continue;
+        const vertical=this.verticalScale||1;
+        if(!bite){
+          const length=Math.hypot(target.x-actor.x,target.y-actor.y)||1,dx=(target.x-actor.x)/length,dy=(target.y-actor.y)/length;
+          const mouth=this.visualEmission({...actor,dx,dy}),point=this.biteTargetSurface(mouth,target);
+          // One target-local contact and launch marker per attack. Native wing
+          // frames may change without steering the trajectory to another pixel.
+          bite={seq:actor.attackSeq,dx,dy,point,launch:{x:mouth.x-actor.x,y:(mouth.y-actor.y)*vertical},surface:{x:point.x-target.x,y:(point.y-target.y)*vertical},rayFrom:{x:mouth.x-target.x,y:mouth.y-target.y}};
+        }
+        const mouth=this.visualEmission({...actor,dx:bite.dx,dy:bite.dy});
+        const point=target&&bite.rayFrom?this.biteTargetSurface({x:target.x+bite.rayFrom.x,y:target.y+bite.rayFrom.y},target):target?{x:target.x+bite.surface.x,y:target.y+bite.surface.y/vertical}:bite.point;
+        const origin={x:actor.x+bite.launch.x,y:actor.y+bite.launch.y/vertical};
+        const head={x:origin.x+(point.x-origin.x)*motion.reach+bite.dx*motion.drawback,
+          y:origin.y+(point.y-origin.y)*motion.reach+bite.dy*motion.drawback/vertical};
+        bite=pose.bite={...bite,point,x:head.x-mouth.x,y:head.y-mouth.y,
+          sortY:target?.y??bite?.sortY??actor.y};
+      }
+      updates.push([id,{...actor,x:actor.x+bite.x,y:actor.y+bite.y,dx:bite.dx,dy:bite.dy,
+        biteContact:bite.point,visualSortY:bite.sortY+.01}]);
+    }
+    // Simultaneous bites read the same unmodified target poses, rather than
+    // chasing an already displaced actor encountered earlier in Map order.
+    for(const[id,actor]of updates)this.frameActors.set(id,actor);
+  }
+  drawBiteGesture(c,unit){
+    if(unit.card?.id!==41||!unit.biteContact||unit.preview||this.silhouettePass)return false;
+    const contact=this.attackContacts?.get(unit.id);
+    const released=contact?.seq===unit.attackSeq&&contact.shot>=0||contact?.held?.seq===unit.attackSeq&&this.t<contact.held.until;
+    const jaw=biteJaw(unit,released);if(!jaw)return false;
+    const direction=directionRow(unit.dx,unit.dy),mouth=this.visualEmission(unit),vertical=this.verticalScale||1;
+    if(direction===2||direction===6){
+      if(jaw.opacity<=0)return true;
+      c.save();c.translate(mouth.x,mouth.y);c.scale(direction===6?-1:1,1/vertical);c.globalAlpha*=jaw.opacity;
+      drawEastMouth(c,0,0,visualScale(unit),jaw.opening);c.restore();return true;
+    }
+    // Other genuine views keep the frozen c35 presentation until the individual
+    // profile action passes its checkpoint and the bounded V3 checks follow.
+    const image=this.battleArt?.images?.get('assets/battle/Particle__Bite.Dir8.png');if(!image)return false;
+    const [left,top,right,bottom]=BITE_JAW_BOUNDS[direction];
+    const width=right-left,height=bottom-top,size=Math.min(16,combatVisual(unit.card).body*.55),scale=size/Math.max(width,height);
+    c.save();c.translate(mouth.x+unit.dx*size*.16,mouth.y+unit.dy*size*.16/vertical);c.scale(1,1/vertical);c.globalAlpha*=jaw.legacyOpacity;
+    c.drawImage(image,jaw.frame*56+left,direction*56+top,width,height,-width*scale/2,-height*scale/2,width*scale,height*scale);
+    c.restore();return true;
   }
   projected(point,actor){
     if(!actor)return point;
@@ -319,9 +433,10 @@ export class Renderer {
     c.save();
     if(!this.battleArt.structure(c,king?'king':'princess',team,x,y,king?102:72,vertical,this.targetTint(tower)))text(c,'PLACEHOLDER',x,y-25,'#ffe3a0',9);
     if(tower.guard)this.sprite(c,{...tower,attack:!tower.active?0:tower.attack,card:{id:tower.guard.id},scale:king?1.15:1.3,x,y:y-TOWER_MOUNTS[king?'king':'princess']/vertical,mounted:true,attackAnim:tower.guard.attackAnim,moving:false},true);
-    if(king&&!tower.active)text(c,'z',x+24,y-30/vertical,'#fff5cd',10);
-    if(tower.stun>0)this.combatArt(c,'lightning',x,y-55/vertical,26);
+    if(king&&!tower.active&&!this.silhouettePass)text(c,'z',x+24,y-30/vertical,'#fff5cd',10);
+    if(tower.stun>0&&!this.silhouettePass)this.combatArt(c,'lightning',x,y-55/vertical,26);
     c.restore();
+    if(this.silhouettePass)return;
     if(this.towerHealthQueue)this.towerHealthQueue.push(tower);else this.towerHealth(c,tower);
   }
   towerHealth(c,tower){
@@ -338,11 +453,8 @@ export class Renderer {
     const labelY=by+18/vertical;
     rect(c,'#243b2ad9',x-labelWidth/2,labelY-8,labelWidth,16);text(c,hp,x,labelY,team?'#ffe2ce':'#d5f1ef',11,700);c.restore();
   }
-  sprite(c, unit, idle = false) {
-    if(unit.card.structureArt){this.structureSprite(c,unit,idle);return;}
+  nativeSpritePose(unit){
     const id = unit.card.id;
-    const burrow=unit.card.burrow&&!unit.preview?(this.reduced?(unit.burrowed?1:0):unit.burrowProgress??(unit.burrowed?1:0)):0;
-    if(burrow>=.999){this.platform(c,unit);return;}
     if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
     const movement=movementVisual(unit.card);
     const preparation=dashPreparation(unit,this.reduced);
@@ -370,18 +482,25 @@ export class Renderer {
     if(loopFrames)frame=loopFrames[frame];
     let direction = directionRow(unit.dx,unit.dy);
     if(img.height/meta.height<8)direction=0;
-    const {x,y}=unit;
     const nativeAnchor=this.anchors.get(`${id}-${anim}`)?.[direction]?.[frame]||{x:meta.width/2,y:meta.height*.65};
     const anchor=(loopFrames||attacking)&&movement.bodyAnchor?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor;
     const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:unit.leap.kind==='river'?24:48):0;
     const lift=(leapLift+(unit.card.structure?structureLift(unit.card):unit.card.flying?16+(this.reduced?0:Math.sin(flightClock*2.6+unit.id)*1.5):0))/vertical;
     const lunge=attackLunge(unit,this.reduced);
+    return{id,meta,img,scale,vertical,anim,frame,direction,anchor,lift,lunge,flightClock,preparation};
+  }
+  sprite(c, unit, idle = false) {
+    if(unit.card.structureArt){this.structureSprite(c,unit,idle);return;}
+    const burrow=unit.card.burrow&&!unit.preview?(this.reduced?(unit.burrowed?1:0):unit.burrowProgress??(unit.burrowed?1:0)):0;
+    if(burrow>=.999){this.platform(c,unit);return;}
+    const pose=this.nativeSpritePose(unit);if(!pose)return;
+    const {id,meta,img,scale,vertical,anim,frame,direction,anchor,lift,lunge,flightClock,preparation}=pose,{x,y}=unit;
     const radius=unit.radius||12;
-    if(!unit.mounted&&!unit.preview){
+    if(!unit.mounted&&!unit.preview&&!this.silhouettePass){
       ellipse(c,'#15382a65',x,y+2,radius+2,unit.card.flying?6:4);
     }
     if(unit.card.structure)this.platform(c,unit);
-    if(preparation&&!unit.preview)this.dashWindup(c,unit,preparation);
+    if(preparation&&!unit.preview&&!this.silhouettePass)this.dashWindup(c,unit,preparation);
     c.save();
     if(preparation){
       const height=Math.max(16,(this.bodyHeights.get(id)||22)*scale/vertical),shear=(unit.dx||0)*preparation.lean/height;
@@ -392,15 +511,16 @@ export class Renderer {
     if(unit.spawn>0)c.globalAlpha=.2+.8*spawnProgress;
     if(unit.hit>0&&!this.reduced) c.filter=`brightness(${1+.35*unit.hit/.24})`;
     const px=x+unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge/vertical-lift-(this.reduced?0:(1-spawnProgress)*12/vertical)-anchor.y*scale/vertical+burrow*((this.bodyHeights.get(id)||22)*scale+25)/vertical;
-    if((unit.dash?.phase==='travel'||unit.card.charge&&unit.charge>=unit.card.charge)&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9/vertical),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
+    if(!this.silhouettePass&&(unit.dash?.phase==='travel'||unit.card.charge&&unit.charge>=unit.card.charge)&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9/vertical),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
     const articulated=this.nativeSpriteSampler?.frame(id,anim,direction,frame,meta,scale,vertical,c.getTransform?.(),img)||this.flightWings.frame(id,anim,direction,frame,img,meta,flightClock+(unit.id||0)*.173,this.reduced);
     const spriteImage=articulated?.image||img,spriteFrame=alignedSpriteRect(articulated?[0,0,articulated.image.width,articulated.image.height,px-articulated.padding*scale,py-articulated.padding*scale/vertical,articulated.width*scale,articulated.height*scale/vertical]:[frame*meta.width,direction*meta.height,meta.width,meta.height,px,py,meta.width*scale,meta.height*scale/vertical],c.getTransform?.());
     c.drawImage(spriteImage,...spriteFrame);
-    if(preparation&&!unit.preview)this.dashWindup(c,unit,preparation,true);
-    if(!unit.preview&&this.spellTargets?.has(unit.id))this.tintTarget(c,spriteImage,...spriteFrame);
+    if(preparation&&!unit.preview&&!this.silhouettePass)this.dashWindup(c,unit,preparation,true);
+    if(!unit.preview&&!this.silhouettePass&&this.spellTargets?.has(unit.id))this.tintTarget(c,spriteImage,...spriteFrame);
+    if(this.drawBiteGesture(c,unit))this.biteJawActors?.add(unit.id);
     c.restore();
-    if(unit.shield>0&&!unit.mounted){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
-    if(idle)return;
+    if(unit.shield>0&&!unit.mounted&&!this.silhouettePass){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
+    if(idle||this.silhouettePass)return;
     const by=y-lift-((this.bodyHeights.get(id)||22)*scale+9+(id===6?12:0))/vertical;
     this.queueUnitHealth(c,unit,x,by,unit.maxHp<=1?18:unit.card.count?30:unit.maxHp>=1800?52:44);
     if(unit.card.ability&&!unit.abilityUsed){ellipse(c,'#382448',x+27,by+4,6,6);text(c,'◆',x+27,by+4,'#e9beff',10,800);}
@@ -433,12 +553,12 @@ export class Renderer {
     const x=unit.x,y=unit.y+(art.baseOffset-(this.reduced?0:(1-spawn)*12))/vertical;
     c.save();if(unit.spawn>0)c.globalAlpha=.2+.8*spawn;
     if(unit.hit>0&&!this.reduced)c.filter=`brightness(${1+.35*unit.hit/.24})`;
-    const drawn=this.battleArt.structure(c,unit.card.structureArt,unit.team,x,y,art.width,vertical,unit.preview?undefined:this.targetTint(unit));
+    const drawn=this.battleArt.structure(c,unit.card.structureArt,unit.team,x,y,art.width,vertical,unit.preview||this.silhouettePass?undefined:this.targetTint(unit));
     if(drawn){
       c.globalAlpha*=this.reduced?.12:.08+.08*(.5+.5*Math.sin(this.t*2));c.fillStyle='#ffd7ed';
       for(const side of[-1,1])c.fillRect(x+side*art.width*.244-2,y-(art.height*.243+2)/vertical,4,4/vertical);
     }
-    c.restore();if(!drawn||idle)return;
+    c.restore();if(!drawn||idle||this.silhouettePass)return;
     const by=unit.y-(this.bodyHeight(unit)+9)/vertical;
     this.queueUnitHealth(c,unit,x,by,44);
     if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
@@ -527,14 +647,14 @@ export class Renderer {
     if(type==='attackStart'&&event.attacker){
       this.attackContacts??=new Map();
       const held=this.attackContacts.get(event.attacker.id)?.held;
-      this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,shot:-1,until:0,held:held&&this.t<held.until?held:undefined});
+      this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,targetId:event.target?.id??event.attacker.target?.id,shot:-1,until:0,held:held&&this.t<held.until?held:undefined});
     }
     if(type==='attackRelease'&&event.attacker){
       this.attackContacts??=new Map();
       const actor=event.attacker,profile=actor.card||actor.guard||{},duration=actor.attackDuration||profile.attackDuration||.6,windup=actor.attackWindup??profile.windup??actor.windup??.18;
-      const shot=event.shot||0,until=this.t+1/30+1e-7,held={seq:actor.attackSeq,card:actor.card,guard:actor.guard,animation:actor.attackAnim||profile.attackAnim||'Attack',duration,windup,elapsed:windup+shot*(profile.burstSpacing||duration),dx:actor.dx,dy:actor.dy,until};
+      const shot=event.shot||0,until=this.t+1/30+1e-7,held={seq:actor.attackSeq,targetId:event.target?.id??actor.target?.id,card:actor.card,guard:actor.guard,animation:actor.attackAnim||profile.attackAnim||'Attack',duration,windup,elapsed:windup+shot*(profile.burstSpacing||duration),dx:actor.dx,dy:actor.dy,until};
       const current=this.attackContacts.get(actor.id);
-      this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,shot,until}),held});
+      this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,targetId:held.targetId??current?.targetId,shot,until}),held});
       if(profile.style==='ember'&&isRangedAttack(profile)&&!profile.suicide){const life=profile.id===6?.18:.16;this.effects.push({...event,kind:'muzzleFlame',sourceId:actor.id,targetId:event.target?.id,attackId:`${actor.id}:${actor.attackSeq}:${shot}`,life,max:life});}
     }
     if(type==='attackStart'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
@@ -925,12 +1045,14 @@ export class Renderer {
           this.combatArt(c,'flame',x,y,size,angle,size,{age:age+i*.07,fps:9,trim:true});
         }
       }else if(e.kind==='melee'){
-        const to=this.effectTarget(e),from=this.effectSource(e)||e.from;
+        const source=this.frameActors.get(e.sourceId),bite=directedBite(source?.card)&&source.biteContact;
+        if(bite&&this.biteJawActors?.has(e.sourceId)){c.restore();continue;}
+        const to=bite||this.effectTarget(e),from=this.effectSource(e)||e.from;
         const name={punch:'impact',dash:'impact',slam:'dust',eruption:'explosion'}[e.style]||e.style;
-        const card=this.frameActors.get(e.sourceId)?.card||CARDS[e.key],size=combatVisual(card).impact*(e.charged?1.2:card?.windup>=.6?1.35:1);
+        const card=source?.card||CARDS[e.key],size=combatVisual(card).impact*(bite?1:e.charged?1.2:card?.windup>=.6?1.35:1);
         const angle=Math.atan2((to.y-from.y)*(this.verticalScale||1),to.x-from.x);
         if(['slash','horn','dash'].includes(e.style)&&!this.reduced&&progress<.5){c.save();c.globalAlpha*=.45*(1-progress*2);this.combatArt(c,'slash',(from.x+to.x)/2,(from.y+to.y)/2,size*.85,angle+Math.PI/4,size*.65,{progress:progress*2,trim:true});c.restore();}
-        this.combatArt(c,name,to.x,to.y,size,0,size,{progress,direction:directionRow(to.x-from.x,to.y-from.y)});
+        this.combatArt(c,name,to.x,to.y,size,0,size,{progress,direction:bite?directionRow(source.dx,source.dy):directionRow(to.x-from.x,to.y-from.y)});
       }else if(e.kind==='spell'){
         this.combatArt(c,'snow',e.x,e.y,e.radius*2.4,0,e.radius*2.4,{direction:0,progress});
       }else if(e.kind==='blink'){
@@ -1196,6 +1318,7 @@ export class Renderer {
     this.frameActors=new Map([...(game.visibleTowers??game.towers),...game.units].map(actor=>{
       const pose=this.visualActor(actor,dt);pose.logicalX=actor.x;pose.logicalY=actor.y;return[actor.id,pose];
     }));
+    this.biteContours?.beginFrame();this.prepareBiteActors();
     const fields=(game.fields||[]).map(field=>this.visualField(field,dt));
     for(const field of fields)this.field(c,field);
     for(const spell of game.spells){
@@ -1203,7 +1326,8 @@ export class Renderer {
       if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
     }
     this.towerHealthQueue=[];this.unitHealthQueue=[];this.projectileHeadQueue=[];
-    const objects=[...this.frameActors.values()].sort((a,b)=>a.y-b.y);
+    (this.biteJawActors??=new Set()).clear();
+    const objects=[...this.frameActors.values()].sort((a,b)=>(a.visualSortY??a.y)-(b.visualSortY??b.y));
     for(const actor of objects){if('king'in actor)this.tower(c,actor);else this.sprite(c,actor);this.frozen(c,actor);}
     for(const field of fields)if(['stealthRock','nightmare'].includes(field.key))this.field(c,field,true);
     this.drawDeployments(c,game);
