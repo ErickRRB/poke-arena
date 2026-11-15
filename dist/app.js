@@ -204,8 +204,8 @@ function showResult(e) {
   $('result-reason').textContent = e.reason;
   $('result-deployed').textContent = game.stats[0].deployed;
   $('result-damage').textContent = Math.round(game.stats[0].damage).toLocaleString('es-AR');
-  if (e.winner === 0) { tone(660,.2,'triangle',.05); setTimeout(()=>tone(880,.35,'triangle',.05),150); }
   updateUi();
+  if (e.winner === 0) { tone(660,.2,'triangle',.05); setTimeout(()=>tone(880,.35,'triangle',.05),150); }
   live(`${$('result-title').textContent}. ${e.reason}. ${game.crowns(0)} a ${game.crowns(1)}.`);
   $('again-btn').focus({preventScroll:true});
 }
