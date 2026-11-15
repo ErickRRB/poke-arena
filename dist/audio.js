@@ -3,7 +3,9 @@ import { BattleMusic } from './music.js?v=36';
 import { CARDS } from './engine.js?v=34';
 import {publicAssetUrl} from './online-config.js?v=36';
 export const MAX_EFFECT_VOICES=12;
-export const AUDIO_LEVELS=Object.freeze({master:.8,effects:.65,voices:.7,ui:.55,music:.65});
+// Leave room for the orchestral bed in dense fights without changing cue
+// priorities, phase balance or the separate voice and interface buses.
+export const AUDIO_LEVELS=Object.freeze({master:.8,effects:.65*10**(-3/20),voices:.7,ui:.55,music:.65});
 import {ATTACK_AUDIO,soundStyle,attackCue,prepareSample,installAttackFallbacks} from './attack-audio.js?v=36';
 export class SoundSystem {
   constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.effectSlots=[];this.battlePlaying=false;this.intense=false;this.ready=this.preload().catch(()=>false); }
