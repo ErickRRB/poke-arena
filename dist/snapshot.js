@@ -23,7 +23,7 @@ export function migrateLegacyCardIdentity(value){
 const entityCopy=e=>{const{target,abilityUsed,...copy}=e;return{...copy,targetId:target?.id??null};};
 export function packGame(game){
   const{onEvent,animations,units,towers,attacks,projectiles,...plain}=game;
-  return{...plain,units:units.map(entityCopy),towers:towers.map(entityCopy),attacks:attacks.map(({attacker,target,...job})=>({...job,attackerId:attacker.id,targetId:target.id})),projectiles:projectiles.map(({target,...p})=>({...p,targetId:p.rolling||p.linear?null:target?.id??null}))};
+  return{...plain,units:units.map(entityCopy),towers:towers.map(entityCopy),attacks:attacks.map(({attacker,target,...job})=>({...job,attackerId:attacker.id,targetId:target.id})),projectiles:projectiles.map(({target,...p})=>({...p,targetId:p.rolling||p.linear?null:target?.id??p.chainTargetId??null}))};
 }
 export function unpackGame(data,onEvent=()=>{},animations={}){
   const restored=migrateLegacyCardIdentity(structuredClone(data));
@@ -47,7 +47,7 @@ export function unpackGame(data,onEvent=()=>{},animations={}){
   const entities=new Map([...game.units,...game.towers].map(e=>[e.id,e]));
   for(const entity of entities.values()){entity.card=entity.card||CARDS[entity.key];if(entity.card?.ability)delete entity.card.ability;delete entity.abilityUsed;entity.target=entities.get(entity.targetId)||null;}
   game.attacks=game.attacks.map(j=>({...j,attacker:entities.get(j.attackerId),target:entities.get(j.targetId)})).filter(j=>j.attacker&&j.target);
-  game.projectiles=game.projectiles.map(p=>({...p,target:entities.get(p.targetId)})).filter(p=>p.rolling||p.linear||p.flameCone||p.impactPoint||p.target);
+  game.projectiles=game.projectiles.map(p=>({...p,target:entities.get(p.targetId)})).filter(p=>p.electricChain||p.rolling||p.linear||p.flameCone||p.impactPoint||p.target);
   return game;
 }
 export function packEvent(event){

@@ -10,6 +10,9 @@ import { W,H,TILE,BOARD_VERSION,ARENA,DEPLOY_GRID,RIVER,BRIDGE,PRINCESS_Y,KING_Y
 export { W,H,TILE,BOARD_VERSION,ARENA,DEPLOY_GRID,RIVER,BRIDGE,PRINCESS_Y,KING_Y,LANES,snapToCell } from './arena-geometry.js?v=34';
 // Native attack ranges measure the gap between collision bodies.
 export const PRINCESS_RANGE = 7.5 * TILE;
+// Base Electro Spirit/Dragon traces: three 50ms ticks between hops, then
+// distance/speed rounded up to a reference tick. See docs/ELECTRIC-TIMING.md.
+export const ELECTRIC_CHAIN_TIMING=Object.freeze({tick:.05,hopWait:.15});
 
 export const attackReach=(actor,target,range=actor.card?.range??actor.range??0)=>range+(actor.radius||0)+(target.radius||0);
 export const sightReach=(actor,target)=>attackReach(actor,target,actor.card?.sightRange??165);
@@ -256,18 +259,19 @@ export class Game {
         travelRemaining:card.rolling?card.travelDistance:0,hitIds:[] });
       this.emit('cast', { key, team, x, y, radius: card.splash,flightTime:travelTime,castDelay:card.castDelay??.4,waves:card.waves||1,waveEvery:card.waveEvery||0 });
     } else {
-      const delay=card.deployTime??.75,positions=this.deploymentPositions(team,key,x,y),delays=positions.map((_,i)=>card.memberDelays?.[i]??i*(card.deployStagger||0)),spawnGroup={id:this.nextId,x,y,duration:delay+Math.max(...delays)};
-      for (const [i,point] of positions.entries())this.spawn(card.squad?.[i]||key,team,point.x,point.y,delay+delays[i],spawnGroup);
+      const delay=card.deployTime??.75,positions=this.deploymentPositions(team,key,x,y),delays=positions.map((_,i)=>card.memberDelays?.[i]??i*(card.deployStagger||0)),spawnGroup={id:this.nextId,x,y,duration:delay+Math.max(...delays),spawnCause:'card',cardKey:key};
+      for (const [i,point] of positions.entries())this.spawn(card.squad?.[i]||key,team,point.x,point.y,delay+delays[i],spawnGroup,'card');
     }
     this.emit('deploy', { team, key, x, y, cost: card.cost });
     return { ok: true, key, x, y };
   }
-  spawn(key, team, x, y, delay = .75, spawnGroup = null) {
+  spawn(key, team, x, y, delay = .75, spawnGroup = null, spawnCause = 'generated') {
     key=currentCardKey(key);
     const card = CARDS[key];
     const u = { id: this.nextId++, key, card, team, x, y, hp: card.hp, maxHp: card.hp, radius: card.radius || 12, lane: laneAt(x,team), cooldown: 0, spawn: delay, stun: 0, slow: 0, hit: 0, attack: 0, attackDuration: 0, attackSeq: 0, anim: this.random() * 2, dx: 0, dy: team ? 1 : -1, moving: false, target: null, engaged:false,charge: 0, blinkCooldown: 0, stepClock: .2, burn: null, lifetime: card.lifetime || 0 };
     u.createdAt=this.elapsed;
-    u.spawnGroup=spawnGroup||{id:u.id,x,y,duration:delay};
+    u.spawnCause=spawnCause;
+    u.spawnGroup=spawnGroup||{id:u.id,x,y,duration:delay,spawnCause};
     u.spawnGroup.startAt??=this.elapsed;
     if(card.burrow){u.burrowed=true;u.burrowProgress=1;}
     this.units.push(u);
@@ -275,7 +279,7 @@ export class Game {
     this.stats[team].deployed++;
     this.emit('spawn', { unit: u });
     if(card.entryShield)for(const ally of this.units)if(ally.team===team&&ally!==u&&ally.hp>0&&distance(ally,u)<100){ally.shield=Math.max(ally.shield||0,card.entryShield);ally.maxShield=Math.max(ally.maxShield||0,ally.shield);}
-    if(card.spawnWith){const baby=this.spawn(card.spawnWith,team,clamp(x+24,ARENA.left+1,ARENA.right-1),y+12,delay,u.spawnGroup);baby.parentId=u.id;}
+    if(card.spawnWith){const baby=this.spawn(card.spawnWith,team,clamp(x+24,ARENA.left+1,ARENA.right-1),y+12,delay,u.spawnGroup,'companion');baby.parentId=u.id;}
     return u;
   }
   damage(target, amount, team, { stun = 0, freeze = 0, slow = 0, slowFactor = .7, slowAttackFactor = .7, burn = 0, burnKind = 'fire', dot = false, sourceId = 0, sourceKey = '', reflected = false, poisonField = 0, affectsHidden = false } = {}) {
@@ -339,13 +343,13 @@ export class Game {
   }
   spawnReinforcements(owner,key,count,delay=.5,{death=false}={}){
     if(owner.card?.nativeReference)return this.spawnNativeReinforcements(owner,key,count,delay,death);
-    const children=[],spawnGroup={id:this.nextId,x:owner.x,y:owner.y+(owner.team?1:-1)*(owner.card?.structure?42:24),duration:delay};
+    const spawnCause=death?'death':'summon',children=[],spawnGroup={id:this.nextId,x:owner.x,y:owner.y+(owner.team?1:-1)*(owner.card?.structure?42:24),duration:delay,spawnCause};
     for(let i=0;i<count&&this.units.filter(u=>u.hp>0).length<160;i++){
       const spacing=owner.card?.summonSpacing||0,offset=spacing?0:(i-(count-1)/2)*TILE;
       const point=this.reinforcementPoint(key,owner.x+offset,owner.y+(owner.team?1:-1)*(owner.card?.structure?42:24));
       if(!point)continue;
-      if(spacing&&i){this.reinforcements.push({key,team:owner.team,x:point.x,y:point.y,parentId:owner.id,delay:i*spacing,spawnDelay:delay,spawnGroup,requiresParent:owner.hp>0});continue;}
-      const child=this.spawn(key,owner.team,point.x,point.y,delay,spawnGroup);child.parentId=owner.id;children.push(child);
+      if(spacing&&i){this.reinforcements.push({key,team:owner.team,x:point.x,y:point.y,parentId:owner.id,delay:i*spacing,spawnDelay:delay,spawnGroup,spawnCause,requiresParent:owner.hp>0});continue;}
+      const child=this.spawn(key,owner.team,point.x,point.y,delay,spawnGroup,spawnCause);child.parentId=owner.id;children.push(child);
     }
     return children;
   }
@@ -355,7 +359,7 @@ export class Game {
     return point;
   }
   spawnNativeReinforcements(owner,key,count,delay,death){
-    const c=owner.card,spacing=death?0:c.summonSpacing||0,emission=this.nativeEmissionPoint(owner,key),group={id:this.nextId,x:owner.x,y:owner.y,duration:delay+(count-1)*spacing},children=[];
+    const c=owner.card,spawnCause=death?'death':'summon',spacing=death?0:c.summonSpacing||0,emission=this.nativeEmissionPoint(owner,key),group={id:this.nextId,x:owner.x,y:owner.y,duration:delay+(count-1)*spacing,spawnCause},children=[];
     for(let i=0;i<count&&this.units.filter(u=>u.hp>0).length<160;i++){
       let point;
       if(death){
@@ -364,8 +368,8 @@ export class Game {
       }else if(c.summonRadius){const angle=(count-1-i)*Math.PI*2/count;point={x:owner.x+Math.cos(angle)*c.summonRadius,y:owner.y-Math.sin(angle)*c.summonRadius};}
       else point=emission;
       point=this.reinforcementPoint(key,point.x,point.y);if(!point)continue;
-      if(spacing&&i){this.reinforcements.push({key,team:owner.team,x:point.x,y:point.y,parentId:owner.id,delay:i*spacing,spawnDelay:delay,spawnGroup:group,requiresParent:true});continue;}
-      const child=this.spawn(key,owner.team,point.x,point.y,delay,group);child.parentId=owner.id;children.push(child);
+      if(spacing&&i){this.reinforcements.push({key,team:owner.team,x:point.x,y:point.y,parentId:owner.id,delay:i*spacing,spawnDelay:delay,spawnGroup:group,spawnCause,requiresParent:true});continue;}
+      const child=this.spawn(key,owner.team,point.x,point.y,delay,group,spawnCause);child.parentId=owner.id;children.push(child);
       if(death&&c.deathSpawnSlide){
         const angle=-(i+1)*Math.PI*2/count,end=this.reinforcementPoint(key,owner.x+Math.cos(angle)*c.deathSpawnRadius,owner.y-Math.sin(angle)*c.deathSpawnRadius)||point;
         child.deathSlide={startX:point.x,startY:point.y,endX:end.x,endY:end.y,elapsed:0,duration:.25};
@@ -393,11 +397,11 @@ export class Game {
     candidates.sort((a,b)=>distance(a,{x,y})-distance(b,{x,y}));return candidates[0]||null;
   }
   summonSpell(spell){
-    const card=spell.card,points=[],delay=card.spawnDeployTime??.4,group={id:this.nextId,x:spell.x,y:spell.y,duration:delay};
+    const card=spell.card,points=[],delay=card.spawnDeployTime??.4,group={id:this.nextId,x:spell.x,y:spell.y,duration:delay,spawnCause:'spell'};
     for(let i=0;i<card.spawnTotal&&this.units.filter(u=>u.hp>0).length<160;i++){
       const angle=-Math.PI/2+i*2*Math.PI/card.spawnTotal+(spell.team?Math.PI:0),radius=card.spawnRadius;
       const point=this.reinforcementPoint(card.spawnKey,spell.x+Math.cos(angle)*radius,spell.y+Math.sin(angle)*radius,points);
-      if(point){points.push(point);this.spawn(card.spawnKey,spell.team,point.x,point.y,delay,group);}
+      if(point){points.push(point);this.spawn(card.spawnKey,spell.team,point.x,point.y,delay,group,'spell');}
     }
   }
   finish(winner, reason) {
@@ -431,10 +435,10 @@ export class Game {
     const alive=this.units.filter(child=>child.parentId===unit.id&&child.hp>0).length,count=Math.max(0,Math.min(c.summonCount||1,(c.summonMax>0?c.summonMax:160)-alive));
     if(c.summonOwnerOffset&&count){
       const direction=unit.team?1:-1,offset=c.summonOwnerOffset,point=this.reinforcementPoint(c.summon,unit.x+offset.x*direction,unit.y+offset.y*direction);
-      if(point){const child=this.spawn(c.summon,unit.team,point.x,point.y,c.summonDeployTime);child.parentId=unit.id;}
+      if(point){const child=this.spawn(c.summon,unit.team,point.x,point.y,c.summonDeployTime,null,'summon');child.parentId=unit.id;}
     }else if(c.summonOffset&&count){
       unit.summonSide=-(unit.summonSide||1);const angle=(unit.team?Math.PI/2:-Math.PI/2)+unit.summonSide*c.summonAngle*Math.PI/180;
-      const child=this.spawn(c.summon,unit.team,clamp(unit.x+Math.cos(angle)*c.summonOffset,ARENA.left+1,ARENA.right-1),clamp(unit.y+Math.sin(angle)*c.summonOffset,ARENA.top+1,ARENA.bottom-1),c.summonDeployTime??.5);child.parentId=unit.id;
+      const child=this.spawn(c.summon,unit.team,clamp(unit.x+Math.cos(angle)*c.summonOffset,ARENA.left+1,ARENA.right-1),clamp(unit.y+Math.sin(angle)*c.summonOffset,ARENA.top+1,ARENA.bottom-1),c.summonDeployTime??.5,null,'summon');child.parentId=unit.id;
     }else this.spawnReinforcements(unit,c.summon,count,c.summonDeployTime??.5);
   }
   addField(x,y,team,damage,sourceId){
@@ -480,7 +484,7 @@ export class Game {
         while(f.spawned<f.spawnSchedule.length&&age+1e-7>=f.spawnSchedule[f.spawned].at){
           const entry=f.spawnSchedule[f.spawned++],mirror=f.x<=W/2?1:-1,direction=f.team?1:-1;
           const point=this.reinforcementPoint(f.spawnKey,f.x+entry.x*mirror,f.y+entry.y*direction);
-          if(point&&this.units.filter(u=>u.hp>0).length<160)this.spawn(f.spawnKey,f.team,point.x,point.y,entry.deploy);
+          if(point&&this.units.filter(u=>u.hp>0).length<160)this.spawn(f.spawnKey,f.team,point.x,point.y,entry.deploy,null,'field');
         }
       }else if(f.spawnKey){
         f.spawnClock-=active;
@@ -488,7 +492,7 @@ export class Game {
           f.spawnClock+=f.spawnEvery;f.spawned++;
           const angle=this.random()*Math.PI*2,r=Math.sqrt(this.random())*f.radius*.85;
           const point=this.reinforcementPoint(f.spawnKey,f.x+Math.cos(angle)*r,f.y+Math.sin(angle)*r);
-          if(point&&this.units.filter(u=>u.hp>0).length<160)this.spawn(f.spawnKey,f.team,point.x,point.y,.45);
+          if(point&&this.units.filter(u=>u.hp>0).length<160)this.spawn(f.spawnKey,f.team,point.x,point.y,.45,null,'field');
         }
       }
     }
@@ -565,11 +569,8 @@ export class Game {
     const from=this.muzzle(unit),to={x:unit.x,y:unit.y-15},style=unit.card.style;
     this.emit('attackRelease',{attacker:unit,target:unit.target,key:unit.key,style,from,to,shot:0});
     if(unit.card.chain){
-      let last=unit;const hits=new Set();
-      for(let index=0;index<=unit.card.chain;index++){
-        const victim=[...this.units,...this.towers].filter(t=>this.validTarget(unit,t)&&!hits.has(t.id)&&distance(last,t)<=(unit.card.chainRange||72)+(t.radius||0)).sort((a,b)=>distance(last,a)-distance(last,b))[0];
-        if(!victim)break;this.strike(unit,victim,unit.card.damage,unit.card);this.emit('beam',{from:aimPoint(last),to:aimPoint(victim),key:unit.key,style:'lightning',team:unit.team,sourceId:unit.id,chainFromId:last.id,targetId:victim.id,shot:index});hits.add(victim.id);last=victim;
-      }
+      const victim=[...this.units,...this.towers].filter(t=>this.validTarget(unit,t)&&distance(unit,t)<=(unit.card.chainRange||72)+(t.radius||0)).sort((a,b)=>distance(unit,a)-distance(unit,b))[0];
+      if(victim)this.landElectricShot({id:unit.id+':'+unit.attackSeq+':electric:0',key:unit.key,sourceId:unit.id,sourceKey:unit.key,attackSeq:unit.attackSeq,team:unit.team,card:unit.card,damage:unit.card.damage,hop:0,hitIds:[victim.id],chainFromId:unit.id,startX:unit.x,startY:unit.y,liftX:0,liftY:-15,chainTargetId:victim.id},victim,{x:victim.x,y:victim.y});
     }else for(const target of[...this.units,...this.towers])if(this.validTarget(unit,target)&&spellOverlapsTarget(unit.card,unit,target))this.strike(unit,target,unit.card.damage,unit.card);
     if(!unit.card.chain){this.emit('deathBurst',{unit,radius:unit.card.splash});this.emit('hit',{x:unit.x,y:unit.y-15,key:unit.key,style,team:unit.team,sourceId:unit.id,attackSeq:unit.attackSeq});}
     this.retireUnit(unit);
@@ -755,6 +756,34 @@ export class Game {
       if (healed) this.emit('heal',{ unit:actor, amount:healed });
     }
   }
+  queueElectricShot(actor,target,amount,{point=actor,from=this.muzzle(actor),hop=0,hitIds=[],chainFromId=actor.id,wait=0}={}){
+    const card=actor.card,offset=hop?0:card.projectileStart||0,x=point.x+(actor.dx||0)*offset,y=point.y+(actor.dy||0)*offset,flyAt=this.elapsed+wait;
+    this.projectiles.push({id:actor.id+':'+actor.attackSeq+':electric:'+hop,electricChain:true,key:actor.key,sourceKey:actor.key,sourceId:actor.id,attackSeq:actor.attackSeq,team:actor.team,card:{...card},target,chainTargetId:target.id,chainFromId,hop,hitIds:[...hitIds,target.id],damage:amount,style:'lightning',groundPath:true,x,y,startX:x,startY:y,liftX:from.x-x,liftY:from.y-y,endLiftY:aimPoint(target).y-target.y,lastPoint:{x:target.x,y:target.y},speed:card.projectileSpeed,totalDistance:distance({x,y},target),travelled:0,flyAt,nextStepAt:flyAt+ELECTRIC_CHAIN_TIMING.tick,life:Math.max(3,wait+distance({x,y},target)/card.projectileSpeed+1),arc:0,trace:[]});
+  }
+  landElectricShot(shot,target,point){
+    const actor={id:shot.sourceId,key:shot.sourceKey,team:shot.team,card:shot.card,attackSeq:shot.attackSeq},valid=this.validTarget(actor,target),to=valid?aimPoint(target):{x:point.x,y:point.y+(shot.endLiftY??-15)};
+    if(valid)this.damage(target,shot.damage,shot.team,{...shot.card,sourceId:shot.sourceId,sourceKey:shot.sourceKey});
+    this.emit('beam',{from:{x:shot.startX+shot.liftX,y:shot.startY+shot.liftY},to,style:'lightning',key:shot.key,team:shot.team,sourceId:shot.sourceId,attackSeq:shot.attackSeq,attackId:shot.id,chainFromId:shot.chainFromId,targetId:shot.chainTargetId,hop:shot.hop,shot:0,missed:!valid});
+    shot.life=0;
+    if(shot.hop>=shot.card.chain)return;
+    const next=[...this.units,...this.towers].filter(t=>this.validTarget(actor,t)&&!shot.hitIds.includes(t.id)&&distance(point,t)<=(shot.card.chainRange||78)+(t.radius||0)).sort((a,b)=>distance(point,a)-distance(point,b))[0];
+    if(next)this.queueElectricShot(actor,next,shot.damage*(shot.card.chainMultiplier??.6),{point,from:to,hop:shot.hop+1,hitIds:shot.hitIds,chainFromId:shot.chainTargetId,wait:ELECTRIC_CHAIN_TIMING.hopWait});
+  }
+  stepElectricShot(shot,dt){
+    const actor={team:shot.team,card:shot.card},target=shot.target;
+    if(this.validTarget(actor,target))shot.lastPoint={x:target.x,y:target.y};
+    // A primary shot loses its dead target. An already chained hop consumes
+    // that slot and continues from its last point, independently of its source.
+    else if(!shot.hop||target?.hp>0){shot.life=0;return;}
+    else if(target&&!shot.deadTarget){shot.lastPoint={x:target.x,y:target.y};shot.deadTarget=true;}
+    shot.life-=dt;
+    while(shot.life>0&&this.elapsed+1e-7>=shot.nextStepAt){
+      shot.nextStepAt+=ELECTRIC_CHAIN_TIMING.tick;
+      const dx=shot.lastPoint.x-shot.x,dy=shot.lastPoint.y-shot.y,d=Math.hypot(dx,dy),step=shot.speed*ELECTRIC_CHAIN_TIMING.tick;
+      if(d<=step+1e-7){shot.x=shot.lastPoint.x;shot.y=shot.lastPoint.y;this.landElectricShot(shot,target,shot.lastPoint);}
+      else{shot.trace.push({x:shot.x,y:shot.y});if(shot.trace.length>7)shot.trace.shift();shot.x+=dx/d*step;shot.y+=dy/d*step;shot.travelled+=step;}
+    }
+  }
   release(job) {
     const {attacker:a,target,shot,charged}=job;
     if(a.hp<=0||a.burrowed||a.stun>0||a.attackSeq!==job.seq||target.hp<=0||target.burrowed||a.king&&!a.active)return;
@@ -780,6 +809,8 @@ export class Game {
         const victim=targets[i%targets.length];this.strike(a,victim,amount,card);
         this.emit('beam',{from:{x:from.x+(i?6:-6),y:from.y},to:aimPoint(victim),style,key:a.key,team:a.team,sourceId:a.id,targetId:victim.id,shot:i});
       }
+    }else if(style==='lightning'&&card?.chain&&card.projectileSpeed){
+      this.queueElectricShot(a,target,amount,{from});
     }else if(style==='lightning'||style==='vine') {
       this.strike(a,target,amount,card||{stun:a.guard?.stun||0});
       this.emit('beam',{from,to,style,key:a.key,team:a.team,sourceId:a.id,targetId:target.id,shot});
@@ -929,7 +960,7 @@ export class Game {
       job.delay-=dt;if(job.delay>1e-7)continue;job.done=true;
       if(job.requiresParent&&!this.units.some(u=>u.id===job.parentId&&u.hp>0)||this.units.filter(u=>u.hp>0).length>=160)continue;
       const point=this.reinforcementPoint(job.key,job.x,job.y);
-      if(point){const child=this.spawn(job.key,job.team,point.x,point.y,job.spawnDelay,job.spawnGroup);child.parentId=job.parentId;}
+      if(point){const child=this.spawn(job.key,job.team,point.x,point.y,job.spawnDelay,job.spawnGroup,job.spawnCause||'generated');child.parentId=job.parentId;}
     }
     this.reinforcements=this.reinforcements.filter(job=>!job.done);
     for (const spell of this.spells) {
@@ -1027,7 +1058,8 @@ export class Game {
     for(const job of this.attacks)if(Number.isFinite(job.releaseAt))job.delay=job.releaseAt-this.elapsed;
     this.releaseAttacks();
     this.attacks=this.attacks.filter(job=>!job.done&&job.attacker.hp>0&&job.attacker.attackSeq===job.seq&&job.target.hp>0);
-    for (const p of this.projectiles) {
+    for (const p of [...this.projectiles]) {
+      if(p.electricChain){this.stepElectricShot(p,dt);continue;}
       p.life -= dt;
       if(p.flameCone){
         p.travelled=Math.min(p.totalDistance,p.travelled+p.speed*dt);

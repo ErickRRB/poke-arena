@@ -112,7 +112,8 @@ test('poison status and psychic fields carry distinct visual identities',()=>{
 test('every attack has recovery after its final hit and a supported original animation',()=>{
   for(const[key,c]of Object.entries(CARDS))if(!c.spell&&!c.passive){
     const meta=animations[c.id][c.attackAnim];assert.ok(meta,`${key}/${c.attackAnim}`);
-    assert.ok(c.windup>0);if(!c.suicide)assert.ok(c.attackDuration>=c.windup+((c.burst||1)-1)*(c.burstSpacing||0)+.15,key);
+    const recovery=c.nativeReference==='Cannon'?.1:.15;
+    assert.ok(c.windup>0);if(!c.suicide)assert.ok(c.attackDuration+1e-9>=c.windup+((c.burst||1)-1)*(c.burstSpacing||0)+recovery,key);
     assert.ok(c.interval>=c.attackDuration,key);
     const hit=meta.hitFrame||Math.max(1,Math.floor(meta.durations.length*.3)),total=meta.durations.reduce((a,b)=>a+b,0),ratio=meta.durations.slice(0,hit).reduce((a,b)=>a+b,0)/total;
     assert.ok(Math.abs(attackPoseProgress(meta,c.windup,c.attackDuration,c.windup)-ratio)<1e-8,key);

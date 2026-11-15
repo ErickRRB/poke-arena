@@ -123,7 +123,7 @@ export class SoundSystem {
       this.play(attackCue(profile,e.style),e.from.x,false,(e.shot||0)+seq,profile?.id,e.attacker.id?e.attacker.id+':'+seq+':'+(e.shot||0):null);
     }
     if(e.type==='hit')this.play(attackCue(CARDS[e.key],e.style),e.x,true,e.attackSeq||0,CARDS[e.key]?.id,e.attackId||e.sourceId&&e.sourceId+':'+(e.attackSeq||0));
-    if(e.type==='beam'&&!e.shot)this.play(e.style,e.to.x,true,e.attackSeq||0,CARDS[e.key]?.id,e.sourceId&&e.sourceId+':'+(e.attackSeq||0));
+    if(e.type==='beam'&&!e.shot&&!e.missed)this.play(e.style,e.to.x,true,e.hop??e.attackSeq??0,CARDS[e.key]?.id,e.attackId||e.sourceId&&e.sourceId+':'+(e.attackSeq||0));
     if(e.type==='deathBurst')this.play(e.unit.key==='golem'?'explosion':e.style||e.unit.card.style,e.unit.x,true,0,e.unit.card.id);
     if(e.type==='heal')this.play('heal',e.unit.x,true);
     if(e.type==='counter')this.play('magnet',e.unit?.x||e.from.x,true);

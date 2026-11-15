@@ -18,8 +18,8 @@ test('hosted pages, scripts, sound, loaders and large illustrations preserve byt
  }
 });
 test('the compatibility proxy preserves conditional headers and does not forward private credentials',async t=>{
- t.mock.method(globalThis,'fetch',async(url,init)=>{assert.equal(new URL(url).origin,WEB_ORIGIN);assert.equal(new URL(url).pathname,'/engine.js?v=34');assert.equal(new URL(url).search,'?v=26');assert.equal(init.headers.get('If-None-Match'),'"asset"');assert.equal(init.headers.get('Cookie'),null);assert.equal(init.headers.get('Authorization'),null);assert.equal(init.headers.get('Host'),null);return new Response(null,{status:304,headers:{ETag:'"asset"'}});});
- const r=await worker.fetch(new Request('https://arena.test/engine.js?v=26',{headers:{'If-None-Match':'"asset"',Cookie:'private',Authorization:'private'}}),{});assert.equal(r.status,304);assert.equal(r.headers.get('ETag'),'"asset"');
+ t.mock.method(globalThis,'fetch',async(url,init)=>{assert.equal(new URL(url).origin,WEB_ORIGIN);assert.equal(new URL(url).pathname,'/engine.js');assert.equal(new URL(url).search,'?v=34');assert.equal(init.headers.get('If-None-Match'),'"asset"');assert.equal(init.headers.get('Cookie'),null);assert.equal(init.headers.get('Authorization'),null);assert.equal(init.headers.get('Host'),null);return new Response(null,{status:304,headers:{ETag:'"asset"'}});});
+ const r=await worker.fetch(new Request('https://arena.test/engine.js?v=34',{headers:{'If-None-Match':'"asset"',Cookie:'private',Authorization:'private'}}),{});assert.equal(r.status,304);assert.equal(r.headers.get('ETag'),'"asset"');
 });
 test('HEAD and media type are preserved by the compatibility proxy',async t=>{
  mockAssets(t);const r=await worker.fetch(new Request('https://arena.test/assets/cards/farfetchd-knight-v1.png',{method:'HEAD'}),{});assert.equal(r.status,200);assert.equal(r.headers.get('Content-Type'),'image/png');assert.equal((await r.arrayBuffer()).byteLength,0);
@@ -49,7 +49,7 @@ test('network failure is explicit and cache storage is not required',async t=>{
  mock.mock.mockImplementation(async()=>{throw Error('origin unavailable')});const r=await worker.fetch(new Request('https://arena.test/engine.js'),{});assert.equal(r.status,502);assert.equal(r.headers.get('Cache-Control'),'no-store');
 });
 test('Cloudflare frontend uses its asset binding with correct root, query, MIME, ETag and cache headers',async()=>{
- const r=await frontend.fetch(new Request(WEB_ORIGIN+'/?v=26'),{ASSETS:{fetch:async request=>{const url=new URL(request.url);assert.equal(url.pathname,'/index.html');assert.equal(url.search,'?v=26');return new Response('app',{headers:{'Content-Type':'text/html',ETag:'"root"'}});}}});
+ const r=await frontend.fetch(new Request(WEB_ORIGIN+'/?v=34'),{ASSETS:{fetch:async request=>{const url=new URL(request.url);assert.equal(url.pathname,'/index.html');assert.equal(url.search,'?v=34');return new Response('app',{headers:{'Content-Type':'text/html',ETag:'"root"'}});}}});
  assert.equal(await r.text(),'app');assert.equal(r.headers.get('Content-Type'),'text/html');assert.equal(r.headers.get('ETag'),'"root"');assert.equal(r.headers.get('Cache-Control'),'public, max-age=0, must-revalidate');
 });
 test('Cloudflare frontend legacy API forwards only to the compatible Site and rejects other origins',async t=>{
