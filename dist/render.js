@@ -458,8 +458,9 @@ export class Renderer {
         return;
       }
       if(event.key==='thunder'){this.effects.push({...event,kind:'entry',style:'lightning',life:.36,max:.36});return;}
+      if(event.key==='lightning')return; // Its three actual target beams provide the strike and contact art.
       if(CARDS[event.key].fieldDuration)return;
-      const art={fireball:'explosion',lightning:'lightning',hyperBeam:'hyperImpact',blizzard:'ice',log:'flame'}[event.key]||'impact';
+      const art={fireball:'explosion',hyperBeam:'hyperImpact',blizzard:'ice',log:'flame'}[event.key]||'impact';
       this.effects.push({...event,kind:'areaImpact',art,style:CARDS[event.key].style,radius:event.radius,color:event.key==='hyperBeam'?'#ffe5a2':CARDS[event.key].color,life:.7,max:.7});
       if(event.key==='blizzard')this.effects.push({...event,kind:'spell',life:.65,max:.65});
     }

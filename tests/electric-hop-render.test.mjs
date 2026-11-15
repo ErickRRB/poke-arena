@@ -31,3 +31,8 @@ test('15Hz authoritative electric positions advance over the intervening display
  assert.equal(beams.length,0);assert.ok(points.slice(1).filter((p,i)=>p.x>points[i].x).length>=26);
  const before=points.at(-1);r.drawDt=0;art.length=0;r.projectile(c,p);assert.deepEqual(art[0],before,'pause freezes the carrier at its current phase');
 });
+test('Lightning draws only each actual vertical target beam, while Zap retains its instant area effect',()=>{
+ const{r}=fixture();r.onEvent({type:'spellHit',key:'lightning',x:300,y:268,radius:84,team:0});assert.equal(r.effects.length,0,'no full-area burst pretends that the three-target spell hit every body');
+ r.onEvent({type:'beam',key:'lightning',style:'lightning',from:{x:300,y:80},to:{x:300,y:250},team:0});assert.equal(r.effects.length,1);assert.equal(r.effects[0].kind,'beam');
+ r.onEvent({type:'spellHit',key:'thunder',x:300,y:268,radius:60,team:0});assert.equal(r.effects.at(-1).kind,'entry');
+});
