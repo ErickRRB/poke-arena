@@ -772,7 +772,7 @@ export class Renderer {
       this.combatArt(c,front?'nightmareFront':'nightmareBack',f.x,f.y,radius*2.4,0,radius*2.4,{age:this.reduced?.3:age,blend:!this.reduced});
     }else if(!front){
       if(f.key==='whirlpool'){
-        this.battleArt.draw(c,'whirlpool',f.x,f.y,radius*1.95,radius*1.95,{age:this.reduced?.8:age,trim:true,blend:!this.reduced});
+        this.softWhirlpool(c,f,age);
       }else if(f.key==='spikes'){
         for(let i=0;i<15;i++){const a=i*2.39996,r=Math.sqrt((i+.5)/15)*radius*.85;this.combatArt(c,'spikes',f.x+Math.cos(a)*r,f.y+Math.sin(a)*r,22,0,22,{frame:i%3});}
       }else if(f.key==='earthquake'){
@@ -784,6 +784,16 @@ export class Renderer {
     if(!front){
       if(f.key){c.save();c.translate(f.x,Math.min(H-12,f.y+radius+8));c.scale(1,1/(this.verticalScale||1));pixelMeter(c,-18,0,36,f.life/f.duration,CARDS[f.key].color);c.restore();}
     }c.restore();
+  }
+  softWhirlpool(c,field,age){
+    const radius=field.radius,size=Math.ceil(radius*2),surface=this.fieldSurface??=this.canvas.ownerDocument.createElement('canvas');
+    if(surface.width!==size||surface.height!==size){surface.width=size;surface.height=size;}
+    const water=surface.getContext('2d');water.setTransform(1,0,0,1,0,0);water.globalAlpha=1;water.globalCompositeOperation='source-over';water.clearRect(0,0,size,size);water.imageSmoothingEnabled=false;
+    this.battleArt.draw(water,'whirlpool',size/2,size/2,radius*1.95,radius*1.95,{age:this.reduced?.8:age,trim:true,blend:!this.reduced});
+    const fade=water.createRadialGradient(size/2,size/2,0,size/2,size/2,radius);
+    fade.addColorStop(0,'#fff');fade.addColorStop(.5,'#fff');fade.addColorStop(.75,'#ffffffa6');fade.addColorStop(1,'#ffffff00');
+    water.globalCompositeOperation='destination-in';water.fillStyle=fade;water.fillRect(0,0,size,size);water.globalCompositeOperation='source-over';
+    c.drawImage(surface,field.x-radius,field.y-radius,radius*2,radius*2);
   }
   frozen(c,actor){
     if(!(actor.freeze>0)||actor.hp<=0||actor.burrowed)return;
