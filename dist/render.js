@@ -433,6 +433,15 @@ export class Renderer {
     if(unit.hit>.12){c.save();c.globalAlpha=(unit.hit-.12)/.12;rect(c,'#fff5cf',x-width/2,y,width*ratio,3);c.restore();}
     if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
   }
+  healthReadout(c,unit,x,y,width){
+    // Preserve the native meter's top two rows over a crossing head, without
+    // painting the whole opaque HUD box back across the moving fire body.
+    const ratio=Math.max(0,unit.hp/unit.maxHp),chip=this.healthStates?.get(unit.id)?.chip??ratio;
+    rect(c,'#32413b',x-width/2,y,width,2);
+    if(chip>ratio)rect(c,'#ffe2a2',x-width/2,y,width*chip,2);
+    rect(c,unit.team?'#ffaaa0':'#a3e5ff',x-width/2,y,width*ratio,2);
+    if(unit.shield>0){rect(c,'#102a36',x-width/2,y+11,width,2);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),2);}
+  }
   platform(c,unit){
     if(unit.card.platform===false)return;
     if(unit.card.burrow){
@@ -615,13 +624,13 @@ export class Renderer {
     const fireHead=p.key==='charizard',art=p.key==='nuzleaf'?'needle':p.art||motion.name;
     if(arc>25){c.save();c.globalAlpha=.18;ellipse(c,'#233b31',p.x,p.y,Math.max(4,size*.25),2);c.restore();}
     if(fireHead){
-      const fireAge=Math.max(0,pose.travelled)/Math.max(1,p.speed||240),fireSize=size*.78;
+      const fireAge=Math.max(0,pose.travelled)/Math.max(1,p.speed||240),fireSize=size;
       const mouth=source&&this.visualEmission(source),available=mouth?Math.hypot(x-mouth.x,(y-mouth.y)*(this.verticalScale||1)):pose.travelled;
       for(let i=this.reduced?1:2;i>0;i--){const shift=Math.min(available*.7,i*8),tailSize=Math.max(10,fireSize-i*4);c.save();c.globalAlpha*=i===1?.6:.32;
         this.combatArt(c,'fireTrail',x-Math.cos(angle)*shift,y-Math.sin(angle)*shift/(this.verticalScale||1),tailSize,angle-Math.PI/2,tailSize,{frame:this.reduced?5:undefined,frames:[3,4,5,6,5,4],fps:12,age:fireAge+i*.04,trim:true});c.restore();}
-      this.livingFire(c,x,y,fireSize,angle,fireAge);return;
+      this.projectileHead(c,()=>this.fireBolt(c,x,y,fireSize,angle,fireAge));return;
     }
-    this.combatArt(c,art,x,y,size,art==='needle'?0:['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true});
+    this.projectileHead(c,()=>this.combatArt(c,art,x,y,size,art==='needle'?0:['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true}));
     if(!this.reduced&&!fireHead&&p.style!=='coin'&&p.style!=='rock'){
       const vertical=this.verticalScale||1,color=p.art==='petalShot'?'#f5c3df':{ember:'#f6c580',hydro:'#a5e6f2',bubble:'#c4eef1',ice:'#dbffff',poison:'#d5a3df',powder:'#d5a3df',shadow:'#b99add',leaf:'#e2edb1',psychic:'#d5baff'}[p.style]||'#e6eac9';
       const length=Math.min(p.travelled,Math.max(16,size*1.5)),bend=Math.sin(progress*Math.PI)*Math.min(8,arc*.05);
@@ -629,6 +638,24 @@ export class Renderer {
       for(let i=3;i>0;i--){const a=i/3,b=(i-1)/3;c.globalAlpha=.38*(1-a*.65);c.strokeStyle=color;c.lineWidth=Math.max(1,size*.14*(1-a*.7));c.beginPath();c.moveTo(x-Math.cos(angle)*length*a,y-(Math.sin(angle)*length*a+bend*a*a)/vertical);c.lineTo(x-Math.cos(angle)*length*b,y-(Math.sin(angle)*length*b+bend*b*b)/vertical);c.stroke();}
       c.restore();
     }
+  }
+  projectileHead(c,draw){
+    // Keep the compact moving head distinct from troop HUD bars. Trails,
+    // beams, ground rollers and impacts remain in their existing world pass.
+    if(this.projectileHeadQueue)this.projectileHeadQueue.push(draw);else draw();
+  }
+  fireBolt(c,x,y,size,angle,age){
+    this.combatArt(c,'emberShot',x,y,size*1.25,angle-Math.PI/2,size*1.25,{frame:flameFrame(age,this.reduced),trim:true});
+    const phase=this.reduced?.4:age,r=size*.39,wave=Math.sin(phase*24)*r*.12;
+    c.save();c.translate(x,y);c.scale(1,1/(this.verticalScale||1));c.rotate(angle);
+    c.beginPath();c.moveTo(r,0);
+    c.bezierCurveTo(r*.8,-r*.85,-r*.3,-r-wave,-r*.8,-r*.62);
+    c.lineTo(-r*1.35,-r*.8+wave);c.lineTo(-r,0);c.lineTo(-r*1.25,r*.7-wave);
+    c.bezierCurveTo(-r*.2,r+wave,r*.8,r*.8,r,0);
+    c.closePath();c.fillStyle='#e45b20';c.strokeStyle='#64302b';c.lineWidth=2;c.lineJoin='round';c.fill();c.stroke();
+    ellipse(c,'#ffb333',r*.05,0,r*.68,r*.64);
+    ellipse(c,'#fff0a1',r*.26,-r*.03+wave*.25,r*.38,r*.41);
+    c.restore();
   }
   electricProjectile(c,p){
     if((this.gameElapsed??0)+1e-7<(p.flyAt||0))return;
@@ -1101,7 +1128,7 @@ export class Renderer {
       if(spell.key==='pinMissile')continue;
       if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
     }
-    this.towerHealthQueue=[];this.unitHealthQueue=[];
+    this.towerHealthQueue=[];this.unitHealthQueue=[];this.projectileHeadQueue=[];
     const objects=[...this.frameActors.values()].sort((a,b)=>a.y-b.y);
     for(const actor of objects){if('king'in actor)this.tower(c,actor);else this.sprite(c,actor);this.frozen(c,actor);}
     for(const field of fields)if(['stealthRock','nightmare'].includes(field.key))this.field(c,field,true);
@@ -1118,7 +1145,9 @@ export class Renderer {
     for(const[key,pose]of this.visualFields||[])if(this.t-pose.at>1)this.visualFields.delete(key);
     for(const p of this.particles){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=p.gravity*dt;c.globalAlpha=Math.max(0,p.life/p.max);this.combatArt(c,'dust',p.x,p.y,Math.max(8,p.size*3),0,Math.max(8,p.size*3),{progress:1-p.life/p.max});}
     this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;
-    for(const {unit,x,y,width} of this.unitHealthQueue)this.healthBar(c,unit,x,y,width);delete this.unitHealthQueue;
+    for(const {unit,x,y,width} of this.unitHealthQueue)this.healthBar(c,unit,x,y,width);
+    for(const draw of this.projectileHeadQueue)draw();delete this.projectileHeadQueue;
+    for(const {unit,x,y,width} of this.unitHealthQueue)this.healthReadout(c,unit,x,y,width);delete this.unitHealthQueue;
     for(const tower of this.towerHealthQueue)this.towerHealth(c,tower);delete this.towerHealthQueue;
     c.restore();
   }
