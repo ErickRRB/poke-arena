@@ -1,0 +1,34 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-11-15",
+  "scope": "FB06",
+  "assets": [
+    {
+      "file": "dist/assets/battle/nidoran-burrow-v1.png",
+      "source": "exec-c74e0dfe-ab32-4727-8c8b-0ce9d9e8e94f.png",
+      "transparent": true,
+      "prompt": "Create one production videogame battlefield structure asset for Poké Arena: a Nidoran burrow, without any Pokemon character. Single isolated compact earthen den, broad low rounded mound of warm brown dirt and chunky grey tan rocks, deep clearly readable arched black entrance on the front face, irregular grassy tufts and a few roots around the mound, two small purple mineral thorn-like accents suggesting the Nidoran habitat. It is an actual rough natural burrow, not a cottage, not a leafy roof house, no doors/windows/flags/crystals that look like eyes, no adult Nidoqueen or other creatures. Front view from a slightly elevated Pokemon Mystery Dungeon battle camera, with a little top surface visible, facing down toward viewer. Carefully handcrafted Nintendo DS / Pokemon Mystery Dungeon pixel art, crisp stepped pixel clusters and dark readable contour, warm top-left light with 3-4 clean tones per material, restrained detail, clear natural ground contact. Design it as a compact approximately 76px wide by 58px tall native sprite, enlarged cleanly for delivery: all details must read at that native game size. Whole object fully visible centered, wide squat silhouette, generous transparent margins. No detached platform or square tile underneath, no background scenery, no cast-shadow ellipse extending outside the natural mound, no text, no UI, no border. Transparent background with true alpha.",
+      "metadataCrop": {
+        "reason": "Ignore near-transparent background specks; preserve all opaque mound/grass/roots. Image pixels unchanged.",
+        "alpha16BBox": [
+          98,
+          216,
+          1345,
+          925
+        ]
+      }
+    },
+    {
+      "file": "dist/assets/cards/madriguera-scene-v2.png",
+      "source": "exec-f4cea9b8-f4db-43eb-8cea-1cf0e57408ec.png",
+      "transparent": false,
+      "references": [
+        "dist/assets/battle/nidoran-burrow-v1.png",
+        "dist/assets/pokemon/32/art.png"
+      ],
+      "canonicalReference": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/32.png",
+      "prompt": "Create a finished portrait 2:3 illustration for the Madriguera card in Poké Arena. First reference is the exact burrow design to turn into a full illustrated environment: preserve its broad low earthen mound, deep arched den entrance, embedded rounded rocks, roots, grass and the two little purple mineral thorns; translate its pixel-art shapes into clean polished painterly Pokemon storybook card art. Second reference is the canonical anatomy and colors of Nidoran male: lavender purple small quadruped, long serrated rabbit-like ears with dark teal inner ears, short forehead horn, red eyes, dark purple spots and small white claws. Depict exactly three correct Nidoran males in varied natural poses around and emerging from this burrow: one alert near the entrance, one in a three-quarter pose moving toward the left foreground, one smaller behind to the right. They share the same forest light and ground perspective, and do not smile like people. No adult Nidoqueen, no female blue Nidoran, no unrelated Pokemon. The burrow is the central structure, with the trio clearly related to it. Fully illustrated peaceful leafy woodland clearing, soft warm late-afternoon light from upper left, grassy earth and little stones in foreground, distant lush trees and quiet foliage filling the entire background. Compose as one coherent scene with readable strong silhouettes at small card size, restrained brush textures, clean colors, balanced contrast and room around the characters. No cutout pasted on a generic background. No text, lettering, logo, border, UI, banner or watermark. Opaque complete background."
+    }
+  ],
+  "status": "Author assets, native first demo and independent review required; no final quality/deployment claim."
+}
