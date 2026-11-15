@@ -26,6 +26,7 @@ export async function prepare(page,config){
     if(q.CARDS.ampharos.id!==181||q.CARDS.diglett.id!==50)throw Error('Tesla scene identity changed');
     for(const id of ids)if(!r.sprites.get(id+'-Walk')?.width)throw Error('Native species preflight failed');
     g.units=[];g.projectiles=[];g.spells=[];g.fields=[];g.attacks=[];g.energy=[10,10];
+    if(config.scene==='burrow-cycle'){g.hands[0][1]='madriguera';g.hands[0][2]='nidoqueen';}
     r.resetVisuals();r.effects=[];r.particles=[];r.selection=null;r.pointer=null;q.events=[];
     const rects=()=>Object.fromEntries(['arena','hand','energy-bar'].map(id=>{const b=document.getElementById(id).getBoundingClientRect();return[id,[b.x,b.y,b.width,b.height]];}));
     q.fixture={ready:false,actors:[],deployments:[],initialRects:rects(),reduced:r.reduced,visualOverride,limits:'Controlled native Game.deploy calls and starting hand/energy. Field/Roselia scenes place one native enemy Snorlax; burrow places native Rhydon. Burrow prototype overrides only declared id/name/structureArt pending Main catalog assignment. Original Game.step and app rAF retained; no native rule, HP, lifetime, movement, target, attack or renderer clock replacement. Tower attacks disabled. Sound muted, no audio judgment; particles are not seeded.'};

@@ -458,7 +458,7 @@ export class Renderer {
       for(const side of[-1,1])c.fillRect(x+side*art.width*.244-2,y-(art.height*.243+2)/vertical,4,4/vertical);
     }
     c.restore();if(!drawn||idle)return;
-    const by=unit.y-(this.bodyHeight(unit)+9)/vertical;
+    const by=unit.y+(art.healthOffset??-(this.bodyHeight(unit)+9))/vertical;
     this.queueUnitHealth(c,unit,x,by,44);
     if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
     else if(unit.slow>0)this.combatArt(c,'snow',x,by-10,18);

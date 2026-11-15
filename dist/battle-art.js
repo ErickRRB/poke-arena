@@ -13,7 +13,7 @@ const ALIASES={aura:'psychic',confusion:'psychic',lightning:'lightningHead',magn
 const STRUCTURES={princess:[[161,7,309,395],[794,7,309,395]],king:[[29,428,574,476],[662,428,574,476]],platform:[[92,959,449,271],[725,959,448,271]]};
 export const STRUCTURE_ART=Object.freeze({
   raltsHut:Object.freeze({file:'assets/battle/ralts-hut-v1.png',bounds:[81,118,1035,1108],width:74,height:74*1108/1035,baseOffset:4,windowGlow:'#ffd7ed'}),
-  nidoranBurrow:Object.freeze({file:'assets/battle/nidoran-burrow-v1.png',bounds:[98,216,1247,709],width:76,height:76*709/1247,baseOffset:2})
+  nidoranBurrow:Object.freeze({file:'assets/battle/nidoran-burrow-v1.png',bounds:[98,216,1247,709],width:76,height:76*709/1247,baseOffset:2,healthOffset:10})
 });
 
 export class BattleArt {
