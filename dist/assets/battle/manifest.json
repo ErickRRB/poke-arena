@@ -487,6 +487,14 @@
       "columns": 7,
       "rows": 1,
       "fps": 24
+    },
+    "electricHop": {
+      "file": "assets/battle/Particle__Charge_Beam_Shot.Dir8.png",
+      "width": 32,
+      "height": 32,
+      "columns": 2,
+      "rows": 8,
+      "fps": 12
     }
   },
   "sources": [
@@ -855,6 +863,12 @@
       "file": "assets/battle/Particle__Draco_Meteor_Explosion.None.png",
       "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Draco_Meteor_Explosion.None.png",
       "sha256": "b0c103bfea5f16104a732903a68cfc3ce8b8c89b1972aad9c4fe141361154027"
+    },
+    {
+      "key": "electricHop",
+      "file": "assets/battle/Particle__Charge_Beam_Shot.Dir8.png",
+      "source": "https://raw.githubusercontent.com/PMDCollab/RawAsset/03c80dad937911572f8fb19903771a47956fc696/Particle/Charge_Beam_Shot.Dir8.png",
+      "sha256": "bf4913d3a6b2a4f841492fafe85dc0feb15889b4a5b42f0211819aef2b3504e6"
     }
   ]
 }

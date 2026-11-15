@@ -409,7 +409,7 @@ export class Renderer {
     }
     if(type==='attackStart'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
-    if(type==='beam')this.effects.push({...event,kind:'beam',life:.42,max:.42});
+    if(type==='beam'&&!event.missed){const life=event.hop===undefined?.42:.18;this.effects.push({...event,kind:'beam',life,max:life});}
     if(type==='flame'){const life=event.length/(event.speed||300)+.18;this.effects.push({...event,kind:'flame',life,max:life});}
     if(type==='melee')this.effects.push({...event,kind:'melee',life:['slam','eruption'].includes(event.style)?.5:.27,max:['slam','eruption'].includes(event.style)?.5:.27});
     if(type==='counter')this.effects.push({...event,kind:'counter',life:.3,max:.3});
@@ -519,6 +519,7 @@ export class Renderer {
   }
   projectile(c,p){
     if(p.flameCone)return; // The travelling front is drawn by its matching flame event.
+    if(p.electricChain){this.electricProjectile(c,p);return;}
     if(p.rolling){
       const pose=this.projectilePose(p);
       c.save();c.fillStyle='#17271f44';c.beginPath();c.ellipse(pose.x,pose.y+3,18,6,0,0,Math.PI*2);c.fill();
@@ -550,6 +551,19 @@ export class Renderer {
       for(let i=3;i>0;i--){const a=i/3,b=(i-1)/3;c.globalAlpha=.38*(1-a*.65);c.strokeStyle=color;c.lineWidth=Math.max(1,size*.14*(1-a*.7));c.beginPath();c.moveTo(x-Math.cos(angle)*length*a,y-(Math.sin(angle)*length*a+bend*a*a)/vertical);c.lineTo(x-Math.cos(angle)*length*b,y-(Math.sin(angle)*length*b+bend*b*b)/vertical);c.stroke();}
       c.restore();
     }
+  }
+  electricProjectile(c,p){
+    if((this.gameElapsed??0)+1e-7<(p.flyAt||0))return;
+    const destination=p.target||p.lastPoint;if(!destination)return;
+    const dx=destination.x-p.x,dy=destination.y-p.y,distance=Math.hypot(dx,dy),direction={x:distance?dx/distance:0,y:distance?dy/distance:0};
+    const pose=this.projectilePose({...p,dx:direction.x,dy:direction.y,totalDistance:(p.travelled||0)+distance},p,true),progress=Math.min(1,pose.travelled/Math.max(1,p.totalDistance)),vertical=this.verticalScale||1;
+    const source=this.frameActors.get(p.chainFromId||p.sourceId),target=this.frameActors.get(p.target?.id);
+    const start=this.projected({x:p.startX+(p.liftX||0),y:p.startY+(p.liftY||0)},source||{x:p.startX,y:p.startY});
+    const end=this.projected({x:destination.x,y:destination.y+(p.endLiftY??-15)},target||destination);
+    const x=pose.x+(start.x-p.startX)*(1-progress)+(end.x-destination.x)*progress,y=pose.y+(start.y-p.startY)*(1-progress)+(end.y-destination.y)*progress;
+    const size=Math.max(16,Math.min(24,combatVisual(p.card||CARDS[p.key]).projectile*1.2)),length=Math.min(18,pose.travelled);
+    if(!this.reduced&&length>0){c.save();c.globalAlpha*=.45;c.strokeStyle='#fff3a3';c.lineWidth=2;c.lineCap='round';c.beginPath();c.moveTo(x-direction.x*length,y-direction.y*length/vertical);c.lineTo(x,y);c.stroke();c.restore();}
+    this.combatArt(c,'electricHop',x,y,size,0,size,{direction:directionRow(direction.x,direction.y),age:this.reduced?0:this.t,fps:12});
   }
   drawMissiles(c,e){
     const progress=1-e.life/e.max;
@@ -844,7 +858,7 @@ export class Renderer {
     this.combatArt(c,'flameWheel',spell.x,spell.y-14,88,0,80,{age:this.reduced?0:this.t});
   }
   draw(game,dt=.016){
-    const c=this.ctx;this.t+=dt;this.drawDt=dt;this.battleArt.time=this.reduced?0:this.t;
+    const c=this.ctx;this.t+=dt;this.drawDt=dt;this.gameElapsed=game.elapsed||0;this.battleArt.time=this.reduced?0:this.t;
     this.updateSpellTargets(game);
     const {width,height}=this.viewport||{width:W,height:H},projection=this.projection||arenaProjection(width,height),bounds=this.worldBounds||{left:0,top:0,right:W,bottom:H};
     c.save();c.setTransform(projection.scale*this.canvas.width/width,0,0,projection.scale*this.canvas.height/height,projection.x*this.canvas.width/width,projection.y*this.canvas.height/height);

@@ -8,6 +8,7 @@ const definitions={
 };
 definitions.bite='Particle/Bite.Dir8.png';
 definitions.hyperImpact='Particle/Draco_Meteor_Explosion.None.png';
+definitions.electricHop='Particle/Charge_Beam_Shot.Dir8.png';
 definitions.flameWheel='Particle/Flame_Wheel.None.png';
 definitions.petalShot='Particle/Petal_Dance_Flower_Pink.None.png';
 for(const [name,folder]of [['lightning','Lightning'],['beam','Beam'],['waterBeam','Column_Blue'],['hyper','Column_Yellow']])for(const section of ['Body','Head','Tail'])definitions[name+section]='Beam/'+folder+'/'+section+'.png';
