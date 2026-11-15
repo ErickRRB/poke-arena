@@ -39,7 +39,7 @@ Mantener una ficha autoritativa y un runner parametrizable por trabajo relaciona
 
 Al servir música, comprobar en la plataforma publicada las respuestas `206`, `416` y `If-Range`, sus cuerpos y cabeceras, además del avance real de reproducción y la transición al final de una pieza. Que el MP3 cargue o que el servidor local soporte rangos no demuestra que la búsqueda temporal funcione en producción. Las pruebas deben reproducir el comportamiento real del binding de archivos; no suponer que devuelve fragmentos si la plataforma entrega el archivo completo.
 
-Antes de aprobar, publicar o cerrar, Root y el publicador ejecutan `npm run review:check -- ruta/review.json` y examinan el resultado, los informes y sus límites. El plan previo, evidencia compatible, hallazgos y alcance parcial se registran según [Control de revisión](docs/quality-review-gate.md). Un resultado automático favorable no decide calidad ni valida por sí solo el proceso.
+Al preparar una publicación de la app o cerrar una entrega que usa registros estructurados, Root y el publicador ejecutan `npm run review:check -- ruta/review.json` y examinan el resultado, los informes y sus límites. El plan previo, evidencia compatible, hallazgos y alcance parcial se registran según [Control de revisión](docs/quality-review-gate.md). No fabricar un expediente de publicación para documentación o herramientas locales sin despliegue: comprobar sus invariantes pertinentes y conservar la revisión real. Un resultado automático favorable no decide calidad ni valida por sí solo el proceso.
 
 ## Selección de pruebas
 
