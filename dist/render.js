@@ -2,7 +2,7 @@ import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTar
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
-import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation} from './combat-visuals.js?v=36';
+import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation,petalPreparation} from './combat-visuals.js?v=36';
 import { spellPreviewTargets } from './spell-preview.js?v=34';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
@@ -404,6 +404,8 @@ export class Renderer {
     if(preparation&&!unit.preview)this.dashWindup(c,unit,preparation,true);
     if(!unit.preview&&this.spellTargets?.has(unit.id))this.tintTarget(c,spriteImage,...spriteFrame);
     c.restore();
+    const petals=!unit.preview&&petalPreparation(unit,this.reduced);
+    if(petals)this.petalWindup(c,unit,petals);
     if(unit.shield>0&&!unit.mounted){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
     if(idle)return;
     const bodyHealthY=y-lift-((this.bodyHeights.get(id)||22)*scale+9+(id===6?12:0))/vertical;
@@ -417,6 +419,17 @@ export class Renderer {
   bodyHeight(unit,fallback=22){
     const art=STRUCTURE_ART[unit.card?.structureArt];
     return art?art.height-art.baseOffset:(this.bodyHeights.get(unit.card?.id)||fallback)*visualScale(unit)+(unit.card?.structure?structureLift(unit.card):unit.card?.flying?16:0);
+  }
+  petalWindup(c,unit,preparation){
+    const from=this.visualEmission(unit),size=combatVisual(unit.card).charge,energy=preparation.energy;
+    c.save();c.globalAlpha*=.5+.4*energy;
+    if(!this.reduced)for(const shot of[0,1]){
+      const hand=this.visualEmission({...unit,card:{...unit.card,emitter:'hands'}},shot),t=preparation.converge;
+      this.combatArt(c,'petalShot',hand.x+(from.x-hand.x)*t,hand.y+(from.y-hand.y)*t,size*.43,0,size*.43,{frame:shot?4:1,trim:true});
+    }
+    const bloom=size*(.55+.55*energy);
+    this.combatArt(c,'petalShot',from.x,from.y,bloom,this.reduced?0:(1-preparation.progress)*.5,bloom,{frame:this.reduced?0:Math.floor(preparation.progress*4),trim:true});
+    c.restore();
   }
   dashWindup(c,unit,preparation,front=false){
     const vertical=this.verticalScale||1,energy=preparation.energy;
@@ -542,7 +555,7 @@ export class Renderer {
       this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,shot,until}),held});
       if(profile.style==='ember'&&isRangedAttack(profile)&&!profile.suicide){const life=profile.id===6?.18:.16;this.effects.push({...event,kind:'muzzleFlame',sourceId:actor.id,targetId:event.target?.id,attackId:`${actor.id}:${actor.attackSeq}:${shot}`,life,max:life});}
     }
-    if(type==='attackStart'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
+    if(type==='attackStart'&&event.attacker?.card?.projectileArt!=='petalShot'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='beam'&&!event.missed){const life=event.hop===undefined?.42:.18;this.effects.push({...event,kind:'beam',life,max:life});}
     if(type==='flame'){const life=event.length/(event.speed||300)+.18;this.effects.push({...event,kind:'flame',life,max:life});}

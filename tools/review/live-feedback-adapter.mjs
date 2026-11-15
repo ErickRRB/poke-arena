@@ -2,7 +2,7 @@ import * as baseline from './baseline-adapter.mjs';
 
 // Controlled native deployments; the shared workbench owns clocks and capture.
 export async function beforeNavigate(page,config){
-  if(!['tesla-lifecycle','field-lifecycle'].includes(config.scene))throw Error('Unsupported live feedback scene');
+  if(!['tesla-lifecycle','field-lifecycle','roselia-cycle'].includes(config.scene))throw Error('Unsupported live feedback scene');
   if(config.scene==='field-lifecycle'&&!['nightmare','stealthRock'].includes(config.fieldKey))throw Error('Unsupported native field');
   await page.addInitScript(()=>localStorage.setItem('poke-arena:sound','false'));
   await page.emulateMedia({reducedMotion:config.reduced?'reduce':'no-preference'});
@@ -13,7 +13,7 @@ export async function prepare(page,config){
   await page.evaluate(async config=>{
     const q=__reviewAdapter,g=q.game,r=q.renderer;q.action=true;
     g.aiEnabled=false;g.towers.forEach(t=>t.active=false);
-    const ids=config.scene==='tesla-lifecycle'?[181,50]:[143,q.CARDS[q.CARDS[config.fieldKey].spawnKey]?.id].filter(Boolean);
+    const ids=config.scene==='tesla-lifecycle'?[181,50]:config.scene==='roselia-cycle'?[143,315]:[143,q.CARDS[q.CARDS[config.fieldKey].spawnKey]?.id].filter(Boolean);
     await r.ensureSpecies(ids);
     if(q.CARDS.ampharos.id!==181||q.CARDS.diglett.id!==50)throw Error('Tesla scene identity changed');
     for(const id of ids)if(!r.sprites.get(id+'-Walk')?.width)throw Error('Native species preflight failed');
@@ -34,9 +34,11 @@ export async function prepare(page,config){
       q.fixture.startGameTime=g.elapsed;q.fixture.startEpochMs=performance.timeOrigin+performance.now();q.fixture.ready=true;
       if(config.scene==='tesla-lifecycle')deploy('ampharos',team,300,team?240:560);
       else{
-        const context=g.spawn('snorlax',1-team,300,team?350:450,0);context.entryPending=false;
+        const targetY=config.scene==='roselia-cycle'?(team?450:350):(team?350:450);
+        const context=g.spawn('snorlax',1-team,300,targetY,0);context.entryPending=false;
         q.fixture.actors.push({id:context.id,key:context.key,team:context.team,nativeMaxHp:context.maxHp,initialHp:context.hp});
-        deploy(config.fieldKey,team,300,team?300:500);
+        if(config.scene==='roselia-cycle')deploy('roselia',team,300,team?240:560);
+        else deploy(config.fieldKey,team,300,team?300:500);
       }
       if(config.pauseAtMs)setTimeout(async()=>{
         try{

@@ -23,6 +23,13 @@ export function dashPreparation(unit,reduced=false){
   return{progress,frame:reduced?2:progress<.14?0:progress<.38?1:2,
     scaleX:1+.07*ease,scaleY:1-.2*ease,lean:3.5*ease,energy:reduced?.6:progress};
 }
+export function petalPreparation(unit,reduced=false){
+  if(unit.card?.projectileArt!=='petalShot'||!(unit.attack>0)||unit.hp<=0||unit.stun>0)return null;
+  const duration=unit.attackDuration||unit.card.attackDuration||.6,windup=unit.attackWindup??unit.card.windup??.18;
+  const elapsed=duration-unit.attack;if(!(windup>0)||elapsed>=windup-1e-7)return null;
+  const progress=Math.max(0,elapsed/windup);
+  return{progress,energy:reduced?.65:progress,converge:reduced?1:progress*progress*(3-2*progress)};
+}
 const MOTIONS={
   hydro:{name:'hydroShot',fps:8,frame:0},bubble:{name:'bubble',fps:8,frames:[2,3,4,3]},shadow:{name:'shadow',fps:6},
   aura:{name:'psychic',fps:9},confusion:{name:'psychic',fps:9},psychic:{name:'psychic',fps:9},
