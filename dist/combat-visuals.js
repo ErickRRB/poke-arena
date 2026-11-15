@@ -11,10 +11,10 @@ export function combatVisual(card={}){
   return {body,projectile:Math.max(floor,Math.min(areaProjectile?34:28,Math.max(body*ratio,areaProjectile))),impact:Math.max(16,Math.min(42,body*.6)),beam:Math.max(4,Math.min(11,body*.16)),charge:Math.max(12,Math.min(26,body*.4))};
 }
 const FIRE_GESTURE=Object.freeze([0,1,2,3,4,5,6,7,8,9,10]);
-const ZUBAT_GESTURE=Object.freeze([0,1,2,3,4,5,6,7,8,9,10,0]);
+const ZUBAT_GESTURES=Object.freeze([Object.freeze({rest:1,prepare:6,contact:6,follow:10})]);
 export const directedBite=card=>card?.id===41&&card.style==='bite'&&card.attackAnim==='Attack';
 export function attackVisualProfile(card){
-  if(directedBite(card))return{...card,attackFrames:ZUBAT_GESTURE,attackContactFrame:6};
+  if(directedBite(card))return{...card,attackGestures:ZUBAT_GESTURES};
   return card?.id===6&&card.attackAnim==='Shoot'?{...card,attackFrames:FIRE_GESTURE,attackContactFrame:2}:card;
 }
 export function biteMotion(unit,reduced=false){
@@ -26,6 +26,15 @@ export function biteMotion(unit,reduced=false){
     1-ease((elapsed-windup-.1)/Math.max(.001,duration-windup-.1));
   const drawback=reduced||elapsed>=start?0:-6*Math.sin(Math.PI*elapsed/Math.max(.001,start))**2;
   return{reach,drawback,elapsed};
+}
+export function biteJaw(unit,released=false){
+  const motion=biteMotion(unit);if(!motion)return null;
+  const windup=unit.attackWindup??unit.card.windup,elapsed=motion.elapsed;
+  let frame=3-Math.min(3,Math.floor(elapsed/Math.max(.001,Math.min(.12,windup*.25))*4));
+  if(elapsed>windup-.08)frame=Math.min(2,Math.max(0,Math.floor((elapsed-windup+.08)/.08*3)));
+  if(released)frame=3;
+  const opacity=elapsed<=windup+.1?1:Math.max(0,1-(elapsed-windup-.1)/.14);
+  return{frame,opacity};
 }
 export function biteSurface(from,target,vertical=1){
   const profile=target.card||target.guard||{},body=combatVisual(profile).body,tower='king'in target;

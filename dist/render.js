@@ -2,7 +2,7 @@ import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
-import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation,directedBite,biteMotion,biteSurface} from './combat-visuals.js?v=36';
+import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
 import { spellPreviewTargets } from './spell-preview.js?v=34';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
@@ -20,6 +20,10 @@ function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c
 function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.lineWidth = width; c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); }
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
 const visualScale = unit => unit.scale ?? unit.card?.scale ?? 1.5;
+// Union of the four original Bite frames' opaque bounds in each genuine view.
+// Compact the padding, not the bat: this mouth articulation uses the existing
+// preloaded native atlas and stays attached through preparation and recovery.
+const BITE_JAW_BOUNDS=[[14,6,43,50],[14,5,44,52],[17,4,41,52],[16,3,46,54],[13,5,44,52],[10,3,40,54],[15,4,39,52],[12,5,42,52]];
 function attackLunge(unit,reduced){
   if(directedBite(unit.card))return 0; // The complete bite pose is applied once to the displayed actor.
   if(!reduced&&!unit.mounted&&unit.dash?.phase!=='windup'&&unit.card?.id===6&&unit.card.attackAnim==='Shoot'&&unit.attack>0){
@@ -184,7 +188,7 @@ export class Renderer {
       if(bits&3){c.fillStyle=path;c.fillRect(x,y,half,half);}
     }
   }
-  resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.visualFlights?.clear();this.visualFields?.clear();this.frameActors?.clear();this.flightWings?.phases.clear();this.attackContacts?.clear();}
+  resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.visualFlights?.clear();this.visualFields?.clear();this.frameActors?.clear();this.flightWings?.phases.clear();this.attackContacts?.clear();this.biteJawActors?.clear();}
   visualActor(unit,dt){
     let pose=this.visualActors.get(unit.id);
     const fresh=!pose||Math.hypot(pose.x-unit.x,pose.y-unit.y)>95;
@@ -269,6 +273,20 @@ export class Renderer {
     // Simultaneous bites read the same unmodified target poses, rather than
     // chasing an already displaced actor encountered earlier in Map order.
     for(const[id,actor]of updates)this.frameActors.set(id,actor);
+  }
+  drawBiteGesture(c,unit){
+    if(!unit.biteContact||unit.preview)return false;
+    const contact=this.attackContacts?.get(unit.id);
+    const released=contact?.seq===unit.attackSeq&&contact.shot>=0||contact?.held?.seq===unit.attackSeq&&this.t<contact.held.until;
+    const jaw=biteJaw(unit,released),image=this.battleArt?.images?.get('assets/battle/Particle__Bite.Dir8.png');
+    if(!jaw||!image)return false;
+    if(jaw.opacity<=0)return true; // This component also owns the fading contact.
+    const direction=directionRow(unit.dx,unit.dy),[left,top,right,bottom]=BITE_JAW_BOUNDS[direction];
+    const width=right-left,height=bottom-top,size=Math.min(16,combatVisual(unit.card).body*.55),scale=size/Math.max(width,height);
+    const mouth=this.visualEmission(unit),vertical=this.verticalScale||1;
+    c.save();c.translate(mouth.x+unit.dx*size*.16,mouth.y+unit.dy*size*.16/vertical);c.scale(1,1/vertical);c.globalAlpha*=jaw.opacity;
+    c.drawImage(image,jaw.frame*56+left,direction*56+top,width,height,-width*scale/2,-height*scale/2,width*scale,height*scale);
+    c.restore();return true;
   }
   projected(point,actor){
     if(!actor)return point;
@@ -395,6 +413,7 @@ export class Renderer {
     c.drawImage(spriteImage,...spriteFrame);
     if(preparation&&!unit.preview)this.dashWindup(c,unit,preparation,true);
     if(!unit.preview&&this.spellTargets?.has(unit.id))this.tintTarget(c,spriteImage,...spriteFrame);
+    if(this.drawBiteGesture(c,unit))this.biteJawActors?.add(unit.id);
     c.restore();
     if(unit.shield>0&&!unit.mounted){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
     if(idle)return;
@@ -914,6 +933,7 @@ export class Renderer {
         }
       }else if(e.kind==='melee'){
         const source=this.frameActors.get(e.sourceId),bite=directedBite(source?.card)&&source.biteContact;
+        if(bite&&this.biteJawActors?.has(e.sourceId)){c.restore();continue;}
         const to=bite||this.effectTarget(e),from=this.effectSource(e)||e.from;
         const name={punch:'impact',dash:'impact',slam:'dust',eruption:'explosion'}[e.style]||e.style;
         const card=source?.card||CARDS[e.key],size=combatVisual(card).impact*(bite?1:e.charged?1.2:card?.windup>=.6?1.35:1);
@@ -1191,6 +1211,7 @@ export class Renderer {
       if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
     }
     this.towerHealthQueue=[];this.unitHealthQueue=[];this.projectileHeadQueue=[];
+    (this.biteJawActors??=new Set()).clear();
     const objects=[...this.frameActors.values()].sort((a,b)=>(a.visualSortY??a.y)-(b.visualSortY??b.y));
     for(const actor of objects){if('king'in actor)this.tower(c,actor);else this.sprite(c,actor);this.frozen(c,actor);}
     for(const field of fields)if(['stealthRock','nightmare'].includes(field.key))this.field(c,field,true);
