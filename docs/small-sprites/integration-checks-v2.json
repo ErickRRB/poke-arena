@@ -1,0 +1,22 @@
+{
+  "version": "small-sprites-integration-checks-v2",
+  "createdAt": "2026-11-15T09:15:25Z",
+  "previous": "integration-checks-v1.json",
+  "reason": "Root detectó que Main00e7/5cc conserva publicAssetUrl que desvía los recursos de un preview propio hacia producción. El primer candidato local5cc no contenía la corrección; no se presenta como si la tuviera.",
+  "sourceIntegration": "5cc1b80ab17394ffc991bd279d820f81cc808082",
+  "resolverSource": "89157bed094c93822bde5c53157849f0a59b745e",
+  "scope": "Mantener todos los controles v1 y el plan nativo histórico; integrar sólo online-config.js y cobertura asset-origin pertinente desde89157bed, sin su renderer ni VFX. El nuevo candidato tiene otro SHA.",
+  "requiredBeforeVerdict": [
+    "Pruebas de resolución local/canónico, HTTPS de versiones/alias del mismo Worker, legado y hosts ajenos; helper y tests iguales a la fuente revisada.",
+    "Red y hashes de preview propio. La simulación local por hostname se etiqueta y sólo prueba bootstrap; Main debe preparar después un preview CF inmutable real y el wrapper nuevo para revisión independiente.",
+    "Repetir bootstrap legado aDPR1 con sampler activo yDPR3, sin publicar Sites ni llamar API/matchmaking real; conservar almacenamiento por origen y canvas sin taint.",
+    "Conservar sin sobrescribir evidencia y bundle5cc. Su inventario de3202 archivos idénticos a0e8 sólo aplica a5cc; no usarlo para afirmar identidad completa del nuevo candidato.",
+    "El cambio de resolver invalida la propuesta automática basada en inventario completo idéntico. El nuevo bundle permanece pendiente y requiere recheck independiente con la diferencia y las condiciones documentadas."
+  ],
+  "approvalDependencies": [
+    "Seis criterios nativos de native-fidelity-v1 en el candidato final, con sus hallazgos históricos.",
+    "Plan de origen de recursos sprite-preview-origin-v1, con registros propios y hallazgo PREVIEW-ORIGIN-5CC abierto hasta recheck.",
+    "Revisión separada del wrapper de publicación de Main, decisión Root y comprobación pública posterior."
+  ],
+  "limits": "No se altera el umbral de identidad/legibilidad ni el plan nativo para borrar fallos. No se afirma corregido VFX6ea/6558, ni se publica o modifica Sites. La autorización de despliegue sigue vigente y no se vuelve a pedir."
+}
