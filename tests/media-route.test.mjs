@@ -26,9 +26,14 @@ test('HEAD and media type are preserved by the compatibility proxy',async t=>{
 });
 test('retired media and build metadata are rejected without an upstream request',async t=>{
  const mock=t.mock.method(globalThis,'fetch',()=>{throw Error('must not fetch')});
- const retired=JSON.parse(readFileSync(new URL('../docs/audio-pokemon-2026-11-14/retired-assets.json',import.meta.url)));
- for(const path of[...retired.rows.map(row=>row.file),'assets/audio/foley/heavy.ogg','assets/audio/foley/punch-1.ogg','assets/ui/pokeball-v2.webp','assets/ui/pokeball-v2.png','server/index.js','.openai/hosting.json','.assetsignore'])assert.equal((await worker.fetch(new Request('https://arena.test/'+path),{})).status,404);
+ for(const path of['assets/audio/foley/heavy.ogg','assets/audio/foley/punch-1.ogg','assets/ui/pokeball-v2.webp','assets/ui/pokeball-v2.png','server/index.js','.openai/hosting.json','.assetsignore'])assert.equal((await worker.fetch(new Request('https://arena.test/'+path),{})).status,404);
  assert.equal(mock.mock.callCount(),0);
+});
+
+test('the transition bridge permits former public audio paths but preserves the upstream404 after replacement',async t=>{
+ const mock=mockAssets(t),retired=JSON.parse(readFileSync(new URL('../docs/audio-pokemon-2026-11-14/retired-assets.json',import.meta.url)));
+ for(const row of retired.rows)assert.equal((await worker.fetch(new Request('https://arena.test/'+row.file),{})).status,404,row.file);
+ assert.equal(mock.mock.callCount(),retired.rows.length);
 });
 test('the legacy API stays in the compatibility Worker without forwarding back to the frontend',async t=>{
  const mock=t.mock.method(globalThis,'fetch',()=>{throw Error('API loop')});

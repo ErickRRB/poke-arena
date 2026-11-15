@@ -3,7 +3,7 @@
   "fingerprintFormat": "SHA256 of UTF8 source normalized to LF; sourceBlobs are the actual HEAD Git objects after verifying normalized content equality. Git blobs may preserve CRLF. Includes the transitive JavaScript dependencies of engine and sandbox.",
   "methodFingerprint": "63bae46ff86e0b07b3ad703784d4e46a07ecf0949fcfed5520db3f09fdb2885b",
   "fingerprints": {
-    "arena-geometry": "747481d1c712f25541f1805ced236fd7a818e3faab7c5fb417c27f3a2a3e9d0f",
+    "arena-geometry": "1d5da6ca0d38d95e4d0244001297fd0d4a58408ce2d80ce1628a06ff16f2c181",
     "arena-tilemap": "7811168f2eaea5c6ce8c60c98171abd814d5709284434d0edb69d0c91c5a3e6d",
     "attack-choreography": "ba1d9e7ce576b5af8250ac5b5d37489515c8fcbf73786783c1ebaa766e7a6136",
     "balance": "b9c6e30bf41aeb40af5dd5fcaaed6ba719df5b480bc900c709186365522b0b61",
@@ -21,7 +21,7 @@
     "unit-sizes": "f3fac3924d2902e7ecb62e9bbf159a6ae67be94d731c634499325d8cbbe4e4b3"
   },
   "sourceBlobs": {
-    "arena-geometry": "ca699afe7c2065703c4dee686671f1da5aeee275",
+    "arena-geometry": "a97ee4efb80f8c484f1d630b5f744f2f8b678794",
     "arena-tilemap": "10a17d303823d064248c5fe1bdb303f88a0c9184",
     "attack-choreography": "2639c31a1c77f835bce6a94e5a030a8b0e051a9a",
     "balance": "94be1802ff398c0da035d0e701ab3086a5c08202",
@@ -148111,5 +148111,6 @@
       },
       "maxUnits": 7
     }
-  ]
+  ],
+  "cameraOnlyProvenance": "CAMERA-PROVENANCE-2026-11-14.json"
 }

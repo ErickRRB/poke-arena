@@ -10,6 +10,14 @@ async function visit(dir){
  }
 }
 await visit(dist);
+// Publish this bridge before switching Cloudflare's atomic asset deployment.
+// These exact former public audio paths keep the old app working during that
+// transition. After Cloudflare switches, its missing files still return404.
+const retiredAudio=JSON.parse(await readFile(path.join(root,'docs/audio-pokemon-2026-11-14/retired-assets.json'),'utf8'));
+for(const row of retiredAudio.rows){
+ if(!/^assets\/audio\/(foley|feedback|combat)\/[a-z0-9-]+\.(ogg|wav)$/.test(row.file))throw Error('Invalid former public audio path');
+ allowed.push('/'+row.file);
+}
 const strip=s=>s.replace(/^import .*?;\r?\n/gm,'').replace(/^export \{.*?\} from .*?;\r?\n/gm,'').replace(/^export /gm,'');
 const engine=(await Promise.all(['arena-tilemap.js','arena-geometry.js','native-formations.js','pokemon-stats.js','unit-sizes.js','sprite-geometry.js','sprite-motion.js','deployment-formations.js','current-reference.js','knockback-profiles.js','attack-choreography.js','native-descriptions.js','catalog.js','balance.js','engine.js'].map(async file=>strip(await readFile(path.join(dist,file),'utf8'))))).join('\n');
 const snapshot=strip(await readFile(path.join(dist,'snapshot.js'),'utf8')),apiSource=strip(await readFile(path.join(root,'worker/api.js'),'utf8'));

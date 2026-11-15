@@ -2,7 +2,7 @@
   "asOf": "2026-11-14",
   "scope": "All 50 original playable profiles: 45 troops, 3 structures, 2 spells, plus 5 non-native hidden/child keys. Twelve are the explicitly retained partial adaptations.",
   "matrixFingerprints": {
-    "arena-geometry": "747481d1c712f25541f1805ced236fd7a818e3faab7c5fb417c27f3a2a3e9d0f",
+    "arena-geometry": "1d5da6ca0d38d95e4d0244001297fd0d4a58408ce2d80ce1628a06ff16f2c181",
     "arena-tilemap": "7811168f2eaea5c6ce8c60c98171abd814d5709284434d0edb69d0c91c5a3e6d",
     "attack-choreography": "ba1d9e7ce576b5af8250ac5b5d37489515c8fcbf73786783c1ebaa766e7a6136",
     "balance": "b9c6e30bf41aeb40af5dd5fcaaed6ba719df5b480bc900c709186365522b0b61",
@@ -5713,5 +5713,6 @@
       },
       "scope": "Retired key, not selectable. Kept for compatibility only."
     }
-  ]
+  ],
+  "cameraOnlyProvenance": "CAMERA-PROVENANCE-2026-11-14.json"
 }

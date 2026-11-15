@@ -1,0 +1,99 @@
+{
+  "baseline": "21b3eaae2b42c8ad0c0f60f45812383aefd575bd",
+  "scope": "Camera-only source change. Fifteen other transitive simulation modules are byte-identical after LF normalization. Geometry excluding camera/comments is identical. Original trade matrix and catalog rows retain their existing simulation results; no balance recalibration is claimed.",
+  "oldFingerprint": "747481d1c712f25541f1805ced236fd7a818e3faab7c5fb417c27f3a2a3e9d0f",
+  "newFingerprint": "1d5da6ca0d38d95e4d0244001297fd0d4a58408ce2d80ce1628a06ff16f2c181",
+  "oldBlob": "ca699afe7c2065703c4dee686671f1da5aeee275",
+  "newBlob": "a97ee4efb80f8c484f1d630b5f744f2f8b678794",
+  "cameraBefore": {
+    "left": 30,
+    "top": -122,
+    "width": 540,
+    "height": 934
+  },
+  "cameraAfter": {
+    "left": 60,
+    "top": -48,
+    "width": 480,
+    "height": 848
+  },
+  "unchangedInputs": [
+    "arena-tilemap",
+    "attack-choreography",
+    "balance",
+    "catalog",
+    "current-reference",
+    "deployment-formations",
+    "engine",
+    "knockback-profiles",
+    "native-descriptions",
+    "native-formations",
+    "pokemon-stats",
+    "sandbox",
+    "sprite-geometry",
+    "sprite-motion",
+    "unit-sizes"
+  ],
+  "traces": [
+    {
+      "cards": [
+        "geodude",
+        "rhydon"
+      ],
+      "ticks": 360,
+      "hz": 30,
+      "sha256": "8b577be84162e94d226ef8f8a6f39c6799d6cf6650c1937d045c4e2a8ea3dde0",
+      "identical": true
+    },
+    {
+      "cards": [
+        "roselia",
+        "squirtle"
+      ],
+      "ticks": 360,
+      "hz": 30,
+      "sha256": "c6f0a11f2d9a5d33fe791621c74f93cfac3a04cfc53ccf8442de8edf3ee758b3",
+      "identical": true
+    },
+    {
+      "cards": [
+        "golem",
+        "machamp"
+      ],
+      "ticks": 360,
+      "hz": 30,
+      "sha256": "8e528929c994921b217551b9101fb001cb0c2b117519f6e58f7beb434f85f08e",
+      "identical": true
+    },
+    {
+      "cards": [
+        "ampharos",
+        "flygon"
+      ],
+      "ticks": 360,
+      "hz": 30,
+      "sha256": "b1da35e5c3db87a40fb5bb5d3cd72499b3c97f307d80b806c9a0d6b6d865943b",
+      "identical": true
+    },
+    {
+      "cards": [
+        "fireball",
+        "regice"
+      ],
+      "ticks": 360,
+      "hz": 30,
+      "sha256": "46ce812a70869ce2e48f3b6c98c95d4e67d01a2cfd0584f27e027a4c53c30d6f",
+      "identical": true
+    },
+    {
+      "cards": [
+        "sneaselAmbush",
+        "snorlax"
+      ],
+      "ticks": 360,
+      "hz": 30,
+      "sha256": "51e759cfbc944f594959dc57527d24d53b59fc7a83d3a2049453c343161736f5",
+      "identical": true
+    }
+  ]
+}
