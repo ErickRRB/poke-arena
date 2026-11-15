@@ -1,1 +1,3 @@
 /scripts/qa-native-dash-audio.mjs text eol=lf
+/dist/assets/battle/pvfx-v1/*.json -text
+/dist/assets/battle/pvfx-v1/LICENSE.txt -text
