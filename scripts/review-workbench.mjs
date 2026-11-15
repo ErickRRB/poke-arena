@@ -72,12 +72,15 @@ function serve(runtime) {
     res.writeHead(200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store'});res.end(data);}catch{res.writeHead(404).end();}});
   return new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',()=>resolve(server));});
 }
-export async function runCase(c,{mode='capture',out='workbench-runs',observeDurationMs,headless}={}) {
+export async function runCase(c,{mode='capture',out='workbench-runs',observeDurationMs,headless,additionalCdpAnomalies=()=>[]}={}) {
   validateCase(c);
   if (!['capture','observe'].includes(mode)) throw Error('mode must be capture or observe');
   if (observeDurationMs !== undefined && (mode !== 'observe' || !Number.isFinite(observeDurationMs) || observeDurationMs<100)) throw Error('observe duration must be at least 100 ms and only applies to observe');
   const result={schema:1,id:c.id,mode,status:'running',requested:c,limitations:['Emulación de navegador; no dispositivo físico.','La semilla del motor no determina Math.random del renderer.','Una secuencia de imágenes no demuestra fluidez perceptual.'],samples:[]};
-  let dir,server,browser,context,cdp,runtime;  const captured=[]; let pending=Promise.resolve();
+  result.phases={observation:'not_started',cdp:'not_started',canvas:'not_started',runtime:'not_started',resources:'not_started',inputs:'not_started',metadata:'not_started'}; result.errors=[];
+  let dir,server,browser,context,cdp,runtime,page,cdpStarted=false,canvasStarted=false; const captured=[]; let pending=Promise.resolve();
+  const fail=(phase,error)=>{const message=error.message||String(error);result.phases[phase]='failed';result.errors.push({phase,error:message});result.error??=message;result.status='failed';};
+  const finalize=async(phase,fn)=>{try{await fn();result.phases[phase]='complete';}catch(error){fail(phase,error);}};
   if (mode==='capture') { await mkdir(out,{recursive:true}); dir=path.resolve(out,`${new Date().toISOString().replace(/[:.]/g,'-')}-${randomUUID()}`); await mkdir(dir); await mkdir(path.join(dir,'frames'));  }
   try {
     runtime=runtimeSource(c);
@@ -88,7 +91,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
     server=await serve(runtime); const pw=await playwright(); browser=await pw.chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL||'msedge',headless:headless ?? mode!=='observe'});
     const viewport={width:c.viewport.width,height:c.viewport.height};
     context=await browser.newContext({viewport,deviceScaleFactor:c.viewport.dpr});
-    const page=await context.newPage();
+    page=await context.newPage();
     if (adapter.beforeNavigate !== undefined) { if (typeof adapter.beforeNavigate !== 'function') throw Error('beforeNavigate must be a function'); await adapter.beforeNavigate(page,c); }
     await page.goto(`http://127.0.0.1:${server.address().port}/${c.source.split('/').map(encodeURIComponent).join('/')}`);
     await adapter.prepare(page,c);
@@ -97,7 +100,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
         const canvas=document.querySelector(selector); if(!canvas || typeof canvas.captureStream!=='function') throw Error('recordCanvas requires a canvas with captureStream');
         const stream=canvas.captureStream(), recorder=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp8'}), chunks=[];
         window.__workbenchRecording={stream,recorder,chunks}; recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)}; recorder.start(); return performance.timeOrigin+performance.now();
-      },c.recordCanvas);
+      },c.recordCanvas); canvasStarted=true;
     }
     if (dir) {
       cdp=await context.newCDPSession(page); await cdp.send('Page.enable');
@@ -107,7 +110,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
         pending=pending.then(()=>writeFile(path.join(dir,name),Buffer.from(frame.data,'base64')));
         cdp.send('Page.screencastFrameAck',{sessionId:frame.sessionId}).catch(()=>{});
       });
-      await cdp.send('Page.startScreencast',{format:'png',maxWidth:viewport.width,maxHeight:viewport.height,everyNthFrame:1});
+      await cdp.send('Page.startScreencast',{format:'png',maxWidth:viewport.width,maxHeight:viewport.height,everyNthFrame:1}); cdpStarted=true;
     }
     const start=Date.now();
     do { result.samples.push(await adapter.observe(page,c)); await page.waitForTimeout(c.sampleMs); } while(Date.now()-start<(observeDurationMs ?? c.durationMs));
@@ -115,31 +118,47 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
     if (!observed.length || observed.some(s=>s.viewport?.width!==viewport.width || s.viewport?.height!==viewport.height || s.dpr!==c.viewport.dpr)) throw Error('observed viewport or DPR differs from requested');
     if (observed[0].events?.some(e=>e.type===c.expectedEvent) || !observed.slice(1).some(s=>s.events?.some(e=>e.type===c.expectedEvent && Number.isFinite(e.at) && e.at>=observed[0].gameTime && e.at<=s.gameTime))) throw Error('expected event not observed during case');
     if (observed.some(s=>!Number.isFinite(s.wallTime)||!Number.isFinite(s.epochMs)||!Number.isFinite(s.gameTime)||!s.canvas||s.pose==null||s.hp==null)) throw Error('required observed state missing');
-    if (dir) {
+    result.observation={durationMs:observed.at(-1).epochMs-observed[0].epochMs,firstEpochMs:observed[0].epochMs,lastEpochMs:observed.at(-1).epochMs,firstGameTime:observed[0].gameTime,lastGameTime:observed.at(-1).gameTime,events:observed.flatMap((sample,index)=>(sample.events||[]).map(event=>({event,sampleIndex:index,epochMs:sample.epochMs,gameTime:sample.gameTime})))};
+    result.phases.observation='complete';
+  } catch(e) { fail('observation',e); }
+  finally {
+    if(cdpStarted) await finalize('cdp',async()=>{
       await cdp.send('Page.stopScreencast'); await pending;
-      const anomalies=timestampAnomalies(captured); if (captured.length<2 || anomalies.length) throw Error('missing or unordered original CDP timestamps: '+JSON.stringify(anomalies.slice(0,10)));
-      if (c.recordCanvas) {
-        const b64=await page.evaluate(async()=>{const v=window.__workbenchRecording;await new Promise(resolve=>{v.recorder.onstop=resolve;v.recorder.stop()});v.stream.getTracks().forEach(t=>t.stop());const data=new Uint8Array(await new Blob(v.chunks,{type:'video/webm'}).arrayBuffer());let binary='';for(let i=0;i<data.length;i+=8192)binary+=String.fromCharCode(...data.subarray(i,i+8192));return btoa(binary);});
-        const bytes=Buffer.from(b64,'base64'),file=path.join(dir,'canvas.webm'); await writeFile(file,bytes);
-        const probe=JSON.parse(command(process.env.FFPROBE||'ffprobe',['-v','error','-select_streams','v:0','-show_streams','-show_frames','-show_entries','stream=width,height,avg_frame_rate,r_frame_rate,duration:frame=best_effort_timestamp_time','-of','json',file]));
-        const timestamps=(probe.frames||[]).map(f=>Number(f.best_effort_timestamp_time));
-        if (!timestamps.length || timestamps.some((v,i)=>!Number.isFinite(v)||(i&&v<timestamps[i-1]))) throw Error('missing or unordered canvas video PTS');
-        result.canvasVideo={path:'canvas.webm',sha256:sha(bytes),stream:probe.streams?.[0],pts:timestamps,limitations:'Canvas only, MediaRecorder timestamps; cadence and capture loss depend on browser. This is not full DOM context.'};
-      }
-      const origin=captured[0].timestamp, pts=captured.map(f=>f.timestamp-origin);
+      const anomalies=[...timestampAnomalies(captured),...additionalCdpAnomalies(captured)]; if(captured.length<2 || anomalies.length) { result.captureDebug={count:captured.length,anomalies,metadataPath:'cdp-frames.json'}; throw Error('missing or unordered original CDP timestamps: '+JSON.stringify(anomalies.slice(0,10))); }
+      const origin=captured[0].timestamp,pts=captured.map(f=>f.timestamp-origin);
       const selected=selectFrames(pts,c.extractIntervalMs/1000).map(f=>({...f,path:captured[f.index].path}));
-      const gaps=pts.slice(1).map((t,i)=>t-pts[i]); if(c.maxGapMs !== undefined && gaps.some(g=>g*1000>c.maxGapMs)) throw Error('requested maximum gap exceeded');
-      result.capture={kind:'cdp-screencast',clock:'CDP metadata.timestamp (seconds since epoch)',origin,frames:captured,selected,observedCadence: {count:captured.length, durationSeconds:pts.at(-1), meanDeliveredFps:pts.at(-1)>0?(pts.length-1)/pts.at(-1):null,maxGapMs:gaps.length?Math.max(...gaps)*1000:null,gapsSeconds:gaps},limitations:'CDP delivers browser frames opportunistically; timestamps describe delivered frames, not every display presentation. No continuous video or perceptual fluency is claimed.'};
-      for (const frame of captured) { const bytes=await readFile(path.join(dir,frame.path)); const size=pngSize(bytes); if(size.width!==viewport.width || size.height!==viewport.height) throw Error('captured frame size differs from CSS viewport'); Object.assign(frame,{format:'png',width:size.width,height:size.height,sha256:sha(bytes)}); }
+      const gaps=pts.slice(1).map((t,i)=>t-pts[i]); if(c.maxGapMs!==undefined && gaps.some(g=>g*1000>c.maxGapMs)) throw Error('requested maximum gap exceeded');
+      for(const frame of captured){const bytes=await readFile(path.join(dir,frame.path));const size=pngSize(bytes);if(size.width!==c.viewport.width||size.height!==c.viewport.height)throw Error('captured frame size differs from CSS viewport');Object.assign(frame,{format:'png',width:size.width,height:size.height,sha256:sha(bytes)});}
+      result.capture={kind:'cdp-screencast',clock:'CDP metadata.timestamp (seconds since epoch)',origin,frames:captured,selected,observedCadence:{count:captured.length,durationSeconds:pts.at(-1),meanDeliveredFps:pts.at(-1)>0?(pts.length-1)/pts.at(-1):null,maxGapMs:gaps.length?Math.max(...gaps)*1000:null,gapsSeconds:gaps},limitations:'CDP delivers browser frames opportunistically; timestamps describe delivered frames, not every display presentation. No continuous video or perceptual fluency is claimed.'};
       result.selectedFrames=selected;
+    });
+    if(canvasStarted) await finalize('canvas',async()=>{
+      const b64=await page.evaluate(async()=>{const v=window.__workbenchRecording;await new Promise(resolve=>{v.recorder.onstop=resolve;v.recorder.stop()});v.stream.getTracks().forEach(t=>t.stop());const data=new Uint8Array(await new Blob(v.chunks,{type:'video/webm'}).arrayBuffer());let binary='';for(let i=0;i<data.length;i+=8192)binary+=String.fromCharCode(...data.subarray(i,i+8192));return btoa(binary);});
+      const bytes=Buffer.from(b64,'base64'),file=path.join(dir,'canvas.webm');await writeFile(file,bytes);result.canvasVideo={path:'canvas.webm',sha256:sha(bytes),verification:'incomplete'};
+      const probe=JSON.parse(command(process.env.FFPROBE||'ffprobe',['-v','error','-select_streams','v:0','-show_streams','-show_frames','-show_entries','stream=width,height,avg_frame_rate,r_frame_rate,duration:frame=best_effort_timestamp_time','-of','json',file]));
+      const timestamps=(probe.frames||[]).map(f=>Number(f.best_effort_timestamp_time));
+      if(!timestamps.length||timestamps.some((v,i)=>!Number.isFinite(v)||(i&&v<timestamps[i-1])))throw Error('missing or unordered canvas video PTS');
+      result.canvasVideo={...result.canvasVideo,verification:'complete',stream:probe.streams?.[0],pts:timestamps,limitations:'Canvas only, MediaRecorder timestamps; cadence and capture loss depend on browser. This is not full DOM context.'};
+    });
+    if(context) await finalize('contextClose',()=>context.close());
+    if(browser) await finalize('browserClose',()=>browser.close());
+    if(server) await finalize('serverClose',()=>new Promise((resolve,reject)=>server.close(error=>error?reject(error):resolve())));
+    if(runtime) {
+      const inventory=[...runtime.served.values()].sort((a,b)=>a.path.localeCompare(b.path));
+      result.runtime={root:runtime.cwd,sha:runtime.sha,tree:runtime.tree,servedFiles:inventory,identityVerification:'incomplete',resourceVerification:'incomplete'};
+      await finalize('runtime',async()=>{const current=runtimeSource(c);result.runtime.status=current.status;result.runtime.identityVerification='complete';});
+      await finalize('resources',async()=>{
+        const changed=[];for(const entry of inventory){try{entry.finalSha256=sha(await readFile(path.join(runtime.cwd,entry.path)));if(entry.finalSha256!==entry.sha256)changed.push(entry.path);}catch{entry.finalSha256=null;changed.push(entry.path);}}
+        result.runtime.changedFiles=changed;result.runtime.servingErrors=runtime.errors.slice();
+        if(changed.length || runtime.errors.length)throw Error(['runtime changed during run: '+changed.join(', '),...runtime.errors].join('; '));result.runtime.resourceVerification='complete';
+      });
     }
-    if(runtime) { if(runtime.errors.length) throw Error(runtime.errors.join('; ')); const current=runtimeSource(c); for(const entry of runtime.served.values()){const bytes=await readFile(path.join(runtime.cwd,entry.path));if(sha(bytes)!==entry.sha256) throw Error('runtime changed during run: '+entry.path);} result.runtime={root:runtime.cwd,sha:runtime.sha,tree:runtime.tree,status:current.status,servedFiles:[...runtime.served.values()].sort((a,b)=>a.path.localeCompare(b.path))}; }
-    for(const input of result.inputs) {const filename=input.origin==='runtime'?path.join(runtime.cwd,input.path):inRoot(input.path);if(sha(await readFile(filename))!==input.sha256) throw Error('input changed during run: '+input.path);}
-    if(dir) await writeFile(path.join(dir,'index.html'),viewer(c,result.selectedFrames,result));
-    result.observation={durationMs:result.samples.at(-1).epochMs-result.samples[0].epochMs,firstEpochMs:result.samples[0].epochMs,lastEpochMs:result.samples.at(-1).epochMs,firstGameTime:result.samples[0].gameTime,lastGameTime:result.samples.at(-1).gameTime,events:result.samples.flatMap((sample,index)=>(sample.events||[]).map(event=>({event,sampleIndex:index,epochMs:sample.epochMs,gameTime:sample.gameTime})))};
-    result.status='complete';
-  } catch(e) { result.status='failed'; result.error=e.message; if(runtime) result.runtimeDebug={served:[...runtime.served.keys()],errors:runtime.errors}; result.captureDebug={count:captured.length,anomalies:timestampAnomalies(captured),metadataPath:dir?'cdp-frames.json':null}; }
-  finally { if(context) await context.close(); if(browser) await browser.close(); if(server) await new Promise(r=>server.close(r)); if(dir) { await pending; await writeFile(path.join(dir,'cdp-frames.json'),JSON.stringify({clock:'CDP metadata.timestamp; receipt clocks are diagnostics only, not presentation time',frames:captured},null,2)); await writeFile(path.join(dir,'run.json'),JSON.stringify(result,null,2)); } }
+    if(result.inputs?.length) await finalize('inputs',async()=>{const changed=[];for(const input of result.inputs){try{const file=input.origin==='runtime'?path.join(runtime.cwd,input.path):inRoot(input.path);input.finalSha256=sha(await readFile(file));if(input.finalSha256!==input.sha256)changed.push(input.path);}catch{changed.push(input.path);}}result.changedInputs=changed;if(changed.length)throw Error('input changed during run: '+changed.join(', '));});
+    if(dir) await finalize('metadata',async()=>{await pending;await writeFile(path.join(dir,'cdp-frames.json'),JSON.stringify({clock:'CDP metadata.timestamp; receipt clocks are diagnostics only, not presentation time',frames:captured},null,2));});
+    if(dir && !result.error && result.phases.cdp==='complete') await finalize('viewer',()=>writeFile(path.join(dir,'index.html'),viewer(c,result.selectedFrames,result)));
+    if(!result.error) result.status='complete';
+    if(dir) await writeFile(path.join(dir,'run.json'),JSON.stringify(result,null,2));
+  }
   if(result.status!=='complete') throw Object.assign(Error(result.error),{runDirectory:dir});
   return {directory:dir,result};
 }
