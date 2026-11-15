@@ -746,7 +746,17 @@
     "ice-tap",
     "leaf-tap",
     "water-tap",
-    "fire-tap"
+    "fire-tap",
+    "air-flight-b",
+    "water-flight",
+    "fire-flight",
+    "electric-flight",
+    "ice-flight",
+    "leaf-flight",
+    "petal-flight",
+    "air-flight-a",
+    "magic-flight",
+    "shadow-flight"
   ],
   "files": [
     {

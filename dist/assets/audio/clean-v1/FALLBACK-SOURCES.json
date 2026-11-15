@@ -155,6 +155,116 @@
       "channels": 1,
       "pcmSha256": "05ea6912a7ba038498f038a96b9ae95b209d81c95e9085843746e6ae2686a4b3",
       "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "air-flight-b",
+      "sourceSha256": "da9549fc91e83486914635d0968d7c5176175ef345dc3cd359ed8ce0a752cc36",
+      "clipSha256": "f538a42daff978f90e8288646e85bdd1ffdcf9e7e8b2e3de5dcaa76375b5e395",
+      "frames": 12480,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "d2dedad75cba5e1a657ac06cc691889892e8dd4d9aeaa09f963a53301dbf11ed",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "water-flight",
+      "sourceSha256": "f1a2e7552a4730ea28a0caa47ecb129386093af303420939f257afb717be41eb",
+      "clipSha256": "e1a8b2050258f04a4d6bb402d18bcca014caa329b2b42c3d5996fe8be702d106",
+      "frames": 15360,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "005491f149f219ca29b98638131e1a9d70ef31073f616fa17859f1aab6709c05",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "fire-flight",
+      "sourceSha256": "f744960a424a942af15d39a68798cb6b3dbc1b21601f686e2bb72685277ffc47",
+      "clipSha256": "b9b3b3b79c7754fc2559b76a041f1826d905cc8bfa5c9e26129e422149f9e86f",
+      "frames": 11280,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "7e51ab501b9c536fae22d8c552caa89649291495c1ec170d6f7b6970b46731a7",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "electric-flight",
+      "sourceSha256": "73029865acfaca4dbf344965a1375eeb1aa94500ef335b7760172275e9081c17",
+      "clipSha256": "731de96dbc08905c4ac0f1fbc042ccf4e53b6da66b35a6095749b4f083c22b51",
+      "frames": 15360,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "2b97b3d2e32c3421f2b4553637466784df58633fd7a293f838b210bc8ec003e4",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "ice-flight",
+      "sourceSha256": "25944f89343d8579cf268438a40ed6ac719c93d76ba2e2bea7c5834bd9e204c4",
+      "clipSha256": "cfa0c373c140f21b8c92e0f07dbab394b90ec717fbdc382d0290d800c9e08b46",
+      "frames": 9840,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "d9e109b311b21d394c407c4e70dad47c7a8a0cb4639e8d9fcf528556949ea534",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "leaf-flight",
+      "sourceSha256": "e6edcdfd9b47cd5079b95a6d5ada948e59bbae6370088d7dbd39e3f2f1979182",
+      "clipSha256": "a19db88dee7e75ad7615b3a49a03b0a0ad4e8c3760cdb66c34bd3beaf3ad2622",
+      "frames": 12480,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "d99f433997af9fe389dc96fbea598830601eba3050fef99b60ee47bf28dccc3d",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "petal-flight",
+      "sourceSha256": "8ee79493516e348e45774f16fb4c8e7ba982939c77ab9901dce0d82e61ae2b42",
+      "clipSha256": "c067c39112dcf2e9a893558a8988bd517076b9f7fc9ff1fa4f2f3f2ad94a068d",
+      "frames": 6720,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "a10937d0a0eff9b7390ee80233450ca6b74bdb0098c4c14b4e86f5aeac2c2680",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "air-flight-a",
+      "sourceSha256": "953d53d29163521fb4365dccb279f7a14e88cdacdae6cc3b3d47bfb167d7b44e",
+      "clipSha256": "502d7ba64c02ff85de03c6eae78bab1b43f275d4bba121af63b6a09c7ada7d00",
+      "frames": 7200,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "bfa253c627d814d6a333aeef9cbd8384eb74f04302a4f166f1e7e472132b1a65",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "magic-flight",
+      "sourceSha256": "cc57c42789fa120e71e06a368c82f71ce81dc36b2b5bf1e5125cc41d71c8a0fd",
+      "clipSha256": "f86114cbed61abc7cdd3cff3becc74cf72ba1512f2b1af07a53eda48c51b125b",
+      "frames": 15120,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "81cfc3cf4c341a3fb90f9c61eb4a5635ed43a5cf5d5b46a741f732d1ad36450f",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
+    },
+    {
+      "key": "shadow-flight",
+      "sourceSha256": "ec3d466415dfff523efadcd8344d7fc9e3150237824b5a091ba8363c9660e198",
+      "clipSha256": "50369bc3ffc79e5106765344ef783f1688b3dabe60d60006f87deadd0f0acc5f",
+      "frames": 12240,
+      "sampleRate": 48000,
+      "bits": 16,
+      "channels": 1,
+      "pcmSha256": "a2f3781e6c381ad13e91336b7ab77ead645a231d74a36b8351943b6a9a008cce",
+      "processing": "Mono average of the new PCM16 phase clip, 35ms ending fade; original sample rate. No synthesis, pitch shift, resampling or old PRSFX data."
     }
   ]
 }

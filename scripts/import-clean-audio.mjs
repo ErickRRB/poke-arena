@@ -89,7 +89,7 @@ for(const clip of plan.clips){
 }
 const fallback={},excerpts=[];
 for(const key of plan.fallbackKeys){
- const source=clips.get(key),file=files.find(row=>row.key===key),length=Math.min(source.frames,Math.round(source.rate*file.fallbackSeconds));
+ const source=clips.get(key),file=files.find(row=>row.key===key),length=Math.min(source.frames,Math.round(source.rate*(file.fallbackSeconds??.32)));
  const pcm=Buffer.alloc(length*2),fade=Math.min(length,Math.round(source.rate*.035));
  for(let i=0;i<length;i++){
   let value=0;for(let ch=0;ch<source.channels;ch++)value+=source.data.readInt16LE((i*source.channels+ch)*2)/source.channels;

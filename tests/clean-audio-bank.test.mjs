@@ -84,3 +84,11 @@ test('normalization measures the retained recording and never raises quiet SFX',
  prepareSample(context,quiet,true);assert.ok(Math.abs(quiet.getChannelData(0)[500]-.001)<1e-9);
  const silent=context.createBuffer(1,1000,48000);assert.equal(prepareSample(context,silent,true),silent);
 });
+test('cold release and contact use their own phase recordings, without inventing silent launches',()=>{
+ for(const [name,cue] of Object.entries(ATTACK_AUDIO)){
+  assert.ok(FALLBACK_PCM[cue.contactFallback],name+' contact');
+  if(!cue.release.length){assert.equal(cue.releaseFallback,undefined,name);continue;}
+  assert.ok(FALLBACK_PCM[cue.releaseFallback],name+' release');
+  assert.ok(!cue.contact.includes(cue.releaseFallback),name+' distinct phases');
+ }
+});

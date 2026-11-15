@@ -1,6 +1,6 @@
 // Recorded CC0 combat phases. Damage and event timing remain owned by Game.
 import { FALLBACK_PCM } from './attack-audio-fallback.js?v=35';
-const cue=(release,contact,fallback,releaseTime=.4,contactTime=.6,volume=.22,releaseVolume=.075)=>({release:[].concat(release),contact:[].concat(contact),fallback,releaseTime,contactTime,volume,releaseVolume});
+const cue=(release,contact,fallback,releaseTime=.4,contactTime=.6,volume=.22,releaseVolume=.075)=>({release:[].concat(release),contact:[].concat(contact),fallback,releaseFallback:[].concat(release)[0],contactFallback:fallback,releaseTime,contactTime,volume,releaseVolume});
 export const ATTACK_AUDIO=Object.freeze({
  punch:cue([],['punch-medium-1','punch-medium-2'],'punch-medium-1',0,.4,.18),
  body:cue([],['punch-heavy-3','punch-heavy-5'],'punch-heavy-3',0,.6,.29),
