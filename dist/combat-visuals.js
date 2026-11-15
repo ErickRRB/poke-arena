@@ -29,12 +29,17 @@ export function biteMotion(unit,reduced=false){
 }
 export function biteJaw(unit,released=false){
   const motion=biteMotion(unit);if(!motion)return null;
-  const windup=unit.attackWindup??unit.card.windup,elapsed=motion.elapsed;
+  const windup=unit.attackWindup??unit.card.windup,elapsed=motion.elapsed,duration=unit.attackDuration||unit.card.attackDuration;
   let frame=3-Math.min(3,Math.floor(elapsed/Math.max(.001,Math.min(.12,windup*.25))*4));
   if(elapsed>windup-.08)frame=Math.min(2,Math.max(0,Math.floor((elapsed-windup+.08)/.08*3)));
   if(released)frame=3;
-  const opacity=elapsed<=windup+.1?1:Math.max(0,1-(elapsed-windup-.1)/.14);
-  return{frame,opacity};
+  const ease=p=>{p=Math.max(0,Math.min(1,p));return p*p*(3-2*p);};
+  let opening=ease(elapsed/Math.max(.001,Math.min(.22,windup*.4)));
+  if(elapsed>windup-.04)opening=1-.85*ease((elapsed-windup+.04)/.04);
+  if(released)opening=elapsed<=windup+.1?0:.12*ease((elapsed-windup-.1)/.14);
+  const opacity=Math.min(1,elapsed/.04,Math.max(0,(duration-elapsed)/.08));
+  const legacyOpacity=elapsed<=windup+.1?1:Math.max(0,1-(elapsed-windup-.1)/.14);
+  return{frame,opening,opacity,legacyOpacity};
 }
 export function biteSurface(from,target,vertical=1){
   const profile=target.card||target.guard||{},body=combatVisual(profile).body,tower='king'in target;

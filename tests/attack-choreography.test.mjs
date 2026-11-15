@@ -143,21 +143,29 @@ test('Zubat raises, folds and reopens native wings while its jaw closes only on 
   assert.equal(jaw(.01).frame,3);assert.equal(jaw(.12).frame,0,'the mouth opens during preparation');
   assert.equal(jaw(.3).frame,0);assert.equal(jaw(.6).frame,2,'predicted contact waits for authority');
   assert.equal(jaw(.6,true).frame,3,'the released native bite closes');
-  assert.equal(jaw(.9,true).opacity,0,'the mouth cue ends while the wings recover');
+  assert.ok(jaw(.12).opening>.4&&jaw(.12).opening<.7,'physical preparation is partly open');
+  assert.equal(jaw(.3).opening,1,'the approach holds a physical open mouth');
+  assert.ok(jaw(.6).opening>0,'predicted contact does not fully close the jaw');
+  assert.equal(jaw(.6,true).opening,0,'physical closure belongs to release');
+  assert.ok(jaw(.84,true).opening>.1,'the jaw relaxes during wing recovery');
+  assert.equal(jaw(.9,true).legacyOpacity,0,'the old mark still ends at its original time');
+  assert.ok(jaw(.999,true).opacity<.02,'the physical head returns to the original body');
+  assert.equal(jaw(1,true),null,'no extra head remains after the action');
 });
 
-test('the real mouth drawing uses the preloaded directional Bite atlas at the native emission marker',()=>{
-  const image={width:224,height:448},actor={id:7,card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,
+test('the physical mouth stays at the emission marker in both genuine profile views without an atlas request',()=>{
+  const actor={id:7,card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,
     attackSeq:2,attackDuration:1,attackWindup:.6,attack:.7,biteContact:{x:300,y:495}};
   const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,verticalScale:1,reduced:false,
-    attackContacts:new Map([[7,{seq:2,shot:-1}]]),battleArt:{images:new Map([['assets/battle/Particle__Bite.Dir8.png',image]])}});
-  const draws=[],locations=[],context={globalAlpha:1,save(){},restore(){},translate(x,y){locations.push({x,y});},scale(){},drawImage(...args){draws.push(args);}};
-  const before=JSON.stringify(actor),mouth=renderer.visualEmission(actor);
-  assert.equal(renderer.drawBiteGesture(context,actor),true);
-  assert.equal(draws[0][0],image);assert.equal(draws[0][1],17,'open native frame0, genuine east row');
-  assert.equal(draws[0][2],116);assert.equal(draws[0][3],24);assert.equal(draws[0][4],48);
-  assert.ok(Math.hypot(locations[0].x-mouth.x,locations[0].y-mouth.y)<3,'jaw is attached to the mouth, not to a distant impact');
-  assert.equal(JSON.stringify(actor),before,'drawing does not write into the logical actor');
-  renderer.attackContacts.get(7).shot=0;renderer.drawBiteGesture(context,{...actor,attack:.4});
-  assert.equal(draws[1][1],3*56+17,'closed native frame3 at authoritative release');
+    attackContacts:new Map([[7,{seq:2,shot:-1}]])});
+  for(const dx of[1,-1]){
+    const shown={...actor,dx},locations=[],scales=[],colors=[];
+    const context={globalAlpha:1,save(){},restore(){},translate(x,y){locations.push({x,y});},scale(x,y){scales.push([x,y]);},beginPath(){},moveTo(){},lineTo(){},closePath(){},fill(){colors.push(this.fillStyle);},drawImage(){throw Error('No raster Bite atlas belongs to the physical profile head');}};
+    const before=JSON.stringify(shown),mouth=renderer.visualEmission(shown);
+    assert.equal(renderer.drawBiteGesture(context,shown),true);
+    assert.deepEqual(locations[0],mouth,'the head shares the current emitter without a second offset');
+    assert.deepEqual(scales[0],[dx,1],'only the local jaw mirrors, not the genuine body view');
+    assert.ok(colors.includes('#1e1631'),'a filled cavity belongs to the physical head');
+    assert.equal(JSON.stringify(shown),before,'drawing does not write into the logical actor');
+  }
 });

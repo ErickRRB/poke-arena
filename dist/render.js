@@ -14,6 +14,8 @@ const {whirlpoolPhase,earthquakePhase,earthquakeFissures}=await import(publicAss
 const {flameFrame,rollingFirePose,drawFireWheel,FIRE_WHEEL_FILES,loadFireWheelMaterial}=await import(publicAssetUrl('./fire-material.js?v=38'));
 const {canvasBackingSize,alignedSpriteRect}=await import(publicAssetUrl('./canvas-raster.js?v=36'));
 const {NativeSpriteSampler}=await import(publicAssetUrl('./native-sprite-sampling.js?v=36'));
+const {BiteContours}=await import(publicAssetUrl('./bite-contours.js?v=39'));
+const {drawEastMouth}=await import(publicAssetUrl('./bite-mouth.js?v=39'));
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -188,7 +190,7 @@ export class Renderer {
       if(bits&3){c.fillStyle=path;c.fillRect(x,y,half,half);}
     }
   }
-  resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.visualFlights?.clear();this.visualFields?.clear();this.frameActors?.clear();this.flightWings?.phases.clear();this.attackContacts?.clear();this.biteJawActors?.clear();}
+  resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.visualFlights?.clear();this.visualFields?.clear();this.frameActors?.clear();this.flightWings?.phases.clear();this.attackContacts?.clear();this.biteJawActors?.clear();this.biteContours?.beginFrame();}
   visualActor(unit,dt){
     let pose=this.visualActors.get(unit.id);
     const fresh=!pose||Math.hypot(pose.x-unit.x,pose.y-unit.y)>95;
@@ -241,6 +243,22 @@ export class Renderer {
     else{delete pose.presentation;return actor;}
     return show&&show.elapsed<duration?{...actor,attackDuration:duration,attack:duration-show.elapsed}:actor;
   }
+  biteTargetSurface(from,target){
+    const profile=target.card||target.guard||{},tower='king'in target;
+    if(!tower&&!Object.keys(this.metadata?.[profile.id]||{}).length)return biteSurface(from,target,this.verticalScale||1);
+    const scale=tower?1.3:visualScale(target),vertical=this.verticalScale||1,entries=Object.values(this.metadata?.[profile.id]||{});
+    const width=Math.max(tower?110:50,...entries.map(m=>m.width||0))*scale+24;
+    const height=Math.max(tower?150:60,...entries.map(m=>m.height||0))*scale+80;
+    const contours=this.biteContours??=new BiteContours(),box={left:-width,right:width,top:-height/vertical,bottom:32/vertical};
+    const point=contours.contact(target,from,box,c=>{
+      const previous=this.silhouettePass;this.silhouettePass=true;
+      try{const local={...target,x:0,y:0};if(tower)this.tower(c,local);else this.sprite(c,local,true);}
+      finally{this.silhouettePass=previous;}
+    });
+    // A newly requested species may not have painted its first frame yet.
+    // Once loaded, every target uses its current body pixels, never a fixed hit.
+    return point||biteSurface(from,target,vertical);
+  }
   prepareBiteActors(){
     const updates=[];
     for(const[id,actor]of this.frameActors){
@@ -254,13 +272,13 @@ export class Renderer {
         const vertical=this.verticalScale||1;
         if(!bite){
           const length=Math.hypot(target.x-actor.x,target.y-actor.y)||1,dx=(target.x-actor.x)/length,dy=(target.y-actor.y)/length;
-          const mouth=this.visualEmission({...actor,dx,dy}),point=biteSurface(mouth,target,vertical);
+          const mouth=this.visualEmission({...actor,dx,dy}),point=this.biteTargetSurface(mouth,target);
           // One target-local contact and launch marker per attack. Native wing
           // frames may change without steering the trajectory to another pixel.
-          bite={seq:actor.attackSeq,dx,dy,point,launch:{x:mouth.x-actor.x,y:(mouth.y-actor.y)*vertical},surface:{x:point.x-target.x,y:(point.y-target.y)*vertical}};
+          bite={seq:actor.attackSeq,dx,dy,point,launch:{x:mouth.x-actor.x,y:(mouth.y-actor.y)*vertical},surface:{x:point.x-target.x,y:(point.y-target.y)*vertical},rayFrom:{x:mouth.x-target.x,y:mouth.y-target.y}};
         }
         const mouth=this.visualEmission({...actor,dx:bite.dx,dy:bite.dy});
-        const point=target?{x:target.x+bite.surface.x,y:target.y+bite.surface.y/vertical}:bite.point;
+        const point=target&&bite.rayFrom?this.biteTargetSurface({x:target.x+bite.rayFrom.x,y:target.y+bite.rayFrom.y},target):target?{x:target.x+bite.surface.x,y:target.y+bite.surface.y/vertical}:bite.point;
         const origin={x:actor.x+bite.launch.x,y:actor.y+bite.launch.y/vertical};
         const head={x:origin.x+(point.x-origin.x)*motion.reach+bite.dx*motion.drawback,
           y:origin.y+(point.y-origin.y)*motion.reach+bite.dy*motion.drawback/vertical};
@@ -275,16 +293,22 @@ export class Renderer {
     for(const[id,actor]of updates)this.frameActors.set(id,actor);
   }
   drawBiteGesture(c,unit){
-    if(!unit.biteContact||unit.preview)return false;
+    if(!unit.biteContact||unit.preview||this.silhouettePass)return false;
     const contact=this.attackContacts?.get(unit.id);
     const released=contact?.seq===unit.attackSeq&&contact.shot>=0||contact?.held?.seq===unit.attackSeq&&this.t<contact.held.until;
-    const jaw=biteJaw(unit,released),image=this.battleArt?.images?.get('assets/battle/Particle__Bite.Dir8.png');
-    if(!jaw||!image)return false;
-    if(jaw.opacity<=0)return true; // This component also owns the fading contact.
-    const direction=directionRow(unit.dx,unit.dy),[left,top,right,bottom]=BITE_JAW_BOUNDS[direction];
+    const jaw=biteJaw(unit,released);if(!jaw)return false;
+    const direction=directionRow(unit.dx,unit.dy),mouth=this.visualEmission(unit),vertical=this.verticalScale||1;
+    if(direction===2||direction===6){
+      if(jaw.opacity<=0)return true;
+      c.save();c.translate(mouth.x,mouth.y);c.scale(direction===6?-1:1,1/vertical);c.globalAlpha*=jaw.opacity;
+      drawEastMouth(c,0,0,visualScale(unit),jaw.opening);c.restore();return true;
+    }
+    // Other genuine views keep the frozen c35 presentation until the individual
+    // profile action passes its checkpoint and the bounded V3 checks follow.
+    const image=this.battleArt?.images?.get('assets/battle/Particle__Bite.Dir8.png');if(!image)return false;
+    const [left,top,right,bottom]=BITE_JAW_BOUNDS[direction];
     const width=right-left,height=bottom-top,size=Math.min(16,combatVisual(unit.card).body*.55),scale=size/Math.max(width,height);
-    const mouth=this.visualEmission(unit),vertical=this.verticalScale||1;
-    c.save();c.translate(mouth.x+unit.dx*size*.16,mouth.y+unit.dy*size*.16/vertical);c.scale(1,1/vertical);c.globalAlpha*=jaw.opacity;
+    c.save();c.translate(mouth.x+unit.dx*size*.16,mouth.y+unit.dy*size*.16/vertical);c.scale(1,1/vertical);c.globalAlpha*=jaw.legacyOpacity;
     c.drawImage(image,jaw.frame*56+left,direction*56+top,width,height,-width*scale/2,-height*scale/2,width*scale,height*scale);
     c.restore();return true;
   }
@@ -334,9 +358,10 @@ export class Renderer {
     c.save();
     if(!this.battleArt.structure(c,king?'king':'princess',team,x,y,king?102:72,vertical,this.targetTint(tower)))text(c,'PLACEHOLDER',x,y-25,'#ffe3a0',9);
     if(tower.guard)this.sprite(c,{...tower,attack:!tower.active?0:tower.attack,card:{id:tower.guard.id},scale:king?1.15:1.3,x,y:y-TOWER_MOUNTS[king?'king':'princess']/vertical,mounted:true,attackAnim:tower.guard.attackAnim,moving:false},true);
-    if(king&&!tower.active)text(c,'z',x+24,y-30/vertical,'#fff5cd',10);
-    if(tower.stun>0)this.combatArt(c,'lightning',x,y-55/vertical,26);
+    if(king&&!tower.active&&!this.silhouettePass)text(c,'z',x+24,y-30/vertical,'#fff5cd',10);
+    if(tower.stun>0&&!this.silhouettePass)this.combatArt(c,'lightning',x,y-55/vertical,26);
     c.restore();
+    if(this.silhouettePass)return;
     if(this.towerHealthQueue)this.towerHealthQueue.push(tower);else this.towerHealth(c,tower);
   }
   towerHealth(c,tower){
@@ -392,11 +417,11 @@ export class Renderer {
     const lift=(leapLift+(unit.card.structure?structureLift(unit.card):unit.card.flying?16+(this.reduced?0:Math.sin(flightClock*2.6+unit.id)*1.5):0))/vertical;
     const lunge=attackLunge(unit,this.reduced);
     const radius=unit.radius||12;
-    if(!unit.mounted&&!unit.preview){
+    if(!unit.mounted&&!unit.preview&&!this.silhouettePass){
       ellipse(c,'#15382a65',x,y+2,radius+2,unit.card.flying?6:4);
     }
     if(unit.card.structure)this.platform(c,unit);
-    if(preparation&&!unit.preview)this.dashWindup(c,unit,preparation);
+    if(preparation&&!unit.preview&&!this.silhouettePass)this.dashWindup(c,unit,preparation);
     c.save();
     if(preparation){
       const height=Math.max(16,(this.bodyHeights.get(id)||22)*scale/vertical),shear=(unit.dx||0)*preparation.lean/height;
@@ -411,12 +436,12 @@ export class Renderer {
     const articulated=this.nativeSpriteSampler?.frame(id,anim,direction,frame,meta,scale,vertical,c.getTransform?.(),img)||this.flightWings.frame(id,anim,direction,frame,img,meta,flightClock+(unit.id||0)*.173,this.reduced);
     const spriteImage=articulated?.image||img,spriteFrame=alignedSpriteRect(articulated?[0,0,articulated.image.width,articulated.image.height,px-articulated.padding*scale,py-articulated.padding*scale/vertical,articulated.width*scale,articulated.height*scale/vertical]:[frame*meta.width,direction*meta.height,meta.width,meta.height,px,py,meta.width*scale,meta.height*scale/vertical],c.getTransform?.());
     c.drawImage(spriteImage,...spriteFrame);
-    if(preparation&&!unit.preview)this.dashWindup(c,unit,preparation,true);
-    if(!unit.preview&&this.spellTargets?.has(unit.id))this.tintTarget(c,spriteImage,...spriteFrame);
+    if(preparation&&!unit.preview&&!this.silhouettePass)this.dashWindup(c,unit,preparation,true);
+    if(!unit.preview&&!this.silhouettePass&&this.spellTargets?.has(unit.id))this.tintTarget(c,spriteImage,...spriteFrame);
     if(this.drawBiteGesture(c,unit))this.biteJawActors?.add(unit.id);
     c.restore();
-    if(unit.shield>0&&!unit.mounted){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
-    if(idle)return;
+    if(unit.shield>0&&!unit.mounted&&!this.silhouettePass){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
+    if(idle||this.silhouettePass)return;
     const by=y-lift-((this.bodyHeights.get(id)||22)*scale+9+(id===6?12:0))/vertical;
     this.queueUnitHealth(c,unit,x,by,unit.maxHp<=1?18:unit.card.count?30:unit.maxHp>=1800?52:44);
     if(unit.card.ability&&!unit.abilityUsed){ellipse(c,'#382448',x+27,by+4,6,6);text(c,'◆',x+27,by+4,'#e9beff',10,800);}
@@ -449,12 +474,12 @@ export class Renderer {
     const x=unit.x,y=unit.y+(art.baseOffset-(this.reduced?0:(1-spawn)*12))/vertical;
     c.save();if(unit.spawn>0)c.globalAlpha=.2+.8*spawn;
     if(unit.hit>0&&!this.reduced)c.filter=`brightness(${1+.35*unit.hit/.24})`;
-    const drawn=this.battleArt.structure(c,unit.card.structureArt,unit.team,x,y,art.width,vertical,unit.preview?undefined:this.targetTint(unit));
+    const drawn=this.battleArt.structure(c,unit.card.structureArt,unit.team,x,y,art.width,vertical,unit.preview||this.silhouettePass?undefined:this.targetTint(unit));
     if(drawn){
       c.globalAlpha*=this.reduced?.12:.08+.08*(.5+.5*Math.sin(this.t*2));c.fillStyle='#ffd7ed';
       for(const side of[-1,1])c.fillRect(x+side*art.width*.244-2,y-(art.height*.243+2)/vertical,4,4/vertical);
     }
-    c.restore();if(!drawn||idle)return;
+    c.restore();if(!drawn||idle||this.silhouettePass)return;
     const by=unit.y-(this.bodyHeight(unit)+9)/vertical;
     this.queueUnitHealth(c,unit,x,by,44);
     if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
@@ -1203,7 +1228,7 @@ export class Renderer {
     this.frameActors=new Map([...(game.visibleTowers??game.towers),...game.units].map(actor=>{
       const pose=this.visualActor(actor,dt);pose.logicalX=actor.x;pose.logicalY=actor.y;return[actor.id,pose];
     }));
-    this.prepareBiteActors();
+    this.biteContours?.beginFrame();this.prepareBiteActors();
     const fields=(game.fields||[]).map(field=>this.visualField(field,dt));
     for(const field of fields)this.field(c,field);
     for(const spell of game.spells){
