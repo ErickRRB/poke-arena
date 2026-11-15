@@ -1,9 +1,9 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {Renderer} from '../dist/render.js';
-import {CARDS} from '../dist/engine.js';
-import {Game} from '../dist/engine.js';
-import {packGame,unpackGame} from '../dist/snapshot.js';
+import {CARDS} from '../dist/engine.js?v=34';
+import {Game} from '../dist/engine.js?v=34';
+import {packGame,unpackGame} from '../dist/snapshot.js?v=34';
 
 function samples(kind,mirrored){
   const points=[],context=new Proxy({globalAlpha:1},{get:(o,k)=>o[k]??(()=>{}),set:(o,k,v)=>(o[k]=v,true)});

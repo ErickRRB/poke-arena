@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { CARDS, Game } from '../dist/engine.js';
+import { CARDS, Game } from '../dist/engine.js?v=34';
 import { POKEMON_STATS } from '../dist/pokemon-stats.js';
 
 function setup(key, distance) {

@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,CARDS} from '../dist/engine.js';
-import {packGame,unpackGame,perspective} from '../dist/snapshot.js';
+import {Game,CARDS} from '../dist/engine.js?v=34';
+import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
 import {POKEMON_SILHOUETTES} from '../dist/pokemon-silhouettes.js';
 const run=(g,seconds)=>{for(let i=0;i<Math.round(seconds*60);i++)g.step(1/60);};
 function setup(){const events=[],g=new Game({seed:981,onEvent:e=>events.push(e)});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);return{g,events};}

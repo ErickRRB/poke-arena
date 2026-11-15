@@ -1,4 +1,4 @@
-import{test}from'node:test';import assert from'node:assert/strict';import{Game,CARDS,DEFAULT_DECK}from'../dist/engine.js';
+import{test}from'node:test';import assert from'node:assert/strict';import{Game,CARDS,DEFAULT_DECK}from'../dist/engine.js?v=34';
 function fresh(deck=DEFAULT_DECK){const g=new Game({seed:14,deck});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);return g;}
 function run(g,seconds){for(let i=0;i<Math.ceil(seconds*60);i++)g.step(1/60);}
 function until(g,test,limit=120){for(let i=0;i<limit*60;i++){g.step(1/60);if(test())return g.elapsed;}return Infinity;}

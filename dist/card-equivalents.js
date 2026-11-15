@@ -1,7 +1,8 @@
-import { CLASH_ROSTER } from './clash-roster.js';
-import { NATIVE_DESCRIPTIONS } from './native-descriptions.js';
+import { CLASH_ROSTER } from './clash-roster.js?v=34';
+import { NATIVE_DESCRIPTIONS } from './native-descriptions.js?v=34';
 // Base-card contracts and explicitly retained Pokemon adaptations.
 export const CARD_EQUIVALENTS = {
+  blastoiseCannon:{reference:'Cañón',similarity:'equivalent',reason:'Estructura de tres elixires que dispara a un rival terrestre por ataque.'},
   raltsHut:{reference:'Choza de duendes',similarity:'equivalent',reason:'Refugio que libera Ralts cuando hay enemigos cerca y deja uno al caer.'},
   pikachu: { reference: 'Mago eléctrico', similarity: 'equivalent', reason: 'Descarga al aparecer y dos rayos que aturden y pueden repartirse entre objetivos.' },
   squirtle: { reference: null, similarity: 'none', reason: 'Tirador económico que concentra su vida en un solo cuerpo y dispara burbujas.' },
@@ -16,7 +17,7 @@ export const CARD_EQUIVALENTS = {
   machamp: { reference: 'Mini P.E.K.K.A.', similarity: 'partial', reason: 'Antitanques terrestre de cuatro de elixir que reparte cada ataque en cuatro golpes.' },
   eevee: { reference: 'Príncipe', similarity: 'partial', reason: 'Duplica el primer golpe al tomar carrera, adaptado a una unidad pequeña de ciclo.' },
   onix: { reference: 'Montapuercos', similarity: 'partial', reason: 'Ataca estructuras por cuatro de elixir, pero es más lento y no salta el río.' },
-  blastoise: { reference: null, similarity: 'none', reason: 'Unidad móvil resistente que dispara agua contra tierra y aire.' },
+  octillery: { reference: null, similarity: 'none', reason: 'Unidad móvil resistente que dispara agua contra tierra y aire.' },
   vulpix: { reference: null, similarity: 'none', reason: 'Lanza una llama que quema a un solo objetivo.' },
   psyduck: { reference: 'Mago eléctrico', similarity: 'partial', reason: 'Aturde a distancia con un solo disparo y no tiene descarga de entrada.' },
   alakazam: { reference: 'Arquero mágico', similarity: 'equivalent', reason: 'Tirador de largo alcance que atraviesa a los enemigos alineados.' },

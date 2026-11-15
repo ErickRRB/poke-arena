@@ -1,16 +1,18 @@
-import { Game, CARDS } from '../../dist/engine.js?v=26';
-import { packGame, unpackGame } from '../../dist/snapshot.js?v=26';
-import { publicSnapshot, publicEvent, SIMULATION_HZ, RECONNECT_GRACE, ONLINE_PROTOCOL } from '../../dist/online-wire.js';
+import { Game, CARDS, currentDeck } from '../../dist/engine.js?v=34';
+import { packGame, unpackGame, migrateLegacyCardIdentity } from '../../dist/snapshot.js?v=34';
+import { publicSnapshot, publicEvent, SIMULATION_HZ, RECONNECT_GRACE, ONLINE_PROTOCOL } from '../../dist/online-wire.js?v=34';
 
-export const validDeck = deck => Array.isArray(deck) && deck.length === 8 && new Set(deck).size === 8 && deck.every(key => CARDS[key] && !CARDS[key].token);
+export const validDeck = input => {const deck=currentDeck(input);return Array.isArray(deck) && deck.length === 8 && new Set(deck).size === 8 && deck.every(key => CARDS[key] && !CARDS[key].token);};
 export const safeName = name => String(name || 'Entrenador').replace(/[<>\x00-\x1f]/g, '').trim().slice(0, 20) || 'Entrenador';
 export class RealtimeMatch {
   constructor({ id, players, now = Date.now(), seed, animations = {}, stored } = {}) {
     this.animations = animations;
     if (stored) {
       Object.assign(this, stored);
+      this.events=migrateLegacyCardIdentity(this.events||[]);
       this.game = unpackGame(stored.game, event => this.event(event), animations);
     } else {
+      if(players)players=players.map(player=>({...player,deck:currentDeck(player.deck)}));
       if (players?.length !== 2 || !players.every(player => validDeck(player.deck))) throw Error('Invalid decks');
       this.id = id;
       this.players = players.map(({ id, name, tokenHash }) => ({ id, name: safeName(name), tokenHash }));

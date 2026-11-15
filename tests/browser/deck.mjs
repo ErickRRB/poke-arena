@@ -8,13 +8,13 @@ export async function run({browser,url,viewports,output}){
       await page.goto(url);await ready(page);await page.locator('#menu-deck-btn').click();
       const cards=await page.locator('#deck-strip [data-deck-info]').evaluateAll(nodes=>nodes.map(node=>({row:node.offsetTop,width:node.offsetWidth,height:node.offsetHeight})));
       assert.equal(cards.length,8);assert.equal(new Set(cards.map(card=>card.row)).size,2);assert.ok(cards.every(card=>card.width>55&&Math.abs(card.width/card.height-.8)<.02));
-      assert.equal(await page.locator('[data-collection]').count(),109);await inViewport(page,'#save-deck-btn',viewport);
+      assert.equal(await page.locator('[data-collection]').count(),111);await inViewport(page,'#save-deck-btn',viewport);
       assert.equal(await page.locator('#deck-section-title').innerText(),'Mi mazo');assert.equal(await page.locator('#collection-section-title').innerText(),'Mi colección');
-      assert.equal(await page.locator('[data-collection=pikachu] .card-role').innerText(),'Mago eléctrico');assert.equal(await page.locator('[data-collection=onix] .card-role').innerText(),'Parcial de Montapuercos');
+      assert.equal(await page.locator('[data-collection=pikachu] .card-role').innerText(),'Mago eléctrico');assert.equal(await page.locator('[data-collection=onix] .card-role').innerText(),'Montapuercos');
       assert.equal(await page.locator('[data-collection=squirtle] .card-role').count(),0);assert.equal(await page.locator('[data-collection=exeggutor]').count(),0);
       assert.equal(await page.locator('[data-collection=vivero] .cost-value').innerText(),'3');
       assert.equal(await page.locator('[data-collection=ampharos] .cost-value').innerText(),'4');assert.equal(await page.locator('[data-collection=ampharos] .card-role').innerText(),'Tesla');
-      assert.equal(await page.locator('[data-collection=pandilla] .card-role').innerText(),'Parcial de Pandilla de duendes');assert.ok((await page.locator('[data-collection=pandilla] .card-quantity').innerText()).includes('5'));
+      assert.equal(await page.locator('[data-collection=pandilla] .card-role').innerText(),'Pandilla de duendes');assert.ok((await page.locator('[data-collection=pandilla] .card-quantity').innerText()).includes('6'));
       assert.equal(await page.locator('[data-collection=rhydon] .card-role').innerText(),'P.E.K.K.A.');assert.equal(await page.locator('[data-collection=registeel]').count(),0);
       const chosen=await page.locator('#deck-strip [data-deck-info]').evaluateAll(nodes=>nodes.map(node=>node.dataset.deckInfo));
       assert.deepEqual(await page.locator('#collection .selected').evaluateAll(nodes=>nodes.map(node=>node.dataset.collection).sort()),[...chosen].sort());

@@ -1,53 +1,55 @@
 {
   "asOf": "2026-11-14",
   "fingerprintFormat": "SHA256 of UTF8 source normalized to LF; sourceBlobs are the actual HEAD Git objects after verifying normalized content equality. Git blobs may preserve CRLF. Includes the transitive JavaScript dependencies of engine and sandbox.",
-  "methodFingerprint": "63bae46ff86e0b07b3ad703784d4e46a07ecf0949fcfed5520db3f09fdb2885b",
+  "methodFingerprint": "58f862bd42a71c918b2b13770b6a7fe93defb1298d3861060623b9cd873f3efc",
   "fingerprints": {
-    "arena-geometry": "747481d1c712f25541f1805ced236fd7a818e3faab7c5fb417c27f3a2a3e9d0f",
+    "arena-geometry": "e91643dd9d47a9b34befc4773eeafa22e4cbe968a832b5b2c5ac6011db49e9f2",
     "arena-tilemap": "7811168f2eaea5c6ce8c60c98171abd814d5709284434d0edb69d0c91c5a3e6d",
-    "attack-choreography": "ba1d9e7ce576b5af8250ac5b5d37489515c8fcbf73786783c1ebaa766e7a6136",
-    "balance": "b9c6e30bf41aeb40af5dd5fcaaed6ba719df5b480bc900c709186365522b0b61",
-    "catalog": "43a66f458b710c2ea8534a4765f346b0a0f4bc97e27ebca22ea8c6c2bc5db3ef",
-    "current-reference": "446770234378676d369dd1366fb312c18143600f13f0d1630696944b6a42899f",
+    "attack-choreography": "44c2f26b217fd579d71abafbfaa5126b55673096df0f096225ecf15f00ca8603",
+    "balance": "66fa3696c31f75b1a517c5030cdbb63bd038e63d9e6a92f2a09945512d47597c",
+    "card-key-migrations": "fc80dcaae74f16096ef830f8a64004934daea952ad6d346a781e7f5a7b8471e4",
+    "catalog": "261849ee47d2fe9fe0794087f87353d79a162bc55818400b2df8264110578761",
+    "current-reference": "8466f5e72179b941845c492a797b4931f0ac01b7277af1c0a0f984bfb594aebf",
     "deployment-formations": "69789b2f1c1716f0b4bab0c2e80df151c7f86dbb3f8ce54a2e031d574c99de44",
-    "engine": "784557fa7a9b66490a45f01750d5ade7f53304575588ce34de44c5d9a921cd7f",
+    "engine": "276af0863c3a092f0b660be658a6a936afcb31c212ac89aaef947341dee180d9",
     "knockback-profiles": "c361762af434877f0fe3398a03a37902df41aaba5ea7691881480852bccd5028",
-    "native-descriptions": "eb23e3130bf927f2603b638fd5a3039c1fe8346d6da1f5ed10b1b35a9623a583",
+    "native-descriptions": "8ca97c8dcc52166041eccd1b782a9f18db1ee331c68d04d331d1a351b601810b",
     "native-formations": "999d701d3bae2f7cba2ee7ff9c3ea7d599794e2a36338185bdd3981677c1edf3",
-    "pokemon-stats": "fd910a421ec54bcb1a17c8621be66c7e25f7f58f5ef04bea75a5658e24e4eb57",
-    "sandbox": "6453cb374755733e1fb3838f60f6b4edf2e3b0faf0275b6a4e68453bf72a629d",
-    "sprite-geometry": "4c43ee77d13587c26c7d8ca06faa5381cabf2b69bf63ec9733e4842c4d5aef18",
-    "sprite-motion": "9afd22883f0722d9e69b17c86e65ce8429c2744bcd8afbb1adafb47082530017",
-    "unit-sizes": "f3fac3924d2902e7ecb62e9bbf159a6ae67be94d731c634499325d8cbbe4e4b3"
+    "pokemon-stats": "736d43c6daf6e79892323a1977a23a335e7596f4dbe5b57facc0b38f8c73b21e",
+    "sandbox": "157b3a67f6ac1f5ab367cea480b2602f2822a8ee9bb252f0969371ad13b753ae",
+    "sprite-geometry": "320a7eb7c743ddf478e1ed6e994ddafefc5c19f3b2dba7a074857b65d03464a9",
+    "sprite-motion": "ee344580d025a11117ac40ed44db438696c3efe5025f6145409140e8a6f68ee9",
+    "unit-sizes": "f4e929ed10720eb413f5bf4b2abbe0002eb7fe92976d11d7172cc76f20c69db3"
   },
   "sourceBlobs": {
-    "arena-geometry": "ca699afe7c2065703c4dee686671f1da5aeee275",
+    "arena-geometry": "3741d4b9fcdc663f4d2a51751952e83e433d9656",
     "arena-tilemap": "10a17d303823d064248c5fe1bdb303f88a0c9184",
-    "attack-choreography": "2639c31a1c77f835bce6a94e5a030a8b0e051a9a",
-    "balance": "94be1802ff398c0da035d0e701ab3086a5c08202",
-    "catalog": "f43a126274d650b91fc545d13b768bfbfeffd95d",
-    "current-reference": "0b8f303371f0c6b29216e3f1ed14d6f8293762df",
+    "attack-choreography": "d6d85507a7f41e749309d66653da39f6cb6d51c2",
+    "balance": "3d77bbd7018e64349dcd61d7e3ada5cd4a679608",
+    "card-key-migrations": "7399f17066a710382adb7e37c04ed305e7c078b3",
+    "catalog": "2f43797e2f17126aa66c393e2bc562e89bfa81ec",
+    "current-reference": "746390c0b95055e770ba80dec905bf4f7cd0063f",
     "deployment-formations": "532e329308d25f571c9d5b092ab76c07bf56b0fa",
-    "engine": "5d1efedb614eb65fa4607bebc156e642e122bd2a",
+    "engine": "5ba2cf0c4d4a34b1966ab1d8dd1b11c64ccc9b21",
     "knockback-profiles": "6a9b983f24f9855419104ae31a3a67a0463729f4",
-    "native-descriptions": "35404435676e4c4d578a6ced46fc3baa11aebdd3",
+    "native-descriptions": "9167d93d235ee88ecdd1eb1e95fceae76e10a8d9",
     "native-formations": "c1f595a82093734cd1f4b5327412ea4e99a93cbe",
-    "pokemon-stats": "527d82393ff721f599de4fffaa534631861d3f6a",
-    "sandbox": "34c58cb2a226545f5cdccfa1585fa881c8eaf5e2",
-    "sprite-geometry": "a5605bf9ff8bd132bcafd5d0306d034e817fe4e9",
-    "sprite-motion": "a3163d0a774bf91129663627a7fab2f917f96a13",
-    "unit-sizes": "e0a6ba743585033053c5ee3387a73b83338da811"
+    "pokemon-stats": "0cbfd9bc212eee6b766a9b9a2d745a633a62fa4a",
+    "sandbox": "1d77c15d4d4b11aed97e4854c5003c0026990351",
+    "sprite-geometry": "4d97fc09588dfc282239741a8bb97fdadd0c4fcd",
+    "sprite-motion": "952fa450d48be66476c0a7f268c3684a75e8cfb4",
+    "unit-sizes": "d923fa01071874a30f060e85f38df9b411fe2a2b"
   },
   "setup": "Native18x32 field. Red preset at(168,304), deployed and frozen; blue full card at(168,472), retaining deployment delay. Production30Hz.",
-  "scope": "Every selectable troop and all three offensive structures against Knight, Princess Tower, Golem and Pekka. Exchange ends at first defeated root family (including explicit descendants) or tower death; later push is separate. Non-interacting bodies marked at t0. A surviving tower has its real HP/state.",
+  "scope": "Every selectable troop and all 4 offensive structures against Knight, Princess Tower, Golem and Pekka. Exchange ends at first defeated root family (including explicit descendants) or tower death; later push is separate. Non-interacting bodies marked at t0. A surviving tower has its real HP/state.",
   "referenceControls": "Raw native fields for every mapped body; independent stationary melee oracle; source-derived Dart3hits, Princess AoE, all12Graveyard actions, Golem children, GoblinHut, Furnace and21Tornado pulls at30/60Hz. See tests/native*. Representative independent controls, not a complete native path/spawn oracle.",
   "limits": [
     "Rollouts measure this game. Original cards are not counted as native comparisons.",
     "Exact-time melee ties favor the first-created actor in runtime and the first argument in the helper. Mirror tests check this convention, not the native simultaneous-hit rule.",
     "Projectile conversion is independently measured on client16.402; the data rows are16.635. Steering/contact order and cross-version trace coverage retain documented limits. Raw-stat agreement does not establish universal trade identity."
   ],
-  "total": 372,
-  "nativeCases": 184,
+  "total": 376,
+  "nativeCases": 188,
   "originalCases": 188,
   "rows": [
     {
@@ -14109,8 +14111,8 @@
       "maxUnits": 2
     },
     {
-      "key": "blastoise",
-      "name": "Blastoise",
+      "key": "octillery",
+      "name": "Octillery",
       "structure": false,
       "reference": "geodude",
       "native": null,
@@ -14130,7 +14132,7 @@
           "bodies": [
             {
               "id": 8,
-              "key": "blastoise",
+              "key": "octillery",
               "x": 168,
               "y": 460,
               "hp": 1400,
@@ -14169,7 +14171,7 @@
           "bodies": [
             {
               "id": 8,
-              "key": "blastoise",
+              "key": "octillery",
               "x": 168,
               "y": 460,
               "hp": 0,
@@ -14213,7 +14215,7 @@
           "at": 1.3,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14222,7 +14224,7 @@
           "at": 3,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14249,7 +14251,7 @@
           "at": 4.8,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14267,7 +14269,7 @@
           "at": 6.6,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14294,7 +14296,7 @@
           "at": 8.4,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14312,7 +14314,7 @@
           "at": 10.2,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14339,7 +14341,7 @@
           "bodies": [
             {
               "id": 8,
-              "key": "blastoise",
+              "key": "octillery",
               "x": 168,
               "y": 460,
               "hp": 0,
@@ -14369,8 +14371,8 @@
       "maxUnits": 2
     },
     {
-      "key": "blastoise",
-      "name": "Blastoise",
+      "key": "octillery",
+      "name": "Octillery",
       "structure": false,
       "reference": "princess",
       "native": null,
@@ -14390,7 +14392,7 @@
           "bodies": [
             {
               "id": 7,
-              "key": "blastoise",
+              "key": "octillery",
               "x": 168,
               "y": 460,
               "hp": 1400,
@@ -14417,7 +14419,7 @@
           "bodies": [
             {
               "id": 7,
-              "key": "blastoise",
+              "key": "octillery",
               "x": 168,
               "y": 334.333,
               "hp": 0,
@@ -14476,7 +14478,7 @@
           "at": 6.267,
           "victimTeam": 1,
           "sourceId": 7,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": true,
           "id": 4
@@ -14503,7 +14505,7 @@
           "at": 8.067,
           "victimTeam": 1,
           "sourceId": 7,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": true,
           "id": 4
@@ -14530,7 +14532,7 @@
           "at": 9.867,
           "victimTeam": 1,
           "sourceId": 7,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": true,
           "id": 4
@@ -14557,7 +14559,7 @@
           "at": 11.667,
           "victimTeam": 1,
           "sourceId": 7,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": true,
           "id": 4
@@ -14593,7 +14595,7 @@
           "at": 13.467,
           "victimTeam": 1,
           "sourceId": 7,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": true,
           "id": 4
@@ -14620,7 +14622,7 @@
           "bodies": [
             {
               "id": 7,
-              "key": "blastoise",
+              "key": "octillery",
               "x": 168,
               "y": 334.333,
               "hp": 0,
@@ -14638,8 +14640,8 @@
       "maxUnits": 1
     },
     {
-      "key": "blastoise",
-      "name": "Blastoise",
+      "key": "octillery",
+      "name": "Octillery",
       "structure": false,
       "reference": "golem",
       "native": null,
@@ -14659,7 +14661,7 @@
           "bodies": [
             {
               "id": 8,
-              "key": "blastoise",
+              "key": "octillery",
               "x": 168,
               "y": 460,
               "hp": 1400,
@@ -14698,7 +14700,7 @@
           "bodies": [
             {
               "id": 8,
-              "key": "blastoise",
+              "key": "octillery",
               "x": 168,
               "y": 460,
               "hp": 1400,
@@ -14742,7 +14744,7 @@
           "at": 1.333,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14751,7 +14753,7 @@
           "at": 3.033,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14760,7 +14762,7 @@
           "at": 4.767,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14769,7 +14771,7 @@
           "at": 6.533,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14778,7 +14780,7 @@
           "at": 8.367,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14787,7 +14789,7 @@
           "at": 10.2,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14796,7 +14798,7 @@
           "at": 12.067,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14805,7 +14807,7 @@
           "at": 13.9,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14823,7 +14825,7 @@
           "at": 15.7,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14841,7 +14843,7 @@
           "at": 17.5,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14859,7 +14861,7 @@
           "at": 19.3,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14868,7 +14870,7 @@
           "at": 21.1,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14886,7 +14888,7 @@
           "at": 22.9,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14904,7 +14906,7 @@
           "at": 24.7,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14913,7 +14915,7 @@
           "at": 26.5,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14931,7 +14933,7 @@
           "at": 28.3,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14949,7 +14951,7 @@
           "at": 30.1,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14967,7 +14969,7 @@
           "at": 31.9,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14976,7 +14978,7 @@
           "at": 33.7,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -14994,7 +14996,7 @@
           "at": 35.5,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -15012,7 +15014,7 @@
           "at": 37.3,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -15021,7 +15023,7 @@
           "at": 39.1,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -15039,7 +15041,7 @@
           "at": 40.9,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -15057,7 +15059,7 @@
           "at": 42.7,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -15075,7 +15077,7 @@
           "at": 44.5,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -15093,7 +15095,7 @@
           "bodies": [
             {
               "id": 8,
-              "key": "blastoise",
+              "key": "octillery",
               "x": 168,
               "y": 460,
               "hp": 1400,
@@ -15123,8 +15125,8 @@
       "maxUnits": 2
     },
     {
-      "key": "blastoise",
-      "name": "Blastoise",
+      "key": "octillery",
+      "name": "Octillery",
       "structure": false,
       "reference": "rhydon",
       "native": null,
@@ -15144,7 +15146,7 @@
           "bodies": [
             {
               "id": 8,
-              "key": "blastoise",
+              "key": "octillery",
               "x": 168,
               "y": 460,
               "hp": 1400,
@@ -15183,7 +15185,7 @@
           "bodies": [
             {
               "id": 8,
-              "key": "blastoise",
+              "key": "octillery",
               "x": 168,
               "y": 460,
               "hp": 0,
@@ -15227,7 +15229,7 @@
           "at": 1.333,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -15236,7 +15238,7 @@
           "at": 3.033,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -15254,7 +15256,7 @@
           "at": 4.8,
           "victimTeam": 1,
           "sourceId": 8,
-          "source": "blastoise",
+          "source": "octillery",
           "amount": 170,
           "tower": false,
           "id": 7
@@ -15281,7 +15283,7 @@
           "bodies": [
             {
               "id": 8,
-              "key": "blastoise",
+              "key": "octillery",
               "x": 168,
               "y": 460,
               "hp": 0,
@@ -30448,6 +30450,748 @@
               "x": 168,
               "y": 557.2,
               "hp": 3760,
+              "shield": 0
+            }
+          ]
+        }
+      },
+      "maxUnits": 2
+    },
+    {
+      "key": "blastoiseCannon",
+      "name": "Blastoise",
+      "structure": true,
+      "reference": "geodude",
+      "native": "Cannon",
+      "cost": 3,
+      "blueCanTargetRef": true,
+      "refCanTargetBlue": true,
+      "deathAreaCanHit": false,
+      "initial": {
+        "at": 0,
+        "blue": {
+          "rootIds": [
+            8
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 824,
+          "bodies": [
+            {
+              "id": 8,
+              "key": "blastoiseCannon",
+              "x": 168,
+              "y": 460,
+              "hp": 824,
+              "shield": 0
+            }
+          ]
+        },
+        "reference": {
+          "rootIds": [
+            7
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 1766,
+          "bodies": [
+            {
+              "id": 7,
+              "key": "geodude",
+              "x": 168,
+              "y": 316,
+              "hp": 1766,
+              "shield": 0
+            }
+          ]
+        }
+      },
+      "trade": {
+        "at": 7.233,
+        "blue": {
+          "rootIds": [
+            8
+          ],
+          "descendantIds": [],
+          "alive": 0,
+          "hp": 0,
+          "bodies": [
+            {
+              "id": 8,
+              "key": "blastoiseCannon",
+              "x": 168,
+              "y": 460,
+              "hp": 0,
+              "shield": 0
+            }
+          ]
+        },
+        "reference": {
+          "rootIds": [
+            7
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 554,
+          "bodies": [
+            {
+              "id": 7,
+              "key": "geodude",
+              "x": 168,
+              "y": 406.24,
+              "hp": 554,
+              "shield": 0
+            }
+          ]
+        },
+        "reason": "blue-family-defeated"
+      },
+      "damageToReference": 1212,
+      "referenceHits": 6,
+      "receivedInTrade": 653.707,
+      "otherTowerDamageDuringTrade": 0,
+      "postTrade": {
+        "scope": "Laboratory continuation with passive immortal or regenerating towers. Excluded from the exchange; not a native competitive push oracle.",
+        "elapsed": 0,
+        "towerDamage": 0,
+        "troopDamage": 0,
+        "events": 0
+      },
+      "trace": [
+        {
+          "at": 2.033,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 3,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 3.633,
+          "victimTeam": 0,
+          "sourceId": 7,
+          "source": "geodude",
+          "amount": 202,
+          "tower": false,
+          "id": 8
+        },
+        {
+          "at": 3.967,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 4.833,
+          "victimTeam": 0,
+          "sourceId": 7,
+          "source": "geodude",
+          "amount": 202,
+          "tower": false,
+          "id": 8
+        },
+        {
+          "at": 4.967,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 5.967,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 6.033,
+          "victimTeam": 0,
+          "sourceId": 7,
+          "source": "geodude",
+          "amount": 202,
+          "tower": false,
+          "id": 8
+        },
+        {
+          "at": 6.967,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 7.233,
+          "victimTeam": 0,
+          "sourceId": 7,
+          "source": "geodude",
+          "amount": 47.707,
+          "tower": false,
+          "id": 8
+        }
+      ],
+      "final": {
+        "at": 7.233,
+        "blue": {
+          "rootIds": [
+            8
+          ],
+          "descendantIds": [],
+          "alive": 0,
+          "hp": 0,
+          "bodies": [
+            {
+              "id": 8,
+              "key": "blastoiseCannon",
+              "x": 168,
+              "y": 460,
+              "hp": 0,
+              "shield": 0
+            }
+          ]
+        },
+        "reference": {
+          "rootIds": [
+            7
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 554,
+          "bodies": [
+            {
+              "id": 7,
+              "key": "geodude",
+              "x": 168,
+              "y": 406.24,
+              "hp": 554,
+              "shield": 0
+            }
+          ]
+        }
+      },
+      "maxUnits": 2
+    },
+    {
+      "key": "blastoiseCannon",
+      "name": "Blastoise",
+      "structure": true,
+      "reference": "princess",
+      "native": "Cannon",
+      "cost": 3,
+      "blueCanTargetRef": true,
+      "refCanTargetBlue": true,
+      "deathAreaCanHit": false,
+      "initial": {
+        "at": 0,
+        "blue": {
+          "rootIds": [
+            7
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 824,
+          "bodies": [
+            {
+              "id": 7,
+              "key": "blastoiseCannon",
+              "x": 168,
+              "y": 460,
+              "hp": 824,
+              "shield": 0
+            }
+          ]
+        },
+        "reference": {
+          "towerId": 4,
+          "hp": 3052,
+          "maxHp": 3052,
+          "alive": true
+        }
+      },
+      "trade": {
+        "at": 0,
+        "blue": {
+          "rootIds": [
+            7
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 824,
+          "bodies": [
+            {
+              "id": 7,
+              "key": "blastoiseCannon",
+              "x": 168,
+              "y": 460,
+              "hp": 824,
+              "shield": 0
+            }
+          ]
+        },
+        "reference": {
+          "towerId": 4,
+          "hp": 3052,
+          "maxHp": 3052,
+          "alive": true
+        },
+        "reason": "both-stationary-outside-attack-range"
+      },
+      "damageToReference": 0,
+      "referenceHits": 0,
+      "receivedInTrade": 0,
+      "otherTowerDamageDuringTrade": 0,
+      "postTrade": {
+        "scope": "Laboratory continuation with passive immortal or regenerating towers. Excluded from the exchange; not a native competitive push oracle.",
+        "elapsed": 31,
+        "towerDamage": 0,
+        "troopDamage": 0,
+        "events": 0
+      },
+      "trace": [],
+      "final": {
+        "at": 31,
+        "blue": {
+          "rootIds": [
+            7
+          ],
+          "descendantIds": [],
+          "alive": 0,
+          "hp": 0,
+          "bodies": [
+            {
+              "id": 7,
+              "key": "blastoiseCannon",
+              "x": 168,
+              "y": 460,
+              "hp": 0,
+              "shield": 0
+            }
+          ]
+        },
+        "reference": {
+          "towerId": 4,
+          "hp": 3052,
+          "maxHp": 3052,
+          "alive": true
+        }
+      },
+      "maxUnits": 1
+    },
+    {
+      "key": "blastoiseCannon",
+      "name": "Blastoise",
+      "structure": true,
+      "reference": "golem",
+      "native": "Cannon",
+      "cost": 3,
+      "blueCanTargetRef": true,
+      "refCanTargetBlue": false,
+      "deathAreaCanHit": true,
+      "initial": {
+        "at": 0,
+        "blue": {
+          "rootIds": [
+            8
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 824,
+          "bodies": [
+            {
+              "id": 8,
+              "key": "blastoiseCannon",
+              "x": 168,
+              "y": 460,
+              "hp": 824,
+              "shield": 0
+            }
+          ]
+        },
+        "reference": {
+          "rootIds": [
+            7
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 5120,
+          "bodies": [
+            {
+              "id": 7,
+              "key": "golem",
+              "x": 168,
+              "y": 316,
+              "hp": 5120,
+              "shield": 0
+            }
+          ]
+        }
+      },
+      "trade": {
+        "at": 8.3,
+        "blue": {
+          "rootIds": [
+            8
+          ],
+          "descendantIds": [],
+          "alive": 0,
+          "hp": 0,
+          "bodies": [
+            {
+              "id": 8,
+              "key": "blastoiseCannon",
+              "x": 168,
+              "y": 460,
+              "hp": 0,
+              "shield": 0
+            }
+          ]
+        },
+        "reference": {
+          "rootIds": [
+            7
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 3706,
+          "bodies": [
+            {
+              "id": 7,
+              "key": "golem",
+              "x": 168,
+              "y": 410.176,
+              "hp": 3706,
+              "shield": 0
+            }
+          ]
+        },
+        "reason": "blue-family-defeated"
+      },
+      "damageToReference": 1414,
+      "referenceHits": 7,
+      "receivedInTrade": 624,
+      "otherTowerDamageDuringTrade": 0,
+      "postTrade": {
+        "scope": "Laboratory continuation with passive immortal or regenerating towers. Excluded from the exchange; not a native competitive push oracle.",
+        "elapsed": 0,
+        "towerDamage": 0,
+        "troopDamage": 0,
+        "events": 0
+      },
+      "trace": [
+        {
+          "at": 2.067,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 3.033,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 4,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 4.967,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 5.267,
+          "victimTeam": 0,
+          "sourceId": 7,
+          "source": "golem",
+          "amount": 312,
+          "tower": false,
+          "id": 8
+        },
+        {
+          "at": 5.967,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 6.967,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 7.767,
+          "victimTeam": 0,
+          "sourceId": 7,
+          "source": "golem",
+          "amount": 312,
+          "tower": false,
+          "id": 8
+        },
+        {
+          "at": 7.967,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        }
+      ],
+      "final": {
+        "at": 8.3,
+        "blue": {
+          "rootIds": [
+            8
+          ],
+          "descendantIds": [],
+          "alive": 0,
+          "hp": 0,
+          "bodies": [
+            {
+              "id": 8,
+              "key": "blastoiseCannon",
+              "x": 168,
+              "y": 460,
+              "hp": 0,
+              "shield": 0
+            }
+          ]
+        },
+        "reference": {
+          "rootIds": [
+            7
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 3706,
+          "bodies": [
+            {
+              "id": 7,
+              "key": "golem",
+              "x": 168,
+              "y": 410.176,
+              "hp": 3706,
+              "shield": 0
+            }
+          ]
+        }
+      },
+      "maxUnits": 2
+    },
+    {
+      "key": "blastoiseCannon",
+      "name": "Blastoise",
+      "structure": true,
+      "reference": "rhydon",
+      "native": "Cannon",
+      "cost": 3,
+      "blueCanTargetRef": true,
+      "refCanTargetBlue": true,
+      "deathAreaCanHit": false,
+      "initial": {
+        "at": 0,
+        "blue": {
+          "rootIds": [
+            8
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 824,
+          "bodies": [
+            {
+              "id": 8,
+              "key": "blastoiseCannon",
+              "x": 168,
+              "y": 460,
+              "hp": 824,
+              "shield": 0
+            }
+          ]
+        },
+        "reference": {
+          "rootIds": [
+            7
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 3760,
+          "bodies": [
+            {
+              "id": 7,
+              "key": "rhydon",
+              "x": 168,
+              "y": 316,
+              "hp": 3760,
+              "shield": 0
+            }
+          ]
+        }
+      },
+      "trade": {
+        "at": 4.367,
+        "blue": {
+          "rootIds": [
+            8
+          ],
+          "descendantIds": [],
+          "alive": 0,
+          "hp": 0,
+          "bodies": [
+            {
+              "id": 8,
+              "key": "blastoiseCannon",
+              "x": 168,
+              "y": 460,
+              "hp": 0,
+              "shield": 0
+            }
+          ]
+        },
+        "reference": {
+          "rootIds": [
+            7
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 3154,
+          "bodies": [
+            {
+              "id": 7,
+              "key": "rhydon",
+              "x": 168,
+              "y": 399.52,
+              "hp": 3154,
+              "shield": 0
+            }
+          ]
+        },
+        "reason": "blue-family-defeated"
+      },
+      "damageToReference": 606,
+      "referenceHits": 3,
+      "receivedInTrade": 732.444,
+      "otherTowerDamageDuringTrade": 0,
+      "postTrade": {
+        "scope": "Laboratory continuation with passive immortal or regenerating towers. Excluded from the exchange; not a native competitive push oracle.",
+        "elapsed": 0,
+        "towerDamage": 0,
+        "troopDamage": 0,
+        "events": 0
+      },
+      "trace": [
+        {
+          "at": 2.067,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 3.033,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 4,
+          "victimTeam": 1,
+          "sourceId": 8,
+          "source": "blastoiseCannon",
+          "amount": 202,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 4.367,
+          "victimTeam": 0,
+          "sourceId": 7,
+          "source": "rhydon",
+          "amount": 732.444,
+          "tower": false,
+          "id": 8
+        }
+      ],
+      "final": {
+        "at": 4.367,
+        "blue": {
+          "rootIds": [
+            8
+          ],
+          "descendantIds": [],
+          "alive": 0,
+          "hp": 0,
+          "bodies": [
+            {
+              "id": 8,
+              "key": "blastoiseCannon",
+              "x": 168,
+              "y": 460,
+              "hp": 0,
+              "shield": 0
+            }
+          ]
+        },
+        "reference": {
+          "rootIds": [
+            7
+          ],
+          "descendantIds": [],
+          "alive": 1,
+          "hp": 3154,
+          "bodies": [
+            {
+              "id": 7,
+              "key": "rhydon",
+              "x": 168,
+              "y": 399.52,
+              "hp": 3154,
               "shield": 0
             }
           ]
@@ -84812,7 +85556,7 @@
         }
       },
       "trade": {
-        "at": 20.533,
+        "at": 20.633,
         "blue": {
           "rootIds": [
             8
@@ -84825,7 +85569,7 @@
               "id": 8,
               "key": "zapdos",
               "x": 168,
-              "y": 456.16,
+              "y": 457.12,
               "hp": 1049,
               "shield": 0
             }
@@ -84857,14 +85601,14 @@
       "otherTowerDamageDuringTrade": 0,
       "postTrade": {
         "scope": "Laboratory continuation with passive immortal or regenerating towers. Excluded from the exchange; not a native competitive push oracle.",
-        "elapsed": 24.467,
+        "elapsed": 24.367,
         "towerDamage": 1728,
         "troopDamage": 0,
         "events": 9
       },
       "trace": [
         {
-          "at": 1.633,
+          "at": 1.733,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -84873,7 +85617,7 @@
           "id": 7
         },
         {
-          "at": 3.733,
+          "at": 3.8,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -84882,7 +85626,7 @@
           "id": 7
         },
         {
-          "at": 5.833,
+          "at": 5.9,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -84891,7 +85635,7 @@
           "id": 7
         },
         {
-          "at": 7.933,
+          "at": 8,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -84900,7 +85644,7 @@
           "id": 7
         },
         {
-          "at": 10.033,
+          "at": 10.133,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -84918,7 +85662,7 @@
           "id": 1
         },
         {
-          "at": 12.133,
+          "at": 12.233,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -84927,7 +85671,7 @@
           "id": 7
         },
         {
-          "at": 13.133,
+          "at": 13.267,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "geodude",
@@ -84936,7 +85680,7 @@
           "id": 1
         },
         {
-          "at": 14.233,
+          "at": 14.333,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -84945,7 +85689,7 @@
           "id": 7
         },
         {
-          "at": 15.233,
+          "at": 15.367,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "geodude",
@@ -84954,7 +85698,7 @@
           "id": 1
         },
         {
-          "at": 16.333,
+          "at": 16.433,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -84963,7 +85707,7 @@
           "id": 7
         },
         {
-          "at": 17.333,
+          "at": 17.467,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "geodude",
@@ -84972,7 +85716,7 @@
           "id": 1
         },
         {
-          "at": 18.433,
+          "at": 18.533,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -84981,7 +85725,7 @@
           "id": 7
         },
         {
-          "at": 19.433,
+          "at": 19.567,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "geodude",
@@ -84990,7 +85734,7 @@
           "id": 1
         },
         {
-          "at": 20.533,
+          "at": 20.633,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85078,7 +85822,7 @@
         }
       },
       "trade": {
-        "at": 13.967,
+        "at": 19.6,
         "blue": {
           "rootIds": [
             7
@@ -85105,8 +85849,8 @@
         },
         "reason": "blue-family-defeated"
       },
-      "damageToReference": 768,
-      "referenceHits": 4,
+      "damageToReference": 1152,
+      "referenceHits": 6,
       "receivedInTrade": 1049,
       "otherTowerDamageDuringTrade": 0,
       "postTrade": {
@@ -85154,7 +85898,7 @@
           "id": 7
         },
         {
-          "at": 7.3,
+          "at": 7.4,
           "victimTeam": 1,
           "sourceId": 7,
           "source": "zapdos",
@@ -85163,7 +85907,7 @@
           "id": 4
         },
         {
-          "at": 8.967,
+          "at": 9.1,
           "victimTeam": 0,
           "sourceId": 4,
           "source": "tower",
@@ -85172,7 +85916,7 @@
           "id": 7
         },
         {
-          "at": 9.4,
+          "at": 9.5,
           "victimTeam": 1,
           "sourceId": 7,
           "source": "zapdos",
@@ -85181,7 +85925,7 @@
           "id": 4
         },
         {
-          "at": 9.767,
+          "at": 11.2,
           "victimTeam": 0,
           "sourceId": 4,
           "source": "tower",
@@ -85190,16 +85934,7 @@
           "id": 7
         },
         {
-          "at": 11.067,
-          "victimTeam": 0,
-          "sourceId": 4,
-          "source": "tower",
-          "amount": 109,
-          "tower": false,
-          "id": 7
-        },
-        {
-          "at": 11.5,
+          "at": 11.6,
           "victimTeam": 1,
           "sourceId": 7,
           "source": "zapdos",
@@ -85208,7 +85943,7 @@
           "id": 4
         },
         {
-          "at": 11.867,
+          "at": 13.3,
           "victimTeam": 0,
           "sourceId": 4,
           "source": "tower",
@@ -85217,16 +85952,7 @@
           "id": 7
         },
         {
-          "at": 13.167,
-          "victimTeam": 0,
-          "sourceId": 4,
-          "source": "tower",
-          "amount": 109,
-          "tower": false,
-          "id": 7
-        },
-        {
-          "at": 13.6,
+          "at": 13.7,
           "victimTeam": 1,
           "sourceId": 7,
           "source": "zapdos",
@@ -85235,7 +85961,43 @@
           "id": 4
         },
         {
-          "at": 13.967,
+          "at": 15.4,
+          "victimTeam": 0,
+          "sourceId": 4,
+          "source": "tower",
+          "amount": 109,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 15.8,
+          "victimTeam": 1,
+          "sourceId": 7,
+          "source": "zapdos",
+          "amount": 192,
+          "tower": true,
+          "id": 4
+        },
+        {
+          "at": 17.5,
+          "victimTeam": 0,
+          "sourceId": 4,
+          "source": "tower",
+          "amount": 109,
+          "tower": false,
+          "id": 7
+        },
+        {
+          "at": 17.9,
+          "victimTeam": 1,
+          "sourceId": 7,
+          "source": "zapdos",
+          "amount": 192,
+          "tower": true,
+          "id": 4
+        },
+        {
+          "at": 19.6,
           "victimTeam": 0,
           "sourceId": 4,
           "source": "tower",
@@ -85245,7 +86007,7 @@
         }
       ],
       "final": {
-        "at": 13.967,
+        "at": 19.6,
         "blue": {
           "rootIds": [
             7
@@ -85375,7 +86137,7 @@
       },
       "trace": [
         {
-          "at": 1.6,
+          "at": 1.7,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85384,7 +86146,7 @@
           "id": 7
         },
         {
-          "at": 3.7,
+          "at": 3.767,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85393,7 +86155,7 @@
           "id": 7
         },
         {
-          "at": 5.8,
+          "at": 5.867,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85402,7 +86164,7 @@
           "id": 7
         },
         {
-          "at": 7.9,
+          "at": 7.967,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85411,7 +86173,7 @@
           "id": 7
         },
         {
-          "at": 10,
+          "at": 10.067,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85420,7 +86182,7 @@
           "id": 7
         },
         {
-          "at": 12.1,
+          "at": 12.167,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85429,7 +86191,7 @@
           "id": 7
         },
         {
-          "at": 14.2,
+          "at": 14.3,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85447,7 +86209,7 @@
           "id": 1
         },
         {
-          "at": 16.3,
+          "at": 16.4,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85456,7 +86218,7 @@
           "id": 7
         },
         {
-          "at": 18.4,
+          "at": 18.5,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85465,7 +86227,7 @@
           "id": 7
         },
         {
-          "at": 19.9,
+          "at": 20.033,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "golem",
@@ -85474,7 +86236,7 @@
           "id": 1
         },
         {
-          "at": 20.5,
+          "at": 20.6,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85483,7 +86245,7 @@
           "id": 7
         },
         {
-          "at": 22.4,
+          "at": 22.533,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "golem",
@@ -85492,7 +86254,7 @@
           "id": 1
         },
         {
-          "at": 22.6,
+          "at": 22.7,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85501,7 +86263,7 @@
           "id": 7
         },
         {
-          "at": 24.7,
+          "at": 24.8,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85510,7 +86272,7 @@
           "id": 7
         },
         {
-          "at": 26.2,
+          "at": 26.333,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "golem",
@@ -85519,7 +86281,7 @@
           "id": 1
         },
         {
-          "at": 26.8,
+          "at": 26.9,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85528,7 +86290,7 @@
           "id": 7
         },
         {
-          "at": 28.7,
+          "at": 28.833,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "golem",
@@ -85537,7 +86299,7 @@
           "id": 1
         },
         {
-          "at": 28.9,
+          "at": 29,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85546,7 +86308,7 @@
           "id": 7
         },
         {
-          "at": 31,
+          "at": 31.1,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85555,7 +86317,7 @@
           "id": 7
         },
         {
-          "at": 32.5,
+          "at": 32.633,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "golem",
@@ -85564,7 +86326,7 @@
           "id": 1
         },
         {
-          "at": 33.1,
+          "at": 33.2,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85573,7 +86335,7 @@
           "id": 7
         },
         {
-          "at": 35,
+          "at": 35.133,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "golem",
@@ -85582,7 +86344,7 @@
           "id": 1
         },
         {
-          "at": 35.2,
+          "at": 35.3,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85591,7 +86353,7 @@
           "id": 7
         },
         {
-          "at": 37.3,
+          "at": 37.4,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85600,7 +86362,7 @@
           "id": 7
         },
         {
-          "at": 38.8,
+          "at": 38.933,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "golem",
@@ -85609,7 +86371,7 @@
           "id": 1
         },
         {
-          "at": 39.4,
+          "at": 39.5,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85618,7 +86380,7 @@
           "id": 7
         },
         {
-          "at": 41.3,
+          "at": 41.433,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "golem",
@@ -85627,7 +86389,7 @@
           "id": 1
         },
         {
-          "at": 41.5,
+          "at": 41.6,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85636,7 +86398,7 @@
           "id": 7
         },
         {
-          "at": 43.6,
+          "at": 43.7,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85736,7 +86498,7 @@
         }
       },
       "trade": {
-        "at": 41.567,
+        "at": 41.667,
         "blue": {
           "rootIds": [
             8
@@ -85749,7 +86511,7 @@
               "id": 8,
               "key": "zapdos",
               "x": 168,
-              "y": 455.2,
+              "y": 456.16,
               "hp": 1049,
               "shield": 0
             }
@@ -85781,14 +86543,14 @@
       "otherTowerDamageDuringTrade": 0,
       "postTrade": {
         "scope": "Laboratory continuation with passive immortal or regenerating towers. Excluded from the exchange; not a native competitive push oracle.",
-        "elapsed": 3.433,
+        "elapsed": 3.333,
         "towerDamage": 0,
         "troopDamage": 0,
         "events": 0
       },
       "trace": [
         {
-          "at": 1.667,
+          "at": 1.767,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85797,7 +86559,7 @@
           "id": 7
         },
         {
-          "at": 3.767,
+          "at": 3.833,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85806,7 +86568,7 @@
           "id": 7
         },
         {
-          "at": 5.867,
+          "at": 5.933,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85815,7 +86577,7 @@
           "id": 7
         },
         {
-          "at": 7.967,
+          "at": 8.033,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85824,7 +86586,7 @@
           "id": 7
         },
         {
-          "at": 10.067,
+          "at": 10.133,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85833,7 +86595,7 @@
           "id": 7
         },
         {
-          "at": 12.167,
+          "at": 12.233,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85842,7 +86604,7 @@
           "id": 7
         },
         {
-          "at": 14.267,
+          "at": 14.367,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85851,7 +86613,7 @@
           "id": 7
         },
         {
-          "at": 15.267,
+          "at": 15.4,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -85860,7 +86622,7 @@
           "id": 1
         },
         {
-          "at": 16.367,
+          "at": 16.467,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85869,7 +86631,7 @@
           "id": 7
         },
         {
-          "at": 17.367,
+          "at": 17.5,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -85878,7 +86640,7 @@
           "id": 1
         },
         {
-          "at": 18.467,
+          "at": 18.567,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85887,7 +86649,7 @@
           "id": 7
         },
         {
-          "at": 19.467,
+          "at": 19.6,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -85896,7 +86658,7 @@
           "id": 1
         },
         {
-          "at": 20.567,
+          "at": 20.667,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85905,7 +86667,7 @@
           "id": 7
         },
         {
-          "at": 21.567,
+          "at": 21.7,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -85914,7 +86676,7 @@
           "id": 1
         },
         {
-          "at": 22.667,
+          "at": 22.767,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85923,7 +86685,7 @@
           "id": 7
         },
         {
-          "at": 23.667,
+          "at": 23.8,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -85932,7 +86694,7 @@
           "id": 1
         },
         {
-          "at": 24.767,
+          "at": 24.867,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85941,7 +86703,7 @@
           "id": 7
         },
         {
-          "at": 25.767,
+          "at": 25.9,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -85950,7 +86712,7 @@
           "id": 1
         },
         {
-          "at": 26.867,
+          "at": 26.967,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85959,7 +86721,7 @@
           "id": 7
         },
         {
-          "at": 27.867,
+          "at": 28,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -85968,7 +86730,7 @@
           "id": 1
         },
         {
-          "at": 28.967,
+          "at": 29.067,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85977,7 +86739,7 @@
           "id": 7
         },
         {
-          "at": 29.967,
+          "at": 30.1,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -85986,7 +86748,7 @@
           "id": 1
         },
         {
-          "at": 31.067,
+          "at": 31.167,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -85995,7 +86757,7 @@
           "id": 7
         },
         {
-          "at": 32.067,
+          "at": 32.2,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -86004,7 +86766,7 @@
           "id": 1
         },
         {
-          "at": 33.167,
+          "at": 33.267,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -86013,7 +86775,7 @@
           "id": 7
         },
         {
-          "at": 34.167,
+          "at": 34.3,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -86022,7 +86784,7 @@
           "id": 1
         },
         {
-          "at": 35.267,
+          "at": 35.367,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -86031,7 +86793,7 @@
           "id": 7
         },
         {
-          "at": 36.267,
+          "at": 36.4,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -86040,7 +86802,7 @@
           "id": 1
         },
         {
-          "at": 37.367,
+          "at": 37.467,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -86049,7 +86811,7 @@
           "id": 7
         },
         {
-          "at": 38.367,
+          "at": 38.5,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -86058,7 +86820,7 @@
           "id": 1
         },
         {
-          "at": 39.467,
+          "at": 39.567,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -86067,7 +86829,7 @@
           "id": 7
         },
         {
-          "at": 40.467,
+          "at": 40.6,
           "victimTeam": 0,
           "sourceId": 7,
           "source": "rhydon",
@@ -86076,7 +86838,7 @@
           "id": 1
         },
         {
-          "at": 41.567,
+          "at": 41.667,
           "victimTeam": 1,
           "sourceId": 8,
           "source": "zapdos",
@@ -86099,7 +86861,7 @@
               "id": 8,
               "key": "zapdos",
               "x": 168,
-              "y": 356.32,
+              "y": 360.16,
               "hp": 1049,
               "shield": 0
             }

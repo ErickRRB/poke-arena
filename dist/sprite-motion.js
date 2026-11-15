@@ -1,4 +1,4 @@
-import { SPRITE_GEOMETRY } from './sprite-geometry.js';
+import { SPRITE_GEOMETRY } from './sprite-geometry.js?v=34';
 
 export const TOWER_MOUNTS = Object.freeze({ princess: 46, king: 59 });
 export const structureLift = card => card.structure && card.platform !== false && !card.burrow ? 23 : 0;
@@ -39,7 +39,7 @@ export function movementAnchor(id,animation,direction,frame,fallback){
 }
 const HANDS=new Set(['punch','slash','aura','confusion','psychic']);
 const BODY=new Set(['powder','magnet']);
-const PARTS={1:'body',3:'body',9:'cannons',54:'head',65:'hands',81:'body',102:'body',109:'body',113:'body',121:'body',122:'hands',150:'hands',154:'body',196:'head',242:'body',251:'hands',252:'hands',254:'hands',282:'hands',384:'head'};
+const PARTS={1:'body',3:'body',9:'cannons',54:'head',65:'hands',81:'body',102:'body',109:'body',113:'body',121:'body',122:'hands',150:'hands',154:'body',196:'head',224:'head',242:'body',251:'hands',252:'hands',254:'hands',282:'hands',384:'head'};
 export function emitterPart(profile){return profile.emitter||PARTS[profile.id]||(HANDS.has(profile.style)?'hands':BODY.has(profile.style)?'body':'head');}
 export function emissionPoint(actor,shot=0,clock=actor.anim||0) {
   const tower='king'in actor,card=actor.card,profile=card||actor.guard||{},id=profile.id;

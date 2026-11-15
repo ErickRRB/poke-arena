@@ -1,8 +1,8 @@
 # Balance, roles y tamaños
 
-Revisión del 14 de noviembre de 2026. 110 cartas. Valores efectivos compartidos entre CPU, navegador y servidor. Las correspondencias y excepciones están en [CARD-EQUIVALENTS.md](CARD-EQUIVALENTS.md).
+Revisión del 14 de noviembre de 2026. 111 cartas. Valores efectivos compartidos entre CPU, navegador y servidor. Las correspondencias y excepciones están en [CARD-EQUIVALENTS.md](CARD-EQUIVALENTS.md).
 
-Esta tabla incluye el daño directo por unidad. La [matriz final de 372 encuentros](NATIVE-TRADE-MATRIX-2026-11-14.json) conserva los perfiles efectivos, posiciones y fuentes verificables. La [revisión de los 50 originales](ORIGINAL-CATALOG-REVIEW-2026-11-14.md) explica sus presupuestos. Los informes anteriores de 105 cartas son históricos. El sandbox registra por separado efectos, invocaciones, curación y empuje posterior.
+Esta tabla incluye el daño directo por unidad. La [matriz final de 376 encuentros](NATIVE-TRADE-MATRIX-2026-11-14.json) conserva los perfiles efectivos, posiciones y fuentes verificables. La [revisión de los 50 originales](ORIGINAL-CATALOG-REVIEW-2026-11-14.md) explica sus presupuestos. Los informes anteriores de 105 cartas son históricos. El sandbox registra por separado efectos, invocaciones, curación y empuje posterior.
 
 | Carta | Rol | Elixir | Unidades | PV | Escudo | Daño | Ataque cada (s) | DPS directo | Alcance | Referencia | Identidad y decisión |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
@@ -19,7 +19,7 @@ Esta tabla incluye el daño directo por unidad. La [matriz final de 372 encuentr
 | Machamp | Antitanques · terrestre | 4 | 1 | 1390 | — | 755 | 1,6 | 471,88 | Contacto | Mini P.E.K.K.A. | Puño dinámico: Prepara un golpe fuerte contra un solo objetivo terrestre. Referencia: Mini P.E.K.K.A.. 4 de elixir. Prepara un golpe fuerte contra un solo objetivo terrestre. |
 | Eevee | Ciclo · presión | 5 | 1 | 1920 | — | 391 | 1,4 | 279,29 | Contacto | Príncipe | Ataque rápido: Toma carrera para dar un primer golpe de daño doble. Referencia: Príncipe. 5 de elixir. Toma carrera para dar un primer golpe de daño doble. |
 | Onix | Win condition · terrestre | 4 | 1 | 1697 | — | 317 | 1,6 | 198,13 | Contacto | Montapuercos | Cola férrea: Corre hacia las estructuras y salta el río para alcanzarlas. Referencia: Montapuercos. 4 de elixir. Corre hacia las estructuras y salta el río para alcanzarlas. |
-| Blastoise | Mini tanque · antiaéreo | 4 | 1 | 1400 | — | 170 | 1,8 | 94,44 | 5 casillas | Sin similitud | Doble hidrobomba: Avanza y dispara un cañonazo contra tierra y aire. Referencia: Sin similitud. 4 de elixir. Unidad móvil resistente que dispara agua contra tierra y aire. |
+| Octillery | Mini tanque · antiaéreo | 4 | 1 | 1400 | — | 170 | 1,8 | 94,44 | 5 casillas | Sin similitud | Hidrobomba: Avanza y dispara un cañonazo contra tierra y aire. Referencia: Sin similitud. 4 de elixir. Unidad móvil resistente que dispara agua contra tierra y aire. |
 | Vulpix | Tirador · antiaéreo | 3 | 1 | 440 | — | 150 | 1,4 | 107,14 | 4,83 casillas | Sin similitud | Pirotecnia: Lanza una llama que quema a su objetivo. Referencia: Sin similitud. 3 de elixir. Lanza una llama que quema a un solo objetivo. |
 | Psyduck | Tirador · control | 3 | 1 | 560 | — | 110 | 1,4 | 78,57 | 5,08 casillas | Parcial de Mago eléctrico | Confusión: Su onda de confusión aturde e interrumpe ataques. Referencia: Parcial de Mago eléctrico. 3 de elixir. Aturde a distancia con un solo disparo y no tiene descarga de entrada. |
 | Alakazam | Tirador · área | 4 | 1 | 529 | — | 135 | 1,1 | 122,73 | 7 casillas | Arquero mágico | Psíquico: Dispara un proyectil que atraviesa a los enemigos alineados. Referencia: Arquero mágico. 4 de elixir. Dispara un proyectil que atraviesa a los enemigos alineados. |
@@ -31,6 +31,7 @@ Esta tabla incluye el daño directo por unidad. La [matriz final de 372 encuentr
 | Treecko | Tiradores · dúo | 3 | 2 | 304 | — | 112 | 0,9 | 124,44 | 5 casillas | Arqueras | Semilladora: Dos tiradores atacan desde atrás y alcanzan tierra y aire. Referencia: Arqueras. 3 de elixir. Dos tiradores atacan desde atrás y alcanzan tierra y aire. |
 | Golem | Win condition · tanque | 8 | 1 | 5120 | — | 312 | 2,5 | 124,8 | Contacto | Gólem | Demolición: Avanza hacia las estructuras y, al caer, explota y deja dos Geodude. Referencia: Gólem. 8 de elixir. Avanza hacia las estructuras y, al caer, explota y deja dos Geodude. |
 | Rueda Fuego | Hechizo · empuje | 2 | 1 | — | — | 268 | — | — | — | El Tronco | Rueda Fuego: Una rueda de fuego avanza y empuja a los enemigos terrestres. Referencia: El Tronco. 2 de elixir. Avanza por el suelo, daña una vez a cada enemigo que alcanza y lo empuja. |
+| Blastoise | Estructura · defensa | 3 | 1 | 824 | — | 202 | 1 | 202 | 5,5 casillas | Cañón | Hidrobomba: Defiende su posición disparando contra un rival terrestre por ataque. Referencia: Cañón. 3 de elixir. Defiende su posición disparando contra un rival terrestre por ataque. |
 | Refugio Ralts | Estructura · invocadora | 4 | 1 | 1180 | — | 0 | 10 | 0 | 6 casillas | Choza de duendes | Estructura: Libera Ralts cuando hay enemigos cerca y deja uno más al caer. Referencia: Choza de duendes. 4 de elixir. Libera Ralts cuando hay enemigos cerca y deja uno más al caer. |
 | Rapidash | Mini tanque · terrestre | 4 | 1 | 1697 | — | 317 | 1,6 | 198,13 | Contacto | Montapuercos | Bote: Corre hacia las estructuras y salta el río para alcanzarlas. Referencia: Montapuercos. 4 de elixir. Corre hacia las estructuras y salta el río para alcanzarlas. |
 | Roselia | Tirador · área | 3 | 1 | 261 | — | 168 | 3 | 56 | 9 casillas | Princesa | Danza pétalo: Lanza pétalos en área desde fuera del alcance de las torres. Referencia: Princesa. 3 de elixir. Lanza pétalos en área desde fuera del alcance de las torres. |
@@ -134,7 +135,7 @@ Multiplicadores efectivos del catálogo. Las siluetas y sus límites están medi
 | Machamp | 68 | 1.5484 |
 | Eevee | 133 | 2 |
 | Onix | 95 | 1.038 |
-| Blastoise | 9 | 1.7241 |
+| Octillery | 224 | 1.9231 |
 | Vulpix | 37 | 1.9091 |
 | Psyduck | 54 | 1.6 |
 | Alakazam | 65 | 1.3548 |
@@ -145,6 +146,7 @@ Multiplicadores efectivos del catálogo. Las siluetas y sus límites están medi
 | Mewtwo | 150 | 1.4839 |
 | Treecko | 252 | 1.4167 |
 | Golem | 76 | 3.25 |
+| Blastoise | 9 | 1.7241 |
 | Rapidash | 78 | 2 |
 | Roselia | 315 | 1.7143 |
 | Conkeldurr | 534 | 2.05 |

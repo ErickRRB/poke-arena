@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {OnlineClient,ONLINE_TOKEN_KEY,hasSavedOnlineSession} from '../dist/online.js';
-import {ONLINE_PROTOCOL} from '../dist/online-wire.js';
+import {ONLINE_PROTOCOL} from '../dist/online-wire.js?v=34';
 
 const ROOM='d521bab0-5618-404e-96dc-5b73fcb51b77';
 const deck=['diglett','voltorb','bulbasaur','eevee','ekans','gastly','grimer','squirtle'];

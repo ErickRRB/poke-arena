@@ -407,5 +407,9 @@ export const POKEMON_SILHOUETTES=Object.freeze({
   "534": {
     "body": 40,
     "name": "Conkeldurr"
+  },
+  "224": {
+    "body": 30,
+    "name": "Octillery"
   }
 });

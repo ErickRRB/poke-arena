@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, CARDS, DEFAULT_DECK, TILE, DEPLOY_GRID, W, H } from '../dist/engine.js';
-import { packGame, unpackGame, perspective } from '../dist/snapshot.js';
+import { Game, CARDS, DEFAULT_DECK, TILE, DEPLOY_GRID, W, H } from '../dist/engine.js?v=34';
+import { packGame, unpackGame, perspective } from '../dist/snapshot.js?v=34';
 
 function fresh(key='pikachu') {
   const game=new Game({deck:[key,...DEFAULT_DECK.filter(k=>k!==key).slice(0,7)],seed:611});
@@ -13,7 +13,7 @@ function frozen(game,key,team,x,y){const u=game.spawn(key,team,x,y,0);u.card={..
 const onGrid=p=>{const x=(p.x-DEPLOY_GRID.left-TILE/2)/TILE,y=(p.y-DEPLOY_GRID.top-TILE/2)/TILE;return Math.abs(x-Math.round(x))<1e-9&&Math.abs(y-Math.round(y))<1e-9;};
 
 test('units, buildings and log starts share a discrete mirrored placement grid',()=>{
-  for(const key of ['snorlax','pikachu','blastoise','log'])for(const[x,y]of[[101.3,512.7],[288,560],[315,702],[300,752],[158,400]]){
+  for(const key of ['snorlax','pikachu','octillery','log'])for(const[x,y]of[[101.3,512.7],[288,560],[315,702],[300,752],[158,400]]){
     const a=fresh(key),b=fresh(key),p=a.resolveDeployment(0,key,x,y),q=b.resolveDeployment(1,key,W-x,H-y);
     assert.ok(p&&q,key);assert.ok(onGrid(p)&&onGrid(q));assert.deepEqual(q,{x:W-p.x,y:H-p.y});
     const result=a.deploy(0,0,x,y);assert.ok(result.ok);assert.deepEqual({x:result.x,y:result.y},p);
@@ -50,7 +50,7 @@ test('king remains idle near enemies and through zero-damage status effects',()=
 
 test('only a friendly princess defeat wakes its king, not the other king or a deployed building',()=>{
   const g=fresh(),kings=g.towers.filter(t=>t.king);
-  const building=g.spawn('blastoise',0,300,500,0);g.damage(building,9999,1);assert.ok(kings.every(k=>!k.active));
+  const building=g.spawn('blastoiseCannon',0,300,500,0);g.damage(building,9999,1);assert.ok(kings.every(k=>!k.active));
   const princess=g.towers.find(t=>!t.king&&t.team===0);g.damage(princess,1,1);assert.ok(kings.every(k=>!k.active));
   g.damage(princess,9999,1);assert.equal(kings.find(k=>k.team===0).active,true);assert.equal(kings.find(k=>k.team===1).active,false);
 });

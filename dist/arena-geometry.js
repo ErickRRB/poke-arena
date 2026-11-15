@@ -1,4 +1,4 @@
-import { ARENA_TILEMAP } from './arena-tilemap.js?v=26';
+import { ARENA_TILEMAP } from './arena-tilemap.js?v=34';
 export const W=600,H=800,TILE=24,BOARD_VERSION=2;
 export const ARENA=Object.freeze({left:84,right:516,top:16,bottom:784,width:432,height:768});
 export const DEPLOY_GRID=Object.freeze({size:TILE,left:ARENA.left,top:ARENA.top,columns:18,rows:32});
@@ -6,9 +6,9 @@ export const RIVER=Object.freeze({top:376,bottom:424});
 export const LANES=Object.freeze([168,432]);
 export const BRIDGE=Object.freeze({top:RIVER.top,bottom:RIVER.bottom,halfWidth:TILE});
 export const PRINCESS_Y=Object.freeze([628,172]),KING_Y=Object.freeze([712,88]);
-// A uniform camera contains the playable map plus measured drawing overscan.
-// Its aspect is a minimum; wider DOM rectangles show additional landscape.
-export const ARENA_CAMERA=Object.freeze({left:30,top:-122,width:540,height:934});
+// Focus on the complete map, one tile of side context and tower-health headroom.
+// Controls overlay this view; isolated off-map sprite poses do not zoom it out.
+export const ARENA_CAMERA=Object.freeze({left:60,top:-48,width:480,height:848});
 export function arenaProjection(width,height){
   const scale=Math.min(width/ARENA_CAMERA.width,height/ARENA_CAMERA.height);
   return{scale,x:(width-ARENA_CAMERA.width*scale)/2-ARENA_CAMERA.left*scale,y:(height-ARENA_CAMERA.height*scale)/2-ARENA_CAMERA.top*scale};

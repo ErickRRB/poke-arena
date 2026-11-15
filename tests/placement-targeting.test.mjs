@@ -1,5 +1,5 @@
 import{test}from'node:test';import assert from'node:assert/strict';
-import{Game,CARDS,DEFAULT_DECK}from'../dist/engine.js';
+import{Game,CARDS,DEFAULT_DECK}from'../dist/engine.js?v=34';
 function fresh(){const g=new Game({seed:77});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.active=false);return g;}
 function run(g,seconds){for(let i=0;i<Math.ceil(seconds*60);i++)g.step(1/60);}
 test('dropping directly on a tower snaps to the nearest legal edge and charges once',()=>{const g=fresh(),tower=g.towers.find(t=>t.team===0&&!t.king),result=g.deploy(0,0,tower.x+20,tower.y);assert.equal(result.ok,true);assert.equal(g.energy[0],6-CARDS.pikachu.cost);assert.ok(g.canDeploy(0,'pikachu',result.x,result.y));assert.ok(Math.hypot(result.x-tower.x,result.y-tower.y)>=tower.radius+CARDS.pikachu.radius);assert.ok(Math.hypot(result.x-(tower.x+20),result.y-tower.y)<=56);assert.equal(g.units.length,1);});

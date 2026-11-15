@@ -1,14 +1,32 @@
-import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=26';
-import { BOARD_VERSION, migrateLegacyX, migrateLegacyY } from './arena-geometry.js?v=26';
+import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=34';
+import { BOARD_VERSION, migrateLegacyX, migrateLegacyY } from './arena-geometry.js?v=34';
+import { currentDeck } from './card-key-migrations.js?v=34';
+
+// Persisted matches retain the old mobile card's numbers and entity references.
+// Only its retired key and visual identity change; Cannon is a separate card.
+export function migrateLegacyCardIdentity(value){
+  if(!value||typeof value!=='object')return value;
+  if(Array.isArray(value)){value.forEach(migrateLegacyCardIdentity);return value;}
+  const legacy=value.key==='blastoise'||value.sourceKey==='blastoise';
+  for(const field of ['key','sourceKey','spawnKey'])if(value[field]==='blastoise')value[field]='octillery';
+  if(legacy&&value.card?.id===9){
+    const profile=CARDS.octillery,visual=['name','id','scale','move','attackAnim','attackFrames','attackGestures','attackContactFrame','emitter','muzzleHeight','movementAnchor'];
+    value.card={...value.card,...Object.fromEntries(visual.map(key=>[key,profile[key]]))};
+  }
+  if(value.hands)value.hands=value.hands.map(currentDeck);
+  if(value.queues)value.queues=value.queues.map(currentDeck);
+  for(const[field,item]of Object.entries(value))if(!['card','guard','stats','hands','queues'].includes(field))migrateLegacyCardIdentity(item);
+  return value;
+}
 
 // Entity references are IDs on the wire; full cards preserve summoned forms.
 const entityCopy=e=>{const{target,abilityUsed,...copy}=e;return{...copy,targetId:target?.id??null};};
 export function packGame(game){
   const{onEvent,animations,units,towers,attacks,projectiles,...plain}=game;
-  return{...plain,units:units.map(entityCopy),towers:towers.map(entityCopy),attacks:attacks.map(({attacker,target,...job})=>({...job,attackerId:attacker.id,targetId:target.id})),projectiles:projectiles.map(({target,...p})=>({...p,targetId:p.rolling||p.linear?null:target?.id??null}))};
+  return{...plain,units:units.map(entityCopy),towers:towers.map(entityCopy),attacks:attacks.map(({attacker,target,...job})=>({...job,attackerId:attacker.id,targetId:target.id})),projectiles:projectiles.map(({target,...p})=>({...p,targetId:p.rolling||p.linear?null:target?.id??p.chainTargetId??null}))};
 }
 export function unpackGame(data,onEvent=()=>{},animations={}){
-  const restored=structuredClone(data);
+  const restored=migrateLegacyCardIdentity(structuredClone(data));
   if((restored.boardVersion||1)<BOARD_VERSION){
     for(const tower of restored.towers||[])if(tower.king&&tower.y===(tower.team?118:682))tower.y=tower.team?94:706;
     const migrate=value=>{
@@ -29,7 +47,7 @@ export function unpackGame(data,onEvent=()=>{},animations={}){
   const entities=new Map([...game.units,...game.towers].map(e=>[e.id,e]));
   for(const entity of entities.values()){entity.card=entity.card||CARDS[entity.key];if(entity.card?.ability)delete entity.card.ability;delete entity.abilityUsed;entity.target=entities.get(entity.targetId)||null;}
   game.attacks=game.attacks.map(j=>({...j,attacker:entities.get(j.attackerId),target:entities.get(j.targetId)})).filter(j=>j.attacker&&j.target);
-  game.projectiles=game.projectiles.map(p=>({...p,target:entities.get(p.targetId)})).filter(p=>p.rolling||p.linear||p.flameCone||p.impactPoint||p.target);
+  game.projectiles=game.projectiles.map(p=>({...p,target:entities.get(p.targetId)})).filter(p=>p.electricChain||p.rolling||p.linear||p.flameCone||p.impactPoint||p.target);
   return game;
 }
 export function packEvent(event){

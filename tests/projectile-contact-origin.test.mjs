@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Game} from '../dist/engine.js?v=26';
+import {Game} from '../dist/engine.js?v=34';
 import {Renderer} from '../dist/render.js';
-import {publicEvent,unpackEvent} from '../dist/online-wire.js';
+import {publicEvent,unpackEvent} from '../dist/online-wire.js?v=34';
 
 for(const hz of [30,60])for(const key of ['treecko','beedrill','roselia','nuzleaf','centralElectrode','squirtle']){
   test(`${key} at ${hz} Hz: saved projectile origin matches the released native pose in all eight directions`,()=>{

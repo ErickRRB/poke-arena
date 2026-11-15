@@ -2,22 +2,23 @@
   "asOf": "2026-11-14",
   "scope": "All 50 original playable profiles: 45 troops, 3 structures, 2 spells, plus 5 non-native hidden/child keys. Twelve are the explicitly retained partial adaptations.",
   "matrixFingerprints": {
-    "arena-geometry": "747481d1c712f25541f1805ced236fd7a818e3faab7c5fb417c27f3a2a3e9d0f",
+    "arena-geometry": "e91643dd9d47a9b34befc4773eeafa22e4cbe968a832b5b2c5ac6011db49e9f2",
     "arena-tilemap": "7811168f2eaea5c6ce8c60c98171abd814d5709284434d0edb69d0c91c5a3e6d",
-    "attack-choreography": "ba1d9e7ce576b5af8250ac5b5d37489515c8fcbf73786783c1ebaa766e7a6136",
-    "balance": "b9c6e30bf41aeb40af5dd5fcaaed6ba719df5b480bc900c709186365522b0b61",
-    "catalog": "43a66f458b710c2ea8534a4765f346b0a0f4bc97e27ebca22ea8c6c2bc5db3ef",
-    "current-reference": "446770234378676d369dd1366fb312c18143600f13f0d1630696944b6a42899f",
+    "attack-choreography": "44c2f26b217fd579d71abafbfaa5126b55673096df0f096225ecf15f00ca8603",
+    "balance": "66fa3696c31f75b1a517c5030cdbb63bd038e63d9e6a92f2a09945512d47597c",
+    "card-key-migrations": "fc80dcaae74f16096ef830f8a64004934daea952ad6d346a781e7f5a7b8471e4",
+    "catalog": "261849ee47d2fe9fe0794087f87353d79a162bc55818400b2df8264110578761",
+    "current-reference": "8466f5e72179b941845c492a797b4931f0ac01b7277af1c0a0f984bfb594aebf",
     "deployment-formations": "69789b2f1c1716f0b4bab0c2e80df151c7f86dbb3f8ce54a2e031d574c99de44",
-    "engine": "784557fa7a9b66490a45f01750d5ade7f53304575588ce34de44c5d9a921cd7f",
+    "engine": "276af0863c3a092f0b660be658a6a936afcb31c212ac89aaef947341dee180d9",
     "knockback-profiles": "c361762af434877f0fe3398a03a37902df41aaba5ea7691881480852bccd5028",
-    "native-descriptions": "eb23e3130bf927f2603b638fd5a3039c1fe8346d6da1f5ed10b1b35a9623a583",
+    "native-descriptions": "8ca97c8dcc52166041eccd1b782a9f18db1ee331c68d04d331d1a351b601810b",
     "native-formations": "999d701d3bae2f7cba2ee7ff9c3ea7d599794e2a36338185bdd3981677c1edf3",
-    "pokemon-stats": "fd910a421ec54bcb1a17c8621be66c7e25f7f58f5ef04bea75a5658e24e4eb57",
-    "sandbox": "6453cb374755733e1fb3838f60f6b4edf2e3b0faf0275b6a4e68453bf72a629d",
-    "sprite-geometry": "4c43ee77d13587c26c7d8ca06faa5381cabf2b69bf63ec9733e4842c4d5aef18",
-    "sprite-motion": "9afd22883f0722d9e69b17c86e65ce8429c2744bcd8afbb1adafb47082530017",
-    "unit-sizes": "f3fac3924d2902e7ecb62e9bbf159a6ae67be94d731c634499325d8cbbe4e4b3"
+    "pokemon-stats": "736d43c6daf6e79892323a1977a23a335e7596f4dbe5b57facc0b38f8c73b21e",
+    "sandbox": "157b3a67f6ac1f5ab367cea480b2602f2822a8ee9bb252f0969371ad13b753ae",
+    "sprite-geometry": "320a7eb7c743ddf478e1ed6e994ddafefc5c19f3b2dba7a074857b65d03464a9",
+    "sprite-motion": "ee344580d025a11117ac40ed44db438696c3efe5025f6145409140e8a6f68ee9",
+    "unit-sizes": "f4e929ed10720eb413f5bf4b2abbe0002eb7fe92976d11d7172cc76f20c69db3"
   },
   "limits": "Nominal DPS excludes DOT, control, healing, shields and summons. EffectiveHP is a packet-agnostic budget anchor; shield packet discard can exceed it. Rollouts measure this game and do not prove competitive balance.",
   "rows": [
@@ -248,8 +249,8 @@
       ]
     },
     {
-      "key": "blastoise",
-      "name": "Blastoise",
+      "key": "octillery",
+      "name": "Octillery",
       "profile": {
         "cost": 4,
         "hp": 1400,

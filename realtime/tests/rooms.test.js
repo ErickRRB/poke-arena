@@ -2,7 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { env } from 'cloudflare:workers';
 import { runInDurableObject, evictDurableObject } from 'cloudflare:test';
 import worker from '../src/index.js';
-import { ONLINE_PROTOCOL } from '../../dist/online-wire.js';
+import { ONLINE_PROTOCOL } from '../../dist/online-wire.js?v=34';
+import { unpackGame } from '../../dist/snapshot.js?v=34';
 
 const deck = ['diglett','voltorb','bulbasaur','eevee','ekans','gastly','grimer','squirtle'];
 const sockets = [];
@@ -25,11 +26,11 @@ async function connect(path = '/v1/lobby', origin = 'http://127.0.0.1:4173') {
   expect(response.status).toBe(101);const ws = response.webSocket;ws.accept();sockets.push(ws);
   return { ws, ...messages(ws), send: packet => ws.send(typeof packet === 'string' ? packet : JSON.stringify(packet)) };
 }
-async function join() {
+async function join({decks=[deck,deck]}={}) {
   const a = await connect(), b = await connect();
-  a.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Uno', deck });
+  a.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Uno', deck:decks[0] });
   const tokenA = (await a.next(p => p.type === 'welcome')).token;
-  b.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Dos', deck });
+  b.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Dos', deck:decks[1] });
   const tokenB = (await b.next(p => p.type === 'welcome')).token;
   const roomA = await a.next(p => p.type === 'matched'), roomB = await b.next(p => p.type === 'matched');
   expect(roomA.roomId).toBe(roomB.roomId);
@@ -46,6 +47,35 @@ async function finish(room) {
 }
 
 describe('Cloudflare WebSocket rooms', () => {
+  it('streams the separate Cannon and mobile replacement to two current clients',async()=>{
+    const{players,room}=await join({decks:[['blastoiseCannon',...deck.slice(0,7)],['octillery',...deck.slice(0,7)]]});
+    try{
+      await runInDurableObject(env.ARENAS.getByName(room),instance=>{const now=Date.now();instance.match.starts=now-1;instance.match.last=now;instance.match.game.start();instance.match.game.energy=[10,10];instance.persist();instance.broadcast();});
+      for(const player of players){const packet=await player.next(p=>p.type==='snapshot'&&p.game.state==='playing'),team=packet.team,nonce=crypto.randomUUID();player.send({type:'action',kind:'deploy',nonce,handIndex:0,key:packet.game.hands[team][0],x:300,y:team?200:600});expect((await player.next(p=>p.type==='result'&&p.nonce===nonce)).result.ok).toBe(true);}
+      for(const player of players){const packet=await player.next(p=>p.type==='snapshot'&&p.game.units.some(u=>u.key==='blastoiseCannon')&&p.game.units.some(u=>u.key==='octillery'));expect(packet.protocol).toBe(ONLINE_PROTOCOL);const game=unpackGame(packet.game),cannon=game.units.find(u=>u.key==='blastoiseCannon'),mobile=game.units.find(u=>u.key==='octillery');expect(cannon.card.id).toBe(9);expect(cannon.card.cost).toBe(3);expect(cannon.card.structure).toBe(true);expect(mobile.card.id).toBe(224);expect(mobile.card.cost).toBe(4);expect(mobile.card.structure).toBe(false);}
+    }finally{await finish(room);}
+  });
+  it('persists a consumed Spirit chain through room eviction and resumes each real contact on both clients',async()=>{
+    const{players,room,tokens}=await join(),stub=env.ARENAS.getByName(room);
+    try{
+      await runInDurableObject(stub,instance=>{
+        const g=instance.match.game;g.state='playing';g.aiEnabled=false;g.towers=[];g.units=[];g.projectiles=[];g.attacks=[];
+        const spirit=g.spawn('voltorb',0,200,670,0);
+        for(const x of[200,242,284]){const u=g.spawn('geodude',1,x,610,0);u.card={...u.card,damage:0,speed:0,passive:true};u.hp=u.maxHp=10000;u.cooldown=100;}
+        expect(g.startLeap(spirit,g.units.find(u=>u.team===1))).toBe(true);spirit.cooldown=100;
+        for(let i=0;i<60&&spirit.hp>0;i++)g.step(1/30);
+        expect(g.units.some(u=>u.id===spirit.id)).toBe(false);expect(g.projectiles.filter(p=>p.electricChain)).toHaveLength(1);expect(g.units.filter(u=>u.hp<10000)).toHaveLength(1);
+        g.pause();instance.match.starts=Date.now()-1;instance.match.last=Date.now();instance.persist();instance.broadcast();
+      });
+      const first=await players[0].next(p=>p.type==='snapshot'&&p.game.projectiles.some(s=>s.electricChain));
+      for(const player of players){const packet=await player.next(p=>p.type==='snapshot'&&p.game.projectiles.some(s=>s.electricChain));expect(packet.protocol).toBe(4);expect(packet.game.units.some(u=>u.id===packet.game.projectiles[0].sourceId)).toBe(false);expect(packet.game.projectiles[0].hitIds).toHaveLength(2);}
+      await runInDurableObject(stub,instance=>{instance.persist();instance.stop();});await evictDurableObject(stub,{webSockets:'close'});
+      const resumed=await connect('/v1/rooms/'+room);resumed.send({type:'hello',protocol:ONLINE_PROTOCOL,token:tokens[0],resume:true,after:first.seq});
+      const restored=await resumed.next(p=>p.type==='snapshot');expect(restored.game.projectiles[0].nextStepAt).toBe(first.game.projectiles[0].nextStepAt);expect(restored.game.projectiles[0].sourceId).toBe(first.game.projectiles[0].sourceId);
+      await runInDurableObject(stub,instance=>{const g=instance.match.game;g.resume();for(let i=0;i<40;i++)g.step(1/30);g.pause();expect(g.projectiles).toHaveLength(0);expect(g.units.every(u=>u.hp===9901)).toBe(true);const hits=instance.match.events.filter(row=>row.event.type==='beam'&&row.event.key==='voltorb');expect(hits).toHaveLength(3);expect(new Set(hits.map(row=>row.event.attackId)).size).toBe(3);instance.persist();instance.broadcast();});
+      const completed=await resumed.next(p=>p.type==='snapshot'&&p.seq>restored.seq);expect(completed.game.projectiles).toHaveLength(0);expect(completed.events.filter(row=>row.event.type==='beam')).toHaveLength(2);
+    }finally{await finish(room);}
+  });
   it('rejects an old protocol in both handshakes before creating a session or reading a room', async () => {
     for (const path of ['/v1/lobby','/v1/rooms/'+crypto.randomUUID()]) {
       const player=await connect(path);player.send({type:'hello',protocol:ONLINE_PROTOCOL-1,mode:'search',deck});

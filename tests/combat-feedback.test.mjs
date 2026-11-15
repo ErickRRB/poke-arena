@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,CARDS} from '../dist/engine.js';
+import {Game,CARDS} from '../dist/engine.js?v=34';
 import {Renderer} from '../dist/render.js';
-import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js';
+import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js?v=34';
 import {emissionPoint} from '../dist/sprite-motion.js';
 const fresh=()=>{const events=[],game=new Game({seed:92,onEvent:e=>events.push(e)});game.start();game.aiEnabled=false;game.towers.forEach(t=>t.active=false);return{game,events};};
 const run=(game,seconds)=>{for(let i=0;i<Math.ceil(seconds*60);i++)game.step(1/60);};
@@ -76,7 +76,7 @@ test('burn and spell hits keep their origin through event serialization',()=>{
  assert.equal(dot.sourceId,source.id);assert.equal(dot.sourceKey,'charmander');const restored=perspective(packEvent(dot),1);assert.equal(restored.sourceId,source.id);assert.equal(restored.sourceKey,'charmander');
 });
 test('Blastoise walks, keeps its health over time and cannot lure a building seeker',()=>{
- const{game}=fresh(),unit=game.spawn('blastoise',0,158,530,0),hp=unit.hp;run(game,4);
+ const{game}=fresh(),unit=game.spawn('octillery',0,158,530,0),hp=unit.hp;run(game,4);
  assert.ok(unit.y<500);assert.equal(unit.hp,hp);assert.equal(unit.lifetime,0);assert.equal(unit.card.structure,false);
  const tank=game.spawn('snorlax',1,158,390,0);assert.notEqual(game.acquire(tank),unit);
  const structure=game.spawn('regice',0,158,475,0);assert.equal(game.acquire(tank),structure);
@@ -94,7 +94,7 @@ test('an area projectile reports the exact ground center and radius it damaged, 
 test('area feedback draws the real footprint without increasing single-target contact flashes',()=>{
   const effects=[],calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{effects,particles:[],verticalScale:1,reduced:false,combatArt:(c,art,x,y,size)=>calls.push({art,x,y,size})});
   renderer.onEvent({type:'hit',key:'nuzleaf',style:'leaf',x:300,y:280,radius:0});assert.equal(effects[0].kind,'artImpact');assert.ok(effects[0].visualSize<30);
-  const ctx=new Proxy({globalAlpha:1},{get:(o,k)=>o[k]??((...args)=>{if(k==='arc')calls.push({radius:args[2]});}),set:(o,k,v)=>(o[k]=v,true)});
+  const ctx=new Proxy({globalAlpha:1,createRadialGradient:()=>({addColorStop(){}})},{get:(o,k)=>o[k]??((...args)=>{if(k==='arc')calls.push({radius:args[2]});}),set:(o,k,v)=>(o[k]=v,true)});
   renderer.areaImpact(ctx,{x:300,y:300,radius:180,art:'explosion',style:'ember'},.35);assert.ok(calls.some(c=>c.radius===180));assert.ok(calls.filter(c=>c.size).every(c=>c.size<=72));
   renderer.onEvent({type:'hit',key:'forretress',style:'slam',x:300,y:280,groundX:300,groundY:300,radius:60,structuresOnly:true});assert.equal(effects.filter(e=>e.kind==='areaImpact').length,0);
 });

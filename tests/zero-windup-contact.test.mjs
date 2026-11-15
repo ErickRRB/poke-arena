@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {CARDS} from '../dist/engine.js?v=26';
+import {CARDS} from '../dist/engine.js?v=34';
 import {SPRITE_GEOMETRY} from '../dist/sprite-geometry.js';
 import {attackAnimationFrame,emissionPoint,movementAnchor,emitterPart} from '../dist/sprite-motion.js?v=26';
 

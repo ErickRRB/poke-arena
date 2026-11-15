@@ -1,5 +1,5 @@
-import { WING_RIGS } from './wing-rigs.js';
-import { SPRITE_GEOMETRY } from './sprite-geometry.js';
+import { WING_RIGS } from './wing-rigs.js?v=34';
+import { SPRITE_GEOMETRY } from './sprite-geometry.js?v=34';
 
 export function insideWing(x,y,polygon){
   let inside=false;for(let i=0,j=polygon.length-1;i<polygon.length;j=i++){

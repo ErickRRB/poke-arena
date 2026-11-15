@@ -2,7 +2,7 @@
 export const ORIGINAL_DECISIONS={
  squirtle:['raltsTrio','Un tirador de400PV por2elixir concentra la vida: sobrevive Descarga192y Flechas366, que eliminan cada Ralts133. A cambio tiene menor daño agregado, alcance y velocidad que los tres duendes con lanza; no se aumenta daño para igualar su empuje.'],
  gengar:['charmander','Tirador de área de4 con650HP y teletransporte periódico. Menos vida y daño que Mago5; movilidad y preparación breve pagan la diferencia.'],
- blastoise:['pikachu','Cuerpo móvil resistente de4elixir y1400PV. Concentra sus cañones en un proyectil completo de170cada1.8s; paga la vida adicional con menos daño agregado y sin la descarga ni el aturdimiento de Mago eléctrico.'],
+ octillery:['pikachu','Cuerpo móvil resistente de4elixir y1400PV. Concentra sus cañones en un proyectil completo de170cada1.8s; paga la vida adicional con menos daño agregado y sin la descarga ni el aturdimiento de Mago eléctrico.'],
  vulpix:['bulbasaur','Daño directo más quemadura en un solo objetivo. Menos vida y sin área/control que Mago de hielo; el DOT no se suma como un segundo básico instantáneo.'],
  psyduck:['bulbasaur','Control de un objetivo con menos vida y sin área que Mago de hielo. Caballero puede alcanzarlo; no se le da vida extra para ganar ese intercambio.'],
  magnemite:['pikachu','Un único atacante aéreo de control por3. Menos cuerpo y DPS que Mago eléctrico4, sin descarga de entrada ni segundo rayo.'],

@@ -1,12 +1,15 @@
-import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=26';
-import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=26';
-import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=32';
-import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=26';
-import {combatVisual,projectileVisual,movementVisual,fireballVisual,isRangedAttack} from './combat-visuals.js?v=29';
-import { spellPreviewTargets } from './spell-preview.js?v=28';
-import {areaGuide,cellGuide,travelGuide} from './targeting-art.js?v=32';
-import { FlightWings } from './wing-motion.js';
-import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js';
+import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.js?v=34';
+import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
+import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=34';
+import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
+import {combatVisual,projectileVisual,movementVisual,isRangedAttack} from './combat-visuals.js?v=34';
+import { spellPreviewTargets } from './spell-preview.js?v=34';
+import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=34';
+import { FlightWings } from './wing-motion.js?v=34';
+import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
+import { WHIRLPOOL_BOUNDS } from './assets/battle/frame-bounds.js?v=34';
+import { BATTLE_ASSETS } from './assets/battle/manifest.js?v=34';
+import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -55,11 +58,11 @@ export class Renderer {
     this.particles = []; this.numbers = [];this.showCombatNumbers=false;
     this.healthStates=new Map();this.speciesLoads=new Map();this.imageLoads=new Map();this.pendingSpecies=new Set();
     this.battleArt=new BattleArt(file=>this.loadImage(file));this.visualActors=new Map();this.visualProjectiles=new Map();this.frameActors=new Map();
-    this.t = 0; this.reduced = false; this.pointer = null; this.selection = null; this.tutorialSpot = false;
+    this.t = 0; this.reduced = false; this.pointer = null; this.selection = null; this.tutorialSpot = false; this.viewerTeam=0;
     this.buildBackground();
   }
   async load(keys=DEFAULT_DECK,onProgress=()=>{}) {
-    const response = await fetch('assets/pokemon/manifest.json?v=26');
+    const response = await fetch('assets/pokemon/manifest.json?v=34');
     if (!response.ok) throw new Error('No se pudo cargar el archivo de sprites.');
     this.metadata = await response.json();
     const ids=[...new Set([...keys.map(k=>CARDS[k]?.id),31,34,52].filter(Boolean))];
@@ -112,6 +115,20 @@ export class Renderer {
   }
   rng(seed) { let s = seed; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
   tree(c,x,y,scale=1){this.battleArt.draw(c,'tree',x,y-25*scale,65*scale,65*scale,{frame:0});}
+  drawPerimeter(c){
+    // Native wood and canopy sit wholly outside the 18 × 32 playable cells.
+    // The grass itself is continuous across this physical boundary.
+    const fence=(x,y,angle=0)=>{c.save();c.translate(x,y);c.rotate(angle);this.battleArt.tile(c,'fence',0,24,48,24,-16,0,32,16);c.restore();};
+    c.save();c.filter='saturate(.55) brightness(.9)';c.globalAlpha=.85;
+    for(let x=ARENA.left+16;x<ARENA.right;x+=32){fence(x,ARENA.top-16);fence(x,ARENA.bottom);}
+    for(let y=ARENA.top+16;y<ARENA.bottom;y+=32){
+      if(y+16>RIVER.top&&y-16<RIVER.bottom)continue;
+      fence(ARENA.left,y,Math.PI/2);fence(ARENA.right,y,-Math.PI/2);
+    }
+    c.filter='saturate(.5) brightness(.9)';c.globalAlpha=.9;
+    for(const y of[144,288,544,688]){this.tree(c,ARENA.left-28,y,.72);this.tree(c,ARENA.right+28,y,.72);}
+    c.restore();
+  }
   bridge(c,x){
     const image=this.battleArt.images.get('assets/battle/arena-bridge-v2.webp');
     const width=BRIDGE.halfWidth*2,height=BRIDGE.bottom-BRIDGE.top;
@@ -134,16 +151,7 @@ export class Renderer {
     this.landscapePattern=ground?pattern(200,224,120,128):null;
     const path=ground?pattern(146,240,24,72):'#c9bd8c';
     c.fillStyle=this.landscapePattern||'#8eaa79';c.fillRect(left,top,right-left,bottom-top);
-    // Restrained woodland around the cleared field. NO_DEPLOY stays a rule;
-    // sparse groups of the original canopy give the landscape a quiet edge.
-    c.save();c.beginPath();c.rect(left,top,right-left,bottom-top);c.rect(ARENA.left,ARENA.top,ARENA.width,ARENA.height);c.clip('evenodd');
-    rect(c,'#54745c12',left,top,right-left,bottom-top);
-    const clusters=[...Array.from({length:6},(_,i)=>[48+i*100,ARENA.top-88]),...Array.from({length:6},(_,i)=>[48+i*100,ARENA.bottom+60]),...[168,288,520,672].flatMap(y=>[[ARENA.left-38,y],[ARENA.right+38,y]])];
-    for(const[index,[cx,cy]]of clusters.entries()){
-      const random=this.rng(index*73856093+1832),scale=.8+random()*.45,x=cx+(random()-.5)*16,y=cy+(random()-.5)*18;
-      c.filter='saturate(.38) brightness(.78)';c.globalAlpha=.72;c.save();if(random()<.5){c.translate(x*2,0);c.scale(-1,1);}this.tree(c,x,y,scale);c.restore();
-    }
-    c.restore();
+    this.drawPerimeter(c);
     const half=TILE/2;
     for(let row=0;row<DEPLOY_GRID.rows*2;row++)for(let col=0;col<DEPLOY_GRID.columns*2;col++){
       const x=ARENA.left+col*half,y=ARENA.top+row*half,bits=arenaBits(x+half/2,y+half/2);
@@ -225,11 +233,22 @@ export class Renderer {
     if(tower.guard)this.sprite(c,{...tower,attack:!tower.active?0:tower.attack,card:{id:tower.guard.id},scale:king?1.15:1.3,x,y:y-TOWER_MOUNTS[king?'king':'princess']/vertical,mounted:true,attackAnim:tower.guard.attackAnim,moving:false},true);
     if(king&&!tower.active)text(c,'z',x+24,y-30/vertical,'#fff5cd',10);
     if(tower.stun>0)this.combatArt(c,'lightning',x,y-55/vertical,26);
-    const width=king?68:60,by=y+10/vertical,ratio=Math.max(0,tower.hp/tower.maxHp);
+    c.restore();
+    if(this.towerHealthQueue)this.towerHealthQueue.push(tower);else this.towerHealth(c,tower);
+  }
+  towerHealth(c,tower){
+    if(tower.hp<=0)return;
+    const {x,y,team,king}=tower,vertical=this.verticalScale||1,enemy=team!==(this.viewerTeam??0);
+    const guardHeight=(this.bodyHeights?.get(tower.guard?.id)||28)*(king?1.15:1.3);
+    const structureHeight=king?102*476/574:72*395/309;
+    const top=y-Math.max(structureHeight,tower.guard?TOWER_MOUNTS[king?'king':'princess']+guardHeight:0)/vertical;
+    const width=king?68:60,by=enemy?top-31/vertical:y+10/vertical,ratio=Math.max(0,tower.hp/tower.maxHp);
+    c.save();
     rect(c,'#20352ad9',x-width/2-2,by-2,width+4,10);rect(c,'#435845',x-width/2,by,width,6);
     rect(c,team?'#eb8e71':'#65b9d0',x-width/2,by,width*ratio,6);rect(c,team?'#ffcfb1':'#c7f1f1',x-width/2,by,width*ratio,2);
     const hp=tower.labImmortal?'∞':String(Math.ceil(tower.hp));c.font='600 12px "DM Sans",sans-serif';const labelWidth=c.measureText(hp).width+12;
-    rect(c,'#243b2ad9',x-labelWidth/2,by+10,labelWidth,16);text(c,hp,x,by+18,team?'#ffe2ce':'#d5f1ef',11,700);c.restore();
+    const labelY=by+18/vertical;
+    rect(c,'#243b2ad9',x-labelWidth/2,labelY-8,labelWidth,16);text(c,hp,x,labelY,team?'#ffe2ce':'#d5f1ef',11,700);c.restore();
   }
   sprite(c, unit, idle = false) {
     if(unit.card.structureArt){this.structureSprite(c,unit,idle);return;}
@@ -288,7 +307,6 @@ export class Renderer {
     const by=y-lift-((this.bodyHeights.get(id)||22)*scale+9)/vertical;
     this.healthBar(c,unit,x,by,unit.maxHp<=1?18:unit.card.count?30:unit.maxHp>=1800?52:44);
     if(unit.card.ability&&!unit.abilityUsed){ellipse(c,'#382448',x+27,by+4,6,6);text(c,'◆',x+27,by+4,'#e9beff',10,800);}
-    if(unit.card.summon&&unit.spawn<=0)this.summonIndicator(c,unit,x,by-(unit.shield>0?13:12)/vertical);
     if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
     else if(unit.slow>0)this.combatArt(c,'snow',x,by-10,18);
     if(unit.burn)this.combatArt(c,unit.burn.kind==='poison'?'poison':'flame',x,y-lift-9,26);
@@ -311,7 +329,6 @@ export class Renderer {
     c.restore();if(!drawn||idle)return;
     const by=unit.y-(this.bodyHeight(unit)+9)/vertical;
     this.healthBar(c,unit,x,by,44);
-    if(unit.card.summon&&unit.spawn<=0&&Number.isFinite(unit.summonClock)&&Number.isFinite(unit.summonCycle||unit.card.summonEvery))this.summonIndicator(c,unit,x,by-12/vertical);
     if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
     else if(unit.slow>0)this.combatArt(c,'snow',x,by-10,18);
     if(unit.burn)this.combatArt(c,unit.burn.kind==='poison'?'poison':'flame',x,unit.y-9/vertical,26);
@@ -319,8 +336,9 @@ export class Renderer {
   drawDeployments(c,game){
     const groups=new Map(),vertical=this.verticalScale||1;
     for(const unit of game.units){
-      if(unit.hp<=0||unit.spawn<=0)continue;
-      const group=unit.spawnGroup||{id:unit.id,x:unit.x,y:unit.y,duration:.75};
+      const group=unit.spawnGroup;
+      if(unit.hp<=0||unit.spawn<=0||unit.spawnCause!=='card'||group?.spawnCause!=='card')continue;
+      if(!Number.isFinite(group.startAt)||!Number.isFinite(group.duration)||game.elapsed+1e-7>=group.startAt+group.duration)continue;
       let marker=groups.get(group.id);
       if(!marker){marker={...group,top:H,remaining:0};groups.set(group.id,marker);}
       const lift=unit.card.structure?structureLift(unit.card):unit.card.flying?16:0;
@@ -338,13 +356,6 @@ export class Renderer {
     c.save();c.translate(Math.round(x),Math.round(y));c.scale(1,1/vertical);
     this.battleArt.draw(c,'pokeball',0,0,24,24,{frame:0,angle:this.reduced?0:Math.sin(progress*Math.PI)*.22});
     rect(c,'#263d3da6',-12,14,24,3);rect(c,'#f6e9bc',-12,14,24*Math.max(0,Math.min(1,progress)),3);
-    c.restore();
-  }
-  summonIndicator(c,unit,x,y){
-    const progress=1-Math.min(1,Math.max(0,unit.summonClock)/Math.max(.001,unit.summonCycle||unit.card.summonEvery));
-    c.save();c.translate(Math.round(x),Math.round(y));c.scale(1,1/(this.verticalScale||1));
-    this.battleArt.draw(c,'pokeball',-23,0,21,21,{frame:0});
-    rect(c,'#263d3da6',-9,-1,30,3);rect(c,unit.card.color||'#bea2d8',-9,-1,30*progress,3);
     c.restore();
   }
   combatArt(c,name,x,y,size,angle=0,height=size,options={}){
@@ -396,16 +407,9 @@ export class Renderer {
       const current=this.attackContacts.get(actor.id);
       this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,shot,until}),held});
     }
-    if(type==='cast'&&event.key==='pinMissile'){
-      const first=(event.castDelay??CARDS.pinMissile.castDelay??.55)+(event.flightTime||0);
-      for(let wave=0;wave<(event.waves||1);wave++){
-        const hitAt=first+wave*(event.waveEvery||0),life=hitAt+.42;
-        this.effects.push({...event,kind:'missiles',wave,hitAt,life,max:life});
-      }
-    }
     if(type==='attackStart'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
-    if(type==='beam')this.effects.push({...event,kind:'beam',life:.42,max:.42});
+    if(type==='beam'&&!event.missed){const life=event.hop===undefined?.42:.18;this.effects.push({...event,kind:'beam',life,max:life});}
     if(type==='flame'){const life=event.length/(event.speed||300)+.18;this.effects.push({...event,kind:'flame',life,max:life});}
     if(type==='melee')this.effects.push({...event,kind:'melee',life:['slam','eruption'].includes(event.style)?.5:.27,max:['slam','eruption'].includes(event.style)?.5:.27});
     if(type==='counter')this.effects.push({...event,kind:'counter',life:.3,max:.3});
@@ -420,8 +424,7 @@ export class Renderer {
     if(type==='damage'&&event.amount>0){this.floatingNumber(event.target,event.amount,event.dot?'dot':'damage');const target=event.target,old=this.healthStates.get(target.id);this.healthStates.set(target.id,{chip:Math.max(old?.chip||0,Math.min(1,(target.hp+event.amount)/target.maxHp)),last:target.hp/target.maxHp,at:this.t});}
     if(type==='heal'&&event.amount>0){this.floatingNumber(event.unit,event.amount,'heal');this.effects.push({kind:'artImpact',art:'heal',x:event.unit.x,y:event.unit.y-18,radius:30,life:1.2,max:1.2});}
     if(type==='spawn'){
-      const u=event.unit,group=u.spawnGroup||{id:u.id,x:u.x,y:u.y};if(u.card.id)this.ensureSpecies([u.card.id]).catch(()=>{});
-      if(u.spawn>0&&!this.effects.some(e=>e.kind==='release'&&e.groupId===group.id))this.effects.push({kind:'release',groupId:group.id,x:group.x,y:group.y,color:u.card.color,delay:u.spawn,life:.3,max:.3});
+      const u=event.unit;if(u.card.id)this.ensureSpecies([u.card.id]).catch(()=>{});
     }
     if(type==='entry')this.effects.push({...event,kind:'entry',life:.36,max:.36});
     if(type==='deathBurst'){
@@ -451,16 +454,15 @@ export class Renderer {
     }
     if(type==='spellHit'){
       if(event.key==='pinMissile'){
-        const volley=this.effects.find(e=>e.kind==='missiles'&&!e.landed&&e.team===event.team&&e.x===event.x&&e.y===event.y);
-        if(volley){volley.life=Math.min(volley.life,.42);volley.landed=true;}
-        else{const hitAt=CARDS.pinMissile.castDelay??.55;this.effects.push({...event,kind:'missiles',landed:true,hitAt,life:.42,max:hitAt+.42});}
+        this.effects.push({...event,kind:'missiles',wave:event.wave||0,life:.24,max:.24});
         return;
       }
       if(event.key==='thunder'){this.effects.push({...event,kind:'entry',style:'lightning',life:.36,max:.36});return;}
+      if(event.key==='lightning')return; // Its three actual target beams provide the strike and contact art.
       if(CARDS[event.key].fieldDuration)return;
-      const art={fireball:'explosion',lightning:'lightning',hyperBeam:'explosion',blizzard:'ice',log:'flame'}[event.key]||'impact';
-      this.effects.push({...event,kind:'areaImpact',art,style:CARDS[event.key].style,radius:event.radius,color:CARDS[event.key].color,life:.7,max:.7});
-      if(['hyperBeam','blizzard'].includes(event.key))this.effects.push({...event,kind:'spell',life:.65,max:.65});
+      const art={fireball:'explosion',hyperBeam:'hyperImpact',blizzard:'ice',log:'flame'}[event.key]||'impact';
+      this.effects.push({...event,kind:'areaImpact',art,style:CARDS[event.key].style,radius:event.radius,color:event.key==='hyperBeam'?'#ffe5a2':CARDS[event.key].color,life:.7,max:.7});
+      if(event.key==='blizzard')this.effects.push({...event,kind:'spell',life:.65,max:.65});
     }
     if(type==='end'&&event.winner===0){for(let i=0;i<35;i++)this.particles.push({x:70+Math.random()*460,y:100+Math.random()*220,vx:(Math.random()-.5)*80,vy:-50-Math.random()*100,color:['#e8c777','#92c6ce','#b99ed9'][i%3],life:3,max:3,gravity:55,size:4});}
   }
@@ -518,6 +520,7 @@ export class Renderer {
   }
   projectile(c,p){
     if(p.flameCone)return; // The travelling front is drawn by its matching flame event.
+    if(p.electricChain){this.electricProjectile(c,p);return;}
     if(p.rolling){
       const pose=this.projectilePose(p);
       c.save();c.fillStyle='#17271f44';c.beginPath();c.ellipse(pose.x,pose.y+3,18,6,0,0,Math.PI*2);c.fill();
@@ -550,21 +553,25 @@ export class Renderer {
       c.restore();
     }
   }
+  electricProjectile(c,p){
+    if((this.gameElapsed??0)+1e-7<(p.flyAt||0))return;
+    const destination=p.target||p.lastPoint;if(!destination)return;
+    const dx=destination.x-p.x,dy=destination.y-p.y,distance=Math.hypot(dx,dy),direction={x:distance?dx/distance:0,y:distance?dy/distance:0};
+    const pose=this.projectilePose({...p,dx:direction.x,dy:direction.y,totalDistance:(p.travelled||0)+distance},p,true),progress=Math.min(1,pose.travelled/Math.max(1,p.totalDistance)),vertical=this.verticalScale||1;
+    const source=this.frameActors.get(p.chainFromId||p.sourceId),target=this.frameActors.get(p.target?.id);
+    const start=this.projected({x:p.startX+(p.liftX||0),y:p.startY+(p.liftY||0)},source||{x:p.startX,y:p.startY});
+    const end=this.projected({x:destination.x,y:destination.y+(p.endLiftY??-15)},target||destination);
+    const x=pose.x+(start.x-p.startX)*(1-progress)+(end.x-destination.x)*progress,y=pose.y+(start.y-p.startY)*(1-progress)+(end.y-destination.y)*progress;
+    const size=Math.max(16,Math.min(24,combatVisual(p.card||CARDS[p.key]).projectile*1.2)),length=Math.min(18,pose.travelled);
+    if(!this.reduced&&length>0){c.save();c.globalAlpha*=.45;c.strokeStyle='#fff3a3';c.lineWidth=2;c.lineCap='round';c.beginPath();c.moveTo(x-direction.x*length,y-direction.y*length/vertical);c.lineTo(x,y);c.stroke();c.restore();}
+    this.combatArt(c,'electricHop',x,y,size,0,size,{direction:directionRow(direction.x,direction.y),age:this.reduced?0:this.t,fps:12});
+  }
   drawMissiles(c,e){
-    const age=e.max-e.life,after=age-e.hitAt,count=this.reduced?9:18;
-    for(let i=0;i<count;i++){
-      const angle=i*2.39996,r=Math.sqrt((i+.5)/count)*e.radius*.9,x=e.x+Math.cos(angle)*r,y=e.y+Math.sin(angle)*r,launch=(i%3)*.045;
-      if(age<launch)continue;
-      if(after<0){
-        const flight=Math.max(0,Math.min(1,(age-launch)/Math.max(.01,e.hitAt-launch))),direction=e.team?-1:1;
-        const px=x-direction*(1-flight)*108,py=y-(1-flight)*210;
-        c.globalAlpha=this.reduced?.65:Math.min(1,flight*4);
-        this.combatArt(c,'needle',px,py,28,0,28,{direction:directionRow(direction*108,210),age});
-      }else{
-        c.globalAlpha=Math.max(0,1-after/.42);
-        this.combatArt(c,'dust',x,y,22,0,22,{progress:Math.min(1,after/.42)});
-      }
-    }c.globalAlpha=1;
+    const progress=1-e.life/e.max;
+    for(const point of missileFormation(e,e.radius,e.wave)){
+      c.save();c.globalAlpha*=Math.max(0,1-progress);
+      this.combatArt(c,'puff',point.x,point.y,15,0,15,{progress:this.reduced?.45:progress});c.restore();
+    }
   }
   entryEffect(c,e,progress){
     const radius=e.radius||60,age=e.max-e.life;
@@ -579,16 +586,17 @@ export class Renderer {
   }
   areaImpact(c,e,progress){
     const radius=e.radius,fade=1-progress,color=e.color||'#dfdab0',vertical=this.verticalScale||1;
-    c.save();c.beginPath();c.arc(e.x,e.y,radius,0,Math.PI*2);c.clip();
-    c.save();c.globalAlpha*=.09*Math.max(0,1-progress*2);c.fillStyle=color;c.fill();c.restore();
-    // A brief expanding ground ripple communicates the true splash boundary.
-    c.save();c.globalAlpha*=.5*Math.max(0,1-progress*1.45);c.beginPath();c.arc(e.x,e.y,radius*(.35+.65*Math.min(1,progress*4)),0,Math.PI*2);c.strokeStyle='#293c3f';c.lineWidth=3*(1-progress)+1;c.stroke();c.strokeStyle=color;c.lineWidth=1.5*(1-progress)+.5;c.stroke();c.restore();
+    c.save();
+    softDisc(c,e.x,e.y,radius,{color,opacity:.27*Math.max(0,1-progress*1.45)});
+    c.beginPath();c.arc(e.x,e.y,radius,0,Math.PI*2);c.clip();
     if(['leaf','poison','powder','bite','slash'].includes(e.style)){
       const count=this.reduced?4:8,size=Math.min(17,Math.max(10,radius*.27)),spread=this.reduced?.72:.15+Math.sin(Math.min(1,progress)*Math.PI/2)*.75;
       for(let i=0;i<count;i++){
         const angle=i*2.39996+(e.style==='leaf'?progress*.55:0),r=Math.sqrt((i+.5)/count)*radius*spread;
         c.save();c.globalAlpha*=fade;this.combatArt(c,e.art,e.x+Math.cos(angle)*r,e.y+Math.sin(angle)*r-Math.sin(progress*Math.PI)*12/vertical,size,this.reduced?0:angle+progress,size,{age:i*.09+progress*.5,trim:true});c.restore();
       }
+    }else if(e.style==='hyperbeam'){
+      this.combatArt(c,'hyperImpact',e.x,e.y,radius*2,0,radius*2,{progress:this.reduced?.4:progress,blend:!this.reduced});
     }else{
       const count=this.reduced?4:7,size=Math.min(32,Math.max(16,radius*.4)),spread=this.reduced?.65:Math.sin(progress*Math.PI/2)*.8;
       this.combatArt(c,e.art,e.x,e.y-6/vertical,Math.min(72,radius*1.2),0,Math.min(72,radius*1.2),{progress:this.reduced?.45:progress,trim:true});
@@ -622,8 +630,6 @@ export class Renderer {
       else if(e.kind==='artImpact'){
         const size=e.visualSize??Math.max(24,Math.min(160,(e.radius||30)*1.7));
         this.combatArt(c,e.art,e.x,e.y,size,0,size,{progress:this.reduced?.45:progress});
-      }else if(e.kind==='release'){
-        this.combatArt(c,'puff',e.x,e.y-12,45,0,45,{progress:this.reduced?.4:progress});
       }else if(e.kind==='beam'||e.kind==='counter'){
         const from=this.effectSource(e),to=this.effectTarget(e),name=e.style==='lightning'?'lightning':'psychic';
         if(!from||!to){c.restore();continue;}
@@ -669,8 +675,7 @@ export class Renderer {
         if(['slash','horn','dash'].includes(e.style)&&!this.reduced&&progress<.5){c.save();c.globalAlpha*=.45*(1-progress*2);this.combatArt(c,'slash',(from.x+to.x)/2,(from.y+to.y)/2,size*.85,angle+Math.PI/4,size*.65,{progress:progress*2,trim:true});c.restore();}
         this.combatArt(c,name,to.x,to.y,size,0,size,{progress,direction:directionRow(to.x-from.x,to.y-from.y)});
       }else if(e.kind==='spell'){
-        if(e.key==='hyperBeam')this.battleArt.beam(c,'hyper',{x:e.x-45,y:e.y-330/(this.verticalScale||1)},{x:e.x,y:e.y},34*(1-progress*.4),age);
-        else this.combatArt(c,'snow',e.x,e.y,e.radius*2.4,0,e.radius*2.4,{direction:0,progress});
+        this.combatArt(c,'snow',e.x,e.y,e.radius*2.4,0,e.radius*2.4,{direction:0,progress});
       }else if(e.kind==='blink'){
         for(const p of[e.from,e.to])this.combatArt(c,'shadow',p.x,p.y-12,48,0,48,{progress});
       }
@@ -699,19 +704,13 @@ export class Renderer {
     if(!card||(card.spell||this.placementWhenPaused)&&!this.pointer||game.state!=='playing'&&!(this.placementWhenPaused&&game.state==='paused'))return;
     c.save();
     if(this.selection){
-      // Keep the terrain bright; legal cells and their frontier carry placement feedback.
+      // The quiet grid marks legal cells without outlining blocked tower holes.
       const cells=Array.from({length:DEPLOY_GRID.rows},(_,row)=>Array.from({length:DEPLOY_GRID.columns},(_,col)=>game.canDeploy(team,key,DEPLOY_GRID.left+col*TILE+TILE/2,DEPLOY_GRID.top+row*TILE+TILE/2)));
       if(!card.spell||card.rolling&&key!=='log')for(let row=0;row<DEPLOY_GRID.rows;row++)for(let col=0;col<DEPLOY_GRID.columns;col++){
         const x=DEPLOY_GRID.left+col*TILE+TILE/2,y=DEPLOY_GRID.top+row*TILE+TILE/2;
         if(cells[row][col]){
           c.strokeStyle='#eef5d525';c.lineWidth=.65;
           c.strokeRect(x-TILE/2,y-TILE/2,TILE,TILE);
-          const neighbor=cells[row+(team?1:-1)];
-          if(neighbor&&!neighbor[col]){
-            const frontier=y+(team?1:-1)*TILE/2;
-            line(c,'#3e5339cc',x-TILE/2,frontier,x+TILE/2,frontier,3);
-            line(c,'#fff0ba',x-TILE/2+3,frontier,x+TILE/2-3,frontier,1);
-          }
         }
       }
       if(this.tutorialSpot)text(c,'D E S P L E G Á  A C Á',300,480,'#e0ecc7aa',10,500);
@@ -731,7 +730,7 @@ export class Renderer {
       if(!card.spell&&placement){
         const ranged=(card.squad?card.squad.map(k=>CARDS[k]):[card]).filter(isRangedAttack),range=Math.max(...ranged.map(member=>member.range));
         if(!card.passive&&ranged.length){
-        c.fillStyle='#e9e2a92b';c.strokeStyle='#e6ddb182';c.lineWidth=1.2;c.beginPath();c.arc(point.x,point.y,range,0,Math.PI*2);c.fill();c.stroke();
+        softDisc(c,point.x,point.y,range,{color:'#fff6df',opacity:.2});
         }
         for(const enemy of game.deploymentThreats(team,key,point.x,point.y)){
           const height='king'in enemy?(enemy.king?106:96):this.bodyHeight(enemy,23)+25;
@@ -741,14 +740,12 @@ export class Renderer {
         }
       }
       if(card.spell&&!card.rolling){
-        areaGuide(c,point.x,point.y,card.splash,{team,valid});
+        areaGuide(c,point.x,point.y,card.splash,{team,valid,color:card.color});
       }
       if((!card.spell||card.rolling)&&valid&&this.selection){
         const positions=card.rolling?[point]:game.deploymentPositions(team,key,point.x,point.y);
         for(const [index,position]of positions.entries()){
-          const left=position.x-TILE/2,top=position.y-TILE/2,corner=6;
-          c.fillStyle='#f4e4a93d';c.fillRect(left,top,TILE,TILE);
-          for(const [cx,cy,dx,dy]of[[left,top,1,1],[left+TILE,top,-1,1],[left,top+TILE,1,-1],[left+TILE,top+TILE,-1,-1]]){line(c,'#f5e4aa',cx,cy,cx+dx*corner,cy,2);line(c,'#f5e4aa',cx,cy,cx,cy+dy*corner,2);}
+          cellGuide(c,position.x,position.y,TILE,valid);
           if(!card.spell){const previewCard=CARDS[card.squad?.[index]]||card;c.globalAlpha=.55;this.sprite(c,{...position,card:previewCard,preview:true,team,dx:0,dy:team?1:-1,anim:this.t,id:-1-index,lifetime:card.lifetime},true);c.globalAlpha=1;}
         }
       }
@@ -759,6 +756,7 @@ export class Renderer {
   field(c,f,front=false){
     const radius=f.radius,age=f.duration?f.duration-f.life:this.t;
     c.save();c.globalAlpha=Math.min(1,f.life*2);
+    if(!front)softDisc(c,f.x,f.y,radius,{color:CARDS[f.key]?.color||'#b8cad1',opacity:f.key==='whirlpool'?.24:.1});
     if(f.key==='stealthRock'){
       for(let i=0;i<9;i++){
         const a=i*2.39996,r=Math.sqrt((i+.5)/9)*radius*.83,x=f.x+Math.cos(a)*r,y=f.y+Math.sin(a)*r;
@@ -766,14 +764,10 @@ export class Renderer {
         this.combatArt(c,'rock',x,y-(this.reduced?8:8+Math.sin(age*2+i)*3),20+i%3*3,0,20+i%3*3,{frame:i%2});
       }
     }else if(f.key==='nightmare'){
-      this.combatArt(c,front?'nightmareFront':'nightmareBack',f.x,f.y,radius*2.4,0,radius*2.4,{age:this.reduced?.3:age,blend:!this.reduced});
+      this.softNightmare(c,f,front,age);
     }else if(!front){
       if(f.key==='whirlpool'){
-        // The visible water reaches the same boundary as the affected zone.
-        c.save();c.beginPath();c.arc(f.x,f.y,radius,0,Math.PI*2);c.clip();c.globalAlpha*=.45;
-        const frame=this.reduced?0:Math.floor(this.t*8)%10;
-        this.battleArt.tile(c,'water',0,frame*144+32,216,24,f.x-radius,f.y-radius,radius*2,radius*2);c.restore();
-        this.battleArt.draw(c,'whirlpool',f.x,f.y,radius*1.95,radius*1.95,{age:this.reduced?.8:age,trim:true,blend:!this.reduced});
+        this.softWhirlpool(c,f,age);
       }else if(f.key==='spikes'){
         for(let i=0;i<15;i++){const a=i*2.39996,r=Math.sqrt((i+.5)/15)*radius*.85;this.combatArt(c,'spikes',f.x+Math.cos(a)*r,f.y+Math.sin(a)*r,22,0,22,{frame:i%3});}
       }else if(f.key==='earthquake'){
@@ -786,23 +780,70 @@ export class Renderer {
       if(f.key){c.save();c.translate(f.x,Math.min(H-12,f.y+radius+8));c.scale(1,1/(this.verticalScale||1));pixelMeter(c,-18,0,36,f.life/f.duration,CARDS[f.key].color);c.restore();}
     }c.restore();
   }
+  softNightmare(c,field,front,age){
+    const radius=field.radius,size=Math.ceil(radius*2),surface=this.fieldSurface??=this.canvas.ownerDocument.createElement('canvas');
+    if(surface.width!==size||surface.height!==size){surface.width=size;surface.height=size;}
+    const portal=surface.getContext('2d');portal.setTransform(1,0,0,1,0,0);portal.globalAlpha=1;portal.globalCompositeOperation='source-over';portal.clearRect(0,0,size,size);portal.imageSmoothingEnabled=false;
+    this.battleArt.draw(portal,front?'nightmareFront':'nightmareBack',size/2,size/2,radius*2.4,radius*2.4,{age:this.reduced?.3:Math.max(0,age),blend:!this.reduced});
+    // Keep the native central drawing and its front/back layering, while its
+    // purple/black rim dissolves into the real field radius instead of a ring.
+    const fade=portal.createRadialGradient(size/2,size/2,0,size/2,size/2,radius);
+    fade.addColorStop(0,'#fff');fade.addColorStop(.48,'#fff');fade.addColorStop(.72,'#ffffff9c');fade.addColorStop(1,'#ffffff00');
+    portal.globalCompositeOperation='destination-in';portal.fillStyle=fade;portal.fillRect(0,0,size,size);portal.globalCompositeOperation='source-over';
+    c.drawImage(surface,field.x-radius,field.y-radius,radius*2,radius*2);
+  }
+  softWhirlpool(c,field,age){
+    const radius=field.radius,size=Math.ceil(radius*2),surface=this.fieldSurface??=this.canvas.ownerDocument.createElement('canvas');
+    if(surface.width!==size||surface.height!==size){surface.width=size;surface.height=size;}
+    const water=surface.getContext('2d');water.setTransform(1,0,0,1,0,0);water.globalAlpha=1;water.globalCompositeOperation='source-over';water.clearRect(0,0,size,size);water.imageSmoothingEnabled=false;
+    const clock=this.reduced?.8:Math.max(0,age);
+    this.battleArt.draw(water,'whirlpool',size/2,size/2,radius*1.95,radius*1.95,{age:clock,trim:true,blend:!this.reduced});
+    // Early native frames are a shallow ellipse. A circular mask leaves their
+    // upper/lower rim untouched, so follow the native silhouette as it rises.
+    const phase=clock*BATTLE_ASSETS.whirlpool.fps,frame=Math.floor(phase)%WHIRLPOOL_BOUNDS.length;
+    const aspect=at=>{const b=WHIRLPOOL_BOUNDS[at];return(b[3]-b[1])/(b[2]-b[0]);};
+    const next=(frame+1)%WHIRLPOOL_BOUNDS.length,mix=this.reduced?0:phase-Math.floor(phase),height=aspect(frame)*(1-mix)+aspect(next)*mix;
+    water.save();water.translate(size/2,size/2);water.scale(1,Math.min(1,height));
+    const fade=water.createRadialGradient(0,0,0,0,0,radius);
+    fade.addColorStop(0,'#fff');fade.addColorStop(.28,'#fff');fade.addColorStop(.55,'#ffffff61');fade.addColorStop(.8,'#ffffff14');fade.addColorStop(1,'#ffffff00');
+    water.globalCompositeOperation='destination-in';water.fillStyle=fade;water.fillRect(-size,-size,size*2,size*2);water.restore();
+    c.drawImage(surface,field.x-radius,field.y-radius,radius*2,radius*2);
+  }
   frozen(c,actor){
     if(!(actor.freeze>0)||actor.hp<=0||actor.burrowed)return;
     const width='king'in actor?88:Math.max(40,(actor.radius||12)*3),y=actor.y-(actor.card?.flying?16:0)/(this.verticalScale||1);
     c.save();c.globalAlpha=Math.min(.75,actor.freeze*2);
     this.combatArt(c,'freeze',actor.x,y-width*.25/(this.verticalScale||1),width,0,width,{frame:0});c.restore();
   }
-  fireball(c,spell){
-    if(spell.delay>0||spell.done)return;
+  fireball(c,spell){return this.spellFlight(c,spell);}
+  spellFlight(c,spell){
+    const kind=spellVisualProfile(spell)?.flight;
+    if(!kind||kind==='none'||kind==='rolling'||spell.done||spell.delay>0&&!(spell.resolvedWaves>0))return;
     const id=spell.visualId??`${spell.team}:${spell.key}:${spell.startX}:${spell.startY}:${spell.x}:${spell.y}`;
     this.visualFlights??=new Map();let pose=this.visualFlights.get(id);
-    if(!pose)pose={elapsed:Math.max(0,spell.flightElapsed-1/15),logical:spell.flightElapsed};
-    // One monotonic display clock for CPU30/debug60/online15. Never jump at a packet or rewind on correction.
-    pose.elapsed=Math.max(pose.elapsed,Math.min(spell.flightElapsed,pose.elapsed+(this.drawDt||0)));
-    pose.logical=spell.flightElapsed;pose.at=this.t;this.visualFlights.set(id,pose);
-    const visual={...spell,flightElapsed:Math.min(spell.flightTime,pose.elapsed)};
-    const {point,tail,angle}=fireballVisual(visual,this.verticalScale||1),age=this.reduced?0:visual.flightElapsed;
-    if(spell.card?.spawnOnImpact){const axis=Math.atan2(spell.x-spell.startX,(spell.y-spell.startY)*(this.verticalScale||1));this.capsule(c,point.x,point.y,52,this.reduced?0:age*4,axis);return;}
+    const clock=spellFlightAge(spell);
+    const fresh=!pose;if(fresh)pose={elapsed:clock,logical:clock};
+    // Flight is deterministic between snapshots. Advance at display cadence,
+    // but never show a hit ahead of the next authoritative unresolved wave.
+    const limit=Math.max(0,spell.flightTime+(spell.resolvedWaves||0)*(spell.card.waveEvery||0)-1e-6);
+    const predicted=fresh||!(this.drawDt>0)?pose.elapsed:Math.max(clock,pose.elapsed+this.drawDt);
+    pose.elapsed=Math.max(pose.elapsed,Math.min(limit,predicted));
+    pose.logical=clock;pose.at=this.t;this.visualFlights.set(id,pose);
+    const age=this.reduced?0:pose.elapsed;
+    if(kind==='needles'){
+      for(const shot of missileFlightVisuals(spell,pose.elapsed,this.verticalScale||1)){
+        const {x,y}=shot.point;c.save();
+        if(!this.reduced){c.strokeStyle='#d6ece080';c.lineWidth=1.5;c.beginPath();c.moveTo(x-Math.cos(shot.angle)*14,y-Math.sin(shot.angle)*14/(this.verticalScale||1));c.lineTo(x,y);c.stroke();}
+        this.combatArt(c,'needle',x,y,42,shot.angle-Math.PI/2,42,{direction:0,frame:shot.index%2});c.restore();
+      }return;
+    }
+    const {point,tail,angle}=spellFlightVisual(spell,pose.elapsed,this.verticalScale||1);
+    if(kind==='capsule'){const axis=Math.atan2(spell.x-spell.startX,(spell.y-spell.startY)*(this.verticalScale||1));this.capsule(c,point.x,point.y,52,this.reduced?0:age*4,axis);return;}
+    if(kind==='hyper'){
+      c.save();c.lineCap='round';
+      for(let i=tail.length-1;i>=0;i--){c.globalAlpha=(1-i/tail.length)*.6;c.strokeStyle=i>1?'#ffbd5d':'#fff4c1';c.lineWidth=10-i*2;c.beginPath();c.moveTo(tail[i].x,tail[i].y);c.lineTo(i?tail[i-1].x:point.x,i?tail[i-1].y:point.y);c.stroke();}
+      c.restore();this.combatArt(c,'hyperHead',point.x,point.y,48,angle-Math.PI/2,62,{age,frames:[5,6,7,8,9,10,9,8,7,6],fps:12,frame:this.reduced?7:undefined,trim:true,blend:!this.reduced});return;
+    }
     for(let i=tail.length-1;i>=0;i--){c.save();c.globalAlpha=.45-i*.1;const size=36-i*7;
       this.combatArt(c,'fireTrail',tail[i].x,tail[i].y,size,angle-Math.PI/2,size,{age:age+i*.09,fps:8,trim:true});c.restore();}
     const size=this.reduced?58:58+Math.sin(age*5)*2;
@@ -818,7 +859,7 @@ export class Renderer {
     this.combatArt(c,'flameWheel',spell.x,spell.y-14,88,0,80,{age:this.reduced?0:this.t});
   }
   draw(game,dt=.016){
-    const c=this.ctx;this.t+=dt;this.drawDt=dt;this.battleArt.time=this.reduced?0:this.t;
+    const c=this.ctx;this.t+=dt;this.drawDt=dt;this.gameElapsed=game.elapsed||0;this.battleArt.time=this.reduced?0:this.t;
     this.updateSpellTargets(game);
     const {width,height}=this.viewport||{width:W,height:H},projection=this.projection||arenaProjection(width,height),bounds=this.worldBounds||{left:0,top:0,right:W,bottom:H};
     c.save();c.setTransform(projection.scale*this.canvas.width/width,0,0,projection.scale*this.canvas.height/height,projection.x*this.canvas.width/width,projection.y*this.canvas.height/height);
@@ -832,13 +873,14 @@ export class Renderer {
       if(spell.key==='pinMissile')continue;
       if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
     }
+    this.towerHealthQueue=[];
     const objects=[...this.frameActors.values()].sort((a,b)=>a.y-b.y);
     for(const actor of objects){if('king'in actor)this.tower(c,actor);else this.sprite(c,actor);this.frozen(c,actor);}
     for(const field of game.fields||[])if(['stealthRock','nightmare'].includes(field.key))this.field(c,field,true);
     this.drawDeployments(c,game);
     if(game.state==='ready')for(const[key,x,y,team]of[['pikachu',217,286,1],['squirtle',393,290,1],['charmander',210,554,0],['bulbasaur',390,550,0]])this.sprite(c,{id:x,card:CARDS[key],x,y,team,anim:this.t,dx:0,dy:team?1:-1},true);
     for(const p of game.projectiles)this.projectile(c,p);
-    for(const spell of game.spells)if(spell.card.travelSpeed&&!spell.card.rolling)this.fireball(c,spell);
+    for(const spell of game.spells)if(spell.card.travelSpeed&&!spell.card.rolling)this.spellFlight(c,spell);
     this.drawEffects(c,dt);this.drawPlacement(c,game);
     if(this.healthStates.size>300){const ids=new Set(game.units.map(u=>u.id));for(const id of this.healthStates.keys())if(!ids.has(id))this.healthStates.delete(id);}
     const ids=new Set([...game.towers,...game.units].map(u=>u.id));for(const id of this.visualActors.keys())if(!ids.has(id))this.visualActors.delete(id);
@@ -846,6 +888,8 @@ export class Renderer {
     for(const[key,pose]of this.visualProjectiles)if(this.t-pose.at>1)this.visualProjectiles.delete(key);
     for(const[key,pose]of this.visualFlights||[])if(this.t-pose.at>1)this.visualFlights.delete(key);
     for(const p of this.particles){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=p.gravity*dt;c.globalAlpha=Math.max(0,p.life/p.max);this.combatArt(c,'dust',p.x,p.y,Math.max(8,p.size*3),0,Math.max(8,p.size*3),{progress:1-p.life/p.max});}
-    this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;c.restore();
+    this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;
+    for(const tower of this.towerHealthQueue)this.towerHealth(c,tower);delete this.towerHealthQueue;
+    c.restore();
   }
 }

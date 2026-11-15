@@ -1,9 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { loadDeck,saveDeck,normalizeDeck,loadDeckLibrary,saveDeckLibrary } from '../dist/deck-storage.js';
-import { DEFAULT_DECK } from '../dist/engine.js';
+import { DEFAULT_DECK } from '../dist/engine.js?v=34';
 const memory=()=>{const values=new Map();return{getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v)};};
 const chosen=['gastly','vivero','kyogre','ditto','hooh','treecko','log','sandshrew'];
+
+test('mobile Blastoise migrates to Octillery in all four saved decks while the new Cannon remains independent',()=>{
+ const storage=memory(),slots=[['blastoise','treecko'],['octillery','blastoise','blastoiseCannon'],[],null];storage.setItem('poke-arena:deck-slots',JSON.stringify({version:1,active:1,slots}));const result=loadDeckLibrary({storage,cookie:''});assert.equal(result.active,1);assert.deepEqual(result.slots,[['octillery','treecko'],['octillery','blastoiseCannon'],[],null]);saveDeckLibrary(result,{storage,cookie:'',writeCookie:()=>{},now:100});assert.deepEqual(loadDeckLibrary({storage,cookie:''}).slots,result.slots);
+});
 test('saved Registeel selections migrate to Rhydon without duplicating or filling other slots',()=>{
   assert.deepEqual(normalizeDeck(['gastly','registeel','ditto']),['gastly','rhydon','ditto']);assert.deepEqual(normalizeDeck(['registeel','rhydon','ampharos']),['rhydon','ampharos']);
   const storage=memory();storage.setItem('poke-arena:deck-slots',JSON.stringify({version:1,active:1,slots:[['registeel'],['ampharos','registeel'],[],null]}));assert.deepEqual(loadDeckLibrary({storage,cookie:''}).slots,[['rhydon'],['ampharos','rhydon'],[],null]);

@@ -1,13 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, CARDS } from '../dist/engine.js';
+import { Game, CARDS } from '../dist/engine.js?v=34';
 import { Renderer } from '../dist/render.js';
 import {BattleArt,cardPlaceholder} from '../dist/battle-art.js';
 import {BATTLE_ASSETS} from '../dist/assets/battle/manifest.js';
-import { packGame, unpackGame, packEvent, perspective } from '../dist/snapshot.js';
+import { packGame, unpackGame, packEvent, perspective } from '../dist/snapshot.js?v=34';
 
 function setup(){
-  const calls=[],ctx=new Proxy({}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
+  const calls=[],ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}})}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
   const battleArt=new BattleArt(async()=>({}));for(const asset of Object.values(BATTLE_ASSETS))battleArt.images.set(asset.file,{});
   const renderer=Object.assign(Object.create(Renderer.prototype),{battleArt,frameActors:new Map(),effects:[],particles:[],numbers:[],bodyHeights:new Map(),healthStates:new Map(),t:0,reduced:false,verticalScale:1,ensureSpecies:async()=>{}});
   const game=new Game({seed:913,onEvent:e=>renderer.onEvent(e)});
@@ -33,7 +33,7 @@ test('one deployment indicator serves every member of swarms, mixed squads and p
     const count=CARDS[key].squad?.length||CARDS[key].count|| (CARDS[key].spawnWith?2:1);
     assert.equal(game.units.length,count,key);
     assert.equal(markers(renderer,game).length,1,key);
-    assert.equal(renderer.effects.filter(e=>e.kind==='release').length,1,key);
+    assert.equal(renderer.effects.filter(e=>e.kind==='release').length,0,key);
     assert.equal(markers(renderer,game)[0].progress,0,key);
     game.step(.1);
     assert.ok(markers(renderer,game)[0].progress>0,key);
@@ -73,12 +73,12 @@ test('group markers survive wire serialization, reconnection and the other playe
   assert.deepEqual(perspective(event,1).unit.spawnGroup,restored.units[0].spawnGroup);
 });
 
-test('an automatic reinforcement wave shares one marker and honors its shorter deployment duration',()=>{
+test('an automatic reinforcement wave never adds a card deployment marker',()=>{
   const{game,renderer}=setup(),owner=game.spawn('duskull',0,300,520,0);
   game.spawnReinforcements(owner,'nidoranM',2,.4);
-  assert.equal(markers(renderer,game).length,1);
+  assert.equal(markers(renderer,game).length,0);
   game.step(.1);game.step(.1);
-  assert.ok(Math.abs(markers(renderer,game)[0].progress-.5)<1e-6);
+  assert.equal(markers(renderer,game).length,0);
   for(let i=0;i<3;i++)game.step(.1);
   assert.equal(markers(renderer,game).length,0);
 });
@@ -93,21 +93,22 @@ test('the summon meter starts empty for the first short cycle and resets to the 
   assert.ok(owner.summonClock>6.8);
 });
 
-test('a deployment release waits for readiness and creates no expanding ring',()=>{
+test('a spawn never queues an additional release overlay after the initial marker',()=>{
   const{game,renderer,ctx,calls}=setup();deploy(game,'zubat');
   renderer.drawEffects(ctx,.5);assert.equal(calls.length,0);
-  renderer.drawEffects(ctx,.51);assert.ok(calls.some(c=>c.method==='drawImage'));
+  renderer.drawEffects(ctx,.51);assert.equal(calls.length,0);
   assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
 });
 
 test('Pin misil flies in three waves and each lands on its actual simulation deadline',()=>{
   const{game,renderer,ctx,calls}=setup();deploy(game,'pinMissile',300,300);
-  const first=game.spells[0].flightTime,volleys=renderer.effects.filter(e=>e.kind==='missiles');assert.equal(volleys.length,3);
-  volleys.forEach((v,i)=>assert.ok(Math.abs(v.hitAt-first-i*.2)<1e-7));
-  while(game.elapsed<first-.03){game.step(1/60);renderer.drawEffects(ctx,1/60);}
-  assert.equal(game.spells.length,1);assert.ok(volleys.every(v=>!v.landed));assert.ok(calls.some(c=>c.method==='drawImage'));
-  while(game.elapsed<first+.42){game.step(1/60);renderer.drawEffects(ctx,1/60);}
-  assert.equal(game.spells.length,0);assert.ok(volleys.every(v=>v.landed));assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
+  const first=game.spells[0].flightTime,hits=[],onEvent=game.onEvent;game.onEvent=event=>{onEvent(event);if(event.type==='spellHit'&&event.key==='pinMissile')hits.push(game.elapsed);};
+  assert.equal(renderer.effects.filter(e=>e.kind==='missiles').length,0,'no local cast clock competes with authoritative spell flights');
+  while(game.elapsed<first-.03){game.step(1/60);renderer.drawDt=1/60;renderer.spellFlight(ctx,game.spells[0]);renderer.drawEffects(ctx,1/60);}
+  assert.equal(game.spells.length,1);assert.equal(hits.length,0);assert.ok(calls.some(c=>c.method==='drawImage'));
+  while(game.elapsed<first+.42){game.step(1/60);if(game.spells[0])renderer.spellFlight(ctx,game.spells[0]);renderer.drawEffects(ctx,1/60);}
+  assert.equal(game.spells.length,0);assert.equal(hits.length,3);hits.forEach((at,i)=>assert.ok(Math.abs(at-first-i*.2)<=1/60+1e-7));
+  assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
   renderer.drawEffects(ctx,.5);assert.equal(renderer.effects.length,0);
 });
 

@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {CARDS} from '../dist/engine.js';
+import {CARDS} from '../dist/engine.js?v=34';
 import {SPRITE_GEOMETRY} from '../dist/sprite-geometry.js';
 import {attackAnimationFrame,emissionPoint} from '../dist/sprite-motion.js';
 import {FlightWings} from '../dist/wing-motion.js';
@@ -35,7 +35,7 @@ test('lead-hand emission chooses the forward native marker in both perspectives,
       assert.ok(Number.isFinite(p.y));
     }
   }
-  const card=CARDS.blastoise,actor={id:1,card,x:300,y:500,dx:0,dy:-1,attack:card.attackDuration-card.windup,attackDuration:card.attackDuration,attackWindup:card.windup};
+  const card=CARDS.blastoiseCannon,actor={id:1,card,x:300,y:500,dx:0,dy:-1,attack:card.attackDuration-card.windup,attackDuration:card.attackDuration,attackWindup:card.windup};
   assert.notDeepEqual(emissionPoint(actor,0),emissionPoint(actor,1),'two native cannons remain distinct');
 });
 test('flight clock freezes at its current phase and resumes continuously without returning to native rest',()=>{

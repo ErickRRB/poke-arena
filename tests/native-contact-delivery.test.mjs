@@ -2,10 +2,10 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 // Match the engine URL used by Renderer and the public wire modules.
-import {Game} from '../dist/engine.js?v=26';
+import {Game} from '../dist/engine.js?v=34';
 import {Renderer} from '../dist/render.js';
-import {publicEvent,publicSnapshot,unpackEvent} from '../dist/online-wire.js';
-import {unpackGame,perspective} from '../dist/snapshot.js?v=26';
+import {publicEvent,publicSnapshot,unpackEvent} from '../dist/online-wire.js?v=34';
+import {unpackGame,perspective} from '../dist/snapshot.js?v=34';
 import {attackAnimationFrame} from '../dist/sprite-motion.js?v=26';
 
 const metadata=JSON.parse(readFileSync(new URL('../dist/assets/pokemon/manifest.json',import.meta.url)));

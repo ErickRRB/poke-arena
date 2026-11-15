@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,CARDS,TILE,spellOverlapsTarget} from '../dist/engine.js';
+import {Game,CARDS,TILE,spellOverlapsTarget} from '../dist/engine.js?v=34';
 import {spellPreviewTargets} from '../dist/spell-preview.js';
-import {packGame,unpackGame,perspective} from '../dist/snapshot.js';
+import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
 
 test('Fireball keeps a 2.5-cell radius and uses the full footprint of each target',()=>{
   assert.equal(CARDS.fireball.splash,2.5*TILE);

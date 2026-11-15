@@ -1,4 +1,4 @@
-import {POKEMON_SILHOUETTES} from './pokemon-silhouettes.js';
+import {POKEMON_SILHOUETTES} from './pokemon-silhouettes.js?v=34';
 
 export const isRangedAttack=card=>!!card&&!card.suicide&&(card.rangedAttack??card.range>=50);
 

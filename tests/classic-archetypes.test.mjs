@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,CARDS,RIVER,PRINCESS_RANGE,snapToCell} from '../dist/engine.js';
+import {Game,CARDS,RIVER,PRINCESS_RANGE,snapToCell} from '../dist/engine.js?v=34';
 import {spellPreviewTargets} from '../dist/spell-preview.js';
-import {packGame,unpackGame,perspective} from '../dist/snapshot.js';
+import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
 import {validDeck} from '../realtime/src/match.js';
 import {readFileSync} from 'node:fs';
 

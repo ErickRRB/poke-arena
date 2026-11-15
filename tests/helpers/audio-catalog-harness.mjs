@@ -1,6 +1,6 @@
 import {readFileSync} from 'node:fs';
 import {SoundSystem} from '../../dist/audio.js';
-import {Game,CARDS} from '../../dist/engine.js';
+import {Game,CARDS} from '../../dist/engine.js?v=34';
 
 export const manifest=JSON.parse(readFileSync(new URL('../../dist/assets/audio/manifest.json',import.meta.url)));
 const durations=new Map();

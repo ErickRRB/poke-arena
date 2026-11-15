@@ -1,13 +1,13 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {Game,CARDS} from '../dist/engine.js';
+import {Game,CARDS} from '../dist/engine.js?v=34';
 import {SPRITE_GEOMETRY} from '../dist/sprite-geometry.js';
 import {emissionPoint,animationFrame,attackPoseProgress} from '../dist/sprite-motion.js';
 import {Renderer} from '../dist/render.js';
 import {combatVisual,projectileVisual,fireballVisual} from '../dist/combat-visuals.js';
 import {POKEMON_SILHOUETTES} from '../dist/pokemon-silhouettes.js';
-import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js';
+import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js?v=34';
 import {WING_RIGS} from '../dist/wing-rigs.js';
 
 test('native emission markers cover every playable attack in all eight directions',()=>{
@@ -90,7 +90,7 @@ test('projectiles, contact effects and beams fit every individual Pokemon silhou
   const v=combatVisual(card),areaSize=card.range>=50&&card.splash?Math.min(34,card.splash*.45):0;assert.ok(v.projectile>=8&&v.projectile<=Math.max(v.body*.55,areaSize),key+' projectile');
   assert.ok(v.impact<=v.body*.8,key+' contact effect');assert.ok(v.beam<v.body*.25,key+' beam');
  }
- assert.ok(combatVisual(CARDS.squirtle).projectile<combatVisual(CARDS.blastoise).projectile);
+ assert.ok(combatVisual(CARDS.squirtle).projectile<combatVisual(CARDS.blastoiseCannon).projectile);
  assert.ok(combatVisual(CARDS.raltsToken).projectile<combatVisual(CARDS.gardevoir).projectile);
  assert.equal(projectileVisual('hydro').name,'hydroShot','a moving shot must use the original water orb');
  assert.equal(projectileVisual('hydro').frame,0,'do not loop water impact disappearance during flight');
@@ -121,7 +121,7 @@ test('fireball has a continuous arc and tangent, a spaced trail, and reaches the
  }
  assert.ok(Math.hypot(prior.x-spell.x,prior.y-spell.y)<1e-9);
  const calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{verticalScale:1,reduced:false,combatArt:(_,name,x,y,size,angle,h,options)=>calls.push({name,size,options})}),ctx={save(){},restore(){}};
- renderer.fireball(ctx,{...spell,flightElapsed:.6});const head=calls.at(-1);
+ renderer.fireball(ctx,{...spell,key:'fireball',card:CARDS.fireball,flightElapsed:.6});const head=calls.at(-1);
  assert.equal(head.name,'fireOrb');assert.ok(head.size>=56);assert.equal(head.options.frame,1,'steady original orb instead of cycling ignition/disappearance frames');
  assert.deepEqual(calls.slice(0,3).map(c=>c.name),['fireTrail','fireTrail','fireTrail']);
 });

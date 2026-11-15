@@ -1,4 +1,4 @@
-import {Game,CARDS,DEFAULT_DECK,RIVER} from './engine.js?v=26';
+import {Game,CARDS,DEFAULT_DECK,RIVER} from './engine.js?v=34';
 
 // The sandbox uses the production combat rules. Only match lifecycle, card
 // availability and tower recovery differ; card stats are never copied or edited.

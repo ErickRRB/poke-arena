@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {Game,CARDS} from '../dist/engine.js';
+import {Game,CARDS} from '../dist/engine.js?v=34';
 import {ARENA,DEPLOY_GRID,RIVER,LANES,KING_Y,worldToScreen,screenToWorld,snapToCell,arenaBits} from '../dist/arena-geometry.js';
-import {packGame,unpackGame,perspective} from '../dist/snapshot.js';
+import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
 test('native arena has18x32 cells, two-tile river and bridges, and exact tower anchors',()=>{
  assert.deepEqual([DEPLOY_GRID.columns,DEPLOY_GRID.rows],[18,32]);
  assert.equal(RIVER.bottom-RIVER.top,48);assert.deepEqual(LANES,[168,432]);

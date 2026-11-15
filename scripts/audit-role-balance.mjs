@@ -41,7 +41,7 @@ export function auditAllRoles(){
       const deployment=createSandbox();spawnCard(deployment,key,0,156,550);
       row.deployment={bodies:deployment.units.length,totalHp:deployment.units.reduce((sum,u)=>sum+u.hp+(u.shield||0),0),nominalDps:+deployment.units.reduce((sum,u)=>sum+u.card.damage*(u.card.burst||u.card.bolts||1)/u.card.interval,0).toFixed(2)};
       row.openTower=towerPushTrial(key);
-      if(card.building)row.defendedTower=['pikachu','magnemite','blastoise'].map(defender=>towerPushTrial(key,{defender}));
+      if(card.building)row.defendedTower=['pikachu','magnemite','octillery'].map(defender=>towerPushTrial(key,{defender}));
       if(card.structure)row.defense=buildingDefenseTrial(key);
       if(card.summon||card.deathSpawn)row.summons=damageTrial(key,{seconds:30});
     }
