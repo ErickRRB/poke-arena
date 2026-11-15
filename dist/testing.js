@@ -13,7 +13,7 @@ let soundEnabled=true;try{soundEnabled=JSON.parse(localStorage.getItem('poke-are
 $('lab-sound').setAttribute('aria-pressed',String(soundEnabled));$('lab-sound').textContent=soundEnabled?'Sonido: sí':'Sonido: no';
 sfx=new SoundSystem(soundEnabled);
 function focusColumn(column){activeColumn=column.id;for(const item of columns)item.element.classList.toggle('active-column',item.id===column.id);if(soundEnabled){sfx??=new SoundSystem(true);sfx.unlock(true);}}
-function columnEvent(column,event){column.renderer.onEvent(event);if(activeColumn===column.id&&soundEnabled)sfx?.event(event);}
+function columnEvent(column,event){column.renderer.onEvent(event,column.game);if(activeColumn===column.id&&soundEnabled)sfx?.event(event);}
 const loaderMarkup=`<svg class="lab-pokeball" viewBox="0 0 64 64" aria-hidden="true">${LOADER_BALL_SHAPES}</svg>`;
 const presetOptions=`<option value="free">Vacía · libre</option><option value="princess">Torre princesa</option><option value="towers">Torres completas</option><option value="fireball-check">Torre + defensa central</option><optgroup label="Rival preparado">${catalog.filter(key=>!CARDS[key].spell).map(key=>`<option value="${key}">${CARDS[key].name} · ${cardEquivalentLabel(key)||'Función propia'}</option>`).join('')}</optgroup>`;
 function notice(message){$('lab-notice').textContent=message;$('lab-notice').classList.add('visible');clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>$('lab-notice').classList.remove('visible'),3500);}

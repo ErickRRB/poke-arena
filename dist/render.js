@@ -225,7 +225,7 @@ export class Renderer {
       if(bits&3){c.fillStyle=path;c.fillRect(x,y,half,half);}
     }
   }
-  resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.visualFlights?.clear();this.visualFields?.clear();this.frameActors?.clear();this.flightWings?.phases.clear();this.attackContacts?.clear();this.spikeFields=[];this.effects=this.effects?.filter(e=>e.kind!=='spikeContact')||[];}
+  resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.visualFlights?.clear();this.visualFields?.clear();this.frameActors?.clear();this.flightWings?.phases.clear();this.attackContacts?.clear();this.effects=this.effects?.filter(e=>e.kind!=='spikeContact')||[];}
   visualActor(unit,dt){
     let pose=this.visualActors.get(unit.id);
     const fresh=!pose||Math.hypot(pose.x-unit.x,pose.y-unit.y)>95;
@@ -516,7 +516,7 @@ export class Renderer {
     }
     if(!this.battleArt.structure(c,'platform',unit.team,unit.x,unit.y+4,74,this.verticalScale||1,this.targetTint(unit)))text(c,'PLACEHOLDER',unit.x,unit.y-15,'#ffe3a0',8);
   }
-  onEvent(event) {
+  onEvent(event,game) {
     const {type}=event;
     if(['faint','structureDown','towerDown'].includes(type)){
       const id=event.unit?.id??event.tower?.id;
@@ -556,8 +556,10 @@ export class Renderer {
       this.healthStates.set(target.id,{chip:Math.max(old?.chip||0,Math.min(1,(target.hp+event.amount)/target.maxHp)),last:target.hp/target.maxHp,at:this.t});
       if(event.sourceKey==='earthquake')this.effects.push({kind:'artImpact',art:'vfxDebris',x:target.x,y:target.y-4,visualSize:Math.min(42,(target.radius||12)*2.5),life:.5,max:.5});
       if(event.sourceKey==='spikes'){
-        const match=(this.spikeFields||[]).map(field=>({field,point:spikesContactPoint(field,target)})).filter(x=>x.point).sort((a,b)=>Math.hypot(a.field.x-target.x,a.field.y-target.y)-Math.hypot(b.field.x-target.x,b.field.y-target.y))[0];
-        if(match)this.effects.push({kind:'spikeContact',...match.point,radius:match.field.radius,life:.2,max:.2});
+        // Events precede draw after a snapshot. Use that state rather than a
+        // previous frame; the wire does not identify which overlapping field hit.
+        const matches=(game?.fields||[]).filter(field=>field.key==='spikes').map(field=>({field,point:spikesContactPoint(field,target)})).filter(x=>x.point),match=matches[0];
+        if(match&&matches.every(x=>x.point.x===match.point.x&&x.point.y===match.point.y))this.effects.push({kind:'spikeContact',...match.point,radius:match.field.radius,life:.2,max:.2});
       }
     }
     if(type==='heal'&&event.amount>0){this.floatingNumber(event.unit,event.amount,'heal');this.effects.push({kind:'artImpact',art:'heal',x:event.unit.x,y:event.unit.y-18,radius:30,life:1.2,max:1.2});}
@@ -1194,7 +1196,6 @@ export class Renderer {
     this.frameActors=new Map([...(game.visibleTowers??game.towers),...game.units].map(actor=>{
       const pose=this.visualActor(actor,dt);pose.logicalX=actor.x;pose.logicalY=actor.y;return[actor.id,pose];
     }));
-    this.spikeFields=(game.fields||[]).filter(field=>field.key==='spikes');
     const fields=(game.fields||[]).map(field=>this.visualField(field,dt));
     for(const field of fields)this.field(c,field);
     for(const spell of game.spells){
