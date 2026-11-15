@@ -21,6 +21,9 @@
 .battle-hud #boost>svg {grid-area:1/1;z-index:0;width:44px;height:50px;filter:drop-shadow(0 1px 1px #1b2727aa)}
 .battle-hud #boost>b {grid-area:1/1;z-index:1;display:grid;place-items:center;width:44px;height:50px;padding-top:10px;color:#fff;font:400 24px/1 'Lilita One','Trebuchet MS',sans-serif;text-shadow:-1px -1px #54216b,1px -1px #54216b,-1px 1px #54216b,1px 1px #54216b}
 .battle-hud #boost[data-elixir="3"] {color:#e950ac}
+.battle-hud-actions:has(#match-pause[hidden]) .battle-hud-status {left:auto;width:76px;grid-template-columns:1fr;grid-template-rows:18px 50px;row-gap:2px}
+.battle-hud-actions:has(#match-pause[hidden]) #phase-label {grid-column:1;grid-row:1}
+.battle-hud-actions:has(#match-pause[hidden]) #boost {grid-column:1;grid-row:2}
 .battle-console .energy-section {grid-template-columns:46px minmax(0,1fr)}
 .energy-section[data-elixir="2"] .energy-bar {border-color:#5d247b;background:#6d3783}
 .energy-section[data-elixir="3"] .energy-bar {border-color:#842351;background:#8d386a}
@@ -33,12 +36,14 @@
  .battle-console {padding-bottom:max(6px,var(--battle-safe-bottom,env(safe-area-inset-bottom,0px)))}
  .hand .pokemon-card {height:clamp(76px,calc(var(--app-height,100dvh) * .12),91px)}
  .battle-console .energy-section {padding-block:3px;margin-top:6px}
+ .battle-hud .trainer-id>strong {max-width:min(100%,calc(50vw - 56px))}
 }
 @media(max-width:400px) {
  .battle-hud .battle-clock {width:60px;min-width:60px;max-width:60px;flex-basis:60px;font-size:24px}
  .battle-hud #timer {transform:translate(3px,9px)}
  .battle-hud-status {grid-template-columns:60px minmax(0,1fr)}
  .battle-hud #phase-label {width:60px}
+ .battle-hud-actions:has(#match-pause[hidden]) .battle-hud-status {width:60px}
 }
 html:fullscreen body:not(.menu-mode)>.topbar {display:none}
 @media(display-mode:fullscreen) {body:not(.menu-mode)>.topbar {display:none}}

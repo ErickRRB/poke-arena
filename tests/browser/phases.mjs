@@ -69,6 +69,11 @@ export async function run({browser,url,viewports,output}){
     const {Game}=await import('/engine.js?v=26'),{packGame,unpackGame,perspective}=await import('/snapshot.js?v=26'),rows=[];
     for(const time of[100,55])for(const team of[0,1]){const source=new Game();source.start();Object.assign(source,{time,overtime:true,elapsed:.75});const model=unpackGame(perspective(packGame(source),team));Object.assign(__qa.game,model);__qa.game.step=()=>{};__qa.updateUi();rows.push({time,team,m:__qa.game.multiplier,badge:document.getElementById('boost').textContent,phase:document.getElementById('battle-clock').dataset.phase});}return rows;
    });for(const row of restored){assert.equal(row.m,row.time>60?2:3);assert.equal(row.badge.trim(),'×'+row.m);assert.equal(row.phase,'overtime');}
+   const fieldIds=['arena','arena-frame','hand','energy-bar'],fieldBefore=await rects(page,fieldIds);
+   await page.evaluate(()=>{document.getElementById('match-pause').hidden=true;document.getElementById('match-leave').hidden=true;});
+   const onlinePhase=await page.evaluate(()=>({extra:document.getElementById('phase-label').getBoundingClientRect().toJSON(),boost:document.getElementById('boost').getBoundingClientRect().toJSON()}));
+   assert.ok(onlinePhase.extra.bottom<onlinePhase.boost.top,'online phase text and the elixir drop do not overlap');stable(fieldBefore,await rects(page,fieldIds),'online controls hidden');
+   await page.evaluate(()=>{document.getElementById('match-pause').hidden=false;document.getElementById('match-leave').hidden=false;});stable(before,await rects(page,ids),'CPU controls restored');
    await page.locator('#again-btn').dispatchEvent('click');await page.waitForFunction(()=>document.querySelector('.energy-section').dataset.elixir==='1');
    assert.equal(await page.locator('#boost').isHidden(),true);assert.equal(await page.locator('#phase-label').isHidden(),true);stable(before,await rects(page,ids),'fresh match');
    assert.deepEqual(errors,[]);reports.push({viewport,phases:rows,wireSnapshotPerspectives:restored,reducedStatic:true,pausedPulse:true,lateFontStable:true,stable:true});await context.close();
