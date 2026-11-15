@@ -2,13 +2,14 @@ import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=34';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
-import {combatVisual,projectileVisual,movementVisual,fireballVisual,isRangedAttack} from './combat-visuals.js?v=34';
+import {combatVisual,projectileVisual,movementVisual,isRangedAttack} from './combat-visuals.js?v=34';
 import { spellPreviewTargets } from './spell-preview.js?v=34';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=34';
 import { FlightWings } from './wing-motion.js?v=34';
 import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import { WHIRLPOOL_BOUNDS } from './assets/battle/frame-bounds.js?v=34';
 import { BATTLE_ASSETS } from './assets/battle/manifest.js?v=34';
+import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -414,13 +415,6 @@ export class Renderer {
       const current=this.attackContacts.get(actor.id);
       this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,shot,until}),held});
     }
-    if(type==='cast'&&event.key==='pinMissile'){
-      const first=(event.castDelay??CARDS.pinMissile.castDelay??.55)+(event.flightTime||0);
-      for(let wave=0;wave<(event.waves||1);wave++){
-        const hitAt=first+wave*(event.waveEvery||0),life=hitAt+.42;
-        this.effects.push({...event,kind:'missiles',wave,hitAt,life,max:life});
-      }
-    }
     if(type==='attackStart'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='beam')this.effects.push({...event,kind:'beam',life:.42,max:.42});
@@ -469,16 +463,14 @@ export class Renderer {
     }
     if(type==='spellHit'){
       if(event.key==='pinMissile'){
-        const volley=this.effects.find(e=>e.kind==='missiles'&&!e.landed&&e.team===event.team&&e.x===event.x&&e.y===event.y);
-        if(volley){volley.life=Math.min(volley.life,.42);volley.landed=true;}
-        else{const hitAt=CARDS.pinMissile.castDelay??.55;this.effects.push({...event,kind:'missiles',landed:true,hitAt,life:.42,max:hitAt+.42});}
+        this.effects.push({...event,kind:'missiles',wave:event.wave||0,life:.24,max:.24});
         return;
       }
       if(event.key==='thunder'){this.effects.push({...event,kind:'entry',style:'lightning',life:.36,max:.36});return;}
       if(CARDS[event.key].fieldDuration)return;
-      const art={fireball:'explosion',lightning:'lightning',hyperBeam:'explosion',blizzard:'ice',log:'flame'}[event.key]||'impact';
-      this.effects.push({...event,kind:'areaImpact',art,style:CARDS[event.key].style,radius:event.radius,color:CARDS[event.key].color,life:.7,max:.7});
-      if(['hyperBeam','blizzard'].includes(event.key))this.effects.push({...event,kind:'spell',life:.65,max:.65});
+      const art={fireball:'explosion',lightning:'lightning',hyperBeam:'hyperHead',blizzard:'ice',log:'flame'}[event.key]||'impact';
+      this.effects.push({...event,kind:'areaImpact',art,style:CARDS[event.key].style,radius:event.radius,color:event.key==='hyperBeam'?'#ffe5a2':CARDS[event.key].color,life:.7,max:.7});
+      if(event.key==='blizzard')this.effects.push({...event,kind:'spell',life:.65,max:.65});
     }
     if(type==='end'&&event.winner===0){for(let i=0;i<35;i++)this.particles.push({x:70+Math.random()*460,y:100+Math.random()*220,vx:(Math.random()-.5)*80,vy:-50-Math.random()*100,color:['#e8c777','#92c6ce','#b99ed9'][i%3],life:3,max:3,gravity:55,size:4});}
   }
@@ -569,20 +561,11 @@ export class Renderer {
     }
   }
   drawMissiles(c,e){
-    const age=e.max-e.life,after=age-e.hitAt,count=this.reduced?9:18;
-    for(let i=0;i<count;i++){
-      const angle=i*2.39996,r=Math.sqrt((i+.5)/count)*e.radius*.9,x=e.x+Math.cos(angle)*r,y=e.y+Math.sin(angle)*r,launch=(i%3)*.045;
-      if(age<launch)continue;
-      if(after<0){
-        const flight=Math.max(0,Math.min(1,(age-launch)/Math.max(.01,e.hitAt-launch))),direction=e.team?-1:1;
-        const px=x-direction*(1-flight)*108,py=y-(1-flight)*210;
-        c.globalAlpha=this.reduced?.65:Math.min(1,flight*4);
-        this.combatArt(c,'needle',px,py,28,0,28,{direction:directionRow(direction*108,210),age});
-      }else{
-        c.globalAlpha=Math.max(0,1-after/.42);
-        this.combatArt(c,'dust',x,y,22,0,22,{progress:Math.min(1,after/.42)});
-      }
-    }c.globalAlpha=1;
+    const progress=1-e.life/e.max;
+    for(const point of missileFormation(e,e.radius,e.wave)){
+      c.save();c.globalAlpha*=Math.max(0,1-progress);
+      this.combatArt(c,'puff',point.x,point.y,15,0,15,{progress:this.reduced?.45:progress});c.restore();
+    }
   }
   entryEffect(c,e,progress){
     const radius=e.radius||60,age=e.max-e.life;
@@ -686,8 +669,7 @@ export class Renderer {
         if(['slash','horn','dash'].includes(e.style)&&!this.reduced&&progress<.5){c.save();c.globalAlpha*=.45*(1-progress*2);this.combatArt(c,'slash',(from.x+to.x)/2,(from.y+to.y)/2,size*.85,angle+Math.PI/4,size*.65,{progress:progress*2,trim:true});c.restore();}
         this.combatArt(c,name,to.x,to.y,size,0,size,{progress,direction:directionRow(to.x-from.x,to.y-from.y)});
       }else if(e.kind==='spell'){
-        if(e.key==='hyperBeam')this.battleArt.beam(c,'hyper',{x:e.x-45,y:e.y-330/(this.verticalScale||1)},{x:e.x,y:e.y},34*(1-progress*.4),age);
-        else this.combatArt(c,'snow',e.x,e.y,e.radius*2.4,0,e.radius*2.4,{direction:0,progress});
+        this.combatArt(c,'snow',e.x,e.y,e.radius*2.4,0,e.radius*2.4,{direction:0,progress});
       }else if(e.kind==='blink'){
         for(const p of[e.from,e.to])this.combatArt(c,'shadow',p.x,p.y-12,48,0,48,{progress});
       }
@@ -827,17 +809,35 @@ export class Renderer {
     c.save();c.globalAlpha=Math.min(.75,actor.freeze*2);
     this.combatArt(c,'freeze',actor.x,y-width*.25/(this.verticalScale||1),width,0,width,{frame:0});c.restore();
   }
-  fireball(c,spell){
-    if(spell.delay>0||spell.done)return;
+  fireball(c,spell){return this.spellFlight(c,spell);}
+  spellFlight(c,spell){
+    const kind=spellVisualProfile(spell)?.flight;
+    if(!kind||kind==='none'||kind==='rolling'||spell.done||spell.delay>0&&!(spell.resolvedWaves>0))return;
     const id=spell.visualId??`${spell.team}:${spell.key}:${spell.startX}:${spell.startY}:${spell.x}:${spell.y}`;
     this.visualFlights??=new Map();let pose=this.visualFlights.get(id);
-    if(!pose)pose={elapsed:Math.max(0,spell.flightElapsed-1/15),logical:spell.flightElapsed};
-    // One monotonic display clock for CPU30/debug60/online15. Never jump at a packet or rewind on correction.
-    pose.elapsed=Math.max(pose.elapsed,Math.min(spell.flightElapsed,pose.elapsed+(this.drawDt||0)));
-    pose.logical=spell.flightElapsed;pose.at=this.t;this.visualFlights.set(id,pose);
-    const visual={...spell,flightElapsed:Math.min(spell.flightTime,pose.elapsed)};
-    const {point,tail,angle}=fireballVisual(visual,this.verticalScale||1),age=this.reduced?0:visual.flightElapsed;
-    if(spell.card?.spawnOnImpact){const axis=Math.atan2(spell.x-spell.startX,(spell.y-spell.startY)*(this.verticalScale||1));this.capsule(c,point.x,point.y,52,this.reduced?0:age*4,axis);return;}
+    const clock=spellFlightAge(spell);
+    const fresh=!pose;if(fresh)pose={elapsed:clock,logical:clock};
+    // Flight is deterministic between snapshots. Advance at display cadence,
+    // but never show a hit ahead of the next authoritative unresolved wave.
+    const limit=Math.max(0,spell.flightTime+(spell.resolvedWaves||0)*(spell.card.waveEvery||0)-1e-6);
+    const predicted=fresh||!(this.drawDt>0)?pose.elapsed:Math.max(clock,pose.elapsed+this.drawDt);
+    pose.elapsed=Math.max(pose.elapsed,Math.min(limit,predicted));
+    pose.logical=clock;pose.at=this.t;this.visualFlights.set(id,pose);
+    const age=this.reduced?0:pose.elapsed;
+    if(kind==='needles'){
+      for(const shot of missileFlightVisuals(spell,pose.elapsed,this.verticalScale||1)){
+        const {x,y}=shot.point;c.save();
+        if(!this.reduced){c.strokeStyle='#d6ece080';c.lineWidth=1.5;c.beginPath();c.moveTo(x-Math.cos(shot.angle)*14,y-Math.sin(shot.angle)*14/(this.verticalScale||1));c.lineTo(x,y);c.stroke();}
+        this.combatArt(c,'needle',x,y,42,shot.angle-Math.PI/2,42,{direction:0,frame:shot.index%2});c.restore();
+      }return;
+    }
+    const {point,tail,angle}=spellFlightVisual(spell,pose.elapsed,this.verticalScale||1);
+    if(kind==='capsule'){const axis=Math.atan2(spell.x-spell.startX,(spell.y-spell.startY)*(this.verticalScale||1));this.capsule(c,point.x,point.y,52,this.reduced?0:age*4,axis);return;}
+    if(kind==='hyper'){
+      c.save();c.lineCap='round';
+      for(let i=tail.length-1;i>=0;i--){c.globalAlpha=(1-i/tail.length)*.6;c.strokeStyle=i>1?'#ffbd5d':'#fff4c1';c.lineWidth=10-i*2;c.beginPath();c.moveTo(tail[i].x,tail[i].y);c.lineTo(i?tail[i-1].x:point.x,i?tail[i-1].y:point.y);c.stroke();}
+      c.restore();this.combatArt(c,'hyperHead',point.x,point.y,48,angle-Math.PI/2,62,{age,frames:[5,6,7,8,9,10,9,8,7,6],fps:12,frame:this.reduced?7:undefined,trim:true,blend:!this.reduced});return;
+    }
     for(let i=tail.length-1;i>=0;i--){c.save();c.globalAlpha=.45-i*.1;const size=36-i*7;
       this.combatArt(c,'fireTrail',tail[i].x,tail[i].y,size,angle-Math.PI/2,size,{age:age+i*.09,fps:8,trim:true});c.restore();}
     const size=this.reduced?58:58+Math.sin(age*5)*2;
@@ -874,7 +874,7 @@ export class Renderer {
     this.drawDeployments(c,game);
     if(game.state==='ready')for(const[key,x,y,team]of[['pikachu',217,286,1],['squirtle',393,290,1],['charmander',210,554,0],['bulbasaur',390,550,0]])this.sprite(c,{id:x,card:CARDS[key],x,y,team,anim:this.t,dx:0,dy:team?1:-1},true);
     for(const p of game.projectiles)this.projectile(c,p);
-    for(const spell of game.spells)if(spell.card.travelSpeed&&!spell.card.rolling)this.fireball(c,spell);
+    for(const spell of game.spells)if(spell.card.travelSpeed&&!spell.card.rolling)this.spellFlight(c,spell);
     this.drawEffects(c,dt);this.drawPlacement(c,game);
     if(this.healthStates.size>300){const ids=new Set(game.units.map(u=>u.id));for(const id of this.healthStates.keys())if(!ids.has(id))this.healthStates.delete(id);}
     const ids=new Set([...game.towers,...game.units].map(u=>u.id));for(const id of this.visualActors.keys())if(!ids.has(id))this.visualActors.delete(id);

@@ -121,7 +121,7 @@ test('fireball has a continuous arc and tangent, a spaced trail, and reaches the
  }
  assert.ok(Math.hypot(prior.x-spell.x,prior.y-spell.y)<1e-9);
  const calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{verticalScale:1,reduced:false,combatArt:(_,name,x,y,size,angle,h,options)=>calls.push({name,size,options})}),ctx={save(){},restore(){}};
- renderer.fireball(ctx,{...spell,flightElapsed:.6});const head=calls.at(-1);
+ renderer.fireball(ctx,{...spell,key:'fireball',card:CARDS.fireball,flightElapsed:.6});const head=calls.at(-1);
  assert.equal(head.name,'fireOrb');assert.ok(head.size>=56);assert.equal(head.options.frame,1,'steady original orb instead of cycling ignition/disappearance frames');
  assert.deepEqual(calls.slice(0,3).map(c=>c.name),['fireTrail','fireTrail','fireTrail']);
 });

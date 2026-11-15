@@ -47,7 +47,7 @@ test('all cast spells keep their physical data and do not draw a pending destina
     Object.assign(renderer, { ctx, canvas: { width: 600, height: 800 }, viewport: { width: 600, height: 800 }, projection: { scale: 1, x: 0, y: 0 },
       worldBounds: { left: 0, top: 0, right: 600, bottom: 800 }, battleArt: {}, background: {}, healthStates: new Map(), visualActors: new Map(), visualProjectiles: new Map(), visualFlights: new Map(), particles: [],
       visualActor: actor => ({ ...actor }), drawWater() {}, tower() {}, sprite() {}, frozen() {}, drawEffects() {}, drawPlacement() {}, drawDeployments() {}, field() {},
-      fireball() { forwarded.projectile++; }, rollingSpell() { forwarded.rolling++; } });
+      spellFlight() { forwarded.projectile++; }, rollingSpell() { forwarded.rolling++; } });
     renderer.draw(game, 0);
     assert.equal(calls.filter(call => ['arc', 'ellipse', 'moveTo', 'lineTo', 'closePath'].includes(call.method)).length, 0, key);
     assert.equal(JSON.stringify(game.spells), physical, `${key}: rendering must retain physical cast/destination data.`);

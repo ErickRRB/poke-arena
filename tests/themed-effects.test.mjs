@@ -102,12 +102,13 @@ test('a deployment release waits for readiness and creates no expanding ring',()
 
 test('Pin misil flies in three waves and each lands on its actual simulation deadline',()=>{
   const{game,renderer,ctx,calls}=setup();deploy(game,'pinMissile',300,300);
-  const first=game.spells[0].flightTime,volleys=renderer.effects.filter(e=>e.kind==='missiles');assert.equal(volleys.length,3);
-  volleys.forEach((v,i)=>assert.ok(Math.abs(v.hitAt-first-i*.2)<1e-7));
-  while(game.elapsed<first-.03){game.step(1/60);renderer.drawEffects(ctx,1/60);}
-  assert.equal(game.spells.length,1);assert.ok(volleys.every(v=>!v.landed));assert.ok(calls.some(c=>c.method==='drawImage'));
-  while(game.elapsed<first+.42){game.step(1/60);renderer.drawEffects(ctx,1/60);}
-  assert.equal(game.spells.length,0);assert.ok(volleys.every(v=>v.landed));assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
+  const first=game.spells[0].flightTime,hits=[],onEvent=game.onEvent;game.onEvent=event=>{onEvent(event);if(event.type==='spellHit'&&event.key==='pinMissile')hits.push(game.elapsed);};
+  assert.equal(renderer.effects.filter(e=>e.kind==='missiles').length,0,'no local cast clock competes with authoritative spell flights');
+  while(game.elapsed<first-.03){game.step(1/60);renderer.drawDt=1/60;renderer.spellFlight(ctx,game.spells[0]);renderer.drawEffects(ctx,1/60);}
+  assert.equal(game.spells.length,1);assert.equal(hits.length,0);assert.ok(calls.some(c=>c.method==='drawImage'));
+  while(game.elapsed<first+.42){game.step(1/60);if(game.spells[0])renderer.spellFlight(ctx,game.spells[0]);renderer.drawEffects(ctx,1/60);}
+  assert.equal(game.spells.length,0);assert.equal(hits.length,3);hits.forEach((at,i)=>assert.ok(Math.abs(at-first-i*.2)<=1/60+1e-7));
+  assert.equal(calls.filter(c=>['arc','ellipse'].includes(c.method)).length,0);
   renderer.drawEffects(ctx,.5);assert.equal(renderer.effects.length,0);
 });
 

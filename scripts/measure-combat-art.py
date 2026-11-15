@@ -29,7 +29,7 @@ if args.only:
  raise SystemExit(0)
 assets=json.loads(subprocess.check_output(['node','--input-type=module','-e',"import {BATTLE_ASSETS} from './dist/assets/battle/manifest.js';console.log(JSON.stringify(BATTLE_ASSETS))"],cwd=root)); bounds={}
 for name,meta in assets.items():
- if name not in ['hydro','bubble','shadow','psychic','poison','rock','leaf','snow','flame','lightningHead','coin','egg','song','waterBeamHead','fireOrb','fireTrail','hydroShot','emberShot','songShot','petalShot','pokeball']: continue
+ if name not in ['hydro','bubble','shadow','psychic','poison','rock','leaf','snow','flame','lightningHead','coin','egg','song','waterBeamHead','hyperHead','fireOrb','fireTrail','hydroShot','emberShot','songShot','petalShot','pokeball']: continue
  im=Image.open(root/'dist'/meta['file']).convert('RGBA'); union=None
  for row in range(meta['rows']):
   for frame in range(meta['columns']):
