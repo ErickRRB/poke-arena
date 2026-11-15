@@ -1,3 +1,4 @@
 Deployment voices: HQ Pokémon Anime Cries Gen1–5, Galladito/RojoY (PokéMMO), with the PokeAPI cries fallback for species83/224/534.
-Attack sounds: PRSFX recordings from Pokémon Reborn via the pinned PokéRogue asset repository; see moves/SOURCES.json, CREDITS.txt and LICENSE-POKEMON-REBORN.txt.
-Sound credits: Pokémon Mystery Universe, Amethyst; original rip Neslug. Pokémon remains owned by Nintendo, Creatures and GAME FREAK. These Pokémon recordings are not claimed as CC0.
+Attack sounds: new CC0 recordings by Kenney and lentikula, curated by untamedpixels in150CombatSoundEffects. Exact cuts, edge fades, native PCM16/48kHz, hashes, source pages and license: clean-v1/SOURCES.json, CREDITS.txt and LICENSES.txt. The rejected PRSFX/8bit bank is retired, including its old loading excerpts.
+Music: Rynos Theme and Five Armies, Kevin MacLeod, CC-BY4.0; original full recordings with playback gain only. See music/SOURCES.json and music/CREDITS.txt.
+Pokémon and the deployment voices remain owned by their respective creators; their ownership and permissions are distinct from the CC0 combat SFX and the CC-BY music.
