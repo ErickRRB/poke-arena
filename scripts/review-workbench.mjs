@@ -9,6 +9,11 @@ const root = path.resolve(import.meta.dirname, '..');
 const sha = data => createHash('sha256').update(data).digest('hex');
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const inRoot = p => { const full=path.resolve(root,p); if (!full.startsWith(root+path.sep)) throw Error('source and adapter must be inside repository'); return full; };
+export function validatePublicOrigin(value){
+  let url;try{url=new URL(value);}catch{throw Error('publicOrigin must be an explicit HTTPS origin');}
+  if(url.protocol!=='https:'||url.origin!==value||url.username||url.password)throw Error('publicOrigin must be an explicit HTTPS origin without credentials, path, query or fragment');
+  return url.origin;
+}
 export function validateCase(c) {
   if (!c || !/^[\w-]+$/.test(c.id || '') || !c.source || !c.adapter || c.clock !== 'natural-app' || !c.expectedEvent) throw Error('case requires id, source, adapter, natural-app clock and expectedEvent');
   const {width,height,dpr}=c.viewport || {};
@@ -19,6 +24,7 @@ export function validateCase(c) {
   if (!q || ![q.x,q.y,q.width,q.height].every(Number.isFinite) || q.x<0 || q.y<0 || q.width<=0 || q.height<=0 || q.x+q.width>width || q.y+q.height>height) throw Error('invalid fixed crop');
   inRoot(c.source); inRoot(c.adapter);
   if (c.runtime && (c.source !== 'dist/index.html' || typeof c.runtime.root !== 'string' || !/^[a-f0-9]{40}$/.test(c.runtime.sha || '') || !/^[a-f0-9]{40}$/.test(c.runtime.tree || ''))) throw Error('runtime requires dist/index.html, repository root, full SHA and tree');
+  if(c.publicOrigin!==undefined){validatePublicOrigin(c.publicOrigin);if(!c.runtime||typeof c.runtime.buildOutput!=='string'||!c.runtime.buildOutput.trim())throw Error('publicOrigin requires frozen runtime and buildOutput');}
 }
 export function pngSize(data) {
   const signature=Buffer.from([137,80,78,71,13,10,26,10]);
@@ -57,10 +63,55 @@ function command(exe,args) { return execFileSync(exe,args,{cwd:root,encoding:'ut
 function runtimeSource(config) {
   if (!config.runtime) return null;
   const cwd=path.resolve(root,config.runtime.root), git=(...args)=>execFileSync('git',args,{cwd,encoding:'utf8',windowsHide:true,maxBuffer:32*1024*1024}).trim();
-  const sha=git('rev-parse','HEAD'),tree=git('rev-parse','HEAD^{tree}'),status=git('status','--porcelain','--','dist');
+  const sha=git('rev-parse','HEAD'),tree=git('rev-parse','HEAD^{tree}'),status=config.publicOrigin?git('status','--porcelain'):git('status','--porcelain','--','dist');
   if(sha!==config.runtime.sha || tree!==config.runtime.tree || status) throw Error('runtime SHA/tree mismatch or dirty dist');
   const blobs=new Map(git('ls-tree','-r','HEAD','--','dist').split(/\r?\n/).filter(Boolean).map(line=>{const m=/^\d+ blob ([a-f0-9]+)\t(.+)$/.exec(line);if(!m) throw Error('unsupported runtime tree entry');return [m[2],m[1]];}));
   return {cwd,sha,tree,status,blobs,served:new Map(),errors:[]};
+}
+function runtimeBlob(runtime,relative,data){
+  const blobId=bytes=>createHash('sha1').update(Buffer.from(`blob ${bytes.length}\0`)).update(bytes).digest('hex');
+  let blob=blobId(data);if(blob!==runtime.blobs.get(relative))blob=blobId(Buffer.from(data.toString('utf8').replace(/\r\n/g,'\n'),'utf8'));
+  if(runtime.blobs.get(relative)!==blob)throw Error('runtime blob mismatch: '+relative);return blob;
+}
+export async function publicBuild(runtime,relative){
+  const directory=path.resolve(runtime.cwd,relative);if(!directory.startsWith(runtime.cwd+path.sep))throw Error('buildOutput must be inside frozen runtime');
+  const files=[],assets=new Map(),prefix='workers/default/assets/';
+  async function walk(dir){for(const entry of await readdir(dir,{withFileTypes:true})){const absolute=path.join(dir,entry.name);if(entry.isDirectory()){await walk(absolute);continue;}if(!entry.isFile())throw Error('Build Output contains a non-file');const data=await readFile(absolute),file=path.relative(directory,absolute).split(path.sep).join('/'),item={path:file,bytes:data.length,sha256:sha(data)};files.push(item);
+    if(file.startsWith(prefix)){const name=file.slice(prefix.length),source='dist/'+name;if(!data.equals(await readFile(path.join(runtime.cwd,source))))throw Error('build/source bytes differ: '+name);assets.set(name,{...item,absolute,source,gitBlob:runtimeBlob(runtime,source,data)});}
+  }}await walk(directory);files.sort((a,b)=>a.path.localeCompare(b.path));
+  if(!files.some(f=>f.path==='workers/default/bundle/index.js')||!['index.html','app.js','render.js','engine.js'].every(file=>assets.has(file)))throw Error('complete Build Output and core app assets required');
+  return{directory,files,sha256:sha(JSON.stringify(files)),assets};
+}
+async function timed(promise,ms){let timer;try{return await Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('response body timed out')),ms);})]);}finally{clearTimeout(timer);}}
+export function collectPublicResponse(response,remote,runtime){
+  const url=new URL(response.url());if(url.origin!==remote.origin)return;
+  const job=(async()=>{
+    const file=url.pathname==='/'?'index.html':decodeURIComponent(url.pathname).slice(1),entry=remote.build.assets.get(file);if(!entry)throw Error('unexpected public response: '+file);
+    const expected=await readFile(entry.absolute);if(sha(expected)!==entry.sha256)throw Error('Build Output changed: '+file);
+    const body=await timed(response.body(),10000),status=response.status();let bytes=expected,range=null;
+    if(status===206){const m=/^bytes (\d+)-(\d+)\/(\d+)$/.exec(response.headers()['content-range']||'');if(!m||+m[3]!==expected.length||+m[1]>+m[2]||+m[2]>=expected.length)throw Error('invalid public content-range: '+file);range={start:+m[1],end:+m[2],total:+m[3]};bytes=expected.subarray(range.start,range.end+1);}else if(status!==200)throw Error('unexpected public status '+status+': '+file);
+    if(!body.equals(bytes))throw Error('public resource mismatch: '+file);
+    const record={file,url:response.url(),status,bytes:body.length,sha256:sha(body),range};remote.responses.push(record);
+    const served=runtime.served.get(entry.source)||{path:entry.source,gitBlob:entry.gitBlob,sha256:entry.sha256,publicResponses:[]};served.publicResponses.push(record);runtime.served.set(entry.source,served);
+  })().catch(error=>remote.errors.push(error.message));remote.jobs.push(job);return job;
+}
+export async function drainResponses(jobs){for(let done=0;done<jobs.length;){const batch=jobs.slice(done);done=jobs.length;await Promise.all(batch);}}
+export async function isolatePublicPage(page,remote){
+  page.on('pageerror',error=>remote.network.pageErrors.push(error.message));
+  if(typeof page.routeWebSocket!=='function')throw Error('WebSocket isolation unavailable');
+  await page.routeWebSocket('**/*',async ws=>{const u=new URL(ws.url());remote.network.webSockets.push({origin:u.origin,pathname:u.pathname});await ws.close({code:1008,reason:'review isolation'});});
+  await page.route('**/*',route=>{const u=new URL(route.request().url()),entry={origin:u.origin,pathname:u.pathname};remote.network.requests.push(entry);
+    if(u.origin!==remote.origin||u.pathname==='/api'||u.pathname.startsWith('/api/')){remote.network.blocked.push(entry);return route.abort('blockedbyclient');}return route.fallback();
+  });
+}
+export async function finishPublicPage(page,remote){
+  const errors=[];
+  try{await page.waitForLoadState('networkidle',{timeout:10000});}catch(error){errors.push(error.message);}
+  try{await drainResponses(remote.jobs);}catch(error){errors.push(error.message);}
+  try{await page.close();}catch(error){errors.push(error.message);}
+  await drainResponses(remote.jobs);
+  if(remote.network.pageErrors.length||remote.network.blocked.length||remote.network.webSockets.length)errors.push('page errors or isolated network attempts observed');
+  if(errors.length)throw Error(errors.join('; '));
 }
 function serve(runtime) {
   const mime={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.ogg':'audio/ogg','.mp3':'audio/mpeg'};
@@ -68,7 +119,7 @@ function serve(runtime) {
     const file=runtimeFile?path.resolve(runtime.cwd,relative):inRoot(relative);
     if(runtimeFile && !file.startsWith(path.join(runtime.cwd,'dist')+path.sep)) throw Error('invalid runtime path');
     const data=await readFile(file);
-    if(runtimeFile){const blobId=bytes=>createHash('sha1').update(Buffer.from(`blob ${bytes.length}\0`)).update(bytes).digest('hex'); let blob=blobId(data); if(blob!==runtime.blobs.get(relative)) blob=blobId(Buffer.from(data.toString('utf8').replace(/\r\n/g,'\n'),'utf8'));if(runtime.blobs.get(relative)!==blob){runtime.errors.push('runtime blob mismatch: '+relative);throw Error('runtime blob mismatch');}runtime.served.set(relative,{path:relative,gitBlob:blob,sha256:sha(data)});}
+    if(runtimeFile){let blob;try{blob=runtimeBlob(runtime,relative,data);}catch(error){runtime.errors.push(error.message);throw error;}runtime.served.set(relative,{path:relative,gitBlob:blob,sha256:sha(data)});}
     res.writeHead(200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store'});res.end(data);}catch{res.writeHead(404).end();}});
   return new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',()=>resolve(server));});
 }
@@ -81,22 +132,24 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
   result.expectedInputs=['case','source','adapter','runner'];
   result.inputs=[{role:'case',origin:'case',sha256:caseSha}];
   result.phases={observation:'not_started',cdp:'not_started',canvas:'not_started',runtime:'not_started',resources:'not_started',inputs:'not_started',metadata:'not_started'}; result.errors=[];
-  let dir,server,browser,context,cdp,runtime,page,cdpStarted=false,canvasStarted=false; const captured=[]; let pending=Promise.resolve();
+  let dir,server,browser,context,cdp,runtime,page,adapter,remote,cdpStarted=false,canvasStarted=false; const captured=[]; let pending=Promise.resolve();
   const fail=(phase,error)=>{const message=error.message||String(error);result.phases[phase]='failed';result.errors.push({phase,error:message});result.error??=message;result.status='failed';};
   const finalize=async(phase,fn)=>{try{await fn();result.phases[phase]='complete';}catch(error){fail(phase,error);}};
   if (mode==='capture') { await mkdir(out,{recursive:true}); dir=path.resolve(out,`${new Date().toISOString().replace(/[:.]/g,'-')}-${randomUUID()}`); await mkdir(dir); await mkdir(path.join(dir,'frames'));  }
   try {
     runtime=runtimeSource(c);
+    if(c.publicOrigin){remote={origin:c.publicOrigin,build:await publicBuild(runtime,c.runtime.buildOutput),jobs:[],responses:[],errors:[],network:{requests:[],blocked:[],webSockets:[],pageErrors:[],serviceWorkers:'blocked'}};result.publicBuild={directory:remote.build.directory,files:remote.build.files,sha256:remote.build.sha256,verification:'incomplete'};}
     for (const [role,p] of [['source',c.source],['adapter',c.adapter],['runner','scripts/review-workbench.mjs']]) { const data=await readFile(runtime && role==='source'?path.join(runtime.cwd,p):inRoot(p)); result.inputs.push({role,path:p,origin:runtime && role==='source'?'runtime':'tooling',sha256:sha(data)}); }
     result.git={sha:command('git',['rev-parse','HEAD']).trim(),tree:command('git',['rev-parse','HEAD^{tree}']).trim(),status:command('git',['status','--porcelain']).trim()};
-    const adapter=await import(pathToFileURL(inRoot(c.adapter)).href+'?v='+Date.now());
+    adapter=await import(pathToFileURL(inRoot(c.adapter)).href+'?v='+Date.now());
     if (typeof adapter.prepare!=='function' || typeof adapter.observe!=='function') throw Error('adapter requires prepare and observe');
-    server=await serve(runtime); const pw=await playwright(); browser=await pw.chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL||'msedge',headless:headless ?? mode!=='observe'});
+    if(!remote)server=await serve(runtime); const pw=await playwright(); browser=await pw.chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL||'msedge',headless:headless ?? mode!=='observe'});
     const viewport={width:c.viewport.width,height:c.viewport.height};
-    context=await browser.newContext({viewport,deviceScaleFactor:c.viewport.dpr});
+    context=await browser.newContext({viewport,deviceScaleFactor:c.viewport.dpr,...(remote?{serviceWorkers:'block'}:{})});
     page=await context.newPage();
     if (adapter.beforeNavigate !== undefined) { if (typeof adapter.beforeNavigate !== 'function') throw Error('beforeNavigate must be a function'); await adapter.beforeNavigate(page,c); }
-    await page.goto(`http://127.0.0.1:${server.address().port}/${c.source.split('/').map(encodeURIComponent).join('/')}`);
+    if(remote){await isolatePublicPage(page,remote);page.on('response',response=>collectPublicResponse(response,remote,runtime));}
+    await page.goto(remote?remote.origin+'/':`http://127.0.0.1:${server.address().port}/${c.source.split('/').map(encodeURIComponent).join('/')}`);
     await adapter.prepare(page,c);
     if (dir && c.recordCanvas) {
       result.canvasCaptureStartEpochMs=await page.evaluate(selector=>{
@@ -143,14 +196,20 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
       if(!timestamps.length||timestamps.some((v,i)=>!Number.isFinite(v)||(i&&v<timestamps[i-1])))throw Error('missing or unordered canvas video PTS');
       result.canvasVideo={...result.canvasVideo,verification:'complete',stream:probe.streams?.[0],pts:timestamps,limitations:'Canvas only, MediaRecorder timestamps; cadence and capture loss depend on browser. This is not full DOM context.'};
     });
+    if(remote&&page)await finalize('publicNetwork',()=>finishPublicPage(page,remote));
     if(context) await finalize('contextClose',()=>context.close());
     if(browser) await finalize('browserClose',()=>browser.close());
+    if(remote)await finalize('publicResponses',async()=>{
+      await drainResponses(remote.jobs);result.publicNetwork=structuredClone(remote.network);result.publicResponses=remote.responses.slice();result.publicResponseErrors=remote.errors.slice();
+      if(remote.errors.length||remote.network.pageErrors.length||remote.network.blocked.length||remote.network.webSockets.length)throw Error([...remote.errors,'public response/network verification failed'].join('; '));
+    });
     if(server) await finalize('serverClose',()=>new Promise((resolve,reject)=>server.close(error=>error?reject(error):resolve())));
     if(runtime) {
       const inventory=[...runtime.served.values()].sort((a,b)=>a.path.localeCompare(b.path));
       result.runtime={root:runtime.cwd,sha:runtime.sha,tree:runtime.tree,servedFiles:inventory,identityVerification:'incomplete',resourceVerification:'incomplete'};
       await finalize('runtime',async()=>{const current=runtimeSource(c);result.runtime.status=current.status;result.runtime.identityVerification='complete';});
       await finalize('resources',async()=>{
+        if(remote){const current=await publicBuild(runtime,c.runtime.buildOutput);result.publicBuild.finalSha256=current.sha256;if(current.sha256!==remote.build.sha256)throw Error('Build Output changed during run');if(remote.errors.length||result.phases.publicNetwork!=='complete'||result.phases.publicResponses!=='complete')throw Error('public response/network finalization incomplete');if(!['dist/index.html','dist/app.js','dist/render.js','dist/engine.js'].every(file=>inventory.some(entry=>entry.path===file)))throw Error('core public resource inventory incomplete');result.publicBuild.verification='complete';}
         const changed=[];for(const entry of inventory){try{entry.finalSha256=sha(await readFile(path.join(runtime.cwd,entry.path)));if(entry.finalSha256!==entry.sha256)changed.push(entry.path);}catch{entry.finalSha256=null;changed.push(entry.path);}}
         result.runtime.changedFiles=changed;result.runtime.servingErrors=runtime.errors.slice();
         if(changed.length || runtime.errors.length)throw Error(['runtime changed during run: '+changed.join(', '),...runtime.errors].join('; '));
@@ -174,7 +233,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
 }
 if (process.argv[1] && import.meta.url===pathToFileURL(path.resolve(process.argv[1])).href) {
   try {
-    if(process.argv[2]==='--help'){ console.log('capture|observe case.json [--out directory] [--duration-ms milliseconds for observe] — local case, CDP timestamps, no perceptual verdict. Adapter exports optional beforeNavigate(page,case), prepare(page,case), observe(page,case). Each observation.events entry is {event, sampleIndex, epochMs, gameTime}; repeated accumulated events are not deduplicated. See tests/fixtures/workbench/case.json for case schema. Playwright, Edge and optional canvas ffprobe required.'); process.exit(0); }
+    if(process.argv[2]==='--help'){ console.log('capture|observe case.json [--out directory] [--duration-ms milliseconds for observe] — local by default; publicOrigin requires an explicit HTTPS origin and frozen runtime SHA/tree/buildOutput. CDP timestamps, no perceptual verdict. Adapter exports optional beforeNavigate(page,case), prepare(page,case), observe(page,case). Each observation.events entry is {event, sampleIndex, epochMs, gameTime}; repeated accumulated events are not deduplicated. See tools/review/BASELINE.md. Playwright, Edge and optional canvas ffprobe required.'); process.exit(0); }
     const [mode,file,...args]=process.argv.slice(2); if(!['capture','observe'].includes(mode)||!file||args.length%2) throw Error('usage: capture|observe case.json [--out directory] [--duration-ms milliseconds]');
     let out,observeDurationMs; const seen=new Set();
     for(let i=0;i<args.length;i+=2){const flag=args[i],value=args[i+1];if(seen.has(flag)||!value) throw Error('duplicate or missing option');seen.add(flag);if(flag==='--out')out=value;else if(flag==='--duration-ms')observeDurationMs=Number(value);else throw Error('unknown option: '+flag);}

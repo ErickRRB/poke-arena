@@ -22,7 +22,8 @@ export async function beforeNavigate(page,config) {
   page.on('pageerror',error=>state.pageErrors.push(error.message));
   await page.route('**/*',route=>{
     const request=route.request(),u=new URL(request.url());
-    if(!state.origin&&request.isNavigationRequest()&&request.frame()===page.mainFrame()&&u.protocol==='http:'&&u.hostname==='127.0.0.1'&&u.pathname==='/'+config.source){state.origin=u.origin;}
+    const initial=config.publicOrigin?u.origin===config.publicOrigin&&u.pathname==='/':u.protocol==='http:'&&u.hostname==='127.0.0.1'&&u.pathname==='/'+config.source;
+    if(!state.origin&&request.isNavigationRequest()&&request.frame()===page.mainFrame()&&initial){state.origin=u.origin;}
     const item={origin:u.origin,pathname:u.pathname};state.requests.push(item);
     if(!state.origin||u.origin!==state.origin||u.pathname==='/api'||u.pathname.startsWith('/api/')){state.blocked.push(item);return route.abort('blockedbyclient');}
     return route.continue();
@@ -30,7 +31,7 @@ export async function beforeNavigate(page,config) {
 }
 export async function prepare(page, config) {
   validate(config);
-  if(!network.has(page)||!network.get(page).origin)throw Error('beforeNavigate isolation did not observe initial local navigation');
+  if(!network.has(page)||!network.get(page).origin)throw Error('beforeNavigate isolation did not observe initial navigation');
   await page.waitForFunction(()=>!document.querySelector('#start-btn')?.disabled);
   await page.evaluate(async()=>{
     const {Game,CARDS}=await import('./engine.js?v=34');
