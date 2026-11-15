@@ -1,12 +1,14 @@
 # Geometría del juego
 
-## Publicación en Sites
+## Publicación directa en Cloudflare
 
-El Worker compilado se divide en `dist/server/index.js` y módulos `asset-chunk-*.js`. Conservar cada archivo por debajo de 32 MiB, el límite de objetos del repositorio de Sites.
+Cloudflare es el único destino habitual de publicación de la aplicación y sus medios. La URL canónica es `https://poke-arena-web.eriickramiirez.workers.dev`; usarla en entregas y enlaces nuevos. Publicar con el CLI `cf`, siguiendo `realtime/frontend/cloudflare.config.ts`. Desde `realtime/frontend`, `npm run build` ejecuta `cf deploy --dry-run` y `npm run deploy` ejecuta `cf deploy`. Usar Node.js 22.18 o superior y las dependencias existentes del proyecto.
 
-GitHub `main` conserva el historial completo del proyecto. Sites usa una rama de publicación con el mismo árbol final y su propio historial: un commit antiguo de GitHub contiene un Worker de más de 32 MiB que Sites rechaza incluso si un commit posterior lo reduce. No reescribir ni forzar el historial de GitHub.
+El servidor multijugador se publica por separado desde `realtime`, también con `cf`. Actualizarlo cuando cambien reglas compartidas, catálogo, snapshots o protocolo; una corrección visual del frontend no requiere desplegarlo. Validar sólo las áreas afectadas. Los cambios exclusivos de documentación se sincronizan con GitHub sin desplegar la aplicación ni el servidor.
 
-Para Sites, usar el worktree vecino `pokemon-arena-site-publication` y su rama `site-publication`. Abrir y sincronizar allí el repositorio con el helper oficial. Con el árbol principal probado y commiteado, aplicar su árbol con `git read-tree --reset -u <commit>` únicamente en ese worktree de publicación limpio, crear el commit y verificar que ambos árboles coincidan. Publicar ese commit con el helper y el conector Sites. Mantener la rama de publicación en GitHub para conservar su procedencia. Al continuar, no intentar subir el historial de `main` al repositorio de Sites.
+GitHub `main` conserva el código y su historial completo. No reescribir ni forzar el historial. La rama `site-publication`, su worktree y las versiones existentes de Sites son históricos: no sincronizarlos, igualar sus árboles, generar archivos de entrega ni publicar nuevas versiones de Sites como parte de una corrección normal.
+
+Sites queda como puente legado existente y aloja la API HTTP antigua. Conservar su enlace, configuración y almacenamiento por origen para quienes tienen mazos guardados allí. No borrarlo, modificarlo ni redirigirlo automáticamente al publicar en Cloudflare. Usar el flujo de Sites únicamente ante un pedido explícito de mantenimiento de ese legado. `npm run build` en la raíz genera el Worker de compatibilidad para Sites y no forma parte del despliegue habitual del frontend.
 
 ## Selección de pruebas
 

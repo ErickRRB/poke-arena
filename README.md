@@ -48,11 +48,19 @@ Las conexiones locales usan WebSocket en el puerto 4180. La versión publicada u
 
 ## Servidor multijugador
 
-La web y todos sus medios se alojan en Cloudflare Static Assets, con configuración en `realtime/frontend`. El Worker utiliza el binding `ASSETS`, sin cargar las imágenes dentro de su código ni recurrir a GitHub como origen de producción. Las rutas conservan ETag y exigen revalidación para evitar imágenes antiguas tras una actualización.
+La web y todos sus medios se alojan en Cloudflare Static Assets, con configuración en `realtime/frontend`. [Cloudflare es la dirección principal del juego](https://poke-arena-web.eriickramiirez.workers.dev) y el único destino habitual de publicación de la aplicación. El Worker utiliza el binding `ASSETS`, sin cargar las imágenes dentro de su código ni recurrir a GitHub como origen de producción. Las rutas conservan ETag y exigen revalidación para evitar imágenes antiguas tras una actualización.
 
 La dirección anterior de Sites sirve la misma web mediante un proxy pequeño; conserva el almacenamiento del navegador de quienes siguen entrando por ese dominio. Los mazos se guardan por origen: la dirección nueva de Cloudflare tiene su propio almacenamiento local. Las rutas HTTP antiguas `/api/` se atienden por separado en Sites para mantener compatibilidad, sin volver a pasar por el frontend. La partida online actual usa directamente el servidor WebSocket de Cloudflare.
 
-Después de instalar las dependencias de `realtime`, el frontend se comprueba y publica desde `realtime/frontend` con `npm run build` y `npm run deploy`. `npm run build` en la raíz genera el proxy compatible para Sites; no empaqueta las imágenes en módulos JavaScript.
+Con Node.js 22.18 o superior y las dependencias de `realtime` instaladas, el frontend se comprueba y publica directamente con el CLI `cf` desde `realtime/frontend`:
+
+```sh
+cd realtime/frontend
+npm run build
+npm run deploy
+```
+
+Estos scripts ejecutan `cf deploy --dry-run` y `cf deploy`. Las actualizaciones normales no requieren publicar en Sites, generar un archivo para Sites ni sincronizar la rama `site-publication`. El puente existente se conserva y sólo recibe mantenimiento ante un pedido explícito. `npm run build` en la raíz genera ese proxy legado; no es la compilación habitual del frontend.
 
 Un Worker de Cloudflare recibe las conexiones WebSocket. Un Durable Object organiza la búsqueda de rival y otro mantiene cada partida, con simulación autoritativa a 30 pasos por segundo y envío de estados a 15 actualizaciones por segundo. El servidor valida el mazo, elixir, objetivos y colocación. Cada jugador recibe su propia mano y los movimientos se confirman mediante identificadores que evitan despliegues duplicados al reenviar.
 
@@ -112,11 +120,11 @@ El combate usa sprites y efectos raster originales de Pokémon Mystery Dungeon. 
 
 La [revisión de animaciones](docs/POKEMON-MOTION-REVIEW.md) incluye las 93 especies, sus variantes, las ocho orientaciones y los puntos de emisión de los ataques.
 
-Las pruebas cubren combate, objetivos, balance, formaciones, movimiento, colocación, guardado de mazos, recuperación de audio y restauración de partidas online. `check` comprueba la sintaxis de los módulos. `build` genera el Worker ESM en `dist/server/index.js`, con los recursos necesarios para servir el cliente. `balance:simulate` ejecuta un sandbox con despliegues libres, duelos, enjambres y combinaciones de cartas, y guarda los resultados en `docs/balance-simulation.json`.
+Las pruebas cubren combate, objetivos, balance, formaciones, movimiento, colocación, guardado de mazos, recuperación de audio y restauración de partidas online. `check` comprueba la sintaxis de los módulos. El script `build` de la raíz genera el Worker de compatibilidad en `dist/server/index.js`; el frontend actual se compila desde `realtime/frontend`. `balance:simulate` ejecuta un sandbox con despliegues libres, duelos, enjambres y combinaciones de cartas, y guarda los resultados en `docs/balance-simulation.json`.
 
-La interfaz se aloja con la configuración de `.openai/hosting.json`. El backend multijugador se publica por separado en Cloudflare. La API HTTP y su base D1 se conservan para las pestañas abiertas de versiones anteriores.
+El alojamiento actual de la interfaz se configura en `realtime/frontend/cloudflare.config.ts`. El backend multijugador se publica por separado desde `realtime/cloudflare.config.ts` cuando cambian sus reglas, catálogo o protocolo. `.openai/hosting.json`, la API HTTP y su base D1 pertenecen al legado de Sites y se conservan para mantener la compatibilidad.
 
-La compilación separa el Worker y sus recursos en módulos de menos de 32 MiB. La rama `site-publication` conserva el árbol publicado en Sites y `main` mantiene el historial completo de desarrollo. Ambos árboles se comprueban antes de publicar.
+`main` mantiene el historial completo de desarrollo. La rama `site-publication` y las versiones existentes de Sites son históricas; igualar sus árboles no es un requisito de publicación en Cloudflare. Una corrección visual no requiere desplegar el servidor multijugador y un cambio exclusivo de documentación sólo necesita sincronizar GitHub.
 
 ## Organización del proyecto
 
