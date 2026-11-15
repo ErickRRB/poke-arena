@@ -1,8 +1,10 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,statSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import worker from '../dist/server/index.js';
 import frontend from '../realtime/frontend/src/index.js';
+import {MUSIC_TRACKS} from '../dist/music.js';
 import {WEB_ORIGIN} from '../worker/web-origin.js';
 const mime={'.js':'text/javascript','.html':'text/html','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.ogg':'audio/ogg','.mp3':'audio/mpeg','.wav':'audio/wav','.txt':'text/plain'};
 function mockAssets(t){
@@ -114,4 +116,10 @@ test('published music uses pinned file lengths when ASSETS omits Content-Length 
   const head=await frontend.fetch(new Request(WEB_ORIGIN+'/assets/audio/music/'+track.file,{method:'HEAD'}),env);assert.equal(head.headers.get('Content-Length'),String(bytes.length));assert.equal((await head.arrayBuffer()).byteLength,0);
  }
  const unknown=await frontend.fetch(new Request(WEB_ORIGIN+'/unknown.mp3',{headers:{Range:'bytes=0-2'}}),{ASSETS:{fetch:async()=>new Response('unknown',{headers:{'Content-Type':'audio/mpeg'}})}});assert.equal(unknown.status,200);assert.equal(unknown.headers.get('Accept-Ranges'),null);assert.equal(await unknown.text(),'unknown');
+});
+
+test('every active playback track has source metadata matching its actual bytes and SHA256',()=>{
+ const sources=JSON.parse(readFileSync(new URL('../dist/assets/audio/music/SOURCES.json',import.meta.url))),byFile=new Map(sources.tracks.map(track=>['assets/audio/music/'+track.file,track]));
+ assert.ok(MUSIC_TRACKS.length>0);
+ for(const track of MUSIC_TRACKS){const source=byFile.get(track.file);assert.ok(source,`${track.id}: active playback file needs range/source metadata`);assert.equal(source.id,track.id);const bytes=readFileSync(new URL('../dist/'+track.file,import.meta.url));assert.equal(bytes.length,source.bytes,track.file+' pinned length');assert.equal(createHash('sha256').update(bytes).digest('hex'),source.sha256,track.file+' pinned hash');}
 });
