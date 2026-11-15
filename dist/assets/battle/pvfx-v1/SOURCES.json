@@ -1,0 +1,148 @@
+{
+  "page": "https://nerijs.itch.io/pvfx-foundry",
+  "author": "Pixel VFX Studio / nerijs",
+  "license": "CC0-1.0",
+  "packVersion": "1.0.0",
+  "archiveSha256": "4ffa1cbefae83942b8feeb13e992ac21d1630333acc9542a9b89f9c1f6e49b62",
+  "archiveBytes": 9229287,
+  "effects": [
+    {
+      "key": "vfxWhirlpool",
+      "id": "water/whirlpool",
+      "tier": "strict",
+      "size": [
+        72,
+        48
+      ],
+      "pivot": [
+        36,
+        25
+      ],
+      "frames": 20,
+      "frameMs": 70,
+      "loop": true,
+      "artifact": {
+        "sheet": "effects/water/whirlpool/strict/grid/sprite-sheet.png",
+        "sheet_sha256": "sha256:e6f502c5e3368a33206e278bc2d1ed050bb4599aed9639790842ba9aa8688b81",
+        "manifest": "effects/water/whirlpool/strict/grid/manifest.json",
+        "manifest_sha256": "sha256:aa938951fcbc1efdfd712568d8e1389189432b977d106cc7a2bf18e596933023"
+      }
+    },
+    {
+      "key": "vfxDebris",
+      "id": "impacts/rock-shatter",
+      "tier": "strict",
+      "size": [
+        64,
+        56
+      ],
+      "pivot": [
+        30,
+        44
+      ],
+      "frames": 18,
+      "frameMs": 60,
+      "loop": false,
+      "artifact": {
+        "sheet": "effects/impacts/rock-shatter/strict/grid/sprite-sheet.png",
+        "sheet_sha256": "sha256:2fdcab661cb2ffa44c371c3bd330dda0edfaba268c8060627da8e62be1581d2e",
+        "manifest": "effects/impacts/rock-shatter/strict/grid/manifest.json",
+        "manifest_sha256": "sha256:30a62707c08b4c53b25123afe588bbf43546ca9e3d5012b55b8fe80a6fdb87ab"
+      }
+    },
+    {
+      "key": "vfxFireJet",
+      "id": "fire/flamethrower",
+      "tier": "strict",
+      "size": [
+        128,
+        48
+      ],
+      "pivot": [
+        6,
+        32
+      ],
+      "frames": 16,
+      "frameMs": 60,
+      "loop": true,
+      "artifact": {
+        "sheet": "effects/fire/flamethrower/strict/grid/sprite-sheet.png",
+        "sheet_sha256": "sha256:815d22d8e9261073c03ce52559df71f54cd1d783fe0f8f011541647bc8064881",
+        "manifest": "effects/fire/flamethrower/strict/grid/manifest.json",
+        "manifest_sha256": "sha256:c802f838ae4523c12c7e4c2110ac1c1e9c20aecc62a23cd5119ca85429e972ca"
+      }
+    },
+    {
+      "key": "vfxGroundSlam",
+      "id": "impacts/ground-slam",
+      "tier": "strict",
+      "size": [
+        128,
+        64
+      ],
+      "pivot": [
+        64,
+        44
+      ],
+      "frames": 19,
+      "frameMs": 70,
+      "loop": false,
+      "artifact": {
+        "sheet": "effects/impacts/ground-slam/strict/grid/sprite-sheet.png",
+        "sheet_sha256": "sha256:5651aad7b85664775903ed0232ad1d3e0a3c6f9438338f42eaf1c7edd4093914",
+        "manifest": "effects/impacts/ground-slam/strict/grid/manifest.json",
+        "manifest_sha256": "sha256:71501cbdcd9974a986b550c1ce68971f328d4778becf43df5e1d0d7ff01f55ad"
+      }
+    }
+  ],
+  "files": [
+    {
+      "key": "vfxWhirlpool",
+      "id": "water/whirlpool",
+      "tier": "strict",
+      "sourceSheet": "effects/water/whirlpool/strict/grid/sprite-sheet.png",
+      "sourceManifest": "effects/water/whirlpool/strict/grid/manifest.json",
+      "sheetSha256": "e6f502c5e3368a33206e278bc2d1ed050bb4599aed9639790842ba9aa8688b81",
+      "manifestSha256": "aa938951fcbc1efdfd712568d8e1389189432b977d106cc7a2bf18e596933023",
+      "path": "assets/battle/pvfx-v1/water-whirlpool-strict.png",
+      "metadata": "assets/battle/pvfx-v1/water-whirlpool-strict.json",
+      "processing": "Original PNG and JSON bytes. Runtime controls placement, size, opacity and palette filtering."
+    },
+    {
+      "key": "vfxDebris",
+      "id": "impacts/rock-shatter",
+      "tier": "strict",
+      "sourceSheet": "effects/impacts/rock-shatter/strict/grid/sprite-sheet.png",
+      "sourceManifest": "effects/impacts/rock-shatter/strict/grid/manifest.json",
+      "sheetSha256": "2fdcab661cb2ffa44c371c3bd330dda0edfaba268c8060627da8e62be1581d2e",
+      "manifestSha256": "30a62707c08b4c53b25123afe588bbf43546ca9e3d5012b55b8fe80a6fdb87ab",
+      "path": "assets/battle/pvfx-v1/impacts-rock-shatter-strict.png",
+      "metadata": "assets/battle/pvfx-v1/impacts-rock-shatter-strict.json",
+      "processing": "Original PNG and JSON bytes. Runtime controls placement, size, opacity and palette filtering."
+    },
+    {
+      "key": "vfxFireJet",
+      "id": "fire/flamethrower",
+      "tier": "strict",
+      "sourceSheet": "effects/fire/flamethrower/strict/grid/sprite-sheet.png",
+      "sourceManifest": "effects/fire/flamethrower/strict/grid/manifest.json",
+      "sheetSha256": "815d22d8e9261073c03ce52559df71f54cd1d783fe0f8f011541647bc8064881",
+      "manifestSha256": "c802f838ae4523c12c7e4c2110ac1c1e9c20aecc62a23cd5119ca85429e972ca",
+      "path": "assets/battle/pvfx-v1/fire-flamethrower-strict.png",
+      "metadata": "assets/battle/pvfx-v1/fire-flamethrower-strict.json",
+      "processing": "Original PNG and JSON bytes. Runtime controls placement, size, opacity and palette filtering."
+    },
+    {
+      "key": "vfxGroundSlam",
+      "id": "impacts/ground-slam",
+      "tier": "strict",
+      "sourceSheet": "effects/impacts/ground-slam/strict/grid/sprite-sheet.png",
+      "sourceManifest": "effects/impacts/ground-slam/strict/grid/manifest.json",
+      "sheetSha256": "5651aad7b85664775903ed0232ad1d3e0a3c6f9438338f42eaf1c7edd4093914",
+      "manifestSha256": "71501cbdcd9974a986b550c1ce68971f328d4778becf43df5e1d0d7ff01f55ad",
+      "path": "assets/battle/pvfx-v1/impacts-ground-slam-strict.png",
+      "metadata": "assets/battle/pvfx-v1/impacts-ground-slam-strict.json",
+      "processing": "Original PNG and JSON bytes. Runtime controls placement, size, opacity and palette filtering."
+    }
+  ]
+}

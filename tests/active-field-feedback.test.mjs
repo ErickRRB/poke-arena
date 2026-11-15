@@ -15,6 +15,8 @@ for(const key of['spikes','stealthRock','whirlpool','nightmare','earthquake'])te
     combatArt:(...args)=>effects.push({kind:'combatArt',args}),battleArt:{tile:(...args)=>effects.push({kind:'tile',args}),draw:(...args)=>effects.push({kind:'draw',args})}});
   renderer.field(ctx,game.fields[0],false);renderer.field(ctx,game.fields[0],true);
   assert.ok(effects.length>0,'the real field art remains visible after aiming ends');
-  assert.equal(calls.filter(call=>['stroke','strokeRect','setLineDash','moveTo','lineTo'].includes(call.name)).length,0,'there is no targeting ring, ticks or reticle after release');
+  assert.equal(calls.filter(call=>['strokeRect','setLineDash'].includes(call.name)).length,0,'there is no targeting reticle after release');
+  if(key!=='earthquake')assert.equal(calls.filter(call=>['stroke','moveTo','lineTo'].includes(call.name)).length,0,'there is no targeting outline');
+  else assert.ok(calls.some(call=>call.name==='clip'),'ground fissures are clipped to the real field');
   assert.equal(JSON.stringify(game.fields),physical,'visual cleanup preserves lifetime, radius, position and mechanics');
 });
