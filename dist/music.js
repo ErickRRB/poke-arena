@@ -66,7 +66,7 @@ export class BattleMusic {
     const generation=this.generation,token={};this.pending=true;this.pendingToken=token;
     try{
       await slot.element.play();
-      if(!this.playing||generation!==this.generation){if(!this.playing)slot.element.pause();if(slot!==this.current)this.releaseSlot(slot);return false;}
+      if(!this.playing||generation!==this.generation){if(!this.playing||slot!==this.current)slot.element.pause();if(slot!==this.current)this.releaseSlot(slot);return false;}
       const previous=this.current;this.current=slot;this.bookmark=null;this.waitingSlot=null;this.waitingForGesture=false;this.failed.delete(slot.track.id);this.failures.delete(slot.track.id);this.fade(slot,1,previous?fade:.45);
       if(previous&&previous!==slot){this.fade(previous,0,fade);const timer=setTimeout(()=>{this.cleanupTimers.delete(timer);this.releaseSlot(previous);},fade*1000+50);this.cleanupTimers.add(timer);}
       return true;

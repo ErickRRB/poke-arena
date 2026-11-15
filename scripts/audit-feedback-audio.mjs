@@ -3,6 +3,7 @@ import path from 'node:path';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
 const root=path.resolve(import.meta.dirname,'..'),dist=path.join(root,'dist'),engine=process.argv[2]||'chromium',out=path.resolve(root,process.argv[3]||'docs/audio-pokemon-2026-11-14');await mkdir(out,{recursive:true});
 const server=http.createServer(async(req,res)=>{try{const p=new URL(req.url,'http://localhost').pathname;if(p==='/'){res.writeHead(200,{'Content-Type':'text/html'}).end('<!doctype html><title>Audio audit</title>');return;}const file=path.resolve(dist,'.'+p);if(!file.startsWith(dist+path.sep))throw Error('Path');const bytes=await readFile(file);res.writeHead(200,{'Content-Type':file.endsWith('.js')?'text/javascript':file.endsWith('.json')?'application/json':'application/octet-stream'}).end(bytes);}catch{res.writeHead(404).end();}});
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
@@ -10,22 +11,20 @@ const playwright=await import(pathToFileURL(process.env.POKE_ARENA_PLAYWRIGHT_MO
 try{
  const page=await browser.newPage();await page.goto(`http://127.0.0.1:${server.address().port}`);
  const report=await page.evaluate(async()=>{
-  const{SoundSystem}=await import('/audio.js?v=34'),{Game,CARDS}=await import('/engine.js?v=34'),{BattleMusic}=await import('/music.js?v=34');
+  const{SoundSystem,AUDIO_LEVELS}=await import('/audio.js?v=36'),{Game,CARDS}=await import('/engine.js?v=34');
   const preload=new SoundSystem();await preload.ready;preload.ctx=new OfflineAudioContext(2,44100,44100);await preload.decodeSamples();
   if(preload.buffers.size!==preload.encoded.size)throw Error('Some recordings failed browser decoding');
-  const rate=44100,span=2.1,keys=['treecko','treecko-pair','roselia','nuzleaf','alakazam','rhydon','snorlax','sableye','squirtle','pikachu','charizard','gastly','grimer','lapras','exeggcute','ampharos-up','ampharos-down','pinMissile','fireball','heal','mixed-voices','mixed-music','cold-roselia','blastoiseCannon','octillery','diglett','diglett-group','diglett-tower','diglett-structure','skeleton-army','summon-skeletons','death-skeletons','cold-diglett','cold-diglett-tower','cold-diglett-structure','cold-summon-skeletons','zapdos','voltorb'];
+  const rate=44100,span=2.7,keys=['treecko','treecko-pair','roselia','nuzleaf','alakazam','rhydon','snorlax','sableye','squirtle','pikachu','charizard','gastly','grimer','lapras','exeggcute','ampharos-up','ampharos-down','pinMissile','fireball','heal','mixed-voices','cold-roselia','blastoiseCannon','octillery','diglett','diglett-group','diglett-tower','diglett-structure','skeleton-army','summon-skeletons','death-skeletons','cold-diglett','cold-diglett-tower','cold-diglett-structure','cold-summon-skeletons','zapdos','voltorb'];
   const rows=[],demo=[new Float32Array(Math.ceil(keys.length*span*rate)),new Float32Array(Math.ceil(keys.length*span*rate))];
   for(let index=0;index<keys.length;index++){
    const key=keys[index],ctx=new OfflineAudioContext(2,Math.ceil(span*rate),rate);let clock=0;
    Object.defineProperty(ctx,'state',{get:()=> 'running'});Object.defineProperty(ctx,'currentTime',{get:()=>clock});
-   const sound=Object.assign(Object.create(SoundSystem.prototype),{enabled:true,ctx,last:new Map(),buffers:preload.buffers,voiceSlots:[],effectSlots:[],master:ctx.createGain(),noiseBuffer:ctx.createBuffer(1,rate,rate)});
-   sound.master.gain.value=.7;const compressor=ctx.createDynamicsCompressor();compressor.threshold.value=-18;compressor.ratio.value=5;sound.master.connect(compressor);compressor.connect(ctx.destination);let seed=937;const noise=sound.noiseBuffer.getChannelData(0);for(let i=0;i<noise.length;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;noise[i]=(seed/4294967296*2-1)*.7;}
+   const sound=Object.assign(Object.create(SoundSystem.prototype),{enabled:true,ctx,last:new Map(),buffers:new Map(preload.buffers),voiceSlots:[],effectSlots:[]});sound.createMixGraph();
    if(key.startsWith('cold-'))sound.buffers=new Map();
    const events=[],outputs=[],original=sound.output,originalSample=sound.sample;let currentSample=null;
    sound.sample=function(key,...args){currentSample=key;try{return originalSample.call(this,key,...args);}finally{currentSample=null;}};
-   sound.output=function(node,volume,duration,pan,delay=0,voice,recording){const at=original.call(this,node,volume,duration,pan,delay,voice,recording);if(at!==null)outputs.push({at,volume,duration,pan:pan||0,voice:!!voice,sample:currentSample});return at;};
+   sound.output=function(node,volume,duration,pan,delay=0,voice,recording,priority){const at=original.call(this,node,volume,duration,pan,delay,voice,recording,priority);if(at!==null)outputs.push({at,volume,duration,pan:pan||0,voice:!!voice,priority,sample:currentSample});return at;};
    const emit=e=>{const before=outputs.length;sound.event(e);if(outputs.length>before)events.push({type:e.type,at:clock,key:e.key||e.unit?.key,sourceKey:e.sourceKey,spawnCause:e.unit?.spawnCause,hop:e.hop,targetKind:e.target?('king'in e.target?'tower':e.target.card?.structure?'structure':'troop'):undefined,outputs:outputs.length-before});};
-   if(key==='mixed-music'){sound.music=new BattleMusic(ctx,sound.master);sound.music.seed=937;sound.music.noise=sound.noiseBuffer;sound.music.setPlaying(true);clearInterval(sound.music.timer);}
    if(key.startsWith('mixed-'))for(const id of [25,6,315])sound.cry(id,300);
    if(key.startsWith('ampharos-'))emit({type:'burrow',unit:{x:180},hidden:key.endsWith('down')});
    else if(key==='heal')emit({type:'heal',unit:{x:180}});
@@ -60,10 +59,11 @@ try{
   ascii(0,'RIFF');view.setUint32(4,bytes.length-8,true);ascii(8,'WAVEfmt ');view.setUint32(16,16,true);view.setUint16(20,1,true);view.setUint16(22,2,true);view.setUint32(24,rate,true);view.setUint32(28,rate*4,true);view.setUint16(32,4,true);view.setUint16(34,16,true);ascii(36,'data');view.setUint32(40,frames*4,true);
   for(let i=0;i<frames;i++)for(let channel=0;channel<2;channel++)view.setInt16(44+i*4+channel*2,Math.round(Math.max(-1,Math.min(1,demo[channel][i]))*32767),true);
   let binary='';for(let i=0;i<bytes.length;i+=8192)binary+=String.fromCharCode(...bytes.subarray(i,i+8192));
-  return{rows,decodedSamples:preload.buffers.size,preview:btoa(binary),sampleRate:rate,scope:'Actual Game events and SoundSystem rendered by browser OfflineAudioContext at production master .7 and compressor settings. Controlled stationary targets, one/two/mixed attacks, three simultaneous voices and the real BattleMusic first bar. Peak/RMS verify output and headroom, not perceived quality or speaker balance.'};
+  return{rows,decodedSamples:preload.buffers.size,preview:btoa(binary),sampleRate:rate,levels:AUDIO_LEVELS,scope:'Actual Game events and SoundSystem rendered by browser OfflineAudioContext with the production independent buses and emergency limiter. Controlled stationary targets, one/two/mixed attacks and three simultaneous voices. Streaming music is tested separately in the live app because MediaElementSource cannot render into OfflineAudioContext. Peak/RMS verify output and headroom, not perceived quality or speaker balance.'};
  });
  const wav=Buffer.from(report.preview,'base64');delete report.preview;await writeFile(path.join(out,'feedback-preview.wav'),wav);
  report.hashes=Object.fromEntries(await Promise.all(['dist/audio.js','dist/engine.js','dist/assets/audio/manifest.json'].map(async file=>[file,createHash('sha256').update(await readFile(path.join(root,file))).digest('hex')])));report.previewSha256=createHash('sha256').update(wav).digest('hex');
  report.retired=JSON.parse(await readFile(path.join(root,'docs/audio-pokemon-2026-11-14/retired-assets.json'),'utf8'));report.engine=engine;
+ report.source={createdAt:new Date().toISOString(),sha:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),tree:execFileSync('git',['rev-parse','HEAD^{tree}'],{cwd:root,encoding:'utf8'}).trim(),trackedChanges:execFileSync('git',['diff','--name-only','HEAD'],{cwd:root,encoding:'utf8'}).trim().split('\n').filter(Boolean)};
  await writeFile(path.join(out,'verification.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({cases:report.rows.length,decoded:report.decodedSamples,peak:Math.max(...report.rows.map(r=>r.peak)),output:out}));
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}

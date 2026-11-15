@@ -92,13 +92,15 @@ export class SoundSystem {
   }
   recorded(style,x,impact,shot=0,id=0,options={}){
     const cue=ATTACK_AUDIO[soundStyle(style)]||ATTACK_AUDIO.punch,keys=impact?cue.contact:cue.release;
+    if(!keys.length)return false;
     const key=keys[Math.abs((Number(shot)||0)+(Number(id)||0))%keys.length];
     const settings={volume:impact?cue.volume:cue.releaseVolume??cue.volume*.55,maxDuration:impact?cue.contactTime:cue.releaseTime,priority:impact?2:1,...options};
     if(this.sample('moves:'+key,x,settings))return true;
-    // Small original-move PCM clips ship with the code. No network, codec or
-    // unrelated Foley/synth fallback is needed for a cold or failed download.
+    // The same clean phase has an embedded PCM excerpt for cold downloads.
+    const fallback=(impact?cue.contactFallback:cue.releaseFallback)??cue.fallback;
+    if(!fallback)return false;
     installAttackFallbacks(this.ctx,this.buffers);
-    return this.sample('fallback:'+cue.fallback,x,settings);
+    return this.sample('fallback:'+fallback,x,settings);
   }
   output(node,volume,duration,pan=0,delay=0,voice=false,recording=false,priority=1) {
     if(!this.enabled||!this.ctx||this.ctx.state!=='running')return null;

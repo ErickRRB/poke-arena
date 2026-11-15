@@ -4,6 +4,7 @@ import {SoundSystem,AUDIO_LEVELS} from '../dist/audio.js';
 import {CARDS} from '../dist/engine.js?v=34';
 import {readFileSync,existsSync} from 'node:fs';
 import{publicAssetUrl,PUBLIC_ASSET_ORIGIN}from'../dist/online-config.js?v=36';
+import{ATTACK_AUDIO}from'../dist/attack-audio.js?v=36';
 test('new audio stays local during development and uses Cloudflare directly from legacy origins',()=>{
  const file='assets/audio/music/new-track.mp3';for(const hostname of['localhost','127.0.0.1'])assert.equal(publicAssetUrl(file,{hostname,origin:'http://'+hostname+':4173'}),file);assert.equal(publicAssetUrl(file,{hostname:'poke-arena-web.eriickramiirez.workers.dev',origin:PUBLIC_ASSET_ORIGIN}),file);assert.equal(publicAssetUrl(file,{hostname:'legacy.chatgpt.site',origin:'https://legacy.chatgpt.site'}),PUBLIC_ASSET_ORIGIN+'/'+file);
 });
@@ -35,6 +36,18 @@ test('music, effects, character voices and UI have independent gain buses and on
 });
 test('context disposal retains the recorded score bookmark for its replacement',t=>{
  const{sound}=setup(t),bookmark={position:93.25,score:'test-score',intense:true};let disposed=false;sound.music={snapshot:()=>bookmark,dispose:()=>{disposed=true;}};sound.discardContext();assert.deepEqual(sound.musicState,bookmark);assert.ok(disposed);assert.equal(sound.musicBus,null);
+});
+
+test('an intentionally silent release does not play its contact fallback during a cold download',t=>{
+ const{sound}=setup(t),cue=ATTACK_AUDIO.punch,saved=cue.release,calls=[];t.after(()=>{cue.release=saved;});cue.release=[];sound.sample=key=>{calls.push(key);return false;};
+ assert.equal(sound.recorded('punch',180,false),false);assert.deepEqual(calls,[]);assert.equal(sound.buffers.size,0);
+});
+
+test('cold playback selects the corresponding clean release or contact fallback and retains legacy compatibility',t=>{
+ const{sound}=setup(t),cue=ATTACK_AUDIO.punch,saved={release:cue.release,contact:cue.contact,releaseFallback:cue.releaseFallback,contactFallback:cue.contactFallback},calls=[];t.after(()=>{for(const[key,value]of Object.entries(saved)){if(value===undefined)delete cue[key];else cue[key]=value;}});
+ cue.release=['unavailable-release'];cue.contact=['unavailable-contact'];cue.releaseFallback='test-flight';cue.contactFallback='test-contact';sound.sample=key=>{calls.push(key);return key.startsWith('fallback:');};
+ sound.recorded('punch',180,false);assert.equal(calls.at(-1),'fallback:test-flight');sound.recorded('punch',180,true);assert.equal(calls.at(-1),'fallback:test-contact');
+ delete cue.contactFallback;sound.recorded('punch',180,true);assert.equal(calls.at(-1),'fallback:'+cue.fallback);
 });
 test('a closed audio context is replaced while recorded samples and sound preference are preserved',t=>{
   const{sound}=setup(t),old=sound.ctx,buffer={sample:true};sound.buffers.set('cries:25',buffer);sound.last.set('cry:25',99);sound.voiceSlots=[100];old.state='closed';sound.recover();
