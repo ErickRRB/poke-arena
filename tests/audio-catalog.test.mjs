@@ -6,6 +6,7 @@ import {MAX_EFFECT_VOICES} from '../dist/audio.js';
 import {ATTACK_AUDIO,attackCue} from '../dist/attack-audio.js';
 import {FALLBACK_PCM} from '../dist/attack-audio-fallback.js';
 import {CARDS,makeSound,attackScene,featureScene,spellScene} from './helpers/audio-catalog-harness.mjs';
+import {Game} from '../dist/engine.js?v=34';
 const CONTACT_SAMPLE='moves:'+ATTACK_AUDIO.punch.contact[0];
 
 test('shipped clean phases and cold excerpts match their provenance and retire both rejected banks',()=>{
@@ -108,6 +109,17 @@ test('voice concurrency stays bounded and rapid same-species deploys do not stac
   const voices=audio.trace.filter(output=>output.sample.startsWith('cries:'));
   assert.equal(voices.filter(output=>output.sample==='cries:25').length,1);
   assert.ok(voices.length<=3);
+});
+
+test('real tower and structure deaths keep their lane and the clean recorded decay',()=>{
+ for(const structure of[false,true]){
+  const audio=makeSound(),game=new Game({tutorial:true,onEvent:event=>audio.event(event)});game.start();
+  const target=structure?game.spawn('vivero',0,444,540,0):game.towers.find(t=>t.team===1&&!t.king&&t.lane===0);
+  game.damage(target,1e7,1-target.team);
+  const effects=audio.trace.filter(output=>!output.sample.startsWith('cries:'));assert.equal(effects.length,1);
+  assert.ok(structure?effects[0].pan>0:effects[0].pan<0,'destruction is heard from the actual actor lane');
+  assert.ok(effects[0].duration>.45,'a former generic cap must not truncate the new recording');
+ }
 });
 
 test('a full-arena mixed burst has a global output budget',()=>{

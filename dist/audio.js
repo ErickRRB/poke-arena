@@ -163,7 +163,7 @@ export class SoundSystem {
       const delay=e.key==='log'?0:Math.max(0,e.castDelay??CARDS[e.key]?.castDelay??.4);
       this.play(style,e.x,false,0,0,null,{delay});
     }
-    if(e.type==='structureDown'||e.type==='towerDown')this.play('explosion',e.x||300,true,0,0,null,{volume:.24,maxDuration:.45});
+    if(e.type==='structureDown'||e.type==='towerDown')this.play('explosion',e.x??e.unit?.x??e.tower?.x??300,true,0,0,null,{volume:.24});
     if(e.type==='spellHit'&&e.key!=='lightning'){
       const style={pinMissile:'volley',lightning:'lightning',hyperBeam:'aura',blizzard:'ice',spikes:'rock',stealthRock:'rock',whirlpool:'hydro',nightmare:'shadow',sneaselAmbush:'shadow',log:'rock',earthquake:'slam',thunder:'lightning',fireball:'flame'}[e.key]||soundStyle(CARDS[e.key]?.style)||'ember';
       this.play(style,e.x,true);
