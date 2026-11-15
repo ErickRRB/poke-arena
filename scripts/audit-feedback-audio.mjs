@@ -4,16 +4,17 @@ import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
-const root=path.resolve(import.meta.dirname,'..'),dist=path.join(root,'dist'),out=path.join(root,'docs/audio-pokemon-2026-11-14');await mkdir(out,{recursive:true});
+const root=path.resolve(import.meta.dirname,'..'),dist=path.join(root,'dist'),engine=process.argv[2]||'chromium',out=path.resolve(root,process.argv[3]||'docs/audio-pokemon-2026-11-14');await mkdir(out,{recursive:true});
 const server=http.createServer(async(req,res)=>{try{const p=new URL(req.url,'http://localhost').pathname;if(p==='/'){res.writeHead(200,{'Content-Type':'text/html'}).end('<!doctype html><title>Audio audit</title>');return;}const file=path.resolve(dist,'.'+p);if(!file.startsWith(dist+path.sep))throw Error('Path');const bytes=await readFile(file);res.writeHead(200,{'Content-Type':file.endsWith('.js')?'text/javascript':file.endsWith('.json')?'application/json':'application/octet-stream'}).end(bytes);}catch{res.writeHead(404).end();}});
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
-const{chromium}=await import(pathToFileURL(process.env.POKE_ARENA_PLAYWRIGHT_MODULE||path.join(root,'qa/node_modules/playwright/index.mjs')).href),browser=await chromium.launch({channel:'msedge',headless:true});
+const playwright=await import(pathToFileURL(process.env.POKE_ARENA_PLAYWRIGHT_MODULE||path.join(root,'qa/node_modules/playwright/index.mjs')).href),browser=await playwright[engine].launch({...(engine==='chromium'?{channel:'msedge'}:{}),headless:true});
 try{
  const page=await browser.newPage();await page.goto(`http://127.0.0.1:${server.address().port}`);
  const report=await page.evaluate(async()=>{
   const{SoundSystem}=await import('/audio.js'),{Game,CARDS}=await import('/engine.js?v=26'),{BattleMusic}=await import('/music.js?v=26');
   const preload=new SoundSystem();await preload.ready;preload.ctx=new OfflineAudioContext(2,44100,44100);await preload.decodeSamples();
-  const rate=44100,span=2.1,keys=['treecko','treecko-pair','roselia','nuzleaf','alakazam','rhydon','snorlax','sableye','squirtle','pikachu','charizard','gastly','grimer','lapras','exeggcute','ampharos-up','ampharos-down','pinMissile','fireball','heal','mixed-voices','mixed-music','cold-roselia'];
+  if(preload.buffers.size!==preload.encoded.size)throw Error('Some recordings failed browser decoding');
+  const rate=44100,span=2.1,keys=['treecko','treecko-pair','roselia','nuzleaf','alakazam','rhydon','snorlax','sableye','squirtle','pikachu','charizard','gastly','grimer','lapras','exeggcute','ampharos-up','ampharos-down','pinMissile','fireball','heal','mixed-voices','mixed-music','cold-roselia','blastoiseCannon','octillery'];
   const rows=[],demo=[new Float32Array(Math.ceil(keys.length*span*rate)),new Float32Array(Math.ceil(keys.length*span*rate))];
   for(let index=0;index<keys.length;index++){
    const key=keys[index],ctx=new OfflineAudioContext(2,Math.ceil(span*rate),rate);let clock=0;
@@ -54,6 +55,6 @@ try{
  });
  const wav=Buffer.from(report.preview,'base64');delete report.preview;await writeFile(path.join(out,'feedback-preview.wav'),wav);
  report.hashes=Object.fromEntries(await Promise.all(['dist/audio.js','dist/engine.js','dist/assets/audio/manifest.json'].map(async file=>[file,createHash('sha256').update(await readFile(path.join(root,file))).digest('hex')])));report.previewSha256=createHash('sha256').update(wav).digest('hex');
- report.retired=JSON.parse(await readFile(path.join(out,'retired-assets.json'),'utf8'));
+ report.retired=JSON.parse(await readFile(path.join(root,'docs/audio-pokemon-2026-11-14/retired-assets.json'),'utf8'));report.engine=engine;
  await writeFile(path.join(out,'verification.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({cases:report.rows.length,decoded:report.decodedSamples,peak:Math.max(...report.rows.map(r=>r.peak)),output:out}));
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
