@@ -1,6 +1,6 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {Renderer} from '../dist/render.js';
-import {earthquakePhase,whirlpoolPhase} from '../dist/field-motion.js';
+import {earthquakePhase,whirlpoolPhase,earthquakeFissures} from '../dist/field-motion.js';
 
 test('field display advances between 15Hz packets without changing or extending the physical field',()=>{
  const renderer=Object.assign(Object.create(Renderer.prototype),{t:0}),field={id:17,key:'whirlpool',duration:1.05,life:1.05};
@@ -29,4 +29,16 @@ test('the vortex has a visible active body for the full physical lifetime and a 
 test('earthquake damage beats and reduced motion share one physical clock',()=>{
  const before=earthquakePhase({fieldTick:1},.99),hit=earthquakePhase({fieldTick:1},1.01);
  assert.ok(hit.pulse>before.pulse);assert.equal(earthquakePhase({},1.2,true).jitter,0);
+});
+
+test('ground fissures develop inside the physical radius without a perimeter or late regeneration',()=>{
+ const radius=84,early=earthquakeFissures(radius,.2),full=earthquakeFissures(radius,1);
+ assert.ok(early.some(points=>points.length>1));assert.ok(early.some(points=>points.length===0));
+ assert.ok(full.every(points=>points.length>1));
+ for(const points of full)for(const[x,y]of points)assert.ok(Math.hypot(x,y)<radius);
+ // A single growing network persists across damage pulses rather than drawing
+ // an expanding range ring or restarting the cracks each second.
+ assert.deepEqual(earthquakeFissures(radius,earthquakePhase({},.7).growth),full);
+ assert.deepEqual(earthquakeFissures(radius,earthquakePhase({},1.05).growth),full);
+ assert.deepEqual(earthquakeFissures(radius,earthquakePhase({},2.4).growth),full);
 });

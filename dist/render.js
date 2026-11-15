@@ -10,7 +10,7 @@ import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 import * as onlineConfig from './online-config.js?v=36';
 const publicAssetUrl=onlineConfig.publicAssetUrl||((file)=>file);
-const {whirlpoolPhase,earthquakePhase}=await import(publicAssetUrl('./field-motion.js?v=36'));
+const {whirlpoolPhase,earthquakePhase,earthquakeFissures}=await import(publicAssetUrl('./field-motion.js?v=36'));
 
 function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); }
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
@@ -914,17 +914,44 @@ export class Renderer {
   earthquake(c,field,age){
     const radius=field.radius,phase=earthquakePhase(field,age,this.reduced),vertical=this.verticalScale||1;
     c.save();c.beginPath();c.arc(field.x,field.y,radius,0,Math.PI*2);c.clip();
-    softDisc(c,field.x,field.y,radius,{color:'#8c734b',opacity:.24});
+    softDisc(c,field.x,field.y,radius,{color:'#8c7956',opacity:.18});
     c.translate(field.x+phase.jitter,field.y);
-    c.save();c.globalAlpha*=.3;
-    this.combatArt(c,'vfxGroundSlam',0,0,radius*1.9,0,radius*1.25,{frame:8,anchor:'pivot'});c.restore();
-    const beat=age%(field.fieldTick||1),progress=this.reduced?.35:Math.min(1,beat/.9);
-    this.combatArt(c,'vfxGroundSlam',0,0,radius*2,0,radius*1.35,{progress,anchor:'pivot'});
-    for(let i=0;i<(this.reduced?2:4);i++){
-      const angle=i*2.39996+.5,r=radius*.53,cycle=this.reduced?.4:(age*1.25+i*.23)%1;
-      const lift=this.reduced?0:Math.sin(cycle*Math.PI)*(3+phase.pulse*5);
-      c.save();c.globalAlpha*=.35+.3*phase.pulse;
-      this.combatArt(c,'dust',Math.cos(angle)*r,Math.sin(angle)*r-lift/vertical,25,0,20,{progress:cycle});c.restore();
+    for(const points of earthquakeFissures(radius,phase.growth)){
+      if(points.length<2)continue;
+      const banks=points.map(([x,y],index)=>{
+        const before=points[Math.max(0,index-1)],after=points[Math.min(points.length-1,index+1)],dx=after[0]-before[0],dy=after[1]-before[1],length=Math.hypot(dx,dy)||1;
+        return{x,y,nx:-dy/length,ny:dx/length,taper:1-index/(points.length-1)*.9};
+      });
+      const split=(width,offset)=>{
+        c.beginPath();
+        for(let side=1;side>=-1;side-=2){
+          const edge=side===1?banks:banks.slice().reverse();
+          edge.forEach(({x,y,nx,ny,taper},index)=>{
+            const px=x+nx*width*taper*side,py=y+ny*width*taper*side+offset;
+            side===1&&index===0?c.moveTo(px,py):c.lineTo(px,py);
+          });
+        }
+        c.closePath();c.fill();
+      };
+      c.save();c.globalAlpha*=.78;c.fillStyle='#aa8f5e';split(4.5+phase.pulse*.5,1.1);
+      c.fillStyle='#453c2e';split(2.5+phase.pulse*.7,0);c.restore();
+    }
+    const beat=age%(field.fieldTick||1),sites=[[-.65,.32],[.08,.68],[.62,.36],[.58,-.35],[-.1,-.7],[-.57,-.33]];
+    for(let i=0;i<sites.length;i++){
+      const elapsed=this.reduced?.3:beat-(i%3)*.025;
+      if(elapsed<0||elapsed>.7)continue;
+      const progress=elapsed/.7,envelope=Math.sin(progress*Math.PI),[sx,sy]=sites[i],x=sx*radius,y=sy*radius;
+      c.save();c.globalAlpha*=this.reduced?.32:.24+envelope*.4;
+      c.save();c.translate(x,y);c.scale(1,.58);
+      softDisc(c,0,0,14+envelope*16,{color:'#c3b38d',opacity:.68});c.restore();
+      const lift=this.reduced?0:envelope*(5+phase.pulse*4)/vertical;
+      this.combatArt(c,'vfxDebris',x,y-lift,30+envelope*5,0,27,{progress:.15+progress*.75,anchor:'pivot',blend:!this.reduced});c.restore();
+      c.save();c.globalAlpha*=this.reduced?.45:(1-progress)*.85;
+      for(let chip=0;chip<3;chip++){
+        const travel=this.reduced?.3:progress,angle=i*1.73+chip*2.4,distance=travel*(10+chip*5),size=chip===1?3.4:2.6;
+        const px=x+Math.cos(angle)*distance,py=y+Math.sin(angle)*distance*.65-Math.sin(travel*Math.PI)*(9+chip*3)/vertical;
+        c.fillStyle='#6d5c40';c.fillRect(px,py,size,size*.8);c.fillStyle='#c1ab78';c.fillRect(px,py,size,1);
+      }c.restore();
     }
     c.restore();
   }
