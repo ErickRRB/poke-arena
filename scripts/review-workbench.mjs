@@ -76,7 +76,10 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
   validateCase(c);
   if (!['capture','observe'].includes(mode)) throw Error('mode must be capture or observe');
   if (observeDurationMs !== undefined && (mode !== 'observe' || !Number.isFinite(observeDurationMs) || observeDurationMs<100)) throw Error('observe duration must be at least 100 ms and only applies to observe');
-  const result={schema:1,id:c.id,mode,status:'running',requested:c,limitations:['Emulación de navegador; no dispositivo físico.','La semilla del motor no determina Math.random del renderer.','Una secuencia de imágenes no demuestra fluidez perceptual.'],samples:[]};
+  const result={schema:1,id:c.id,mode,status:'running',requested:structuredClone(c),limitations:['Emulación de navegador; no dispositivo físico.','La semilla del motor no determina Math.random del renderer.','Una secuencia de imágenes no demuestra fluidez perceptual.'],samples:[]};
+  const caseSha=sha(Buffer.from(JSON.stringify(c)));
+  result.expectedInputs=['case','source','adapter','runner'];
+  result.inputs=[{role:'case',origin:'case',sha256:caseSha}];
   result.phases={observation:'not_started',cdp:'not_started',canvas:'not_started',runtime:'not_started',resources:'not_started',inputs:'not_started',metadata:'not_started'}; result.errors=[];
   let dir,server,browser,context,cdp,runtime,page,cdpStarted=false,canvasStarted=false; const captured=[]; let pending=Promise.resolve();
   const fail=(phase,error)=>{const message=error.message||String(error);result.phases[phase]='failed';result.errors.push({phase,error:message});result.error??=message;result.status='failed';};
@@ -84,7 +87,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
   if (mode==='capture') { await mkdir(out,{recursive:true}); dir=path.resolve(out,`${new Date().toISOString().replace(/[:.]/g,'-')}-${randomUUID()}`); await mkdir(dir); await mkdir(path.join(dir,'frames'));  }
   try {
     runtime=runtimeSource(c);
-    for (const p of [c.source,c.adapter,'scripts/review-workbench.mjs']) { const data=await readFile(runtime && p===c.source?path.join(runtime.cwd,p):inRoot(p)); (result.inputs ||= []).push({path:p,origin:runtime && p===c.source?'runtime':'tooling',sha256:sha(data)}); }
+    for (const [role,p] of [['source',c.source],['adapter',c.adapter],['runner','scripts/review-workbench.mjs']]) { const data=await readFile(runtime && role==='source'?path.join(runtime.cwd,p):inRoot(p)); result.inputs.push({role,path:p,origin:runtime && role==='source'?'runtime':'tooling',sha256:sha(data)}); }
     result.git={sha:command('git',['rev-parse','HEAD']).trim(),tree:command('git',['rev-parse','HEAD^{tree}']).trim(),status:command('git',['status','--porcelain']).trim()};
     const adapter=await import(pathToFileURL(inRoot(c.adapter)).href+'?v='+Date.now());
     if (typeof adapter.prepare!=='function' || typeof adapter.observe!=='function') throw Error('adapter requires prepare and observe');
@@ -150,11 +153,18 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
       await finalize('resources',async()=>{
         const changed=[];for(const entry of inventory){try{entry.finalSha256=sha(await readFile(path.join(runtime.cwd,entry.path)));if(entry.finalSha256!==entry.sha256)changed.push(entry.path);}catch{entry.finalSha256=null;changed.push(entry.path);}}
         result.runtime.changedFiles=changed;result.runtime.servingErrors=runtime.errors.slice();
-        if(changed.length || runtime.errors.length)throw Error(['runtime changed during run: '+changed.join(', '),...runtime.errors].join('; '));result.runtime.resourceVerification='complete';
+        if(changed.length || runtime.errors.length)throw Error(['runtime changed during run: '+changed.join(', '),...runtime.errors].join('; '));
+        if(result.phases.observation!=='complete' || !inventory.some(entry=>entry.path===c.source)) throw Error('resource inventory incomplete: navigation or observation did not complete');
+        result.runtime.resourceVerification='complete';
       });
     }
-    if(result.inputs?.length) await finalize('inputs',async()=>{const changed=[];for(const input of result.inputs){try{const file=input.origin==='runtime'?path.join(runtime.cwd,input.path):inRoot(input.path);input.finalSha256=sha(await readFile(file));if(input.finalSha256!==input.sha256)changed.push(input.path);}catch{changed.push(input.path);}}result.changedInputs=changed;if(changed.length)throw Error('input changed during run: '+changed.join(', '));});
-    if(dir) await finalize('metadata',async()=>{await pending;await writeFile(path.join(dir,'cdp-frames.json'),JSON.stringify({clock:'CDP metadata.timestamp; receipt clocks are diagnostics only, not presentation time',frames:captured},null,2));});
+    await finalize('inputs',async()=>{
+      const changed=[];
+      for(const input of result.inputs){try{const data=input.role==='case'?Buffer.from(JSON.stringify(c)):await readFile(input.origin==='runtime'?path.join(runtime.cwd,input.path):inRoot(input.path));input.finalSha256=sha(data);if(input.finalSha256!==input.sha256)changed.push(input.role);}catch{input.finalSha256=null;changed.push(input.role);}}
+      const roles=result.inputs.map(input=>input.role);result.missingInputs=result.expectedInputs.filter(role=>!roles.includes(role));result.changedInputs=changed;
+      if(result.missingInputs.length || changed.length || new Set(roles).size!==roles.length)throw Error('input inventory incomplete or changed: '+[...result.missingInputs,...changed].join(', '));
+    });
+    if(dir && cdpStarted) await finalize('metadata',async()=>{await pending;await writeFile(path.join(dir,'cdp-frames.json'),JSON.stringify({clock:'CDP metadata.timestamp; receipt clocks are diagnostics only, not presentation time',frames:captured},null,2));});
     if(dir && !result.error && result.phases.cdp==='complete') await finalize('viewer',()=>writeFile(path.join(dir,'index.html'),viewer(c,result.selectedFrames,result)));
     if(!result.error) result.status='complete';
     if(dir) await writeFile(path.join(dir,'run.json'),JSON.stringify(result,null,2));
