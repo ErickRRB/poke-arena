@@ -9,6 +9,21 @@ import {CARDS,makeSound,attackScene,featureScene,spellScene} from './helpers/aud
 import {Game} from '../dist/engine.js?v=34';
 const CONTACT_SAMPLE='moves:'+ATTACK_AUDIO.punch.contact[0];
 
+test('Nuzleaf gains only its dart release/contact, including cold fallback; shared darts and Tesla stay at baseline',()=>{
+ for(const buffered of[true,false]){
+  const audio=makeSound({buffered}),cue=ATTACK_AUDIO.dart;
+  const release=audio.event({type:'attackRelease',style:CARDS.nuzleaf.style,attacker:{id:7,card:CARDS.nuzleaf},from:{x:180},shot:0},10);
+  const hit=audio.event({type:'hit',key:'nuzleaf',style:CARDS.nuzleaf.style,x:180,sourceId:7,attackSeq:1},10.3);
+  assert.equal(release.length,1);assert.equal(hit.length,1);
+  assert.ok(Math.abs(release[0].volume-cue.releaseVolume*1.4)<1e-12);assert.ok(Math.abs(hit[0].volume-cue.volume*1.4)<1e-12);
+  const start=audio.trace.length;audio.ctx.currentTime=11;audio.sound.recorded('dart',180,false,0,254);audio.sound.recorded('dart',180,true,0,254);
+  assert.equal(audio.trace[start].volume,cue.releaseVolume);assert.equal(audio.trace[start+1].volume,cue.volume);
+  const tesla=ATTACK_AUDIO[attackCue(CARDS.ampharos,CARDS.ampharos.style)],index=audio.trace.length;
+  audio.sound.recorded(attackCue(CARDS.ampharos,CARDS.ampharos.style),180,true,0,181);assert.equal(audio.trace[index].volume,tesla.volume);
+  assert.equal(audio.sound.master.gain.value,.8);assert.equal(audio.sound.effectsBus.gain.value,.65*10**(-3/20));
+ }
+});
+
 test('shipped clean phases and cold excerpts match their provenance and retire both rejected banks',()=>{
  const manifest=JSON.parse(readFileSync(new URL('../dist/assets/audio/manifest.json',import.meta.url))),source=JSON.parse(readFileSync(new URL('../dist/assets/audio/clean-v1/SOURCES.json',import.meta.url))),fallback=JSON.parse(readFileSync(new URL('../dist/assets/audio/clean-v1/FALLBACK-SOURCES.json',import.meta.url)));
  assert.deepEqual(Object.keys(manifest).sort(),['cries','moves']);assert.equal(source.files.length,Object.keys(manifest.moves).length);
