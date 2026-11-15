@@ -11,7 +11,7 @@ import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals
 import * as onlineConfig from './online-config.js?v=36';
 const publicAssetUrl=onlineConfig.publicAssetUrl||((file)=>file);
 const {whirlpoolPhase,earthquakePhase,earthquakeFissures}=await import(publicAssetUrl('./field-motion.js?v=36'));
-const {flameFrame,rollingFirePose,drawFireWheel}=await import(publicAssetUrl('./fire-material.js?v=37'));
+const {flameFrame,rollingFirePose,drawFireWheel,FIRE_WHEEL_FILES,loadFireWheelMaterial}=await import(publicAssetUrl('./fire-material.js?v=38'));
 const {canvasBackingSize,alignedSpriteRect}=await import(publicAssetUrl('./canvas-raster.js?v=36'));
 const {NativeSpriteSampler}=await import(publicAssetUrl('./native-sprite-sampling.js?v=36'));
 
@@ -91,10 +91,11 @@ export class Renderer {
     this.metadata = await response.json();
     const ids=[...new Set([...keys.map(k=>CARDS[k]?.id),31,34,52].filter(Boolean))];
     const files=new Set(ids.flatMap(id=>[...this.animationEntries(id).flatMap(([,meta])=>[meta.file,meta.shadow])]));
-    const total=files.size+this.battleArt.files().length;let loaded=0;
+    const material=loadFireWheelMaterial(file=>this.loadImage(file));
+    const total=files.size+this.battleArt.files().length+FIRE_WHEEL_FILES.length;let loaded=0;
     const track=pending=>pending.then(value=>{onProgress(++loaded,total);return value;});
     onProgress(0,total);
-    await Promise.all([this.ensureSpecies(ids),...[...files].map(file=>track(this.loadImage(file))),this.battleArt.preload(()=>onProgress(++loaded,total))]);
+    await Promise.all([this.ensureSpecies(ids),...[...files].map(file=>track(this.loadImage(file))),this.battleArt.preload(()=>onProgress(++loaded,total)),...material.images.map(track),material.ready]);
     this.capsuleArt=new CapsuleArt(this.battleArt.images.get(CAPSULE_TEXTURE));
     this.buildBackground();
   }

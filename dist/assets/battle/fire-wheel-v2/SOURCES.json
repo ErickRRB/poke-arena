@@ -1,0 +1,76 @@
+{
+  "kind": "original_generated_texture_and_authored_animation",
+  "version": "fire-wheel-material-v2",
+  "creators": [
+    "Art: original material, projection and currents",
+    "Main: runtime integration and lossless encoding"
+  ],
+  "texture": {
+    "path": "art-source/fire-wheel-v2/fire-texture-original-v1.png",
+    "sha256": "5dc882f8d2b8b550291e90c0674b91cbebd2278802ba736a6d7efe01c153068d",
+    "tool": "image_gen.imagegen",
+    "inputImages": [],
+    "thirdPartyBitmap": false,
+    "prompt": "art-source/fire-wheel-v2/imagegen-prompt.txt",
+    "request": "art-source/fire-wheel-v2/imagegen-request.json",
+    "licenseNote": "Original session-generated resource; no third-party license is asserted."
+  },
+  "authoring": {
+    "module": "tools/art/fire-wheel-author.mjs",
+    "sha256": "e0b9992be8a20e7578ee00e140b05990da7cc9b1b3a5bc31b7c725709743d0fc",
+    "baker": "tools/art/bake-fire-wheel.mjs",
+    "encoder": "tools/art/encode-fire-wheel.py",
+    "runtimeBake": false,
+    "material": {
+      "frames": 128,
+      "columns": 16,
+      "frameWidth": 193,
+      "frameHeight": 121,
+      "worldWidth": 93.6,
+      "worldHeight": 58,
+      "angularPeriod": 6.283185307179586,
+      "distancePerTurn": 201.06192982974676,
+      "source": "fire-texture-original-v1.png"
+    },
+    "offlineReproductionExact": true
+  },
+  "encoding": {
+    "pillow": "11.2.1",
+    "libwebp": "1.5.0",
+    "options": {
+      "lossless": true,
+      "quality": 100,
+      "method": 6,
+      "exact": true
+    },
+    "rgbaExact": true
+  },
+  "atlases": [
+    {
+      "mode": "normal",
+      "file": "normal.webp",
+      "bytes": 3932416,
+      "sha256": "82c8969c842231969c688f42c6baff6e70e72b6a1b5d0cdde69b2c480c21cf36",
+      "width": 3088,
+      "height": 968,
+      "rgbaSha256": "6216d3ac889f39187af57668709f4ceb5ecc6fda00a8186e6ed81951e1c19f9b",
+      "authoredPngSha256": "94e1ff577b1b405214c4ac572d2fd62bf470950aa3344a4642f9d5efbf0c024a"
+    },
+    {
+      "mode": "reduced",
+      "file": "reduced.webp",
+      "bytes": 3920376,
+      "sha256": "3618bc4bf15034e89d4d3056ade0aedc0f1c799f8f20b9027da7e8a17bfa5d5a",
+      "width": 3088,
+      "height": 968,
+      "rgbaSha256": "a7b1ccaed97d2d6287469accd8a8c751014beeb204c7dc3485633e61b41c23fe",
+      "authoredPngSha256": "2b9978ffd7b56838c130bae1d5c6cdd46a8d0b0bb05238e6f72cae0c5ba09836"
+    }
+  ],
+  "timing": {
+    "frame": "floor(fract(pose.spin / (2*pi)) * 128)",
+    "spin": "direction * native_distance_travelled / 32",
+    "reduced": "Separate atlas retains distance-driven currents and removes secondary flutter."
+  },
+  "limits": "Source and pixel provenance only; not a visual, mobile performance or publication approval."
+}

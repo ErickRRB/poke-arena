@@ -59,3 +59,29 @@ test('rolling extinction preserves the actual cast footprint instead of using th
  assert.equal(painted[0].halfWidth,card.splash);
  assert.ok(painted[0].opacity<=1,'Only the disappeared cast enters the extinction pass.');
 });
+
+test('wheel resources decode once for concurrent renderers and do not paint a partial material',async()=>{
+ const material=await import('../dist/fire-material.js?shared-readiness-test'),pending=new Map(),calls=[];
+ const first=material.loadFireWheelMaterial(file=>{calls.push(file);return new Promise(resolve=>pending.set(file,resolve));});
+ const second=material.loadFireWheelMaterial(()=>{throw Error('A second Renderer must reuse the same decoded resources.');});
+ assert.equal(first,second);
+ const c=context(),painted=[];c.drawImage=image=>painted.push(image);
+ const pose={x:288,y:508,spin:0,age:0,halfWidth:46.8};
+ assert.equal(material.drawFireWheel(c,pose,()=>{}),false,'The pre-ready render path never throws into rAF.');
+ await Promise.resolve();assert.equal(calls.length,2);
+ const normal={naturalWidth:3088,naturalHeight:968},reduced={naturalWidth:3088,naturalHeight:968};
+ pending.get(material.FIRE_WHEEL_FILES[0])(normal);await Promise.resolve();
+ assert.equal(material.drawFireWheelBody(c,pose),false,'One decoded image is not readiness for the pair.');
+ pending.get(material.FIRE_WHEEL_FILES[1])(reduced);await first.ready;
+ material.drawFireWheelBody(c,pose);material.drawFireWheelBody(c,pose,{reduced:true});
+ assert.deepEqual(painted,[normal,reduced],'Reduced reaches the real material body and shares the loaded images.');
+});
+
+test('a failed wheel resource leaves rendering safe and a later load can retry',async()=>{
+ const material=await import('../dist/fire-material.js?failed-readiness-test');
+ const failed=material.loadFireWheelMaterial(()=>Promise.reject(Error('asset unavailable')));
+ await assert.rejects(failed.ready,/asset unavailable/);
+ assert.equal(material.drawFireWheel(context(),{halfWidth:46.8},()=>{}),false);
+ let loads=0;const retry=material.loadFireWheelMaterial(async()=>{loads++;return{naturalWidth:3088,naturalHeight:968};});
+ assert.notEqual(retry,failed);await retry.ready;assert.equal(loads,2);
+});
