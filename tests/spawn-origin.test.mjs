@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Game,CARDS} from '../dist/engine.js?v=34';
 import {SandboxGame} from '../dist/sandbox.js?v=34';
+import {Renderer} from '../dist/render.js?v=34';
 import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
 import {publicSnapshot,publicEvent,unpackEvent} from '../dist/online-wire.js?v=34';
 
@@ -26,4 +27,11 @@ test('spawner, death, field and barrel children never acquire a direct-card caus
 });
 test('scheduled reinforcements preserve origin and deployment clocks through exact restoration',()=>{
  const{g}=fresh(),parent=g.spawn('vivero',0,300,560,0);g.spawnReinforcements(parent,'exeggcute',2,.5);assert.ok(g.reinforcements.length);assert.ok(g.reinforcements.every(job=>job.spawnCause==='summon'));const clone=unpackGame(JSON.parse(JSON.stringify(packGame(g))));run(g,.7);run(clone,.7);assert.deepEqual(JSON.parse(JSON.stringify(packGame(clone))),JSON.parse(JSON.stringify(packGame(g))));assert.ok(g.units.filter(u=>u.parentId).every(u=>u.spawnCause==='summon'));
+});
+test('the real producer and renderer show one card marker and none for actual secondary generations',()=>{
+ for(const key of['vivero','blastoiseCannon','diglettHorde','pandilla','kangaskhan']){
+  const{g}=fresh(),markers=[],r=Object.assign(Object.create(Renderer.prototype),{bodyHeights:new Map(),bodyHeight:()=>25,deploymentIndicator:(_,m)=>markers.push(m)});deploy(g,key);r.drawDeployments(null,g);assert.equal(markers.length,1,key);
+  const saved=unpackGame(JSON.parse(JSON.stringify(packGame(g))));markers.length=0;r.drawDeployments(null,saved);assert.equal(markers.length,1,key+' restored');
+  if(key==='vivero'){const owner=g.units.find(u=>u.key===key);g.spawnReinforcements(owner,'exeggcute',2,.5);markers.length=0;r.drawDeployments(null,g);assert.equal(markers.length,1,'a live initial card marker does not multiply when its building generates children');markers.length=0;r.drawDeployments(null,{...g,units:g.units.filter(u=>u.parentId===owner.id)});assert.equal(markers.length,0);g.damage(owner,1e6,1);markers.length=0;r.drawDeployments(null,g);assert.equal(markers.length,0,'the death group has no card marker');}
+ }
 });

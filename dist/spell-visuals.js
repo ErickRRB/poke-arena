@@ -1,4 +1,4 @@
-import {fireballVisual} from './combat-visuals.js?v=29';
+import {fireballVisual} from './combat-visuals.js?v=34';
 
 // Flight material is an explicit spell identity. A missing style is never fire.
 export const SPELL_VISUALS=Object.freeze({

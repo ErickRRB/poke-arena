@@ -7,11 +7,14 @@
         {
           "type": "attackRelease",
           "at": 0.49999999999999994,
+          "key": "treecko",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.6666666666666666,
+          "key": "treecko",
           "outputs": 1
         }
       ],
@@ -21,14 +24,16 @@
           "volume": 0.22400000000000003,
           "duration": 0.22,
           "pan": -0.27520775000000003,
-          "voice": false
+          "voice": false,
+          "sample": "moves:bullet-seed"
         },
         {
           "at": 0.6666666666666666,
           "volume": 0.28,
           "duration": 0.2,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:razor-leaf2"
         }
       ],
       "peak": 0.13266117870807648,
@@ -41,21 +46,27 @@
         {
           "type": "attackRelease",
           "at": 0.49999999999999994,
+          "key": "treecko",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "attackRelease",
           "at": 0.49999999999999994,
+          "key": "treecko",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.6666666666666666,
+          "key": "treecko",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.6666666666666666,
+          "key": "treecko",
           "outputs": 1
         }
       ],
@@ -65,32 +76,36 @@
           "volume": 0.22400000000000003,
           "duration": 0.22,
           "pan": -0.27520775000000003,
-          "voice": false
+          "voice": false,
+          "sample": "moves:bullet-seed"
         },
         {
           "at": 0.49999999999999994,
           "volume": 0.22400000000000003,
           "duration": 0.22,
           "pan": -0.18520775,
-          "voice": false
+          "voice": false,
+          "sample": "moves:bullet-seed"
         },
         {
           "at": 0.6666666666666666,
           "volume": 0.28,
           "duration": 0.2,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:razor-leaf2"
         },
         {
           "at": 0.6666666666666666,
           "volume": 0.28,
           "duration": 0.2,
           "pan": -0.21,
-          "voice": false
+          "voice": false,
+          "sample": "moves:razor-leaf2"
         }
       ],
       "peak": 0.2514577805995941,
-      "rms": 0.019282207165345733
+      "rms": 0.019282207167344786
     },
     {
       "key": "roselia",
@@ -99,11 +114,14 @@
         {
           "type": "attackRelease",
           "at": 0.3,
+          "key": "roselia",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.4666666666666666,
+          "key": "roselia",
           "outputs": 1
         }
       ],
@@ -113,14 +131,16 @@
           "volume": 0.272,
           "duration": 0.36,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:petal-dance"
         },
         {
           "at": 0.4666666666666666,
           "volume": 0.34,
           "duration": 0.36,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:petal-blizzard2"
         }
       ],
       "peak": 0.12102783471345901,
@@ -133,11 +153,14 @@
         {
           "type": "attackRelease",
           "at": 0.36666666666666664,
+          "key": "nuzleaf",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.4333333333333333,
+          "key": "nuzleaf",
           "outputs": 1
         }
       ],
@@ -147,14 +170,16 @@
           "volume": 0.192,
           "duration": 0.16,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:poison-sting"
         },
         {
           "at": 0.4333333333333333,
           "volume": 0.24,
           "duration": 0.17,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:fury-attack"
         }
       ],
       "peak": 0.1321069598197937,
@@ -167,11 +192,14 @@
         {
           "type": "attackRelease",
           "at": 0.7,
+          "key": "alakazam",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.7666666666666666,
+          "key": "alakazam",
           "outputs": 1
         }
       ],
@@ -181,14 +209,16 @@
           "volume": 0.24,
           "duration": 0.28,
           "pan": -0.28645200000000004,
-          "voice": false
+          "voice": false,
+          "sample": "moves:aura-sphere1"
         },
         {
           "at": 0.7666666666666666,
           "volume": 0.3,
           "duration": 0.29,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:aura-sphere2"
         }
       ],
       "peak": 0.11428195983171463,
@@ -201,11 +231,14 @@
         {
           "type": "attackRelease",
           "at": 0.49999999999999994,
+          "key": "rhydon",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.49999999999999994,
+          "key": "rhydon",
           "outputs": 1
         }
       ],
@@ -215,14 +248,16 @@
           "volume": 0.30400000000000005,
           "duration": 0.21,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:fury-attack"
         },
         {
           "at": 0.49999999999999994,
           "volume": 0.38,
           "duration": 0.28,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:horn-attack"
         }
       ],
       "peak": 0.2666947543621063,
@@ -233,34 +268,55 @@
       "previewAt": 12.600000000000001,
       "events": [
         {
-          "type": "attackRelease",
-          "at": 0.49999999999999994,
+          "type": "step",
+          "at": 0.2333333333333333,
+          "key": "snorlax",
+          "spawnCause": "generated",
           "outputs": 1
         },
         {
-          "type": "hit",
-          "at": 0.49999999999999994,
+          "type": "step",
+          "at": 0.9666666666666666,
+          "key": "snorlax",
+          "spawnCause": "generated",
+          "outputs": 1
+        },
+        {
+          "type": "step",
+          "at": 1.700000000000002,
+          "key": "snorlax",
+          "spawnCause": "generated",
           "outputs": 1
         }
       ],
       "outputs": [
         {
-          "at": 0.49999999999999994,
-          "volume": 0.32000000000000006,
-          "duration": 0.26,
-          "pan": -0.276,
-          "voice": false
+          "at": 0.2333333333333333,
+          "volume": 0.035,
+          "duration": 0.12,
+          "pan": -0.3079063946610643,
+          "voice": false,
+          "sample": "moves:stomp"
         },
         {
-          "at": 0.49999999999999994,
-          "volume": 0.4,
-          "duration": 0.33657596371882087,
-          "pan": -0.3,
-          "voice": false
+          "at": 0.9666666666666666,
+          "volume": 0.035,
+          "duration": 0.12,
+          "pan": -0.3264762188081429,
+          "voice": false,
+          "sample": "moves:stomp"
+        },
+        {
+          "at": 1.700000000000002,
+          "volume": 0.035,
+          "duration": 0.12,
+          "pan": -0.3433033931584481,
+          "voice": false,
+          "sample": "moves:stomp"
         }
       ],
-      "peak": 0.13395099341869354,
-      "rms": 0.015040688648715174
+      "peak": 0.017206555232405663,
+      "rms": 0.002033778222500109
     },
     {
       "key": "sableye",
@@ -269,11 +325,14 @@
         {
           "type": "attackRelease",
           "at": 0.39999999999999997,
+          "key": "sableye",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.39999999999999997,
+          "key": "sableye",
           "outputs": 1
         }
       ],
@@ -283,14 +342,16 @@
           "volume": 0.256,
           "duration": 0.32,
           "pan": -0.309,
-          "voice": false
+          "voice": false,
+          "sample": "moves:shadow-ball1"
         },
         {
           "at": 0.39999999999999997,
           "volume": 0.32,
           "duration": 0.32,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:shadow-ball2"
         }
       ],
       "peak": 0.11858561635017395,
@@ -303,11 +364,14 @@
         {
           "type": "attackRelease",
           "at": 0.3,
+          "key": "squirtle",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.49999999999999994,
+          "key": "squirtle",
           "outputs": 1
         }
       ],
@@ -317,14 +381,16 @@
           "volume": 0.256,
           "duration": 0.3,
           "pan": -0.30456525,
-          "voice": false
+          "voice": false,
+          "sample": "moves:bubble"
         },
         {
           "at": 0.49999999999999994,
           "volume": 0.32,
           "duration": 0.29,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:bubblebeam"
         }
       ],
       "peak": 0.16288450360298157,
@@ -337,11 +403,14 @@
         {
           "type": "attackRelease",
           "at": 0.6,
+          "key": "pikachu",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "beam",
           "at": 0.6,
+          "key": "pikachu",
           "outputs": 1
         }
       ],
@@ -351,14 +420,16 @@
           "volume": 0.272,
           "duration": 0.28,
           "pan": -0.307778,
-          "voice": false
+          "voice": false,
+          "sample": "moves:thundershock"
         },
         {
           "at": 0.6,
           "volume": 0.34,
           "duration": 0.34,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:thunderbolt1"
         }
       ],
       "peak": 0.22734302282333374,
@@ -371,11 +442,14 @@
         {
           "type": "attackRelease",
           "at": 0.3,
+          "key": "charizard",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.4666666666666666,
+          "key": "charizard",
           "outputs": 1
         }
       ],
@@ -385,14 +459,16 @@
           "volume": 0.272,
           "duration": 0.3,
           "pan": -0.3048485,
-          "voice": false
+          "voice": false,
+          "sample": "moves:ember"
         },
         {
           "at": 0.4666666666666666,
           "volume": 0.34,
           "duration": 0.32,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:fire-spin"
         }
       ],
       "peak": 0.17282994091510773,
@@ -405,11 +481,14 @@
         {
           "type": "attackRelease",
           "at": 0.3,
+          "key": "gastly",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.4666666666666666,
+          "key": "gastly",
           "outputs": 1
         }
       ],
@@ -419,14 +498,16 @@
           "volume": 0.256,
           "duration": 0.32,
           "pan": -0.3025,
-          "voice": false
+          "voice": false,
+          "sample": "moves:shadow-ball1"
         },
         {
           "at": 0.4666666666666666,
           "volume": 0.32,
           "duration": 0.32,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:shadow-ball2"
         }
       ],
       "peak": 0.11727353930473328,
@@ -439,11 +520,14 @@
         {
           "type": "attackRelease",
           "at": 0.3,
+          "key": "grimer",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.3,
+          "key": "grimer",
           "outputs": 1
         }
       ],
@@ -453,14 +537,16 @@
           "volume": 0.256,
           "duration": 0.2,
           "pan": -0.26659075,
-          "voice": false
+          "voice": false,
+          "sample": "moves:quick-attack"
         },
         {
           "at": 0.3,
           "volume": 0.32,
           "duration": 0.23,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:horn-attack"
         }
       ],
       "peak": 0.1652490645647049,
@@ -473,11 +559,14 @@
         {
           "type": "attackRelease",
           "at": 0.49999999999999994,
+          "key": "lapras",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.6333333333333333,
+          "key": "lapras",
           "outputs": 1
         }
       ],
@@ -487,14 +576,16 @@
           "volume": 0.256,
           "duration": 0.33,
           "pan": -0.30337200000000003,
-          "voice": false
+          "voice": false,
+          "sample": "moves:icy-wind1"
         },
         {
           "at": 0.6333333333333333,
           "volume": 0.32,
           "duration": 0.35,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:ice-beam"
         }
       ],
       "peak": 0.1573963761329651,
@@ -507,11 +598,14 @@
         {
           "type": "attackRelease",
           "at": 0.49999999999999994,
+          "key": "exeggcute",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.49999999999999994,
+          "key": "exeggcute",
           "outputs": 1
         }
       ],
@@ -521,14 +615,16 @@
           "volume": 0.336,
           "duration": 0.25,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:strength"
         },
         {
           "at": 0.49999999999999994,
           "volume": 0.42,
           "duration": 0.38,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:body-slam2"
         }
       ],
       "peak": 0.25910046696662903,
@@ -550,7 +646,8 @@
           "volume": 0.025,
           "duration": 0.12,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:thundershock"
         }
       ],
       "peak": 0.006142704281955957,
@@ -572,7 +669,8 @@
           "volume": 0.025,
           "duration": 0.12,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:shadow-ball1"
         }
       ],
       "peak": 0.00417825672775507,
@@ -585,21 +683,25 @@
         {
           "type": "cast",
           "at": 0,
+          "key": "pinMissile",
           "outputs": 1
         },
         {
           "type": "spellHit",
           "at": 0.6,
+          "key": "pinMissile",
           "outputs": 1
         },
         {
           "type": "spellHit",
           "at": 0.7999999999999999,
+          "key": "pinMissile",
           "outputs": 1
         },
         {
           "type": "spellHit",
           "at": 0.9999999999999999,
+          "key": "pinMissile",
           "outputs": 1
         }
       ],
@@ -609,28 +711,32 @@
           "volume": 0.272,
           "duration": 0.3,
           "pan": -0.33,
-          "voice": false
+          "voice": false,
+          "sample": "moves:bullet-seed"
         },
         {
           "at": 0.6,
           "volume": 0.34,
           "duration": 0.32,
           "pan": -0.33,
-          "voice": false
+          "voice": false,
+          "sample": "moves:petal-blizzard2"
         },
         {
           "at": 0.7999999999999999,
           "volume": 0.34,
           "duration": 0.32,
           "pan": -0.33,
-          "voice": false
+          "voice": false,
+          "sample": "moves:petal-blizzard2"
         },
         {
           "at": 0.9999999999999999,
           "volume": 0.34,
           "duration": 0.32,
           "pan": -0.33,
-          "voice": false
+          "voice": false,
+          "sample": "moves:petal-blizzard2"
         }
       ],
       "peak": 0.12530770897865295,
@@ -643,11 +749,13 @@
         {
           "type": "cast",
           "at": 0,
+          "key": "fireball",
           "outputs": 1
         },
         {
           "type": "spellHit",
           "at": 1.0666666666666667,
+          "key": "fireball",
           "outputs": 1
         }
       ],
@@ -657,14 +765,16 @@
           "volume": 0.32000000000000006,
           "duration": 0.35,
           "pan": -0.33,
-          "voice": false
+          "voice": false,
+          "sample": "moves:fire-spin"
         },
         {
           "at": 1.0666666666666667,
           "volume": 0.4,
           "duration": 0.48,
           "pan": -0.33,
-          "voice": false
+          "voice": false,
+          "sample": "moves:fire-blast"
         }
       ],
       "peak": 0.16544286906719208,
@@ -686,7 +796,8 @@
           "volume": 0.1,
           "duration": 0.28,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:recover"
         }
       ],
       "peak": 0.04874861612915993,
@@ -699,41 +810,53 @@
         {
           "type": "attackRelease",
           "at": 0.3,
+          "key": "roselia",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "attackRelease",
           "at": 0.36666666666666664,
+          "key": "nuzleaf",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.4333333333333333,
+          "key": "nuzleaf",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.4666666666666666,
+          "key": "roselia",
           "outputs": 1
         },
         {
           "type": "attackRelease",
           "at": 0.49999999999999994,
+          "key": "treecko",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "attackRelease",
           "at": 0.49999999999999994,
+          "key": "rhydon",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.49999999999999994,
+          "key": "rhydon",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.6666666666666666,
+          "key": "treecko",
           "outputs": 1
         }
       ],
@@ -743,81 +866,92 @@
           "volume": 0.22,
           "duration": 0.95437641723356,
           "pan": 0,
-          "voice": true
+          "voice": true,
+          "sample": "cries:25"
         },
         {
           "at": 0,
           "volume": 0.22,
           "duration": 1.9974603174603174,
           "pan": 0,
-          "voice": true
+          "voice": true,
+          "sample": "cries:6"
         },
         {
           "at": 0,
           "volume": 0.22,
           "duration": 0.6750113378684808,
           "pan": 0,
-          "voice": true
+          "voice": true,
+          "sample": "cries:315"
         },
         {
           "at": 0.3,
           "volume": 0.272,
           "duration": 0.36,
           "pan": -0.12,
-          "voice": false
+          "voice": false,
+          "sample": "moves:petal-dance"
         },
         {
           "at": 0.36666666666666664,
           "volume": 0.192,
           "duration": 0.16,
           "pan": -0.21,
-          "voice": false
+          "voice": false,
+          "sample": "moves:poison-sting"
         },
         {
           "at": 0.4333333333333333,
           "volume": 0.24,
           "duration": 0.17,
           "pan": -0.21,
-          "voice": false
+          "voice": false,
+          "sample": "moves:fury-attack"
         },
         {
           "at": 0.4666666666666666,
           "volume": 0.34,
           "duration": 0.36,
           "pan": -0.12,
-          "voice": false
+          "voice": false,
+          "sample": "moves:petal-blizzard2"
         },
         {
           "at": 0.49999999999999994,
           "volume": 0.22400000000000003,
           "duration": 0.22,
           "pan": -0.27520775000000003,
-          "voice": false
+          "voice": false,
+          "sample": "moves:bullet-seed"
         },
         {
           "at": 0.49999999999999994,
           "volume": 0.30400000000000005,
           "duration": 0.21,
           "pan": -0.03,
-          "voice": false
+          "voice": false,
+          "sample": "moves:fury-attack"
         },
         {
           "at": 0.49999999999999994,
           "volume": 0.38,
           "duration": 0.28,
           "pan": -0.03,
-          "voice": false
+          "voice": false,
+          "sample": "moves:horn-attack"
         },
         {
           "at": 0.6666666666666666,
           "volume": 0.28,
           "duration": 0.2,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:razor-leaf2"
         }
       ],
       "peak": 0.2962014377117157,
-      "rms": 0.021707075302405985
+      "rms": 0.021707075127310523
     },
     {
       "key": "mixed-music",
@@ -826,41 +960,53 @@
         {
           "type": "attackRelease",
           "at": 0.3,
+          "key": "roselia",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "attackRelease",
           "at": 0.36666666666666664,
+          "key": "nuzleaf",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.4333333333333333,
+          "key": "nuzleaf",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.4666666666666666,
+          "key": "roselia",
           "outputs": 1
         },
         {
           "type": "attackRelease",
           "at": 0.49999999999999994,
+          "key": "treecko",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "attackRelease",
           "at": 0.49999999999999994,
+          "key": "rhydon",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.49999999999999994,
+          "key": "rhydon",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.6666666666666666,
+          "key": "treecko",
           "outputs": 1
         }
       ],
@@ -870,81 +1016,92 @@
           "volume": 0.22,
           "duration": 0.95437641723356,
           "pan": 0,
-          "voice": true
+          "voice": true,
+          "sample": "cries:25"
         },
         {
           "at": 0,
           "volume": 0.22,
           "duration": 1.9974603174603174,
           "pan": 0,
-          "voice": true
+          "voice": true,
+          "sample": "cries:6"
         },
         {
           "at": 0,
           "volume": 0.22,
           "duration": 0.6750113378684808,
           "pan": 0,
-          "voice": true
+          "voice": true,
+          "sample": "cries:315"
         },
         {
           "at": 0.3,
           "volume": 0.272,
           "duration": 0.36,
           "pan": -0.12,
-          "voice": false
+          "voice": false,
+          "sample": "moves:petal-dance"
         },
         {
           "at": 0.36666666666666664,
           "volume": 0.192,
           "duration": 0.16,
           "pan": -0.21,
-          "voice": false
+          "voice": false,
+          "sample": "moves:poison-sting"
         },
         {
           "at": 0.4333333333333333,
           "volume": 0.24,
           "duration": 0.17,
           "pan": -0.21,
-          "voice": false
+          "voice": false,
+          "sample": "moves:fury-attack"
         },
         {
           "at": 0.4666666666666666,
           "volume": 0.34,
           "duration": 0.36,
           "pan": -0.12,
-          "voice": false
+          "voice": false,
+          "sample": "moves:petal-blizzard2"
         },
         {
           "at": 0.49999999999999994,
           "volume": 0.22400000000000003,
           "duration": 0.22,
           "pan": -0.27520775000000003,
-          "voice": false
+          "voice": false,
+          "sample": "moves:bullet-seed"
         },
         {
           "at": 0.49999999999999994,
           "volume": 0.30400000000000005,
           "duration": 0.21,
           "pan": -0.03,
-          "voice": false
+          "voice": false,
+          "sample": "moves:fury-attack"
         },
         {
           "at": 0.49999999999999994,
           "volume": 0.38,
           "duration": 0.28,
           "pan": -0.03,
-          "voice": false
+          "voice": false,
+          "sample": "moves:horn-attack"
         },
         {
           "at": 0.6666666666666666,
           "volume": 0.28,
           "duration": 0.2,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "moves:razor-leaf2"
         }
       ],
-      "peak": 0.29503002762794495,
-      "rms": 0.02253204163847345
+      "peak": 0.2950300872325897,
+      "rms": 0.022532041587276817
     },
     {
       "key": "cold-roselia",
@@ -953,11 +1110,14 @@
         {
           "type": "attackRelease",
           "at": 0.3,
+          "key": "roselia",
+          "targetKind": "troop",
           "outputs": 1
         },
         {
           "type": "hit",
           "at": 0.4666666666666666,
+          "key": "roselia",
           "outputs": 1
         }
       ],
@@ -967,29 +1127,1055 @@
           "volume": 0.272,
           "duration": 0.36,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "fallback:razor-leaf2"
         },
         {
           "at": 0.4666666666666666,
           "volume": 0.34,
           "duration": 0.36,
           "pan": -0.3,
-          "voice": false
+          "voice": false,
+          "sample": "fallback:razor-leaf2"
         }
       ],
       "peak": 0.10320638865232468,
       "rms": 0.008298472217580762
+    },
+    {
+      "key": "blastoiseCannon",
+      "previewAt": 48.300000000000004,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.8999999999999999,
+          "key": "blastoiseCannon",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.9666666666666666,
+          "key": "blastoiseCannon",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.8999999999999999,
+          "volume": 0.30400000000000005,
+          "duration": 0.38,
+          "pan": -0.26120775,
+          "voice": false,
+          "sample": "moves:water-gun"
+        },
+        {
+          "at": 0.9666666666666666,
+          "volume": 0.38,
+          "duration": 0.4,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:hydro-pump"
+        }
+      ],
+      "peak": 0.24080531299114227,
+      "rms": 0.021639871133915405
+    },
+    {
+      "key": "octillery",
+      "previewAt": 50.400000000000006,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.3,
+          "key": "octillery",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.4333333333333333,
+          "key": "octillery",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.3,
+          "volume": 0.30400000000000005,
+          "duration": 0.38,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:water-gun"
+        },
+        {
+          "at": 0.4333333333333333,
+          "volume": 0.38,
+          "duration": 0.4,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:hydro-pump"
+        }
+      ],
+      "peak": 0.2260235697031021,
+      "rms": 0.02256572810153294
+    },
+    {
+      "key": "diglett",
+      "previewAt": 52.5,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "key": "diglett",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "key": "diglett",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.256,
+          "duration": 0.2,
+          "pan": -0.29181825000000006,
+          "voice": false,
+          "sample": "moves:agility"
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.32,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:slash"
+        }
+      ],
+      "peak": 0.1910392791032791,
+      "rms": 0.015306902592409254
+    },
+    {
+      "key": "diglett-group",
+      "previewAt": 54.6,
+      "events": [
+        {
+          "type": "deploy",
+          "at": 0,
+          "key": "diglett",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 1.8666666666666691,
+          "key": "diglett",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 1.8666666666666691,
+          "key": "diglett",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 0.6140362811791383,
+          "pan": -0.33,
+          "voice": true,
+          "sample": "cries:50"
+        },
+        {
+          "at": 1.8666666666666691,
+          "volume": 0.256,
+          "duration": 0.2,
+          "pan": -0.3134396058926308,
+          "voice": false,
+          "sample": "moves:agility"
+        },
+        {
+          "at": 1.8666666666666691,
+          "volume": 0.32,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:slash"
+        }
+      ],
+      "peak": 0.19248957931995392,
+      "rms": 0.015224483972001525
+    },
+    {
+      "key": "diglett-tower",
+      "previewAt": 56.7,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "key": "diglett",
+          "targetKind": "tower",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "key": "diglett",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.256,
+          "duration": 0.2,
+          "pan": -0.29181825000000006,
+          "voice": false,
+          "sample": "moves:agility"
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.32,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:slash"
+        }
+      ],
+      "peak": 0.1910392791032791,
+      "rms": 0.015306902592409254
+    },
+    {
+      "key": "diglett-structure",
+      "previewAt": 58.800000000000004,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "key": "diglett",
+          "targetKind": "structure",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "key": "diglett",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.256,
+          "duration": 0.2,
+          "pan": -0.29181825000000006,
+          "voice": false,
+          "sample": "moves:agility"
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.32,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:slash"
+        }
+      ],
+      "peak": 0.1910392791032791,
+      "rms": 0.015306902592409254
+    },
+    {
+      "key": "skeleton-army",
+      "previewAt": 60.900000000000006,
+      "events": [
+        {
+          "type": "deploy",
+          "at": 0,
+          "key": "diglettHorde",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 1.5333333333333348,
+          "key": "diglettHorde",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 1.5333333333333348,
+          "key": "diglettHorde",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 1.5333333333333348,
+          "key": "diglettHorde",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 1.5333333333333348,
+          "key": "diglettHorde",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 1.7666666666666688,
+          "key": "diglettHorde",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 1.7666666666666688,
+          "key": "diglettHorde",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.22,
+          "duration": 0.6140362811791383,
+          "pan": -0.33,
+          "voice": true,
+          "sample": "cries:50"
+        },
+        {
+          "at": 1.5333333333333348,
+          "volume": 0.256,
+          "duration": 0.2,
+          "pan": -0.30415059605764966,
+          "voice": false,
+          "sample": "moves:agility"
+        },
+        {
+          "at": 1.5333333333333348,
+          "volume": 0.32,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:slash"
+        },
+        {
+          "at": 1.5333333333333348,
+          "volume": 0.256,
+          "duration": 0.2,
+          "pan": -0.23189001432169676,
+          "voice": false,
+          "sample": "moves:agility"
+        },
+        {
+          "at": 1.5333333333333348,
+          "volume": 0.32,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:slash"
+        },
+        {
+          "at": 1.7666666666666688,
+          "volume": 0.256,
+          "duration": 0.2,
+          "pan": -0.39031870489940185,
+          "voice": false,
+          "sample": "moves:agility"
+        },
+        {
+          "at": 1.7666666666666688,
+          "volume": 0.32,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:slash"
+        }
+      ],
+      "peak": 0.36921170353889465,
+      "rms": 0.03389327320151968
+    },
+    {
+      "key": "summon-skeletons",
+      "previewAt": 63,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 1.0333333333333332,
+          "key": "exeggcute",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 1.0333333333333332,
+          "key": "exeggcute",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 1.5333333333333348,
+          "key": "exeggcute",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 1.5333333333333348,
+          "key": "exeggcute",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 1.0333333333333332,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:strength"
+        },
+        {
+          "at": 1.0333333333333332,
+          "volume": 0.42,
+          "duration": 0.38,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:stomp"
+        },
+        {
+          "at": 1.5333333333333348,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:strength"
+        },
+        {
+          "at": 1.5333333333333348,
+          "volume": 0.42,
+          "duration": 0.38,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:stomp"
+        }
+      ],
+      "peak": 0.24033991992473602,
+      "rms": 0.030046747487882233
+    },
+    {
+      "key": "death-skeletons",
+      "previewAt": 65.10000000000001,
+      "events": [
+        {
+          "type": "structureDown",
+          "at": 0,
+          "key": "vivero",
+          "spawnCause": "generated",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.5333333333333333,
+          "key": "exeggcute",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.5333333333333333,
+          "key": "exeggcute",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.5333333333333333,
+          "key": "exeggcute",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.5333333333333333,
+          "key": "exeggcute",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.5333333333333333,
+          "key": "exeggcute",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.5333333333333333,
+          "key": "exeggcute",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.5333333333333333,
+          "key": "exeggcute",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.5333333333333333,
+          "key": "exeggcute",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 1.633333333333335,
+          "key": "exeggcute",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 1.633333333333335,
+          "key": "exeggcute",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 1.633333333333335,
+          "key": "exeggcute",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 1.633333333333335,
+          "key": "exeggcute",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 1.633333333333335,
+          "key": "exeggcute",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 1.633333333333335,
+          "key": "exeggcute",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 1.633333333333335,
+          "key": "exeggcute",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 1.633333333333335,
+          "key": "exeggcute",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0,
+          "volume": 0.24,
+          "duration": 0.45,
+          "pan": 0,
+          "voice": false,
+          "sample": "moves:explosion2"
+        },
+        {
+          "at": 0.5333333333333333,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:strength"
+        },
+        {
+          "at": 0.5333333333333333,
+          "volume": 0.42,
+          "duration": 0.38,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:stomp"
+        },
+        {
+          "at": 0.5333333333333333,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:strength"
+        },
+        {
+          "at": 0.5333333333333333,
+          "volume": 0.42,
+          "duration": 0.38,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:stomp"
+        },
+        {
+          "at": 0.5333333333333333,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:strength"
+        },
+        {
+          "at": 0.5333333333333333,
+          "volume": 0.42,
+          "duration": 0.38,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:stomp"
+        },
+        {
+          "at": 0.5333333333333333,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:strength"
+        },
+        {
+          "at": 0.5333333333333333,
+          "volume": 0.42,
+          "duration": 0.38,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:stomp"
+        },
+        {
+          "at": 1.633333333333335,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:strength"
+        },
+        {
+          "at": 1.633333333333335,
+          "volume": 0.42,
+          "duration": 0.38,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:body-slam2"
+        },
+        {
+          "at": 1.633333333333335,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:strength"
+        },
+        {
+          "at": 1.633333333333335,
+          "volume": 0.42,
+          "duration": 0.38,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:body-slam2"
+        },
+        {
+          "at": 1.633333333333335,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:strength"
+        },
+        {
+          "at": 1.633333333333335,
+          "volume": 0.42,
+          "duration": 0.38,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:body-slam2"
+        },
+        {
+          "at": 1.633333333333335,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:strength"
+        },
+        {
+          "at": 1.633333333333335,
+          "volume": 0.42,
+          "duration": 0.38,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:body-slam2"
+        }
+      ],
+      "peak": 0.885640025138855,
+      "rms": 0.10861766015034126
+    },
+    {
+      "key": "cold-diglett",
+      "previewAt": 67.2,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "key": "diglett",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "key": "diglett",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.256,
+          "duration": 0.2,
+          "pan": -0.29181825000000006,
+          "voice": false,
+          "sample": "fallback:slash"
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.32,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "fallback:slash"
+        }
+      ],
+      "peak": 0.12154263257980347,
+      "rms": 0.008799573823153675
+    },
+    {
+      "key": "cold-diglett-tower",
+      "previewAt": 69.3,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "key": "diglett",
+          "targetKind": "tower",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "key": "diglett",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.256,
+          "duration": 0.2,
+          "pan": -0.29181825000000006,
+          "voice": false,
+          "sample": "fallback:slash"
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.32,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "fallback:slash"
+        }
+      ],
+      "peak": 0.12154263257980347,
+      "rms": 0.008799573823153675
+    },
+    {
+      "key": "cold-diglett-structure",
+      "previewAt": 71.4,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "key": "diglett",
+          "targetKind": "structure",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 0.49999999999999994,
+          "key": "diglett",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.256,
+          "duration": 0.2,
+          "pan": -0.29181825000000006,
+          "voice": false,
+          "sample": "fallback:slash"
+        },
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.32,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "fallback:slash"
+        }
+      ],
+      "peak": 0.12154263257980347,
+      "rms": 0.008799573823153675
+    },
+    {
+      "key": "cold-summon-skeletons",
+      "previewAt": 73.5,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 1.0333333333333332,
+          "key": "exeggcute",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 1.0333333333333332,
+          "key": "exeggcute",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 1.5333333333333348,
+          "key": "exeggcute",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "hit",
+          "at": 1.5333333333333348,
+          "key": "exeggcute",
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 1.0333333333333332,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "fallback:rock-throw2"
+        },
+        {
+          "at": 1.0333333333333332,
+          "volume": 0.42,
+          "duration": 0.36,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "fallback:rock-throw2"
+        },
+        {
+          "at": 1.5333333333333348,
+          "volume": 0.336,
+          "duration": 0.25,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "fallback:rock-throw2"
+        },
+        {
+          "at": 1.5333333333333348,
+          "volume": 0.42,
+          "duration": 0.36,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "fallback:rock-throw2"
+        }
+      ],
+      "peak": 0.16030281782150269,
+      "rms": 0.020026300425109257
+    },
+    {
+      "key": "zapdos",
+      "previewAt": 75.60000000000001,
+      "events": [
+        {
+          "type": "attackRelease",
+          "at": 0.49999999999999994,
+          "key": "zapdos",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "beam",
+          "at": 0.5666666666666667,
+          "key": "zapdos",
+          "hop": 0,
+          "outputs": 1
+        },
+        {
+          "type": "beam",
+          "at": 0.7666666666666666,
+          "key": "zapdos",
+          "hop": 1,
+          "outputs": 1
+        },
+        {
+          "type": "beam",
+          "at": 0.9666666666666666,
+          "key": "zapdos",
+          "hop": 2,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.49999999999999994,
+          "volume": 0.272,
+          "duration": 0.28,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:thundershock"
+        },
+        {
+          "at": 0.5666666666666667,
+          "volume": 0.34,
+          "duration": 0.34,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:thunderbolt1"
+        },
+        {
+          "at": 0.7666666666666666,
+          "volume": 0.34,
+          "duration": 0.34,
+          "pan": -0.2125,
+          "voice": false,
+          "sample": "moves:thunderbolt1"
+        },
+        {
+          "at": 0.9666666666666666,
+          "volume": 0.34,
+          "duration": 0.34,
+          "pan": -0.125,
+          "voice": false,
+          "sample": "moves:thunderbolt1"
+        }
+      ],
+      "peak": 0.23050031065940857,
+      "rms": 0.025544586692360847
+    },
+    {
+      "key": "voltorb",
+      "previewAt": 77.7,
+      "events": [
+        {
+          "type": "leap",
+          "at": 0.19999999999999998,
+          "key": "voltorb",
+          "spawnCause": "generated",
+          "outputs": 1
+        },
+        {
+          "type": "attackRelease",
+          "at": 0.3333333333333333,
+          "key": "voltorb",
+          "targetKind": "troop",
+          "outputs": 1
+        },
+        {
+          "type": "beam",
+          "at": 0.3333333333333333,
+          "key": "voltorb",
+          "hop": 0,
+          "outputs": 1
+        },
+        {
+          "type": "beam",
+          "at": 0.6,
+          "key": "voltorb",
+          "hop": 1,
+          "outputs": 1
+        },
+        {
+          "type": "beam",
+          "at": 0.8666666666666666,
+          "key": "voltorb",
+          "hop": 2,
+          "outputs": 1
+        }
+      ],
+      "outputs": [
+        {
+          "at": 0.19999999999999998,
+          "volume": 0.256,
+          "duration": 0.26,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:agility"
+        },
+        {
+          "at": 0.3333333333333333,
+          "volume": 0.272,
+          "duration": 0.28,
+          "pan": -0.3046875,
+          "voice": false,
+          "sample": "moves:thundershock"
+        },
+        {
+          "at": 0.3333333333333333,
+          "volume": 0.34,
+          "duration": 0.34,
+          "pan": -0.3,
+          "voice": false,
+          "sample": "moves:thunderbolt1"
+        },
+        {
+          "at": 0.6,
+          "volume": 0.34,
+          "duration": 0.34,
+          "pan": -0.2125,
+          "voice": false,
+          "sample": "moves:thunderbolt1"
+        },
+        {
+          "at": 0.8666666666666666,
+          "volume": 0.34,
+          "duration": 0.34,
+          "pan": -0.125,
+          "voice": false,
+          "sample": "moves:thunderbolt1"
+        }
+      ],
+      "peak": 0.22709521651268005,
+      "rms": 0.027462889011952568
     }
   ],
-  "decodedSamples": 157,
+  "decodedSamples": 158,
   "sampleRate": 44100,
   "scope": "Actual Game events and SoundSystem rendered by browser OfflineAudioContext at production master .7 and compressor settings. Controlled stationary targets, one/two/mixed attacks, three simultaneous voices and the real BattleMusic first bar. Peak/RMS verify output and headroom, not perceived quality or speaker balance.",
   "hashes": {
-    "dist/audio.js": "531512cffceb118fc5250a705af18b221f0e9a2e1ee93f5995b4c3da9bc23a05",
-    "dist/engine.js": "62a45760556ff000b6605fc1277687d2908aac44de89b3ff767e2d0c3df3cf81",
-    "dist/assets/audio/manifest.json": "12bfd2ade794a851577f7471bd88b1f8d39044949a8541f9c36f47b061d1a1ce"
+    "dist/audio.js": "23e98b5741f1f270a771e9f45681f2214b02f11b4ffa9d829cbdfd9a768b7c2f",
+    "dist/engine.js": "fac19061ef44ebb1f88132a45311a8934468ecde44a2c25e24f078627b0c3c00",
+    "dist/assets/audio/manifest.json": "25ba4c4f7cb89f4d416179a39855f7a950c5b6efdff141794b8fc8ae5132c474"
   },
-  "previewSha256": "b4387a2a85ba080a8c0954bbcfd7eea0d7ce31634fa2381e3db25f42ceafc3a8",
+  "previewSha256": "29c6babf066b3a5a9a6f74067b2a371f43065c22bb8e2d50506ea79061084663",
   "retired": {
     "baseline": "21b3eaae2b42c8ad0c0f60f45812383aefd575bd",
     "scope": "Removed distributed binaries, manifest groups, playback/fallback/compatibility routes and importers. Historical source attribution remains in Git.",
@@ -1149,5 +2335,6 @@
         "sha256": "39f042a95a7c07ce86eb6b2fceb449417853c1f770a0c54562cbbdbc45cfa58c"
       }
     ]
-  }
+  },
+  "engine": "chromium"
 }
