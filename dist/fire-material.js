@@ -24,7 +24,7 @@ export function rollingFirePose(spell,previous,dt=0){
 // The upright face and its offset back edge give the wheel thickness. Surface
 // landmarks roll with distance; tongues and hot currents use the cast clock.
 export function drawFireWheel(c,pose,drawFlame,{vertical=1,reduced=false,opacity=1}={}){
-  const age=reduced?.4:pose.age,spin=reduced?.35:pose.spin;
+  const age=reduced?.4:pose.age,spin=pose.spin;
   c.save();c.translate(pose.x,pose.y);c.scale(1,1/vertical);c.globalAlpha*=opacity;
   c.fillStyle='#372b2638';c.beginPath();c.ellipse(1,4,35,6,0,0,Math.PI*2);c.fill();
   c.translate(-3,-35);c.lineJoin='round';c.lineCap='round';

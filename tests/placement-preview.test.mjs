@@ -6,7 +6,7 @@ import {spellPreviewTargets} from '../dist/spell-preview.js';
 function drawing(key){
   const calls=[];const ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}})}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
   const game=new Game({seed:433});game.start();game.aiEnabled=false;game.energy[0]=10;game.deploymentThreats=()=>[];
-  const renderer=Object.assign(Object.create(Renderer.prototype),{selection:key,pointer:{x:288,y:508},t:0,reduced:true,sprite(){},combatArt(){},capsule(){}});
+  const renderer=Object.assign(Object.create(Renderer.prototype),{selection:key,pointer:{x:288,y:508},t:0,reduced:true,sprite(){},combatArt(){},capsule(){},fireWheel(){}});
   return{game,renderer,ctx,calls};
 }
 test('a troop preview draws one range circle and a cell marker, without a second footprint circle',()=>{
