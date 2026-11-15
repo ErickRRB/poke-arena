@@ -1,11 +1,20 @@
 """Measure original raster silhouettes for the visual review. Does not edit images."""
-import json, pathlib, subprocess
+import json, pathlib, subprocess, argparse
 from PIL import Image
 root=pathlib.Path(__file__).resolve().parents[1]
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--only',help='Comma-separated species to measure without regenerating other silhouettes or effects')
+args=parser.parse_args()
 cards=json.loads(subprocess.check_output(['node','--input-type=module','-e',"import {CARDS} from './dist/engine.js';console.log(JSON.stringify(CARDS))"],cwd=root))
 manifest=json.loads((root/'dist/assets/pokemon/manifest.json').read_text())
 profiles={}
-for card in list(cards.values())+[{'id':83,'name':"Farfetch’d"},{'id':534,'name':'Conkeldurr'}]:
+if args.only:
+ species_ids=set(args.only.split(','))
+ previous=(root/'dist/pokemon-silhouettes.js').read_text(encoding='utf-8')
+ profiles=json.loads(previous.split('Object.freeze(',1)[1].strip().removesuffix(');'))
+for card in list(cards.values())+[{'id':83,'name':"Farfetch’d"},{'id':224,'name':'Octillery'},{'id':534,'name':'Conkeldurr'}]:
+ if args.only and str(card.get('id')) not in species_ids: continue
+ if args.only: profiles.pop(str(card['id']),None)
  if card.get('spell') or not card.get('id') or str(card['id']) in profiles: continue
  meta=manifest[str(card['id'])]['Idle']; im=Image.open(root/'dist'/meta['file']).convert('RGBA'); body=0
  for row in range(8):
@@ -14,6 +23,10 @@ for card in list(cards.values())+[{'id':83,'name':"Farfetch’d"},{'id':534,'nam
  profiles[str(card['id'])]={'body':body,'name':card['name']}
 output='// Native Idle silhouette in source pixels, measured in all eight directions.\nexport const POKEMON_SILHOUETTES=Object.freeze('+json.dumps(profiles,ensure_ascii=False,indent=2)+');\n'
 (root/'dist/pokemon-silhouettes.js').write_text(output,encoding='utf-8')
+if args.only:
+ if not species_ids.issubset(profiles): parser.error('Unknown species in --only')
+ print('Measured requested species:',','.join(sorted(species_ids)))
+ raise SystemExit(0)
 assets=json.loads(subprocess.check_output(['node','--input-type=module','-e',"import {BATTLE_ASSETS} from './dist/assets/battle/manifest.js';console.log(JSON.stringify(BATTLE_ASSETS))"],cwd=root)); bounds={}
 for name,meta in assets.items():
  if name not in ['hydro','bubble','shadow','psychic','poison','rock','leaf','snow','flame','lightningHead','coin','egg','song','waterBeamHead','fireOrb','fireTrail','hydroShot','emberShot','songShot','petalShot','pokeball']: continue
