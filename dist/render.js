@@ -440,6 +440,8 @@ export class Renderer {
     rect(c,'#32413b',x-width/2,y,width,2);
     if(chip>ratio)rect(c,'#ffe2a2',x-width/2,y,width*chip,2);
     rect(c,unit.team?'#ffaaa0':'#a3e5ff',x-width/2,y,width*ratio,2);
+    if(unit.maxHp>1)for(let i=1;i<4;i++)rect(c,'#061a243d',x-width/2+width*i/4,y,1,2);
+    if(unit.hit>.12){c.save();c.globalAlpha=(unit.hit-.12)/.12;rect(c,'#fff5cf',x-width/2,y,width*ratio,2);c.restore();}
     if(unit.shield>0){rect(c,'#102a36',x-width/2,y+11,width,2);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),2);}
   }
   platform(c,unit){

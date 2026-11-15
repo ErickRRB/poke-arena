@@ -95,3 +95,15 @@ test('frame composes compact heads and meter readouts while retaining tower prio
 test('standalone projectile heads remain immediate outside a frame queue',()=>{
  const r=Object.create(Renderer.prototype);let count=0;r.projectileHead({},()=>count++);assert.equal(count,1);
 });
+
+test('foreground readout retains the native meter pixels including quarter marks and damage feedback',()=>{
+ const paint=(method,hit)=>{
+  const pixels=new Map(),stack=[],ctx={globalAlpha:1,fillStyle:'#000000',save(){stack.push({globalAlpha:this.globalAlpha,fillStyle:this.fillStyle});},restore(){Object.assign(this,stack.pop());},fillRect(x,y,w,h){
+   const color=this.fillStyle.slice(1),rgb=[0,2,4].map(offset=>parseInt(color.slice(offset,offset+2),16)),alpha=this.globalAlpha*(color.length===8?parseInt(color.slice(6),16)/255:1);
+   for(const row of [300,301,311,312])if(row>=y&&row<y+h)for(let column=178;column<222;column++)if(column>=x&&column<x+w){const key=column+':'+row,prior=pixels.get(key)||[18,25,31];pixels.set(key,rgb.map((channel,index)=>channel*alpha+prior[index]*(1-alpha)));}
+  }};
+  const unit={id:1,team:0,card:{},hp:35,maxHp:100,shield:25,maxShield:100,hit};
+  const r=Object.assign(Object.create(Renderer.prototype),{t:0,drawDt:0,healthStates:new Map([[1,{chip:.6,last:.35,at:0}]])});r[method](ctx,unit,200,300,44);return [...pixels];
+ };
+ for(const hit of[0,.18,.24])assert.deepEqual(paint('healthReadout',hit),paint('healthBar',hit));
+});
