@@ -116,7 +116,7 @@ test('a full-arena mixed burst has a global output budget',()=>{
 
 test('character voices keep their priority when the FX budget is full',()=>{
   const audio=makeSound();
-  for(let i=0;i<MAX_EFFECT_VOICES+10;i++)audio.sound.sample('moves:pound',300,{maxDuration:.5});
+  for(let i=0;i<MAX_EFFECT_VOICES+10;i++)audio.sound.sample('moves:pound',300,{maxDuration:.5,priority:2});
   const fx=audio.trace.length;assert.equal(fx,MAX_EFFECT_VOICES);
   audio.sound.cry(25,300);
   assert.equal(audio.trace.filter(output=>output.sample==='cries:25').length,1);
@@ -128,6 +128,23 @@ test('finished output nodes release their FX slots for later effects',()=>{
   for(let i=0;i<MAX_EFFECT_VOICES;i++)audio.sound.sample('moves:pound',300,{maxDuration:.1});
   const before=audio.trace.length;audio.ctx.currentTime=11;audio.sound.sample('moves:pound',300,{maxDuration:.1});
   assert.equal(audio.trace.length,before+1);
+});
+test('a nearby swarm cannot stack identical transients while two archers and the opposite lane stay audible',()=>{
+  const audio=makeSound(),event=(id,x)=>({type:'attackRelease',style:'leaf',attacker:{id,card:CARDS.treecko,attackSeq:1},from:{x},shot:0});
+  assert.ok(audio.event(event(1,160),10).length);assert.ok(audio.event(event(2,170),10).length);
+  for(let id=3;id<=15;id++)assert.equal(audio.event(event(id,160+id),10).length,0);
+  assert.ok(audio.event(event(16,440),10).length);assert.ok(audio.event(event(17,160),10.15).length,'a later real action is not delayed or suppressed by the earlier cohort');
+});
+test('Lightning has one contact per real target strike and no duplicate area impact sound',()=>{
+  const row=spellScene('lightning'),strikes=row.events.filter(e=>e.type==='beam');assert.ok(strikes.length);
+  assert.ok(strikes.every(e=>e.outputs.length===1));assert.ok(row.events.filter(e=>e.type==='spellHit').every(e=>e.outputs.length===0));
+});
+test('pause and mute cancel pending and playing effects instead of replaying stale attacks',()=>{
+  for(const mute of[false,true]){
+    const audio=makeSound();audio.sound.setBattleState(true);audio.sound.sample('moves:pound',180,{delay:.5,maxDuration:.7});const slots=[...audio.sound.activeEffects];assert.ok(slots.length);
+    if(mute)audio.sound.setEnabled(false);else audio.sound.setBattleState(false);
+    assert.equal(audio.sound.activeEffects.length,0);assert.ok(slots.every(slot=>slot.node.stoppedAt<slot.start));assert.equal(audio.sound.music.playing,false);
+  }
 });
 
 test('entry effects and transformation retain cues from their real engine events',()=>{

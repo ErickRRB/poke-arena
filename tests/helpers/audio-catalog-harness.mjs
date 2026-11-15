@@ -26,9 +26,9 @@ export function makeSound({buffered=true,enabled=true,state='running'}={}){
     source.record=entry;trace.push(entry);sources.add(source);
   };
   const stop=(source,time)=>{if(source.record)source.record.duration=Math.min(source.record.duration,Math.max(0,time-source.record.at));if(time<=clock&&!source.ended){source.ended=true;source.onended?.();sources.delete(source);}};
-  const ctx={state,get currentTime(){return clock;},set currentTime(value){clock=value;for(const source of sources)if(source.stoppedAt<=value&&!source.ended){source.ended=true;source.onended?.();sources.delete(source);}},sampleRate:22050,createBufferSource:()=>node('sample',start,stop),createOscillator:()=>node('oscillator',start,stop),createBiquadFilter:()=>node('noise'),createGain:()=>node('gain'),createStereoPanner:()=>node('panner'),createBuffer:(channels,length,rate)=>buffer('generated',length/rate,rate)};
+  const ctx={state,get currentTime(){return clock;},set currentTime(value){clock=value;for(const source of sources)if(source.stoppedAt<=value&&!source.ended){source.ended=true;source.onended?.();sources.delete(source);}},sampleRate:22050,destination:node('destination'),createDynamicsCompressor:()=>({...node('limiter'),threshold:param(),knee:param(),ratio:param(),attack:param(),release:param()}),createBufferSource:()=>node('sample',start,stop),createOscillator:()=>node('oscillator',start,stop),createBiquadFilter:()=>node('noise'),createGain:()=>node('gain'),createStereoPanner:()=>node('panner'),createBuffer:(channels,length,rate)=>buffer('generated',length/rate,rate)};
   class TestSound extends SoundSystem{preload(){return Promise.resolve(true);}}
-  sound=Object.assign(new TestSound(enabled),{ctx,noiseBuffer:buffer('noise',1),master:node('master'),music:{playing:false,setPlaying(value){this.playing=value;}}});sound.master.gain.value=.7;
+  sound=Object.assign(new TestSound(enabled),{ctx,music:{playing:false,setPlaying(value){this.playing=value;}}});sound.createMixGraph();
   if(buffered)for(const[group,entries]of Object.entries(manifest))for(const[id,file]of Object.entries(entries))sound.buffers.set(`${group}:${id}`,buffer(`${group}:${id}`,durations.get(file)||.7));
   return{sound,ctx,trace,event(event,time=ctx.currentTime){ctx.currentTime=time;const start=trace.length;sound.event(event);return trace.slice(start);}};
 }

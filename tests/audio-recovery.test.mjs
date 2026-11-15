@@ -1,12 +1,12 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {SoundSystem} from '../dist/audio.js';
+import {SoundSystem,AUDIO_LEVELS} from '../dist/audio.js';
 import {CARDS} from '../dist/engine.js?v=34';
 import {readFileSync,existsSync} from 'node:fs';
 function setup(t){
   const originalWindow=globalThis.window,originalDocument=globalThis.document,instances=[];
   const param=()=>({value:0,setTargetAtTime(){},setValueAtTime(){},linearRampToValueAtTime(){},exponentialRampToValueAtTime(){},cancelScheduledValues(){}});
-  const node=()=>({gain:param(),frequency:param(),threshold:param(),ratio:param(),connect(){},disconnect(){},start(){},stop(){this.onended?.();}});
+  const node=()=>({gain:param(),frequency:param(),threshold:param(),knee:param(),ratio:param(),attack:param(),release:param(),connections:[],connect(destination){this.connections.push(destination);},disconnect(){},start(){},stop(){this.onended?.();}});
   class Context{
     constructor(){this.state='running';this.currentTime=0;this.sampleRate=100;this.destination=node();this.resumeCalls=0;instances.push(this);}
     createGain(){return node();}createDynamicsCompressor(){return node();}createOscillator(){return node();}createBiquadFilter(){return node();}createBufferSource(){return node();}
@@ -23,6 +23,14 @@ function setup(t){
 for(const state of['suspended','interrupted'])test(`audio recovers from ${state} without replacing healthy context or losing music state`,async t=>{
   const{sound,instances}=setup(t),ctx=sound.ctx;sound.setBattleState(true,true);ctx.state=state;ctx.onstatechange();assert.equal(sound.music.playing,false);
   sound.recover();await Promise.resolve();ctx.currentTime=1;t.mock.timers.tick(501);assert.equal(sound.ctx,ctx);assert.equal(ctx.resumeCalls,1);assert.equal(instances.length,1);assert.equal(sound.music.playing,true);assert.equal(sound.music.intense,true);assert.ok(!sound.needsRebuild);
+});
+test('music, effects, character voices and UI have independent gain buses and only an emergency output ceiling',t=>{
+ const{sound}=setup(t);assert.equal(sound.master.gain.value,AUDIO_LEVELS.master);assert.equal(sound.limiter.threshold.value,-1);assert.equal(sound.limiter.knee.value,0);
+ for(const name of['music','effects','voices','ui']){const bus=sound[name+'Bus'];assert.equal(bus.gain.value,AUDIO_LEVELS[name]);assert.deepEqual(bus.connections,[sound.master]);}
+ assert.equal(new Set(['music','effects','voices','ui'].map(name=>sound[name+'Bus'])).size,4);assert.deepEqual(sound.music.bus.connections,[sound.musicBus]);assert.deepEqual(sound.master.connections,[sound.limiter]);assert.deepEqual(sound.limiter.connections,[sound.ctx.destination]);
+});
+test('context disposal retains the recorded score bookmark for its replacement',t=>{
+ const{sound}=setup(t),bookmark={position:93.25,score:'test-score',intense:true};let disposed=false;sound.music={snapshot:()=>bookmark,dispose:()=>{disposed=true;}};sound.discardContext();assert.deepEqual(sound.musicState,bookmark);assert.ok(disposed);assert.equal(sound.musicBus,null);
 });
 test('a closed audio context is replaced while recorded samples and sound preference are preserved',t=>{
   const{sound}=setup(t),old=sound.ctx,buffer={sample:true};sound.buffers.set('cries:25',buffer);sound.last.set('cry:25',99);sound.voiceSlots=[100];old.state='closed';sound.recover();
