@@ -5,6 +5,7 @@ import {SPRITE_GEOMETRY} from '../dist/sprite-geometry.js';
 import {attackAnimationFrame,emissionPoint} from '../dist/sprite-motion.js';
 import {FlightWings} from '../dist/wing-motion.js';
 import {Renderer} from '../dist/render.js';
+import {attackVisualProfile,biteMotion} from '../dist/combat-visuals.js';
 
 // Contacts chosen by reviewing original eight-direction rasters, not HitFrame
 // metadata (several original HitFrames repeat a preparation drawing).
@@ -57,4 +58,50 @@ test('spell targeting refreshes the moving wing silhouette while reusing its tin
     image.revision=2;renderer.tintTarget(context,image,0,0,64,64,0,0,64,64);
     assert.deepEqual(shown,[1,2]);assert.equal(surfaces,1);
   }finally{globalThis.document=previous;}
+});
+
+test('directed Zubat bite meets the target surface with its native mouth and preserves logical actors',()=>{
+  for(const reduced of[false,true]){
+    const actor=Object.freeze({id:7,key:'zubat',card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,
+      attackSeq:2,attackTargetId:8,attackAnim:'Attack',attackDuration:.88,attackWindup:.6,attack:.28});
+    const target=Object.freeze({id:8,key:'snorlax',card:CARDS.snorlax,x:334,y:541,radius:18,hp:3968});
+    const before=JSON.stringify([actor,target]);
+    const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced,verticalScale:1,visualActors:new Map([[7,{}]]),frameActors:new Map([[7,actor],[8,target]])});
+    renderer.prepareBiteActors();const shown=renderer.frameActors.get(7),mouth=renderer.visualEmission(shown);
+    assert.ok(Math.hypot(mouth.x-shown.biteContact.x,mouth.y-shown.biteContact.y)<1e-7,'contact shares the drawn native mouth');
+    assert.ok(shown.x>actor.x+15,'the body closes the visible gap rather than adding a distant flash');
+    assert.equal(shown.card,actor.card);assert.equal(shown.card.scale,1.12);
+    assert.equal(JSON.stringify([actor,target]),before,'Game positions and native card stay untouched');
+    const meta=SPRITE_GEOMETRY[41].Attack,profile=attackVisualProfile(actor.card);
+    assert.equal(attackAnimationFrame(meta,.6,.88,.6,profile.attackFrames,profile),6);
+    assert.equal(CARDS.zubat.attackDuration,.76,'display recovery does not alter native timing');
+  }
+});
+
+test('bite freeze retains the current pose despite target movement; stun cancels the presentation',()=>{
+  const actor={id:7,card:CARDS.zubat,x:266,y:523,dx:1,dy:0,hp:81,attackSeq:2,attackTargetId:8,attackDuration:.88,attackWindup:.6,attack:.28};
+  const target={id:8,card:CARDS.snorlax,x:334,y:541,radius:18,hp:3968};
+  const renderer=Object.assign(Object.create(Renderer.prototype),{t:1,reduced:false,verticalScale:1,visualActors:new Map([[7,{}]]),frameActors:new Map([[7,actor],[8,target]])});
+  renderer.prepareBiteActors();const first=renderer.frameActors.get(7);
+  renderer.frameActors=new Map([[7,{...actor,freeze:.5}],[8,{...target,x:target.x+30}]]);
+  renderer.prepareBiteActors();const held=renderer.frameActors.get(7);
+  assert.equal(held.x,first.x);assert.equal(held.y,first.y);assert.deepEqual(held.biteContact,first.biteContact);
+  renderer.frameActors=new Map([[7,{...actor,stun:.5}],[8,target]]);renderer.prepareBiteActors();
+  assert.equal(renderer.frameActors.get(7).biteContact,undefined);
+  assert.equal(renderer.visualActors.get(7).bite,undefined);
+});
+
+test('bite recovery returns to the native body, while reduced keeps the structural approach',()=>{
+  const actor={card:CARDS.zubat,hp:81,attackDuration:.88,attackWindup:.6};
+  for(const elapsed of[.44,.5,.6,.66,.75,.86]){
+    const normal=biteMotion({...actor,attack:.88-elapsed}),reduced=biteMotion({...actor,attack:.88-elapsed},true);
+    assert.equal(normal.reach,reduced.reach,'essential contact is retained in reduced motion');
+  }
+  assert.equal(biteMotion({...actor,attack:.28}).reach,1);
+  assert.ok(biteMotion({...actor,attack:.00001}).reach<1e-6);
+  assert.equal(biteMotion({...actor,attack:0}),null);
+  for(const key of['poochyenaPack','poochyenaToken','crobat','ekans']){
+    const card=CARDS[key];assert.equal(attackVisualProfile(card),card,key+' existing profile is unchanged');
+    assert.equal(biteMotion({...actor,card,attack:.28}),null);
+  }
 });

@@ -11,8 +11,29 @@ export function combatVisual(card={}){
   return {body,projectile:Math.max(floor,Math.min(areaProjectile?34:28,Math.max(body*ratio,areaProjectile))),impact:Math.max(16,Math.min(42,body*.6)),beam:Math.max(4,Math.min(11,body*.16)),charge:Math.max(12,Math.min(26,body*.4))};
 }
 const FIRE_GESTURE=Object.freeze([0,1,2,3,4,5,6,7,8,9,10]);
+const ZUBAT_GESTURE=Object.freeze([0,1,2,3,4,5,6,7,8,9,10,0]);
+export const directedBite=card=>card?.id===41&&card.style==='bite'&&card.attackAnim==='Attack';
 export function attackVisualProfile(card){
+  if(directedBite(card))return{...card,attackFrames:ZUBAT_GESTURE,attackContactFrame:6};
   return card?.id===6&&card.attackAnim==='Shoot'?{...card,attackFrames:FIRE_GESTURE,attackContactFrame:2}:card;
+}
+export function biteMotion(unit,reduced=false){
+  if(!directedBite(unit.card)||unit.mounted||unit.attack<=0||unit.hp<=0||unit.stun>0)return null;
+  const duration=unit.attackDuration||unit.card.attackDuration,windup=unit.attackWindup??unit.card.windup;
+  const elapsed=Math.max(0,duration-unit.attack),start=Math.max(0,windup-.16);
+  const ease=p=>{p=Math.max(0,Math.min(1,p));return p*p*(3-2*p);};
+  const reach=elapsed<windup?ease((elapsed-start)/Math.max(.001,windup-start)):
+    1-ease((elapsed-windup-.06)/Math.max(.001,duration-windup-.06));
+  const drawback=reduced||elapsed>=start?0:-6*Math.sin(Math.PI*elapsed/Math.max(.001,start));
+  return{reach,drawback,elapsed};
+}
+export function biteSurface(from,target,vertical=1){
+  const profile=target.card||target.guard||{},body=combatVisual(profile).body,tower='king'in target;
+  const lift=profile.flying?16:profile.structure&&profile.platform!==false?23:0;
+  const rx=tower?(target.king?46:32):Math.max(target.radius||12,body*.4),ry=tower?35:body*.5;
+  const center={x:target.x,y:target.y-(tower?35:lift+body*.5)/vertical};
+  const dx=from.x-center.x,dy=(from.y-center.y)*vertical,divisor=Math.hypot(dx/rx,dy/ry)||1;
+  return{x:center.x+dx/divisor,y:center.y+dy/divisor/vertical};
 }
 export function dashPreparation(unit,reduced=false){
   if(unit.dash?.phase!=='windup'||unit.hp<=0||unit.stun>0)return null;

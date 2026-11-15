@@ -2,7 +2,7 @@ import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress } from './engine.
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
-import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation} from './combat-visuals.js?v=36';
+import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation,directedBite,biteMotion,biteSurface} from './combat-visuals.js?v=36';
 import { spellPreviewTargets } from './spell-preview.js?v=34';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
@@ -21,6 +21,7 @@ function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.li
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
 const visualScale = unit => unit.scale ?? unit.card?.scale ?? 1.5;
 function attackLunge(unit,reduced){
+  if(directedBite(unit.card))return 0; // The complete bite pose is applied once to the displayed actor.
   if(!reduced&&!unit.mounted&&unit.dash?.phase!=='windup'&&unit.card?.id===6&&unit.card.attackAnim==='Shoot'&&unit.attack>0){
     const elapsed=(unit.attackDuration||unit.card.attackDuration)-unit.attack,windup=unit.attackWindup??unit.card.windup;
     // Draw back while inhaling, then meet the unchanged native mouth point at
@@ -208,28 +209,55 @@ export class Renderer {
       else if(!(unit.freeze>0||unit.stun>0))pose.dashElapsed=Math.max(logical,Math.min(logical+1/15,duration,pose.dashElapsed+Math.max(0,dt)));
       pose.dashSeq=unit.attackSeq;pose.dashPhase='windup';dash={...dash,elapsed:pose.dashElapsed};
     }else{pose.dashPhase=dash?.phase;delete pose.dashElapsed;}
-    const displayed={...unit,x:pose.x,y:pose.y,dx:pose.dx,dy:pose.dy,attack:pose.attack,dash},held=contact?.held;
+    const displayed={...unit,x:pose.x,y:pose.y,dx:pose.dx,dy:pose.dy,attack:pose.attack,dash,attackTargetId:current?.targetId??unit.target?.id??unit.targetId},held=contact?.held;
     if(held&&this.t<held.until&&!(unit.hp<=0||unit.stun>0||unit.freeze>0||unit.pushHurt>0)){
       // A packet can contain both a release and the next attackStart. Preserve
       // that released pose for two display frames without rewinding either clock.
       const duration=Math.max(held.duration,held.elapsed+1/30+1e-7);
-      return this.presentAttack({...displayed,card:held.card,guard:held.guard,attackSeq:held.seq,attackAnim:held.animation,attackDuration:duration,attackWindup:held.windup,attack:duration-held.elapsed,dx:held.dx,dy:held.dy},pose,dt);
+      return this.presentAttack({...displayed,card:held.card,guard:held.guard,attackSeq:held.seq,attackAnim:held.animation,attackDuration:duration,attackWindup:held.windup,attack:duration-held.elapsed,dx:held.dx,dy:held.dy,attackTargetId:held.targetId??displayed.attackTargetId},pose,dt);
     }
     if(held&&this.t>=held.until)delete contact.held;
     return this.presentAttack(displayed,pose,dt);
   }
   presentAttack(actor,pose,dt){
-    if(actor.card?.id!==6||actor.card.attackAnim!=='Shoot')return actor;
-    const duration=(actor.attackWindup??actor.card.windup??.3)+.42;
+    const bite=directedBite(actor.card)&&!actor.mounted;
+    if(!bite&&(actor.card?.id!==6||actor.card.attackAnim!=='Shoot'))return actor;
+    const duration=(actor.attackWindup??actor.card.windup??.3)+(bite?.28:.42);
     let show=pose.presentation;
     if(actor.hp<=0||actor.stun>0||actor.pushHurt>0){delete pose.presentation;return actor;}
     if(actor.attack>0){
       const elapsed=(actor.attackDuration||actor.card.attackDuration)-actor.attack;
       if(!show||show.seq!==actor.attackSeq)show=pose.presentation={seq:actor.attackSeq,elapsed};
       else if(!(actor.freeze>0))show.elapsed=elapsed;
-    }else if(show?.seq===actor.attackSeq&&show.elapsed<duration&&!actor.moving){if(!(actor.freeze>0))show.elapsed+=Math.max(0,dt);}
+    }else if(show?.seq===actor.attackSeq&&show.elapsed<duration&&(!actor.moving||bite)){
+      const contact=this.attackContacts?.get(actor.id);
+      if(bite&&contact?.seq===actor.attackSeq&&contact.shot<0){delete pose.presentation;return actor;}
+      if(!(actor.freeze>0))show.elapsed+=Math.max(0,dt);
+    }
     else{delete pose.presentation;return actor;}
     return show&&show.elapsed<duration?{...actor,attackDuration:duration,attack:duration-show.elapsed}:actor;
+  }
+  prepareBiteActors(){
+    for(const[id,actor]of this.frameActors){
+      if(!directedBite(actor.card)||actor.mounted)continue;
+      const pose=this.visualActors.get(id),motion=biteMotion(actor,this.reduced),old=pose?.bite;
+      if(!pose||!motion){if(pose)delete pose.bite;continue;}
+      let bite=old?.seq===actor.attackSeq?old:null;
+      const target=this.frameActors.get(actor.attackTargetId);
+      if(!(actor.freeze>0&&bite)){
+        if(!target&&!bite)continue;
+        const length=target?Math.hypot(target.x-actor.x,target.y-actor.y):0;
+        const dx=length?(target.x-actor.x)/length:bite?.dx??actor.dx,dy=length?(target.y-actor.y)/length:bite?.dy??actor.dy;
+        const facing={...actor,dx,dy},mouth=this.visualEmission(facing);
+        const point=target?biteSurface(mouth,target,this.verticalScale||1):bite.point;
+        bite=pose.bite={seq:actor.attackSeq,dx,dy,point,
+          x:(point.x-mouth.x)*motion.reach+dx*motion.drawback,
+          y:(point.y-mouth.y)*motion.reach+dy*motion.drawback/(this.verticalScale||1),
+          sortY:target?.y??bite?.sortY??actor.y};
+      }
+      this.frameActors.set(id,{...actor,x:actor.x+bite.x,y:actor.y+bite.y,dx:bite.dx,dy:bite.dy,
+        biteContact:bite.point,visualSortY:bite.sortY+.01});
+    }
   }
   projected(point,actor){
     if(!actor)return point;
@@ -485,12 +513,12 @@ export class Renderer {
     if(type==='attackStart'&&event.attacker){
       this.attackContacts??=new Map();
       const held=this.attackContacts.get(event.attacker.id)?.held;
-      this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,shot:-1,until:0,held:held&&this.t<held.until?held:undefined});
+      this.attackContacts.set(event.attacker.id,{seq:event.attacker.attackSeq,targetId:event.target?.id??event.attacker.target?.id,shot:-1,until:0,held:held&&this.t<held.until?held:undefined});
     }
     if(type==='attackRelease'&&event.attacker){
       this.attackContacts??=new Map();
       const actor=event.attacker,profile=actor.card||actor.guard||{},duration=actor.attackDuration||profile.attackDuration||.6,windup=actor.attackWindup??profile.windup??actor.windup??.18;
-      const shot=event.shot||0,until=this.t+1/30+1e-7,held={seq:actor.attackSeq,card:actor.card,guard:actor.guard,animation:actor.attackAnim||profile.attackAnim||'Attack',duration,windup,elapsed:windup+shot*(profile.burstSpacing||duration),dx:actor.dx,dy:actor.dy,until};
+      const shot=event.shot||0,until=this.t+1/30+1e-7,held={seq:actor.attackSeq,targetId:event.target?.id??actor.target?.id,card:actor.card,guard:actor.guard,animation:actor.attackAnim||profile.attackAnim||'Attack',duration,windup,elapsed:windup+shot*(profile.burstSpacing||duration),dx:actor.dx,dy:actor.dy,until};
       const current=this.attackContacts.get(actor.id);
       this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,shot,until}),held});
       if(profile.style==='ember'&&isRangedAttack(profile)&&!profile.suicide){const life=profile.id===6?.18:.16;this.effects.push({...event,kind:'muzzleFlame',sourceId:actor.id,targetId:event.target?.id,attackId:`${actor.id}:${actor.attackSeq}:${shot}`,life,max:life});}
@@ -874,9 +902,10 @@ export class Renderer {
           this.combatArt(c,'flame',x,y,size,angle,size,{age:age+i*.07,fps:9,trim:true});
         }
       }else if(e.kind==='melee'){
-        const to=this.effectTarget(e),from=this.effectSource(e)||e.from;
+        const source=this.frameActors.get(e.sourceId),bite=directedBite(source?.card)&&source.biteContact;
+        const to=bite||this.effectTarget(e),from=this.effectSource(e)||e.from;
         const name={punch:'impact',dash:'impact',slam:'dust',eruption:'explosion'}[e.style]||e.style;
-        const card=this.frameActors.get(e.sourceId)?.card||CARDS[e.key],size=combatVisual(card).impact*(e.charged?1.2:card?.windup>=.6?1.35:1);
+        const card=source?.card||CARDS[e.key],size=combatVisual(card).impact*(bite?1:e.charged?1.2:card?.windup>=.6?1.35:1);
         const angle=Math.atan2((to.y-from.y)*(this.verticalScale||1),to.x-from.x);
         if(['slash','horn','dash'].includes(e.style)&&!this.reduced&&progress<.5){c.save();c.globalAlpha*=.45*(1-progress*2);this.combatArt(c,'slash',(from.x+to.x)/2,(from.y+to.y)/2,size*.85,angle+Math.PI/4,size*.65,{progress:progress*2,trim:true});c.restore();}
         this.combatArt(c,name,to.x,to.y,size,0,size,{progress,direction:directionRow(to.x-from.x,to.y-from.y)});
@@ -1143,6 +1172,7 @@ export class Renderer {
     this.frameActors=new Map([...(game.visibleTowers??game.towers),...game.units].map(actor=>{
       const pose=this.visualActor(actor,dt);pose.logicalX=actor.x;pose.logicalY=actor.y;return[actor.id,pose];
     }));
+    this.prepareBiteActors();
     const fields=(game.fields||[]).map(field=>this.visualField(field,dt));
     for(const field of fields)this.field(c,field);
     for(const spell of game.spells){
@@ -1150,7 +1180,7 @@ export class Renderer {
       if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
     }
     this.towerHealthQueue=[];this.unitHealthQueue=[];this.projectileHeadQueue=[];
-    const objects=[...this.frameActors.values()].sort((a,b)=>a.y-b.y);
+    const objects=[...this.frameActors.values()].sort((a,b)=>(a.visualSortY??a.y)-(b.visualSortY??b.y));
     for(const actor of objects){if('king'in actor)this.tower(c,actor);else this.sprite(c,actor);this.frozen(c,actor);}
     for(const field of fields)if(['stealthRock','nightmare'].includes(field.key))this.field(c,field,true);
     this.drawDeployments(c,game);
