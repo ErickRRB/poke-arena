@@ -24,4 +24,7 @@ const PROFILES={
 };
 export function applyAttackChoreography(cards){
   for(const[key,profile]of Object.entries(PROFILES))Object.assign(cards[key],profile);
+  // Native Blastoise Shoot marks its preparation as hitFrame1; the actual
+  // shell-cannon flash starts on frame2. Keep that flash on Cannon's release.
+  if(cards.blastoiseCannon)cards.blastoiseCannon.attackContactFrame=2;
 }
