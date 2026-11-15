@@ -1,0 +1,42 @@
+{
+  "plan": {
+    "version": "sprite-preview-origin-v1",
+    "request": "Root detectó que un preview del candidato5cc usaría recursos canónicos ajenos; corregir procedencia antes de evaluar y promover un candidato integrado.",
+    "scope": "Sólo el helper de origen revisado en89157bed, bootstrap propio/legado y evidencia de recursos de un preview CF inmutable. Se combina con el plan nativo y el wrapper de publicación de Main; ninguno reemplaza los otros.",
+    "exclusions": "No cambia renderer, VFX, números, audio, estado Sites o RT. No acredita una publicación, revisión visual ni cierre nativo. El bootstrap local aislado no se presenta como preview CF real.",
+    "createdAt": "2026-11-15T09:15:25Z",
+    "criteria": [
+      {
+        "id": "origin_branch",
+        "requirement": "Mantener recursos propios sólo en versiones/alias HTTPS de este Worker y en local/canónico.",
+        "category": "technical",
+        "expected": "El helper coincide con89157bed y conserva rutas relativas en orígenes propios; legado y hosts ajenos resuelven al canónico. Ningún renderer o VFX adicional se importa.",
+        "coverage": "Matriz asset-origin, diff de archivos y red en hostname de versión propio aislado.",
+        "context": "Candidato integrado nuevo, helper89157bed; pruebas locales aisladas.",
+        "required": true,
+        "evidenceKind": "technical"
+      },
+      {
+        "id": "legacy_bootstrap",
+        "requirement": "Preservar el arranque legado sin publicar ni modificar Sites.",
+        "category": "technical",
+        "expected": "Worker legado congelado y frontend candidato arrancan con almacenamiento por origen intacto y canvas legible; módulos nuevos y sprites cargan por CORS desde canónico candidato simulado. El sampler se ejecuta aDPR1.",
+        "coverage": "Arranque aislado por hostname, DPR1 activo yDPR3, respuestas/red/errores y exportación canvas; sin API/matchmaking real.",
+        "context": "Bridge/frontend reales servidos localmente en host legado aislado; no sitio legado publicado.",
+        "required": true,
+        "evidenceKind": "technical"
+      },
+      {
+        "id": "preview_resources",
+        "requirement": "Evaluar los recursos exactos del nuevo preview propio.",
+        "category": "technical",
+        "expected": "El ID inmutable, build y fuente final coinciden; módulos y medios del alcance se sirven desde esa versión con hashes propios y sin solicitudes de recursos canónicas o externas ajenas. No se promueve al registrar la prueba.",
+        "coverage": "Preview CF inmutable real de Main, red de navegador, módulos/helpers/medios y manifest de BuildOutput. La simulación local no da este pase.",
+        "context": "Preview separado del mismo Worker antes de publicar; estado/bindings compartidos, casos CPU sin matchmaking.",
+        "required": true,
+        "evidenceKind": "technical"
+      }
+    ]
+  },
+  "history": "Registrado antes de integrar el helper en esta rama. La implementación original89157bed ya existía y fue revisada: no se atribuye a este subplan su prerregistro ni su autoría. Hallazgo nuevo PREVIEW-ORIGIN-5CC se conserva abierto hasta recheck independiente."
+}

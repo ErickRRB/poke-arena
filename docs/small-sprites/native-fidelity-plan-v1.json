@@ -1,0 +1,88 @@
+{
+  "plan": {
+    "version": "native-fidelity-v1",
+    "request": "Mejorar Exeggcute pequeño sin agrandarlo ni cambiar rol. Corrección explícita del usuario: el atlas generado no se parece aExeggcute; descartarlo y conservar la identidad.",
+    "scope": "Corrección del muestreo de cuadros originales deExeggcute ID102; depende del rendererDPR9696efc que todavía no tiene cierre visual. Todas las animaciones y direcciones siguen siendo las fuentes nativas.",
+    "exclusions": "No retocar PNG/metadatos nativos, tamaño, mecánicas, UI de producto, audio, hosting, Sites/RT, Charizard/Tronco ni sus funciones deMain. No se aprueba el catálogo entero ni hardware físico.",
+    "createdAt": "2026-11-15T07:44:18.187Z",
+    "criteria": [
+      {
+        "id": "native_identity",
+        "requirement": "Conservar la identidad de Exeggcute solicitada por el usuario.",
+        "category": "visual",
+        "expected": "El grupo mantiene sus seis cabezas, caras, grietas y silueta nativas; no son huevos genéricos ni piezas nuevas.",
+        "coverage": "DPR1 a14-17CSSpx, ocho direcciones y reposo/marcha/ataque/Hurt; referencia nativa visible.",
+        "context": "Edge emulado: arena principal390x844 CSS, arena370x686, DPR1/1.25/2/3. Poses con caché visual limpiada y estado observado. Ciclos normales CPU/UI y laboratorio en reloj natural; no teléfono físico.",
+        "required": true,
+        "evidenceKind": "visual"
+      },
+      {
+        "id": "small_readability",
+        "requirement": "Corregir contornos y rasgos que se fusionan en9696efc.",
+        "category": "visual",
+        "expected": "Las masas y rasgos siguen siendo legibles a escala real, con contraste y contornos estables; sin agrandado, blur perceptible ni aceptar sólo una mejora relativa.",
+        "coverage": "DPR1 y1.25, mismos tamaños y poses del baseline9696; al menos un ciclo CPU natural completo. No se exige OCR de cada cara.",
+        "context": "Edge emulado: arena principal390x844 CSS, arena370x686, DPR1/1.25/2/3. Poses con caché visual limpiada y estado observado. Ciclos normales CPU/UI y laboratorio en reloj natural; no teléfono físico.",
+        "required": true,
+        "evidenceKind": "visual"
+      },
+      {
+        "id": "natural_cycle",
+        "requirement": "Conservar el ciclo de aparición, marcha, ataque, contacto y muerte.",
+        "category": "motion",
+        "expected": "Las poses y el gesto avanzan con el ritmo natural y el papel de la unidad; no hay picture sliding, congelamiento nuevo, shimmer o cambio de identidad.",
+        "coverage": "Captura natural completa CPU desde toques en UI, DPR1 como caso primario y2/3 para regresión. Reproducción declarada o todos los frames nativos en ventanas de spawn/walk/contact/death, elegidos antes del juicio; contexto completo conservado.",
+        "context": "Edge emulado: arena principal390x844 CSS, arena370x686, DPR1/1.25/2/3. Poses con caché visual limpiada y estado observado. Ciclos normales CPU/UI y laboratorio en reloj natural; no teléfono físico.",
+        "required": true,
+        "evidenceKind": "motion"
+      },
+      {
+        "id": "source_and_geometry",
+        "requirement": "No cambiar fuentes ni tamaño/rol/reglas para ocultar el defecto.",
+        "category": "technical",
+        "expected": "PNG y metadatos Pokémon, escalas, radios, stats, rangos, ataque y reglas permanecen iguales; sólo se muestrea el cuadro nativo completo. Rectángulo de destino y anclas conservados.",
+        "coverage": "Comparación contra9696 y829; cuatro estados y ocho direcciones, geometría de arena/mano/elixir, colocación y aim.",
+        "context": "Edge emulado: arena principal390x844 CSS, arena370x686, DPR1/1.25/2/3. Poses con caché visual limpiada y estado observado. Ciclos normales CPU/UI y laboratorio en reloj natural; no teléfono físico.",
+        "required": true,
+        "evidenceKind": "technical"
+      },
+      {
+        "id": "density_and_shared_path",
+        "requirement": "Aplicar tratamiento por densidad sin degradar otras rutas.",
+        "category": "technical",
+        "expected": "Tratamiento sólo ID102 cuando el píxel fuente se reduce; a mayor densidad y en otras especies se conserva la ruta previa. Sin recurso generado nuevo ni cambios a fuego/rodadura.",
+        "coverage": "DPR1/1.25/2/3, comparadores50/355/261/32/280, laboratorio10/24columnas, cambio deDPR y visibilidad.",
+        "context": "Edge emulado: arena principal390x844 CSS, arena370x686, DPR1/1.25/2/3. Poses con caché visual limpiada y estado observado. Ciclos normales CPU/UI y laboratorio en reloj natural; no teléfono físico.",
+        "required": true,
+        "evidenceKind": "technical"
+      },
+      {
+        "id": "budget",
+        "requirement": "Mantener un coste razonable del renderer compartido.",
+        "category": "technical",
+        "expected": "Cachés acotadas y compartidas en laboratorio; sin regresión material de dibujo/uso frente a9696, medidas comparativas con límites declarados.",
+        "coverage": "Principal32pequeños y laboratorio10/24columnas aDPR1/3; medición sin grabar video. No se deduceFPS de teléfono.",
+        "context": "Edge emulado: arena principal390x844 CSS, arena370x686, DPR1/1.25/2/3. Poses con caché visual limpiada y estado observado. Ciclos normales CPU/UI y laboratorio en reloj natural; no teléfono físico.",
+        "required": true,
+        "evidenceKind": "technical"
+      }
+    ]
+  },
+  "history": {
+    "baseline": "9696efca70a1230471bbcf5232f76769d8d76deb",
+    "priorOpenFindings": [
+      {
+        "localId": "LEGIBILITY-EXEGGCUTE-9696",
+        "description": "Revisión independiente requiere corrección: grupo rosa cuyos contornos/rasgos se fusionan enDPR1.",
+        "report": ".supervision/small-sprites-20261115/independent-review/review-9696.md"
+      },
+      {
+        "localId": "IDENTITY-GENERATED-PARTS",
+        "description": "Usuario rechazó el atlas generado por perder identidad. Prototipo no publicado y retirado deldist."
+      }
+    ],
+    "exploration": "Antes de este plan se investigaron y compararon prototipos bajo el pedido anterior. El atlas y su reconstrucción por piezas se rechazaron; no se presenta este plan como anterior a esa investigación. La implementación candidata se aplicará después de este commit, antes de la primera revisión de la corrección.",
+    "status": "No se cierra ningún hallazgo por el plan ni por pruebas. Root conserva historia global eIDs canónicos."
+  },
+  "reviewInstructions": "Paquete de reproducción separado de AUTHOR.md. Registrar primera evaluación antes de conclusiones del autor; declarar anclaje y capacidades. Poses/contadores/eventos no aprueban movimiento ni calidad. Cualquier requerido no evaluado bloquea cierre."
+}
