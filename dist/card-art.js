@@ -2,7 +2,7 @@ import { CARDS } from './engine.js?v=26';
 import { cardPlaceholder } from './battle-art.js?v=26';
 // Each atlas contains opaque, full-bleed battle scenes in row-major order.
 const sheets = [
-  ['pikachu','snorlax','machamp','blastoise','zubat','thunder','charizard','fireball','treecko','log','squirtle','charmander','bulbasaur','gengar','eevee','onix'],
+  ['pikachu','snorlax','machamp','octillery','zubat','thunder','charizard','fireball','treecko','log','squirtle','charmander','bulbasaur','gengar','eevee','onix'],
   ['vulpix','psyduck','alakazam','geodude','magnemite','scyther','lapras','mewtwo','golem','venusaur','butterfree','beedrill','pidgeot','ekans','sandshrew','nidoqueen'],
   ['nidoking','mankey','arcanine','slowbro','grimer','cloyster','gastly','voltorb','electrode','exeggutor','koffing','chansey','kangaskhan','starmie','mrmime','gyarados'],
   ['ditto','articuno','zapdos','moltres','dragonite','meganium','typhlosion','feraligatr','crobat','ampharos','espeon','umbreon','wobbuffet','steelix','scizor','skarmory'],
@@ -24,7 +24,8 @@ for(const key of ['fireball','forretress'])CARD_ART[key]={file:`assets/cards/${k
 const SCENE_ART = new Set(['ekans','zubat','beedrill','sandshrew','mankey','nidoqueen','exeggutor','altaria','treecko','kangaskhan']);
 for(const key of SCENE_ART)CARD_ART[key]={file:`assets/cards/${key}SceneV2.webp`,columns:1,rows:1,x:0,y:0};
 CARD_ART.golem={file:'assets/cards/golemSceneV3.webp',columns:1,rows:1,x:0,y:0};
-CARD_ART.blastoise={file:'assets/cards/blastoise-mobile-v1.png',columns:1,rows:1,x:0,y:0};
+CARD_ART.blastoiseCannon={file:'assets/cards/blastoise-mobile-v1.png',columns:1,rows:1,x:0,y:0};
+CARD_ART.octillery={file:'assets/cards/octillery-mobile-v1.png',columns:1,rows:1,x:0,y:0};
 CARD_ART.log={file:'assets/cards/flame-wheel-v1.png',columns:1,rows:1,x:0,y:0};
 for(const key of ['rapidash','roselia','graveler','nuzleaf','sneaselAmbush']){
   CARD_ART[key]={file:`assets/cards/${key}-v1.webp`,columns:1,rows:1,x:0,y:0};
