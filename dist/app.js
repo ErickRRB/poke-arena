@@ -149,7 +149,7 @@ function updateUi() {
   syncHand();
 }
 function handleEvent(e) {
-  renderer.onEvent(e); sfx.event(e);
+  renderer.onEvent(e,game); sfx.event(e);
   if(e.type==='burrow'&&e.unit.team===0)live(e.hidden?'Ampharos se oculta.':'Ampharos emerge.');
   if (e.type === 'deploy' && e.team === 0) {
     if (walkthrough?.step === 2) {

@@ -9,7 +9,7 @@ let game, side = 0, view, frame = 0, mode = 'snapshots15', queue = [], eventLog 
 const listeners = new Set();
 function sync() {
   view = mode === 'local30' && !side ? game : unpackGame(perspective(publicSnapshot(game, side), side));
-  for (const event of queue) { const converted = perspective(unpackEvent(event), side); renderer.onEvent(converted); for (const listener of listeners) listener(converted); }
+  for (const event of queue) { const converted = perspective(unpackEvent(event), side); renderer.onEvent(converted,view); for (const listener of listeners) listener(converted); }
   queue = [];
 }
 function draw(dt = 0) { sync(); render(view, game.state === 'paused' ? 0 : dt); return view; }

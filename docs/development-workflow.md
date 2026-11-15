@@ -46,6 +46,8 @@ Una misma persona independiente del autor puede revisar más de una dimensión s
 
 Al asignar la revisión final, incluir desde el inicio el [formato vigente de los registros](quality-review-gate.md) y su [validador](../scripts/quality-review-gate.mjs). Pedir la salida tipada con método, capacidad y clases de evidencia realmente usados, además del candidato y los criterios evaluados. Comprobar el formato al exportar. Corregir una representación incompleta conserva el veredicto, la fecha y la evidencia originales; no exige otra captura ni permite inventar una evaluación.
 
+Separar los criterios y sus dependencias cuando haya frentes que puedan publicarse por separado, conservando abiertos los contratos globales pendientes. Una corrección tardía de la relación entre un hallazgo y sus criterios conserva el original, su hash y sus fechas, explica la correspondencia y recibe revisión semántica independiente de todas las obligaciones. Reutilizar la evidencia compatible con su atribución real; no inventar pases ni recapturar por corregir metadatos.
+
 Si sólo se dispone de imágenes, una secuencia suficientemente densa con tiempos y contexto puede demostrar las propiedades observables entre cuadros; no demuestra una percepción continua de fluidez. Completar la inspección viable antes de devolver la tarea. Si falta capacidad para un criterio requerido, dejarlo pendiente y buscar una alternativa adecuada; ni contadores ni puntuaciones genéricas sustituyen esa capacidad.
 
 ## Cuándo debe intervenir Root

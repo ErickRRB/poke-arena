@@ -31,7 +31,7 @@ try{
   }
   for(const key of ranges){reset();const game=new Game({seed:2026});game.start();game.aiEnabled=false;game.energy[0]=10;r.selection=key;r.pointer={x:300,y:532,inside:true};draw(game,0);rows.push({key,kind:'range',radius:CARDS[key].range,png:capture()});}
   for(const key of['spikes','stealthRock','whirlpool','nightmare','earthquake']){
-   reset();const game=new Game({seed:2026,onEvent:e=>r.onEvent(e)});game.start();game.aiEnabled=false;game.towers.forEach(t=>t.active=false);game.energy[0]=10;game.hands[0][0]=key;
+   reset();const game=new Game({seed:2026,onEvent:e=>r.onEvent(e,game)});game.start();game.aiEnabled=false;game.towers.forEach(t=>t.active=false);game.energy[0]=10;game.hands[0][0]=key;
    if(!game.deploy(0,0,300,532).ok)throw Error('Deploy failed '+key);for(let i=0;i<240&&!game.fields.length;i++)game.step(1/60);
    const before=JSON.stringify(packGame(game));r.effects=[];draw(game,0);if(before!==JSON.stringify(packGame(game)))throw Error('Field changed mechanics '+key);
    rows.push({key,kind:'field',radius:game.fields[0].radius,mechanicsUnchanged:true,png:capture()});
