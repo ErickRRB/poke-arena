@@ -36,7 +36,7 @@ test('registro ajeno inválido no impide parcial y conserva diagnóstico', () =>
 });
 test('cierre requiere historial y recheck independiente del fix', () => {
  const b=bundle(), old={id:'bug',required:true,status:'open',criteria:['fire'],openedAt:'2026-01-01T12:00:00Z'};
- b.previousFindings=[old]; b.findings=[{id:'bug',required:true,status:'closed',criteria:['fire'],previousHash:hash(JSON.stringify(old)),fix:{author:'autor',description:'corregido',candidate}}];
- assert.equal(check(b).ok,true); b.findings[0].fix.author='revisor'; assert.equal(check(b).ok,false); b.findings[0].fix.author='autor'; delete b.findings[0].previousHash; assert.equal(check(b).ok,false);
+ b.previousFindings=[old]; b.findings=[{id:'bug',required:true,status:'closed',criteria:['fire'],previousHash:hash(JSON.stringify(old)),fix:{author:'autor',description:'corregido',completedAt:'2026-01-01T13:00:00Z',candidate}}];
+ assert.equal(check(b).ok,true); b.findings[0].fix.completedAt='2026-01-03T00:00:00Z'; assert.equal(check(b).ok,false); b.findings[0].fix.completedAt='2026-01-01T13:00:00Z'; b.findings[0].fix.author='revisor'; assert.equal(check(b).ok,false); b.findings[0].fix.author='autor'; delete b.findings[0].previousHash; assert.equal(check(b).ok,false);
  b.findings=[]; assert.equal(check(b).ok,false);
 });

@@ -132,9 +132,9 @@ export function checkReview(bundle, base = process.cwd()) {
     if (old && (old.required !== f.required || !equal(old.criteria, f.criteria))) fail('finding history', `finding ${f.id} changed scope or obligation`);
     if (f.status === 'closed') {
       const fix = f.fix;
-      const valid = old && f.previousHash === hash(JSON.stringify(old)) && text(fix?.description) && text(fix?.author) && fix.candidate?.sha === candidate?.sha && fix.candidate?.tree === candidate?.tree && f.criteria.every(id => {
+      const valid = old && f.previousHash === hash(JSON.stringify(old)) && text(fix?.description) && text(fix?.author) && Number.isFinite(Date.parse(fix?.completedAt)) && Date.parse(fix.completedAt) >= Date.parse(old.openedAt) && fix.candidate?.sha === candidate?.sha && fix.candidate?.tree === candidate?.tree && f.criteria.every(id => {
         const r = byId.get(id);
-        return r?.status === 'pass' && state.get(id) && text(r.reviewer) && r.reviewer.trim().toLowerCase() !== fix.author.trim().toLowerCase() && Date.parse(r.reviewedAt) >= Date.parse(old.openedAt);
+        return r?.status === 'pass' && state.get(id) && text(r.reviewer) && r.reviewer.trim().toLowerCase() !== fix.author.trim().toLowerCase() && Date.parse(r.reviewedAt) >= Date.parse(fix.completedAt);
       });
       if (!valid) { for (const id of f.criteria) { criterionFail(id, `finding ${f.id} lacks prior open record, fix or independent recheck`); state.set(id, false); } }
     }
