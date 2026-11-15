@@ -44,6 +44,8 @@ Responder lo pertinente en la ficha; no crear diez formularios ni exigir categor
 
 Una misma persona independiente del autor puede revisar más de una dimensión si tiene capacidad y deja separadas sus conclusiones. No asignar más agentes ni recapturar el mismo caso por rutina. La revisión de un original íntegro puede ser independiente sin que el revisor genere otra copia.
 
+Al asignar la revisión final, incluir desde el inicio el [formato vigente de los registros](quality-review-gate.md) y su [validador](../scripts/quality-review-gate.mjs). Pedir la salida tipada con método, capacidad y clases de evidencia realmente usados, además del candidato y los criterios evaluados. Comprobar el formato al exportar. Corregir una representación incompleta conserva el veredicto, la fecha y la evidencia originales; no exige otra captura ni permite inventar una evaluación.
+
 Si sólo se dispone de imágenes, una secuencia suficientemente densa con tiempos y contexto puede demostrar las propiedades observables entre cuadros; no demuestra una percepción continua de fluidez. Completar la inspección viable antes de devolver la tarea. Si falta capacidad para un criterio requerido, dejarlo pendiente y buscar una alternativa adecuada; ni contadores ni puntuaciones genéricas sustituyen esa capacidad.
 
 ## Cuándo debe intervenir Root

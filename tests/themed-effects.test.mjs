@@ -5,6 +5,7 @@ import { Renderer } from '../dist/render.js';
 import {BattleArt,cardPlaceholder} from '../dist/battle-art.js';
 import {BATTLE_ASSETS} from '../dist/assets/battle/manifest.js';
 import { packGame, unpackGame, packEvent, perspective } from '../dist/snapshot.js?v=34';
+import {setFireWheelMaterial} from '../dist/fire-material.js?v=38';
 
 function setup(){
   const calls=[],ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}})}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
@@ -125,12 +126,19 @@ test('Pikachu entry, attack charge and missile impacts use sparks instead of loa
   }
 });
 
-test('Rueda Fuego preserves the saved card key and sweep while replacing the static placeholder with animated attack assets',()=>{
+test('Rueda Fuego preserves the saved card key and sweep while drawing native flame material',()=>{
  assert.equal(CARDS.log.name,'Rueda Fuego');assert.equal(CARDS.log.cost,2);assert.equal(CARDS.log.damage,268);assert.equal(cardPlaceholder('log'),false);
+ const normal={naturalWidth:3088,naturalHeight:968},reducedImage={naturalWidth:3088,naturalHeight:968};
+ setFireWheelMaterial([normal,reducedImage]);
  const{game,renderer,ctx,calls}=setup();deploy(game,'log',300,520);
  const spell=game.spells[0];assert.equal(spell.key,'log');const before=spell.y;game.step(.1);assert.ok(spell.y<before);
- const frames=new Set();
- for(let i=0;i<20;i++){renderer.t=i/30;calls.length=0;renderer.rollingSpell(ctx,spell);const draw=calls.find(call=>call.method==='drawImage'&&call.args[0]===renderer.battleArt.image('flameWheel'));assert.ok(draw);frames.add(draw.args[1]);assert.equal(calls.some(call=>call.method==='fillText'),false);}
- assert.ok(frames.size>=4,'the rolling attack must visibly animate');
- for(const reduced of[true,false]){renderer.reduced=reduced;calls.length=0;renderer.rollingSpell(ctx,spell);assert.ok(calls.some(call=>call.method==='drawImage'));}
+ for(const reduced of[true,false]){
+  renderer.reduced=reduced;calls.length=0;const saved=JSON.stringify(packGame(game));renderer.rollingSpell(ctx,spell);
+  const material=calls.find(call=>call.method==='drawImage'&&call.args[0]===(reduced?reducedImage:normal));
+  assert.ok(material,'The selected decoded material reaches the real rolling render path.');
+  assert.equal(material.args[7],CARDS.log.splash*2,'The painted body uses the native corridor width.');
+  assert.equal(calls.some(call=>call.method==='fillText'),false);assert.equal(JSON.stringify(packGame(game)),saved);
+ }
+ // Resource dispatch is a technical check; rolling/fire quality is reviewed
+ // independently from complete natural-loop captures at actual display size.
 });

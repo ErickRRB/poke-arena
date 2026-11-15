@@ -78,6 +78,17 @@ npm run deploy -- --manifest RUTA_MANIFEST_JSON --decision RUTA_DECISION_JSON --
 npm run deploy -- --manifest RUTA_MANIFEST_JSON --decision RUTA_DECISION_JSON
 ```
 
+En PowerShell, seleccionar Node 22.18 o superior explícitamente y comprobar su versión antes del release. La instalación existente 22.23.4 permite invocar el mismo wrapper desde `realtime/frontend`, preservando los argumentos:
+
+```powershell
+$releaseNode = 'C:/Users/Mapa/AppData/Roaming/nvm/v22.23.4/node.exe'
+& $releaseNode --version
+& $releaseNode ../../scripts/publish-frontend.mjs promote --manifest RUTA_MANIFEST_JSON --decision RUTA_DECISION_JSON --dry-run
+& $releaseNode ../../scripts/publish-frontend.mjs promote --manifest RUTA_MANIFEST_JSON --decision RUTA_DECISION_JSON
+```
+
+Si se usa npm con Node ya seleccionado en PATH, `npm.cmd --% run deploy -- --manifest RUTA_MANIFEST_JSON --decision RUTA_DECISION_JSON --dry-run` evita que PowerShell altere los flags; ejecutar después la misma orden sin `--dry-run`. En este release, `npm.ps1` perdió argumentos y Node 22.16 no pudo cargar `cloudflare.config.ts`: ambos intentos terminaron antes de solicitar activación. Corregir el entorno no requiere reconstruir ni subir otra versión.
+
 El wrapper vuelve a ejecutar el CLI real detrás de `npm run review:check`, comprueba los archivos y todos los vínculos, y sólo propone `cf workers deployments create` con el ID exacto al 100%. No reconstruye ni sube otra versión. Sin registros suficientes, rechaza con un error de calidad concreto antes de mutar Cloudflare; no pide otro permiso al usuario. La autorización de despliegue vigente es distinta de la decisión de calidad de Root.
 
 La ejecución real consulta la versión activa y compara los bytes públicos básicos con el build. Guardar stdout y stderr como registro de publicación. Un resultado favorable queda como `promoted_public_behavior_review_pending`: aún falta reproducir la conducta pública del alcance y su revisión independiente. No cierra hallazgos ni registros.

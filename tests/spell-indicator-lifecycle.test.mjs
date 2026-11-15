@@ -12,7 +12,7 @@ function fixture(key, team = 0) {
   const game = new Game({ seed: 3601 }); game.start(); game.aiEnabled = false; game.energy[team] = 10;
   const pointer = team ? { x: 311, y: 281 } : { x: 289, y: 519 }, recorded = context();
   const renderer = Object.assign(Object.create(Renderer.prototype), { selection: key, pointer, placementTeam: team, t: 0, reduced: false,
-    sprite() { recorded.calls.push({ method: 'ghostSprite', args: [] }); }, combatArt(...args) { recorded.calls.push({ method: 'previewArt', args }); }, capsule(...args){recorded.calls.push({method:'capsuleGhost',args});} });
+    sprite() { recorded.calls.push({ method: 'ghostSprite', args: [] }); }, combatArt(...args) { recorded.calls.push({ method: 'previewArt', args }); }, fireWheel(...args){recorded.calls.push({method:'previewArt',args});}, capsule(...args){recorded.calls.push({method:'capsuleGhost',args});} });
   return { game, renderer, ...recorded };
 }
 for (const [key, card] of spells) for (const team of [0, 1]) {

@@ -1,0 +1,7 @@
+Use case: stylized-concept
+Asset type: original opaque albedo/combustion texture for an animated pixel-art game fire volume, not a finished object.
+Primary request: a seamless square material tile of living golden-orange fire. Every part is made of thick interlocking curling flame tongues and roiling flame eddies. Large, clearly readable flame shapes, bright cream and pale yellow hot cores inside amber and orange tongues, sparse deeper burnt-orange recesses. Vigorous organic turbulence; the flame tongues curl, fork, overlap and merge. Flames should be readable after substantial reduction to a tiny game effect.
+Composition: flat orthographic texture filling the entire square edge to edge. All four edges tile seamlessly. Even distribution, no single focal object. Medium scale flame tongues, roughly 6 to 9 tongue clusters across the tile.
+Style: finely authored crisp pixel-art VFX texture with a restrained warm palette and clear clustered pixels, no outlines. No glossy 3D rendering. Palette mostly luminous orange, gold, yellow and cream; deeper orange only in small winding gaps.
+Lighting: self-emissive fire, not a lit solid surface. No external illumination, no large dark area.
+Constraints: opaque tile, no transparent areas. No object, cylinder, ball, wheel, ring, frame, rim, metal, wood, armor, straight stripe, grids, separated panels, symbols, text, watermark, black background or smoke. No diffuse glow or blurry halo. No lava crust or stone texture. Only dense active fire.

@@ -1,0 +1,17 @@
+{
+ "id":"vfx-north-short",
+ "source":"dist/index.html",
+ "adapter":"tools/review/vfx-adapter.mjs",
+ "scene":"north-short",
+ "preRollMs":400,
+ "viewport":{"width":390,"height":844,"dpr":1},
+ "durationMs":7200,
+ "sampleMs":100,
+ "clock":"natural-app",
+ "expectedEvent":"attackRelease",
+ "extractIntervalMs":33.333333,
+ "recordCanvas":"#arena",
+ "crop":{"x":10,"y":2,"width":370,"height":686},
+ "requiredObservations":["clock","canvas","events","actorState","hp"],
+ "requireWebSocketIsolation":true
+}
