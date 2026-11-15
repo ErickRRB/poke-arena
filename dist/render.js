@@ -796,10 +796,11 @@ export class Renderer {
     const radius=field.radius,size=Math.ceil(radius*2),surface=this.fieldSurface??=this.canvas.ownerDocument.createElement('canvas');
     if(surface.width!==size||surface.height!==size){surface.width=size;surface.height=size;}
     const water=surface.getContext('2d');water.setTransform(1,0,0,1,0,0);water.globalAlpha=1;water.globalCompositeOperation='source-over';water.clearRect(0,0,size,size);water.imageSmoothingEnabled=false;
-    this.battleArt.draw(water,'whirlpool',size/2,size/2,radius*1.95,radius*1.95,{age:this.reduced?.8:age,trim:true,blend:!this.reduced});
+    const clock=this.reduced?.8:Math.max(0,age);
+    this.battleArt.draw(water,'whirlpool',size/2,size/2,radius*1.95,radius*1.95,{age:clock,trim:true,blend:!this.reduced});
     // Early native frames are a shallow ellipse. A circular mask leaves their
     // upper/lower rim untouched, so follow the native silhouette as it rises.
-    const phase=(this.reduced?.8:age)*BATTLE_ASSETS.whirlpool.fps,frame=Math.floor(phase)%WHIRLPOOL_BOUNDS.length;
+    const phase=clock*BATTLE_ASSETS.whirlpool.fps,frame=Math.floor(phase)%WHIRLPOOL_BOUNDS.length;
     const aspect=at=>{const b=WHIRLPOOL_BOUNDS[at];return(b[3]-b[1])/(b[2]-b[0]);};
     const next=(frame+1)%WHIRLPOOL_BOUNDS.length,mix=this.reduced?0:phase-Math.floor(phase),height=aspect(frame)*(1-mix)+aspect(next)*mix;
     water.save();water.translate(size/2,size/2);water.scale(1,Math.min(1,height));
