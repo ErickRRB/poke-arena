@@ -7,7 +7,7 @@ export const TEST_SUITES=Object.freeze({
   server:['asset-origin.test.mjs','media-route.test.mjs'],
   audio:['audio-recovery.test.mjs','audio-catalog.test.mjs','music.test.mjs','clean-audio-bank.test.mjs'],
   balance:['balance.test.mjs','balance-sandbox.test.mjs','thresholds.test.mjs','balance-role-audit.test.mjs','current-reference.test.mjs','native-interactions.test.mjs','native-arena.test.mjs','native-generators-pull.test.mjs','catalog-initialization.test.mjs'],
-  tooling:['test-suites.test.mjs','quality-review-gate.test.mjs','publish-frontend.test.mjs','review-baseline-adapter.test.mjs','review-tower-scenario.test.mjs','review-workbench-finalize.test.mjs','review-workbench-partial.test.mjs','review-workbench-png.test.mjs','review-workbench-timing.test.mjs','review-workbench.test.mjs'],
+  tooling:['test-suites.test.mjs','quality-review-gate.test.mjs','publish-frontend.test.mjs','review-baseline-adapter.test.mjs','review-tower-scenario.test.mjs','review-workbench-finalize.test.mjs','review-workbench-partial.test.mjs','review-workbench-png.test.mjs','review-workbench-timing.test.mjs','review-workbench-origin.test.mjs','review-workbench.test.mjs'],
   sandbox:['sandbox.test.mjs'],
 });
 

@@ -24,7 +24,19 @@ export function validateCase(c) {
   if (!q || ![q.x,q.y,q.width,q.height].every(Number.isFinite) || q.x<0 || q.y<0 || q.width<=0 || q.height<=0 || q.x+q.width>width || q.y+q.height>height) throw Error('invalid fixed crop');
   inRoot(c.source); inRoot(c.adapter);
   if (c.runtime && (c.source !== 'dist/index.html' || typeof c.runtime.root !== 'string' || !/^[a-f0-9]{40}$/.test(c.runtime.sha || '') || !/^[a-f0-9]{40}$/.test(c.runtime.tree || ''))) throw Error('runtime requires dist/index.html, repository root, full SHA and tree');
-  if(c.publicOrigin!==undefined){validatePublicOrigin(c.publicOrigin);if(!c.runtime||typeof c.runtime.buildOutput!=='string'||!c.runtime.buildOutput.trim())throw Error('publicOrigin requires frozen runtime and buildOutput');}
+  if(c.adapterDependencies!==undefined&&(!Array.isArray(c.adapterDependencies)||c.adapterDependencies.some(p=>typeof p!=='string'||!p.trim())||new Set(c.adapterDependencies.map(inRoot)).size!==c.adapterDependencies.length||c.adapterDependencies.some(p=>inRoot(p)===inRoot(c.adapter))))throw Error('adapterDependencies must list distinct local dependency paths');
+  if(c.publicOrigin!==undefined){validatePublicOrigin(c.publicOrigin);if(!c.runtime||typeof c.runtime.buildOutput!=='string'||!c.runtime.buildOutput.trim())throw Error('publicOrigin requires frozen runtime and buildOutput');if(!Array.isArray(c.adapterDependencies))throw Error('publicOrigin requires explicit adapterDependencies, empty for a standalone adapter');}
+}
+function inputDefinitions(c){return [['source',c.source],['adapter',c.adapter],['runner','scripts/review-workbench.mjs'],...(c.adapterDependencies||[]).map((p,i)=>['adapterDependency:'+i,p])];}
+export function inputInventory(c){return{expectedInputs:['case',...inputDefinitions(c).map(([role])=>role)],inputs:[{role:'case',origin:'case',sha256:sha(Buffer.from(JSON.stringify(c)))}],adapterDependencyCoverage:{declared:c.adapterDependencies??null,limits:'Caller-declared local Node-side imports, including transitives; no automatic import discovery or ESM-cache invalidation. Without a declaration only primary inputs are recorded.'}};}
+export async function recordInputs(result,c,runtime){
+  for(const[role,p]of inputDefinitions(c)){const origin=runtime&&role==='source'?'runtime':'tooling',data=await readFile(origin==='runtime'?path.join(runtime.cwd,p):inRoot(p));result.inputs.push({role,path:p,origin,sha256:sha(data)});}
+}
+export async function rehashInputs(result,c,runtime){
+  const changed=[];
+  for(const input of result.inputs){try{const data=input.role==='case'?Buffer.from(JSON.stringify(c)):await readFile(input.origin==='runtime'?path.join(runtime.cwd,input.path):inRoot(input.path));input.finalSha256=sha(data);if(input.finalSha256!==input.sha256)changed.push(input.role);}catch{input.finalSha256=null;changed.push(input.role);}}
+  const roles=result.inputs.map(input=>input.role);result.missingInputs=result.expectedInputs.filter(role=>!roles.includes(role));result.changedInputs=changed;
+  if(result.missingInputs.length||changed.length||new Set(roles).size!==roles.length)throw Error('input inventory incomplete or changed: '+[...result.missingInputs,...changed].join(', '));
 }
 export function pngSize(data) {
   const signature=Buffer.from([137,80,78,71,13,10,26,10]);
@@ -79,6 +91,7 @@ export async function publicBuild(runtime,relative){
   async function walk(dir){for(const entry of await readdir(dir,{withFileTypes:true})){const absolute=path.join(dir,entry.name);if(entry.isDirectory()){await walk(absolute);continue;}if(!entry.isFile())throw Error('Build Output contains a non-file');const data=await readFile(absolute),file=path.relative(directory,absolute).split(path.sep).join('/'),item={path:file,bytes:data.length,sha256:sha(data)};files.push(item);
     if(file.startsWith(prefix)){const name=file.slice(prefix.length),source='dist/'+name;if(!data.equals(await readFile(path.join(runtime.cwd,source))))throw Error('build/source bytes differ: '+name);assets.set(name,{...item,absolute,source,gitBlob:runtimeBlob(runtime,source,data)});}
   }}await walk(directory);files.sort((a,b)=>a.path.localeCompare(b.path));
+  const missing=[...runtime.blobs.keys()].filter(file=>file.startsWith('dist/')&&!assets.has(file.slice(5)));if(missing.length)throw Error('Build Output is missing source assets: '+missing.join(', '));
   if(!files.some(f=>f.path==='workers/default/bundle/index.js')||!['index.html','app.js','render.js','engine.js'].every(file=>assets.has(file)))throw Error('complete Build Output and core app assets required');
   return{directory,files,sha256:sha(JSON.stringify(files)),assets};
 }
@@ -128,9 +141,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
   if (!['capture','observe'].includes(mode)) throw Error('mode must be capture or observe');
   if (observeDurationMs !== undefined && (mode !== 'observe' || !Number.isFinite(observeDurationMs) || observeDurationMs<100)) throw Error('observe duration must be at least 100 ms and only applies to observe');
   const result={schema:1,id:c.id,mode,status:'running',requested:structuredClone(c),limitations:['Emulación de navegador; no dispositivo físico.','La semilla del motor no determina Math.random del renderer.','Una secuencia de imágenes no demuestra fluidez perceptual.'],samples:[]};
-  const caseSha=sha(Buffer.from(JSON.stringify(c)));
-  result.expectedInputs=['case','source','adapter','runner'];
-  result.inputs=[{role:'case',origin:'case',sha256:caseSha}];
+  Object.assign(result,inputInventory(c));
   result.phases={observation:'not_started',cdp:'not_started',canvas:'not_started',runtime:'not_started',resources:'not_started',inputs:'not_started',metadata:'not_started'}; result.errors=[];
   let dir,server,browser,context,cdp,runtime,page,adapter,remote,cdpStarted=false,canvasStarted=false; const captured=[]; let pending=Promise.resolve();
   const fail=(phase,error)=>{const message=error.message||String(error);result.phases[phase]='failed';result.errors.push({phase,error:message});result.error??=message;result.status='failed';};
@@ -139,7 +150,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
   try {
     runtime=runtimeSource(c);
     if(c.publicOrigin){remote={origin:c.publicOrigin,build:await publicBuild(runtime,c.runtime.buildOutput),jobs:[],responses:[],errors:[],network:{requests:[],blocked:[],webSockets:[],pageErrors:[],serviceWorkers:'blocked'}};result.publicBuild={directory:remote.build.directory,files:remote.build.files,sha256:remote.build.sha256,verification:'incomplete'};}
-    for (const [role,p] of [['source',c.source],['adapter',c.adapter],['runner','scripts/review-workbench.mjs']]) { const data=await readFile(runtime && role==='source'?path.join(runtime.cwd,p):inRoot(p)); result.inputs.push({role,path:p,origin:runtime && role==='source'?'runtime':'tooling',sha256:sha(data)}); }
+    await recordInputs(result,c,runtime);
     result.git={sha:command('git',['rev-parse','HEAD']).trim(),tree:command('git',['rev-parse','HEAD^{tree}']).trim(),status:command('git',['status','--porcelain']).trim()};
     adapter=await import(pathToFileURL(inRoot(c.adapter)).href+'?v='+Date.now());
     if (typeof adapter.prepare!=='function' || typeof adapter.observe!=='function') throw Error('adapter requires prepare and observe');
@@ -217,12 +228,7 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
         result.runtime.resourceVerification='complete';
       });
     }
-    await finalize('inputs',async()=>{
-      const changed=[];
-      for(const input of result.inputs){try{const data=input.role==='case'?Buffer.from(JSON.stringify(c)):await readFile(input.origin==='runtime'?path.join(runtime.cwd,input.path):inRoot(input.path));input.finalSha256=sha(data);if(input.finalSha256!==input.sha256)changed.push(input.role);}catch{input.finalSha256=null;changed.push(input.role);}}
-      const roles=result.inputs.map(input=>input.role);result.missingInputs=result.expectedInputs.filter(role=>!roles.includes(role));result.changedInputs=changed;
-      if(result.missingInputs.length || changed.length || new Set(roles).size!==roles.length)throw Error('input inventory incomplete or changed: '+[...result.missingInputs,...changed].join(', '));
-    });
+    await finalize('inputs',()=>rehashInputs(result,c,runtime));
     if(dir && cdpStarted) await finalize('metadata',async()=>{await pending;await writeFile(path.join(dir,'cdp-frames.json'),JSON.stringify({clock:'CDP metadata.timestamp; receipt clocks are diagnostics only, not presentation time',frames:captured},null,2));});
     if(dir && !result.error && result.phases.cdp==='complete') await finalize('viewer',()=>writeFile(path.join(dir,'index.html'),viewer(c,result.selectedFrames,result)));
     if(!result.error) result.status='complete';

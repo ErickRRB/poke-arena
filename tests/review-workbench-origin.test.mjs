@@ -4,7 +4,8 @@ import {mkdtemp,mkdir,readFile,writeFile,rm} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
-import {validateCase,validatePublicOrigin,publicBuild,collectPublicResponse,drainResponses,isolatePublicPage,finishPublicPage} from '../scripts/review-workbench.mjs';
+import {pathToFileURL} from 'node:url';
+import {validateCase,validatePublicOrigin,inputInventory,recordInputs,rehashInputs,publicBuild,collectPublicResponse,drainResponses,isolatePublicPage,finishPublicPage} from '../scripts/review-workbench.mjs';
 import {beforeNavigate} from '../tools/review/baseline-adapter.mjs';
 
 const origin='https://review.example.invalid';
@@ -14,8 +15,23 @@ test('public origin is explicit HTTPS and requires a frozen source/build, local 
   validateCase(fixture);assert.equal(validatePublicOrigin(origin),origin);
   for(const value of['http://review.example.invalid',origin+'/',origin+'/app',origin+'?x=1',origin+'#x','https://user:pass@review.example.invalid','not a URL'])assert.throws(()=>validatePublicOrigin(value),/HTTPS origin/);
   assert.throws(()=>validateCase({...fixture,publicOrigin:origin}),/frozen runtime/);
-  const c={...fixture,source:'dist/index.html',publicOrigin:origin,runtime:{root:'frozen',sha:'a'.repeat(40),tree:'b'.repeat(40)}};
+  const c={...fixture,source:'dist/index.html',publicOrigin:origin,adapterDependencies:[],runtime:{root:'frozen',sha:'a'.repeat(40),tree:'b'.repeat(40)}};
   assert.throws(()=>validateCase(c),/buildOutput/);validateCase({...c,runtime:{...c.runtime,buildOutput:'build'}});
+  assert.throws(()=>validateCase({...c,adapterDependencies:undefined,runtime:{...c.runtime,buildOutput:'build'}}),/explicit adapterDependencies/);
+  assert.throws(()=>validateCase({...fixture,adapterDependencies:['../../outside']}),/inside repository/);
+  assert.throws(()=>validateCase({...fixture,adapterDependencies:[fixture.adapter]}),/distinct local/);
+});
+
+test('declared composite adapter dependencies are hashed before/after and a changed import fails',async()=>{
+  const root=path.resolve(import.meta.dirname,'..'),parent=path.join(root,'.supervision');await mkdir(parent,{recursive:true});const directory=await mkdtemp(path.join(parent,'review-dependencies-'));
+  try{
+    const dep=path.join(directory,'dependency.mjs'),adapter=path.join(directory,'adapter.mjs'),base='tests/fixtures/workbench/adapter.mjs';
+    await writeFile(dep,"export const tag='before';\n");await writeFile(adapter,"import {tag} from './dependency.mjs'; export const seen=tag; export {prepare,observe} from '../../tests/fixtures/workbench/adapter.mjs';\n");
+    const relative=p=>path.relative(root,p).split(path.sep).join('/'),c={...fixture,adapter:relative(adapter),adapterDependencies:[relative(dep),base]};validateCase(c);
+    const inventory=inputInventory(c);await recordInputs(inventory,c,null);assert.equal((await import(pathToFileURL(adapter))).seen,'before');await rehashInputs(inventory,c,null);
+    assert.equal(inventory.inputs.length,6);assert.deepEqual(inventory.changedInputs,[]);assert.ok(inventory.inputs.filter(i=>i.role.startsWith('adapterDependency:')).every(i=>i.finalSha256===i.sha256));
+    await writeFile(dep,"export const tag='after';\n");await assert.rejects(rehashInputs(inventory,c,null),/adapterDependency:0/);assert.deepEqual(inventory.changedInputs,['adapterDependency:0']);assert.notEqual(inventory.inputs[4].finalSha256,inventory.inputs[4].sha256);
+  }finally{assert.ok(path.resolve(directory).startsWith(path.join(parent,'review-dependencies-')));await rm(directory,{recursive:true,force:true});}
 });
 
 async function withBuild(fn){
@@ -27,7 +43,7 @@ async function withBuild(fn){
     const git=(...a)=>execFileSync('git',a,{cwd:directory,encoding:'utf8'}).trim();git('init','-q');git('config','user.name','Fixture');git('config','user.email','fixture@example.invalid');git('add','dist');git('commit','-q','-m','fixture');
     const blobs=new Map(git('ls-tree','-r','HEAD','--','dist').split(/\r?\n/).map(line=>{const m=/^\d+ blob (\w+)\t(.+)$/.exec(line);return[m[2],m[1]];})),runtime={cwd:directory,blobs,served:new Map(),errors:[]};
     const build=await publicBuild(runtime,'build'),remote={origin,build,jobs:[],responses:[],errors:[],network:{requests:[],blocked:[],webSockets:[],pageErrors:[]}};
-    await fn({directory,runtime,remote});
+    await fn({directory,runtime,remote,git});
   }finally{assert.ok(path.resolve(directory).startsWith(path.join(path.resolve(tmpdir()),'review-origin-')));await rm(directory,{recursive:true,force:true});}
 }
 const response=(file,bytes,{status=200,range}={})=>({url:()=>origin+'/'+file,status:()=>status,headers:()=>range?{'content-range':range}:{},body:async()=>bytes});
@@ -41,12 +57,18 @@ test('full Build Output binds source blobs and detects asset and bundle changes'
   await assert.rejects(publicBuild(runtime,'build'),/build\/source bytes differ/);
 }));
 
+test('a non-core tracked source asset omitted from the build is rejected',()=>withBuild(async({directory,runtime,git})=>{
+  const file='non-core.bin',bytes=Buffer.from([1,2,3,4]);await writeFile(path.join(directory,'dist',file),bytes);git('add','dist/'+file);git('commit','-q','-m','non-core asset');runtime.blobs.set('dist/'+file,git('rev-parse','HEAD:dist/'+file));
+  await assert.rejects(publicBuild(runtime,'build'),/missing source assets: dist\/non-core.bin/);
+  await writeFile(path.join(directory,'build/workers/default/assets',file),bytes);assert.ok((await publicBuild(runtime,'build')).assets.has(file));
+}));
+
 test('actual response jobs verify bytes and ranges, preserve mismatches and do not certify partial as full',()=>withBuild(async({runtime,remote})=>{
   const bytes=await readFile(remote.build.assets.get('app.js').absolute);
   collectPublicResponse(response('app.js',bytes),remote,runtime);
   collectPublicResponse(response('app.js',bytes.subarray(2,6),{status:206,range:`bytes 2-5/${bytes.length}`}),remote,runtime);
   await drainResponses(remote.jobs);assert.equal(remote.responses.length,2);assert.equal(remote.errors.length,0);
-  assert.equal(remote.responses[0].range,null);assert.deepEqual(remote.responses[1].range,{start:2,end:5,total:bytes.length});assert.equal(remote.responses[1].bytes,4);
+  assert.equal(remote.responses.find(r=>r.status===200).range,null);const partial=remote.responses.find(r=>r.status===206);assert.deepEqual(partial.range,{start:2,end:5,total:bytes.length});assert.equal(partial.bytes,4);
   assert.equal(runtime.served.get('dist/app.js').publicResponses.length,2);
   collectPublicResponse(response('app.js',Buffer.from('wrong')),remote,runtime);
   collectPublicResponse(response('app.js',bytes,{status:206,range:'bytes 0-999/1000'}),remote,runtime);
