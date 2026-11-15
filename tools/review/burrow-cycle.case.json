@@ -1,0 +1,21 @@
+{
+  "id":"fb06-nidoran-burrow-native-cycle",
+  "source":"dist/index.html",
+  "adapter":"tools/review/live-feedback-adapter.mjs",
+  "adapterDependencies":["tools/review/baseline-adapter.mjs"],
+  "scene":"burrow-cycle",
+  "preRollMs":800,
+  "pauseAtMs":3100,
+  "team":0,
+  "reduced":false,
+  "viewport":{"width":390,"height":844,"dpr":1},
+  "durationMs":9200,
+  "sampleMs":100,
+  "clock":"natural-app",
+  "expectedEvent":"structureDown",
+  "extractIntervalMs":100,
+  "recordCanvas":"#arena",
+  "crop":{"x":10,"y":2,"width":370,"height":686},
+  "requiredObservations":["clock","canvas","events","actorState","hp"],
+  "requireWebSocketIsolation":true
+}

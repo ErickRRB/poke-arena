@@ -453,8 +453,8 @@ export class Renderer {
     c.save();if(unit.spawn>0)c.globalAlpha=.2+.8*spawn;
     if(unit.hit>0&&!this.reduced)c.filter=`brightness(${1+.35*unit.hit/.24})`;
     const drawn=this.battleArt.structure(c,unit.card.structureArt,unit.team,x,y,art.width,vertical,unit.preview?undefined:this.targetTint(unit));
-    if(drawn){
-      c.globalAlpha*=this.reduced?.12:.08+.08*(.5+.5*Math.sin(this.t*2));c.fillStyle='#ffd7ed';
+    if(drawn&&art.windowGlow){
+      c.globalAlpha*=this.reduced?.12:.08+.08*(.5+.5*Math.sin(this.t*2));c.fillStyle=art.windowGlow;
       for(const side of[-1,1])c.fillRect(x+side*art.width*.244-2,y-(art.height*.243+2)/vertical,4,4/vertical);
     }
     c.restore();if(!drawn||idle)return;

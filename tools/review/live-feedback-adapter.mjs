@@ -2,7 +2,7 @@ import * as baseline from './baseline-adapter.mjs';
 
 // Controlled native deployments; the shared workbench owns clocks and capture.
 export async function beforeNavigate(page,config){
-  if(!['tesla-lifecycle','field-lifecycle','roselia-cycle'].includes(config.scene))throw Error('Unsupported live feedback scene');
+  if(!['tesla-lifecycle','field-lifecycle','roselia-cycle','burrow-cycle'].includes(config.scene))throw Error('Unsupported live feedback scene');
   if(config.scene==='field-lifecycle'&&!['nightmare','stealthRock'].includes(config.fieldKey))throw Error('Unsupported native field');
   await page.addInitScript(()=>localStorage.setItem('poke-arena:sound','false'));
   await page.emulateMedia({reducedMotion:config.reduced?'reduce':'no-preference'});
@@ -13,14 +13,22 @@ export async function prepare(page,config){
   await page.evaluate(async config=>{
     const q=__reviewAdapter,g=q.game,r=q.renderer;q.action=true;
     g.aiEnabled=false;g.towers.forEach(t=>t.active=false);
-    const ids=config.scene==='tesla-lifecycle'?[181,50]:config.scene==='roselia-cycle'?[143,315]:[143,q.CARDS[q.CARDS[config.fieldKey].spawnKey]?.id].filter(Boolean);
+    let visualOverride;
+    if(config.scene==='burrow-cycle'){
+      const physical=card=>JSON.stringify(Object.fromEntries(Object.entries(card).filter(([key])=>!['id','name','structureArt'].includes(key))));
+      const original=physical(q.CARDS.madriguera),before={id:q.CARDS.madriguera.id,name:q.CARDS.madriguera.name,structureArt:q.CARDS.madriguera.structureArt};
+      Object.assign(q.CARDS.madriguera,{id:null,name:'Madriguera Nidoran',structureArt:'nidoranBurrow'});
+      visualOverride={key:'madriguera',before,after:{id:null,name:'Madriguera Nidoran',structureArt:'nidoranBurrow'},physicalUnchanged:original===physical(q.CARDS.madriguera),tankId:q.CARDS.nidoqueen.id};
+      if(!visualOverride.physicalUnchanged||visualOverride.tankId!==31)throw Error('Burrow prototype changed native rules or tank identity');
+    }
+    const ids=config.scene==='tesla-lifecycle'?[181,50]:config.scene==='roselia-cycle'?[143,315]:config.scene==='burrow-cycle'?[112,32]:[143,q.CARDS[q.CARDS[config.fieldKey].spawnKey]?.id].filter(Boolean);
     await r.ensureSpecies(ids);
     if(q.CARDS.ampharos.id!==181||q.CARDS.diglett.id!==50)throw Error('Tesla scene identity changed');
     for(const id of ids)if(!r.sprites.get(id+'-Walk')?.width)throw Error('Native species preflight failed');
     g.units=[];g.projectiles=[];g.spells=[];g.fields=[];g.attacks=[];g.energy=[10,10];
     r.resetVisuals();r.effects=[];r.particles=[];r.selection=null;r.pointer=null;q.events=[];
     const rects=()=>Object.fromEntries(['arena','hand','energy-bar'].map(id=>{const b=document.getElementById(id).getBoundingClientRect();return[id,[b.x,b.y,b.width,b.height]];}));
-    q.fixture={ready:false,actors:[],deployments:[],initialRects:rects(),reduced:r.reduced,limits:'Controlled native Game.deploy calls and starting hand/energy. Field scene additionally places one native enemy Snorlax for actor/HP context. Original Game.step and app rAF retained; no card, HP, lifetime, movement, target, attack or renderer clock replacement. Tower attacks disabled. Sound muted, no audio judgment; particles are not seeded.'};
+    q.fixture={ready:false,actors:[],deployments:[],initialRects:rects(),reduced:r.reduced,visualOverride,limits:'Controlled native Game.deploy calls and starting hand/energy. Field/Roselia scenes place one native enemy Snorlax; burrow places native Rhydon. Burrow prototype overrides only declared id/name/structureArt pending Main catalog assignment. Original Game.step and app rAF retained; no native rule, HP, lifetime, movement, target, attack or renderer clock replacement. Tower attacks disabled. Sound muted, no audio judgment; particles are not seeded.'};
     q.fixtureRects=rects;
     const team=config.team??0;
     const deploy=(key,side,x,y)=>{
@@ -33,7 +41,12 @@ export async function prepare(page,config){
     setTimeout(()=>{
       q.fixture.startGameTime=g.elapsed;q.fixture.startEpochMs=performance.timeOrigin+performance.now();q.fixture.ready=true;
       if(config.scene==='tesla-lifecycle')deploy('ampharos',team,300,team?240:560);
-      else{
+      else if(config.scene==='burrow-cycle'){
+        const enemy=g.spawn('rhydon',1-team,team?312:288,team?352:448,0);enemy.entryPending=false;
+        q.fixture.actors.push({id:enemy.id,key:enemy.key,team:enemy.team,nativeMaxHp:enemy.maxHp,initialHp:enemy.hp});
+        deploy('madriguera',team,300,team?240:560);
+        g.hands[team][1]='madriguera';g.hands[team][2]='nidoqueen';
+      }else{
         const targetY=config.scene==='roselia-cycle'?(team?450:350):(team?350:450);
         const context=g.spawn('snorlax',1-team,300,targetY,0);context.entryPending=false;
         q.fixture.actors.push({id:context.id,key:context.key,team:context.team,nativeMaxHp:context.maxHp,initialHp:context.hp});

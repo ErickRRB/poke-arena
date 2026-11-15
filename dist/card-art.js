@@ -40,6 +40,7 @@ CARD_ART.raltsHut={file:'assets/cards/ralts-hut-v1.png',columns:1,rows:1,x:0,y:0
 CARD_ART.centralElectrode={file:'assets/cards/centralElectrode-mobile-v1.png',columns:1,rows:1,x:0,y:0};
 CARD_ART.geodude={file:'assets/cards/farfetchd-knight-v1.png',columns:1,rows:1,x:0,y:0};
 CARD_ART.graveler={file:'assets/cards/conkeldurr-bowler-v1.png',columns:1,rows:1,x:0,y:0};
+CARD_ART.madriguera={file:'assets/cards/madriguera-scene-v2.png',columns:1,rows:1,x:0,y:0};
 export function cardArtMarkup(key) {
   const art = CARD_ART[key];
   if (!art) return '';
