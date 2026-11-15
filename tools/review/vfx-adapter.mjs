@@ -94,9 +94,12 @@ export async function prepare(page,c){
    if(c.pauseAtMs)setTimeout(async()=>{
     const rects=()=>Object.fromEntries(['arena','hand','energy-bar'].map(id=>{const b=document.getElementById(id).getBoundingClientRect();return[id,{x:b.x,y:b.y,width:b.width,height:b.height}];}));
     const before=rects();document.getElementById('match-pause').click();
-    await new Promise(resolve=>setTimeout(resolve,120));const first={canvas:r.canvas.toDataURL(),time:r.t,elapsed:g.elapsed};
-    await new Promise(resolve=>setTimeout(resolve,320));const second={canvas:r.canvas.toDataURL(),time:r.t,elapsed:g.elapsed};
-    q.fixture.pause={complete:true,rasterStable:first.canvas===second.canvas,clockStable:first.time===second.time&&first.elapsed===second.elapsed,layoutStable:JSON.stringify(before)===JSON.stringify(rects())};
+    const phase=()=>({authority:g.spells.map(s=>({key:s.key,flightElapsed:s.flightElapsed,flightTime:s.flightTime,delay:s.delay,arrived:!!s.arrived,done:!!s.done})),wire:q.snapshotView?.spells.map(s=>({key:s.key,flightElapsed:s.flightElapsed,flightTime:s.flightTime,delay:s.delay,arrived:!!s.arrived,done:!!s.done}))});
+    await new Promise(resolve=>setTimeout(resolve,120));const first={canvas:r.canvas.toDataURL(),time:r.t,elapsed:g.elapsed,phase:phase()};
+    await new Promise(resolve=>setTimeout(resolve,320));const second={canvas:r.canvas.toDataURL(),time:r.t,elapsed:g.elapsed,phase:phase()};
+    const inFlight=list=>list?.some(s=>s.key==='fireball'&&s.delay<=0&&!s.arrived&&!s.done&&s.flightElapsed>0&&s.flightElapsed<s.flightTime);
+    const digest=async png=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',Uint8Array.from(atob(png.split(',')[1]),x=>x.charCodeAt(0))))).map(x=>x.toString(16).padStart(2,'0')).join('');
+    q.fixture.pause={complete:true,rasterStable:first.canvas===second.canvas,rasterSha256:[await digest(first.canvas),await digest(second.canvas)],clockStable:first.time===second.time&&first.elapsed===second.elapsed,layoutStable:JSON.stringify(before)===JSON.stringify(rects()),phase:[first.phase,second.phase],activeFlight:!!inFlight(first.phase.authority)&&(!c.snapshots||!!inFlight(first.phase.wire))};
     document.getElementById('resume-btn').click();
    },c.pauseAtMs);
   },c.preRollMs);
@@ -117,6 +120,7 @@ export async function observe(page,c){
  if(b.x<0||b.y<0||b.x+b.width>c.viewport.width+.5||b.y+b.height>c.viewport.height+.5)throw Error('Canvas clipped outside viewport');
  if(fixture.reduced!==!!c.reduced)throw Error('Reduced motion differs from request');
  if(fixture.pause&&(!fixture.pause.rasterStable||!fixture.pause.clockStable||!fixture.pause.layoutStable))throw Error('Pause moved layout, clock or raster');
+ if(c.pauseInFlight&&fixture.pause&&!fixture.pause.activeFlight)throw Error('Required pause did not catch an active Fireball flight');
  if(c.snapshots)sample.instrumentation.kind='native-clock-with-declared-wire-view-transform';
  return {...sample,fixture,runtimeHashes:state.loaded};
 }

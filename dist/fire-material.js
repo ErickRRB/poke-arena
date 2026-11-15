@@ -21,8 +21,8 @@ export function rollingFirePose(spell,previous,dt=0){
     spin:direction*travelled/32};
 }
 
-// A closed molten wheel: fixed light on the sidewall gives volume, while large
-// surface currents and tread marks turn around it with the distance travelled.
+// A solid disc with an oblique face and visible depth. The rim and radial
+// currents preserve wheel identity while native flames keep the material alive.
 export function drawFireWheel(c,pose,drawFlame,{vertical=1,reduced=false,opacity=1}={}){
   const age=reduced?.4:pose.age,spin=pose.spin;
   c.save();c.translate(pose.x,pose.y);c.scale(1,1/vertical);c.globalAlpha*=opacity;
@@ -30,27 +30,29 @@ export function drawFireWheel(c,pose,drawFlame,{vertical=1,reduced=false,opacity
     c.fillStyle=color;c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);c.fill();
   };
   face(2,4,32,6,'#372b2638');c.translate(-5,-29);c.lineJoin='round';c.lineCap='round';
-  face(10,0,23,29,'#8d3122');face(7,-1,23,29,'#c44820');
-  face(0,0,23,29,'#a53520');face(-1,-2,21,27,'#df6221');
-  face(-4,-5,17,22,'#f6972b');face(-6,-9,12,16,'#ffc450');
-  // The paint moves over a shaded solid face, not around an empty aperture.
-  c.save();c.beginPath();c.ellipse(-1,-1,21,27,0,0,Math.PI*2);c.clip();c.scale(.76,1);c.rotate(spin);
-  const current=(points,width,color)=>{
-    c.beginPath();c.moveTo(points[0],points[1]);c.bezierCurveTo(...points.slice(2));c.strokeStyle=color;c.lineWidth=width;c.stroke();
-  };
-  current([-28,-10,-9,-31,7,18,28,-2],12,'#bb3b20');
-  current([-28,-13,-9,-34,7,15,28,-5],6,'#ffe88e');
-  current([-25,16,-8,-9,9,34,27,8],10,'#d34c1e');
-  current([-25,13,-8,-12,9,31,27,5],4,'#ffbf47');
-  face(-13,-10,5,6,'#fff1b1');face(14,12,4,5,'#f78822');c.restore();
-  // Bands on the curved side move across its depth and disappear at the back.
-  for(let i=0;i<3;i++){
-    const a=spin+i*Math.PI*2/3;if(Math.cos(a)<0)continue;
-    const x=Math.cos(a)*22,y=Math.sin(a)*28;
-    c.beginPath();c.moveTo(x,y);c.lineTo(x+9,y+1);c.strokeStyle=i===0?'#ffe19a':'#ec8a2b';c.lineWidth=i===0?5:3;c.stroke();
+  face(12,0,15,29,'#72231d');
+  c.fillStyle='#b83c1d';c.fillRect(-4,-28,16,56);
+  face(8,0,15,28,'#ce4b1b');
+  face(-4,0,16,29,'#81271d');face(-4,0,14,27,'#f39c2b');
+  // Opaque hot material fills the face; the darker center is never a hole.
+  face(-4,0,10.5,21.5,'#9f3020');
+  c.save();c.beginPath();c.ellipse(-4,0,10.5,21.5,0,0,Math.PI*2);c.clip();
+  c.translate(-4,0);c.scale(.5,1);c.rotate(spin);
+  for(let i=0;i<4;i++){
+    c.save();c.rotate(i*Math.PI/2);
+    c.beginPath();c.moveTo(0,0);c.bezierCurveTo(7,-5,15,-2,26,5);c.strokeStyle='#eb651f';c.lineWidth=10;c.stroke();
+    c.beginPath();c.moveTo(0,0);c.bezierCurveTo(7,-5,15,-2,26,5);c.strokeStyle='#ffd468';c.lineWidth=4;c.stroke();
+    c.restore();
+  }
+  face(0,0,5.5,5.5,'#ffe79a');c.restore();
+  // Hot seams move over the exposed cylindrical edge with distance travelled.
+  for(let i=0;i<6;i++){
+    const a=spin+i*Math.PI/3;if(Math.cos(a)<0)continue;
+    const x=-4+Math.cos(a)*14,y=Math.sin(a)*27;
+    c.beginPath();c.moveTo(x,y);c.lineTo(x+16,y);c.strokeStyle=i%2?'#f18422':'#ffca57';c.lineWidth=3;c.stroke();
   }
   for(let i=0;i<6;i++){
-    const a=i*Math.PI/3+spin*.12,x=Math.cos(a)*23,y=Math.sin(a)*28;
+    const a=i*Math.PI/3+spin*.12,x=-4+Math.cos(a)*15,y=Math.sin(a)*28;
     const size=14+(reduced?0:2*Math.sin(age*11+i*1.7));
     drawFlame('emberShot',x,y,size,a+Math.PI*.6,{frame:flameFrame(age,reduced,i),trim:true});
   }
