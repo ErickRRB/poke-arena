@@ -890,12 +890,15 @@ export class Renderer {
     if(surface.width!==size||surface.height!==size){surface.width=size;surface.height=size;}
     const portal=surface.getContext('2d');portal.setTransform(1,0,0,1,0,0);portal.globalAlpha=1;portal.globalCompositeOperation='source-over';portal.clearRect(0,0,size,size);portal.imageSmoothingEnabled=false;
     this.battleArt.draw(portal,front?'nightmareFront':'nightmareBack',size/2,size/2,radius*2.4,radius*2.4,{age:this.reduced?.3:Math.max(0,age),blend:!this.reduced});
-    // Keep the native central drawing and its front/back layering, while its
-    // purple/black rim dissolves into the real field radius instead of a ring.
+    // Both opaque halves belong to the ground beneath the actors. Above them,
+    // screen compositing keeps only the purple wisps; black cannot hide a body.
+    if(!front)this.battleArt.draw(portal,'nightmareFront',size/2,size/2,radius*2.4,radius*2.4,{age:this.reduced?.3:Math.max(0,age),blend:!this.reduced});
+    if(!front){portal.globalCompositeOperation='source-atop';portal.globalAlpha=.26;portal.fillStyle='#5d3d7e';portal.fillRect(0,0,size,size);portal.globalAlpha=1;portal.globalCompositeOperation='source-over';}
     const fade=portal.createRadialGradient(size/2,size/2,0,size/2,size/2,radius);
     fade.addColorStop(0,'#fff');fade.addColorStop(.48,'#fff');fade.addColorStop(.72,'#ffffff9c');fade.addColorStop(1,'#ffffff00');
     portal.globalCompositeOperation='destination-in';portal.fillStyle=fade;portal.fillRect(0,0,size,size);portal.globalCompositeOperation='source-over';
-    c.drawImage(surface,field.x-radius,field.y-radius,radius*2,radius*2);
+    c.save();c.globalAlpha*=front?.55:.68;if(front)c.globalCompositeOperation='screen';
+    c.drawImage(surface,field.x-radius,field.y-radius,radius*2,radius*2);c.restore();
   }
   softWhirlpool(c,field,age){
     const radius=field.radius,size=Math.ceil(radius*2),surface=this.fieldSurface??=this.canvas.ownerDocument.createElement('canvas');
