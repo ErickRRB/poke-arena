@@ -648,6 +648,40 @@ export class Renderer {
     const actor=this.frameActors.get(effect.targetId);
     return actor?{x:actor.x,y:actor.y-('king'in actor?27:actor.card?.structure?structureLift(actor.card)+20:actor.card?.flying?27:15)/(this.verticalScale||1)}:effect.to;
   }
+  vineLash(c,from,to,progress){
+    const vertical=this.verticalScale||1,dx=to.x-from.x,dy=(to.y-from.y)*vertical,length=Math.hypot(dx,dy);
+    if(length<1)return;
+    // Vine hits at release. Show that whole connection immediately; only the
+    // recovery retracts. A growing projectile would suggest a delayed hit.
+    const phase=this.reduced?.16:progress,recoil=Math.max(0,(phase-.45)/.55);
+    const reach=length*(1-.85*recoil*recoil),bow=Math.min(18,length*.18)*(this.reduced?.4:Math.cos(phase*Math.PI*1.4));
+    const point=t=>({x:reach*t,y:4*t*(1-t)*bow});
+    const leaf=(x,y,angle,size)=>{
+      c.save();c.translate(x,y);c.rotate(angle);c.beginPath();c.moveTo(0,0);c.quadraticCurveTo(size*.2,-size*.9,size,0);c.quadraticCurveTo(size*.35,size*.4,0,0);
+      c.fillStyle='#86b44b';c.strokeStyle='#253e2d';c.lineWidth=2.5;c.fill();c.stroke();
+      line(c,'#e0edaa',1,0,size*.7,-size*.12,1.2);c.restore();
+    };
+    c.save();c.translate(from.x,from.y);c.scale(1,1/vertical);c.rotate(Math.atan2(dy,dx));c.lineCap='round';c.lineJoin='round';
+    const stem=offset=>{c.beginPath();c.moveTo(0,offset);c.quadraticCurveTo(reach*.5,bow*2+offset,reach,offset);};
+    stem(0);c.strokeStyle='#233b2d';c.lineWidth=8;c.stroke();
+    stem(-.5);c.strokeStyle='#78a442';c.lineWidth=4.8;c.stroke();
+    stem(-1.5);c.strokeStyle='#d6e79b';c.lineWidth=1.3;c.stroke();
+    for(const[t,side]of[[.08,-1],[.32,1],[.65,-1]]){
+      const p=point(t),slope=Math.atan2(4*(1-2*t)*bow,reach);
+      leaf(p.x,p.y,slope+side*.9,8+2*t);
+    }
+    const contact=Math.max(0,1-phase/.65);
+    if(contact>0){
+      c.save();c.globalAlpha*=contact;
+      for(const side of[-1,1]){
+        const spread=7+phase*24;leaf(length+side*spread*.25,side*spread,side*1.1,8);
+        line(c,'#28422f',length-side*6,-side*6,length+side*6,side*6,4.5);
+        line(c,'#fff1b9',length-side*6,-side*6,length+side*6,side*6,2);
+      }
+      c.restore();
+    }
+    c.restore();
+  }
   areaImpact(c,e,progress){
     const radius=e.radius,fade=1-progress,color=e.color||'#dfdab0',vertical=this.verticalScale||1;
     c.save();
@@ -719,8 +753,7 @@ export class Renderer {
         const from=this.effectSource(e),to=this.effectTarget(e),name=e.style==='lightning'?'lightning':'psychic';
         if(!from||!to){c.restore();continue;}
         if(e.style==='vine'){
-          const length=Math.hypot(to.x-from.x,to.y-from.y),angle=Math.atan2(to.y-from.y,to.x-from.x);
-          this.combatArt(c,'vine',(from.x+to.x)/2,(from.y+to.y)/2,Math.max(35,length),angle,32,{progress});
+          this.vineLash(c,from,to,progress);
         }else{
           if(e.piercing){c.save();c.globalAlpha*=.22;this.battleArt.beam(c,name,from,to,e.width,age);c.restore();}
           this.battleArt.beam(c,name,from,to,e.kind==='counter'?8:combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).beam,age);
