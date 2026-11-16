@@ -29,6 +29,7 @@ function socket(ctx, request, limit) {
   return new Response(null, { status: 101, webSocket: client });
 }
 function lastSeen(ctx, ws) { return Math.max(attachment(ws).seen || attachment(ws).connectedAt || 0, ctx.getWebSocketAutoResponseTimestamp(ws)?.getTime() || 0); }
+function validQueuedDeck(session) { try { return validDeck(JSON.parse(session.deck)); } catch { return false; } }
 
 export class ArenaLobby extends DurableObject {
   constructor(ctx, env) {
@@ -73,6 +74,9 @@ export class ArenaLobby extends DurableObject {
     if (packet.mode === 'search') {
       if (!validDeck(packet.deck)) return reject(ws, 'Elegí ocho cartas diferentes.', 'deck');
       session.name = safeName(packet.name);session.deck = JSON.stringify(packet.deck);
+    } else if (!validQueuedDeck(session)) {
+      this.sql.exec('UPDATE sessions SET joined=NULL,updated=? WHERE id=? AND room_id IS NULL', now, session.id);
+      return reject(ws, 'Elegí ocho cartas diferentes.', 'deck');
     }
     session.joined ??= now;
     this.sql.exec('UPDATE sessions SET name=?,deck=?,joined=?,updated=? WHERE id=? AND room_id IS NULL', session.name, session.deck, session.joined, now, session.id);
@@ -80,9 +84,9 @@ export class ArenaLobby extends DurableObject {
     await this.match(session.id);
   }
   async match(id) {
-    const own = this.session(id);if (!own || own.room_id || own.joined === null) return;
+    const own = this.session(id);if (!own || own.room_id || own.joined === null || !validQueuedDeck(own)) return;
     const now = Date.now(), candidates = this.sql.exec('SELECT * FROM sessions WHERE room_id IS NULL AND joined IS NOT NULL AND id<>? ORDER BY joined,id LIMIT 128', id).toArray();
-    const other = candidates.find(candidate => this.sockets(candidate.id).some(ws => now - lastSeen(this.ctx, ws) < 15000));
+    const other = candidates.find(candidate => validQueuedDeck(candidate) && this.sockets(candidate.id).some(ws => now - lastSeen(this.ctx, ws) < 15000));
     if (!other) return;
     const roomId = crypto.randomUUID(), players = [other, own];
     this.sql.exec('UPDATE sessions SET room_id=?,joined=NULL,updated=? WHERE id IN (?,?) AND room_id IS NULL', roomId, now, other.id, own.id);

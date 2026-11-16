@@ -179,3 +179,53 @@ describe('Cloudflare WebSocket rooms', () => {
     const room = (await second.next(p => p.type === 'matched')).roomId;expect((await resume.next(p => p.type === 'matched')).roomId).toBe(room);await finish(room);
   });
 });
+
+describe('deck key validation at lobby boundaries',()=>{
+  const lobby=()=>env.LOBBY.getByName('matchmaking-v2');
+  const closeAll=()=>{for(const ws of sockets.splice(0))try{ws.close();}catch{}};
+  const clearQueue=()=>runInDurableObject(lobby(),instance=>{instance.sql.exec('DELETE FROM sessions WHERE room_id IS NULL');});
+  it('rejects inherited and JSON-coerced keys before inserting a fresh session',async()=>{
+    try{
+      for(const key of['toString','constructor','__proto__',[deck[0]]]){
+        const name=crypto.randomUUID().slice(0,20),player=await connect();
+        player.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',name,deck:[key,...deck.slice(1)]});
+        const first=await player.next(p=>p.type==='error'||p.type==='welcome');expect(first.type).toBe('error');expect(first.code).toBe('deck');
+        const count=await runInDurableObject(lobby(),instance=>instance.sql.exec('SELECT count(*) AS n FROM sessions WHERE name=?',name).one().n);expect(count).toBe(0);
+      }
+    }finally{await clearQueue();closeAll();}
+  });
+  it('dequeues and rejects invalid persisted queued resumes including malformed JSON',async()=>{
+    try{
+      for(const raw of[JSON.stringify(['constructor',...deck.slice(1)]),JSON.stringify([[deck[0]],...deck.slice(1)]),'{']){
+        const player=await connect();player.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',deck});
+        const token=(await player.next(p=>p.type==='welcome')).token;await player.next(p=>p.type==='searching');
+        await runInDurableObject(lobby(),instance=>instance.sql.exec('UPDATE sessions SET deck=? WHERE joined IS NOT NULL',raw));player.ws.close();
+        const resumed=await connect();resumed.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'resume',token});
+        const result=await resumed.next(p=>p.type==='error'||p.type==='searching');expect(result.type).toBe('error');expect(result.code).toBe('deck');
+        const queued=await runInDurableObject(lobby(),instance=>instance.sql.exec('SELECT count(*) AS n FROM sessions WHERE joined IS NOT NULL').one().n);expect(queued).toBe(0);
+      }
+    }finally{await clearQueue();closeAll();}
+  });
+  it('skips a live invalid queued candidate and allows the two valid players to match',async()=>{
+    let room;
+    try{
+      const bad=await connect();bad.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',name:'Invalid row',deck});await bad.next(p=>p.type==='searching');
+      const badId=await runInDurableObject(lobby(),instance=>{const row=instance.sql.exec('SELECT id FROM sessions WHERE name=? AND joined IS NOT NULL','Invalid row').one();instance.sql.exec('UPDATE sessions SET deck=?,joined=1 WHERE id=?',JSON.stringify([[deck[0]],...deck.slice(1)]),row.id);return row.id;});
+      const a=await connect();a.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',deck});await a.next(p=>p.type==='searching');
+      const unchanged=await runInDurableObject(lobby(),async instance=>{await Promise.all(instance.pendingMatches.values());return instance.session(badId);});
+      expect(unchanged.room_id).toBe(null);expect(unchanged.joined).toBe(1);
+      const b=await connect();b.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',deck});
+      room=(await b.next(p=>p.type==='matched')).roomId;expect((await a.next(p=>p.type==='matched')).roomId).toBe(room);
+      expect(bad.packets.some(p=>p.type==='matched'||p.type==='error')).toBe(false);
+      const stillQueued=await runInDurableObject(lobby(),instance=>instance.session(badId));expect(stillQueued.room_id).toBe(null);expect(stillQueued.joined).toBe(1);
+    }finally{if(room)await finish(room);await clearQueue();closeAll();}
+  });
+  it('recovers an active room before inspecting an unrelated persisted queue deck',async()=>{
+    const joined=await join();
+    try{
+      await runInDurableObject(lobby(),instance=>instance.sql.exec('UPDATE sessions SET deck=? WHERE room_id=?','{',joined.room));
+      const resumed=await connect();resumed.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'resume',token:joined.tokens[0]});
+      expect((await resumed.next(p=>p.type==='matched'||p.type==='error')).roomId).toBe(joined.room);
+    }finally{await finish(joined.room);}
+  });
+});
