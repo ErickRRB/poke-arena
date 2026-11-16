@@ -937,11 +937,23 @@ export class Game {
   }
   aiSpellVictimsWorth(card,victims){
     const damage=card.damage||0;
-    // Credit only damage that can actually land, divided among the members of
-    // a deployed swarm. This keeps a few cheap bodies from valuing a costly
-    // selective spell as if each were a full card.
-    const value=victims.reduce((sum,u)=>sum+(u.card.cost||0)/Math.max(1,u.card.count||1)*Math.min(damage,u.hp)/Math.max(1,u.maxHp),0);
+    // Only direct card formations and their declared companions have a known
+    // shared purchase price. Divide by the original formation, not survivors.
+    const purchase=u=>{
+      const source=CARDS[u.spawnGroup?.cardKey];
+      if(!source||!['card','companion'].includes(u.spawnCause))return 0;
+      const members=formationOffsets(source,u.team,u.spawnGroup.x).length*(source.spawnWith?2:1);
+      return (source.cost||0)/Math.max(1,members);
+    };
+    const value=victims.reduce((sum,u)=>sum+purchase(u)*Math.min(damage,u.hp)/Math.max(1,u.maxHp),0);
     if(value+1e-7>=card.cost)return true;
+    // Generated units have no reliable share of their producer's purchase.
+    // Instead consider only eliminable bodies that can soon threaten a tower;
+    // this is a damage warning, never a price assigned to their generations.
+    if(this.towers.some(t=>t.team===1&&t.hp>0&&victims.filter(u=>!purchase(u)&&damage>=u.hp&&
+      !u.card.passive&&(u.card.damage||0)>0&&(u.card.building||u.target===t||!u.target)&&
+      distance(u,t)<=attackReach(u,t)+(u.card.speed||0)*2)
+      .reduce((sum,u)=>sum+u.card.damage*Math.max(1,u.card.burst||1),0)>=t.maxHp/10))return true;
     // Pay for an otherwise unfavorable lethal spell to stop an imminent hit
     // that would destroy a friendly tower. This is a short-range estimate, not
     // a prediction of pathing, projectile travel or future retargeting.
