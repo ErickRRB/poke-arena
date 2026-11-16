@@ -2,7 +2,7 @@ import * as baseline from './baseline-adapter.mjs';
 import {mkdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 const states=new WeakMap();
-export async function beforeNavigate(page,config){await baseline.beforeNavigate(page,config);await page.addInitScript(()=>localStorage.setItem('poke-arena:sound','false'));states.set(page,{observations:0,saved:new Set(),seen:false});}
+export async function beforeNavigate(page,config){await baseline.beforeNavigate(page,config);await page.emulateMedia({reducedMotion:config.reduced?'reduce':'no-preference'});await page.addInitScript(()=>localStorage.setItem('poke-arena:sound','false'));states.set(page,{observations:0,saved:new Set(),seen:false});}
 export async function prepare(page,config){
   await baseline.prepare(page,config);
   await page.evaluate(async()=>{
@@ -15,11 +15,20 @@ export async function prepare(page,config){
   });
   await page.waitForFunction(()=>document.querySelector('#hand [data-card="0"]')?.textContent.includes('Trampa rocas'));
   await page.evaluate(()=>document.fonts.ready);
+  await page.evaluate(reduced=>{const q=__reviewAdapter;q.fixture.reduced=q.renderer.reduced;if(q.renderer.reduced!==!!reduced)throw Error('actual reduced-motion setting differs from requested media');},config.reduced);
 }
 async function save(page,name,state){
   const output=process.env.REVIEW_STATIC_OUTPUT;if(!output)throw Error('Use a fresh REVIEW_STATIC_OUTPUT');await mkdir(output,{recursive:true});
   await page.evaluate(name=>{const q=__reviewAdapter,g=q.game,f=g.fields.find(f=>f.key==='stealthRock');q.fixture.phases.push({name,epochMs:performance.timeOrigin+performance.now(),gameTime:g.elapsed,field:f?{...f}:null,rocks:q.fixture.lastRocks.slice()});},name);
   await page.screenshot({path:path.join(output,`${name}.png`)});await page.locator('#arena').screenshot({path:path.join(output,`${name}-canvas.png`)});state.saved.add(name);
+}
+async function pauseControl(page,state){
+  await page.locator('#match-pause').click();await page.waitForFunction(()=>__reviewAdapter.game.state==='paused');
+  const read=()=>page.evaluate(()=>{const q=__reviewAdapter;return{gameTime:q.game.elapsed,field:q.game.fields.find(f=>f.key==='stealthRock'),renderTime:q.renderer.t,rocks:q.fixture.lastRocks,steps:q.steps};});
+  const before=await read();await page.waitForTimeout(350);const after=await read();
+  if(JSON.stringify(before)!==JSON.stringify(after))throw Error('native pause changed field, phase or rock positions');
+  await page.evaluate(pause=>__reviewAdapter.fixture.pause=pause,{before,after,equal:true});
+  await save(page,'paused',state);await page.locator('#resume-btn').click();await page.waitForFunction(()=>__reviewAdapter.game.state==='playing');
 }
 export async function observe(page,config){
   const state=states.get(page);
@@ -35,6 +44,7 @@ export async function observe(page,config){
     if(!state.saved.has('start'))await save(page,'start',state);
     else if(current.duration-current.life>=1.5&&!state.saved.has('active'))await save(page,'active',state);
     else if(current.duration-current.life>=2.3&&!state.saved.has('active-later'))await save(page,'active-later',state);
+    if(config.pauseControl&&current.duration-current.life>=1.5&&!state.saved.has('paused'))await pauseControl(page,state);
   }else if(state.seen&&!state.saved.has('gone'))await save(page,'gone',state);
   const sample=await baseline.observe(page,config);
   if(state.saved.has('gone'))await writeFile(path.join(process.env.REVIEW_STATIC_OUTPUT,'lifecycle.json'),JSON.stringify({fixture:sample.fixture,events:sample.events,instrumentation:sample.instrumentation},null,2));

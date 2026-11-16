@@ -1,5 +1,7 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {Renderer} from '../dist/render.js';
+import {Game} from '../dist/engine.js';
+import {packGame,perspective,unpackGame} from '../dist/snapshot.js';
 import {earthquakePhase,whirlpoolPhase,nightmareFrame,earthquakeFissures,rockSuspension} from '../dist/field-motion.js';
 
 test('active rocks remain suspended with bounded continuous height and a still reduced-motion pose',()=>{
@@ -16,6 +18,20 @@ test('active rocks remain suspended with bounded continuous height and a still r
  assert.equal(first.visualAge,again.visualAge);assert.equal(first.visualAge,snapshot.visualAge);
  for(let index=0;index<9;index++)assert.equal(rockSuspension(first.visualAge,index),rockSuspension(snapshot.visualAge,index));
  assert.deepEqual(field,{id:31,key:'stealthRock',duration:6,life:3.75});
+});
+
+test('a real in-progress field restores the same rock phase from either server perspective',()=>{
+ const game=new Game({tutorial:true});game.start();game.aiEnabled=false;game.hands[0][0]='stealthRock';game.energy[0]=10;
+ assert.ok(game.deploy(0,0,288,508).ok);for(let i=0;i<90;i++)game.step(1/30);
+ const physical=JSON.stringify(game.fields),source=game.fields[0];assert.ok(source.life>0&&source.life<source.duration);
+ const renderer=Object.assign(Object.create(Renderer.prototype),{t:0}),age=renderer.visualField(source,0).visualAge;
+ for(const team of[0,1]){
+  const restored=unpackGame(perspective(packGame(game),team)),r=Object.assign(Object.create(Renderer.prototype),{t:0});
+  const field=restored.fields[0],phase=r.visualField(field,0).visualAge;
+  assert.equal(field.id,source.id);assert.equal(field.radius,source.radius);assert.equal(phase,age);
+  for(let index=0;index<9;index++)assert.equal(rockSuspension(phase,index),rockSuspension(age,index));
+ }
+ assert.equal(JSON.stringify(game.fields),physical);
 });
 
 test('field display advances between 15Hz packets without changing or extending the physical field',()=>{
