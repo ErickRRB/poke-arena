@@ -824,10 +824,13 @@ export class Renderer {
         this.combatArt(c,'fireTrail',x-Math.cos(angle)*shift,y-Math.sin(angle)*shift/(this.verticalScale||1),tailSize,angle-Math.PI/2,tailSize,{frame:this.reduced?5:undefined,frames:[3,4,5,6,5,4],fps:12,age:fireAge+i*.04,trim:true});c.restore();}
       this.projectileHead(c,()=>this.fireBolt(c,x,y,fireSize,angle,fireAge));return;
     }
-    this.projectileHead(c,()=>{
+    const drawHead=()=>{
       if(p.key==='lapras'&&p.style==='ice')this.iceShardCore(c,x,y,size,angle);
       this.combatArt(c,art,x,y,size,art==='needle'?0:['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true});
-    });
+    };
+    // Lapras's north-facing muzzle is immediately under its HP bar. Paint the
+    // emerging shard in the world pass so the bar remains legible as it crosses.
+    if(p.key==='lapras'&&p.style==='ice')drawHead();else this.projectileHead(c,drawHead);
     if(!this.reduced&&!fireHead&&p.style!=='coin'&&p.style!=='rock'){
       const vertical=this.verticalScale||1,color=p.art==='petalShot'?'#f5c3df':{ember:'#f6c580',hydro:'#a5e6f2',bubble:'#c4eef1',ice:'#dbffff',poison:'#d5a3df',powder:'#d5a3df',shadow:'#b99add',leaf:'#e2edb1',psychic:'#d5baff'}[p.style]||'#e6eac9';
       const length=Math.min(p.travelled,Math.max(16,size*1.5)),bend=Math.sin(progress*Math.PI)*Math.min(8,arc*.05);
