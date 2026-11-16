@@ -8,7 +8,8 @@ export function combatVisual(card={}){
   const ratio={bubble:.34,ember:.4,hydro:.34,leaf:.34,ice:.34,shadow:.42,confusion:.36,aura:.48,psychic:.36,powder:.42,egg:.32,song:.48,magnet:.36}[card.style]||.38;
   const areaProjectile=isRangedAttack(card)&&card.splash?Math.min(34,card.splash*.45):0;
   const floor=card.id===6?26:['hydro','bubble','ember','ice','shadow','confusion','aura','psychic','poison','powder','song','egg'].includes(card.style)?13:8;
-  return {body,projectile:Math.max(floor,Math.min(areaProjectile?34:28,Math.max(body*ratio,areaProjectile))),impact:Math.max(16,Math.min(42,body*.6)),beam:Math.max(4,Math.min(11,body*.16)),charge:Math.max(12,Math.min(26,body*.4))};
+  const laprasIce=card.id===131&&card.style==='ice';
+  return {body,projectile:laprasIce?34:Math.max(floor,Math.min(areaProjectile?34:28,Math.max(body*ratio,areaProjectile))),impact:laprasIce?54:Math.max(16,Math.min(42,body*.6)),beam:Math.max(4,Math.min(11,body*.16)),charge:laprasIce?30:Math.max(12,Math.min(26,body*.4))};
 }
 const FIRE_GESTURE=Object.freeze([0,1,2,3,4,5,6,7,8,9,10]);
 const ZUBAT_GESTURES=Object.freeze([Object.freeze({rest:1,prepare:6,contact:6,follow:10})]);
