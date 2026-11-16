@@ -1,0 +1,26 @@
+import http from 'node:http';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const root=path.resolve(import.meta.dirname,'..'),dist=path.join(root,'dist');
+const mime={'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.webp':'image/webp','.png':'image/png','.svg':'image/svg+xml','.mp3':'audio/mpeg','.wav':'audio/wav','.woff2':'font/woff2'};
+const server=http.createServer(async(req,res)=>{try{const name=decodeURIComponent(new URL(req.url,'http://localhost').pathname),file=path.resolve(dist,'.'+(name==='/'?'/index.html':name));if(!file.startsWith(dist+path.sep))throw Error('path');let data=await readFile(file);if(name==='/testing.js')data=Buffer.concat([data,Buffer.from('\nglobalThis.__labQA={get sfx(){return sfx},get activeColumn(){return activeColumn},get columns(){return columns}};')]);const headers={'Content-Type':mime[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store','Accept-Ranges':'bytes'};if(req.headers.range){const m=/^bytes=(\d+)-(\d*)$/.exec(req.headers.range);if(m){const start=+m[1],end=m[2]?Math.min(+m[2],data.length-1):data.length-1;if(start>=data.length){res.writeHead(416,{'Content-Range':`bytes */${data.length}`}).end();return;}res.writeHead(206,{...headers,'Content-Range':`bytes ${start}-${end}/${data.length}`,'Content-Length':end-start+1}).end(data.subarray(start,end+1));return;}}res.writeHead(200,{...headers,'Content-Length':data.length}).end(data);}catch{res.writeHead(404).end();}});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const {chromium}=await import(pathToFileURL(process.env.POKE_ARENA_PLAYWRIGHT_MODULE||path.join(root,'../pokemon-arena/qa/node_modules/playwright/index.mjs')).href),browser=await chromium.launch({channel:'msedge',headless:true});
+const out=path.join(root,'docs/audio-feedback/lab-preferences');await mkdir(out,{recursive:true});const cases=[];
+try{
+ for(const scenario of [{name:'voices-zero',initial:{sound:true,'music-volume':20,'voices-volume':0,'effects-volume':65},voices:0,effects:65},{name:'effects-zero',initial:{sound:true,'music-volume':0,'voices-volume':80,'effects-volume':0},voices:80,effects:0},{name:'legacy-muted',initial:{sound:false,'game-volume':0},voices:0,effects:0}]){
+  const context=await browser.newContext({viewport:{width:1024,height:768}}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(String(e)));await page.addInitScript(values=>{for(const[k,v]of Object.entries(values))localStorage.setItem('poke-arena:'+k,JSON.stringify(v));},scenario.initial);
+  await page.goto(`http://127.0.0.1:${server.address().port}/testing.html`);await page.waitForFunction(()=>window.__labQA&&document.querySelector('#lab-loading').hidden,{timeout:60000});
+  const initial=await page.evaluate(()=>({enabled:__labQA.sfx.enabled,levels:__labQA.sfx.levels,pressed:document.querySelector('#lab-sound').getAttribute('aria-pressed')}));
+  if(!scenario.initial.sound)await page.locator('#lab-sound').click();await page.locator('.column-play').first().click();await page.waitForFunction(()=>__labQA.sfx.ctx?.state==='running');
+  const read=()=>page.evaluate(()=>{const {sfx,activeColumn}=__labQA;return{enabled:sfx.enabled,levels:sfx.levels,activeColumn,voices:sfx.voicesBus.gain.value,effects:sfx.effectsBus.gain.value,ui:sfx.uiBus.gain.value,music:sfx.musicBus.gain.value,musicPlaying:sfx.music.playing,sound:JSON.parse(localStorage.getItem('poke-arena:sound')??'true')};});
+  const active=await read();await page.locator('#add-column').click();await page.locator('.column-play').last().click();const switched=await read();await page.locator('#lab-sound').click();const muted=await read();
+  assert.deepEqual(errors,[]);assert.equal(initial.enabled,scenario.initial.sound);assert.equal(initial.pressed,String(scenario.initial.sound));assert.equal(active.levels.voices,scenario.voices);assert.equal(active.levels.effects,scenario.effects);assert.ok(Math.abs(active.voices-.7*scenario.voices/100)<.00001);assert.ok(Math.abs(active.effects-(.65*10**(-3/20))*scenario.effects/100)<.00001);assert.ok(Math.abs(active.ui-.55*scenario.effects/100)<.00001);assert.equal(active.musicPlaying,false);assert.notEqual(active.activeColumn,switched.activeColumn);assert.deepEqual(switched.levels,active.levels);assert.equal(muted.enabled,false);assert.equal(muted.sound,false);assert.deepEqual(muted.levels,active.levels);
+  cases.push({scenario,initial,active,switched,muted,errors});await context.close();
+ }
+ const report={head:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),hashes:Object.fromEntries(await Promise.all(['dist/app.js','dist/testing.js','dist/audio-preferences.js','dist/audio.js'].map(async f=>[f,createHash('sha256').update(await readFile(path.join(root,f))).digest('hex')]))),method:'Actual laboratory in Edge with stored preferences, real SoundSystem gain nodes and column controls. QA hook exposes state only. No battle music is started.',cases};await writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2));console.log('lab preferences ok');
+}finally{await browser.close();await new Promise(r=>server.close(r));}
