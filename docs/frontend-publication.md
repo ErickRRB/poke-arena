@@ -9,11 +9,12 @@ El wrapper y sus instrucciones reciben revisión independiente antes de su prime
 En el worktree de fuente limpia, desde `realtime/frontend`:
 
 ```powershell
-npm run build
+$releaseNode = 'C:/Users/Mapa/AppData/Roaming/nvm/v22.23.4/node.exe'
+& $releaseNode ../../scripts/publish-frontend.mjs build --source RUTA_FUENTE_CONGELADA
 npm run preview -- --preview-alias review-motion
 ```
 
-`build` usa `cf workers versions create --dry-run`; `preview` usa `--prebuilt`. Conservar el Build Output completo `.cloudflare/output/v0`, incluido bundle del Worker, configuración y assets. Registrar SHA y árbol limpios, ID UUID completo y URL inmutable. El alias es mutable. Las versiones comparten bindings: usar CPU/fixtures, sin matchmaking ni escrituras compartidas para esta revisión.
+El comando de release comprueba que el checkout indicado no tenga cambios tracked ni untracked y devuelve SHA, árbol y estado antes de invocar `cf workers versions create --dry-run`. Ante una fuente sucia falla sin iniciar el build. La herramienta y las dependencias `cf` se toman del checkout operativo; `--source` identifica el checkout cuyo frontend se construye. `npm run build` sigue disponible para desarrollo local y no es la ruta de build de release. `preview` usa `--prebuilt`. Conservar el Build Output completo `.cloudflare/output/v0`, incluido bundle del Worker, configuración y assets. Registrar SHA y árbol limpios, ID UUID completo y URL inmutable. El alias es mutable. Las versiones comparten bindings: usar CPU/fixtures, sin matchmaking ni escrituras compartidas para esta revisión.
 
 Comprobar en navegador la versión propia y conservar una prueba JSON con `source: {sha, tree, status: ""}`, `version`, `origin`, `resources: [{file, url, bytes, sha256}]`, `errors: []`, `canonicalRequests: []`, `externalOrigins: []` y `canvas: {clean: true}`. Los recursos incluyen index.html, app.js y render.js. El wrapper contrasta cada recurso con el Build Output. La prueba necesita revisión independiente y no sustituye el juicio sobre el producto.
 

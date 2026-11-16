@@ -6,7 +6,7 @@ import {tmpdir} from 'node:os';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
-import {prepareManifest,promoteRelease} from '../scripts/publish-frontend.mjs';
+import {buildRelease,prepareManifest,promoteRelease} from '../scripts/publish-frontend.mjs';
 
 const repoRoot=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const hash=value=>createHash('sha256').update(value).digest('hex');
@@ -75,6 +75,20 @@ test('preparation accepts a complete independent plan review without invoking Cl
  const f=fixture(t);assert.doesNotThrow(()=>f.prepare());
  assert.equal(readJson(f.manifestFile).planReview.sha256,hash(readFileSync(f.planReviewFile)));
  assert.equal(f.calls.length,0);
+});
+
+test('release build rejects dirty source before Cloudflare and reports source identity for a clean dry-run build',t=>{
+ const f=fixture(t),calls=[];
+ const cfRunner=(args,source)=>{calls.push({args,source});return{status:0,stdout:'dry-run prepared'};};
+ writeFileSync(join(f.source,'private-review.json'),'untracked');
+ assert.throws(()=>buildRelease(f.source,{cfRunner}),error=>{
+  assert.match(error.message,/QUALITY_SOURCE/);assert.match(error.message,new RegExp(readJson(f.manifestFile).candidate.sha));
+  assert.match(error.message,new RegExp(readJson(f.manifestFile).candidate.tree));assert.match(error.message,/\?\? private-review\.json/);return true;
+ });assert.equal(calls.length,0);
+ rmSync(join(f.source,'private-review.json'));
+ const result=buildRelease(f.source,{cfRunner});
+ assert.deepEqual(result,{status:'build_prepared_not_published',candidate:readJson(f.manifestFile).candidate,sourceStatus:'clean',stdout:'dry-run prepared',stderr:''});
+ assert.deepEqual(calls,[{args:['workers','versions','create','--dry-run'],source:f.source}]);
 });
 
 test('valid partial executes the real guard and proposes only the reviewed version; dry-run never checks live',async t=>{

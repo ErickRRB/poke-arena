@@ -26,7 +26,8 @@ function git(source,...args){
 }
 function frozenSource(source){
  const candidate={sha:git(source,'rev-parse','HEAD'),tree:git(source,'rev-parse','HEAD^{tree}')};
- need(git(source,'status','--porcelain')==='','SOURCE','Reviewed source must remain clean, including untracked files.');
+ const status=git(source,'status','--porcelain');
+ need(status==='','SOURCE',`Reviewed source must remain clean, including untracked files. sha=${candidate.sha} tree=${candidate.tree} status=${JSON.stringify(status)}`);
  return candidate;
 }
 export function inventoryBuild(directory){
@@ -144,8 +145,15 @@ export function validateRelease(manifestFile,decisionFile){
  return {manifest,source,guard};
 }
 
-function runCf(args,source){
- return spawnSync(process.execPath,[join(source,'realtime/node_modules/cf/bin/cf'),...args],{cwd:join(source,'realtime/frontend'),encoding:'utf8',windowsHide:true,timeout:55000,maxBuffer:8*1024*1024});
+function runCf(args,source,timeout=55000,toolRoot=source){
+ return spawnSync(process.execPath,[join(toolRoot,'realtime/node_modules/cf/bin/cf'),...args],{cwd:join(source,'realtime/frontend'),encoding:'utf8',windowsHide:true,timeout,maxBuffer:8*1024*1024});
+}
+export function buildRelease(source,{cfRunner=runCf}={}){
+ need(text(source),'INPUT','Release build requires --source with the frozen frontend checkout.');
+ const sourceRoot=resolve(source),candidate=frozenSource(sourceRoot);
+ const result=cfRunner(['workers','versions','create','--dry-run'],sourceRoot,600000,repoRoot);
+ need(result.status===0,'CF',result.stderr||result.error?.message||'Cloudflare build failed.');
+ return {status:'build_prepared_not_published',candidate,sourceStatus:'clean',stdout:result.stdout||'',stderr:result.stderr||''};
 }
 export async function promoteRelease(manifestFile,decisionFile,{dryRun=false,cfRunner=runCf,publicFetch=fetch}={}){
  const {manifest,source,guard}=validateRelease(manifestFile,decisionFile);
@@ -190,14 +198,14 @@ export async function promoteRelease(manifestFile,decisionFile,{dryRun=false,cfR
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){
  try{
   const [command,...args]=process.argv.slice(2),options={};
-  const allowed=new Set(command==='prepare'?['--source','--review','--plan-review','--preview-proof','--version','--output']:['--manifest','--decision','--dry-run']);
-  need(['prepare','promote'].includes(command),'INPUT','Use prepare or promote; build/preview are separate and never authorize publication.');
+  const allowed=new Set(command==='prepare'?['--source','--review','--plan-review','--preview-proof','--version','--output']:command==='build'?['--source']:['--manifest','--decision','--dry-run']);
+  need(['build','prepare','promote'].includes(command),'INPUT','Use build, prepare or promote; build and preview never authorize publication.');
   for(let i=0;i<args.length;i++){
    const flag=args[i];need(allowed.has(flag)&&!Object.hasOwn(options,flag),'INPUT',`Unknown or repeated option ${flag}.`);
    if(flag==='--dry-run')options[flag]=true;
    else{need(text(args[i+1])&&!args[i+1].startsWith('--'),'INPUT',`Missing value for ${flag}.`);options[flag]=args[++i];}
   }
-  const result=command==='prepare'?prepareManifest({source:options['--source'],review:options['--review'],planReview:options['--plan-review'],previewProof:options['--preview-proof'],versionId:options['--version'],output:options['--output']}):await promoteRelease(options['--manifest'],options['--decision'],{dryRun:options['--dry-run']===true});
+  const result=command==='build'?buildRelease(options['--source']):command==='prepare'?prepareManifest({source:options['--source'],review:options['--review'],planReview:options['--plan-review'],previewProof:options['--preview-proof'],versionId:options['--version'],output:options['--output']}):await promoteRelease(options['--manifest'],options['--decision'],{dryRun:options['--dry-run']===true});
   console.log(JSON.stringify(command==='prepare'?{status:'prepared_not_approved',candidate:result.candidate,versionId:result.versionId,manifestSha256:hash(readFileSync(options['--output'])),reviewSha256:result.review.sha256,planReviewSha256:result.planReview.sha256,planHash:result.planHash,scopeHash:result.scopeHash,authorshipHash:result.authorshipHash}:result,null,2));
  }catch(error){
   const message=error.message.startsWith('QUALITY_')?error.message:`QUALITY_${error.publicationState?'PUBLIC':'INPUT'}: ${error.message}`;
