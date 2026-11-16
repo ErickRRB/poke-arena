@@ -37,6 +37,13 @@ test('unrelated and shielded lone meters keep their original owner, coordinates 
   assert.deepEqual(layoutUnitHealth([meter]),[meter]);assert.equal(unit.shield,50);assert.equal(healthMeterWidth(unit,30),30);
 });
 
+test('troops above the compact height threshold retain their original health width',()=>{
+  const unit={card:{},radius:12};
+  for(const height of[32.001,40,64,Infinity])assert.equal(healthMeterWidth(unit,44,height),44,`Noncompact body${height} must keep its44wide meter.`);
+  assert.equal(healthMeterWidth(unit,44,32),22.4);
+  assert.equal(healthMeterWidth({card:{structure:true}},44,12),44);
+});
+
 test('native Vivero children avoid the unchanged parent meter even when each child is a separate group',()=>{
   const g=fresh();g.hands[0][0]='vivero';g.hands[1][0]='snorlax';g.energy=[10,10];g.deploy(0,0,168,508);g.deploy(1,0,168,364);
   for(let i=0;i<81;i++)g.step(1/30);

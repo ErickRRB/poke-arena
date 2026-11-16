@@ -3,7 +3,7 @@ const intersects=(a,b,gap=3)=>a.left<b.right+gap&&a.right+gap>b.left&&a.top<b.bo
 const border=entry=>entry.compact?1:2;
 const meterRect=entry=>({left:entry.x-entry.width/2-border(entry),right:entry.x+entry.width/2+border(entry),top:entry.y-border(entry),bottom:entry.y+(entry.unit.shield>0?(entry.compact?10:15):(entry.compact?4:entry.unit.maxHp<=1?4:8)+border(entry))});
 
-export function healthMeterWidth(unit,width,bodyHeight=Infinity){return unit.card?.structure?width:Math.min(width,Math.max(18,bodyHeight*.7));}
+export function healthMeterWidth(unit,width,bodyHeight=Infinity){return unit.card?.structure||bodyHeight>32?width:Math.min(width,Math.max(18,bodyHeight*.7));}
 
 export function layoutUnitHealth(entries,bounds={left:0,right:600}){
   const result=entries.map(entry=>({...entry})),pending=result.filter(entry=>!entry.unit.card?.structure),groups=[];
