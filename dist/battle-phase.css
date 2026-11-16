@@ -53,5 +53,9 @@ body.reduced-motion .battle-hud .battle-clock.last-minute #timer {color:inherit}
 @media(max-width:600px) {
  .battle-console {grid-template-columns:clamp(43px,16vw,70px) minmax(0,1fr)}
 }
+@media(max-width:400px) and (max-height:600px) {
+ .battle-hud .battle-clock {font-size:20px}
+ .battle-hud #timer {transform:translateX(3px)}
+}
 html:fullscreen body:not(.menu-mode)>.topbar {display:none}
 @media(display-mode:fullscreen) {body:not(.menu-mode)>.topbar {display:none}}
