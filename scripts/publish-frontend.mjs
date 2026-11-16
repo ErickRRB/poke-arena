@@ -70,6 +70,12 @@ function declaredAuthorship(review){
  if(review.plan.authors!==undefined)need(Array.isArray(review.plan.authors)&&review.plan.authors.length>0&&same(review.plan.authors.map(identity).sort(),result.planAuthors),'AUTHOR','Plan authors contradict declared plan authorship.');
  return result;
 }
+function checkPlanReview(p,manifest,authorship){
+ need(p.outcome==='sufficient'&&text(p.author)&&text(p.reviewer)&&identity(p.author)!==identity(p.reviewer)&&validDate(p.reviewedAt)&&text(p.chronology)&&same(p.candidate,manifest.candidate)&&p.planHash===manifest.planHash,'PLAN','An independent, explicitly sufficient plan review for this candidate/plan is required.');
+ need(authorship.planAuthors.includes(identity(p.author)),'PLAN','Plan-review author contradicts the review authority.');
+ need(![...authorship.planAuthors,...authorship.scopeAuthors].includes(identity(p.reviewer)),'PLAN','Plan reviewer is an author of the plan or scoped change.');
+ for(const key of ['requestAndDiff','sharedPathsAndRisks','exclusionsAndLimits'])need(text(p.basis?.[key]),'PLAN',`Plan review must explain ${key}; hashes and dates do not establish sufficiency.`);
+}
 function checkPreview(proof,manifest,files){
  need(proof.version===manifest.versionId&&proof.origin===manifest.immutableOrigin&&same({sha:proof.source?.sha,tree:proof.source?.tree},manifest.candidate),'PREVIEW','Preview identity differs from the reviewed candidate/version.');
  need(proof.source.status===''&&Array.isArray(proof.resources)&&proof.resources.length>0&&proof.canvas?.clean===true,'PREVIEW','A clean source and actual clean-canvas browser proof are required.');
@@ -98,6 +104,7 @@ export function prepareManifest({source,review,planReview,previewProof,versionId
  })};
  need(same(bundle.candidate,manifest.candidate),'SOURCE','Review and frozen source differ.');
  checkPreview(readJson(previewProof),manifest,files);
+ checkPlanReview(readJson(planReview),manifest,authorship);
  writeFileSync(output,JSON.stringify(manifest,null,2)+'\n');
  return manifest;
 }
@@ -120,10 +127,7 @@ export function validateRelease(manifestFile,decisionFile){
  checkPreview(proof.value,manifest,files);
  need(same(manifest.publicArtifacts,publicFiles.map(path=>({path,sha256:files.find(file=>file.path===assetPrefix+path)?.sha256}))),'BUILD','Public checks do not match the reviewed Build Output.');
  const p=planReview.value;
- need(p.outcome==='sufficient'&&text(p.author)&&text(p.reviewer)&&identity(p.author)!==identity(p.reviewer)&&validDate(p.reviewedAt)&&text(p.chronology)&&same(p.candidate,manifest.candidate)&&p.planHash===manifest.planHash,'PLAN','An independent, explicitly sufficient plan review for this candidate/plan is required.');
- need(authorship.planAuthors.includes(identity(p.author)),'PLAN','Plan-review author contradicts the review authority.');
- need(![...authorship.planAuthors,...authorship.scopeAuthors].includes(identity(p.reviewer)),'PLAN','Plan reviewer is an author of the plan or scoped change.');
- for(const key of ['requestAndDiff','sharedPathsAndRisks','exclusionsAndLimits'])need(text(p.basis?.[key]),'PLAN',`Plan review must explain ${key}; hashes and dates do not establish sufficiency.`);
+ checkPlanReview(p,manifest,authorship);
  // Invoke the actual CLI behind npm run review:check; never trust a saved ok flag.
  const checked=spawnSync(process.execPath,[join(repoRoot,'scripts/quality-review-gate.mjs'),review.file],{cwd:repoRoot,encoding:'utf8',windowsHide:true,timeout:55000,maxBuffer:8*1024*1024});
  let guard;

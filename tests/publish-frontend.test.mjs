@@ -65,6 +65,18 @@ function fixture(t){
  return {root,source,assets,bundleFile,reviewFile,planReviewFile,proofFile,manifestFile,decisionFile,prepare,decide,calls,cfRunner,run};
 }
 
+test('preparation rejects missing plan chronology before replacing the manifest',t=>{
+ const f=fixture(t),before=readFileSync(f.manifestFile),review=readJson(f.planReviewFile);
+ delete review.chronology;writeJson(f.planReviewFile,review);
+ assert.throws(()=>f.prepare(),/QUALITY_PLAN/);
+ assert.deepEqual(readFileSync(f.manifestFile),before);assert.equal(f.calls.length,0);
+});
+test('preparation accepts a complete independent plan review without invoking Cloudflare',t=>{
+ const f=fixture(t);assert.doesNotThrow(()=>f.prepare());
+ assert.equal(readJson(f.manifestFile).planReview.sha256,hash(readFileSync(f.planReviewFile)));
+ assert.equal(f.calls.length,0);
+});
+
 test('valid partial executes the real guard and proposes only the reviewed version; dry-run never checks live',async t=>{
  const f=fixture(t),result=await f.run({dryRun:true,publicFetch:()=>assert.fail('dry-run must not fetch public resources')});
  assert.equal(result.status,'dry_run_only');assert.equal(result.guard.ok,true);assert.equal(result.guard.globalOpen,true);
@@ -106,9 +118,9 @@ for(const [name,change] of [
  ['missing sufficiency',p=>delete p.outcome],
  ['author reviewing own plan',p=>p.reviewer=p.author],
  ['missing scope reasoning',p=>delete p.basis.sharedPathsAndRisks],
-])test(`plan review ${name} rejects`,async t=>{
- const f=fixture(t),p=readJson(f.planReviewFile);change(p);writeJson(f.planReviewFile,p);f.prepare();
- await assert.rejects(f.run(),/QUALITY_PLAN/);assert.equal(f.calls.length,0);
+])test(`plan review ${name} rejects during preparation`,t=>{
+ const f=fixture(t),p=readJson(f.planReviewFile);change(p);writeJson(f.planReviewFile,p);
+ assert.throws(()=>f.prepare(),/QUALITY_PLAN/);assert.equal(f.calls.length,0);
 });
 test('Root quality decision must match hashes, candidate, scope, version and actual reviews',async t=>{
  const f=fixture(t),original=readJson(f.decisionFile);
@@ -117,11 +129,11 @@ test('Root quality decision must match hashes, candidate, scope, version and act
   await assert.rejects(f.run(),/QUALITY_ROOT/);assert.equal(f.calls.length,0);
  }
 });
-test('counterexample: product author cannot review a plan declared as written by someone else',async t=>{
+test('counterexample: product author cannot review a plan declared as written by someone else',t=>{
  const f=fixture(t),review=readJson(f.reviewFile),p=readJson(f.planReviewFile);
  review.authorship.planAuthors=['Art'];p.author='Art';p.reviewer='Main';
- writeJson(f.reviewFile,review);writeJson(f.planReviewFile,p);f.prepare();
- await assert.rejects(f.run({dryRun:true}),/QUALITY_PLAN.*author of the plan or scoped change/);assert.equal(f.calls.length,0);
+ writeJson(f.reviewFile,review);writeJson(f.planReviewFile,p);
+ assert.throws(()=>f.prepare(),/QUALITY_PLAN.*author of the plan or scoped change/);assert.equal(f.calls.length,0);
 });
 test('legitimate separate plan author and code author permit a third independent reviewer',async t=>{
  const f=fixture(t),review=readJson(f.reviewFile),p=readJson(f.planReviewFile);
@@ -137,8 +149,8 @@ test('declared authorship cannot omit available scoped authors or contradict pla
  assert.equal(f.calls.length,0);
 });
 test('plan-review author and Root authorship binding must match declared authority',async t=>{
- const f=fixture(t),p=readJson(f.planReviewFile);p.author='Art';writeJson(f.planReviewFile,p);f.prepare();
- await assert.rejects(f.run(),/QUALITY_PLAN.*contradicts/);assert.equal(f.calls.length,0);
+ const f=fixture(t),p=readJson(f.planReviewFile);p.author='Art';writeJson(f.planReviewFile,p);
+ assert.throws(()=>f.prepare(),/QUALITY_PLAN.*contradicts/);assert.equal(f.calls.length,0);
  p.author='Main';writeJson(f.planReviewFile,p);f.prepare();const d=readJson(f.decisionFile);d.authorshipHash='0'.repeat(64);writeJson(f.decisionFile,d);
  await assert.rejects(f.run(),/QUALITY_ROOT.*authorshipHash/);assert.equal(f.calls.length,0);
 });
