@@ -33,5 +33,40 @@ export async function observe(page,config){
     await page.screenshot({path:path.join(output,'pair.png')});await page.locator('#arena').screenshot({path:path.join(output,'pair-canvas.png')});
     await writeFile(path.join(output,'pair.json'),JSON.stringify(sample.fixture,null,2));state.saved=true;
   }
+  if(config.staticConcept&&state.saved&&!state.conceptDone){
+    await staticConcept(page);state.conceptDone=true;
+  }
   return sample;
+}
+async function staticConcept(page){
+  const output=process.env.REVIEW_STATIC_OUTPUT;
+  await page.locator('#match-pause').click();await page.waitForFunction(()=>__reviewAdapter.game.state==='paused');
+  await page.evaluate(()=>{
+    const q=__reviewAdapter,g=q.game,parent=g.units.find(u=>u.key==='raltsHut'),children=g.units.filter(u=>u.parentId===parent.id).sort((a,b)=>a.x-b.x);
+    if(children.length!==2)throw Error('static concept requires the actual settled native pair');
+    q.concept={parentId:parent.id,children:children.map(u=>u.id),alpha:1,compact:false,views:[],before:JSON.stringify(g.units.map(u=>({id:u.id,x:u.x,y:u.y,hp:u.hp,spawn:u.spawn,parentId:u.parentId})))};
+    const structure=q.renderer.structureSprite,queue=q.renderer.queueUnitHealth;
+    q.renderer.structureSprite=function(ctx,unit,...args){ctx.save();if(unit.id===q.concept.parentId)ctx.globalAlpha*=q.concept.alpha;const value=structure.call(this,ctx,unit,...args);ctx.restore();return value;};
+    q.renderer.queueUnitHealth=function(ctx,unit,x,y,width){
+      if(q.concept.compact&&q.concept.children.includes(unit.id)){
+        width=Math.min(width,Math.max(18,unit.radius*2+6));
+        const list=q.concept.children.map(id=>g.units.find(u=>u.id===id)),distance=list[1].x-list[0].x,shift=Math.max(0,(width+7-distance)/2);
+        x+=unit.id===list[0].id?-shift:shift;
+      }
+      return queue.call(this,ctx,unit,x,y,width);
+    };
+  });
+  await page.screenshot({path:path.join(output,'static-native-pause-context.png')});
+  for(const[caption,alpha,compact]of[['original',1,false],['roof55-compact',.55,true],['roof35-compact',.35,true]]){
+    await page.evaluate(async({caption,alpha,compact})=>{
+      const q=__reviewAdapter;Object.assign(q.concept,{alpha,compact});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+      const after=JSON.stringify(q.game.units.map(u=>({id:u.id,x:u.x,y:u.y,hp:u.hp,spawn:u.spawn,parentId:u.parentId})));
+      if(after!==q.concept.before||q.game.state!=='paused')throw Error('static native scene changed');
+      q.concept.views.push({caption,alpha,compact,gameTime:q.game.elapsed,frame:q.fixture.lastFrame.slice()});
+    },{caption,alpha,compact});
+    const data=await page.evaluate(()=>__reviewAdapter.renderer.canvas.toDataURL('image/png'));
+    await writeFile(path.join(output,`${caption}.png`),Buffer.from(data.split(',')[1],'base64'));
+  }
+  const report=await page.evaluate(()=>({...__reviewAdapter.concept,limits:'Static native CPU-paused painter concept only. Temporary fixture overrides specific actual parent/pair; no production fix, physics change or motion-quality claim. Complete bodies/health/positions unchanged across views; native canvas PNGs exclude the real pause overlay shown in separate context image.'}));
+  await writeFile(path.join(output,'static-concept.json'),JSON.stringify(report,null,2));
 }
