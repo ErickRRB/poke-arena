@@ -1,5 +1,6 @@
 import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=34';
 import { onlineServer } from './online-config.js?v=34';
+import { onlinePerf } from './perf.js?v=1';
 
 export const ONLINE_TOKEN_KEY = 'poke-arena:ws-token';
 const ROOM_KEY = 'poke-arena:ws-room', SEQ_KEY = 'poke-arena:ws-seq';
@@ -27,6 +28,7 @@ export class OnlineClient {
     url.pathname = kind === 'room' ? '/v1/rooms/' + this.roomId : '/v1/lobby';url.search = '';url.hash = '';return url.href;
   }
   dropSocket() {
+    onlinePerf.socketReset();
     const previous = this.socket;this.socket = null;this.socketId++;clearInterval(this.heartbeat);clearInterval(this.searchTimer);clearTimeout(this.ackTimer);this.ackTimer = null;
     if (previous) try { previous.close(); } catch {}
   }
@@ -46,15 +48,15 @@ export class OnlineClient {
         if (!current()) return;
         const now = Date.now();
         if (now - this.lastMessage > 10000 || this.mode === 'battle' && this.gameState !== 'ended' && now - this.lastSnapshot > 4500) { this.reconnect();return; }
-        this.pingAt = now;this.write('ping');
+        this.pingAt = now;if(this.write('ping'))onlinePerf.ping();
       }, 2500);
     };
     socket.onmessage = event => {
       if (!current()) return;
       this.lastMessage = Date.now();
-      if (event.data === 'pong') { this.latency = this.lastMessage - (this.pingAt || this.lastMessage);return; }
+      if (event.data === 'pong') { this.latency = this.lastMessage - (this.pingAt || this.lastMessage);onlinePerf.pong();return; }
       let packet;try { packet = JSON.parse(event.data); } catch { this.reconnect();return; }
-      this.receive(packet);
+      this.receive(packet,onlinePerf.active&&packet.type==='snapshot'?new TextEncoder().encode(event.data).byteLength:0);
     };
     socket.onerror = () => { if (current()) this.reconnect(); };
     socket.onclose = event => {
@@ -67,7 +69,7 @@ export class OnlineClient {
     if (this.socket?.readyState !== 1) return false;
     try { this.socket.send(typeof packet === 'string' ? packet : JSON.stringify(packet));return true; } catch { return false; }
   }
-  receive(packet) {
+  receive(packet,bytes=0) {
     if (['welcome','snapshot'].includes(packet.type) && packet.protocol !== ONLINE_PROTOCOL) {
       this.suspend();this.onConnection('');this.onIdle('Actualizá la página para conectar.');return;
     }
@@ -83,7 +85,7 @@ export class OnlineClient {
       if (this.roomId !== packet.roomId) { this.seq = 0;this.version = -1;this.epoch = null;save(SEQ_KEY, null); }
       this.roomId = packet.roomId;save(ROOM_KEY, this.roomId);this.connect('room');return;
     }
-    if (packet.type === 'snapshot') { this.apply(packet);return; }
+    if (packet.type === 'snapshot') { this.apply(packet,bytes);return; }
     if (packet.type === 'result') {
       const entry = this.pending.get(packet.nonce);if (!entry) return;
       clearTimeout(entry.timer);this.pending.delete(packet.nonce);entry.resolve(packet.result || { ok: false });return;
@@ -98,10 +100,11 @@ export class OnlineClient {
       this.suspend();this.onIdle(packet.message || 'No se pudo conectar.');
     }
   }
-  apply(packet) {
+  apply(packet,bytes=0) {
     if (packet.status !== 'matched' || !packet.game || !Array.isArray(packet.events)) return;
     if (packet.epoch !== this.epoch) { this.epoch = packet.epoch;this.version = -1; }
     if (packet.version < this.version) return;
+    if(onlinePerf.active)onlinePerf.snapshot(packet,bytes);
     this.mode = 'battle';this.connected = true;this.restoring = false;this.retry = 0;this.version = packet.version;this.team = packet.team;this.roomId = packet.roomId;this.lastSnapshot = Date.now();this.gameState = packet.game.state;
     save(ROOM_KEY, this.roomId);
     const events = packet.events.filter(entry => entry.seq > this.seq).map(entry => ({ ...entry, event: unpackEvent(entry.event) }));
@@ -110,6 +113,7 @@ export class OnlineClient {
   }
   reconnect() {
     if (!this.active || this.reconnectTimer) return;
+    if(onlinePerf.active)onlinePerf.reconnect();
     this.connected = false;this.dropSocket();this.onConnection('Reconectando…');
     const delay = Math.min(3000, 250 * 2 ** Math.min(4, this.retry++));
     this.reconnectTimer = setTimeout(() => { this.reconnectTimer = null;this.connect(this.roomId ? 'room' : 'lobby'); }, delay);

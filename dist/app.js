@@ -5,6 +5,7 @@ import { Renderer } from './render.js?v=36';
 import { SoundSystem } from './audio.js?v=37';
 import {readAudioLevels} from './audio-preferences.js?v=1';
 import { OnlineClient, hasSavedOnlineSession } from './online.js?v=34';
+import { onlinePerf } from './perf.js?v=1';
 import { unpackGame, perspective } from './snapshot.js?v=34';
 import { cardArtMarkup } from './card-art.js?v=34';
 import { cardEquivalentLabel } from './card-equivalents.js?v=34';
@@ -568,7 +569,7 @@ function frame(now){
     while(accumulator>=1/30){game.step(1/30);accumulator-=1/30;}
     if(walkthrough?.step===3&&game.elapsed-walkthrough.start>8)finishGuide();
   }else accumulator=0;
-  if(!document.body.classList.contains('menu-mode'))renderer.draw(game,game.state==='paused'?0:dt);
+  if(!document.body.classList.contains('menu-mode')){const perfStart=onlineMode&&onlinePerf.active?performance.now():0;renderer.draw(game,game.state==='paused'?0:dt);if(perfStart)onlinePerf.frame(perfStart,renderer);}
   if(now-lastUi>80){lastUi=now;updateUi();}
   requestAnimationFrame(frame);
 }
