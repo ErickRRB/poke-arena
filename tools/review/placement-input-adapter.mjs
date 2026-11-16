@@ -38,8 +38,8 @@ export async function prepare(page,config){
     q.events=[];
   },config);
   await page.waitForFunction(()=>document.querySelector('#hand [data-card="0"]')?.textContent.includes('Roselia'));
-  await page.evaluate(async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));__reviewAdapter.fixture.rects.before=__reviewAdapter.fixtureReadRects();});
   if(config.destroyedLane!==undefined)await page.waitForTimeout(900);
+  await page.evaluate(async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));__reviewAdapter.fixture.rects.before=__reviewAdapter.fixtureReadRects();});
 }
 async function savePhase(page,config,name){
   const output=process.env.REVIEW_STATIC_OUTPUT;if(!output)throw Error('Use a fresh REVIEW_STATIC_OUTPUT for native phase evidence');
