@@ -1,0 +1,8 @@
+.perf-access{position:fixed;top:max(8px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right));z-index:9999;font:14px system-ui,sans-serif;color:#252b23}
+.perf-access button{font:inherit;min-height:40px;padding:6px 10px;border:2px solid #495247;border-radius:6px;background:#f8edce;color:#252b23;cursor:pointer}
+.perf-access button:disabled{opacity:.5;cursor:default}
+.perf-access button:focus-visible,.perf-access textarea:focus-visible{outline:3px solid #ac3833;outline-offset:2px}
+.perf-panel{position:absolute;right:0;top:48px;width:min(310px,calc(100vw - 16px));max-height:calc(100dvh - 64px);overflow:auto;box-sizing:border-box;padding:12px;border:2px solid #495247;border-radius:8px;background:#f8edce;box-shadow:0 4px 14px #0005}
+.perf-panel[hidden],.perf-output-label[hidden]{display:none}
+.perf-heading,.perf-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.perf-heading{justify-content:space-between}.perf-heading .perf-close{min-width:40px}
+.perf-panel p{margin:8px 0}.perf-output-label{display:block}.perf-output{display:block;box-sizing:border-box;width:100%;margin-top:4px;font:12px monospace;user-select:text}
