@@ -33,7 +33,7 @@ export async function prepare(page,config){
     };
     for(const type of ['pointerdown','pointermove','pointerup','pointercancel'])document.addEventListener(type,e=>{
       const hit=document.elementFromPoint(e.clientX,e.clientY),f=q.fixture;
-      f.inputEvents.push({...stamp(),type,pointerType:e.pointerType,pointerId:e.pointerId,x:e.clientX,y:e.clientY,target:e.target.id||e.target.tagName,hit:hit?.id||hit?.tagName});
+      f.inputEvents.push({...stamp(),type,pointerType:e.pointerType,pointerId:e.pointerId,x:e.clientX,y:e.clientY,target:e.target.id||e.target.tagName,hit:hit?.id||hit?.tagName,control:hit?.closest('button')?.id||null});
     },true);
     q.events=[];
   },config);
@@ -55,12 +55,20 @@ async function perform(page,config,state){
   if(config.input==='touch'){
     const dispatch=(type,p)=>state.cdp.send('Input.dispatchTouchEvent',{type,touchPoints:p?[{x:p.x,y:p.y,id:1}]:[]});
     await dispatch('touchStart',start);await dispatch('touchMove',points.legal);await dispatch('touchMove',points.raw);
+  }else if(config.input==='keyboard'){
+    await page.locator('#arena').focus();await page.keyboard.press('1');
+    for(let i=0;i<11;i++)await page.keyboard.press('ArrowUp');
+  }else if(config.input==='mouse-click'){
+    await page.locator('#hand [data-card="0"]').click();await page.mouse.move(points.raw.x,points.raw.y);
   }else{
     await page.mouse.move(start.x,start.y);await page.mouse.down();await page.mouse.move(points.legal.x,points.legal.y);await page.mouse.move(points.raw.x,points.raw.y);
   }
   await page.waitForFunction(expected=>{const g=__reviewAdapter.fixture.ghosts.at(-1);return g&&g.x===expected.x&&g.y===expected.y;},config.expected,{timeout:4000});
   await savePhase(page,config,'ghost');
-  if(config.input==='touch')await state.cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});else await page.mouse.up();
+  if(config.input==='touch')await state.cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+  else if(config.input==='keyboard')await page.keyboard.press('Enter');
+  else if(config.input==='mouse-click')await page.mouse.click(points.raw.x,points.raw.y);
+  else await page.mouse.up();
   await page.waitForFunction(()=>__reviewAdapter.fixture.submissions.length===1);
   await savePhase(page,config,'drop');
   await page.evaluate(expected=>{
@@ -70,6 +78,35 @@ async function perform(page,config,state){
     if(q.renderer.selection!==null||q.renderer.pointer!==null)throw Error('preview not cleared after release');
     f.complete=true;
   },config.expected);
+  if(config.focusedChecks)await cancellations(page,config,state,points);
+}
+async function cancellations(page,config,state,points){
+  for(const name of ['outside','control',...(config.input==='touch'?['pointercancel']:[])]){
+    const setup=await page.evaluate(name=>{
+      const q=__reviewAdapter,g=q.game,index=g.hands[0].findIndex(key=>q.CARDS[key]?.cost<=g.energy[0]);
+      if(index<0)throw Error('no affordable native hand card for cancellation');
+      return{name,index,submissions:q.fixture.submissions.length,spent:g.stats[0].energy,state:g.state};
+    },name);
+    const box=await page.locator(`#hand [data-card="${setup.index}"]`).boundingBox(),start={x:box.x+box.width/2,y:box.y+box.height/2};
+    const control=await page.locator('#match-pause').boundingBox();
+    const end=name==='outside'?{x:4,y:4}:name==='control'?{x:control.x+control.width/2,y:control.y+control.height/2}:points.legal;
+    if(config.input==='touch'){
+      const dispatch=(type,p)=>state.cdp.send('Input.dispatchTouchEvent',{type,touchPoints:p?[{x:p.x,y:p.y,id:1}]:[]});
+      await dispatch('touchStart',start);await dispatch('touchMove',points.legal);await dispatch('touchMove',end);
+      await dispatch(name==='pointercancel'?'touchCancel':'touchEnd');
+    }else{
+      await page.mouse.move(start.x,start.y);await page.mouse.down();await page.mouse.move(points.legal.x,points.legal.y);await page.mouse.move(end.x,end.y);await page.mouse.up();
+    }
+    await page.waitForTimeout(120);
+    await page.evaluate(setup=>{
+      const q=__reviewAdapter,g=q.game,f=q.fixture;
+      const result={...setup,...q.fixtureStamp(),afterSubmissions:f.submissions.length,afterSpent:g.stats[0].energy,afterState:g.state,selection:q.renderer.selection,pointer:q.renderer.pointer,lastInput:f.inputEvents.at(-1)};
+      (f.cancellations??=[]).push(result);
+      if(result.afterSubmissions!==setup.submissions||result.afterSpent!==setup.spent||result.afterState!==setup.state||result.selection!==null||result.pointer!==null)throw Error('gesture did not cancel: '+JSON.stringify(result));
+      if(setup.name==='control'&&result.lastInput.control!=='match-pause')throw Error('control case did not hit the real pause control');
+    },setup);
+  }
+  await savePhase(page,config,'canceled');
 }
 export async function observe(page,config){
   const state=states.get(page);
