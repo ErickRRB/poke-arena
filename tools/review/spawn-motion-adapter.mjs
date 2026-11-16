@@ -56,7 +56,7 @@ export async function observe(page,config){
     if(f.ready&&g.elapsed-f.startAt>=5.7&&!f.settled)f.settled=frame();
     if(config.denseSidecar&&f.ready&&g.elapsed-f.startAt>=1.25&&!f.denseEntry)f.denseEntry={at:g.elapsed,units:g.units.filter(u=>u.key==='diglettHorde').map(u=>({id:u.id,x:u.x,y:u.y,hp:u.hp,spawn:u.spawn})),draws:f.lastFrame.filter(d=>d.key==='diglettHorde')};
   },config);
-  if(config.healthDamageAndDeath)await page.evaluate(()=>{const q=__reviewAdapter,f=q.fixture;if(f.frames.healthy&&!f.zap){const u=q.game.units.find(u=>u.key==='skarmory');f.zap={at:q.game.elapsed,before:{hp:u.hp,maxHp:u.maxHp,shield:u.shield,maxShield:u.maxShield},aim:{x:u.x,y:u.y},result:q.game.deploy(0,2,u.x,u.y)};if(!f.zap.result.ok)f.error='Native Thunder placement rejected';}});
+  if(config.healthDamageAndDeath)await page.evaluate(config=>{const q=__reviewAdapter,f=q.fixture;if(f.frames.healthy&&!f.zap){const u=config.towerDamage?q.game.towers.find(u=>u.team===1&&!u.king&&u.x>300):q.game.units.find(u=>u.key==='skarmory');if(!u)throw Error('Declared native Thunder target missing');f.zap={at:q.game.elapsed,before:{hp:u.hp,maxHp:u.maxHp,shield:u.shield,maxShield:u.maxShield},aim:{x:u.x,y:u.y},result:q.game.deploy(0,2,u.x,u.y)};if(!f.zap.result.ok)f.error='Native Thunder placement rejected';}},config);
   const fixture=await page.evaluate(()=>{const q=__reviewAdapter;return{...q.fixture,frames:Object.fromEntries(Object.entries(q.fixture.frames).map(([k,{png,...frame}])=>[k,frame])),rects:q.actionRects()};});
   if(fixture.error)throw Error(fixture.error);
   if(JSON.stringify(fixture.rects)!==JSON.stringify(fixture.initialRects))throw Error('Arena or hand displaced');

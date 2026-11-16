@@ -4,6 +4,15 @@ import path from'node:path';
 export const beforeNavigate=native.beforeNavigate;
 export async function prepare(page,config){
   await native.prepare(page,config);
+  await page.evaluate(config=>{
+    if(!config.towerDamage)return;
+    const q=__reviewAdapter,g=q.game,r=q.renderer,draw=r.draw;
+    r.draw=function(...args){
+      const value=draw.apply(this,args),f=q.fixture;
+      if(f.ready&&!f.frames['tower-damaged']&&g.towers.some(t=>t.hp>0&&t.hp<t.maxHp))f.frames['tower-damaged']={gameTime:g.elapsed,renderTime:r.t,towers:g.towers.map(t=>({id:t.id,team:t.team,king:t.king,x:t.x,y:t.y,hp:t.hp,maxHp:t.maxHp})),draws:f.lastFrame,png:r.canvas.toDataURL()};
+      return value;
+    };
+  },config);
   const measured=await page.evaluate(async()=>{
     const faces=await document.fonts.load('400 18px "Lilita One"');await document.fonts.ready;
     const q=__reviewAdapter,g=q.game,r=q.renderer,real=r.canvas,b=real.getBoundingClientRect(),p=r.projection,dpr=real.width/b.width;
