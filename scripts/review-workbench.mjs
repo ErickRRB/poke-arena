@@ -108,10 +108,28 @@ export async function publicBuild(runtime,relative){
   const files=[],assets=new Map(),prefix='workers/default/assets/';
   async function walk(dir){for(const entry of await readdir(dir,{withFileTypes:true})){const absolute=path.join(dir,entry.name);if(entry.isDirectory()){await walk(absolute);continue;}if(!entry.isFile())throw Error('Build Output contains a non-file');const data=await readFile(absolute),file=path.relative(directory,absolute).split(path.sep).join('/'),item={path:file,bytes:data.length,sha256:sha(data)};files.push(item);
     if(file.startsWith(prefix)){const name=file.slice(prefix.length),source='dist/'+name;if(!data.equals(await readFile(path.join(runtime.cwd,source))))throw Error('build/source bytes differ: '+name);assets.set(name,{...item,absolute,source,gitBlob:runtimeBlob(runtime,source,data)});}
-  }}await walk(directory);files.sort((a,b)=>a.path.localeCompare(b.path));
+  }}await walk(directory);files.sort((a,b)=>a.path<b.path?-1:a.path>b.path?1:0);
   const missing=[...runtime.blobs.keys()].filter(file=>file.startsWith('dist/')&&!assets.has(file.slice(5)));if(missing.length)throw Error('Build Output is missing source assets: '+missing.join(', '));
   if(!files.some(f=>f.path==='workers/default/bundle/index.js')||!['index.html','app.js','render.js','engine.js'].every(file=>assets.has(file)))throw Error('complete Build Output and core app assets required');
   return{directory,files,sha256:sha(JSON.stringify(files)),assets};
+}
+// Offline facts only: missing fields stay unknown, and old inventory ordering is irrelevant.
+export function summarizeRun(run,manifest){
+  const count=value=>Array.isArray(value)?value.length:null;
+  const identity=value=>value&&typeof value==='object'?{sha:typeof value.sha==='string'?value.sha:null,tree:typeof value.tree==='string'?value.tree:null}:null;
+  const inventory=value=>{
+    if(!Array.isArray(value))return null;
+    const rows=new Map();
+    for(const item of value){if(!item||typeof item.path!=='string'||!item.path||!Number.isSafeInteger(item.bytes)||item.bytes<0||!/^[a-f0-9]{64}$/.test(item.sha256||'')||rows.has(item.path))return null;rows.set(item.path,item);}
+    return rows;
+  };
+  let comparison=null;
+  if(manifest!==undefined){
+    const actual=inventory(run?.publicBuild?.files),expected=inventory(manifest?.buildOutput?.files);
+    if(!actual||!expected)comparison={status:'unknown',reason:'missing or invalid inventory'};
+    else{let missing=0,extra=0,changed=0;for(const [p,row] of expected){const other=actual.get(p);if(!other)missing++;else if(row.bytes!==other.bytes||row.sha256!==other.sha256)changed++;}for(const p of actual.keys())if(!expected.has(p))extra++;comparison={status:missing||extra||changed?'different':'equal',runFiles:actual.size,manifestFiles:expected.size,missing,extra,changed};}
+  }
+  return {id:run?.id??null,status:run?.status??null,runnerGit:identity(run?.git),renderedRuntime:identity(run?.runtime),counts:{publicResponses:count(run?.publicResponses),errors:count(run?.errors),publicResponseErrors:count(run?.publicResponseErrors),missingInputs:count(run?.missingInputs),changedInputs:count(run?.changedInputs)},inventoryComparison:comparison,limitations:'Offline report of recorded fields only; no source, response, manifest authenticity or quality verification.'};
 }
 async function timed(promise,ms){let timer;try{return await Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('response body timed out')),ms);})]);}finally{clearTimeout(timer);}}
 export function collectPublicResponse(response,remote,runtime){
@@ -268,7 +286,12 @@ export async function runCase(c,{mode='capture',out='workbench-runs',observeDura
 }
 if (process.argv[1] && import.meta.url===pathToFileURL(path.resolve(process.argv[1])).href) {
   try {
-    if(process.argv[2]==='--help'){ console.log('capture|observe case.json [--out directory] [--duration-ms milliseconds for observe] — local by default; publicOrigin requires an explicit HTTPS origin and frozen runtime SHA/tree/buildOutput. CDP timestamps, no perceptual verdict. Adapter exports optional beforeNavigate(page,case), prepare(page,case), observe(page,case). Each observation.events entry is {event, sampleIndex, epochMs, gameTime}; repeated accumulated events are not deduplicated. See tools/review/BASELINE.md. Playwright, Edge and optional canvas ffprobe required.'); process.exit(0); }
+    if(process.argv[2]==='--help'){ console.log('capture|observe case.json [--out directory] [--duration-ms milliseconds] | inspect-run run.json [--manifest manifest.json] — inspect-run is offline and reports recorded facts only. Capture: publicOrigin requires frozen runtime SHA/tree/buildOutput; CDP timestamps do not prove perceptual quality. See tools/review/BASELINE.md.'); process.exit(0); }
+    if(process.argv[2]==='inspect-run'){
+      const [, , ,file,...args]=process.argv;if(!file||!(args.length===0||args.length===2&&args[0]==='--manifest'&&args[1]))throw Error('usage: inspect-run run.json [--manifest manifest.json]');
+      const run=JSON.parse(await readFile(file,'utf8')),manifest=args.length?JSON.parse(await readFile(args[1],'utf8')):undefined;
+      console.log(JSON.stringify(summarizeRun(run,manifest),null,2));process.exit(0);
+    }
     const [mode,file,...args]=process.argv.slice(2); if(!['capture','observe'].includes(mode)||!file||args.length%2) throw Error('usage: capture|observe case.json [--out directory] [--duration-ms milliseconds]');
     let out,observeDurationMs; const seen=new Set();
     for(let i=0;i<args.length;i+=2){const flag=args[i],value=args[i+1];if(seen.has(flag)||!value) throw Error('duplicate or missing option');seen.add(flag);if(flag==='--out')out=value;else if(flag==='--duration-ms')observeDurationMs=Number(value);else throw Error('unknown option: '+flag);}
