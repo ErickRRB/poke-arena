@@ -44,7 +44,7 @@ body.reduced-motion .battle-hud .battle-clock.last-minute #timer {color:inherit}
 }
 @media(max-width:400px) {
  .battle-hud .battle-clock {width:60px;min-width:60px;max-width:60px;flex-basis:60px;font-size:24px}
- .battle-hud #timer {transform:translate(3px,-10px)}
+ .battle-hud #timer {transform:translate(3px,9px)}
  .battle-hud-status {grid-template-columns:60px minmax(0,1fr)}
  .battle-hud #phase-label {width:60px}
  .battle-hud-actions:has(#match-pause[hidden]) .battle-hud-status {width:60px}
