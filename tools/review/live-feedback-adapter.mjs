@@ -3,7 +3,7 @@ import * as baseline from './baseline-adapter.mjs';
 // Controlled native deployments; the shared workbench owns clocks and capture.
 export async function beforeNavigate(page,config){
   if(!['tesla-lifecycle','field-lifecycle','roselia-cycle','burrow-cycle'].includes(config.scene))throw Error('Unsupported live feedback scene');
-  if(config.scene==='field-lifecycle'&&!['nightmare','stealthRock'].includes(config.fieldKey))throw Error('Unsupported native field');
+  if(config.scene==='field-lifecycle'&&!['nightmare','stealthRock','earthquake','whirlpool'].includes(config.fieldKey))throw Error('Unsupported native field');
   await page.addInitScript(()=>localStorage.setItem('poke-arena:sound','false'));
   await page.emulateMedia({reducedMotion:config.reduced?'reduce':'no-preference'});
   await baseline.beforeNavigate(page,config);
