@@ -19,7 +19,7 @@ for(const view of [0,1])test(`tower health banners and numbers overlap their own
     assert.ok(label&&bar);
     const bodyTop=tower.y-(tower.king?102*476/574:72*395/309),bodyWidth=tower.king?102:72;
     const enemy=tower.team!==renderer.viewerTeam;
-    if(enemy)assert.equal(label.args[2],bodyTop+(tower.king?40:10));
+    if(enemy)assert.equal(label.args[2],bodyTop+(tower.king?40:7));
     else assert.equal(label.args[2],tower.y-18);
     assert.ok(label.args[2]>bodyTop&&label.args[2]<tower.y);
     assert.ok(bar.args[1]>bodyTop&&bar.args[1]+10<tower.y);assert.ok(bar.args[0]>=tower.x-bodyWidth/2&&bar.args[0]+bar.args[2]<=tower.x+bodyWidth/2);
@@ -29,14 +29,14 @@ for(const view of [0,1])test(`tower health banners and numbers overlap their own
 });
 test('viewer ownership is independent of the deployment side selected in the laboratory',()=>{
   const game=new Game(),{ctx,calls,renderer}=drawing(1);renderer.placementTeam=0;
-  for(const tower of game.towers){calls.length=0;renderer.towerHealth(ctx,tower);const label=calls.find(c=>c.method==='fillText');if(tower.team!==1)assert.equal(label.args[2],tower.y-(tower.king?102*476/574-40:72*395/309-10));else assert.equal(label.args[2],tower.y-18);}
+  for(const tower of game.towers){calls.length=0;renderer.towerHealth(ctx,tower);const label=calls.find(c=>c.method==='fillText');if(tower.team!==1)assert.equal(label.args[2],tower.y-(tower.king?102*476/574-40:72*395/309-7));else assert.equal(label.args[2],tower.y-18);}
 });
 test('the shared overlay anchors immortal enemy laboratory health on the tower art',()=>{
   const game=new SandboxGame({mode:'duel'}),{ctx,calls,renderer}=drawing();
   assert.equal(game.visibleTowers.filter(t=>t.team===1).length,2);
   for(const tower of game.visibleTowers.filter(t=>t.team===1)){
     assert.equal(tower.labImmortal,true);calls.length=0;renderer.towerHealth(ctx,tower);
-    const label=calls.find(c=>c.method==='fillText');assert.equal(label.args[0],'∞');assert.equal(label.args[2],tower.y-(tower.king?102*476/574-40:72*395/309-10));
+    const label=calls.find(c=>c.method==='fillText');assert.equal(label.args[0],'∞');assert.equal(label.args[2],tower.y-(tower.king?102*476/574-40:72*395/309-7));
   }
 });
 test('a destroyed tower has no remaining health overlay',()=>{
