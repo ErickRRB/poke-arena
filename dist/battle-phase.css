@@ -40,7 +40,7 @@ body.reduced-motion .battle-hud .battle-clock.last-minute #timer {color:inherit}
  .battle-console {padding-bottom:max(6px,var(--battle-safe-bottom,env(safe-area-inset-bottom,0px)))}
  .hand .pokemon-card {height:clamp(76px,calc(var(--app-height,100dvh) * .12),91px)}
  .battle-console .energy-section {padding-block:3px;margin-top:6px}
- .battle-hud .trainer-id>strong {max-width:min(100%,calc(50vw - 56px))}
+ .battle-hud .trainer-id>strong {max-width:min(100%,calc(50vw - 90px))}
 }
 @media(max-width:400px) {
  .battle-hud .battle-clock {width:60px;min-width:60px;max-width:60px;flex-basis:60px;font-size:24px}
