@@ -22,15 +22,15 @@ test('the nearest free cell avoids towers, structures and reserved formation cel
   }
   assert.equal(g.resolveDeployment(0,'pikachu',300,330),null);
 });
-test('seeded CPU decks span ten valid strategies and shuffle the opening hand',()=>{
+test('seeded CPU decks span five valid strategies and shuffle the opening hand',()=>{
   const found=new Set(),openings=new Set();
   for(let i=1;i<=150;i++){
     const g=new Game({seed:i*104729}),same=new Game({seed:i*104729}),deck=[...g.hands[1],...g.queues[1]];
     found.add(g.cpuDeckName);openings.add(g.hands[1].join(','));assert.deepEqual(deck,[...same.hands[1],...same.queues[1]]);
-    assert.equal(deck.length,8);assert.equal(new Set(deck).size,8);assert.ok(deck.some(k=>CARDS[k].building));assert.ok(deck.some(k=>CARDS[k].structure));assert.ok(deck.filter(k=>CARDS[k].spell).length>=2);
+    assert.equal(deck.length,8);assert.equal(new Set(deck).size,8);assert.ok(deck.some(k=>CARDS[k].building||CARDS[k].spawnKey));assert.ok(deck.some(k=>CARDS[k].structure));assert.ok(deck.filter(k=>CARDS[k].spell).length>=2);
     assert.ok(deck.some(k=>!CARDS[k].spell&&CARDS[k].air));assert.ok(deck.some(k=>CARDS[k].cost<=2));assert.ok(deck.every(k=>!CARDS[k].token));
   }
-  assert.equal(found.size,10);assert.ok(openings.size>50);
+  assert.equal(found.size,CPU_DECKS.length);assert.ok(openings.size>50);
 });
 test('all CPU strategies finish a simulated match with finite resources and bounded populations',()=>{
   for(const preset of CPU_DECKS){const g=new Game({seed:1234,cpuDeck:preset.cards});g.start();run(g,360);assert.equal(g.state,'ended',preset.name);assert.ok(g.energy.every(v=>v>=0&&v<=10));assert.ok(g.units.every(u=>Number.isFinite(u.hp)&&Number.isFinite(u.x)&&Number.isFinite(u.y)));assert.ok(g.units.length<=170);}

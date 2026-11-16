@@ -87,16 +87,11 @@ Object.assign(CARDS,structuredClone(EXTRA_CARDS));
 applyBalance(CARDS);
 export const DEFAULT_DECK = ['pikachu', 'snorlax', 'machamp', 'blastoiseCannon', 'zubat', 'thunder', 'charizard', 'fireball'];
 export const CPU_DECKS = [
-  {name:'Carga eléctrica',cards:['forretress','raichu','raltsHut','treecko','voltorb','pikachu','pinMissile','lightning']},
-  {name:'Camada venenosa',cards:['snorlax','nidoqueen','madriguera','poochyenaPack','butterfree','grimer','spikes','fireball']},
-  {name:'Noche de fantasmas',cards:['golem','duskull','gengar','zubat','regice','diglett','nightmare','log']},
-  {name:'Asedio de roca',cards:['regirock','rhydon','cloyster','raltsTrio','mankey','gastly','earthquake','thunder']},
-  {name:'Vuelo del bosque',cards:['celebi','charizard','vivero','treecko','raltsTrio','skarmory','blizzard','pinMissile']},
-  {name:'Contraataque',cards:['steelix','raichu','regice','pikachu','diglett','chansey','whirlpool','fireball']},
-  {name:'Emboscada Rocket',cards:['forretress','pandilla','roselia','graveler','raltsHut','voltorb','sneaselAmbush','log']},
-  {name:'Carga veloz',cards:['rapidash','lapras','vivero','nuzleaf','poochyenaPack','zubat','thunder','fireball']},
-  {name:'Bosque vivo',cards:['golem','vivero','meganium','sceptile','gastly','diglett','spikes','pinMissile']},
-  {name:'Presión aérea',cards:['celebi','pidgeot','cloyster','octillery','pandilla','zubat','whirlpool','lightning']},
+  {name:'Ciclo veloz',cards:['rapidash','blastoiseCannon','bulbasaur','treecko','diglett','voltorb','fireball','log']},
+  {name:'Doble dragón',cards:['golem','charizard','zapdos','bulbasaur','diglett','vivero','whirlpool','lightning']},
+  {name:'Gigante y apoyo',cards:['snorlax','duskull','machamp','beedrill','poochyenaPack','vivero','fireball','thunder']},
+  {name:'Control nocturno',cards:['nightmare','swampert','bulbasaur','charizard','vivero','diglett','whirlpool','log']},
+  {name:'Emboscada',cards:['sneaselAmbush','pandilla','roselia','ampharos','diglettHorde','geodude','fireball','log']},
 ];
 // PMD sheets run south, southeast, east, northeast, north, northwest, west, southwest.
 export function directionRow(dx, dy) { return (2 - Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8; }
@@ -849,7 +844,14 @@ export class Game {
     const threats = this.units.filter(u => u.team === 0 && u.hp > 0 && !u.burrowed && u.y < 380);
     const affordable = hand.map((key, i) => ({ key, i, card: CARDS[key] })).filter(c => c.card.cost <= this.energy[1]);
     if (!affordable.length || (!threats.length && this.energy[1] < (this.difficulty === 'easy' ? 7 : 5))) return;
-    let choice = affordable[Math.floor(this.random() * affordable.length)];
+    // A pull is useful when a live splash attacker can exploit a cluster now.
+    const pull = affordable.find(c => c.key === 'whirlpool');
+    if (pull) {
+      const point = this.aiPullPoint(pull.card);
+      if (point && this.canDeploy(1,pull.key,point.x,point.y) && this.deploy(1,pull.i,point.x,point.y).ok) return;
+    }
+    let choice = affordable.filter(c => c.key !== 'whirlpool')[Math.floor(this.random() * affordable.filter(c => c.key !== 'whirlpool').length)];
+    if (!choice) return;
     if (threats.some(u => u.card.flying)) choice = affordable.find(c => c.card.air && !c.card.spell) || choice;
     if (choice.card.spell) {
       const weak = this.towers.find(t => t.team === 0 && t.hp > 0 && t.hp <= choice.card.towerDamage);
@@ -869,7 +871,8 @@ export class Game {
       }else if (weak || enemy) {
         const candidates=weak?[weak]:this.units.filter(u=>u.team===0&&u.hp>0);
         candidates.sort((a,b)=>this.spellValue(choice.card,b)-this.spellValue(choice.card,a));
-        const target=candidates[0];this.deploy(1,choice.i,target.x,target.y);return;
+        const target=candidates.find(t=>this.aiSpellWorth(choice.card,t));
+        if(target){this.deploy(1,choice.i,target.x,target.y);return;}
       }
       choice = affordable.find(c => !c.card.spell);
       if (!choice) return;
@@ -879,6 +882,52 @@ export class Game {
     const x = choice.card.structure&&!choice.card.summon?300:LANES[lane] + (this.random() - .5) * 65;
     const y = choice.card.summon&&choice.card.structure?155:threats.length ? 285 : choice.card.building ? 115 : 272;
     this.deploy(1, choice.i, x, y);
+  }
+  aiSpellWorth(card,point){
+    if('king'in point)return !point.king&&point.hp<=(card.towerDamage||0);
+    const victims=this.units.filter(u=>u.team===0&&u.hp>0&&!u.burrowed&&isCombatTargetReady(u)&&(!card.groundOnly||!u.card.flying)&&spellOverlapsTarget(card,point,u));
+    const damage=card.damage||0;
+    return victims.length>=2||victims.some(u=>damage>=u.hp&&(u.card.cost||0)>=card.cost);
+  }
+  aiPullPoint(card){
+    const enemies=this.units.filter(u=>u.team===0&&u.hp>0&&!u.burrowed&&!u.card.structure&&!u.leap&&isCombatTargetReady(u));
+    const allies=this.units.filter(u=>u.team===1&&u.hp>0&&u.spawn<=0&&u.card.splash>0&&!u.card.building&&!u.stun&&u.cooldown<=.5&&u.attack<=.7);
+    let best=null, bestScore=0;
+    for(const a of enemies) for(const b of enemies){
+      if(a.id>=b.id)continue;
+      const center={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
+      const point=this.resolveDeployment(1,'whirlpool',center.x,center.y);
+      if(!point||!spellOverlapsTarget(card,point,a)||!spellOverlapsTarget(card,point,b))continue;
+      const support=allies.find(u=>this.validTarget(u,a)&&this.validTarget(u,b)&&distance(u,point)<=attackReach(u,a)+u.card.splash&&distance(a,b)>u.card.splash);
+      if(!support)continue;
+      const score=(a.card.cost||1)+(b.card.cost||1);
+      if(score>bestScore){best=point;bestScore=score;}
+    }
+    return best;
+  }
+  aiPullPoint(card){
+    const enemies=this.units.filter(u=>u.team===0&&u.hp>0&&!u.burrowed&&!u.card.structure&&!u.leap&&isCombatTargetReady(u));
+    // Pull a structure-seeking Hog toward our inactive king only while it is
+    // threatening a surviving princess tower and the king can take two hits.
+    const king=this.towers.find(t=>t.team===1&&t.king&&t.hp>0&&!t.active);
+    if(king){
+      const point=this.resolveDeployment(1,'whirlpool',king.x,king.y+17);
+      const hog=enemies.find(u=>u.card.nativeReference==='HogRider'&&u.y>king.y+40&&u.y<king.y+110&&Math.abs(u.x-king.x)<105&&point&&spellOverlapsTarget(card,point,u)&&king.hp>u.card.damage*3&&this.towers.some(t=>t.team===1&&!t.king&&t.hp>0&&distance(u,t)<80));
+      if(hog)return point;
+    }
+    const allies=this.units.filter(u=>u.team===1&&u.hp>0&&u.spawn<=0&&u.card.splash>0&&!u.card.building&&!u.stun);
+    let best=null, bestScore=0;
+    for(const a of enemies) for(const b of enemies){
+      if(a.id>=b.id)continue;
+      const center={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
+      const point=this.resolveDeployment(1,'whirlpool',center.x,center.y);
+      if(!point||!spellOverlapsTarget(card,point,a)||!spellOverlapsTarget(card,point,b))continue;
+      const support=allies.find(u=>this.validTarget(u,a)&&this.validTarget(u,b)&&distance(u,point)<=attackReach(u,a)+u.card.splash&&distance(a,b)>u.card.splash);
+      if(!support)continue;
+      const score=(a.card.cost||1)+(b.card.cost||1);
+      if(score>bestScore){best=point;bestScore=score;}
+    }
+    return best;
   }
   spellValue(card,point){
     return [...this.units,...this.towers].filter(t=>t.team===0&&t.hp>0&&(!card.groundOnly||!t.card?.flying)&&spellOverlapsTarget(card,point,t))
