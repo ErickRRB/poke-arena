@@ -106,6 +106,16 @@ test('native projectile launch uses its saved mouth position and does not jump a
  assert.equal(calls[0].x,native.x);assert.equal(calls[0].y,native.y);assert.equal(calls[0].size,combatVisual(actor.card).projectile);
 });
 
+test('a copied ice projectile keeps its visible treatment after its source disappears',()=>{
+ const calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{frameActors:new Map(),visualProjectiles:new Map(),effects:[],t:.4,drawDt:1/60,verticalScale:1,reduced:true,iceShardCore:()=>calls.push('core'),combatArt:()=>calls.push('snow')});
+ const target={id:2,x:300,y:400,card:CARDS.snorlax};
+ const c=new Proxy({globalAlpha:1},{get:(o,k)=>o[k]??(()=>{}),set:(o,k,v)=>(o[k]=v,true)});
+ renderer.projectile(c,{id:'copied-ice',key:'ditto',sourceId:7,target,style:'ice',x:250,y:400,startX:200,startY:400,totalDistance:100,travelled:50});
+ assert.deepEqual(calls,['core','snow']);
+ renderer.onEvent({type:'hit',key:'ditto',style:'ice',sourceId:7,x:300,y:400});
+ assert.equal(renderer.effects.length,1);assert.equal(renderer.effects[0].art,'ice');assert.equal(renderer.effects[0].style,'ice');
+});
+
 test('arched projectiles face up while rising and down while descending, unlike a flat dart',()=>{
  const sample=(travelled,arc)=>{const calls=[],renderer=Object.assign(Object.create(Renderer.prototype),{frameActors:new Map(),visualProjectiles:new Map(),t:.5,drawDt:1/60,verticalScale:1,reduced:true,combatArt:(c,art,x,y,size,angle)=>calls.push({x,y,angle})}),target={id:2,x:400,y:400,card:CARDS.grimer};
   renderer.projectile(new Proxy({globalAlpha:1},{get:(o,k)=>o[k]??(()=>{}),set:(o,k,v)=>(o[k]=v,true)}),{id:'arc',key:'roselia',style:'leaf',x:200+travelled,y:400,startX:200,startY:400,totalDistance:200,travelled,arc,target});return calls[0];};
