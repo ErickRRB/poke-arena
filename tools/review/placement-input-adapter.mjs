@@ -38,6 +38,8 @@ export async function prepare(page,config){
     q.events=[];
   },config);
   await page.waitForFunction(()=>document.querySelector('#hand [data-card="0"]')?.textContent.includes('Roselia'));
+  await page.evaluate(async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));__reviewAdapter.fixture.rects.before=__reviewAdapter.fixtureReadRects();});
+  if(config.destroyedLane!==undefined)await page.waitForTimeout(900);
 }
 async function savePhase(page,config,name){
   const output=process.env.REVIEW_STATIC_OUTPUT;if(!output)throw Error('Use a fresh REVIEW_STATIC_OUTPUT for native phase evidence');
@@ -74,9 +76,9 @@ export async function observe(page,config){
   if(state.observations++===1)await perform(page,config,state);
   const sample=await baseline.observe(page,config);
   if(sample.fixture.complete){
-    const before=sample.fixture.rects.before;
-    for(const rects of Object.values(sample.fixture.rects))for(const id of Object.keys(before))if(JSON.stringify(before[id])!==JSON.stringify(rects[id]))throw Error('layout changed during placement');
     const output=process.env.REVIEW_STATIC_OUTPUT;await writeFile(path.join(output,`${config.id}-gesture.json`),JSON.stringify(sample.fixture,null,2));
+    const before=sample.fixture.rects.before;
+    for(const [phase,rects] of Object.entries(sample.fixture.rects))for(const id of Object.keys(before))if(JSON.stringify(before[id])!==JSON.stringify(rects[id]))throw Error(`layout changed during placement: ${phase} ${id} ${JSON.stringify(before[id])} -> ${JSON.stringify(rects[id])}`);
   }
   return sample;
 }
