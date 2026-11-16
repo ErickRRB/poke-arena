@@ -30,5 +30,8 @@ export function travelGuide(c,x,y,radius,length,team=0,valid=true){
   c.save();
   const glow=c.createLinearGradient(x,y,x,y+direction*visible);
   glow.addColorStop(0,`rgba(${color},0.18)`);glow.addColorStop(1,`rgba(${color},0)`);
-  c.fillStyle=glow;c.fillRect(x-radius,y+Math.min(0,direction*visible),radius*2,visible);c.restore();
+  const top=y+Math.min(0,direction*visible);
+  c.fillStyle=glow;c.fillRect(x-radius,top,radius*2,visible);
+  c.globalAlpha=.7;c.fillRect(x-radius,top,6,visible);c.fillRect(x+radius-6,top,6,visible);
+  c.restore();
 }
