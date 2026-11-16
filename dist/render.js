@@ -424,10 +424,10 @@ export class Renderer {
       // Articulated sprites are mutable canvases. Reuse their mask surface,
       // refreshing its pixels for this pose rather than caching a stale wing.
       const mask=tint.getContext('2d',{willReadFrequently:true});mask.imageSmoothingEnabled=false;mask.globalCompositeOperation='source-over';mask.clearRect(0,0,sw,sh);mask.drawImage(image,sx,sy,sw,sh,0,0,sw,sh);
-      mask.globalCompositeOperation='source-in';mask.fillStyle='#ff3048';mask.fillRect(0,0,sw,sh);
+      mask.globalCompositeOperation='source-in';mask.fillStyle='#fff3c2';mask.fillRect(0,0,sw,sh);
     }
     cache.delete(key);cache.set(key,tint);if(cache.size>48)cache.delete(cache.keys().next().value);
-    c.save();c.filter='none';c.globalAlpha*=this.reduced?.48:.32+.28*(.5+.5*Math.sin(this.t*Math.PI*2));c.drawImage(tint,0,0,sw,sh,dx,dy,dw,dh);c.restore();
+    c.save();c.filter='none';c.globalAlpha*=this.reduced?.4:.28+.2*(.5+.5*Math.sin(this.t*Math.PI*2));c.shadowColor='#fff6c8';c.shadowBlur=9;c.drawImage(tint,0,0,sw,sh,dx,dy,dw,dh);c.restore();
   }
   targetTint(actor){return this.spellTargets?.has(actor.id)?(...args)=>this.tintTarget(...args):undefined;}
   tower(c,tower){
