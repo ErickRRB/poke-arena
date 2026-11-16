@@ -1,0 +1,4 @@
+{
+  "id":"fb30-native-diglett-dense-control","source":"dist/index.html","adapter":"tools/review/group-health-adapter.mjs","adapterDependencies":["tools/review/baseline-adapter.mjs"],
+  "viewport":{"width":390,"height":844,"dpr":1},"durationMs":3600,"sampleMs":80,"clock":"natural-app","expectedEvent":"deploy","extractIntervalMs":100,"recordCanvas":"#arena","captureSurface":"canvas","crop":{"x":10,"y":2,"width":370,"height":686},"requiredObservations":["clock","canvas","events","actorState","hp"],"requireWebSocketIsolation":true
+}

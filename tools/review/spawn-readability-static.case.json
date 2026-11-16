@@ -1,0 +1,4 @@
+{
+  "id":"fb30-static-same-pair-readability","source":"dist/index.html","adapter":"tools/review/spawn-readability-static-adapter.mjs","adapterDependencies":["tools/review/spawn-visibility-adapter.mjs","tools/review/baseline-adapter.mjs"],
+  "viewport":{"width":390,"height":844,"dpr":1},"durationMs":7800,"sampleMs":100,"clock":"natural-app","expectedEvent":"spawn","extractIntervalMs":150,"recordCanvas":"#arena","captureSurface":"canvas","crop":{"x":10,"y":2,"width":370,"height":686},"requiredObservations":["clock","canvas","events","actorState","hp"],"requireWebSocketIsolation":true
+}

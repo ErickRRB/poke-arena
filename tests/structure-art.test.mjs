@@ -19,8 +19,7 @@ for(const kind of Object.keys(STRUCTURE_ART))test(`${kind}: a structure without 
   renderer.onEvent({type:'spawn',unit});
   renderer.sprite(ctx,unit);assert.equal(unit.card.id,undefined);assert.equal(draws.length,1);assert.equal(tints.length,1);assert.equal(tints[0].id,unit.id);
   const body=draws[0].slice(1);assert.ok(body.every(Number.isFinite));
-  if(STRUCTURE_ART[kind].healthOffset!==undefined)assert.ok(health[0][3]>unit.y,'The low burrow meter stays below its body and clear of emerging troop bars.');
-  else assert.ok(health[0][3]<body[5],'The house health bar stays above the building.');
+  assert.equal(health[0][3],unit.y+10/renderer.verticalScale,'Stationary summoning structures share one fixed below-base meter, independent of species/art offsets.');
   renderer.sprite(ctx,{...unit,preview:true},true);assert.equal(draws.length,2);assert.equal(tints.length,1);assert.equal(health.length,1);
   assert.deepEqual(requests,[STRUCTURE_ART[kind].file]);
 });

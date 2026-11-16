@@ -8,6 +8,7 @@ import { spellPreviewTargets } from './spell-preview.js?v=34';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
 import { RoseliaBouquets } from './bouquet-motion.js?v=34';
+import {healthMeterWidth,layoutUnitHealth,structureOcclusionRegions,drawVisibleStructure,summoningStructure,unitHealthVisible} from './unit-visibility.js?v=34';
 import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 import * as onlineConfig from './online-config.js?v=36';
@@ -603,34 +604,66 @@ export class Renderer {
     return this.battleArt.draw(c,name,x,y,size,height/(this.verticalScale||1),{age:this.t,angle,...options});
   }
   queueUnitHealth(c,unit,x,y,width){
-    if(this.unitHealthQueue)this.unitHealthQueue.push({unit,x,y,width});
-    else this.healthBar(c,unit,x,y,width);
+    if(!unitHealthVisible(unit))return;
+    const height=this.bodyHeights?this.bodyHeight(unit):Infinity,pixel=1/(this.projection?.scale||1);
+    const compact=!unit.card.structure&&height<=32?{pixel,heightCss:4,ownerX:x,ownerY:y+9/(this.verticalScale||1)}:false;
+    width=healthMeterWidth(unit,width,height,pixel);
+    if(summoningStructure(unit.card))y=unit.y+10/(this.verticalScale||1);
+    if(compact)y-=2*pixel;
+    if(this.unitHealthQueue)this.unitHealthQueue.push({unit,x,y,width,compact,bodyHeight:height});
+    else this.healthBar(c,unit,x,y,width,compact);
   }
-  healthBar(c,unit,x,y,width){
+  healthBar(c,unit,x,y,width,compact=false){
+    if(!unitHealthVisible(unit))return;
     const ratio=Math.max(0,unit.hp/unit.maxHp);let h=this.healthStates.get(unit.id);
     if(!h){h={chip:ratio,last:ratio,at:-10};this.healthStates.set(unit.id,h);}
     if(unit.card.structure)h.chip=ratio;
     else if(ratio<h.last-.001){h.at=this.t;h.chip=Math.max(h.chip,h.last);}if(ratio>h.chip)h.chip=ratio;h.last=ratio;
     if(this.t-h.at>.35)h.chip=Math.max(ratio,h.chip-(this.drawDt||0)*.9);
-    const height=unit.maxHp<=1?4:8;
-    rect(c,'#09170f',x-width/2-2,y-2,width+4,height+4);rect(c,'#32413b',x-width/2,y,width,height);
+    if(compact){this.compactHealth(c,unit,x,y,width,compact,h.chip);return;}
+    const height=compact||unit.maxHp<=1?4:8,border=compact?1:2;
+    rect(c,'#09170f',x-width/2-border,y-border,width+2*border,height+2*border);rect(c,'#32413b',x-width/2,y,width,height);
     if(h.chip>ratio)rect(c,'#ffe2a2',x-width/2,y,width*h.chip,height);
     rect(c,unit.team?'#ef615a':'#43baf1',x-width/2,y,width*ratio,height);rect(c,unit.team?'#ffaaa0':'#a3e5ff',x-width/2,y,width*ratio,2);
     if(unit.maxHp>1)for(let i=1;i<4;i++)rect(c,'#061a243d',x-width/2+width*i/4,y,1,height);
     if(unit.hit>.12){c.save();c.globalAlpha=(unit.hit-.12)/.12;rect(c,'#fff5cf',x-width/2,y,width*ratio,3);c.restore();}
-    if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
+    if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+(compact?6:10),width+2,compact?4:5);rect(c,'#f1e0ff',x-width/2,y+(compact?7:11),width*unit.shield/Math.max(unit.shield,unit.maxShield||1),compact?2:3);}
   }
-  healthReadout(c,unit,x,y,width){
+  healthReadout(c,unit,x,y,width,compact=false){
+    if(!unitHealthVisible(unit))return;
     // Keep the native meter's upper half and complete shield legible while a
     // moving head passes; the larger health box remains behind that head.
     const ratio=Math.max(0,unit.hp/unit.maxHp),chip=this.healthStates?.get(unit.id)?.chip??ratio;
+    if(compact){this.compactHealth(c,unit,x,y,width,compact,chip,true);return;}
     rect(c,'#32413b',x-width/2,y,width,4);
     if(chip>ratio)rect(c,'#ffe2a2',x-width/2,y,width*chip,4);
     rect(c,unit.team?'#ef615a':'#43baf1',x-width/2,y,width*ratio,4);
     rect(c,unit.team?'#ffaaa0':'#a3e5ff',x-width/2,y,width*ratio,2);
     if(unit.maxHp>1)for(let i=1;i<4;i++)rect(c,'#061a243d',x-width/2+width*i/4,y,1,4);
     if(unit.hit>.12){c.save();c.globalAlpha=(unit.hit-.12)/.12;rect(c,'#fff5cf',x-width/2,y,width*ratio,3);c.restore();}
-    if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
+    if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+(compact?6:10),width+2,compact?4:5);rect(c,'#f1e0ff',x-width/2,y+(compact?7:11),width*unit.shield/Math.max(unit.shield,unit.maxShield||1),compact?2:3);}
+  }
+  compactHealth(c,unit,x,y,width,style,chip,front=false){
+    if(!unitHealthVisible(unit))return;
+    const pixel=style.pixel||1,height=(style.heightCss||4)*pixel,px=this.projection?.x||0,py=this.projection?.y||0;
+    const snapX=value=>(Math.round(value/pixel+px)-px)*pixel,snapY=value=>(Math.round(value/pixel+py)-py)*pixel;
+    const left=snapX(x-width/2),top=snapY(y),w=Math.round(width/pixel)*pixel,ratio=Math.max(0,Math.min(1,unit.hp/unit.maxHp));
+    const fill=value=>Math.round(w*Math.min(1,value)/pixel)*pixel;
+    // These coordinates already land on CSS pixels after projection. The
+    // general world-pixel rectangle helper would round them a second time.
+    const paint=(color,x,y,w,h)=>{c.fillStyle=color;c.fillRect(x,y,w,h);};
+    if(!front){
+      const stemX=snapX(style.ownerX),bottom=snapY(style.ownerY)-pixel,start=top+height+pixel;
+      if(!style.dense&&stemX>=left&&stemX<=left+w&&bottom>=start&&bottom-start<=10*pixel)paint('#14271f',stemX,start,pixel,bottom-start+pixel);
+      paint('#09170f',left-pixel,top-pixel,w+2*pixel,height+2*pixel);
+    }
+    paint('#32413b',left,top,w,height);
+    if(chip>ratio)paint('#ffe2a2',left,top,fill(chip),height);
+    paint(unit.team?'#ef615a':'#43baf1',left,top,fill(ratio),height);
+    paint(unit.team?'#ffaaa0':'#a3e5ff',left,top,fill(ratio),pixel);
+    if(unit.maxHp>1&&!style.dense)for(let i=1;i<4;i++)paint('#061a243d',left+Math.round(w/pixel*i/4)*pixel,top,pixel,height);
+    if(unit.hit>.12){c.save();c.globalAlpha=(unit.hit-.12)/.12;paint('#fff5cf',left,top,fill(ratio),Math.min(height,2*pixel));c.restore();}
+    if(unit.shield>0){paint('#102a36',left-pixel,top+6*pixel,w+2*pixel,4*pixel);paint('#f1e0ff',left,top+7*pixel,fill(unit.shield/Math.max(unit.shield,unit.maxShield||1)),2*pixel);}
   }
   platform(c,unit){
     if(unit.card.burrow){
@@ -1025,8 +1058,11 @@ export class Renderer {
         this.combatArt(c,'emberShot',e.x,e.y-(5+progress*10)/(this.verticalScale||1),25,0,25,{frame:this.reduced?5:Math.min(8,4+Math.floor(progress*5)),trim:true});
       }else if(e.kind==='structureDeath'){
         const art=STRUCTURE_ART[e.art],vertical=this.verticalScale||1;
-        c.save();c.translate(e.x,e.y+art.baseOffset/vertical);if(!this.reduced)c.scale(1,1-progress*.7);
-        this.battleArt.structure(c,e.art,e.team,0,0,art.width,vertical);c.restore();
+        const shrink=this.reduced?1:1-progress*.7,base=e.y+art.baseOffset/vertical,box={left:e.x-art.width/2,right:e.x+art.width/2,top:base-art.height*shrink/vertical,bottom:base+8};
+        this.structureForeground(c,{x:e.x,y:e.y},box,ctx=>{
+          ctx.save();ctx.translate(e.x,base);if(!this.reduced)ctx.scale(1,shrink);
+          this.battleArt.structure(ctx,e.art,e.team,0,0,art.width,vertical);ctx.restore();
+        });
         if(!this.reduced&&progress>.2)for(let i=0;i<3;i++)this.combatArt(c,'rubble',e.x+(i-1)*16,e.y+2/vertical,16,0,16,{frame:5+i});
       }
       else if(e.kind==='golemDeath')this.sprite(c,{...e.unit,pushHurt:e.life},true);
@@ -1348,6 +1384,17 @@ export class Renderer {
     }
     this.fireWheel(c,pose);
   }
+  structureForeground(c,actor,box,draw){
+    const regions=structureOcclusionRegions(actor,this.frameActors?.values()||[],box,unit=>{
+      if(this.pendingSpecies?.has(unit.card.id)||!this.bodyHeights?.has(unit.card.id))return null;
+      const lift=unit.card.flying?16/(this.verticalScale||1):0;
+      return{width:Math.max(10,unit.radius*2+6),height:this.bodyHeight(unit)-lift,bottom:unit.y-lift};
+    });
+    drawVisibleStructure(c,box,regions,draw,(ctx,id)=>{
+      const previous=this.silhouettePass;this.silhouettePass=true;
+      try{this.sprite(ctx,this.frameActors.get(id),true);}finally{this.silhouettePass=previous;}
+    });
+  }
   draw(game,dt=.016){
     this.resizeBacking();
     const c=this.ctx;this.t+=dt;this.drawDt=dt;this.gameElapsed=game.elapsed||0;this.battleArt.time=this.reduced?0:this.t;
@@ -1369,7 +1416,15 @@ export class Renderer {
     this.towerHealthQueue=[];this.unitHealthQueue=[];this.projectileHeadQueue=[];
     (this.biteJawActors??=new Set()).clear();
     const objects=[...this.frameActors.values()].sort((a,b)=>(a.visualSortY??a.y)-(b.visualSortY??b.y));
-    for(const actor of objects){if('king'in actor)this.tower(c,actor);else this.sprite(c,actor);this.frozen(c,actor);}
+    for(const actor of objects){
+      if('king'in actor)this.tower(c,actor);
+      else if(actor.card.structure){
+        const height=this.bodyHeight(actor),width=Math.max(actor.radius*3,STRUCTURE_ART[actor.card.structureArt]?.width||height*.82),box={left:actor.x-width/2,right:actor.x+width/2,top:actor.y-height,bottom:actor.y+8};
+        this.structureForeground(c,actor,box,ctx=>{this.sprite(ctx,actor);this.frozen(ctx,actor);});
+        continue;
+      }else this.sprite(c,actor);
+      this.frozen(c,actor);
+    }
     for(const field of fields)if(['stealthRock','nightmare'].includes(field.key))this.field(c,field,true);
     this.drawDeployments(c,game);
     if(game.state==='ready')for(const[key,x,y,team]of[['pikachu',217,286,1],['squirtle',393,290,1],['charmander',210,554,0],['bulbasaur',390,550,0]])this.sprite(c,{id:x,card:CARDS[key],x,y,team,anim:this.t,dx:0,dy:team?1:-1},true);
@@ -1384,9 +1439,10 @@ export class Renderer {
     for(const[key,pose]of this.visualFields||[])if(this.t-pose.at>1)this.visualFields.delete(key);
     for(const p of this.particles){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=p.gravity*dt;c.globalAlpha=Math.max(0,p.life/p.max);this.combatArt(c,'dust',p.x,p.y,Math.max(8,p.size*3),0,Math.max(8,p.size*3),{progress:1-p.life/p.max});}
     this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;
-    for(const {unit,x,y,width} of this.unitHealthQueue)this.healthBar(c,unit,x,y,width);
+    this.unitHealthQueue=layoutUnitHealth(this.unitHealthQueue,this.worldBounds);
+    for(const {unit,x,y,width,compact} of this.unitHealthQueue)this.healthBar(c,unit,x,y,width,compact);
     for(const draw of this.projectileHeadQueue)draw();delete this.projectileHeadQueue;
-    for(const {unit,x,y,width} of this.unitHealthQueue)this.healthReadout(c,unit,x,y,width);delete this.unitHealthQueue;
+    for(const {unit,x,y,width,compact} of this.unitHealthQueue)this.healthReadout(c,unit,x,y,width,compact);delete this.unitHealthQueue;
     for(const tower of this.towerHealthQueue)this.towerHealth(c,tower);delete this.towerHealthQueue;
     c.restore();
   }
