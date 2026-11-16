@@ -153,7 +153,7 @@ export function buildRelease(source,{cfRunner=runCf}={}){
  const sourceRoot=resolve(source),candidate=frozenSource(sourceRoot);
  const result=cfRunner(['workers','versions','create','--dry-run'],sourceRoot,600000,repoRoot);
  need(result.status===0,'CF',result.stderr||result.error?.message||'Cloudflare build failed.');
- return {status:'build_prepared_not_published',candidate,sourceStatus:'clean',stdout:result.stdout||'',stderr:result.stderr||''};
+ return {status:'build_command_completed',candidate,sourcePrecheck:'clean_before_build',sourceStatus:'clean_before_build',buildOutputVerified:false,stdout:result.stdout||'',stderr:result.stderr||''};
 }
 export async function promoteRelease(manifestFile,decisionFile,{dryRun=false,cfRunner=runCf,publicFetch=fetch}={}){
  const {manifest,source,guard}=validateRelease(manifestFile,decisionFile);

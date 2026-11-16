@@ -77,7 +77,7 @@ test('preparation accepts a complete independent plan review without invoking Cl
  assert.equal(f.calls.length,0);
 });
 
-test('release build rejects dirty source before Cloudflare and reports source identity for a clean dry-run build',t=>{
+test('release build rejects dirty source before Cloudflare and reports pre-build source identity without claiming Build Output verification',t=>{
  const f=fixture(t),calls=[];
  const cfRunner=(args,source)=>{calls.push({args,source});return{status:0,stdout:'dry-run prepared'};};
  writeFileSync(join(f.source,'private-review.json'),'untracked');
@@ -87,7 +87,7 @@ test('release build rejects dirty source before Cloudflare and reports source id
  });assert.equal(calls.length,0);
  rmSync(join(f.source,'private-review.json'));
  const result=buildRelease(f.source,{cfRunner});
- assert.deepEqual(result,{status:'build_prepared_not_published',candidate:readJson(f.manifestFile).candidate,sourceStatus:'clean',stdout:'dry-run prepared',stderr:''});
+ assert.deepEqual(result,{status:'build_command_completed',candidate:readJson(f.manifestFile).candidate,sourcePrecheck:'clean_before_build',sourceStatus:'clean_before_build',buildOutputVerified:false,stdout:'dry-run prepared',stderr:''});
  assert.deepEqual(calls,[{args:['workers','versions','create','--dry-run'],source:f.source}]);
 });
 
