@@ -1,9 +1,12 @@
 const scratchCanvases=new WeakMap();
 const intersects=(a,b,gap=3)=>a.left<b.right+gap&&a.right+gap>b.left&&a.top<b.bottom+gap&&a.bottom+gap>b.top;
-const border=entry=>entry.compact?1:2;
-const meterRect=entry=>({left:entry.x-entry.width/2-border(entry),right:entry.x+entry.width/2+border(entry),top:entry.y-border(entry),bottom:entry.y+(entry.unit.shield>0?(entry.compact?10:15):(entry.compact?4:entry.unit.maxHp<=1?4:8)+border(entry))});
+const pixel=entry=>entry.compact?.pixel||1;
+const border=entry=>entry.compact?pixel(entry):2;
+const gap=entry=>(entry.compact?.dense?2:3)*pixel(entry);
+const meterRect=entry=>({left:entry.x-entry.width/2-border(entry),right:entry.x+entry.width/2+border(entry),top:entry.y-border(entry),bottom:entry.y+(entry.unit.shield>0?(entry.compact?10*pixel(entry):15):(entry.compact?(entry.compact.heightCss||4)*pixel(entry):entry.unit.maxHp<=1?4:8)+border(entry))});
 
-export function healthMeterWidth(unit,width,bodyHeight=Infinity){return unit.card?.structure||bodyHeight>32?width:Math.min(width,Math.max(18,bodyHeight*.7));}
+export function healthMeterWidth(unit,width,bodyHeight=Infinity,pixelSize){return unit.card?.structure||bodyHeight>32?width:pixelSize?Math.min(width,Math.max(12,Math.round(bodyHeight/pixelSize*.9))*pixelSize):Math.min(width,Math.max(18,bodyHeight*.7));}
+export const summoningStructure=card=>!!(card?.structure&&card.summon&&!(card.speed>0));
 
 export function layoutUnitHealth(entries,bounds={left:0,right:600}){
   const result=entries.map(entry=>({...entry})),pending=result.filter(entry=>!entry.unit.card?.structure),groups=[];
@@ -16,11 +19,16 @@ export function layoutUnitHealth(entries,bounds={left:0,right:600}){
   }
   const inBounds=entry=>meterRect(entry).left>=bounds.left&&meterRect(entry).right<=bounds.right;
   for(const group of groups){
+    if(group.length>=7)for(const entry of group)if(entry.compact){
+      const p=pixel(entry);entry.width=Math.min(entry.width,Math.max(8*p,(entry.bodyHeight||entry.width)*.6));
+      entry.compact={...(typeof entry.compact==='object'?entry.compact:{}),pixel:p,dense:true,heightCss:3};
+      initialRects.set(entry,meterRect(entry));
+    }
     group.sort((a,b)=>a.x-b.x||a.unit.id-b.unit.id);
     const occupied=result.filter(entry=>!group.includes(entry)).map(meterRect),positions=[];
     if(group.length<2&&!occupied.some(rect=>intersects(meterRect(group[0]),rect)))continue;
     let cursor=0;
-    for(const entry of group){positions.push(cursor+entry.width/2+border(entry));cursor+=entry.width+2*border(entry)+3;}
+    for(const entry of group){positions.push(cursor+entry.width/2+border(entry));cursor+=entry.width+2*border(entry)+gap(entry);}
     const shift=group.reduce((sum,entry,i)=>sum+entry.x-positions[i],0)/group.length;
     const spread=group.map((entry,i)=>({...entry,x:positions[i]+shift}));
     const clear=entry=>{const box=meterRect(entry);return!occupied.some(rect=>intersects(box,rect));};
@@ -58,29 +66,44 @@ export function structureOcclusionRegions(structure,actors,box,measure){
     const body=measure(actor);if(!body)continue;
     const left=actor.x-body.width/2,right=actor.x+body.width/2,top=body.bottom-body.height,bottom=body.bottom;
     const overlap=Math.max(0,Math.min(right,box.right)-Math.max(left,box.left))*Math.max(0,Math.min(bottom,box.bottom)-Math.max(top,box.top));
-    const fraction=overlap/(body.width*body.height);if(fraction<=.1)continue;
+    if(overlap<=0)continue;
     const entry=actor.spawn>0?.2+.8*Math.max(0,1-actor.spawn/Math.max(.001,actor.spawnGroup?.duration??.5)):1;
-    regions.push({id:actor.id,x:actor.x,y:(top+bottom)/2,rx:body.width/2+4,ry:body.height/2+4,strength:.86*entry*Math.min(1,(fraction-.1)/.4)});
+    regions.push({id:actor.id,x:actor.x,y:(top+bottom)/2,rx:body.width/2+4,ry:body.height/2+4,strength:entry});
   }
   return regions;
 }
 
-export function drawVisibleStructure(ctx,box,regions,draw){
+export function drawVisibleStructure(ctx,box,regions,draw,drawBody){
   const matrix=ctx.getTransform?.(),document=ctx.canvas?.ownerDocument;
-  if(!regions.length||!matrix||!document||matrix.a<=0||matrix.d<=0||Math.abs(matrix.b)>1e-8||Math.abs(matrix.c)>1e-8)return draw(ctx);
+  if(!regions.length||!drawBody||!matrix||!document||matrix.a<=0||matrix.d<=0||Math.abs(matrix.b)>1e-8||Math.abs(matrix.c)>1e-8)return draw(ctx);
   const left=Math.floor((box.left-26)*matrix.a+matrix.e),top=Math.floor((box.top-26)*matrix.d+matrix.f);
   const width=Math.ceil((box.right+26)*matrix.a+matrix.e)-left,height=Math.ceil((box.bottom+26)*matrix.d+matrix.f)-top;
-  let surface=scratchCanvases.get(ctx.canvas);if(!surface){surface=document.createElement('canvas');scratchCanvases.set(ctx.canvas,surface);}
-  if(surface.width!==width||surface.height!==height){surface.width=width;surface.height=height;}
-  const paint=surface.getContext('2d');paint.setTransform(1,0,0,1,0,0);paint.clearRect(0,0,width,height);
+  let pool=scratchCanvases.get(ctx.canvas);if(!pool){pool=Array.from({length:6},()=>document.createElement('canvas'));scratchCanvases.set(ctx.canvas,pool);}
+  const[surface,bodies,body,outline,edge,shared]=pool;
+  for(const canvas of pool){if(canvas.width<width)canvas.width=width;if(canvas.height<height)canvas.height=height;const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.filter='none';c.imageSmoothingEnabled=false;c.clearRect(0,0,canvas.width,canvas.height);}
+  const paint=surface.getContext('2d');
   paint.setTransform(matrix.a,0,0,matrix.d,matrix.e-left,matrix.f-top);
   for(const name of['globalAlpha','globalCompositeOperation','imageSmoothingEnabled','filter'])paint[name]=ctx[name];
   draw(paint);
-  paint.save();paint.globalCompositeOperation='destination-out';paint.globalAlpha=1;paint.filter='none';
+  const all=bodies.getContext('2d'),edges=outline.getContext('2d'),current=edge.getContext('2d'),single=body.getContext('2d'),sharedPaint=shared.getContext('2d');
+  const cssPixel=ctx.canvas.width/(ctx.canvas.getBoundingClientRect?.().width||ctx.canvas.width);
   for(const region of regions){
-    paint.save();paint.translate(region.x,region.y);paint.scale(region.rx,region.ry);
-    const mask=paint.createRadialGradient(0,0,0,0,0,1);mask.addColorStop(0,`rgba(0,0,0,${region.strength})`);mask.addColorStop(.65,`rgba(0,0,0,${region.strength})`);mask.addColorStop(1,'rgba(0,0,0,0)');
-    paint.fillStyle=mask;paint.fillRect(-1,-1,2,2);paint.restore();
+    single.setTransform(1,0,0,1,0,0);single.clearRect(0,0,body.width,body.height);single.setTransform(matrix.a,0,0,matrix.d,matrix.e-left,matrix.f-top);drawBody(single,region.id);
+    all.drawImage(body,0,0);current.globalCompositeOperation='source-over';current.clearRect(0,0,edge.width,edge.height);
+    for(const[x,y]of[[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]])current.drawImage(body,x*cssPixel,y*cssPixel);
+    current.globalCompositeOperation='destination-out';current.drawImage(body,0,0);
+    // Save contour intersections before adding the next outline. This gives
+    // adjacent bodies a dark separating edge instead of one joined pale halo.
+    paint.setTransform(1,0,0,1,0,0);paint.globalAlpha=1;paint.filter='none';paint.globalCompositeOperation='source-over';
+    // The reusable body canvas is no longer needed until the next actor.
+    single.setTransform(1,0,0,1,0,0);single.clearRect(0,0,body.width,body.height);single.drawImage(outline,0,0);single.globalCompositeOperation='destination-in';single.drawImage(edge,0,0);sharedPaint.drawImage(body,0,0);single.globalCompositeOperation='source-over';
+    edges.drawImage(edge,0,0);
   }
-  paint.restore();ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.filter='none';ctx.drawImage(surface,left,top);ctx.restore();
+  paint.setTransform(1,0,0,1,0,0);paint.globalAlpha=1;paint.filter='none';
+  for(const[canvas,color]of[[outline,'#fff3d0'],[shared,'#14271f']]){
+    const c=canvas.getContext('2d');c.globalCompositeOperation='source-in';c.fillStyle=color;c.fillRect(0,0,canvas.width,canvas.height);
+    paint.globalCompositeOperation='source-atop';paint.drawImage(canvas,0,0);
+  }
+  paint.globalCompositeOperation='destination-out';paint.drawImage(bodies,0,0);
+  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.filter='none';ctx.drawImage(surface,left,top);ctx.restore();
 }

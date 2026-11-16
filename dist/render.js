@@ -8,7 +8,7 @@ import { spellPreviewTargets } from './spell-preview.js?v=34';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
 import { RoseliaBouquets } from './bouquet-motion.js?v=34';
-import {healthMeterWidth,layoutUnitHealth,structureOcclusionRegions,drawVisibleStructure} from './unit-visibility.js?v=34';
+import {healthMeterWidth,layoutUnitHealth,structureOcclusionRegions,drawVisibleStructure,summoningStructure} from './unit-visibility.js?v=34';
 import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 import * as onlineConfig from './online-config.js?v=36';
@@ -604,9 +604,12 @@ export class Renderer {
     return this.battleArt.draw(c,name,x,y,size,height/(this.verticalScale||1),{age:this.t,angle,...options});
   }
   queueUnitHealth(c,unit,x,y,width){
-    const height=this.bodyHeights?this.bodyHeight(unit):Infinity,compact=!unit.card.structure&&height<=32;
-    width=healthMeterWidth(unit,width,height);
-    if(this.unitHealthQueue)this.unitHealthQueue.push({unit,x,y,width,compact});
+    const height=this.bodyHeights?this.bodyHeight(unit):Infinity,pixel=1/(this.projection?.scale||1);
+    const compact=!unit.card.structure&&height<=32?{pixel,heightCss:4,ownerX:x,ownerY:y+9/(this.verticalScale||1)}:false;
+    width=healthMeterWidth(unit,width,height,pixel);
+    if(summoningStructure(unit.card))y=unit.y+10/(this.verticalScale||1);
+    if(compact)y-=2*pixel;
+    if(this.unitHealthQueue)this.unitHealthQueue.push({unit,x,y,width,compact,bodyHeight:height});
     else this.healthBar(c,unit,x,y,width,compact);
   }
   healthBar(c,unit,x,y,width,compact=false){
@@ -615,6 +618,7 @@ export class Renderer {
     if(unit.card.structure)h.chip=ratio;
     else if(ratio<h.last-.001){h.at=this.t;h.chip=Math.max(h.chip,h.last);}if(ratio>h.chip)h.chip=ratio;h.last=ratio;
     if(this.t-h.at>.35)h.chip=Math.max(ratio,h.chip-(this.drawDt||0)*.9);
+    if(compact){this.compactHealth(c,unit,x,y,width,compact,h.chip);return;}
     const height=compact||unit.maxHp<=1?4:8,border=compact?1:2;
     rect(c,'#09170f',x-width/2-border,y-border,width+2*border,height+2*border);rect(c,'#32413b',x-width/2,y,width,height);
     if(h.chip>ratio)rect(c,'#ffe2a2',x-width/2,y,width*h.chip,height);
@@ -627,6 +631,7 @@ export class Renderer {
     // Keep the native meter's upper half and complete shield legible while a
     // moving head passes; the larger health box remains behind that head.
     const ratio=Math.max(0,unit.hp/unit.maxHp),chip=this.healthStates?.get(unit.id)?.chip??ratio;
+    if(compact){this.compactHealth(c,unit,x,y,width,compact,chip,true);return;}
     rect(c,'#32413b',x-width/2,y,width,4);
     if(chip>ratio)rect(c,'#ffe2a2',x-width/2,y,width*chip,4);
     rect(c,unit.team?'#ef615a':'#43baf1',x-width/2,y,width*ratio,4);
@@ -634,6 +639,27 @@ export class Renderer {
     if(unit.maxHp>1)for(let i=1;i<4;i++)rect(c,'#061a243d',x-width/2+width*i/4,y,1,4);
     if(unit.hit>.12){c.save();c.globalAlpha=(unit.hit-.12)/.12;rect(c,'#fff5cf',x-width/2,y,width*ratio,3);c.restore();}
     if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+(compact?6:10),width+2,compact?4:5);rect(c,'#f1e0ff',x-width/2,y+(compact?7:11),width*unit.shield/Math.max(unit.shield,unit.maxShield||1),compact?2:3);}
+  }
+  compactHealth(c,unit,x,y,width,style,chip,front=false){
+    const pixel=style.pixel||1,height=(style.heightCss||4)*pixel,px=this.projection?.x||0,py=this.projection?.y||0;
+    const snapX=value=>(Math.round(value/pixel+px)-px)*pixel,snapY=value=>(Math.round(value/pixel+py)-py)*pixel;
+    const left=snapX(x-width/2),top=snapY(y),w=Math.round(width/pixel)*pixel,ratio=Math.max(0,Math.min(1,unit.hp/unit.maxHp));
+    const fill=value=>Math.round(w*Math.min(1,value)/pixel)*pixel;
+    // These coordinates already land on CSS pixels after projection. The
+    // general world-pixel rectangle helper would round them a second time.
+    const paint=(color,x,y,w,h)=>{c.fillStyle=color;c.fillRect(x,y,w,h);};
+    if(!front){
+      const stemX=snapX(style.ownerX),bottom=snapY(style.ownerY)-pixel,start=top+height+pixel;
+      if(!style.dense&&stemX>=left&&stemX<=left+w&&bottom>=start&&bottom-start<=10*pixel)paint('#14271f',stemX,start,pixel,bottom-start+pixel);
+      paint('#09170f',left-pixel,top-pixel,w+2*pixel,height+2*pixel);
+    }
+    paint('#32413b',left,top,w,height);
+    if(chip>ratio)paint('#ffe2a2',left,top,fill(chip),height);
+    paint(unit.team?'#ef615a':'#43baf1',left,top,fill(ratio),height);
+    paint(unit.team?'#ffaaa0':'#a3e5ff',left,top,fill(ratio),pixel);
+    if(unit.maxHp>1&&!style.dense)for(let i=1;i<4;i++)paint('#061a243d',left+Math.round(w/pixel*i/4)*pixel,top,pixel,height);
+    if(unit.hit>.12){c.save();c.globalAlpha=(unit.hit-.12)/.12;paint('#fff5cf',left,top,fill(ratio),Math.min(height,2*pixel));c.restore();}
+    if(unit.shield>0){paint('#102a36',left-pixel,top+6*pixel,w+2*pixel,4*pixel);paint('#f1e0ff',left,top+7*pixel,fill(unit.shield/Math.max(unit.shield,unit.maxShield||1)),2*pixel);}
   }
   platform(c,unit){
     if(unit.card.burrow){
@@ -1345,7 +1371,10 @@ export class Renderer {
           const lift=unit.card.flying?16/(this.verticalScale||1):0;
           return{width:Math.max(10,unit.radius*2+6),height:this.bodyHeight(unit)-lift,bottom:unit.y-lift};
         });
-        drawVisibleStructure(c,box,regions,ctx=>{this.sprite(ctx,actor);this.frozen(ctx,actor);});
+        drawVisibleStructure(c,box,regions,ctx=>{this.sprite(ctx,actor);this.frozen(ctx,actor);},(ctx,id)=>{
+          const previous=this.silhouettePass;this.silhouettePass=true;
+          try{this.sprite(ctx,this.frameActors.get(id),true);}finally{this.silhouettePass=previous;}
+        });
         continue;
       }else this.sprite(c,actor);
       this.frozen(c,actor);

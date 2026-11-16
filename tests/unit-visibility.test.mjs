@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {Game} from '../dist/engine.js';
 import {Renderer} from '../dist/render.js';
 import {packGame,perspective,unpackGame} from '../dist/snapshot.js';
-import {healthMeterWidth,layoutUnitHealth,structureOcclusionRegions,drawVisibleStructure} from '../dist/unit-visibility.js';
+import {healthMeterWidth,layoutUnitHealth,structureOcclusionRegions,drawVisibleStructure,summoningStructure} from '../dist/unit-visibility.js';
 const overlaps=(a,b)=>Math.abs(a.x-b.x)<(a.width+b.width)/2+(a.compact?1:2)+(b.compact?1:2)&&a.y-(a.compact?1:2)<b.y+(b.compact?5:10)&&b.y-(b.compact?1:2)<a.y+(a.compact?5:10);
 // Measured by the real loaded sheets in the native Vivero review fixture.
 const bodyHeights={diglettHorde:11.9999,poochyenaToken:28.9639,raltsToken:29.09,raltsTrio:29.09,exeggcute:19.7133};
@@ -88,4 +88,40 @@ test('structure reveal follows actual behind-body overlap and entry, without spe
 test('a structure with no occluded body uses its original painter once',()=>{
   const ctx={},seen=[];const value=drawVisibleStructure(ctx,{},[],c=>{seen.push(c);return 17;});
   assert.equal(value,17);assert.deepEqual(seen,[ctx]);
+});
+
+test('only stationary native summoning structures use the fixed base health anchor on both teams',()=>{
+  const g=fresh();
+  for(const team of[0,1])for(const key of['raltsHut','vivero','madriguera','ampharos','blastoiseCannon','wobbuffet','octillery']){
+    const unit=g.spawn(key,team,168,team?292:508,0),original={x:unit.x,y:unit.y,hp:unit.hp},r=Object.assign(Object.create(Renderer.prototype),{bodyHeights:new Map(),bodyHeight:()=>40,unitHealthQueue:[],verticalScale:1,projection:{scale:370/480}});
+    r.queueUnitHealth({},unit,unit.x,unit.y-70,44);const queued=r.unitHealthQueue[0];
+    const summoner=['raltsHut','vivero','madriguera'].includes(key);assert.equal(summoningStructure(unit.card),summoner);
+    assert.equal(queued.y,summoner?unit.y+10:unit.y-70);assert.equal(queued.width,44);assert.equal(queued.compact,false);
+    assert.deepEqual({x:unit.x,y:unit.y,hp:unit.hp},original);
+  }
+});
+
+test('the actual small-unit health painter uses whole CSS pixels and short owner stems while preserving damage and shield ratios',()=>{
+  const unit={id:910,x:158.1498199,y:480.9368525,card:{},hp:40,maxHp:100,shield:30,maxShield:60,team:0,hit:0},calls=[];
+  const ctx=new Proxy({fillStyle:''},{get:(o,k)=>o[k]??(k==='fillRect'?((...rect)=>calls.push({color:o.fillStyle,rect})):(()=>{})),set:(o,k,v)=>(o[k]=v,true)});
+  const r=Object.assign(Object.create(Renderer.prototype),{bodyHeights:new Map(),bodyHeight:()=>29.09,unitHealthQueue:[],verticalScale:1,projection:{scale:370/480,x:-46.25,y:43},healthStates:new Map(),t:0});
+  r.queueUnitHealth(ctx,unit,unit.x,unit.y-38.09,30);const e=r.unitHealthQueue[0];
+  r.healthBar(ctx,e.unit,e.x,e.y,e.width,e.compact);r.healthReadout(ctx,e.unit,e.x,e.y,e.width,e.compact);
+  const s=r.projection.scale;for(const{rect:[x,y,w,h]}of calls)for(const value of[x*s+r.projection.x,y*s+r.projection.y,w*s,h*s])assert.ok(Math.abs(value-Math.round(value))<1e-8);
+  const fills=calls.filter(call=>call.color==='#43baf1');assert.equal(fills.length,2);assert.ok(Math.abs(fills[0].rect[2]*s-8)<1e-8);
+  assert.equal(e.width*s,20);assert.equal(calls.filter(call=>call.color==='#f1e0ff').length,2);assert.equal(unit.hp,40);assert.equal(unit.shield,30);
+});
+
+test('a native15Diglett group uses bounded tiny meters rather than scaling every member to the Ralts pair',()=>{
+  const g=fresh();g.hands[0][0]='diglettHorde';g.energy[0]=10;g.deploy(0,0,288,508);assert.equal(g.units.length,15);
+  const p=480/370,r=Object.assign(Object.create(Renderer.prototype),{bodyHeights:new Map(),bodyHeight:()=>11.9999,unitHealthQueue:[],projection:{scale:1/p}});
+  for(const u of g.units)r.queueUnitHealth({},u,u.x,u.y-20.9999,30);
+  const saved=g.units.map(u=>({id:u.id,x:u.x,y:u.y,hp:u.hp})),layout=layoutUnitHealth(r.unitHealthQueue);
+  assert.equal(layout.length,15);
+  for(const e of layout){assert.ok(e.width/p<=12);if(e.compact.dense){assert.ok(e.width/p<=8.01);assert.equal(e.compact.heightCss,3);}assert.ok(Math.abs(e.x-e.unit.x)<=14);}
+  assert.deepEqual(g.units.map(u=>({id:u.id,x:u.x,y:u.y,hp:u.hp})),saved);
+  // A synthetic crowded HUD row tests the fallback; native formation rows do
+  // not all intersect and must not be falsely labeled a dense15-member group.
+  const crowded=layoutUnitHealth(r.unitHealthQueue.map(e=>({...e,y:500})));
+  assert.ok(crowded.some(e=>e.compact.dense));assert.ok(crowded.filter(e=>e.compact.dense).every(e=>e.width/p<=8.01));
 });
