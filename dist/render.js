@@ -704,12 +704,13 @@ export class Renderer {
         return;
       }
       for(const effect of this.effects)if(effect.kind==='muzzleFlame'&&effect.key!=='charizard'&&effect.sourceId===event.sourceId)effect.life=Math.min(effect.life,.035);
-      if(!event.radius&&CARDS[event.key]&&!isRangedAttack(CARDS[event.key]))return; // Contact is drawn once, by the melee event.
+      if(!event.radius&&CARDS[event.key]&&!isRangedAttack(CARDS[event.key])&&event.style!=='ice')return; // Contact is drawn once, by the melee event.
       const color=event.art==='petalShot'?'#ff9ccd':{ember:'#ffc083',hydro:'#91dcff',bubble:'#afeaff',leaf:'#e0f7ac',poison:'#d6a0f0',powder:'#d9b3f4',shadow:'#cda4f5',confusion:'#efb9f8',aura:'#efb9f8',ice:'#c1f5ff',rock:'#e4caa4',slam:'#e4caa4'}[event.style]||CARDS[event.key]?.color||'#eee8bc';
       const point=event.groundY===undefined?event:{x:event.groundX,y:event.groundY-(event.impactHeight||0)/(this.verticalScale||1)};
       const art=event.art||{ember:'explosion',hydro:'hydro',bubble:'bubble',leaf:'leaf',poison:'poison',powder:'poison',shadow:'shadow',confusion:'psychic',aura:'psychic',ice:'ice',rock:'dust'}[event.style];
       if(event.radius>0&&!event.structuresOnly){this.effects.push({kind:'areaImpact',art:art||{slam:'dust',eruption:'explosion',bite:'bite',slash:'slash'}[event.style]||'impact',style:event.style,x:event.groundX??event.x,y:event.groundY??event.y,impactX:point.x,impactY:point.y,radius:event.radius,color,groundOnly:event.groundOnly??!CARDS[event.key]?.air,life:.6,max:.6});return;}
-      if(art)this.effects.push({kind:'artImpact',art,key:event.key,x:point.x,y:point.y,visualSize:combatVisual(CARDS[event.key]).impact,radius:28,life:art==='ice'?1.1:.6,max:art==='ice'?1.1:.6});
+      const profile=event.style==='ice'?{...(this.frameActors?.get(event.sourceId)?.card||CARDS[event.key]),style:'ice',rangedAttack:true}:CARDS[event.key];
+      if(art)this.effects.push({kind:'artImpact',art,style:event.style,key:event.key,x:point.x,y:point.y,visualSize:combatVisual(profile).impact,radius:28,life:art==='ice'?1.1:.6,max:art==='ice'?1.1:.6});
       else this.burst(point.x,point.y,color,4,30);
       if(['egg','song'].includes(event.style))this.effects.push({...event,...point,kind:'impact',life:.4,max:.4,radius:CARDS[event.key]?.splash||18});
     }
@@ -814,7 +815,8 @@ export class Renderer {
     const arc=p.key==='charizard'?0:p.arc||0;
     const x=pose.x,y=pose.y-Math.sin(progress*Math.PI)*arc/(this.verticalScale||1),angle=Math.atan2((end.y-start.y)*(this.verticalScale||1)-Math.PI*arc*Math.cos(progress*Math.PI),end.x-start.x);
     pose.renderedPoint={x,y};
-    const visual=combatVisual(source?.card||CARDS[p.key]),motion=projectileVisual(p.style,this.t,this.reduced),size=p.key==='nuzleaf'?Math.max(16,visual.projectile):visual.projectile;
+    const shotCard=source?.card||CARDS[p.key],shotProfile=!source&&p.style==='ice'?{...shotCard,style:'ice',rangedAttack:true}:shotCard;
+    const visual=combatVisual(shotProfile),motion=projectileVisual(p.style,this.t,this.reduced),size=p.key==='nuzleaf'?Math.max(16,visual.projectile):visual.projectile;
     const fireHead=p.key==='charizard',art=p.key==='nuzleaf'?'needle':p.art||motion.name;
     if(arc>25){c.save();c.globalAlpha=.18;ellipse(c,'#233b31',p.x,p.y,Math.max(4,size*.25),2);c.restore();}
     if(fireHead){
@@ -825,7 +827,7 @@ export class Renderer {
       this.projectileHead(c,()=>this.fireBolt(c,x,y,fireSize,angle,fireAge));return;
     }
     const drawHead=()=>{
-      if(p.style==='ice'&&art==='snow'&&isIceShardAttack(source?.card||CARDS[p.key]))this.iceShardCore(c,x,y,size,angle);
+      if(p.style==='ice'&&art==='snow')this.iceShardCore(c,x,y,size,angle);
       this.combatArt(c,art,x,y,size,art==='needle'?0:['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true});
     };
     this.projectileHead(c,drawHead);
@@ -1042,7 +1044,7 @@ export class Renderer {
       else if(e.kind==='areaImpact')this.areaImpact(c,e,progress);
       else if(e.kind==='artImpact'){
         const size=e.visualSize??Math.max(24,Math.min(160,(e.radius||30)*1.7));
-        if(e.art==='ice'&&isIceShardAttack(CARDS[e.key]))this.iceImpactCore(c,e.x,e.y,size,this.reduced?.18:progress);
+        if(e.art==='ice'&&e.style==='ice')this.iceImpactCore(c,e.x,e.y,size,this.reduced?.18:progress);
         this.combatArt(c,e.art,e.x,e.y,size,0,size,{progress:this.reduced?.45:progress});
       }else if(e.kind==='beam'||e.kind==='counter'){
         const from=this.effectSource(e),to=this.effectTarget(e),name=e.style==='lightning'?'lightning':'psychic';
