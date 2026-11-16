@@ -1,4 +1,5 @@
 import { screenToWorld, inArena } from './arena-geometry.js?v=34';
+import { resolvePlacementInput } from './placement-input.js?v=34';
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=34';
 import { Renderer } from './render.js?v=36';
 import { SoundSystem } from './audio.js?v=36';
@@ -212,15 +213,17 @@ function showResult(e) {
 function arenaPoint(clientX,clientY) {
   const r=canvas.getBoundingClientRect();
   const point=screenToWorld({x:clientX-r.left,y:clientY-r.top},r.width,r.height);
-  return {...point,inside:inArena(point.x,point.y)};
+  return {...point,inside:inArena(point.x,point.y)&&document.elementFromPoint(clientX,clientY)===canvas};
 }
 async function attemptDeploy(point) {
   if(game.state!=='playing'||deploying)return;
   if(selected<0)return;
   const index=selected,key=game.hands[0][index],client=online,isOnline=onlineMode,serial=++deploymentSerial;
+  const placement=resolvePlacementInput(game,0,key,point.x,point.y);
+  if(!placement){cancelSelection();return;}
   deploying=true;cancelSelection();
   try{
-    const result=isOnline?await client.send({kind:'deploy',handIndex:index,key,x:client.team?W-point.x:point.x,y:client.team?H-point.y:point.y}):game.deploy(0,index,point.x,point.y);
+    const result=isOnline?await client.send({kind:'deploy',handIndex:index,key,x:client.team?W-placement.x:placement.x,y:client.team?H-placement.y:placement.y}):game.deploy(0,index,placement.x,placement.y);
     if(serial!==deploymentSerial||isOnline&&client!==online)return;
     if(!result?.ok){toast(result?.reason||'No se pudo colocar la carta.');tone(150,.12,'triangle',.02);return;}
     live(`${CARDS[result.key].name} desplegado. ${Math.floor(game.energy[0])} de energía.`);updateUi();
@@ -444,7 +447,7 @@ document.addEventListener('pointermove',e=>{
 },{passive:false});
 document.addEventListener('pointerup',e=>{
   if(!drag)return;
-  if(drag.active){ignoreClickUntil=performance.now()+350;const p=arenaPoint(e.clientX,e.clientY),key=game.hands[0][drag.index];if(p.inside&&game.resolveDeployment(0,key,p.x,p.y))attemptDeploy(p);else cancelSelection();renderer.pointer=null;}
+  if(drag.active){ignoreClickUntil=performance.now()+350;const p=arenaPoint(e.clientX,e.clientY);if(p.inside)attemptDeploy(p);else cancelSelection();renderer.pointer=null;}
   drag=null;
 });
 document.addEventListener('pointercancel',()=>{cancelSelection();drag=null;renderer.pointer=null;});

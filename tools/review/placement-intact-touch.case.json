@@ -1,0 +1,20 @@
+{
+  "id":"fb25-intact-touch-edge",
+  "source":"dist/index.html",
+  "adapter":"tools/review/placement-input-adapter.mjs",
+  "adapterDependencies":["tools/review/baseline-adapter.mjs"],
+  "input":"touch",
+  "raw":{"x":158,"y":244},
+  "expected":{"x":168,"y":436},
+  "viewport":{"width":390,"height":844,"dpr":1},
+  "durationMs":4000,
+  "sampleMs":100,
+  "clock":"natural-app",
+  "expectedEvent":"deploy",
+  "extractIntervalMs":100,
+  "recordCanvas":"#arena",
+  "captureSurface":"canvas",
+  "crop":{"x":10,"y":2,"width":370,"height":686},
+  "requiredObservations":["clock","canvas","events","actorState","hp"],
+  "requireWebSocketIsolation":true
+}
