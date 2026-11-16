@@ -30,5 +30,6 @@
   ],
   "requireWebSocketIsolation": true,
   "team": 0,
-  "long": false
+  "long": false,
+  "captureSurface": "canvas"
 }
