@@ -301,7 +301,7 @@ export class Renderer {
       const s=Math.min(1,512/(box.right-box.left),512/(box.bottom-box.top));
       let x=(target.dx||0)*pose.lunge-pose.anchor.x*pose.scale;
       let y=(target.dy||0)*pose.lunge/vertical-pose.lift-pose.anchor.y*pose.scale/vertical;
-      const immutable=!profile.flying&&!profile.structure&&pose.anim!=='Hop';
+      const immutable=!profile.flying&&!profile.structure&&pose.anim!=='Hop'&&!pose.petals;
       // A ground PNG has no wing padding, platform, spawn lift or preparation
       // here. Two sampling pixels cover the native cell and raster alignment.
       const pad=immutable?2/s:24;
@@ -319,7 +319,8 @@ export class Renderer {
       const bb=Math.min(Math.ceil((box.bottom-box.top)*s),Math.ceil((y+pose.meta.height*pose.scale/vertical+pad-box.top)*s));
       box={left:box.left+l/s,top:box.top+t/s,right:box.left+rr/s,bottom:box.top+bb/s,scale:s};
       // Ground PNG frame masks are immutable and shareable across actors.
-      // Hover/wing rigs and other continuously deforming bodies stay per-draw.
+      // Hover/wing rigs and articulated bouquets stay per-draw; their pixels
+      // can change while the native animation/frame identity remains the same.
       if(immutable)frameKey=[profile.id,pose.anim,pose.frame,pose.direction,pose.scale,vertical,pose.anchor.x,pose.anchor.y,pose.lift,this.nativeSpriteSampler?.enabled,pose.img.src,box.left,box.top,s].join(':');
     }
     const point=contours.contact(target,from,box,c=>{
