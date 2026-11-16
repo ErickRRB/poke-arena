@@ -1,0 +1,3 @@
+# Ajustes durante pausa previa — 2026-11-16
+
+La revisión independiente de 142 detectó que el overlay de pausa bloquea el engranaje del HUD. Agregar acceso a Ajustes dentro de ese panel, conservando el overlay como barrera y reutilizando la gestión de diálogos existente. Verificar en 390 × 844 que abrir, cambiar un rango y cerrar conserva pausa, silencio previo, foco y geometría, y que desde juego activo sigue funcionando el retorno anterior. Comprobar el estado final sin reproducción espuria mediante un estado de fin inducido en la prueba, declarando ese método. No cambiar el motor de audio ni repetir el caso anidado ya verificado independientemente.
