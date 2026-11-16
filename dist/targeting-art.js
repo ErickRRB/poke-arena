@@ -26,10 +26,10 @@ export function cellGuide(c,x,y,size,valid=true,emphasis=false){
   c.restore();
 }
 export function travelGuide(c,x,y,radius,length,team=0,valid=true){
-  const direction=team?1:-1,visible=Math.min(length,100),color=valid?'255,250,224':'237,136,115';
+  const direction=team?1:-1,visible=Math.min(length,180),color=valid?'255,250,224':'237,136,115';
   c.save();
   const glow=c.createLinearGradient(x,y,x,y+direction*visible);
-  glow.addColorStop(0,`rgba(${color},0.4)`);glow.addColorStop(1,`rgba(${color},0)`);
+  glow.addColorStop(0,`rgba(${color},0.75)`);glow.addColorStop(1,`rgba(${color},0)`);
   const top=y+Math.min(0,direction*visible);
   c.fillStyle=glow;c.globalAlpha=.25;c.fillRect(x-radius,top,radius*2,visible);
   for(const [width,alpha] of [[12,.25],[8,.35],[4,.5]]){
