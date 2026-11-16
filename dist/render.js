@@ -1015,10 +1015,11 @@ export class Renderer {
     // frames expand and break apart without an opaque area indicator.
     if(image){
       const phase=this.reduced?2:Math.min(3,Math.max(0,progress*3)),first=Math.floor(phase),mix=phase-first;
+      const exit=Math.min(1,Math.max(0,(1-progress)/.2));
       const draw=(index,alpha)=>{
         if(alpha<=0)return;
         const [sx,sy,sw,sh]=frames[index],width=radius*2*sw/600;
-        c.save();c.globalAlpha*=alpha;c.drawImage(image,sx,sy,sw,sh,-width/2,-radius,width,radius*2);c.restore();
+        c.save();c.globalAlpha*=alpha*exit;c.drawImage(image,sx,sy,sw,sh,-width/2,-radius,width,radius*2);c.restore();
       };
       draw(first,1-mix);if(first<3)draw(first+1,mix);
     }
