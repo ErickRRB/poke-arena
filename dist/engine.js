@@ -844,11 +844,11 @@ export class Game {
     const threats = this.units.filter(u => u.team === 0 && u.hp > 0 && !u.burrowed && u.y < 380);
     const affordable = hand.map((key, i) => ({ key, i, card: CARDS[key] })).filter(c => c.card.cost <= this.energy[1]);
     if (!affordable.length) return;
-    // A guaranteed tower finish takes precedence over saving energy or cycling.
+    // A currently eligible tower finish takes precedence over saving energy or cycling.
     for(const choice of affordable.filter(c=>c.card.spell&&!c.card.rolling&&!c.card.spawnKey&&c.card.towerDamage>0)){
       const tower=this.towers.filter(t=>t.team===0&&t.hp>0&&t.hp<=choice.card.towerDamage).sort((a,b)=>Number(b.king)-Number(a.king))[0];
       const point=tower&&this.resolveDeployment(1,choice.key,tower.x,tower.y);
-      if(point&&spellOverlapsTarget(choice.card,point,tower)&&this.deploy(1,choice.i,point.x,point.y).ok)return;
+      if(point&&this.aiSpellTargets(choice.card,point).includes(tower)&&this.deploy(1,choice.i,point.x,point.y).ok)return;
     }
     if (!threats.length && this.energy[1] < (this.difficulty === 'easy' ? 7 : 5)) return;
     // A pull is useful when a live splash attacker can exploit a cluster now.
@@ -917,9 +917,14 @@ export class Game {
     const y = choice.card.summon&&choice.card.structure?155:threats.length ? 285 : choice.card.building ? 115 : push ? clamp(push.y-65,ARENA.top+TILE,272) : 272;
     this.deploy(1, choice.i, x, y);
   }
+  aiSpellTargets(card,point){
+    const targets=[...this.units,...this.towers].filter(t=>t.team===0&&t.hp>0&&!t.burrowed&&isCombatTargetReady(t)&&(!card.groundOnly||!t.card?.flying)&&spellOverlapsTarget(card,point,t));
+    return card.targetLimit?targets.sort((a,b)=>b.hp-a.hp||a.id-b.id).slice(0,card.targetLimit):targets;
+  }
   aiSpellWorth(card,point){
-    if('king'in point)return point.hp<=(card.towerDamage||0);
-    const victims=this.units.filter(u=>u.team===0&&u.hp>0&&!u.burrowed&&isCombatTargetReady(u)&&(!card.groundOnly||!u.card.flying)&&spellOverlapsTarget(card,point,u));
+    const targets=this.aiSpellTargets(card,point);
+    if('king'in point)return point.hp<=(card.towerDamage||0)&&targets.includes(point);
+    const victims=targets.filter(t=>!('king'in t));
     const damage=card.damage||0;
     return victims.length>=2||victims.some(u=>damage>=u.hp&&(u.card.cost||0)>=card.cost);
   }
