@@ -12,7 +12,7 @@ import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 import * as onlineConfig from './online-config.js?v=36';
 const publicAssetUrl=onlineConfig.publicAssetUrl||((file)=>file);
-const {whirlpoolPhase,nightmareFrame,earthquakePhase,earthquakeFissures,rockSuspension}=await import(publicAssetUrl('./field-motion.js?v=36'));
+const {whirlpoolPhase,nightmareFrame,earthquakePhase,earthquakeFissures,earthquakeReliefPulse,rockSuspension}=await import(publicAssetUrl('./field-motion.js?v=36'));
 const {flameFrame,rollingFirePose,drawFireWheel,FIRE_WHEEL_FILES,loadFireWheelMaterial}=await import(publicAssetUrl('./fire-material.js?v=38'));
 const {canvasBackingSize,alignedSpriteRect}=await import(publicAssetUrl('./canvas-raster.js?v=36'));
 const {NativeSpriteSampler}=await import(publicAssetUrl('./native-sprite-sampling.js?v=36'));
@@ -1193,7 +1193,7 @@ export class Renderer {
   }
   field(c,f,front=false){
     const radius=f.radius,age=f.visualAge??(f.duration?Math.max(0,f.duration-f.life):this.t);
-    c.save();c.globalAlpha=Math.min(1,f.life/(f.key==='whirlpool'?.12:.4));
+    c.save();c.globalAlpha=Math.min(1,f.life/(f.key==='whirlpool'?.12:f.key==='earthquake'?.06:.4));
     if(!front&&f.key!=='spikes')softDisc(c,f.x,f.y,radius,{color:f.key==='stealthRock'?'#a45c4c':CARDS[f.key]?.color||'#b8cad1',opacity:f.key==='whirlpool'?.24:f.key==='stealthRock'?.32:.1,...(f.key==='stealthRock'?{interior:.8}:{})});
     if(f.key==='stealthRock'){
       for(let i=0;i<9;i++){
@@ -1252,7 +1252,7 @@ export class Renderer {
     c.drawImage(surface,field.x-radius,field.y-radius,radius*2,radius*2);
   }
   earthquake(c,field,age){
-    const radius=field.radius,period=field.fieldTick||1,beat=age%period;
+    const radius=field.radius;
     const rise=this.reduced?1:Math.min(1,age/.2);
     c.save();c.beginPath();c.arc(field.x,field.y,radius,0,Math.PI*2);c.clip();
     c.translate(field.x,field.y);c.globalAlpha*=rise*.85;
@@ -1261,7 +1261,7 @@ export class Renderer {
     const surface=this.quakeSurface??=this.canvas.ownerDocument.createElement('canvas');
     if(surface.width!==256||surface.height!==256){surface.width=256;surface.height=256;}
     const ground=surface.getContext('2d');ground.setTransform(1,0,0,1,0,0);ground.globalAlpha=1;ground.globalCompositeOperation='source-over';ground.clearRect(0,0,256,256);ground.imageSmoothingEnabled=false;
-    const pulse=this.reduced?0:Math.sin(Math.PI*Math.min(1,beat/.62));
+    const pulse=earthquakeReliefPulse(field,age,this.reduced);
     // Shared strip boundaries deform a single continuous texture. The clipped
     // light and shadow follow its temporary raised ridge, then settle.
     const position=y=>(y-.14*pulse*Math.sin(Math.PI*y))*256;
