@@ -1,0 +1,35 @@
+{
+  "id": "cpu-pull-splash-mobile-canvas",
+  "source": "dist/index.html",
+  "adapter": "tools/review/cpu-pull-adapter.mjs",
+  "adapterDependencies": [
+    "tools/review/baseline-adapter.mjs"
+  ],
+  "preRollMs": 1800,
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "dpr": 1
+  },
+  "durationMs": 6000,
+  "sampleMs": 60,
+  "clock": "natural-app",
+  "expectedEvent": "cast",
+  "extractIntervalMs": 100,
+  "recordCanvas": "#arena",
+  "captureSurface": "canvas",
+  "crop": {
+    "x": 10,
+    "y": 2,
+    "width": 370,
+    "height": 686
+  },
+  "requiredObservations": [
+    "clock",
+    "canvas",
+    "events",
+    "actorState",
+    "hp"
+  ],
+  "requireWebSocketIsolation": true
+}

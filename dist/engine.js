@@ -87,16 +87,10 @@ Object.assign(CARDS,structuredClone(EXTRA_CARDS));
 applyBalance(CARDS);
 export const DEFAULT_DECK = ['pikachu', 'snorlax', 'machamp', 'blastoiseCannon', 'zubat', 'thunder', 'charizard', 'fireball'];
 export const CPU_DECKS = [
-  {name:'Carga eléctrica',cards:['forretress','raichu','raltsHut','treecko','voltorb','pikachu','pinMissile','lightning']},
-  {name:'Camada venenosa',cards:['snorlax','nidoqueen','madriguera','poochyenaPack','butterfree','grimer','spikes','fireball']},
-  {name:'Noche de fantasmas',cards:['golem','duskull','gengar','zubat','regice','diglett','nightmare','log']},
-  {name:'Asedio de roca',cards:['regirock','rhydon','cloyster','raltsTrio','mankey','gastly','earthquake','thunder']},
-  {name:'Vuelo del bosque',cards:['celebi','charizard','vivero','treecko','raltsTrio','skarmory','blizzard','pinMissile']},
-  {name:'Contraataque',cards:['steelix','raichu','regice','pikachu','diglett','chansey','whirlpool','fireball']},
-  {name:'Emboscada Rocket',cards:['forretress','pandilla','roselia','graveler','raltsHut','voltorb','sneaselAmbush','log']},
-  {name:'Carga veloz',cards:['rapidash','lapras','vivero','nuzleaf','poochyenaPack','zubat','thunder','fireball']},
-  {name:'Bosque vivo',cards:['golem','vivero','meganium','sceptile','gastly','diglett','spikes','pinMissile']},
-  {name:'Presión aérea',cards:['celebi','pidgeot','cloyster','octillery','pandilla','zubat','whirlpool','lightning']},
+  {name:'Doble dragón',cards:['golem','charizard','zapdos','bulbasaur','diglett','vivero','whirlpool','lightning']},
+  {name:'Gigante y apoyo',cards:['snorlax','duskull','machamp','beedrill','poochyenaPack','vivero','fireball','thunder']},
+  {name:'Control nocturno',cards:['nightmare','swampert','bulbasaur','charizard','vivero','diglett','whirlpool','log']},
+  {name:'Emboscada',cards:['sneaselAmbush','pandilla','roselia','ampharos','diglettHorde','geodude','fireball','log']},
 ];
 // PMD sheets run south, southeast, east, northeast, north, northwest, west, southwest.
 export function directionRow(dx, dy) { return (2 - Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8; }
@@ -848,9 +842,51 @@ export class Game {
     const hand = this.hands[1];
     const threats = this.units.filter(u => u.team === 0 && u.hp > 0 && !u.burrowed && u.y < 380);
     const affordable = hand.map((key, i) => ({ key, i, card: CARDS[key] })).filter(c => c.card.cost <= this.energy[1]);
-    if (!affordable.length || (!threats.length && this.energy[1] < (this.difficulty === 'easy' ? 7 : 5))) return;
-    let choice = affordable[Math.floor(this.random() * affordable.length)];
-    if (threats.some(u => u.card.flying)) choice = affordable.find(c => c.card.air && !c.card.spell) || choice;
+    if (!affordable.length) return;
+    // A currently eligible tower finish takes precedence over saving energy or cycling.
+    for(const choice of affordable.filter(c=>c.card.spell&&!c.card.rolling&&!c.card.spawnKey&&c.card.towerDamage>0)){
+      const tower=this.towers.filter(t=>t.team===0&&t.hp>0&&t.hp<=choice.card.towerDamage).sort((a,b)=>Number(b.king)-Number(a.king))[0];
+      const point=tower&&this.resolveDeployment(1,choice.key,tower.x,tower.y);
+      if(point&&this.aiSpellTargets(choice.card,point).includes(tower)&&this.deploy(1,choice.i,point.x,point.y).ok)return;
+    }
+    if (!threats.length && this.energy[1] < (this.difficulty === 'easy' ? 7 : 5)) return;
+    // A healthy, active tower can clear a small one-shot group already in its
+    // range. Bound a single hit from each against its health before saving.
+    if(threats.length&&this.towers.some(t=>t.team===1&&t.hp>t.maxHp/2&&t.active&&!t.stun&&
+      (!t.target||threats.includes(t.target))&&threats.every(u=>u.hp<=t.damage&&distance(u,t)<=attackReach(t,u))&&
+      threats.reduce((sum,u)=>sum+(u.card.damage||0)*Math.max(1,u.card.burst||1),0)<=t.maxHp/10))return;
+    // A pull is useful when a live splash attacker can exploit a cluster now.
+    const pull = affordable.find(c => c.key === 'whirlpool');
+    if (pull) {
+      const point = this.aiPullPoint(pull.card);
+      if (point && this.canDeploy(1,pull.key,point.x,point.y) && this.deploy(1,pull.i,point.x,point.y).ok) return;
+    }
+    // Take an immediate defensive spell opportunity before choosing a troop.
+    for(const choice of affordable.filter(c=>c.card.spell&&!c.card.rolling&&!c.card.spawnKey&&(c.card.damage||0)>0)){
+      for(const enemy of threats){
+        const point=this.resolveDeployment(1,choice.key,enemy.x,enemy.y);
+        if(point&&this.aiSpellWorth(choice.card,point)&&this.deploy(1,choice.i,point.x,point.y).ok)return;
+      }
+    }
+    const available=affordable.filter(c=>c.key!=='whirlpool');
+    let choice=available[Math.floor(this.random()*available.length)];
+    if (!choice) return;
+    const push=this.units.filter(u=>u.team===1&&u.hp>0&&u.card.building&&!u.card.structure).sort((a,b)=>b.y-a.y)[0];
+    if(threats.length){
+      threats.sort((a,b)=>a.y-b.y);
+      const canDefend=(c,t)=>!c.card.spell&&!c.card.building&&(!t.card.flying||c.card.air);
+      const target=threats.find(t=>available.some(c=>canDefend(c,t)))||threats[0];
+      const defenders=available.filter(c=>canDefend(c,target));
+      if(!defenders.length&&target.card.flying&&hand.some(key=>!CARDS[key].spell&&!CARDS[key].building&&CARDS[key].air))return;
+      threats.splice(threats.indexOf(target),1);threats.unshift(target);
+      if(defenders.length)choice=defenders.find(c=>target.card.building&&c.card.structure)||defenders.find(c=>!c.card.structure)||defenders[0];
+    }else if(push){
+      const support=available.find(c=>!c.card.spell&&!c.card.building&&!c.card.structure&&c.card.damage>0);
+      if(support)choice=support;
+    }else{
+      const winCondition=available.find(c=>c.card.building&&!c.card.structure);
+      if(winCondition)choice=winCondition;
+    }
     if (choice.card.spell) {
       const weak = this.towers.find(t => t.team === 0 && t.hp > 0 && t.hp <= choice.card.towerDamage);
       const enemy = this.units.filter(u => u.team === 0 && u.hp > 0).sort((a, b) => a.y - b.y)[0];
@@ -858,7 +894,14 @@ export class Game {
         const targets=[...this.units,...this.towers].filter(t=>t.team===0&&t.hp>0&&!t.card?.flying&&(!('king'in t)||t.hp<=choice.card.towerDamage));
         for(const target of targets){
           const origin=this.resolveDeployment(1,choice.key,target.x,Math.min(RIVER.top-TILE/2,Math.max(ARENA.top+TILE/2,target.y-2*TILE)));
-          if(origin&&target.y>=origin.y-18-target.radius&&target.y-origin.y<=choice.card.travelDistance+18+target.radius){this.deploy(1,choice.i,origin.x,origin.y);return;}
+          if(!origin)continue;
+          const end={x:origin.x,y:origin.y+choice.card.travelDistance};
+          if(!rollingOverlapsTarget(choice.card,origin,end,target))continue;
+          const victims=this.units.filter(u=>u.team===0&&u.hp>0&&!u.burrowed&&isCombatTargetReady(u)&&!u.card.flying&&rollingOverlapsTarget(choice.card,origin,end,u));
+          const lethal='king'in target&&target.hp<=choice.card.towerDamage;
+          if(lethal||this.aiSpellVictimsWorth(choice.card,victims)){
+            if(this.deploy(1,choice.i,origin.x,origin.y).ok)return;
+          }
         }
       }else if(choice.card.spawnKey){
         const tower=this.towers.filter(t=>t.team===0&&!t.king&&t.hp>0).sort((a,b)=>a.hp-b.hp)[0];
@@ -869,16 +912,99 @@ export class Game {
       }else if (weak || enemy) {
         const candidates=weak?[weak]:this.units.filter(u=>u.team===0&&u.hp>0);
         candidates.sort((a,b)=>this.spellValue(choice.card,b)-this.spellValue(choice.card,a));
-        const target=candidates[0];this.deploy(1,choice.i,target.x,target.y);return;
+        const target=candidates.find(t=>this.aiSpellWorth(choice.card,t));
+        if(target){this.deploy(1,choice.i,target.x,target.y);return;}
       }
       choice = affordable.find(c => !c.card.spell);
       if (!choice) return;
     }
     let lane = Math.floor(this.random() * 2);
     if (threats.length) lane = threats[0].x < 300 ? 0 : 1;
+    else if(push)lane=push.x<300?0:1;
     const x = choice.card.structure&&!choice.card.summon?300:LANES[lane] + (this.random() - .5) * 65;
-    const y = choice.card.summon&&choice.card.structure?155:threats.length ? 285 : choice.card.building ? 115 : 272;
+    const y = choice.card.summon&&choice.card.structure?155:threats.length ? 285 : choice.card.building ? 115 : push ? clamp(push.y-65,ARENA.top+TILE,272) : 272;
     this.deploy(1, choice.i, x, y);
+  }
+  aiSpellTargets(card,point){
+    const targets=[...this.units,...this.towers].filter(t=>t.team===0&&t.hp>0&&!t.burrowed&&isCombatTargetReady(t)&&(!card.groundOnly||!t.card?.flying)&&spellOverlapsTarget(card,point,t));
+    return card.targetLimit?targets.sort((a,b)=>b.hp-a.hp||a.id-b.id).slice(0,card.targetLimit):targets;
+  }
+  aiSpellWorth(card,point){
+    const targets=this.aiSpellTargets(card,point);
+    if('king'in point)return point.hp<=(card.towerDamage||0)&&targets.includes(point);
+    const victims=targets.filter(t=>!('king'in t));
+    return this.aiSpellVictimsWorth(card,victims);
+  }
+  aiSpellVictimsWorth(card,victims){
+    const damage=card.damage||0;
+    // Only direct card formations and their declared companions have a known
+    // shared purchase price. Divide by the original formation, not survivors.
+    const purchase=u=>{
+      const source=CARDS[u.spawnGroup?.cardKey];
+      if(!source||!['card','companion'].includes(u.spawnCause))return 0;
+      const members=formationOffsets(source,u.team,u.spawnGroup.x).length*(source.spawnWith?2:1);
+      return (source.cost||0)/Math.max(1,members);
+    };
+    const value=victims.reduce((sum,u)=>sum+purchase(u)*Math.min(damage,u.hp)/Math.max(1,u.maxHp),0);
+    if(value+1e-7>=card.cost)return true;
+    // Generated units have no reliable share of their producer's purchase.
+    // Instead consider only eliminable bodies that can soon threaten a tower;
+    // this is a damage warning, never a price assigned to their generations.
+    if(this.towers.some(t=>t.team===1&&t.hp>0&&victims.filter(u=>!purchase(u)&&damage>=u.hp&&
+      !u.card.passive&&(u.card.damage||0)>0&&(u.card.building||u.target===t||!u.target)&&
+      distance(u,t)<=attackReach(u,t)+(u.card.speed||0)*2)
+      .reduce((sum,u)=>sum+u.card.damage*Math.max(1,u.card.burst||1),0)>=t.maxHp/10))return true;
+    // Pay for an otherwise unfavorable lethal spell to stop an imminent hit
+    // that would destroy a friendly tower. This is a short-range estimate, not
+    // a prediction of pathing, projectile travel or future retargeting.
+    return this.towers.some(t=>t.team===1&&t.hp>0&&victims.some(u=>
+      damage>=u.hp&&!u.card.passive&&u.card.damage>0&&
+      t.hp<=u.card.damage*Math.max(1,u.card.burst||1)&&
+      distance(u,t)<=attackReach(u,t)+(u.card.speed||0)*((card.castDelay||0)+1)&&
+      (u.card.building||u.target===t||!u.target)
+    ));
+  }
+  aiPullPoint(card){
+    const enemies=this.units.filter(u=>u.team===0&&u.hp>0&&!u.burrowed&&!u.card.structure&&!u.leap&&isCombatTargetReady(u));
+    // Pull a structure-seeking Hog toward our inactive king only while it is
+    // threatening a surviving princess tower and the king can take two hits.
+    const king=this.towers.find(t=>t.team===1&&t.king&&t.hp>0&&!t.active);
+    if(king){
+      const point=this.resolveDeployment(1,'whirlpool',king.x,king.y+17);
+      const hog=enemies.find(u=>u.card.nativeReference==='HogRider'&&u.y>king.y+40&&u.y<king.y+110&&Math.abs(u.x-king.x)<105&&point&&spellOverlapsTarget(card,point,u)&&king.hp>u.card.damage*3&&this.towers.some(t=>t.team===1&&!t.king&&t.hp>0&&distance(u,t)<80));
+      if(hog)return point;
+    }
+    // Redirect an imminent building seeker away from an endangered side tower.
+    for(const tower of this.towers.filter(t=>t.team===1&&!t.king&&t.hp>0)){
+      const threat=enemies.find(u=>u.card.building&&u.card.speed>0&&u.y>tower.y&&distance(u,tower)<=attackReach(u,tower)+20);
+      if(!threat)continue;
+      const point=this.resolveDeployment(1,'whirlpool',300,tower.y+88);
+      if(point&&spellOverlapsTarget(card,point,threat)&&distance(point,tower)>distance(threat,tower)+35)return point;
+    }
+    const allies=this.units.filter(u=>u.team===1&&u.hp>0&&u.spawn<=0&&u.card.splash>0&&!u.card.building&&!u.card.selfSplash&&!u.card.cone&&!u.card.passive&&!u.stun&&u.attack<=0);
+    let best=null, bestScore=0;
+    for(const a of enemies) for(const b of enemies){
+      if(a.id>=b.id)continue;
+      const center={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
+      const point=this.resolveDeployment(1,'whirlpool',center.x,center.y);
+      if(!point||!spellOverlapsTarget(card,point,a)||!spellOverlapsTarget(card,point,b))continue;
+      const d=distance(a,b),pullReach=u=>Math.min(distance(u,point),(u.card.pullSpeed??u.card.speed??0)*card.pullPercent/100*card.fieldDuration);
+      // Reject pairs already covered by splash or unlikely to converge during the field.
+      if(spellOverlapsTarget({splash:0.95*Math.max(0,allies.reduce((m,u)=>Math.max(m,u.card.splash),0))},a,b)||d-pullReach(a)-pullReach(b)>Math.max(0,...allies.map(u=>u.card.splash)))continue;
+      const support=allies.find(u=>{
+        if(!this.validTarget(u,a)||!this.validTarget(u,b)||u.target&&u.target!==a&&u.target!==b&&this.validTarget(u,u.target))return false;
+        const target=distance(u,a)<=distance(u,b)?a:b,other=target===a?b:a;
+        if(spellOverlapsTarget(u.card,target,other)||distance(u,target)>attackReach(u,target))return false;
+        if(d-pullReach(a)-pullReach(b)>u.card.splash+(other.radius||0))return false;
+        const ranged=u.card.rangedAttack??u.card.range>=50;
+        const travel=ranged?distance(u,target)/projectileProfile(u.card).speed:0;
+        return Math.max(0,u.cooldown)+(u.card.windup??.18)+travel<=card.fieldDuration;
+      });
+      if(!support)continue;
+      const score=(a.card.cost||1)+(b.card.cost||1);
+      if(score>bestScore){best=point;bestScore=score;}
+    }
+    return best;
   }
   spellValue(card,point){
     return [...this.units,...this.towers].filter(t=>t.team===0&&t.hp>0&&(!card.groundOnly||!t.card?.flying)&&spellOverlapsTarget(card,point,t))
