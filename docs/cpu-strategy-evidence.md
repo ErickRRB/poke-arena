@@ -2,6 +2,8 @@
 
 Consulta 2026-11-16. RoyaleAPI presenta datos propios de partidas, no pruebas de balance de Poké Arena. Los resultados recuperados son índices sujetos a cambios y ventanas distintas, no una clasificación global comparable. Los mazos locales son adaptaciones, no copias ni garantía de fuerza.
 
+Actualización FB38: la fila Ciclo veloz es antecedente de investigación, no un preset seleccionable. Se retiró porque usa Rapidash, actualmente desactivado; Onix tampoco aparece en los cuatro presets. Arcanine no se presenta como Hog ni se incorpora antes de que exista ese contrato. Los promedios y el número de mazos del texto histórico siguiente describen la primera versión de cinco.
+
 | Referencia observada | Ventana indicada | Adaptación y sustituciones |
 |---|---|---|
 | [Hog 2.6 Cycle](https://royaleapi.com/decks/popular?lang=en&time=7d&type=All), variantes listadas | 7 días | Ciclo veloz: Rapidash como Hog, Cannon, Ice Wizard, Archer, Skeletons, Electro Spirit, Fireball y Log. No hay Musketeer asignada: Archer cumple apoyo aéreo con diferencias. |
@@ -39,3 +41,11 @@ La CPU prioriza un remate de torre legal incluso con poca energía; guarda Log a
 `node --test tests/engine.test.mjs tests/new-archetypes.test.mjs`: 57/57 en esta iteración. Se preserva la prueba de combate previa 194/195 con el fallo visual de base `knockback.test.mjs:43`; no se ejecutó otra matriz. La muestra de un push, su apoyo, una defensa aérea y hechizos no constituye validación de balance o diversión. Es preciso recheck independiente del diff final y observación del nuevo candidato.
 
 Recheck técnico de DA5167 detectó que Rayo (límite de tres objetivos) podía ser interceptado por unidades con más HP antes de rematar al rey. La corrección selecciona objetivos visibles según la regla del motor (vida descendente y desempate por ID) al evaluar el momento del lanzamiento. Prueba real: tres Snorlax interceptores, rey a 100 HP y Bola de Fuego disponible: CPU elige Bola de Fuego y gana; control con rey sano no gasta Rayo. Los objetivos pueden moverse o cambiar de HP antes del impacto, por lo que no se garantiza el estado futuro. Suite focal de engine y arquetipos: 59/59.
+
+## Partida orgánica acotada y ajuste antiaéreo
+
+`node docs/cpu-strategy-observation.mjs`: Game real a 30 Hz, seed 104729, CPU Gigante y apoyo contra mazo inicial, 90 s. El rival es un guion sencillo que cada 5 s intenta jugar la primera carta asequible; hechizos sólo apuntan a una unidad enemiga presente. No se manipulan manos, vidas, unidades ni economía; el guion no representa a un jugador humano. El runner imprime acciones, energía, mano y unidades visibles en cada acción CPU y vida final de torres.
+
+En DAE51 la CPU desplegó Snorlax a 3,53 s, defendió Pikachu con Poochyena a 6,63 y Zubat con Beedrill a 11,87, y lanzó Bola de Fuego sobre Pikachu a 46,97 (605 HP, hechizo 688 de daño, ambos coste 4). A 80,97 usó Poochyena terrestre ante Charizard volador, con Duskull antiaéreo en mano pero energía insuficiente: no podía atacar a esa amenaza. Se ajustó la elección para guardar energía ante un único tipo de amenaza aérea cuando tiene defensor antiaéreo en mano; si hay otra amenaza defendible, puede elegirla y ubicar la defensa en ese carril. No se conoce la mano rival.
+
+Con el ajuste, en la misma ejecución no jugó Poochyena a 80,97; a 86,57 jugó Machamp ante Pikachu terrestre también presente. A los 90 s la torre CPU izquierda tenía 553 HP frente a 1057 en el recorrido anterior, afectado por decisiones y tiempos distintos. Esta muestra detecta un gasto inútil y comprueba su cambio, no demuestra mayor fuerza general; esperar puede costar daño y el selector no predice trayectorias ni optimiza respuesta futura. Las dos partidas seguían abiertas al terminar la observación. La suite focal actual pasó 61/61. Las evidencias previas de arrastre y fallos se conservan sin volver a capturar el combo.

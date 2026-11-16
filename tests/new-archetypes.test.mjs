@@ -22,7 +22,9 @@ test('the nearest free cell avoids towers, structures and reserved formation cel
   }
   assert.equal(g.resolveDeployment(0,'pikachu',300,330),null);
 });
-test('seeded CPU decks span five valid strategies and shuffle the opening hand',()=>{
+test('seeded CPU decks span eligible strategies and shuffle the opening hand',()=>{
+  assert.equal(CPU_DECKS.length,4);
+  assert.ok(CPU_DECKS.every(preset=>!preset.cards.some(key=>['onix','rapidash'].includes(key))));
   const found=new Set(),openings=new Set();
   for(let i=1;i<=150;i++){
     const g=new Game({seed:i*104729}),same=new Game({seed:i*104729}),deck=[...g.hands[1],...g.queues[1]];

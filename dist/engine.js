@@ -87,7 +87,6 @@ Object.assign(CARDS,structuredClone(EXTRA_CARDS));
 applyBalance(CARDS);
 export const DEFAULT_DECK = ['pikachu', 'snorlax', 'machamp', 'blastoiseCannon', 'zubat', 'thunder', 'charizard', 'fireball'];
 export const CPU_DECKS = [
-  {name:'Ciclo veloz',cards:['rapidash','blastoiseCannon','bulbasaur','treecko','diglett','voltorb','fireball','log']},
   {name:'Doble dragón',cards:['golem','charizard','zapdos','bulbasaur','diglett','vivero','whirlpool','lightning']},
   {name:'Gigante y apoyo',cards:['snorlax','duskull','machamp','beedrill','poochyenaPack','vivero','fireball','thunder']},
   {name:'Control nocturno',cards:['nightmare','swampert','bulbasaur','charizard','vivero','diglett','whirlpool','log']},
@@ -869,8 +868,12 @@ export class Game {
     if (!choice) return;
     const push=this.units.filter(u=>u.team===1&&u.hp>0&&u.card.building&&!u.card.structure).sort((a,b)=>b.y-a.y)[0];
     if(threats.length){
-      const target=threats.sort((a,b)=>a.y-b.y)[0];
-      const defenders=available.filter(c=>!c.card.spell&&!c.card.building&&(!target.card.flying||c.card.air));
+      threats.sort((a,b)=>a.y-b.y);
+      const canDefend=(c,t)=>!c.card.spell&&!c.card.building&&(!t.card.flying||c.card.air);
+      const target=threats.find(t=>available.some(c=>canDefend(c,t)))||threats[0];
+      const defenders=available.filter(c=>canDefend(c,target));
+      if(!defenders.length&&target.card.flying&&hand.some(key=>!CARDS[key].spell&&!CARDS[key].building&&CARDS[key].air))return;
+      threats.splice(threats.indexOf(target),1);threats.unshift(target);
       if(defenders.length)choice=defenders.find(c=>target.card.building&&c.card.structure)||defenders.find(c=>!c.card.structure)||defenders[0];
     }else if(push){
       const support=available.find(c=>!c.card.spell&&!c.card.building&&!c.card.structure&&c.card.damage>0);
