@@ -1,0 +1,8 @@
+# Plan FB48 / FB28, 2026-11-16
+Base 7283dd297424f39f0cd6c8cfb2aab4af36169200 tree 7027b6210004112ac4497234a85344ef18000e21.
+
+Primera acción: Fireball completa, del vuelo al impacto, por el pedido nuevo. El evento spellHit entrega radio nativo y área común limita el arte central a 72 unidades; atlas de explosión tiene alfa interno que debe medirse, no asumir tamaño de celda. Conservar vuelo y exactitud del radio, daño y tiempo de motor; impacto y huella son visuales breves. Renderizar suelo bajo actores y fuego encima, con alpha y radio explícitos; sin afectar otros proyectiles. Inspeccionar secuencia nativa en combate a CSS 390, incluyendo límites, legibilidad de cuerpos/HP, reducido y pausa. Hacer primera demostración antes de extender.
+
+Inventario efectivo: engine spellField crea whirlpool, earthquake, nightmare, spikes, stealthRock con duración y radio del catálogo aplicado y/o balance. Campo de veneno de Venusaur/Koffing y psíquico Gardevoir: addField life=3, radius=48, tick=.5; carece de duration y renderer usa this.t para animación. Blizzard da daño/congelación instantáneos, estado congelado por 3 s y no crea campo de suelo. Rocks/shared ice ya publicados; no modificar sus painters. Verificar valores efectivos en catálogo final y revisar cada campo real sin asumir que una animación aislada demuestra calidad.
+
+Evidencia: caso reproducible existente en el navegador, secuencia con tiempos y escala reales, verificación técnica acotada de contratos, revisión independiente posterior y límites explícitos. No cambiar reglas/backend, preview, controles, ni geometría de Art.
