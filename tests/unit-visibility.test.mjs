@@ -1,6 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {Game} from '../dist/engine.js';
+import {Renderer} from '../dist/render.js';
+import {packGame,perspective,unpackGame} from '../dist/snapshot.js';
 import {healthMeterWidth,layoutUnitHealth,structureOcclusionRegions,drawVisibleStructure} from '../dist/unit-visibility.js';
 const overlaps=(a,b)=>Math.abs(a.x-b.x)<(a.width+b.width)/2+(a.compact?1:2)+(b.compact?1:2)&&a.y-(a.compact?1:2)<b.y+(b.compact?5:10)&&b.y-(b.compact?1:2)<a.y+(a.compact?5:10);
 // Measured by the real loaded sheets in the native Vivero review fixture.
@@ -42,6 +44,26 @@ test('native Vivero children avoid the unchanged parent meter even when each chi
   const meters=children.map(u=>entry(u,u.y-28.7133));assert.ok(meters.some(meter=>overlaps(meter,parentMeter)),'The actual native setup must expose the shared parent/child collision.');
   const layout=layoutUnitHealth([...meters,parentMeter]);assert.deepEqual(layout.at(-1),parentMeter);
   for(let i=0;i<layout.length;i++)for(let j=0;j<i;j++)assert.ok(!overlaps(layout[i],layout[j]));
+});
+
+test('restored native pairs keep owners and separate health from either server perspective',()=>{
+  const g=fresh();g.hands[0][0]='raltsHut';g.hands[1][0]='snorlax';g.energy=[10,10];g.deploy(0,0,168,508);g.deploy(1,0,168,364);for(let i=0;i<150;i++)g.step(1/30);
+  for(const team of[0,1]){
+    const restored=unpackGame(perspective(packGame(g),team)),parent=restored.units.find(u=>u.key==='raltsHut'),children=restored.units.filter(u=>u.parentId===parent.id);
+    const meters=children.map(u=>entry(u,u.y-38.09)),parentMeter={unit:parent,x:parent.x,y:parent.y-84.2193237,width:44},before=children.map(u=>({id:u.id,x:u.x,y:u.y,hp:u.hp,parentId:u.parentId}));
+    const layout=layoutUnitHealth([...meters,parentMeter]);assert.equal(layout.length,3);assert.deepEqual(layout.at(-1),parentMeter);
+    for(let i=0;i<layout.length;i++)for(let j=0;j<i;j++)assert.ok(!overlaps(layout[i],layout[j]));
+    assert.deepEqual(children.map(u=>({id:u.id,x:u.x,y:u.y,hp:u.hp,parentId:u.parentId})),before);
+  }
+});
+
+test('compact foreground health and shield readout retain the actual two ratios',()=>{
+  const unit={id:909,card:{},team:0,hp:40,maxHp:100,shield:30,maxShield:60,hit:0},calls=[];
+  const ctx=new Proxy({fillStyle:''},{get:(o,key)=>o[key]??(key==='fillRect'?((...rect)=>calls.push({color:o.fillStyle,rect})):(()=>{})),set:(o,k,v)=>(o[k]=v,true)});
+  const r=Object.assign(Object.create(Renderer.prototype),{healthStates:new Map(),t:0,drawDt:0});r.healthBar(ctx,unit,100,150,20,true);r.healthReadout(ctx,unit,100,150,20,true);
+  assert.equal(calls.filter(call=>call.color==='#43baf1'&&call.rect[2]===8).length,2);
+  assert.equal(calls.filter(call=>call.color==='#f1e0ff'&&JSON.stringify(call.rect)===JSON.stringify([90,157,10,2])).length,2);
+  assert.equal(unit.hp,40);assert.equal(unit.shield,30);
 });
 
 test('structure reveal follows actual behind-body overlap and entry, without species or parent IDs',()=>{
