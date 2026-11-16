@@ -14,11 +14,11 @@
   <link rel="stylesheet" href="assets/fonts/fonts.css?v=34">
   <link rel="stylesheet" href="style.css?v=34">
   <link rel="stylesheet" href="card-ui.css?v=34">
-  <link rel="stylesheet" href="theme.css?v=35">
+  <link rel="stylesheet" href="theme.css?v=36">
   <link rel="stylesheet" href="transient-ui.css?v=34">
   <link rel="stylesheet" href="editor.css?v=34">
   <link rel="stylesheet" href="quick-stats.css?v=34">
-  <link rel="stylesheet" href="battle-phase.css?v=34">
+  <link rel="stylesheet" href="battle-phase.css?v=35">
 </head>
 <body class="menu-mode">
   <svg class="svg-defs" aria-hidden="true"><defs>
@@ -100,10 +100,10 @@
         <div id="battle-overlays" class="battle-overlays">
           <div class="battle-hud">
             <div class="trainer-id"><strong id="enemy-name">Entrenador</strong><span id="connection-loading" class="connection-loading" role="status" aria-label="Reconectando a la partida" hidden><svg viewBox="0 0 64 64" class="loading-ball" aria-hidden="true"><use href="#i-loading-ball"/></svg></span><span id="online-status" class="online-status" role="status" hidden></span></div>
-            <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button><button id="match-leave" class="icon-btn" aria-label="Volver al inicio" title="Volver al inicio" hidden><svg aria-hidden="true"><use href="#i-home"/></svg></button><div class="battle-hud-status"><span id="phase-label" hidden>Extra</span><span id="boost" aria-hidden="true" hidden><svg viewBox="0 0 48 56"><use href="#i-elixir-boost"/></svg><b id="boost-value">×2</b></span></div></div>
+            <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button><button id="match-leave" class="icon-btn" aria-label="Volver al inicio" title="Volver al inicio" hidden><svg aria-hidden="true"><use href="#i-home"/></svg></button><button id="battle-settings-btn" class="icon-btn" title="Ajustes" aria-label="Ajustes"><svg aria-hidden="true"><use href="#i-settings"/></svg></button><div class="battle-hud-status"><span id="phase-label" hidden>Extra</span><span id="boost" aria-hidden="true" hidden><svg viewBox="0 0 48 56"><use href="#i-elixir-boost"/></svg><b id="boost-value">×2</b></span></div></div>
           </div>
 
-          <button id="battle-settings-btn" class="icon-btn" title="Ajustes" aria-label="Ajustes"><svg aria-hidden="true"><use href="#i-settings"/></svg></button><span id="battle-loading" class="battle-loading" role="status" hidden><span class="pokeball-loader" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span><span class="sr-only">Cargando recursos de batalla…</span></span>
+          <span id="battle-loading" class="battle-loading" role="status" hidden><span class="pokeball-loader" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span><span class="sr-only">Cargando recursos de batalla…</span></span>
         </div>
       </div>
     </section>
