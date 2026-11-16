@@ -23,6 +23,14 @@ export function earthquakePhase(field,age,reduced=false){
  return{growth:reduced?1:clamp(age/.34,0,1),pulse:reduced?.35:age<period?.2:Math.exp(-beatAge*8),jitter:reduced?0:Math.sin(age*38)*.7};
 }
 
+// Prepare the crest just before each native damage tick; the third completes
+// as the three-second field expires rather than creating a lingering field.
+export function earthquakeReliefPulse(field,age,reduced=false){
+ if(reduced)return 0;
+ const period=field.fieldTick||1,beat=(Math.max(0,age)%period)/period;
+ return beat<.72?0:Math.sin(Math.PI*(beat-.72)/.28);
+}
+
 // Uneven, branching faults leave the centre readable and reach the open ground
 // between actors. Coordinates describe ground detail, never an area outline.
 const FISSURES=[

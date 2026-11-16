@@ -2,7 +2,17 @@ import {test} from 'node:test';import assert from 'node:assert/strict';
 import {Renderer} from '../dist/render.js';
 import {Game} from '../dist/engine.js';
 import {packGame,perspective,unpackGame} from '../dist/snapshot.js';
-import {earthquakePhase,whirlpoolPhase,nightmareFrame,earthquakeFissures,rockSuspension} from '../dist/field-motion.js';
+import {earthquakePhase,earthquakeReliefPulse,whirlpoolPhase,nightmareFrame,earthquakeFissures,rockSuspension} from '../dist/field-motion.js';
+
+test('earthquake relief rises once shortly before each native tick and stops for reduced motion',()=>{
+ const field={fieldTick:1};
+ for(const second of [0,1,2]){
+  assert.equal(earthquakeReliefPulse(field,second+.5),0);
+  assert.ok(earthquakeReliefPulse(field,second+.86)>.999);
+  assert.ok(earthquakeReliefPulse(field,second+.99)<.12);
+  assert.equal(earthquakeReliefPulse(field,second+.86,true),0);
+ }
+});
 
 test('active rocks remain suspended with bounded continuous height and a still reduced-motion pose',()=>{
  for(let index=0;index<9;index++){

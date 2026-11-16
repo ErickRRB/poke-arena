@@ -1,0 +1,2 @@
+# Earthquake material provenance
+Generated with built-in imagegen on 2026-11-16; original C:/Users/Mapa/.codex/generated_images/01a1e34a-73dc-7231-a6b8-54bc3999db2f/exec-44657a4d-fa7c-47ea-a435-7606fbc137b5.png. Copied without raster alteration. SHA-256 59605D57AAB982ED6A0D399CA6D441289C58665A0E440ABCEB6E356F77ED743D. Prompt: transparent top-down irregular pixel-art ground fissures, fragments and dust, no circular boundary or characters. The renderer clips to real field radius and animates the decal on the native field clock.

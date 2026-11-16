@@ -13,7 +13,7 @@ import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 import * as onlineConfig from './online-config.js?v=36';
 const publicAssetUrl=onlineConfig.publicAssetUrl||((file)=>file);
-const {whirlpoolPhase,nightmareFrame,earthquakePhase,earthquakeFissures,rockSuspension}=await import(publicAssetUrl('./field-motion.js?v=36'));
+const {whirlpoolPhase,nightmareFrame,earthquakePhase,earthquakeFissures,earthquakeReliefPulse,rockSuspension}=await import(publicAssetUrl('./field-motion.js?v=36'));
 const {flameFrame,rollingFirePose,drawFireWheel,FIRE_WHEEL_FILES,loadFireWheelMaterial}=await import(publicAssetUrl('./fire-material.js?v=38'));
 const {canvasBackingSize,alignedSpriteRect}=await import(publicAssetUrl('./canvas-raster.js?v=36'));
 const {NativeSpriteSampler}=await import(publicAssetUrl('./native-sprite-sampling.js?v=36'));
@@ -1279,7 +1279,7 @@ export class Renderer {
   }
   field(c,f,front=false){
     const radius=f.radius,age=f.visualAge??(f.duration?Math.max(0,f.duration-f.life):this.t);
-    c.save();c.globalAlpha=Math.min(1,f.life/(f.key==='whirlpool'?.12:.4));
+    c.save();c.globalAlpha=Math.min(1,f.life/(f.key==='whirlpool'?.12:f.key==='earthquake'?.06:.4));
     if(!front&&f.key!=='spikes')softDisc(c,f.x,f.y,radius,{color:f.key==='stealthRock'?'#a45c4c':CARDS[f.key]?.color||'#b8cad1',opacity:f.key==='whirlpool'?.24:f.key==='stealthRock'?.32:.1,...(f.key==='stealthRock'?{interior:.8}:{})});
     if(f.key==='stealthRock'){
       for(let i=0;i<9;i++){
@@ -1338,47 +1338,31 @@ export class Renderer {
     c.drawImage(surface,field.x-radius,field.y-radius,radius*2,radius*2);
   }
   earthquake(c,field,age){
-    const radius=field.radius,phase=earthquakePhase(field,age,this.reduced),vertical=this.verticalScale||1;
+    const radius=field.radius;
+    const rise=this.reduced?1:Math.min(1,age/.2);
     c.save();c.beginPath();c.arc(field.x,field.y,radius,0,Math.PI*2);c.clip();
-    softDisc(c,field.x,field.y,radius,{color:'#8c7956',opacity:.18});
-    c.translate(field.x+phase.jitter,field.y);
-    for(const points of earthquakeFissures(radius,phase.growth)){
-      if(points.length<2)continue;
-      const banks=points.map(([x,y],index)=>{
-        const before=points[Math.max(0,index-1)],after=points[Math.min(points.length-1,index+1)],dx=after[0]-before[0],dy=after[1]-before[1],length=Math.hypot(dx,dy)||1;
-        return{x,y,nx:-dy/length,ny:dx/length,taper:1-index/(points.length-1)*.9};
-      });
-      const split=(width,offset)=>{
-        c.beginPath();
-        for(let side=1;side>=-1;side-=2){
-          const edge=side===1?banks:banks.slice().reverse();
-          edge.forEach(({x,y,nx,ny,taper},index)=>{
-            const px=x+nx*width*taper*side,py=y+ny*width*taper*side+offset;
-            side===1&&index===0?c.moveTo(px,py):c.lineTo(px,py);
-          });
-        }
-        c.closePath();c.fill();
-      };
-      c.save();c.globalAlpha*=.78;c.fillStyle='#aa8f5e';split(4.5+phase.pulse*.5,1.1);
-      c.fillStyle='#453c2e';split(2.5+phase.pulse*.7,0);c.restore();
+    c.translate(field.x,field.y);c.globalAlpha*=rise*.85;
+    const image=this.battleArt.image?.('earthquakeGround');
+    if(!image){this.combatArt(c,'earthquakeGround',0,0,radius*2,0,radius*2,{frame:0});c.restore();return;}
+    const surface=this.quakeSurface??=this.canvas.ownerDocument.createElement('canvas');
+    if(surface.width!==256||surface.height!==256){surface.width=256;surface.height=256;}
+    const ground=surface.getContext('2d');ground.setTransform(1,0,0,1,0,0);ground.globalAlpha=1;ground.globalCompositeOperation='source-over';ground.clearRect(0,0,256,256);ground.imageSmoothingEnabled=false;
+    const pulse=earthquakeReliefPulse(field,age,this.reduced);
+    // Shared strip boundaries deform a single continuous texture. The clipped
+    // light and shadow follow its temporary raised ridge, then settle.
+    const position=y=>(y-.14*pulse*Math.sin(Math.PI*y))*256;
+    for(let i=0;i<32;i++){
+      const top=position(i/32),bottom=position((i+1)/32);
+      ground.drawImage(image,0,i*32,1536,32,0,top,256,bottom-top);
     }
-    const beat=age%(field.fieldTick||1),sites=[[-.65,.32],[.08,.68],[.62,.36],[.58,-.35],[-.1,-.7],[-.57,-.33]];
-    for(let i=0;i<sites.length;i++){
-      const elapsed=this.reduced?.3:beat-(i%3)*.025;
-      if(elapsed<0||elapsed>.7)continue;
-      const progress=elapsed/.7,envelope=Math.sin(progress*Math.PI),[sx,sy]=sites[i],x=sx*radius,y=sy*radius;
-      c.save();c.globalAlpha*=this.reduced?.32:.24+envelope*.4;
-      c.save();c.translate(x,y);c.scale(1,.58);
-      softDisc(c,0,0,14+envelope*16,{color:'#c3b38d',opacity:.68});c.restore();
-      const lift=this.reduced?0:envelope*(5+phase.pulse*4)/vertical;
-      this.combatArt(c,'vfxDebris',x,y-lift,30+envelope*5,0,27,{progress:.15+progress*.75,anchor:'pivot',blend:!this.reduced});c.restore();
-      c.save();c.globalAlpha*=this.reduced?.45:(1-progress)*.85;
-      for(let chip=0;chip<3;chip++){
-        const travel=this.reduced?.3:progress,angle=i*1.73+chip*2.4,distance=travel*(10+chip*5),size=chip===1?3.4:2.6;
-        const px=x+Math.cos(angle)*distance,py=y+Math.sin(angle)*distance*.65-Math.sin(travel*Math.PI)*(9+chip*3)/vertical;
-        c.fillStyle='#6d5c40';c.fillRect(px,py,size,size*.8);c.fillStyle='#c1ab78';c.fillRect(px,py,size,1);
-      }c.restore();
+    if(pulse>0){
+      ground.globalCompositeOperation='source-atop';
+      const light=ground.createLinearGradient(0,0,0,256),alpha=n=>Math.round(n*pulse).toString(16).padStart(2,'0');
+      light.addColorStop(0,'#e8d09a00');light.addColorStop(.28,'#f2d7a7'+alpha(120));light.addColorStop(.44,'#f1d4a2'+alpha(150));
+      light.addColorStop(.59,'#4f3420'+alpha(150));light.addColorStop(.76,'#583c2600');light.addColorStop(1,'#583c2600');
+      ground.fillStyle=light;ground.fillRect(0,0,256,256);ground.globalCompositeOperation='source-over';
     }
+    c.drawImage(surface,-radius,-radius,radius*2,radius*2);
     c.restore();
   }
   frozen(c,actor){

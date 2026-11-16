@@ -1,0 +1,41 @@
+{
+  "id": "earthquake-relief-wave-concept",
+  "source": "dist/index.html",
+  "adapter": "tools/review/earthquake-relief-concept-adapter.mjs",
+  "adapterDependencies": [
+    "tools/review/live-feedback-adapter.mjs",
+    "tools/review/baseline-adapter.mjs"
+  ],
+  "scene": "field-lifecycle",
+  "fieldKey": "earthquake",
+  "preRollMs": 800,
+  "team": 0,
+  "reduced": false,
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "dpr": 1
+  },
+  "durationMs": 2900,
+  "sampleMs": 100,
+  "clock": "natural-app",
+  "expectedEvent": "cast",
+  "extractIntervalMs": 100,
+  "recordCanvas": "#arena",
+  "crop": {
+    "x": 10,
+    "y": 2,
+    "width": 370,
+    "height": 686
+  },
+  "requiredObservations": [
+    "clock",
+    "canvas",
+    "events",
+    "actorState",
+    "hp"
+  ],
+  "requireWebSocketIsolation": true,
+  "captureSurface": "canvas",
+  "concept": "wave"
+}
