@@ -3,7 +3,9 @@ import assert from 'node:assert/strict';
 import {Game} from '../dist/engine.js';
 import {healthMeterWidth,layoutUnitHealth,structureOcclusionRegions,drawVisibleStructure} from '../dist/unit-visibility.js';
 const overlaps=(a,b)=>Math.abs(a.x-b.x)<(a.width+b.width)/2+(a.compact?1:2)+(b.compact?1:2)&&a.y-(a.compact?1:2)<b.y+(b.compact?5:10)&&b.y-(b.compact?1:2)<a.y+(a.compact?5:10);
-const entry=(unit,y=unit.y-30,height=24)=>({unit,x:unit.x,y,compact:height<=32,width:healthMeterWidth(unit,30,height)});
+// Measured by the real loaded sheets in the native Vivero review fixture.
+const bodyHeights={diglettHorde:11.9999,poochyenaToken:28.9639,raltsToken:29.09,raltsTrio:29.09,exeggcute:19.7133};
+const entry=(unit,y=unit.y-30,height=bodyHeights[unit.key]??24)=>({unit,x:unit.x,y,compact:height<=32,width:healthMeterWidth(unit,30,height)});
 const fresh=()=>{const g=new Game({tutorial:true});g.start();g.aiEnabled=false;return g;};
 
 test('the real successive hut pair has separate owner meters without moving units or parent health',()=>{
@@ -31,6 +33,15 @@ for(const key of['pandilla','raltsTrio','diglettHorde'])test(`${key}: actual nat
 test('unrelated and shielded lone meters keep their original owner, coordinates and values',()=>{
   const unit={id:82,x:100,y:200,radius:12,shield:50,maxHp:900,card:{}},meter={unit,x:100,y:150,width:30};
   assert.deepEqual(layoutUnitHealth([meter]),[meter]);assert.equal(unit.shield,50);assert.equal(healthMeterWidth(unit,30),30);
+});
+
+test('native Vivero children avoid the unchanged parent meter even when each child is a separate group',()=>{
+  const g=fresh();g.hands[0][0]='vivero';g.hands[1][0]='snorlax';g.energy=[10,10];g.deploy(0,0,168,508);g.deploy(1,0,168,364);
+  for(let i=0;i<81;i++)g.step(1/30);
+  const parent=g.units.find(u=>u.key==='vivero'),children=g.units.filter(u=>u.parentId===parent.id),parentMeter={unit:parent,x:168,y:441,width:30};assert.equal(children.length,2);
+  const meters=children.map(u=>entry(u,u.y-28.7133));assert.ok(meters.some(meter=>overlaps(meter,parentMeter)),'The actual native setup must expose the shared parent/child collision.');
+  const layout=layoutUnitHealth([...meters,parentMeter]);assert.deepEqual(layout.at(-1),parentMeter);
+  for(let i=0;i<layout.length;i++)for(let j=0;j<i;j++)assert.ok(!overlaps(layout[i],layout[j]));
 });
 
 test('structure reveal follows actual behind-body overlap and entry, without species or parent IDs',()=>{

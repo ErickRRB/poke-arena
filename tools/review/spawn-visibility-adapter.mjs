@@ -31,6 +31,7 @@ export async function observe(page,config){
     if(children.length===2&&g.elapsed>=f.startAt+5.7&&!f.clearPair)f.clearPair={epochMs:performance.timeOrigin+performance.now(),gameTime:g.elapsed,parent:{id:parent.id,x:parent.x,y:parent.y,hp:parent.hp},children:children.map(u=>({id:u.id,key:u.key,x:u.x,y:u.y,hp:u.hp,parentId:u.parentId})),renderedFrame:f.lastFrame.slice()};
   });
   const sample=await baseline.observe(page,config);
+  if(config.rasterControl&&sample.fixture.pair&&!state.rasterDone){await rasterControl(page);state.rasterDone=true;}
   if(sample.fixture.pair&&!state.saved){
     const output=process.env.REVIEW_STATIC_OUTPUT;if(!output)throw Error('Use fresh REVIEW_STATIC_OUTPUT');await mkdir(output,{recursive:true});
     await page.screenshot({path:path.join(output,'pair.png')});await page.locator('#arena').screenshot({path:path.join(output,'pair-canvas.png')});
@@ -42,7 +43,6 @@ export async function observe(page,config){
   if(config.staticConcept&&state.saved&&!state.conceptDone){
     await staticConcept(page);state.conceptDone=true;
   }
-  if(config.rasterControl&&state.saved&&sample.gameTime>=sample.fixture.startAt+3.5&&!state.rasterDone){await rasterControl(page);state.rasterDone=true;}
   return sample;
 }
 async function rasterControl(page){

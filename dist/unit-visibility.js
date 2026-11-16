@@ -14,9 +14,9 @@ export function layoutUnitHealth(entries,bounds={left:0,right:600}){
   }
   const inBounds=entry=>meterRect(entry).left>=bounds.left&&meterRect(entry).right<=bounds.right;
   for(const group of groups){
-    if(group.length<2)continue;
     group.sort((a,b)=>a.x-b.x||a.unit.id-b.unit.id);
     const occupied=result.filter(entry=>!group.includes(entry)).map(meterRect),positions=[];
+    if(group.length<2&&!occupied.some(rect=>intersects(meterRect(group[0]),rect)))continue;
     let cursor=0;
     for(const entry of group){positions.push(cursor+entry.width/2+border(entry));cursor+=entry.width+2*border(entry)+3;}
     const shift=group.reduce((sum,entry,i)=>sum+entry.x-positions[i],0)/group.length;
@@ -29,6 +29,8 @@ export function layoutUnitHealth(entries,bounds={left:0,right:600}){
       const horizontal=Math.min(12,entry.width*.4),offsets=[-horizontal,0,horizontal],candidates=[];
       for(let x=4;x<horizontal;x+=4)offsets.push(-x,x);
       for(let dy=-48;dy<=48;dy+=4)for(const dx of offsets)candidates.push({...entry,x:entry.x+dx,y:entry.y+dy,score:dx*dx+dy*dy*1.4});
+      const own=meterRect(entry);
+      for(const rect of occupied)for(const dy of[rect.top-3-own.bottom,rect.bottom+3-own.top])for(const dx of offsets)if(Math.abs(dy)<=48)candidates.push({...entry,x:entry.x+dx,y:entry.y+dy,score:dx*dx+dy*dy*1.4});
       candidates.sort((a,b)=>a.score-b.score||a.y-b.y||a.x-b.x);
       const point=candidates.find(candidate=>inBounds(candidate)&&clear(candidate));
       if(point){entry.x=point.x;entry.y=point.y;}
