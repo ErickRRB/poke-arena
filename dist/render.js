@@ -828,9 +828,7 @@ export class Renderer {
       if(p.key==='lapras'&&p.style==='ice')this.iceShardCore(c,x,y,size,angle);
       this.combatArt(c,art,x,y,size,art==='needle'?0:['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true});
     };
-    // Lapras's north-facing muzzle is immediately under its HP bar. Paint the
-    // emerging shard in the world pass so the bar remains legible as it crosses.
-    if(p.key==='lapras'&&p.style==='ice')drawHead();else this.projectileHead(c,drawHead);
+    this.projectileHead(c,drawHead);
     if(!this.reduced&&!fireHead&&p.style!=='coin'&&p.style!=='rock'){
       const vertical=this.verticalScale||1,color=p.art==='petalShot'?'#f5c3df':{ember:'#f6c580',hydro:'#a5e6f2',bubble:'#c4eef1',ice:'#dbffff',poison:'#d5a3df',powder:'#d5a3df',shadow:'#b99add',leaf:'#e2edb1',psychic:'#d5baff'}[p.style]||'#e6eac9';
       const length=Math.min(p.travelled,Math.max(16,size*1.5)),bend=Math.sin(progress*Math.PI)*Math.min(8,arc*.05);
@@ -850,6 +848,13 @@ export class Renderer {
     c.beginPath();c.moveTo(size*.46,0);c.lineTo(size*.04,-size*.23);c.lineTo(-size*.4,-size*.15);c.lineTo(-size*.32,0);c.lineTo(-size*.4,size*.15);c.lineTo(size*.04,size*.23);c.closePath();
     c.fillStyle='#77c9df';c.strokeStyle='#286079';c.lineWidth=2;c.lineJoin='round';c.fill();c.stroke();
     c.beginPath();c.moveTo(size*.35,0);c.lineTo(-size*.29,0);c.strokeStyle='#e2fbff';c.lineWidth=1.5;c.stroke();c.restore();
+  }
+  iceCharge(c,x,y,size,angle){
+    c.save();c.translate(x,y);c.scale(1,1/(this.verticalScale||1));c.rotate(angle);
+    c.beginPath();c.moveTo(size*.55,0);c.lineTo(size*.12,-size*.3);c.lineTo(-size*.32,-size*.22);c.lineTo(-size*.5,0);c.lineTo(-size*.32,size*.22);c.lineTo(size*.12,size*.3);c.closePath();
+    c.fillStyle='#dcfbff';c.strokeStyle='#174b69';c.lineWidth=2;c.lineJoin='round';c.fill();c.stroke();
+    c.beginPath();c.moveTo(size*.4,0);c.lineTo(size*.02,-size*.19);c.lineTo(-size*.28,0);c.lineTo(size*.02,size*.19);c.closePath();c.fillStyle='#63c8e4';c.fill();
+    c.beginPath();c.moveTo(size*.43,0);c.lineTo(-size*.3,0);c.strokeStyle='#fff';c.lineWidth=1.5;c.stroke();c.restore();
   }
   iceImpactCore(c,x,y,size,progress){
     const opacity=Math.max(0,1-progress*3);if(!opacity)return;
@@ -1057,10 +1062,8 @@ export class Renderer {
         const art={slam:'dust',horn:'horn',eruption:'flame',lightning:'lightning',flame:'flame',ember:'emberShot',hydro:'hydroShot',bubble:'bubble',ice:'snow',leaf:'leaf',shadow:'shadow',poison:'poison',powder:'poison',egg:'egg',song:'songShot',magnet:'lightningHead'}[e.style]||'psychic';
         const chargeSize=size*(e.kind==='charge'?.4+.35*progress:1);
         if(actor.card.id===131&&e.style==='ice'){
-          // Pull the compact preparation into the head: the emission marker can
-          // sit immediately below the health bar in the north-facing pose.
-          const dx=actor.dx||0,dy=actor.dy||0,vertical=this.verticalScale||1;
-          this.iceShardCore(c,from.x-dx*5,from.y-dy*5/vertical,12+3*progress,Math.atan2(dy,dx));
+          const dx=actor.dx||0,dy=actor.dy||0;
+          this.iceCharge(c,from.x,from.y,20+4*progress,Math.atan2(dy,dx));
         }else this.combatArt(c,art,from.x,from.y,chargeSize,0,chargeSize,{age:age*.6,trim:true});
       }else if(e.kind==='impact'){
         this.combatArt(c,e.style==='song'?'song':'impact',e.x,e.y,Math.max(30,(e.radius||18)*2),0,40,{progress});
