@@ -1253,27 +1253,17 @@ export class Renderer {
   }
   earthquake(c,field,age){
     const radius=field.radius,period=field.fieldTick||1,beat=age%period;
-    const settle=this.reduced?0:Math.sin(Math.min(1,beat/.65)*Math.PI)*Math.exp(-beat*.9);
     const rise=this.reduced?1:Math.min(1,age/.2);
     c.save();c.beginPath();c.arc(field.x,field.y,radius,0,Math.PI*2);c.clip();
     c.translate(field.x,field.y);c.globalAlpha*=rise*.85;
-    // Separate textured ground plates shift away from their shared faults on
-    // each pulse. The transparent original stays entirely beneath actors.
-    const pieces=[
-      [[-1,-1],[0,-1],[-.1,-.35],[.02,0],[-.42,.04],[-1,0]],
-      [[0,-1],[1,-1],[1,0],[.4,-.08],[.02,0],[-.1,-.35]],
-      [[-1,0],[-.42,.04],[.02,0],[-.1,.35],[0,1],[-1,1]],
-      [[.02,0],[.4,-.08],[1,0],[1,1],[0,1],[-.1,.35]]
-    ];
-    c.save();c.globalAlpha*=.35;this.combatArt(c,'earthquakeGround',0,0,radius*2,0,radius*2,{frame:0});c.restore();
-    pieces.forEach((points,i)=>{
-      c.save();c.translate((i%2?1:-1)*settle*radius*.085,(i<2?-1:1)*settle*radius*.045);
-      c.beginPath();points.forEach(([x,y],j)=>j?c.lineTo(x*radius,y*radius):c.moveTo(x*radius,y*radius));c.closePath();c.clip();
-      this.combatArt(c,'earthquakeGround',0,0,radius*2,0,radius*2,{frame:0});c.restore();
-    });
-    if(!this.reduced&&settle>0){
-      for(const [x,y] of [[-.48,-.15],[.38,-.3],[-.23,.42],[.48,.3]]){
-        c.save();c.globalAlpha*=settle*.5;softDisc(c,x*radius,y*radius,radius*(.13+settle*.09),{color:'#e6c894',opacity:.8});c.restore();
+    // Each row of the one texture is drawn once. Neighbouring rows share a
+    // continuous damped wave, rather than translating copies across faults.
+    if(this.reduced)this.combatArt(c,'earthquakeGround',0,0,radius*2,0,radius*2,{frame:0});
+    else{
+      const bands=32,height=radius*2/bands,envelope=Math.exp(-beat*3.3);
+      for(let i=0;i<bands;i++){
+        const position=(i+.5)/bands,shift=radius*.105*envelope*Math.sin(beat*27+position*2.7);
+        this.battleArt.tile(c,'earthquakeGround',0,i*32,1536,32,-radius+shift,-radius+i*height,radius*2,height);
       }
     }
     c.restore();
