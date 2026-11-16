@@ -12,7 +12,7 @@ export async function prepare(page,config){
     q.fixture={ready:true,deploys:[],summons:[],lastFrame:[],frames:[],limits:'Default public219 native catalogue. AI disabled; declared initial hands/energy, actual Game.deploy accepted points. No actor, HP, spawn, sort, physics or clock replacement. Captures two successive1-Ralts waves, not a2-Ralts wave.'};
     const draw=r.draw;r.draw=function(...args){q.fixture.lastFrame=[];return draw.apply(this,args);};
     const sprite=r.sprite;r.sprite=function(ctx,unit,...args){if(!unit.mounted&&!unit.preview&&!this.silhouettePass)q.fixture.lastFrame.push({kind:'sprite',id:unit.id,key:unit.key,parentId:unit.parentId??null,x:unit.x,y:unit.y,sortY:unit.visualSortY??unit.y});return sprite.call(this,ctx,unit,...args);};
-    const health=r.healthBar;r.healthBar=function(ctx,unit,x,y,width){q.fixture.lastFrame.push({kind:'health',id:unit.id,key:unit.key,parentId:unit.parentId??null,x,y,width,outline:{left:x-width/2-2,right:x+width/2+2,top:y-2,bottom:y+(unit.maxHp<=1?4:8)+2},hp:unit.hp,maxHp:unit.maxHp});return health.call(this,ctx,unit,x,y,width);};
+    const health=r.healthBar;r.healthBar=function(ctx,unit,x,y,width,compact=false){const border=compact?1:2;q.fixture.lastFrame.push({kind:'health',id:unit.id,key:unit.key,parentId:unit.parentId??null,x,y,width,compact,outline:{left:x-width/2-border,right:x+width/2+border,top:y-border,bottom:y+(compact||unit.maxHp<=1?4:8)+border},hp:unit.hp,maxHp:unit.maxHp});return health.call(this,ctx,unit,x,y,width,compact);};
   });
   await page.evaluate(async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(resolve));});
 }
@@ -26,12 +26,16 @@ export async function observe(page,config){
     const q=__reviewAdapter,g=q.game,f=q.fixture,parent=g.units.find(u=>u.key==='raltsHut'),children=g.units.filter(u=>u.parentId===parent?.id);
     for(const u of children)if(!f.summons.some(x=>x.id===u.id))f.summons.push({id:u.id,key:u.key,x:u.x,y:u.y,parentId:u.parentId,hp:u.hp,maxHp:u.maxHp,spawn:u.spawn,createdAt:u.createdAt,observedAt:g.elapsed});
     if(children.length===2&&children.every(u=>u.spawn<=0)&&!f.pair){f.pair={epochMs:performance.timeOrigin+performance.now(),gameTime:g.elapsed,parent:{id:parent.id,x:parent.x,y:parent.y,hp:parent.hp},children:children.map(u=>({id:u.id,key:u.key,x:u.x,y:u.y,hp:u.hp,maxHp:u.maxHp,parentId:u.parentId,moving:u.moving,attack:u.attack,targetId:u.target?.id??null})),renderedFrame:f.lastFrame.slice()};}
+    if(children.length===2&&g.elapsed>=f.startAt+5.7&&!f.clearPair)f.clearPair={epochMs:performance.timeOrigin+performance.now(),gameTime:g.elapsed,parent:{id:parent.id,x:parent.x,y:parent.y,hp:parent.hp},children:children.map(u=>({id:u.id,key:u.key,x:u.x,y:u.y,hp:u.hp,parentId:u.parentId})),renderedFrame:f.lastFrame.slice()};
   });
   const sample=await baseline.observe(page,config);
   if(sample.fixture.pair&&!state.saved){
     const output=process.env.REVIEW_STATIC_OUTPUT;if(!output)throw Error('Use fresh REVIEW_STATIC_OUTPUT');await mkdir(output,{recursive:true});
     await page.screenshot({path:path.join(output,'pair.png')});await page.locator('#arena').screenshot({path:path.join(output,'pair-canvas.png')});
     await writeFile(path.join(output,'pair.json'),JSON.stringify(sample.fixture,null,2));state.saved=true;
+  }
+  if(config.clearPair&&sample.fixture.clearPair&&!state.clearSaved){
+    const output=process.env.REVIEW_STATIC_OUTPUT;await page.screenshot({path:path.join(output,'pair-clear.png')});await page.locator('#arena').screenshot({path:path.join(output,'pair-clear-canvas.png')});await writeFile(path.join(output,'pair-clear.json'),JSON.stringify(sample.fixture,null,2));state.clearSaved=true;
   }
   if(config.staticConcept&&state.saved&&!state.conceptDone){
     await staticConcept(page);state.conceptDone=true;

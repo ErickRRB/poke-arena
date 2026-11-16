@@ -7,6 +7,7 @@ import { spellPreviewTargets } from './spell-preview.js?v=34';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
 import { RoseliaBouquets } from './bouquet-motion.js?v=34';
+import {healthMeterWidth,layoutUnitHealth,structureOcclusionRegions,drawVisibleStructure} from './unit-visibility.js?v=34';
 import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 import * as onlineConfig from './online-config.js?v=36';
@@ -602,24 +603,26 @@ export class Renderer {
     return this.battleArt.draw(c,name,x,y,size,height/(this.verticalScale||1),{age:this.t,angle,...options});
   }
   queueUnitHealth(c,unit,x,y,width){
-    if(this.unitHealthQueue)this.unitHealthQueue.push({unit,x,y,width});
-    else this.healthBar(c,unit,x,y,width);
+    const height=this.bodyHeights?this.bodyHeight(unit):Infinity,compact=!unit.card.structure&&height<=32;
+    width=healthMeterWidth(unit,width,height);
+    if(this.unitHealthQueue)this.unitHealthQueue.push({unit,x,y,width,compact});
+    else this.healthBar(c,unit,x,y,width,compact);
   }
-  healthBar(c,unit,x,y,width){
+  healthBar(c,unit,x,y,width,compact=false){
     const ratio=Math.max(0,unit.hp/unit.maxHp);let h=this.healthStates.get(unit.id);
     if(!h){h={chip:ratio,last:ratio,at:-10};this.healthStates.set(unit.id,h);}
     if(unit.card.structure)h.chip=ratio;
     else if(ratio<h.last-.001){h.at=this.t;h.chip=Math.max(h.chip,h.last);}if(ratio>h.chip)h.chip=ratio;h.last=ratio;
     if(this.t-h.at>.35)h.chip=Math.max(ratio,h.chip-(this.drawDt||0)*.9);
-    const height=unit.maxHp<=1?4:8;
-    rect(c,'#09170f',x-width/2-2,y-2,width+4,height+4);rect(c,'#32413b',x-width/2,y,width,height);
+    const height=compact||unit.maxHp<=1?4:8,border=compact?1:2;
+    rect(c,'#09170f',x-width/2-border,y-border,width+2*border,height+2*border);rect(c,'#32413b',x-width/2,y,width,height);
     if(h.chip>ratio)rect(c,'#ffe2a2',x-width/2,y,width*h.chip,height);
     rect(c,unit.team?'#ef615a':'#43baf1',x-width/2,y,width*ratio,height);rect(c,unit.team?'#ffaaa0':'#a3e5ff',x-width/2,y,width*ratio,2);
     if(unit.maxHp>1)for(let i=1;i<4;i++)rect(c,'#061a243d',x-width/2+width*i/4,y,1,height);
     if(unit.hit>.12){c.save();c.globalAlpha=(unit.hit-.12)/.12;rect(c,'#fff5cf',x-width/2,y,width*ratio,3);c.restore();}
-    if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
+    if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+(compact?6:10),width+2,compact?4:5);rect(c,'#f1e0ff',x-width/2,y+(compact?7:11),width*unit.shield/Math.max(unit.shield,unit.maxShield||1),compact?2:3);}
   }
-  healthReadout(c,unit,x,y,width){
+  healthReadout(c,unit,x,y,width,compact=false){
     // Keep the native meter's upper half and complete shield legible while a
     // moving head passes; the larger health box remains behind that head.
     const ratio=Math.max(0,unit.hp/unit.maxHp),chip=this.healthStates?.get(unit.id)?.chip??ratio;
@@ -629,7 +632,7 @@ export class Renderer {
     rect(c,unit.team?'#ffaaa0':'#a3e5ff',x-width/2,y,width*ratio,2);
     if(unit.maxHp>1)for(let i=1;i<4;i++)rect(c,'#061a243d',x-width/2+width*i/4,y,1,4);
     if(unit.hit>.12){c.save();c.globalAlpha=(unit.hit-.12)/.12;rect(c,'#fff5cf',x-width/2,y,width*ratio,3);c.restore();}
-    if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
+    if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+(compact?6:10),width+2,compact?4:5);rect(c,'#f1e0ff',x-width/2,y+(compact?7:11),width*unit.shield/Math.max(unit.shield,unit.maxShield||1),compact?2:3);}
   }
   platform(c,unit){
     if(unit.card.burrow){
@@ -1335,7 +1338,18 @@ export class Renderer {
     this.towerHealthQueue=[];this.unitHealthQueue=[];this.projectileHeadQueue=[];
     (this.biteJawActors??=new Set()).clear();
     const objects=[...this.frameActors.values()].sort((a,b)=>(a.visualSortY??a.y)-(b.visualSortY??b.y));
-    for(const actor of objects){if('king'in actor)this.tower(c,actor);else this.sprite(c,actor);this.frozen(c,actor);}
+    for(const actor of objects){
+      if('king'in actor)this.tower(c,actor);
+      else if(actor.card.structure){
+        const height=this.bodyHeight(actor),width=Math.max(actor.radius*3,STRUCTURE_ART[actor.card.structureArt]?.width||height*.82),box={left:actor.x-width/2,right:actor.x+width/2,top:actor.y-height,bottom:actor.y+8};
+        const regions=structureOcclusionRegions(actor,this.frameActors.values(),box,unit=>{
+          const lift=unit.card.flying?16/(this.verticalScale||1):0;
+          return{width:Math.max(10,unit.radius*2+6),height:this.bodyHeight(unit)-lift,bottom:unit.y-lift};
+        });
+        drawVisibleStructure(c,box,regions,ctx=>this.sprite(ctx,actor));
+      }else this.sprite(c,actor);
+      this.frozen(c,actor);
+    }
     for(const field of fields)if(['stealthRock','nightmare'].includes(field.key))this.field(c,field,true);
     this.drawDeployments(c,game);
     if(game.state==='ready')for(const[key,x,y,team]of[['pikachu',217,286,1],['squirtle',393,290,1],['charmander',210,554,0],['bulbasaur',390,550,0]])this.sprite(c,{id:x,card:CARDS[key],x,y,team,anim:this.t,dx:0,dy:team?1:-1},true);
@@ -1350,9 +1364,10 @@ export class Renderer {
     for(const[key,pose]of this.visualFields||[])if(this.t-pose.at>1)this.visualFields.delete(key);
     for(const p of this.particles){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=p.gravity*dt;c.globalAlpha=Math.max(0,p.life/p.max);this.combatArt(c,'dust',p.x,p.y,Math.max(8,p.size*3),0,Math.max(8,p.size*3),{progress:1-p.life/p.max});}
     this.particles=this.particles.filter(p=>p.life>0);c.globalAlpha=1;
-    for(const {unit,x,y,width} of this.unitHealthQueue)this.healthBar(c,unit,x,y,width);
+    this.unitHealthQueue=layoutUnitHealth(this.unitHealthQueue,this.worldBounds);
+    for(const {unit,x,y,width,compact} of this.unitHealthQueue)this.healthBar(c,unit,x,y,width,compact);
     for(const draw of this.projectileHeadQueue)draw();delete this.projectileHeadQueue;
-    for(const {unit,x,y,width} of this.unitHealthQueue)this.healthReadout(c,unit,x,y,width);delete this.unitHealthQueue;
+    for(const {unit,x,y,width,compact} of this.unitHealthQueue)this.healthReadout(c,unit,x,y,width,compact);delete this.unitHealthQueue;
     for(const tower of this.towerHealthQueue)this.towerHealth(c,tower);delete this.towerHealthQueue;
     c.restore();
   }
