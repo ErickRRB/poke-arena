@@ -5,7 +5,19 @@ import {SPRITE_GEOMETRY} from '../dist/sprite-geometry.js';
 import {attackAnimationFrame,emissionPoint} from '../dist/sprite-motion.js';
 import {FlightWings} from '../dist/wing-motion.js';
 import {Renderer} from '../dist/render.js';
-import {attackVisualProfile,biteMotion,biteJaw} from '../dist/combat-visuals.js';
+import {petalPreparation,attackVisualProfile,biteMotion,biteJaw} from '../dist/combat-visuals.js';
+
+test('petal preparation follows the native windup and restored actor, then stops on release or cancellation',()=>{
+  const card=CARDS.roselia,actor={id:7,card,hp:card.hp,stun:0,attack:card.attackDuration,attackDuration:card.attackDuration,attackWindup:card.windup};
+  const before=JSON.stringify(actor),first=petalPreparation(actor);assert.ok(first);assert.equal(first.progress,0);assert.equal(JSON.stringify(actor),before);
+  actor.attack-=card.windup/2;const mid=petalPreparation(actor);assert.ok(mid.progress>.49&&mid.progress<.51);
+  assert.equal(first.gather,0);assert.ok(mid.gather>0&&mid.gather<1);
+  assert.equal(petalPreparation({...actor,attack:card.attackDuration-card.windup*.8}).gather,1,'The gathered hands hold before release.');
+  assert.deepEqual(petalPreparation(structuredClone(actor)),mid,'A restored mid-windup actor needs no historic attackStart event.');
+  assert.equal(petalPreparation({...actor,attack:card.attackDuration-card.windup}),null,'Preparation ends exactly when the native projectile releases.');
+  for(const change of[{stun:.1},{hp:0},{attack:0},{card:CARDS.nuzleaf}])assert.equal(petalPreparation({...actor,...change}),null);
+  assert.equal(petalPreparation(actor,true).gather,petalPreparation({...actor,attack:card.attackDuration},true).gather,'Reduced motion uses one steady preparation.');
+});
 
 // Contacts chosen by reviewing original eight-direction rasters, not HitFrame
 // metadata (several original HitFrames repeat a preparation drawing).

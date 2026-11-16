@@ -2,10 +2,11 @@ import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTar
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
-import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
+import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation,petalPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
 import { spellPreviewTargets } from './spell-preview.js?v=34';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
+import { RoseliaBouquets } from './bouquet-motion.js?v=34';
 import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 import * as onlineConfig from './online-config.js?v=36';
@@ -458,6 +459,7 @@ export class Renderer {
     if(!this.speciesLoads.has(id))this.ensureSpecies([id]).catch(()=>{});
     const movement=movementVisual(unit.card);
     const preparation=dashPreparation(unit,this.reduced);
+    const petals=!unit.preview&&petalPreparation(unit,this.reduced);
     const golemHurt=unit.key==='golem'&&(unit.deathHurt||unit.pushHurt>0);
     let anim = golemHurt?'Hurt':unit.attack > 0||preparation ? (unit.attackAnim||unit.card.attackAnim||'Attack') : unit.moving||unit.card.flying ? movement.animation : unit.hit>0&&unit.key!=='golem'?'Hurt':unit.card.idleAnim||'Idle';
     if (!this.sprites.has(`${id}-${anim}`)) anim = 'Walk';
@@ -479,6 +481,7 @@ export class Renderer {
     const poseProfile=attackVisualProfile(unit.card);
     frame=attacking?attackAnimationFrame(meta,elapsed,unit.attackDuration||.6,windup,poseProfile.attackFrames,poseProfile):animationFrame(loopMeta,clock);
     if(preparation)frame=Math.min(meta.durations.length-1,preparation.frame);
+    if(petals&&id===315&&anim==='Shoot')frame=0;
     if(loopFrames)frame=loopFrames[frame];
     let direction = directionRow(unit.dx,unit.dy);
     if(img.height/meta.height<8)direction=0;
@@ -487,7 +490,7 @@ export class Renderer {
     const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:unit.leap.kind==='river'?24:48):0;
     const lift=(leapLift+(unit.card.structure?structureLift(unit.card):unit.card.flying?16+(this.reduced?0:Math.sin(flightClock*2.6+unit.id)*1.5):0))/vertical;
     const lunge=attackLunge(unit,this.reduced);
-    return{id,meta,img,scale,vertical,anim,frame,direction,anchor,lift,lunge,flightClock,preparation};
+    return{id,meta,img,scale,vertical,anim,frame,direction,anchor,lift,lunge,flightClock,preparation,petals};
   }
   sprite(c, unit, idle = false) {
     if(unit.card.structureArt){this.structureSprite(c,unit,idle);return;}
@@ -495,7 +498,7 @@ export class Renderer {
     const buriedHealthY=unit.y-25/(this.verticalScale||1);
     if(burrow>=.999){this.platform(c,unit);if(!idle&&!this.silhouettePass)this.queueUnitHealth(c,unit,unit.x,buriedHealthY,44);return;}
     const pose=this.nativeSpritePose(unit);if(!pose)return;
-    const {id,meta,img,scale,vertical,anim,frame,direction,anchor,lift,lunge,flightClock,preparation}=pose,{x,y}=unit;
+    const {id,meta,img,scale,vertical,anim,frame,direction,anchor,lift,lunge,flightClock,preparation,petals}=pose,{x,y}=unit;
     const radius=unit.radius||12;
     if(!unit.mounted&&!unit.preview&&!this.silhouettePass){
       ellipse(c,'#15382a65',x,y+2,radius+2,unit.card.flying?6:4);
@@ -513,7 +516,8 @@ export class Renderer {
     if(unit.hit>0&&!this.reduced) c.filter=`brightness(${1+.35*unit.hit/.24})`;
     const px=x+unit.dx*lunge-anchor.x*scale,py=y+unit.dy*lunge/vertical-lift-(this.reduced?0:(1-spawnProgress)*12/vertical)-anchor.y*scale/vertical+burrow*((this.bodyHeights.get(id)||22)*scale+25)/vertical;
     if(!this.silhouettePass&&(unit.dash?.phase==='travel'||unit.card.charge&&unit.charge>=unit.card.charge)&&!this.reduced){for(let i=3;i>0;i--){c.globalAlpha=.08*(4-i);c.drawImage(img,frame*meta.width,direction*meta.height,meta.width,meta.height,Math.round(px-unit.dx*i*9),Math.round(py-unit.dy*i*9/vertical),meta.width*scale,meta.height*scale/vertical);}c.globalAlpha=1;}
-    const articulated=this.nativeSpriteSampler?.frame(id,anim,direction,frame,meta,scale,vertical,c.getTransform?.(),img)||this.flightWings.frame(id,anim,direction,frame,img,meta,flightClock+(unit.id||0)*.173,this.reduced);
+    this.roseliaBouquets??=new RoseliaBouquets();
+    const articulated=this.roseliaBouquets.frame(id,anim,direction,img,meta,petals)||this.nativeSpriteSampler?.frame(id,anim,direction,frame,meta,scale,vertical,c.getTransform?.(),img)||this.flightWings.frame(id,anim,direction,frame,img,meta,flightClock+(unit.id||0)*.173,this.reduced);
     const spriteImage=articulated?.image||img,spriteFrame=alignedSpriteRect(articulated?[0,0,articulated.image.width,articulated.image.height,px-articulated.padding*scale,py-articulated.padding*scale/vertical,articulated.width*scale,articulated.height*scale/vertical]:[frame*meta.width,direction*meta.height,meta.width,meta.height,px,py,meta.width*scale,meta.height*scale/vertical],c.getTransform?.());
     c.drawImage(spriteImage,...spriteFrame);
     if(preparation&&!unit.preview&&!this.silhouettePass)this.dashWindup(c,unit,preparation,true);
@@ -658,7 +662,7 @@ export class Renderer {
       this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,targetId:held.targetId??current?.targetId,shot,until}),held});
       if(profile.style==='ember'&&isRangedAttack(profile)&&!profile.suicide){const life=profile.id===6?.18:.16;this.effects.push({...event,kind:'muzzleFlame',sourceId:actor.id,targetId:event.target?.id,attackId:`${actor.id}:${actor.attackSeq}:${shot}`,life,max:life});}
     }
-    if(type==='attackStart'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
+    if(type==='attackStart'&&event.attacker?.card?.projectileArt!=='petalShot'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='beam'&&!event.missed){const life=event.hop===undefined?.42:.18;this.effects.push({...event,kind:'beam',life,max:life});}
     if(type==='flame'){const life=event.length/(event.speed||300)+.18;this.effects.push({...event,kind:'flame',life,max:life});}
@@ -1110,7 +1114,7 @@ export class Renderer {
       if(!card.spell&&placement){
         const ranged=(card.squad?card.squad.map(k=>CARDS[k]):[card]).filter(isRangedAttack),range=Math.max(...ranged.map(member=>member.range));
         if(!card.passive&&ranged.length){
-        softDisc(c,point.x,point.y,range,{color:'#fff6df',opacity:.2});
+        softDisc(c,point.x,point.y,range,{color:'#fff6df',opacity:.23,interior:.8,feather:16});
         }
         for(const enemy of game.deploymentThreats(team,key,point.x,point.y)){
           const height='king'in enemy?(enemy.king?106:96):this.bodyHeight(enemy,23)+25;

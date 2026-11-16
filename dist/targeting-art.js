@@ -1,12 +1,12 @@
 // Tactical markings are deliberately separate from the illustrated attacks.
 // All dimensions are ground coordinates, shared with the collision geometry.
-export function softDisc(c,x,y,radius,{color='#fff4ce',opacity=.2}={}){
+export function softDisc(c,x,y,radius,{color='#fff4ce',opacity=.2,interior,feather}={}){
   if(!(radius>0))return;
   const hex=/^#[\da-f]{6}$/i.test(color)?color:'#fff4ce',value=Number.parseInt(hex.slice(1),16);
   const rgba=alpha=>`rgba(${value>>16},${value>>8&255},${value&255},${alpha})`;
   const glow=c.createRadialGradient(x,y,0,x,y,radius);
-  glow.addColorStop(0,rgba(opacity*.55));glow.addColorStop(.6,rgba(opacity*.65));
-  glow.addColorStop(.82,rgba(opacity));glow.addColorStop(1,rgba(0));
+  glow.addColorStop(0,rgba(opacity*(interior??.55)));glow.addColorStop(.6,rgba(opacity*(interior??.65)));
+  glow.addColorStop(feather===undefined?.82:Math.max(.6,1-feather/radius),rgba(opacity));glow.addColorStop(1,rgba(0));
   c.save();c.fillStyle=glow;c.beginPath();c.arc(x,y,radius,0,Math.PI*2);c.fill();c.restore();
 }
 export function areaGuide(c,x,y,radius,{team=0,valid=true,color,emphasis=false}={}){
