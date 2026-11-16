@@ -9,3 +9,6 @@ ed36 shows real motion but the four rigid copies create straight joins and dupli
 
 ## Concept decision — ridge
 In the two CSS390 native-scene concept captures, one broad ridge is more legible as lift and settling than two alternating shading bands, which read more like lighting changes. Proceed provisionally with ridge for one full native lifecycle and independent review; this is a direction choice, not a perceptual approval. Preserve connected strip boundaries and source-alpha-masked relief shading; no new material, engine changes, readback, global camera motion, or physical area changes.
+
+## Tick-aligned relief after 69c review
+69c field begins at game≈.500; first sample .533 has life2.9667. Existing sin(π·beat/.62) peaks at field ages .31/1.31/2.31, while damage81 occurs game1.533/2.533/3.533 (about field ages1.033/2.033/3.033), so crests lead by roughly .72s and final damage occurs at expiration. Move each crest into final .28s of its existing 1s interval (peak .86 before each tick, visually about .17s ahead in this trace); maintain three-second field and do not draw extra duration. Earthquake-only visual fade becomes .06s, so the last crest is not erased by the former .4s fade; reduced stays static. Compare three narrow windows and end against native events; no new material, physics, or other fields.
