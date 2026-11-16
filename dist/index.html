@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="assets/fonts/fonts.css?v=34">
   <link rel="stylesheet" href="style.css?v=34">
   <link rel="stylesheet" href="card-ui.css?v=34">
-  <link rel="stylesheet" href="theme.css?v=36">
+  <link rel="stylesheet" href="theme.css?v=37">
   <link rel="stylesheet" href="transient-ui.css?v=34">
   <link rel="stylesheet" href="editor.css?v=34">
   <link rel="stylesheet" href="quick-stats.css?v=34">
@@ -92,7 +92,7 @@
         <div class="arena-corner corner-tl"></div><div class="arena-corner corner-tr"></div><div class="arena-corner corner-bl"></div><div class="arena-corner corner-br"></div>
         <div id="loading" class="loading-overlay" role="status" aria-label="Cargando el juego"><span class="pokeball-loader is-indeterminate" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span></div>
         <div id="guide" class="guide" role="status" hidden><span id="guide-step" class="guide-step" aria-label="Paso 1 de 3">1</span><strong id="guide-text">Elegí una carta.</strong><button id="skip-guide" class="secondary-btn">Omitir</button></div>
-        <div id="pause-overlay" class="pause-overlay" hidden><div><svg class="pause-symbol"><use href="#i-pause"/></svg><h2>En pausa</h2><button id="resume-btn" class="primary-btn">Continuar<svg aria-hidden="true"><use href="#i-play"/></svg></button><button id="pause-menu-btn" class="secondary-btn"><svg aria-hidden="true"><use href="#i-home"/></svg>Volver al inicio</button></div></div>
+        <div id="pause-overlay" class="pause-overlay" hidden><div><svg class="pause-symbol"><use href="#i-pause"/></svg><h2>En pausa</h2><button id="resume-btn" class="primary-btn">Continuar<svg aria-hidden="true"><use href="#i-play"/></svg></button><button id="pause-settings-btn" class="secondary-btn"><svg aria-hidden="true"><use href="#i-settings"/></svg>Ajustes</button><button id="pause-menu-btn" class="secondary-btn"><svg aria-hidden="true"><use href="#i-home"/></svg>Volver al inicio</button></div></div>
         <div id="result-overlay" class="result-overlay" hidden>
           <div class="result-content"><svg class="result-crown"><use href="#i-crown"/></svg><span class="eyebrow" id="result-eyebrow">BATALLA TERMINADA</span><h2 id="result-title">Victoria</h2><div class="result-score"><span id="result-player">1</span><span>—</span><span id="result-enemy">0</span></div><p id="result-reason"></p><div class="result-stats"><div><strong id="result-deployed">0</strong><span>Desplegados</span></div><div><strong id="result-damage">0</strong><span>Daño total</span></div></div><button id="again-btn" class="primary-btn">Volver a jugar<svg aria-hidden="true"><use href="#i-arrow"/></svg></button><button id="result-menu-btn" class="text-btn">Volver al inicio</button></div>
         </div>
@@ -159,6 +159,6 @@
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
   <div class="sr-only" id="battle-phase-announcement" role="status" aria-live="polite" aria-atomic="true"></div>
   <dialog id="portrait-dialog" class="modal small-modal portrait-dialog" aria-labelledby="portrait-title" aria-describedby="portrait-description"><h2 id="portrait-title">Jugá en vertical</h2><p id="portrait-description">Girá el teléfono para continuar.</p></dialog>
-  <script type="module" src="app.js?v=37"></script>
+  <script type="module" src="app.js?v=38"></script>
 </body>
 </html>

@@ -498,6 +498,7 @@ $('resume-btn').addEventListener('click',togglePause);
 $('help-btn').addEventListener('click',()=>openModal('help-dialog'));
 $('settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
 $('battle-settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
+$('pause-settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
 $('settings-credits-btn').addEventListener('click',()=>openModal('credits-dialog'));
 $('help-practice-btn').addEventListener('click',()=>{if(!document.body.classList.contains('menu-mode'))return;closeModal($('help-dialog'),false);newGame({start:true,tutorial:true});});
 $('sound-btn').addEventListener('click',()=>{sound=!sound;updateSound();audioInit();if(sound)tone(580,.13,'sine',.05);});
