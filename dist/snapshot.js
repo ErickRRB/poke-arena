@@ -7,8 +7,8 @@ import { currentDeck } from './card-key-migrations.js?v=34';
 export function migrateLegacyCardIdentity(value){
   if(!value||typeof value!=='object')return value;
   if(Array.isArray(value)){value.forEach(migrateLegacyCardIdentity);return value;}
-  if(value.key==='voltorb'&&value.card?.id===100){
-    value.card={...value.card,scale:CARDS.voltorb.scale,visualScale:CARDS.voltorb.visualScale};
+  if(value.key==='voltorb'&&(!value.card||value.card.id===100)){
+    if(value.card)value.card={...value.card,scale:CARDS.voltorb.scale,visualScale:CARDS.voltorb.visualScale};
     if('scale'in value)value.scale=CARDS.voltorb.scale;
   }
   const legacy=value.key==='blastoise'||value.sourceKey==='blastoise';

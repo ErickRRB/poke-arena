@@ -6,7 +6,9 @@ import {unpackEvent} from '../dist/online-wire.js?v=34';
 import {Renderer} from '../dist/render.js';
 import old from './fixtures/spirit-scales-5d1.json' with {type:'json'};
 import manifest from '../dist/assets/pokemon/manifest.json' with {type:'json'};
+import compact from './fixtures/spirit-compact-5d1.json' with {type:'json'};
 const withoutScale=card=>{const{scale,visualScale,...fields}=card;return fields;};
+const spiritRenderer=()=>{const meta=manifest['100'].Walk;return Object.assign(Object.create(Renderer.prototype),{reduced:false,t:2,drawDt:0,verticalScale:1.5,metadata:{100:{Walk:meta}},sprites:new Map([['100-Walk',{width:meta.width*meta.durations.length,height:meta.height*8}]]),speciesLoads:new Map([[100,Promise.resolve()]]),anchors:new Map(),bodyHeights:new Map([[100,18]])});};
 
 test('Voltorb scale is per key and every other spirit field stays identical to the published fixture',()=>{
  assert.equal(CARDS.voltorb.scale,1.35);assert.equal(CARDS.voltorb.visualScale,1.35);assert.deepEqual(withoutScale(CARDS.voltorb),withoutScale(old.voltorb));
@@ -26,8 +28,26 @@ test('full legacy unit/event cards normalize visual scale in both perspectives w
 });
 
 test('integrated catalog scaling gives the same native body pose as the observed1.35 fixture override',()=>{
- const meta=manifest['100'].Walk,renderer=Object.assign(Object.create(Renderer.prototype),{reduced:false,t:2,drawDt:0,verticalScale:1.5,metadata:{100:{Walk:meta}},sprites:new Map([['100-Walk',{width:meta.width*meta.durations.length,height:meta.height*8}]]),speciesLoads:new Map([[100,Promise.resolve()]]),anchors:new Map(),bodyHeights:new Map([[100,18]])});
+ const renderer=spiritRenderer();
  const unit={id:7,key:'voltorb',card:CARDS.voltorb,radius:CARDS.voltorb.radius,x:168,y:600,dx:0,dy:-1,attack:0,moving:true,anim:2,spawn:0};
  const a=renderer.nativeSpritePose(unit),b=renderer.nativeSpritePose({...unit,scale:1.35,card:old.voltorb});
  for(const field of['id','scale','vertical','anim','frame','direction','lift','lunge'])assert.deepEqual(a[field],b[field],field);assert.deepEqual(a.anchor,b.anchor);
+});
+
+test('actual5d1 compact unit and spawn event normalize the entity override in both perspectives',()=>{
+ for(const team of[0,1]){
+  const r=unpackGame(perspective(compact.packet,team)),v=r.units.find(u=>u.id===compact.actorId),f=r.units.find(u=>u.id===compact.controlId);
+  assert.equal(v.scale,1.35);assert.equal(v.card.scale,1.35);assert.equal(v.scale??v.card.scale,1.35);
+  assert.equal(spiritRenderer().nativeSpritePose(v).scale,1.35,'Actual compact restored entity reaches the renderer at1.35');
+  const again=unpackGame(packGame(r)).units.find(u=>u.id===v.id);assert.equal(again.scale,1.35);assert.equal(again.radius,v.radius);assert.equal(again.hp,v.hp);
+  assert.equal(f.scale,1.875);assert.deepEqual(f.card,old.fireSpiritToken);
+  assert.equal(spiritRenderer().nativeSpritePose(f).scale,1.875);
+  for(const raw of compact.spawnEvents){
+   assert.equal(raw.unit.card,undefined,'The actual old encoder omitted a canonical card');
+   const event=unpackEvent(perspective(raw,team)).unit;
+   assert.equal(event.id,raw.unit.id);assert.equal(event.radius,raw.unit.radius);assert.equal(event.hp,raw.unit.hp);
+   assert.equal(event.scale,event.key==='voltorb'?1.35:1.875);assert.equal(event.card.scale,event.key==='voltorb'?1.35:1.875);
+  }
+ }
+ assert.equal(compact.packet.units.find(u=>u.id===compact.actorId).scale,1.875,'The original authoritative packet is unchanged');
 });
