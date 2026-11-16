@@ -850,6 +850,11 @@ export class Game {
       if(point&&this.aiSpellTargets(choice.card,point).includes(tower)&&this.deploy(1,choice.i,point.x,point.y).ok)return;
     }
     if (!threats.length && this.energy[1] < (this.difficulty === 'easy' ? 7 : 5)) return;
+    // A healthy, active tower can clear a small one-shot group already in its
+    // range. Bound a single hit from each against its health before saving.
+    if(threats.length&&this.towers.some(t=>t.team===1&&t.hp>t.maxHp/2&&t.active&&!t.stun&&
+      (!t.target||threats.includes(t.target))&&threats.every(u=>u.hp<=t.damage&&distance(u,t)<=attackReach(t,u))&&
+      threats.reduce((sum,u)=>sum+(u.card.damage||0)*Math.max(1,u.card.burst||1),0)<=t.maxHp/10))return;
     // A pull is useful when a live splash attacker can exploit a cluster now.
     const pull = affordable.find(c => c.key === 'whirlpool');
     if (pull) {
@@ -894,7 +899,7 @@ export class Game {
           if(!rollingOverlapsTarget(choice.card,origin,end,target))continue;
           const victims=this.units.filter(u=>u.team===0&&u.hp>0&&!u.burrowed&&isCombatTargetReady(u)&&!u.card.flying&&rollingOverlapsTarget(choice.card,origin,end,u));
           const lethal='king'in target&&target.hp<=choice.card.towerDamage;
-          if(lethal||victims.length>=2||victims.some(u=>u.hp<=choice.card.damage&&(u.card.cost||0)>=choice.card.cost)){
+          if(lethal||this.aiSpellVictimsWorth(choice.card,victims)){
             if(this.deploy(1,choice.i,origin.x,origin.y).ok)return;
           }
         }
@@ -928,8 +933,24 @@ export class Game {
     const targets=this.aiSpellTargets(card,point);
     if('king'in point)return point.hp<=(card.towerDamage||0)&&targets.includes(point);
     const victims=targets.filter(t=>!('king'in t));
+    return this.aiSpellVictimsWorth(card,victims);
+  }
+  aiSpellVictimsWorth(card,victims){
     const damage=card.damage||0;
-    return victims.length>=2||victims.some(u=>damage>=u.hp&&(u.card.cost||0)>=card.cost);
+    // Credit only damage that can actually land, divided among the members of
+    // a deployed swarm. This keeps a few cheap bodies from valuing a costly
+    // selective spell as if each were a full card.
+    const value=victims.reduce((sum,u)=>sum+(u.card.cost||0)/Math.max(1,u.card.count||1)*Math.min(damage,u.hp)/Math.max(1,u.maxHp),0);
+    if(value+1e-7>=card.cost)return true;
+    // Pay for an otherwise unfavorable lethal spell to stop an imminent hit
+    // that would destroy a friendly tower. This is a short-range estimate, not
+    // a prediction of pathing, projectile travel or future retargeting.
+    return this.towers.some(t=>t.team===1&&t.hp>0&&victims.some(u=>
+      damage>=u.hp&&!u.card.passive&&u.card.damage>0&&
+      t.hp<=u.card.damage*Math.max(1,u.card.burst||1)&&
+      distance(u,t)<=attackReach(u,t)+(u.card.speed||0)*((card.castDelay||0)+1)&&
+      (u.card.building||u.target===t||!u.target)
+    ));
   }
   aiPullPoint(card){
     const enemies=this.units.filter(u=>u.team===0&&u.hp>0&&!u.burrowed&&!u.card.structure&&!u.leap&&isCombatTargetReady(u));
