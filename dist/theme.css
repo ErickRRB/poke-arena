@@ -285,3 +285,7 @@ input::placeholder{color:#74796d;opacity:1}
 .debug-settings summary:before{content:'›';font-size:21px;line-height:1}
 .debug-settings[open] summary:before{transform:rotate(90deg)}
 .debug-settings .setting-row{border-bottom:0;padding-top:4px}
+
+.volume-setting input[type=range]{flex:1;min-width:60px;accent-color:#a24738;cursor:pointer}
+.volume-setting output{min-width:3em;text-align:right;font-size:12px;font-variant-numeric:tabular-nums}
+#battle-settings-btn{position:absolute;top:104px;right:8px;z-index:2;pointer-events:auto;touch-action:manipulation}

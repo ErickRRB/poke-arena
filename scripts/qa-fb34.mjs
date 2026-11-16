@@ -1,0 +1,37 @@
+import http from 'node:http';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+const root=path.resolve(import.meta.dirname,'..'),dist=path.join(root,'dist');
+const mime={'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.webp':'image/webp','.png':'image/png','.svg':'image/svg+xml','.mp3':'audio/mpeg','.wav':'audio/wav','.woff2':'font/woff2'};
+const server=http.createServer(async(req,res)=>{try{const name=decodeURIComponent(new URL(req.url,'http://localhost').pathname),file=path.resolve(dist,'.'+(name==='/'?'/index.html':name));if(!file.startsWith(dist+path.sep))throw Error('path');let data=await readFile(file);if(name==='/app.js')data=Buffer.concat([data,Buffer.from('\nglobalThis.__audioQA={sfx,get game(){return game},get selection(){return selected},renderer};')]);const headers={'Content-Type':mime[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store','Accept-Ranges':'bytes'};if(req.headers.range){const m=/^bytes=(\d+)-(\d*)$/.exec(req.headers.range);if(m){const start=+m[1],end=m[2]?Math.min(+m[2],data.length-1):data.length-1;if(start>=data.length){res.writeHead(416,{'Content-Range':`bytes */${data.length}`}).end();return;}res.writeHead(206,{...headers,'Content-Range':`bytes ${start}-${end}/${data.length}`,'Content-Length':end-start+1}).end(data.subarray(start,end+1));return;}}res.writeHead(200,{...headers,'Content-Length':data.length}).end(data);}catch{res.writeHead(404).end();}});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const {chromium}=await import(pathToFileURL(process.env.POKE_ARENA_PLAYWRIGHT_MODULE||path.join(root,'../pokemon-arena/qa/node_modules/playwright/index.mjs')).href),browser=await chromium.launch({channel:'msedge',headless:true});
+const report={viewport:{width:390,height:844},errors:[]};
+try{
+ const page=await browser.newPage({viewport:report.viewport,deviceScaleFactor:1});page.on('pageerror',e=>report.errors.push(String(e)));
+ await page.goto(`http://127.0.0.1:${server.address().port}`);await page.waitForFunction(()=>window.__audioQA&&!document.querySelector('#start-btn').disabled,{timeout:60000});
+ await page.locator('#start-btn').click();await page.waitForFunction(()=>__audioQA.sfx.music?.current&&!__audioQA.sfx.music.current.element.paused,{timeout:30000});
+ const snapshot=()=>page.evaluate(()=>{const s=__audioQA.sfx,e=s.music.current?.element;return {gameState:__audioQA.game.state,selection:__audioQA.selection,units:__audioQA.game.units.length,energy:__audioQA.game.energy[0],pointer:__audioQA.renderer.pointer,levels:s.levels,buses:{music:s.musicBus.gain.value,effects:s.effectsBus.gain.value,voices:s.voicesBus.gain.value,ui:s.uiBus.gain.value,master:s.master.gain.value},track:s.music.current?.track.id,time:e?.currentTime,paused:e?.paused,slots:s.music.slots.size,rects:Object.fromEntries(['arena','hand','energy-bar'].map(id=>{let r=document.getElementById(id).getBoundingClientRect();return[id,[r.x,r.y,r.width,r.height]]}))};});
+ report.before=await snapshot();await page.locator('#battle-settings-btn').click();await page.waitForTimeout(400);report.open=await snapshot();
+ await mkdir(path.join(root,'docs/audio-feedback/fb34-demo'),{recursive:true});await page.screenshot({path:path.join(root,'docs/audio-feedback/fb34-demo/settings.png')});
+ await page.locator('#music-volume').fill('20');await page.waitForTimeout(200);report.music20=await snapshot();
+ await page.locator('#game-volume').fill('35');await page.waitForTimeout(200);report.game35=await snapshot();
+ const preKey=await snapshot();await page.locator('#game-volume').focus();await page.keyboard.press('ArrowRight');await page.waitForTimeout(100);report.keyboard={before:preKey,after:await snapshot(),value:await page.locator('#game-volume').inputValue()};
+ await page.locator('#music-volume').fill('0');await page.waitForTimeout(150);report.music0=await snapshot();
+ await page.locator('#game-volume').fill('0');await page.waitForTimeout(150);report.both0=await snapshot();
+ await page.locator('#game-volume').fill('35');await page.locator('#music-volume').fill('20');await page.locator('#sound-setting').uncheck();await page.waitForTimeout(150);report.muted=await snapshot();
+ await page.locator('#sound-setting').check();await page.waitForTimeout(300);report.unmuted=await snapshot();
+ await page.keyboard.press('Escape');await page.waitForTimeout(200);report.closed=await snapshot();
+ report.saved=await page.evaluate(()=>({music:localStorage.getItem('poke-arena:music-volume'),game:localStorage.getItem('poke-arena:game-volume'),sound:localStorage.getItem('poke-arena:sound')}));
+ await page.reload();await page.waitForFunction(()=>window.__audioQA&&!document.querySelector('#start-btn').disabled,{timeout:60000});await page.locator('#settings-btn').click();report.reload=await page.evaluate(()=>({music:document.querySelector('#music-volume').value,game:document.querySelector('#game-volume').value,sound:document.querySelector('#sound-setting').checked}));
+ await page.locator('#sound-setting').uncheck();await page.reload();await page.waitForFunction(()=>window.__audioQA&&!document.querySelector('#start-btn').disabled,{timeout:60000});await page.locator('#settings-btn').click();report.reloadMuted=await page.evaluate(()=>({music:document.querySelector('#music-volume').value,game:document.querySelector('#game-volume').value,sound:document.querySelector('#sound-setting').checked}));
+ await writeFile(path.join(root,'docs/audio-feedback/fb34-demo/report.json'),JSON.stringify(report,null,2));
+ assert.deepEqual(report.errors,[]);assert.deepEqual(report.before.rects,report.open.rects);assert.deepEqual(report.before.rects,report.closed.rects);
+ assert.equal(report.open.track,report.before.track);assert.ok(report.music20.time>report.before.time);assert.equal(report.music20.paused,false);
+ assert.ok(Math.abs(report.music20.buses.music-.13)<.01);assert.ok(Math.abs(report.game35.buses.music-.13)<.01);assert.ok(Math.abs(report.game35.buses.voices-.245)<.01);assert.ok(report.music0.buses.music<.005);assert.ok(report.both0.buses.voices<.005);
+ assert.equal(report.keyboard.value,'36');assert.equal(report.keyboard.after.selection,report.keyboard.before.selection);assert.deepEqual(report.keyboard.after.pointer,report.keyboard.before.pointer);assert.equal(report.keyboard.after.units,report.keyboard.before.units);assert.equal(report.keyboard.after.energy,report.keyboard.before.energy);
+ assert.deepEqual(report.reload,{music:'20',game:'35',sound:true});assert.deepEqual(report.reloadMuted,{music:'20',game:'35',sound:false});
+ console.log(JSON.stringify({result:'ok',report:'docs/audio-feedback/fb34-demo/report.json'}));
+}finally{await browser.close();await new Promise(r=>server.close(r));}

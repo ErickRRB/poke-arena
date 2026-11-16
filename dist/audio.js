@@ -10,7 +10,14 @@ const QUIET_DEPLOY_CRIES=new Set([23,25,27,52,54,196,252,302]);
 export const AUDIO_LEVELS=Object.freeze({master:.8,effects:.65*10**(-3/20),voices:.7,ui:.55,music:.65});
 import {ATTACK_AUDIO,soundStyle,attackCue,prepareSample,installAttackFallbacks} from './attack-audio.js?v=36';
 export class SoundSystem {
-  constructor(enabled = true) { this.enabled=enabled;this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.effectSlots=[];this.battlePlaying=false;this.intense=false;this.ready=this.preload().catch(()=>false); }
+  constructor(enabled = true,{music=50,game=100}={}) { this.enabled=enabled;this.levels={music:SoundSystem.percent(music,50),game:SoundSystem.percent(game,100)};this.ctx=null;this.last=new Map();this.encoded=new Map();this.buffers=new Map();this.voiceSlots=[];this.effectSlots=[];this.battlePlaying=false;this.intense=false;this.ready=this.preload().catch(()=>false); }
+  static percent(value,fallback){return typeof value==='number'&&Number.isFinite(value)?Math.max(0,Math.min(100,value)):fallback;}
+  setLevel(group,value){
+    if(!['music','game'].includes(group))return;
+    this.levels[group]=SoundSystem.percent(value,this.levels[group]);
+    const names=group==='music'?['music']:['effects','voices','ui'];
+    for(const name of names){const bus=this[name+'Bus'];if(bus&&this.ctx?.state!=='closed')bus.gain.setTargetAtTime(AUDIO_LEVELS[name]*this.levels[group]/100,this.ctx.currentTime,.02);}
+  }
   async preload(){
     const response=await fetch(publicAssetUrl('assets/audio/manifest.json?v=36'),{credentials:'omit'});if(!response.ok)throw Error('Audio manifest unavailable');
     const manifest=await response.json();
@@ -35,7 +42,7 @@ export class SoundSystem {
     this.limiter=ctx.createDynamicsCompressor();
     for(const[key,value]of Object.entries({threshold:-1,knee:0,ratio:20,attack:.003,release:.12}))if(this.limiter[key])this.limiter[key].value=value;
     this.master.connect(this.limiter);this.limiter.connect(ctx.destination);
-    for(const[name,level]of Object.entries({effects:AUDIO_LEVELS.effects,voices:AUDIO_LEVELS.voices,ui:AUDIO_LEVELS.ui,music:AUDIO_LEVELS.music})){const bus=ctx.createGain();bus.gain.value=level;bus.connect(this.master);this[name+'Bus']=bus;}
+    for(const[name,level]of Object.entries({effects:AUDIO_LEVELS.effects,voices:AUDIO_LEVELS.voices,ui:AUDIO_LEVELS.ui,music:AUDIO_LEVELS.music})){const bus=ctx.createGain();bus.gain.value=level*(this.levels?.[name==='music'?'music':'game']??100)/100;bus.connect(this.master);this[name+'Bus']=bus;}
   }
   clearEffects(){
     const now=this.ctx?.currentTime||0;

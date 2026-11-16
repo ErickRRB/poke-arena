@@ -42,7 +42,7 @@ let combatNumbers = store.get('combat-numbers', false) === true;
 let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true;
 let toastTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
 const quickStats=bindQuickStats({hand:$('hand'),cards:CARDS,getCard:el=>CARDS[game?.hands[0][Number(el.dataset.card)]],isPlaying:()=>game?.state==='playing'&&!document.body.classList.contains('menu-mode'),getSelection:()=>selected});
-const sfx=new SoundSystem(sound);
+const sfx=new SoundSystem(sound,{music:store.get('music-volume',50),game:store.get('game-volume',100)});
 let inspectedCard=null;
 let cardActionKey=null,cardActionReference=null,replacementKey=null;
 
@@ -130,7 +130,8 @@ function choose(index) {
 function cancelSelection() { quickStats.hide(); selected = -1; renderer.pointer = null; renderer.selection = null; updateDetail(); syncHand(); }
 function updateUi() {
   $('battle-loading').hidden=!renderer.pendingSpecies.size;
-  sfx.setBattleState(game.state==='playing'&&!document.hidden&&!document.body.classList.contains('menu-mode')&&!document.querySelector('dialog[open]'),game.overtime||game.time<=60);
+  const dialogs=[...document.querySelectorAll('dialog[open]')],settingsOnly=dialogs.length===1&&dialogs[0].id==='settings-dialog'&&dialogs[0].dataset.resume==='1';
+  sfx.setBattleState((game.state==='playing'&&!dialogs.length||settingsOnly)&&!document.hidden&&!document.body.classList.contains('menu-mode'),game.overtime||game.time<=60);
   const energy = game.energy[0];
   $('energy-value').textContent = String(Math.floor(energy));
   $('energy-bar').setAttribute('aria-valuenow', energy.toFixed(1));
@@ -251,7 +252,7 @@ function openModal(id) {
   if($('portrait-dialog').open&&id!=='portrait-dialog')return;
   if(id==='deck-dialog'&&!document.body.classList.contains('menu-mode'))return;
   if(id==='help-dialog')$('help-practice-btn').hidden=!document.body.classList.contains('menu-mode');
-  if(id==='settings-dialog')$('difficulty-hint').hidden=document.body.classList.contains('menu-mode');
+  if(id==='settings-dialog'){$('difficulty-hint').hidden=document.body.classList.contains('menu-mode');drag=null;}
   closeEditorPopovers();
   const dialog=$(id);dialog.dataset.resume=game.state==='playing'?'1':'0';
   modalFocus.set(dialog,focusReference(document.activeElement));
@@ -495,10 +496,12 @@ $('confirm-leave-btn').addEventListener('click',mainMenu);
 $('resume-btn').addEventListener('click',togglePause);
 $('help-btn').addEventListener('click',()=>openModal('help-dialog'));
 $('settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
+$('battle-settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
 $('settings-credits-btn').addEventListener('click',()=>openModal('credits-dialog'));
 $('help-practice-btn').addEventListener('click',()=>{if(!document.body.classList.contains('menu-mode'))return;closeModal($('help-dialog'),false);newGame({start:true,tutorial:true});});
 $('sound-btn').addEventListener('click',()=>{sound=!sound;updateSound();audioInit();if(sound)tone(580,.13,'sine',.05);});
 $('sound-setting').addEventListener('change',e=>{sound=e.target.checked;updateSound();audioInit();});
+for(const group of ['music','game']){const slider=$(group+'-volume'),output=$(group+'-volume-value');const update=()=>{const value=Number(slider.value);output.value=value+'%';slider.setAttribute('aria-valuetext',value+'%');};slider.value=sfx.levels[group];update();slider.addEventListener('input',()=>{sfx.setLevel(group,Number(slider.value));store.set(group+'-volume',sfx.levels[group]);update();});}
 $('motion-setting').addEventListener('change',e=>setReduced(e.target.checked));
 $('damage-numbers-setting').addEventListener('change',e=>setCombatNumbers(e.target.checked));
 $('difficulty').value=difficulty;
