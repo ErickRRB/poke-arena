@@ -3,6 +3,7 @@ import { resolvePlacementInput } from './placement-input.js?v=34';
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=34';
 import { Renderer } from './render.js?v=36';
 import { SoundSystem } from './audio.js?v=37';
+import {readAudioLevels} from './audio-preferences.js?v=1';
 import { OnlineClient, hasSavedOnlineSession } from './online.js?v=34';
 import { unpackGame, perspective } from './snapshot.js?v=34';
 import { cardArtMarkup } from './card-art.js?v=34';
@@ -43,8 +44,7 @@ let combatNumbers = store.get('combat-numbers', false) === true;
 let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true;
 let toastTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
 const quickStats=bindQuickStats({hand:$('hand'),cards:CARDS,getCard:el=>CARDS[game?.hands[0][Number(el.dataset.card)]],isPlaying:()=>game?.state==='playing'&&!document.body.classList.contains('menu-mode'),getSelection:()=>selected});
-const legacyGameVolume=store.get('game-volume',100);
-const sfx=new SoundSystem(sound,{music:store.get('music-volume',50),voices:store.get('voices-volume',legacyGameVolume),effects:store.get('effects-volume',legacyGameVolume)});
+const sfx=new SoundSystem(sound,readAudioLevels(store.get));
 let inspectedCard=null;
 let cardActionKey=null,cardActionReference=null,replacementKey=null;
 
