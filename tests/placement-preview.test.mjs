@@ -4,20 +4,20 @@ import { Renderer } from '../dist/render.js';
 import { Game, CARDS } from '../dist/engine.js?v=34';
 import {spellPreviewTargets} from '../dist/spell-preview.js';
 function drawing(key){
-  const calls=[];const ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}})}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
+  const calls=[];const ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}}),createLinearGradient:()=>({addColorStop(){}}),measureText:()=>({width:80})}, {get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args})),set:(o,k,v)=>(o[k]=v,true)});
   const game=new Game({seed:433});game.start();game.aiEnabled=false;game.energy[0]=10;game.deploymentThreats=()=>[];
   const renderer=Object.assign(Object.create(Renderer.prototype),{selection:key,pointer:{x:288,y:508},t:0,reduced:true,sprite(){},combatArt(){},capsule(){},fireWheel(){}});
   return{game,renderer,ctx,calls};
 }
-test('a troop preview draws one range circle and a cell marker, without a second footprint circle',()=>{
+test('a troop preview shows a cell marker without an attack range',()=>{
   const{game,renderer,ctx,calls}=drawing('pikachu');renderer.drawPlacement(ctx,game);
-  assert.deepEqual(calls.filter(c=>c.method==='arc').map(c=>c.args[2]),[CARDS.pikachu.range]);assert.equal(calls.filter(c=>c.method==='ellipse').length,0);assert.ok(calls.some(c=>c.method==='strokeRect'));
+  assert.deepEqual(calls.filter(c=>c.method==='arc').map(c=>c.args[2]),[]);assert.equal(calls.filter(c=>c.method==='ellipse').length,0);assert.ok(calls.some(c=>c.method==='strokeRect'));
 });
 test('after placement no old hover or preview can draw a placement indicator',()=>{
   const{game,renderer,ctx,calls}=drawing(null);renderer.deploymentPreview={key:'pikachu',x:300,y:500,until:50};renderer.drawPlacement(ctx,game);assert.deepEqual(calls,[]);
 });
-test('only ranged attacks show a troop range circle, including the ranged members of a mixed squad',()=>{
-  for(const[key,radii]of[['centralElectrode',[CARDS.centralElectrode.range]],['voltorb',[]],['pandilla',[120]],['meganium',[CARDS.meganium.range]],['regice',[CARDS.regice.range]]]){const{game,renderer,ctx,calls}=drawing(key);renderer.drawPlacement(ctx,game);assert.deepEqual(calls.filter(c=>c.method==='arc').map(c=>c.args[2]),radii,key);}
+test('only structures show an attack range circle',()=>{
+  for(const[key,radii]of[['centralElectrode',[]],['voltorb',[]],['pandilla',[]],['meganium',[]],['regice',[CARDS.regice.range]]]){const{game,renderer,ctx,calls}=drawing(key);renderer.drawPlacement(ctx,game);assert.deepEqual(calls.filter(c=>c.method==='arc').map(c=>c.args[2]),radii,key);}
 });
 test('melee troops never show explosion, jump, splash or short attack reach as a range circle',()=>{
   for(const[key,card]of Object.entries(CARDS).filter(([,c])=>!c.spell&&!c.squad&&!c.suicide&&(c.rangedAttack===false||c.rangedAttack!==true&&c.range<50))){
@@ -31,7 +31,7 @@ test('a spell has one target footprint and Rueda Fuego has a shallow ground anch
 test('all non-rolling spells keep the exact radius while aiming without extra troop ghosts',()=>{
  for(const [key,card] of Object.entries(CARDS).filter(([,card])=>card.spell&&!card.rolling)){
   const {game,renderer,ctx,calls}=drawing(key);let ghosts=0;renderer.sprite=()=>ghosts++;renderer.drawPlacement(ctx,game);
-  assert.equal(ghosts,0,key);assert.equal(calls.filter(c=>['fillRect','strokeRect','setLineDash','closePath'].includes(c.method)).length,0,key);
+  assert.equal(ghosts,card.spawnOnImpact?game.summonSpellPositions({card,team:0,...game.resolveDeployment(0,key,renderer.pointer.x,renderer.pointer.y)}).length:0,key);assert.equal(calls.filter(c=>['fillRect','strokeRect','setLineDash','closePath'].includes(c.method)).length,0,key);
   assert.equal(calls.filter(c=>c.method==='arc').length,1,key);
  }
 });
@@ -60,22 +60,8 @@ test('no cast or travelling spell announces its landing position after aiming en
  }
 });
 
-test('Rueda Fuego previews only its deployment cell, with no path, corridor or snap connector in either perspective',()=>{
-  for(const team of[0,1]){
-    const{game,renderer,ctx,calls}=drawing('log');
-    game.energy[team]=10;renderer.placementTeam=team;renderer.pointer={x:300,y:400};
-    const anchor=game.resolveDeployment(team,'log',renderer.pointer.x,renderer.pointer.y);
-    assert.ok(anchor);assert.ok(Math.hypot(anchor.x-renderer.pointer.x,anchor.y-renderer.pointer.y)>24);
-    renderer.drawPlacement(ctx,game);
-    const fills=calls.filter(c=>c.method==='fillRect').map(c=>c.args);
-    assert.deepEqual(fills[0],[anchor.x-12,anchor.y-12,24,24]);
-    assert.ok(fills.every(([x,y,w,h])=>x>=anchor.x-12&&y>=anchor.y-12&&x+w<=anchor.x+12&&y+h<=anchor.y+12));
-    assert.equal(calls.filter(c=>['ellipse','strokeRect','setLineDash','closePath'].includes(c.method)).length,0);
-    assert.ok(calls.some(c=>c.method==='scale'&&c.args[0]===1&&c.args[1]<.3));
-    const points=calls.filter(c=>['moveTo','lineTo'].includes(c.method));
-    assert.equal(points.length,0);
-    for(const {args:[x,y]}of points){assert.ok(Math.abs(x-anchor.x)<=12);assert.ok(Math.abs(y-anchor.y)<=12);}
-  }
+test('Rueda Fuego shows a limited corridor from the legal origin in both perspectives',()=>{
+ for(const team of [0,1]){const {game,renderer,ctx,calls}=drawing('log');renderer.placementTeam=team;renderer.pointer={x:300,y:400};const anchor=game.resolveDeployment(team,'log',300,400);renderer.drawPlacement(ctx,game);const guide=calls.find(c=>c.method==='fillRect').args;assert.equal(guide[0],anchor.x-CARDS.log.splash);assert.equal(guide[2],CARDS.log.splash*2);assert.ok(guide[3]<=CARDS.log.travelDistance);assert.equal(guide[1],team?anchor.y:anchor.y-guide[3]);}
 });
 
 test('spell previews exclude allies, defeated enemies, deploying troops and out-of-area targets',()=>{
@@ -144,3 +130,4 @@ test('Rueda Fuego keeps red target feedback in both perspectives and clears it o
     renderer.selection=null;renderer.updateSpellTargets(game);assert.equal(renderer.spellTargets.size,0);
   }
 });
+

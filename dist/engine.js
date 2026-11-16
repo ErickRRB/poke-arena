@@ -396,13 +396,18 @@ export class Game {
     }
     candidates.sort((a,b)=>distance(a,{x,y})-distance(b,{x,y}));return candidates[0]||null;
   }
-  summonSpell(spell){
-    const card=spell.card,points=[],delay=card.spawnDeployTime??.4,group={id:this.nextId,x:spell.x,y:spell.y,duration:delay,spawnCause:'spell'};
-    for(let i=0;i<card.spawnTotal&&this.units.filter(u=>u.hp>0).length<160;i++){
+  summonSpellPositions(spell){
+    const card=spell.card,points=[],available=Math.max(0,160-this.units.filter(u=>u.hp>0).length);
+    for(let i=0;i<card.spawnTotal&&points.length<available;i++){
       const angle=-Math.PI/2+i*2*Math.PI/card.spawnTotal+(spell.team?Math.PI:0),radius=card.spawnRadius;
       const point=this.reinforcementPoint(card.spawnKey,spell.x+Math.cos(angle)*radius,spell.y+Math.sin(angle)*radius,points);
-      if(point){points.push(point);this.spawn(card.spawnKey,spell.team,point.x,point.y,delay,group,'spell');}
+      if(point)points.push(point);
     }
+    return points;
+  }
+  summonSpell(spell){
+    const card=spell.card,delay=card.spawnDeployTime??.4,group={id:this.nextId,x:spell.x,y:spell.y,duration:delay,spawnCause:'spell'};
+    for(const point of this.summonSpellPositions(spell))this.spawn(card.spawnKey,spell.team,point.x,point.y,delay,group,'spell');
   }
   finish(winner, reason) {
     if (this.state === 'ended') return;
