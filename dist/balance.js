@@ -164,7 +164,7 @@ export function applyBalance(cards) {
   for (const [key, card] of Object.entries(cards)) {
     if (!CARD_BALANCE[key]) throw new Error(`Missing balance for ${key}`);
     Object.assign(card, CARD_BALANCE[key]);
-    if(card.id)card.scale=UNIT_SCALES[card.id]*(key==='babyKangaskhan'?.55:1);
+    if(card.id)card.scale=(card.visualScale??UNIT_SCALES[card.id])*(key==='babyKangaskhan'?.55:1);
     if (card.building) card.pullRange = 300;
     if (!card.spell) {
       card.windup ??= Math.min(.3, card.attackDuration * .4);

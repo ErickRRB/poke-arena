@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-15",
+  "date": "2026-11-16",
   "baseline": "Clash Royale level 11 role references, adapted per Pokémon; not a universal stats multiplier.",
   "cards": [
     {
@@ -976,7 +976,7 @@
       "interval": 0.3,
       "directDps": 330,
       "range": 60,
-      "scale": 1.875,
+      "scale": 1.35,
       "description": "Salta y encadena una descarga que aturde hasta nueve enemigos.",
       "pokemonIdentity": "Autodestrucción",
       "attackRuleException": true

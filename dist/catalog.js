@@ -29,7 +29,7 @@ slowbro:card('Slowbro',80,4,'water','Tanque · escudo',{hp:1450,shield:350,damag
 grimer:card('Grimer',88,2,'poison','Defensa · charco',{hp:850,damage:32,speed:25,style:'bite',deathField:23},'Defensor lento. Al caer deja un charco venenoso.'),
 cloyster:card('Cloyster',91,4,'water','Estructura · ráfaga',{hp:1200,shield:230,damage:24,...ranged('ice',170),structure:true,lifetime:32,speed:0,burst:5,burstSpacing:.1,interval:2.6,radius:25},'Cinco pinchos por ráfaga desde un bastión. Dura 32 s.'),
 gastly:card('Gastly',92,2,'ghost','Dúo · niebla',{hp:180,damage:29,flying:true,air:true,count:2,style:'shadow',speed:57,deathField:12},'Dos fantasmas voladores. Dejan niebla dañina al caer.'),
-voltorb:card('Voltorb',100,2,'electric','Corredor · descarga',{hp:330,damage:160,speed:88,style:'slam',range:27,suicide:true,splash:58,stun:.45},'Se descarga al llegar: daño en área, aturdimiento y retarget.'),
+voltorb:card('Voltorb',100,2,'electric','Corredor · descarga',{hp:330,damage:160,speed:88,style:'slam',range:27,suicide:true,splash:58,stun:.45,visualScale:1.35},'Se descarga al llegar: daño en área, aturdimiento y retarget.'),
 forretress:card('Forretress',205,4,'steel','Win condition · explosiva',{hp:1200,damage:600,interval:1.6,speed:32,windup:.5,building:true,style:'slam',range:28,suicide:true,splash:60,deathStun:.6},'Avanza hacia las estructuras y explota al llegar.'),
 // Retain the retired key only for snapshots from already open legacy matches.
 electrode:card('Electrode',101,4,'electric','Win condition · explosiva',{token:true,hp:1100,damage:330,speed:51,building:true,style:'slam',range:28,suicide:true,splash:90,deathStun:.6},'Avanza hacia las estructuras y explota al llegar.'),
