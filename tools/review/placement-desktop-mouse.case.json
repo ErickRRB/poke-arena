@@ -1,0 +1,5 @@
+{
+  "id":"fb25-desktop-mouse-checks","source":"dist/index.html","adapter":"tools/review/placement-input-adapter.mjs","adapterDependencies":["tools/review/baseline-adapter.mjs"],
+  "input":"mouse-click","focusedChecks":true,"raw":{"x":158,"y":244},"expected":{"x":168,"y":436},
+  "viewport":{"width":1440,"height":900,"dpr":1},"durationMs":5000,"sampleMs":100,"clock":"natural-app","expectedEvent":"deploy","extractIntervalMs":150,"recordCanvas":"#arena","captureSurface":"canvas","crop":{"x":0,"y":0,"width":1440,"height":900},"requiredObservations":["clock","canvas","events","actorState","hp"],"requireWebSocketIsolation":true
+}

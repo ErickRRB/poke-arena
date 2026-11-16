@@ -1,0 +1,21 @@
+{
+  "id":"fb25-expanded-touch-edge",
+  "source":"dist/index.html",
+  "adapter":"tools/review/placement-input-adapter.mjs",
+  "adapterDependencies":["tools/review/baseline-adapter.mjs"],
+  "input":"touch",
+  "destroyedLane":1,
+  "raw":{"x":300,"y":148},
+  "expected":{"x":312,"y":292},
+  "viewport":{"width":390,"height":844,"dpr":1},
+  "durationMs":4000,
+  "sampleMs":100,
+  "clock":"natural-app",
+  "expectedEvent":"deploy",
+  "extractIntervalMs":100,
+  "recordCanvas":"#arena",
+  "captureSurface":"canvas",
+  "crop":{"x":10,"y":2,"width":370,"height":686},
+  "requiredObservations":["clock","canvas","events","actorState","hp"],
+  "requireWebSocketIsolation":true
+}

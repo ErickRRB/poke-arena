@@ -1,0 +1,5 @@
+{
+  "id":"fb25-tablet-touch-checks","source":"dist/index.html","adapter":"tools/review/placement-input-adapter.mjs","adapterDependencies":["tools/review/baseline-adapter.mjs"],
+  "input":"touch","focusedChecks":true,"destroyedLane":1,"raw":{"x":300,"y":148},"expected":{"x":312,"y":292},
+  "viewport":{"width":820,"height":1180,"dpr":1},"durationMs":5000,"sampleMs":100,"clock":"natural-app","expectedEvent":"deploy","extractIntervalMs":150,"recordCanvas":"#arena","captureSurface":"canvas","crop":{"x":0,"y":0,"width":820,"height":1180},"requiredObservations":["clock","canvas","events","actorState","hp"],"requireWebSocketIsolation":true
+}

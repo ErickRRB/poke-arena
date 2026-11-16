@@ -14,11 +14,11 @@
   <link rel="stylesheet" href="assets/fonts/fonts.css?v=34">
   <link rel="stylesheet" href="style.css?v=34">
   <link rel="stylesheet" href="card-ui.css?v=34">
-  <link rel="stylesheet" href="theme.css?v=34">
+  <link rel="stylesheet" href="theme.css?v=37">
   <link rel="stylesheet" href="transient-ui.css?v=34">
   <link rel="stylesheet" href="editor.css?v=34">
   <link rel="stylesheet" href="quick-stats.css?v=34">
-  <link rel="stylesheet" href="battle-phase.css?v=34">
+  <link rel="stylesheet" href="battle-phase.css?v=35">
 </head>
 <body class="menu-mode">
   <svg class="svg-defs" aria-hidden="true"><defs>
@@ -92,14 +92,14 @@
         <div class="arena-corner corner-tl"></div><div class="arena-corner corner-tr"></div><div class="arena-corner corner-bl"></div><div class="arena-corner corner-br"></div>
         <div id="loading" class="loading-overlay" role="status" aria-label="Cargando el juego"><span class="pokeball-loader is-indeterminate" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span></div>
         <div id="guide" class="guide" role="status" hidden><span id="guide-step" class="guide-step" aria-label="Paso 1 de 3">1</span><strong id="guide-text">Elegí una carta.</strong><button id="skip-guide" class="secondary-btn">Omitir</button></div>
-        <div id="pause-overlay" class="pause-overlay" hidden><div><svg class="pause-symbol"><use href="#i-pause"/></svg><h2>En pausa</h2><button id="resume-btn" class="primary-btn">Continuar<svg aria-hidden="true"><use href="#i-play"/></svg></button><button id="pause-menu-btn" class="secondary-btn"><svg aria-hidden="true"><use href="#i-home"/></svg>Volver al inicio</button></div></div>
+        <div id="pause-overlay" class="pause-overlay" hidden><div><svg class="pause-symbol"><use href="#i-pause"/></svg><h2>En pausa</h2><button id="resume-btn" class="primary-btn">Continuar<svg aria-hidden="true"><use href="#i-play"/></svg></button><button id="pause-settings-btn" class="secondary-btn"><svg aria-hidden="true"><use href="#i-settings"/></svg>Ajustes</button><button id="pause-menu-btn" class="secondary-btn"><svg aria-hidden="true"><use href="#i-home"/></svg>Volver al inicio</button></div></div>
         <div id="result-overlay" class="result-overlay" hidden>
           <div class="result-content"><svg class="result-crown"><use href="#i-crown"/></svg><span class="eyebrow" id="result-eyebrow">BATALLA TERMINADA</span><h2 id="result-title">Victoria</h2><div class="result-score"><span id="result-player">1</span><span>—</span><span id="result-enemy">0</span></div><p id="result-reason"></p><div class="result-stats"><div><strong id="result-deployed">0</strong><span>Desplegados</span></div><div><strong id="result-damage">0</strong><span>Daño total</span></div></div><button id="again-btn" class="primary-btn">Volver a jugar<svg aria-hidden="true"><use href="#i-arrow"/></svg></button><button id="result-menu-btn" class="text-btn">Volver al inicio</button></div>
         </div>
         <div class="toast" id="toast" role="status"></div>
         <div id="battle-overlays" class="battle-overlays">
           <div class="battle-hud">
-            <div class="trainer-id"><strong id="enemy-name">Entrenador</strong><span id="connection-loading" class="connection-loading" role="status" aria-label="Reconectando a la partida" hidden><svg viewBox="0 0 64 64" class="loading-ball" aria-hidden="true"><use href="#i-loading-ball"/></svg></span><span id="online-status" class="online-status" role="status" hidden></span></div>
+            <div class="battle-hud-trainer"><button id="battle-settings-btn" class="icon-btn" title="Ajustes" aria-label="Ajustes"><svg aria-hidden="true"><use href="#i-settings"/></svg></button><div class="trainer-id"><strong id="enemy-name">Entrenador</strong><span id="connection-loading" class="connection-loading" role="status" aria-label="Reconectando a la partida" hidden><svg viewBox="0 0 64 64" class="loading-ball" aria-hidden="true"><use href="#i-loading-ball"/></svg></span><span id="online-status" class="online-status" role="status" hidden></span></div></div>
             <div class="battle-hud-actions"><div class="battle-clock" id="battle-clock"><span id="timer">3:00</span></div><button id="match-pause" class="icon-btn" aria-label="Pausar" aria-keyshortcuts="Space" title="Pausar (Espacio)" hidden><svg aria-hidden="true"><use href="#i-pause"/></svg></button><button id="match-leave" class="icon-btn" aria-label="Volver al inicio" title="Volver al inicio" hidden><svg aria-hidden="true"><use href="#i-home"/></svg></button><div class="battle-hud-status"><span id="phase-label" hidden>Extra</span><span id="boost" aria-hidden="true" hidden><svg viewBox="0 0 48 56"><use href="#i-elixir-boost"/></svg><b id="boost-value">×2</b></span></div></div>
           </div>
 
@@ -126,7 +126,7 @@
     <button id="help-practice-btn" class="primary-btn">Jugar la práctica<svg aria-hidden="true"><use href="#i-play"/></svg></button>
   </dialog>
 
-  <dialog id="settings-dialog" class="modal small-modal"><div class="modal-heading"><h2>Ajustes</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><label class="setting-row" for="difficulty"><span><strong>Rival CPU</strong><small id="difficulty-hint" hidden>Próxima partida</small></span><select id="difficulty"><option value="easy">Principiante</option><option value="normal" selected>Entrenador</option><option value="hard">Líder de gimnasio</option></select></label><label class="setting-row" for="sound-setting"><span><strong>Sonido</strong></span><input type="checkbox" id="sound-setting" class="switch"></label><label class="setting-row" for="motion-setting"><span><strong>Reducir movimiento</strong></span><input type="checkbox" id="motion-setting" class="switch"></label><details class="debug-settings"><summary>Depuración</summary><label class="setting-row" for="damage-numbers-setting"><span><strong>Mostrar números de daño</strong></span><input type="checkbox" id="damage-numbers-setting" class="switch"></label></details><button id="settings-credits-btn" class="text-btn" style="margin-top:15px">Sprites y créditos</button></dialog>
+  <dialog id="settings-dialog" class="modal small-modal"><div class="modal-heading"><h2>Ajustes</h2><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><label class="setting-row" for="difficulty"><span><strong>Rival CPU</strong><small id="difficulty-hint" hidden>Próxima partida</small></span><select id="difficulty"><option value="easy">Principiante</option><option value="normal" selected>Entrenador</option><option value="hard">Líder de gimnasio</option></select></label><label class="setting-row" for="sound-setting"><span><strong>Sonido</strong></span><input type="checkbox" id="sound-setting" class="switch"></label><label class="setting-row volume-setting" for="music-volume"><strong>Música</strong><input id="music-volume" type="range" min="0" max="100" step="1" value="50"><output id="music-volume-value" for="music-volume">50%</output></label><label class="setting-row volume-setting" for="voices-volume"><strong>Voces de Pokémon</strong><input id="voices-volume" type="range" min="0" max="100" step="1" value="100"><output id="voices-volume-value" for="voices-volume">100%</output></label><label class="setting-row volume-setting" for="effects-volume"><strong>Efectos del juego</strong><input id="effects-volume" type="range" min="0" max="100" step="1" value="100"><output id="effects-volume-value" for="effects-volume">100%</output></label><label class="setting-row" for="motion-setting"><span><strong>Reducir movimiento</strong></span><input type="checkbox" id="motion-setting" class="switch"></label><details class="debug-settings"><summary>Depuración</summary><label class="setting-row" for="damage-numbers-setting"><span><strong>Mostrar números de daño</strong></span><input type="checkbox" id="damage-numbers-setting" class="switch"></label></details><button id="settings-credits-btn" class="text-btn" style="margin-top:15px">Sprites y créditos</button></dialog>
 
   <dialog id="deck-dialog" class="modal deck-modal" aria-label="Editar mazo">
     <div class="deck-editor-heading"><div id="deck-slots" class="deck-presets" role="group" aria-label="Mazos guardados"></div><button id="collection-filters-btn" class="icon-btn" aria-label="Filtros y orden de cartas" aria-haspopup="dialog" aria-expanded="false" aria-controls="collection-filters"><svg aria-hidden="true"><use href="#i-filter"/></svg></button><button class="icon-btn" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
@@ -159,6 +159,6 @@
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
   <div class="sr-only" id="battle-phase-announcement" role="status" aria-live="polite" aria-atomic="true"></div>
   <dialog id="portrait-dialog" class="modal small-modal portrait-dialog" aria-labelledby="portrait-title" aria-describedby="portrait-description"><h2 id="portrait-title">Jugá en vertical</h2><p id="portrait-description">Girá el teléfono para continuar.</p></dialog>
-  <script type="module" src="app.js?v=36"></script>
+  <script type="module" src="app.js?v=39"></script>
 </body>
 </html>

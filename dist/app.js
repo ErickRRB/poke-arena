@@ -1,7 +1,9 @@
 import { screenToWorld, inArena } from './arena-geometry.js?v=34';
+import { resolvePlacementInput } from './placement-input.js?v=34';
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=34';
 import { Renderer } from './render.js?v=36';
-import { SoundSystem } from './audio.js?v=36';
+import { SoundSystem } from './audio.js?v=37';
+import {readAudioLevels} from './audio-preferences.js?v=1';
 import { OnlineClient, hasSavedOnlineSession } from './online.js?v=34';
 import { unpackGame, perspective } from './snapshot.js?v=34';
 import { cardArtMarkup } from './card-art.js?v=34';
@@ -42,7 +44,7 @@ let combatNumbers = store.get('combat-numbers', false) === true;
 let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true;
 let toastTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
 const quickStats=bindQuickStats({hand:$('hand'),cards:CARDS,getCard:el=>CARDS[game?.hands[0][Number(el.dataset.card)]],isPlaying:()=>game?.state==='playing'&&!document.body.classList.contains('menu-mode'),getSelection:()=>selected});
-const sfx=new SoundSystem(sound);
+const sfx=new SoundSystem(sound,readAudioLevels(store.get));
 let inspectedCard=null;
 let cardActionKey=null,cardActionReference=null,replacementKey=null;
 
@@ -130,7 +132,8 @@ function choose(index) {
 function cancelSelection() { quickStats.hide(); selected = -1; renderer.pointer = null; renderer.selection = null; updateDetail(); syncHand(); }
 function updateUi() {
   $('battle-loading').hidden=!renderer.pendingSpecies.size;
-  sfx.setBattleState(game.state==='playing'&&!document.hidden&&!document.body.classList.contains('menu-mode')&&!document.querySelector('dialog[open]'),game.overtime||game.time<=60);
+  const dialogs=[...document.querySelectorAll('dialog[open]')],settingsOnly=dialogs.length===1&&dialogs[0].id==='settings-dialog'&&dialogs[0].dataset.resume==='1'&&['playing','paused'].includes(game.state);
+  sfx.setBattleState((game.state==='playing'&&!dialogs.length||settingsOnly)&&!document.hidden&&!document.body.classList.contains('menu-mode'),game.overtime||game.time<=60);
   const energy = game.energy[0];
   $('energy-value').textContent = String(Math.floor(energy));
   $('energy-bar').setAttribute('aria-valuenow', energy.toFixed(1));
@@ -212,15 +215,17 @@ function showResult(e) {
 function arenaPoint(clientX,clientY) {
   const r=canvas.getBoundingClientRect();
   const point=screenToWorld({x:clientX-r.left,y:clientY-r.top},r.width,r.height);
-  return {...point,inside:inArena(point.x,point.y)};
+  return {...point,inside:inArena(point.x,point.y)&&document.elementFromPoint(clientX,clientY)===canvas};
 }
 async function attemptDeploy(point) {
   if(game.state!=='playing'||deploying)return;
   if(selected<0)return;
   const index=selected,key=game.hands[0][index],client=online,isOnline=onlineMode,serial=++deploymentSerial;
+  const placement=resolvePlacementInput(game,0,key,point.x,point.y);
+  if(!placement){cancelSelection();return;}
   deploying=true;cancelSelection();
   try{
-    const result=isOnline?await client.send({kind:'deploy',handIndex:index,key,x:client.team?W-point.x:point.x,y:client.team?H-point.y:point.y}):game.deploy(0,index,point.x,point.y);
+    const result=isOnline?await client.send({kind:'deploy',handIndex:index,key,x:client.team?W-placement.x:placement.x,y:client.team?H-placement.y:placement.y}):game.deploy(0,index,placement.x,placement.y);
     if(serial!==deploymentSerial||isOnline&&client!==online)return;
     if(!result?.ok){toast(result?.reason||'No se pudo colocar la carta.');tone(150,.12,'triangle',.02);return;}
     live(`${CARDS[result.key].name} desplegado. ${Math.floor(game.energy[0])} de energía.`);updateUi();
@@ -251,7 +256,7 @@ function openModal(id) {
   if($('portrait-dialog').open&&id!=='portrait-dialog')return;
   if(id==='deck-dialog'&&!document.body.classList.contains('menu-mode'))return;
   if(id==='help-dialog')$('help-practice-btn').hidden=!document.body.classList.contains('menu-mode');
-  if(id==='settings-dialog')$('difficulty-hint').hidden=document.body.classList.contains('menu-mode');
+  if(id==='settings-dialog'){$('difficulty-hint').hidden=document.body.classList.contains('menu-mode');drag=null;}
   closeEditorPopovers();
   const dialog=$(id);dialog.dataset.resume=game.state==='playing'?'1':'0';
   modalFocus.set(dialog,focusReference(document.activeElement));
@@ -444,7 +449,7 @@ document.addEventListener('pointermove',e=>{
 },{passive:false});
 document.addEventListener('pointerup',e=>{
   if(!drag)return;
-  if(drag.active){ignoreClickUntil=performance.now()+350;const p=arenaPoint(e.clientX,e.clientY),key=game.hands[0][drag.index];if(p.inside&&game.resolveDeployment(0,key,p.x,p.y))attemptDeploy(p);else cancelSelection();renderer.pointer=null;}
+  if(drag.active){ignoreClickUntil=performance.now()+350;const p=arenaPoint(e.clientX,e.clientY);if(p.inside)attemptDeploy(p);else cancelSelection();renderer.pointer=null;}
   drag=null;
 });
 document.addEventListener('pointercancel',()=>{cancelSelection();drag=null;renderer.pointer=null;});
@@ -462,7 +467,8 @@ document.addEventListener('keydown',e=>{
       e.preventDefault();renderer.pointer||={x:158,y:520};
       if(e.key==='ArrowUp')renderer.pointer.y-=TILE;if(e.key==='ArrowDown')renderer.pointer.y+=TILE;if(e.key==='ArrowLeft')renderer.pointer.x-=TILE;if(e.key==='ArrowRight')renderer.pointer.x+=TILE;
       renderer.pointer.x=Math.max(45,Math.min(555,renderer.pointer.x));renderer.pointer.y=Math.max(45,Math.min(755,renderer.pointer.y));
-      live(`Posición ${Math.round(renderer.pointer.x)}, ${Math.round(renderer.pointer.y)}.`);
+      const point=resolvePlacementInput(game,0,game.hands[0][selected],renderer.pointer.x,renderer.pointer.y);
+      live(point?`Posición ${Math.round(point.x)}, ${Math.round(point.y)}.`:'Zona no disponible.');
     }else if(e.key==='Enter'&&renderer.pointer){e.preventDefault();attemptDeploy(renderer.pointer);}
   }
 });
@@ -495,10 +501,13 @@ $('confirm-leave-btn').addEventListener('click',mainMenu);
 $('resume-btn').addEventListener('click',togglePause);
 $('help-btn').addEventListener('click',()=>openModal('help-dialog'));
 $('settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
+$('battle-settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
+$('pause-settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
 $('settings-credits-btn').addEventListener('click',()=>openModal('credits-dialog'));
 $('help-practice-btn').addEventListener('click',()=>{if(!document.body.classList.contains('menu-mode'))return;closeModal($('help-dialog'),false);newGame({start:true,tutorial:true});});
 $('sound-btn').addEventListener('click',()=>{sound=!sound;updateSound();audioInit();if(sound)tone(580,.13,'sine',.05);});
 $('sound-setting').addEventListener('change',e=>{sound=e.target.checked;updateSound();audioInit();});
+for(const group of ['music','voices','effects']){const slider=$(group+'-volume'),output=$(group+'-volume-value');const update=()=>{const value=Number(slider.value);output.value=value+'%';slider.setAttribute('aria-valuetext',value+'%');};slider.value=sfx.levels[group];update();slider.addEventListener('input',()=>{sfx.setLevel(group,Number(slider.value));store.set(group+'-volume',sfx.levels[group]);update();});}
 $('motion-setting').addEventListener('change',e=>setReduced(e.target.checked));
 $('damage-numbers-setting').addEventListener('change',e=>setCombatNumbers(e.target.checked));
 $('difficulty').value=difficulty;

@@ -1,5 +1,6 @@
 import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTarget } from './engine.js?v=34';
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
+import { resolvePlacementInput } from './placement-input.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
 import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation,petalPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
@@ -412,7 +413,7 @@ export class Renderer {
   }
   updateSpellTargets(game){
     const team=this.placementTeam||0,card=CARDS[this.selection],allowed=game.state==='playing'||this.placementWhenPaused&&game.state==='paused';
-    const point=allowed&&card?.spell&&this.pointer?game.resolveDeployment(team,this.selection,this.pointer.x,this.pointer.y):null;
+    const point=allowed&&card?.spell&&this.pointer?resolvePlacementInput(game,team,this.selection,this.pointer.x,this.pointer.y):null;
     this.spellTargets=new Set(spellPreviewTargets(game,card,point,team).map(target=>target.id));
   }
   tintTarget(c,image,sx,sy,sw,sh,dx,dy,dw,dh){
@@ -1108,12 +1109,9 @@ export class Renderer {
     }
     const p=this.pointer;
     if(p){
-      const placement=game.resolveDeployment(team,key,p.x,p.y),point=placement||p;
+      const placement=resolvePlacementInput(game,team,key,p.x,p.y),point=placement||p;
       const valid=!!placement&&game.energy[team]>=card.cost;
       const color=valid?'#e9dc9e':'#e7947b';
-      if(!card.spell&&placement&&this.selection&&Math.hypot(point.x-p.x,point.y-p.y)>TILE/2){
-        c.strokeStyle=color;c.lineWidth=2;c.setLineDash([3,5]);c.beginPath();c.moveTo(p.x,p.y);c.lineTo(point.x,point.y);c.stroke();c.setLineDash([]);ellipse(c,color,p.x,p.y,3,3);
-      }
       if(card.rolling&&key!=='log')travelGuide(c,point.x,point.y,card.splash,card.travelDistance,team,valid);
       if(!card.spell&&placement){
         const ranged=(card.squad?card.squad.map(k=>CARDS[k]):[card]).filter(isRangedAttack),range=Math.max(...ranged.map(member=>member.range));
