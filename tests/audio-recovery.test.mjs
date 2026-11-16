@@ -31,7 +31,7 @@ for(const state of['suspended','interrupted'])test(`audio recovers from ${state}
 });
 test('music, effects, character voices and UI have independent gain buses and only an emergency output ceiling',t=>{
  const{sound}=setup(t);assert.equal(sound.master.gain.value,AUDIO_LEVELS.master);assert.equal(sound.limiter.threshold.value,-1);assert.equal(sound.limiter.knee.value,0);
- for(const name of['music','effects','voices','ui']){const bus=sound[name+'Bus'];assert.equal(bus.gain.value,AUDIO_LEVELS[name]);assert.deepEqual(bus.connections,[sound.master]);}
+ for(const name of['music','effects','voices','ui']){const bus=sound[name+'Bus'];assert.equal(bus.gain.value,AUDIO_LEVELS[name]*(name==='music'?.5:1));assert.deepEqual(bus.connections,[sound.master]);}
  assert.equal(new Set(['music','effects','voices','ui'].map(name=>sound[name+'Bus'])).size,4);assert.deepEqual(sound.music.bus.connections,[sound.musicBus]);assert.deepEqual(sound.master.connections,[sound.limiter]);assert.deepEqual(sound.limiter.connections,[sound.ctx.destination]);
 });
 test('context disposal retains the recorded score bookmark for its replacement',t=>{
