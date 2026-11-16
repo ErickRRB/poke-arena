@@ -25,7 +25,7 @@ export async function prepare(page,config){
       if(army.length===15&&army.every(u=>u.spawn<=0&&u.hp===u.maxHp&&u.shield===u.maxShield)&&shield?.spawn<=0&&shield.shield===shield.maxShield){
         save('healthy');if(f.lastFrame.some(d=>d.kind==='health'&&army.some(u=>u.id===d.id)))f.error='Healthy native army unexpectedly paints health';
       }
-      if(shield?.shield<shield?.maxShield){save('shield-damaged');if(shield.hp!==shield.maxHp)f.error='Declared shield-only first damage unexpectedly changed HP';}
+      if(shield?.shield<shield?.maxShield&&!f.frames['shield-damaged']){save('shield-damaged');if(shield.hp!==shield.maxHp)f.error='Declared shield-only first damage unexpectedly changed HP';}
       if(parent?.hp>0&&parent.hp<parent.maxHp*.2)save('before-death');
       if(effect){save('death');if(progress>=.45)save('collapse');}
       if(!parent&&!effect&&f.frames.death)save('after-death');return value;
