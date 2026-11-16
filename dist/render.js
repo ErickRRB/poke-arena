@@ -1254,13 +1254,23 @@ export class Renderer {
   earthquake(c,field,age){
     const radius=field.radius,period=field.fieldTick||1,beat=age%period;
     const settle=this.reduced?0:Math.sin(Math.min(1,beat/.65)*Math.PI)*Math.exp(-beat*.9);
-    const rise=this.reduced?1:Math.min(1,age/.2),scale=1+settle*.06;
+    const rise=this.reduced?1:Math.min(1,age/.2);
     c.save();c.beginPath();c.arc(field.x,field.y,radius,0,Math.PI*2);c.clip();
     c.translate(field.x,field.y);c.globalAlpha*=rise*.85;
-    // Original generated earth decal, with its transparent border. A short
-    // heave follows the native field clock; the material stays under actors.
-    c.save();c.translate((this.reduced?0:Math.sin(beat*35)*settle*2),0);c.scale(scale,scale);
-    this.combatArt(c,'earthquakeGround',0,0,radius*2,0,radius*2,{frame:0});c.restore();
+    // Separate textured ground plates shift away from their shared faults on
+    // each pulse. The transparent original stays entirely beneath actors.
+    const pieces=[
+      [[-1,-1],[0,-1],[-.1,-.35],[.02,0],[-.42,.04],[-1,0]],
+      [[0,-1],[1,-1],[1,0],[.4,-.08],[.02,0],[-.1,-.35]],
+      [[-1,0],[-.42,.04],[.02,0],[-.1,.35],[0,1],[-1,1]],
+      [[.02,0],[.4,-.08],[1,0],[1,1],[0,1],[-.1,.35]]
+    ];
+    c.save();c.globalAlpha*=.35;this.combatArt(c,'earthquakeGround',0,0,radius*2,0,radius*2,{frame:0});c.restore();
+    pieces.forEach((points,i)=>{
+      c.save();c.translate((i%2?1:-1)*settle*radius*.085,(i<2?-1:1)*settle*radius*.045);
+      c.beginPath();points.forEach(([x,y],j)=>j?c.lineTo(x*radius,y*radius):c.moveTo(x*radius,y*radius));c.closePath();c.clip();
+      this.combatArt(c,'earthquakeGround',0,0,radius*2,0,radius*2,{frame:0});c.restore();
+    });
     if(!this.reduced&&settle>0){
       for(const [x,y] of [[-.48,-.15],[.38,-.3],[-.23,.42],[.48,.3]]){
         c.save();c.globalAlpha*=settle*.5;softDisc(c,x*radius,y*radius,radius*(.13+settle*.09),{color:'#e6c894',opacity:.8});c.restore();
