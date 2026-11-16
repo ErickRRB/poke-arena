@@ -42,7 +42,8 @@ let combatNumbers = store.get('combat-numbers', false) === true;
 let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true;
 let toastTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
 const quickStats=bindQuickStats({hand:$('hand'),cards:CARDS,getCard:el=>CARDS[game?.hands[0][Number(el.dataset.card)]],isPlaying:()=>game?.state==='playing'&&!document.body.classList.contains('menu-mode'),getSelection:()=>selected});
-const sfx=new SoundSystem(sound,{music:store.get('music-volume',50),game:store.get('game-volume',100)});
+const legacyGameVolume=store.get('game-volume',100);
+const sfx=new SoundSystem(sound,{music:store.get('music-volume',50),voices:store.get('voices-volume',legacyGameVolume),effects:store.get('effects-volume',legacyGameVolume)});
 let inspectedCard=null;
 let cardActionKey=null,cardActionReference=null,replacementKey=null;
 
@@ -501,7 +502,7 @@ $('settings-credits-btn').addEventListener('click',()=>openModal('credits-dialog
 $('help-practice-btn').addEventListener('click',()=>{if(!document.body.classList.contains('menu-mode'))return;closeModal($('help-dialog'),false);newGame({start:true,tutorial:true});});
 $('sound-btn').addEventListener('click',()=>{sound=!sound;updateSound();audioInit();if(sound)tone(580,.13,'sine',.05);});
 $('sound-setting').addEventListener('change',e=>{sound=e.target.checked;updateSound();audioInit();});
-for(const group of ['music','game']){const slider=$(group+'-volume'),output=$(group+'-volume-value');const update=()=>{const value=Number(slider.value);output.value=value+'%';slider.setAttribute('aria-valuetext',value+'%');};slider.value=sfx.levels[group];update();slider.addEventListener('input',()=>{sfx.setLevel(group,Number(slider.value));store.set(group+'-volume',sfx.levels[group]);update();});}
+for(const group of ['music','voices','effects']){const slider=$(group+'-volume'),output=$(group+'-volume-value');const update=()=>{const value=Number(slider.value);output.value=value+'%';slider.setAttribute('aria-valuetext',value+'%');};slider.value=sfx.levels[group];update();slider.addEventListener('input',()=>{sfx.setLevel(group,Number(slider.value));store.set(group+'-volume',sfx.levels[group]);update();});}
 $('motion-setting').addEventListener('change',e=>setReduced(e.target.checked));
 $('damage-numbers-setting').addEventListener('change',e=>setCombatNumbers(e.target.checked));
 $('difficulty').value=difficulty;
