@@ -1008,36 +1008,40 @@ export class Renderer {
     if(e.impactX!==undefined){c.save();c.globalAlpha*=Math.max(0,1-progress*2);this.combatArt(c,e.style==='leaf'?'impact':e.art,e.impactX,e.impactY,Math.min(32,Math.max(18,radius*.45)),0,Math.min(32,Math.max(18,radius*.45)),{progress:this.reduced?.45:progress,trim:true});c.restore();}
   }
   fireballImpact(c,e,progress,ground=false){
-    const radius=e.radius,vertical=this.verticalScale||1;
-    const grow=this.reduced?1:Math.min(1,progress/.3),fade=Math.max(0,1-progress);
+    const radius=e.radius;
+    const grow=this.reduced?1:Math.min(1,progress/.22);
     c.save();c.translate(e.x,e.y);
     if(ground){
-      const rim=radius*(.55+.45*grow);
-      c.globalAlpha*=Math.min(1,fade*1.5);
-      softDisc(c,0,0,rim,{color:'#a84a20',opacity:.24});
-      c.strokeStyle='#f5a243';c.lineWidth=Math.max(2,radius*.055);c.globalAlpha*=.65;
-      c.beginPath();c.arc(0,0,rim*.94,0,Math.PI*2);c.stroke();
+      // Scorched ground follows the flash. Its soft, broken edge is a trace,
+      // not a second outline of an active damage area.
+      const trace=Math.max(0,Math.min(1,(progress-.48)/.16))*Math.min(1,(1-progress)/.22);
+      c.globalAlpha*=trace;
+      softDisc(c,0,0,radius*.9,{color:'#583825',opacity:.42,interior:.45});
+      for(const [x,y,s] of [[-.48,-.22,.19],[.43,-.34,.2],[-.32,.47,.16],[.51,.28,.14]])
+        softDisc(c,x*radius,y*radius,s*radius,{color:'#8d4827',opacity:.35});
     }else{
-      // Translucent fire gives the true blast reach while keeping actors visible.
-      const r=radius*grow, glow=c.createRadialGradient(0,-r*.12,0,0,0,Math.max(.01,r));
-      glow.addColorStop(0,'#fff5bdc9');glow.addColorStop(.34,'#ffbb55a8');
-      glow.addColorStop(.72,'#f36a287d');glow.addColorStop(1,'#e94d1900');
-      c.globalAlpha*=Math.max(0,1-progress*1.5);c.fillStyle=glow;
-      c.beginPath();c.arc(0,0,r,0,Math.PI*2);c.fill();
-      // Frames 5–13 occupy only x=20..67, y=24..63 within 88px cells.
-      // Draw those real pixels, not the transparent cell, at blast scale.
-      const explosion=this.battleArt.image('explosion');
-      if(explosion&&r>0){
-        const frame=this.reduced?9:Math.min(13,5+Math.floor(progress*12));
-        c.save();c.beginPath();c.arc(0,0,r,0,Math.PI*2);c.clip();
-        c.globalAlpha*=.72;
-        c.drawImage(explosion,frame*88+20,24,48,40,-r,-r*.83,r*2,r*1.66);
-        c.restore();
+      const r=radius*grow, body=Math.min(1,Math.max(0,(.76-progress)/.2));
+      if(!(r>0&&body>0)){c.restore();return;}
+      c.globalAlpha*=body;
+      c.beginPath();c.arc(0,0,r,0,Math.PI*2);c.clip();
+      // A broad flame body remains dense at the outer area during peak; the
+      // atlas contributes fire texture instead of defining alpha coverage.
+      const glow=c.createRadialGradient(0,-r*.08,0,0,0,r);
+      glow.addColorStop(0,'#fff4b5ed');glow.addColorStop(.4,'#ffc458e8');
+      glow.addColorStop(.76,'#f4772ddd');glow.addColorStop(.93,'#df4c20b5');glow.addColorStop(1,'#d63d1600');
+      c.fillStyle=glow;c.fillRect(-r,-r,r*2,r*2);
+      for(let i=0;i<6;i++){
+        const a=i*Math.PI/3+(this.reduced?0:progress*.5),x=Math.cos(a)*r*.57,y=Math.sin(a)*r*.57;
+        const lobe=c.createRadialGradient(x,y,0,x,y,r*.39);
+        lobe.addColorStop(0,'#fff09cbb');lobe.addColorStop(.45,'#ffad3f94');lobe.addColorStop(1,'#ef5d1b00');
+        c.fillStyle=lobe;c.fillRect(x-r*.4,y-r*.4,r*.8,r*.8);
       }
-      c.globalAlpha*=.8;
-      for(let i=0;i<7;i++){
-        const a=i*2.39996,reach=r*(.38+(i%3)*.2),size=Math.max(8,r*.22);
-        this.combatArt(c,'flame',Math.cos(a)*reach,Math.sin(a)*reach-6/vertical,size,0,size,{age:this.reduced?.2:progress*.45+i*.05,trim:true});
+      const explosion=this.battleArt.image('explosion');
+      if(explosion){
+        const frame=this.reduced?9:Math.min(13,5+Math.floor(progress*12));
+        c.save();c.globalAlpha*=.55;
+        c.drawImage(explosion,frame*88+20,24,48,40,-r*.72,-r*.65,r*1.44,r*1.2);
+        c.restore();
       }
     }
     c.restore();

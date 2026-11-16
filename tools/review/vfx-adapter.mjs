@@ -64,7 +64,7 @@ export async function prepare(page,c){
     return draw.call(this,view,dt,...rest);
    };
   }
-  setTimeout(()=>{
+  q.beginAfterRecording=()=>setTimeout(()=>{
    const add=(key,team,x,y,hpRatio=1,shield=false)=>{
     const u=g.spawn(key,team,x,y,0);u.entryPending=false;
     const nativeMaxHp=u.maxHp;u.hp=u.maxHp*hpRatio;
@@ -91,21 +91,24 @@ export async function prepare(page,c){
     q.fixture.deployment={team,key,requested:{x,y},result};
    }
    q.fixture.startEpochMs=performance.timeOrigin+performance.now();q.fixture.startGameTime=g.elapsed;q.fixture.ready=true;
-   if(c.pauseAtMs)setTimeout(async()=>{
+   const pause=async()=>{
     const rects=()=>Object.fromEntries(['arena','hand','energy-bar'].map(id=>{const b=document.getElementById(id).getBoundingClientRect();return[id,{x:b.x,y:b.y,width:b.width,height:b.height}];}));
     const before=rects();document.getElementById('match-pause').click();
-    const phase=()=>({authority:g.spells.map(s=>({key:s.key,flightElapsed:s.flightElapsed,flightTime:s.flightTime,delay:s.delay,arrived:!!s.arrived,done:!!s.done})),wire:q.snapshotView?.spells.map(s=>({key:s.key,flightElapsed:s.flightElapsed,flightTime:s.flightTime,delay:s.delay,arrived:!!s.arrived,done:!!s.done}))});
+    const phase=()=>({authority:g.spells.map(s=>({key:s.key,flightElapsed:s.flightElapsed,flightTime:s.flightTime,delay:s.delay,arrived:!!s.arrived,done:!!s.done})),impact:r.effects.filter(e=>e.kind==='fireballImpact').map(e=>({life:e.life,max:e.max})),wire:q.snapshotView?.spells.map(s=>({key:s.key,flightElapsed:s.flightElapsed,flightTime:s.flightTime,delay:s.delay,arrived:!!s.arrived,done:!!s.done}))});
     await new Promise(resolve=>setTimeout(resolve,120));const first={canvas:r.canvas.toDataURL(),time:r.t,elapsed:g.elapsed,phase:phase()};
     await new Promise(resolve=>setTimeout(resolve,320));const second={canvas:r.canvas.toDataURL(),time:r.t,elapsed:g.elapsed,phase:phase()};
     const inFlight=list=>list?.some(s=>s.key==='fireball'&&s.delay<=0&&!s.arrived&&!s.done&&s.flightElapsed>0&&s.flightElapsed<s.flightTime);
     const digest=async png=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',Uint8Array.from(atob(png.split(',')[1]),x=>x.charCodeAt(0))))).map(x=>x.toString(16).padStart(2,'0')).join('');
-    q.fixture.pause={complete:true,rasterStable:first.canvas===second.canvas,rasterSha256:[await digest(first.canvas),await digest(second.canvas)],clockStable:first.time===second.time&&first.elapsed===second.elapsed,layoutStable:JSON.stringify(before)===JSON.stringify(rects()),phase:[first.phase,second.phase],activeFlight:!!inFlight(first.phase.authority)&&(!c.snapshots||!!inFlight(first.phase.wire))};
+    q.fixture.pause={complete:true,rasterStable:first.canvas===second.canvas,rasterSha256:[await digest(first.canvas),await digest(second.canvas)],clockStable:first.time===second.time&&first.elapsed===second.elapsed,layoutStable:JSON.stringify(before)===JSON.stringify(rects()),phase:[first.phase,second.phase],activeImpact:first.phase.impact.length>0,activeFlight:!!inFlight(first.phase.authority)&&(!c.snapshots||!!inFlight(first.phase.wire))};
     document.getElementById('resume-btn').click();
-   },c.pauseAtMs);
+   };
+   if(c.pauseOnImpact){const check=()=>{const e=r.effects.find(e=>e.kind==='fireballImpact');if(e&&e.life/e.max<.8&&e.life/e.max>.35)pause();else requestAnimationFrame(check);};requestAnimationFrame(check);}
+   else if(c.pauseAtMs)setTimeout(pause,c.pauseAtMs);
   },c.preRollMs);
  },c);
 }
 export async function observe(page,c){
+ await page.evaluate(()=>{const q=__reviewAdapter;if(!q.recordingStarted){q.recordingStarted=true;q.beginAfterRecording();}});
  const sample=await baseline.observe(page,c),state=states.get(page);
  const fixture=await page.evaluate(()=>{
   const q=__reviewAdapter,g=q.game,r=q.renderer,b=r.canvas.getBoundingClientRect();
@@ -121,6 +124,7 @@ export async function observe(page,c){
  if(fixture.reduced!==!!c.reduced)throw Error('Reduced motion differs from request');
  if(fixture.pause&&(!fixture.pause.rasterStable||!fixture.pause.clockStable||!fixture.pause.layoutStable))throw Error('Pause moved layout, clock or raster');
  if(c.pauseInFlight&&fixture.pause&&!fixture.pause.activeFlight)throw Error('Required pause did not catch an active Fireball flight');
+ if(c.pauseOnImpact&&fixture.pause&&!fixture.pause.activeImpact)throw Error('Required pause did not catch Fireball impact');
  if(c.snapshots)sample.instrumentation.kind='native-clock-with-declared-wire-view-transform';
  return {...sample,fixture,runtimeHashes:state.loaded};
 }

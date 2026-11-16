@@ -1,15 +1,15 @@
 {
-  "id": "vfx-fireball-short-0",
+  "id": "fireball-full-flight-rework",
   "source": "dist/index.html",
   "adapter": "tools/review/vfx-adapter.mjs",
   "scene": "fireball",
-  "preRollMs": 400,
+  "preRollMs": 900,
   "viewport": {
     "width": 390,
     "height": 844,
     "dpr": 1
   },
-  "durationMs": 3400,
+  "durationMs": 4400,
   "sampleMs": 100,
   "clock": "natural-app",
   "expectedEvent": "cast",
@@ -31,5 +31,8 @@
   "requireWebSocketIsolation": true,
   "team": 0,
   "long": false,
-  "captureSurface": "canvas"
+  "captureSurface": "canvas",
+  "adapterDependencies": [
+    "tools/review/baseline-adapter.mjs"
+  ]
 }
