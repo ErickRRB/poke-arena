@@ -2,7 +2,7 @@ import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTar
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
-import {combatVisual,projectileVisual,movementVisual,isRangedAttack,attackVisualProfile,dashPreparation,petalPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
+import {combatVisual,projectileVisual,movementVisual,isRangedAttack,isIceShardAttack,attackVisualProfile,dashPreparation,petalPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
 import { spellPreviewTargets } from './spell-preview.js?v=34';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
@@ -825,7 +825,7 @@ export class Renderer {
       this.projectileHead(c,()=>this.fireBolt(c,x,y,fireSize,angle,fireAge));return;
     }
     const drawHead=()=>{
-      if(p.key==='lapras'&&p.style==='ice')this.iceShardCore(c,x,y,size,angle);
+      if(p.style==='ice'&&art==='snow'&&isIceShardAttack(source?.card||CARDS[p.key]))this.iceShardCore(c,x,y,size,angle);
       this.combatArt(c,art,x,y,size,art==='needle'?0:['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true});
     };
     this.projectileHead(c,drawHead);
@@ -1042,7 +1042,7 @@ export class Renderer {
       else if(e.kind==='areaImpact')this.areaImpact(c,e,progress);
       else if(e.kind==='artImpact'){
         const size=e.visualSize??Math.max(24,Math.min(160,(e.radius||30)*1.7));
-        if(e.key==='lapras'&&e.art==='ice')this.iceImpactCore(c,e.x,e.y,size,this.reduced?.18:progress);
+        if(e.art==='ice'&&isIceShardAttack(CARDS[e.key]))this.iceImpactCore(c,e.x,e.y,size,this.reduced?.18:progress);
         this.combatArt(c,e.art,e.x,e.y,size,0,size,{progress:this.reduced?.45:progress});
       }else if(e.kind==='beam'||e.kind==='counter'){
         const from=this.effectSource(e),to=this.effectTarget(e),name=e.style==='lightning'?'lightning':'psychic';
@@ -1061,9 +1061,9 @@ export class Renderer {
         const size=combatVisual(actor.card).charge;
         const art={slam:'dust',horn:'horn',eruption:'flame',lightning:'lightning',flame:'flame',ember:'emberShot',hydro:'hydroShot',bubble:'bubble',ice:'snow',leaf:'leaf',shadow:'shadow',poison:'poison',powder:'poison',egg:'egg',song:'songShot',magnet:'lightningHead'}[e.style]||'psychic';
         const chargeSize=size*(e.kind==='charge'?.4+.35*progress:1);
-        if(actor.card.id===131&&e.style==='ice'){
+        if(e.style==='ice'&&isIceShardAttack(actor.card)){
           const dx=actor.dx||0,dy=actor.dy||0;
-          this.iceCharge(c,from.x,from.y,20+4*progress,Math.atan2(dy,dx));
+          this.iceCharge(c,from.x,from.y,Math.min(20,size)*(1+.2*progress),Math.atan2(dy,dx));
         }else this.combatArt(c,art,from.x,from.y,chargeSize,0,chargeSize,{age:age*.6,trim:true});
       }else if(e.kind==='impact'){
         this.combatArt(c,e.style==='song'?'song':'impact',e.x,e.y,Math.max(30,(e.radius||18)*2),0,40,{progress});
