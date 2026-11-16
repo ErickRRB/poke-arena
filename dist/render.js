@@ -824,7 +824,10 @@ export class Renderer {
         this.combatArt(c,'fireTrail',x-Math.cos(angle)*shift,y-Math.sin(angle)*shift/(this.verticalScale||1),tailSize,angle-Math.PI/2,tailSize,{frame:this.reduced?5:undefined,frames:[3,4,5,6,5,4],fps:12,age:fireAge+i*.04,trim:true});c.restore();}
       this.projectileHead(c,()=>this.fireBolt(c,x,y,fireSize,angle,fireAge));return;
     }
-    this.projectileHead(c,()=>this.combatArt(c,art,x,y,size,art==='needle'?0:['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true}));
+    this.projectileHead(c,()=>{
+      if(p.key==='lapras'&&p.style==='ice')this.iceShardCore(c,x,y,size,angle);
+      this.combatArt(c,art,x,y,size,art==='needle'?0:['rock','egg'].includes(p.style)?(this.reduced?0:progress*2):['leaf','ember'].includes(p.style)?angle:0,size,{direction:directionRow(end.x-x,end.y-y),age:motion.age,fps:motion.fps,frame:motion.frame,frames:motion.frames,trim:true});
+    });
     if(!this.reduced&&!fireHead&&p.style!=='coin'&&p.style!=='rock'){
       const vertical=this.verticalScale||1,color=p.art==='petalShot'?'#f5c3df':{ember:'#f6c580',hydro:'#a5e6f2',bubble:'#c4eef1',ice:'#dbffff',poison:'#d5a3df',powder:'#d5a3df',shadow:'#b99add',leaf:'#e2edb1',psychic:'#d5baff'}[p.style]||'#e6eac9';
       const length=Math.min(p.travelled,Math.max(16,size*1.5)),bend=Math.sin(progress*Math.PI)*Math.min(8,arc*.05);
@@ -837,6 +840,13 @@ export class Renderer {
     // Keep the compact moving head distinct from troop HUD bars. Trails,
     // beams, ground rollers and impacts remain in their existing world pass.
     if(this.projectileHeadQueue)this.projectileHeadQueue.push(draw);else draw();
+  }
+  iceShardCore(c,x,y,size,angle){
+    // A solid, edged core keeps the transparent shard readable over the arena.
+    c.save();c.translate(x,y);c.scale(1,1/(this.verticalScale||1));c.rotate(angle);
+    c.beginPath();c.moveTo(size*.46,0);c.lineTo(size*.04,-size*.23);c.lineTo(-size*.4,-size*.15);c.lineTo(-size*.32,0);c.lineTo(-size*.4,size*.15);c.lineTo(size*.04,size*.23);c.closePath();
+    c.fillStyle='#77c9df';c.strokeStyle='#286079';c.lineWidth=2;c.lineJoin='round';c.fill();c.stroke();
+    c.beginPath();c.moveTo(size*.35,0);c.lineTo(-size*.29,0);c.strokeStyle='#e2fbff';c.lineWidth=1.5;c.stroke();c.restore();
   }
   fireBolt(c,x,y,size,angle,age){
     this.combatArt(c,'emberShot',x,y,size*1.25,angle-Math.PI/2,size*1.25,{frame:flameFrame(age,this.reduced),trim:true});
