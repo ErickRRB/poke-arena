@@ -47,6 +47,7 @@ export async function observe(page,config){
 }
 async function rasterControl(page){
   const output=process.env.REVIEW_STATIC_OUTPUT;
+  await mkdir(output,{recursive:true});
   await page.locator('#match-pause').click();await page.waitForFunction(()=>__reviewAdapter.game.state==='paused');
   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   const before=await page.evaluate(()=>({time:__reviewAdapter.game.elapsed,renderTime:__reviewAdapter.renderer.t,canvas:__reviewAdapter.renderer.canvas.toDataURL('image/png')}));
