@@ -379,8 +379,8 @@ export class Game {
     unit.x=slide.startX+(slide.endX-slide.startX)*progress;unit.y=slide.startY+(slide.endY-slide.startY)*progress;
     unit.moving=true;if(t>=1)unit.deathSlide=null;
   }
-  reinforcementPoint(key,x,y,reserved=[]){
-    const card=CARDS[key],radius=card.radius||12,candidates=[];
+  reinforcementPoint(key,x,y,reserved=[],resolveCard=key=>CARDS[key]){
+    const card=resolveCard(key),radius=card.radius||12,candidates=[];
     for(let row=-3;row<=3;row++)for(let col=-3;col<=3;col++){
       const p={x:clamp(x+col*18,ARENA.left+1,ARENA.right-1),y:clamp(y+row*18,ARENA.top+1,ARENA.bottom-1)};
       if(reserved.some(other=>distance(p,other)<radius*1.4))continue;
@@ -390,13 +390,18 @@ export class Game {
     }
     candidates.sort((a,b)=>distance(a,{x,y})-distance(b,{x,y}));return candidates[0]||null;
   }
-  summonSpell(spell){
-    const card=spell.card,points=[],delay=card.spawnDeployTime??.4,group={id:this.nextId,x:spell.x,y:spell.y,duration:delay,spawnCause:'spell'};
-    for(let i=0;i<card.spawnTotal&&this.units.filter(u=>u.hp>0).length<160;i++){
+  summonSpellPositions(spell,resolveCard=key=>CARDS[key]){
+    const card=spell.card,points=[],available=Math.max(0,160-this.units.filter(u=>u.hp>0).length);
+    for(let i=0;i<card.spawnTotal&&points.length<available;i++){
       const angle=-Math.PI/2+i*2*Math.PI/card.spawnTotal+(spell.team?Math.PI:0),radius=card.spawnRadius;
-      const point=this.reinforcementPoint(card.spawnKey,spell.x+Math.cos(angle)*radius,spell.y+Math.sin(angle)*radius,points);
-      if(point){points.push(point);this.spawn(card.spawnKey,spell.team,point.x,point.y,delay,group,'spell');}
+      const point=this.reinforcementPoint(card.spawnKey,spell.x+Math.cos(angle)*radius,spell.y+Math.sin(angle)*radius,points,resolveCard);
+      if(point)points.push(point);
     }
+    return points;
+  }
+  summonSpell(spell,resolveCard=key=>CARDS[key]){
+    const card=spell.card,delay=card.spawnDeployTime??.4,group={id:this.nextId,x:spell.x,y:spell.y,duration:delay,spawnCause:'spell'};
+    for(const point of this.summonSpellPositions(spell,resolveCard))this.spawn(card.spawnKey,spell.team,point.x,point.y,delay,group,'spell');
   }
   finish(winner, reason) {
     if (this.state === 'ended') return;

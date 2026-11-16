@@ -425,10 +425,10 @@ export class Renderer {
       // Articulated sprites are mutable canvases. Reuse their mask surface,
       // refreshing its pixels for this pose rather than caching a stale wing.
       const mask=tint.getContext('2d',{willReadFrequently:true});mask.imageSmoothingEnabled=false;mask.globalCompositeOperation='source-over';mask.clearRect(0,0,sw,sh);mask.drawImage(image,sx,sy,sw,sh,0,0,sw,sh);
-      mask.globalCompositeOperation='source-in';mask.fillStyle='#ff3048';mask.fillRect(0,0,sw,sh);
+      mask.globalCompositeOperation='source-in';mask.fillStyle='#fff3c2';mask.fillRect(0,0,sw,sh);
     }
     cache.delete(key);cache.set(key,tint);if(cache.size>48)cache.delete(cache.keys().next().value);
-    c.save();c.filter='none';c.globalAlpha*=this.reduced?.48:.32+.28*(.5+.5*Math.sin(this.t*Math.PI*2));c.drawImage(tint,0,0,sw,sh,dx,dy,dw,dh);c.restore();
+    c.save();c.filter='none';c.globalAlpha*=this.reduced?.4:.28+.2*(.5+.5*Math.sin(this.t*Math.PI*2));c.shadowColor='#fff6c8';c.shadowBlur=9;c.drawImage(tint,0,0,sw,sh,dx,dy,dw,dh);c.restore();
   }
   targetTint(actor){return this.spellTargets?.has(actor.id)?(...args)=>this.tintTarget(...args):undefined;}
   tower(c,tower){
@@ -1180,10 +1180,11 @@ export class Renderer {
       const placement=resolvePlacementInput(game,team,key,p.x,p.y),point=placement||p;
       const valid=!!placement&&game.energy[team]>=card.cost;
       const color=valid?'#e9dc9e':'#e7947b';
-      if(card.rolling&&key!=='log')travelGuide(c,point.x,point.y,card.splash,card.travelDistance,team,valid);
+      let nameOffset=-43;
+      if(card.rolling)travelGuide(c,point.x,point.y,card.splash,card.travelDistance,team,valid);
       if(!card.spell&&placement){
         const ranged=(card.squad?card.squad.map(k=>CARDS[k]):[card]).filter(isRangedAttack),range=Math.max(...ranged.map(member=>member.range));
-        if(!card.passive&&ranged.length){
+        if(card.structure&&!card.passive&&ranged.length){
         softDisc(c,point.x,point.y,range,{color:'#fff6df',opacity:.23,interior:.8,feather:16});
         }
         for(const enemy of game.deploymentThreats(team,key,point.x,point.y)){
@@ -1193,13 +1194,32 @@ export class Renderer {
           placementWarning(c,bx,by,this.verticalScale||1);
         }
       }
-      if(card.spell)this.spellPlacement(c,key,card,point,team,valid);
+      if(card.spell){
+        this.spellPlacement(c,key,card,point,team,valid);
+        if(valid&&card.spawnOnImpact&&game.summonSpellPositions){
+          const token=CARDS[card.spawnKey];
+          const positions=game.summonSpellPositions({card,team,...point});
+          if(positions.length){
+            const vertical=this.verticalScale||1,top=Math.min(...positions.map(position=>position.y));
+            nameOffset=Math.max(((this.worldBounds?.top??0)-point.y)*vertical+12,Math.min(nameOffset,(top-point.y)*vertical-32));
+          }
+          for(const [index,position] of positions.entries()){
+            c.save();c.globalAlpha*=.82;c.shadowColor='#142c35';c.shadowBlur=4;this.sprite(c,{...position,card:token,preview:true,team,dx:0,dy:team?1:-1,anim:this.t,id:-1-index},true);c.restore();
+          }
+        }
+      }
       if(!card.spell&&valid&&this.selection){
         const positions=game.deploymentPositions(team,key,point.x,point.y);
         for(const [index,position]of positions.entries()){
           cellGuide(c,position.x,position.y,TILE,valid);
           if(!card.spell){const previewCard=CARDS[card.squad?.[index]]||card;c.globalAlpha=.55;this.sprite(c,{...position,card:previewCard,preview:true,team,dx:0,dy:team?1:-1,anim:this.t,id:-1-index,lifetime:card.lifetime},true);c.globalAlpha=1;}
         }
+      }
+      if(placement){
+        c.save();c.translate(point.x,point.y);c.scale(1,1/(this.verticalScale||1));
+        c.font='400 19px "Lilita One", sans-serif';c.textAlign='center';c.textBaseline='middle';c.lineJoin='round';c.lineWidth=4;c.strokeStyle='#24201c';c.fillStyle='#fff9e8';
+        const label=card.name,half=(c.measureText(label)?.width??0)/2,x=Math.max((this.worldBounds?.left??0)+half+3,Math.min((this.worldBounds?.right??W)-half-3,point.x))-point.x;
+        c.strokeText(label,x,nameOffset);c.fillText(label,x,nameOffset);c.restore();
       }
       if(!valid&&!card.spell){line(c,color,p.x-5,p.y-5,p.x+5,p.y+5,2);line(c,color,p.x+5,p.y-5,p.x-5,p.y+5,2);}
     }

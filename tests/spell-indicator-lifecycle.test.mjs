@@ -5,7 +5,7 @@ import { Renderer } from '../dist/render.js?v=32';
 
 const spells = Object.entries(CARDS).filter(([, card]) => card.spell);
 function context() {
-  const calls = [], ctx = new Proxy({createRadialGradient:()=>({addColorStop(){}})}, { get: (object, name) => object[name] ?? ((...args) => calls.push({ method: name, args })), set: (object, name, value) => (object[name] = value, true) });
+  const calls = [], ctx = new Proxy({createRadialGradient:()=>({addColorStop(){}}),createLinearGradient:()=>({addColorStop(){}}),measureText:()=>({width:80})}, { get: (object, name) => object[name] ?? ((...args) => calls.push({ method: name, args })), set: (object, name, value) => (object[name] = value, true) });
   return { ctx, calls };
 }
 function fixture(key, team = 0) {
@@ -19,15 +19,15 @@ for (const [key, card] of spells) for (const team of [0, 1]) {
   test(`${key} shows its exact area or initial ground ghost while aiming, team${team}`, () => {
     const { game, renderer, ctx, calls } = fixture(key, team), point = game.resolveDeployment(team, key, renderer.pointer.x, renderer.pointer.y);
     assert.ok(point); renderer.drawPlacement(ctx, game);
-    assert.equal(calls.filter(call => ['ghostSprite', 'drawImage', 'ellipse', 'closePath', 'strokeRect'].includes(call.method)).length, 0, 'No summon troops, hard reticle, grid or connector.');
+    assert.equal(calls.filter(call => ['drawImage', 'ellipse', 'closePath', 'strokeRect'].includes(call.method)).length, 0, 'No hard reticle, grid or connector.');
+    assert.equal(calls.filter(call=>call.method==='ghostSprite').length,card.spawnOnImpact?game.summonSpellPositions({card,team,...point}).length:0);
     assert.equal(calls.filter(call=>call.method==='previewArt').length,key==='log'?1:0);
     assert.equal(calls.filter(call=>call.method==='capsuleGhost').length,card.spawnOnImpact?1:0);
     if (card.rolling) {
       assert.equal(key, 'log'); assert.equal(calls.filter(call => call.method === 'arc').length, 1);
       assert.ok(calls.some(call=>call.method==='scale'&&call.args[0]===1&&call.args[1]<.3),'The ground hint is shallow, not a circular damage area.');
       const fills=calls.filter(call=>call.method==='fillRect').map(call=>call.args);
-      assert.deepEqual(fills[0],[point.x-12,point.y-12,24,24]);
-      assert.ok(fills.every(([x,y,w,h])=>x>=point.x-12&&y>=point.y-12&&x+w<=point.x+12&&y+h<=point.y+12));
+      assert.equal(fills[0][0],point.x-card.splash);assert.equal(fills[0][2],card.splash*2);assert.ok(fills[0][3]<=card.travelDistance);
       assert.equal(calls.filter(call=>['moveTo','lineTo','stroke'].includes(call.method)).length,0,'Log keeps one soft cell anchor without a corridor or reticle.');
     } else {
       assert.deepEqual(calls.filter(call => call.method === 'arc').map(call => call.args), [[point.x, point.y, card.splash, 0, Math.PI * 2]]);
