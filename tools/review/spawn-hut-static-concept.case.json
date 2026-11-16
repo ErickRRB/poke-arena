@@ -1,4 +1,4 @@
 {
   "id":"fb30-native-hut-static-concept","source":"dist/index.html","adapter":"tools/review/spawn-visibility-adapter.mjs","adapterDependencies":["tools/review/baseline-adapter.mjs"],"staticConcept":true,
-  "viewport":{"width":390,"height":844,"dpr":1},"durationMs":6500,"sampleMs":80,"clock":"natural-app","expectedEvent":"spawn","extractIntervalMs":150,"recordCanvas":"#arena","captureSurface":"canvas","crop":{"x":10,"y":2,"width":370,"height":686},"requiredObservations":["clock","canvas","events","actorState","hp"],"requireWebSocketIsolation":true
+  "viewport":{"width":390,"height":844,"dpr":1},"durationMs":7800,"sampleMs":80,"clock":"natural-app","expectedEvent":"spawn","extractIntervalMs":150,"recordCanvas":"#arena","captureSurface":"canvas","crop":{"x":10,"y":2,"width":370,"height":686},"requiredObservations":["clock","canvas","events","actorState","hp"],"requireWebSocketIsolation":true
 }

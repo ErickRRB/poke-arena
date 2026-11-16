@@ -40,6 +40,7 @@ export async function observe(page,config){
 }
 async function staticConcept(page){
   const output=process.env.REVIEW_STATIC_OUTPUT;
+  await page.waitForFunction(()=>__reviewAdapter.game.elapsed>=__reviewAdapter.fixture.startAt+5.65);
   await page.locator('#match-pause').click();await page.waitForFunction(()=>__reviewAdapter.game.state==='paused');
   await page.evaluate(()=>{
     const q=__reviewAdapter,g=q.game,parent=g.units.find(u=>u.key==='raltsHut'),children=g.units.filter(u=>u.parentId===parent.id).sort((a,b)=>a.x-b.x);
@@ -57,7 +58,7 @@ async function staticConcept(page){
     };
   });
   await page.screenshot({path:path.join(output,'static-native-pause-context.png')});
-  for(const[caption,alpha,compact]of[['original',1,false],['roof55-compact',.55,true],['roof35-compact',.35,true]]){
+  for(const[caption,alpha,compact]of[['original',1,false],['roof55-compact',.55,true],['roof35-compact',.35,true],['parent-hidden-diagnostic',0,true]]){
     await page.evaluate(async({caption,alpha,compact})=>{
       const q=__reviewAdapter;Object.assign(q.concept,{alpha,compact});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
       const after=JSON.stringify(q.game.units.map(u=>({id:u.id,x:u.x,y:u.y,hp:u.hp,spawn:u.spawn,parentId:u.parentId})));
