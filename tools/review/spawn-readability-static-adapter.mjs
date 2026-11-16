@@ -28,14 +28,20 @@ async function compose(page){
       for(let y=0;y<s.height;y++)for(let x=0;x<s.width;x++)if(data[(y*s.width+x)*4+3]>32){left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);}
       return{unit,visual,canvas:s,bounds:{left:left/dpr,top:top/dpr,right:(right+1)/dpr,bottom:(bottom+1)/dpr},ownerX:p.x+visual.x*p.scale,healthY:Math.round(p.y+(visual.y-r.bodyHeight(visual)-9)*p.scale)-2};
     });
-    const cut=make(),paint=cut.getContext('2d');paint.drawImage(material,0,0);
+    const cut=make(),paint=cut.getContext('2d'),edges=[];paint.drawImage(material,0,0);
     for(const item of stencils){
       paint.globalCompositeOperation='destination-out';paint.drawImage(item.canvas,0,0);
       const edge=make(),c=edge.getContext('2d');
       for(const[x,y]of[[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]])c.drawImage(item.canvas,x*dpr,y*dpr);
       c.globalCompositeOperation='source-in';c.fillStyle='#fff3d0';c.fillRect(0,0,edge.width,edge.height);
       c.globalCompositeOperation='destination-out';c.drawImage(item.canvas,0,0);c.globalCompositeOperation='destination-in';c.drawImage(material,0,0);
-      paint.globalCompositeOperation='source-over';paint.drawImage(edge,0,0);
+      edges.push(edge);
+    }
+    paint.globalCompositeOperation='source-over';for(const edge of edges)paint.drawImage(edge,0,0);
+    for(let i=0;i<edges.length;i++)for(let j=0;j<i;j++){
+      const shared=make(),c=shared.getContext('2d');c.drawImage(edges[i],0,0);c.globalCompositeOperation='destination-in';c.drawImage(edges[j],0,0);
+      c.globalCompositeOperation='source-in';c.fillStyle='#14271f';c.fillRect(0,0,shared.width,shared.height);
+      c.globalCompositeOperation='destination-out';for(const item of stencils)c.drawImage(item.canvas,0,0);paint.drawImage(shared,0,0);
     }
     const childIds=new Set(children.map(u=>u.id)),species=new Set(children.map(u=>u.card.id)),view={mode:0,frames:[]};
     r.bodyHeights.has=function(id){return !(view.mode&&species.has(id))&&has.call(this,id);};
@@ -63,7 +69,7 @@ async function compose(page){
       c.restore();view.geometry={children:geometry,parent:{x:parent.x,y:parentY,widthWorld:44,rule:view.mode===2?'stationary summon structures at fixed base+10':'unchanged original above-body'}};return value;
     };
     overlay.style.visibility='hidden';
-    q.readabilityComposition={view,before,beforeRects,snapshot,rects,parentId:parent.id,childIds:[...childIds],restore(){r.structureSprite=structure;r.sprite=sprite;r.healthBar=health;r.healthReadout=readout;r.draw=draw;r.bodyHeights.has=has;overlay.style.visibility=visibility;},limits:'Static same-pair composition only. Native CPU paused; only modal visual visibility hidden equally for full-context diagnostic images. Exact native sprite silhouettes cut the parent material;1CSS cream edge only on original parent alpha. No unit/card/pose/HP/clock changes, no motion/production approval. Parent-base variant is a semantic spawner class proposal, not a species offset.'};
+    q.readabilityComposition={view,before,beforeRects,snapshot,rects,parentId:parent.id,childIds:[...childIds],restore(){r.structureSprite=structure;r.sprite=sprite;r.healthBar=health;r.healthReadout=readout;r.draw=draw;r.bodyHeights.has=has;overlay.style.visibility=visibility;},limits:'Static same-pair composition only. Native CPU paused; only modal visual visibility hidden equally for full-context diagnostic images. Exact native sprite silhouettes cut parent material;1CSS cream edge only on original parent alpha, shared edge pixels use dark ink instead of bridging adjacent bodies. Native opaque body pixels are protected. No unit/card/pose/HP/clock changes, no motion/production approval. Parent-base variant is a semantic spawner class proposal, not a species offset.'};
   });
   const views=[];
   try{
