@@ -1784,7 +1784,7 @@
     },
     {
       "key": "madriguera",
-      "name": "Madriguera Nidoqueen",
+      "name": "Madriguera Nidoran",
       "role": "Estructura · invocadora",
       "reference": "Choza de bárbaros",
       "cost": 6,
@@ -1796,7 +1796,7 @@
       "interval": 10,
       "directDps": 0,
       "range": 0,
-      "scale": 2.24,
+      "scale": null,
       "description": "Libera grupos de tres Nidoran y deja uno más al caer.",
       "pokemonIdentity": "Refugio de la camada",
       "attackRuleException": true,

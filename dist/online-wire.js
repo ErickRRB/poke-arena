@@ -1,5 +1,5 @@
 import { CARDS } from './engine.js?v=34';
-import { packGame } from './snapshot.js?v=34';
+import { packGame, migrateLegacyCardIdentity } from './snapshot.js?v=34';
 
 export const ONLINE_PROTOCOL = 4;
 export const SIMULATION_HZ = 30;
@@ -33,6 +33,8 @@ export function publicEvent(event) {
 }
 export function unpackEvent(event) {
   const copy = { ...event };
-  for (const key of ['attacker', 'target', 'unit', 'tower']) if (copy[key]) copy[key] = { ...copy[key], card: copy[key].card || CARDS[copy[key].key] };
+  for (const key of ['attacker', 'target', 'unit', 'tower']) if (copy[key]) copy[key] = { ...copy[key] };
+  migrateLegacyCardIdentity(copy);
+  for (const key of ['attacker', 'target', 'unit', 'tower']) if (copy[key]) copy[key].card ??= CARDS[copy[key].key];
   return copy;
 }

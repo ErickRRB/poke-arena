@@ -10,7 +10,7 @@ import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 import * as onlineConfig from './online-config.js?v=36';
 const publicAssetUrl=onlineConfig.publicAssetUrl||((file)=>file);
-const {whirlpoolPhase,earthquakePhase,earthquakeFissures}=await import(publicAssetUrl('./field-motion.js?v=36'));
+const {whirlpoolPhase,nightmareFrame,earthquakePhase,earthquakeFissures}=await import(publicAssetUrl('./field-motion.js?v=36'));
 const {flameFrame,rollingFirePose,drawFireWheel,FIRE_WHEEL_FILES,loadFireWheelMaterial}=await import(publicAssetUrl('./fire-material.js?v=38'));
 const {canvasBackingSize,alignedSpriteRect}=await import(publicAssetUrl('./canvas-raster.js?v=36'));
 const {NativeSpriteSampler}=await import(publicAssetUrl('./native-sprite-sampling.js?v=36'));
@@ -492,7 +492,8 @@ export class Renderer {
   sprite(c, unit, idle = false) {
     if(unit.card.structureArt){this.structureSprite(c,unit,idle);return;}
     const burrow=unit.card.burrow&&!unit.preview?(this.reduced?(unit.burrowed?1:0):unit.burrowProgress??(unit.burrowed?1:0)):0;
-    if(burrow>=.999){this.platform(c,unit);return;}
+    const buriedHealthY=unit.y-25/(this.verticalScale||1);
+    if(burrow>=.999){this.platform(c,unit);if(!idle&&!this.silhouettePass)this.queueUnitHealth(c,unit,unit.x,buriedHealthY,44);return;}
     const pose=this.nativeSpritePose(unit);if(!pose)return;
     const {id,meta,img,scale,vertical,anim,frame,direction,anchor,lift,lunge,flightClock,preparation}=pose,{x,y}=unit;
     const radius=unit.radius||12;
@@ -521,7 +522,8 @@ export class Renderer {
     c.restore();
     if(unit.shield>0&&!unit.mounted&&!this.silhouettePass){c.save();c.globalAlpha=.5;this.combatArt(c,'shield',x,y-lift-16,Math.max(40,radius*3));c.restore();}
     if(idle||this.silhouettePass)return;
-    const by=y-lift-((this.bodyHeights.get(id)||22)*scale+9+(id===6?12:0))/vertical;
+    const bodyHealthY=y-lift-((this.bodyHeights.get(id)||22)*scale+9+(id===6?12:0))/vertical;
+    const by=bodyHealthY+(buriedHealthY-bodyHealthY)*burrow;
     this.queueUnitHealth(c,unit,x,by,unit.maxHp<=1?18:unit.card.count?30:unit.maxHp>=1800?52:44);
     if(unit.card.ability&&!unit.abilityUsed){ellipse(c,'#382448',x+27,by+4,6,6);text(c,'◆',x+27,by+4,'#e9beff',10,800);}
     if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
@@ -554,12 +556,12 @@ export class Renderer {
     c.save();if(unit.spawn>0)c.globalAlpha=.2+.8*spawn;
     if(unit.hit>0&&!this.reduced)c.filter=`brightness(${1+.35*unit.hit/.24})`;
     const drawn=this.battleArt.structure(c,unit.card.structureArt,unit.team,x,y,art.width,vertical,unit.preview||this.silhouettePass?undefined:this.targetTint(unit));
-    if(drawn){
-      c.globalAlpha*=this.reduced?.12:.08+.08*(.5+.5*Math.sin(this.t*2));c.fillStyle='#ffd7ed';
+    if(drawn&&art.windowGlow){
+      c.globalAlpha*=this.reduced?.12:.08+.08*(.5+.5*Math.sin(this.t*2));c.fillStyle=art.windowGlow;
       for(const side of[-1,1])c.fillRect(x+side*art.width*.244-2,y-(art.height*.243+2)/vertical,4,4/vertical);
     }
     c.restore();if(!drawn||idle||this.silhouettePass)return;
-    const by=unit.y-(this.bodyHeight(unit)+9)/vertical;
+    const by=unit.y+(art.healthOffset??-(this.bodyHeight(unit)+9))/vertical;
     this.queueUnitHealth(c,unit,x,by,44);
     if(unit.stun>0)this.combatArt(c,'lightning',x,by-10,22);
     else if(unit.slow>0)this.combatArt(c,'snow',x,by-10,18);
@@ -625,15 +627,14 @@ export class Renderer {
     if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+10,width+2,5);rect(c,'#f1e0ff',x-width/2,y+11,width*unit.shield/Math.max(unit.shield,unit.maxShield||1),3);}
   }
   platform(c,unit){
-    if(unit.card.platform===false)return;
     if(unit.card.burrow){
       const vertical=this.verticalScale||1;c.save();c.translate(unit.x,unit.y);c.scale(1,1/vertical);
       rect(c,'#263a32',-25,-9,50,20);rect(c,'#89998b',-23,-7,46,16);rect(c,'#b6c0a5',-20,-5,40,12);
       line(c,'#495f52',0,-5,0,7,2);for(const x of[-19,17])rect(c,'#465b4e',x,-4,3,3);
       rect(c,unit.team?'#d75f4e':'#498ca2',-16,7,32,3);
-      if(unit.burrowed){rect(c,'#2f4135',-16,13,32,3);rect(c,unit.team?'#efaf7a':'#b7df9b',-16,13,32*Math.max(0,unit.hp/unit.maxHp),3);}
       c.restore();return;
     }
+    if(unit.card.platform===false)return;
     if(!this.battleArt.structure(c,'platform',unit.team,unit.x,unit.y+4,74,this.verticalScale||1,this.targetTint(unit)))text(c,'PLACEHOLDER',unit.x,unit.y-15,'#ffe3a0',8);
   }
   onEvent(event,game) {
@@ -1155,7 +1156,7 @@ export class Renderer {
   field(c,f,front=false){
     const radius=f.radius,age=f.visualAge??(f.duration?Math.max(0,f.duration-f.life):this.t);
     c.save();c.globalAlpha=Math.min(1,f.life/(f.key==='whirlpool'?.12:.4));
-    if(!front&&f.key!=='spikes')softDisc(c,f.x,f.y,radius,{color:CARDS[f.key]?.color||'#b8cad1',opacity:f.key==='whirlpool'?.24:.1});
+    if(!front&&f.key!=='spikes')softDisc(c,f.x,f.y,radius,{color:f.key==='stealthRock'?'#fff0c5':CARDS[f.key]?.color||'#b8cad1',opacity:f.key==='whirlpool'?.24:f.key==='stealthRock'?.22:.1});
     if(f.key==='stealthRock'){
       for(let i=0;i<9;i++){
         const a=i*2.39996,r=Math.sqrt((i+.5)/9)*radius*.83,x=f.x+Math.cos(a)*r,y=f.y+Math.sin(a)*r;
@@ -1185,10 +1186,11 @@ export class Renderer {
     const radius=field.radius,size=Math.ceil(radius*2),surface=this.fieldSurface??=this.canvas.ownerDocument.createElement('canvas');
     if(surface.width!==size||surface.height!==size){surface.width=size;surface.height=size;}
     const portal=surface.getContext('2d');portal.setTransform(1,0,0,1,0,0);portal.globalAlpha=1;portal.globalCompositeOperation='source-over';portal.clearRect(0,0,size,size);portal.imageSmoothingEnabled=false;
-    this.battleArt.draw(portal,front?'nightmareFront':'nightmareBack',size/2,size/2,radius*2.4,radius*2.4,{age:this.reduced?.3:Math.max(0,age),blend:!this.reduced});
+    const phase={progress:nightmareFrame(age,this.reduced)/39,blend:!this.reduced};
+    this.battleArt.draw(portal,front?'nightmareFront':'nightmareBack',size/2,size/2,radius*2.4,radius*2.4,phase);
     // Both opaque halves belong to the ground beneath the actors. Above them,
     // screen compositing keeps only the purple wisps; black cannot hide a body.
-    if(!front)this.battleArt.draw(portal,'nightmareFront',size/2,size/2,radius*2.4,radius*2.4,{age:this.reduced?.3:Math.max(0,age),blend:!this.reduced});
+    if(!front)this.battleArt.draw(portal,'nightmareFront',size/2,size/2,radius*2.4,radius*2.4,phase);
     if(!front){portal.globalCompositeOperation='source-atop';portal.globalAlpha=.26;portal.fillStyle='#5d3d7e';portal.fillRect(0,0,size,size);portal.globalAlpha=1;portal.globalCompositeOperation='source-over';}
     const fade=portal.createRadialGradient(size/2,size/2,0,size/2,size/2,radius);
     fade.addColorStop(0,'#fff');fade.addColorStop(.48,'#fff');fade.addColorStop(.72,'#ffffff9c');fade.addColorStop(1,'#ffffff00');

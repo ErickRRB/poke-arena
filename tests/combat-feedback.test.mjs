@@ -61,6 +61,27 @@ test('structure health does not leave a full yellow damage trail while its lifet
  const ctx=new Proxy({}, {get:(o,k)=>o[k]??(()=>{}),set:(o,k,v)=>(o[k]=v,true)});renderer.healthBar(ctx,unit,100,100,44);
  assert.equal(renderer.healthStates.get(1).chip,.5);
 });
+
+test('a buried Tesla keeps its hatch and native health/lifetime meter without a generic platform',()=>{
+ for(const team of[0,1])for(const reduced of[false,true]){
+  const{game}=fresh(),unit=game.spawn('ampharos',team,300,500,0);run(game,2);
+  assert.equal(unit.card.platform,false);assert.equal(unit.burrowed,true);
+  const rectangles=[],meters=[],ctx=new Proxy({fillRect:(...args)=>rectangles.push(args)},{get:(o,k)=>o[k]??(()=>{}),set:(o,k,v)=>(o[k]=v,true)});
+  const renderer=Object.assign(Object.create(Renderer.prototype),{verticalScale:1.5,reduced,healthBar:(...args)=>meters.push(args),ensureSpecies(){throw Error('A hidden body must not load or draw a species.');},battleArt:{structure(){throw Error('The trapdoor is independent of generic platforms.');}}});
+  const before=JSON.stringify(unit);renderer.sprite(ctx,unit);
+  assert.ok(rectangles.length>0,'The hidden structure has a visible trapdoor.');
+  assert.equal(meters.length,1,'Use one native meter for the coupled health/lifetime budget.');
+  assert.equal(meters[0][1],unit);assert.ok(meters[0][3]<unit.y-9/1.5,'The meter stays above the hatch.');
+  assert.equal(JSON.stringify(unit),before,'Rendering does not advance or mutate the structure.');
+  renderer.sprite(ctx,unit,true);
+  assert.equal(meters.length,1,'An idle drawing does not add a combat meter.');
+ }
+});
+
+test('opting out of a platform still works for structures without a burrow hatch',()=>{
+ const renderer=Object.create(Renderer.prototype),ctx=new Proxy({},{get(){throw Error('No platform should be painted.');}});
+ renderer.platform(ctx,{card:{structure:true,platform:false,burrow:false}});
+});
 test('Wall Breakers killed before contact have no death explosion or removed death stun',()=>{
  const{game,events}=fresh(),explosive=game.spawn('forretress',0,300,500,0),enemy=game.spawn('geodude',1,350,500,0),hp=enemy.hp;
  game.damage(explosive,9999,1);assert.equal(enemy.hp,hp);assert.equal(enemy.stun,0);

@@ -6,6 +6,14 @@ export function whirlpoolPhase(field,age,reduced=false){
  return{frame:reduced?8:(Math.max(0,age)/.07)%20,opacity:clamp(remaining/.12,0,1)};
 }
 
+export function nightmareFrame(age,reduced=false){
+ if(reduced)return 7;
+ const time=Math.max(0,age),opening=7/18;
+ // The atlas closes after frame14 and is blank from24 onward. Its two full
+ // portal frames breathe continuously; the field's native fade handles expiry.
+ return time<opening?time*18:7+.5-.5*Math.cos((time-opening)*2.4);
+}
+
 export function earthquakePhase(field,age,reduced=false){
  const period=field.fieldTick||1,beatAge=age%period;
  return{growth:reduced?1:clamp(age/.34,0,1),pulse:reduced?.35:age<period?.2:Math.exp(-beatAge*8),jitter:reduced?0:Math.sin(age*38)*.7};

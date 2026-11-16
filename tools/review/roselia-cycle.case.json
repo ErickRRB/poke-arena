@@ -1,0 +1,21 @@
+{
+  "id":"fb02-roselia-native-cycle",
+  "source":"dist/index.html",
+  "adapter":"tools/review/live-feedback-adapter.mjs",
+  "adapterDependencies":["tools/review/baseline-adapter.mjs"],
+  "scene":"roselia-cycle",
+  "preRollMs":800,
+  "pauseAtMs":1200,
+  "team":0,
+  "reduced":false,
+  "viewport":{"width":390,"height":844,"dpr":1},
+  "durationMs":6800,
+  "sampleMs":60,
+  "clock":"natural-app",
+  "expectedEvent":"attackRelease",
+  "extractIntervalMs":100,
+  "recordCanvas":"#arena",
+  "crop":{"x":10,"y":2,"width":370,"height":686},
+  "requiredObservations":["clock","canvas","events","actorState","hp"],
+  "requireWebSocketIsolation":true
+}

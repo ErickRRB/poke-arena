@@ -5,22 +5,24 @@ import {Renderer} from '../dist/render.js';
 import {Game} from '../dist/engine.js?v=34';
 
 const context=()=>new Proxy({globalAlpha:1},{get:(o,key)=>o[key]??(()=>{}),set:(o,key,value)=>(o[key]=value,true)});
-function fixture(){
+function fixture(kind='raltsHut'){
   const requests=[],image={},art=new BattleArt(async file=>{requests.push(file);return image;}),draws=[],health=[],tints=[];
-  art.images.set(STRUCTURE_ART.raltsHut.file,image);
+  art.images.set(STRUCTURE_ART[kind].file,image);
   const renderer=Object.assign(Object.create(Renderer.prototype),{battleArt:art,bodyHeights:new Map(),t:0,drawDt:0,reduced:false,verticalScale:1.5,effects:[],particles:[],frameActors:new Map(),burst(){},ensureSpecies(){throw Error('A building must not request Pokémon sprites.');},healthBar:(...args)=>health.push(args),targetTint:unit=>(...args)=>tints.push({id:unit.id,args})});
-  const unit={id:42,key:'raltsHut',team:0,x:300,y:500,hp:1180,maxHp:1180,spawn:0,hit:0,card:{structure:true,structureArt:'raltsHut',summon:'raltsToken'}};
+  const unit={id:42,key:kind==='raltsHut'?'raltsHut':'madriguera',team:0,x:300,y:500,hp:1180,maxHp:1180,spawn:0,hit:0,card:{structure:true,structureArt:kind,summon:kind==='raltsHut'?'raltsToken':'nidoranM'}};
   const ctx=context();ctx.drawImage=(...args)=>draws.push(args);return{art,renderer,unit,ctx,draws,health,tints,requests};
 }
 
-test('a structure without a species preloads and draws its own body, health and target mask',async()=>{
-  const{art,renderer,unit,ctx,draws,health,tints,requests}=fixture();
-  assert.ok(art.files().includes(STRUCTURE_ART.raltsHut.file));await art.load(STRUCTURE_ART.raltsHut.file);
+for(const kind of Object.keys(STRUCTURE_ART))test(`${kind}: a structure without a species preloads and draws its own body, health and target mask`,async()=>{
+  const{art,renderer,unit,ctx,draws,health,tints,requests}=fixture(kind);
+  assert.ok(art.files().includes(STRUCTURE_ART[kind].file));await art.load(STRUCTURE_ART[kind].file);
   renderer.onEvent({type:'spawn',unit});
   renderer.sprite(ctx,unit);assert.equal(unit.card.id,undefined);assert.equal(draws.length,1);assert.equal(tints.length,1);assert.equal(tints[0].id,unit.id);
-  const body=draws[0].slice(1);assert.ok(body.every(Number.isFinite));assert.ok(health[0][3]<body[5],'The health bar is above the building.');
+  const body=draws[0].slice(1);assert.ok(body.every(Number.isFinite));
+  if(STRUCTURE_ART[kind].healthOffset!==undefined)assert.ok(health[0][3]>unit.y,'The low burrow meter stays below its body and clear of emerging troop bars.');
+  else assert.ok(health[0][3]<body[5],'The house health bar stays above the building.');
   renderer.sprite(ctx,{...unit,preview:true},true);assert.equal(draws.length,2);assert.equal(tints.length,1);assert.equal(health.length,1);
-  assert.deepEqual(requests,[STRUCTURE_ART.raltsHut.file]);
+  assert.deepEqual(requests,[STRUCTURE_ART[kind].file]);
 });
 
 test('a defeated structure keeps its visible collapse paused and respects reduced motion',()=>{

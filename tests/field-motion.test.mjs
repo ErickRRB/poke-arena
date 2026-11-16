@@ -1,6 +1,6 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {Renderer} from '../dist/render.js';
-import {earthquakePhase,whirlpoolPhase,earthquakeFissures} from '../dist/field-motion.js';
+import {earthquakePhase,whirlpoolPhase,nightmareFrame,earthquakeFissures} from '../dist/field-motion.js';
 
 test('field display advances between 15Hz packets without changing or extending the physical field',()=>{
  const renderer=Object.assign(Object.create(Renderer.prototype),{t:0}),field={id:17,key:'whirlpool',duration:1.05,life:1.05};
@@ -24,6 +24,15 @@ test('the vortex has a visible active body for the full physical lifetime and a 
  const ending=whirlpoolPhase({life:.06},.99);assert.ok(ending.frame>=0&&ending.frame<20);assert.ok(ending.opacity>0&&ending.opacity<1);
  assert.equal(whirlpoolPhase({life:0},1.05).opacity,0);
  assert.equal(whirlpoolPhase({life:.8},.25,true).frame,whirlpoolPhase({life:.4},.65,true).frame);
+});
+
+test('Nightmare enters once and never replays the atlas closure or blank frames while active',()=>{
+ assert.equal(nightmareFrame(0),0);assert.ok(nightmareFrame(.2)>0&&nightmareFrame(.2)<7);
+ for(let age=7/18;age<9;age+=1/60){
+  const frame=nightmareFrame(age);assert.ok(frame>=7&&frame<=8,'Active portal stays in full, nonempty native frames.');
+  assert.equal(nightmareFrame(age),frame,'The same paused/restored age gives the same phase.');
+ }
+ for(const age of[0,.5,2,8.9])assert.equal(nightmareFrame(age,true),7);
 });
 
 test('earthquake damage beats and reduced motion share one physical clock',()=>{
