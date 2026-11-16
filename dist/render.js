@@ -766,6 +766,10 @@ export class Renderer {
       if(event.key==='thunder'){this.effects.push({...event,kind:'entry',style:'lightning',life:.36,max:.36});return;}
       if(event.key==='lightning')return; // Its three actual target beams provide the strike and contact art.
       if(CARDS[event.key].fieldDuration)return;
+      if(event.key==='fireball'){
+        this.effects.push({...event,kind:'fireballImpact',life:.7,max:.7});
+        return;
+      }
       const art={fireball:'explosion',hyperBeam:'hyperImpact',blizzard:'ice',log:'flame'}[event.key]||'impact';
       this.effects.push({...event,kind:'areaImpact',art,style:CARDS[event.key].style,radius:event.radius,color:event.key==='hyperBeam'?'#ffe5a2':CARDS[event.key].color,life:.7,max:.7});
       if(event.key==='blizzard')this.effects.push({...event,kind:'spell',life:.65,max:.65});
@@ -1036,6 +1040,33 @@ export class Renderer {
     c.restore();
     if(e.impactX!==undefined){c.save();c.globalAlpha*=Math.max(0,1-progress*2);this.combatArt(c,e.style==='leaf'?'impact':e.art,e.impactX,e.impactY,Math.min(32,Math.max(18,radius*.45)),0,Math.min(32,Math.max(18,radius*.45)),{progress:this.reduced?.45:progress,trim:true});c.restore();}
   }
+  fireballImpact(c,e,progress,front=false){
+    const radius=e.radius,image=this.battleArt.image('fireballBurst');
+    const frames=[[0,62,511,600],[511,62,479,600],[1001,62,594,600],[1651,62,521,600]];
+    c.save();c.translate(e.x,e.y);c.beginPath();c.arc(0,0,radius,0,Math.PI*2);c.clip();
+    // The full burst is grounded; a short translucent foreground pass makes
+    // its hot centre connect with the target. Health is drawn afterwards.
+    if(front)c.globalAlpha*=.7*Math.min(1,Math.max(0,progress/.12))*Math.min(1,Math.max(0,(.64-progress)/.2));
+    if(image){
+      const phase=this.reduced?2:Math.min(3,Math.max(0,progress*3/.78)),first=Math.floor(phase),mix=phase-first;
+      const exit=Math.min(1,Math.max(0,(.84-progress)/.18));
+      const draw=(index,alpha)=>{
+        if(alpha<=0)return;
+        const [sx,sy,sw,sh]=frames[index],width=radius*2*sw/600;
+        c.save();c.globalAlpha*=alpha*exit;c.drawImage(image,sx,sy,sw,sh,-width/2,-radius,width,radius*2);c.restore();
+      };
+      draw(first,1-mix);if(first<3)draw(first+1,mix);
+    }
+    // Short, broken scorch follows the burst; it is not an area warning.
+    const trace=Math.max(0,Math.min(1,(progress-.7)/.1))*Math.min(1,(1-progress)/.14);
+    if(!front&&trace>0){
+      c.save();c.globalAlpha*=trace;
+      for(const [x,y,s] of [[-.32,-.16,.28],[.25,-.3,.24],[.28,.29,.25],[-.23,.32,.21]])
+        softDisc(c,x*radius,y*radius,s*radius,{color:'#623c25',opacity:.42});
+      c.restore();
+    }
+    c.restore();
+  }
   drawEffects(c,dt){
     for(const pose of this.visualFlights?.values()||[])if(pose.kind==='rollingFire'&&!pose.ended&&pose.at<this.t-1e-7){
       pose.ended=true;
@@ -1079,6 +1110,7 @@ export class Renderer {
         }
       }
       else if(e.kind==='areaImpact')this.areaImpact(c,e,progress);
+      else if(e.kind==='fireballImpact')this.fireballImpact(c,e,progress,true);
       else if(e.kind==='artImpact'){
         const size=e.visualSize??Math.max(24,Math.min(160,(e.radius||30)*1.7));
         if(e.art==='ice'&&e.style==='ice')this.iceImpactCore(c,e.x,e.y,size,this.reduced?.18:progress);
@@ -1429,6 +1461,7 @@ export class Renderer {
     this.biteContours?.beginFrame();this.prepareBiteActors();
     const fields=(game.fields||[]).map(field=>this.visualField(field,dt));
     for(const field of fields)this.field(c,field);
+    for(const effect of this.effects||[])if(effect.kind==='fireballImpact'&&effect.life>0)this.fireballImpact(c,effect,1-effect.life/effect.max);
     for(const spell of game.spells){
       if(spell.key==='pinMissile')continue;
       if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
