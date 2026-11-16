@@ -26,7 +26,7 @@ function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.li
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
 // A presentation-only size for this single battle unit. The actor/card scale
 // remains native so the engine's emission and collision stay unchanged.
-const visualScale = unit => unit.key === 'alakazam' && unit.card?.id === 65 && !unit.mounted ? 1.75 : unit.scale ?? unit.card?.scale ?? 1.5;
+const visualScale = unit => !unit.mounted && (unit.key === 'alakazam' && unit.card?.id === 65 || unit.key === 'slowbro' && unit.card?.id === 80) ? 1.75 : unit.scale ?? unit.card?.scale ?? 1.5;
 // Union of the four original Bite frames' opaque bounds in each genuine view.
 // Compact the padding, not the bat: this mouth articulation uses the existing
 // preloaded native atlas and stays attached through preparation and recovery.
@@ -400,7 +400,7 @@ export class Renderer {
   visualEmission(actor,shot=0){
     if(!actor)return null;
     const flightClock=this.flightWings?.phases.get(actor.id)?.phase??this.t;
-    const point=emissionPoint({...actor,scale:actor.key==='alakazam'&&actor.card?.id===65&&!actor.mounted?1.75:actor.scale,card:attackVisualProfile(actor.card)},shot,this.reduced?0:flightClock),bob=actor.card?.flying&&!this.reduced?Math.sin(flightClock*2.6+actor.id)*1.5:0;
+    const point=emissionPoint({...actor,scale:!actor.mounted&&(actor.key==='alakazam'&&actor.card?.id===65||actor.key==='slowbro'&&actor.card?.id===80)?1.75:actor.scale,card:attackVisualProfile(actor.card)},shot,this.reduced?0:flightClock),bob=actor.card?.flying&&!this.reduced?Math.sin(flightClock*2.6+actor.id)*1.5:0;
     const lunge=attackLunge(actor,this.reduced);
     return{x:point.x+(actor.dx||0)*lunge,y:actor.y+(point.y-actor.y-bob+(actor.dy||0)*lunge)/(this.verticalScale||1)};
   }
@@ -859,6 +859,12 @@ export class Renderer {
     const start=this.projected({x:p.startX+(p.groundPath?p.liftX||0:0),y:p.startY+(p.groundPath?p.liftY||0:0)},source||{x:p.startX,y:p.startY}),end=this.projected({x:destination.x,y:destination.y+targetLift},target);
     const logicalEnd={x:destination.x,y:destination.y+(p.groundPath?0:targetLift)};
     const desired={x:p.x+(start.x-p.startX)*(1-logicalProgress)+(end.x-logicalEnd.x)*logicalProgress,y:p.y+(start.y-p.startY)*(1-logicalProgress)+(end.y-logicalEnd.y)*logicalProgress};
+    // Captured lift includes projectileStart: this renderer-only approximation
+    // has at most 3.07 world units of launch error and converges to native path.
+    if(p.key==='slowbro'&&p.sourceKey==='slowbro'&&CARDS[p.key]?.id===80&&p.groundPath&&Number.isFinite(p.liftX)&&Number.isFinite(p.liftY)&&Number.isFinite(p.travelled)){
+      const correction=(1.75/1.4194-1)*Math.max(0,1-p.travelled/48);
+      desired.x+=p.liftX*correction;desired.y+=p.liftY*correction/(this.verticalScale||1);
+    }
     const pose=this.projectilePose(p,desired),progress=Math.min(1,pose.travelled/Math.max(1,p.totalDistance));
     const arc=p.key==='charizard'?0:p.arc||0;
     const x=pose.x,y=pose.y-Math.sin(progress*Math.PI)*arc/(this.verticalScale||1),angle=Math.atan2((end.y-start.y)*(this.verticalScale||1)-Math.PI*arc*Math.cos(progress*Math.PI),end.x-start.x);
