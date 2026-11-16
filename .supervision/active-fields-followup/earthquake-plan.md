@@ -6,3 +6,6 @@ ed36 shows real motion but the four rigid copies create straight joins and dupli
 
 ## Relief concept test after 0f3e independent finding
 0f3e removed duplicated seams but horizontal shear was not legible as ground upheaval. Before a product change, compare two finite native-scene concepts at CSS370×686: A single broad ridge rising and settling; B two opposing relief bands. Each uses the same alpha-masked texture once, with adjacent source strips mapped to shared vertical boundaries, plus texture-clipped highlight/shadow moving with the deformation. No background readback, full-camera shake, circle, extra damage, radius, or gameplay timing. Render only in a review adapter; use 1–2 pulses and compare grounded shape, continuity and visibly displaced ground away from Snorlax. If both fail, change approach rather than promoting either.
+
+## Concept decision — ridge
+In the two CSS390 native-scene concept captures, one broad ridge is more legible as lift and settling than two alternating shading bands, which read more like lighting changes. Proceed provisionally with ridge for one full native lifecycle and independent review; this is a direction choice, not a perceptual approval. Preserve connected strip boundaries and source-alpha-masked relief shading; no new material, engine changes, readback, global camera motion, or physical area changes.
