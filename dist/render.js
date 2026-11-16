@@ -709,7 +709,7 @@ export class Renderer {
       const point=event.groundY===undefined?event:{x:event.groundX,y:event.groundY-(event.impactHeight||0)/(this.verticalScale||1)};
       const art=event.art||{ember:'explosion',hydro:'hydro',bubble:'bubble',leaf:'leaf',poison:'poison',powder:'poison',shadow:'shadow',confusion:'psychic',aura:'psychic',ice:'ice',rock:'dust'}[event.style];
       if(event.radius>0&&!event.structuresOnly){this.effects.push({kind:'areaImpact',art:art||{slam:'dust',eruption:'explosion',bite:'bite',slash:'slash'}[event.style]||'impact',style:event.style,x:event.groundX??event.x,y:event.groundY??event.y,impactX:point.x,impactY:point.y,radius:event.radius,color,groundOnly:event.groundOnly??!CARDS[event.key]?.air,life:.6,max:.6});return;}
-      if(art)this.effects.push({kind:'artImpact',art,x:point.x,y:point.y,visualSize:combatVisual(CARDS[event.key]).impact,radius:28,life:art==='ice'?1.1:.6,max:art==='ice'?1.1:.6});
+      if(art)this.effects.push({kind:'artImpact',art,key:event.key,x:point.x,y:point.y,visualSize:combatVisual(CARDS[event.key]).impact,radius:28,life:art==='ice'?1.1:.6,max:art==='ice'?1.1:.6});
       else this.burst(point.x,point.y,color,4,30);
       if(['egg','song'].includes(event.style))this.effects.push({...event,...point,kind:'impact',life:.4,max:.4,radius:CARDS[event.key]?.splash||18});
     }
@@ -847,6 +847,17 @@ export class Renderer {
     c.beginPath();c.moveTo(size*.46,0);c.lineTo(size*.04,-size*.23);c.lineTo(-size*.4,-size*.15);c.lineTo(-size*.32,0);c.lineTo(-size*.4,size*.15);c.lineTo(size*.04,size*.23);c.closePath();
     c.fillStyle='#77c9df';c.strokeStyle='#286079';c.lineWidth=2;c.lineJoin='round';c.fill();c.stroke();
     c.beginPath();c.moveTo(size*.35,0);c.lineTo(-size*.29,0);c.strokeStyle='#e2fbff';c.lineWidth=1.5;c.stroke();c.restore();
+  }
+  iceImpactCore(c,x,y,size,progress){
+    const opacity=Math.max(0,1-progress*3);if(!opacity)return;
+    const radius=size*(.16+.2*Math.min(1,progress*5)),vertical=this.verticalScale||1;
+    c.save();c.globalAlpha*=opacity;c.translate(x,y);c.scale(1,1/vertical);
+    for(let i=0;i<5;i++){
+      const angle=i*Math.PI*2/5-.5;c.save();c.rotate(angle);
+      c.beginPath();c.moveTo(radius,0);c.lineTo(radius*.25,-size*.065);c.lineTo(radius*.12,0);c.lineTo(radius*.25,size*.065);c.closePath();
+      c.fillStyle='#b7f2f8';c.strokeStyle='#3c829b';c.lineWidth=1.5;c.lineJoin='round';c.fill();c.stroke();c.restore();
+    }
+    c.restore();
   }
   fireBolt(c,x,y,size,angle,age){
     this.combatArt(c,'emberShot',x,y,size*1.25,angle-Math.PI/2,size*1.25,{frame:flameFrame(age,this.reduced),trim:true});
@@ -1023,6 +1034,7 @@ export class Renderer {
       else if(e.kind==='areaImpact')this.areaImpact(c,e,progress);
       else if(e.kind==='artImpact'){
         const size=e.visualSize??Math.max(24,Math.min(160,(e.radius||30)*1.7));
+        if(e.key==='lapras'&&e.art==='ice')this.iceImpactCore(c,e.x,e.y,size,this.reduced?.18:progress);
         this.combatArt(c,e.art,e.x,e.y,size,0,size,{progress:this.reduced?.45:progress});
       }else if(e.kind==='beam'||e.kind==='counter'){
         const from=this.effectSource(e),to=this.effectTarget(e),name=e.style==='lightning'?'lightning':'psychic';
@@ -1041,7 +1053,12 @@ export class Renderer {
         const size=combatVisual(actor.card).charge;
         const art={slam:'dust',horn:'horn',eruption:'flame',lightning:'lightning',flame:'flame',ember:'emberShot',hydro:'hydroShot',bubble:'bubble',ice:'snow',leaf:'leaf',shadow:'shadow',poison:'poison',powder:'poison',egg:'egg',song:'songShot',magnet:'lightningHead'}[e.style]||'psychic';
         const chargeSize=size*(e.kind==='charge'?.4+.35*progress:1);
-        this.combatArt(c,art,from.x,from.y,chargeSize,0,chargeSize,{age:age*.6,trim:true});
+        if(actor.card.id===131&&e.style==='ice'){
+          // Pull the compact preparation into the head: the emission marker can
+          // sit immediately below the health bar in the north-facing pose.
+          const dx=actor.dx||0,dy=actor.dy||0,vertical=this.verticalScale||1;
+          this.iceShardCore(c,from.x-dx*5,from.y-dy*5/vertical,12+3*progress,Math.atan2(dy,dx));
+        }else this.combatArt(c,art,from.x,from.y,chargeSize,0,chargeSize,{age:age*.6,trim:true});
       }else if(e.kind==='impact'){
         this.combatArt(c,e.style==='song'?'song':'impact',e.x,e.y,Math.max(30,(e.radius||18)*2),0,40,{progress});
       }else if(e.kind==='flame'){
