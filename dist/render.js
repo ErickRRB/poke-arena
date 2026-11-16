@@ -1256,16 +1256,27 @@ export class Renderer {
     const rise=this.reduced?1:Math.min(1,age/.2);
     c.save();c.beginPath();c.arc(field.x,field.y,radius,0,Math.PI*2);c.clip();
     c.translate(field.x,field.y);c.globalAlpha*=rise*.85;
-    // Each row of the one texture is drawn once. Neighbouring rows share a
-    // continuous damped wave, rather than translating copies across faults.
-    if(this.reduced)this.combatArt(c,'earthquakeGround',0,0,radius*2,0,radius*2,{frame:0});
-    else{
-      const bands=32,height=radius*2/bands,envelope=Math.exp(-beat*3.3);
-      for(let i=0;i<bands;i++){
-        const position=(i+.5)/bands,shift=radius*.105*envelope*Math.sin(beat*27+position*2.7);
-        this.battleArt.tile(c,'earthquakeGround',0,i*32,1536,32,-radius+shift,-radius+i*height,radius*2,height);
-      }
+    const image=this.battleArt.image?.('earthquakeGround');
+    if(!image){this.combatArt(c,'earthquakeGround',0,0,radius*2,0,radius*2,{frame:0});c.restore();return;}
+    const surface=this.quakeSurface??=this.canvas.ownerDocument.createElement('canvas');
+    if(surface.width!==256||surface.height!==256){surface.width=256;surface.height=256;}
+    const ground=surface.getContext('2d');ground.setTransform(1,0,0,1,0,0);ground.globalAlpha=1;ground.globalCompositeOperation='source-over';ground.clearRect(0,0,256,256);ground.imageSmoothingEnabled=false;
+    const pulse=this.reduced?0:Math.sin(Math.PI*Math.min(1,beat/.62));
+    // Shared strip boundaries deform a single continuous texture. The clipped
+    // light and shadow follow its temporary raised ridge, then settle.
+    const position=y=>(y-.14*pulse*Math.sin(Math.PI*y))*256;
+    for(let i=0;i<32;i++){
+      const top=position(i/32),bottom=position((i+1)/32);
+      ground.drawImage(image,0,i*32,1536,32,0,top,256,bottom-top);
     }
+    if(pulse>0){
+      ground.globalCompositeOperation='source-atop';
+      const light=ground.createLinearGradient(0,0,0,256),alpha=n=>Math.round(n*pulse).toString(16).padStart(2,'0');
+      light.addColorStop(0,'#e8d09a00');light.addColorStop(.28,'#f2d7a7'+alpha(120));light.addColorStop(.44,'#f1d4a2'+alpha(150));
+      light.addColorStop(.59,'#4f3420'+alpha(150));light.addColorStop(.76,'#583c2600');light.addColorStop(1,'#583c2600');
+      ground.fillStyle=light;ground.fillRect(0,0,256,256);ground.globalCompositeOperation='source-over';
+    }
+    c.drawImage(surface,-radius,-radius,radius*2,radius*2);
     c.restore();
   }
   frozen(c,actor){
