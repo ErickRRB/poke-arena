@@ -1,7 +1,7 @@
 import { screenToWorld, inArena } from './arena-geometry.js?v=34';
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=34';
 import { Renderer } from './render.js?v=36';
-import { SoundSystem } from './audio.js?v=36';
+import { SoundSystem } from './audio.js?v=37';
 import { OnlineClient, hasSavedOnlineSession } from './online.js?v=34';
 import { unpackGame, perspective } from './snapshot.js?v=34';
 import { cardArtMarkup } from './card-art.js?v=34';
@@ -131,7 +131,7 @@ function choose(index) {
 function cancelSelection() { quickStats.hide(); selected = -1; renderer.pointer = null; renderer.selection = null; updateDetail(); syncHand(); }
 function updateUi() {
   $('battle-loading').hidden=!renderer.pendingSpecies.size;
-  const dialogs=[...document.querySelectorAll('dialog[open]')],settingsOnly=dialogs.length===1&&dialogs[0].id==='settings-dialog'&&dialogs[0].dataset.resume==='1';
+  const dialogs=[...document.querySelectorAll('dialog[open]')],settingsOnly=dialogs.length===1&&dialogs[0].id==='settings-dialog'&&dialogs[0].dataset.resume==='1'&&['playing','paused'].includes(game.state);
   sfx.setBattleState((game.state==='playing'&&!dialogs.length||settingsOnly)&&!document.hidden&&!document.body.classList.contains('menu-mode'),game.overtime||game.time<=60);
   const energy = game.energy[0];
   $('energy-value').textContent = String(Math.floor(energy));
