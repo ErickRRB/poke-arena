@@ -733,6 +733,10 @@ export class Renderer {
       if(event.key==='thunder'){this.effects.push({...event,kind:'entry',style:'lightning',life:.36,max:.36});return;}
       if(event.key==='lightning')return; // Its three actual target beams provide the strike and contact art.
       if(CARDS[event.key].fieldDuration)return;
+      if(event.key==='fireball'){
+        this.effects.push({...event,kind:'fireballImpact',life:.7,max:.7});
+        return;
+      }
       const art={fireball:'explosion',hyperBeam:'hyperImpact',blizzard:'ice',log:'flame'}[event.key]||'impact';
       this.effects.push({...event,kind:'areaImpact',art,style:CARDS[event.key].style,radius:event.radius,color:event.key==='hyperBeam'?'#ffe5a2':CARDS[event.key].color,life:.7,max:.7});
       if(event.key==='blizzard')this.effects.push({...event,kind:'spell',life:.65,max:.65});
@@ -1003,6 +1007,31 @@ export class Renderer {
     c.restore();
     if(e.impactX!==undefined){c.save();c.globalAlpha*=Math.max(0,1-progress*2);this.combatArt(c,e.style==='leaf'?'impact':e.art,e.impactX,e.impactY,Math.min(32,Math.max(18,radius*.45)),0,Math.min(32,Math.max(18,radius*.45)),{progress:this.reduced?.45:progress,trim:true});c.restore();}
   }
+  fireballImpact(c,e,progress,ground=false){
+    const radius=e.radius,vertical=this.verticalScale||1;
+    const grow=this.reduced?1:Math.min(1,progress/.3),fade=Math.max(0,1-progress);
+    c.save();c.translate(e.x,e.y);
+    if(ground){
+      const rim=radius*(.55+.45*grow);
+      c.globalAlpha*=Math.min(1,fade*1.5);
+      softDisc(c,0,0,rim,{color:'#a84a20',opacity:.24});
+      c.strokeStyle='#f5a243';c.lineWidth=Math.max(2,radius*.055);c.globalAlpha*=.65;
+      c.beginPath();c.arc(0,0,rim*.94,0,Math.PI*2);c.stroke();
+    }else{
+      // Translucent fire gives the true blast reach while keeping actors visible.
+      const r=radius*grow, glow=c.createRadialGradient(0,-r*.12,0,0,0,Math.max(.01,r));
+      glow.addColorStop(0,'#fff5bdc9');glow.addColorStop(.34,'#ffbb55a8');
+      glow.addColorStop(.72,'#f36a287d');glow.addColorStop(1,'#e94d1900');
+      c.globalAlpha*=Math.max(0,1-progress*1.5);c.fillStyle=glow;
+      c.beginPath();c.arc(0,0,r,0,Math.PI*2);c.fill();
+      c.globalAlpha*=.8;
+      for(let i=0;i<7;i++){
+        const a=i*2.39996,reach=r*(.38+(i%3)*.2),size=Math.max(8,r*.22);
+        this.combatArt(c,'flame',Math.cos(a)*reach,Math.sin(a)*reach-6/vertical,size,0,size,{age:this.reduced?.2:progress*.45+i*.05,trim:true});
+      }
+    }
+    c.restore();
+  }
   drawEffects(c,dt){
     for(const pose of this.visualFlights?.values()||[])if(pose.kind==='rollingFire'&&!pose.ended&&pose.at<this.t-1e-7){
       pose.ended=true;
@@ -1043,6 +1072,7 @@ export class Renderer {
         }
       }
       else if(e.kind==='areaImpact')this.areaImpact(c,e,progress);
+      else if(e.kind==='fireballImpact')this.fireballImpact(c,e,progress);
       else if(e.kind==='artImpact'){
         const size=e.visualSize??Math.max(24,Math.min(160,(e.radius||30)*1.7));
         if(e.art==='ice'&&e.style==='ice')this.iceImpactCore(c,e.x,e.y,size,this.reduced?.18:progress);
@@ -1362,6 +1392,7 @@ export class Renderer {
     this.biteContours?.beginFrame();this.prepareBiteActors();
     const fields=(game.fields||[]).map(field=>this.visualField(field,dt));
     for(const field of fields)this.field(c,field);
+    for(const effect of this.effects||[])if(effect.kind==='fireballImpact'&&effect.life>0)this.fireballImpact(c,effect,1-effect.life/effect.max,true);
     for(const spell of game.spells){
       if(spell.key==='pinMissile')continue;
       if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
