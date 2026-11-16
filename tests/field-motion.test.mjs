@@ -1,6 +1,22 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {Renderer} from '../dist/render.js';
-import {earthquakePhase,whirlpoolPhase,nightmareFrame,earthquakeFissures} from '../dist/field-motion.js';
+import {earthquakePhase,whirlpoolPhase,nightmareFrame,earthquakeFissures,rockSuspension} from '../dist/field-motion.js';
+
+test('active rocks remain suspended with bounded continuous height and a still reduced-motion pose',()=>{
+ for(let index=0;index<9;index++){
+  const heights=Array.from({length:361},(_,frame)=>rockSuspension(frame/60,index));
+  assert.ok(heights.every(height=>height>=15&&height<=25));
+  assert.ok(heights.slice(1).every((height,i)=>Math.abs(height-heights[i])<.22));
+  assert.ok(Math.max(...heights)-Math.min(...heights)>9.9,'The ongoing movement is distinct from a nearly static entry pose.');
+  for(const age of[0,.3,2,5.8])assert.equal(rockSuspension(age,index,true),20);
+ }
+ const field={id:31,key:'stealthRock',duration:6,life:3.75};
+ const paused=Object.assign(Object.create(Renderer.prototype),{t:2.25}),restored=Object.assign(Object.create(Renderer.prototype),{t:0});
+ const first=paused.visualField(field,0),again=paused.visualField(field,0),snapshot=restored.visualField(structuredClone(field),0);
+ assert.equal(first.visualAge,again.visualAge);assert.equal(first.visualAge,snapshot.visualAge);
+ for(let index=0;index<9;index++)assert.equal(rockSuspension(first.visualAge,index),rockSuspension(snapshot.visualAge,index));
+ assert.deepEqual(field,{id:31,key:'stealthRock',duration:6,life:3.75});
+});
 
 test('field display advances between 15Hz packets without changing or extending the physical field',()=>{
  const renderer=Object.assign(Object.create(Renderer.prototype),{t:0}),field={id:17,key:'whirlpool',duration:1.05,life:1.05};
