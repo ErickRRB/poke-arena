@@ -5,14 +5,16 @@ import {SandboxGame} from './sandbox.js?v=34';
 import {Renderer} from './render.js?v=36';
 import {cardArtMarkup} from './card-art.js?v=34';
 import {cardEquivalentLabel} from './card-equivalents.js?v=34';
-import {SoundSystem} from './audio.js?v=36';
+import {SoundSystem} from './audio.js?v=37';
+import {readAudioLevels} from './audio-preferences.js?v=1';
 
 const $=id=>document.getElementById(id),columns=[],catalog=Object.keys(CARDS).filter(key=>!CARDS[key].token).sort((a,b)=>CARDS[a].name.localeCompare(CARDS[b].name,'es'));
 let selected='roselia',team=0,nextColumn=1,speed=1,noticeTimer,ready=false,last=performance.now(),uiClock=0,sfx,activeColumn=null;
 let soundEnabled=true;try{soundEnabled=JSON.parse(localStorage.getItem('poke-arena:sound')??'true');}catch{}
 $('lab-sound').setAttribute('aria-pressed',String(soundEnabled));$('lab-sound').textContent=soundEnabled?'Sonido: sí':'Sonido: no';
-sfx=new SoundSystem(soundEnabled);
-function focusColumn(column){activeColumn=column.id;for(const item of columns)item.element.classList.toggle('active-column',item.id===column.id);if(soundEnabled){sfx??=new SoundSystem(true);sfx.unlock(true);}}
+const audioLevels=readAudioLevels((key,fallback)=>{try{return JSON.parse(localStorage.getItem(`poke-arena:${key}`))??fallback;}catch{return fallback;}});
+sfx=new SoundSystem(soundEnabled,audioLevels);
+function focusColumn(column){activeColumn=column.id;for(const item of columns)item.element.classList.toggle('active-column',item.id===column.id);if(soundEnabled){sfx??=new SoundSystem(true,audioLevels);sfx.unlock(true);}}
 function columnEvent(column,event){column.renderer.onEvent(event,column.game);if(activeColumn===column.id&&soundEnabled)sfx?.event(event);}
 const loaderMarkup=`<svg class="lab-pokeball" viewBox="0 0 64 64" aria-hidden="true">${LOADER_BALL_SHAPES}</svg>`;
 const presetOptions=`<option value="free">Vacía · libre</option><option value="princess">Torre princesa</option><option value="towers">Torres completas</option><option value="fireball-check">Torre + defensa central</option><optgroup label="Rival preparado">${catalog.filter(key=>!CARDS[key].spell).map(key=>`<option value="${key}">${CARDS[key].name} · ${cardEquivalentLabel(key)||'Función propia'}</option>`).join('')}</optgroup>`;
@@ -106,7 +108,7 @@ for(const button of document.querySelectorAll('[data-team]'))button.addEventList
 for(const button of document.querySelectorAll('[data-close]'))button.addEventListener('click',()=>button.closest('dialog').close());
 $('lab-help').addEventListener('click',()=>$('lab-guide').showModal());
 $('lab-retry').addEventListener('click',()=>location.reload());
-$('lab-sound').addEventListener('click',()=>{soundEnabled=!soundEnabled;sfx??=new SoundSystem(soundEnabled);sfx.setEnabled(soundEnabled);if(soundEnabled)sfx.unlock(true);$('lab-sound').setAttribute('aria-pressed',String(soundEnabled));$('lab-sound').textContent=soundEnabled?'Sonido: sí':'Sonido: no';try{localStorage.setItem('poke-arena:sound',JSON.stringify(soundEnabled));}catch{}});
+$('lab-sound').addEventListener('click',()=>{soundEnabled=!soundEnabled;sfx??=new SoundSystem(soundEnabled,audioLevels);sfx.setEnabled(soundEnabled);if(soundEnabled)sfx.unlock(true);$('lab-sound').setAttribute('aria-pressed',String(soundEnabled));$('lab-sound').textContent=soundEnabled?'Sonido: sí':'Sonido: no';try{localStorage.setItem('poke-arena:sound',JSON.stringify(soundEnabled));}catch{}});
 $('lab-scenarios').addEventListener('click',event=>{const button=event.target.closest('[data-go]'),column=columns.find(column=>column.id===Number(button?.dataset.go));column?.element.scrollIntoView({block:'nearest',inline:'start',behavior:$('reduced-motion').checked?'instant':'smooth'});});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)sfx?.recover();});
 $('lab-speed').addEventListener('change',event=>{speed=Number(event.target.value);});
