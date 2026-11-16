@@ -1,11 +1,11 @@
-export const CAPSULE_TEXTURE='assets/battle/pokeball-material-classic-v3.svg';
+export const CAPSULE_TEXTURE='assets/battle/pokeball-material-pixel-v4.svg';
 export const CAPSULE_FRAME_SIZE=64,CAPSULE_PHASES=96;
 const TAU=Math.PI*2,AXES=32,SLOTS=256,COLUMNS=16;
 const normals=Array.from({length:CAPSULE_FRAME_SIZE**2},(_,index)=>{
   const x=(index%CAPSULE_FRAME_SIZE+.5)*2/CAPSULE_FRAME_SIZE-1,y=1-(Math.floor(index/CAPSULE_FRAME_SIZE)+.5)*2/CAPSULE_FRAME_SIZE;
   if(x*x+y*y>1)return null;
   const z=Math.sqrt(1-x*x-y*y),light=Math.max(0,-x*.45+y*.72+z*.52);
-  return[x,y,z,Math.round((.58+.42*light)/.065)*.065,Math.pow(Math.max(0,-x*.38+y*.62+z*.69),36)*42];
+  return[x,y,z,light<.3?.68:light<.6?.82:light<.9?.94:1.06];
 });
 const wrap=value=>((value%TAU)+TAU)%TAU;
 export const capsulePhase=angle=>Math.floor(wrap(angle)/TAU*CAPSULE_PHASES+1e-7)%CAPSULE_PHASES;
@@ -17,7 +17,7 @@ export function capsulePixels(angle=0,axis=0,texture=null,output=new Uint8Clampe
   output.fill(0);
   for(let index=0;index<normals.length;index++){
     const normal=normals[index];if(!normal)continue;
-    const[nx,ny,nz,shade,specular]=normal,dot=ax*nx+ay*ny;
+    const[nx,ny,nz,shade]=normal,dot=ax*nx+ay*ny;
     const lx=nx*cos-ay*nz*sin+ax*dot*(1-cos),ly=ny*cos+ax*nz*sin+ay*dot*(1-cos),lz=nz*cos-(ax*ny-ay*nx)*sin;
     const u=(.5+Math.atan2(lx,lz)/TAU+1)%1,v=.5-Math.asin(Math.max(-1,Math.min(1,ly)))/Math.PI;
     let red,green,blue;
@@ -27,15 +27,15 @@ export function capsulePixels(angle=0,axis=0,texture=null,output=new Uint8Clampe
     }else{
       // A failed texture still gets the same rotating material and pixel shading.
       const latch=Math.hypot((u-.5)*2,v-.5),belt=Math.abs(v-.5)<5/256;
-      const color=latch<11/256?[247,248,247]:latch<16/256?[204,214,217]:latch<21/256||belt?[29,41,46]:v<.5?[235,50,57]:[247,248,247];
+      const color=latch<11/256?[248,237,206]:latch<16/256?[202,191,151]:latch<21/256||belt?[73,82,71]:v<.5?[199,83,72]:[243,230,191];
       [red,green,blue]=color;
     }
     const at=index*4;
-    if(nz<.25){output[at]=35;output[at+1]=45;output[at+2]=46;}
+    if(nz<.25){output[at]=58;output[at+1]=66;output[at+2]=56;}
     else{
-      output[at]=Math.min(255,Math.round((red*shade+specular)/4)*4);
-      output[at+1]=Math.min(255,Math.round((green*shade+specular)/4)*4);
-      output[at+2]=Math.min(255,Math.round((blue*shade+specular)/4)*4);
+      output[at]=Math.min(255,Math.round(red*shade/4)*4);
+      output[at+1]=Math.min(255,Math.round(green*shade/4)*4);
+      output[at+2]=Math.min(255,Math.round(blue*shade/4)*4);
     }
     output[at+3]=255;
   }
