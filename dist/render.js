@@ -1024,6 +1024,16 @@ export class Renderer {
       glow.addColorStop(.72,'#f36a287d');glow.addColorStop(1,'#e94d1900');
       c.globalAlpha*=Math.max(0,1-progress*1.5);c.fillStyle=glow;
       c.beginPath();c.arc(0,0,r,0,Math.PI*2);c.fill();
+      // Frames 5–13 occupy only x=20..67, y=24..63 within 88px cells.
+      // Draw those real pixels, not the transparent cell, at blast scale.
+      const explosion=this.battleArt.image('explosion');
+      if(explosion&&r>0){
+        const frame=this.reduced?9:Math.min(13,5+Math.floor(progress*12));
+        c.save();c.beginPath();c.arc(0,0,r,0,Math.PI*2);c.clip();
+        c.globalAlpha*=.72;
+        c.drawImage(explosion,frame*88+20,24,48,40,-r,-r*.83,r*2,r*1.66);
+        c.restore();
+      }
       c.globalAlpha*=.8;
       for(let i=0;i<7;i++){
         const a=i*2.39996,reach=r*(.38+(i%3)*.2),size=Math.max(8,r*.22);
