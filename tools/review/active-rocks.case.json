@@ -1,0 +1,4 @@
+{
+  "id":"fb28-native-active-rocks","source":"dist/index.html","adapter":"tools/review/active-rocks-adapter.mjs","adapterDependencies":["tools/review/baseline-adapter.mjs"],
+  "viewport":{"width":390,"height":844,"dpr":1},"durationMs":7800,"sampleMs":90,"clock":"natural-app","expectedEvent":"cast","extractIntervalMs":100,"recordCanvas":"#arena","captureSurface":"canvas","crop":{"x":10,"y":2,"width":370,"height":686},"requiredObservations":["clock","canvas","events","actorState","hp"],"requireWebSocketIsolation":true
+}

@@ -12,7 +12,7 @@ import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 import * as onlineConfig from './online-config.js?v=36';
 const publicAssetUrl=onlineConfig.publicAssetUrl||((file)=>file);
-const {whirlpoolPhase,nightmareFrame,earthquakePhase,earthquakeFissures}=await import(publicAssetUrl('./field-motion.js?v=36'));
+const {whirlpoolPhase,nightmareFrame,earthquakePhase,earthquakeFissures,rockSuspension}=await import(publicAssetUrl('./field-motion.js?v=36'));
 const {flameFrame,rollingFirePose,drawFireWheel,FIRE_WHEEL_FILES,loadFireWheelMaterial}=await import(publicAssetUrl('./fire-material.js?v=38'));
 const {canvasBackingSize,alignedSpriteRect}=await import(publicAssetUrl('./canvas-raster.js?v=36'));
 const {NativeSpriteSampler}=await import(publicAssetUrl('./native-sprite-sampling.js?v=36'));
@@ -1159,12 +1159,13 @@ export class Renderer {
   field(c,f,front=false){
     const radius=f.radius,age=f.visualAge??(f.duration?Math.max(0,f.duration-f.life):this.t);
     c.save();c.globalAlpha=Math.min(1,f.life/(f.key==='whirlpool'?.12:.4));
-    if(!front&&f.key!=='spikes')softDisc(c,f.x,f.y,radius,{color:f.key==='stealthRock'?'#fff0c5':CARDS[f.key]?.color||'#b8cad1',opacity:f.key==='whirlpool'?.24:f.key==='stealthRock'?.22:.1});
+    if(!front&&f.key!=='spikes')softDisc(c,f.x,f.y,radius,{color:f.key==='stealthRock'?'#a45c4c':CARDS[f.key]?.color||'#b8cad1',opacity:f.key==='whirlpool'?.24:f.key==='stealthRock'?.32:.1,...(f.key==='stealthRock'?{interior:.8}:{})});
     if(f.key==='stealthRock'){
       for(let i=0;i<9;i++){
         const a=i*2.39996,r=Math.sqrt((i+.5)/9)*radius*.83,x=f.x+Math.cos(a)*r,y=f.y+Math.sin(a)*r;
+        if(!front)ellipse(c,'#51443826',x,y,4+i%3,2);
         if((Math.sin(a)>0)!==front)continue;
-        this.combatArt(c,'rock',x,y-(this.reduced?8:8+Math.sin(age*2+i)*3),20+i%3*3,0,20+i%3*3,{frame:i%2});
+        this.combatArt(c,'rock',x,y-rockSuspension(age,i,this.reduced),20+i%3*3,0,20+i%3*3,{frame:i%2});
       }
     }else if(f.key==='nightmare'){
       this.softNightmare(c,f,front,age);

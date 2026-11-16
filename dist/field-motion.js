@@ -1,5 +1,9 @@
 const clamp=(value,low,high)=>Math.max(low,Math.min(high,value));
 
+export function rockSuspension(age,index,reduced=false){
+ return reduced?20:20+Math.sin(Math.max(0,age)*2.6+index*1.17)*5;
+}
+
 export function whirlpoolPhase(field,age,reduced=false){
  const remaining=Math.max(0,field.life);
  // The seamless water body is present immediately, while the actual pull exists.
