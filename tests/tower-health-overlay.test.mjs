@@ -57,6 +57,7 @@ test('the real draw pass paints tower health after attacking units, effects and 
 test('troop and structure health stays above foreground bodies and effects',()=>{
   const game=new Game();game.start();game.aiEnabled=false;
   for(const [key,x,y]of[['raltsToken',300,510],['raltsHut',300,548],['raltsToken',365,515],['snorlax',365,550]])game.spawn(key,0,x,y,0);
+  for(const unit of game.units)if(!unit.card.structure)game.damage(unit,1,1,{});
   const{ctx,calls,renderer}=drawing();
   Object.assign(renderer,{ctx,canvas:{width:600,height:800},viewport:{width:600,height:800},t:0,background:{},battleArt:{},healthStates:new Map(),visualActors:new Map(),visualProjectiles:new Map(),visualFlights:new Map(),particles:[],
     visualActor:actor=>({...actor}),drawWater(){},tower(){},sprite(c,actor){calls.push({method:'body',id:actor.id});this.queueUnitHealth(c,actor,actor.x,actor.y-40,30);},frozen(){},drawDeployments(){},

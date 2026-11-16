@@ -9,11 +9,15 @@ const overlaps=(a,b)=>Math.abs(a.x-b.x)<(a.width+b.width)/2+(a.compact?1:2)+(b.c
 const bodyHeights={diglettHorde:11.9999,poochyenaToken:28.9639,raltsToken:29.09,raltsTrio:29.09,exeggcute:19.7133};
 const entry=(unit,y=unit.y-30,height=bodyHeights[unit.key]??24)=>({unit,x:unit.x,y,compact:height<=32,width:healthMeterWidth(unit,30,height)});
 const fresh=()=>{const g=new Game({tutorial:true});g.start();g.aiEnabled=false;return g;};
+// Geometry controls need eligible meters under FB42. Use real positive native
+// damage, preserving actual maxima and profiles instead of bypassing visibility.
+const makeVisible=(g,units=g.units)=>{for(const u of units)if(!u.card.structure&&u.hp>1)g.damage(u,1,1-u.team,{});};
 
 test('the real successive hut pair has separate owner meters without moving units or parent health',()=>{
   const g=fresh();g.hands[0][0]='raltsHut';g.hands[1][0]='snorlax';g.energy=[10,10];g.deploy(0,0,168,508);g.deploy(1,0,168,364);
   for(let i=0;i<150;i++)g.step(1/30);
   const parent=g.units.find(u=>u.key==='raltsHut'),children=g.units.filter(u=>u.parentId===parent.id);assert.equal(children.length,2);
+  makeVisible(g,children);
   const original=children.map(u=>({id:u.id,x:u.x,y:u.y,hp:u.hp,parentId:u.parentId})),meters=children.map(u=>entry(u,442.8468525,29.09)),parentMeter={unit:parent,x:168,y:423.7806763,width:44};
   const layout=layoutUnitHealth([...meters,parentMeter]);assert.ok(!overlaps(layout[0],layout[1]));
   assert.ok(layout.slice(0,2).every((bar,i)=>bar.unit===children[i]&&Math.abs(bar.x-children[i].x)<5&&bar.y===meters[i].y));
@@ -23,6 +27,7 @@ test('the real successive hut pair has separate owner meters without moving unit
 
 for(const key of['pandilla','raltsTrio','diglettHorde'])test(`${key}: actual native formation keeps independent bounded meters`,()=>{
   const g=fresh();g.hands[0][0]=key;g.energy[0]=10;assert.ok(g.deploy(0,0,288,508).ok);
+  makeVisible(g);
   const meters=g.units.map(u=>entry(u)),saved=meters.map(m=>({id:m.unit.id,x:m.unit.x,y:m.unit.y,hp:m.unit.hp})),layout=layoutUnitHealth(meters);
   assert.equal(layout.length,meters.length);
   for(let i=0;i<layout.length;i++){
@@ -48,6 +53,7 @@ test('native Vivero children avoid the unchanged parent meter even when each chi
   const g=fresh();g.hands[0][0]='vivero';g.hands[1][0]='snorlax';g.energy=[10,10];g.deploy(0,0,168,508);g.deploy(1,0,168,364);
   for(let i=0;i<81;i++)g.step(1/30);
   const parent=g.units.find(u=>u.key==='vivero'),children=g.units.filter(u=>u.parentId===parent.id),parentMeter={unit:parent,x:168,y:441,width:30};assert.equal(children.length,2);
+  makeVisible(g,children);
   const meters=children.map(u=>entry(u,u.y-28.7133));assert.ok(meters.some(meter=>overlaps(meter,parentMeter)),'The actual native setup must expose the shared parent/child collision.');
   const layout=layoutUnitHealth([...meters,parentMeter]);assert.deepEqual(layout.at(-1),parentMeter);
   for(let i=0;i<layout.length;i++)for(let j=0;j<i;j++)assert.ok(!overlaps(layout[i],layout[j]));
@@ -55,6 +61,7 @@ test('native Vivero children avoid the unchanged parent meter even when each chi
 
 test('restored native pairs keep owners and separate health from either server perspective',()=>{
   const g=fresh();g.hands[0][0]='raltsHut';g.hands[1][0]='snorlax';g.energy=[10,10];g.deploy(0,0,168,508);g.deploy(1,0,168,364);for(let i=0;i<150;i++)g.step(1/30);
+  makeVisible(g);
   for(const team of[0,1]){
     const restored=unpackGame(perspective(packGame(g),team)),parent=restored.units.find(u=>u.key==='raltsHut'),children=restored.units.filter(u=>u.parentId===parent.id);
     const meters=children.map(u=>entry(u,u.y-38.09)),parentMeter={unit:parent,x:parent.x,y:parent.y-84.2193237,width:44},before=children.map(u=>({id:u.id,x:u.x,y:u.y,hp:u.hp,parentId:u.parentId}));
@@ -93,7 +100,8 @@ test('a structure with no occluded body uses its original painter once',()=>{
 test('only stationary native summoning structures use the fixed base health anchor on both teams',()=>{
   const g=fresh();
   for(const team of[0,1])for(const key of['raltsHut','vivero','madriguera','ampharos','blastoiseCannon','wobbuffet','octillery']){
-    const unit=g.spawn(key,team,168,team?292:508,0),original={x:unit.x,y:unit.y,hp:unit.hp},r=Object.assign(Object.create(Renderer.prototype),{bodyHeights:new Map(),bodyHeight:()=>40,unitHealthQueue:[],verticalScale:1,projection:{scale:370/480}});
+    const unit=g.spawn(key,team,168,team?292:508,0);makeVisible(g,[unit]);
+    const original={x:unit.x,y:unit.y,hp:unit.hp},r=Object.assign(Object.create(Renderer.prototype),{bodyHeights:new Map(),bodyHeight:()=>40,unitHealthQueue:[],verticalScale:1,projection:{scale:370/480}});
     r.queueUnitHealth({},unit,unit.x,unit.y-70,44);const queued=r.unitHealthQueue[0];
     const summoner=['raltsHut','vivero','madriguera'].includes(key);assert.equal(summoningStructure(unit.card),summoner);
     assert.equal(queued.y,summoner?unit.y+10:unit.y-70);assert.equal(queued.width,44);assert.equal(queued.compact,false);
@@ -114,6 +122,7 @@ test('the actual small-unit health painter uses whole CSS pixels and short owner
 
 test('a native15Diglett group uses bounded tiny meters rather than scaling every member to the Ralts pair',()=>{
   const g=fresh();g.hands[0][0]='diglettHorde';g.energy[0]=10;g.deploy(0,0,288,508);assert.equal(g.units.length,15);
+  makeVisible(g);
   const p=480/370,r=Object.assign(Object.create(Renderer.prototype),{bodyHeights:new Map(),bodyHeight:()=>11.9999,unitHealthQueue:[],projection:{scale:1/p}});
   for(const u of g.units)r.queueUnitHealth({},u,u.x,u.y-20.9999,30);
   const saved=g.units.map(u=>({id:u.id,x:u.x,y:u.y,hp:u.hp})),layout=layoutUnitHealth(r.unitHealthQueue);

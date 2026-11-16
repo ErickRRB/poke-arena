@@ -8,7 +8,7 @@ import { spellPreviewTargets } from './spell-preview.js?v=34';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
 import { RoseliaBouquets } from './bouquet-motion.js?v=34';
-import {healthMeterWidth,layoutUnitHealth,structureOcclusionRegions,drawVisibleStructure,summoningStructure} from './unit-visibility.js?v=34';
+import {healthMeterWidth,layoutUnitHealth,structureOcclusionRegions,drawVisibleStructure,summoningStructure,unitHealthVisible} from './unit-visibility.js?v=34';
 import { drawCapsule,CapsuleArt,CAPSULE_TEXTURE } from './capsule-art.js?v=34';
 import {spellVisualProfile,spellFlightAge,spellFlightVisual,missileFlightVisuals,missileFormation} from './spell-visuals.js?v=34';
 import * as onlineConfig from './online-config.js?v=36';
@@ -604,6 +604,7 @@ export class Renderer {
     return this.battleArt.draw(c,name,x,y,size,height/(this.verticalScale||1),{age:this.t,angle,...options});
   }
   queueUnitHealth(c,unit,x,y,width){
+    if(!unitHealthVisible(unit))return;
     const height=this.bodyHeights?this.bodyHeight(unit):Infinity,pixel=1/(this.projection?.scale||1);
     const compact=!unit.card.structure&&height<=32?{pixel,heightCss:4,ownerX:x,ownerY:y+9/(this.verticalScale||1)}:false;
     width=healthMeterWidth(unit,width,height,pixel);
@@ -613,6 +614,7 @@ export class Renderer {
     else this.healthBar(c,unit,x,y,width,compact);
   }
   healthBar(c,unit,x,y,width,compact=false){
+    if(!unitHealthVisible(unit))return;
     const ratio=Math.max(0,unit.hp/unit.maxHp);let h=this.healthStates.get(unit.id);
     if(!h){h={chip:ratio,last:ratio,at:-10};this.healthStates.set(unit.id,h);}
     if(unit.card.structure)h.chip=ratio;
@@ -628,6 +630,7 @@ export class Renderer {
     if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+(compact?6:10),width+2,compact?4:5);rect(c,'#f1e0ff',x-width/2,y+(compact?7:11),width*unit.shield/Math.max(unit.shield,unit.maxShield||1),compact?2:3);}
   }
   healthReadout(c,unit,x,y,width,compact=false){
+    if(!unitHealthVisible(unit))return;
     // Keep the native meter's upper half and complete shield legible while a
     // moving head passes; the larger health box remains behind that head.
     const ratio=Math.max(0,unit.hp/unit.maxHp),chip=this.healthStates?.get(unit.id)?.chip??ratio;
@@ -641,6 +644,7 @@ export class Renderer {
     if(unit.shield>0){rect(c,'#102a36',x-width/2-1,y+(compact?6:10),width+2,compact?4:5);rect(c,'#f1e0ff',x-width/2,y+(compact?7:11),width*unit.shield/Math.max(unit.shield,unit.maxShield||1),compact?2:3);}
   }
   compactHealth(c,unit,x,y,width,style,chip,front=false){
+    if(!unitHealthVisible(unit))return;
     const pixel=style.pixel||1,height=(style.heightCss||4)*pixel,px=this.projection?.x||0,py=this.projection?.y||0;
     const snapX=value=>(Math.round(value/pixel+px)-px)*pixel,snapY=value=>(Math.round(value/pixel+py)-py)*pixel;
     const left=snapX(x-width/2),top=snapY(y),w=Math.round(width/pixel)*pixel,ratio=Math.max(0,Math.min(1,unit.hp/unit.maxHp));
@@ -1054,8 +1058,11 @@ export class Renderer {
         this.combatArt(c,'emberShot',e.x,e.y-(5+progress*10)/(this.verticalScale||1),25,0,25,{frame:this.reduced?5:Math.min(8,4+Math.floor(progress*5)),trim:true});
       }else if(e.kind==='structureDeath'){
         const art=STRUCTURE_ART[e.art],vertical=this.verticalScale||1;
-        c.save();c.translate(e.x,e.y+art.baseOffset/vertical);if(!this.reduced)c.scale(1,1-progress*.7);
-        this.battleArt.structure(c,e.art,e.team,0,0,art.width,vertical);c.restore();
+        const shrink=this.reduced?1:1-progress*.7,base=e.y+art.baseOffset/vertical,box={left:e.x-art.width/2,right:e.x+art.width/2,top:base-art.height*shrink/vertical,bottom:base+8};
+        this.structureForeground(c,{x:e.x,y:e.y},box,ctx=>{
+          ctx.save();ctx.translate(e.x,base);if(!this.reduced)ctx.scale(1,shrink);
+          this.battleArt.structure(ctx,e.art,e.team,0,0,art.width,vertical);ctx.restore();
+        });
         if(!this.reduced&&progress>.2)for(let i=0;i<3;i++)this.combatArt(c,'rubble',e.x+(i-1)*16,e.y+2/vertical,16,0,16,{frame:5+i});
       }
       else if(e.kind==='golemDeath')this.sprite(c,{...e.unit,pushHurt:e.life},true);
@@ -1377,6 +1384,17 @@ export class Renderer {
     }
     this.fireWheel(c,pose);
   }
+  structureForeground(c,actor,box,draw){
+    const regions=structureOcclusionRegions(actor,this.frameActors?.values()||[],box,unit=>{
+      if(this.pendingSpecies?.has(unit.card.id)||!this.bodyHeights?.has(unit.card.id))return null;
+      const lift=unit.card.flying?16/(this.verticalScale||1):0;
+      return{width:Math.max(10,unit.radius*2+6),height:this.bodyHeight(unit)-lift,bottom:unit.y-lift};
+    });
+    drawVisibleStructure(c,box,regions,draw,(ctx,id)=>{
+      const previous=this.silhouettePass;this.silhouettePass=true;
+      try{this.sprite(ctx,this.frameActors.get(id),true);}finally{this.silhouettePass=previous;}
+    });
+  }
   draw(game,dt=.016){
     this.resizeBacking();
     const c=this.ctx;this.t+=dt;this.drawDt=dt;this.gameElapsed=game.elapsed||0;this.battleArt.time=this.reduced?0:this.t;
@@ -1402,15 +1420,7 @@ export class Renderer {
       if('king'in actor)this.tower(c,actor);
       else if(actor.card.structure){
         const height=this.bodyHeight(actor),width=Math.max(actor.radius*3,STRUCTURE_ART[actor.card.structureArt]?.width||height*.82),box={left:actor.x-width/2,right:actor.x+width/2,top:actor.y-height,bottom:actor.y+8};
-        const regions=structureOcclusionRegions(actor,this.frameActors.values(),box,unit=>{
-          if(this.pendingSpecies?.has(unit.card.id)||!this.bodyHeights?.has(unit.card.id))return null;
-          const lift=unit.card.flying?16/(this.verticalScale||1):0;
-          return{width:Math.max(10,unit.radius*2+6),height:this.bodyHeight(unit)-lift,bottom:unit.y-lift};
-        });
-        drawVisibleStructure(c,box,regions,ctx=>{this.sprite(ctx,actor);this.frozen(ctx,actor);},(ctx,id)=>{
-          const previous=this.silhouettePass;this.silhouettePass=true;
-          try{this.sprite(ctx,this.frameActors.get(id),true);}finally{this.silhouettePass=previous;}
-        });
+        this.structureForeground(c,actor,box,ctx=>{this.sprite(ctx,actor);this.frozen(ctx,actor);});
         continue;
       }else this.sprite(c,actor);
       this.frozen(c,actor);

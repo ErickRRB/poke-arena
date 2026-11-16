@@ -7,9 +7,18 @@ const meterRect=entry=>({left:entry.x-entry.width/2-border(entry),right:entry.x+
 
 export function healthMeterWidth(unit,width,bodyHeight=Infinity,pixelSize){return unit.card?.structure||bodyHeight>32?width:pixelSize?Math.min(width,Math.max(12,Math.round(bodyHeight/pixelSize*.9))*pixelSize):Math.min(width,Math.max(18,bodyHeight*.7));}
 export const summoningStructure=card=>!!(card?.structure&&card.summon&&!(card.speed>0));
+export function unitHealthVisible(unit){
+  if(!unit||unit.hp<=0)return false;
+  if('king'in unit||unit.card?.structure)return true;
+  const{hp,maxHp,shield,maxShield}=unit;
+  if(!Number.isFinite(hp)||!Number.isFinite(maxHp)||maxHp<=0)return true;
+  if(hp<maxHp)return true;
+  if(!Number.isFinite(shield)||!Number.isFinite(maxShield)||shield<0||maxShield<0)return true;
+  return shield<maxShield;
+}
 
 export function layoutUnitHealth(entries,bounds={left:0,right:600}){
-  const result=entries.map(entry=>({...entry})),pending=result.filter(entry=>!entry.unit.card?.structure),groups=[];
+  const result=entries.filter(entry=>unitHealthVisible(entry.unit)).map(entry=>({...entry})),pending=result.filter(entry=>!entry.unit.card?.structure),groups=[];
   const initialRects=new Map(result.map(entry=>[entry,meterRect(entry)]));
   const offsetsByWidth=new Map(),compare=(a,b)=>a.score-b.score||a.y-b.y||a.x-b.x;
   while(pending.length){
