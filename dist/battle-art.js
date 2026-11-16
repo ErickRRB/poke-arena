@@ -5,7 +5,7 @@ import {CAPSULE_TEXTURE} from './capsule-art.js?v=34';
 import * as onlineConfig from './online-config.js?v=36';
 const publicAssetUrl=onlineConfig.publicAssetUrl||((file)=>file);
 const {PVFX_ASSETS}=await import(publicAssetUrl('./assets/battle/vfx-manifest.js?v=36'));
-const ART_ASSETS={...BATTLE_ASSETS,...PVFX_ASSETS};
+const ART_ASSETS={...BATTLE_ASSETS,...PVFX_ASSETS,fireballBurst:{file:'assets/battle/fireball-burst-imagegen-v1.png',width:2172,height:724,columns:1,rows:1,fps:1}};
 
 export const CARD_PLACEHOLDERS=Object.freeze({});
 export const cardPlaceholder=key=>Object.hasOwn(CARD_PLACEHOLDERS,key);

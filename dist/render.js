@@ -1007,42 +1007,28 @@ export class Renderer {
     c.restore();
     if(e.impactX!==undefined){c.save();c.globalAlpha*=Math.max(0,1-progress*2);this.combatArt(c,e.style==='leaf'?'impact':e.art,e.impactX,e.impactY,Math.min(32,Math.max(18,radius*.45)),0,Math.min(32,Math.max(18,radius*.45)),{progress:this.reduced?.45:progress,trim:true});c.restore();}
   }
-  fireballImpact(c,e,progress,ground=false){
-    const radius=e.radius;
-    const grow=this.reduced?1:Math.min(1,progress/.22);
-    c.save();c.translate(e.x,e.y);
-    if(ground){
-      // Scorched ground follows the flash. Its soft, broken edge is a trace,
-      // not a second outline of an active damage area.
-      const trace=Math.max(0,Math.min(1,(progress-.48)/.16))*Math.min(1,(1-progress)/.22);
-      c.globalAlpha*=trace;
-      softDisc(c,0,0,radius*.9,{color:'#583825',opacity:.42,interior:.45});
-      for(const [x,y,s] of [[-.48,-.22,.19],[.43,-.34,.2],[-.32,.47,.16],[.51,.28,.14]])
-        softDisc(c,x*radius,y*radius,s*radius,{color:'#8d4827',opacity:.35});
-    }else{
-      const r=radius*grow, body=Math.min(1,Math.max(0,(.76-progress)/.2));
-      if(!(r>0&&body>0)){c.restore();return;}
-      c.globalAlpha*=body;
-      c.beginPath();c.arc(0,0,r,0,Math.PI*2);c.clip();
-      // A broad flame body remains dense at the outer area during peak; the
-      // atlas contributes fire texture instead of defining alpha coverage.
-      const glow=c.createRadialGradient(0,-r*.08,0,0,0,r);
-      glow.addColorStop(0,'#fff4b5ed');glow.addColorStop(.4,'#ffc458e8');
-      glow.addColorStop(.76,'#f4772ddd');glow.addColorStop(.93,'#df4c20b5');glow.addColorStop(1,'#d63d1600');
-      c.fillStyle=glow;c.fillRect(-r,-r,r*2,r*2);
-      for(let i=0;i<6;i++){
-        const a=i*Math.PI/3+(this.reduced?0:progress*.5),x=Math.cos(a)*r*.57,y=Math.sin(a)*r*.57;
-        const lobe=c.createRadialGradient(x,y,0,x,y,r*.39);
-        lobe.addColorStop(0,'#fff09cbb');lobe.addColorStop(.45,'#ffad3f94');lobe.addColorStop(1,'#ef5d1b00');
-        c.fillStyle=lobe;c.fillRect(x-r*.4,y-r*.4,r*.8,r*.8);
-      }
-      const explosion=this.battleArt.image('explosion');
-      if(explosion){
-        const frame=this.reduced?9:Math.min(13,5+Math.floor(progress*12));
-        c.save();c.globalAlpha*=.55;
-        c.drawImage(explosion,frame*88+20,24,48,40,-r*.72,-r*.65,r*1.44,r*1.2);
-        c.restore();
-      }
+  fireballImpact(c,e,progress){
+    const radius=e.radius,image=this.battleArt.image('fireballBurst');
+    const frames=[[0,62,511,600],[511,62,479,600],[1001,62,594,600],[1651,62,521,600]];
+    c.save();c.translate(e.x,e.y);c.beginPath();c.arc(0,0,radius,0,Math.PI*2);c.clip();
+    // The fire is painted below combatants. Irregular, transparent source
+    // frames expand and break apart without an opaque area indicator.
+    if(image){
+      const phase=this.reduced?2:Math.min(3,Math.max(0,progress*3)),first=Math.floor(phase),mix=phase-first;
+      const draw=(index,alpha)=>{
+        if(alpha<=0)return;
+        const [sx,sy,sw,sh]=frames[index],width=radius*2*sw/600;
+        c.save();c.globalAlpha*=alpha;c.drawImage(image,sx,sy,sw,sh,-width/2,-radius,width,radius*2);c.restore();
+      };
+      draw(first,1-mix);if(first<3)draw(first+1,mix);
+    }
+    // Short, broken scorch follows the burst; it is not an area warning.
+    const trace=Math.max(0,Math.min(1,(progress-.63)/.12))*Math.min(1,(1-progress)/.2);
+    if(trace>0){
+      c.save();c.globalAlpha*=trace;
+      for(const [x,y,s] of [[-.32,-.16,.28],[.25,-.3,.24],[.28,.29,.25],[-.23,.32,.21]])
+        softDisc(c,x*radius,y*radius,s*radius,{color:'#623c25',opacity:.42});
+      c.restore();
     }
     c.restore();
   }
@@ -1086,7 +1072,7 @@ export class Renderer {
         }
       }
       else if(e.kind==='areaImpact')this.areaImpact(c,e,progress);
-      else if(e.kind==='fireballImpact')this.fireballImpact(c,e,progress);
+      else if(e.kind==='fireballImpact'){} // Ground pass draws the burst below actors.
       else if(e.kind==='artImpact'){
         const size=e.visualSize??Math.max(24,Math.min(160,(e.radius||30)*1.7));
         if(e.art==='ice'&&e.style==='ice')this.iceImpactCore(c,e.x,e.y,size,this.reduced?.18:progress);
@@ -1406,7 +1392,7 @@ export class Renderer {
     this.biteContours?.beginFrame();this.prepareBiteActors();
     const fields=(game.fields||[]).map(field=>this.visualField(field,dt));
     for(const field of fields)this.field(c,field);
-    for(const effect of this.effects||[])if(effect.kind==='fireballImpact'&&effect.life>0)this.fireballImpact(c,effect,1-effect.life/effect.max,true);
+    for(const effect of this.effects||[])if(effect.kind==='fireballImpact'&&effect.life>0)this.fireballImpact(c,effect,1-effect.life/effect.max);
     for(const spell of game.spells){
       if(spell.key==='pinMissile')continue;
       if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
