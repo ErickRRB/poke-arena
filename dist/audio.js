@@ -3,6 +3,8 @@ import { BattleMusic } from './music.js?v=36';
 import { CARDS } from './engine.js?v=34';
 import {publicAssetUrl} from './online-config.js?v=36';
 export const MAX_EFFECT_VOICES=12;
+// Deploy cries with low retained RMS after peak normalization (Pikachu cohort).
+const QUIET_DEPLOY_CRIES=new Set([23,25,27,52,54,196,252,302]);
 // Leave room for the orchestral bed in dense fights without changing cue
 // priorities, phase balance or the separate voice and interface buses.
 export const AUDIO_LEVELS=Object.freeze({master:.8,effects:.65*10**(-3/20),voices:.7,ui:.55,music:.65});
@@ -86,11 +88,11 @@ export class SoundSystem {
     const duration=Math.min(maxDuration,buffer.duration/rate),pan=Math.max(-.65,Math.min(.65,(x-300)/400));
     const voice=key.startsWith('cries:'),now=this.output(source,volume,duration,pan,delay,voice,!voice,priority);if(now===null)return false;source.start(now);source.stop(now+duration+.015);return true;
   }
-  cry(id,x=300){
+  cry(id,x=300,volume=.22){
     if(!id||!this.enabled||!this.ctx)return;
     const now=this.ctx.currentTime,key=`cry:${id}`;this.voiceSlots=this.voiceSlots.filter(t=>t>now);
     if(this.voiceSlots.length>=3||now-(this.last.get(key)??-100)<.6)return;
-    if(this.sample(`cries:${id}`,x,{volume:.22,maxDuration:2.5})){this.last.set(key,now);this.voiceSlots.push(now+Math.min(2.5,this.buffers.get(`cries:${id}`).duration));}
+    if(this.sample(`cries:${id}`,x,{volume,maxDuration:2.5})){this.last.set(key,now);this.voiceSlots.push(now+Math.min(2.5,this.buffers.get(`cries:${id}`).duration));}
   }
   recorded(style,x,impact,shot=0,id=0,options={}){
     const cue=ATTACK_AUDIO[soundStyle(style)]||ATTACK_AUDIO.punch,keys=impact?cue.contact:cue.release;
@@ -160,7 +162,7 @@ export class SoundSystem {
     if(e.type==='blink')this.play('shadow',e.from.x);
     if(e.type==='leap')this.play('dash',e.unit.x);
     if(e.type==='burrow')this.play(e.hidden?'shadow':'lightning',e.unit.x,false,0,0,null,{volume:.025,maxDuration:.12});
-    if(e.type==='deploy'&&CARDS[e.key]?.id)this.cry(CARDS[e.key].id,e.x);
+    if(e.type==='deploy'&&CARDS[e.key]?.id){const id=CARDS[e.key].id;this.cry(id,e.x,QUIET_DEPLOY_CRIES.has(id)?.264:.22);}
     if(e.type==='cast'){
       const style={sneaselAmbush:'wind',log:'rock',fireball:'flame',pinMissile:'volley',lightning:'lightning',thunder:'lightning'}[e.key]||soundStyle(CARDS[e.key]?.style)||'aura';
       const delay=e.key==='log'?0:Math.max(0,e.castDelay??CARDS[e.key]?.castDelay??.4);
