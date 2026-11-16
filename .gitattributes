@@ -4,3 +4,5 @@
 /tools/art/fire-wheel-author.mjs -text
 /art-source/fire-wheel-v2/*.json -text
 /art-source/fire-wheel-v2/*.txt -text
+/dist/*.js text eol=lf
+/dist/assets/battle/pokeball-material-pixel-v4.svg text eol=lf
