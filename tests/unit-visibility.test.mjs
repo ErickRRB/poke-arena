@@ -73,6 +73,7 @@ test('structure reveal follows actual behind-body overlap and entry, without spe
   const entering={...actor,spawn:.5,spawnGroup:{duration:.5}};assert.ok(structureOcclusionRegions(structure,[entering],box,measure)[0].strength<region.strength);
   for(const changed of[{y:520},{x:300},{hp:0},{burrowed:true},{hidden:true},{invisible:true},{card:{structure:true}}])assert.deepEqual(structureOcclusionRegions(structure,[{...actor,...changed}],box,measure),[]);
   assert.deepEqual(structureOcclusionRegions({...structure,burrowed:true},[actor],box,measure),[]);
+  assert.deepEqual(structureOcclusionRegions(structure,[actor],box,()=>null),[],'An unavailable body must not leave a hole in a structure while images load.');
   assert.deepEqual(structureOcclusionRegions(structure,[actor],box,measure)[0],region,'Same paused inputs retain the same local mask.');
   assert.deepEqual(actor,{id:908,x:190,y:475,hp:133,spawn:0,card:{}});
 });

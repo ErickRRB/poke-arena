@@ -1343,6 +1343,7 @@ export class Renderer {
       else if(actor.card.structure){
         const height=this.bodyHeight(actor),width=Math.max(actor.radius*3,STRUCTURE_ART[actor.card.structureArt]?.width||height*.82),box={left:actor.x-width/2,right:actor.x+width/2,top:actor.y-height,bottom:actor.y+8};
         const regions=structureOcclusionRegions(actor,this.frameActors.values(),box,unit=>{
+          if(this.pendingSpecies?.has(unit.card.id)||!this.bodyHeights?.has(unit.card.id))return null;
           const lift=unit.card.flying?16/(this.verticalScale||1):0;
           return{width:Math.max(10,unit.radius*2+6),height:this.bodyHeight(unit)-lift,bottom:unit.y-lift};
         });

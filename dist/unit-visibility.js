@@ -7,9 +7,11 @@ export function healthMeterWidth(unit,width,bodyHeight=Infinity){return unit.car
 
 export function layoutUnitHealth(entries,bounds={left:0,right:600}){
   const result=entries.map(entry=>({...entry})),pending=result.filter(entry=>!entry.unit.card?.structure),groups=[];
+  const initialRects=new Map(result.map(entry=>[entry,meterRect(entry)]));
+  const offsetsByWidth=new Map(),compare=(a,b)=>a.score-b.score||a.y-b.y||a.x-b.x;
   while(pending.length){
     const group=[pending.shift()];
-    for(let i=0;i<group.length;i++)for(let j=pending.length-1;j>=0;j--)if(intersects(meterRect(group[i]),meterRect(pending[j])))group.push(...pending.splice(j,1));
+    for(let i=0;i<group.length;i++)for(let j=pending.length-1;j>=0;j--)if(intersects(initialRects.get(group[i]),initialRects.get(pending[j])))group.push(...pending.splice(j,1));
     groups.push(group);
   }
   const inBounds=entry=>meterRect(entry).left>=bounds.left&&meterRect(entry).right<=bounds.right;
@@ -21,18 +23,26 @@ export function layoutUnitHealth(entries,bounds={left:0,right:600}){
     for(const entry of group){positions.push(cursor+entry.width/2+border(entry));cursor+=entry.width+2*border(entry)+3;}
     const shift=group.reduce((sum,entry,i)=>sum+entry.x-positions[i],0)/group.length;
     const spread=group.map((entry,i)=>({...entry,x:positions[i]+shift}));
-    const clear=entry=>!occupied.some(rect=>intersects(meterRect(entry),rect));
+    const clear=entry=>{const box=meterRect(entry);return!occupied.some(rect=>intersects(box,rect));};
     if(spread.every((entry,i)=>Math.abs(entry.x-group[i].x)<=14&&inBounds(entry)&&clear(entry))){group.forEach((entry,i)=>entry.x=spread[i].x);continue;}
-    const neighbors=entry=>group.filter(other=>other!==entry&&intersects(meterRect(entry),meterRect(other))).length;
-    const order=[...group].sort((a,b)=>neighbors(b)-neighbors(a)||a.unit.id-b.unit.id);
+    const neighbors=new Map(group.map(entry=>[entry,group.filter(other=>other!==entry&&intersects(initialRects.get(entry),initialRects.get(other))).length]));
+    const order=[...group].sort((a,b)=>neighbors.get(b)-neighbors.get(a)||a.unit.id-b.unit.id);
     for(const entry of order){
-      const horizontal=Math.min(12,entry.width*.4),offsets=[-horizontal,0,horizontal],candidates=[];
-      for(let x=4;x<horizontal;x+=4)offsets.push(-x,x);
-      for(let dy=-48;dy<=48;dy+=4)for(const dx of offsets)candidates.push({...entry,x:entry.x+dx,y:entry.y+dy,score:dx*dx+dy*dy*1.4});
+      const horizontal=Math.min(12,entry.width*.4);
+      if(!offsetsByWidth.has(horizontal)){
+        const horizontalOffsets=[-horizontal,0,horizontal],grid=[];
+        for(let x=4;x<horizontal;x+=4)horizontalOffsets.push(-x,x);
+        for(let y=-48;y<=48;y+=4)for(const x of horizontalOffsets)grid.push({x,y,score:x*x+y*y*1.4});
+        grid.sort(compare);offsetsByWidth.set(horizontal,{horizontalOffsets,grid});
+      }
+      const {horizontalOffsets,grid}=offsetsByWidth.get(horizontal);let point;
+      for(const offset of grid){const candidate={...entry,x:entry.x+offset.x,y:entry.y+offset.y,score:offset.score};if(inBounds(candidate)&&clear(candidate)){point=candidate;break;}}
       const own=meterRect(entry);
-      for(const rect of occupied)for(const dy of[rect.top-3-own.bottom,rect.bottom+3-own.top])for(const dx of offsets)if(Math.abs(dy)<=48)candidates.push({...entry,x:entry.x+dx,y:entry.y+dy,score:dx*dx+dy*dy*1.4});
-      candidates.sort((a,b)=>a.score-b.score||a.y-b.y||a.x-b.x);
-      const point=candidates.find(candidate=>inBounds(candidate)&&clear(candidate));
+      if(point?.score!==0)for(const rect of occupied)for(const dy of[rect.top-3-own.bottom,rect.bottom+3-own.top])if(Math.abs(dy)<=48)for(const dx of horizontalOffsets){
+        const score=dx*dx+dy*dy*1.4;if(point&&score>point.score)continue;
+        const candidate={...entry,x:entry.x+dx,y:entry.y+dy,score};
+        if((!point||compare(candidate,point)<0)&&inBounds(candidate)&&clear(candidate))point=candidate;
+      }
       if(point){entry.x=point.x;entry.y=point.y;}
       occupied.push(meterRect(entry));
     }
@@ -45,7 +55,8 @@ export function structureOcclusionRegions(structure,actors,box,measure){
   const regions=[];
   for(const actor of actors){
     if(!actor.card||actor.card.structure||actor.hp<=0||actor.burrowed||actor.hidden||actor.invisible||(actor.visualSortY??actor.y)>=(structure.visualSortY??structure.y))continue;
-    const body=measure(actor),left=actor.x-body.width/2,right=actor.x+body.width/2,top=body.bottom-body.height,bottom=body.bottom;
+    const body=measure(actor);if(!body)continue;
+    const left=actor.x-body.width/2,right=actor.x+body.width/2,top=body.bottom-body.height,bottom=body.bottom;
     const overlap=Math.max(0,Math.min(right,box.right)-Math.max(left,box.left))*Math.max(0,Math.min(bottom,box.bottom)-Math.max(top,box.top));
     const fraction=overlap/(body.width*body.height);if(fraction<=.1)continue;
     const entry=actor.spawn>0?.2+.8*Math.max(0,1-actor.spawn/Math.max(.001,actor.spawnGroup?.duration??.5)):1;
