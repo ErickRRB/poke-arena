@@ -465,7 +465,8 @@ document.addEventListener('keydown',e=>{
       e.preventDefault();renderer.pointer||={x:158,y:520};
       if(e.key==='ArrowUp')renderer.pointer.y-=TILE;if(e.key==='ArrowDown')renderer.pointer.y+=TILE;if(e.key==='ArrowLeft')renderer.pointer.x-=TILE;if(e.key==='ArrowRight')renderer.pointer.x+=TILE;
       renderer.pointer.x=Math.max(45,Math.min(555,renderer.pointer.x));renderer.pointer.y=Math.max(45,Math.min(755,renderer.pointer.y));
-      live(`Posición ${Math.round(renderer.pointer.x)}, ${Math.round(renderer.pointer.y)}.`);
+      const point=resolvePlacementInput(game,0,game.hands[0][selected],renderer.pointer.x,renderer.pointer.y);
+      live(point?`Posición ${Math.round(point.x)}, ${Math.round(point.y)}.`:'Zona no disponible.');
     }else if(e.key==='Enter'&&renderer.pointer){e.preventDefault();attemptDeploy(renderer.pointer);}
   }
 });

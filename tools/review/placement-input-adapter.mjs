@@ -64,6 +64,11 @@ async function perform(page,config,state){
     await page.mouse.move(start.x,start.y);await page.mouse.down();await page.mouse.move(points.legal.x,points.legal.y);await page.mouse.move(points.raw.x,points.raw.y);
   }
   await page.waitForFunction(expected=>{const g=__reviewAdapter.fixture.ghosts.at(-1);return g&&g.x===expected.x&&g.y===expected.y;},config.expected,{timeout:4000});
+  if(config.input==='keyboard')await page.evaluate(expected=>{
+    const text=document.getElementById('live-status').textContent;
+    __reviewAdapter.fixture.keyboardAnnouncement=text;
+    if(text!==`Posición ${expected.x}, ${expected.y}.`)throw Error('keyboard announcement differs from actual placement: '+text);
+  },config.expected);
   await savePhase(page,config,'ghost');
   if(config.input==='touch')await state.cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   else if(config.input==='keyboard')await page.keyboard.press('Enter');
