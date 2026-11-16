@@ -1252,46 +1252,30 @@ export class Renderer {
     c.drawImage(surface,field.x-radius,field.y-radius,radius*2,radius*2);
   }
   earthquake(c,field,age){
-    const radius=field.radius,phase=earthquakePhase(field,age,this.reduced),vertical=this.verticalScale||1;
+    const radius=field.radius,period=field.fieldTick||1,beat=age%period;
+    const rise=this.reduced?1:Math.min(1,age/.18),shock=this.reduced?0:Math.sin(Math.min(1,beat/.56)*Math.PI)*Math.exp(-beat*1.2);
+    const plates=[
+      [[-1,-1],[-.18,-1],[-.25,-.66],[-.04,-.42],[-.19,-.19],[-.53,-.26],[-.68,-.06],[-1,-.12]],
+      [[-.18,-1],[1,-1],[1,-.32],[.65,-.23],[.44,-.37],[.19,-.25],[-.04,-.42],[-.25,-.66]],
+      [[-1,-.12],[-.68,-.06],[-.53,-.26],[-.19,-.19],[-.02,.08],[-.24,.3],[-.32,.63],[-.64,.53],[-1,.7]],
+      [[-.19,-.19],[-.04,-.42],[.19,-.25],[.44,-.37],[.65,-.23],[.61,.12],[.36,.29],[.1,.2],[-.02,.08]],
+      [[.65,-.23],[1,-.32],[1,1],[.46,1],[.38,.67],[.14,.55],[.1,.2],[.36,.29],[.61,.12]],
+      [[-1,.7],[-.64,.53],[-.32,.63],[-.24,.3],[-.02,.08],[.1,.2],[.14,.55],[.38,.67],[.46,1],[-1,1]]
+    ];
     c.save();c.beginPath();c.arc(field.x,field.y,radius,0,Math.PI*2);c.clip();
-    softDisc(c,field.x,field.y,radius,{color:'#8c7956',opacity:.18});
-    c.translate(field.x+phase.jitter,field.y);
-    for(const points of earthquakeFissures(radius,phase.growth)){
-      if(points.length<2)continue;
-      const banks=points.map(([x,y],index)=>{
-        const before=points[Math.max(0,index-1)],after=points[Math.min(points.length-1,index+1)],dx=after[0]-before[0],dy=after[1]-before[1],length=Math.hypot(dx,dy)||1;
-        return{x,y,nx:-dy/length,ny:dx/length,taper:1-index/(points.length-1)*.9};
-      });
-      const split=(width,offset)=>{
-        c.beginPath();
-        for(let side=1;side>=-1;side-=2){
-          const edge=side===1?banks:banks.slice().reverse();
-          edge.forEach(({x,y,nx,ny,taper},index)=>{
-            const px=x+nx*width*taper*side,py=y+ny*width*taper*side+offset;
-            side===1&&index===0?c.moveTo(px,py):c.lineTo(px,py);
-          });
-        }
-        c.closePath();c.fill();
-      };
-      c.save();c.globalAlpha*=.78;c.fillStyle='#aa8f5e';split(4.5+phase.pulse*.5,1.1);
-      c.fillStyle='#453c2e';split(2.5+phase.pulse*.7,0);c.restore();
-    }
-    const beat=age%(field.fieldTick||1),sites=[[-.65,.32],[.08,.68],[.62,.36],[.58,-.35],[-.1,-.7],[-.57,-.33]];
-    for(let i=0;i<sites.length;i++){
-      const elapsed=this.reduced?.3:beat-(i%3)*.025;
-      if(elapsed<0||elapsed>.7)continue;
-      const progress=elapsed/.7,envelope=Math.sin(progress*Math.PI),[sx,sy]=sites[i],x=sx*radius,y=sy*radius;
-      c.save();c.globalAlpha*=this.reduced?.32:.24+envelope*.4;
-      c.save();c.translate(x,y);c.scale(1,.58);
-      softDisc(c,0,0,14+envelope*16,{color:'#c3b38d',opacity:.68});c.restore();
-      const lift=this.reduced?0:envelope*(5+phase.pulse*4)/vertical;
-      this.combatArt(c,'vfxDebris',x,y-lift,30+envelope*5,0,27,{progress:.15+progress*.75,anchor:'pivot',blend:!this.reduced});c.restore();
-      c.save();c.globalAlpha*=this.reduced?.45:(1-progress)*.85;
-      for(let chip=0;chip<3;chip++){
-        const travel=this.reduced?.3:progress,angle=i*1.73+chip*2.4,distance=travel*(10+chip*5),size=chip===1?3.4:2.6;
-        const px=x+Math.cos(angle)*distance,py=y+Math.sin(angle)*distance*.65-Math.sin(travel*Math.PI)*(9+chip*3)/vertical;
-        c.fillStyle='#6d5c40';c.fillRect(px,py,size,size*.8);c.fillStyle='#c1ab78';c.fillRect(px,py,size,1);
-      }c.restore();
+    softDisc(c,field.x,field.y,radius,{color:'#695537',opacity:.35});c.translate(field.x,field.y);
+    plates.forEach((points,i)=>{
+      const direction=i%2?1:-1,dx=direction*shock*radius*.065,dy=((i%3)-1)*shock*radius*.035;
+      c.save();c.globalAlpha*=rise;c.translate(dx,dy);c.beginPath();
+      points.forEach(([x,y],j)=>j?c.lineTo(x*radius,y*radius):c.moveTo(x*radius,y*radius));c.closePath();
+      c.fillStyle=i%2?'#a99a6b99':'#8d855e99';c.fill();
+      c.lineJoin='round';c.strokeStyle='#4c4033b8';c.lineWidth=2.4+shock*3;c.stroke();
+      c.strokeStyle='#dac49691';c.lineWidth=1;c.stroke();c.restore();
+    });
+    if(!this.reduced&&shock>0){
+      for(const [x,y] of [[-.55,-.34],[.42,-.42],[-.35,.42],[.56,.37]]){
+        c.save();c.globalAlpha*=shock*.8;softDisc(c,x*radius,y*radius,radius*(.19+shock*.12),{color:'#e4c997',opacity:.75});c.restore();
+      }
     }
     c.restore();
   }
