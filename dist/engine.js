@@ -86,6 +86,10 @@ CARDS.alakazam.rarity='epica';
 Object.assign(CARDS,structuredClone(EXTRA_CARDS));
 applyBalance(CARDS);
 export const DEFAULT_DECK = ['pikachu', 'snorlax', 'machamp', 'blastoiseCannon', 'zubat', 'thunder', 'charizard', 'fireball'];
+export function validDeck(input){
+  const deck=currentDeck(input);
+  return Array.isArray(deck)&&deck.length===8&&new Set(deck).size===8&&Array.from(deck).every(key=>typeof key==='string'&&Object.hasOwn(CARDS,key)&&!CARDS[key].token);
+}
 export const CPU_DECKS = [
   {name:'Doble dragón',cards:['golem','charizard','zapdos','bulbasaur','diglett','vivero','whirlpool','lightning']},
   {name:'Gigante y apoyo',cards:['snorlax','duskull','machamp','beedrill','poochyenaPack','vivero','fireball','thunder']},
@@ -115,8 +119,7 @@ const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 export class Game {
   constructor({ deck = DEFAULT_DECK, cpuDeck, difficulty = 'normal', seed = Date.now(), onEvent = () => {}, tutorial = false, animations = {} } = {}) {
     deck=currentDeck(deck);cpuDeck=currentDeck(cpuDeck);
-    const valid = Array.isArray(deck) && deck.length === 8 && new Set(deck).size === 8 && deck.every(k => CARDS[k]&&!CARDS[k].token);
-    if (!valid) throw new Error('El mazo necesita ocho cartas diferentes.');
+    if (!validDeck(deck)) throw new Error('El mazo necesita ocho cartas diferentes.');
     this.boardVersion=BOARD_VERSION;
     this.seed = seed >>> 0 || 1;
     this.difficulty = difficulty;
@@ -154,7 +157,7 @@ export class Game {
     for(const tower of this.towers)Object.assign(tower.guard,{projectileSpeed:tower.projectileSpeed,projectileStart:tower.projectileStart});
     const preset=CPU_DECKS[Math.floor(this.random()*CPU_DECKS.length)];
     const bot=[...(cpuDeck|| (tutorial?DEFAULT_DECK:preset.cards))];
-    if(bot.length!==8||new Set(bot).size!==8||bot.some(k=>!CARDS[k]||CARDS[k].token))throw Error('Mazo CPU inválido.');
+    if(!validDeck(bot))throw Error('Mazo CPU inválido.');
     this.cpuDeckName=cpuDeck||tutorial?'Práctica':preset.name;
     this.cpuDeck=[...bot];
     if(!cpuDeck&&!tutorial)for(let i=bot.length-1;i>0;i--){const j=Math.floor(this.random()*(i+1));[bot[i],bot[j]]=[bot[j],bot[i]];}

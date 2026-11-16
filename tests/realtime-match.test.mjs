@@ -35,3 +35,32 @@ test('the public catalog replaces the duplicated Electrode without changing its 
   assert.equal(CARDS.forretress.nativeReference,'Wallbreakers');assert.equal(CARDS.forretress.count,2);assert.equal(validDeck(['electrode',...deck.slice(1)]),false);assert.equal(validDeck(['forretress',...deck.slice(1)]),true);
   assert.match(CARDS.forretress.role,/^Win condition/);assert.ok(Number.isFinite(CARDS.forretress.scale));
 });
+
+test('new decks reject inherited, coerced and missing card keys in every player and CPU position',async t=>{
+  const invalidKeys=['toString','constructor','__proto__','valueOf','hasOwnProperty',[deck[0]],{toString:()=>deck[0]},null,42,'electrode'];
+  for(const key of invalidKeys)await t.test(`invalid ${typeof key}: ${String(key)}`,()=>{
+    const bad=[key,...deck.slice(1)];
+    assert.equal(validDeck(bad),false);
+    assert.throws(()=>new Game({deck:bad,tutorial:true}));
+    assert.throws(()=>new Game({deck,cpuDeck:bad}));
+    for(const side of[0,1])assert.throws(()=>new RealtimeMatch({players:[0,1].map(i=>({id:String(i),deck:i===side?bad:deck}))}),/Invalid decks/);
+  });
+  const sparse=deck.slice();delete sparse[0];
+  assert.equal(validDeck(sparse),false);
+  assert.throws(()=>new Game({deck:sparse,tutorial:true}));
+});
+
+test('all playable cards remain accepted and aliases are migrated before uniqueness checks',()=>{
+  for(const [key,card]of Object.entries(CARDS))if(!card.token){
+    const candidate=[key,...deck.filter(k=>k!==key).slice(0,7)];
+    assert.equal(validDeck(candidate),true,key);
+    const game=new Game({deck:candidate,cpuDeck:candidate});
+    assert.deepEqual([...game.hands[0],...game.queues[0]],candidate);
+    assert.deepEqual([...game.hands[1],...game.queues[1]],candidate);
+  }
+  const migrated=['blastoise',...deck.slice(0,7)],game=new Game({deck:migrated,cpuDeck:migrated});
+  assert.equal(validDeck(migrated),true);
+  assert.equal(game.hands[0][0],'octillery');assert.equal(game.hands[1][0],'octillery');
+  const duplicate=['blastoise','octillery',...deck.slice(0,6)];
+  assert.equal(validDeck(duplicate),false);assert.throws(()=>new Game({deck:duplicate}));assert.throws(()=>new Game({cpuDeck:duplicate}));
+});
