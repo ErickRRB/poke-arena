@@ -1007,12 +1007,13 @@ export class Renderer {
     c.restore();
     if(e.impactX!==undefined){c.save();c.globalAlpha*=Math.max(0,1-progress*2);this.combatArt(c,e.style==='leaf'?'impact':e.art,e.impactX,e.impactY,Math.min(32,Math.max(18,radius*.45)),0,Math.min(32,Math.max(18,radius*.45)),{progress:this.reduced?.45:progress,trim:true});c.restore();}
   }
-  fireballImpact(c,e,progress){
+  fireballImpact(c,e,progress,front=false){
     const radius=e.radius,image=this.battleArt.image('fireballBurst');
     const frames=[[0,62,511,600],[511,62,479,600],[1001,62,594,600],[1651,62,521,600]];
     c.save();c.translate(e.x,e.y);c.beginPath();c.arc(0,0,radius,0,Math.PI*2);c.clip();
-    // The fire is painted below combatants. Irregular, transparent source
-    // frames expand and break apart without an opaque area indicator.
+    // The full burst is grounded; a short translucent foreground pass makes
+    // its hot centre connect with the target. Health is drawn afterwards.
+    if(front)c.globalAlpha*=.7*Math.min(1,Math.max(0,progress/.12))*Math.min(1,Math.max(0,(.64-progress)/.2));
     if(image){
       const phase=this.reduced?2:Math.min(3,Math.max(0,progress*3/.78)),first=Math.floor(phase),mix=phase-first;
       const exit=Math.min(1,Math.max(0,(.84-progress)/.18));
@@ -1025,7 +1026,7 @@ export class Renderer {
     }
     // Short, broken scorch follows the burst; it is not an area warning.
     const trace=Math.max(0,Math.min(1,(progress-.7)/.1))*Math.min(1,(1-progress)/.14);
-    if(trace>0){
+    if(!front&&trace>0){
       c.save();c.globalAlpha*=trace;
       for(const [x,y,s] of [[-.32,-.16,.28],[.25,-.3,.24],[.28,.29,.25],[-.23,.32,.21]])
         softDisc(c,x*radius,y*radius,s*radius,{color:'#623c25',opacity:.42});
@@ -1073,7 +1074,7 @@ export class Renderer {
         }
       }
       else if(e.kind==='areaImpact')this.areaImpact(c,e,progress);
-      else if(e.kind==='fireballImpact'){} // Ground pass draws the burst below actors.
+      else if(e.kind==='fireballImpact')this.fireballImpact(c,e,progress,true);
       else if(e.kind==='artImpact'){
         const size=e.visualSize??Math.max(24,Math.min(160,(e.radius||30)*1.7));
         if(e.art==='ice'&&e.style==='ice')this.iceImpactCore(c,e.x,e.y,size,this.reduced?.18:progress);
