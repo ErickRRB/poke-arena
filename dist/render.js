@@ -1346,7 +1346,8 @@ export class Renderer {
           const lift=unit.card.flying?16/(this.verticalScale||1):0;
           return{width:Math.max(10,unit.radius*2+6),height:this.bodyHeight(unit)-lift,bottom:unit.y-lift};
         });
-        drawVisibleStructure(c,box,regions,ctx=>this.sprite(ctx,actor));
+        drawVisibleStructure(c,box,regions,ctx=>{this.sprite(ctx,actor);this.frozen(ctx,actor);});
+        continue;
       }else this.sprite(c,actor);
       this.frozen(c,actor);
     }
