@@ -891,22 +891,6 @@ export class Game {
   }
   aiPullPoint(card){
     const enemies=this.units.filter(u=>u.team===0&&u.hp>0&&!u.burrowed&&!u.card.structure&&!u.leap&&isCombatTargetReady(u));
-    const allies=this.units.filter(u=>u.team===1&&u.hp>0&&u.spawn<=0&&u.card.splash>0&&!u.card.building&&!u.stun&&u.cooldown<=.5&&u.attack<=.7);
-    let best=null, bestScore=0;
-    for(const a of enemies) for(const b of enemies){
-      if(a.id>=b.id)continue;
-      const center={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
-      const point=this.resolveDeployment(1,'whirlpool',center.x,center.y);
-      if(!point||!spellOverlapsTarget(card,point,a)||!spellOverlapsTarget(card,point,b))continue;
-      const support=allies.find(u=>this.validTarget(u,a)&&this.validTarget(u,b)&&distance(u,point)<=attackReach(u,a)+u.card.splash&&distance(a,b)>u.card.splash);
-      if(!support)continue;
-      const score=(a.card.cost||1)+(b.card.cost||1);
-      if(score>bestScore){best=point;bestScore=score;}
-    }
-    return best;
-  }
-  aiPullPoint(card){
-    const enemies=this.units.filter(u=>u.team===0&&u.hp>0&&!u.burrowed&&!u.card.structure&&!u.leap&&isCombatTargetReady(u));
     // Pull a structure-seeking Hog toward our inactive king only while it is
     // threatening a surviving princess tower and the king can take two hits.
     const king=this.towers.find(t=>t.team===1&&t.king&&t.hp>0&&!t.active);
@@ -915,7 +899,14 @@ export class Game {
       const hog=enemies.find(u=>u.card.nativeReference==='HogRider'&&u.y>king.y+40&&u.y<king.y+110&&Math.abs(u.x-king.x)<105&&point&&spellOverlapsTarget(card,point,u)&&king.hp>u.card.damage*3&&this.towers.some(t=>t.team===1&&!t.king&&t.hp>0&&distance(u,t)<80));
       if(hog)return point;
     }
-    const allies=this.units.filter(u=>u.team===1&&u.hp>0&&u.spawn<=0&&u.card.splash>0&&!u.card.building&&!u.stun);
+    // Redirect an imminent building seeker away from an endangered side tower.
+    for(const tower of this.towers.filter(t=>t.team===1&&!t.king&&t.hp>0)){
+      const threat=enemies.find(u=>u.card.building&&u.card.speed>0&&u.y>tower.y&&distance(u,tower)<=attackReach(u,tower)+20);
+      if(!threat)continue;
+      const point=this.resolveDeployment(1,'whirlpool',300,tower.y+88);
+      if(point&&spellOverlapsTarget(card,point,threat)&&distance(point,tower)>distance(threat,tower)+35)return point;
+    }
+    const allies=this.units.filter(u=>u.team===1&&u.hp>0&&u.spawn<=0&&u.card.splash>0&&!u.card.building&&!u.stun&&u.cooldown<=.5&&u.attack<=.7);
     let best=null, bestScore=0;
     for(const a of enemies) for(const b of enemies){
       if(a.id>=b.id)continue;
