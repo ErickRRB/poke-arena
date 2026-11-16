@@ -1014,8 +1014,8 @@ export class Renderer {
     // The fire is painted below combatants. Irregular, transparent source
     // frames expand and break apart without an opaque area indicator.
     if(image){
-      const phase=this.reduced?2:Math.min(3,Math.max(0,progress*3)),first=Math.floor(phase),mix=phase-first;
-      const exit=Math.min(1,Math.max(0,(1-progress)/.2));
+      const phase=this.reduced?2:Math.min(3,Math.max(0,progress*3/.78)),first=Math.floor(phase),mix=phase-first;
+      const exit=Math.min(1,Math.max(0,(.84-progress)/.18));
       const draw=(index,alpha)=>{
         if(alpha<=0)return;
         const [sx,sy,sw,sh]=frames[index],width=radius*2*sw/600;
@@ -1024,7 +1024,7 @@ export class Renderer {
       draw(first,1-mix);if(first<3)draw(first+1,mix);
     }
     // Short, broken scorch follows the burst; it is not an area warning.
-    const trace=Math.max(0,Math.min(1,(progress-.63)/.12))*Math.min(1,(1-progress)/.2);
+    const trace=Math.max(0,Math.min(1,(progress-.7)/.1))*Math.min(1,(1-progress)/.14);
     if(trace>0){
       c.save();c.globalAlpha*=trace;
       for(const [x,y,s] of [[-.32,-.16,.28],[.25,-.3,.24],[.28,.29,.25],[-.23,.32,.21]])
