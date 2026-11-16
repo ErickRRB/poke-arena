@@ -23,4 +23,4 @@ try{
   cases.push({scenario,initial,active,switched,muted,errors});await context.close();
  }
  const report={head:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),hashes:Object.fromEntries(await Promise.all(['dist/app.js','dist/testing.js','dist/audio-preferences.js','dist/audio.js'].map(async f=>[f,createHash('sha256').update(await readFile(path.join(root,f))).digest('hex')]))),method:'Actual laboratory in Edge with stored preferences, real SoundSystem gain nodes and column controls. QA hook exposes state only. No battle music is started.',cases};await writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2));console.log('lab preferences ok');
-}finally{await browser.close();await new Promise(r=>server.close(r));}
+}finally{await browser.close();server.closeAllConnections();await new Promise(r=>server.close(r));}
