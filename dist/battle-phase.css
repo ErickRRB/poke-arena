@@ -50,5 +50,8 @@ body.reduced-motion .battle-hud .battle-clock.last-minute #timer {color:inherit}
  .battle-hud #phase-label {width:60px}
  .battle-hud-actions:has(#match-pause[hidden]) .battle-hud-status {width:60px}
 }
+@media(max-width:600px) {
+ .battle-console {grid-template-columns:clamp(43px,16vw,70px) minmax(0,1fr)}
+}
 html:fullscreen body:not(.menu-mode)>.topbar {display:none}
 @media(display-mode:fullscreen) {body:not(.menu-mode)>.topbar {display:none}}
