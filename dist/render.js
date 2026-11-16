@@ -1253,28 +1253,17 @@ export class Renderer {
   }
   earthquake(c,field,age){
     const radius=field.radius,period=field.fieldTick||1,beat=age%period;
-    const rise=this.reduced?1:Math.min(1,age/.18),shock=this.reduced?0:Math.sin(Math.min(1,beat/.56)*Math.PI)*Math.exp(-beat*1.2);
-    const plates=[
-      [[-1,-1],[-.18,-1],[-.25,-.66],[-.04,-.42],[-.19,-.19],[-.53,-.26],[-.68,-.06],[-1,-.12]],
-      [[-.18,-1],[1,-1],[1,-.32],[.65,-.23],[.44,-.37],[.19,-.25],[-.04,-.42],[-.25,-.66]],
-      [[-1,-.12],[-.68,-.06],[-.53,-.26],[-.19,-.19],[-.02,.08],[-.24,.3],[-.32,.63],[-.64,.53],[-1,.7]],
-      [[-.19,-.19],[-.04,-.42],[.19,-.25],[.44,-.37],[.65,-.23],[.61,.12],[.36,.29],[.1,.2],[-.02,.08]],
-      [[.65,-.23],[1,-.32],[1,1],[.46,1],[.38,.67],[.14,.55],[.1,.2],[.36,.29],[.61,.12]],
-      [[-1,.7],[-.64,.53],[-.32,.63],[-.24,.3],[-.02,.08],[.1,.2],[.14,.55],[.38,.67],[.46,1],[-1,1]]
-    ];
+    const settle=this.reduced?0:Math.sin(Math.min(1,beat/.65)*Math.PI)*Math.exp(-beat*.9);
+    const rise=this.reduced?1:Math.min(1,age/.2),scale=1+settle*.06;
     c.save();c.beginPath();c.arc(field.x,field.y,radius,0,Math.PI*2);c.clip();
-    softDisc(c,field.x,field.y,radius,{color:'#695537',opacity:.35});c.translate(field.x,field.y);
-    plates.forEach((points,i)=>{
-      const direction=i%2?1:-1,dx=direction*shock*radius*.065,dy=((i%3)-1)*shock*radius*.035;
-      c.save();c.globalAlpha*=rise;c.translate(dx,dy);c.beginPath();
-      points.forEach(([x,y],j)=>j?c.lineTo(x*radius,y*radius):c.moveTo(x*radius,y*radius));c.closePath();
-      c.fillStyle=i%2?'#a99a6b99':'#8d855e99';c.fill();
-      c.lineJoin='round';c.strokeStyle='#4c4033b8';c.lineWidth=2.4+shock*3;c.stroke();
-      c.strokeStyle='#dac49691';c.lineWidth=1;c.stroke();c.restore();
-    });
-    if(!this.reduced&&shock>0){
-      for(const [x,y] of [[-.55,-.34],[.42,-.42],[-.35,.42],[.56,.37]]){
-        c.save();c.globalAlpha*=shock*.8;softDisc(c,x*radius,y*radius,radius*(.19+shock*.12),{color:'#e4c997',opacity:.75});c.restore();
+    c.translate(field.x,field.y);c.globalAlpha*=rise*.85;
+    // Original generated earth decal, with its transparent border. A short
+    // heave follows the native field clock; the material stays under actors.
+    c.save();c.translate((this.reduced?0:Math.sin(beat*35)*settle*2),0);c.scale(scale,scale);
+    this.combatArt(c,'earthquakeGround',0,0,radius*2,0,radius*2,{frame:0});c.restore();
+    if(!this.reduced&&settle>0){
+      for(const [x,y] of [[-.48,-.15],[.38,-.3],[-.23,.42],[.48,.3]]){
+        c.save();c.globalAlpha*=settle*.5;softDisc(c,x*radius,y*radius,radius*(.13+settle*.09),{color:'#e6c894',opacity:.8});c.restore();
       }
     }
     c.restore();
