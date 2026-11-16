@@ -445,8 +445,9 @@ export class Renderer {
   }
   towerHealth(c,tower){
     if(tower.hp<=0)return;
-    const {x,y,team,king}=tower,vertical=this.verticalScale||1;
-    const width=king?84:60,center=y-18/vertical,by=center-5,ratio=Math.max(0,Math.min(1,tower.hp/tower.maxHp));
+    const {x,y,team,king}=tower,vertical=this.verticalScale||1,enemy=team!==(this.viewerTeam??0);
+    const graphicHeight=king?102*476/574:72*395/309;
+    const width=king?84:60,center=enemy?y-(graphicHeight-(king?40:10))/vertical:y-18/vertical,by=center-5,ratio=Math.max(0,Math.min(1,tower.hp/tower.maxHp));
     c.save();
     rect(c,'#20352aee',x-width/2-2,by-2,width+4,14);rect(c,'#435845',x-width/2,by,width,10);
     rect(c,team?'#eb8e71':'#65b9d0',x-width/2,by,width*ratio,10);rect(c,team?'#ffcfb1':'#c7f1f1',x-width/2,by,width*ratio,2);
