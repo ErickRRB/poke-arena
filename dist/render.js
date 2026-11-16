@@ -24,7 +24,9 @@ function rect(c, color, x, y, w, h) { c.fillStyle = color; c.fillRect(Math.round
 function ellipse(c, color, x, y, rx, ry) { c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
 function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.lineWidth = width; c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); }
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
-const visualScale = unit => unit.scale ?? unit.card?.scale ?? 1.5;
+// A presentation-only size for this single battle unit. The actor/card scale
+// remains native so the engine's emission and collision stay unchanged.
+const visualScale = unit => unit.key === 'alakazam' && unit.card?.id === 65 && !unit.mounted ? 1.75 : unit.scale ?? unit.card?.scale ?? 1.5;
 // Union of the four original Bite frames' opaque bounds in each genuine view.
 // Compact the padding, not the bat: this mouth articulation uses the existing
 // preloaded native atlas and stays attached through preparation and recovery.
@@ -398,7 +400,7 @@ export class Renderer {
   visualEmission(actor,shot=0){
     if(!actor)return null;
     const flightClock=this.flightWings?.phases.get(actor.id)?.phase??this.t;
-    const point=emissionPoint({...actor,card:attackVisualProfile(actor.card)},shot,this.reduced?0:flightClock),bob=actor.card?.flying&&!this.reduced?Math.sin(flightClock*2.6+actor.id)*1.5:0;
+    const point=emissionPoint({...actor,scale:actor.key==='alakazam'&&actor.card?.id===65&&!actor.mounted?1.75:actor.scale,card:attackVisualProfile(actor.card)},shot,this.reduced?0:flightClock),bob=actor.card?.flying&&!this.reduced?Math.sin(flightClock*2.6+actor.id)*1.5:0;
     const lunge=attackLunge(actor,this.reduced);
     return{x:point.x+(actor.dx||0)*lunge,y:actor.y+(point.y-actor.y-bob+(actor.dy||0)*lunge)/(this.verticalScale||1)};
   }
@@ -837,8 +839,18 @@ export class Renderer {
     }
     if(p.linear){
       const pose=this.projectilePose(p,p,true),vertical=this.verticalScale||1,x=pose.x+(p.liftX||0),y=pose.y+(p.liftY||0)/vertical,length=Math.min(pose.travelled,54),visual=combatVisual(CARDS[p.key]);
-      this.battleArt.beam(c,'psychic',{x:x-p.dx*length,y:y-p.dy*length},{x,y},visual.beam,this.reduced?0:this.t);
+      // Native lift is the grounded release marker at scale 1.3548. Use only
+      // that captured vector, fading the visual correction over the launch;
+      // this is deterministic even when the source is gone or restored cold.
       const diameter=Math.max(12,visual.projectile,(p.shotRadius||0)*2);
+      if(p.key==='alakazam'&&p.sourceKey==='alakazam'&&Number.isFinite(p.liftX)&&Number.isFinite(p.liftY)){
+        const extra=1.75/1.3548-1,weight=distance=>Math.max(0,1-Math.max(0,distance)/48);
+        const head=weight(pose.travelled),tail=weight(pose.travelled-length);
+        const hx=x+p.liftX*extra*head,hy=y+p.liftY*extra*head/vertical;
+        this.battleArt.beam(c,'psychic',{x:x-p.dx*length+p.liftX*extra*tail,y:y-p.dy*length+p.liftY*extra*tail/vertical},{x:hx,y:hy},visual.beam,this.reduced?0:this.t);
+        this.combatArt(c,'psychic',hx,hy,diameter,0,diameter,{age:this.reduced?0:this.t,trim:true});return;
+      }
+      this.battleArt.beam(c,'psychic',{x:x-p.dx*length,y:y-p.dy*length},{x,y},visual.beam,this.reduced?0:this.t);
       this.combatArt(c,'psychic',x,y,diameter,0,diameter,{age:this.reduced?0:this.t,trim:true});return;
     }
     const destination=p.impactPoint||p.target;if(!destination)return;
