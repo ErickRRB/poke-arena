@@ -8,7 +8,7 @@ if (new URLSearchParams(location.search).get('perf') === '1') {
   toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-controls','perf-panel');
   heading.append(toggle);
   const panel=document.createElement('section');
-  panel.id='perf-panel';panel.className='perf-panel';panel.hidden=true;panel.setAttribute('aria-label','Diagnóstico de rendimiento');
+  panel.id='perf-panel';panel.className='perf-panel';panel.hidden=true;panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-label','Diagnóstico de rendimiento');
   panel.innerHTML=`<div class="perf-heading"><strong>Diagnóstico online</strong><button type="button" class="perf-close" aria-label="Cerrar diagnóstico">×</button></div>
     <div class="perf-actions"><button type="button" class="perf-start">Iniciar</button><button type="button" class="perf-stop" disabled>Detener</button><button type="button" class="perf-save" disabled>Guardar JSON</button></div>
     <p class="perf-status" role="status" aria-live="polite">Sin iniciar</p>
@@ -16,8 +16,20 @@ if (new URLSearchParams(location.search).get('perf') === '1') {
   settings.append(panel);
   const close=panel.querySelector('.perf-close'),start=panel.querySelector('.perf-start'),stop=panel.querySelector('.perf-stop'),save=panel.querySelector('.perf-save');
   const status=panel.querySelector('.perf-status'),label=panel.querySelector('.perf-output-label'),output=panel.querySelector('.perf-output');
-  let timer=null;
-  const setOpen=(open,restore=true)=>{panel.hidden=!open;toggle.setAttribute('aria-expanded',String(open));if(open)close.focus();else if(restore&&settings.open)toggle.focus();};
+  let timer=null,inertBefore=null;
+  const setOpen=(open,restore=true)=>{
+    if(open){inertBefore=new Map([...settings.children].filter(child=>child!==panel).map(child=>[child,child.inert]));for(const child of inertBefore.keys())child.inert=true;}
+    else if(inertBefore){for(const [child,wasInert] of inertBefore)child.inert=wasInert;inertBefore=null;}
+    panel.hidden=!open;toggle.setAttribute('aria-expanded',String(open));if(open)close.focus();else if(restore&&settings.open)toggle.focus();
+  };
+  panel.addEventListener('keydown',event=>{
+    if(event.key!=='Tab')return;
+    const controls=[...panel.querySelectorAll('button:not(:disabled),textarea:not(:disabled)')].filter(el=>el.getClientRects().length);
+    if(!controls.length){event.preventDefault();return;}
+    const first=controls[0],last=controls.at(-1);
+    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+    else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+  });
   const finish=()=>{
     clearTimeout(timer);timer=null;onlinePerf.stop();const report=onlinePerf.report();
     if(!report)return;

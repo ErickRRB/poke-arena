@@ -7,3 +7,7 @@ Verificar brecha previa con frontend real: API disponible e inactiva, ninguna in
 ## Revisión v2: acceso desde Ajustes
 
 El candidato `8645768` se conserva como intento insuficiente: el toggle fijo ocultaba pausa y regreso a 390×844, como confirmaron Root y revisión independiente. Sustituirlo por una entrada absoluta en la cabecera del diálogo de Ajustes existente, sólo con `?perf=1`, y un panel superpuesto dentro de ese diálogo. Sin nuevo control sobre HUD/arena y sin desplazar controles existentes; cerrar el panel devuelve foco a su botón real y cerrar Ajustes permite jugar y mantener la captura. Usar estado breve, sin párrafo explicativo. Verificar primero 390×844, hit tests y activación reales de Ajustes, pausa y regreso, geometría, foco, extracción y fallback; ampliar sólo ante riesgo concreto. Evidencia v1 y revisión permanecen sin reinterpretación. Sin pruebas públicas ni iPhone simulado como real.
+
+## Revisión v3: aislamiento del foco
+
+El candidato `9513e8f` dejó acceder mediante Tab a controles de Ajustes detrás del panel y al cuerpo de página. Mientras el panel esté abierto, aislar los demás elementos del diálogo de Ajustes, limitar Tab y Shift+Tab a controles visibles/habilitados del panel, restaurar los estados previos de inert al cerrar y devolver foco al control que abrió. Escape cierra el panel sin cerrar Ajustes ni parar captura; cerrar Ajustes sigue su flujo anterior. Comprobar el recorrido completo con y sin informe, foco, Escape y continuidad de captura. Conservar v2 y su addendum; sin volver a medir colector ni matriz.
