@@ -10,6 +10,8 @@ Resolver primero la incertidumbre que puede invalidar toda la solución. El auto
 
 Definir contratos de los componentes afectados: estados, relojes, anclas del emisor, orden de capas, feedback, geometría y dependencias. Una corrección de trayecto debe conservar la pose y la emisión; una mejora de oclusión debe conservar vida, escudo, marcas y reacción al daño. Reutilizar los pintores y componentes existentes cuando correspondan, en lugar de reconstruir parcialmente su comportamiento.
 
+Cuando el cambio afecte snapshots, eventos o compatibilidad de payloads legados, ejercer la cobertura declarada con la salida del productor real, de la versión original cuando corresponda. Afirmar qué campos están presentes u omitidos y cuál es la precedencia efectiva entre entidad, tarjeta y renderer. Una fixture manual o con tarjeta completa no demuestra por sí sola el formato compacto ni debe describirse como tal.
+
 Para medir una caché, fijar antes el calentamiento, los tramos en frío y estable, el presupuesto y una muestra suficiente de cuadros activos. Hacer avanzar los estados reales que invalidan sus claves e incluir los fallos de caché habituales en el tramo estable. Separar el coste de arranque y evitar que esperas o inactividad diluyan la medición; los resultados de una simulación fija sólo describen esa condición.
 
 ## Construcción y observación temprana
