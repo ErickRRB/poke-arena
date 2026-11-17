@@ -1,3 +1,4 @@
+import {getC4BaseCatalog,getC4BaseCard} from './c4-catalog.js?v=1';
 import {HOG_ARCANINE,C1_RULESET,C4_RULESET} from './hog-profiles.js?v=1';
 import { EXTRA_CARDS } from './catalog.js?v=34';
 import { currentCardKey, currentDeck } from './card-key-migrations.js?v=34';
@@ -128,6 +129,7 @@ const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 export class Game {
   constructor({ deck = DEFAULT_DECK, cpuDeck, difficulty = 'normal', seed = Date.now(), onEvent = () => {}, tutorial = false, animations = {}, catalogVersion=1, ruleset=C1_RULESET } = {}) {
     if(!((catalogVersion===1&&ruleset===C1_RULESET)||(catalogVersion===4&&ruleset===C4_RULESET)))throw Error('Perfil de partida incompatible.');
+    if(catalogVersion===4)getC4BaseCatalog();
     this.catalogVersion=catalogVersion;this.ruleset=ruleset;
     deck=currentDeck(deck);cpuDeck=currentDeck(cpuDeck);
     if (!validDeck(deck)) throw new Error('El mazo necesita ocho cartas diferentes.');
@@ -185,7 +187,7 @@ export class Game {
     // Preserve the producing profile for consumers even if the source disappears.
     const key=data.sourceKey??data.key, actor=data.attacker??(data.sourceId==null?undefined:this.units?.find(u=>u.id===data.sourceId));
     const card=sourceProfileCard??data.sourceCard??actor?.card??(key?this.cardFor(key):null);
-    const sourceCard=card&&key&&!sameCardProfile(card,CARDS[key])?card:undefined;
+    const sourceCard=card&&key&&!sameCardProfile(card,this.baseCardFor(key))?card:undefined;
     this.onEvent({ type, ...data, ...(sourceCard?{sourceCard}: {}) });
   }
   start() { if (this.state === 'ready') { this.state = 'playing'; this.emit('start'); } }
@@ -196,9 +198,10 @@ export class Game {
     if (this.towers.some(t => t.team !== team && t.king && t.hp <= 0)) return 3;
     return this.towers.filter(t => t.team !== team && !t.king && t.hp <= 0).length;
   }
-  cardFor(key){if(this.catalogVersion===4&&this.ruleset===C4_RULESET&&key==='arcanine')return HOG_ARCANINE;return Object.hasOwn(this.legacyCardOverrides||{},key)?this.legacyCardOverrides[key]:Object.hasOwn(CARDS,key)?CARDS[key]:undefined;}
-  sourceProfile(card,key){return this.ruleset!==C1_RULESET&&card&&key&&!sameCardProfile(card,CARDS[key])?card:undefined;}
-  projectileSource(p){return p.sourceCard??(p.sourceProfile==='c4-1:cards-c1-733'?CARDS[p.sourceKey]:undefined);}
+  baseCardFor(key){return this.catalogVersion===4&&this.ruleset===C4_RULESET?getC4BaseCard(key):CARDS[key];}
+  cardFor(key){if(this.catalogVersion===4&&this.ruleset===C4_RULESET)return key==='arcanine'?HOG_ARCANINE:getC4BaseCard(key);return Object.hasOwn(this.legacyCardOverrides||{},key)?this.legacyCardOverrides[key]:Object.hasOwn(CARDS,key)?CARDS[key]:undefined;}
+  sourceProfile(card,key){return this.ruleset!==C1_RULESET&&card&&key&&!sameCardProfile(card,this.baseCardFor(key))?card:undefined;}
+  projectileSource(p){return p.sourceCard??(p.sourceProfile==='c4-1:cards-c1-733'?this.baseCardFor(p.sourceKey):undefined);}
   canDeploy(team,key,x,y){
     const card=this.cardFor(key);if(!card||!inArena(x,y))return false;
     if(card.spell&&!card.rolling)return !card.spellAsDeploy||!(arenaBits(x,y)&32);
@@ -318,7 +321,7 @@ export class Game {
     }
     if (burn > 0) target.burn = { remaining: 3, tick: .5, damage: burn, team, kind: burnKind,sourceId,sourceKey,...(sourceCard?{sourceCard}:{}),...(sourceProfile?{sourceProfile}:{}) };
     this.stats[team].damage += actual;
-    if(actual>0)this.emit('damage', { target, amount: actual, dot,sourceId,sourceKey,...(sourceCard?{sourceCard}:{}) },sourceProfileCard??(sourceProfile==='c4-1:cards-c1-733'?CARDS[sourceKey]:undefined));
+    if(actual>0)this.emit('damage', { target, amount: actual, dot,sourceId,sourceKey,...(sourceCard?{sourceCard}:{}) },sourceProfileCard??(sourceProfile==='c4-1:cards-c1-733'?this.baseCardFor(sourceKey):undefined));
     if(target.card?.structure)target.lifetime=target.card.lifetime*target.hp/target.maxHp;
     if(poisonField&&!dot)this.addField(target.x,target.y,team,poisonField,sourceId);
     if(target.card?.reflect&&sourceId&&!reflected&&!dot&&actual>0){const attacker=this.units.find(u=>u.id===sourceId)||this.towers.find(t=>t.id===sourceId);if(attacker?.hp>0){this.emit('counter',{unit:target,from:aimPoint(target),to:aimPoint(attacker)});this.damage(attacker,actual*target.card.reflect,target.team,{reflected:true,sourceId:target.id,sourceKey:target.key});}}

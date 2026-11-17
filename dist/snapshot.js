@@ -1,3 +1,4 @@
+import {getC4BaseCatalog} from './c4-catalog.js?v=1';
 import {C1_RULESET,C3_RULESET,C4_RULESET,validateC4Profiles} from './hog-profiles.js?v=1';
 import {resolveC3Profiles} from './hog-c3-validation.js?v=1';
 import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=target-c1-1';
@@ -6,10 +7,10 @@ import { currentDeck } from './card-key-migrations.js?v=34';
 
 // Persisted matches retain the old mobile card's numbers and entity references.
 // Only its retired key and visual identity change; Cannon is a separate card.
-export function migrateLegacyCardIdentity(value){
+export function migrateLegacyCardIdentity(value,options={}){
   if(!value||typeof value!=='object')return value;
-  if(Array.isArray(value)){value.forEach(migrateLegacyCardIdentity);return value;}
-  if(value.key==='voltorb'&&(!value.card||value.card.id===100)){
+  if(Array.isArray(value)){value.forEach(item=>migrateLegacyCardIdentity(item,options));return value;}
+  if(!options.c4&&value.key==='voltorb'&&(!value.card||value.card.id===100)){
     if(value.card)value.card={...value.card,scale:CARDS.voltorb.scale,visualScale:CARDS.voltorb.visualScale};
     if('scale'in value)value.scale=CARDS.voltorb.scale;
   }
@@ -19,13 +20,13 @@ export function migrateLegacyCardIdentity(value){
     const profile=CARDS.octillery,visual=['name','id','scale','move','attackAnim','attackFrames','attackGestures','attackContactFrame','emitter','muzzleHeight','movementAnchor'];
     value.card={...value.card,...Object.fromEntries(visual.map(key=>[key,profile[key]]))};
   }
-  if((value.key==='madriguera'||value.sourceKey==='madriguera')&&value.card?.id===31){
+  if(!options.c4&&(value.key==='madriguera'||value.sourceKey==='madriguera')&&value.card?.id===31){
     const {name,id,structureArt}=CARDS.madriguera;
     value.card={...value.card,name,id,structureArt};
   }
   if(value.hands)value.hands=value.hands.map(currentDeck);
   if(value.queues)value.queues=value.queues.map(currentDeck);
-  for(const[field,item]of Object.entries(value))if(!['card','sourceCard','guard','stats','hands','queues','legacyCardOverrides','snapshotProfiles'].includes(field))migrateLegacyCardIdentity(item);
+  for(const[field,item]of Object.entries(value))if(!['card','sourceCard','guard','stats','hands','queues','legacyCardOverrides','snapshotProfiles'].includes(field))migrateLegacyCardIdentity(item,options);
   return value;
 }
 
@@ -39,8 +40,8 @@ export function unpackGame(data,onEvent=()=>{},animations={}){
   const version=data.catalogVersion??1, ruleset=data.ruleset??(version<=2?C1_RULESET:version===3?C3_RULESET:null);
   if(!(((version===1||version===2)&&ruleset===C1_RULESET)||(version===3&&[C1_RULESET,C3_RULESET].includes(ruleset))||(version===4&&[C1_RULESET,C4_RULESET].includes(ruleset))))throw Error('Perfil de partida incompatible.');
   const c3=version===3&&ruleset===C3_RULESET?resolveC3Profiles(data):null;
-  if(version===4&&ruleset===C4_RULESET)validateC4Profiles(data,CARDS);
-  const restored=migrateLegacyCardIdentity(structuredClone(data));
+  if(version===4&&ruleset===C4_RULESET)validateC4Profiles(data,getC4BaseCatalog());
+  const restored=migrateLegacyCardIdentity(structuredClone(data),{c4:version===4&&ruleset===C4_RULESET});
   restored.catalogVersion=version;restored.ruleset=ruleset;
   if(c3){restored.profileProducer=c3.source;restored.legacyCardOverrides={...restored.legacyCardOverrides,...c3.overrides};for(const entity of restored.units||[])if(Object.hasOwn(c3.overrides,entity.key)&&entity.card)entity.card=structuredClone(c3.overrides[entity.key]);}
   if((restored.boardVersion||1)<BOARD_VERSION){
