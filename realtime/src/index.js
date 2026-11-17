@@ -142,6 +142,12 @@ export class ArenaLobby extends DurableObject {
       try{request=c4SearchRequest(packet);}catch{return reject(ws,'Revisá tu mazo antes de buscar.','deck');}
       if(session&&(context.c4SearchVersion!==C4_SEARCH_VERSION||JSON.stringify(context.searchRequest)!==JSON.stringify(request)))return reject(ws,'La búsqueda pertenece a otro mazo.','session');
       if(!session){
+        // Production fails closed; local C4 remains independent unless explicitly closed.
+        const searchesClosed=this.env.ONLINE_SERVICE==='c4'?this.env.C4_NEW_SEARCHES!=='1':this.env.C4_NEW_SEARCHES==='0';
+        if(packet.mode==='search-intent'&&searchesClosed){
+          ws.serializeAttachment({...attachment(ws),c4SearchVersion:C4_SEARCH_VERSION});
+          send(ws,{type:'idle',token:packet.token,searchState:'closed',message:'Las búsquedas están temporalmente cerradas.'});close(ws);return;
+        }
         const selected=admitC4Selection(request.deck,request.selection),cancelling=packet.mode==='cancel-intent';
         context={...serviceEnvelope(this.service),c4SearchVersion:C4_SEARCH_VERSION,searchRequest:request};
         this.sql.exec('INSERT INTO sessions(id,token_hash,name,deck,joined,updated,selection_version,profile_context,c4_selection,selection_notice) VALUES(?,?,?,?,?,?,?,?,?,?) ON CONFLICT(token_hash) DO NOTHING',crypto.randomUUID(),hash,safeName(request.name),JSON.stringify(selected.keys),cancelling?null:now,now,2,JSON.stringify(context),JSON.stringify(request.selection),cancelling?C4_CANCELLING:null);

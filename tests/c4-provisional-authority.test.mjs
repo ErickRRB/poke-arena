@@ -24,11 +24,11 @@ const A='a'.repeat(64),B='b'.repeat(64),R='d521bab0-5618-404e-96dc-5b73fcb51b77'
 const selection=c4SelectionFromLibrary(updateLibrarySlot({version:1,updatedAt:1,slots:[['arcanine',...DEFAULT_DECK.slice(1)]]},0,0,'arcanine',{action:'accept',now:2}),0);
 const intent=(token=A,mode='search-intent',extra={})=>({type:'hello',...serviceEnvelope(C4_SERVICE),c4SearchVersion:1,mode,token,name:'A',deck:selection.deck,selection:selection.selection,...extra});
 const deferred=()=>{let resolve,reject;const promise=new Promise((a,b)=>{resolve=a;reject=b;});return{promise,resolve,reject};};
-async function setup(t,{Class=ArenaLobby,c1=false,roomFactory}={}){
+async function setup(t,{Class=ArenaLobby,c1=false,roomFactory,bindings={}}={}){
  const database=new DatabaseSync(':memory:'),sockets=[],background=[],rooms=new Map(),ledger=[];
  const sql={exec(query,...args){const rows=database.prepare(query).all(...args);return{toArray:()=>rows,[Symbol.iterator]:()=>rows[Symbol.iterator]()};}};
  const ctx={storage:{sql,getAlarm:async()=>null,setAlarm:async()=>{}},blockConcurrencyWhile:fn=>fn(),waitUntil:value=>background.push(value),getWebSockets:()=>sockets,setWebSocketAutoResponse(){},getWebSocketAutoResponseTimestamp:()=>null};
- const env={...(c1?{}:{LOCAL_C4_TEST:'1'}),ARENAS:{getByName:id=>{
+ const env={...(c1?{}:{LOCAL_C4_TEST:'1'}),...bindings,ARENAS:{getByName:id=>{
   if(!rooms.has(id))rooms.set(id,roomFactory?.(id,ledger)||{state:'playing',calls:[],async create(){return{state:this.state};},async summary(){return{state:this.state};},async abandon(playerId){this.calls.push(playerId);ledger.push('abandon');this.state='ended';return true;}});return rooms.get(id);
  }}};
  const lobby=new Class(ctx,env);await lobby.ready;
@@ -94,4 +94,16 @@ test('old confirmed C4 credentials can still resume their own room without the s
 
 test('C1 still uses its existing search route and emits no C4 envelope or capability',async t=>{
  const s=await setup(t,{c1:true}),ws=s.connect();await s.hello(ws,{type:'hello',protocol:4,mode:'search',name:'A',deck:['diglett','voltorb','slowbro','eevee','geodude','roselia','fireball','thunder']});assert.equal(s.rows().length,1);assert.ok(ws.packets.some(p=>p.type==='welcome'&&p.token));assert.ok(ws.packets.some(p=>p.type==='searching'));assert.ok(ws.packets.every(p=>p.service===undefined&&p.c4SearchVersion===undefined));
+});
+
+test('closed production admission binds a non-admission reply to the exact unknown intent without INSERT',async t=>{
+ const s=await setup(t,{bindings:{LOCAL_C4_TEST:undefined,ONLINE_SERVICE:'c4'}}),ws=s.connect();assert.equal(s.lobby.service.id,'c4');await s.hello(ws,intent());assert.equal(s.rows().length,0);const reply=ws.packets.at(-1);assert.equal(reply.type,'idle');assert.equal(reply.searchState,'closed');assert.equal(reply.token,A);assert.equal(reply.c4SearchVersion,1);assert.equal(reply.catalogRef,C4_SERVICE.catalogRef);assert.equal(typeof reply.message,'string');assert.ok(!ws.packets.some(p=>p.type==='welcome'||p.type==='searching'));
+ const cancel=s.connect();await s.hello(cancel,intent(A,'cancel-intent'));assert.equal(s.rows().length,1);assert.equal(s.rows()[0].joined,null);assert.equal(cancel.packets.at(-1).searchState,'cancelled');const retry=s.connect();await s.hello(retry,intent());assert.equal(retry.packets.at(-1).searchState,'cancelled');assert.equal(s.rows()[0].joined,null);
+});
+
+test('closing admission preserves existing queue retries, matchmaking, room resume and cancellation',async t=>{
+ const s=await setup(t,{bindings:{LOCAL_C4_TEST:undefined,ONLINE_SERVICE:'c4',C4_NEW_SEARCHES:'1'}}),a=s.connect();await s.hello(a,intent());const joinedA=s.rows()[0].joined;a.close(1000);const b=s.connect();await s.hello(b,intent(B));b.close(1000);assert.equal(s.rows().length,2);s.lobby.env.C4_NEW_SEARCHES='0';
+ const retry=s.connect();await s.hello(retry,intent());assert.ok(retry.packets.some(p=>p.type==='searching'&&p.joined===joinedA));const resume=s.connect();await s.hello(resume,intent(B,'resume'));const matched=resume.packets.find(p=>p.type==='matched');assert.ok(matched);assert.equal(s.rows().length,2);
+ const room=s.connect();await s.hello(room,intent(A,'resume'));assert.ok(room.packets.some(p=>p.type==='matched'&&p.roomId===matched.roomId));const cancel=s.connect();await s.hello(cancel,intent(A,'cancel-intent'));assert.equal(cancel.packets.at(-1).searchState,'cancelled');assert.equal(s.rows().find(row=>row.id===retry.state.playerId).room_id,null);
+ const unknown=s.connect();await s.hello(unknown,intent('d'.repeat(64)));assert.equal(unknown.packets.at(-1).searchState,'closed');assert.equal(s.rows().length,2);
 });
