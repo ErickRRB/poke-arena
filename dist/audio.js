@@ -51,6 +51,15 @@ export class SoundSystem {
     for(const slot of this.activeEffects||[]){try{slot.gain.gain.cancelScheduledValues(now);slot.gain.gain.setTargetAtTime(.0001,now,.008);slot.node.stop(now+.035);}catch{}}
     this.activeEffects=[];this.effectSlots=[];this.recentEffects=[];this.voiceSlots=[];this.knightPending?.clear();this.walkPending?.clear();this.walkActive=null;
   }
+  cancelTaggedEffects(tag){
+    if(tag==null||!this.ctx||this.ctx.state==='closed')return 0;
+    const now=this.ctx.currentTime,matching=(this.activeEffects||[]).filter(slot=>slot.tag===tag);
+    for(const slot of matching){
+      try{slot.gain.gain.cancelScheduledValues(now);slot.gain.gain.setTargetAtTime(.0001,now,.008);slot.node.stop(now+.035);}catch{}
+    }
+    if(matching.length){this.activeEffects=this.activeEffects.filter(slot=>slot.tag!==tag);this.effectSlots=this.activeEffects.filter(slot=>slot.recording&&!slot.voice).map(slot=>slot.end);}
+    return matching.length;
+  }
   discardContext(){
     clearTimeout(this.recoveryTimer);this.musicState=this.music?.snapshot?.()??this.musicState;
     if(this.music?.dispose)this.music.dispose();else this.music?.setPlaying(false);this.clearEffects();
@@ -135,10 +144,10 @@ export class SoundSystem {
     node.onended=()=>{node.disconnect?.();gain.disconnect?.();stereo?.disconnect?.();this.activeEffects=this.activeEffects.filter(active=>active!==slot);};
     return now;
   }
-  tone(freq,duration=.1,wave='sine',volume=.04,slide=0,pan=0,delay=0) {
+  tone(freq,duration=.1,wave='sine',volume=.04,slide=0,pan=0,delay=0,tag=null) {
     if(!this.enabled||!this.ctx||this.ctx.state!=='running')return;
     const oscillator=this.ctx.createOscillator();oscillator.type=wave;
-    const now=this.output(oscillator,volume,duration,pan,delay);if(now===null)return false;oscillator.frequency.setValueAtTime(freq,now);
+    const now=this.output(oscillator,volume,duration,pan,delay,false,false,1,.045,false,tag);if(now===null)return false;oscillator.frequency.setValueAtTime(freq,now);
     if(slide)oscillator.frequency.exponentialRampToValueAtTime(Math.max(25,freq+slide),now+duration);
     oscillator.start(now);oscillator.stop(now+duration+.01);return true;
   }
