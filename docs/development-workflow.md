@@ -36,6 +36,9 @@ Responder lo pertinente en la ficha; no crear diez formularios ni exigir categor
 6. **Composición y controles.** ¿Capas, oclusiones y efectos permiten actuar y leer la información necesaria, sin desplazar la arena ni los controles?
 7. **Tiempo y estados.** ¿Pausa, reducción de movimiento, carga, recuperación y presentación de snapshots se comportan correctamente donde se modifican?
 8. **Contratos y dependencias.** ¿Datos, reglas, recursos, anclas e integración conservan sus invariantes y el caso probado usa la versión correcta?
+
+   En cambios de serialización o persistencia, identificá los portadores tipados y comprobá en cada uno la completitud del contrato: diferenciá campo ausente, null, objeto parcial y override íntegro; preservá metadata opaca y verificá el payload original del productor antes de concluir que falta un campo. Cubrí las representaciones y rutas de compatibilidad afectadas, sin una matriz por carta o entidad.
+
 9. **Resultado observado.** ¿La muestra muestra el comportamiento exigido, el autor corrigió defectos evidentes y una revisión independiente suficiente resolvió los hallazgos pertinentes?
 10. **Entrega coherente.** ¿Root decide con el alcance real y, cuando corresponde publicar, se promueve esa misma versión y se comprueba el resultado público conservando pendientes ajenos?
 

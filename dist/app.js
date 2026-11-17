@@ -4,6 +4,10 @@ import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=t
 import { Renderer } from './render.js?v=target-c1-1';
 import { SoundSystem } from './audio.js?v=target-c1-1';
 import {readAudioLevels} from './audio-preferences.js?v=1';
+import {C1_SERVICE,C4_SERVICE,localC4Endpoint} from './online-context.js?v=1';
+import {prepareC4Catalog} from './c4-catalog.js?v=1';
+import {prepareC4Packet,prepareC4Transport} from './c4-packet.js?v=1';
+import {c4SelectionFromLibrary} from './profile-selection.js?v=1';
 import { OnlineClient, hasSavedOnlineSession } from './online.js?v=target-c1-1';
 import { onlinePerf } from './perf.js?v=1';
 import { unpackGame, perspective } from './snapshot.js?v=target-c1-1';
@@ -19,7 +23,9 @@ import { BattlePhaseUi } from './battle-phase-ui.js?v=34';
 import { loadUiResources } from './ui-resource-load.js?v=1';
 
 const $ = id => document.getElementById(id);
-const c4CpuPreview=isLocalC4CpuPreview(location.href);
+const c4WireEndpoint=localC4Endpoint(location.href);
+const c4CpuPreview=!!c4WireEndpoint||isLocalC4CpuPreview(location.href);
+let c4BootError=null;
 const c4EditorPreview=c4CpuPreview||isLocalC4EditorPreview(location.href);
 document.body.classList.toggle('c4-editor-preview',c4EditorPreview);
 const battlePhaseUi = new BattlePhaseUi(document);
@@ -111,8 +117,8 @@ function renderMenuDeck(){
   updateMenuAvailability();
 }
 function updateMenuAvailability(){
-  $('start-btn').disabled=!ready||!(c4CpuPreview?checkLocalCpuDeck(deckLibrary,deckLibrary.active).ok:hasEligibleSelection(deck));
-  $('online-btn').disabled=!ready||!hasEligibleSelection(deck);
+  $('start-btn').disabled=!ready||!!c4BootError||!(c4CpuPreview?checkLocalCpuDeck(deckLibrary,deckLibrary.active).ok:hasEligibleSelection(deck));
+  $('online-btn').disabled=!ready||!!c4BootError||!(c4WireEndpoint?c4SelectionFromLibrary(deckLibrary,deckLibrary.active).ok:hasEligibleSelection(deck));
 }
 function applyDeckChanges({persist=true}={}){
   if(persist){const changed={...deckLibrary,slots:deckLibrary.slots.slice()};changed.slots[changed.active]=editorDeck(deckDraft);return commitDeckLibrary(changed);}
@@ -232,8 +238,8 @@ function adoptGame(next){
   if($('card-dialog').open&&inspectedCard&&matchCard(inspectedCard))renderCardInfo(inspectedCard,inspectedSlotIndex);
 }
 function newGame({ start = false, tutorial = false } = {}) {
-  const admitted=c4CpuPreview&&!tutorial?checkLocalCpuDeck(deckLibrary,deckLibrary.active):null;
-  if(start&&!tutorial&&!(c4CpuPreview?admitted.ok:hasEligibleSelection(deck))){mainMenu();openDeck();return;}
+  const admitted=c4CpuPreview&&!c4BootError&&!tutorial?checkLocalCpuDeck(deckLibrary,deckLibrary.active):null;
+  if(start&&!tutorial&&!(c4CpuPreview?admitted?.ok:hasEligibleSelection(deck))){mainMenu();openDeck();return;}
   battlePhaseUi.reset();
   deploying=false;deploymentSerial++;
   sfx.resetMusic();
@@ -625,28 +631,33 @@ $('apply-filters-btn').addEventListener('click',()=>{$('collection-filters').hid
 addEventListener('resize',()=>{if($('collection-filters').matches(':popover-open'))positionEditorPopover($('collection-filters'),$('collection-filters-btn'));closeCardActions();},{passive:true});
 $('online-btn').addEventListener('click',beginOnline);$('cancel-search').addEventListener('click',mainMenu);
 function showSearch(){if(!$('search-panel').hidden)return;$('menu-loading').hidden=true;$('search-panel').hidden=false;$('ready-overlay').inert=true;$('cancel-search').focus({preventScroll:true});}
-function createOnlineClient(){
-  return new OnlineClient({onSearch:ms=>{const sec=Math.floor(ms/1000);$('search-time').textContent=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;if(ready)showSearch();},onConnection:status=>{
+function createOnlineClient({legacy=false}={}){
+  const local=c4WireEndpoint&&!legacy;
+  return new OnlineClient({...(local?{serverUrl:c4WireEndpoint,service:C4_SERVICE,prepareSnapshot:packet=>prepareC4Packet(packet,{viewTeam:packet.team,onEvent:handleEvent,animations:renderer.metadata})}:{}),onSearch:ms=>{const sec=Math.floor(ms/1000);$('search-time').textContent=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;if(ready)showSearch();},onConnection:status=>{
     const reconnecting=status==='Reconectando…';$('connection-loading').hidden=!onlineMode||!reconnecting;$('online-status').hidden=!onlineMode||!status||reconnecting;$('online-status').textContent=reconnecting?'':status;
     if(!onlineMode)$('search-status').textContent=status||'Buscando rival…';
   },onIdle:message=>{
     online=null;onlineMode=false;$('menu-loading').hidden=ready;$('ready-overlay').inert=false;$('search-panel').hidden=true;newGame();if(message)toast(message);
   },onSnapshot:packet=>{
+    const next=packet.preparedGame||unpackGame(perspective(packet.game,packet.team),handleEvent,renderer.metadata),events=packet.eventsPrepared?packet.events:packet.events.map(entry=>({...entry,event:perspective(entry.event,packet.team)}));
+    const reset=!onlineMode||game.ruleset!==next.ruleset||game.catalogVersion!==next.catalogVersion;
     online.team=packet.team;onlineMode=true;$('enemy-name').textContent=packet.opponent;
     if(ready){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
     $('search-panel').hidden=true;
-    game=unpackGame(perspective(packet.game,packet.team),handleEvent,renderer.metadata);
-    for(const entry of packet.events)handleEvent(perspective(entry.event,packet.team));
+    if(reset)adoptGame(next);else game=next;
+    for(const entry of events)handleEvent(entry.event);
     if(game.state==='ended'&&$('result-overlay').hidden)showResult({winner:game.winner,reason:game.reason});
     $('online-status').hidden=packet.startsIn<=0;$('online-status').textContent=packet.startsIn>0?'Preparados':'';updateUi();
   }});
 }
 async function beginOnline(){
-  if(!hasEligibleSelection(deck)||onlineMode&&game.state!=='ended')return;
+  const candidate=c4WireEndpoint?c4SelectionFromLibrary(deckLibrary,deckLibrary.active):null;
+  if(c4BootError||!(candidate?candidate.ok:hasEligibleSelection(deck))||onlineMode&&game.state!=='ended')return;
   await closingOnline;await online?.close();onlineMode=false;newGame();audioInit();showSearch();$('search-status').textContent='Buscando rival…';$('search-time').textContent='0:00';
   online=createOnlineClient();
-  try{await online.start($('trainer-name').value||'Entrenador',eligibleDeckKeys(deck));}catch(error){$('search-status').textContent=error.message;}
+  try{await online.start($('trainer-name').value||'Entrenador',candidate?candidate.deck:eligibleDeckKeys(deck),candidate?.selection);}catch(error){$('search-status').textContent=error.message;}
 }
+if(c4CpuPreview)try{await prepareC4Catalog(CARDS);if(c4WireEndpoint)await prepareC4Transport(CARDS);}catch(error){c4BootError=error;}
 updateSound();setReduced(reduced);setCombatNumbers(combatNumbers);newGame();syncPortrait();
 let previous=performance.now(),accumulator=0;
 function frame(now){
@@ -674,8 +685,10 @@ function frame(now){
 requestAnimationFrame(frame);
 $('retry-load').addEventListener('click',()=>location.reload());
 try{
-  if(hasSavedOnlineSession()){
-    $('ready-overlay').inert=true;online=createOnlineClient();online.resume().catch(()=>{});
+  if(c4BootError)throw c4BootError;
+  const savedC4=c4WireEndpoint&&(()=>{try{return !!sessionStorage.getItem(C4_SERVICE.keys.token);}catch{return false;}})();
+  if(savedC4||hasSavedOnlineSession()){
+    $('ready-overlay').inert=true;online=createOnlineClient({legacy:!savedC4});online.resume().catch(()=>{});
   }
   await loadUiResources(progress=>renderer.load((c4CpuPreview&&checkLocalCpuDeck(deckLibrary,deckLibrary.active).keys)||eligibleDeckKeys(deck)||DEFAULT_DECK,progress),(loaded,total)=>{const progress=loaded/total,indicator=$('menu-load-progress');indicator.setAttribute('aria-valuenow',String(Math.floor(progress*100)));$('menu-load-fill').setAttribute('y',String(64*(1-progress)));$('menu-load-fill').setAttribute('height',String(64*progress));});
   ready=true;$('loading').hidden=true;$('ready-overlay').setAttribute('aria-busy','false');$('practice-btn').disabled=false;updateMenuAvailability();
