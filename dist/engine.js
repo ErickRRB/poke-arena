@@ -616,6 +616,11 @@ export class Game {
     // Keep the existing center ordering between units, but compare the winning
     // unit to the nearest crown tower using the same body gap as reach.
     const nearestTower=candidates.filter(t=>'king'in t).sort((a,b)=>(distance(unit,a)-a.radius)-(distance(unit,b)-b.radius))[0];
+    const centerFirst=[...candidates].sort((a,b)=>distance(unit,a)-distance(unit,b))[0];
+    if(centerFirst&&'king'in centerFirst){
+      const structure=candidates.filter(t=>t.card?.structure&&distance(unit,t)-(t.radius||0)<=distance(unit,centerFirst)-centerFirst.radius+1e-7).sort((a,b)=>(distance(unit,a)-(a.radius||0))-(distance(unit,b)-(b.radius||0)))[0];
+      if(structure)return structure;
+    }
     const nearestUnit=candidates.filter(t=>!('king'in t)&&(!nearestTower||distance(unit,t)-(t.radius||0)<=distance(unit,nearestTower)-nearestTower.radius+1e-7)).sort((a,b)=>distance(unit,a)-distance(unit,b))[0];
     if(!nearestTower)return nearestUnit||null;
     if(!nearestUnit)return nearestTower;
