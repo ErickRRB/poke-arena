@@ -21,11 +21,11 @@ export async function prepare(page,config){
     r.resetVisuals();r.effects=[];r.particles=[];q.events=[];
     q.cycleEvents=[];q.fixture={kind:comparison?'native-electro-spirit-comparison':'native-electrode-exchange',ready:false,setup:comparison?'AI off; native Voltorb at (432,445), enemy Snorlax at (432,365) and (432,285), native deployTime; all towers retained. Targets start 80 units apart on the same bridge-centre line to avoid lateral convergence; no HP/card/path/targeting/clock overrides.':'AI off; paired native centralElectrode at (168,500) and (168,330), native deployTime; all towers retained. No HP/card/targeting/clock overrides.',limits:'Isolated authored encounter, original Game.step and App rAF; native random seed and renderer particles uncontrolled. Not a UI placement or complete game test.'};
     const emit=g.emit;
-    g.emit=function(type,data){
+    Object.defineProperty(g,'emit',{configurable:true,writable:true,enumerable:false,value:function(type,data){
       const value=emit.apply(this,arguments),a=data?.attacker,u=data?.unit,t=data?.target;
       q.cycleEvents.push({type,at:this.elapsed,key:data?.key??u?.key??a?.key??null,actorId:a?.id??u?.id??data?.sourceId??null,targetId:t?.id??data?.targetId??null,team:a?.team??u?.team??null,amount:data?.amount??null,radius:data?.radius??null,style:data?.style??null,x:data?.x??u?.x??null,y:data?.y??u?.y??null});
       return value;
-    };
+    }});
     setTimeout(()=>{
       q.fixture.startEpochMs=performance.timeOrigin+performance.now();q.fixture.startGameTime=g.elapsed;
       const rows=comparison?[['voltorb',0,432,445],['snorlax',1,432,365],['snorlax',1,432,285]]:[['centralElectrode',0,168,500],['centralElectrode',1,168,330]];

@@ -8,7 +8,7 @@ import {SandboxGame} from '../dist/sandbox.js';
 
 function drawing(viewerTeam=0){
   const calls=[],ctx=new Proxy({measureText:value=>({width:String(value).length*7})},{get:(o,k)=>o[k]??((...args)=>calls.push({method:k,args,fillStyle:o.fillStyle})),set:(o,k,v)=>(o[k]=v,true)});
-  const renderer=Object.assign(Object.create(Renderer.prototype),{viewerTeam,verticalScale:1,bodyHeights:new Map([[31,30],[34,34],[52,30]])});
+  const renderer=Object.assign(Object.create(Renderer.prototype),{viewerTeam,verticalScale:1,effects:[],bodyHeights:new Map([[31,30],[34,34],[52,30]])});
   return{ctx,calls,renderer};
 }
 for(const view of [0,1])test(`tower health banners and numbers overlap their own art after perspective${view}`,()=>{
@@ -141,7 +141,7 @@ test('frame composes compact heads and meter readouts while retaining tower prio
  const actor=game.spawn('charizard',0,220,540,0);actor.hp=actor.maxHp*.35;actor.shield=50;actor.maxShield=100;
  game.projectiles=[{id:'composition-probe'}];
  const order=[],ctx=new Proxy({},{get:(object,key)=>object[key]??(()=>{}),set:(object,key,value)=>(object[key]=value,true)});
- const r=Object.assign(Object.create(Renderer.prototype),{ctx,canvas:{width:600,height:800},viewport:{width:600,height:800},t:0,background:{},battleArt:{},healthStates:new Map(),visualActors:new Map(),visualProjectiles:new Map(),visualFlights:new Map(),particles:[],
+ const r=Object.assign(Object.create(Renderer.prototype),{ctx,canvas:{width:600,height:800},viewport:{width:600,height:800},t:0,background:{},battleArt:{},effects:[],healthStates:new Map(),visualActors:new Map(),visualProjectiles:new Map(),visualFlights:new Map(),particles:[],
   visualActor:unit=>({...unit}),drawWater(){},tower(c,tower){this.towerHealthQueue.push(tower);},frozen(){},drawDeployments(){},
   sprite(c,unit){this.queueUnitHealth(c,unit,unit.x,unit.y-50,44);},
   projectile(c){order.push('trail');this.projectileHead(c,()=>order.push('head'));},
