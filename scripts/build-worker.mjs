@@ -27,7 +27,8 @@ async function hostedFetch(request,env){
  if(url.pathname.startsWith('/api/'))return api(request,env,arenaAnimations);
  if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405});
  const key=url.pathname==='/'?'/index.html':url.pathname;
- if(!allowedAssets.has(key))return new Response('No encontrado',{status:404});
+ const publicResource=/^\/(?:[A-Za-z0-9_-]+\.(?:m?js|css)|assets\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_-][A-Za-z0-9_.-]*)$/.test(key);
+ if(!allowedAssets.has(key)&&!publicResource)return new Response('No encontrado',{status:404});
  const target=new URL(upstreamOrigin);target.pathname=key;target.search=url.search;
  const headers=new Headers();
  for(const key of ['Accept','If-None-Match','If-Modified-Since','Range','If-Range']){const value=request.headers.get(key);if(value)headers.set(key,value);}
