@@ -12,10 +12,10 @@ function profileSlot(record,field,key,cards,required=false){
 }
 function entityProfile(entity,cards,required=false){
  if(!entity||typeof entity!=='object')return;
+ if(entity.burn&&Object.hasOwn(entity.burn,'sourceCard'))profileSlot(entity.burn,'sourceCard',entity.burn.sourceKey,cards);
  if('king'in entity){if(entity.card!=null)fail('perfil de torre inesperado');return;}
  if(typeof entity.key!=='string'||!profileFor(entity.key,cards))fail('unidad no resoluble');
  profileSlot(entity,'card',entity.key,cards,required);
- if(entity.burn&&Object.hasOwn(entity.burn,'sourceCard'))profileSlot(entity.burn,'sourceCard',entity.burn.sourceKey,cards);
 }
 // Shared identity and typed entity/profile checks, without C1 migrations.
 export function validateC4EventIdentity(event,cards){
@@ -33,7 +33,7 @@ export function validateC4Restore(data,cards){
   if(!entity||!Number.isSafeInteger(entity.id)||entity.id<=0||ids.has(entity.id))fail('identificador ambiguo');
   ids.set(entity.id,entity);identityRecord(entity);
  }
- for(const entity of data.units)entityProfile(entity,cards);
+ for(const entity of [...data.units,...data.towers])entityProfile(entity,cards);
  for(const entity of detached){if(!(entity.hp<=0)||!Number.isFinite(entity.x)||!Number.isFinite(entity.y))fail('referencia separada inválida');entityProfile(entity,cards,true);}
  for(const row of [...data.hands,...data.queues]){if(!Array.isArray(row))fail('mano o cola inválida');for(const key of row)if(typeof key!=='string'||alias(key)||!Object.hasOwn(cards,key))fail('carta no resoluble');}
  for(const field of ['attacks','projectiles','spells','fields','reinforcements'])for(const item of data[field]??[])identityRecord(item);

@@ -12,25 +12,25 @@ export const isCompatibleHogProfile=card=>isCompleteC4CardProfile(card,HOG_ARCAN
 // compact cards may be resolved from the explicitly tagged cohort.
 export function validateC4Profiles(data,cards){
   if(cards!==getC4BaseCatalog()){const e=new Error('Catálogo C4 no verificado.');e.code='C4_CATALOG_SOURCE';throw e;}
-  const declared=[data.legacyCardOverrides?.arcanine,data.snapshotProfiles?.arcanine],instances=(data.units||[]).filter(u=>u.key==='arcanine').map(u=>u.card);
+  const declared=[data.legacyCardOverrides,data.snapshotProfiles].filter(group=>group&&Object.hasOwn(group,'arcanine')).map(group=>group.arcanine),instances=(data.units||[]).filter(u=>u.key==='arcanine').map(u=>u.card);
   for(const p of data.projectiles||[]){
     const fail=()=>{const e=new Error('Procedencia de proyectil C4 incompatible o ausente.');e.code='C4_PROFILE_INVALID';throw e;};
     if(typeof p.key!=='string'||p.key!==p.sourceKey)fail();
     if(p.key==='tower'){
-      if(p.sourceProfile!=null||p.sourceCard!=null||p.card!=null||!(data.towers||[]).some(t=>t.id===p.sourceId&&t.team===p.team&&'king'in t&&t.guard))fail();
+      if(Object.hasOwn(p,'sourceProfile')||Object.hasOwn(p,'sourceCard')||Object.hasOwn(p,'card')||!(data.towers||[]).some(t=>t.id===p.sourceId&&t.team===p.team&&'king'in t&&t.guard))fail();
       continue;
     }
     if(!cards||!Object.hasOwn(cards,p.key))fail();
     if(p.electricChain?p.card==null:p.card!=null)fail();
     const canonical=cards[p.key],expected=p.key==='arcanine'?HOG_ARCANINE:canonical;
     const complete=card=>isCompleteC4CardProfile(card,expected);
-    if(p.sourceProfile!=null&&(p.sourceProfile!=='c4-1:cards-c1-733'||p.key==='arcanine'))fail();
+    if(Object.hasOwn(p,'sourceProfile')&&(p.sourceProfile!=='c4-1:cards-c1-733'||p.key==='arcanine'))fail();
     if(Object.hasOwn(p,'sourceCard')&&!complete(p.sourceCard)||Object.hasOwn(p,'card')&&!complete(p.card))fail();
     if(p.sourceProfile==null&&p.sourceCard==null&&p.card==null)fail();
     if(p.sourceProfile!=null&&((p.sourceCard!=null&&!sameProfile(p.sourceCard,canonical))||(p.card!=null&&!sameProfile(p.card,canonical))))fail();
     if(p.sourceCard!=null&&p.card!=null&&!sameProfile(p.sourceCard,p.card))fail();
     if((p.sourceKey??p.key)==='arcanine')instances.push(p.card,p.sourceCard);
   }
-  if(declared.some(card=>card!=null&&!sameProfile(card,HOG_ARCANINE))||instances.some(card=>card!=null&&!isCompatibleHogProfile(card))){const e=new Error('Perfil C4 de Arcanine incompatible.');e.code='C4_PROFILE_INVALID';throw e;}
+  if(declared.some(card=>!sameProfile(card,HOG_ARCANINE))||instances.some(card=>card!=null&&!isCompatibleHogProfile(card))){const e=new Error('Perfil C4 de Arcanine incompatible.');e.code='C4_PROFILE_INVALID';throw e;}
   return true;
 }
