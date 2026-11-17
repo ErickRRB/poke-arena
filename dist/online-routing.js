@@ -2,13 +2,15 @@ import {localC4Endpoint} from './online-context.js?v=1';
 
 export const C4_CANONICAL_ORIGIN='https://poke-arena-web.eriickramiirez.workers.dev';
 export const C4_PRODUCTION_ENDPOINT='wss://poke-arena-realtime-c4.eriickramiirez.workers.dev';
-// Change only in the reviewed activation source. Recovery remains available
-// when new admissions are disabled; a failed C4 request never starts C1.
-export const C4_NEW_SEARCHES_ENABLED=false;
+// false is PRE-CUTOVER only and keeps the existing P4 pool. Once activated,
+// never revert this cutover or publish an older frontend to close admission:
+// keep C4 routing and close only C4_NEW_SEARCHES in the compatible authority.
+// C4 recovery remains available before and after that one-way cutover.
+export const C4_CANONICAL_SEARCH_CUTOVER=false;
 const loopback=host=>['localhost','127.0.0.1','[::1]'].includes(host);
-export function onlineRouting(value,newSearches=C4_NEW_SEARCHES_ENABLED){
+export function onlineRouting(value,cutover=C4_CANONICAL_SEARCH_CUTOVER){
   const page=new URL(value),local=localC4Endpoint(value),canonical=page.origin===C4_CANONICAL_ORIGIN;
-  return{localC4:local,c4Recovery:local||(canonical?C4_PRODUCTION_ENDPOINT:null),c4Search:local||(canonical&&newSearches?C4_PRODUCTION_ENDPOINT:null)};
+  return{localC4:local,c4Recovery:local||(canonical?C4_PRODUCTION_ENDPOINT:null),c4Search:local||(canonical&&cutover?C4_PRODUCTION_ENDPOINT:null)};
 }
 export function allowedC4Server(serverUrl,pageUrl=globalThis.location?.href){
   try{
