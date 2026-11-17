@@ -1,3 +1,5 @@
+import {C1_RULESET,C3_RULESET,C4_RULESET,validateC4Profiles} from './hog-profiles.js?v=1';
+import {resolveC3Profiles} from './hog-c3-validation.js?v=1';
 import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=34';
 import { BOARD_VERSION, migrateLegacyX, migrateLegacyY } from './arena-geometry.js?v=34';
 import { currentDeck } from './card-key-migrations.js?v=34';
@@ -15,7 +17,7 @@ export function migrateLegacyCardIdentity(value){
   }
   if(value.hands)value.hands=value.hands.map(currentDeck);
   if(value.queues)value.queues=value.queues.map(currentDeck);
-  for(const[field,item]of Object.entries(value))if(!['card','guard','stats','hands','queues'].includes(field))migrateLegacyCardIdentity(item);
+  for(const[field,item]of Object.entries(value))if(!['card','sourceCard','guard','stats','hands','queues','legacyCardOverrides','snapshotProfiles'].includes(field))migrateLegacyCardIdentity(item);
   return value;
 }
 
@@ -26,14 +28,20 @@ export function packGame(game){
   return{...plain,units:units.map(entityCopy),towers:towers.map(entityCopy),attacks:attacks.map(({attacker,target,...job})=>({...job,attackerId:attacker.id,targetId:target.id})),projectiles:projectiles.map(({target,...p})=>({...p,targetId:p.rolling||p.linear?null:target?.id??p.chainTargetId??null}))};
 }
 export function unpackGame(data,onEvent=()=>{},animations={}){
+  const version=data.catalogVersion??1, ruleset=data.ruleset??(version<=2?C1_RULESET:version===3?C3_RULESET:null);
+  if(!(((version===1||version===2)&&ruleset===C1_RULESET)||(version===3&&[C1_RULESET,C3_RULESET].includes(ruleset))||(version===4&&[C1_RULESET,C4_RULESET].includes(ruleset))))throw Error('Perfil de partida incompatible.');
+  const c3=version===3&&ruleset===C3_RULESET?resolveC3Profiles(data):null;
+  if(version===4&&ruleset===C4_RULESET)validateC4Profiles(data,CARDS);
   const restored=migrateLegacyCardIdentity(structuredClone(data));
+  restored.catalogVersion=version;restored.ruleset=ruleset;
+  if(c3){restored.profileProducer=c3.source;restored.legacyCardOverrides={...restored.legacyCardOverrides,...c3.overrides};for(const entity of restored.units||[])if(Object.hasOwn(c3.overrides,entity.key)&&entity.card)entity.card=structuredClone(c3.overrides[entity.key]);}
   if((restored.boardVersion||1)<BOARD_VERSION){
     for(const tower of restored.towers||[])if(tower.king&&tower.y===(tower.team?118:682))tower.y=tower.team?94:706;
     const migrate=value=>{
       if(!value||typeof value!=='object')return;
       if(Array.isArray(value)){value.forEach(migrate);return;}
       for(const[key,item]of Object.entries(value)){
-        if(['card','guard','stats','spawnSchedule'].includes(key))continue;
+        if(['card','sourceCard','guard','stats','spawnSchedule','legacyCardOverrides','snapshotProfiles'].includes(key))continue;
         if(['x','groundX','startX','endX'].includes(key)&&typeof item==='number')value[key]=migrateLegacyX(item);
         else if(['y','groundY','startY','endY'].includes(key)&&typeof item==='number')value[key]=migrateLegacyY(item);
         else migrate(item);
@@ -45,7 +53,7 @@ export function unpackGame(data,onEvent=()=>{},animations={}){
   game.reinforcements??=[];
   for(const tower of game.towers)if(tower.king){if(tower.y===(tower.team?118:682))tower.y=KING_Y[tower.team];}else tower.range=PRINCESS_RANGE;
   const entities=new Map([...game.units,...game.towers].map(e=>[e.id,e]));
-  for(const entity of entities.values()){entity.card=entity.card||CARDS[entity.key];if(entity.card?.ability)delete entity.card.ability;delete entity.abilityUsed;entity.target=entities.get(entity.targetId)||null;}
+  for(const entity of entities.values()){entity.card=entity.card||game.cardFor(entity.key);if(entity.card?.ability)delete entity.card.ability;delete entity.abilityUsed;entity.target=entities.get(entity.targetId)||null;}
   game.attacks=game.attacks.map(j=>({...j,attacker:entities.get(j.attackerId),target:entities.get(j.targetId)})).filter(j=>j.attacker&&j.target);
   game.projectiles=game.projectiles.map(p=>({...p,target:entities.get(p.targetId)})).filter(p=>p.electricChain||p.rolling||p.linear||p.flameCone||p.impactPoint||p.target);
   return game;
@@ -56,7 +64,7 @@ export function packEvent(event){
 function turn(value){
   if(Array.isArray(value))return value.map(turn);
   if(!value||typeof value!=='object')return value;
-  const copy={};for(const[key,item]of Object.entries(value))copy[key]=['card','guard','stats','spawnSchedule'].includes(key)?structuredClone(item):turn(item);
+  const copy={};for(const[key,item]of Object.entries(value))copy[key]=['card','sourceCard','guard','stats','spawnSchedule','legacyCardOverrides','snapshotProfiles'].includes(key)?structuredClone(item):turn(item);
   if(typeof copy.x==='number')copy.x=W-copy.x;if(typeof copy.y==='number')copy.y=H-copy.y;
   if(typeof copy.groundX==='number')copy.groundX=W-copy.groundX;if(typeof copy.groundY==='number')copy.groundY=H-copy.groundY;
   if(typeof copy.liftX==='number')copy.liftX=-copy.liftX;
