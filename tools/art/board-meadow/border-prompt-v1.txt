@@ -1,0 +1,11 @@
+Use case: stylized-concept.
+Asset type: one TRANSPARENT pixel-art scenery sprite sheet for a top-down Pokemon woodland arena.
+Input image: style/palette reference only, the already-approved meadow floor. Keep its warm sage, jade, soft olive and restrained cream/coral/lavender accents. Do not redraw the floor.
+Make a square sheet with exactly FOUR separate original sprites, one centred in each quarter of a 2x2 layout, with generous fully transparent gutters. No text, labels, frames, background or floor behind the sprites.
+Upper left: a long, very low horizontal natural garden edging strip, about5:1 aspect ratio. Irregular small flat warm-grey stones partly covered in moss and clover, short leaves and one compact cream/coral flower group. No continuous masonry wall.
+Upper right: a second compatible horizontal edging strip, about5:1, with a different gentle irregular silhouette, staggered mossy stones, small fern leaves and a compact lavender/cream flower group. Its ends should taper naturally so these pieces can overlap without a visible seam.
+Lower left: a compact rounded corner garden cluster, roughly square: low clover, short fronds, moss-covered flat stones and a small cream/coral wildflower group. Full, intentional silhouette, not isolated flower confetti.
+Lower right: a second rounded corner cluster, slightly different massing: soft leafy ground cover, low mossy stones, small lavender and warm-cream blooms.
+These decorate only the OUTSIDE edge of the playfield. They should feel like a beautiful tended woodland verge, replacing a repetitive wooden fence. No wood, fences, planks, pots, signs, characters, Pokemon, buildings, tall bushes, tree trunks, tall rock walls, UI, river or bridges.
+Style: convincing hand-placed Mystery Dungeon era pixel art, orthographic overhead view, consistent warm upper-left daylight and tiny soft contact shadows. Clear fairly chunky pixel clusters, not blurry painterly noise; the edge strips will display at roughly96x22 game pixels, corner clusters at42x42. Preserve recognizable leaves, flowers and moss at those small sizes. Rich illustration with a restrained natural palette, no black heavy outlines.
+Place each whole sprite well inside its own quarter, fully separate from all others. Genuine transparent alpha everywhere outside the four sprites and their small contact shadows.

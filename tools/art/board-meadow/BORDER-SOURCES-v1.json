@@ -1,0 +1,61 @@
+{
+  "tool": "Built-in image_gen.imagegen, transparent_background:true",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "reference": {
+    "file": "tools/art/board-meadow/arena-meadow-source-v3.png",
+    "role": "Palette/pixel-style reference; retained floor not edited"
+  },
+  "sourceAlphaRange": [
+    0,
+    255
+  ],
+  "cropMethod": "Readonly alpha inspection per quadrant; visible alpha>=32 bounds stable at thresholds16/32, plus4source-pixel padding. Faint alpha noise outside these crops is not used. Original bitmap is retained unmodified.",
+  "crops": {
+    "edgeA": [
+      28,
+      290,
+      571,
+      136
+    ],
+    "edgeB": [
+      645,
+      283,
+      581,
+      146
+    ],
+    "cornerA": [
+      126,
+      796,
+      369,
+      286
+    ],
+    "cornerB": [
+      750,
+      806,
+      378,
+      276
+    ]
+  },
+  "conversion": "FFmpeg libwebp quality94 compression6; original1254x1254 dimensions and transparent alpha retained. No content edits.",
+  "placement": "Decor only in outer visible strips/corners, additionally clipped outside exact ARENA rectangle in existing cache builder. No legal-cell obstacles.",
+  "files": [
+    {
+      "file": "tools/art/board-meadow/arena-border-source-v1.png",
+      "bytes": 635038,
+      "sha256": "843d2633c130d00a6159bc5047a4350cab933764fb2f9b41302493efb7795f0d"
+    },
+    {
+      "file": "dist/assets/battle/arena-meadow-border-v1.webp",
+      "bytes": 228104,
+      "sha256": "fea9528fb80a4b839f4f4cefac12e3ae52de855c5fb060a4042146f6ddd3d3af"
+    },
+    {
+      "file": "tools/art/board-meadow/border-prompt-v1.txt",
+      "bytes": 2349,
+      "sha256": "220977417aece0e6bf816205ecef6ec520e51b23494495c55d5288fddb5fca8c"
+    }
+  ]
+}

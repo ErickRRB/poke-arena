@@ -1,0 +1,39 @@
+{
+  "kind": "Original AI-assisted ground illustration for Poke Arena",
+  "tool": "Built-in image_gen.imagegen, no API/CLI fallback",
+  "generatedAt": "2026-11-17",
+  "sourcePng": {
+    "width": 1086,
+    "height": 1448
+  },
+  "inputs": [
+    {
+      "file": "dist/assets/battle/Tile__8x8__TownBase.png",
+      "role": "Pixel-style reference; existing PMDCollab asset, provenance in assets/battle/manifest.json"
+    },
+    {
+      "file": "dist/assets/battle/arena-ground-v2.png",
+      "role": "Composition/contrast reference for the sparse existing floor, retained unmodified"
+    }
+  ],
+  "prompt": "tools/art/board-meadow/prompt-v3.txt",
+  "conversion": "FFmpeg libwebp quality94 compression_level6, original dimensions retained, no content edit",
+  "files": [
+    {
+      "file": "tools/art/board-meadow/arena-meadow-source-v3.png",
+      "bytes": 2452488,
+      "sha256": "3b2813fb0db66f5572f361bd6339049ecffa38d09da46e1c8791bfa66db3617d"
+    },
+    {
+      "file": "dist/assets/battle/arena-meadow-ground-v3.webp",
+      "bytes": 453694,
+      "sha256": "8a78295a53cdb96d2f481a119d9d94b06151b385144d10ddea434187a39f4a72"
+    },
+    {
+      "file": "tools/art/board-meadow/prompt-v3.txt",
+      "bytes": 2390,
+      "sha256": "63805c18655c52d44e703d83142b3ef3580f322217fdf9645bc89f3d59414d73"
+    }
+  ],
+  "scope": "Flat ground only. Native code retains path/river/bridge/tower geometry. No claim that technical generation proves visual or game quality."
+}

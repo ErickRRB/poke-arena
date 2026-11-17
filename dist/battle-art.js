@@ -18,7 +18,7 @@ export const STRUCTURE_ART=Object.freeze({
 
 export class BattleArt {
   constructor(loadImage){this.loadImage=loadImage;this.images=new Map();this.failed=new Set();this.time=0;}
-  files(){return [...new Set([...Object.values(ART_ASSETS).map(asset=>asset.file),...Object.values(STRUCTURE_ART).map(asset=>asset.file),CAPSULE_TEXTURE,'assets/battle/structures-v1.png','assets/battle/arena-ground-v2.webp','assets/battle/arena-bridge-v2.webp','assets/battle/riverbank-v2.webp'])];}
+  files(){return [...new Set([...Object.values(ART_ASSETS).map(asset=>asset.file),...Object.values(STRUCTURE_ART).map(asset=>asset.file),CAPSULE_TEXTURE,'assets/battle/structures-v1.png','assets/battle/arena-ground-v2.webp','assets/battle/arena-meadow-ground-v3.webp','assets/battle/arena-meadow-border-v1.webp','assets/battle/arena-bridge-v2.webp','assets/battle/riverbank-v2.webp'])];}
   async load(file){try{const image=await this.loadImage(file);this.images.set(file,image);return image;}catch{this.failed.add(file);return null;}}
   async preload(onFile=()=>{}){await Promise.all(this.files().map(file=>this.load(file).then(onFile)));}
   image(name){const meta=ART_ASSETS[ALIASES[name]||name];return meta?this.images.get(meta.file):null;}

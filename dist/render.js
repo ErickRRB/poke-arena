@@ -1,7 +1,9 @@
 import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTarget } from './engine.js?v=34';
-import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaBits, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
+import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { resolvePlacementInput } from './placement-input.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
+import { paintArenaScenery,paintArenaBorder } from './arena-scenery.js?v=1';
+import {towerGuardianScale,guardianEmitterPoint} from './tower-guardian-art.js?v=1';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
 import {combatVisual,projectileVisual,movementVisual,isRangedAttack,isIceShardAttack,attackVisualProfile,dashPreparation,petalPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
 import { spellPreviewTargets } from './spell-preview.js?v=34';
@@ -195,17 +197,13 @@ export class Renderer {
   rng(seed) { let s = seed; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
   tree(c,x,y,scale=1){this.battleArt.draw(c,'tree',x,y-25*scale,65*scale,65*scale,{frame:0});}
   drawPerimeter(c){
-    // Native wood and canopy sit wholly outside the 18 × 32 playable cells.
-    // The grass itself is continuous across this physical boundary.
-    const fence=(x,y,angle=0)=>{c.save();c.translate(x,y);c.rotate(angle);this.battleArt.tile(c,'fence',0,24,48,24,-16,0,32,16);c.restore();};
-    c.save();c.filter='saturate(.55) brightness(.9)';c.globalAlpha=.85;
-    for(let x=ARENA.left+16;x<ARENA.right;x+=32){fence(x,ARENA.top-16);fence(x,ARENA.bottom);}
-    for(let y=ARENA.top+16;y<ARENA.bottom;y+=32){
-      if(y+16>RIVER.top&&y-16<RIVER.bottom)continue;
-      fence(ARENA.left,y,Math.PI/2);fence(ARENA.right,y,-Math.PI/2);
-    }
-    c.filter='saturate(.5) brightness(.9)';c.globalAlpha=.9;
+    const bounds=this.worldBounds||{left:0,top:0,right:W,bottom:H};
+    c.save();c.beginPath();c.rect(bounds.left,bounds.top,bounds.right-bounds.left,bounds.bottom-bounds.top);
+    c.rect(ARENA.left,ARENA.top,ARENA.width,ARENA.height);c.clip('evenodd');
+    c.filter='saturate(.65) brightness(.94)';c.globalAlpha=.85;
     for(const y of[144,288,544,688]){this.tree(c,ARENA.left-28,y,.72);this.tree(c,ARENA.right+28,y,.72);}
+    c.filter='none';c.globalAlpha=1;
+    paintArenaBorder(c,this.battleArt.images.get('assets/battle/arena-meadow-border-v1.webp'));
     c.restore();
   }
   bridge(c,x){
@@ -222,20 +220,8 @@ export class Renderer {
     const bounds=this.worldBounds||{left:0,top:0,right:W,bottom:H},left=Math.floor(bounds.left),top=Math.floor(bounds.top),right=Math.ceil(bounds.right),bottom=Math.ceil(bounds.bottom);
     this.backgroundOrigin={x:left,y:top};this.background.width=right-left;this.background.height=bottom-top;
     const c=this.background.getContext('2d');c.imageSmoothingEnabled=false;c.translate(-left,-top);
-    const ground=this.battleArt.images.get('assets/battle/arena-ground-v2.webp');
-    const pattern=(x,y,width,height)=>{
-      const tile=document.createElement('canvas');tile.width=width;tile.height=height;
-      tile.getContext('2d').drawImage(ground,x,y,width,height,0,0,width,height);return c.createPattern(tile,'repeat');
-    };
-    this.landscapePattern=ground?pattern(200,224,120,128):null;
-    const path=ground?pattern(146,240,24,72):'#c9bd8c';
-    c.fillStyle=this.landscapePattern||'#8eaa79';c.fillRect(left,top,right-left,bottom-top);
+    this.landscapePattern=paintArenaScenery(c,{left,top,right,bottom},this.battleArt.images.get('assets/battle/arena-ground-v2.webp'),this.battleArt.images.get('assets/battle/arena-meadow-ground-v3.webp'));
     this.drawPerimeter(c);
-    const half=TILE/2;
-    for(let row=0;row<DEPLOY_GRID.rows*2;row++)for(let col=0;col<DEPLOY_GRID.columns*2;col++){
-      const x=ARENA.left+col*half,y=ARENA.top+row*half,bits=arenaBits(x+half/2,y+half/2);
-      if(bits&3){c.fillStyle=path;c.fillRect(x,y,half,half);}
-    }
   }
   resetVisuals(){this.visualActors?.clear();this.visualProjectiles?.clear();this.visualFlights?.clear();this.visualFields?.clear();this.frameActors?.clear();this.flightWings?.phases.clear();this.attackContacts?.clear();this.biteJawActors?.clear();this.biteContours?.beginFrame();this.effects=this.effects?.filter(e=>e.kind!=='spikeContact')||[];}
   visualActor(unit,dt){
@@ -400,7 +386,7 @@ export class Renderer {
   visualEmission(actor,shot=0){
     if(!actor)return null;
     const flightClock=this.flightWings?.phases.get(actor.id)?.phase??this.t;
-    const point=emissionPoint({...actor,scale:!actor.mounted&&(actor.key==='alakazam'&&actor.card?.id===65||actor.key==='slowbro'&&actor.card?.id===80)?1.75:actor.scale,card:attackVisualProfile(actor.card)},shot,this.reduced?0:flightClock),bob=actor.card?.flying&&!this.reduced?Math.sin(flightClock*2.6+actor.id)*1.5:0;
+    const point=guardianEmitterPoint(actor,emissionPoint({...actor,scale:!actor.mounted&&(actor.key==='alakazam'&&actor.card?.id===65||actor.key==='slowbro'&&actor.card?.id===80)?1.75:actor.scale,card:attackVisualProfile(actor.card)},shot,this.reduced?0:flightClock)),bob=actor.card?.flying&&!this.reduced?Math.sin(flightClock*2.6+actor.id)*1.5:0;
     const lunge=attackLunge(actor,this.reduced);
     return{x:point.x+(actor.dx||0)*lunge,y:actor.y+(point.y-actor.y-bob+(actor.dy||0)*lunge)/(this.verticalScale||1)};
   }
@@ -438,7 +424,7 @@ export class Renderer {
     if(tower.hp<=0){for(let i=0;i<3;i++)this.battleArt.draw(c,'rubble',x+(i-1)*15,y-3+(i%2)*5,32,24,{frame:5+i});return;}
     c.save();
     if(!this.battleArt.structure(c,king?'king':'princess',team,x,y,king?102:72,vertical,this.targetTint(tower)))text(c,'PLACEHOLDER',x,y-25,'#ffe3a0',9);
-    if(tower.guard)this.sprite(c,{...tower,attack:!tower.active?0:tower.attack,card:{id:tower.guard.id},scale:king?1.15:1.3,x,y:y-TOWER_MOUNTS[king?'king':'princess']/vertical,mounted:true,attackAnim:tower.guard.attackAnim,moving:false},true);
+    if(tower.guard)this.sprite(c,{...tower,attack:!tower.active?0:tower.attack,card:{id:tower.guard.id},scale:towerGuardianScale(tower),x,y:y-TOWER_MOUNTS[king?'king':'princess']/vertical,mounted:true,attackAnim:tower.guard.attackAnim,moving:false},true);
     if(king&&!tower.active&&!this.silhouettePass)text(c,'z',x+24,y-30/vertical,'#fff5cd',10);
     if(tower.stun>0&&!this.silhouettePass)this.combatArt(c,'lightning',x,y-55/vertical,26);
     c.restore();
@@ -856,7 +842,8 @@ export class Renderer {
     const destination=p.impactPoint||p.target;if(!destination)return;
     const logicalProgress=Math.min(1,p.travelled/Math.max(1,p.totalDistance)),source=this.frameActors.get(p.sourceId),target=p.impactPoint?destination:this.frameActors.get(p.target?.id)||destination;
     const targetLift=p.endLiftY??-(p.target&&'king'in p.target?27:p.target?.card?.structure?43:p.target?.card?.flying?27:15);
-    const start=this.projected({x:p.startX+(p.groundPath?p.liftX||0:0),y:p.startY+(p.groundPath?p.liftY||0:0)},source||{x:p.startX,y:p.startY}),end=this.projected({x:destination.x,y:destination.y+targetLift},target);
+    const nativeStart={x:p.startX+(p.groundPath?p.liftX||0:0),y:p.startY+(p.groundPath?p.liftY||0:0)};
+    const start=this.projected(guardianEmitterPoint(source,nativeStart),source||{x:p.startX,y:p.startY}),end=this.projected({x:destination.x,y:destination.y+targetLift},target);
     const logicalEnd={x:destination.x,y:destination.y+(p.groundPath?0:targetLift)};
     const desired={x:p.x+(start.x-p.startX)*(1-logicalProgress)+(end.x-logicalEnd.x)*logicalProgress,y:p.y+(start.y-p.startY)*(1-logicalProgress)+(end.y-logicalEnd.y)*logicalProgress};
     // Captured lift includes projectileStart: this renderer-only approximation

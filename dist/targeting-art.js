@@ -9,11 +9,19 @@ export function softDisc(c,x,y,radius,{color='#fff4ce',opacity=.2,interior,feath
   glow.addColorStop(feather===undefined?.82:Math.max(.6,1-feather/radius),rgba(opacity));glow.addColorStop(1,rgba(0));
   c.save();c.fillStyle=glow;c.beginPath();c.arc(x,y,radius,0,Math.PI*2);c.fill();c.restore();
 }
-export function areaGuide(c,x,y,radius,{valid=true}={}){
+export function areaGuide(c,x,y,radius,{valid=true,emphasis=false}={}){
   if(!(radius>0))return;
+  if(emphasis){
+    // A diffuse backing supports a held preview on bright, detailed terrain.
+    // Both layers stay inside the real radius; no hard outline or area wash.
+    const ink=valid?'33,55,43':'77,43,32',shade=c.createRadialGradient(x,y,0,x,y,radius);
+    shade.addColorStop(0,`rgba(${ink},0)`);shade.addColorStop(.76,`rgba(${ink},0)`);
+    shade.addColorStop(.88,`rgba(${ink},0.2)`);shade.addColorStop(.94,`rgba(${ink},0.34)`);shade.addColorStop(1,`rgba(${ink},0)`);
+    c.save();c.fillStyle=shade;c.beginPath();c.arc(x,y,radius,0,Math.PI*2);c.fill();c.restore();
+  }
   const color=valid?'255,250,224':'237,136,115',glow=c.createRadialGradient(x,y,0,x,y,radius);
   glow.addColorStop(0,`rgba(${color},0.01)`);glow.addColorStop(.65,`rgba(${color},0.035)`);
-  glow.addColorStop(.87,`rgba(${color},0.25)`);glow.addColorStop(.95,`rgba(${color},0.45)`);glow.addColorStop(1,`rgba(${color},0)`);
+  glow.addColorStop(.87,`rgba(${color},${emphasis?.34:.25})`);glow.addColorStop(.95,`rgba(${color},${emphasis?.76:.45})`);glow.addColorStop(1,`rgba(${color},0)`);
   c.save();c.fillStyle=glow;c.beginPath();c.arc(x,y,radius,0,Math.PI*2);c.fill();c.restore();
 }
 export function cellGuide(c,x,y,size,valid=true,emphasis=false){
