@@ -1,10 +1,10 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtempSync,mkdirSync,writeFileSync,readFileSync,rmSync} from 'node:fs';
-import {join,resolve,relative,basename,dirname} from 'node:path';
+import {mkdtempSync,mkdirSync,writeFileSync,readFileSync,rmSync,copyFileSync} from 'node:fs';
+import {join,resolve,relative,basename,dirname,delimiter} from 'node:path';
 import {tmpdir} from 'node:os';
 import {spawnSync} from 'node:child_process';
-import {fileURLToPath} from 'node:url';
+import {fileURLToPath,pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 import {buildRelease,prepareManifest,promoteRelease} from '../scripts/publish-frontend.mjs';
 
@@ -15,6 +15,21 @@ const versionId='12345678-1234-1234-1234-123456789abc';
 const otherVersion='87654321-1234-1234-1234-123456789abc';
 const writeJson=(file,value)=>writeFileSync(file,JSON.stringify(value,null,2)+'\n');
 const readJson=file=>JSON.parse(readFileSync(file,'utf8'));
+
+test('CF delegation uses launcher Node when PATH initially resolves another executable',t=>{
+ const root=mkdtempSync(join(tmpdir(),'poke-node-path-'));
+ t.after(()=>rmSync(root,{recursive:true,force:true}));
+ const alternate=join(root,'alternate'),frontend=join(root,'realtime','frontend'),cf=join(root,'realtime','node_modules','cf','bin','cf');
+ mkdirSync(alternate,{recursive:true});mkdirSync(frontend,{recursive:true});mkdirSync(dirname(cf),{recursive:true});
+ const fakeNode=join(alternate,process.platform==='win32'?'node.exe':'node');copyFileSync(process.execPath,fakeNode);
+ writeFileSync(cf,"const {spawnSync}=require('node:child_process');const r=spawnSync('node',['-p','process.execPath'],{encoding:'utf8'});if(r.status!==0)throw Error(r.stderr);console.log(JSON.stringify({node:r.stdout.trim(),sentinel:process.env.PUBLISH_TEST_SENTINEL,path:process.env.Path||process.env.PATH}));\n");
+ const env={...process.env},keys=Object.keys(env).filter(k=>process.platform==='win32'?k.toLowerCase()==='path':k==='PATH'),key=keys.find(k=>k==='Path')||keys[0]||(process.platform==='win32'?'Path':'PATH'),old=env[key]||'';
+ for(const k of keys)delete env[k];env[key]=alternate+(old?delimiter+old:'');env.PUBLISH_TEST_SENTINEL='preserved';
+ const probe=`import {spawnSync} from 'node:child_process';import {runCf} from ${JSON.stringify(pathToFileURL(join(repoRoot,'scripts/publish-frontend.mjs')).href)};const before=spawnSync('node',['-p','process.execPath'],{encoding:'utf8'});const r=runCf([],${JSON.stringify(root)},5000,${JSON.stringify(root)},{pinNode:true});console.log(JSON.stringify({before:before.stdout.trim(),status:r.status,stdout:r.stdout,stderr:r.stderr}));`;
+ const child=spawnSync(process.execPath,['--input-type=module','-e',probe],{env,encoding:'utf8',windowsHide:true});assert.equal(child.status,0,child.stderr);
+ const outer=JSON.parse(child.stdout);assert.equal(outer.before.toLowerCase(),fakeNode.toLowerCase());assert.equal(outer.status,0,outer.stderr);
+ const delegated=JSON.parse(outer.stdout);assert.equal(delegated.node.toLowerCase(),process.execPath.toLowerCase());assert.equal(delegated.sentinel,'preserved');assert.equal(delegated.path,dirname(process.execPath)+delimiter+env[key]);
+});
 
 // These are explicitly synthetic quality receipts, never approvals of real code.
 function fixture(t){

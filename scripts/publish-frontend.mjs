@@ -1,7 +1,7 @@
 import {readFileSync,writeFileSync,readdirSync,lstatSync,mkdtempSync,rmSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {spawnSync} from 'node:child_process';
-import {resolve,dirname,relative,join,basename,sep,isAbsolute} from 'node:path';
+import {resolve,dirname,relative,join,basename,sep,delimiter,isAbsolute} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {tmpdir} from 'node:os';
 
@@ -145,13 +145,20 @@ export function validateRelease(manifestFile,decisionFile){
  return {manifest,source,guard};
 }
 
-function runCf(args,source,timeout=55000,toolRoot=source){
- return spawnSync(process.execPath,[join(toolRoot,'realtime/node_modules/cf/bin/cf'),...args],{cwd:join(source,'realtime/frontend'),encoding:'utf8',windowsHide:true,timeout,maxBuffer:8*1024*1024});
+export function runCf(args,source,timeout=55000,toolRoot=source,{pinNode=false}={}){
+ const env={...process.env};
+ if(pinNode){
+  const keys=Object.keys(env).filter(key=>process.platform==='win32'?key.toLowerCase()==='path':key==='PATH');
+  const key=keys.find(key=>key==='Path')||keys[0]||(process.platform==='win32'?'Path':'PATH'),previous=env[key];
+  for(const other of keys)if(other!==key)delete env[other];
+  env[key]=dirname(process.execPath)+(previous?delimiter+previous:'');
+ }
+ return spawnSync(process.execPath,[join(toolRoot,'realtime/node_modules/cf/bin/cf'),...args],{cwd:join(source,'realtime/frontend'),env,encoding:'utf8',windowsHide:true,timeout,maxBuffer:8*1024*1024});
 }
 export function buildRelease(source,{cfRunner=runCf}={}){
  need(text(source),'INPUT','Release build requires --source with the frozen frontend checkout.');
  const sourceRoot=resolve(source),candidate=frozenSource(sourceRoot);
- const result=cfRunner(['workers','versions','create','--dry-run'],sourceRoot,600000,repoRoot);
+ const result=cfRunner(['workers','versions','create','--dry-run'],sourceRoot,600000,repoRoot,{pinNode:true});
  need(result.status===0,'CF',result.stderr||result.error?.message||'Cloudflare build failed.');
  return {status:'build_command_completed',candidate,sourcePrecheck:'clean_before_build',sourceStatus:'clean_before_build',buildOutputVerified:false,stdout:result.stdout||'',stderr:result.stderr||''};
 }
