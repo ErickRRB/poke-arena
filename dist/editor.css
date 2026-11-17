@@ -66,3 +66,7 @@
 .brand-ball{border:0;border-radius:0;background:transparent url("assets/ui/pokeball-pixel-v1.svg") center/contain no-repeat}.brand-ball:before,.brand-ball:after{display:none}.loading-base{filter:grayscale(1)}
 
 .deck-top .deck-slot.empty.selection-inactive,.menu-card.empty.historical-card{font-size:11px;line-height:1.2;overflow-wrap:anywhere;padding:3px;text-align:center}
+.c4-editor-preview .card-info-actions{display:flex;gap:8px;margin-top:23px}
+.c4-editor-preview .card-info-actions>.primary-btn{flex:1;width:100%;justify-content:center}
+.c4-editor-preview .card-info-actions>.primary-btn:disabled{box-shadow:none}
+.c4-editor-preview .card-info-actions.profile-choices>.primary-btn{min-height:64px;padding:8px;font-size:12px;line-height:1.35}

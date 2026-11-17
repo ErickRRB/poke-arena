@@ -9,13 +9,17 @@ import { onlinePerf } from './perf.js?v=1';
 import { unpackGame, perspective } from './snapshot.js?v=target-c1-1';
 import { cardArtMarkup } from './card-art.js?v=target-c1-1';
 import { cardEquivalentLabel } from './card-equivalents.js?v=34';
-import { loadDeckLibrary, saveDeckLibrary } from './deck-storage.js?v=target-c1-1';
+import { loadDeckLibrary, saveDeckLibrary } from './deck-storage.js?v=c4-editor-1';
+import {savedSlotProfile,updateLibrarySlot} from './deck-provenance.js?v=c4-editor-1';
+import {isLocalC4EditorPreview,cardForEditor,editorCardRole} from './deck-editor-profile.js?v=c4-editor-1';
 import { checkSelectionCard, checkSelectionDeck, resolveSelectionKey } from './canonical-selection.js?v=1';
 import { bindQuickStats } from './quick-stats.js?v=34';
 import { BattlePhaseUi } from './battle-phase-ui.js?v=34';
 import { loadUiResources } from './ui-resource-load.js?v=1';
 
 const $ = id => document.getElementById(id);
+const c4EditorPreview=isLocalC4EditorPreview(location.href);
+document.body.classList.toggle('c4-editor-preview',c4EditorPreview);
 const battlePhaseUi = new BattlePhaseUi(document);
 const canvas = $('arena');
 const renderer = new Renderer(canvas);
@@ -58,6 +62,14 @@ const cardForSavedKey=key=>{const resolved=resolveSelectionKey(key).key;return r
 const sameSelection=(a,b)=>{const left=checkSelectionCard(a),right=checkSelectionCard(b);return left.canonicalKey&&left.canonicalKey===right.canonicalKey;};
 const hasEligibleSelection=cards=>checkSelectionDeck(cards).ok;
 const eligibleDeckKeys=cards=>hasEligibleSelection(cards)?cards.map(key=>resolveSelectionKey(key).key):null;
+const editorCard=(key,slotIndex=null)=>cardForEditor({key,cards:CARDS,library:deckLibrary,deckIndex:deckLibrary.active,slotIndex,preview:c4EditorPreview});
+const editorSelectable=key=>checkSelectionCard(key).ok||c4EditorPreview&&key==='arcanine';
+const editorSlotSelectable=(key,index)=>checkSelectionCard(key).ok||c4EditorPreview&&key==='arcanine'&&savedSlotProfile(deckLibrary,deckLibrary.active,index).kind==='hog';
+const editorIncludedIndex=key=>deckDraft.findIndex((saved,index)=>saved!==null&&sameSelection(saved,key)&&(!c4EditorPreview||key!=='arcanine'||savedSlotProfile(deckLibrary,deckLibrary.active,index).kind==='hog'));
+if(c4EditorPreview){
+  const row=document.createElement('div'),accept=document.createElement('button');row.className='card-info-actions';accept.id='card-info-accept';accept.type='button';accept.className='primary-btn';accept.hidden=true;
+  $('card-info-toggle').before(row);row.append(accept,$('card-info-toggle'));
+}
 
 function audioInit() {
   sfx.setEnabled(sound);sfx.unlock(true);
@@ -83,8 +95,8 @@ function toast(message) {
 function live(message) { $('live-status').textContent = message; }
 
 function cardMarkup(key, index, source = 'card', savedKey=key) {
-  const c = displayCard(key),equivalent=cardEquivalentLabel(key);
-  const collection=source!=='card',eligible=checkSelectionCard(savedKey).ok,name=`<span class="card-name">${c.name}</span>`;
+  const c = source==='card'?displayCard(key):editorCard(key,source==='deck-info'?index:null),equivalent=editorCardRole(c,cardEquivalentLabel(key));
+  const collection=source!=='card',eligible=source==='collection'?editorSelectable(key):source==='deck-info'?editorSlotSelectable(savedKey,index):checkSelectionCard(savedKey).ok,name=`<span class="card-name">${c.name}</span>`;
   const heading=collection?`<span class="card-heading">${name}${c.count>1?`<span class="card-quantity" aria-hidden="true"><svg><use href="#i-units"/></svg>×${c.count}</span>`:''}</span>`:name;
   const unavailable=(source==='collection'||source==='deck-info')&&!eligible;
   return `<button class="${source==='deck-info'?'deck-slot ':''}pokemon-card type-${c.type}${unavailable?' selection-inactive':''}" data-rarity="${c.rarity}" data-${source}="${collection ? key : index}" ${source==='deck-info'?`data-deck-index="${index}" data-saved-key="${savedKey}"`:''} aria-label="${c.name}, ${RARITIES[c.rarity]}, ${c.cost} de elixir${equivalent?`, ${equivalent}`:''}${c.count>1?`, ${c.count} unidades`:''}${unavailable?', no disponible para mazos nuevos':''}" ${collection?'aria-haspopup="dialog" aria-expanded="false"':'aria-pressed="false"'}><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${!collection ? `<span class="card-key">${index + 1}</span>` : ''}${displayArt(key)}${heading}${source==='deck-info'||!equivalent?'':`<span class="card-role">${equivalent}</span>`}${unavailable?'<span class="selection-status" aria-hidden="true">No disponible</span>':''}</button>`;
@@ -97,6 +109,15 @@ function renderMenuDeck(){
 function updateMenuAvailability(){ const valid=hasEligibleSelection(deck);$('start-btn').disabled=$('online-btn').disabled=!ready||!valid; }
 function applyDeckChanges({persist=true}={}){
   deck=editorDeck(deckDraft);deckDraft=[...deck];if(persist){deckLibrary.slots[deckLibrary.active]=[...deck];saveDeckLibrary(deckLibrary);}renderMenuDeck();
+}
+function editDeckSlot(index,key,action='replace'){
+  try{
+    const changed=updateLibrarySlot(deckLibrary,deckLibrary.active,index,key,{action});if(!changed)return false;
+    if(!c4EditorPreview)changed.slots[changed.active]=editorDeck(changed.slots[changed.active]);
+    deckLibrary=changed;deckDraft=editorDeck(changed.slots[changed.active]);applyDeckChanges({persist:false});
+    if(!saveDeckLibrary(deckLibrary))toast('No se pudo guardar el mazo.');
+    return true;
+  }catch{toast('No se pudo editar esta posición.');return false;}
 }
 function renderDeckSlots(){
   for(const id of['menu-deck-slots','deck-slots'])$(id).innerHTML=deckLibrary.slots.map((cards,i)=>{const count=(cards||[]).filter(key=>key!==null&&key!==undefined&&key!=='').length,valid=Array.isArray(cards)&&hasEligibleSelection(editorDeck(cards));return`<button class="deck-preset${valid?'':' deck-preset-inactive'}" data-deck-slot="${i}" aria-pressed="${i===deckLibrary.active}" aria-label="Mazo ${i+1}, ${valid?'8 de 8 elegibles':`${count} posiciones guardadas, mazo inválido para partida nueva`}" ${id==='deck-slots'&&!deckEditable?'disabled':''}><svg aria-hidden="true"><use href="#i-deck"/></svg><span>${i+1}</span><small>${valid?'8/8':count?`${count}/8`:'+'}</small></button>`;}).join('');
@@ -305,15 +326,15 @@ function renderCollection() {
   const focused=document.activeElement,reference=$('collection').contains(focused)||$('deck-strip').contains(focused)?focusReference(focused):null;
   renderDeckStrip();
   const term=($('collection-search')?.value||'').toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,''),rarity=$('rarity-filter')?.value||'',role=$('role-filter')?.value||'',order=$('collection-sort').value;
-  const keys=Object.keys(CARDS).filter(k=>{const c=CARDS[k],text=`${c.name} ${cardEquivalentLabel(k)} ${c.role} ${c.move}`.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');return !c.token&&checkSelectionCard(k).ok&&(!rarity||c.rarity===rarity)&&(!role||(role==='spell'?c.spell:role==='structure'?c.structure:role==='building'?c.building:role==='summon'?c.summon||c.deathSpawn:!c.spell&&!c.structure))&&text.includes(term);});
+  const keys=Object.keys(CARDS).filter(k=>{const c=editorCard(k),text=`${c.name} ${editorCardRole(c,cardEquivalentLabel(k))} ${c.role} ${c.move}`.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');return !c.token&&editorSelectable(k)&&(!rarity||c.rarity===rarity)&&(!role||(role==='spell'?c.spell:role==='structure'?c.structure:role==='building'?c.building:role==='summon'?c.summon||c.deathSpawn:!c.spell&&!c.structure))&&text.includes(term);});
   const byName=(a,b)=>CARDS[a].name.localeCompare(CARDS[b].name,'es');
-  if(order==='elixir-asc')keys.sort((a,b)=>CARDS[a].cost-CARDS[b].cost||byName(a,b));
-  else if(order==='elixir-desc')keys.sort((a,b)=>CARDS[b].cost-CARDS[a].cost||byName(a,b));
+  if(order==='elixir-asc')keys.sort((a,b)=>editorCard(a).cost-editorCard(b).cost||byName(a,b));
+  else if(order==='elixir-desc')keys.sort((a,b)=>editorCard(b).cost-editorCard(a).cost||byName(a,b));
   else if(order==='name')keys.sort(byName);
   $('collection').innerHTML=keys.map(k=>`<div class="collection-entry">${cardMarkup(k,0,'collection')}</div>`).join('')||'<div class="collection-empty"><svg aria-hidden="true"><use href="#i-search"/></svg><p role="status">No hay cartas con esos filtros.</p><button class="secondary-btn" data-reset-filters>Ver todas las cartas</button></div>';
-  for(const el of $('collection').querySelectorAll('[data-collection]')){const key=el.dataset.collection,c=CARDS[key],equivalent=cardEquivalentLabel(key),included=deckDraft.some(saved=>saved!==null&&sameSelection(saved,key)),eligible=checkSelectionCard(key).ok;el.classList.toggle('selected',included);el.classList.toggle('selection-inactive',!eligible);el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir${equivalent?`, ${equivalent}`:''}${c.count>1?`, ${c.count} unidades`:''}${included?', en mazo':''}${eligible?'':', no disponible para mazos nuevos'}, acciones de la carta`);}
+  for(const el of $('collection').querySelectorAll('[data-collection]')){const key=el.dataset.collection,c=editorCard(key),equivalent=editorCardRole(c,cardEquivalentLabel(key)),included=editorIncludedIndex(key)>=0,eligible=editorSelectable(key);el.classList.toggle('selected',included);el.classList.toggle('selection-inactive',!eligible);el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir${equivalent?`, ${equivalent}`:''}${c.count>1?`, ${c.count} unidades`:''}${included?', en mazo':''}${eligible?'':', no disponible para mazos nuevos'}, acciones de la carta`);}
   $('collection-filters-btn').classList.toggle('has-filters',!!term||!!rarity||!!role||order!=='elixir-asc');
-  const priced=deckDraft.map(raw=>cardForSavedKey(raw)).filter(key=>key&&checkSelectionCard(key).ok);$('deck-average').textContent=priced.length?(priced.reduce((a,k)=>a+CARDS[k].cost,0)/priced.length).toFixed(1).replace('.',','):'—';
+  const priced=deckDraft.flatMap((raw,index)=>{const key=cardForSavedKey(raw);return key&&editorSlotSelectable(raw,index)?[editorCard(key,index)]:[];});$('deck-average').textContent=priced.length?(priced.reduce((a,c)=>a+c.cost,0)/priced.length).toFixed(1).replace('.',','):'—';
   $('save-deck-btn').disabled=false;
   restoreFocus(reference);
 }
@@ -325,7 +346,7 @@ function renderDeckStrip(){
     return cardMarkup(key,i,'deck-info',savedKey);
   }).join('');
 }
-$('deck-strip').addEventListener('click',e=>{const el=e.target.closest('[data-deck-info],[data-legacy-slot]');if(!el)return;const index=Number(el.dataset.deckIndex??el.dataset.legacySlot);if(replacementKey){deckDraft[index]=replacementKey;clearReplacement();applyDeckChanges();renderCollection();$('deck-strip').querySelectorAll('[data-deck-index]')[index]?.focus({preventScroll:true});return;}const key=el.dataset.deckInfo||cardForSavedKey(deckDraft[index]);if(key)openCardActions(key,el,index);else openUnavailableSlotActions(index,el);});
+$('deck-strip').addEventListener('click',e=>{const el=e.target.closest('[data-deck-info],[data-legacy-slot]');if(!el)return;const index=Number(el.dataset.deckIndex??el.dataset.legacySlot);if(replacementKey){if(!editDeckSlot(index,replacementKey))return;clearReplacement();renderCollection();$('deck-strip').querySelector(`[data-deck-index="${index}"]`)?.focus({preventScroll:true});return;}const key=el.dataset.deckInfo||cardForSavedKey(deckDraft[index]);if(key)openCardActions(key,el,index);else openUnavailableSlotActions(index,el);});
 $('menu-deck-preview').addEventListener('click',e=>{if(!document.body.classList.contains('menu-mode'))return;if(e.target.closest('[data-menu-empty]')){openDeck();return;}const el=e.target.closest('[data-menu-card]');if(el){deckEditable=true;deckDraft=editorDeck(deck);renderCardInfo(el.dataset.menuCard,Number(el.dataset.menuIndex));openModal('card-dialog');}});
 function openDeck() {
   if(!document.body.classList.contains('menu-mode'))return;
@@ -353,7 +374,7 @@ function closeCardActions(restore=false){
 function closeEditorPopovers(){closeCardActions();if($('collection-filters').matches(':popover-open'))$('collection-filters').hidePopover();}
 function openCardActions(key,anchor,slotIndex=null){
   closeCardActions();cardActionKey=key;cardActionSlot=slotIndex;cardActionReference=focusReference(anchor);anchor.setAttribute('aria-expanded','true');
-  const selectedIndex=slotIndex??deckDraft.findIndex(saved=>saved!==null&&sameSelection(saved,key)),eligible=checkSelectionCard(key).ok;
+  const selectedIndex=slotIndex??editorIncludedIndex(key),eligible=editorSelectable(key);
   $('card-actions').setAttribute('aria-label',`Acciones de ${displayCard(key).name}`);$('card-action-info').disabled=false;$('card-action-toggle').textContent=selectedIndex>=0?'Quitar':eligible?'Usar':'No disponible';$('card-action-toggle').disabled=selectedIndex<0&&!eligible;
   $('card-actions').showPopover({source:anchor});positionEditorPopover($('card-actions'),anchor);$('card-action-info').focus({preventScroll:true});
 }
@@ -369,7 +390,7 @@ $('card-action-toggle').addEventListener('click',()=>{
   if(slotIndex!==null){closeCardActions();toggleDeckCard(key,slotIndex);return;}
   if(!key)return;closeCardActions();
   if(toggleDeckCard(key))return;
-  if(!checkSelectionCard(key).ok)return;
+  if(!editorSelectable(key))return;
   replacementKey=key;$('deck-dialog').classList.add('replacing-card');$('deck-replace-hint').hidden=false;$('deck-scroll').scrollTop=0;$('deck-strip').querySelector('button')?.focus({preventScroll:true});
 });
 $('cancel-replace-btn').addEventListener('click',clearReplacement);
@@ -381,17 +402,17 @@ $('deck-scroll').addEventListener('scroll',()=>{
 },{passive:true});
 function toggleDeckCard(key,slotIndex=null){
   if(!deckEditable||!document.body.classList.contains('menu-mode'))return false;
-  if(slotIndex!==null){if(slotIndex<0||slotIndex>=8||deckDraft[slotIndex]===null)return false;deckDraft[slotIndex]=null;applyDeckChanges();renderCollection();return true;}
-  if(!checkSelectionCard(key).ok)return false;
-  const existing=deckDraft.findIndex(saved=>saved!==null&&sameSelection(saved,key));
-  if(existing>=0)deckDraft[existing]=null;
-  else {const empty=deckDraft.findIndex(saved=>saved===null||saved===undefined||saved==='');if(empty<0)return false;deckDraft[empty]=key;}
-  applyDeckChanges();renderDeckSlots();renderCollection();return true;
+  if(slotIndex!==null){if(slotIndex<0||slotIndex>=8||deckDraft[slotIndex]===null||!editDeckSlot(slotIndex,null))return false;renderCollection();return true;}
+  if(!editorSelectable(key))return false;
+  const existing=editorIncludedIndex(key),empty=deckDraft.findIndex(saved=>saved===null||saved===undefined||saved==='');
+  if(existing<0&&empty<0)return false;
+  if(!editDeckSlot(existing>=0?existing:empty,existing>=0?null:key,existing>=0?'replace':'collection'))return false;
+  renderCollection();return true;
 }
 function renderCardInfo(key,slotIndex=null){
-  const c=displayCard(key);inspectedCard=key;inspectedSlotIndex=slotIndex;
+  const c=editorCard(key,slotIndex);inspectedCard=key;inspectedSlotIndex=slotIndex;
   audioInit();
-  $('card-info-name').textContent=c.name;$('card-info-type').textContent=`${c.label} · ${RARITIES[c.rarity]}`;$('card-info-role').textContent=cardEquivalentLabel(key)||c.move||c.name;$('card-info-cost').textContent=c.cost;
+  $('card-info-name').textContent=c.name;$('card-info-type').textContent=`${c.label} · ${RARITIES[c.rarity]}`;$('card-info-role').textContent=editorCardRole(c,cardEquivalentLabel(key))||c.move||c.name;$('card-info-cost').textContent=c.cost;
   $('card-info-art').innerHTML=displayArt(key);$('card-dialog').dataset.rarity=c.rarity;
   $('card-info-art').style.setProperty('--card-tint',c.color);
   $('card-info-move').textContent=c.move||c.name;$('card-info-description').textContent=c.description;
@@ -463,14 +484,16 @@ function renderCardInfo(key,slotIndex=null){
   $('card-extra-stats').innerHTML=statMarkup(extraStats);
   $('card-more-stats').hidden=!extraStats.length;
   if($('card-dialog').open===false)$('card-more-stats').open=false;
-  const included=slotIndex!==null||deckDraft.some(saved=>saved!==null&&sameSelection(saved,key)),eligible=checkSelectionCard(key).ok;$('card-info-toggle').textContent=included?'Quitar del mazo':eligible?'Usar':'No disponible';
+  const included=slotIndex!==null||editorIncludedIndex(key)>=0,eligible=editorSelectable(key);$('card-info-toggle').textContent=included?'Quitar del mazo':eligible?'Usar':'No disponible';
   $('card-info-toggle').disabled=!deckEditable||(!included&&!eligible);
+  if(c4EditorPreview){const choice=key==='arcanine'&&slotIndex!==null?savedSlotProfile(deckLibrary,deckLibrary.active,slotIndex):null,accept=$('card-info-accept');accept.hidden=!choice;accept.textContent=choice?.kind==='hog'?'Montapuercos':'Usar como Montapuercos';accept.disabled=!deckEditable||choice?.kind==='hog';accept.parentElement.classList.toggle('profile-choices',!!choice);}
 }
 $('collection').addEventListener('click',e=>{
   if(e.target.closest('[data-reset-filters]')){resetCollectionFilters();return;}
   const el=e.target.closest('[data-collection]');if(el)openCardActions(el.dataset.collection,el);
 });
-$('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){const changed=toggleDeckCard(inspectedCard,inspectedSlotIndex);if(!changed&&checkSelectionCard(inspectedCard).ok){closeModal($('card-dialog'),false);if(!$('deck-dialog').open)openDeck();replacementKey=inspectedCard;$('deck-dialog').classList.add('replacing-card');$('deck-replace-hint').hidden=false;}else if(changed)closeModal($('card-dialog'),false);}});
+$('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){const changed=toggleDeckCard(inspectedCard,inspectedSlotIndex);if(!changed&&editorSelectable(inspectedCard)){closeModal($('card-dialog'),false);if(!$('deck-dialog').open)openDeck();replacementKey=inspectedCard;$('deck-dialog').classList.add('replacing-card');$('deck-replace-hint').hidden=false;}else if(changed)closeModal($('card-dialog'),false);}});
+$('card-info-accept')?.addEventListener('click',()=>{if(!c4EditorPreview||inspectedCard!=='arcanine'||inspectedSlotIndex===null)return;if(editDeckSlot(inspectedSlotIndex,'arcanine','accept')){renderCollection();renderCardInfo('arcanine',inspectedSlotIndex);}});
 $('save-deck-btn').addEventListener('click',()=>closeModal($('deck-dialog')));
 
 $('hand').addEventListener('click',e=>{const el=e.target.closest('[data-card]');if(el&&!quickStats.isHoldClick(e)&&performance.now()>ignoreClickUntil)choose(Number(el.dataset.card));});
