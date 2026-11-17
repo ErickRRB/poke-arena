@@ -1,4 +1,4 @@
-import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=selection-c1-1';
+import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=target-c1-1';
 import { onlineServer } from './online-config.js?v=34';
 import { onlinePerf } from './perf.js?v=1';
 

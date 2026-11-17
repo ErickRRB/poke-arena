@@ -1,11 +1,11 @@
 import { screenToWorld, inArena, ARENA, LANES } from './arena-geometry.js?v=34';
 import { LOADER_BALL_SHAPES } from './loader-art.js?v=34';
-import {CARDS,W,H,TILE} from './engine.js?v=selection-c1-1';
-import {SandboxGame} from './sandbox.js?v=selection-c1-1';
-import {Renderer} from './render.js?v=selection-c1-1';
-import {cardArtMarkup} from './card-art.js?v=selection-c1-1';
+import {CARDS,W,H,TILE} from './engine.js?v=target-c1-1';
+import {SandboxGame} from './sandbox.js?v=target-c1-1';
+import {Renderer} from './render.js?v=target-c1-1';
+import {cardArtMarkup} from './card-art.js?v=target-c1-1';
 import {cardEquivalentLabel} from './card-equivalents.js?v=34';
-import {SoundSystem} from './audio.js?v=selection-c1-1';
+import {SoundSystem} from './audio.js?v=target-c1-1';
 import {readAudioLevels} from './audio-preferences.js?v=1';
 import {loadUiResources} from './ui-resource-load.js?v=1';
 import {checkSelectionCard} from './canonical-selection.js?v=1';

@@ -1,6 +1,6 @@
 // Recorded combat cues follow real release/contact events, including cold loads.
 import { BattleMusic } from './music.js?v=36';
-import { CARDS, attackReach } from './engine.js?v=selection-c1-1';
+import { CARDS, attackReach } from './engine.js?v=target-c1-1';
 import { KNIGHT_LEEK_PCM } from './knight-audio-fallback.js?v=1';
 import {publicAssetUrl} from './online-config.js?v=36';
 export const MAX_EFFECT_VOICES=12;

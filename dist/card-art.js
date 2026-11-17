@@ -1,4 +1,4 @@
-import { CARDS } from './engine.js?v=selection-c1-1';
+import { CARDS } from './engine.js?v=target-c1-1';
 import { cardPlaceholder } from './battle-art.js?v=34';
 // Each atlas contains opaque, full-bleed battle scenes in row-major order.
 const sheets = [

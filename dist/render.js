@@ -1,4 +1,4 @@
-import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTarget } from './engine.js?v=selection-c1-1';
+import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTarget } from './engine.js?v=target-c1-1';
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { resolvePlacementInput } from './placement-input.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
@@ -7,7 +7,7 @@ import {towerGuardianScale,guardianEmitterPoint} from './tower-guardian-art.js?v
 import {electricLore,electricUnitState,electricArc,drawElectricAura,drawElectricCharge,drawElectricTrail,drawElectricImpact} from './electric-lore.js?v=1';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
 import {combatVisual,projectileVisual,movementVisual,isRangedAttack,isIceShardAttack,attackVisualProfile,dashPreparation,petalPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
-import { spellPreviewTargets } from './spell-preview.js?v=selection-c1-1';
+import { spellPreviewTargets } from './spell-preview.js?v=target-c1-1';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
 import { RoseliaBouquets } from './bouquet-motion.js?v=34';
