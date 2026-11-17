@@ -113,7 +113,7 @@ function applyDeckChanges({persist=true}={}){
 }
 function deckSaveError(message){
   let notice=$('deck-save-error');if(!notice){notice=document.createElement('div');notice.id='deck-save-error';notice.className='deck-save-error';notice.setAttribute('role','alert');}
-  ($('card-dialog').open?$('card-dialog'):$('deck-dialog').open?$('deck-dialog'):$('main-menu')).append(notice);notice.textContent=message;notice.hidden=false;
+  ($('card-dialog').open?$('card-dialog'):$('deck-dialog').open?$('deck-dialog'):$('ready-overlay')).append(notice);notice.textContent=message;notice.hidden=false;
   clearTimeout(deckSaveErrorTimer);deckSaveErrorTimer=setTimeout(()=>{notice.hidden=true;},3500);
 }
 function commitDeckLibrary(changed){
