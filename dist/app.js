@@ -108,21 +108,25 @@ function renderMenuDeck(){
 }
 function updateMenuAvailability(){ const valid=hasEligibleSelection(deck);$('start-btn').disabled=$('online-btn').disabled=!ready||!valid; }
 function applyDeckChanges({persist=true}={}){
-  deck=editorDeck(deckDraft);deckDraft=[...deck];if(persist){deckLibrary.slots[deckLibrary.active]=[...deck];saveDeckLibrary(deckLibrary);}renderMenuDeck();
+  if(persist){const changed={...deckLibrary,slots:deckLibrary.slots.slice()};changed.slots[changed.active]=editorDeck(deckDraft);return commitDeckLibrary(changed);}
+  deck=editorDeck(deckDraft);deckDraft=[...deck];renderMenuDeck();return true;
 }
 function deckSaveError(message){
   let notice=$('deck-save-error');if(!notice){notice=document.createElement('div');notice.id='deck-save-error';notice.className='deck-save-error';notice.setAttribute('role','alert');}
-  ($('card-dialog').open?$('card-dialog'):$('deck-dialog')).append(notice);notice.textContent=message;notice.hidden=false;
+  ($('card-dialog').open?$('card-dialog'):$('deck-dialog').open?$('deck-dialog'):$('main-menu')).append(notice);notice.textContent=message;notice.hidden=false;
   clearTimeout(deckSaveErrorTimer);deckSaveErrorTimer=setTimeout(()=>{notice.hidden=true;},3500);
+}
+function commitDeckLibrary(changed){
+  let persisted=false;try{persisted=saveDeckLibrary(changed);}catch{}
+  if(!persisted){deckDraft=[...deck];deckSaveError('No se pudo guardar. Reintentá.');return false;}
+  clearTimeout(deckSaveErrorTimer);if($('deck-save-error'))$('deck-save-error').hidden=true;
+  deckLibrary=changed;deck=editorDeck(changed.slots[changed.active]);deckDraft=[...deck];renderMenuDeck();return true;
 }
 function editDeckSlot(index,key,action='replace'){
   try{
     const changed=updateLibrarySlot(deckLibrary,deckLibrary.active,index,key,{action});if(!changed)return false;
     if(!c4EditorPreview)changed.slots[changed.active]=editorDeck(changed.slots[changed.active]);
-    if(!saveDeckLibrary(changed)){deckSaveError('No se pudo guardar. Reintentá.');return false;}
-    clearTimeout(deckSaveErrorTimer);if($('deck-save-error'))$('deck-save-error').hidden=true;
-    deckLibrary=changed;deckDraft=editorDeck(changed.slots[changed.active]);applyDeckChanges({persist:false});
-    return true;
+    return commitDeckLibrary(changed);
   }catch{deckSaveError('No se pudo editar esta posición.');return false;}
 }
 function renderDeckSlots(){
@@ -131,8 +135,9 @@ function renderDeckSlots(){
 for(const id of['menu-deck-slots','deck-slots'])$(id).addEventListener('click',event=>{
   if(!document.body.classList.contains('menu-mode'))return;
   const button=event.target.closest('[data-deck-slot]');if(!button||(!deckEditable&&id==='deck-slots'))return;
+  const active=Number(button.dataset.deckSlot);if(!Number.isInteger(active)||active<0||active>=4)return;
+  if(!commitDeckLibrary({...deckLibrary,active}))return;
   closeCardActions();clearReplacement();
-  deckLibrary.active=Number(button.dataset.deckSlot);deckDraft=editorDeck(deckLibrary.slots[deckLibrary.active]);applyDeckChanges({persist:false});saveDeckLibrary(deckLibrary);
   if($('deck-dialog').open){renderCollection();if(id==='deck-slots')showDeckTop();}
   $(id).querySelector(`[data-deck-slot="${deckLibrary.active}"]`).focus({preventScroll:true});
 });
