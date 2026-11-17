@@ -1,6 +1,7 @@
 import {C1_SERVICE,C4_SERVICE,serviceForServer,serviceEnvelope,assertC4Envelope} from '../../dist/online-context.js?v=1';
 import {prepareC4Transport} from '../../dist/c4-wire-preparation.js?v=1';
 import {admitC4Selection} from '../../dist/profile-selection.js?v=1';
+import {C4_SEARCH_VERSION,C4_SEARCH_TOKEN,c4SearchRequest} from '../../dist/c4-search.js?v=1';
 import { DurableObject } from 'cloudflare:workers';
 import animations from '../../dist/assets/pokemon/manifest.json' with { type: 'json' };
 import { RealtimeMatch, safeName } from './match.js';
@@ -9,10 +10,13 @@ import {selectionVersion,selectedDeck,validQueuedDeck,queueVersion,continuesQueu
 
 const OPEN = 1;
 const LEGACY_QUEUE_NOTICE = 'legacy-queue-expired';
+// v1 terminal identities are retained. Future GC must define expiry/tombstones
+// without turning a delayed pre-welcome retry into a fresh admission.
+const C4_CANCELLING='c4-search-cancelling',C4_CANCELLED='c4-search-cancelled',C4_ENDED='c4-search-ended';
 const legacyQueueIdle = () => ({type:'idle',selectionExpired:true,selectionVersion,message:'La búsqueda anterior terminó. Revisá tu mazo y volvé a buscar.'});
 const tokenHash = async token => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token)))].map(byte => byte.toString(16).padStart(2, '0')).join('');
 const attachment = ws => ws.deserializeAttachment() || {};
-function send(ws, packet) { try { if (ws.readyState === OPEN) { ws.send(JSON.stringify(attachment(ws).service==='c4'?{...packet,...serviceEnvelope(C4_SERVICE)}:packet));return true; } } catch {} return false; }
+function send(ws, packet) { try { if (ws.readyState === OPEN) { const state=attachment(ws);ws.send(JSON.stringify(state.service==='c4'?{...packet,...serviceEnvelope(C4_SERVICE),...(state.c4SearchVersion===C4_SEARCH_VERSION?{c4SearchVersion:C4_SEARCH_VERSION}:{})}:packet));return true; } } catch {} return false; }
 function close(ws, code = 1000, reason = '') { try { ws.close(code, reason); } catch {} }
 function reject(ws, message, code = 'invalid') { send(ws, { type: 'error', message, code, fatal: true });close(ws, 1008, 'Invalid request'); }
 function currentProtocol(ws, state,service=C1_SERVICE) {
@@ -126,29 +130,63 @@ export class ArenaLobby extends DurableObject {
   }
   async helloC4(ws,packet){
     try{assertC4Envelope(packet);}catch{return reject(ws,'Actualizá la página para conectar.','protocol');}
-    if(!['search','resume'].includes(packet.mode))return reject(ws,'Volvé a conectar.','protocol');
-    const now=Date.now();let session,token;
-    if(typeof packet.token==='string'&&packet.token.length>=48&&packet.token.length<=160)session=this.sql.exec('SELECT * FROM sessions WHERE token_hash=?',await tokenHash(packet.token)).toArray()[0];
-    if(session){try{assertC4Envelope(JSON.parse(session.profile_context));}catch{return reject(ws,'La sesión pertenece a otra partida.','session');}}
-    let continuing=session&&continuesQueue(session,packet,this.service),selected;
-    if(session?.room_id){
-      const summary=await this.env.ARENAS.getByName(session.room_id).summary();
-      if(summary.state&&summary.state!=='ended'){
-        ws.serializeAttachment({authed:true,protocol:5,service:'c4',playerId:session.id,seen:now,connectedAt:now});for(const previous of this.sockets(session.id))if(previous!==ws)close(previous,4001,'Session replaced');send(ws,{type:'welcome'});send(ws,{type:'matched',roomId:session.room_id});return;
+    // Unknown modes must fail before lookup/INSERT, including against the old
+    // authority. A v1 attempt never falls back to server-allocated credentials.
+    if(!['search-intent','cancel-intent','resume'].includes(packet.mode))return reject(ws,'Volvé a conectar.','protocol');
+    const intent=packet.mode!=='resume';
+    if((intent||packet.c4SearchVersion!==undefined)&&(packet.c4SearchVersion!==C4_SEARCH_VERSION||typeof packet.token!=='string'||!C4_SEARCH_TOKEN.test(packet.token)))return reject(ws,'Actualizá la página para conectar.','protocol');
+    const now=Date.now(),hash=typeof packet.token==='string'&&packet.token.length>=48&&packet.token.length<=160?await tokenHash(packet.token):null;
+    let session=hash?this.sql.exec('SELECT * FROM sessions WHERE token_hash=?',hash).toArray()[0]:null,context,request;
+    if(session){try{context=JSON.parse(session.profile_context);assertC4Envelope(context);}catch{return reject(ws,'La sesión pertenece a otra partida.','session');}}
+    if(intent){
+      try{request=c4SearchRequest(packet);}catch{return reject(ws,'Revisá tu mazo antes de buscar.','deck');}
+      if(session&&(context.c4SearchVersion!==C4_SEARCH_VERSION||JSON.stringify(context.searchRequest)!==JSON.stringify(request)))return reject(ws,'La búsqueda pertenece a otro mazo.','session');
+      if(!session){
+        const selected=admitC4Selection(request.deck,request.selection),cancelling=packet.mode==='cancel-intent';
+        context={...serviceEnvelope(this.service),c4SearchVersion:C4_SEARCH_VERSION,searchRequest:request};
+        this.sql.exec('INSERT INTO sessions(id,token_hash,name,deck,joined,updated,selection_version,profile_context,c4_selection,selection_notice) VALUES(?,?,?,?,?,?,?,?,?,?) ON CONFLICT(token_hash) DO NOTHING',crypto.randomUUID(),hash,safeName(request.name),JSON.stringify(selected.keys),cancelling?null:now,now,2,JSON.stringify(context),JSON.stringify(request.selection),cancelling?C4_CANCELLING:null);
+        session=this.sql.exec('SELECT * FROM sessions WHERE token_hash=?',hash).toArray()[0];context=JSON.parse(session.profile_context);
+        if(context.c4SearchVersion!==C4_SEARCH_VERSION||JSON.stringify(context.searchRequest)!==JSON.stringify(request))return reject(ws,'La búsqueda pertenece a otro mazo.','session');
       }
     }
-    if(packet.mode==='resume'&&(!session||session.joined==null)){send(ws,{type:'idle',...(!session?{expired:true}:{})});close(ws);return;}
-    if(packet.mode==='search'&&!continuing){
-      if(['card','sourceCard','stats'].some(key=>Object.hasOwn(packet,key)))return reject(ws,'Revisá tu mazo antes de buscar.','deck');
-      selected=admitC4Selection(packet.deck,packet.selection);if(!selected.ok)return reject(ws,'Revisá tu mazo antes de buscar.','deck');
-    }else if(!session||!validQueuedDeck(session,this.service))return reject(ws,'Revisá tu mazo antes de buscar.','deck');
-    if(!session){token=crypto.randomUUID()+crypto.randomUUID();session={id:crypto.randomUUID(),token_hash:await tokenHash(token),name:safeName(packet.name),deck:JSON.stringify(selected.keys),room_id:null,joined:now,updated:now,selection_version:2,profile_context:JSON.stringify(serviceEnvelope(this.service)),c4_selection:JSON.stringify(packet.selection)};
-      this.sql.exec('INSERT INTO sessions(id,token_hash,name,deck,joined,updated,selection_version,profile_context,c4_selection) VALUES(?,?,?,?,?,?,?,?,?)',session.id,session.token_hash,session.name,session.deck,now,now,2,session.profile_context,session.c4_selection);
-    }else if(selected){session={...session,name:safeName(packet.name),deck:JSON.stringify(selected.keys),room_id:null,joined:now,selection_version:2,selection_notice:null,c4_selection:JSON.stringify(packet.selection)};
-      this.sql.exec('UPDATE sessions SET name=?,deck=?,room_id=NULL,joined=?,updated=?,selection_version=2,c4_selection=?,selection_notice=NULL WHERE id=?',session.name,session.deck,now,now,session.c4_selection,session.id);
+    const versioned=packet.c4SearchVersion===C4_SEARCH_VERSION||context?.c4SearchVersion===C4_SEARCH_VERSION;
+    if(!session){
+      if(versioned)ws.serializeAttachment({...attachment(ws),c4SearchVersion:C4_SEARCH_VERSION});
+      send(ws,{type:'idle',expired:true,...(versioned?{token:packet.token,searchState:'expired'}:{})});close(ws);return;
     }
-    ws.serializeAttachment({authed:true,protocol:5,service:'c4',playerId:session.id,seen:now,connectedAt:now});for(const previous of this.sockets(session.id))if(previous!==ws)close(previous,4001,'Session replaced');
-    send(ws,{type:'welcome',...(token?{token}:{})});send(ws,{type:'searching',joined:session.joined});await this.match(session.id);
+    if(packet.c4SearchVersion===C4_SEARCH_VERSION&&context.c4SearchVersion!==C4_SEARCH_VERSION)return reject(ws,'La sesión pertenece a otra partida.','session');
+    ws.serializeAttachment({authed:true,protocol:5,service:'c4',playerId:session.id,seen:now,connectedAt:now,...(versioned?{c4SearchVersion:C4_SEARCH_VERSION}:{})});
+    for(const previous of this.sockets(session.id))if(previous!==ws)close(previous,4001,'Session replaced');
+    send(ws,{type:'welcome',...(versioned?{token:packet.token}:{})});
+    if(versioned&&(packet.mode==='cancel-intent'||session.selection_notice===C4_CANCELLING)){
+      await this.cancelC4(session.id);send(ws,{type:'idle',searchState:'cancelled'});close(ws);return;
+    }
+    if(versioned&&[C4_CANCELLED,C4_ENDED].includes(session.selection_notice)){send(ws,{type:'idle',searchState:session.selection_notice===C4_CANCELLED?'cancelled':'ended'});close(ws);return;}
+    if(session.room_id){
+      await this.pendingMatches.get(session.room_id);session=this.session(session.id);
+      if(versioned&&session.selection_notice===C4_CANCELLING){await this.cancelC4(session.id);send(ws,{type:'idle',searchState:'cancelled'});close(ws);return;}
+      const summary=await this.env.ARENAS.getByName(session.room_id).summary();
+      if(summary.state&&summary.state!=='ended'){send(ws,{type:'matched',roomId:session.room_id});return;}
+      if(versioned&&summary.state!=='ended')throw Error('La sala todavía está pendiente.');
+      if(versioned)this.sql.exec('UPDATE sessions SET room_id=NULL,joined=NULL,selection_notice=?,updated=? WHERE id=? AND selection_notice IS NULL',C4_ENDED,now,session.id);
+      send(ws,{type:'idle',...(versioned?{searchState:'ended'}:{})});close(ws);return;
+    }
+    if(session.joined==null){send(ws,{type:'idle',...(versioned?{searchState:'ended'}:{})});close(ws);return;}
+    if(!validQueuedDeck(session,this.service))return reject(ws,'Revisá tu mazo antes de buscar.','deck');
+    send(ws,{type:'searching',joined:session.joined});await this.match(session.id);
+  }
+  async cancelC4(id){
+    let session=this.session(id);if(!session)return;
+    if([C4_CANCELLED,C4_ENDED].includes(session.selection_notice))return;
+    // Retain the room until abandon actually succeeds. This survives a failed
+    // RPC or a cold restart between create/handoff and cancellation.
+    this.sql.exec('UPDATE sessions SET joined=NULL,selection_notice=?,updated=? WHERE id=?',C4_CANCELLING,Date.now(),id);
+    if(session.room_id){
+      await this.pendingMatches.get(session.room_id);
+      const room=this.env.ARENAS.getByName(session.room_id),abandoned=await room.abandon(id);
+      if(!abandoned&&(await room.summary()).state!=='ended')throw Error('Cancelación pendiente.');
+    }
+    this.sql.exec('UPDATE sessions SET room_id=NULL,joined=NULL,selection_notice=?,updated=? WHERE id=? AND selection_notice=?',C4_CANCELLED,Date.now(),id,C4_CANCELLING);
   }
   async match(id) {
     const now=Date.now();this.expireLegacyQueues(now);
@@ -169,12 +207,13 @@ export class ArenaLobby extends DurableObject {
     try {
       await pending;
       for (const player of players) {
+        if(this.service.id==='c4'&&this.session(player.id)?.selection_notice===C4_CANCELLING)continue;
         if (this.session(player.id)?.room_id !== roomId) { await room.abandon(player.id);continue; }
         for (const ws of this.sockets(player.id)) send(ws, { type: 'matched', roomId });
       }
       console.log(JSON.stringify({ event: 'match_created', roomId }));
     } catch (error) {
-      for(const player of players)this.sql.exec('UPDATE sessions SET room_id=NULL,joined=? WHERE id=? AND room_id=?',player.joined,player.id,roomId);
+      for(const player of players)this.sql.exec('UPDATE sessions SET room_id=NULL,joined=? WHERE id=? AND room_id=?'+(this.service.id==='c4'?' AND selection_notice IS NULL':''),player.joined,player.id,roomId);
       await this.scheduleLegacyExpiry();
       console.error(JSON.stringify({ event: 'match_create_failed', message: error.message }));
       for (const player of players) for (const ws of this.sockets(player.id)) reject(ws, 'No se pudo iniciar la partida.', 'server');
@@ -182,6 +221,7 @@ export class ArenaLobby extends DurableObject {
   }
   async cancel(id, ws) {
     const session = this.session(id);if (!session) return;
+    if(this.service.id==='c4'&&JSON.parse(session.profile_context).c4SearchVersion===C4_SEARCH_VERSION){await this.cancelC4(id);send(ws,{type:'idle',searchState:'cancelled'});close(ws);return;}
     this.sql.exec('UPDATE sessions SET joined=NULL,room_id=NULL,selection_notice=NULL,updated=? WHERE id=?', Date.now(), id);
     if (session.room_id) { await this.pendingMatches.get(session.room_id);await this.env.ARENAS.getByName(session.room_id).abandon(id); }
     send(ws, { type: 'idle' });close(ws);
