@@ -16,3 +16,16 @@ export function prepareC4Catalog(cards){
 }
 export function getC4BaseCatalog(){if(!prepared)throw fail('C4_CATALOG_UNPREPARED','Prepará el catálogo C4 antes de usarlo.');return prepared;}
 export function getC4BaseCard(key){const cards=getC4BaseCatalog();return Object.hasOwn(cards,key)?cards[key]:undefined;}
+
+// Shape comparison only; values and additional opaque fields remain unchanged.
+function compatibleC4Value(actual,expected){
+ if(actual===undefined)return false;
+ if(expected===null)return true;
+ if(Array.isArray(expected))return Array.isArray(actual)&&(!expected.length||actual.every((value,index)=>compatibleC4Value(value,expected[Math.min(index,expected.length-1)])));
+ if(expected&&typeof expected==='object')return isCompleteC4CardProfile(actual,expected);
+ return typeof actual===typeof expected&&(typeof actual!=='number'||Number.isFinite(actual));
+}
+export function isCompleteC4CardProfile(profile,expected){
+ if(!profile||typeof profile!=='object'||Array.isArray(profile)||!expected||typeof expected!=='object'||Array.isArray(expected))return false;
+ return Object.keys(expected).every(key=>Object.hasOwn(profile,key)&&compatibleC4Value(profile[key],expected[key]));
+}
