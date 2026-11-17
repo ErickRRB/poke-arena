@@ -60,6 +60,13 @@ test('an idle or expired session returns to the menu without starting a search',
   const s=setup(t);await s.client.resume();s.sockets[0].open();assert.equal(s.sockets[0].sent[0].mode,'resume');
   s.sockets[0].packet({type:'idle',expired:true});assert.equal(s.idles.length,1);assert.equal(hasSavedOnlineSession(),false);assert.equal(s.storage.size,0);s.advance(10000);assert.equal(s.sockets.length,1);
 });
+test('legacy queue expiry preserves token and forwards its message without requeue',async t=>{
+  const s=setup(t);await s.client.resume();const lobby=s.sockets[0];lobby.open();
+  const message='La búsqueda anterior terminó. Revisá tu mazo y volvé a buscar.';
+  lobby.packet({type:'idle',selectionExpired:true,selectionVersion:1,message});
+  assert.equal(s.storage.get(ONLINE_TOKEN_KEY),'existing-session');assert.equal(s.idles.at(-1),message);
+  assert.equal(s.client.active,false);s.advance(10000);assert.equal(s.sockets.length,1);assert.equal(lobby.sent.filter(p=>p.type==='hello').length,1);
+});
 test('a queued resume keeps its session and resume intent after a network failure',async t=>{
   const s=setup(t);await s.client.resume();let lobby=s.sockets[0];lobby.open();lobby.packet({type:'searching',joined:96000});lobby.disconnect();assert.equal(s.statuses.at(-1),'Reconectando…');
   s.advance(250);lobby=s.sockets[1];lobby.open();assert.equal(lobby.sent[0].mode,'resume');assert.equal(lobby.sent[0].token,'existing-session');assert.equal(lobby.sent[0].deck,undefined);

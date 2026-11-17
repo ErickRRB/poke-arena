@@ -1,15 +1,16 @@
 import { screenToWorld, inArena, ARENA, LANES } from './arena-geometry.js?v=34';
 import { LOADER_BALL_SHAPES } from './loader-art.js?v=34';
-import {CARDS,W,H,TILE} from './engine.js?v=34';
-import {SandboxGame} from './sandbox.js?v=34';
-import {Renderer} from './render.js?v=36';
-import {cardArtMarkup} from './card-art.js?v=34';
+import {CARDS,W,H,TILE} from './engine.js?v=selection-c1-1';
+import {SandboxGame} from './sandbox.js?v=selection-c1-1';
+import {Renderer} from './render.js?v=selection-c1-1';
+import {cardArtMarkup} from './card-art.js?v=selection-c1-1';
 import {cardEquivalentLabel} from './card-equivalents.js?v=34';
-import {SoundSystem} from './audio.js?v=40';
+import {SoundSystem} from './audio.js?v=selection-c1-1';
 import {readAudioLevels} from './audio-preferences.js?v=1';
 import {loadUiResources} from './ui-resource-load.js?v=1';
+import {checkSelectionCard} from './canonical-selection.js?v=1';
 
-const $=id=>document.getElementById(id),columns=[],catalog=Object.keys(CARDS).filter(key=>!CARDS[key].token).sort((a,b)=>CARDS[a].name.localeCompare(CARDS[b].name,'es'));
+const $=id=>document.getElementById(id),columns=[],catalog=Object.keys(CARDS).filter(key=>!CARDS[key].token&&checkSelectionCard(key).ok).sort((a,b)=>CARDS[a].name.localeCompare(CARDS[b].name,'es'));
 let selected='roselia',team=0,nextColumn=1,speed=1,noticeTimer,ready=false,last=performance.now(),uiClock=0,sfx,activeColumn=null;
 let soundEnabled=true;try{soundEnabled=JSON.parse(localStorage.getItem('poke-arena:sound')??'true');}catch{}
 $('lab-sound').setAttribute('aria-pressed',String(soundEnabled));$('lab-sound').textContent=soundEnabled?'Sonido: sí':'Sonido: no';
@@ -20,7 +21,7 @@ function columnEvent(column,event){column.renderer.onEvent(event,column.game);if
 const loaderMarkup=`<svg class="lab-pokeball" viewBox="0 0 64 64" aria-hidden="true">${LOADER_BALL_SHAPES}</svg>`;
 const presetOptions=`<option value="free">Vacía · libre</option><option value="princess">Torre princesa</option><option value="towers">Torres completas</option><option value="fireball-check">Torre + defensa central</option><optgroup label="Rival preparado">${catalog.filter(key=>!CARDS[key].spell).map(key=>`<option value="${key}">${CARDS[key].name} · ${cardEquivalentLabel(key)||'Función propia'}</option>`).join('')}</optgroup>`;
 function notice(message){$('lab-notice').textContent=message;$('lab-notice').classList.add('visible');clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>$('lab-notice').classList.remove('visible'),3500);}
-function choose(key){selected=key;$('chosen-name').textContent=CARDS[key].name;$('chosen-equivalent').textContent=cardEquivalentLabel(key)||'Función propia';$('chosen-art').innerHTML=cardArtMarkup(key);for(const column of columns)column.renderer.selection=key;}
+function choose(key){const selection=checkSelectionCard(key);if(!selection.ok){notice('Esa carta no está disponible para nuevas pruebas.');return false;}key=selection.canonicalKey;selected=key;$('chosen-name').textContent=CARDS[key].name;$('chosen-equivalent').textContent=cardEquivalentLabel(key)||'Función propia';$('chosen-art').innerHTML=cardArtMarkup(key);for(const column of columns)column.renderer.selection=key;return true;}
 function chooseTeam(value){team=value;for(const button of document.querySelectorAll('[data-team]'))button.setAttribute('aria-pressed',String(Number(button.dataset.team)===team));for(const column of columns)column.renderer.placementTeam=team;}
 function renderPicker(){
   const query=$('card-search').value.normalize('NFD').replace(/\p{Diacritic}/gu,'').toLowerCase();
@@ -33,7 +34,7 @@ function reset(column){
   const preset=column.element.querySelector('select').value,mode=['princess','towers','fireball-check'].includes(preset)?preset:'duel';
   column.game=new SandboxGame({mode,towerFire:$('tower-fire').checked,animations:column.renderer.metadata,seed:column.id,onEvent:event=>columnEvent(column,event)});
   if(preset==='fireball-check'){
-    column.game.place(1,'regice',300,232);for(const unit of column.game.units)unit.spawn=0;
+    column.game.place(1,'snorlax',300,232);for(const unit of column.game.units)unit.spawn=0;
   }else if(CARDS[preset]){
     column.game.place(1,preset,LANES[0],304);for(const unit of column.game.units)unit.spawn=0;
   }else if(mode!=='duel')column.game.preparedTeams.add(1);
@@ -56,7 +57,7 @@ function syncColumn(column){
   }
 }
 async function place(column,x,y){
-  if(!ready||column.loading)return;
+  if(!ready||column.loading||!checkSelectionCard(selected).ok)return;
   focusColumn(column);
   const key=selected,value=team,card=CARDS[key],overlay=column.element.querySelector('.column-loading');
   column.loading=true;
@@ -120,8 +121,8 @@ $('tower-fire').addEventListener('change',event=>{for(const column of columns)co
 $('damage-numbers').addEventListener('change',event=>{for(const column of columns)column.renderer.showCombatNumbers=event.target.checked;});
 $('reduced-motion').checked=matchMedia('(prefers-reduced-motion:reduce)').matches;
 $('reduced-motion').addEventListener('change',event=>{document.documentElement.classList.toggle('reduce-motion',event.target.checked);for(const column of columns)column.renderer.reduced=event.target.checked;});
-const parameters=new URLSearchParams(location.search),requestedCard=parameters.get('card');if(CARDS[requestedCard]&&!CARDS[requestedCard].token)selected=requestedCard;
-choose(selected);for(const preset of['geodude','rhydon','charmander','diglettHorde','princess','sableye','free','free','free','fireball-check'])addColumn(preset);
+const parameters=new URLSearchParams(location.search),requestedCard=parameters.get('card');if(checkSelectionCard(requestedCard).ok)selected=checkSelectionCard(requestedCard).canonicalKey;
+choose(selected);for(const preset of['geodude','rhydon','typhlosion','diglettHorde','princess','sableye','free','free','free','fireball-check'])addColumn(preset);
 function frame(now){
   const dt=document.hidden?0:Math.min(.1,(now-last)/1000);last=now;uiClock+=dt;
   if(ready)for(const column of columns){

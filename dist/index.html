@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="theme.css?v=37">
   <link rel="stylesheet" href="transient-ui.css?v=34">
   <link rel="stylesheet" href="result-loader-motion.css?v=1">
-  <link rel="stylesheet" href="editor.css?v=34">
+  <link rel="stylesheet" href="editor.css?v=selection-c1-1">
   <link rel="stylesheet" href="quick-stats.css?v=34">
   <link rel="stylesheet" href="battle-phase.css?v=35">
   <link rel="stylesheet" href="perf-access.css?v=1">
@@ -139,6 +139,7 @@
     <div class="deck-save-row"><div class="deck-summary"><span>Coste medio <strong id="deck-average">3,4</strong><svg aria-hidden="true"><use href="#i-energy"/></svg></span></div><button id="save-deck-btn" class="primary-btn">Listo</button></div>
     <div id="collection-filters" class="editor-popover filter-popover" tabindex="-1" popover="auto" role="dialog" aria-label="Filtros de cartas"><label class="filter-search"><span class="sr-only">Buscar carta</span><input id="collection-search" type="search" placeholder="Buscar carta" autocomplete="off"></label><label>Orden<select id="collection-sort"><option value="elixir-asc">Menor elixir</option><option value="elixir-desc">Mayor elixir</option><option value="name">Nombre A–Z</option><option value="original">Orden original</option></select></label><label>Rol<select id="role-filter"><option value="">Todos los roles</option><option value="building">Atacan estructuras</option><option value="structure">Estructuras</option><option value="spell">Hechizos</option><option value="summon">Invocadores</option><option value="troop">Tropas</option></select></label><details class="rarity-options"><summary>Rareza</summary><select id="rarity-filter" aria-label="Filtrar rareza"></select></details><div class="filter-actions"><button id="reset-filters-btn" class="secondary-btn">Limpiar</button><button id="apply-filters-btn" class="primary-btn">Listo</button></div></div>
     <div id="card-actions" class="editor-popover card-actions" popover="auto" role="dialog" aria-label="Acciones de la carta"><button id="card-action-info" class="secondary-btn">Info</button><button id="card-action-toggle" class="primary-btn">Usar</button></div>
+    <div id="deck-selection-notice" class="deck-replace-hint" role="status" hidden></div>
     <div id="deck-replace-hint" class="deck-replace-hint" role="status" hidden><span>Elegí qué carta reemplazar</span><button id="cancel-replace-btn" class="secondary-btn">Cancelar</button></div>
   </dialog>
 
@@ -161,7 +162,7 @@
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
   <div class="sr-only" id="battle-phase-announcement" role="status" aria-live="polite" aria-atomic="true"></div>
   <dialog id="portrait-dialog" class="modal small-modal portrait-dialog" aria-labelledby="portrait-title" aria-describedby="portrait-description"><h2 id="portrait-title">Jugá en vertical</h2><p id="portrait-description">Girá el teléfono para continuar.</p></dialog>
-  <script type="module" src="app.js?v=42"></script>
+  <script type="module" src="app.js?v=selection-c1-1"></script>
   <script type="module" src="perf-access.js?v=1"></script>
 </body>
 </html>

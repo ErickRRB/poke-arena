@@ -1,5 +1,5 @@
-import { CARDS } from './engine.js?v=34';
-import { packGame, migrateLegacyCardIdentity } from './snapshot.js?v=34';
+import { CARDS } from './engine.js?v=selection-c1-1';
+import { packGame, migrateLegacyCardIdentity } from './snapshot.js?v=selection-c1-1';
 
 export const ONLINE_PROTOCOL = 4;
 export const SIMULATION_HZ = 30;

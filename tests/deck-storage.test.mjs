@@ -5,12 +5,12 @@ import { DEFAULT_DECK } from '../dist/engine.js?v=34';
 const memory=()=>{const values=new Map();return{getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v)};};
 const chosen=['gastly','vivero','kyogre','ditto','hooh','treecko','log','sandshrew'];
 
-test('mobile Blastoise migrates to Octillery in all four saved decks while the new Cannon remains independent',()=>{
- const storage=memory(),slots=[['blastoise','treecko'],['octillery','blastoise','blastoiseCannon'],[],null];storage.setItem('poke-arena:deck-slots',JSON.stringify({version:1,active:1,slots}));const result=loadDeckLibrary({storage,cookie:''});assert.equal(result.active,1);assert.deepEqual(result.slots,[['octillery','treecko'],['octillery','blastoiseCannon'],[],null]);saveDeckLibrary(result,{storage,cookie:'',writeCookie:()=>{},now:100});assert.deepEqual(loadDeckLibrary({storage,cookie:''}).slots,result.slots);
+test('opening and saving an unrelated edit preserves legacy Blastoise aliases and every slot verbatim',()=>{
+ const storage=memory(),slots=[['blastoise','treecko'],['octillery','blastoise','blastoiseCannon'],[],null];storage.setItem('poke-arena:deck-slots',JSON.stringify({version:1,active:1,slots}));const result=loadDeckLibrary({storage,cookie:''});assert.equal(result.active,1);assert.deepEqual(result.slots,slots);result.slots[1][1]='pikachu';saveDeckLibrary(result,{storage,cookie:'',writeCookie:()=>{},now:100});assert.deepEqual(loadDeckLibrary({storage,cookie:''}).slots,[slots[0],['octillery','pikachu','blastoiseCannon'],[],null]);
 });
-test('saved Registeel selections migrate to Rhydon without duplicating or filling other slots',()=>{
+test('opening a historical Registeel alias does not migrate, deduplicate or fill other slots',()=>{
   assert.deepEqual(normalizeDeck(['gastly','registeel','ditto']),['gastly','rhydon','ditto']);assert.deepEqual(normalizeDeck(['registeel','rhydon','ampharos']),['rhydon','ampharos']);
-  const storage=memory();storage.setItem('poke-arena:deck-slots',JSON.stringify({version:1,active:1,slots:[['registeel'],['ampharos','registeel'],[],null]}));assert.deepEqual(loadDeckLibrary({storage,cookie:''}).slots,[['rhydon'],['ampharos','rhydon'],[],null]);
+  const storage=memory();storage.setItem('poke-arena:deck-slots',JSON.stringify({version:1,active:1,slots:[['registeel'],['ampharos','registeel'],[],null]}));assert.deepEqual(loadDeckLibrary({storage,cookie:''}).slots,[['registeel'],['ampharos','registeel'],[],null]);
 });
 
 test('the last chosen deck is written immediately and restored in the same order',()=>{
@@ -24,23 +24,24 @@ test('a saved former starter deck is never replaced by the current default deck'
 test('partial and empty decks survive closing and reloading instead of resetting',()=>{
   for(const cards of[[],chosen.slice(0,5)]){const storage=memory();saveDeck(cards,{storage,cookie:'',writeCookie:()=>{}});assert.deepEqual(loadDeck({storage,cookie:''}),cards);}
 });
-test('catalog migration preserves valid choices and order while removing retired or duplicate entries',()=>{
+test('loading a historical payload is read-only; an explicit legacy normalizer remains separate',()=>{
   const storage=memory();storage.setItem('poke-arena:deck',JSON.stringify(['gastly','shuppet','removed-card','nidoranScouts','gastly','nidoranPack','shuppetSwarm']));
-  assert.deepEqual(loadDeck({storage,cookie:''}),['gastly','diglett','raltsTrio','poochyenaPack','diglettHorde']);
+  assert.deepEqual(loadDeck({storage,cookie:''}),['gastly','shuppet','removed-card','nidoranScouts','gastly','nidoranPack','shuppetSwarm']);
+  assert.deepEqual(normalizeDeck(['gastly','shuppet','removed-card','nidoranScouts','gastly','nidoranPack','shuppetSwarm']),['gastly','diglett','raltsTrio','poochyenaPack','diglettHorde']);
   assert.deepEqual(normalizeDeck(['constructor','__proto__','nidoranF','gastly']),['gastly']);
 });
 
-test('Electrode migrates to Forretress across saved decks without filling incomplete slots',()=>{
+test('opening historical Electrode aliases preserves them without filling incomplete slots',()=>{
   const storage=memory();storage.setItem('poke-arena:deck-slots',JSON.stringify({version:1,active:1,slots:[['voltorb','electrode'],['centralElectrode','electrode','gastly'],[],null]}));
-  const loaded=loadDeckLibrary({storage,cookie:''});assert.equal(loaded.active,1);assert.deepEqual(loaded.slots,[['voltorb','forretress'],['centralElectrode','forretress','gastly'],[],null]);
+  const loaded=loadDeckLibrary({storage,cookie:''});assert.equal(loaded.active,1);assert.deepEqual(loaded.slots,[['voltorb','electrode'],['centralElectrode','electrode','gastly'],[],null]);
 });
-test('retired Exeggutor migrates to the three-elixir nursery in decks, slots and backups',()=>{
+test('opening historical Exeggutor aliases preserves them in decks, slots and backups',()=>{
   const storage=memory(),old=['gastly','exeggutor','kyogre'];
-  storage.setItem('poke-arena:deck',JSON.stringify(old));assert.deepEqual(loadDeck({storage,cookie:''}),['gastly','vivero','kyogre']);
+  storage.setItem('poke-arena:deck',JSON.stringify(old));assert.deepEqual(loadDeck({storage,cookie:''}),old);
   storage.setItem('poke-arena:deck-slots',JSON.stringify({version:1,active:1,slots:[old,['exeggutor','vivero','ditto'],[],null]}));
-  assert.deepEqual(loadDeckLibrary({storage,cookie:''}).slots,[['gastly','vivero','kyogre'],['vivero','ditto'],[],null]);
+  assert.deepEqual(loadDeckLibrary({storage,cookie:''}).slots,[old,['exeggutor','vivero','ditto'],[],null]);
   const cookie='poke_arena_deck='+encodeURIComponent(JSON.stringify({cards:old,updatedAt:100}));
-  assert.deepEqual(loadDeck({storage:memory(),cookie}),['gastly','vivero','kyogre']);
+  assert.deepEqual(loadDeck({storage:memory(),cookie}),old);
 });
 test('the local cookie backup preserves edits when browser storage is unavailable',()=>{
   const blocked={getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}};let cookie='';
@@ -63,8 +64,8 @@ test('the four-slot library migrates an existing incomplete deck into slot one',
 test('four deck selections, empty slots and the active slot persist independently',()=>{
   const storage=memory(),library={version:1,active:2,slots:[chosen,[],DEFAULT_DECK.slice(0,6),null]};let cookie='';assert.ok(saveDeckLibrary(library,{storage,cookie,writeCookie:v=>cookie=v,now:100}));const loaded=loadDeckLibrary({storage,cookie});assert.equal(loaded.active,2);assert.deepEqual(loaded.slots,library.slots);loaded.slots[2].pop();saveDeckLibrary(loaded,{storage,cookie,writeCookie:v=>cookie=v,now:101});assert.deepEqual(loadDeckLibrary({storage,cookie}).slots[0],chosen);
 });
-test('slot cookies restore all four decks if browser storage fails',()=>{
-  const blocked={getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}},library={version:1,active:3,slots:[chosen,DEFAULT_DECK,[],['shuppet','gastly']]};let cookie='';saveDeckLibrary(library,{storage:blocked,cookie,writeCookie:v=>cookie=v});const loaded=loadDeckLibrary({storage:blocked,cookie});assert.equal(loaded.active,3);assert.deepEqual(loaded.slots[3],['diglett','gastly']);assert.deepEqual(loaded.slots[2],[]);
+test('slot cookies restore all four decks verbatim if browser storage fails',()=>{
+  const blocked={getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}},library={version:1,active:3,slots:[chosen,DEFAULT_DECK,[],['shuppet','gastly']]};let cookie='';saveDeckLibrary(library,{storage:blocked,cookie,writeCookie:v=>cookie=v});const loaded=loadDeckLibrary({storage:blocked,cookie});assert.equal(loaded.active,3);assert.deepEqual(loaded.slots[3],['shuppet','gastly']);assert.deepEqual(loaded.slots[2],[]);
 });
 test('a newer slot backup beats older data and corrupt libraries preserve the legacy deck',()=>{
   const storage=memory();saveDeck(chosen,{storage,cookie:'',writeCookie:()=>{}});storage.setItem('poke-arena:deck-slots','invalid');assert.deepEqual(loadDeckLibrary({storage,cookie:''}).slots[0],chosen);let cookie='';saveDeckLibrary({version:1,active:0,slots:[DEFAULT_DECK,null,null,null]},{storage,cookie,writeCookie:v=>cookie=v,now:100});saveDeckLibrary({version:1,active:1,slots:[DEFAULT_DECK,chosen,null,null]},{storage:{getItem:k=>storage.getItem(k),setItem(){throw Error('blocked');}},cookie,writeCookie:v=>cookie=v,now:200});assert.deepEqual(loadDeckLibrary({storage,cookie}).slots[1],chosen);

@@ -1,4 +1,5 @@
-import {Game,CARDS,DEFAULT_DECK,RIVER} from './engine.js?v=34';
+import {Game,CARDS,DEFAULT_DECK,RIVER} from './engine.js?v=selection-c1-1';
+import {checkSelectionCard} from './canonical-selection.js?v=1';
 
 // The sandbox uses the production combat rules. Only match lifecycle, card
 // availability and tower recovery differ; card stats are never copied or edited.
@@ -38,7 +39,8 @@ export class SandboxGame extends Game {
     }
   }
   place(team,key,x,y){
-    if(!CARDS[key]||CARDS[key].token)return{ok:false,reason:'Elegí una carta del catálogo.'};
+    const selection=checkSelectionCard(key);if(!selection.ok)return{ok:false,reason:'Elegí una carta del catálogo.'};
+    key=selection.canonicalKey;
     if(this.units.length>=120)return{ok:false,reason:'Esta columna ya tiene 120 unidades. Limpiá la prueba para seguir.'};
     const state=this.state,hand=this.hands[team],queue=this.queues[team];
     this.state='playing';this.hands[team]=[key];this.queues[team]=[key];this.energy[team]=10;

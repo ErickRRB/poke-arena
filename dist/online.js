@@ -1,4 +1,4 @@
-import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=34';
+import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=selection-c1-1';
 import { onlineServer } from './online-config.js?v=34';
 import { onlinePerf } from './perf.js?v=1';
 
@@ -92,7 +92,7 @@ export class OnlineClient {
     }
     if (packet.type === 'idle') {
       if (packet.expired) { this.token = null;save(ONLINE_TOKEN_KEY, null); }
-      save(ROOM_KEY, null);save(SEQ_KEY, null);this.roomId = null;this.suspend();this.onConnection('');this.onIdle();return;
+      save(ROOM_KEY, null);save(SEQ_KEY, null);this.roomId = null;this.suspend();this.onConnection('');this.onIdle(packet.message||'');return;
     }
     if (packet.type === 'error') {
       if (packet.code === 'session' && this.kind === 'room' && !this.lookupTried) { this.lookupTried = true;this.roomId = null;save(ROOM_KEY, null);this.mode = 'resume';this.connect('lobby');return; }

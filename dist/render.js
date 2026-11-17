@@ -1,4 +1,4 @@
-import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTarget } from './engine.js?v=34';
+import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTarget } from './engine.js?v=selection-c1-1';
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { resolvePlacementInput } from './placement-input.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
@@ -7,7 +7,7 @@ import {towerGuardianScale,guardianEmitterPoint} from './tower-guardian-art.js?v
 import {electricLore,electricUnitState,electricArc,drawElectricAura,drawElectricCharge,drawElectricTrail,drawElectricImpact} from './electric-lore.js?v=1';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
 import {combatVisual,projectileVisual,movementVisual,isRangedAttack,isIceShardAttack,attackVisualProfile,dashPreparation,petalPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
-import { spellPreviewTargets } from './spell-preview.js?v=34';
+import { spellPreviewTargets } from './spell-preview.js?v=selection-c1-1';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
 import { RoseliaBouquets } from './bouquet-motion.js?v=34';
@@ -1509,7 +1509,7 @@ export class Renderer {
     }
     for(const field of fields)if(['stealthRock','nightmare'].includes(field.key))this.field(c,field,true);
     this.drawDeployments(c,game);
-    if(game.state==='ready')for(const[key,x,y,team]of[['pikachu',217,286,1],['squirtle',393,290,1],['charmander',210,554,0],['bulbasaur',390,550,0]])this.sprite(c,{id:x,card:CARDS[key],x,y,team,anim:this.t,dx:0,dy:team?1:-1},true);
+    if(game.state==='ready')for(const[key,x,y,team]of[['pikachu',217,286,1],['snorlax',393,290,1],['typhlosion',210,554,0],['slowbro',390,550,0]])this.sprite(c,{id:x,card:CARDS[key],x,y,team,anim:this.t,dx:0,dy:team?1:-1},true);
     for(const p of game.projectiles)this.projectile(c,p);
     for(const spell of game.spells)if(spell.card.travelSpeed&&!spell.card.rolling)this.spellFlight(c,spell);
     this.drawEffects(c,dt);this.drawPlacement(c,game);

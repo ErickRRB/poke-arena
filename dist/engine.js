@@ -91,9 +91,9 @@ export function validDeck(input){
   return Array.isArray(deck)&&deck.length===8&&new Set(deck).size===8&&Array.from(deck).every(key=>typeof key==='string'&&Object.hasOwn(CARDS,key)&&!CARDS[key].token);
 }
 export const CPU_DECKS = [
-  {name:'Doble dragón',cards:['golem','charizard','zapdos','bulbasaur','diglett','vivero','whirlpool','lightning']},
+  {name:'Doble dragón',cards:['golem','charizard','zapdos','slowbro','diglett','vivero','whirlpool','lightning']},
   {name:'Gigante y apoyo',cards:['snorlax','duskull','machamp','beedrill','poochyenaPack','vivero','fireball','thunder']},
-  {name:'Control nocturno',cards:['nightmare','swampert','bulbasaur','charizard','vivero','diglett','whirlpool','log']},
+  {name:'Control nocturno',cards:['nightmare','swampert','slowbro','charizard','vivero','diglett','whirlpool','log']},
   {name:'Emboscada',cards:['sneaselAmbush','pandilla','roselia','ampharos','diglettHorde','geodude','fireball','log']},
 ];
 // PMD sheets run south, southeast, east, northeast, north, northwest, west, southwest.

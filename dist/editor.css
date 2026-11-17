@@ -2,6 +2,7 @@
 .deck-preset{position:relative;min-height:32px;height:32px;padding:3px 5px;gap:4px;line-height:1.2}
 .deck-preset:before{content:'';position:absolute;inset:-6px 0}
 .deck-preset>span{font-size:15px}.deck-preset small{font-size:9px;min-width:15px}.deck-preset svg{width:13px;height:13px}
+.pokemon-card .selection-status{position:absolute;z-index:5;top:3px;right:3px;max-width:calc(100% - 6px);padding:2px 4px;border-radius:4px;background:#56393b;color:#fff8e8;font:700 8px/1.15 'DM Sans','Segoe UI',sans-serif;text-align:center;pointer-events:none}
 .menu-panel .deck-preset{min-height:30px;height:30px}.menu-panel .deck-presets{margin-bottom:12px}
 .testing-arena-link{display:block;text-align:center;color:#65745e;font-size:11px;font-weight:700;padding:7px 4px 0;text-underline-offset:3px}
 .deck-modal{width:720px}
@@ -63,3 +64,5 @@
 .deck-strip .pokemon-card[data-rarity=legendaria]>.card-heading{top:max(18px,calc(13.125% - 3px))}
 .collection .pokemon-card[data-rarity=legendaria]>.card-role{bottom:max(10px,calc(8.75% - .5px));left:11%;right:11%;padding:0;z-index:3}
 .brand-ball{border:0;border-radius:0;background:transparent url("assets/ui/pokeball-pixel-v1.svg") center/contain no-repeat}.brand-ball:before,.brand-ball:after{display:none}.loading-base{filter:grayscale(1)}
+
+.deck-top .deck-slot.empty.selection-inactive,.menu-card.empty.historical-card{font-size:11px;line-height:1.2;overflow-wrap:anywhere;padding:3px;text-align:center}

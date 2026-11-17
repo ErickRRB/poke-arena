@@ -1,15 +1,16 @@
 import { screenToWorld } from './arena-geometry.js?v=34';
 import { resolvePlacementInput, inPlacementInputArea } from './placement-input.js?v=34';
-import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=34';
-import { Renderer } from './render.js?v=36';
-import { SoundSystem } from './audio.js?v=40';
+import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=selection-c1-1';
+import { Renderer } from './render.js?v=selection-c1-1';
+import { SoundSystem } from './audio.js?v=selection-c1-1';
 import {readAudioLevels} from './audio-preferences.js?v=1';
-import { OnlineClient, hasSavedOnlineSession } from './online.js?v=34';
+import { OnlineClient, hasSavedOnlineSession } from './online.js?v=selection-c1-1';
 import { onlinePerf } from './perf.js?v=1';
-import { unpackGame, perspective } from './snapshot.js?v=34';
-import { cardArtMarkup } from './card-art.js?v=34';
+import { unpackGame, perspective } from './snapshot.js?v=selection-c1-1';
+import { cardArtMarkup } from './card-art.js?v=selection-c1-1';
 import { cardEquivalentLabel } from './card-equivalents.js?v=34';
-import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=34';
+import { loadDeckLibrary, saveDeckLibrary } from './deck-storage.js?v=selection-c1-1';
+import { checkSelectionCard, checkSelectionDeck, resolveSelectionKey } from './canonical-selection.js?v=1';
 import { bindQuickStats } from './quick-stats.js?v=34';
 import { BattlePhaseUi } from './battle-phase-ui.js?v=34';
 import { loadUiResources } from './ui-resource-load.js?v=1';
@@ -37,18 +38,26 @@ const store = {
   get(key, fallback) { try { const v = JSON.parse(localStorage.getItem(`poke-arena:${key}`)); return v ?? fallback; } catch { return fallback; } },
   set(key, value) { try { localStorage.setItem(`poke-arena:${key}`, JSON.stringify(value)); } catch { /* Storage can be disabled in private browsing. */ } },
 };
-let deckLibrary=loadDeckLibrary(),deck=[...deckLibrary.slots[deckLibrary.active]];
+let deckLibrary=loadDeckLibrary(),deck=[...(deckLibrary.slots[deckLibrary.active]||[])];
 const storedDifficulty = store.get('difficulty', 'normal');
 let difficulty = ['easy', 'normal', 'hard'].includes(storedDifficulty) ? storedDifficulty : 'normal';
 let sound = store.get('sound', true) === true;
 let reduced = store.get('reduced', matchMedia('(prefers-reduced-motion: reduce)').matches) === true;
 let combatNumbers = store.get('combat-numbers', false) === true;
 let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true;
-let toastTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
+let toastTimer, deckNoticeTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
 const quickStats=bindQuickStats({hand:$('hand'),cards:CARDS,getCard:el=>CARDS[game?.hands[0][Number(el.dataset.card)]],isPlaying:()=>game?.state==='playing'&&!document.body.classList.contains('menu-mode'),getSelection:()=>selected});
 const sfx=new SoundSystem(sound,readAudioLevels(store.get));
 let inspectedCard=null;
 let cardActionKey=null,cardActionReference=null,replacementKey=null;
+let cardActionSlot=null,inspectedSlotIndex=null;
+const displayCard=key=>Object.hasOwn(CARDS,key)?CARDS[key]:null;
+const displayArt=key=>cardArtMarkup(key);
+const editorDeck=cards=>Array.from({length:8},(_,i)=>cards?.[i]??null);
+const cardForSavedKey=key=>{const resolved=resolveSelectionKey(key).key;return resolved&&displayCard(resolved)?resolved:null;};
+const sameSelection=(a,b)=>{const left=checkSelectionCard(a),right=checkSelectionCard(b);return left.canonicalKey&&left.canonicalKey===right.canonicalKey;};
+const hasEligibleSelection=cards=>checkSelectionDeck(cards).ok;
+const eligibleDeckKeys=cards=>hasEligibleSelection(cards)?cards.map(key=>resolveSelectionKey(key).key):null;
 
 function audioInit() {
   sfx.setEnabled(sound);sfx.unlock(true);
@@ -73,29 +82,30 @@ function toast(message) {
 }
 function live(message) { $('live-status').textContent = message; }
 
-function cardMarkup(key, index, source = 'card') {
-  const c = CARDS[key],equivalent=cardEquivalentLabel(key);
-  const collection=source!=='card',name=`<span class="card-name">${c.name}</span>`;
+function cardMarkup(key, index, source = 'card', savedKey=key) {
+  const c = displayCard(key),equivalent=cardEquivalentLabel(key);
+  const collection=source!=='card',eligible=checkSelectionCard(savedKey).ok,name=`<span class="card-name">${c.name}</span>`;
   const heading=collection?`<span class="card-heading">${name}${c.count>1?`<span class="card-quantity" aria-hidden="true"><svg><use href="#i-units"/></svg>×${c.count}</span>`:''}</span>`:name;
-  return `<button class="${source==='deck-info'?'deck-slot ':''}pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-${source}="${collection ? key : index}" aria-label="${c.name}, ${RARITIES[c.rarity]}, ${c.cost} de elixir${equivalent?`, ${equivalent}`:''}${c.count>1?`, ${c.count} unidades`:''}" ${collection?'aria-haspopup="dialog" aria-expanded="false"':'aria-pressed="false"'}><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${!collection ? `<span class="card-key">${index + 1}</span>` : ''}${cardArtMarkup(key)}${heading}${source==='deck-info'||!equivalent?'':`<span class="card-role">${equivalent}</span>`}</button>`;
+  const unavailable=(source==='collection'||source==='deck-info')&&!eligible;
+  return `<button class="${source==='deck-info'?'deck-slot ':''}pokemon-card type-${c.type}${unavailable?' selection-inactive':''}" data-rarity="${c.rarity}" data-${source}="${collection ? key : index}" ${source==='deck-info'?`data-deck-index="${index}" data-saved-key="${savedKey}"`:''} aria-label="${c.name}, ${RARITIES[c.rarity]}, ${c.cost} de elixir${equivalent?`, ${equivalent}`:''}${c.count>1?`, ${c.count} unidades`:''}${unavailable?', no disponible para mazos nuevos':''}" ${collection?'aria-haspopup="dialog" aria-expanded="false"':'aria-pressed="false"'}><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${!collection ? `<span class="card-key">${index + 1}</span>` : ''}${displayArt(key)}${heading}${source==='deck-info'||!equivalent?'':`<span class="card-role">${equivalent}</span>`}${unavailable?'<span class="selection-status" aria-hidden="true">No disponible</span>':''}</button>`;
 }
 function renderMenuDeck(){
   renderDeckSlots();
-  $('menu-deck-preview').innerHTML=Array.from({length:8},(_,i)=>{const key=deck[i],c=CARDS[key];return c?`<button class="menu-card pokemon-card type-${c.type}" data-rarity="${c.rarity}" data-menu-card="${key}" aria-label="${c.name}, ${c.cost} de elixir, ver detalles"><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${cardArtMarkup(key)}<span class="card-name">${c.name}</span></button>`:`<button class="menu-card pokemon-card empty" data-menu-empty aria-label="Elegir carta para el espacio ${i+1}">+</button>`;}).join('');
+  $('menu-deck-preview').innerHTML=Array.from({length:8},(_,i)=>{const raw=deck[i],key=cardForSavedKey(raw),c=key&&displayCard(key),eligible=c&&checkSelectionCard(raw).ok;return c?`<button class="menu-card pokemon-card type-${c.type}${eligible?'':' selection-inactive'}" data-rarity="${c.rarity}" data-menu-card="${key}" data-menu-index="${i}" aria-label="${c.name}, ${c.cost} de elixir${eligible?'':', no disponible para mazos nuevos'}, ver detalles"><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${displayArt(key)}<span class="card-name">${c.name}</span>${eligible?'':'<span class="selection-status" aria-hidden="true">No disponible</span>'}</button>`:`<button class="menu-card pokemon-card empty${raw==='blastoise'?' historical-card':''}" data-menu-empty aria-label="${raw==='blastoise'?'Blastoise, carta histórica no disponible; revisar mazo':raw?'Carta histórica no disponible; revisar mazo':'Elegir carta para el espacio '+(i+1)}">${raw==='blastoise'?'Blastoise':raw?'!':'+'}</button>`;}).join('');
   updateMenuAvailability();
 }
-function updateMenuAvailability(){ $('start-btn').disabled=$('online-btn').disabled=!ready||deck.length!==8; }
-function applyDeckChanges(){
-  deck=[...deckDraft];deckLibrary.slots[deckLibrary.active]=[...deck];saveDeck(deck);saveDeckLibrary(deckLibrary);renderMenuDeck();
+function updateMenuAvailability(){ const valid=hasEligibleSelection(deck);$('start-btn').disabled=$('online-btn').disabled=!ready||!valid; }
+function applyDeckChanges({persist=true}={}){
+  deck=editorDeck(deckDraft);deckDraft=[...deck];if(persist){deckLibrary.slots[deckLibrary.active]=[...deck];saveDeckLibrary(deckLibrary);}renderMenuDeck();
 }
 function renderDeckSlots(){
-  for(const id of['menu-deck-slots','deck-slots'])$(id).innerHTML=deckLibrary.slots.map((cards,i)=>`<button class="deck-preset" data-deck-slot="${i}" aria-pressed="${i===deckLibrary.active}" aria-label="Mazo ${i+1}, ${cards?.length??0} de 8 cartas" ${id==='deck-slots'&&!deckEditable?'disabled':''}><svg aria-hidden="true"><use href="#i-deck"/></svg><span>${i+1}</span><small>${cards?.length?`${cards.length}/8`:'+'}</small></button>`).join('');
+  for(const id of['menu-deck-slots','deck-slots'])$(id).innerHTML=deckLibrary.slots.map((cards,i)=>{const count=(cards||[]).filter(key=>key!==null&&key!==undefined&&key!=='').length,valid=Array.isArray(cards)&&hasEligibleSelection(editorDeck(cards));return`<button class="deck-preset${valid?'':' deck-preset-inactive'}" data-deck-slot="${i}" aria-pressed="${i===deckLibrary.active}" aria-label="Mazo ${i+1}, ${valid?'8 de 8 elegibles':`${count} posiciones guardadas, mazo inválido para partida nueva`}" ${id==='deck-slots'&&!deckEditable?'disabled':''}><svg aria-hidden="true"><use href="#i-deck"/></svg><span>${i+1}</span><small>${valid?'8/8':count?`${count}/8`:'+'}</small></button>`;}).join('');
 }
 for(const id of['menu-deck-slots','deck-slots'])$(id).addEventListener('click',event=>{
   if(!document.body.classList.contains('menu-mode'))return;
   const button=event.target.closest('[data-deck-slot]');if(!button||(!deckEditable&&id==='deck-slots'))return;
   closeCardActions();clearReplacement();
-  deckLibrary.active=Number(button.dataset.deckSlot);deckDraft=[...(deckLibrary.slots[deckLibrary.active]||[])];applyDeckChanges();
+  deckLibrary.active=Number(button.dataset.deckSlot);deckDraft=editorDeck(deckLibrary.slots[deckLibrary.active]);applyDeckChanges({persist:false});saveDeckLibrary(deckLibrary);
   if($('deck-dialog').open){renderCollection();if(id==='deck-slots')showDeckTop();}
   $(id).querySelector(`[data-deck-slot="${deckLibrary.active}"]`).focus({preventScroll:true});
 });
@@ -159,7 +169,7 @@ function handleEvent(e) {
   if (e.type === 'deploy' && e.team === 0) {
     if (walkthrough?.step === 2) {
       setGuideStep(3); walkthrough.start = game.elapsed;
-      game.spawn('squirtle',1,e.x < 300 ? 158 : 442,295,.75);
+      game.spawn('snorlax',1,e.x < 300 ? 158 : 442,295,.75);
     }
   }
   if (e.type === 'towerDown') {
@@ -169,18 +179,19 @@ function handleEvent(e) {
   if (e.type === 'end') showResult(e);
 }
 function newGame({ start = false, tutorial = false } = {}) {
+  if(start&&!tutorial&&!hasEligibleSelection(deck)){mainMenu();openDeck();return;}
   battlePhaseUi.reset();
   deploying=false;deploymentSerial++;
   sfx.resetMusic();
   $('result-overlay').hidden = true; $('pause-overlay').hidden = true; $('guide').hidden = true;
   walkthrough = null; selected = -1; handSignature = ''; renderer.pointer = null; renderer.selection = null; renderer.tutorialSpot = false;
   renderer.particles = [];renderer.effects=[];renderer.numbers=[];renderer.resetVisuals();
-  game = new Game({ deck: tutorial||deck.length!==8 ? DEFAULT_DECK : deck, difficulty, tutorial, onEvent: handleEvent, animations:renderer.metadata });
+  game = new Game({ deck: tutorial||!hasEligibleSelection(deck) ? DEFAULT_DECK : eligibleDeckKeys(deck), difficulty, tutorial, onEvent: handleEvent, animations:renderer.metadata });
   $('enemy-name').textContent = `${{easy:'Principiante',normal:'Entrenador',hard:'Líder de gimnasio'}[difficulty]} · CPU`;
   $('online-status').hidden=true;$('connection-loading').hidden=true;
   document.body.classList.toggle('menu-mode',!start);$('main-menu').hidden=start;
   renderMenuDeck();
-  renderer.ensureSpecies(deck.map(k=>CARDS[k]?.id).filter(Boolean)).catch(()=>{});
+  renderer.ensureSpecies([...game.hands[0],...game.queues[0]].map(k=>CARDS[k]?.id).filter(Boolean)).catch(()=>{});
   if (start) {
     audioInit(); game.start();
     if (tutorial) { game.energy = [10,6]; walkthrough = { step: 1, start: 0 }; setGuideStep(1); }
@@ -294,31 +305,33 @@ function renderCollection() {
   const focused=document.activeElement,reference=$('collection').contains(focused)||$('deck-strip').contains(focused)?focusReference(focused):null;
   renderDeckStrip();
   const term=($('collection-search')?.value||'').toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,''),rarity=$('rarity-filter')?.value||'',role=$('role-filter')?.value||'',order=$('collection-sort').value;
-  const keys=Object.keys(CARDS).filter(k=>{const c=CARDS[k],text=`${c.name} ${cardEquivalentLabel(k)} ${c.role} ${c.move}`.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');return !c.token&&(!rarity||c.rarity===rarity)&&(!role||(role==='spell'?c.spell:role==='structure'?c.structure:role==='building'?c.building:role==='summon'?c.summon||c.deathSpawn:!c.spell&&!c.structure))&&text.includes(term);});
+  const keys=Object.keys(CARDS).filter(k=>{const c=CARDS[k],text=`${c.name} ${cardEquivalentLabel(k)} ${c.role} ${c.move}`.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');return !c.token&&checkSelectionCard(k).ok&&(!rarity||c.rarity===rarity)&&(!role||(role==='spell'?c.spell:role==='structure'?c.structure:role==='building'?c.building:role==='summon'?c.summon||c.deathSpawn:!c.spell&&!c.structure))&&text.includes(term);});
   const byName=(a,b)=>CARDS[a].name.localeCompare(CARDS[b].name,'es');
   if(order==='elixir-asc')keys.sort((a,b)=>CARDS[a].cost-CARDS[b].cost||byName(a,b));
   else if(order==='elixir-desc')keys.sort((a,b)=>CARDS[b].cost-CARDS[a].cost||byName(a,b));
   else if(order==='name')keys.sort(byName);
   $('collection').innerHTML=keys.map(k=>`<div class="collection-entry">${cardMarkup(k,0,'collection')}</div>`).join('')||'<div class="collection-empty"><svg aria-hidden="true"><use href="#i-search"/></svg><p role="status">No hay cartas con esos filtros.</p><button class="secondary-btn" data-reset-filters>Ver todas las cartas</button></div>';
-  for(const el of $('collection').querySelectorAll('[data-collection]')){const c=CARDS[el.dataset.collection],equivalent=cardEquivalentLabel(el.dataset.collection),included=deckDraft.includes(el.dataset.collection);el.classList.toggle('selected',included);el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir${equivalent?`, ${equivalent}`:''}${c.count>1?`, ${c.count} unidades`:''}${included?', en mazo':''}, acciones de la carta`);}
+  for(const el of $('collection').querySelectorAll('[data-collection]')){const key=el.dataset.collection,c=CARDS[key],equivalent=cardEquivalentLabel(key),included=deckDraft.some(saved=>saved!==null&&sameSelection(saved,key)),eligible=checkSelectionCard(key).ok;el.classList.toggle('selected',included);el.classList.toggle('selection-inactive',!eligible);el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir${equivalent?`, ${equivalent}`:''}${c.count>1?`, ${c.count} unidades`:''}${included?', en mazo':''}${eligible?'':', no disponible para mazos nuevos'}, acciones de la carta`);}
   $('collection-filters-btn').classList.toggle('has-filters',!!term||!!rarity||!!role||order!=='elixir-asc');
-  $('deck-average').textContent=deckDraft.length?(deckDraft.reduce((a,k)=>a+CARDS[k].cost,0)/deckDraft.length).toFixed(1).replace('.',','):'—';
+  const priced=deckDraft.map(raw=>cardForSavedKey(raw)).filter(key=>key&&checkSelectionCard(key).ok);$('deck-average').textContent=priced.length?(priced.reduce((a,k)=>a+CARDS[k].cost,0)/priced.length).toFixed(1).replace('.',','):'—';
   $('save-deck-btn').disabled=false;
   restoreFocus(reference);
 }
 function renderDeckStrip(){
   $('deck-strip').innerHTML=Array.from({length:8},(_,i)=>{
-    const key=deckDraft[i],c=CARDS[key];
-    if(!c)return`<span class="deck-slot empty" aria-label="Espacio ${i+1} vacío">+</span>`;
-    return cardMarkup(key,i,'deck-info');
+    const savedKey=deckDraft[i],key=cardForSavedKey(savedKey),c=key&&displayCard(key);
+    if(savedKey===null||savedKey===undefined||savedKey==='')return`<span class="deck-slot empty" aria-label="Espacio ${i+1} vacío">+</span>`;
+    if(!c)return`<button class="deck-slot empty selection-inactive" data-legacy-slot="${i}" aria-label="Espacio ${i+1}, ${savedKey==='blastoise'?'Blastoise, ':''}carta histórica no disponible; quitar o reemplazar">${savedKey==='blastoise'?'Blastoise':'!'}</button>`;
+    return cardMarkup(key,i,'deck-info',savedKey);
   }).join('');
 }
-$('deck-strip').addEventListener('click',e=>{const el=e.target.closest('[data-deck-info]');if(!el)return;if(replacementKey){const index=deckDraft.indexOf(el.dataset.deckInfo);deckDraft[index]=replacementKey;clearReplacement();applyDeckChanges();renderCollection();$('deck-strip').querySelectorAll('[data-deck-info]')[index]?.focus({preventScroll:true});return;}openCardActions(el.dataset.deckInfo,el);});
-$('menu-deck-preview').addEventListener('click',e=>{if(!document.body.classList.contains('menu-mode'))return;if(e.target.closest('[data-menu-empty]')){openDeck();return;}const el=e.target.closest('[data-menu-card]');if(el){deckEditable=true;deckDraft=[...deck];renderCardInfo(el.dataset.menuCard);openModal('card-dialog');}});
+$('deck-strip').addEventListener('click',e=>{const el=e.target.closest('[data-deck-info],[data-legacy-slot]');if(!el)return;const index=Number(el.dataset.deckIndex??el.dataset.legacySlot);if(replacementKey){deckDraft[index]=replacementKey;clearReplacement();applyDeckChanges();renderCollection();$('deck-strip').querySelectorAll('[data-deck-index]')[index]?.focus({preventScroll:true});return;}const key=el.dataset.deckInfo||cardForSavedKey(deckDraft[index]);if(key)openCardActions(key,el,index);else openUnavailableSlotActions(index,el);});
+$('menu-deck-preview').addEventListener('click',e=>{if(!document.body.classList.contains('menu-mode'))return;if(e.target.closest('[data-menu-empty]')){openDeck();return;}const el=e.target.closest('[data-menu-card]');if(el){deckEditable=true;deckDraft=editorDeck(deck);renderCardInfo(el.dataset.menuCard,Number(el.dataset.menuIndex));openModal('card-dialog');}});
 function openDeck() {
   if(!document.body.classList.contains('menu-mode'))return;
-  deckEditable=true;deckDraft=[...deck];
+  deckEditable=true;deckDraft=editorDeck(deckLibrary.slots[deckLibrary.active]??deck);
   clearReplacement();renderDeckSlots();renderCollection();openModal('deck-dialog');showDeckTop();
+  if(!hasEligibleSelection(deckDraft)){const notice=$('deck-selection-notice');notice.textContent='Revisá los espacios vacíos y las cartas no disponibles.';notice.hidden=false;clearTimeout(deckNoticeTimer);deckNoticeTimer=setTimeout(()=>{notice.hidden=true;},3500);}
   requestAnimationFrame(()=>{if($('deck-slots').contains(document.activeElement))showDeckTop();});
 }
 function showDeckTop(){
@@ -335,19 +348,28 @@ function positionEditorPopover(popover,anchor){
 }
 function closeCardActions(restore=false){
   const reference=cardActionReference;if($('card-actions').matches(':popover-open'))$('card-actions').hidePopover();
-  reference?.element?.setAttribute('aria-expanded','false');cardActionKey=null;cardActionReference=null;if(restore)restoreFocus(reference);
+  reference?.element?.setAttribute('aria-expanded','false');cardActionKey=null;cardActionSlot=null;cardActionReference=null;if(restore)restoreFocus(reference);
 }
 function closeEditorPopovers(){closeCardActions();if($('collection-filters').matches(':popover-open'))$('collection-filters').hidePopover();}
-function openCardActions(key,anchor){
-  closeCardActions();cardActionKey=key;cardActionReference=focusReference(anchor);anchor.setAttribute('aria-expanded','true');
-  $('card-actions').setAttribute('aria-label',`Acciones de ${CARDS[key].name}`);$('card-action-toggle').textContent=deckDraft.includes(key)?'Quitar':'Usar';
+function openCardActions(key,anchor,slotIndex=null){
+  closeCardActions();cardActionKey=key;cardActionSlot=slotIndex;cardActionReference=focusReference(anchor);anchor.setAttribute('aria-expanded','true');
+  const selectedIndex=slotIndex??deckDraft.findIndex(saved=>saved!==null&&sameSelection(saved,key)),eligible=checkSelectionCard(key).ok;
+  $('card-actions').setAttribute('aria-label',`Acciones de ${displayCard(key).name}`);$('card-action-info').disabled=false;$('card-action-toggle').textContent=selectedIndex>=0?'Quitar':eligible?'Usar':'No disponible';$('card-action-toggle').disabled=selectedIndex<0&&!eligible;
   $('card-actions').showPopover({source:anchor});positionEditorPopover($('card-actions'),anchor);$('card-action-info').focus({preventScroll:true});
 }
+function openUnavailableSlotActions(index,anchor){
+  closeCardActions();cardActionKey=null;cardActionSlot=index;cardActionReference=focusReference(anchor);anchor.setAttribute('aria-expanded','true');
+  $('card-actions').setAttribute('aria-label',`Carta histórica no disponible, espacio ${index+1}`);$('card-action-info').disabled=true;$('card-action-toggle').textContent='Quitar';$('card-action-toggle').disabled=false;
+  $('card-actions').showPopover({source:anchor});positionEditorPopover($('card-actions'),anchor);$('card-action-toggle').focus({preventScroll:true});
+}
 $('card-actions').addEventListener('toggle',event=>{if(event.newState==='closed')cardActionReference?.element?.setAttribute('aria-expanded','false');});
-$('card-action-info').addEventListener('click',()=>{const key=cardActionKey;if(!key)return;closeCardActions(true);renderCardInfo(key);openModal('card-dialog');});
+$('card-action-info').addEventListener('click',()=>{const key=cardActionKey,slotIndex=cardActionSlot;if(!key)return;closeCardActions(true);renderCardInfo(key,slotIndex);openModal('card-dialog');});
 $('card-action-toggle').addEventListener('click',()=>{
-  const key=cardActionKey;if(!key)return;closeCardActions();
-  if(deckDraft.includes(key)||deckDraft.length<8){toggleDeckCard(key);return;}
+  const key=cardActionKey,slotIndex=cardActionSlot;
+  if(slotIndex!==null){closeCardActions();toggleDeckCard(key,slotIndex);return;}
+  if(!key)return;closeCardActions();
+  if(toggleDeckCard(key))return;
+  if(!checkSelectionCard(key).ok)return;
   replacementKey=key;$('deck-dialog').classList.add('replacing-card');$('deck-replace-hint').hidden=false;$('deck-scroll').scrollTop=0;$('deck-strip').querySelector('button')?.focus({preventScroll:true});
 });
 $('cancel-replace-btn').addEventListener('click',clearReplacement);
@@ -357,18 +379,20 @@ $('deck-scroll').addEventListener('scroll',()=>{
   if(a.bottom<=pane.top||a.top>=pane.bottom){closeCardActions();return;}
   cardActionReference.deckScroll=$('deck-scroll').scrollTop;positionEditorPopover($('card-actions'),anchor);
 },{passive:true});
-function toggleDeckCard(key){
-  if(!deckEditable||!document.body.classList.contains('menu-mode'))return;
-  if(deckDraft.includes(key))deckDraft=deckDraft.filter(k=>k!==key);
-  else if(deckDraft.length<8)deckDraft.push(key);
-  else return;
-  applyDeckChanges();renderCollection();
+function toggleDeckCard(key,slotIndex=null){
+  if(!deckEditable||!document.body.classList.contains('menu-mode'))return false;
+  if(slotIndex!==null){if(slotIndex<0||slotIndex>=8||deckDraft[slotIndex]===null)return false;deckDraft[slotIndex]=null;applyDeckChanges();renderCollection();return true;}
+  if(!checkSelectionCard(key).ok)return false;
+  const existing=deckDraft.findIndex(saved=>saved!==null&&sameSelection(saved,key));
+  if(existing>=0)deckDraft[existing]=null;
+  else {const empty=deckDraft.findIndex(saved=>saved===null||saved===undefined||saved==='');if(empty<0)return false;deckDraft[empty]=key;}
+  applyDeckChanges();renderDeckSlots();renderCollection();return true;
 }
-function renderCardInfo(key){
-  const c=CARDS[key];inspectedCard=key;
+function renderCardInfo(key,slotIndex=null){
+  const c=displayCard(key);inspectedCard=key;inspectedSlotIndex=slotIndex;
   audioInit();
   $('card-info-name').textContent=c.name;$('card-info-type').textContent=`${c.label} · ${RARITIES[c.rarity]}`;$('card-info-role').textContent=cardEquivalentLabel(key)||c.move||c.name;$('card-info-cost').textContent=c.cost;
-  $('card-info-art').innerHTML=cardArtMarkup(key);$('card-dialog').dataset.rarity=c.rarity;
+  $('card-info-art').innerHTML=displayArt(key);$('card-dialog').dataset.rarity=c.rarity;
   $('card-info-art').style.setProperty('--card-tint',c.color);
   $('card-info-move').textContent=c.move||c.name;$('card-info-description').textContent=c.description;
   const number=value=>Number(value).toLocaleString('es-AR',{maximumFractionDigits:1});
@@ -439,14 +463,14 @@ function renderCardInfo(key){
   $('card-extra-stats').innerHTML=statMarkup(extraStats);
   $('card-more-stats').hidden=!extraStats.length;
   if($('card-dialog').open===false)$('card-more-stats').open=false;
-  const included=deckDraft.includes(key);$('card-info-toggle').textContent=included?'Quitar del mazo':'Agregar al mazo';
-  $('card-info-toggle').disabled=!deckEditable||(!included&&deckDraft.length===8);
+  const included=slotIndex!==null||deckDraft.some(saved=>saved!==null&&sameSelection(saved,key)),eligible=checkSelectionCard(key).ok;$('card-info-toggle').textContent=included?'Quitar del mazo':eligible?'Usar':'No disponible';
+  $('card-info-toggle').disabled=!deckEditable||(!included&&!eligible);
 }
 $('collection').addEventListener('click',e=>{
   if(e.target.closest('[data-reset-filters]')){resetCollectionFilters();return;}
   const el=e.target.closest('[data-collection]');if(el)openCardActions(el.dataset.collection,el);
 });
-$('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){toggleDeckCard(inspectedCard);closeModal($('card-dialog'),false);}});
+$('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){const changed=toggleDeckCard(inspectedCard,inspectedSlotIndex);if(!changed&&checkSelectionCard(inspectedCard).ok){closeModal($('card-dialog'),false);if(!$('deck-dialog').open)openDeck();replacementKey=inspectedCard;$('deck-dialog').classList.add('replacing-card');$('deck-replace-hint').hidden=false;}else if(changed)closeModal($('card-dialog'),false);}});
 $('save-deck-btn').addEventListener('click',()=>closeModal($('deck-dialog')));
 
 $('hand').addEventListener('click',e=>{const el=e.target.closest('[data-card]');if(el&&!quickStats.isHoldClick(e)&&performance.now()>ignoreClickUntil)choose(Number(el.dataset.card));});
@@ -561,10 +585,10 @@ function createOnlineClient(){
   }});
 }
 async function beginOnline(){
-  if(deck.length!==8||onlineMode&&game.state!=='ended')return;
+  if(!hasEligibleSelection(deck)||onlineMode&&game.state!=='ended')return;
   await closingOnline;await online?.close();onlineMode=false;newGame();audioInit();showSearch();$('search-status').textContent='Buscando rival…';$('search-time').textContent='0:00';
   online=createOnlineClient();
-  try{await online.start($('trainer-name').value||'Entrenador',deck);}catch(error){$('search-status').textContent=error.message;}
+  try{await online.start($('trainer-name').value||'Entrenador',eligibleDeckKeys(deck));}catch(error){$('search-status').textContent=error.message;}
 }
 updateSound();setReduced(reduced);setCombatNumbers(combatNumbers);newGame();syncPortrait();
 let previous=performance.now(),accumulator=0;
@@ -596,7 +620,7 @@ try{
   if(hasSavedOnlineSession()){
     $('ready-overlay').inert=true;online=createOnlineClient();online.resume().catch(()=>{});
   }
-  await loadUiResources(progress=>renderer.load(deck.length===8?deck:DEFAULT_DECK,progress),(loaded,total)=>{const progress=loaded/total,indicator=$('menu-load-progress');indicator.setAttribute('aria-valuenow',String(Math.floor(progress*100)));$('menu-load-fill').setAttribute('y',String(64*(1-progress)));$('menu-load-fill').setAttribute('height',String(64*progress));});
+  await loadUiResources(progress=>renderer.load(eligibleDeckKeys(deck)||DEFAULT_DECK,progress),(loaded,total)=>{const progress=loaded/total,indicator=$('menu-load-progress');indicator.setAttribute('aria-valuenow',String(Math.floor(progress*100)));$('menu-load-fill').setAttribute('y',String(64*(1-progress)));$('menu-load-fill').setAttribute('height',String(64*progress));});
   ready=true;$('loading').hidden=true;$('ready-overlay').setAttribute('aria-busy','false');$('practice-btn').disabled=false;updateMenuAvailability();
   if(onlineMode){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
   else if(online?.active&&online.mode==='search')showSearch();
