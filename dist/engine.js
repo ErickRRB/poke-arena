@@ -1,3 +1,4 @@
+import {HOG_ARCANINE,C1_RULESET,C4_RULESET} from './hog-profiles.js?v=1';
 import { EXTRA_CARDS } from './catalog.js?v=34';
 import { currentCardKey, currentDeck } from './card-key-migrations.js?v=34';
 export { currentCardKey, currentDeck } from './card-key-migrations.js?v=34';
@@ -18,6 +19,14 @@ export const attackReach=(actor,target,range=actor.card?.range??actor.range??0)=
 export const sightReach=(actor,target)=>attackReach(actor,target,actor.card?.sightRange??165);
 const attackRate=actor=>actor.freeze>0?0:actor.slow>0?actor.slowAttackFactor??.7:1;
 const charged=actor=>!!(actor.card?.charge&&(actor.card.chargeDistance?(actor.chargeTravel||0)>=actor.card.chargeDistance:actor.charge>=actor.card.charge));
+// Profiles are JSON-shaped data. Compare only cloned profiles, without caching
+// mutable objects or serializing an entire event on every emission.
+const sameCardProfile=(a,b)=>{
+  if(a===b)return true;
+  if(!a||!b||typeof a!=='object'||typeof b!=='object'||Array.isArray(a)!==Array.isArray(b))return false;
+  const keys=Object.keys(a);if(keys.length!==Object.keys(b).length)return false;
+  return keys.every(key=>Object.hasOwn(b,key)&&sameCardProfile(a[key],b[key]));
+};
 export function spellOverlapsTarget(card,point,target){
   const radius=card.splash??card.radius??0;
   // Crown towers receive spells on their two-cell square footprint. Other
@@ -117,7 +126,9 @@ const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 
 export class Game {
-  constructor({ deck = DEFAULT_DECK, cpuDeck, difficulty = 'normal', seed = Date.now(), onEvent = () => {}, tutorial = false, animations = {} } = {}) {
+  constructor({ deck = DEFAULT_DECK, cpuDeck, difficulty = 'normal', seed = Date.now(), onEvent = () => {}, tutorial = false, animations = {}, catalogVersion=1, ruleset=C1_RULESET } = {}) {
+    if(!((catalogVersion===1&&ruleset===C1_RULESET)||(catalogVersion===4&&ruleset===C4_RULESET)))throw Error('Perfil de partida incompatible.');
+    this.catalogVersion=catalogVersion;this.ruleset=ruleset;
     deck=currentDeck(deck);cpuDeck=currentDeck(cpuDeck);
     if (!validDeck(deck)) throw new Error('El mazo necesita ocho cartas diferentes.');
     this.boardVersion=BOARD_VERSION;
@@ -169,7 +180,14 @@ export class Game {
     this.seed = n >>> 0;
     return this.seed / 4294967296;
   }
-  emit(type, data = {}) { this.onEvent({ type, ...data }); }
+  emit(type, data = {}, sourceProfileCard) {
+    if(this.ruleset===C1_RULESET){this.onEvent({type,...data});return;}
+    // Preserve the producing profile for consumers even if the source disappears.
+    const key=data.sourceKey??data.key, actor=data.attacker??(data.sourceId==null?undefined:this.units?.find(u=>u.id===data.sourceId));
+    const card=sourceProfileCard??data.sourceCard??actor?.card??(key?this.cardFor(key):null);
+    const sourceCard=card&&key&&!sameCardProfile(card,CARDS[key])?card:undefined;
+    this.onEvent({ type, ...data, ...(sourceCard?{sourceCard}: {}) });
+  }
   start() { if (this.state === 'ready') { this.state = 'playing'; this.emit('start'); } }
   pause() { if (this.state === 'playing') { this.state = 'paused'; return true; } return false; }
   resume() { if (this.state === 'paused') this.state = 'playing'; }
@@ -178,8 +196,11 @@ export class Game {
     if (this.towers.some(t => t.team !== team && t.king && t.hp <= 0)) return 3;
     return this.towers.filter(t => t.team !== team && !t.king && t.hp <= 0).length;
   }
+  cardFor(key){if(this.catalogVersion===4&&this.ruleset===C4_RULESET&&key==='arcanine')return HOG_ARCANINE;return Object.hasOwn(this.legacyCardOverrides||{},key)?this.legacyCardOverrides[key]:Object.hasOwn(CARDS,key)?CARDS[key]:undefined;}
+  sourceProfile(card,key){return this.ruleset!==C1_RULESET&&card&&key&&!sameCardProfile(card,CARDS[key])?card:undefined;}
+  projectileSource(p){return p.sourceCard??(p.sourceProfile==='c4-1:cards-c1-733'?CARDS[p.sourceKey]:undefined);}
   canDeploy(team,key,x,y){
-    const card=CARDS[key];if(!card||!inArena(x,y))return false;
+    const card=this.cardFor(key);if(!card||!inArena(x,y))return false;
     if(card.spell&&!card.rolling)return !card.spellAsDeploy||!(arenaBits(x,y)&32);
     if(arenaBits(x,y)&32)return false;
     if(arenaBits(x,y)&16)return false;
@@ -197,7 +218,7 @@ export class Game {
     });
   }
   resolveDeployment(team,key,x,y,reserved){
-    const card=CARDS[key];if(!card||!inArena(x,y))return null;
+    const card=this.cardFor(key);if(!card||!inArena(x,y))return null;
     const nearest=snapToCell(team,x,y),available=p=>!reserved?.has(p.x+','+p.y)&&this.canDeploy(team,key,p.x,p.y);
     if(card.spell&&!card.rolling){
       if(!available(nearest))return null;
@@ -215,17 +236,17 @@ export class Game {
     return candidates[0]||null;
   }
   deploymentPositions(team,key,x,y){
-    const card=CARDS[key];
+    const card=this.cardFor(key);
     const anchor=this.resolveDeployment(team,key,x,y);if(!anchor)return[];
     if((card.count||1)===1)return[anchor];
     return formationOffsets(card,team,anchor.x).map((offset,index)=>{
-      const member=CARDS[card.squad?.[index]]||card;
+      const member=this.cardFor(card.squad?.[index])||card;
       const px=clamp(anchor.x+offset.x,ARENA.left+1,ARENA.right-1),py=clamp(anchor.y+offset.y,ARENA.top+1,ARENA.bottom-1),lane=laneAt(px,team);
       return this.constrainMovement({id:this.nextId+index,team,card:member,radius:member.radius||12,x:px,y:py,lane},px,py);
     });
   }
   deploymentThreats(team,key,x,y,placed=false){
-    const card=CARDS[key],point=placed?{x,y}:this.resolveDeployment(team,key,x,y);
+    const card=this.cardFor(key),point=placed?{x,y}:this.resolveDeployment(team,key,x,y);
     if(!point||card.spell)return[];
     const positions=placed?formationOffsets(card,team,point.x).map(offset=>({x:point.x+offset.x,y:point.y+offset.y})):this.deploymentPositions(team,key,point.x,point.y);
     const previews=positions.map(p=>({...p,team,card,hp:card.hp,radius:card.radius||12,spawn:0}));
@@ -237,7 +258,7 @@ export class Game {
   deploy(team, handIndex, x, y) {
     if (this.state !== 'playing'||this.tiebreaker) return { ok: false, reason: this.tiebreaker?'Desempate en curso.':'La partida no está en marcha.' };
     const key = this.hands[team]?.[handIndex];
-    const card = CARDS[key];
+    const card = this.cardFor(key);
     if (!card) return { ok: false, reason: 'Elegí una carta.' };
     if (this.energy[team] + .00001 < card.cost) return { ok: false, reason: `Necesitás ${card.cost} de energía.` };
     const placement=this.resolveDeployment(team,key,x,y);
@@ -264,7 +285,7 @@ export class Game {
   }
   spawn(key, team, x, y, delay = .75, spawnGroup = null, spawnCause = 'generated') {
     key=currentCardKey(key);
-    const card = CARDS[key];
+    const card = this.cardFor(key);
     const u = { id: this.nextId++, key, card, team, x, y, hp: card.hp, maxHp: card.hp, radius: card.radius || 12, lane: laneAt(x,team), cooldown: 0, spawn: delay, stun: 0, slow: 0, hit: 0, attack: 0, attackDuration: 0, attackSeq: 0, anim: this.random() * 2, dx: 0, dy: team ? 1 : -1, moving: false, target: null, engaged:false,charge: 0, blinkCooldown: 0, stepClock: .2, burn: null, lifetime: card.lifetime || 0 };
     u.createdAt=this.elapsed;
     u.spawnCause=spawnCause;
@@ -279,7 +300,7 @@ export class Game {
     if(card.spawnWith){const baby=this.spawn(card.spawnWith,team,clamp(x+24,ARENA.left+1,ARENA.right-1),y+12,delay,u.spawnGroup,'companion');baby.parentId=u.id;}
     return u;
   }
-  damage(target, amount, team, { stun = 0, freeze = 0, slow = 0, slowFactor = .7, slowAttackFactor = .7, burn = 0, burnKind = 'fire', dot = false, sourceId = 0, sourceKey = '', reflected = false, poisonField = 0, affectsHidden = false } = {}) {
+  damage(target, amount, team, { stun = 0, freeze = 0, slow = 0, slowFactor = .7, slowAttackFactor = .7, burn = 0, burnKind = 'fire', dot = false, sourceId = 0, sourceKey = '', sourceCard, sourceProfile, sourceProfileCard, reflected = false, poisonField = 0, affectsHidden = false } = {}) {
     if (target.hp <= 0 || this.state !== 'playing'||target.burrowed&&!affectsHidden||target.dash?.phase==='travel'&&target.card?.dashInvulnerable) return;
     amount*=1-(target.card?.armor||0);const shielded=target.shield>0,absorbed=Math.min(target.shield||0,amount);target.shield=Math.max(0,(target.shield||0)-absorbed);amount=shielded?0:amount;
     const actual = Math.min(target.hp, amount)+absorbed;
@@ -295,9 +316,9 @@ export class Game {
       // A canceled first strike can restart after the stun, without waiting an unused attack cycle.
       target.cooldown=interrupted?stun:Math.max(target.cooldown,stun);
     }
-    if (burn > 0) target.burn = { remaining: 3, tick: .5, damage: burn, team, kind: burnKind,sourceId,sourceKey };
+    if (burn > 0) target.burn = { remaining: 3, tick: .5, damage: burn, team, kind: burnKind,sourceId,sourceKey,...(sourceCard?{sourceCard}:{}),...(sourceProfile?{sourceProfile}:{}) };
     this.stats[team].damage += actual;
-    if(actual>0)this.emit('damage', { target, amount: actual, dot,sourceId,sourceKey });
+    if(actual>0)this.emit('damage', { target, amount: actual, dot,sourceId,sourceKey,...(sourceCard?{sourceCard}:{}) },sourceProfileCard??(sourceProfile==='c4-1:cards-c1-733'?CARDS[sourceKey]:undefined));
     if(target.card?.structure)target.lifetime=target.card.lifetime*target.hp/target.maxHp;
     if(poisonField&&!dot)this.addField(target.x,target.y,team,poisonField,sourceId);
     if(target.card?.reflect&&sourceId&&!reflected&&!dot&&actual>0){const attacker=this.units.find(u=>u.id===sourceId)||this.towers.find(t=>t.id===sourceId);if(attacker?.hp>0){this.emit('counter',{unit:target,from:aimPoint(target),to:aimPoint(attacker)});this.damage(attacker,actual*target.card.reflect,target.team,{reflected:true,sourceId:target.id,sourceKey:target.key});}}
@@ -351,7 +372,7 @@ export class Game {
     return children;
   }
   nativeEmissionPoint(owner,key){
-    const d=owner.radius+(CARDS[key].radius||12),point={x:owner.x,y:owner.y+(owner.team?1:-1)*d},r=CARDS[key].radius||12;
+    const d=owner.radius+(this.cardFor(key).radius||12),point={x:owner.x,y:owner.y+(owner.team?1:-1)*d},r=this.cardFor(key).radius||12;
     if([[-r,0],[r,0],[0,-r],[0,r]].some(([x,y])=>arenaBits(point.x+x,point.y+y)&32))return{x:owner.x+(owner.x<W/2?-d:d),y:owner.y};
     return point;
   }
@@ -382,7 +403,7 @@ export class Game {
     unit.x=slide.startX+(slide.endX-slide.startX)*progress;unit.y=slide.startY+(slide.endY-slide.startY)*progress;
     unit.moving=true;if(t>=1)unit.deathSlide=null;
   }
-  reinforcementPoint(key,x,y,reserved=[],resolveCard=key=>CARDS[key]){
+  reinforcementPoint(key,x,y,reserved=[],resolveCard=key=>this.cardFor(key)){
     const card=resolveCard(key),radius=card.radius||12,candidates=[];
     for(let row=-3;row<=3;row++)for(let col=-3;col<=3;col++){
       const p={x:clamp(x+col*18,ARENA.left+1,ARENA.right-1),y:clamp(y+row*18,ARENA.top+1,ARENA.bottom-1)};
@@ -393,7 +414,7 @@ export class Game {
     }
     candidates.sort((a,b)=>distance(a,{x,y})-distance(b,{x,y}));return candidates[0]||null;
   }
-  summonSpellPositions(spell,resolveCard=key=>CARDS[key]){
+  summonSpellPositions(spell,resolveCard=key=>this.cardFor(key)){
     const card=spell.card,points=[],available=Math.max(0,160-this.units.filter(u=>u.hp>0).length);
     for(let i=0;i<card.spawnTotal&&points.length<available;i++){
       const angle=-Math.PI/2+i*2*Math.PI/card.spawnTotal+(spell.team?Math.PI:0),radius=card.spawnRadius;
@@ -402,7 +423,7 @@ export class Game {
     }
     return points;
   }
-  summonSpell(spell,resolveCard=key=>CARDS[key]){
+  summonSpell(spell,resolveCard=key=>this.cardFor(key)){
     const card=spell.card,delay=card.spawnDeployTime??.4,group={id:this.nextId,x:spell.x,y:spell.y,duration:delay,spawnCause:'spell'};
     for(const point of this.summonSpellPositions(spell,resolveCard))this.spawn(card.spawnKey,spell.team,point.x,point.y,delay,group,'spell');
   }
@@ -780,8 +801,9 @@ export class Game {
   }
   landElectricShot(shot,target,point){
     const actor={id:shot.sourceId,key:shot.sourceKey,team:shot.team,card:shot.card,attackSeq:shot.attackSeq},valid=this.validTarget(actor,target),to=valid?aimPoint(target):{x:point.x,y:point.y+(shot.endLiftY??-15)};
-    if(valid)this.damage(target,shot.damage,shot.team,{...shot.card,sourceId:shot.sourceId,sourceKey:shot.sourceKey});
-    this.emit('beam',{from:{x:shot.startX+shot.liftX,y:shot.startY+shot.liftY},to,style:'lightning',key:shot.key,team:shot.team,sourceId:shot.sourceId,attackSeq:shot.attackSeq,attackId:shot.id,chainFromId:shot.chainFromId,targetId:shot.chainTargetId,hop:shot.hop,shot:0,missed:!valid});
+    const sourceCard=this.sourceProfile(shot.card,shot.sourceKey);
+    if(valid)this.damage(target,shot.damage,shot.team,{...shot.card,sourceId:shot.sourceId,sourceKey:shot.sourceKey,sourceProfileCard:shot.card,...(sourceCard?{sourceCard}:this.ruleset===C4_RULESET?{sourceProfile:'c4-1:cards-c1-733'}:{})});
+    this.emit('beam',{from:{x:shot.startX+shot.liftX,y:shot.startY+shot.liftY},to,style:'lightning',key:shot.key,team:shot.team,sourceId:shot.sourceId,attackSeq:shot.attackSeq,attackId:shot.id,chainFromId:shot.chainFromId,targetId:shot.chainTargetId,hop:shot.hop,shot:0,missed:!valid,...(sourceCard?{sourceCard}:{})},shot.card);
     shot.life=0;
     if(shot.hop>=shot.card.chain)return;
     const next=[...this.units,...this.towers].filter(t=>this.validTarget(actor,t)&&!shot.hitIds.includes(t.id)&&distance(point,t)<=(shot.card.chainRange||78)+(t.radius||0)).sort((a,b)=>distance(point,a)-distance(point,b))[0];
@@ -815,11 +837,12 @@ export class Game {
     const poseDuration=Math.max(a.attackDuration||profile.attackDuration||.75,contactAt+1e-7);
     const from=this.muzzle({...a,attackDuration:poseDuration,attack:poseDuration-contactAt},shot),to=aimPoint(target),amount=charged?(card?.chargeDamage??card.damage*2):(card?.damage??a.damage);
     this.emit('attackRelease',{attacker:a,target,key:a.key||a.guard.id,style,from,to,shot,charged});
+    const retained=()=>{if(this.ruleset===C1_RULESET||!card||!a.key)return{};const sourceCard=this.sourceProfile(card,a.key);return sourceCard?{sourceCard:structuredClone(sourceCard)}:this.ruleset===C4_RULESET?{sourceProfile:'c4-1:cards-c1-733'}:{};};
     if(card?.rollingShot){
-      this.projectiles.push({id:a.id+':'+job.seq+':'+shot,key:a.key,sourceId:a.id,sourceKey:a.key,target,team:a.team,x:a.x,y:a.y,startX:a.x,startY:a.y,dx:a.dx,dy:a.dy,totalDistance:card.projectileRange,travelled:0,speed:card.projectileSpeed,damage:amount,style:'rock',rolling:true,shotRadius:card.shotRadius,knockback:card.knockback,hitIds:[],life:card.projectileRange/card.projectileSpeed+1});
+      this.projectiles.push({id:a.id+':'+job.seq+':'+shot,key:a.key,sourceId:a.id,sourceKey:a.key,...retained(),target,team:a.team,x:a.x,y:a.y,startX:a.x,startY:a.y,dx:a.dx,dy:a.dy,totalDistance:card.projectileRange,travelled:0,speed:card.projectileSpeed,damage:amount,style:'rock',rolling:true,shotRadius:card.shotRadius,knockback:card.knockback,hitIds:[],life:card.projectileRange/card.projectileSpeed+1});
     }else if(card?.pierce){
       const motion=projectileProfile(card);
-      this.projectiles.push({id:a.id+':'+job.seq+':'+shot,key:a.key,sourceId:a.id,sourceKey:a.key,target,team:a.team,x:a.x,y:a.y,startX:a.x,startY:a.y,liftX:from.x-a.x,liftY:from.y-a.y,dx:a.dx,dy:a.dy,totalDistance:card.projectileRange||card.range+10,travelled:0,speed:motion.speed,damage:amount,style,linear:true,air:!!card.air,shotRadius:card.shotRadius??17,hitIds:[],life:(card.projectileRange||card.range+10)/motion.speed+1,stun:card.stun||0,slow:card.slow||0,burn:card.burn||0});
+      this.projectiles.push({id:a.id+':'+job.seq+':'+shot,key:a.key,sourceId:a.id,sourceKey:a.key,...retained(),target,team:a.team,x:a.x,y:a.y,startX:a.x,startY:a.y,liftX:from.x-a.x,liftY:from.y-a.y,dx:a.dx,dy:a.dy,totalDistance:card.projectileRange||card.range+10,travelled:0,speed:motion.speed,damage:amount,style,linear:true,air:!!card.air,shotRadius:card.shotRadius??17,hitIds:[],life:(card.projectileRange||card.range+10)/motion.speed+1,stun:card.stun||0,slow:card.slow||0,burn:card.burn||0});
     }else if(card?.bolts){
       const second=[...this.units,...this.towers].filter(t=>t!==target&&this.validTarget(a,t)&&distance(a,t)<=attackReach(a,t)).sort((x,y)=>distance(a,x)-distance(a,y))[0];
       const targets=second?[target,second]:[target];
@@ -842,7 +865,7 @@ export class Game {
     } else if(style==='flame') {
       const angle=Math.atan2(a.dy,a.dx);
       const speed=card.flameSpeed||300,length=card.range+Math.max(22,target.radius);
-      this.projectiles.push({id:a.id+':'+job.seq+':'+shot,key:a.key,sourceKey:a.key,sourceId:a.id,team:a.team,style,flameCone:true,
+      this.projectiles.push({id:a.id+':'+job.seq+':'+shot,key:a.key,sourceKey:a.key,sourceId:a.id,...retained(),team:a.team,style,flameCone:true,
         x:a.x,y:a.y,startX:a.x,startY:a.y,groundX:a.x,groundY:a.y,angle,cone:card.cone,air:!!card.air,
         totalDistance:length,travelled:0,speed,damage:amount,hitIds:[],life:length/speed+.05});
       this.emit('flame',{key:a.key,from,to,groundFrom:{x:a.x,y:a.y},groundTo:{x:target.x,y:target.y},team:a.team,length,speed,cone:card.cone,angle,sourceId:a.id,targetId:target.id,shot});
@@ -853,7 +876,7 @@ export class Game {
       this.emit('hit',{x:to.x,y:to.y,groundX:target.x,groundY:target.y,impactHeight:target.y-to.y,radius:card.splash||0,structuresOnly:!!card.building,groundOnly:!card.air,key:a.key,style,team:a.team,targetId:target.id,sourceId:a.id,attackSeq:job.seq});
     } else {
       const motion=projectileProfile(profile),offset=profile.projectileStart||0,x=a.x+a.dx*offset,y=a.y+a.dy*offset,totalDistance=distance({x,y},target);
-      this.projectiles.push({ id:a.id+':'+job.seq+':'+shot,x,y,startX:x,startY:y,groundPath:true,liftX:from.x-x,liftY:from.y-y,endLiftY:to.y-target.y,totalDistance,travelled:0,target,impactPoint:card?.projectileHoming===false?{x:target.x,y:target.y}:null,team:a.team,sourceId:a.id,sourceKey:a.key||'tower',damage:amount,speed:motion.speed,key:a.key||'tower',style,art:card?.projectileArt,splash:card?.splash||0,stun:card?.stun||0,slow:card?.slow||0,slowFactor:card?.slowFactor,slowAttackFactor:card?.slowAttackFactor,burn:card?.burn||0,burnKind:card?.burnKind||'fire',poisonField:card?.poisonField||0,air:!card||!!card.air,life:Math.max(3,totalDistance/motion.speed+1),arc:motion.arc,trace:[] });
+      this.projectiles.push({ id:a.id+':'+job.seq+':'+shot,x,y,startX:x,startY:y,groundPath:true,liftX:from.x-x,liftY:from.y-y,endLiftY:to.y-target.y,totalDistance,travelled:0,target,impactPoint:card?.projectileHoming===false?{x:target.x,y:target.y}:null,team:a.team,sourceId:a.id,sourceKey:a.key||'tower',...retained(),damage:amount,speed:motion.speed,key:a.key||'tower',style,art:card?.projectileArt,splash:card?.splash||0,stun:card?.stun||0,slow:card?.slow||0,slowFactor:card?.slowFactor,slowAttackFactor:card?.slowAttackFactor,burn:card?.burn||0,burnKind:card?.burnKind||'fire',poisonField:card?.poisonField||0,air:!card||!!card.air,life:Math.max(3,totalDistance/motion.speed+1),arc:motion.arc,trace:[] });
     }
     if(card?.suicide)this.retireUnit(a);
   }
@@ -865,7 +888,7 @@ export class Game {
     this.aiClock = (1.3 + this.random() * 1.5) / level;
     const hand = this.hands[1];
     const threats = this.units.filter(u => u.team === 0 && u.hp > 0 && !u.burrowed && u.y < 380);
-    const affordable = hand.map((key, i) => ({ key, i, card: CARDS[key] })).filter(c => c.card.cost <= this.energy[1]);
+    const affordable = hand.map((key, i) => ({ key, i, card: this.cardFor(key) })).filter(c => c.card.cost <= this.energy[1]);
     if (!affordable.length) return;
     // A currently eligible tower finish takes precedence over saving energy or cycling.
     for(const choice of affordable.filter(c=>c.card.spell&&!c.card.rolling&&!c.card.spawnKey&&c.card.towerDamage>0)){
@@ -901,7 +924,7 @@ export class Game {
       const canDefend=(c,t)=>!c.card.spell&&!c.card.building&&(!t.card.flying||c.card.air);
       const target=threats.find(t=>available.some(c=>canDefend(c,t)))||threats[0];
       const defenders=available.filter(c=>canDefend(c,target));
-      if(!defenders.length&&target.card.flying&&hand.some(key=>!CARDS[key].spell&&!CARDS[key].building&&CARDS[key].air))return;
+      if(!defenders.length&&target.card.flying&&hand.some(key=>!this.cardFor(key).spell&&!this.cardFor(key).building&&this.cardFor(key).air))return;
       threats.splice(threats.indexOf(target),1);threats.unshift(target);
       if(defenders.length)choice=defenders.find(c=>target.card.building&&c.card.structure)||defenders.find(c=>!c.card.structure)||defenders[0];
     }else if(push){
@@ -964,7 +987,7 @@ export class Game {
     // Only direct card formations and their declared companions have a known
     // shared purchase price. Divide by the original formation, not survivors.
     const purchase=u=>{
-      const source=CARDS[u.spawnGroup?.cardKey];
+      const source=this.cardFor(u.spawnGroup?.cardKey);
       if(!source||!['card','companion'].includes(u.spawnCause))return 0;
       const members=formationOffsets(source,u.team,u.spawnGroup.x).length*(source.spawnWith?2:1);
       return (source.cost||0)/Math.max(1,members);
@@ -1042,7 +1065,7 @@ export class Game {
     entity.slow=Math.max(0,(entity.slow||0)-dt);entity.attack=Math.max(0,(entity.attack||0)-dt*rate);
     if(entity.burn&&entity.hp>0){
       const burn=entity.burn;burn.remaining-=dt;burn.tick-=dt;
-      if(burn.tick<=1e-7){burn.tick+=.5;this.damage(entity,burn.damage*.5,burn.team,{dot:true,sourceId:burn.sourceId||0,sourceKey:burn.sourceKey||''});}
+      if(burn.tick<=1e-7){burn.tick+=.5;this.damage(entity,burn.damage*.5,burn.team,{dot:true,sourceId:burn.sourceId||0,sourceKey:burn.sourceKey||'',...(burn.sourceCard?{sourceCard:burn.sourceCard}:{}),...(burn.sourceProfile?{sourceProfile:burn.sourceProfile}:{})});}
       if(burn.remaining<=0)entity.burn=null;
     }
   }
@@ -1221,8 +1244,8 @@ export class Game {
           const dx=target.x-p.groundX,dy=target.y-p.groundY,delta=Math.atan2(dy,dx)-p.angle;
           if(Math.hypot(dx,dy)>p.totalDistance+target.radius||Math.abs(Math.atan2(Math.sin(delta),Math.cos(delta)))>p.cone)continue;
           const impact=aimPoint(target);if(Math.hypot(dx,dy)>p.travelled+1e-7)continue;
-          p.hitIds.push(target.id);this.damage(target,p.damage,p.team,{sourceId:p.sourceId,sourceKey:p.key});
-          this.emit('hit',{key:p.key,style:p.style,x:impact.x,y:impact.y,groundX:target.x,groundY:target.y,impactHeight:target.y-impact.y,team:p.team,targetId:target.id,sourceId:p.sourceId,attackId:p.id});
+          p.hitIds.push(target.id);this.damage(target,p.damage,p.team,{sourceId:p.sourceId,sourceKey:p.key,...(p.sourceCard?{sourceCard:p.sourceCard}:{}),...(p.sourceProfile?{sourceProfile:p.sourceProfile}:{})});
+          this.emit('hit',{key:p.key,style:p.style,x:impact.x,y:impact.y,groundX:target.x,groundY:target.y,impactHeight:target.y-impact.y,team:p.team,targetId:target.id,sourceId:p.sourceId,attackId:p.id,...(p.sourceCard?{sourceCard:p.sourceCard}:{})},this.projectileSource(p));
         }
         if(p.travelled>=p.totalDistance-1e-7)p.life=0;
         continue;
@@ -1236,7 +1259,7 @@ export class Game {
           if(Math.hypot(tx-p.dx*along,ty-p.dy*along)>p.shotRadius+target.radius)continue;
           p.hitIds.push(target.id);this.damage(target,p.damage,p.team,p);
           if(p.knockback)this.pushUnit(target,p.dx*p.knockback,p.dy*p.knockback);
-          const impact=aimPoint(target);this.emit('hit',{key:p.key,style:p.style,x:impact.x,y:impact.y,groundX:target.x,groundY:target.y,impactHeight:target.y-impact.y,team:p.team,targetId:target.id,sourceId:p.sourceId,attackId:p.id});
+          const impact=aimPoint(target);this.emit('hit',{key:p.key,style:p.style,x:impact.x,y:impact.y,groundX:target.x,groundY:target.y,impactHeight:target.y-impact.y,team:p.team,targetId:target.id,sourceId:p.sourceId,attackId:p.id,...(p.sourceCard?{sourceCard:p.sourceCard}:{})},this.projectileSource(p));
         }
         if(p.travelled>=p.totalDistance-1e-7)p.life=0;
         continue;
@@ -1247,7 +1270,7 @@ export class Game {
       if (d <= p.speed * dt + 1e-7) {
         const victims=(p.splash?[...this.units,...this.towers]:[p.target]).filter(u=>u&&u.team!==p.team&&u.hp>0&&!u.burrowed&&isCombatTargetReady(u)&&(!u.card?.flying||p.air)&&spellOverlapsTarget(p,center,u));
         for(const victim of victims)this.damage(victim,p.damage,p.team,p);
-        const impact=p.impactPoint?{x:tx,y:ty+(p.endLiftY??-15)}:aimPoint(p.target);this.emit('hit', { key: p.key, style:p.style, art:p.art, x: impact.x, y: impact.y, groundX:center.x,groundY:center.y,impactHeight:center.y-impact.y,radius:p.splash||0,groundOnly:!p.air,team: p.team,targetId:p.target?.id||0,sourceId:p.sourceId,attackId:p.id }); p.life = 0;
+        const impact=p.impactPoint?{x:tx,y:ty+(p.endLiftY??-15)}:aimPoint(p.target);this.emit('hit', { key: p.key, style:p.style, art:p.art, x: impact.x, y: impact.y, groundX:center.x,groundY:center.y,impactHeight:center.y-impact.y,radius:p.splash||0,groundOnly:!p.air,team: p.team,targetId:p.target?.id||0,sourceId:p.sourceId,attackId:p.id,...(p.sourceCard?{sourceCard:p.sourceCard}:{}) },this.projectileSource(p)); p.life = 0;
       } else { p.trace.push({x:p.x,y:p.y});if(p.trace.length>7)p.trace.shift();p.x += dx / d * p.speed * dt; p.y += dy / d * p.speed * dt;p.travelled+=p.speed*dt; }
     }
     this.projectiles = this.projectiles.filter(p => p.life > 0);
