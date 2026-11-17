@@ -1,19 +1,22 @@
 import { Game, currentDeck, validDeck } from '../../dist/engine.js?v=34';
 import { packGame, unpackGame, migrateLegacyCardIdentity } from '../../dist/snapshot.js?v=34';
 import { publicSnapshot, publicEvent, SIMULATION_HZ, RECONNECT_GRACE, ONLINE_PROTOCOL } from '../../dist/online-wire.js?v=34';
+import {selectedDeck,selectionVersion as currentSelectionVersion} from './selection.js';
 
 export { validDeck };
 export const safeName = name => String(name || 'Entrenador').replace(/[<>\x00-\x1f]/g, '').trim().slice(0, 20) || 'Entrenador';
 export class RealtimeMatch {
-  constructor({ id, players, now = Date.now(), seed, animations = {}, stored } = {}) {
+  constructor({ id, players, now = Date.now(), seed, animations = {}, stored,selectionVersion=currentSelectionVersion } = {}) {
     this.animations = animations;
     if (stored) {
       Object.assign(this, stored);
       this.events=migrateLegacyCardIdentity(this.events||[]);
       this.game = unpackGame(stored.game, event => this.event(event), animations);
     } else {
-      if(players)players=players.map(player=>({...player,deck:currentDeck(player.deck)}));
+      if(selectionVersion!==0&&selectionVersion!==currentSelectionVersion)throw Error('Unsupported selection version');
+      if(players)players=players.map(player=>({...player,deck:selectionVersion===0?currentDeck(player.deck):selectedDeck(player.deck)}));
       if (players?.length !== 2 || !players.every(player => validDeck(player.deck))) throw Error('Invalid decks');
+      this.selectionVersion=selectionVersion;
       this.id = id;
       this.players = players.map(({ id, name, tokenHash }) => ({ id, name: safeName(name), tokenHash }));
       this.seen = [now, now];this.starts = now + 2200;this.last = this.starts;

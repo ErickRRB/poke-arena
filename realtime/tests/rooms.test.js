@@ -5,7 +5,8 @@ import worker from '../src/index.js';
 import { ONLINE_PROTOCOL } from '../../dist/online-wire.js?v=34';
 import { unpackGame } from '../../dist/snapshot.js?v=34';
 
-const deck = ['diglett','voltorb','bulbasaur','eevee','ekans','gastly','grimer','squirtle'];
+const deck = ['diglett','voltorb','slowbro','eevee','geodude','roselia','fireball','thunder'];
+const legacyDeck=['diglett','voltorb','bulbasaur','eevee','ekans','gastly','grimer','squirtle'];
 const sockets = [];
 function messages(ws) {
   const packets = [], waits = [];
@@ -26,12 +27,18 @@ async function connect(path = '/v1/lobby', origin = 'http://127.0.0.1:4173') {
   expect(response.status).toBe(101);const ws = response.webSocket;ws.accept();sockets.push(ws);
   return { ws, ...messages(ws), send: packet => ws.send(typeof packet === 'string' ? packet : JSON.stringify(packet)) };
 }
-async function join({decks=[deck,deck]}={}) {
+async function seedLegacyQueue(name,keys=legacyDeck){
+  const id=crypto.randomUUID(),token=crypto.randomUUID()+crypto.randomUUID(),hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token)))].map(byte=>byte.toString(16).padStart(2,'0')).join(''),joined=Date.now();
+  await runInDurableObject(env.LOBBY.getByName('matchmaking-v2'),instance=>{instance.sql.exec('INSERT INTO sessions(id,token_hash,name,deck,joined,updated) VALUES(?,?,?,?,?,?)',id,hash,name,JSON.stringify(keys),joined,joined);});
+  return{id,token,hash,joined,keys};
+}
+async function join({decks=[deck,deck],legacy=false}={}) {
   const a = await connect(), b = await connect();
-  a.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Uno', deck:decks[0] });
-  const tokenA = (await a.next(p => p.type === 'welcome')).token;
-  b.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Dos', deck:decks[1] });
-  const tokenB = (await b.next(p => p.type === 'welcome')).token;
+  const saved=legacy?await Promise.all([seedLegacyQueue('Uno',decks[0]),seedLegacyQueue('Dos',decks[1])]):null;
+  a.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode:legacy?'resume':'search', name: 'Uno', deck:decks[0],...(saved?{token:saved[0].token}:{}) });
+  const tokenA = (await a.next(p => p.type === 'welcome')).token??saved?.[0].token;
+  b.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode:legacy?'resume':'search', name: 'Dos', deck:decks[1],...(saved?{token:saved[1].token}:{}) });
+  const tokenB = (await b.next(p => p.type === 'welcome')).token??saved?.[1].token;
   const roomA = await a.next(p => p.type === 'matched'), roomB = await b.next(p => p.type === 'matched');
   expect(roomA.roomId).toBe(roomB.roomId);
   const room = roomA.roomId;
@@ -47,12 +54,14 @@ async function finish(room) {
 }
 
 describe('Cloudflare WebSocket rooms', () => {
-  it('streams the separate Cannon and mobile replacement to two current clients',async()=>{
-    const{players,room}=await join({decks:[['blastoiseCannon',...deck.slice(0,7)],['octillery',...deck.slice(0,7)]]});
+  it('preserves a legacy Cannon/mobile room and its inactive deck through native actions and eviction',async()=>{
+    const{players,room,tokens}=await join({legacy:true,decks:[['blastoiseCannon',...legacyDeck.slice(0,7)],['octillery',...legacyDeck.slice(0,7)]]});
     try{
       await runInDurableObject(env.ARENAS.getByName(room),instance=>{const now=Date.now();instance.match.starts=now-1;instance.match.last=now;instance.match.game.start();instance.match.game.energy=[10,10];instance.persist();instance.broadcast();});
       for(const player of players){const packet=await player.next(p=>p.type==='snapshot'&&p.game.state==='playing'),team=packet.team,nonce=crypto.randomUUID();player.send({type:'action',kind:'deploy',nonce,handIndex:0,key:packet.game.hands[team][0],x:300,y:team?200:600});expect((await player.next(p=>p.type==='result'&&p.nonce===nonce)).result.ok).toBe(true);}
       for(const player of players){const packet=await player.next(p=>p.type==='snapshot'&&p.game.units.some(u=>u.key==='blastoiseCannon')&&p.game.units.some(u=>u.key==='octillery'));expect(packet.protocol).toBe(ONLINE_PROTOCOL);const game=unpackGame(packet.game),cannon=game.units.find(u=>u.key==='blastoiseCannon'),mobile=game.units.find(u=>u.key==='octillery');expect(cannon.card.id).toBe(9);expect(cannon.card.cost).toBe(3);expect(cannon.card.structure).toBe(true);expect(mobile.card.id).toBe(224);expect(mobile.card.cost).toBe(4);expect(mobile.card.structure).toBe(false);}
+      const stub=env.ARENAS.getByName(room);await runInDurableObject(stub,instance=>{expect(instance.match.selectionVersion).toBe(0);instance.match.game.pause();instance.persist();instance.stop();});await evictDurableObject(stub,{webSockets:'close'});
+      const resumed=await connect('/v1/rooms/'+room);resumed.send({type:'hello',protocol:ONLINE_PROTOCOL,token:tokens[0],resume:true});const packet=await resumed.next(p=>p.type==='snapshot');expect(packet.game.units.find(u=>u.key==='octillery').card?.cost??unpackGame(packet.game).units.find(u=>u.key==='octillery').card.cost).toBe(4);expect(packet.game.hands[packet.team].some(key=>['bulbasaur','ekans','gastly','grimer'].includes(key))).toBe(true);
     }finally{await finish(room);}
   });
   it('persists a consumed Spirit chain through room eviction and resumes each real contact on both clients',async()=>{
@@ -177,6 +186,31 @@ describe('Cloudflare WebSocket rooms', () => {
     expect((await resume.next(p => p.type === 'searching')).joined).toBe(joined);
     const second = await connect();second.send({ type: 'hello', protocol: ONLINE_PROTOCOL, mode: 'search', name: 'Other', deck });
     const room = (await second.next(p => p.type === 'matched')).roomId;expect((await resume.next(p => p.type === 'matched')).roomId).toBe(room);await finish(room);
+  });
+});
+
+describe('Canonical C1 admission and legacy queue',()=>{
+  it('keeps an unversioned pre-update Room.create RPC legacy while explicit current factories reject inactive decks',async()=>{
+    const id=crypto.randomUUID(),players=[{id:'old-a',name:'Old A',tokenHash:'old-a',deck:legacyDeck},{id:'old-b',name:'Old B',tokenHash:'old-b',deck:legacyDeck}],stub=env.ARENAS.getByName(id);
+    await stub.create({id,players});await runInDurableObject(stub,instance=>{expect(instance.match.selectionVersion).toBe(0);expect(instance.match.game.hands[0]).toEqual(legacyDeck.slice(0,4));});await finish(id);
+    const currentId=crypto.randomUUID();await runInDurableObject(env.ARENAS.getByName(currentId),instance=>{expect(()=>instance.create({id:currentId,players,selectionVersion:1})).toThrow('Invalid decks');expect(instance.match).toBe(null);});
+  });
+  it('rejects inactive, pending and conflicting alias decks before inserting a fresh session',async()=>{
+    const lobby=env.LOBBY.getByName('matchmaking-v2');const before=await runInDurableObject(lobby,instance=>instance.sql.exec('SELECT COUNT(*) AS n FROM sessions').one().n);
+    for(const keys of [legacyDeck,['octillery',...deck.slice(0,7)],['onix',...deck.slice(0,7)],['shuppet','diglett',...deck.slice(2)]]){
+      const client=await connect();client.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',name:'Rejected',deck:keys});expect((await client.next(p=>p.type==='error')).code).toBe('deck');expect(client.packets.some(p=>p.type==='welcome')).toBe(false);
+    }
+    expect(await runInDurableObject(lobby,instance=>instance.sql.exec('SELECT COUNT(*) AS n FROM sessions').one().n)).toBe(before);
+    for(const ws of sockets.splice(0))try{ws.close();}catch{}
+  });
+  it('keeps an authenticated old queue on search reconnect, isolates it, expires finitely and accepts explicit new search',async()=>{
+    const saved=await seedLegacyQueue('Legacy waiting'),lobby=env.LOBBY.getByName('matchmaking-v2'),legacy=await connect();legacy.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',token:saved.token,name:'Legacy waiting',deck:legacyDeck});expect((await legacy.next(p=>p.type==='searching')).selectionVersion).toBe(0);
+    const newcomer=await connect();newcomer.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',name:'Current waiting',deck});await newcomer.next(p=>p.type==='searching');
+    const before=await runInDurableObject(lobby,instance=>({old:instance.session(saved.id),fresh:instance.sql.exec('SELECT * FROM sessions WHERE name=?','Current waiting').one()}));expect(before.old.joined).toBe(saved.joined);expect(before.old.deck).toBe(JSON.stringify(legacyDeck));expect(before.old.selection_version).toBe(0);expect(before.old.room_id).toBe(null);expect(before.fresh.room_id).toBe(null);expect(before.fresh.selection_version).toBe(1);
+    await runInDurableObject(lobby,async instance=>{instance.sql.exec('UPDATE sessions SET joined=? WHERE id=?',Date.now()-60000,saved.id);await instance.alarm();});const idle=await legacy.next(p=>p.type==='idle');expect(idle.selectionExpired).toBe(true);expect(idle.expired).toBeUndefined();expect(idle.message).toContain('Revisá');
+    const expired=await runInDurableObject(lobby,instance=>instance.session(saved.id));expect(expired.joined).toBe(null);expect(expired.deck).toBe(JSON.stringify(legacyDeck));expect(expired.token_hash).toBe(saved.hash);expect(expired.selection_version).toBe(0);
+    const explicit=await connect();explicit.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',token:saved.token,name:'Reviewed deck',deck});expect((await explicit.next(p=>p.type==='searching')).selectionVersion).toBe(1);const room=(await explicit.next(p=>p.type==='matched')).roomId;expect((await newcomer.next(p=>p.type==='matched')).roomId).toBe(room);
+    const current=await runInDurableObject(lobby,instance=>instance.session(saved.id));expect(current.selection_version).toBe(1);expect(current.deck).toBe(JSON.stringify(deck));expect(current.token_hash).toBe(saved.hash);await finish(room);
   });
 });
 

@@ -1,7 +1,8 @@
 import { DurableObject } from 'cloudflare:workers';
 import animations from '../../dist/assets/pokemon/manifest.json' with { type: 'json' };
-import { RealtimeMatch, validDeck, safeName } from './match.js';
+import { RealtimeMatch, safeName } from './match.js';
 import { ONLINE_PROTOCOL, SIMULATION_HZ, SNAPSHOT_HZ, RECONNECT_GRACE } from '../../dist/online-wire.js?v=34';
+import {selectionVersion,selectedDeck,validQueuedDeck,queueVersion,continuesQueue,legacyQueueExpired,LEGACY_QUEUE_MAX_AGE} from './selection.js';
 
 const OPEN = 1;
 const tokenHash = async token => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token)))].map(byte => byte.toString(16).padStart(2, '0')).join('');
@@ -29,17 +30,32 @@ function socket(ctx, request, limit) {
   return new Response(null, { status: 101, webSocket: client });
 }
 function lastSeen(ctx, ws) { return Math.max(attachment(ws).seen || attachment(ws).connectedAt || 0, ctx.getWebSocketAutoResponseTimestamp(ws)?.getTime() || 0); }
-function validQueuedDeck(session) { try { return validDeck(JSON.parse(session.deck)); } catch { return false; } }
 
 export class ArenaLobby extends DurableObject {
   constructor(ctx, env) {
     super(ctx, env);this.sql = ctx.storage.sql;this.pendingMatches = new Map();
     this.sql.exec('CREATE TABLE IF NOT EXISTS sessions(id TEXT PRIMARY KEY,token_hash TEXT UNIQUE NOT NULL,name TEXT NOT NULL,deck TEXT NOT NULL,room_id TEXT,joined INTEGER,updated INTEGER NOT NULL)');
+    if(!this.sql.exec('PRAGMA table_info(sessions)').toArray().some(column=>column.name==='selection_version'))this.sql.exec('ALTER TABLE sessions ADD COLUMN selection_version INTEGER NOT NULL DEFAULT 0');
     this.sql.exec('CREATE INDEX IF NOT EXISTS sessions_queue ON sessions(joined) WHERE room_id IS NULL');
     ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair('ping', 'pong'));
+    ctx.waitUntil(this.scheduleLegacyExpiry());
   }
   fetch(request) { return socket(this.ctx, request, 128); }
   session(id) { return this.sql.exec('SELECT * FROM sessions WHERE id=?', id).toArray()[0]; }
+  async scheduleLegacyExpiry(){
+    const row=this.sql.exec('SELECT MIN(joined) AS joined FROM sessions WHERE room_id IS NULL AND joined IS NOT NULL AND selection_version=0').toArray()[0];
+    if(row?.joined===null||row?.joined===undefined)return;
+    const when=Math.max(Date.now()+1,row.joined+LEGACY_QUEUE_MAX_AGE),existing=await this.ctx.storage.getAlarm();
+    if(existing===null||when<existing)await this.ctx.storage.setAlarm(when);
+  }
+  endLegacyQueue(session,now=Date.now()){
+    this.sql.exec('UPDATE sessions SET joined=NULL,updated=? WHERE id=? AND room_id IS NULL AND selection_version=0',now,session.id);
+    for(const ws of this.sockets(session.id)){send(ws,{type:'idle',selectionExpired:true,selectionVersion,message:'La búsqueda anterior terminó. Revisá tu mazo y volvé a buscar.'});close(ws);}
+  }
+  expireLegacyQueues(now=Date.now()){
+    for(const session of this.sql.exec('SELECT * FROM sessions WHERE room_id IS NULL AND joined IS NOT NULL AND selection_version=0 AND joined<=?',now-LEGACY_QUEUE_MAX_AGE).toArray())this.endLegacyQueue(session,now);
+  }
+  async alarm(){this.expireLegacyQueues();await this.scheduleLegacyExpiry();}
   sockets(id) { return this.ctx.getWebSockets().filter(ws => { const state=attachment(ws);return ws.readyState===OPEN && state.authed && state.playerId===id && currentProtocol(ws,state); }); }
   async webSocketMessage(ws, message) {
     try {
@@ -57,10 +73,10 @@ export class ArenaLobby extends DurableObject {
     if (typeof packet.token === 'string' && packet.token.length >= 48 && packet.token.length <= 160) session = this.sql.exec('SELECT * FROM sessions WHERE token_hash=?', await tokenHash(packet.token)).toArray()[0];
     if (!session) {
       if (packet.mode === 'resume') { send(ws, { type: 'idle', expired: true });close(ws);return; }
-      if (!validDeck(packet.deck)) return reject(ws, 'Elegí ocho cartas diferentes.', 'deck');
+      const deck=selectedDeck(packet.deck);if(!deck)return reject(ws,'Revisá tu mazo antes de buscar.','deck');
       token = crypto.randomUUID() + crypto.randomUUID();
-      session = { id: crypto.randomUUID(), token_hash: await tokenHash(token), name: safeName(packet.name), deck: JSON.stringify(packet.deck), room_id: null, joined: null, updated: now };
-      this.sql.exec('INSERT INTO sessions(id,token_hash,name,deck,updated) VALUES(?,?,?,?,?)', session.id, session.token_hash, session.name, session.deck, now);
+      session = { id: crypto.randomUUID(), token_hash: await tokenHash(token), name: safeName(packet.name), deck: JSON.stringify(deck), room_id: null, joined: null, updated: now,selection_version:selectionVersion };
+      this.sql.exec('INSERT INTO sessions(id,token_hash,name,deck,updated,selection_version) VALUES(?,?,?,?,?,?)', session.id, session.token_hash, session.name, session.deck, now,selectionVersion);
     }
     ws.serializeAttachment({ authed: true, protocol: ONLINE_PROTOCOL, playerId: session.id, seen: now, connectedAt: now });
     for (const previous of this.sockets(session.id)) if (previous !== ws) close(previous, 4001, 'Session replaced');
@@ -71,27 +87,31 @@ export class ArenaLobby extends DurableObject {
       this.sql.exec('UPDATE sessions SET room_id=NULL,joined=NULL WHERE id=?', session.id);session.room_id = null;session.joined = null;
     }
     if (packet.mode === 'resume' && session.joined === null) { send(ws, { type: 'idle' });close(ws);return; }
-    if (packet.mode === 'search') {
-      if (!validDeck(packet.deck)) return reject(ws, 'Elegí ocho cartas diferentes.', 'deck');
-      session.name = safeName(packet.name);session.deck = JSON.stringify(packet.deck);
+    const continuing=continuesQueue(session,packet);
+    if(continuing&&legacyQueueExpired(session,now)){this.endLegacyQueue(session,now);return;}
+    if (packet.mode === 'search'&&!continuing) {
+      const deck=selectedDeck(packet.deck);if(!deck)return reject(ws,'Revisá tu mazo antes de buscar.','deck');
+      session.name = safeName(packet.name);session.deck = JSON.stringify(deck);session.selection_version=selectionVersion;session.joined=now;
     } else if (!validQueuedDeck(session)) {
       this.sql.exec('UPDATE sessions SET joined=NULL,updated=? WHERE id=? AND room_id IS NULL', now, session.id);
       return reject(ws, 'Elegí ocho cartas diferentes.', 'deck');
     }
     session.joined ??= now;
-    this.sql.exec('UPDATE sessions SET name=?,deck=?,joined=?,updated=? WHERE id=? AND room_id IS NULL', session.name, session.deck, session.joined, now, session.id);
-    send(ws, { type: 'searching', joined: session.joined });
+    this.sql.exec('UPDATE sessions SET name=?,deck=?,joined=?,updated=?,selection_version=? WHERE id=? AND room_id IS NULL', session.name, session.deck, session.joined, now,queueVersion(session),session.id);
+    send(ws, { type: 'searching', joined: session.joined,selectionVersion:queueVersion(session) });
+    if(queueVersion(session)===0)await this.scheduleLegacyExpiry();
     await this.match(session.id);
   }
   async match(id) {
+    this.expireLegacyQueues();
     const own = this.session(id);if (!own || own.room_id || own.joined === null || !validQueuedDeck(own)) return;
     const now = Date.now(), candidates = this.sql.exec('SELECT * FROM sessions WHERE room_id IS NULL AND joined IS NOT NULL AND id<>? ORDER BY joined,id LIMIT 128', id).toArray();
-    const other = candidates.find(candidate => validQueuedDeck(candidate) && this.sockets(candidate.id).some(ws => now - lastSeen(this.ctx, ws) < 15000));
+    const other = candidates.find(candidate => queueVersion(candidate)===queueVersion(own)&&validQueuedDeck(candidate) && this.sockets(candidate.id).some(ws => now - lastSeen(this.ctx, ws) < 15000));
     if (!other) return;
     const roomId = crypto.randomUUID(), players = [other, own];
     this.sql.exec('UPDATE sessions SET room_id=?,joined=NULL,updated=? WHERE id IN (?,?) AND room_id IS NULL', roomId, now, other.id, own.id);
     const room = this.env.ARENAS.getByName(roomId);
-    const pending = room.create({ id: roomId, players: players.map(player => ({ id: player.id, tokenHash: player.token_hash, name: player.name, deck: JSON.parse(player.deck) })) });
+    const pending = room.create({ id: roomId,selectionVersion:queueVersion(own), players: players.map(player => ({ id: player.id, tokenHash: player.token_hash, name: player.name, deck: JSON.parse(player.deck) })) });
     this.pendingMatches.set(roomId, pending);
     try {
       await pending;
@@ -101,7 +121,8 @@ export class ArenaLobby extends DurableObject {
       }
       console.log(JSON.stringify({ event: 'match_created', roomId }));
     } catch (error) {
-      this.sql.exec('UPDATE sessions SET room_id=NULL,joined=? WHERE room_id=?', now, roomId);
+      for(const player of players)this.sql.exec('UPDATE sessions SET room_id=NULL,joined=? WHERE id=? AND room_id=?',player.joined,player.id,roomId);
+      await this.scheduleLegacyExpiry();
       console.error(JSON.stringify({ event: 'match_create_failed', message: error.message }));
       for (const player of players) for (const ws of this.sockets(player.id)) reject(ws, 'No se pudo iniciar la partida.', 'server');
     } finally { this.pendingMatches.delete(roomId); }
@@ -127,9 +148,9 @@ export class ArenaRoom extends DurableObject {
     ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair('ping', 'pong'));
     if (this.match && this.match.game.state !== 'ended') this.start();
   }
-  create({ id, players }) {
+  create({ id, players,selectionVersion=0 }) {
     if (this.match) return { state: this.match.game.state };
-    this.match = new RealtimeMatch({ id, players, animations });this.persist();this.start();
+    this.match = new RealtimeMatch({ id, players, animations,selectionVersion });this.persist();this.start();
     return { state: 'ready' };
   }
   summary() { return { state: this.match?.game.state || null }; }
