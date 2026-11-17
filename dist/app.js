@@ -111,9 +111,15 @@ function applyDeckChanges({persist=true}={}){
   if(persist){const changed={...deckLibrary,slots:deckLibrary.slots.slice()};changed.slots[changed.active]=editorDeck(deckDraft);return commitDeckLibrary(changed);}
   deck=editorDeck(deckDraft);deckDraft=[...deck];renderMenuDeck();return true;
 }
+function positionDeckSaveError(notice){
+  if(notice.parentElement!==$('main-menu'))return;
+  const area=$('main-menu').getBoundingClientRect(),panel=$('ready-overlay').getBoundingClientRect();
+  notice.style.left=`${panel.left-area.left}px`;notice.style.right=`${area.right-panel.right}px`;notice.style.bottom=`${area.bottom-panel.top+12}px`;
+}
+addEventListener('resize',()=>{const notice=$('deck-save-error');if(notice&&!notice.hidden)positionDeckSaveError(notice);},{passive:true});
 function deckSaveError(message){
   let notice=$('deck-save-error');if(!notice){notice=document.createElement('div');notice.id='deck-save-error';notice.className='deck-save-error';notice.setAttribute('role','alert');}
-  ($('card-dialog').open?$('card-dialog'):$('deck-dialog').open?$('deck-dialog'):$('ready-overlay')).append(notice);notice.textContent=message;notice.hidden=false;
+  ($('card-dialog').open?$('card-dialog'):$('deck-dialog').open?$('deck-dialog'):$('main-menu')).append(notice);for(const property of ['left','right','bottom'])notice.style.removeProperty(property);notice.textContent=message;notice.hidden=false;positionDeckSaveError(notice);
   clearTimeout(deckSaveErrorTimer);deckSaveErrorTimer=setTimeout(()=>{notice.hidden=true;},3500);
 }
 function commitDeckLibrary(changed){

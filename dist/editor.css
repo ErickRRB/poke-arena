@@ -72,5 +72,4 @@
 .c4-editor-preview .card-info-actions.profile-choices>.primary-btn{min-height:64px;padding:8px;font-size:12px;line-height:1.35}
 .deck-save-error{position:absolute;left:16px;right:16px;bottom:74px;z-index:30;padding:10px 12px;border:2px solid #a53e39;border-radius:6px;background:#fff5d9;color:#81352f;box-shadow:0 2px #6b514955;font-size:12px;line-height:1.4;text-align:center;pointer-events:none}
 #card-dialog>.deck-save-error{bottom:92px}
-#ready-overlay>.deck-save-error{left:0;right:0;bottom:calc(100% + 12px)}
 .c4-editor-preview .card-info-actions>.profile-selected:disabled{background:#254734;color:#fff6d9;opacity:1}
