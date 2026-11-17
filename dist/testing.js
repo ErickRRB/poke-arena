@@ -5,7 +5,7 @@ import {SandboxGame} from './sandbox.js?v=34';
 import {Renderer} from './render.js?v=36';
 import {cardArtMarkup} from './card-art.js?v=34';
 import {cardEquivalentLabel} from './card-equivalents.js?v=34';
-import {SoundSystem} from './audio.js?v=39';
+import {SoundSystem} from './audio.js?v=40';
 import {readAudioLevels} from './audio-preferences.js?v=1';
 
 const $=id=>document.getElementById(id),columns=[],catalog=Object.keys(CARDS).filter(key=>!CARDS[key].token).sort((a,b)=>CARDS[a].name.localeCompare(CARDS[b].name,'es'));
