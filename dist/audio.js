@@ -6,6 +6,7 @@ import {publicAssetUrl} from './online-config.js?v=36';
 export const MAX_EFFECT_VOICES=12;
 // Deploy cries with low retained RMS after peak normalization (Pikachu cohort).
 const QUIET_DEPLOY_CRIES=new Set([23,25,27,52,54,196,252,302]);
+const QUIET_RELEASE_IDS=new Set([252,315,65]);
 // Leave room for the orchestral bed in dense fights without changing cue
 // priorities, phase balance or the separate voice and interface buses.
 export const AUDIO_LEVELS=Object.freeze({master:.8,effects:.65*10**(-3/20),voices:.7,ui:.55,music:.65});
@@ -108,6 +109,7 @@ export class SoundSystem {
     const key=keys[Math.abs((Number(shot)||0)+(Number(id)||0))%keys.length];
     const settings={volume:impact?cue.volume:cue.releaseVolume??cue.volume*.55,maxDuration:impact?cue.contactTime:cue.releaseTime,priority:impact?2:1,...options};
     if(id===274&&soundStyle(style)==='dart')settings.volume*=1.4;
+    if(!impact&&QUIET_RELEASE_IDS.has(id))settings.volume*=1.2;
     if(this.sample('moves:'+key,x,settings))return true;
     // The same clean phase has an embedded PCM excerpt for cold downloads.
     const fallback=(impact?cue.contactFallback:cue.releaseFallback)??cue.fallback;
@@ -162,7 +164,7 @@ export class SoundSystem {
       for(let i=0;i<buffer.length;i++)for(let ch=0;ch<2;ch++)buffer.getChannelData(ch)[i]=data.getInt16(i*4+ch*2,true)/32768;
       this.buffers.set(key,buffer);
     }
-    return this.sample(key,x,{volume:.29,offset:impact?.17:0,maxDuration:impact?.21:.17,priority:impact?2:1,tail:.005,stopPadding:0,delay});
+    return this.sample(key,x,{volume:.348,offset:impact?.17:0,maxDuration:impact?.21:.17,priority:impact?2:1,tail:.005,stopPadding:0,delay});
   }
   updateKnight(game,active=true){
     const pending=this.knightPending;if(!pending?.size)return;
