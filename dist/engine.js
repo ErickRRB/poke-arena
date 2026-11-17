@@ -598,17 +598,28 @@ export class Game {
     return (target.x-W/2)*(unit.lane===0?1:-1)<=reach+1e-7;
   }
   acquire(unit) {
+    // Compare structures to crown towers using the same gap between bodies.
+    // The attacker's radius cancels, and the existing acquisition gates remain.
+    const tower=!unit.card.structure?this.towers.filter(t=>this.validTarget(unit,t)).sort((a,b)=>(distance(unit,a)-a.radius)-(distance(unit,b)-b.radius))[0]:null;
+    const eligible=t=>!tower||distance(unit,t)-(t.radius||0)<=distance(unit,tower)-tower.radius+1e-7;
     if(unit.card.building&&!unit.engaged){
-      const pull=this.units.filter(t=>t.card.structure&&this.validTarget(unit,t)&&this.withinPullLane(unit,t)&&distance(unit,t)<=attackReach(unit,t,unit.card.pullRange||300)&&(unit.team?t.y>=unit.y-48:t.y<=unit.y+48)).sort((a,b)=>distance(unit,a)-distance(unit,b));
+      const pull=this.units.filter(t=>t.card.structure&&this.validTarget(unit,t)&&eligible(t)&&this.withinPullLane(unit,t)&&distance(unit,t)<=attackReach(unit,t,unit.card.pullRange||300)&&(unit.team?t.y>=unit.y-48:t.y<=unit.y+48)).sort((a,b)=>distance(unit,a)-distance(unit,b));
       if(pull.length)return pull[0];
     }
     const candidates=[...this.towers,...this.units].filter(t=>{
       if(!this.validTarget(unit,t))return false;
+      if(t.card?.structure&&!eligible(t))return false;
       if(unit.card.building&&t.card?.structure&&!this.withinPullLane(unit,t))return false;
       if(unit.card.structure)return distance(unit,t)<=attackReach(unit,t);
       return 'king'in t||distance(unit,t)<=(t.card.structure?(unit.card.building?attackReach(unit,t,unit.card.pullRange||300):sightReach(unit,t)):sightReach(unit,t));
     });
-    candidates.sort((a,b)=>distance(unit,a)-distance(unit,b));return candidates[0]||null;
+    candidates.sort((a,b)=>distance(unit,a)-distance(unit,b));
+    const first=candidates[0];
+    if(first&&'king'in first){
+      const structure=candidates.filter(t=>t.card?.structure&&distance(unit,t)-(t.radius||0)<=distance(unit,first)-first.radius+1e-7).sort((a,b)=>(distance(unit,a)-(a.radius||0))-(distance(unit,b)-(b.radius||0)))[0];
+      if(structure)return structure;
+    }
+    return first||null;
   }
   waypoint(unit, target) {
     if (unit.card.flying||unit.card.riverJump) return target;
@@ -1177,8 +1188,9 @@ export class Game {
       if(unit.target&&unit.engaged&&unit.attack<=0&&distance(unit,unit.target)>attackReach(unit,unit.target)+45)unit.engaged=false;
       if(!unit.engaged){
         const nearest=this.acquire(unit);
+        const towerStructure=nearest&&unit.target&&((nearest.card?.structure&&'king'in unit.target)||('king'in nearest&&unit.target.card?.structure));
         const pulled=unit.card.building&&nearest?.card?.structure&&!unit.target?.card?.structure;
-        if(nearest&&(!unit.target||pulled||distance(unit,nearest)+2<distance(unit,unit.target))){unit.target=nearest;unit.attackSeq++;unit.attack=0;}
+        if(nearest&&nearest!==unit.target&&(!unit.target||towerStructure||pulled||distance(unit,nearest)+2<distance(unit,unit.target))){unit.target=nearest;unit.attackSeq++;unit.attack=0;}
       }
       const target = unit.target;
       if (!target) continue;
