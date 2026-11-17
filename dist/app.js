@@ -12,6 +12,7 @@ import { cardEquivalentLabel } from './card-equivalents.js?v=34';
 import { loadDeckLibrary, saveDeckLibrary, saveDeck } from './deck-storage.js?v=34';
 import { bindQuickStats } from './quick-stats.js?v=34';
 import { BattlePhaseUi } from './battle-phase-ui.js?v=34';
+import { loadUiResources } from './ui-resource-load.js?v=1';
 
 const $ = id => document.getElementById(id);
 const battlePhaseUi = new BattlePhaseUi(document);
@@ -595,7 +596,7 @@ try{
   if(hasSavedOnlineSession()){
     $('ready-overlay').inert=true;online=createOnlineClient();online.resume().catch(()=>{});
   }
-  await renderer.load(deck.length===8?deck:DEFAULT_DECK,(loaded,total)=>{const progress=loaded/total,indicator=$('menu-load-progress');indicator.setAttribute('aria-valuenow',String(Math.floor(progress*100)));$('menu-load-fill').setAttribute('y',String(64*(1-progress)));$('menu-load-fill').setAttribute('height',String(64*progress));});
+  await loadUiResources(progress=>renderer.load(deck.length===8?deck:DEFAULT_DECK,progress),(loaded,total)=>{const progress=loaded/total,indicator=$('menu-load-progress');indicator.setAttribute('aria-valuenow',String(Math.floor(progress*100)));$('menu-load-fill').setAttribute('y',String(64*(1-progress)));$('menu-load-fill').setAttribute('height',String(64*progress));});
   ready=true;$('loading').hidden=true;$('ready-overlay').setAttribute('aria-busy','false');$('practice-btn').disabled=false;updateMenuAvailability();
   if(onlineMode){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
   else if(online?.active&&online.mode==='search')showSearch();

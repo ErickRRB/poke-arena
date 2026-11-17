@@ -7,6 +7,7 @@ import {cardArtMarkup} from './card-art.js?v=34';
 import {cardEquivalentLabel} from './card-equivalents.js?v=34';
 import {SoundSystem} from './audio.js?v=40';
 import {readAudioLevels} from './audio-preferences.js?v=1';
+import {loadUiResources} from './ui-resource-load.js?v=1';
 
 const $=id=>document.getElementById(id),columns=[],catalog=Object.keys(CARDS).filter(key=>!CARDS[key].token).sort((a,b)=>CARDS[a].name.localeCompare(CARDS[b].name,'es'));
 let selected='roselia',team=0,nextColumn=1,speed=1,noticeTimer,ready=false,last=performance.now(),uiClock=0,sfx,activeColumn=null;
@@ -135,7 +136,7 @@ function frame(now){
 requestAnimationFrame(frame);
 try{
   const source=columns[0].renderer;
-  await source.load(['roselia','nuzleaf','graveler','rhydon','charizard','grimer','fireball','sneaselAmbush','geodude','charmander','diglettHorde','sableye','regice'],(loaded,total)=>{const progress=Math.floor(loaded/total*100);$('lab-loading').setAttribute('aria-valuenow',String(progress));$('lab-loading').style.setProperty('--lab-load',`${progress}%`);});
+  await loadUiResources(progress=>source.load(['roselia','nuzleaf','graveler','rhydon','charizard','grimer','fireball','sneaselAmbush','geodude','charmander','diglettHorde','sableye','regice'],progress),(loaded,total)=>{const progress=Math.floor(loaded/total*100);$('lab-loading').setAttribute('aria-valuenow',String(progress));$('lab-loading').style.setProperty('--lab-load',`${progress}%`);});
   for(const column of columns){column.renderer.metadata=source.metadata;column.game.animations=source.metadata;column.renderer.buildBackground();}
   ready=true;$('lab-loading').hidden=true;
   const scenario=columns.find(column=>column.element.querySelector('select').value===parameters.get('scenario'));scenario?.element.scrollIntoView({block:'nearest',inline:'start'});
