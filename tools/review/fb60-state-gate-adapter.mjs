@@ -28,7 +28,7 @@ export async function prepare(page,config){
   await page.evaluate(async()=>{
     const q=globalThis.__reviewAdapter,g=q.game,r=q.renderer;
     q.action=true;g.aiEnabled=false;
-    q.electricUnitState=(await import('./electric-lore.js?v=2')).electricUnitState;
+    q.electricUnitState=(await import('./electric-lore.js?v=3')).electricUnitState;
     const species=[[100,['Walk','Idle','Attack']],[101,['Walk','Idle','Shoot']],[143,['Walk','Idle','Attack']],[25,['Walk','Idle',q.CARDS.pikachu.attackAnim]]];
     await r.ensureSpecies(species.map(([id])=>id));
     for(const [id,animations] of species)for(const animation of animations){
@@ -50,6 +50,10 @@ export async function prepare(page,config){
       q.fixture.actorIds=rows.map(([key,team,x,y])=>g.spawn(key,team,x,y,key==='fireSpiritToken'?q.CARDS.centralElectrode.summonDeployTime:q.CARDS[key].deployTime,null,key==='fireSpiritToken'?'summon':undefined).id);
       q.fixture.ready=true;
     },650);
+  });
+  if(config.focusWindow)await page.waitForFunction(()=>{
+    const q=globalThis.__reviewAdapter;
+    return q?.fixture?.ready&&q.game.elapsed-q.fixture.startGameTime>=4.8;
   });
 }
 

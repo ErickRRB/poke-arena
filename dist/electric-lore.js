@@ -43,9 +43,24 @@ export function electricUnitState(unit){
   return null;
 }
 
-export function drawElectricAura(c,{x,y,radius,energy,age,seed=0,reduced=false,vertical=1,birth=false}){
+export function drawElectricAura(c,{x,y,radius,energy,age,seed=0,reduced=false,vertical=1,birth=false,preparation=false}){
   c.save();c.translate(x,y);c.scale(1,1/vertical);
   const clock=reduced?0:age;
+  if(preparation){
+    // Two pixel forks belong only to the child's real windup. Full contrast
+    // keeps the cue legible over grass without a glow or ambient orbit.
+    const pixel=2,r=Math.round(radius)+1,cells=[[0,-3],[1,-3],[0,-2],[-1,-1],[0,-1],[1,-1],[0,0],[-1,1]];
+    c.globalAlpha=1;
+    for(const side of [-1,1]){
+      c.fillStyle='#402f28';
+      for(const [px,py] of cells)c.fillRect(side*(r+px*pixel)-1,py*pixel-1,pixel+2,pixel+2);
+      c.fillStyle='#ffd34d';
+      for(const [px,py] of cells)c.fillRect(side*(r+px*pixel),py*pixel,pixel,pixel);
+      c.fillStyle='#fff9e6';
+      for(const [px,py] of [[0,-3],[0,-2],[0,-1],[0,0],[-1,1]])c.fillRect(side*(r+px*pixel),py*pixel,pixel,pixel);
+    }
+    c.restore();return;
+  }
   if(birth){
     // Side forks make the real birth legible without covering the small face
     // or drawing an extra summon. Their clock/extent is the native spawn state.

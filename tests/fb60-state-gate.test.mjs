@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {Game,CARDS} from '../dist/engine.js';
 import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
 import {publicSnapshot} from '../dist/online-wire.js?v=34';
-import {electricUnitState} from '../dist/electric-lore.js';
+import {electricUnitState,drawElectricAura} from '../dist/electric-lore.js';
 
 function encounter(){
   const events=[],g=new Game({onEvent:e=>events.push({type:e.type,key:e.key??e.unit?.key??e.attacker?.key,at:g.elapsed})});g.start();g.aiEnabled=false;
@@ -56,4 +56,14 @@ test('FB60 interrupted and noncombat actors cannot keep the child cue; parent su
   const {g}=encounter();for(let i=0;i<152;i++)g.step(1/30);const child=g.units.find(u=>u.id===7);assert.ok(electricUnitState(child));
   for(const change of [{leap:null,attack:0},{stun:.2},{hp:0},{preview:true},{mounted:true},{spawn:.1}])assert.equal(electricUnitState({...child,...change}),null);
   const parent=g.units.find(u=>u.id===9);assert.equal(electricUnitState({...parent,attack:0,summonActive:true,summonClock:.15}),null);
+});
+
+for(const reduced of [false,true])test(`FB60 child preparation has close, opaque warm/white pixels without an ambient clock, reduced ${reduced}`,()=>{
+  const trace=()=>{const calls=[],c=new Proxy({globalAlpha:.3},{get:(o,k)=>o[k]??((...a)=>calls.push({op:k,args:a,color:o.fillStyle,alpha:o.globalAlpha})),set:(o,k,v)=>(o[k]=v,true)});return{c,calls};};
+  const a=trace(),b=trace(),options={x:10,y:20,radius:9,energy:.625,seed:14,preparation:true,reduced};
+  drawElectricAura(a.c,{...options,age:0});drawElectricAura(b.c,{...options,age:20});assert.deepEqual(a.calls,b.calls,'the short cue cannot orbit or flicker on a global clock');
+  const pixels=a.calls.filter(c=>c.op==='fillRect');assert.ok(pixels.length>0);assert.ok(pixels.every(c=>c.alpha===1));
+  assert.deepEqual([...new Set(pixels.map(c=>c.color))],['#402f28','#ffd34d','#fff9e6']);
+  assert.ok(pixels.every(c=>Math.abs(c.args[0])<=options.radius+5&&Math.abs(c.args[1])<=7),'forks stay beside the body');
+  assert.equal(a.calls.some(c=>c.op==='stroke'),false,'no long branches toward other actors');
 });
