@@ -1,7 +1,7 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {Game,CARDS} from '../dist/engine.js?v=target-c1-1';import {packGame,unpackGame} from '../dist/snapshot.js';
 import {prepareC4Catalog,getC4BaseCatalog,isCompleteC4CardProfile} from '../dist/c4-catalog.js?v=1';import {validateC4EventIdentity} from '../dist/c4-restore.js?v=1';
-await prepareC4Catalog(CARDS);const cards=getC4BaseCatalog();
+await prepareC4Catalog();const cards=getC4BaseCatalog();
 const fresh=()=>{const g=new Game({catalogVersion:4,ruleset:'c4-1',seed:42});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.cooldown=1000);return g};
 const reject=data=>{const before=JSON.stringify(data);assert.throws(()=>unpackGame(data),{code:'C4_PROFILE_INVALID'});assert.equal(JSON.stringify(data),before)};
 test('unit compact omission succeeds, present partial or null fails, full override survives',()=>{const g=fresh(),u=g.spawn('pikachu',0,200,500,0),base=packGame(g);let compact=structuredClone(base);delete compact.units[0].card;assert.equal(unpackGame(compact).units[0].card.id,25);for(const value of [{id:25},null,undefined]){const bad=structuredClone(base);bad.units[0].card=value;reject(bad)}const good=structuredClone(base);good.units[0].card={...good.units[0].card,damage:321,extra:{key:'blastoise'}};assert.deepEqual(unpackGame(good).units[0].card,good.units[0].card);assert.equal(u.card.id,25)});
