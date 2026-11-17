@@ -42,3 +42,10 @@ test('last-minute warning starts at sixty seconds of either period and preserves
   ui.update(game,{reduced:true});assert.equal(clock.dataset.beat,'strong');game.resume();game.time=0;ui.update(game);assert.ok(clock.classList.contains('last-minute'));assert.equal(element('timer').textContent,'0:00');
  }
 });
+
+test('full elixir only begins at ten and remains near-full while paused at 9.95',()=>{
+ const {ui,element}=fixture(),game=new Game();game.start();game.energy[0]=9.95;ui.update(game);
+ assert.equal(element('.energy-section').dataset.charge,'near-full');
+ game.pause();ui.update(game);assert.equal(element('.energy-section').dataset.charge,'near-full');
+ game.resume();game.energy[0]=10;ui.update(game);assert.equal(element('.energy-section').dataset.charge,'full');
+});

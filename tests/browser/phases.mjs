@@ -24,9 +24,9 @@ export async function run({browser,url,viewports,output}){
    ]){
     const result=await page.evaluate(phase=>{
      const g=__qa.game;Object.assign(g,{time:phase.time,overtime:phase.overtime,elapsed:.25,state:'playing'});__qa.updateUi();
-     const clock=document.getElementById('battle-clock'),bar=document.querySelector('.energy-section'),boost=document.getElementById('boost'),a=document.getElementById('battle-phase-announcement');
+     const clock=document.getElementById('battle-clock'),boost=document.getElementById('boost'),a=document.getElementById('battle-phase-announcement');
      window.__phaseMutationCount=0;window.__phaseObserver?.disconnect();window.__phaseObserver=new MutationObserver(records=>window.__phaseMutationCount+=records.length);window.__phaseObserver.observe(a,{subtree:true,childList:true,characterData:true});
-     return{multiplier:g.multiplier,phase:clock.dataset.phase,beat:clock.dataset.beat,color:getComputedStyle(clock).color,background:getComputedStyle(clock).backgroundColor,bar:getComputedStyle(bar).backgroundImage,boost:boost.textContent,boostHidden:boost.hidden,announcement:a.textContent};
+     return{multiplier:g.multiplier,phase:clock.dataset.phase,beat:clock.dataset.beat,color:getComputedStyle(clock).color,urgent:clock.classList.contains('urgent'),lastMinute:clock.classList.contains('last-minute'),finalSeconds:clock.classList.contains('final-seconds'),background:getComputedStyle(clock).backgroundColor,boost:boost.textContent,boostHidden:boost.hidden,announcement:a.textContent};
     },phase);
     assert.equal(result.multiplier,phase.m);assert.equal(result.boostHidden,phase.m===1);assert.equal(result.boost.trim(),'×'+phase.m);
     assert.equal(result.phase,phase.overtime?'overtime':'regular');stable(before,await rects(page,ids),phase.name);
@@ -34,9 +34,9 @@ export async function run({browser,url,viewports,output}){
      const appearance=await page.locator('#'+id).evaluate(el=>{const s=getComputedStyle(el);return{background:s.backgroundColor,color:s.color,border:s.borderWidth,shadow:s.boxShadow}});
      assert.equal(appearance.color,'rgb(255, 247, 231)',id+' has light lettering');assert.equal(appearance.background,'rgba(0, 0, 0, 0)',id+' has no plate');assert.equal(appearance.border,'0px');assert.equal(appearance.shadow,'none');
     }
-    assert.equal(result.background,'rgba(0, 0, 0, 0)');
+    assert.equal(result.urgent,phase.overtime||phase.time<=60);assert.equal(result.lastMinute,phase.time<=60);assert.equal(result.finalSeconds,false);
+    assert.equal(result.background,'rgba(0, 0, 0, 0)','timer urgency keeps the arena visible without a plate');
     if(phase.overtime)assert.match(result.announcement,/Tiempo extra/);
-    if(phase.overtime||phase.time<=30)assert.equal(result.color,'rgb(255, 86, 97)');
     assert.match(await page.locator('#battle-clock').evaluate(el=>getComputedStyle(el).fontFamily),/Lilita One/);
     await page.screenshot({path:output+'/phase-'+phase.name+'-'+viewport.width+'.png'});
     if(phase.m>1){
@@ -49,10 +49,10 @@ export async function run({browser,url,viewports,output}){
     assert.equal(await page.evaluate(()=>window.__phaseMutationCount),0,'no repeated live announcement');
     if(phase.overtime){
      const soft=await page.evaluate(()=>{__qa.game.elapsed=.75;__qa.updateUi();return{color:getComputedStyle(document.getElementById('battle-clock')).color,beat:document.getElementById('battle-clock').dataset.beat}});
-     assert.equal(soft.color,'rgb(228, 56, 74)');assert.notEqual(soft.color,result.color);assert.equal(soft.beat,'soft');
+     assert.equal(soft.color,result.color,'the native beat metadata does not flash the clock');assert.equal(soft.beat,'soft');
      await page.evaluate(()=>{__qa.game.pause();__qa.updateUi();});await page.waitForTimeout(580);
      assert.equal(await page.locator('#match-pause use').getAttribute('href'),'#i-play');
-     assert.equal(await page.locator('#battle-clock').getAttribute('data-beat'),'soft','pause freezes the pulse');
+     assert.equal(await page.locator('#battle-clock').getAttribute('data-beat'),'soft','pause freezes the native beat state');
      stable(before,await rects(page,ids),'paused '+phase.name);
     }
     rows.push({...phase,...result});
@@ -76,7 +76,7 @@ export async function run({browser,url,viewports,output}){
    await page.evaluate(()=>{document.getElementById('match-pause').hidden=false;document.getElementById('match-leave').hidden=false;});stable(before,await rects(page,ids),'CPU controls restored');
    await page.locator('#again-btn').dispatchEvent('click');await page.waitForFunction(()=>document.querySelector('.energy-section').dataset.elixir==='1');
    assert.equal(await page.locator('#boost').isHidden(),true);assert.equal(await page.locator('#phase-label').isHidden(),true);stable(before,await rects(page,ids),'fresh match');
-   assert.deepEqual(errors,[]);reports.push({viewport,phases:rows,wireSnapshotPerspectives:restored,reducedStatic:true,pausedPulse:true,lateFontStable:true,stable:true});await context.close();
+   assert.deepEqual(errors,[]);reports.push({viewport,phases:rows,wireSnapshotPerspectives:restored,reducedStatic:true,pausedSignalStatic:true,lateFontStable:true,stable:true});await context.close();
   }catch(error){await page.screenshot({path:output+'/phase-failure-'+viewport.width+'.png'});throw error;}
  }
  return {viewports:reports,method:'Controlled UI clock fixtures, actual shared Game multiplier and wire snapshot restore in both perspectives. Real socket reconnect transport is covered separately by online.'};

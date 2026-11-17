@@ -1,0 +1,15 @@
+{
+  "id": "meowth-guardian-native-views",
+  "source": "dist/index.html",
+  "adapter": "tools/review/meowth-guardian-adapter.mjs",
+  "adapterDependencies": ["tools/review/baseline-adapter.mjs"],
+  "viewport": {"width": 390, "height": 844, "dpr": 1},
+  "durationMs": 4800,
+  "sampleMs": 40,
+  "clock": "natural-app",
+  "expectedEvent": "attackRelease",
+  "extractIntervalMs": 70,
+  "crop": {"x": 40, "y": 85, "width": 120, "height": 465},
+  "captureSurface": "dom",
+  "requiredObservations": ["clock", "canvas", "events", "actorState", "hp"]
+}

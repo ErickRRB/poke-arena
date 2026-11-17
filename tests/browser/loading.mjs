@@ -21,11 +21,25 @@ export async function run({browser,url,viewports,output}){
     try{
       await page.route('**/assets/pokemon/**/*.png',async route=>{if(++count>44)await gate;await route.continue();});await page.goto(url,{waitUntil:'domcontentloaded'});
       await page.waitForFunction(()=>Number(document.getElementById('menu-load-progress').getAttribute('aria-valuenow'))>=40);await page.evaluate(()=>document.fonts.ready);
-      const before=await rects(page,['ready-overlay','menu-deck-preview','trainer-name','start-btn']),ball=await page.locator('#menu-load-progress .loading-ball').boundingBox(),overlay=await page.locator('#menu-loading').boundingBox();
+      const before=await rects(page,['ready-overlay','menu-deck-preview','trainer-name','start-btn']),ball=await page.locator('#menu-load-progress').boundingBox(),overlay=await page.locator('#menu-loading').boundingBox();
       assert.equal(await page.locator('.load-ring').count(),0);assert.ok(Math.abs(ball.x+ball.width/2-overlay.x-overlay.width/2)<1&&Math.abs(ball.y+ball.height/2-overlay.y-overlay.height/2)<1);
       const fill=Number(await page.locator('#menu-load-fill').getAttribute('height'));assert.ok(fill>20&&fill<64);await checkOpaqueBall(page);await page.screenshot({path:`${output}/loading-${viewport.width}.png`});
       await page.emulateMedia({reducedMotion:'reduce'});assert.equal(await page.locator('#search-panel .loading-ball').evaluate(node=>getComputedStyle(node).animationName),'none');
-      release();await ready(page);stable(before,await rects(page,['ready-overlay','menu-deck-preview','trainer-name','start-btn']),'loading');assert.deepEqual(errors,[]);assert.deepEqual(apiRequests,[]);
+      release();await ready(page);stable(before,await rects(page,['ready-overlay','menu-deck-preview','trainer-name','start-btn']),'loading');
+      await page.emulateMedia({reducedMotion:'no-preference'});
+      const menuBefore=await rects(page,['ready-overlay','menu-deck-preview','trainer-name','start-btn']);
+      await page.evaluate(()=>document.getElementById('search-panel').hidden=false);
+      stable(menuBefore,await rects(page,['ready-overlay','menu-deck-preview','trainer-name','start-btn']),'search overlay');
+      await page.evaluate(()=>document.getElementById('search-panel').hidden=true);
+      await page.locator('#start-btn').click();
+      const ids=['arena-frame','hand','energy-bar','battle-settings-btn'],battleBefore=await rects(page,ids);
+      for(const id of ['loading','battle-loading','connection-loading']){
+        await page.evaluate(id=>document.getElementById(id).hidden=false,id);
+        stable(battleBefore,await rects(page,ids),id+' shown');
+        await page.evaluate(id=>document.getElementById(id).hidden=true,id);
+        stable(battleBefore,await rects(page,ids),id+' hidden');
+      }
+      assert.deepEqual(errors,[]);assert.deepEqual(apiRequests,[]);
     }finally{release();await context.close();}
   }
   return{viewports:viewports.length,onlineRequests:0};

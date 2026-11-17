@@ -17,8 +17,11 @@ export class BattlePhaseUi {
     const beat=reduced||Math.floor((game.elapsed||0)*2)%2===0?'strong':'soft';
     this.clock.dataset.phase=phase;this.clock.dataset.beat=beat;
     this.energy.dataset.elixir=String(multiplier);this.energy.dataset.beat=beat;
+    const energy=game.energy[0];
+    this.energy.dataset.charge=energy>=10?'full':energy>=8.5?'near-full':'building';
     this.clock.classList.toggle('urgent',game.time<=60||overtime);
     this.clock.classList.toggle('last-minute',game.time<=60);
+    this.clock.classList.toggle('final-seconds',game.time<=10&&!game.tiebreaker);
     const total=Math.max(0,Math.ceil(game.time));
     this.timer.textContent=Math.floor(total/60)+':'+String(total%60).padStart(2,'0');
     this.clock.setAttribute('aria-label',(overtime?'Tiempo extra. ':'')+this.timer.textContent+' restantes');
