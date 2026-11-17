@@ -29,16 +29,17 @@ export function electricArc(c,from,to,age,seed=0,width=2){
 
 export function electricUnitState(unit){
   const lore=electricLore(unit.key,unit.card);
-  if(!lore||unit.preview||unit.mounted||unit.hp<=0||unit.stun>0)return null;
+  if(!lore||unit.preview||unit.mounted||unit.hp<=0||unit.stun>0||unit.spawn>0)return null;
   if(lore==='child'){
-    if(unit.spawn>0)return{energy:.28+Math.min(.7,unit.spawn*1.4),phase:'birth'};
-    if(unit.leap)return{energy:1,phase:'leap'};
-    return unit.moving?{energy:.28,phase:'move'}:null;
+    // Native spirits prepare their leap without emitting attackStart. Read
+    // that live phase; spawning, walking and flight are not attack charge.
+    const remaining=unit.leap?.prepare,windup=unit.attackWindup??unit.card.windup;
+    if(!(remaining>0&&windup>0))return null;
+    return{energy:.25+.75*ease(1-remaining/windup),phase:'prepare'};
   }
   const windup=unit.attackWindup??unit.card.windup,duration=unit.attackDuration??unit.card.attackDuration;
   const elapsed=duration-unit.attack;
-  if(unit.attack>0&&windup>0&&elapsed<windup)return{energy:.25+.75*ease(elapsed/windup),phase:'charge'};
-  if(unit.summonActive&&unit.summonClock>0&&unit.summonClock<.28)return{energy:.55,phase:'summon'};
+  if(unit.attack>0&&windup>0&&elapsed>=0&&elapsed<windup)return{energy:.25+.75*ease(elapsed/windup),phase:'charge'};
   return null;
 }
 
