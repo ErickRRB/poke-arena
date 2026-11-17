@@ -1,4 +1,4 @@
-import {isCompleteWireProfile} from './c4-wire-preparation.js?v=1';
+import {isCompleteWireProfile,validateC4WireEventShape} from './c4-wire-preparation.js?v=1';
 import {isC4Game} from './online-context.js?v=1';
 import {getC4BaseCard} from './c4-catalog.js?v=1';
 import {HOG_ARCANINE} from './hog-profiles.js?v=1';
@@ -65,6 +65,7 @@ export function unpackEvent(event,context) {
   if(isC4Game(game)){
     // The pure identity boundary is supplied by the prepared packet bootstrap.
     if(typeof context?.validateEvent!=='function')throw Object.assign(new Error('Validación C4 de eventos no preparada.'),{code:'C4_EVENT_VALIDATOR_REQUIRED'});
+    validateC4WireEventShape(copy);
     context.validateEvent(copy);
     eventProfiles(copy,game);
     for(const key of ['attacker','target','unit','tower'])if(copy[key]&&!Object.hasOwn(copy[key],'card')){const card=c4Card(copy[key].key);if(card)copy[key].card=card;}

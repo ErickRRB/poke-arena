@@ -633,12 +633,24 @@ $('online-btn').addEventListener('click',beginOnline);$('cancel-search').addEven
 function showSearch(){if(!$('search-panel').hidden)return;$('menu-loading').hidden=true;$('search-panel').hidden=false;$('ready-overlay').inert=true;$('cancel-search').focus({preventScroll:true});}
 function createOnlineClient({legacy=false}={}){
   const local=c4WireEndpoint&&!legacy;
-  return new OnlineClient({...(local?{serverUrl:c4WireEndpoint,service:C4_SERVICE,prepareSnapshot:packet=>prepareC4Packet(packet,{viewTeam:packet.team,onEvent:handleEvent,animations:renderer.metadata})}:{}),onSearch:ms=>{const sec=Math.floor(ms/1000);$('search-time').textContent=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;if(ready)showSearch();},onConnection:status=>{
+  let resetC4Presentation=false;
+  return new OnlineClient({...(local?{serverUrl:c4WireEndpoint,service:C4_SERVICE,prepareSnapshot:packet=>prepareC4Packet(packet,{viewTeam:packet.team,animations:renderer.metadata}),onPresentation:packet=>{
+    if(ready){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
+    $('search-panel').hidden=true;
+    if(resetC4Presentation)adoptGame(game);
+    for(const entry of packet.events)handleEvent(entry.event);
+    if(game.state==='ended'&&$('result-overlay').hidden)showResult({winner:game.winner,reason:game.reason});
+    $('online-status').hidden=packet.startsIn<=0;$('online-status').textContent=packet.startsIn>0?'Preparados':'';updateUi();
+  }}:{}),onSearch:ms=>{const sec=Math.floor(ms/1000);$('search-time').textContent=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;if(ready)showSearch();},onConnection:status=>{
     const reconnecting=status==='Reconectando…';$('connection-loading').hidden=!onlineMode||!reconnecting;$('online-status').hidden=!onlineMode||!status||reconnecting;$('online-status').textContent=reconnecting?'':status;
     if(!onlineMode)$('search-status').textContent=status||'Buscando rival…';
   },onIdle:message=>{
     online=null;onlineMode=false;$('menu-loading').hidden=ready;$('ready-overlay').inert=false;$('search-panel').hidden=true;newGame();if(message)toast(message);
   },onSnapshot:packet=>{
+    if(local){
+      const next=packet.preparedGame;resetC4Presentation=!onlineMode||game.ruleset!==next.ruleset||game.catalogVersion!==next.catalogVersion;
+      game=next;game.onEvent=handleEvent;onlineMode=true;$('enemy-name').textContent=packet.opponent;return;
+    }
     const next=packet.preparedGame||unpackGame(perspective(packet.game,packet.team),handleEvent,renderer.metadata),events=packet.eventsPrepared?packet.events:packet.events.map(entry=>({...entry,event:perspective(entry.event,packet.team)}));
     const reset=!onlineMode||game.ruleset!==next.ruleset||game.catalogVersion!==next.catalogVersion;
     online.team=packet.team;onlineMode=true;$('enemy-name').textContent=packet.opponent;

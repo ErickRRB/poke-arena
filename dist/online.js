@@ -12,8 +12,8 @@ function save(key, value) { try { if (value === null) globalThis.sessionStorage?
 export const hasSavedOnlineSession = () => !!read(ONLINE_TOKEN_KEY);
 
 export class OnlineClient {
-  constructor({ onSnapshot, onSearch, onConnection, onIdle = () => {}, serverUrl = onlineServer(), createSocket = url => new WebSocket(url),service=C1_SERVICE,prepareSnapshot=packet=>prepareC4Packet(packet) }) {
-    Object.assign(this, { onSnapshot, onSearch, onConnection, onIdle, serverUrl, createSocket,service,prepareSnapshot });
+  constructor({ onSnapshot, onSearch, onConnection, onIdle = () => {}, serverUrl = onlineServer(), createSocket = url => new WebSocket(url),service=C1_SERVICE,prepareSnapshot=packet=>prepareC4Packet(packet),onPresentation=()=>{} }) {
+    Object.assign(this, { onSnapshot, onSearch, onConnection, onIdle, serverUrl, createSocket,service,prepareSnapshot,onPresentation });
     this.keys=service.keys;
     if(service.id==='c4'){const endpoint=new URL(serverUrl);if(!['localhost','127.0.0.1','[::1]'].includes(endpoint.hostname)||endpoint.username||endpoint.password)throw Error('El servidor de prueba debe ser local.');}
     this.active = false;this.connected = false;this.version = -1;this.seq = 0;this.generation = 0;this.socketId = 0;this.pending = new Map();this.retry = 0;
@@ -130,6 +130,18 @@ export class OnlineClient {
     await prepareC4Transport();this.active=true;this.mode='resume';this.restoring=true;this.token=token;this.roomId=read(this.keys.room);this.routeRoom=this.roomId;this.seq=Math.max(0,Number(read(this.keys.seq))||0);this.lookupTried=false;this.pendingToken=undefined;this.connect(this.routeRoom?'room':'lobby');return true;
   }
   receiveC4(packet,bytes=0){
+    if(packet?.type==='snapshot'){
+      let staged;
+      try{assertC4Envelope(packet);staged=this.stageC4(packet);}
+      catch(error){this.rejectC4Packet(error);return;}
+      if(!staged)return;
+      // This callback only adopts prepared references/flags. Presentation is
+      // outside both preparation and the catch that rejects invalid packets.
+      this.commitC4(staged);
+      this.onConnection('');
+      if(onlinePerf.active)onlinePerf.snapshot(packet,bytes);
+      this.onPresentation(staged.snapshot);return;
+    }
     try{
       assertC4Envelope(packet);
       if(packet.type==='welcome'){
@@ -144,7 +156,6 @@ export class OnlineClient {
         if(typeof packet.roomId!=='string'||!/^[a-f0-9-]{36}$/.test(packet.roomId))throw Error('Sala no válida.');
         this.routeRoom=packet.roomId;this.connect('room');return;
       }
-      if(packet.type==='snapshot')return this.applyC4(packet,bytes);
       if(packet.type==='result'){
         const entry=this.pending.get(packet.nonce);if(!entry)return;
         if(!packet.result||typeof packet.result.ok!=='boolean')throw Error('Resultado no válido.');clearTimeout(entry.timer);this.pending.delete(packet.nonce);entry.resolve(packet.result);return;
@@ -158,11 +169,12 @@ export class OnlineClient {
         if(packet.code==='server'){this.reconnect();return;}this.suspend();this.onIdle(packet.message||'No se pudo conectar.');return;
       }
       throw Error('Mensaje no válido.');
-    }catch(error){
-      this.lastValidationError=error;this.pendingToken=undefined;this.routeRoom=this.roomId;this.onConnection('No se pudo validar la partida.');this.dropSocket();this.reconnect();
-    }
+    }catch(error){this.rejectC4Packet(error);}
   }
-  applyC4(packet,bytes=0){
+  rejectC4Packet(error){
+    this.lastValidationError=error;this.pendingToken=undefined;this.routeRoom=this.roomId;this.onConnection('No se pudo validar la partida.');this.dropSocket();this.reconnect();
+  }
+  stageC4(packet){
     const token=this.pendingToken??this.token;if(typeof token!=='string'||token.length<48||token.length>160)throw Error('Falta sesión validable.');
     const prepared=this.prepareSnapshot(packet);if(!prepared||typeof prepared.then==='function'||!prepared.game||!Array.isArray(prepared.events))throw Error('Preparación de partida incompleta.');
     const sameRoom=packet.roomId===this.roomId,sameEpoch=packet.epoch===this.epoch;
@@ -171,11 +183,12 @@ export class OnlineClient {
     const previousSeq=sameRoom&&(sameEpoch||this.epoch==null)?this.seq:0;
     if(sameRoom&&sameEpoch&&packet.seq<this.seq)throw Error('Cursor atrasado.');
     const events=prepared.events.filter(entry=>entry.seq>previousSeq);
-    // All fallible decoding, including every event, completed before App or credentials change.
-    this.onSnapshot({...packet,events,preparedGame:prepared.game,eventsPrepared:true});
-    this.token=token;this.pendingToken=undefined;this.roomId=packet.roomId;this.routeRoom=packet.roomId;this.seq=packet.seq;this.version=packet.version;this.epoch=packet.epoch;this.team=packet.team;this.mode='battle';this.connected=true;this.restoring=false;this.retry=0;this.lastSnapshot=Date.now();this.gameState=prepared.game.state;
-    save(this.keys.token,this.token);save(this.keys.room,this.roomId);save(this.keys.seq,this.seq);this.onConnection('');
-    if(onlinePerf.active)onlinePerf.snapshot(packet,bytes);
+    return{token,snapshot:{...packet,events,preparedGame:prepared.game,eventsPrepared:true}};
+  }
+  commitC4({token,snapshot:packet}){
+    this.onSnapshot(packet);
+    this.token=token;this.pendingToken=undefined;this.roomId=packet.roomId;this.routeRoom=packet.roomId;this.seq=packet.seq;this.version=packet.version;this.epoch=packet.epoch;this.team=packet.team;this.mode='battle';this.connected=true;this.restoring=false;this.retry=0;this.lastSnapshot=Date.now();this.gameState=packet.preparedGame.state;
+    save(this.keys.token,this.token);save(this.keys.room,this.roomId);save(this.keys.seq,this.seq);
     if(!this.ackTimer)this.ackTimer=setTimeout(()=>{this.ackTimer=null;this.write({type:'ack',seq:this.seq});},200);
   }
   reconnect() {
