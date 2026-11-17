@@ -1,6 +1,6 @@
 import {C1_SERVICE,C4_SERVICE,serviceEnvelope,assertC4Envelope} from './online-context.js?v=1';
-import {admitC4Selection} from './profile-selection.js?v=1';
 import {prepareC4Packet,prepareC4Transport} from './c4-packet.js?v=1';
+import {C4_SEARCH_VERSION,C4_PENDING_KEY,C4_SEARCH_TOKEN,c4SearchRequest,newC4SearchToken,c4SearchEndpoint} from './c4-search.js?v=1';
 import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=target-c1-1';
 import { onlineServer } from './online-config.js?v=34';
 import { onlinePerf } from './perf.js?v=1';
@@ -10,6 +10,14 @@ const ROOM_KEY = 'poke-arena:ws-room', SEQ_KEY = 'poke-arena:ws-seq';
 const read = key => { try { return globalThis.sessionStorage?.getItem(key) || null; } catch { return null; } };
 function save(key, value) { try { if (value === null) globalThis.sessionStorage?.removeItem(key);else globalThis.sessionStorage?.setItem(key, String(value)); } catch {} }
 export const hasSavedOnlineSession = () => !!read(ONLINE_TOKEN_KEY);
+export function hasPendingC4Search(){try{return globalThis.sessionStorage?.getItem(C4_PENDING_KEY)!=null;}catch{throw Error('No se pudo guardar.');}}
+function checkedSave(key,value){
+  try{
+    const storage=globalThis.sessionStorage;if(!storage)throw Error();
+    if(value===null)storage.removeItem(key);else storage.setItem(key,String(value));
+    if(storage.getItem(key)!==(value===null?null:String(value)))throw Error();
+  }catch{throw Error('No se pudo guardar.');}
+}
 
 export class OnlineClient {
   constructor({ onSnapshot, onSearch, onConnection, onIdle = () => {}, serverUrl = onlineServer(), createSocket = url => new WebSocket(url),service=C1_SERVICE,prepareSnapshot=packet=>prepareC4Packet(packet),onPresentation=()=>{} }) {
@@ -50,7 +58,7 @@ export class OnlineClient {
     socket.onopen = () => {
       if (!current()) return;
       this.lastMessage = Date.now();this.lastSnapshot = Date.now();
-      this.write({ type: 'hello', protocol:this.service.protocol, token:this.service.id==='c4'?this.pendingToken??this.token:this.token, ...serviceEnvelope(this.service), ...(kind === 'room' ? { after:this.service.id==='c4'&&this.routeRoom!==this.roomId?0:this.seq, resume: this.restoring } : { mode: this.mode === 'resume' || this.restoring ? 'resume' : 'search', name: this.name, deck: this.deck,...(this.service.id==='c4'?{selection:this.selection}:{}) }) });
+      this.write(this.service.id==='c4'&&this.c4Attempt?this.c4Hello(kind):{ type: 'hello', protocol:this.service.protocol, token:this.service.id==='c4'?this.pendingToken??this.token:this.token, ...serviceEnvelope(this.service), ...(kind === 'room' ? { after:this.service.id==='c4'&&this.routeRoom!==this.roomId?0:this.seq, resume: this.restoring } : { mode: this.mode === 'resume' || this.restoring ? 'resume' : 'search', name: this.name, deck: this.deck,...(this.service.id==='c4'?{selection:this.selection}:{}) }) });
       this.heartbeat = setInterval(() => {
         if (!current()) return;
         const now = Date.now();
@@ -120,17 +128,61 @@ export class OnlineClient {
     if (!this.ackTimer) this.ackTimer = setTimeout(() => { this.ackTimer = null;this.write({ type: 'ack', seq: this.seq }); }, 200);
   }
   async startC4(name,deck,selection){
-    if(!admitC4Selection(deck,selection).ok)throw Error('Revisá tu mazo antes de buscar.');
-    await prepareC4Transport();
-    this.suspend();this.active=true;this.mode='search';this.started=Date.now();this.name=name;this.deck=[...deck];this.selection=structuredClone(selection);
-    this.token=read(this.keys.token);this.roomId=read(this.keys.room);this.seq=Math.max(0,Number(read(this.keys.seq))||0);this.version=-1;this.epoch=null;this.routeRoom=null;this.pendingToken=undefined;this.restoring=false;this.connect('lobby');return true;
+    if(this.readC4Attempt())return this.resumeC4();
+    const request=c4SearchRequest({name:String(name||'Entrenador'),deck,selection}),generation=this.generation;
+    await prepareC4Transport();if(generation!==this.generation)return false;
+    const attempt={version:1,token:newC4SearchToken(),endpoint:c4SearchEndpoint(this.serverUrl),context:serviceEnvelope(this.service),phase:'intent',request};
+    if(hasPendingC4Search())throw Error('Hay una búsqueda pendiente.');
+    checkedSave(C4_PENDING_KEY,JSON.stringify(attempt));this.activateC4Attempt(attempt);return true;
   }
   async resumeC4(){
-    const token=read(this.keys.token);if(!token)return false;
-    await prepareC4Transport();this.active=true;this.mode='resume';this.restoring=true;this.token=token;this.roomId=read(this.keys.room);this.routeRoom=this.roomId;this.seq=Math.max(0,Number(read(this.keys.seq))||0);this.lookupTried=false;this.pendingToken=undefined;this.connect(this.routeRoom?'room':'lobby');return true;
+    const attempt=this.readC4Attempt(),token=read(this.keys.token);if(!attempt&&!token)return false;
+    const generation=this.generation;await prepareC4Transport();if(generation!==this.generation)return false;
+    if(attempt){this.activateC4Attempt(attempt);return true;}
+    this.active=true;this.mode='resume';this.restoring=true;this.token=token;this.roomId=read(this.keys.room);this.routeRoom=this.roomId;this.seq=Math.max(0,Number(read(this.keys.seq))||0);this.lookupTried=false;this.pendingToken=undefined;this.connect(this.routeRoom?'room':'lobby');return true;
+  }
+  readC4Attempt(){
+    let raw;try{raw=globalThis.sessionStorage?.getItem(C4_PENDING_KEY);}catch{throw Error('No se pudo guardar.');}if(raw==null)return null;
+    try{
+      const value=JSON.parse(raw);assertC4Envelope(value.context);
+      if(value.version!==1||typeof value.token!=='string'||!C4_SEARCH_TOKEN.test(value.token)||!['intent','owned','cancelling'].includes(value.phase)||value.endpoint!==c4SearchEndpoint(this.serverUrl))throw Error();
+      return{...value,request:c4SearchRequest(value.request)};
+    }catch{throw Error('Búsqueda incompatible.');}
+  }
+  activateC4Attempt(attempt){
+    this.suspend();this.c4Attempt=attempt;this.c4Welcomed=false;this.c4Promoted=false;this.c4StorageError=null;this.cancelPromise=null;this.cancelResolve=null;
+    this.active=true;this.mode=attempt.phase==='cancelling'?'cancelling':'search';this.started=Date.now();this.restoring=false;this.lookupTried=false;
+    this.token=read(this.keys.token);this.roomId=read(this.keys.room);this.seq=Math.max(0,Number(read(this.keys.seq))||0);this.version=-1;this.epoch=null;this.routeRoom=null;this.pendingToken=attempt.token;
+    if(attempt.phase==='cancelling')this.onConnection('Cancelando…');this.connect('lobby');
+  }
+  c4Hello(kind){
+    const attempt=this.c4Attempt,base={type:'hello',...serviceEnvelope(this.service),token:attempt.token};
+    if(kind==='room')return{...base,after:this.c4Promoted?this.seq:0,resume:this.restoring};
+    this.c4Welcomed=false;
+    return{...base,c4SearchVersion:C4_SEARCH_VERSION,mode:attempt.phase==='cancelling'?'cancel-intent':attempt.phase==='intent'?'search-intent':'resume',...(attempt.phase==='owned'?{}:attempt.request)};
+  }
+  updateC4Attempt(phase){
+    const attempt=this.c4Attempt;if(!attempt)return;
+    this.c4Attempt={...attempt,phase};
+    try{if(this.readC4Attempt()?.token!==attempt.token)throw Error('Búsqueda reemplazada.');checkedSave(C4_PENDING_KEY,JSON.stringify(this.c4Attempt));this.c4StorageError=null;}
+    catch(error){this.c4StorageError=error;}
+  }
+  clearC4Attempt(token){
+    try{if(this.readC4Attempt()?.token!==token)throw Error('Búsqueda reemplazada.');checkedSave(C4_PENDING_KEY,null);this.c4Attempt=null;this.pendingToken=undefined;this.c4StorageError=null;return true;}
+    catch(error){this.c4StorageError=error;return false;}
+  }
+  closeC4Attempt(){
+    if(this.cancelPromise)return this.cancelPromise;
+    this.updateC4Attempt('cancelling');this.suspend();this.active=true;this.mode='cancelling';this.routeRoom=null;
+    this.cancelPromise=new Promise(resolve=>{this.cancelResolve=resolve;});this.onConnection('Cancelando…');this.connect('lobby');return this.cancelPromise;
   }
   receiveC4(packet,bytes=0){
+    if(this.c4Attempt){
+      let raw;try{raw=globalThis.sessionStorage?.getItem(C4_PENDING_KEY);}catch(error){this.c4StorageError=error;}
+      if(raw!=null){let owner;try{owner=JSON.parse(raw).token;}catch{}if(owner!==this.c4Attempt.token){this.suspend();this.cancelResolve?.(false);return;}}
+    }
     if(packet?.type==='snapshot'){
+      if(this.c4Attempt?.phase==='cancelling')return;
       let staged;
       try{assertC4Envelope(packet);staged=this.stageC4(packet);}
       catch(error){this.rejectC4Packet(error);return;}
@@ -138,21 +190,29 @@ export class OnlineClient {
       // This callback only adopts prepared references/flags. Presentation is
       // outside both preparation and the catch that rejects invalid packets.
       this.commitC4(staged);
-      this.onConnection('');
+      this.onConnection(this.c4StorageError?'No se pudo guardar.':'');
       if(onlinePerf.active)onlinePerf.snapshot(packet,bytes);
       this.onPresentation(staged.snapshot);return;
     }
     try{
       assertC4Envelope(packet);
+      if(this.c4Attempt&&this.kind==='lobby'&&packet.type!=='error'){
+        if(packet.c4SearchVersion!==C4_SEARCH_VERSION)throw Error('Búsqueda incompatible.');
+        if(packet.type==='welcome'||!this.c4Welcomed){if(packet.token!==this.c4Attempt.token)throw Error('Búsqueda incompatible.');}
+        if(!this.c4Welcomed&&!['welcome','idle'].includes(packet.type))throw Error('Falta confirmar la búsqueda.');
+      }
       if(packet.type==='welcome'){
+        if(this.c4Attempt){this.c4Welcomed=true;if(this.c4Attempt.phase!=='cancelling')this.updateC4Attempt('owned');return;}
         if(packet.token!==undefined){if(typeof packet.token!=='string'||packet.token.length<48||packet.token.length>160)throw Error('Token no válido.');this.pendingToken=packet.token;}return;
       }
       if(packet.type==='searching'){
+        if(this.c4Attempt?.phase==='cancelling')throw Error('Cancelación pendiente.');
         if(!Number.isSafeInteger(packet.joined)||packet.joined<0)throw Error('Búsqueda no válida.');
         const now=Date.now();this.mode='search';this.connected=true;this.retry=0;this.started=Math.min(packet.joined||this.started||now,now);this.onConnection('');
         const elapsed=now-this.started,clock=performance.now();clearInterval(this.searchTimer);const update=()=>this.onSearch(Math.max(0,elapsed+performance.now()-clock));update();this.searchTimer=setInterval(update,1000);return;
       }
       if(packet.type==='matched'){
+        if(this.c4Attempt?.phase==='cancelling')return;
         if(typeof packet.roomId!=='string'||!/^[a-f0-9-]{36}$/.test(packet.roomId))throw Error('Sala no válida.');
         this.routeRoom=packet.roomId;this.connect('room');return;
       }
@@ -162,25 +222,31 @@ export class OnlineClient {
       }
       if(packet.type==='idle'){
         if(packet.expired!==undefined&&typeof packet.expired!=='boolean')throw Error('Sesión no válida.');
+        if(this.c4Attempt){
+          if(this.kind!=='lobby'){this.routeRoom=null;this.connect('lobby');return;}
+          if(!['cancelled','ended','expired'].includes(packet.searchState)||(packet.searchState==='expired')!==(packet.expired===true))throw Error('Cancelación pendiente.');
+          this.clearC4Attempt(this.c4Attempt.token);this.suspend();this.cancelResolve?.(true);this.onConnection('');this.onIdle(this.c4StorageError?'No se pudo guardar.':packet.message||'');return;
+        }
         if(packet.expired){this.token=null;save(this.keys.token,null);}save(this.keys.room,null);save(this.keys.seq,null);this.roomId=null;this.routeRoom=null;this.pendingToken=undefined;this.suspend();this.onConnection('');this.onIdle(packet.message||'');return;
       }
       if(packet.type==='error'){
         if(packet.code==='session'&&this.kind==='room'&&!this.lookupTried){this.lookupTried=true;this.routeRoom=null;this.mode='resume';this.connect('lobby');return;}
-        if(packet.code==='server'){this.reconnect();return;}this.suspend();this.onIdle(packet.message||'No se pudo conectar.');return;
+        if(packet.code==='server'){this.reconnect();return;}this.suspend();this.cancelResolve?.(false);this.onIdle(packet.message||'No se pudo conectar.');return;
       }
       throw Error('Mensaje no válido.');
     }catch(error){this.rejectC4Packet(error);}
   }
   rejectC4Packet(error){
-    this.lastValidationError=error;this.pendingToken=undefined;this.routeRoom=this.roomId;this.onConnection('No se pudo validar la partida.');this.dropSocket();this.reconnect();
+    this.lastValidationError=error;if(this.c4Attempt){this.pendingToken=this.c4Attempt.token;this.routeRoom=null;}else{this.pendingToken=undefined;this.routeRoom=this.roomId;}this.onConnection('No se pudo validar la partida.');this.dropSocket();this.reconnect();
   }
   stageC4(packet){
+    if(this.c4Attempt&&!this.c4Welcomed)throw Error('Falta confirmar la búsqueda.');
     const token=this.pendingToken??this.token;if(typeof token!=='string'||token.length<48||token.length>160)throw Error('Falta sesión validable.');
     const prepared=this.prepareSnapshot(packet);if(!prepared||typeof prepared.then==='function'||!prepared.game||!Array.isArray(prepared.events))throw Error('Preparación de partida incompleta.');
     const sameRoom=packet.roomId===this.roomId,sameEpoch=packet.epoch===this.epoch;
     if(sameRoom&&sameEpoch&&packet.version<this.version)return;
     if(this.routeRoom&&packet.roomId!==this.routeRoom)throw Error('Sala inesperada.');
-    const previousSeq=sameRoom&&(sameEpoch||this.epoch==null)?this.seq:0;
+    const previousSeq=this.c4Attempt&&!this.c4Promoted?0:sameRoom&&(sameEpoch||this.epoch==null)?this.seq:0;
     if(sameRoom&&sameEpoch&&packet.seq<this.seq)throw Error('Cursor atrasado.');
     const events=prepared.events.filter(entry=>entry.seq>previousSeq);
     return{token,snapshot:{...packet,events,preparedGame:prepared.game,eventsPrepared:true}};
@@ -188,13 +254,20 @@ export class OnlineClient {
   commitC4({token,snapshot:packet}){
     this.onSnapshot(packet);
     this.token=token;this.pendingToken=undefined;this.roomId=packet.roomId;this.routeRoom=packet.roomId;this.seq=packet.seq;this.version=packet.version;this.epoch=packet.epoch;this.team=packet.team;this.mode='battle';this.connected=true;this.restoring=false;this.retry=0;this.lastSnapshot=Date.now();this.gameState=packet.preparedGame.state;
-    save(this.keys.token,this.token);save(this.keys.room,this.roomId);save(this.keys.seq,this.seq);
+    this.c4Promoted=true;
+    try{
+      const confirmed=[[this.keys.token,this.token],[this.keys.room,this.roomId],[this.keys.seq,this.seq]];
+      for(const[key,value]of confirmed)checkedSave(key,value);
+      if(confirmed.some(([key,value])=>globalThis.sessionStorage.getItem(key)!==String(value)))throw Error('No se pudo guardar.');
+      if(this.c4Attempt)this.clearC4Attempt(token);else this.c4StorageError=null;
+    }
+    catch(error){this.c4StorageError=error;}
     if(!this.ackTimer)this.ackTimer=setTimeout(()=>{this.ackTimer=null;this.write({type:'ack',seq:this.seq});},200);
   }
   reconnect() {
     if (!this.active || this.reconnectTimer) return;
     if(onlinePerf.active)onlinePerf.reconnect();
-    this.connected = false;this.dropSocket();this.onConnection('Reconectando…');
+    this.connected = false;this.dropSocket();this.onConnection(this.service.id==='c4'&&this.c4Attempt?.phase==='cancelling'?'Cancelando…':'Reconectando…');
     const delay = Math.min(3000, 250 * 2 ** Math.min(4, this.retry++));
     this.reconnectTimer = setTimeout(() => { this.reconnectTimer = null;this.connect((this.service.id==='c4'?this.routeRoom:this.roomId) ? 'room' : 'lobby'); }, delay);
   }
@@ -203,6 +276,7 @@ export class OnlineClient {
     if (!this.socket || this.socket.readyState > 1 || Date.now() - (this.lastMessage || 0) > 4500) { clearTimeout(this.reconnectTimer);this.reconnectTimer = null;this.reconnect(); }
   }
   send(action) {
+    if(this.service.id==='c4'&&this.c4Attempt&&(!this.c4Promoted||this.c4Attempt.phase==='cancelling'))return Promise.resolve({ok:false,reason:'Partida cerrada.'});
     if (!this.active || !this.roomId) return Promise.resolve({ ok: false, reason: 'Partida cerrada.' });
     const body = { ...action, type: 'action', nonce: crypto.randomUUID() }, generation = this.generation, roomId = this.roomId;
     return new Promise(resolve => {
@@ -223,6 +297,7 @@ export class OnlineClient {
     for (const entry of this.pending.values()) { clearTimeout(entry.timer);entry.resolve({ ok: false, reason: 'Partida cerrada.' }); }this.pending.clear();
   }
   close() {
+    if(this.service.id==='c4'&&this.c4Attempt)return this.closeC4Attempt();
     if (this.mode === 'battle' && this.gameState !== 'ended') this.write({ type: 'action', kind: 'leave', nonce: crypto.randomUUID() });
     else if (this.kind === 'lobby') this.write({ type: 'cancel' });
     this.suspend();return Promise.resolve();

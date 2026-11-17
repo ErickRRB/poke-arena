@@ -8,7 +8,7 @@ import {C1_SERVICE,C4_SERVICE,localC4Endpoint} from './online-context.js?v=1';
 import {prepareC4Catalog} from './c4-catalog.js?v=1';
 import {prepareC4Packet,prepareC4Transport} from './c4-packet.js?v=1';
 import {c4SelectionFromLibrary} from './profile-selection.js?v=1';
-import { OnlineClient, hasSavedOnlineSession } from './online.js?v=target-c1-1';
+import { OnlineClient, hasSavedOnlineSession, hasPendingC4Search } from './online.js?v=target-c1-1';
 import { onlinePerf } from './perf.js?v=1';
 import { unpackGame, perspective } from './snapshot.js?v=target-c1-1';
 import { cardArtMarkup } from './card-art.js?v=target-c1-1';
@@ -588,10 +588,10 @@ $('skip-guide').addEventListener('click',finishGuide);
 $('again-btn').addEventListener('click',()=>{if(onlineMode)beginOnline();else newGame({start:true});});
 $('result-menu-btn').addEventListener('click',mainMenu);
 $('menu-deck-btn').addEventListener('click',openDeck);
-function mainMenu(){if(online?.active&&(online.mode==='resume'||onlineMode&&game.state!=='ended'))return;const searching=!$('search-panel').hidden;closingOnline=online?.close()||Promise.resolve();online=null;onlineMode=false;$('search-panel').hidden=true;$('ready-overlay').inert=false;for(const dialog of document.querySelectorAll('dialog[open]'))closeModal(dialog,false);newGame();canvas.blur();if(searching)$('online-btn').focus({preventScroll:true});}
+function mainMenu(){if(online?.service.id==='c4'&&online.c4Attempt&&(!onlineMode||game.state==='ended')){closingOnline=online.close();return;}if(online?.active&&(online.mode==='resume'||onlineMode&&game.state!=='ended'))return;const searching=!$('search-panel').hidden;closingOnline=online?.close()||Promise.resolve();online=null;onlineMode=false;$('search-panel').hidden=true;$('ready-overlay').inert=false;for(const dialog of document.querySelectorAll('dialog[open]'))closeModal(dialog,false);newGame();canvas.blur();if(searching)$('online-btn').focus({preventScroll:true});}
 function requestHome(event){
   event?.preventDefault();
-  if(online?.active&&(online.mode==='resume'||onlineMode&&game.state!=='ended'))return;
+  if(online?.active&&(online.mode==='resume'&&!online.c4Attempt||onlineMode&&game.state!=='ended'))return;
   if(!document.body.classList.contains('menu-mode')&&!onlineMode&&['playing','paused'].includes(game.state)){if(!$('leave-dialog').open)openModal('leave-dialog');return;}
   mainMenu();
 }
@@ -633,8 +633,8 @@ $('online-btn').addEventListener('click',beginOnline);$('cancel-search').addEven
 function showSearch(){if(!$('search-panel').hidden)return;$('menu-loading').hidden=true;$('search-panel').hidden=false;$('ready-overlay').inert=true;$('cancel-search').focus({preventScroll:true});}
 function createOnlineClient({legacy=false}={}){
   const local=c4WireEndpoint&&!legacy;
-  let resetC4Presentation=false;
-  return new OnlineClient({...(local?{serverUrl:c4WireEndpoint,service:C4_SERVICE,prepareSnapshot:packet=>prepareC4Packet(packet,{viewTeam:packet.team,animations:renderer.metadata}),onPresentation:packet=>{
+  let resetC4Presentation=false,client;
+  return client=new OnlineClient({...(local?{serverUrl:c4WireEndpoint,service:C4_SERVICE,prepareSnapshot:packet=>prepareC4Packet(packet,{viewTeam:packet.team,animations:renderer.metadata}),onPresentation:packet=>{
     if(ready){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
     $('search-panel').hidden=true;
     if(resetC4Presentation)adoptGame(game);
@@ -642,9 +642,11 @@ function createOnlineClient({legacy=false}={}){
     if(game.state==='ended'&&$('result-overlay').hidden)showResult({winner:game.winner,reason:game.reason});
     $('online-status').hidden=packet.startsIn<=0;$('online-status').textContent=packet.startsIn>0?'Preparados':'';updateUi();
   }}:{}),onSearch:ms=>{const sec=Math.floor(ms/1000);$('search-time').textContent=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;if(ready)showSearch();},onConnection:status=>{
+    if(local&&online!==client)return;
     const reconnecting=status==='Reconectando…';$('connection-loading').hidden=!onlineMode||!reconnecting;$('online-status').hidden=!onlineMode||!status||reconnecting;$('online-status').textContent=reconnecting?'':status;
     if(!onlineMode)$('search-status').textContent=status||'Buscando rival…';
   },onIdle:message=>{
+    if(local&&online!==client)return;
     online=null;onlineMode=false;$('menu-loading').hidden=ready;$('ready-overlay').inert=false;$('search-panel').hidden=true;newGame();if(message)toast(message);
   },onSnapshot:packet=>{
     if(local){
@@ -698,14 +700,14 @@ requestAnimationFrame(frame);
 $('retry-load').addEventListener('click',()=>location.reload());
 try{
   if(c4BootError)throw c4BootError;
-  const savedC4=c4WireEndpoint&&(()=>{try{return !!sessionStorage.getItem(C4_SERVICE.keys.token);}catch{return false;}})();
+  const savedC4=c4WireEndpoint&&(hasPendingC4Search()||(()=>{try{return !!sessionStorage.getItem(C4_SERVICE.keys.token);}catch{return false;}})());
   if(savedC4||hasSavedOnlineSession()){
-    $('ready-overlay').inert=true;online=createOnlineClient({legacy:!savedC4});online.resume().catch(()=>{});
+    $('ready-overlay').inert=true;online=createOnlineClient({legacy:!savedC4});if(savedC4)await online.resume();else online.resume().catch(()=>{});
   }
   await loadUiResources(progress=>renderer.load((c4CpuPreview&&checkLocalCpuDeck(deckLibrary,deckLibrary.active).keys)||eligibleDeckKeys(deck)||DEFAULT_DECK,progress),(loaded,total)=>{const progress=loaded/total,indicator=$('menu-load-progress');indicator.setAttribute('aria-valuenow',String(Math.floor(progress*100)));$('menu-load-fill').setAttribute('y',String(64*(1-progress)));$('menu-load-fill').setAttribute('height',String(64*progress));});
   ready=true;$('loading').hidden=true;$('ready-overlay').setAttribute('aria-busy','false');$('practice-btn').disabled=false;updateMenuAvailability();
   if(onlineMode){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
-  else if(online?.active&&online.mode==='search')showSearch();
+  else if(online?.active&&(online.mode==='search'||online.mode==='cancelling'))showSearch();
   else if(online?.active){$('menu-load-progress').classList.add('is-indeterminate');$('menu-load-progress').setAttribute('aria-label','Reconectando a la partida');$('menu-load-progress').removeAttribute('aria-valuenow');}
   else{$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
 }catch(error){
