@@ -16,6 +16,11 @@
   36% { transform:translateY(-3%) rotate(4deg) scale(.98,1.02); }
 }
 .result-content { position:relative; isolation:isolate; }
+.result-overlay { animation:result-curtain-in .24s ease-out both; }
+.result-content { animation:result-popup-in .52s cubic-bezier(.2,.85,.24,1) both; }
+.result-overlay[data-outcome=win] #result-title { color:#ffe6a1;text-shadow:0 3px 0 #79532b; }
+.result-overlay[data-outcome=loss] #result-title { color:#f1d4c8;text-shadow:0 3px 0 #663e3b; }
+.result-overlay[data-outcome=draw] #result-title { color:#d9ddfb;text-shadow:0 3px 0 #4b4d75; }
 .result-content::before,.result-content::after {
   content:"";position:absolute;top:22px;width:7px;height:7px;pointer-events:none;
   background:#e1a73a;box-shadow:0 -5px #e1a73a,0 5px #e1a73a,-5px 0 #e1a73a,5px 0 #e1a73a;
@@ -25,7 +30,7 @@
 .result-content::after{right:calc(50% - 65px)}
 .result-overlay[data-outcome=win] .result-crown { animation:medal-cheer 1.05s cubic-bezier(.2,.8,.25,1) both;transform-origin:50% 80%; }
 .result-overlay[data-outcome=win] .result-content::before,
-.result-overlay[data-outcome=win] .result-content::after { animation:medal-spark 2.2s ease-in-out infinite; }
+.result-overlay[data-outcome=win] .result-content::after { animation:medal-spark 1.8s ease-in-out 1 both; }
 .result-overlay[data-outcome=win] .result-content::after { animation-delay:.35s; }
 .result-overlay[data-outcome=loss] .result-crown { animation:result-nod .75s ease-out both;transform-origin:50% 85%; }
 .result-overlay[data-outcome=draw] .result-crown { animation:result-balance .9s ease-in-out both;transform-origin:50% 75%; }
@@ -36,11 +41,18 @@
   85%{transform:translateY(-2px) scale(1.03) rotate(2deg)}
   100%{transform:none;opacity:1}
 }
+@keyframes result-curtain-in { from{opacity:0} to{opacity:1} }
+@keyframes result-popup-in {
+  0%{opacity:0;transform:translateY(18px) scale(.84)}
+  62%{opacity:1;transform:translateY(-4px) scale(1.035)}
+  82%{transform:translateY(2px) scale(.99)}
+  100%{opacity:1;transform:none}
+}
 @keyframes medal-spark {0%,20%,100%{opacity:0;transform:scale(.3) rotate(0)}35%{opacity:.9;transform:scale(1) rotate(20deg)}60%{opacity:0;transform:scale(.45) rotate(45deg)}}
 @keyframes result-nod {0%{opacity:0;transform:translateY(-5px) rotate(-8deg)}60%{opacity:1;transform:translateY(2px) rotate(4deg)}100%{opacity:1;transform:none}}
 @keyframes result-balance {0%{opacity:0;transform:scale(.8) rotate(-12deg)}55%{opacity:1;transform:scale(1.05) rotate(8deg)}100%{opacity:1;transform:none}}
-.reduced-motion .loading-ball,.reduced-motion .result-crown,.reduced-motion .result-content::before,.reduced-motion .result-content::after,
+.reduced-motion .loading-ball,.reduced-motion .result-overlay,.reduced-motion .result-content,.reduced-motion .result-crown,.reduced-motion .result-content::before,.reduced-motion .result-content::after,
 .reduce-motion .lab-pokeball,.reduce-motion .lab-load-progress {animation:none!important}
 @media(prefers-reduced-motion:reduce){
- .loading-ball,.lab-pokeball,.lab-load-progress,.result-crown,.result-content::before,.result-content::after{animation:none!important}
+ .loading-ball,.lab-pokeball,.lab-load-progress,.result-overlay,.result-content,.result-crown,.result-content::before,.result-content::after{animation:none!important}
 }
