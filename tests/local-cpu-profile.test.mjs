@@ -1,3 +1,4 @@
+import {prepareC4Catalog} from '../dist/c4-catalog.js?v=1';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {checkLocalCpuDeck,isLocalC4CpuPreview} from '../dist/local-cpu-profile.js';
@@ -11,6 +12,7 @@ import {SoundSystem} from '../dist/audio.js';
 import {attackVisualProfile} from '../dist/combat-visuals.js';
 import {attackAnimationFrame} from '../dist/sprite-motion.js';
 import {Renderer} from '../dist/render.js';
+await prepareC4Catalog();
 const raw=()=>({version:1,active:0,updatedAt:100,slots:[['arcanine',...DEFAULT_DECK.slice(1)],['arcanine',...DEFAULT_DECK.slice(1)],DEFAULT_DECK.slice(),[]]});
 const accepted=()=>updateLibrarySlot(raw(),0,0,'arcanine',{action:'accept',now:200});
 

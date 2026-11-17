@@ -1,5 +1,4 @@
 import {C1_SERVICE,C4_SERVICE,serviceEnvelope,assertC4Envelope} from './online-context.js?v=1';
-import {CARDS} from './engine.js?v=target-c1-1';
 import {admitC4Selection} from './profile-selection.js?v=1';
 import {prepareC4Packet,prepareC4Transport} from './c4-packet.js?v=1';
 import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=target-c1-1';
@@ -122,13 +121,13 @@ export class OnlineClient {
   }
   async startC4(name,deck,selection){
     if(!admitC4Selection(deck,selection).ok)throw Error('Revisá tu mazo antes de buscar.');
-    await prepareC4Transport(CARDS);
+    await prepareC4Transport();
     this.suspend();this.active=true;this.mode='search';this.started=Date.now();this.name=name;this.deck=[...deck];this.selection=structuredClone(selection);
     this.token=read(this.keys.token);this.roomId=read(this.keys.room);this.seq=Math.max(0,Number(read(this.keys.seq))||0);this.version=-1;this.epoch=null;this.routeRoom=null;this.pendingToken=undefined;this.restoring=false;this.connect('lobby');return true;
   }
   async resumeC4(){
     const token=read(this.keys.token);if(!token)return false;
-    await prepareC4Transport(CARDS);this.active=true;this.mode='resume';this.restoring=true;this.token=token;this.roomId=read(this.keys.room);this.routeRoom=this.roomId;this.seq=Math.max(0,Number(read(this.keys.seq))||0);this.lookupTried=false;this.pendingToken=undefined;this.connect(this.routeRoom?'room':'lobby');return true;
+    await prepareC4Transport();this.active=true;this.mode='resume';this.restoring=true;this.token=token;this.roomId=read(this.keys.room);this.routeRoom=this.roomId;this.seq=Math.max(0,Number(read(this.keys.seq))||0);this.lookupTried=false;this.pendingToken=undefined;this.connect(this.routeRoom?'room':'lobby');return true;
   }
   receiveC4(packet,bytes=0){
     try{
