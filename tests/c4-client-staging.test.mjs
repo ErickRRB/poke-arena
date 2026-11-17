@@ -108,3 +108,16 @@ test('if both cancelling storage and network fail, reload can recover identity b
  const s=setup(t);await start(s);const token=pending(s).token;s.faults.set=C4_PENDING_KEY;s.client.close();const cancel=s.sockets.at(-1);assert.equal(cancel.readyState,0);assert.equal(s.client.c4Attempt.phase,'cancelling');assert.equal(pending(s).phase,'intent');s.client.suspend();delete s.faults.set;
  const client=s.makeClient();await client.resume();const lookup=s.sockets.at(-1);lookup.open();assert.equal(lookup.sent[0].token,token);assert.equal(lookup.sent[0].mode,'search-intent');assert.equal(pending(s).phase,'intent');
 });
+
+test('only a bound non-admission retires the exact new attempt, allowing a changed deck and leaving saved recovery intact',async t=>{
+ const s=setup(t),socket=await start(s),token=pending(s).token,saved=[...s.storage].filter(([key])=>key!==C4_PENDING_KEY);
+ socket.packet(lobbyPacket('idle',{token,searchState:'closed',message:'Las búsquedas están temporalmente cerradas.'}));assert.equal(s.storage.has(C4_PENDING_KEY),false);assert.deepEqual([...s.storage],saved);assert.equal(s.idles.at(-1),'Las búsquedas están temporalmente cerradas.');
+ const reloaded=s.makeClient();await reloaded.resume();const resume=s.sockets.at(-1);resume.open();assert.equal(resume.sent[0].token,TOKEN);assert.equal(new URL(resume.url).pathname,'/v1/rooms/'+ROOM);reloaded.suspend();
+ const q=choice(),deck=[...q.deck];[deck[1],deck[2]]=[deck[2],deck[1]];await s.client.start('A',deck,q.selection);const next=s.sockets.at(-1);next.open();assert.notEqual(pending(s).token,token);assert.deepEqual(next.sent[0].deck,deck);assert.equal(next.sent[0].mode,'search-intent');
+});
+
+test('generic errors, unbound closed replies and closed replies to an owned/cancelling attempt never erase recovery',async t=>{
+ const s=setup(t),socket=await start(s),token=pending(s).token;
+ socket.packet(lobbyPacket('idle',{token:'f'.repeat(64),searchState:'closed',message:'Closed'}));assert.equal(pending(s).token,token);assert.equal(s.client.token,TOKEN);t.mock.timers.tick(3000);const retry=s.sockets.at(-1);retry.open();retry.packet(lobbyPacket('error',{code:'unavailable',message:'Closed'}));assert.equal(pending(s).token,token);
+ const owned=s.makeClient();await owned.resume();const lookup=s.sockets.at(-1);lookup.open();welcome(s,lookup);lookup.packet(lobbyPacket('idle',{token,searchState:'closed',message:'Closed'}));assert.equal(pending(s).phase,'owned');assert.equal(pending(s).token,token);owned.close();const cancel=s.sockets.at(-1);cancel.open();cancel.packet(lobbyPacket('idle',{token,searchState:'closed',message:'Closed'}));assert.equal(pending(s).phase,'cancelling');assert.equal(s.storage.get(C4_SERVICE.keys.token),TOKEN);
+});

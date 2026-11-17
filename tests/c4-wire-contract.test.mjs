@@ -19,7 +19,7 @@ test('wire selection projects only the selected positions and rejects legacy/con
  const stale=structuredClone(request.selection);stale.conflictClock=3;assert.equal(admitC4Selection(request.deck,stale).ok,false);
  assert.equal(admitC4Selection(request.deck,{...request.selection,slots:Array(8).fill(null)}).ok,false);
 });
-test('C4 is an explicit loopback variant and P4 remains the default',()=>{
+test('local C4 preview stays loopback-only and P4 wire remains the default',()=>{
  assert.equal(ONLINE_PROTOCOL,4);assert.equal(C4_SERVICE.protocol,5);
  assert.ok(localC4Endpoint('http://127.0.0.1:4173/?preview=c4-wire-1&realtime=http://localhost:4180'));
  for(const url of ['https://public.example/?preview=c4-wire-1&realtime=http://localhost:4180','http://localhost/?preview=c4-wire-1&realtime=https://public.example','http://localhost/?preview=c4-wire-1&realtime=http://u:p@localhost:4180','http://localhost/?preview=c4-wire-1&realtime=http://localhost.evil/'])assert.equal(localC4Endpoint(url),null);

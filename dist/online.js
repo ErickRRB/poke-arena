@@ -1,6 +1,7 @@
 import {C1_SERVICE,C4_SERVICE,serviceEnvelope,assertC4Envelope} from './online-context.js?v=1';
 import {prepareC4Packet,prepareC4Transport} from './c4-packet.js?v=1';
 import {C4_SEARCH_VERSION,C4_PENDING_KEY,C4_SEARCH_TOKEN,c4SearchRequest,newC4SearchToken,c4SearchEndpoint} from './c4-search.js?v=1';
+import {allowedC4Server} from './online-routing.js?v=1';
 import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=target-c1-1';
 import { onlineServer } from './online-config.js?v=34';
 import { onlinePerf } from './perf.js?v=1';
@@ -23,7 +24,7 @@ export class OnlineClient {
   constructor({ onSnapshot, onSearch, onConnection, onIdle = () => {}, serverUrl = onlineServer(), createSocket = url => new WebSocket(url),service=C1_SERVICE,prepareSnapshot=packet=>prepareC4Packet(packet),onPresentation=()=>{} }) {
     Object.assign(this, { onSnapshot, onSearch, onConnection, onIdle, serverUrl, createSocket,service,prepareSnapshot,onPresentation });
     this.keys=service.keys;
-    if(service.id==='c4'){const endpoint=new URL(serverUrl);if(!['localhost','127.0.0.1','[::1]'].includes(endpoint.hostname)||endpoint.username||endpoint.password)throw Error('El servidor de prueba debe ser local.');}
+    if(service.id==='c4'&&!allowedC4Server(serverUrl))throw Error('Servidor de partida incompatible.');
     this.active = false;this.connected = false;this.version = -1;this.seq = 0;this.generation = 0;this.socketId = 0;this.pending = new Map();this.retry = 0;
   }
   async start(name, deck,selection) {
@@ -159,7 +160,8 @@ export class OnlineClient {
     const attempt=this.c4Attempt,base={type:'hello',...serviceEnvelope(this.service),token:attempt.token};
     if(kind==='room')return{...base,after:this.c4Promoted?this.seq:0,resume:this.restoring};
     this.c4Welcomed=false;
-    return{...base,c4SearchVersion:C4_SEARCH_VERSION,mode:attempt.phase==='cancelling'?'cancel-intent':attempt.phase==='intent'?'search-intent':'resume',...(attempt.phase==='owned'?{}:attempt.request)};
+    this.c4LobbyMode=attempt.phase==='cancelling'?'cancel-intent':attempt.phase==='intent'?'search-intent':'resume';
+    return{...base,c4SearchVersion:C4_SEARCH_VERSION,mode:this.c4LobbyMode,...(attempt.phase==='owned'?{}:attempt.request)};
   }
   updateC4Attempt(phase){
     const attempt=this.c4Attempt;if(!attempt)return;
@@ -224,7 +226,9 @@ export class OnlineClient {
         if(packet.expired!==undefined&&typeof packet.expired!=='boolean')throw Error('Sesión no válida.');
         if(this.c4Attempt){
           if(this.kind!=='lobby'){this.routeRoom=null;this.connect('lobby');return;}
-          if(!['cancelled','ended','expired'].includes(packet.searchState)||(packet.searchState==='expired')!==(packet.expired===true))throw Error('Cancelación pendiente.');
+          const closed=packet.searchState==='closed';
+          if(closed&&(this.c4Attempt.phase!=='intent'||this.c4LobbyMode!=='search-intent'||packet.token!==this.c4Attempt.token||typeof packet.message!=='string'))throw Error('Búsqueda incompatible.');
+          if(!['cancelled','ended','expired','closed'].includes(packet.searchState)||(packet.searchState==='expired')!==(packet.expired===true))throw Error('Cancelación pendiente.');
           this.clearC4Attempt(this.c4Attempt.token);this.suspend();this.cancelResolve?.(true);this.onConnection('');this.onIdle(this.c4StorageError?'No se pudo guardar.':packet.message||'');return;
         }
         if(packet.expired){this.token=null;save(this.keys.token,null);}save(this.keys.room,null);save(this.keys.seq,null);this.roomId=null;this.routeRoom=null;this.pendingToken=undefined;this.suspend();this.onConnection('');this.onIdle(packet.message||'');return;
