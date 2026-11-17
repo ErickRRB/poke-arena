@@ -98,7 +98,13 @@ function updateSound() {
 }
 function setReduced(value) { reduced = value; renderer.reduced = reduced; document.body.classList.toggle('reduced-motion', reduced); $('motion-setting').checked = reduced; store.set('reduced', reduced); }
 function setCombatNumbers(value){combatNumbers=value===true;renderer.setCombatNumbers(combatNumbers);$('damage-numbers-setting').checked=combatNumbers;store.set('combat-numbers',combatNumbers);}
+let menuToastTimer;
 function toast(message) {
+  if(document.body.classList.contains('menu-mode')){
+    let notice=$('menu-toast');
+    if(!notice){notice=document.createElement('div');notice.id='menu-toast';notice.className='toast menu-toast';notice.setAttribute('aria-hidden','true');document.body.append(notice);}
+    live(message);notice.textContent=message;notice.classList.add('show');clearTimeout(menuToastTimer);menuToastTimer=setTimeout(()=>notice.classList.remove('show'),2400);return;
+  }
   if(game?.state==='playing'){live(message);$('online-status').hidden=false;$('online-status').textContent=message;clearTimeout(toastTimer);toastTimer=setTimeout(()=>{$('online-status').hidden=true;},2400);return;}
   $('toast').textContent = message; $('toast').classList.add('show');
   clearTimeout(toastTimer); toastTimer = setTimeout(() => $('toast').classList.remove('show'), 2400);
@@ -648,7 +654,7 @@ function createOnlineClient({legacy=false}={}){
     if(!onlineMode)$('search-status').textContent=status||'Buscando rival…';
   },onIdle:message=>{
     if(c4&&online!==client)return;
-    online=null;onlineMode=false;$('menu-loading').hidden=ready;$('ready-overlay').inert=false;$('search-panel').hidden=true;newGame();if(message)toast(message);
+    online=null;onlineMode=false;$('menu-loading').hidden=ready;$('ready-overlay').inert=false;$('search-panel').hidden=true;newGame();if(message)toast(message);if(c4&&ready)($('online-btn').disabled?$('menu-deck-btn'):$('online-btn')).focus({preventScroll:true});
   },onSnapshot:packet=>{
     if(c4){
       const next=packet.preparedGame;resetC4Presentation=!onlineMode||game.ruleset!==next.ruleset||game.catalogVersion!==next.catalogVersion;
