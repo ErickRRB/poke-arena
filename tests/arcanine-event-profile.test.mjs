@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {Game,CARDS} from '../dist/engine.js?v=34';
 import {packGame,unpackGame,packEvent,perspective} from '../dist/snapshot.js';
+import {prepareC4Catalog} from '../dist/c4-catalog.js?v=1';
+await prepareC4Catalog(CARDS);
 const fixture=async key=>JSON.parse(await readFile(new URL('./fixtures/arcanine-producers/'+key+'.json',import.meta.url),'utf8'));
 const hit=(g,u,events)=>{g.emit('hit',{key:u.key,sourceId:u.id,style:'slam',x:200});return packEvent(events.at(-1));};
 test('65ab bridge C1 emits no redundant card',async()=>{const {snapshot}=await fixture('65ab375'),events=[],g=unpackGame(snapshot,e=>events.push(e)),u=g.units.find(u=>u.key==='arcanine');assert.equal(g.ruleset,'c1-733');assert.notEqual(u.card,CARDS.arcanine);assert.equal('sourceCard'in hit(g,u,events),false)});

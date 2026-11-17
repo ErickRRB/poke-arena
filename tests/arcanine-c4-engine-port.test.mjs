@@ -7,6 +7,8 @@ import {packGame,unpackGame,perspective,packEvent} from '../dist/snapshot.js';
 import {cardEquivalentLabel} from '../dist/card-equivalents.js';
 import {quickStats} from '../dist/quick-stats.js';
 import {SoundSystem} from '../dist/audio.js';
+import {prepareC4Catalog} from '../dist/c4-catalog.js?v=1';
+await prepareC4Catalog(CARDS);
 const fixture=async key=>JSON.parse(await readFile(new URL('./fixtures/arcanine-producers/'+key+'.json',import.meta.url),'utf8'));
 const next=(g,n)=>{for(let i=0;i<n;i++)g.step(1/30);};
 const clean=card=>{const {legacyProfile,...rest}=card;return rest;};

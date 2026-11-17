@@ -1,3 +1,4 @@
+import {getC4BaseCatalog} from './c4-catalog.js?v=1';
 import {C1_RULESET,C3_RULESET,C4_RULESET,validateC4Profiles} from './hog-profiles.js?v=1';
 import {resolveC3Profiles} from './hog-c3-validation.js?v=1';
 import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=34';
@@ -31,7 +32,7 @@ export function unpackGame(data,onEvent=()=>{},animations={}){
   const version=data.catalogVersion??1, ruleset=data.ruleset??(version<=2?C1_RULESET:version===3?C3_RULESET:null);
   if(!(((version===1||version===2)&&ruleset===C1_RULESET)||(version===3&&[C1_RULESET,C3_RULESET].includes(ruleset))||(version===4&&[C1_RULESET,C4_RULESET].includes(ruleset))))throw Error('Perfil de partida incompatible.');
   const c3=version===3&&ruleset===C3_RULESET?resolveC3Profiles(data):null;
-  if(version===4&&ruleset===C4_RULESET)validateC4Profiles(data,CARDS);
+  if(version===4&&ruleset===C4_RULESET)validateC4Profiles(data,getC4BaseCatalog());
   const restored=migrateLegacyCardIdentity(structuredClone(data));
   restored.catalogVersion=version;restored.ruleset=ruleset;
   if(c3){restored.profileProducer=c3.source;restored.legacyCardOverrides={...restored.legacyCardOverrides,...c3.overrides};for(const entity of restored.units||[])if(Object.hasOwn(c3.overrides,entity.key)&&entity.card)entity.card=structuredClone(c3.overrides[entity.key]);}
