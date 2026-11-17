@@ -29,22 +29,38 @@ export function electricArc(c,from,to,age,seed=0,width=2){
 
 export function electricUnitState(unit){
   const lore=electricLore(unit.key,unit.card);
-  if(!lore||unit.preview||unit.mounted||unit.hp<=0||unit.stun>0)return null;
+  if(!lore||unit.preview||unit.mounted||unit.hp<=0||unit.stun>0||unit.spawn>0)return null;
   if(lore==='child'){
-    if(unit.spawn>0)return{energy:.28+Math.min(.7,unit.spawn*1.4),phase:'birth'};
-    if(unit.leap)return{energy:1,phase:'leap'};
-    return unit.moving?{energy:.28,phase:'move'}:null;
+    // Native spirits prepare their leap without emitting attackStart. Read
+    // that live phase; spawning, walking and flight are not attack charge.
+    const remaining=unit.leap?.prepare,windup=unit.attackWindup??unit.card.windup;
+    if(!(remaining>0&&windup>0))return null;
+    return{energy:.25+.75*ease(1-remaining/windup),phase:'prepare'};
   }
   const windup=unit.attackWindup??unit.card.windup,duration=unit.attackDuration??unit.card.attackDuration;
   const elapsed=duration-unit.attack;
-  if(unit.attack>0&&windup>0&&elapsed<windup)return{energy:.25+.75*ease(elapsed/windup),phase:'charge'};
-  if(unit.summonActive&&unit.summonClock>0&&unit.summonClock<.28)return{energy:.55,phase:'summon'};
+  if(unit.attack>0&&windup>0&&elapsed>=0&&elapsed<windup)return{energy:.25+.75*ease(elapsed/windup),phase:'charge'};
   return null;
 }
 
-export function drawElectricAura(c,{x,y,radius,energy,age,seed=0,reduced=false,vertical=1,birth=false}){
+export function drawElectricAura(c,{x,y,radius,energy,age,seed=0,reduced=false,vertical=1,birth=false,preparation=false}){
   c.save();c.translate(x,y);c.scale(1,1/vertical);
   const clock=reduced?0:age;
+  if(preparation){
+    // Two pixel forks belong only to the child's real windup. Full contrast
+    // keeps the cue legible over grass without a glow or ambient orbit.
+    const pixel=2,r=Math.round(radius)+1,cells=[[0,-3],[1,-3],[0,-2],[-1,-1],[0,-1],[1,-1],[0,0],[-1,1]];
+    c.globalAlpha=1;
+    for(const side of [-1,1]){
+      c.fillStyle='#402f28';
+      for(const [px,py] of cells)c.fillRect(side*(r+px*pixel)-1,py*pixel-1,pixel+2,pixel+2);
+      c.fillStyle='#ffd34d';
+      for(const [px,py] of cells)c.fillRect(side*(r+px*pixel),py*pixel,pixel,pixel);
+      c.fillStyle='#fff9e6';
+      for(const [px,py] of [[0,-3],[0,-2],[0,-1],[0,0],[-1,1]])c.fillRect(side*(r+px*pixel),py*pixel,pixel,pixel);
+    }
+    c.restore();return;
+  }
   if(birth){
     // Side forks make the real birth legible without covering the small face
     // or drawing an extra summon. Their clock/extent is the native spawn state.

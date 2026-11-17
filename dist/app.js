@@ -1,7 +1,7 @@
 import { screenToWorld } from './arena-geometry.js?v=34';
 import { resolvePlacementInput, inPlacementInputArea } from './placement-input.js?v=34';
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=target-c1-1';
-import { Renderer } from './render.js?v=target-c1-1';
+import { Renderer } from './render.js?v=fb60-c4-1';
 import { SoundSystem } from './audio.js?v=target-c1-1';
 import {readAudioLevels} from './audio-preferences.js?v=1';
 import {C1_SERVICE,C4_SERVICE} from './online-context.js?v=1';

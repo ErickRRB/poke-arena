@@ -5,7 +5,7 @@ import { resolvePlacementInput } from './placement-input.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
 import { paintArenaScenery,paintArenaBorder } from './arena-scenery.js?v=1';
 import {towerGuardianScale,guardianEmitterPoint} from './tower-guardian-art.js?v=1';
-import {electricLore,electricUnitState,electricArc,drawElectricAura,drawElectricCharge,drawElectricTrail,drawElectricImpact} from './electric-lore.js?v=1';
+import {electricLore,electricUnitState,electricArc,drawElectricAura,drawElectricCharge,drawElectricTrail,drawElectricImpact} from './electric-lore.js?v=3';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
 import {combatVisual,projectileVisual,movementVisual,isRangedAttack,isIceShardAttack,attackVisualProfile,arcanineHogGesture,dashPreparation,petalPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
 import { spellPreviewTargets } from './spell-preview.js?v=target-c1-1';
@@ -520,7 +520,7 @@ export class Renderer {
     if(electric){
       const height=(this.bodyHeights.get(id)||22)*scale,spawnLift=this.reduced?0:(1-spawnProgress)*12;
       c.save();if(electric.phase==='birth')c.globalAlpha=1;
-      drawElectricAura(c,{x:x+unit.dx*lunge,y:y+unit.dy*lunge/vertical-lift-(height*.5+spawnLift)/vertical,radius:height*.48,energy:electric.energy,age:flightClock,seed:unit.id,vertical,reduced:this.reduced,birth:electric.phase==='birth'});
+      drawElectricAura(c,{x:x+unit.dx*lunge,y:y+unit.dy*lunge/vertical-lift-(height*.5+spawnLift)/vertical,radius:height*.48,energy:electric.energy,age:flightClock,seed:unit.id,vertical,reduced:this.reduced,birth:electric.phase==='birth',preparation:electric.phase==='prepare'});
       c.restore();
     }
     if(preparation&&!unit.preview&&!this.silhouettePass)this.dashWindup(c,unit,preparation,true);

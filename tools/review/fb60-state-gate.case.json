@@ -1,0 +1,33 @@
+{
+  "id": "fb60-state-gate-complete-mobile",
+  "source": "dist/index.html",
+  "adapter": "tools/review/fb60-state-gate-adapter.mjs",
+  "adapterDependencies": [
+    "tools/review/baseline-adapter.mjs"
+  ],
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "dpr": 1
+  },
+  "durationMs": 16000,
+  "sampleMs": 40,
+  "clock": "natural-app",
+  "expectedEvent": "deathBurst",
+  "extractIntervalMs": 90,
+  "crop": {
+    "x": 0,
+    "y": 0,
+    "width": 390,
+    "height": 844
+  },
+  "captureSurface": "canvas",
+  "recordCanvas": "#arena",
+  "requiredObservations": [
+    "clock",
+    "canvas",
+    "events",
+    "actorState",
+    "hp"
+  ]
+}
