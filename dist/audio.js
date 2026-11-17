@@ -1,4 +1,5 @@
 // Recorded combat cues follow real release/contact events, including cold loads.
+import {combatSourceProfile} from './combat-source-profile.js?v=1';
 import { BattleMusic } from './music.js?v=36';
 import { CARDS, attackReach } from './engine.js?v=target-c1-1';
 import { KNIGHT_LEEK_PCM } from './knight-audio-fallback.js?v=1';
@@ -201,6 +202,7 @@ export class SoundSystem {
     }
   }
   event(e) {
+    const card=combatSourceProfile(e)||CARDS[e.key];
     if(!this.enabled||!this.ctx||this.ctx.state!=='running')return;
     if(e.type==='spawn'){const u=e.unit,g=u?.spawnGroup;if(u?.spawnCause==='card'&&g?.id===u.id&&u.card?.id&&!u.card.structure&&!u.card.token){this.walkPending??=new Map();if(this.walkPending.size<8)this.walkPending.set(u.id,{species:u.card.id,createdAt:u.createdAt,delay:g.duration||0});}}
     if(e.type==='dashWindup')this.play('wind',e.unit.x,false,0,0,null,{volume:.045,maxDuration:.2});
@@ -210,26 +212,26 @@ export class SoundSystem {
     if(e.type==='attackStart')this.walkPending?.delete(e.attacker?.id);
     if(e.type==='attackStart'&&e.attacker?.key==='geodude'&&e.attacker?.card?.id===83&&e.attacker.id!=null&&e.target?.id!=null){this.knightPending??=new Map();this.knightPending.set(e.attacker.id,{targetId:e.target.id,seq:e.attacker.attackSeq});}
     if(e.type==='attackRelease'&&e.attacker?.key!=='geodude'){
-      const profile=e.attacker.card||e.attacker.guard,seq=e.attacker.attackSeq||0;
+      const profile=card,seq=e.attacker.attackSeq||0;
       this.play(attackCue(profile,e.style),e.from.x,false,(e.shot||0)+seq,profile?.id,e.attacker.id?e.attacker.id+':'+seq+':'+(e.shot||0):null);
     }
-    if(e.type==='hit'){if(e.key==='geodude'&&CARDS[e.key]?.id===83){this.knightPending?.delete(e.sourceId);this.knightLeek(e.x,true);}else this.play(attackCue(CARDS[e.key],e.style),e.x,true,e.attackSeq||0,CARDS[e.key]?.id,e.attackId||e.sourceId&&e.sourceId+':'+(e.attackSeq||0));}
-    if(e.type==='beam'&&!e.shot&&!e.missed)this.play(e.style,e.to.x,true,e.hop??e.attackSeq??0,CARDS[e.key]?.id,e.attackId||e.sourceId&&e.sourceId+':'+(e.attackSeq||0));
+    if(e.type==='hit'){if(e.key==='geodude'&&card?.id===83){this.knightPending?.delete(e.sourceId);this.knightLeek(e.x,true);}else this.play(attackCue(card,e.style),e.x,true,e.attackSeq||0,card?.id,e.attackId||e.sourceId&&e.sourceId+':'+(e.attackSeq||0));}
+    if(e.type==='beam'&&!e.shot&&!e.missed)this.play(e.style,e.to.x,true,e.hop??e.attackSeq??0,card?.id,e.attackId||e.sourceId&&e.sourceId+':'+(e.attackSeq||0));
     if(e.type==='deathBurst')this.play(e.unit.key==='golem'?'explosion':e.style||e.unit.card.style,e.unit.x,true,0,e.unit.card.id);
     if(e.type==='heal')this.play('heal',e.unit.x,true);
     if(e.type==='counter')this.play('magnet',e.unit?.x||e.from.x,true);
     if(e.type==='blink')this.play('shadow',e.from.x);
     if(e.type==='leap')this.play('dash',e.unit.x);
     if(e.type==='burrow')this.play(e.hidden?'shadow':'lightning',e.unit.x,false,0,0,null,{volume:.025,maxDuration:.12});
-    if(e.type==='deploy'&&CARDS[e.key]?.id){const id=CARDS[e.key].id;this.cry(id,e.x,QUIET_DEPLOY_CRIES.has(id)?.264:.22,{rate:.94,maxDuration:3,voiceHold:true});}
+    if(e.type==='deploy'&&card?.id){const id=card.id;this.cry(id,e.x,QUIET_DEPLOY_CRIES.has(id)?.264:.22,{rate:.94,maxDuration:3,voiceHold:true});}
     if(e.type==='cast'){
-      const style={sneaselAmbush:'wind',log:'rock',fireball:'flame',pinMissile:'volley',lightning:'lightning',thunder:'lightning'}[e.key]||soundStyle(CARDS[e.key]?.style)||'aura';
-      const delay=e.key==='log'?0:Math.max(0,e.castDelay??CARDS[e.key]?.castDelay??.4);
+      const style={sneaselAmbush:'wind',log:'rock',fireball:'flame',pinMissile:'volley',lightning:'lightning',thunder:'lightning'}[e.key]||soundStyle(card?.style)||'aura';
+      const delay=e.key==='log'?0:Math.max(0,e.castDelay??card?.castDelay??.4);
       this.play(style,e.x,false,0,0,null,{delay});
     }
     if(e.type==='structureDown'||e.type==='towerDown')this.play('explosion',e.x??e.unit?.x??e.tower?.x??300,true,0,0,null,{volume:.24});
     if(e.type==='spellHit'&&e.key!=='lightning'){
-      const style={pinMissile:'volley',lightning:'lightning',hyperBeam:'aura',blizzard:'ice',spikes:'rock',stealthRock:'rock',whirlpool:'hydro',nightmare:'shadow',sneaselAmbush:'shadow',log:'rock',earthquake:'slam',thunder:'lightning',fireball:'flame'}[e.key]||soundStyle(CARDS[e.key]?.style)||'ember';
+      const style={pinMissile:'volley',lightning:'lightning',hyperBeam:'aura',blizzard:'ice',spikes:'rock',stealthRock:'rock',whirlpool:'hydro',nightmare:'shadow',sneaselAmbush:'shadow',log:'rock',earthquake:'slam',thunder:'lightning',fireball:'flame'}[e.key]||soundStyle(card?.style)||'ember';
       this.play(style,e.x,true);
       if(e.key==='sneaselAmbush')this.cry(215,e.x);
     }

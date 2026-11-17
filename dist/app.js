@@ -12,13 +12,15 @@ import { cardEquivalentLabel } from './card-equivalents.js?v=34';
 import { loadDeckLibrary, saveDeckLibrary } from './deck-storage.js?v=c4-editor-1';
 import {savedSlotProfile,updateLibrarySlot} from './deck-provenance.js?v=c4-editor-1';
 import {isLocalC4EditorPreview,cardForEditor,editorCardRole,conversionPresentation} from './deck-editor-profile.js?v=c4-editor-1';
+import {isLocalC4CpuPreview,checkLocalCpuDeck} from './local-cpu-profile.js?v=1';
 import { checkSelectionCard, checkSelectionDeck, resolveSelectionKey } from './canonical-selection.js?v=1';
 import { bindQuickStats } from './quick-stats.js?v=34';
 import { BattlePhaseUi } from './battle-phase-ui.js?v=34';
 import { loadUiResources } from './ui-resource-load.js?v=1';
 
 const $ = id => document.getElementById(id);
-const c4EditorPreview=isLocalC4EditorPreview(location.href);
+const c4CpuPreview=isLocalC4CpuPreview(location.href);
+const c4EditorPreview=c4CpuPreview||isLocalC4EditorPreview(location.href);
 document.body.classList.toggle('c4-editor-preview',c4EditorPreview);
 const battlePhaseUi = new BattlePhaseUi(document);
 const canvas = $('arena');
@@ -50,12 +52,14 @@ let reduced = store.get('reduced', matchMedia('(prefers-reduced-motion: reduce)'
 let combatNumbers = store.get('combat-numbers', false) === true;
 let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true;
 let toastTimer, deckNoticeTimer, deckSaveErrorTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
-const quickStats=bindQuickStats({hand:$('hand'),cards:CARDS,getCard:el=>CARDS[game?.hands[0][Number(el.dataset.card)]],isPlaying:()=>game?.state==='playing'&&!document.body.classList.contains('menu-mode'),getSelection:()=>selected});
+const quickStats=bindQuickStats({hand:$('hand'),cards:CARDS,getCard:el=>matchCard(game?.hands[0][Number(el.dataset.card)]),isPlaying:()=>game?.state==='playing'&&!document.body.classList.contains('menu-mode'),getSelection:()=>selected});
 const sfx=new SoundSystem(sound,readAudioLevels(store.get));
 let inspectedCard=null;
 let cardActionKey=null,cardActionReference=null,replacementKey=null;
 let cardActionSlot=null,inspectedSlotIndex=null;
 const displayCard=key=>Object.hasOwn(CARDS,key)?CARDS[key]:null;
+const matchCard=key=>game?.cardFor?.(key)||displayCard(key);
+const infoCard=key=>document.body.classList.contains('menu-mode')?editorCard(key):matchCard(key);
 const displayArt=key=>cardArtMarkup(key);
 const editorDeck=cards=>Array.from({length:8},(_,i)=>cards?.[i]??null);
 const cardForSavedKey=key=>{const resolved=resolveSelectionKey(key).key;return resolved&&displayCard(resolved)?resolved:null;};
@@ -95,7 +99,7 @@ function toast(message) {
 function live(message) { $('live-status').textContent = message; }
 
 function cardMarkup(key, index, source = 'card', savedKey=key) {
-  const c = source==='card'?displayCard(key):editorCard(key,source==='deck-info'?index:null),equivalent=editorCardRole(c,cardEquivalentLabel(key));
+  const c = source==='card'?matchCard(key):editorCard(key,source==='deck-info'?index:null),equivalent=cardEquivalentLabel(key,c);
   const collection=source!=='card',eligible=source==='collection'?editorSelectable(key):source==='deck-info'?editorSlotSelectable(savedKey,index):checkSelectionCard(savedKey).ok,name=`<span class="card-name">${c.name}</span>`;
   const heading=collection?`<span class="card-heading">${name}${c.count>1?`<span class="card-quantity" aria-hidden="true"><svg><use href="#i-units"/></svg>×${c.count}</span>`:''}</span>`:name;
   const unavailable=(source==='collection'||source==='deck-info')&&!eligible;
@@ -103,10 +107,13 @@ function cardMarkup(key, index, source = 'card', savedKey=key) {
 }
 function renderMenuDeck(){
   renderDeckSlots();
-  $('menu-deck-preview').innerHTML=Array.from({length:8},(_,i)=>{const raw=deck[i],key=cardForSavedKey(raw),c=key&&displayCard(key),eligible=c&&checkSelectionCard(raw).ok;return c?`<button class="menu-card pokemon-card type-${c.type}${eligible?'':' selection-inactive'}" data-rarity="${c.rarity}" data-menu-card="${key}" data-menu-index="${i}" aria-label="${c.name}, ${c.cost} de elixir${eligible?'':', no disponible para mazos nuevos'}, ver detalles"><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${displayArt(key)}<span class="card-name">${c.name}</span>${eligible?'':'<span class="selection-status" aria-hidden="true">No disponible</span>'}</button>`:`<button class="menu-card pokemon-card empty${raw==='blastoise'?' historical-card':''}" data-menu-empty aria-label="${raw==='blastoise'?'Blastoise, carta histórica no disponible; revisar mazo':raw?'Carta histórica no disponible; revisar mazo':'Elegir carta para el espacio '+(i+1)}">${raw==='blastoise'?'Blastoise':raw?'!':'+'}</button>`;}).join('');
+  $('menu-deck-preview').innerHTML=Array.from({length:8},(_,i)=>{const raw=deck[i],key=cardForSavedKey(raw),c=key&&editorCard(key,i),eligible=c&&editorSlotSelectable(raw,i);return c?`<button class="menu-card pokemon-card type-${c.type}${eligible?'':' selection-inactive'}" data-rarity="${c.rarity}" data-menu-card="${key}" data-menu-index="${i}" aria-label="${c.name}, ${c.cost} de elixir${eligible?'':', no disponible para mazos nuevos'}, ver detalles"><span class="card-cost"><span class="cost-value">${c.cost}</span></span>${displayArt(key)}<span class="card-name">${c.name}</span>${eligible?'':'<span class="selection-status" aria-hidden="true">No disponible</span>'}</button>`:`<button class="menu-card pokemon-card empty${raw==='blastoise'?' historical-card':''}" data-menu-empty aria-label="${raw==='blastoise'?'Blastoise, carta histórica no disponible; revisar mazo':raw?'Carta histórica no disponible; revisar mazo':'Elegir carta para el espacio '+(i+1)}">${raw==='blastoise'?'Blastoise':raw?'!':'+'}</button>`;}).join('');
   updateMenuAvailability();
 }
-function updateMenuAvailability(){ const valid=hasEligibleSelection(deck);$('start-btn').disabled=$('online-btn').disabled=!ready||!valid; }
+function updateMenuAvailability(){
+  $('start-btn').disabled=!ready||!(c4CpuPreview?checkLocalCpuDeck(deckLibrary,deckLibrary.active).ok:hasEligibleSelection(deck));
+  $('online-btn').disabled=!ready||!hasEligibleSelection(deck);
+}
 function applyDeckChanges({persist=true}={}){
   if(persist){const changed={...deckLibrary,slots:deckLibrary.slots.slice()};changed.slots[changed.active]=editorDeck(deckDraft);return commitDeckLibrary(changed);}
   deck=editorDeck(deckDraft);deckDraft=[...deck];renderMenuDeck();return true;
@@ -148,17 +155,17 @@ for(const id of['menu-deck-slots','deck-slots'])$(id).addEventListener('click',e
   $(id).querySelector(`[data-deck-slot="${deckLibrary.active}"]`).focus({preventScroll:true});
 });
 function syncHand() {
-  const signature = game.hands[0].join(',');
+  const signature = [game.catalogVersion,game.ruleset,...game.hands[0],game.queues[0][0]].join(',');
   if (signature !== handSignature) {
     handSignature = signature;
     $('hand').innerHTML = game.hands[0].map((key,i) => cardMarkup(key,i)).join('');
-    const key = game.queues[0][0], c = CARDS[key];
+    const key = game.queues[0][0], c = matchCard(key);
     $('next-preview').innerHTML = cardArtMarkup(key);
     $('next-card').setAttribute('aria-label',`Próxima carta: ${c.name}, ${c.cost} de elixir`);
     $('next-name').textContent=c.name;
   }
   for (const el of $('hand').querySelectorAll('[data-card]')) {
-    const i = Number(el.dataset.card), c = CARDS[game.hands[0][i]];
+    const i = Number(el.dataset.card), c = matchCard(game.hands[0][i]);
     el.classList.toggle('selected', selected === i);
     el.classList.toggle('unaffordable', game.energy[0] + .001 < c.cost);
     el.classList.toggle('guide-target', !!walkthrough && walkthrough.step === 1 && i === 0);
@@ -176,7 +183,7 @@ function choose(index) {
   renderer.pointer = null;
   if (walkthrough?.step === 1) setGuideStep(2);
   updateDetail(); syncHand();
-  const c = CARDS[game.hands[0][selected]];
+  const c = matchCard(game.hands[0][selected]);
   live(`${c.name}. ${c.cost} de energía. ${c.spell ? 'Elegí una celda de la arena.' : 'Apuntá en tu lado de la arena.'}`);
 }
 function cancelSelection() { quickStats.hide(); selected = -1; renderer.pointer = null; renderer.selection = null; updateDetail(); syncHand(); }
@@ -216,20 +223,28 @@ function handleEvent(e) {
   }
   if (e.type === 'end') showResult(e);
 }
+function adoptGame(next){
+  quickStats.hide();game=next;game.onEvent=handleEvent;
+  selected=-1;handSignature='';renderer.pointer=null;renderer.selection=null;renderer.tutorialSpot=false;
+  renderer.particles=[];renderer.effects=[];renderer.numbers=[];renderer.resetVisuals();
+  renderer.ensureSpecies([...game.hands[0],...game.queues[0]].map(k=>matchCard(k)?.id).filter(Boolean)).catch(()=>{});
+  updateDetail();syncHand();
+  if($('card-dialog').open&&inspectedCard&&matchCard(inspectedCard))renderCardInfo(inspectedCard,inspectedSlotIndex);
+}
 function newGame({ start = false, tutorial = false } = {}) {
-  if(start&&!tutorial&&!hasEligibleSelection(deck)){mainMenu();openDeck();return;}
+  const admitted=c4CpuPreview&&!tutorial?checkLocalCpuDeck(deckLibrary,deckLibrary.active):null;
+  if(start&&!tutorial&&!(c4CpuPreview?admitted.ok:hasEligibleSelection(deck))){mainMenu();openDeck();return;}
   battlePhaseUi.reset();
   deploying=false;deploymentSerial++;
   sfx.resetMusic();
   $('result-overlay').hidden = true; $('pause-overlay').hidden = true; $('guide').hidden = true;
-  walkthrough = null; selected = -1; handSignature = ''; renderer.pointer = null; renderer.selection = null; renderer.tutorialSpot = false;
-  renderer.particles = [];renderer.effects=[];renderer.numbers=[];renderer.resetVisuals();
-  game = new Game({ deck: tutorial||!hasEligibleSelection(deck) ? DEFAULT_DECK : eligibleDeckKeys(deck), difficulty, tutorial, onEvent: handleEvent, animations:renderer.metadata });
+  walkthrough = null;
+  const localOptions=admitted?.ok?{deck:admitted.keys,catalogVersion:admitted.catalogVersion,ruleset:admitted.ruleset,cpuDeck:DEFAULT_DECK}:{deck:tutorial||!hasEligibleSelection(deck)?DEFAULT_DECK:eligibleDeckKeys(deck)};
+  adoptGame(new Game({...localOptions,difficulty,tutorial,onEvent:handleEvent,animations:renderer.metadata}));
   $('enemy-name').textContent = `${{easy:'Principiante',normal:'Entrenador',hard:'Líder de gimnasio'}[difficulty]} · CPU`;
   $('online-status').hidden=true;$('connection-loading').hidden=true;
   document.body.classList.toggle('menu-mode',!start);$('main-menu').hidden=start;
   renderMenuDeck();
-  renderer.ensureSpecies([...game.hands[0],...game.queues[0]].map(k=>CARDS[k]?.id).filter(Boolean)).catch(()=>{});
   if (start) {
     audioInit(); game.start();
     if (tutorial) { game.energy = [10,6]; walkthrough = { step: 1, start: 0 }; setGuideStep(1); }
@@ -286,7 +301,7 @@ async function attemptDeploy(point) {
     const result=isOnline?await client.send({kind:'deploy',handIndex:index,key,x:client.team?W-placement.x:placement.x,y:client.team?H-placement.y:placement.y}):game.deploy(0,index,placement.x,placement.y);
     if(serial!==deploymentSerial||isOnline&&client!==online)return;
     if(!result?.ok){toast(result?.reason||'No se pudo colocar la carta.');tone(150,.12,'triangle',.02);return;}
-    live(`${CARDS[result.key].name} desplegado. ${Math.floor(game.energy[0])} de energía.`);updateUi();
+    live(`${matchCard(result.key).name} desplegado. ${Math.floor(game.energy[0])} de energía.`);updateUi();
   }catch(error){toast(error.message||'No se pudo colocar la carta.');}
   finally{if(serial===deploymentSerial){deploying=false;syncHand();}}
 }
@@ -427,8 +442,8 @@ function toggleDeckCard(key,slotIndex=null){
   renderCollection();return true;
 }
 function renderCardInfo(key,slotIndex=null){
-  const c=editorCard(key,slotIndex);inspectedCard=key;inspectedSlotIndex=slotIndex;
-  const choice=c4EditorPreview&&key==='arcanine'&&slotIndex!==null?savedSlotProfile(deckLibrary,deckLibrary.active,slotIndex):null;
+  const inMenu=document.body.classList.contains('menu-mode'),c=inMenu?editorCard(key,slotIndex):matchCard(key);inspectedCard=key;inspectedSlotIndex=slotIndex;
+  const choice=inMenu&&c4EditorPreview&&key==='arcanine'&&slotIndex!==null?savedSlotProfile(deckLibrary,deckLibrary.active,slotIndex):null;
   const presentation=choice?conversionPresentation(editorCardRole(editorCard(key),cardEquivalentLabel(key)),choice.kind==='hog'):null;
   audioInit();
   $('card-info-name').textContent=c.name;$('card-info-type').textContent=`${c.label} · ${RARITIES[c.rarity]}`;$('card-info-role').textContent=presentation?.label||editorCardRole(c,cardEquivalentLabel(key))||c.move||c.name;$('card-info-cost').textContent=c.cost;
@@ -455,7 +470,7 @@ function renderCardInfo(key,slotIndex=null){
   if(c.spell)stats.push([c.rolling?'Recorrido':'Radio',tiles(c.rolling?c.travelDistance:c.splash),'range']);
   stats.push([c.travelSpeed&&!c.rolling?'Lanzamiento':'Despliegue',seconds(c.spell?(c.rolling?0:c.castDelay??.4):c.deployTime??.75),'deploy']);
   if(c.count>1)traits.push(['Unidades',`×${c.count}`,'units']);
-  if(c.spawnKey)stats.push(['Invocaciones',`${c.spawnTotal} ${CARDS[c.spawnKey].name}`,'units']);
+  if(c.spawnKey)stats.push(['Invocaciones',`${c.spawnTotal} ${infoCard(c.spawnKey).name}`,'units']);
   if(c.fieldDuration)stats.push(['Duración',seconds(c.fieldDuration),'duration']);
   if(c.shield)traits.push(['Escudo',number(c.shield),'shield']);
   if(c.flying)traits.push(['Desplazamiento','Vuela','move']);
@@ -478,8 +493,8 @@ function renderCardInfo(key,slotIndex=null){
   if(c.jumpRange)extraStats.push(['Distancia de salto',tiles(c.jumpRange),'range']);
   if(c.summonSpacing)extraStats.push(['Entre refuerzos',seconds(c.summonSpacing),'attack-speed']);
   if(c.lifesteal)extraStats.push(['Curación por golpe',number(c.lifesteal),'heart']);
-  if(c.summon)stats.push([c.summonRequiresEnemy?'Invoca con rivales':'Invocación',`${c.summonCount||1} ${CARDS[c.summon].name} / ${seconds(c.summonEvery)}`,'units']);
-  if(c.deathSpawn)extraStats.push(['Al caer',`${c.deathCount||1} ${CARDS[c.deathSpawn].name}`,'units']);
+  if(c.summon)stats.push([c.summonRequiresEnemy?'Invoca con rivales':'Invocación',`${c.summonCount||1} ${infoCard(c.summon).name} / ${seconds(c.summonEvery)}`,'units']);
+  if(c.deathSpawn)extraStats.push(['Al caer',`${c.deathCount||1} ${infoCard(c.deathSpawn).name}`,'units']);
   if(c.targetLimit)extraStats.push(['Objetivos máximos',c.targetLimit,'target']);
   if(c.airMultiplier)extraStats.push(['Daño a voladores',`${number(c.fieldDamage*c.airMultiplier)} / s`,'damage']);
   if(c.fieldBuildingDamage||c.buildingMultiplier)extraStats.push(['Daño a estructuras',`${number(c.fieldBuildingDamage||c.fieldDamage*c.buildingMultiplier)} / s`,'damage']);
@@ -487,7 +502,7 @@ function renderCardInfo(key,slotIndex=null){
   if(c.reflect)extraStats.push(['Daño reflejado',`${Math.round(c.reflect*100)} %`,'shield']);
   if(c.armor)extraStats.push(['Reducción de daño',`${Math.round(c.armor*100)} %`,'shield']);
   if(c.squad){
-    const bodies=[...new Set(c.squad)].map(k=>CARDS[k]);
+    const bodies=[...new Set(c.squad)].map(infoCard);
     for(const stat of stats){
       if(stat[2]==='heart')stat[1]=bodies.map(b=>number(b.hp)).join(' / ');
       if(stat[2]==='damage')stat[1]=bodies.map(b=>number(b.damage)).join(' / ');
@@ -499,7 +514,7 @@ function renderCardInfo(key,slotIndex=null){
   const statMarkup=items=>items.map(([label,value,icon])=>`<div class="stat-item stat-${icon}"><dt><span class="stat-icon stat-icon-${icon}" aria-hidden="true"></span><span>${label}</span></dt><dd>${value}</dd></div>`).join('');
   $('card-info-stats').innerHTML=statMarkup(stats);
   $('card-info-traits').innerHTML=statMarkup(traits);$('card-info-traits').hidden=!traits.length;
-  $('card-stats-unit').textContent=c.squad?[...new Set(c.squad)].map(k=>CARDS[k].name).join(' / '):c.count>1?'Por unidad':'';
+  $('card-stats-unit').textContent=c.squad?[...new Set(c.squad)].map(k=>infoCard(k).name).join(' / '):c.count>1?'Por unidad':'';
   $('card-extra-stats').innerHTML=statMarkup(extraStats);
   $('card-more-stats').hidden=!extraStats.length;
   if($('card-dialog').open===false)$('card-more-stats').open=false;
@@ -662,7 +677,7 @@ try{
   if(hasSavedOnlineSession()){
     $('ready-overlay').inert=true;online=createOnlineClient();online.resume().catch(()=>{});
   }
-  await loadUiResources(progress=>renderer.load(eligibleDeckKeys(deck)||DEFAULT_DECK,progress),(loaded,total)=>{const progress=loaded/total,indicator=$('menu-load-progress');indicator.setAttribute('aria-valuenow',String(Math.floor(progress*100)));$('menu-load-fill').setAttribute('y',String(64*(1-progress)));$('menu-load-fill').setAttribute('height',String(64*progress));});
+  await loadUiResources(progress=>renderer.load((c4CpuPreview&&checkLocalCpuDeck(deckLibrary,deckLibrary.active).keys)||eligibleDeckKeys(deck)||DEFAULT_DECK,progress),(loaded,total)=>{const progress=loaded/total,indicator=$('menu-load-progress');indicator.setAttribute('aria-valuenow',String(Math.floor(progress*100)));$('menu-load-fill').setAttribute('y',String(64*(1-progress)));$('menu-load-fill').setAttribute('height',String(64*progress));});
   ready=true;$('loading').hidden=true;$('ready-overlay').setAttribute('aria-busy','false');$('practice-btn').disabled=false;updateMenuAvailability();
   if(onlineMode){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
   else if(online?.active&&online.mode==='search')showSearch();

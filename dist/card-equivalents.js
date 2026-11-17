@@ -139,7 +139,8 @@ CARD_EQUIVALENTS.whirlpool={reference:'Tornado',similarity:'equivalent',reason:'
 for(const key of ['nightmare','pinMissile'])CARD_EQUIVALENTS[key].similarity='equivalent';
 CARD_EQUIVALENTS.nightmare.reason='Doce invocaciones terrestres frágiles con posiciones y tiempos fijos.';
 CARD_EQUIVALENTS.pinMissile.reason='Tres oleadas de daño de área contra tierra y aire.';
-export function cardEquivalentLabel(key) {
+export function cardEquivalentLabel(key,profile) {
+  if(profile?.nativeReference==='HogRider')return 'Montapuercos';
   const equivalent = CARD_EQUIVALENTS[key];
   if (!equivalent?.reference || equivalent.similarity === 'none') return '';
   return `${equivalent.similarity === 'partial' ? 'Parcial de ' : ''}${equivalent.reference}`;

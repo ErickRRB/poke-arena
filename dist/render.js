@@ -1,3 +1,4 @@
+import {combatSourceProfile} from './combat-source-profile.js?v=1';
 import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTarget } from './engine.js?v=target-c1-1';
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { resolvePlacementInput } from './placement-input.js?v=34';
@@ -6,7 +7,7 @@ import { paintArenaScenery,paintArenaBorder } from './arena-scenery.js?v=1';
 import {towerGuardianScale,guardianEmitterPoint} from './tower-guardian-art.js?v=1';
 import {electricLore,electricUnitState,electricArc,drawElectricAura,drawElectricCharge,drawElectricTrail,drawElectricImpact} from './electric-lore.js?v=1';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
-import {combatVisual,projectileVisual,movementVisual,isRangedAttack,isIceShardAttack,attackVisualProfile,dashPreparation,petalPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
+import {combatVisual,projectileVisual,movementVisual,isRangedAttack,isIceShardAttack,attackVisualProfile,arcanineHogGesture,dashPreparation,petalPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
 import { spellPreviewTargets } from './spell-preview.js?v=target-c1-1';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
@@ -83,6 +84,11 @@ function attackLunge(unit,reduced){
     // Draw back while inhaling, then meet the unchanged native mouth point at
     // release. The sprite and visual emitter use this same presentation offset.
     return windup>0&&elapsed<windup?-14*Math.sin(Math.PI*Math.max(0,elapsed)/windup):0;
+  }
+  if(!reduced&&!unit.mounted&&unit.attack>0&&arcanineHogGesture(unit.card)){
+    const elapsed=(unit.attackDuration||unit.card.attackDuration)-unit.attack,windup=unit.attackWindup??unit.card.windup;
+    if(elapsed<windup)return -3*Math.sin(Math.PI*Math.min(1,elapsed/windup));
+    return 8*Math.exp(-Math.pow((elapsed-windup)/.13,2));
   }
   if(reduced||!unit.attack||unit.mounted||unit.dash?.phase==='windup'||!unit.card||isRangedAttack(unit.card))return 0;
   const duration=unit.attackDuration||.75,elapsed=duration-unit.attack;
@@ -260,10 +266,10 @@ export class Renderer {
     return this.presentAttack(displayed,pose,dt);
   }
   presentAttack(actor,pose,dt){
-    const bite=directedBite(actor.card)&&!actor.mounted;
-    if(!bite&&(actor.card?.id!==6||actor.card.attackAnim!=='Shoot'))return actor;
-    const recovery=(actor.attackWindup??actor.card.windup??.3)+(bite?.4:.42);
-    const duration=bite?Math.max(actor.attackDuration||actor.card.attackDuration||recovery,recovery):recovery;
+    const bite=directedBite(actor.card)&&!actor.mounted,hog=arcanineHogGesture(actor.card)&&!actor.mounted;
+    if(!bite&&!hog&&(actor.card?.id!==6||actor.card.attackAnim!=='Shoot'))return actor;
+    const recovery=(actor.attackWindup??actor.card.windup??.3)+(bite?.4:hog?.32:.42);
+    const duration=bite||hog?Math.max(actor.attackDuration||actor.card.attackDuration||recovery,recovery):recovery;
     let show=pose.presentation;
     if(actor.hp<=0||actor.stun>0||actor.pushHurt>0){delete pose.presentation;return actor;}
     if(actor.attack>0){
@@ -272,7 +278,7 @@ export class Renderer {
       else if(!(actor.freeze>0))show.elapsed=elapsed;
     }else if(show?.seq===actor.attackSeq&&show.elapsed<duration&&(!actor.moving||bite)){
       const contact=this.attackContacts?.get(actor.id);
-      if(bite&&contact?.seq===actor.attackSeq&&contact.shot<0){delete pose.presentation;return actor;}
+      if((bite||hog)&&contact?.seq===actor.attackSeq&&contact.shot<0){delete pose.presentation;return actor;}
       if(!(actor.freeze>0))show.elapsed+=Math.max(0,dt);
     }
     else{delete pose.presentation;return actor;}
@@ -401,7 +407,7 @@ export class Renderer {
     return from;
   }
   updateSpellTargets(game){
-    const team=this.placementTeam||0,card=CARDS[this.selection],allowed=game.state==='playing'||this.placementWhenPaused&&game.state==='paused';
+    const team=this.placementTeam||0,card=game.cardFor?.(this.selection)||CARDS[this.selection],allowed=game.state==='playing'||this.placementWhenPaused&&game.state==='paused';
     const point=allowed&&card?.spell&&this.pointer?resolvePlacementInput(game,team,this.selection,this.pointer.x,this.pointer.y):null;
     this.spellTargets=new Set(spellPreviewTargets(game,card,point,team).map(target=>target.id));
   }
@@ -477,7 +483,7 @@ export class Renderer {
     if(img.height/meta.height<8)direction=0;
     const nativeAnchor=this.anchors.get(`${id}-${anim}`)?.[direction]?.[frame]||{x:meta.width/2,y:meta.height*.65};
     const anchor=(loopFrames||attacking)&&movement.bodyAnchor?movementAnchor(id,anim,direction,frame,nativeAnchor):nativeAnchor;
-    const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:unit.leap.kind==='river'?24:48):0;
+    const leapLift=unit.leap?Math.sin(Math.PI*unit.leap.elapsed/unit.leap.duration)*(this.reduced?12:unit.leap.kind==='river'?(unit.card.riverJumpHeight??24):48):0;
     const lift=(leapLift+(unit.card.structure?structureLift(unit.card):unit.card.flying?16+(this.reduced?0:Math.sin(flightClock*2.6+unit.id)*1.5):0))/vertical;
     const lunge=attackLunge(unit,this.reduced);
     return{id,meta,img,scale,vertical,anim,frame,direction,anchor,lift,lunge,flightClock,preparation,petals};
@@ -730,24 +736,25 @@ export class Renderer {
       this.effects.push({kind:'areaImpact',art,style:event.style||event.unit.card.style,x:event.unit.x,y:event.unit.y,radius:event.radius||55,color:event.unit.card.color,groundOnly:event.groundOnly??!event.unit.card.air,life:.55,max:.55});
     }
     if(type==='hit'){
-      if(electricLore(event.key,CARDS[event.key])==='electrode'){
+      const sourceCard=combatSourceProfile(event,game,this.frameActors?.get(event.sourceId))||CARDS[event.key];
+      if(electricLore(event.key,sourceCard)==='electrode'){
         const point=event.groundY===undefined?event:{x:event.groundX,y:event.groundY-(event.impactHeight||0)/(this.verticalScale||1)};
-        this.effects.push({kind:'electricImpact',key:event.key,x:point.x,y:point.y,radius:0,visualSize:combatVisual(CARDS[event.key]).impact,life:.32,max:.32});return;
+        this.effects.push({kind:'electricImpact',key:event.key,x:point.x,y:point.y,radius:0,visualSize:combatVisual(sourceCard).impact,life:.32,max:.32});return;
       }
       if(event.key==='log'){
         this.effects.push({...event,kind:'rollingFireHit',life:.28,max:.28});
         return;
       }
       for(const effect of this.effects)if(effect.kind==='muzzleFlame'&&effect.key!=='charizard'&&effect.sourceId===event.sourceId)effect.life=Math.min(effect.life,.035);
-      if(!event.radius&&CARDS[event.key]&&!isRangedAttack(CARDS[event.key])&&event.style!=='ice')return; // Contact is drawn once, by the melee event.
-      const color=event.art==='petalShot'?'#ff9ccd':{ember:'#ffc083',hydro:'#91dcff',bubble:'#afeaff',leaf:'#e0f7ac',poison:'#d6a0f0',powder:'#d9b3f4',shadow:'#cda4f5',confusion:'#efb9f8',aura:'#efb9f8',ice:'#c1f5ff',rock:'#e4caa4',slam:'#e4caa4'}[event.style]||CARDS[event.key]?.color||'#eee8bc';
+      if(!event.radius&&sourceCard&&!isRangedAttack(sourceCard)&&event.style!=='ice')return; // Contact is drawn once, by the melee event.
+      const color=event.art==='petalShot'?'#ff9ccd':{ember:'#ffc083',hydro:'#91dcff',bubble:'#afeaff',leaf:'#e0f7ac',poison:'#d6a0f0',powder:'#d9b3f4',shadow:'#cda4f5',confusion:'#efb9f8',aura:'#efb9f8',ice:'#c1f5ff',rock:'#e4caa4',slam:'#e4caa4'}[event.style]||sourceCard?.color||'#eee8bc';
       const point=event.groundY===undefined?event:{x:event.groundX,y:event.groundY-(event.impactHeight||0)/(this.verticalScale||1)};
       const art=event.art||{ember:'explosion',hydro:'hydro',bubble:'bubble',leaf:'leaf',poison:'poison',powder:'poison',shadow:'shadow',confusion:'psychic',aura:'psychic',ice:'ice',rock:'dust'}[event.style];
-      if(event.radius>0&&!event.structuresOnly){this.effects.push({kind:'areaImpact',art:art||{slam:'dust',eruption:'explosion',bite:'bite',slash:'slash'}[event.style]||'impact',style:event.style,x:event.groundX??event.x,y:event.groundY??event.y,impactX:point.x,impactY:point.y,radius:event.radius,color,groundOnly:event.groundOnly??!CARDS[event.key]?.air,life:.6,max:.6});return;}
-      const profile=event.style==='ice'?{...(this.frameActors?.get(event.sourceId)?.card||CARDS[event.key]),style:'ice',rangedAttack:true}:CARDS[event.key];
+      if(event.radius>0&&!event.structuresOnly){this.effects.push({kind:'areaImpact',art:art||{slam:'dust',eruption:'explosion',bite:'bite',slash:'slash'}[event.style]||'impact',style:event.style,x:event.groundX??event.x,y:event.groundY??event.y,impactX:point.x,impactY:point.y,radius:event.radius,color,groundOnly:event.groundOnly??!sourceCard?.air,life:.6,max:.6});return;}
+      const profile=event.style==='ice'?{...sourceCard,style:'ice',rangedAttack:true}:sourceCard;
       if(art)this.effects.push({kind:'artImpact',art,style:event.style,key:event.key,x:point.x,y:point.y,visualSize:combatVisual(profile).impact,radius:28,life:art==='ice'?1.1:.6,max:art==='ice'?1.1:.6});
       else this.burst(point.x,point.y,color,4,30);
-      if(['egg','song'].includes(event.style))this.effects.push({...event,...point,kind:'impact',life:.4,max:.4,radius:CARDS[event.key]?.splash||18});
+      if(['egg','song'].includes(event.style))this.effects.push({...event,...point,kind:'impact',life:.4,max:.4,radius:sourceCard?.splash||18});
     }
     if(['faint','structureDown'].includes(type)&&STRUCTURE_ART[event.unit.card?.structureArt])this.effects.push({kind:'structureDeath',art:event.unit.card.structureArt,x:event.unit.x,y:event.unit.y,team:event.unit.team,life:.4,max:.4});
     if(type==='faint'){
@@ -760,19 +767,20 @@ export class Renderer {
       this.effects.push({kind:'artImpact',art:'dust',x:event.tower.x,y:event.tower.y-15,radius:85,life:.8,max:.8});
     }
     if(type==='spellHit'){
+      const card=combatSourceProfile(event,game)||CARDS[event.key];
       if(event.key==='pinMissile'){
         this.effects.push({...event,kind:'missiles',wave:event.wave||0,life:.24,max:.24});
         return;
       }
       if(event.key==='thunder'){this.effects.push({...event,kind:'entry',style:'lightning',life:.36,max:.36});return;}
       if(event.key==='lightning')return; // Its three actual target beams provide the strike and contact art.
-      if(CARDS[event.key].fieldDuration)return;
+      if(card.fieldDuration)return;
       if(event.key==='fireball'){
         this.effects.push({...event,kind:'fireballImpact',life:.7,max:.7});
         return;
       }
       const art={fireball:'explosion',hyperBeam:'hyperImpact',blizzard:'ice',log:'flame'}[event.key]||'impact';
-      this.effects.push({...event,kind:'areaImpact',art,style:CARDS[event.key].style,radius:event.radius,color:event.key==='hyperBeam'?'#ffe5a2':CARDS[event.key].color,life:.7,max:.7});
+      this.effects.push({...event,kind:'areaImpact',art,style:card.style,radius:event.radius,color:event.key==='hyperBeam'?'#ffe5a2':card.color,life:.7,max:.7});
       if(event.key==='blizzard')this.effects.push({...event,kind:'spell',life:.65,max:.65});
     }
     if(type==='end'&&event.winner===0){for(let i=0;i<35;i++)this.particles.push({x:70+Math.random()*460,y:100+Math.random()*220,vx:(Math.random()-.5)*80,vy:-50-Math.random()*100,color:['#e8c777','#92c6ce','#b99ed9'][i%3],life:3,max:3,gravity:55,size:4});}
@@ -830,6 +838,7 @@ export class Renderer {
     return pose;
   }
   projectile(c,p){
+    const produced=combatSourceProfile(p,null,this.frameActors?.get(p.sourceId))||CARDS[p.key];
     if(p.flameCone)return; // The travelling front is drawn by its matching flame event.
     if(p.electricChain){this.electricProjectile(c,p);return;}
     if(p.rolling){
@@ -839,7 +848,7 @@ export class Renderer {
       this.combatArt(c,'rock',pose.x,pose.y-13/(this.verticalScale||1),38,this.reduced?0:pose.travelled/18,38,{frame:0,trim:true});c.restore();return;
     }
     if(p.linear){
-      const pose=this.projectilePose(p,p,true),vertical=this.verticalScale||1,x=pose.x+(p.liftX||0),y=pose.y+(p.liftY||0)/vertical,length=Math.min(pose.travelled,54),visual=combatVisual(CARDS[p.key]);
+      const pose=this.projectilePose(p,p,true),vertical=this.verticalScale||1,x=pose.x+(p.liftX||0),y=pose.y+(p.liftY||0)/vertical,length=Math.min(pose.travelled,54),visual=combatVisual(produced);
       // Native lift is the grounded release marker at scale 1.3548. Use only
       // that captured vector, fading the visual correction over the launch;
       // this is deterministic even when the source is gone or restored cold.
@@ -863,7 +872,7 @@ export class Renderer {
     const desired={x:p.x+(start.x-p.startX)*(1-logicalProgress)+(end.x-logicalEnd.x)*logicalProgress,y:p.y+(start.y-p.startY)*(1-logicalProgress)+(end.y-logicalEnd.y)*logicalProgress};
     // Captured lift includes projectileStart: this renderer-only approximation
     // has at most 3.07 world units of launch error and converges to native path.
-    if(p.key==='slowbro'&&p.sourceKey==='slowbro'&&CARDS[p.key]?.id===80&&p.groundPath&&Number.isFinite(p.liftX)&&Number.isFinite(p.liftY)&&Number.isFinite(p.travelled)){
+    if(p.key==='slowbro'&&p.sourceKey==='slowbro'&&produced?.id===80&&p.groundPath&&Number.isFinite(p.liftX)&&Number.isFinite(p.liftY)&&Number.isFinite(p.travelled)){
       const correction=(1.75/1.4194-1)*Math.max(0,1-p.travelled/48);
       desired.x+=p.liftX*correction;desired.y+=p.liftY*correction/(this.verticalScale||1);
     }
@@ -871,10 +880,10 @@ export class Renderer {
     const arc=p.key==='charizard'?0:p.arc||0;
     const x=pose.x,y=pose.y-Math.sin(progress*Math.PI)*arc/(this.verticalScale||1),angle=Math.atan2((end.y-start.y)*(this.verticalScale||1)-Math.PI*arc*Math.cos(progress*Math.PI),end.x-start.x);
     pose.renderedPoint={x,y};
-    const shotCard=source?.card||CARDS[p.key],shotProfile=!source&&p.style==='ice'?{...shotCard,style:'ice',rangedAttack:true}:shotCard;
+    const shotCard=produced,shotProfile=!source&&p.style==='ice'?{...shotCard,style:'ice',rangedAttack:true}:shotCard;
     const visual=combatVisual(shotProfile),motion=projectileVisual(p.style,this.t,this.reduced),size=p.key==='nuzleaf'?Math.max(16,visual.projectile):visual.projectile;
     const fireHead=p.key==='charizard',art=p.key==='nuzleaf'?'needle':p.art||motion.name;
-    if(electricLore(p.key,CARDS[p.key])==='electrode'){
+    if(electricLore(p.key,produced)==='electrode'){
       // Material follows the ordinary saved-flight pose, never electricChain.
       const age=pose.travelled/Math.max(1,p.speed),diameter=Math.max(24,size);
       drawElectricTrail(c,{x,y,angle,age,travelled:pose.travelled,vertical:this.verticalScale||1,reduced:this.reduced});
@@ -953,7 +962,7 @@ export class Renderer {
     const start=this.projected({x:p.startX+(p.liftX||0),y:p.startY+(p.liftY||0)},source||{x:p.startX,y:p.startY});
     const end=this.projected({x:destination.x,y:destination.y+(p.endLiftY??-15)},target||destination);
     const x=pose.x+(start.x-p.startX)*(1-progress)+(end.x-destination.x)*progress,y=pose.y+(start.y-p.startY)*(1-progress)+(end.y-destination.y)*progress;
-    const size=Math.max(16,Math.min(24,combatVisual(p.card||CARDS[p.key]).projectile*1.2)),length=Math.min(18,pose.travelled);
+    const size=Math.max(16,Math.min(24,combatVisual(combatSourceProfile(p,null,this.frameActors?.get(p.sourceId))||CARDS[p.key]).projectile*1.2)),length=Math.min(18,pose.travelled);
     if(!this.reduced&&length>0){c.save();c.globalAlpha*=.45;c.strokeStyle='#fff3a3';c.lineWidth=2;c.lineCap='round';c.beginPath();c.moveTo(x-direction.x*length,y-direction.y*length/vertical);c.lineTo(x,y);c.stroke();c.restore();}
     this.combatArt(c,'electricHop',x,y,size,0,size,{direction:directionRow(direction.x,direction.y),age:this.reduced?0:this.t,fps:12});
   }
@@ -1161,7 +1170,7 @@ export class Renderer {
           this.vineLash(c,from,to,progress);
         }else{
           if(e.piercing){c.save();c.globalAlpha*=.22;this.battleArt.beam(c,name,from,to,e.width,age);c.restore();}
-          this.battleArt.beam(c,name,from,to,e.kind==='counter'?8:combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).beam,age);
+          this.battleArt.beam(c,name,from,to,e.kind==='counter'?8:combatVisual(combatSourceProfile(e,null,this.frameActors.get(e.sourceId))||CARDS[e.key]).beam,age);
         }
       }else if(e.kind==='windup'||e.kind==='charge'){
         const actor=this.frameActors.get(e.actor.id);
@@ -1186,7 +1195,7 @@ export class Renderer {
         if(!from||!to){c.restore();continue;}
         const dx=to.x-from.x,dy=(to.y-from.y)*(this.verticalScale||1),distance=Math.hypot(dx,dy),angle=Math.atan2(dy,dx);
         const groundTarget=this.frameActors.get(e.targetId)||e.groundTo,groundDistance=groundTarget&&e.groundFrom?Math.hypot(groundTarget.x-e.groundFrom.x,groundTarget.y-e.groundFrom.y):distance;
-        const length=(e.length||Math.min(190,distance+10))*distance/Math.max(1,groundDistance),head=Math.min(1,age*(e.speed||300)/(e.length||length)),body=combatVisual(this.frameActors.get(e.sourceId)?.card||CARDS[e.key]).body;
+        const length=(e.length||Math.min(190,distance+10))*distance/Math.max(1,groundDistance),head=Math.min(1,age*(e.speed||300)/(e.length||length)),body=combatVisual(combatSourceProfile(e,null,this.frameActors.get(e.sourceId))||CARDS[e.key]).body;
         if(e.cone&&e.groundFrom){
           const origin=e.groundFrom;c.save();c.globalAlpha*=.12*(1-progress);c.fillStyle='#f4b563';c.beginPath();c.moveTo(origin.x,origin.y);c.arc(origin.x,origin.y,length,e.angle-e.cone,e.angle+e.cone);c.closePath();c.fill();c.restore();
         }
@@ -1202,7 +1211,7 @@ export class Renderer {
         if(bite&&this.biteJawActors?.has(e.sourceId)){c.restore();continue;}
         const to=bite||this.effectTarget(e),from=this.effectSource(e)||e.from;
         const name={punch:'impact',dash:'impact',slam:'dust',eruption:'explosion'}[e.style]||e.style;
-        const card=source?.card||CARDS[e.key],size=combatVisual(card).impact*(bite?1:e.charged?1.2:card?.windup>=.6?1.35:1);
+        const card=combatSourceProfile(e,null,source)||CARDS[e.key],size=combatVisual(card).impact*(bite?1:e.charged?1.2:card?.windup>=.6?1.35:1);
         const angle=Math.atan2((to.y-from.y)*(this.verticalScale||1),to.x-from.x);
         if(['slash','horn','dash'].includes(e.style)&&!this.reduced&&progress<.5){c.save();c.globalAlpha*=.45*(1-progress*2);this.combatArt(c,'slash',(from.x+to.x)/2,(from.y+to.y)/2,size*.85,angle+Math.PI/4,size*.65,{progress:progress*2,trim:true});c.restore();}
         this.combatArt(c,name,to.x,to.y,size,0,size,{progress,direction:bite?directionRow(source.dx,source.dy):directionRow(to.x-from.x,to.y-from.y)});
@@ -1232,7 +1241,7 @@ export class Renderer {
     c.restore();for(const x of LANES)this.bridge(c,x);
   }
   drawPlacement(c, game) {
-    const key=this.selection,card=CARDS[key],team=this.placementTeam||0;
+    const key=this.selection,card=game.cardFor?.(key)||CARDS[key],team=this.placementTeam||0;
     if(!card||(card.spell||this.placementWhenPaused)&&!this.pointer||game.state!=='playing'&&!(this.placementWhenPaused&&game.state==='paused'))return;
     c.save();
     if(this.selection){
@@ -1258,7 +1267,7 @@ export class Renderer {
       let nameOffset=-43;
       if(card.rolling)travelGuide(c,point.x,point.y,card.splash,card.travelDistance,team,valid);
       if(!card.spell&&placement){
-        const ranged=(card.squad?card.squad.map(k=>CARDS[k]):[card]).filter(isRangedAttack),range=Math.max(...ranged.map(member=>member.range));
+        const ranged=(card.squad?card.squad.map(k=>game.cardFor?.(k)||CARDS[k]):[card]).filter(isRangedAttack),range=Math.max(...ranged.map(member=>member.range));
         if(card.structure&&!card.passive&&ranged.length){
         softDisc(c,point.x,point.y,range,{color:'#fff6df',opacity:.23,interior:.8,feather:16});
         }
@@ -1272,7 +1281,7 @@ export class Renderer {
       if(card.spell){
         this.spellPlacement(c,key,card,point,team,valid);
         if(valid&&card.spawnOnImpact&&game.summonSpellPositions){
-          const token=CARDS[card.spawnKey];
+          const token=game.cardFor?.(card.spawnKey)||CARDS[card.spawnKey];
           const positions=game.summonSpellPositions({card,team,...point});
           if(positions.length){
             const vertical=this.verticalScale||1,top=Math.min(...positions.map(position=>position.y));
@@ -1287,7 +1296,7 @@ export class Renderer {
         const positions=game.deploymentPositions(team,key,point.x,point.y);
         for(const [index,position]of positions.entries()){
           cellGuide(c,position.x,position.y,TILE,valid);
-          if(!card.spell){const previewCard=CARDS[card.squad?.[index]]||card;c.globalAlpha=.55;this.sprite(c,{...position,card:previewCard,preview:true,team,dx:0,dy:team?1:-1,anim:this.t,id:-1-index,lifetime:card.lifetime},true);c.globalAlpha=1;}
+          if(!card.spell){const previewCard=game.cardFor?.(card.squad?.[index])||CARDS[card.squad?.[index]]||card;c.globalAlpha=.55;this.sprite(c,{...position,card:previewCard,preview:true,team,dx:0,dy:team?1:-1,anim:this.t,id:-1-index,lifetime:card.lifetime},true);c.globalAlpha=1;}
         }
       }
       if(placement){
@@ -1323,10 +1332,11 @@ export class Renderer {
     return{...field,visualAge:pose.age,life:Math.max(0,Math.min(field.life,field.duration-pose.age))};
   }
   field(c,f,front=false){
+    const profile=combatSourceProfile(f)||CARDS[f.key];
     const radius=f.radius,age=f.visualAge??(f.duration?Math.max(0,f.duration-f.life):this.t);
     c.save();c.globalAlpha=Math.min(1,f.life/(f.key==='whirlpool'?.12:f.key==='earthquake'?.06:.4));
     const poisonArea=!f.key&&f.style==='poison';
-    if(!front&&f.key!=='spikes')softDisc(c,f.x,f.y,radius,{color:poisonArea?'#92547d':f.key==='stealthRock'?'#a45c4c':CARDS[f.key]?.color||'#b8cad1',opacity:f.key==='whirlpool'?.24:poisonArea||f.key==='stealthRock'?.32:.1,...(poisonArea||f.key==='stealthRock'?{interior:.8}:{})});
+    if(!front&&f.key!=='spikes')softDisc(c,f.x,f.y,radius,{color:poisonArea?'#92547d':f.key==='stealthRock'?'#a45c4c':profile?.color||'#b8cad1',opacity:f.key==='whirlpool'?.24:poisonArea||f.key==='stealthRock'?.32:.1,...(poisonArea||f.key==='stealthRock'?{interior:.8}:{})});
     if(f.key==='stealthRock'){
       for(let i=0;i<9;i++){
         const a=i*2.39996,r=Math.sqrt((i+.5)/9)*radius*.83,x=f.x+Math.cos(a)*r,y=f.y+Math.sin(a)*r;
@@ -1350,7 +1360,7 @@ export class Renderer {
       }
     }
     if(!front){
-      if(f.key){c.save();c.translate(f.x,Math.min(H-12,f.y+radius+8));c.scale(1,1/(this.verticalScale||1));pixelMeter(c,-18,0,36,f.life/f.duration,CARDS[f.key].color);c.restore();}
+      if(f.key){c.save();c.translate(f.x,Math.min(H-12,f.y+radius+8));c.scale(1,1/(this.verticalScale||1));pixelMeter(c,-18,0,36,f.life/f.duration,profile.color);c.restore();}
     }c.restore();
   }
   softNightmare(c,field,front,age){
