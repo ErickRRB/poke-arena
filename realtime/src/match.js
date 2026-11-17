@@ -1,3 +1,6 @@
+import {C1_SERVICE,C4_SERVICE,isC4Game,serviceEnvelope} from '../../dist/online-context.js?v=1';
+import {getC4BaseCatalog} from '../../dist/c4-catalog.js?v=1';
+import {admitC4Selection} from '../../dist/profile-selection.js?v=1';
 import { Game, currentDeck, validDeck } from '../../dist/engine.js?v=34';
 import { packGame, unpackGame, migrateLegacyCardIdentity } from '../../dist/snapshot.js?v=34';
 import { publicSnapshot, publicEvent, SIMULATION_HZ, RECONNECT_GRACE, ONLINE_PROTOCOL } from '../../dist/online-wire.js?v=34';
@@ -6,28 +9,36 @@ import {selectedDeck,selectionVersion as currentSelectionVersion} from './select
 export { validDeck };
 export const safeName = name => String(name || 'Entrenador').replace(/[<>\x00-\x1f]/g, '').trim().slice(0, 20) || 'Entrenador';
 export class RealtimeMatch {
-  constructor({ id, players, now = Date.now(), seed, animations = {}, stored,selectionVersion=currentSelectionVersion } = {}) {
+  constructor({ id, players, now = Date.now(), seed, animations = {}, stored,selectionVersion=currentSelectionVersion,service=C1_SERVICE } = {}) {
     this.animations = animations;
     if (stored) {
+      if(service.id==='c4'){getC4BaseCatalog();if(stored.cohort!=='c4'||!isC4Game(stored.game)||stored.game.catalogRef!==C4_SERVICE.catalogRef)throw Error('Stored match context mismatch');}
+      else if(isC4Game(stored.game))throw Error('Stored C4 match requires its service');
       Object.assign(this, stored);
-      this.events=migrateLegacyCardIdentity(this.events||[]);
+      this.events=isC4Game(stored.game)?structuredClone(this.events||[]):migrateLegacyCardIdentity(this.events||[]);
       this.game = unpackGame(stored.game, event => this.event(event), animations);
     } else {
-      if(selectionVersion!==0&&selectionVersion!==currentSelectionVersion)throw Error('Unsupported selection version');
-      if(players)players=players.map(player=>({...player,deck:selectionVersion===0?currentDeck(player.deck):selectedDeck(player.deck)}));
+      if(service.id==='c4'){
+        getC4BaseCatalog();if(selectionVersion!==2)throw Error('Unsupported C4 selection');
+        if(players)players=players.map(player=>{const selected=admitC4Selection(player.deck,player.selection);if(!selected.ok)throw Error('Invalid consented deck');return{...player,deck:selected.keys};});this.cohort='c4';
+      }else{
+        if(selectionVersion!==0&&selectionVersion!==currentSelectionVersion)throw Error('Unsupported selection version');
+        if(players)players=players.map(player=>({...player,deck:selectionVersion===0?currentDeck(player.deck):selectedDeck(player.deck)}));
+      }
       if (players?.length !== 2 || !players.every(player => validDeck(player.deck))) throw Error('Invalid decks');
       this.selectionVersion=selectionVersion;
       this.id = id;
       this.players = players.map(({ id, name, tokenHash }) => ({ id, name: safeName(name), tokenHash }));
       this.seen = [now, now];this.starts = now + 2200;this.last = this.starts;
       this.seq = 0;this.version = 0;this.events = [];this.receipts = [[], []];
-      this.game = new Game({ deck: players[0].deck, seed, animations, onEvent: event => this.event(event) });
+      this.game = new Game({ deck: players[0].deck, seed, animations, onEvent: event => this.event(event),...(service.id==='c4'?{catalogVersion:4,ruleset:'c4-1',cpuDeck:players[1].deck}:{}) });
+      if(service.id==='c4')this.game.catalogRef=C4_SERVICE.catalogRef;
       this.game.hands[1] = players[1].deck.slice(0, 4);this.game.queues[1] = players[1].deck.slice(4);this.game.aiEnabled = false;
     }
   }
   event(event) {
     if (event.type === 'step') return;
-    this.events.push({ seq: ++this.seq, event: publicEvent(event) });
+    this.events.push({ seq: ++this.seq, event: publicEvent(event,this.game||(this.cohort==='c4'?{catalogVersion:4,ruleset:'c4-1'}:undefined)) });
     if (this.events.length > 128) this.events.splice(0, this.events.length - 128);
   }
   touch(team, now) { this.seen[team] = Math.max(this.seen[team], now); }
@@ -61,7 +72,7 @@ export class RealtimeMatch {
     return result;
   }
   packet(team, after = 0, epoch = '', now = Date.now()) {
-    return { type: 'snapshot', protocol: ONLINE_PROTOCOL, status: 'matched', roomId: this.id, epoch, team, version: this.version, serverTime: now, startsIn: Math.max(0, this.starts - now), opponent: this.players[1 - team].name, game: publicSnapshot(this.game, team), events: this.events.filter(entry => entry.seq > after), seq: this.seq };
+    return { type: 'snapshot', protocol: ONLINE_PROTOCOL,...serviceEnvelope(this.cohort==='c4'?C4_SERVICE:C1_SERVICE), status: 'matched', roomId: this.id, epoch, team, version: this.version, serverTime: now, startsIn: Math.max(0, this.starts - now), opponent: this.players[1 - team].name, game: publicSnapshot(this.game, team), events: this.events.filter(entry => entry.seq > after), seq: this.seq };
   }
   serialize() {
     const { game, animations, ...data } = this;
