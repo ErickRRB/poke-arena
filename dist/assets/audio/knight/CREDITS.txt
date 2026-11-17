@@ -1,0 +1,7 @@
+Knight / Farfetch'd gesture, local candidate
+
+Derived from light-two-gestures.wav SHA-256 ecec1efdd994a2ace720736ac709d7f738b543505367b4dba3d2c2f00024bf2e, direction accepted by Erick: "Si, va por ahi". Extract first gesture at 0.100s, duration 0.380s; multiply PCM16 by 8, no further processing. leek.wav SHA-256 886d5a8d11d00822a195b762fb3c279d6ce3c59e0c3f69b46f4eed297393f4c5. The JS module embeds exactly its stereo PCM, SHA-256 62e49f53d02309bb0f1173cf44d8ce65fbde77028591e91ffff0ab0a266ecbb3, to avoid cold-load substitutions. Effects cue gain .29; existing effects and master buses apply normally. The phase boundary is at .170s, preserving actual contact for hit only; playback adds short fades at phase edges.
+
+Source gesture: qubodup, Swish Bamboo Stick Weapon Swhoshes, CC0, https://opengameart.org/content/swish-bamboo-stick-weapon-swhoshes ; swosh-25.flac SHA-256 0740d9ba253e7923b4d5b7b7361ba06a5259aea20070b31c54b6e4e37d3db212. High-pass 320 Hz (2 poles), first .255s, fade in .008s/out .040s, gain .155.
+
+Faint contact: rubberduck, 100 CC0 Metal and Wood SFX, CC0, https://opengameart.org/content/100-cc0-metal-and-wood-sfx ; wood_hit_06.ogg SHA-256 6224beb74c930ac6b88358ced7c024b23a50d71acfe565e83cc29ffbe383676e. High-pass 600 Hz, first .120s, fade last .040s, gain .010, starts at .170s.

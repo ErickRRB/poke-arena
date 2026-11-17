@@ -255,7 +255,7 @@ test('rejected generic impacts are absent from every recorded and loading-fallba
   for(const buffered of [true,false]){
     for(const key of Object.keys(CARDS).filter(key=>!CARDS[key].spell&&!CARDS[key].passive&&CARDS[key].damage>0)){
       const scene=attackScene(key,{buffered});
-      assert.ok(scene.outputs.every(o=>/^(moves|fallback|cries):/.test(o.sample)),key+' must use the clean recorded bank including its loading fallback');
+      assert.ok(scene.outputs.every(o=>/^(moves|fallback|cries|knight):/.test(o.sample)),key+' must use the clean recorded bank including its loading fallback');
       assert.ok(scene.outputs.every(o=>o.kind==='sample'&&o.rate===1),key+' must not restore synthetic or pitched generic contacts');
     }
   }

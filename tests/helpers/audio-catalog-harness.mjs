@@ -6,10 +6,10 @@ export const manifest=JSON.parse(readFileSync(new URL('../../dist/assets/audio/m
 const durations=new Map();
 export function setNativeAudioMetadata(rows){durations.clear();for(const row of rows)durations.set(row.file,row.durationSeconds);}
 const param=()=>({value:0,events:[],setValueAtTime(value,time){this.value=value;this.events.push({kind:'set',value,time});},linearRampToValueAtTime(value,time){this.value=value;this.events.push({kind:'linear',value,time});},exponentialRampToValueAtTime(value,time){this.value=value;this.events.push({kind:'exponential',value,time});},setTargetAtTime(value,time,constant){this.value=value;this.events.push({kind:'target',value,time,constant});},cancelScheduledValues(){}});
-const node=(kind,onStart=()=>{},onStop=()=>{})=>({kind,gain:param(),frequency:param(),Q:param(),playbackRate:param(),pan:param(),connections:[],connect(other){this.connections.push(other);},disconnect(){},start(time){this.startedAt=time;onStart(this,time);},stop(time){this.stoppedAt=time;onStop(this,time);}});
-function buffer(key,duration=.7,sampleRate=22050){
-  const length=Math.ceil(duration*sampleRate);let data;
-  return{key,duration,length,sampleRate,numberOfChannels:1,getChannelData(){return data??=new Float32Array(length);}};
+const node=(kind,onStart=()=>{},onStop=()=>{})=>({kind,gain:param(),frequency:param(),Q:param(),playbackRate:param(),pan:param(),connections:[],connect(other){this.connections.push(other);},disconnect(){},start(time,offset=0){this.startedAt=time;this.offset=offset;onStart(this,time);},stop(time){this.stoppedAt=time;onStop(this,time);}});
+function buffer(key,duration=.7,sampleRate=22050,channels=1){
+  const length=Math.ceil(duration*sampleRate),data=Array.from({length:channels},()=>new Float32Array(length));
+  return{key,duration,length,sampleRate,numberOfChannels:channels,getChannelData(ch){return data[ch];}};
 }
 
 // Captures the real sample selection, playback rate and output envelopes. It does
@@ -22,11 +22,11 @@ export function makeSound({buffered=true,enabled=true,state='running'}={}){
     if(!gain)throw Error('Audio source started without an output envelope');
     const end=gain.gain.events.findLast(event=>event.kind==='exponential')?.time??time;
     const key=[...sound.buffers].find(([,value])=>value===source.buffer)?.[0]||source.buffer?.key||source.kind;
-    const entry={kind:graph.some(value=>value.kind==='noise')?'noise':source.kind,sample:key,volume:Math.max(0,...gain.gain.events.map(event=>event.value)),duration:Math.max(0,end-time),pan:panner?.pan.value||0,delay:time-clock,rate:source.playbackRate?.value||1,at:time,frequency:graph.find(value=>value.kind==='noise')?.frequency.events||source.frequency?.events||[]};
+    const entry={kind:graph.some(value=>value.kind==='noise')?'noise':source.kind,sample:key,volume:Math.max(0,...gain.gain.events.map(event=>event.value)),duration:Math.max(0,end-time),pan:panner?.pan.value||0,delay:time-clock,offset:source.offset||0,rate:source.playbackRate?.value||1,at:time,frequency:graph.find(value=>value.kind==='noise')?.frequency.events||source.frequency?.events||[]};
     source.record=entry;trace.push(entry);sources.add(source);
   };
-  const stop=(source,time)=>{if(source.record)source.record.duration=Math.min(source.record.duration,Math.max(0,time-source.record.at));if(time<=clock&&!source.ended){source.ended=true;source.onended?.();sources.delete(source);}};
-  const ctx={state,get currentTime(){return clock;},set currentTime(value){clock=value;for(const source of sources)if(source.stoppedAt<=value&&!source.ended){source.ended=true;source.onended?.();sources.delete(source);}},sampleRate:22050,destination:node('destination'),createDynamicsCompressor:()=>({...node('limiter'),threshold:param(),knee:param(),ratio:param(),attack:param(),release:param()}),createBufferSource:()=>node('sample',start,stop),createOscillator:()=>node('oscillator',start,stop),createBiquadFilter:()=>node('noise'),createGain:()=>node('gain'),createStereoPanner:()=>node('panner'),createBuffer:(channels,length,rate)=>buffer('generated',length/rate,rate)};
+  const stop=(source,time)=>{if(source.record)source.record.stoppedAt=time;if(source.record)source.record.duration=Math.min(source.record.duration,Math.max(0,time-source.record.at));if(time<=clock&&!source.ended){source.ended=true;source.onended?.();sources.delete(source);}};
+  const ctx={state,get currentTime(){return clock;},set currentTime(value){clock=value;for(const source of sources)if(source.stoppedAt<=value&&!source.ended){source.ended=true;source.onended?.();sources.delete(source);}},sampleRate:22050,destination:node('destination'),createDynamicsCompressor:()=>({...node('limiter'),threshold:param(),knee:param(),ratio:param(),attack:param(),release:param()}),createBufferSource:()=>node('sample',start,stop),createOscillator:()=>node('oscillator',start,stop),createBiquadFilter:()=>node('noise'),createGain:()=>node('gain'),createStereoPanner:()=>node('panner'),createBuffer:(channels,length,rate)=>buffer('generated',length/rate,rate,channels)};
   class TestSound extends SoundSystem{preload(){return Promise.resolve(true);}}
   sound=Object.assign(new TestSound(enabled),{ctx,music:{playing:false,setPlaying(value){this.playing=value;}}});sound.createMixGraph();
   if(buffered)for(const[group,entries]of Object.entries(manifest))for(const[id,file]of Object.entries(entries))sound.buffers.set(`${group}:${id}`,buffer(`${group}:${id}`,durations.get(file)||.7));
@@ -50,7 +50,7 @@ export function attackScene(key,{buffered=true,distance=20}={}){
   actor.target=target;actor.engaged=true;game.face(actor,target);
   if(!card.jumpRange)game.attack(actor,target);
   for(let i=0;i<240;i++){
-    game.step(1/60);
+    game.step(1/60);audio.ctx.currentTime=10+game.elapsed;audio.sound.updateKnight(game);
     if(events.some(event=>event.type==='damage'&&!event.dot&&event.sourceKey===key))break;
   }
   return{key,id:card.id,style:card.style,range:card.range,passive:!!card.passive,burst:card.burst||1,events,outputs:audio.trace};

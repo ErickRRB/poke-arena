@@ -1,8 +1,8 @@
-import { screenToWorld, inArena } from './arena-geometry.js?v=34';
-import { resolvePlacementInput } from './placement-input.js?v=34';
+import { screenToWorld } from './arena-geometry.js?v=34';
+import { resolvePlacementInput, inPlacementInputArea } from './placement-input.js?v=34';
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=34';
 import { Renderer } from './render.js?v=36';
-import { SoundSystem } from './audio.js?v=37';
+import { SoundSystem } from './audio.js?v=38';
 import {readAudioLevels} from './audio-preferences.js?v=1';
 import { OnlineClient, hasSavedOnlineSession } from './online.js?v=34';
 import { onlinePerf } from './perf.js?v=1';
@@ -213,14 +213,21 @@ function showResult(e) {
   live(`${$('result-title').textContent}. ${e.reason}. ${game.crowns(0)} a ${game.crowns(1)}.`);
   $('again-btn').focus({preventScroll:true});
 }
+function placementActive(){
+  return ready&&game?.state==='playing'&&$('loading').hidden&&!document.body.classList.contains('menu-mode')&&!document.querySelector('dialog[open]');
+}
 function arenaPoint(clientX,clientY) {
+  if(!placementActive())return{inside:false};
   const r=canvas.getBoundingClientRect();
   const point=screenToWorld({x:clientX-r.left,y:clientY-r.top},r.width,r.height);
-  return {...point,inside:inArena(point.x,point.y)&&document.elementFromPoint(clientX,clientY)===canvas};
+  const hit=document.elementFromPoint(clientX,clientY);
+  // The lateral margin may cover bare background, never cards, controls or
+  // an overlay on top of the canvas. No extra hit layer changes the layout.
+  const lateral=(clientX<r.left||clientX>r.right)&&hit?.matches('html,body,.battle-layout,.battle-stage,#arena-frame');
+  return {...point,inside:inPlacementInputArea(point.x,point.y)&&(hit===canvas||lateral)};
 }
 async function attemptDeploy(point) {
-  if(game.state!=='playing'||deploying)return;
-  if(selected<0)return;
+  if(!placementActive()||deploying||selected<0)return;
   const index=selected,key=game.hands[0][index],client=online,isOnline=onlineMode,serial=++deploymentSerial;
   const placement=resolvePlacementInput(game,0,key,point.x,point.y);
   if(!placement){cancelSelection();return;}
@@ -444,7 +451,10 @@ $('save-deck-btn').addEventListener('click',()=>closeModal($('deck-dialog')));
 $('hand').addEventListener('click',e=>{const el=e.target.closest('[data-card]');if(el&&!quickStats.isHoldClick(e)&&performance.now()>ignoreClickUntil)choose(Number(el.dataset.card));});
 $('hand').addEventListener('pointerdown',e=>{const el=e.target.closest('[data-card]');if(!el||e.button!==0)return;drag={index:Number(el.dataset.card),x:e.clientX,y:e.clientY,active:false};});
 document.addEventListener('pointermove',e=>{
-  if(!drag)return;
+  if(!drag){
+    if(e.pointerType!=='touch'&&selected>=0){const p=arenaPoint(e.clientX,e.clientY);renderer.pointer=p.inside?p:null;}
+    return;
+  }
   if(!drag.active&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>7){drag.active=true;choose(drag.index);}
   if(drag.active){const p=arenaPoint(e.clientX,e.clientY);renderer.pointer=p.inside?p:null;e.preventDefault();}
 },{passive:false});
@@ -454,9 +464,13 @@ document.addEventListener('pointerup',e=>{
   drag=null;
 });
 document.addEventListener('pointercancel',()=>{cancelSelection();drag=null;renderer.pointer=null;});
-canvas.addEventListener('pointermove',e=>{if(e.pointerType!=='touch'&&!drag&&selected>=0){const p=arenaPoint(e.clientX,e.clientY);renderer.pointer=p.inside?p:null;}});
-canvas.addEventListener('pointerleave',()=>{renderer.pointer=null;});
-canvas.addEventListener('pointerdown',e=>{if(e.button!==0||drag?.active)return;audioInit();canvas.focus({preventScroll:true});const p=arenaPoint(e.clientX,e.clientY);if(p.inside)attemptDeploy(p);else cancelSelection();});
+document.addEventListener('pointerout',e=>{if(!e.relatedTarget)renderer.pointer=null;});
+document.addEventListener('pointerdown',e=>{
+  if(e.button!==0||drag?.active)return;
+  const p=arenaPoint(e.clientX,e.clientY);
+  if(!p.inside){if(e.target===canvas)cancelSelection();return;}
+  audioInit();canvas.focus({preventScroll:true});attemptDeploy(p);
+});
 document.addEventListener('keydown',e=>{
   if(e.target.closest?.('#hand [data-card]')&&['Space','Enter'].includes(e.code))return;
   if(document.querySelector('dialog[open]')||['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;
@@ -569,6 +583,7 @@ function frame(now){
     while(accumulator>=1/30){game.step(1/30);accumulator-=1/30;}
     if(walkthrough?.step===3&&game.elapsed-walkthrough.start>8)finishGuide();
   }else accumulator=0;
+  sfx.updateKnight(game,!document.hidden&&!document.body.classList.contains('menu-mode')&&(!onlineMode||!!online?.connected));
   if(!document.body.classList.contains('menu-mode')){const perfStart=onlineMode&&onlinePerf.active?performance.now():0;renderer.draw(game,game.state==='paused'?0:dt);if(perfStart)onlinePerf.frame(perfStart,renderer);}
   if(now-lastUi>80){lastUi=now;updateUi();}
   requestAnimationFrame(frame);
