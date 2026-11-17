@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {Game} from '../dist/engine.js?v=34';
 import {Renderer} from '../dist/render.js';
 import {packGame,unpackGame,perspective} from '../dist/snapshot.js?v=34';
+import {publicSnapshot} from '../dist/online-wire.js?v=34';
 import {SandboxGame} from '../dist/sandbox.js';
 
 function drawing(viewerTeam=0){
@@ -11,7 +12,9 @@ function drawing(viewerTeam=0){
   return{ctx,calls,renderer};
 }
 for(const view of [0,1])test(`tower health banners and numbers overlap their own art after perspective${view}`,()=>{
-  const source=new Game({seed:2026}),game=unpackGame(perspective(packGame(source),view));
+  const source=new Game({seed:2026});source.start();
+  for(const king of source.towers.filter(t=>t.king))source.damage(king,1,1-king.team);
+  const game=unpackGame(perspective(packGame(source),view));
   const{ctx,calls,renderer}=drawing();
   for(const tower of game.towers){
     calls.length=0;renderer.towerHealth(ctx,tower);
@@ -29,7 +32,57 @@ for(const view of [0,1])test(`tower health banners and numbers overlap their own
 });
 test('viewer ownership is independent of the deployment side selected in the laboratory',()=>{
   const game=new Game(),{ctx,calls,renderer}=drawing(1);renderer.placementTeam=0;
+  game.start();for(const king of game.towers.filter(t=>t.king))game.damage(king,1,1-king.team);
   for(const tower of game.towers){calls.length=0;renderer.towerHealth(ctx,tower);const label=calls.find(c=>c.method==='fillText');if(tower.team!==1)assert.equal(label.args[2],tower.y-(tower.king?102*476/574-40:72*395/309-7));else assert.equal(label.args[2],tower.y-18);}
+});
+
+function checkReadouts(source,visibleKings,stage){
+  const before=JSON.stringify(packGame(source));
+  const views=[['local',source],...['persisted','public'].flatMap(kind=>[0,1].map(view=>{
+    const data=kind==='public'?publicSnapshot(source,view):packGame(source);
+    for(const tower of data.towers)assert.equal(tower.active,source.towers.find(t=>t.id===tower.id).active,`${stage}: ${kind} preserves activation`);
+    return[`${kind}/perspective${view}`,unpackGame(perspective(data,view))];
+  }))];
+  for(const [route,game]of views){
+    const{ctx,calls,renderer}=drawing();
+    for(const tower of game.towers){
+      calls.length=0;renderer.towerHealth(ctx,tower);
+      const visible=tower.hp>0&&(!tower.king||visibleKings.includes(tower.id)),label=calls.find(c=>c.method==='fillText');
+      assert.equal(label?.args[0]??null,visible?String(Math.ceil(tower.hp)):null,`${stage}: ${route} tower ${tower.id} number`);
+      assert.equal(calls.filter(c=>c.method==='fillRect').length,visible?4:0,`${stage}: ${route} tower ${tower.id} bar`);
+      assert.equal(tower.active,source.towers.find(t=>t.id===tower.id).active,`${stage}: ${route} effective activation`);
+    }
+  }
+  assert.equal(JSON.stringify(packGame(source)),before,'Rendering does not change the source state.');
+}
+
+for(const team of[0,1])test(`king health follows actual activation, own princess loss and restore for team${team}`,()=>{
+  const game=new Game({seed:2026});game.start();game.aiEnabled=false;
+  const king=game.towers.find(t=>t.king&&t.team===team),other=game.towers.find(t=>t.king&&t.team!==team);
+  const ownPrincess=game.towers.find(t=>!t.king&&t.team===team),rivalPrincess=game.towers.find(t=>!t.king&&t.team!==team);
+  checkReadouts(game,[],'initial');
+  game.damage(king,0,1-team,{stun:.2});checkReadouts(game,[],'zero damage and stun');
+  game.damage(ownPrincess,1,1-team);checkReadouts(game,[],'princess damage without defeat');
+  game.damage(rivalPrincess,rivalPrincess.hp,team);
+  assert.equal(king.active,false);assert.equal(other.active,true);checkReadouts(game,[other.id],'rival princess defeated');
+  game.damage(king,1,1-team);
+  assert.equal(king.active,true);checkReadouts(game,[king.id,other.id],'king damaged');
+
+  const ownLoss=new Game({seed:2027});ownLoss.start();ownLoss.aiEnabled=false;
+  const freshKing=ownLoss.towers.find(t=>t.king&&t.team===team),princess=ownLoss.towers.find(t=>!t.king&&t.team===team);
+  ownLoss.damage(princess,princess.hp,1-team);
+  assert.equal(freshKing.hp,freshKing.maxHp);assert.equal(freshKing.active,true);
+  checkReadouts(ownLoss,[freshKing.id],'own princess defeated while king remains full');
+});
+
+test('native laboratory recovery keeps both activated kings visible at full health',()=>{
+  const game=new SandboxGame({mode:'towers',seed:2028});game.state='playing';
+  const kings=game.towers.filter(t=>t.king);
+  for(const king of kings)game.damage(king,1,1-king.team);
+  checkReadouts(game,kings.map(t=>t.id),'laboratory damage');
+  for(let step=0;step<66;step++)game.step(1/30);
+  assert.ok(kings.every(t=>t.hp===t.maxHp&&t.active));
+  checkReadouts(game,kings.map(t=>t.id),'native full recovery');
 });
 test('the shared overlay anchors immortal enemy laboratory health on the tower art',()=>{
   const game=new SandboxGame({mode:'duel'}),{ctx,calls,renderer}=drawing();
@@ -54,7 +107,9 @@ test('the real draw pass paints tower health after attacking units, effects and 
     drawEffects(){calls.push({method:'effect'});},drawPlacement(){calls.push({method:'placement'});}});
   renderer.draw(game,0);
   const lastForeground=Math.max(...calls.map((c,i)=>['attacker','effect','placement'].includes(c.method)?i:-1));
-  const labels=calls.flatMap((c,i)=>c.method==='fillText'&&/^\d+$/.test(c.args[0])?[i]:[]);assert.equal(labels.length,6);assert.ok(labels.every(i=>i>lastForeground));
+  const labels=calls.flatMap((c,i)=>c.method==='fillText'&&/^\d+$/.test(c.args[0])?[i]:[]);assert.equal(labels.length,4,'Inactive kings do not paint a foreground readout.');assert.ok(labels.every(i=>i>lastForeground));
+  game.damage(game.towers.find(t=>t.king&&t.team===1),1,0);calls.length=0;renderer.draw(game,0);
+  assert.equal(calls.filter(c=>c.method==='fillText'&&/^\d+$/.test(c.args[0])).length,5,'A native activation reaches the real draw pass.');
 });
 
 test('troop and structure health stays above foreground bodies and effects',()=>{

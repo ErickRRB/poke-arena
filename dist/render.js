@@ -446,7 +446,7 @@ export class Renderer {
     if(this.towerHealthQueue)this.towerHealthQueue.push(tower);else this.towerHealth(c,tower);
   }
   towerHealth(c,tower){
-    if(tower.hp<=0)return;
+    if(tower.hp<=0||tower.king&&!tower.active)return;
     const {x,y,team,king}=tower,vertical=this.verticalScale||1,enemy=team!==(this.viewerTeam??0);
     const graphicHeight=king?102*476/574:72*395/309;
     const width=king?84:60,center=enemy?y-(graphicHeight-(king?40:7))/vertical:y-18/vertical,by=center-5,ratio=Math.max(0,Math.min(1,tower.hp/tower.maxHp));
