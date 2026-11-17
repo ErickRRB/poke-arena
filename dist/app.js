@@ -69,12 +69,15 @@ const RESULT_CUE_TAG='result-cue';
 function cancelResultCue(){sfx.cancelTaggedEffects(RESULT_CUE_TAG);}
 function playResultCue(winner) {
   cancelResultCue();
-  const notes=winner===0
-    ? [[392,.1,.04,0,8],[523,.1,.042,.095,10],[659,.1,.044,.19,12],[784,.13,.05,.285,10],[1047,.34,.06,.4,18]]
-    : winner===1
-      ? [[392,.14,.027,0,0],[330,.15,.027,.14,0],[262,.24,.03,.29,0]]
-      : [[440,.14,.03,0,0],[523,.22,.035,.16,0]];
-  for(const[freq,duration,volume,delay,slide]of notes)sfx.tone(freq,duration,winner===0?'triangle':'sine',volume,slide,0,delay,RESULT_CUE_TAG);
+  if(winner!==0)return;
+  // Give the result reveal a brief breath, then let two rising phrases arrive
+  // with the medal's settle and resolve into one warm, sustained major chord.
+  const notes=[
+    [392,.18,.032,.25,4],[494,.18,.034,.45,5],[587,.19,.036,.65,6],[784,.22,.038,.88,8],
+    [440,.16,.03,1.22,3],[523,.16,.032,1.42,4],[659,.17,.034,1.62,5],
+    [392,.34,.023,1.84,0],[494,.34,.023,1.84,0],[587,.34,.023,1.84,0],[784,.34,.023,1.84,0],
+  ];
+  for(const[freq,duration,volume,delay,slide]of notes)sfx.tone(freq,duration,'triangle',volume,slide,0,delay,RESULT_CUE_TAG);
 }
 function updateSound() {
   $('sound-btn').setAttribute('aria-pressed', String(sound));
