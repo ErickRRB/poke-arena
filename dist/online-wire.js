@@ -1,3 +1,4 @@
+import {isCompleteWireProfile} from './c4-wire-preparation.js?v=1';
 import {isC4Game} from './online-context.js?v=1';
 import {getC4BaseCard} from './c4-catalog.js?v=1';
 import {HOG_ARCANINE} from './hog-profiles.js?v=1';
@@ -25,21 +26,21 @@ const c4Card=key=>key==='arcanine'?HOG_ARCANINE:getC4BaseCard(key);
 function eventProfiles(event,game){
   const fail=()=>{throw Object.assign(new Error('Procedencia de evento C4 incompatible.'),{code:'C4_EVENT_PROFILE_INVALID'});};
   const check=(value,key)=>{
-    const base=key==='tower'?[...(game.towers||[]),...(game.detachedEntities||[])].find(t=>t.id===value.sourceId&&'king'in t)?.guard:c4Card(key);
+    const base=c4Card(key);
     if(value.sourceProfile!==undefined&&(value.sourceProfile!=='c4-1:cards-c1-733'||!base||key==='arcanine'||key==='tower'))fail();
-    for(const field of ['card','sourceCard'])if(value[field]!==undefined){
-      const profile=value[field];if(!base||!profile||typeof profile!=='object'||Array.isArray(profile)||!Object.keys(base).every(k=>Object.hasOwn(profile,k)))fail();
-      for(const [k,expected]of Object.entries(base))if(expected!==null&&typeof expected!=='object'&&typeof profile[k]!==typeof expected)fail();
-      if(key==='arcanine'&&!sameProfile(profile,HOG_ARCANINE)||key==='tower'&&!sameProfile(profile,base)||value.sourceProfile!==undefined&&!sameProfile(profile,base))fail();
+    for(const field of ['card','sourceCard'])if(Object.hasOwn(value,field)){
+      const profile=value[field];if(!base||!isCompleteWireProfile(profile,base))fail();
+      if(value.sourceProfile!==undefined&&!sameProfile(profile,base))fail();
     }
   };
-  if(event.sourceProfile!==undefined||event.sourceCard!==undefined||event.card!==undefined)check(event,event.sourceKey??event.key??event.attacker?.key??event.unit?.key);
-  for(const key of ['attacker','target','unit','tower'])if(event[key])check(event[key],event[key].key);
+  if(event.attacker&&event.sourceId!==undefined&&event.sourceId!==event.attacker.id)fail();
+  if(['sourceProfile','sourceCard','card'].some(field=>Object.hasOwn(event,field)))check(event,event.sourceKey??event.key??event.attacker?.key??event.unit?.key);
+  // Entity cards and tower guards use the pure typed-slot rule above this binding.
 }
 function compactEntity(entity,context){
   if(!isC4Game(context))return compactLegacyEntity(entity);
   const {target,card,...copy}=entity,canonical=c4Card(entity.key);
-  if(card&&!sameProfile(card,canonical))copy.card=card;
+  if(Object.hasOwn(entity,'card')&&!sameProfile(card,canonical))copy.card=card;
   copy.targetId=target?.id??entity.targetId??null;return copy;
 }
 export function publicSnapshot(game, team) {
@@ -48,7 +49,7 @@ export function publicSnapshot(game, team) {
   copy.towers = (isC4Game(game)?copy.towers:game.towers).map(entity=>compactEntity(entity,game));
   copy.hands = game.hands.map((hand, index) => index === team ? [...hand] : []);
   copy.queues = game.queues.map((queue, index) => index === team ? [...queue] : []);
-  if(isC4Game(game))return structuredClone(copy);
+  if(isC4Game(game)){delete copy.cpuDeck;delete copy.cpuDeckName;return structuredClone(copy);}
   // Precision is reduced only on the wire; the authoritative simulation keeps it.
   return JSON.parse(JSON.stringify(copy, (_, value) => typeof value === 'number' && !Number.isInteger(value) ? Math.round(value * 1000) / 1000 : value));
 }
@@ -66,7 +67,7 @@ export function unpackEvent(event,context) {
     if(typeof context?.validateEvent!=='function')throw Object.assign(new Error('Validación C4 de eventos no preparada.'),{code:'C4_EVENT_VALIDATOR_REQUIRED'});
     context.validateEvent(copy);
     eventProfiles(copy,game);
-    for(const key of ['attacker','target','unit','tower'])if(copy[key]&&!copy[key].card){const card=c4Card(copy[key].key);if(card)copy[key].card=card;}
+    for(const key of ['attacker','target','unit','tower'])if(copy[key]&&!Object.hasOwn(copy[key],'card')){const card=c4Card(copy[key].key);if(card)copy[key].card=card;}
     return copy;
   }
   migrateLegacyCardIdentity(copy);

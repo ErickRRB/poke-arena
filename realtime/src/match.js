@@ -1,9 +1,10 @@
 import {C1_SERVICE,C4_SERVICE,isC4Game,serviceEnvelope} from '../../dist/online-context.js?v=1';
+import {validateC4WireEventIdentity} from '../../dist/c4-wire-preparation.js?v=1';
 import {getC4BaseCatalog} from '../../dist/c4-catalog.js?v=1';
 import {admitC4Selection} from '../../dist/profile-selection.js?v=1';
 import { Game, currentDeck, validDeck } from '../../dist/engine.js?v=34';
 import { packGame, unpackGame, migrateLegacyCardIdentity } from '../../dist/snapshot.js?v=34';
-import { publicSnapshot, publicEvent, SIMULATION_HZ, RECONNECT_GRACE, ONLINE_PROTOCOL } from '../../dist/online-wire.js?v=34';
+import { publicSnapshot, publicEvent, unpackEvent, SIMULATION_HZ, RECONNECT_GRACE, ONLINE_PROTOCOL } from '../../dist/online-wire.js?v=34';
 import {selectedDeck,selectionVersion as currentSelectionVersion} from './selection.js';
 
 export { validDeck };
@@ -17,6 +18,7 @@ export class RealtimeMatch {
       Object.assign(this, stored);
       this.events=isC4Game(stored.game)?structuredClone(this.events||[]):migrateLegacyCardIdentity(this.events||[]);
       this.game = unpackGame(stored.game, event => this.event(event), animations);
+      if(isC4Game(stored.game))for(const entry of this.events)unpackEvent(entry.event,{game:this.game,validateEvent:validateC4WireEventIdentity});
     } else {
       if(service.id==='c4'){
         getC4BaseCatalog();if(selectionVersion!==2)throw Error('Unsupported C4 selection');

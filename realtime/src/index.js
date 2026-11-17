@@ -1,6 +1,5 @@
 import {C1_SERVICE,C4_SERVICE,serviceForServer,serviceEnvelope,assertC4Envelope} from '../../dist/online-context.js?v=1';
-import {CARDS} from '../../dist/engine.js?v=34';
-import {prepareC4Catalog} from '../../dist/c4-catalog.js?v=1';
+import {prepareC4Transport} from '../../dist/c4-wire-preparation.js?v=1';
 import {admitC4Selection} from '../../dist/profile-selection.js?v=1';
 import { DurableObject } from 'cloudflare:workers';
 import animations from '../../dist/assets/pokemon/manifest.json' with { type: 'json' };
@@ -39,7 +38,7 @@ function lastSeen(ctx, ws) { return Math.max(attachment(ws).seen || attachment(w
 
 export class ArenaLobby extends DurableObject {
   constructor(ctx, env) {
-    super(ctx, env);this.service=serviceForServer(env);this.ready=this.service.id==='c4'?ctx.blockConcurrencyWhile(()=>prepareC4Catalog(CARDS)):Promise.resolve();this.sql = ctx.storage.sql;this.pendingMatches = new Map();
+    super(ctx, env);this.service=serviceForServer(env);this.ready=this.service.id==='c4'?ctx.blockConcurrencyWhile(()=>prepareC4Transport()):Promise.resolve();this.sql = ctx.storage.sql;this.pendingMatches = new Map();
     this.sql.exec('CREATE TABLE IF NOT EXISTS sessions(id TEXT PRIMARY KEY,token_hash TEXT UNIQUE NOT NULL,name TEXT NOT NULL,deck TEXT NOT NULL,room_id TEXT,joined INTEGER,updated INTEGER NOT NULL)');
     const columns=this.sql.exec('PRAGMA table_info(sessions)').toArray();
     if(!columns.some(column=>column.name==='selection_version'))this.sql.exec('ALTER TABLE sessions ADD COLUMN selection_version INTEGER NOT NULL DEFAULT 0');
@@ -52,6 +51,7 @@ export class ArenaLobby extends DurableObject {
   fetch(request) { return this.service.id==='c4'?this.ready.then(()=>socket(this.ctx,request,128,this.service)):socket(this.ctx, request,128); }
   session(id) { return this.sql.exec('SELECT * FROM sessions WHERE id=?', id).toArray()[0]; }
   async scheduleLegacyExpiry(){
+    if(this.service.id==='c4')return;
     const row=this.sql.exec('SELECT MIN(joined) AS joined FROM sessions WHERE room_id IS NULL AND joined IS NOT NULL AND selection_version=0').toArray()[0];
     if(row?.joined===null||row?.joined===undefined)return;
     const when=Math.max(Date.now()+1,row.joined+LEGACY_QUEUE_MAX_AGE),existing=await this.ctx.storage.getAlarm();
@@ -62,6 +62,7 @@ export class ArenaLobby extends DurableObject {
     for(const ws of this.sockets(session.id)){send(ws,legacyQueueIdle());close(ws);}
   }
   expireLegacyQueues(now=Date.now()){
+    if(this.service.id==='c4')return;
     const live=new Set(this.livePlayerIds(now));
     for(const {id} of this.sql.exec('UPDATE sessions SET joined=NULL,selection_notice=?,updated=? WHERE room_id IS NULL AND joined IS NOT NULL AND selection_version=0 AND joined<=? RETURNING id',LEGACY_QUEUE_NOTICE,now,now-LEGACY_QUEUE_MAX_AGE)){
       if(live.has(id))for(const ws of this.sockets(id)){send(ws,legacyQueueIdle());close(ws);}
@@ -197,7 +198,7 @@ export class ArenaRoom extends DurableObject {
     this.sql.exec('CREATE TABLE IF NOT EXISTS match_state(id INTEGER PRIMARY KEY CHECK(id=1),data TEXT NOT NULL)');
     const saved = this.sql.exec('SELECT data FROM match_state WHERE id=1').toArray()[0];
     const restore=()=>{this.match=saved?new RealtimeMatch({stored:JSON.parse(saved.data),animations,service:this.service}):null;};
-    this.match=null;this.ready=this.service.id==='c4'?ctx.blockConcurrencyWhile(async()=>{await prepareC4Catalog(CARDS);restore();if(this.match&&this.match.game.state!=='ended')this.start();}):Promise.resolve();if(this.service.id!=='c4')restore();
+    this.match=null;this.ready=this.service.id==='c4'?ctx.blockConcurrencyWhile(async()=>{await prepareC4Transport();restore();if(this.match&&this.match.game.state!=='ended')this.start();}):Promise.resolve();if(this.service.id!=='c4')restore();
     ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair('ping', 'pong'));
     if (this.match && this.match.game.state !== 'ended') this.start();
   }
