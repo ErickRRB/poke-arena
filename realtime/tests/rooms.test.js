@@ -54,6 +54,32 @@ async function finish(room) {
 }
 
 describe('Cloudflare WebSocket rooms', () => {
+  it('FB68 keeps the nearer princess as primary target through a native room action and snapshots',async()=>{
+    const keys=['pikachu','machamp','snorlax','blastoiseCannon','zubat','charizard','fireball','thunder'];
+    const{players,room}=await join({decks:[keys,keys]}),stub=env.ARENAS.getByName(room);
+    try{
+      const initial=await players[0].next(p=>p.type==='snapshot'),team=initial.team,nonce=crypto.randomUUID();
+      await runInDurableObject(stub,instance=>{instance.stop();const now=Date.now();instance.match.starts=now-1;instance.match.last=now;instance.match.game.start();instance.match.game.energy=[10,10];instance.persist();instance.broadcast();});
+      players[0].send({type:'action',kind:'deploy',nonce,handIndex:0,key:'pikachu',x:432,y:team?200:600});
+      expect((await players[0].next(p=>p.type==='result'&&p.nonce===nonce)).result.ok).toBe(true);
+      const proof=await runInDurableObject(stub,instance=>{
+        instance.stop();const g=instance.match.game,a=g.units.find(u=>u.key==='pikachu'&&u.team===team);
+        expect(a).toBeDefined();g.towers.forEach(t=>t.cooldown=1e6);
+        // Same declared geometry as the reviewed natural Game reproduction;
+        // actor itself came from the authenticated P4 deploy above.
+        a.x=432;a.y=team?500:300;a.spawn=0;a.target=null;a.engaged=false;a.cooldown=0;
+        const b=g.spawn('machamp',1-team,550,team?540:260,0);b.spawn=0;b.card={...b.card,passive:true,speed:0};
+        const t=g.towers.find(t=>t.team===1-team&&!t.king&&t.lane===1),before=t.hp;
+        g.step(1/30);expect(a.target?.id).toBe(t.id);
+        for(let i=0;i<30&&t.hp===before;i++)g.step(1/30);
+        expect(t.hp).toBeLessThan(before);expect(a.target?.id).toBe(t.id);
+        const result={actorId:a.id,defenderId:b.id,towerId:t.id,primaryTargetId:a.target.id,towerHPBefore:before,towerHPAfter:t.hp,elapsed:g.elapsed,protocol:4,selectionVersion:instance.match.selectionVersion};
+        g.pause();instance.match.last=Date.now();instance.persist();instance.broadcast();return result;
+      });
+      for(const player of players){const packet=await player.next(p=>p.type==='snapshot'&&p.game.towers.some(t=>t.id===proof.towerId&&t.hp<proof.towerHPBefore)),game=unpackGame(packet.game);expect(packet.protocol).toBe(4);expect(game.units.find(u=>u.id===proof.actorId).target?.id).toBe(proof.towerId);}
+      expect(proof.selectionVersion).toBe(1);console.log('FB68-AUTHORITATIVE-ACTION '+JSON.stringify(proof));
+    }finally{await finish(room);}
+  });
   it('preserves a legacy Cannon/mobile room and its inactive deck through native actions and eviction',async()=>{
     const{players,room,tokens}=await join({legacy:true,decks:[['blastoiseCannon',...legacyDeck.slice(0,7)],['octillery',...legacyDeck.slice(0,7)]]});
     try{
