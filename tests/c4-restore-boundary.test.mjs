@@ -3,7 +3,7 @@ import {Game,CARDS} from '../dist/engine.js?v=34';
 import {packGame,unpackGame,perspective} from '../dist/snapshot.js';
 import {prepareC4Catalog,getC4BaseCatalog} from '../dist/c4-catalog.js?v=1';
 import {validateC4EventIdentity} from '../dist/c4-restore.js?v=1';
-await prepareC4Catalog(CARDS);
+await prepareC4Catalog();
 const fresh=()=>{const g=new Game({catalogVersion:4,ruleset:'c4-1',seed:42});g.start();g.aiEnabled=false;g.towers.forEach(t=>t.cooldown=1000);return g};
 const reject=(data)=>{const original=JSON.stringify(data);assert.throws(()=>unpackGame(data),{code:'C4_PROFILE_INVALID'});assert.equal(JSON.stringify(data),original)};
 test('legacy alias is rejected at interpreted paths but not in opaque data',()=>{const g=fresh(),u=g.spawn('blastoiseCannon',0,200,500,0),o=g.spawn('octillery',0,250,500,0);u.card={...u.card,description:'blastoise',extra:{key:'blastoise'}};g.note={key:'blastoise'};const good=packGame(g),restored=unpackGame(good);assert.equal(restored.units[0].key,'blastoiseCannon');assert.equal(restored.units[0].card.id,9);assert.equal(restored.units[1].card.id,224);assert.equal(restored.units[0].card.extra.key,'blastoise');assert.equal(restored.note.key,'blastoise');for(const edit of [d=>{d.units[0].key='blastoise';d.units[0].card.id=9},d=>d.hands[0][0]='blastoise',d=>d.queues[0][0]='blastoise',d=>d.units[0].spawnGroup.cardKey='blastoise',d=>d.reinforcements.push({key:'blastoise'}),d=>d.fields.push({spawnKey:'blastoise'}),d=>d.spells.push({sourceKey:'blastoise'})]){const bad=structuredClone(good);edit(bad);reject(bad)}assert.equal(o.card.id,224)});
