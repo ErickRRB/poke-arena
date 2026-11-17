@@ -1,0 +1,3 @@
+# Prioridad de objetivos: plan focal
+
+Base: 02098ce651f83a272153106cb38a5a0c602c5305. Antes de cambiar el motor, reproducir una adquisición sin blanco previo con Game y Renderer reales, torre princesa y candidato elegible físicamente más lejano, registrar centros, radios, distancias de borde, pool y resultado hasta una acción. Después corregir únicamente la comparación responsable y verificar el caso inverso, lock y elegibilidad, edificios, aéreo/terrestre y ambos equipos donde compartan la lógica. Conservar retarget y restricciones vigentes. Sin build ni despliegue; separar evidencia de conclusiones.
