@@ -1,10 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {CARDS} from '../dist/engine.js';
-import {isLocalC4EditorPreview,cardForEditor,editorCardRole} from '../dist/deck-editor-profile.js';
+import {isLocalC4EditorPreview,cardForEditor,editorCardRole,conversionPresentation} from '../dist/deck-editor-profile.js';
 import {updateLibrarySlot} from '../dist/deck-provenance.js';
 const library=()=>({version:1,active:0,slots:[['arcanine','pikachu'],['arcanine'],['arcanine','arcanine'],null],updatedAt:100});
 const card=(value,deckIndex=0,slotIndex=0,preview=true)=>cardForEditor({key:'arcanine',cards:CARDS,library:value,deckIndex,slotIndex,preview});
+test('conversion presentation labels old/current versions without a Pokémon-specific text exception',()=>{
+ assert.deepEqual(conversionPresentation('Montapuercos',false),{label:'Versión anterior',action:'Usar como Montapuercos',selected:false});
+ assert.deepEqual(conversionPresentation('Mosquetera',true),{label:'Mosquetera',action:'✓ Mosquetera',selected:true});
+});
 
 test('C4 presentation requires an explicit local URL and never enables on a public host',()=>{
  for(const host of ['localhost','127.0.0.1','[::1]'])assert.equal(isLocalC4EditorPreview('http://'+host+':3000/?preview=c4-editor-1'),true);

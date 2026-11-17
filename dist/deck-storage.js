@@ -70,13 +70,17 @@ export function loadDeckLibrary({storage=browserStorage(),cookie=browserCookie()
   if(Array.isArray(backupDeck?.cards)&&(!Array.isArray(legacy)||Number(backupDeck.updatedAt)>legacyUpdated)){legacy=backupDeck.cards;legacyUpdated=revision(backupDeck.updatedAt);}
   return{version:1,active:0,slots:[Array.isArray(legacy)?legacy.slice():[...DEFAULT_DECK],null,null,null],updatedAt:revision(legacyUpdated)};
 }
-export function saveDeckLibrary(value,{storage=browserStorage(),cookie=browserCookie(),writeCookie,now=Date.now()}={}){
+export function saveDeckLibrary(value,{storage=browserStorage(),cookie=browserCookie(),writeCookie,readCookie=browserCookie,now=Date.now()}={}){
   const library=normalizeLibrary(value);if(!library)return false;
   let previous=0,legacyPrevious=0;try{previous=revision(JSON.parse(storage?.getItem(SLOTS_KEY)||'null')?.updatedAt);legacyPrevious=revision(storage?.getItem(STAMP));}catch{}
   library.updatedAt=Math.max(revision(now),revision(value.updatedAt)+1,previous+1,legacyPrevious+1,revision(slotsCookieValue(cookie)?.updatedAt)+1,revision(cookieValue(cookie)?.updatedAt)+1);
-  let persisted=false;try{if(storage){storage.setItem(SLOTS_KEY,JSON.stringify(library));persisted=true;}}catch{}
-  const encoded=encodeURIComponent(JSON.stringify(library));
+  const serialized=JSON.stringify(library);
+  let persisted=false;try{if(storage){storage.setItem(SLOTS_KEY,serialized);persisted=storage.getItem(SLOTS_KEY)===serialized;}}catch{}
+  const encoded=encodeURIComponent(serialized);
   const assignment=`${SLOTS_COOKIE}=${encoded}; Path=/; Max-Age=31536000; SameSite=Lax${globalThis.location?.protocol==='https:'?'; Secure':''}`;
-  try{if(writeCookie){writeCookie(assignment);persisted=true;}else if(globalThis.document){globalThis.document.cookie=assignment;persisted=browserCookie().split(';').some(s=>s.trim()===`${SLOTS_COOKIE}=${encoded}`)||persisted;}}catch{}
+  try{
+    if(writeCookie)writeCookie(assignment);else if(globalThis.document)globalThis.document.cookie=assignment;
+    persisted=readCookie().split(';').some(s=>s.trim()===`${SLOTS_COOKIE}=${encoded}`)||persisted;
+  }catch{}
   return persisted;
 }
