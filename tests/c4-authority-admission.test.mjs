@@ -1,4 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 import {CARDS,DEFAULT_DECK} from '../dist/engine.js?v=34';
 import {prepareC4Transport} from '../dist/c4-wire-preparation.js?v=1';
 import {C1_SERVICE,C4_SERVICE,serviceEnvelope} from '../dist/online-context.js?v=1';
@@ -25,4 +26,11 @@ test('persisted queue proof/context bind continuation and cannot cross C1/C4',()
  const q=request(),row={joined:1,deck:JSON.stringify(q.keys),selection_version:2,profile_context:JSON.stringify(serviceEnvelope(C4_SERVICE)),c4_selection:JSON.stringify(q.selection)};
  assert.equal(validQueuedDeck(row,C4_SERVICE),true);assert.equal(validQueuedDeck(row,C1_SERVICE),false);assert.equal(continuesQueue(row,{mode:'search',deck:q.deck},C4_SERVICE),false);assert.equal(continuesQueue(row,{mode:'search',deck:q.deck,selection:q.selection},C4_SERVICE),true);
  assert.equal(validQueuedDeck({...row,profile_context:JSON.stringify({...serviceEnvelope(C4_SERVICE),catalogRef:'wrong'})},C4_SERVICE),false);
+});
+
+test('native stored matches validate all private state and events before adoption',async()=>{
+ const native=JSON.parse(await readFile(new URL('fixtures/c4-native-consumer-shapes-v1.json',import.meta.url)));
+ for(const sample of native.private){const stored=structuredClone(sample.stored),before=JSON.stringify(stored),match=new RealtimeMatch({stored,service:C4_SERVICE});assert.equal(match.game.ruleset,'c4-1');assert.equal(match.game.hands[0].length,4);assert.equal(JSON.stringify(stored),before);
+  for(const corrupt of [value=>value.game.energy=null,value=>value.game.fields=null,value=>value.events=[{seq:0,event:{type:'burrow',hidden:true}}]]){const invalid=structuredClone(stored);corrupt(invalid);assert.throws(()=>new RealtimeMatch({stored:invalid,service:C4_SERVICE}),{code:'C4_SHAPE_INVALID'});}
+ }
 });

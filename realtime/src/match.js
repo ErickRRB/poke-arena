@@ -1,5 +1,5 @@
 import {C1_SERVICE,C4_SERVICE,isC4Game,serviceEnvelope} from '../../dist/online-context.js?v=1';
-import {validateC4WireEventIdentity} from '../../dist/c4-wire-preparation.js?v=1';
+import {validateC4WireEventIdentity,validateC4WireGameShape,validateC4WireEventLog} from '../../dist/c4-wire-preparation.js?v=1';
 import {getC4BaseCatalog} from '../../dist/c4-catalog.js?v=1';
 import {admitC4Selection} from '../../dist/profile-selection.js?v=1';
 import { Game, currentDeck, validDeck } from '../../dist/engine.js?v=34';
@@ -13,12 +13,17 @@ export class RealtimeMatch {
   constructor({ id, players, now = Date.now(), seed, animations = {}, stored,selectionVersion=currentSelectionVersion,service=C1_SERVICE } = {}) {
     this.animations = animations;
     if (stored) {
-      if(service.id==='c4'){getC4BaseCatalog();if(stored.cohort!=='c4'||!isC4Game(stored.game)||stored.game.catalogRef!==C4_SERVICE.catalogRef)throw Error('Stored match context mismatch');}
+      if(service.id==='c4'){
+        getC4BaseCatalog();if(stored.cohort!=='c4'||!isC4Game(stored.game)||stored.game.catalogRef!==C4_SERVICE.catalogRef)throw Error('Stored match context mismatch');
+        validateC4WireGameShape(stored.game,{visibility:'private'});validateC4WireEventLog(stored.events,{maxSeq:stored.seq});
+        const next=unpackGame(stored.game,()=>{},animations),events=structuredClone(stored.events);
+        for(const entry of events)unpackEvent(entry.event,{game:next,validateEvent:validateC4WireEventIdentity});
+        Object.assign(this,stored);this.events=events;this.game=next;this.game.onEvent=event=>this.event(event);return;
+      }
       else if(isC4Game(stored.game))throw Error('Stored C4 match requires its service');
       Object.assign(this, stored);
       this.events=isC4Game(stored.game)?structuredClone(this.events||[]):migrateLegacyCardIdentity(this.events||[]);
       this.game = unpackGame(stored.game, event => this.event(event), animations);
-      if(isC4Game(stored.game))for(const entry of this.events)unpackEvent(entry.event,{game:this.game,validateEvent:validateC4WireEventIdentity});
     } else {
       if(service.id==='c4'){
         getC4BaseCatalog();if(selectionVersion!==2)throw Error('Unsupported C4 selection');
