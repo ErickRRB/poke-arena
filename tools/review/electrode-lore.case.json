@@ -1,0 +1,15 @@
+{
+  "id": "electrode-lore-native-cycle",
+  "source": "dist/index.html",
+  "adapter": "tools/review/electrode-lore-adapter.mjs",
+  "adapterDependencies": ["tools/review/baseline-adapter.mjs"],
+  "viewport": {"width": 390, "height": 844, "dpr": 1},
+  "durationMs": 10000,
+  "sampleMs": 40,
+  "clock": "natural-app",
+  "expectedEvent": "hit",
+  "extractIntervalMs": 90,
+  "crop": {"x": 0, "y": 200, "width": 260, "height": 360},
+  "captureSurface": "dom",
+  "requiredObservations": ["clock", "canvas", "events", "actorState", "hp"]
+}

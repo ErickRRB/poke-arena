@@ -4,6 +4,7 @@ import { resolvePlacementInput } from './placement-input.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
 import { paintArenaScenery,paintArenaBorder } from './arena-scenery.js?v=1';
 import {towerGuardianScale,guardianEmitterPoint} from './tower-guardian-art.js?v=1';
+import {electricLore,electricUnitState,electricArc,drawElectricAura,drawElectricCharge,drawElectricTrail,drawElectricImpact} from './electric-lore.js?v=1';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
 import {combatVisual,projectileVisual,movementVisual,isRangedAttack,isIceShardAttack,attackVisualProfile,dashPreparation,petalPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
 import { spellPreviewTargets } from './spell-preview.js?v=34';
@@ -509,6 +510,13 @@ export class Renderer {
     const articulated=this.roseliaBouquets.frame(id,anim,direction,img,meta,petals)||this.nativeSpriteSampler?.frame(id,anim,direction,frame,meta,scale,vertical,c.getTransform?.(),img)||this.flightWings.frame(id,anim,direction,frame,img,meta,flightClock+(unit.id||0)*.173,this.reduced);
     const spriteImage=articulated?.image||img,spriteFrame=alignedSpriteRect(articulated?[0,0,articulated.image.width,articulated.image.height,px-articulated.padding*scale,py-articulated.padding*scale/vertical,articulated.width*scale,articulated.height*scale/vertical]:[frame*meta.width,direction*meta.height,meta.width,meta.height,px,py,meta.width*scale,meta.height*scale/vertical],c.getTransform?.());
     c.drawImage(spriteImage,...spriteFrame);
+    const electric=!idle&&!this.silhouettePass&&electricUnitState(unit);
+    if(electric){
+      const height=(this.bodyHeights.get(id)||22)*scale,spawnLift=this.reduced?0:(1-spawnProgress)*12;
+      c.save();if(electric.phase==='birth')c.globalAlpha=1;
+      drawElectricAura(c,{x:x+unit.dx*lunge,y:y+unit.dy*lunge/vertical-lift-(height*.5+spawnLift)/vertical,radius:height*.48,energy:electric.energy,age:flightClock,seed:unit.id,vertical,reduced:this.reduced,birth:electric.phase==='birth'});
+      c.restore();
+    }
     if(preparation&&!unit.preview&&!this.silhouettePass)this.dashWindup(c,unit,preparation,true);
     if(!unit.preview&&!this.silhouettePass&&this.spellTargets?.has(unit.id))this.tintTarget(c,spriteImage,...spriteFrame);
     if(this.drawBiteGesture(c,unit))this.biteJawActors?.add(unit.id);
@@ -681,7 +689,7 @@ export class Renderer {
       const shot=event.shot||0,until=this.t+1/30+1e-7,held={seq:actor.attackSeq,targetId:event.target?.id??actor.target?.id,card:actor.card,guard:actor.guard,animation:actor.attackAnim||profile.attackAnim||'Attack',duration,windup,elapsed:windup+shot*(profile.burstSpacing||duration),dx:actor.dx,dy:actor.dy,until};
       const current=this.attackContacts.get(actor.id);
       this.attackContacts.set(actor.id,{...(current?.seq>actor.attackSeq?current:{seq:actor.attackSeq,targetId:held.targetId??current?.targetId,shot,until}),held});
-      if(profile.style==='ember'&&isRangedAttack(profile)&&!profile.suicide){const life=profile.id===6?.18:.16;this.effects.push({...event,kind:'muzzleFlame',sourceId:actor.id,targetId:event.target?.id,attackId:`${actor.id}:${actor.attackSeq}:${shot}`,life,max:life});}
+      if(profile.style==='ember'&&isRangedAttack(profile)&&!profile.suicide){const life=profile.id===6?.18:.16;this.effects.push({...event,kind:electricLore(actor.key,profile)?'muzzleElectric':'muzzleFlame',sourceId:actor.id,targetId:event.target?.id,attackId:`${actor.id}:${actor.attackSeq}:${shot}`,life,max:life});}
     }
     if(type==='attackStart'&&event.attacker?.card?.projectileArt!=='petalShot'&&['lightning','aura','psychic','confusion','flame','ember','hydro','bubble','ice','leaf','shadow','poison','powder','egg','song','magnet'].includes(event.style))this.effects.push({kind:'charge',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
@@ -714,11 +722,18 @@ export class Renderer {
     }
     if(type==='entry')this.effects.push({...event,kind:'entry',life:.36,max:.36});
     if(type==='deathBurst'){
+      if(electricLore(event.unit.key,event.unit.card)==='child'){
+        this.effects.push({kind:'electricImpact',key:event.unit.key,x:event.unit.x,y:event.unit.y,radius:event.radius,visualSize:28,life:.42,max:.42});return;
+      }
       const abilityArt=type==='ability'?{shield:'shield',wave:'hydro',quake:'quake',healingFire:'heal'}[event.unit.card.ability?.effect]:null;
       const art=abilityArt||(event.style==='lightning'?'lightning':{electric:'lightning',water:'hydro',fire:'explosion',grass:'leaf',psychic:'psychic',ghost:'shadow',rock:'dust'}[event.unit.card.type]||'impact');
       this.effects.push({kind:'areaImpact',art,style:event.style||event.unit.card.style,x:event.unit.x,y:event.unit.y,radius:event.radius||55,color:event.unit.card.color,groundOnly:event.groundOnly??!event.unit.card.air,life:.55,max:.55});
     }
     if(type==='hit'){
+      if(electricLore(event.key,CARDS[event.key])==='electrode'){
+        const point=event.groundY===undefined?event:{x:event.groundX,y:event.groundY-(event.impactHeight||0)/(this.verticalScale||1)};
+        this.effects.push({kind:'electricImpact',key:event.key,x:point.x,y:point.y,radius:0,visualSize:combatVisual(CARDS[event.key]).impact,life:.32,max:.32});return;
+      }
       if(event.key==='log'){
         this.effects.push({...event,kind:'rollingFireHit',life:.28,max:.28});
         return;
@@ -859,6 +874,12 @@ export class Renderer {
     const shotCard=source?.card||CARDS[p.key],shotProfile=!source&&p.style==='ice'?{...shotCard,style:'ice',rangedAttack:true}:shotCard;
     const visual=combatVisual(shotProfile),motion=projectileVisual(p.style,this.t,this.reduced),size=p.key==='nuzleaf'?Math.max(16,visual.projectile):visual.projectile;
     const fireHead=p.key==='charizard',art=p.key==='nuzleaf'?'needle':p.art||motion.name;
+    if(electricLore(p.key,CARDS[p.key])==='electrode'){
+      // Material follows the ordinary saved-flight pose, never electricChain.
+      const age=pose.travelled/Math.max(1,p.speed),diameter=Math.max(24,size);
+      drawElectricTrail(c,{x,y,angle,age,travelled:pose.travelled,vertical:this.verticalScale||1,reduced:this.reduced});
+      this.projectileHead(c,()=>this.combatArt(c,'electricHop',x,y,diameter,0,diameter,{direction:directionRow(Math.cos(angle),Math.sin(angle)),age:this.reduced?0:age,fps:12}));return;
+    }
     if(arc>25){c.save();c.globalAlpha=.18;ellipse(c,'#233b31',p.x,p.y,Math.max(4,size*.25),2);c.restore();}
     if(fireHead){
       const fireAge=Math.max(0,pose.travelled)/Math.max(1,p.speed||240),fireSize=size;
@@ -1070,6 +1091,16 @@ export class Renderer {
     }
     c.restore();
   }
+  drawGroundElectricImpacts(c,dt){
+    for(const e of this.effects){
+      if(e.kind!=='electricImpact'||!(e.radius>0))continue;
+      // drawEffects still owns the existing lifetime. This earlier ground pass
+      // reads the same phase; it never adds an independent clock or hit event.
+      const life=e.life-dt;if(life<=0)continue;
+      c.save();c.globalAlpha=Math.min(1,life/Math.min(.2,e.max));
+      drawElectricImpact(c,{x:e.x,y:e.y,radius:e.radius,size:e.visualSize,progress:1-life/e.max,age:e.max-life,reduced:this.reduced,vertical:this.verticalScale||1});c.restore();
+    }
+  }
   drawEffects(c,dt){
     for(const pose of this.visualFlights?.values()||[])if(pose.kind==='rollingFire'&&!pose.ended&&pose.at<this.t-1e-7){
       pose.ended=true;
@@ -1102,6 +1133,11 @@ export class Renderer {
       else if(e.kind==='golemDeath')this.sprite(c,{...e.unit,pushHurt:e.life},true);
       else if(e.kind==='missiles')this.drawMissiles(c,e);
       else if(e.kind==='entry')this.entryEffect(c,e,progress);
+      else if(e.kind==='electricImpact'&&!(e.radius>0))drawElectricImpact(c,{x:e.x,y:e.y,radius:e.radius,size:e.visualSize,progress,age,reduced:this.reduced,vertical:this.verticalScale||1});
+      else if(e.kind==='muzzleElectric'){
+        const from=this.effectSource(e),to=this.visualProjectiles.get(e.attackId)?.renderedPoint;
+        if(from&&to&&!this.reduced){const dx=to.x-from.x,dy=to.y-from.y,distance=Math.hypot(dx,dy),amount=Math.min(1,22/Math.max(1,distance));electricArc(c,from,{x:from.x+dx*amount,y:from.y+dy*amount},age,e.sourceId,2);}
+      }
       else if(e.kind==='muzzleFlame'){
         const from=this.effectSource(e),to=this.visualProjectiles.get(e.attackId)?.renderedPoint||this.effectTarget(e)||e.to;
         if(from&&to){
@@ -1135,7 +1171,11 @@ export class Renderer {
         const size=combatVisual(actor.card).charge;
         const art={slam:'dust',horn:'horn',eruption:'flame',lightning:'lightning',flame:'flame',ember:'emberShot',hydro:'hydroShot',bubble:'bubble',ice:'snow',leaf:'leaf',shadow:'shadow',poison:'poison',powder:'poison',egg:'egg',song:'songShot',magnet:'lightningHead'}[e.style]||'psychic';
         const chargeSize=size*(e.kind==='charge'?.4+.35*progress:1);
-        if(e.style==='ice'&&isIceShardAttack(actor.card)){
+        if(electricLore(actor.key,actor.card)==='electrode'){
+          drawElectricCharge(c,from,size,progress,age,this.reduced,this.verticalScale||1);
+          this.combatArt(c,'electricHop',from.x,from.y,size*(.45+.25*progress),0,size*(.45+.25*progress),{direction:directionRow(actor.dx,actor.dy),age:this.reduced?0:age,fps:12});
+        }
+        else if(e.style==='ice'&&isIceShardAttack(actor.card)){
           const dx=actor.dx||0,dy=actor.dy||0;
           this.iceCharge(c,from.x,from.y,Math.min(20,size)*(1+.2*progress),Math.atan2(dy,dx));
         }else this.combatArt(c,art,from.x,from.y,chargeSize,0,chargeSize,{age:age*.6,trim:true});
@@ -1455,6 +1495,7 @@ export class Renderer {
       if(spell.card.rolling){this.rollingSpell(c,spell);continue;}
     }
     this.towerHealthQueue=[];this.unitHealthQueue=[];this.projectileHeadQueue=[];
+    this.drawGroundElectricImpacts(c,dt);
     (this.biteJawActors??=new Set()).clear();
     const objects=[...this.frameActors.values()].sort((a,b)=>(a.visualSortY??a.y)-(b.visualSortY??b.y));
     for(const actor of objects){
