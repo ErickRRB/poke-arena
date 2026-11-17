@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { env } from 'cloudflare:workers';
-import { runInDurableObject, evictDurableObject } from 'cloudflare:test';
+import { runInDurableObject, evictDurableObject, runDurableObjectAlarm } from 'cloudflare:test';
 import worker from '../src/index.js';
 import { ONLINE_PROTOCOL } from '../../dist/online-wire.js?v=34';
 import { unpackGame } from '../../dist/snapshot.js?v=34';
@@ -210,7 +210,60 @@ describe('Canonical C1 admission and legacy queue',()=>{
     await runInDurableObject(lobby,async instance=>{instance.sql.exec('UPDATE sessions SET joined=? WHERE id=?',Date.now()-60000,saved.id);await instance.alarm();});const idle=await legacy.next(p=>p.type==='idle');expect(idle.selectionExpired).toBe(true);expect(idle.expired).toBeUndefined();expect(idle.message).toContain('Revisá');
     const expired=await runInDurableObject(lobby,instance=>instance.session(saved.id));expect(expired.joined).toBe(null);expect(expired.deck).toBe(JSON.stringify(legacyDeck));expect(expired.token_hash).toBe(saved.hash);expect(expired.selection_version).toBe(0);
     const explicit=await connect();explicit.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',token:saved.token,name:'Reviewed deck',deck});expect((await explicit.next(p=>p.type==='searching')).selectionVersion).toBe(1);const room=(await explicit.next(p=>p.type==='matched')).roomId;expect((await newcomer.next(p=>p.type==='matched')).roomId).toBe(room);
-    const current=await runInDurableObject(lobby,instance=>instance.session(saved.id));expect(current.selection_version).toBe(1);expect(current.deck).toBe(JSON.stringify(deck));expect(current.token_hash).toBe(saved.hash);await finish(room);
+    const current=await runInDurableObject(lobby,instance=>instance.session(saved.id));expect(current.selection_version).toBe(1);expect(current.selection_notice).toBe(null);expect(current.deck).toBe(JSON.stringify(deck));expect(current.token_hash).toBe(saved.hash);await finish(room);
+  });
+});
+
+describe('queue progress and offline expiry recovery',()=>{
+  const lobby=()=>env.LOBBY.getByName('matchmaking-v2');
+  async function clearQueue(){await runInDurableObject(lobby(),instance=>instance.sql.exec('DELETE FROM sessions WHERE room_id IS NULL'));for(const ws of sockets.splice(0))try{ws.close();}catch{}}
+  it('pairs current live players past 128 legacy and 128 current disconnected queued rows',async()=>{
+    let room;
+    try{
+      await clearQueue();
+      await runInDurableObject(lobby(),instance=>{
+        const now=Date.now(),joined=now-1000;
+        for(const version of[0,1])for(let i=0;i<128;i++){
+          const id=crypto.randomUUID();instance.sql.exec('INSERT INTO sessions(id,token_hash,name,deck,joined,updated,selection_version) VALUES(?,?,?,?,?,?,?)',id,id,'Offline backlog',JSON.stringify(version?deck:legacyDeck),joined,now,version);
+        }
+      });
+      const a=await connect();a.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',deck});await a.next(p=>p.type==='searching');
+      const b=await connect();b.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',deck});room=(await b.next(p=>p.type==='matched')).roomId;expect((await a.next(p=>p.type==='matched')).roomId).toBe(room);
+      await runInDurableObject(lobby(),instance=>{expect(instance.sql.exec('SELECT count(*) AS n FROM sessions WHERE name=? AND room_id IS NULL AND joined IS NOT NULL','Offline backlog').one().n).toBe(256);});
+      await runInDurableObject(env.ARENAS.getByName(room),instance=>expect(instance.match.selectionVersion).toBe(1));
+    }finally{if(room)await finish(room);await clearQueue();}
+  });
+  it('the expiry alarm reserves two already waiting current sockets without a new hello',async()=>{
+    let room;
+    try{
+      await clearQueue();
+      const old=await seedLegacyQueue('Expired backlog'),a=await connect(),b=await connect();
+      // Explicit pre-fix fixture: persisted current searches and authenticated P4
+      // attachments left waiting by the earlier producer; no candidate monkeypatch.
+      await runInDurableObject(lobby(),async instance=>{
+        const now=Date.now(),waiting=instance.ctx.getWebSockets().filter(ws=>ws.readyState===1);
+        expect(waiting).toHaveLength(2);instance.sql.exec('UPDATE sessions SET joined=? WHERE id=?',now-60001,old.id);
+        for(const ws of waiting){const id=crypto.randomUUID();instance.sql.exec('INSERT INTO sessions(id,token_hash,name,deck,joined,updated,selection_version) VALUES(?,?,?,?,?,?,1)',id,id,'Already waiting',JSON.stringify(deck),now-1000,now);ws.serializeAttachment({authed:true,protocol:ONLINE_PROTOCOL,playerId:id,seen:now,connectedAt:now});}
+        await instance.ctx.storage.setAlarm(now+60000);
+      });
+      expect(a.packets).toHaveLength(0);expect(b.packets).toHaveLength(0);
+      expect(await runDurableObjectAlarm(lobby())).toBe(true);
+      room=(await a.next(p=>p.type==='matched')).roomId;expect((await b.next(p=>p.type==='matched')).roomId).toBe(room);
+      await runInDurableObject(lobby(),instance=>{expect(instance.session(old.id).joined).toBe(null);expect(instance.session(old.id).selection_notice).toBe('legacy-queue-expired');expect(instance.sql.exec('SELECT count(*) AS n FROM sessions WHERE name=? AND room_id=?','Already waiting',room).one().n).toBe(2);});
+    }finally{if(room)await finish(room);await clearQueue();}
+  });
+  it('persists offline expiry across lobby eviction and resumes the cause without requeue or credential changes',async()=>{
+    try{
+      await clearQueue();const saved=await seedLegacyQueue('Offline expiry');
+      await runInDurableObject(lobby(),async instance=>{instance.sql.exec('UPDATE sessions SET joined=? WHERE id=?',Date.now()-60001,saved.id);await instance.ctx.storage.setAlarm(Date.now()+60000);});
+      expect(await runDurableObjectAlarm(lobby())).toBe(true);
+      await evictDurableObject(lobby(),{webSockets:'close'});
+      const resumed=await connect();resumed.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'resume',token:saved.token});const idle=await resumed.next(p=>p.type==='idle');
+      expect(idle.selectionExpired).toBe(true);expect(idle.expired).toBeUndefined();expect(idle.message).toContain('Revisá');expect(resumed.packets.some(p=>p.type==='searching'||p.type==='matched'||p.type==='error')).toBe(false);
+      await runInDurableObject(lobby(),instance=>{const session=instance.session(saved.id);expect(session.joined).toBe(null);expect(session.room_id).toBe(null);expect(session.deck).toBe(JSON.stringify(legacyDeck));expect(session.token_hash).toBe(saved.hash);expect(session.selection_version).toBe(0);expect(session.selection_notice).toBe('legacy-queue-expired');});
+      const invalid=await connect();invalid.send({type:'hello',protocol:ONLINE_PROTOCOL,mode:'search',token:saved.token,deck:legacyDeck});expect((await invalid.next(p=>p.type==='error')).code).toBe('deck');
+      await runInDurableObject(lobby(),instance=>expect(instance.session(saved.id).selection_notice).toBe('legacy-queue-expired'));
+    }finally{await clearQueue();}
   });
 });
 
