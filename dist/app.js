@@ -396,13 +396,13 @@ function renderCollection() {
   const focused=document.activeElement,reference=$('collection').contains(focused)||$('deck-strip').contains(focused)?focusReference(focused):null;
   renderDeckStrip();
   const term=($('collection-search')?.value||'').toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,''),rarity=$('rarity-filter')?.value||'',role=$('role-filter')?.value||'',order=$('collection-sort').value;
-  const keys=Object.keys(CARDS).filter(k=>{const c=editorCard(k),text=`${c.name} ${editorCardRole(c,cardEquivalentLabel(k))} ${c.role} ${c.move}`.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');return !c.token&&editorSelectable(k)&&(!rarity||c.rarity===rarity)&&(!role||(role==='spell'?c.spell:role==='structure'?c.structure:role==='building'?c.building:role==='summon'?c.summon||c.deathSpawn:!c.spell&&!c.structure))&&text.includes(term);});
+  const keys=Object.keys(CARDS).filter(k=>{const c=editorCard(k),text=`${c.name} ${editorCardRole(c,cardEquivalentLabel(k,c))} ${c.role} ${c.move}`.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');return !c.token&&editorSelectable(k)&&(!rarity||c.rarity===rarity)&&(!role||(role==='spell'?c.spell:role==='structure'?c.structure:role==='building'?c.building:role==='summon'?c.summon||c.deathSpawn:!c.spell&&!c.structure))&&text.includes(term);});
   const byName=(a,b)=>CARDS[a].name.localeCompare(CARDS[b].name,'es');
   if(order==='elixir-asc')keys.sort((a,b)=>editorCard(a).cost-editorCard(b).cost||byName(a,b));
   else if(order==='elixir-desc')keys.sort((a,b)=>editorCard(b).cost-editorCard(a).cost||byName(a,b));
   else if(order==='name')keys.sort(byName);
   $('collection').innerHTML=keys.map(k=>`<div class="collection-entry">${cardMarkup(k,0,'collection')}</div>`).join('')||'<div class="collection-empty"><svg aria-hidden="true"><use href="#i-search"/></svg><p role="status">No hay cartas con esos filtros.</p><button class="secondary-btn" data-reset-filters>Ver todas las cartas</button></div>';
-  for(const el of $('collection').querySelectorAll('[data-collection]')){const key=el.dataset.collection,c=editorCard(key),equivalent=editorCardRole(c,cardEquivalentLabel(key)),included=editorIncludedIndex(key)>=0,eligible=editorSelectable(key);el.classList.toggle('selected',included);el.classList.toggle('selection-inactive',!eligible);el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir${equivalent?`, ${equivalent}`:''}${c.count>1?`, ${c.count} unidades`:''}${included?', en mazo':''}${eligible?'':', no disponible para mazos nuevos'}, acciones de la carta`);}
+  for(const el of $('collection').querySelectorAll('[data-collection]')){const key=el.dataset.collection,c=editorCard(key),equivalent=editorCardRole(c,cardEquivalentLabel(key,c)),included=editorIncludedIndex(key)>=0,eligible=editorSelectable(key);el.classList.toggle('selected',included);el.classList.toggle('selection-inactive',!eligible);el.setAttribute('aria-label',`${c.name}, ${c.cost} de elixir${equivalent?`, ${equivalent}`:''}${c.count>1?`, ${c.count} unidades`:''}${included?', en mazo':''}${eligible?'':', no disponible para mazos nuevos'}, acciones de la carta`);}
   $('collection-filters-btn').classList.toggle('has-filters',!!term||!!rarity||!!role||order!=='elixir-asc');
   const priced=deckDraft.flatMap((raw,index)=>{const key=cardForSavedKey(raw);return key&&editorSlotSelectable(raw,index)?[editorCard(key,index)]:[];});$('deck-average').textContent=priced.length?(priced.reduce((a,c)=>a+c.cost,0)/priced.length).toFixed(1).replace('.',','):'—';
   $('save-deck-btn').disabled=false;
@@ -483,9 +483,9 @@ function toggleDeckCard(key,slotIndex=null){
 function renderCardInfo(key,slotIndex=null){
   const inMenu=document.body.classList.contains('menu-mode'),c=inMenu?editorCard(key,slotIndex):matchCard(key);inspectedCard=key;inspectedSlotIndex=slotIndex;
   const converted=arenaCollectionProfile(key),choice=inMenu&&slotIndex!==null&&(converted||c4EditorPreview&&key==='arcanine')?savedSlotProfile(deckLibrary,deckLibrary.active,slotIndex):null;
-  const presentation=choice?(converted?{label:choice.kind==='profile'?editorCard(key).role:'Versión anterior',action:choice.kind==='profile'?'✓ Eevee de 2 elixires':'Cambiar a Eevee de 2 elixires',selected:choice.kind==='profile'}:conversionPresentation(editorCardRole(editorCard(key),cardEquivalentLabel(key)),choice.kind==='hog')):null;
+  const presentation=choice?(converted?{label:choice.kind==='profile'?editorCard(key).role:'Versión anterior',action:choice.kind==='profile'?'✓ Eevee de 2 elixires':'Cambiar a Eevee de 2 elixires',selected:choice.kind==='profile'}:conversionPresentation(editorCardRole(editorCard(key),cardEquivalentLabel(key,c)),choice.kind==='hog')):null;
   audioInit();
-  $('card-info-name').textContent=c.name;$('card-info-type').textContent=`${c.label} · ${RARITIES[c.rarity]}`;$('card-info-role').textContent=presentation?.label||editorCardRole(c,cardEquivalentLabel(key))||c.move||c.name;$('card-info-cost').textContent=c.cost;
+  $('card-info-name').textContent=c.name;$('card-info-type').textContent=`${c.label} · ${RARITIES[c.rarity]}`;$('card-info-role').textContent=presentation?.label||editorCardRole(c,cardEquivalentLabel(key,c))||c.move||c.name;$('card-info-cost').textContent=c.cost;
   $('card-info-art').innerHTML=displayArt(key);$('card-dialog').dataset.rarity=c.rarity;
   $('card-info-art').style.setProperty('--card-tint',c.color);
   $('card-info-move').textContent=c.move||c.name;$('card-info-description').textContent=c.description;
