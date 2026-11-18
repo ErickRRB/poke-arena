@@ -28,6 +28,7 @@ const c4Config = {
       ALLOWED_ORIGINS: bindings.text('https://poke-arena-web.eriickramiirez.workers.dev'),
       ONLINE_SERVICE: bindings.text('c4'),
       C4_NEW_SEARCHES: bindings.text('1'),
+      C4_EEVEE_NEW_SEARCHES: bindings.text('1'),
     },
   },
 };
