@@ -141,6 +141,7 @@ CARD_EQUIVALENTS.nightmare.reason='Doce invocaciones terrestres frágiles con po
 CARD_EQUIVALENTS.pinMissile.reason='Tres oleadas de daño de área contra tierra y aire.';
 export function cardEquivalentLabel(key,profile) {
   if(profile?.nativeReference==='HogRider')return 'Montapuercos';
+  if(profile?.nativeReference==='ArenaLightEevee')return profile.role;
   const equivalent = CARD_EQUIVALENTS[key];
   if (!equivalent?.reference || equivalent.similarity === 'none') return '';
   return `${equivalent.similarity === 'partial' ? 'Parcial de ' : ''}${equivalent.reference}`;

@@ -1,12 +1,15 @@
 import {checkC4LibraryDeck} from './profile-selection.js?v=1';
 import {checkSelectionDeck} from './canonical-selection.js?v=1';
 import {savedSlotProfile} from './deck-provenance.js?v=c4-editor-1';
+import {hasArenaSelection} from './arena-selection-profiles.js?v=1';
+import {checkArenaLibraryDeck} from './arena-profile-selection.js?v=1';
 export {checkC4LibraryDeck as checkLocalCpuDeck} from './profile-selection.js?v=1';
 export function checkCpuDeck(library,deckIndex,{forceC4=false}={}){
   if(library?.version!==1||!Number.isInteger(deckIndex)||deckIndex<0||deckIndex>=4)return{ok:false,reason:'invalid-library'};
   const row=library.slots?.[deckIndex];
   if(!Array.isArray(row)||row.length!==8)return{ok:false,reason:'eight-positions-required'};
   for(let index=0;index<8;index++)if(!Object.hasOwn(row,index))return{ok:false,reason:'eight-positions-required'};
+  if(hasArenaSelection(row))return checkArenaLibraryDeck(library,deckIndex);
   const acceptedHog=Array.isArray(row)&&row.some((key,index)=>key==='arcanine'&&savedSlotProfile(library,deckIndex,index).kind==='hog');
   if(forceC4||acceptedHog)return checkC4LibraryDeck(library,deckIndex);
   const selected=checkSelectionDeck(row);

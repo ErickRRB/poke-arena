@@ -9,6 +9,8 @@ import {onlineRouting} from './online-routing.js?v=c4-online-1';
 import {prepareC4Catalog,getC4BaseCard} from './c4-catalog.js?v=1';
 import {prepareC4Packet,prepareC4Transport} from './c4-packet.js?v=1';
 import {c4SelectionFromLibrary} from './profile-selection.js?v=1';
+import {resolveSavedSelectionKey} from './arena-profile-selection.js?v=1';
+import {arenaCollectionProfile,arenaSelectionProfile} from './arena-selection-profiles.js?v=1';
 import { OnlineClient, hasSavedOnlineSession, hasPendingC4Search } from './online.js?v=c4-online-1';
 import { onlinePerf } from './perf.js?v=1';
 import { unpackGame, perspective } from './snapshot.js?v=target-c1-1';
@@ -70,17 +72,17 @@ const matchCard=key=>game?.cardFor?.(key)||displayCard(key);
 const infoCard=key=>document.body.classList.contains('menu-mode')?editorCard(key):matchCard(key);
 const displayArt=key=>cardArtMarkup(key);
 const editorDeck=cards=>Array.from({length:8},(_,i)=>cards?.[i]??null);
-const cardForSavedKey=key=>{const resolved=resolveSelectionKey(key).key;return resolved&&displayCard(resolved)?resolved:null;};
-const sameSelection=(a,b)=>{const left=checkSelectionCard(a),right=checkSelectionCard(b);return left.canonicalKey&&left.canonicalKey===right.canonicalKey;};
+const cardForSavedKey=key=>{const resolved=resolveSavedSelectionKey(key);return resolved&&displayCard(resolved)?resolved:null;};
+const sameSelection=(a,b)=>{const left=resolveSavedSelectionKey(a),right=resolveSavedSelectionKey(b);return left&&left===right;};
 const hasEligibleSelection=cards=>checkSelectionDeck(cards).ok;
 const eligibleDeckKeys=cards=>hasEligibleSelection(cards)?cards.map(key=>resolveSelectionKey(key).key):null;
 const cpuDeckSelection=()=>checkCpuDeck(deckLibrary,deckLibrary.active,{forceC4:c4CpuPreview});
-const savedDeckPlayable=(index=deckLibrary.active)=>c4WireEndpoint?c4SelectionFromLibrary(deckLibrary,index).ok:checkCpuDeck(deckLibrary,index,{forceC4:c4CpuPreview}).ok;
+const savedDeckPlayable=(index=deckLibrary.active)=>checkCpuDeck(deckLibrary,index,{forceC4:c4CpuPreview}).ok;
 const editorCard=(key,slotIndex=null)=>cardForEditor({key,cards:CARDS,library:deckLibrary,deckIndex:deckLibrary.active,slotIndex,preview:c4EditorPreview});
 const editorSelectable=key=>checkSelectionCard(key).ok||c4EditorPreview&&key==='arcanine';
-const editorSlotSelectable=(key,index)=>checkSelectionCard(key).ok||c4EditorPreview&&key==='arcanine'&&savedSlotProfile(deckLibrary,deckLibrary.active,index).kind==='hog';
-const editorIncludedIndex=key=>deckDraft.findIndex((saved,index)=>saved!==null&&sameSelection(saved,key)&&(!c4EditorPreview||key!=='arcanine'||savedSlotProfile(deckLibrary,deckLibrary.active,index).kind==='hog'));
-if(c4EditorPreview){
+const editorSlotSelectable=(key,index)=>arenaSelectionProfile(key)?savedSlotProfile(deckLibrary,deckLibrary.active,index).kind==='profile':checkSelectionCard(key).ok||c4EditorPreview&&key==='arcanine'&&savedSlotProfile(deckLibrary,deckLibrary.active,index).kind==='hog';
+const editorIncludedIndex=key=>deckDraft.findIndex((saved,index)=>saved!==null&&sameSelection(saved,key)&&(arenaCollectionProfile(key)?arenaSelectionProfile(saved)?.choice===arenaCollectionProfile(key).choice:!c4EditorPreview||key!=='arcanine'||savedSlotProfile(deckLibrary,deckLibrary.active,index).kind==='hog'));
+{
   const row=document.createElement('div'),accept=document.createElement('button');row.className='card-info-actions';accept.id='card-info-accept';accept.type='button';accept.className='primary-btn';accept.hidden=true;
   $('card-info-toggle').before(row);row.append(accept,$('card-info-toggle'));
 }
@@ -167,7 +169,7 @@ function commitDeckLibrary(changed){
 }
 function editDeckSlot(index,key,action='replace'){
   try{
-    const changed=updateLibrarySlot(deckLibrary,deckLibrary.active,index,key,{action});if(!changed)return false;
+    const changed=updateLibrarySlot(deckLibrary,deckLibrary.active,index,key,{action,profileChoice:arenaCollectionProfile(key)?.choice??null});if(!changed)return false;
     if(!c4EditorPreview)changed.slots[changed.active]=editorDeck(changed.slots[changed.active]);
     return commitDeckLibrary(changed);
   }catch{deckSaveError('No se pudo editar esta posición.');return false;}
@@ -479,8 +481,8 @@ function toggleDeckCard(key,slotIndex=null){
 }
 function renderCardInfo(key,slotIndex=null){
   const inMenu=document.body.classList.contains('menu-mode'),c=inMenu?editorCard(key,slotIndex):matchCard(key);inspectedCard=key;inspectedSlotIndex=slotIndex;
-  const choice=inMenu&&c4EditorPreview&&key==='arcanine'&&slotIndex!==null?savedSlotProfile(deckLibrary,deckLibrary.active,slotIndex):null;
-  const presentation=choice?conversionPresentation(editorCardRole(editorCard(key),cardEquivalentLabel(key)),choice.kind==='hog'):null;
+  const converted=arenaCollectionProfile(key),choice=inMenu&&slotIndex!==null&&(converted||c4EditorPreview&&key==='arcanine')?savedSlotProfile(deckLibrary,deckLibrary.active,slotIndex):null;
+  const presentation=choice?(converted?{label:choice.kind==='profile'?editorCard(key).role:'Versión anterior',action:choice.kind==='profile'?'✓ Eevee de 2 elixires':'Cambiar a Eevee de 2 elixires',selected:choice.kind==='profile'}:conversionPresentation(editorCardRole(editorCard(key),cardEquivalentLabel(key)),choice.kind==='hog')):null;
   audioInit();
   $('card-info-name').textContent=c.name;$('card-info-type').textContent=`${c.label} · ${RARITIES[c.rarity]}`;$('card-info-role').textContent=presentation?.label||editorCardRole(c,cardEquivalentLabel(key))||c.move||c.name;$('card-info-cost').textContent=c.cost;
   $('card-info-art').innerHTML=displayArt(key);$('card-dialog').dataset.rarity=c.rarity;
@@ -556,14 +558,14 @@ function renderCardInfo(key,slotIndex=null){
   if($('card-dialog').open===false)$('card-more-stats').open=false;
   const included=slotIndex!==null||editorIncludedIndex(key)>=0,eligible=editorSelectable(key);$('card-info-toggle').textContent=included?'Quitar del mazo':eligible?'Usar':'No disponible';
   $('card-info-toggle').disabled=!deckEditable||(!included&&!eligible);
-  if(c4EditorPreview){const accept=$('card-info-accept');accept.hidden=!presentation;accept.textContent=presentation?.action||'';accept.disabled=!deckEditable||presentation?.selected;accept.classList.toggle('profile-selected',presentation?.selected===true);accept.setAttribute('aria-label',presentation?.selected?`${presentation.label}, versión actual`:presentation?.action||'');accept.parentElement.classList.toggle('profile-choices',!!presentation);}
+  {const accept=$('card-info-accept');accept.hidden=!presentation;accept.textContent=presentation?.action||'';accept.disabled=!deckEditable||presentation?.selected;accept.classList.toggle('profile-selected',presentation?.selected===true);accept.setAttribute('aria-label',presentation?.selected?`${presentation.label}, versión actual`:presentation?.action||'');accept.parentElement.classList.toggle('profile-choices',!!presentation);}
 }
 $('collection').addEventListener('click',e=>{
   if(e.target.closest('[data-reset-filters]')){resetCollectionFilters();return;}
   const el=e.target.closest('[data-collection]');if(el)openCardActions(el.dataset.collection,el);
 });
 $('card-info-toggle').addEventListener('click',()=>{if(inspectedCard){const changed=toggleDeckCard(inspectedCard,inspectedSlotIndex);if(changed===null)return;if(!changed&&editorSelectable(inspectedCard)){closeModal($('card-dialog'),false);if(!$('deck-dialog').open)openDeck();replacementKey=inspectedCard;$('deck-dialog').classList.add('replacing-card');$('deck-replace-hint').hidden=false;}else if(changed)closeModal($('card-dialog'),false);}});
-$('card-info-accept')?.addEventListener('click',()=>{if(!c4EditorPreview||inspectedCard!=='arcanine'||inspectedSlotIndex===null)return;if(editDeckSlot(inspectedSlotIndex,'arcanine','accept')){renderCollection();renderCardInfo('arcanine',inspectedSlotIndex);}});
+$('card-info-accept').addEventListener('click',()=>{if(inspectedSlotIndex===null||!(arenaCollectionProfile(inspectedCard)||c4EditorPreview&&inspectedCard==='arcanine'))return;if(editDeckSlot(inspectedSlotIndex,inspectedCard,'accept')){renderCollection();renderCardInfo(inspectedCard,inspectedSlotIndex);}});
 $('save-deck-btn').addEventListener('click',()=>closeModal($('deck-dialog')));
 
 $('hand').addEventListener('click',e=>{const el=e.target.closest('[data-card]');if(el&&!quickStats.isHoldClick(e)&&performance.now()>ignoreClickUntil)choose(Number(el.dataset.card));});
@@ -636,7 +638,7 @@ async function startCpuGame({tutorial=false}={}){
       await renderer.ensureSpecies(selected.keys.map(key=>getC4BaseCard(key)?.id).filter(Boolean));
       if(!currentEntry())return;
       const latest=loadDeckLibrary(),current=checkCpuDeck(latest,latest.active,{forceC4:c4CpuPreview}),liveChoice=cpuDeckSelection();
-      const sameChoice=choice=>choice.ok&&choice.catalogVersion===4&&choice.keys.length===selected.keys.length&&choice.keys.every((key,index)=>key===selected.keys[index]);
+      const sameChoice=choice=>choice.ok&&choice.catalogVersion===4&&choice.ruleset===selected.ruleset&&choice.arenaProfileProducer===selected.arenaProfileProducer&&choice.keys.length===selected.keys.length&&choice.keys.every((key,index)=>key===selected.keys[index]);
       if(deckLibrary.active!==selectedIndex||latest.active!==selectedIndex||!sameChoice(current)||!sameChoice(liveChoice)){
         deckLibrary=latest;deckDraft=editorDeck(latest.slots[latest.active]);applyDeckChanges({persist:false});toast('El mazo cambió. Revisalo antes de jugar.');return;
       }
@@ -737,7 +739,7 @@ async function beginOnline(){
   online=createOnlineClient({legacy:!c4WireEndpoint});
   try{await online.start($('trainer-name').value||'Entrenador',candidate?candidate.deck:eligibleDeckKeys(deck),candidate?.selection);}catch(error){$('search-status').textContent=error.message;}
 }
-if(c4CpuPreview)try{await prepareC4Catalog();if(c4WireEndpoint)await prepareC4Transport();}catch(error){c4BootError=error;}
+try{await prepareC4Catalog();if(c4CpuPreview&&c4WireEndpoint)await prepareC4Transport();}catch(error){c4BootError=error;}
 updateSound();setReduced(reduced);setCombatNumbers(combatNumbers);newGame();syncPortrait();
 let previous=performance.now(),accumulator=0;
 function frame(now){
