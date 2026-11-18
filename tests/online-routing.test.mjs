@@ -1,14 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {onlineRouting,allowedC4Server,C4_CANONICAL_ORIGIN,C4_PRODUCTION_ENDPOINT,C4_CANONICAL_SEARCH_CUTOVER} from '../dist/online-routing.js?v=1';
+import {onlineRouting,allowedC4Server,C4_CANONICAL_ORIGIN,C4_PRODUCTION_ENDPOINT,C4_CANONICAL_SEARCH_CUTOVER} from '../dist/online-routing.js?v=c4-online-1';
 import {OnlineClient} from '../dist/online.js';
 import {C4_SERVICE} from '../dist/online-context.js?v=1';
 
-test('canonical C4 recovery remains pinned while new searches are inactive, independently of URL flags',()=>{
- assert.equal(C4_CANONICAL_SEARCH_CUTOVER,false);
+test('canonical default searches use C4 while an explicit pre-cutover fixture preserves recovery, independently of URL flags',()=>{
+ assert.equal(C4_CANONICAL_SEARCH_CUTOVER,true);
  for(const suffix of ['/', '/?preview=c4-wire-1&realtime=wss://evil.example','/?realtime=http://localhost:4180']){
-  const current=onlineRouting(C4_CANONICAL_ORIGIN+suffix);assert.equal(current.c4Recovery,C4_PRODUCTION_ENDPOINT);assert.equal(current.c4Search,null);assert.equal(current.localC4,null);
-  const active=onlineRouting(C4_CANONICAL_ORIGIN+suffix,true);assert.equal(active.c4Search,C4_PRODUCTION_ENDPOINT);assert.equal(active.c4Recovery,C4_PRODUCTION_ENDPOINT);assert.equal(active.localC4,null);
+  const inactive=onlineRouting(C4_CANONICAL_ORIGIN+suffix,false);assert.equal(inactive.c4Recovery,C4_PRODUCTION_ENDPOINT);assert.equal(inactive.c4Search,null);assert.equal(inactive.localC4,null);
+  const active=onlineRouting(C4_CANONICAL_ORIGIN+suffix);assert.equal(active.c4Search,C4_PRODUCTION_ENDPOINT);assert.equal(active.c4Recovery,C4_PRODUCTION_ENDPOINT);assert.equal(active.localC4,null);
  }
 });
 

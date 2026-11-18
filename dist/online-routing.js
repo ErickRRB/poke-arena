@@ -6,7 +6,7 @@ export const C4_PRODUCTION_ENDPOINT='wss://poke-arena-realtime-c4.eriickramiirez
 // never revert this cutover or publish an older frontend to close admission:
 // keep C4 routing and close only C4_NEW_SEARCHES in the compatible authority.
 // C4 recovery remains available before and after that one-way cutover.
-export const C4_CANONICAL_SEARCH_CUTOVER=false;
+export const C4_CANONICAL_SEARCH_CUTOVER=true;
 const loopback=host=>['localhost','127.0.0.1','[::1]'].includes(host);
 export function onlineRouting(value,cutover=C4_CANONICAL_SEARCH_CUTOVER){
   const page=new URL(value),local=localC4Endpoint(value),canonical=page.origin===C4_CANONICAL_ORIGIN;
