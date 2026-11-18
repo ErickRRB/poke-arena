@@ -2,7 +2,7 @@ import { screenToWorld } from './arena-geometry.js?v=34';
 import { resolvePlacementInput, inPlacementInputArea } from './placement-input.js?v=34';
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=target-c1-1';
 import { Renderer } from './render.js?v=fb60-c4-1';
-import { SoundSystem } from './audio.js?v=target-c1-1';
+import { SoundSystem } from './audio.js?v=c4-result-cue-1';
 import {readAudioLevels} from './audio-preferences.js?v=1';
 import {C1_SERVICE,C4_SERVICE} from './online-context.js?v=1';
 import {onlineRouting} from './online-routing.js?v=1';
@@ -57,7 +57,7 @@ let difficulty = ['easy', 'normal', 'hard'].includes(storedDifficulty) ? storedD
 let sound = store.get('sound', true) === true;
 let reduced = store.get('reduced', matchMedia('(prefers-reduced-motion: reduce)').matches) === true;
 let combatNumbers = store.get('combat-numbers', false) === true;
-let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true;
+let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true, resultCueGame = null;
 let toastTimer, deckNoticeTimer, deckSaveErrorTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
 const quickStats=bindQuickStats({hand:$('hand'),cards:CARDS,getCard:el=>matchCard(game?.hands[0][Number(el.dataset.card)]),isPlaying:()=>game?.state==='playing'&&!document.body.classList.contains('menu-mode'),getSelection:()=>selected});
 const sfx=new SoundSystem(sound,readAudioLevels(store.get));
@@ -87,6 +87,20 @@ function audioInit() {
 }
 function tone(freq = 440, duration = .08, wave = 'sine', volume = .035, slide = 0) {
   sfx.tone(freq,duration,wave,volume,slide);
+}
+const RESULT_CUE_TAG='result-cue';
+function cancelResultCue(){sfx.cancelTaggedEffects(RESULT_CUE_TAG);}
+function playResultCue(winner) {
+  cancelResultCue();
+  if(winner!==0)return;
+  // Give the result reveal a brief breath, then let two rising phrases arrive
+  // with the medal's settle and resolve into one warm, sustained major chord.
+  const notes=[
+    [392,.18,.032,.25,4],[494,.18,.034,.45,5],[587,.19,.036,.65,6],[784,.22,.038,.88,8],
+    [440,.16,.03,1.22,3],[523,.16,.032,1.42,4],[659,.17,.034,1.62,5],
+    [392,.46,.021,1.84,0],[494,.46,.021,1.84,0],[587,.46,.021,1.84,0],[784,.46,.029,1.84,0],[196,.46,.014,1.84,0],
+  ];
+  for(const[freq,duration,volume,delay,slide]of notes)sfx.tone(freq,duration,'triangle',volume,slide,0,delay,RESULT_CUE_TAG);
 }
 function updateSound() {
   $('sound-btn').setAttribute('aria-pressed', String(sound));
@@ -249,6 +263,8 @@ function newGame({ start = false, tutorial = false } = {}) {
   if(start&&!tutorial&&!(c4CpuPreview?admitted?.ok:hasEligibleSelection(deck))){mainMenu();openDeck();return;}
   battlePhaseUi.reset();
   deploying=false;deploymentSerial++;
+  cancelResultCue();
+  resultCueGame=null;
   sfx.resetMusic();
   $('result-overlay').hidden = true; $('pause-overlay').hidden = true; $('guide').hidden = true;
   walkthrough = null;
@@ -278,7 +294,8 @@ function finishGuide() { walkthrough = null; game.aiEnabled = true; game.aiClock
 function showResult(e) {
   if (walkthrough) finishGuide();
   selected = -1; renderer.selection = null;
-  $('pause-overlay').hidden = true; $('result-overlay').hidden = false;
+  const overlay=$('result-overlay'),firstPresentation=overlay.hidden;
+  $('pause-overlay').hidden = true; overlay.hidden = false;
   $('result-title').textContent = e.winner === 0 ? 'Victoria' : e.winner === 1 ? 'Derrota' : 'Empate';
   $('result-overlay').dataset.outcome=e.winner===0?'win':e.winner===1?'loss':'draw';
   $('result-overlay').querySelector('.result-crown use').setAttribute('href',e.winner===0?'#i-medal':e.winner===1?'#i-shield':'#i-ball');
@@ -287,7 +304,7 @@ function showResult(e) {
   $('result-deployed').textContent = game.stats[0].deployed;
   $('result-damage').textContent = Math.round(game.stats[0].damage).toLocaleString('es-AR');
   updateUi();
-  if (e.winner === 0) { tone(660,.2,'triangle',.05); setTimeout(()=>tone(880,.35,'triangle',.05),150); }
+  if(firstPresentation&&resultCueGame!==game){resultCueGame=game;playResultCue(e.winner);}
   live(`${$('result-title').textContent}. ${e.reason}. ${game.crowns(0)} a ${game.crowns(1)}.`);
   $('again-btn').focus({preventScroll:true});
 }
