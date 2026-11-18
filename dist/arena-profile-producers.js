@@ -18,15 +18,20 @@ export function getArenaProducerByMarker(marker) {
 }
 // Read only typed profile slots; never reinterpret opaque metadata or raw keys.
 // Does not require preparation of the C4 catalog for historical snapshots.
+const historicalIdentities = new Set(Object.values(producers).flatMap(p => p.profileIdentities));
+const historicalMarkers = new Set(Object.values(producers).map(p => p.marker));
+const historicalFail = () => { const e = new Error('Productor nuevo incompatible con reglas históricas.'); e.code = 'ARENA_PROFILE_INVALID'; throw e; };
+const historicalProfile = profile => { if (profile && typeof profile === 'object' && historicalIdentities.has(profile.nativeReference)) historicalFail(); };
+const historicalCarrier = value => { if (!value || typeof value !== 'object') return; if (historicalMarkers.has(value.sourceProfile)) historicalFail(); historicalProfile(value.card); historicalProfile(value.sourceCard); if (value.burn) { if (historicalMarkers.has(value.burn.sourceProfile)) historicalFail(); historicalProfile(value.burn.sourceCard); } };
+export function validateHistoricalProducerEvent(event) {
+  historicalCarrier(event);
+  for (const key of ['unit', 'attacker', 'target', 'tower']) historicalCarrier(event?.[key]);
+  return true;
+}
 export function validateHistoricalProducerBoundary(data) {
-  const fail = () => { const e = new Error('Productor nuevo incompatible con reglas históricas.'); e.code = 'ARENA_PROFILE_INVALID'; throw e; };
-  if (Object.hasOwn(data, 'arenaProfileProducer')) fail();
-  const identities = new Set(Object.values(producers).flatMap(p => p.profileIdentities));
-  const check = profile => { if (profile && typeof profile === 'object' && identities.has(profile.nativeReference)) fail(); };
-  const markers = new Set(Object.values(producers).map(p => p.marker));
-  const carrier = value => { if (!value || typeof value !== 'object') return; if (markers.has(value.sourceProfile)) fail(); check(value.card); check(value.sourceCard); if (value.burn) { if (markers.has(value.burn.sourceProfile)) fail(); check(value.burn.sourceCard); } };
-  for (const group of [data.snapshotProfiles, data.legacyCardOverrides]) if (group && typeof group === 'object') for (const profile of Object.values(group)) check(profile);
-  for (const field of ['units', 'towers', 'detachedEntities', 'attacks', 'projectiles', 'spells', 'fields', 'reinforcements']) if (Array.isArray(data[field])) for (const value of data[field]) carrier(value);
+  if (Object.hasOwn(data, 'arenaProfileProducer')) historicalFail();
+  for (const group of [data.snapshotProfiles, data.legacyCardOverrides]) if (group && typeof group === 'object') for (const profile of Object.values(group)) historicalProfile(profile);
+  for (const field of ['units', 'towers', 'detachedEntities', 'attacks', 'projectiles', 'spells', 'fields', 'reinforcements']) if (Array.isArray(data[field])) for (const value of data[field]) historicalCarrier(value);
   return true;
 }
 export function arenaProducerCard(ruleset, key) {
@@ -39,6 +44,26 @@ const equal = (a, b) => {
   const x = Object.keys(a).sort(), y = Object.keys(b).sort();
   return x.length === y.length && x.every((k, i) => k === y[i] && equal(a[k], b[k]));
 };
+export function validateArenaProducerEventProfiles(event, ruleset) {
+  const producer = Object.hasOwn(producers, ruleset) ? producers[ruleset] : null;
+  if (!producer) throw Error('Productor de perfiles desconocido.');
+  const fail = () => { const e = new Error('Perfil incompatible con el productor.'); e.code = 'ARENA_PROFILE_INVALID'; throw e; };
+  const check = (record, field, key) => {
+    if (!record || !Object.hasOwn(producer.cards, key)) return;
+    if (Object.hasOwn(record, field) && !equal(record[field], producer.cards[key]())) fail();
+  };
+  for (const name of ['unit', 'attacker', 'target', 'tower']) {
+    const entity = event?.[name]; if (!entity) continue;
+    check(entity, 'card', entity.key);
+    if (entity.burn) check(entity.burn, 'sourceCard', entity.burn.sourceKey);
+  }
+  const key = event?.sourceKey ?? event?.key;
+  if (Object.hasOwn(producer.cards, key)) {
+    if (Object.hasOwn(event, 'sourceProfile')) fail();
+    check(event, 'sourceCard', key); check(event, 'card', key);
+  }
+  return true;
+}
 // The ordinary C4 validator handles graph and typed carriers first. This producer
 // additionally requires every declared override to match its frozen identity.
 export function validateArenaProducerProfiles(data, ruleset) {
