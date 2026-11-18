@@ -3,8 +3,17 @@ import assert from 'node:assert/strict';
 import {CARDS} from '../dist/engine.js';
 import {isLocalC4EditorPreview,cardForEditor,editorCardRole,conversionPresentation} from '../dist/deck-editor-profile.js';
 import {updateLibrarySlot} from '../dist/deck-provenance.js';
+import {getC4BaseCard} from '../dist/c4-catalog.js?v=1';
 const library=()=>({version:1,active:0,slots:[['arcanine','pikachu'],['arcanine'],['arcanine','arcanine'],null],updatedAt:100});
 const card=(value,deckIndex=0,slotIndex=0,preview=true)=>cardForEditor({key:'arcanine',cards:CARDS,library:value,deckIndex,slotIndex,preview});
+
+test('Eevee collection and converted Info work without loading the gameplay catalogue',()=>{
+ assert.throws(()=>getC4BaseCard('eevee'),error=>error.code==='C4_CATALOG_UNPREPARED');
+ const value={version:1,active:0,slots:[['eevee','arena:eevee-light-v1']],updatedAt:100};
+ const read=slotIndex=>cardForEditor({key:'eevee',cards:CARDS,library:value,deckIndex:0,slotIndex});
+ assert.equal(read(0),CARDS.eevee);assert.equal(read(1).cost,2);assert.equal(read(1).hp,420);assert.equal(read(null).damage,100);assert.equal(read(1).charge,false);assert.equal(read(1).riverJump,false);
+ assert.equal(CARDS.eevee.cost,5);assert.throws(()=>getC4BaseCard('eevee'),error=>error.code==='C4_CATALOG_UNPREPARED');
+});
 test('conversion presentation labels old/current versions without a Pokémon-specific text exception',()=>{
  assert.deepEqual(conversionPresentation('Montapuercos',false),{label:'Versión anterior',action:'Usar como Montapuercos',selected:false});
  assert.deepEqual(conversionPresentation('Mosquetera',true),{label:'Mosquetera',action:'✓ Mosquetera',selected:true});

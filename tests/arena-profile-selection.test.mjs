@@ -61,6 +61,7 @@ test('explicit new references preserve saved libraries and require resolving pos
 test('Info and collection resolve the selected profile without mutating the historical card or Espeon',()=>{
  const old=hog(),next=converted(),editor=(library,slotIndex)=>cardForEditor({key:'eevee',cards:CARDS,library,deckIndex:0,slotIndex,preview:true});
  assert.equal(editor(old,1),CARDS.eevee);assert.equal(editor(next,1).cost,2);assert.equal(editor(old,null).cost,2);assert.equal(cardEquivalentLabel('eevee',editor(next,1)),'Ciclo · presión');assert.equal(cardEquivalentLabel('eevee',CARDS.eevee),'Príncipe');
+ const actual=new Game({catalogVersion:4,ruleset:LIGHT_EEVEE_RULESET}).cardFor('eevee');for(const key of ['id','name','cost','hp','damage','interval','range','speed','role','description','charge','riverJump','style','scale','attackAnim','windup','attackDuration'])assert.deepEqual(editor(next,1)[key],actual[key],key);
  const conflict=structuredClone(next);conflict.slotProvenance.slots[0][1].choice='unknown';assert.equal(checkCpuDeck(conflict,0).ok,false);assert.equal(editor(conflict,1).cost,2);
  const original=JSON.stringify(CARDS.espeon);assert.equal(cardForEditor({key:'espeon',cards:CARDS,library:next,deckIndex:1,slotIndex:0,preview:true}),CARDS.espeon);assert.equal(JSON.stringify(CARDS.espeon),original);
  assert.equal(updateLibrarySlot(old,0,0,'eevee',{action:'accept',profileChoice:'eevee-light-v1'}),null);

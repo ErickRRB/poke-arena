@@ -739,7 +739,7 @@ async function beginOnline(){
   online=createOnlineClient({legacy:!c4WireEndpoint});
   try{await online.start($('trainer-name').value||'Entrenador',candidate?candidate.deck:eligibleDeckKeys(deck),candidate?.selection);}catch(error){$('search-status').textContent=error.message;}
 }
-try{await prepareC4Catalog();if(c4CpuPreview&&c4WireEndpoint)await prepareC4Transport();}catch(error){c4BootError=error;}
+if(c4CpuPreview)try{await prepareC4Catalog();if(c4WireEndpoint)await prepareC4Transport();}catch(error){c4BootError=error;}
 updateSound();setReduced(reduced);setCombatNumbers(combatNumbers);newGame();syncPortrait();
 let previous=performance.now(),accumulator=0;
 function frame(now){
