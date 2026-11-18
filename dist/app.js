@@ -73,6 +73,7 @@ const cardForSavedKey=key=>{const resolved=resolveSelectionKey(key).key;return r
 const sameSelection=(a,b)=>{const left=checkSelectionCard(a),right=checkSelectionCard(b);return left.canonicalKey&&left.canonicalKey===right.canonicalKey;};
 const hasEligibleSelection=cards=>checkSelectionDeck(cards).ok;
 const eligibleDeckKeys=cards=>hasEligibleSelection(cards)?cards.map(key=>resolveSelectionKey(key).key):null;
+const savedDeckPlayable=(index=deckLibrary.active)=>c4WireEndpoint?c4SelectionFromLibrary(deckLibrary,index).ok:c4CpuPreview?checkLocalCpuDeck(deckLibrary,index).ok:hasEligibleSelection(editorDeck(deckLibrary.slots[index]));
 const editorCard=(key,slotIndex=null)=>cardForEditor({key,cards:CARDS,library:deckLibrary,deckIndex:deckLibrary.active,slotIndex,preview:c4EditorPreview});
 const editorSelectable=key=>checkSelectionCard(key).ok||c4EditorPreview&&key==='arcanine';
 const editorSlotSelectable=(key,index)=>checkSelectionCard(key).ok||c4EditorPreview&&key==='arcanine'&&savedSlotProfile(deckLibrary,deckLibrary.active,index).kind==='hog';
@@ -170,7 +171,8 @@ function editDeckSlot(index,key,action='replace'){
   }catch{deckSaveError('No se pudo editar esta posición.');return false;}
 }
 function renderDeckSlots(){
-  for(const id of['menu-deck-slots','deck-slots'])$(id).innerHTML=deckLibrary.slots.map((cards,i)=>{const count=(cards||[]).filter(key=>key!==null&&key!==undefined&&key!=='').length,valid=Array.isArray(cards)&&hasEligibleSelection(editorDeck(cards));return`<button class="deck-preset${valid?'':' deck-preset-inactive'}" data-deck-slot="${i}" aria-pressed="${i===deckLibrary.active}" aria-label="Mazo ${i+1}, ${valid?'8 de 8 elegibles':`${count} posiciones guardadas, mazo inválido para partida nueva`}" ${id==='deck-slots'&&!deckEditable?'disabled':''}><svg aria-hidden="true"><use href="#i-deck"/></svg><span>${i+1}</span><small>${valid?'8/8':count?`${count}/8`:'+'}</small></button>`;}).join('');
+  for(const id of['menu-deck-slots','deck-slots'])$(id).innerHTML=deckLibrary.slots.map((cards,i)=>{const count=(cards||[]).filter(key=>key!==null&&key!==undefined&&key!=='').length,valid=Array.isArray(cards)&&savedDeckPlayable(i);return`<button class="deck-preset${valid?'':' deck-preset-inactive'}" data-deck-slot="${i}" aria-pressed="${i===deckLibrary.active}" aria-label="Mazo ${i+1}, ${valid?'8 de 8 elegibles':`${count} posiciones guardadas, mazo inválido para partida nueva`}" ${id==='deck-slots'&&!deckEditable?'disabled':''}><svg aria-hidden="true"><use href="#i-deck"/></svg><span>${i+1}</span><small>${valid?'8/8':count?`${count}/8`:'+'}</small></button>`;}).join('');
+  if(savedDeckPlayable()){$('deck-selection-notice').hidden=true;clearTimeout(deckNoticeTimer);}
 }
 for(const id of['menu-deck-slots','deck-slots'])$(id).addEventListener('click',event=>{
   if(!document.body.classList.contains('menu-mode'))return;
@@ -414,7 +416,8 @@ function openDeck() {
   if(!document.body.classList.contains('menu-mode'))return;
   deckEditable=true;deckDraft=editorDeck(deckLibrary.slots[deckLibrary.active]??deck);
   clearReplacement();renderDeckSlots();renderCollection();openModal('deck-dialog');showDeckTop();
-  if(!hasEligibleSelection(deckDraft)){const notice=$('deck-selection-notice');notice.textContent='Revisá los espacios vacíos y las cartas no disponibles.';notice.hidden=false;clearTimeout(deckNoticeTimer);deckNoticeTimer=setTimeout(()=>{notice.hidden=true;},3500);}
+  const notice=$('deck-selection-notice');clearTimeout(deckNoticeTimer);notice.hidden=savedDeckPlayable();
+  if(!notice.hidden){notice.textContent='Revisá los espacios vacíos y las cartas no disponibles.';deckNoticeTimer=setTimeout(()=>{notice.hidden=true;},3500);}
   requestAnimationFrame(()=>{if($('deck-slots').contains(document.activeElement))showDeckTop();});
 }
 function showDeckTop(){
