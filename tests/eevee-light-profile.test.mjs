@@ -1,15 +1,15 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Game, CARDS } from '../dist/engine.js?v=target-c1-1';
+import { Game, CARDS, DEFAULT_DECK } from '../dist/engine.js?v=target-c1-1';
 import { prepareC4Catalog, getC4BaseCard, isCompleteC4CardProfile } from '../dist/c4-catalog.js?v=1';
 import { getEeveeLightProfile } from '../dist/eevee-light-profile.js';
+import { LIGHT_EEVEE_RULESET } from '../dist/arena-profile-producers.js?v=1';
+import { packGame, unpackGame } from '../dist/snapshot.js';
 
 await prepareC4Catalog();
 const profile = getEeveeLightProfile();
-// Test-only injection through the existing C1 resolver: not a new producer or wire format.
 function game(events) {
-  const g = new Game({ seed: 71, onEvent: event => events.push(event) });
-  g.legacyCardOverrides = { eevee: profile };
+  const g = new Game({ seed: 71, catalogVersion: 4, ruleset: LIGHT_EEVEE_RULESET, onEvent: event => events.push(event) });
   g.start(); g.aiEnabled = false;
   for (const tower of g.towers) tower.cooldown = 1000;
   return g;
@@ -30,6 +30,38 @@ test('complete candidate leaves both historical resolvers intact', () => {
   assert.equal(profile.windup, 0.25); assert.equal(profile.attackDuration, 0.55);
   assert.equal(CARDS.eevee.windup, 0.5); assert.equal(CARDS.eevee.attackDuration, 0.66);
   assert.equal(getC4BaseCard('eevee').windup, 0.5); assert.equal(getC4BaseCard('eevee').attackDuration, 0.66);
+  assert.deepEqual(game([]).cardFor('eevee'), profile);
+});
+test('a new producer deploys Eevee from a real hand at its own cost', () => {
+  const deck = ['eevee', ...DEFAULT_DECK.filter(key => key !== 'eevee').slice(0, 7)];
+  const g = new Game({ catalogVersion: 4, ruleset: LIGHT_EEVEE_RULESET, deck, seed: 71 });
+  g.start(); const before = g.energy[0];
+  assert.equal(g.hands[0][0], 'eevee'); assert.equal(g.deploy(0, 0, 250, 600).ok, true);
+  assert.equal(g.energy[0], before - 2); assert.deepEqual(g.units.find(u => u.key === 'eevee').card, profile);
+});
+test('new producer restores a pending native attack and rejects old Eevee before mutation', () => {
+  const events = [], g = game(events), tower = g.towers.find(t => t.team === 1 && !t.king);
+  const eevee = g.spawn('eevee', 0, tower.x, tower.y + 80, 0); eevee.spawn = 0;
+  until(g, () => g.attacks.some(a => a.attacker.id === eevee.id));
+  const snapshot = packGame(g), restoredEvents = [], restored = unpackGame(snapshot, e => restoredEvents.push(e));
+  assert.equal(restored.ruleset, LIGHT_EEVEE_RULESET); assert.deepEqual(restored.cardFor('eevee'), profile);
+  assert.equal(restored.attacks.find(a => a.attacker.id === eevee.id).target.id, tower.id);
+  until(restored, () => restoredEvents.some(e => e.type === 'damage' && e.sourceKey === 'eevee'));
+  assert.equal(restoredEvents.find(e => e.type === 'damage' && e.sourceKey === 'eevee').amount, 100);
+  const compact = structuredClone(snapshot); delete compact.units.find(u => u.key === 'eevee').card;
+  assert.deepEqual(unpackGame(compact).units.find(u => u.key === 'eevee').card, profile);
+  const bad = structuredClone(snapshot); bad.units.find(u => u.key === 'eevee').card = structuredClone(getC4BaseCard('eevee'));
+  const original = JSON.stringify(bad); assert.throws(() => unpackGame(bad), { code: 'ARENA_PROFILE_INVALID' }); assert.equal(JSON.stringify(bad), original);
+  const retagged = structuredClone(snapshot); retagged.ruleset = 'c4-1'; assert.throws(() => unpackGame(retagged), { code: 'ARENA_PROFILE_INVALID' });
+  const missing = structuredClone(snapshot); delete missing.arenaProfileProducer; assert.throws(() => unpackGame(missing), { code: 'ARENA_PROFILE_INVALID' });
+});
+test('new producer preserves the C4 base marker for a real canonical projectile', () => {
+  const g = game([]), attacker = g.spawn('charmander', 0, 250, 570, 0), target = g.spawn('machamp', 1, 250, 500, 0);
+  attacker.spawn = target.spawn = 0; target.card = { ...target.card, passive: true, speed: 0 };
+  g.attack(attacker, target); until(g, () => g.projectiles.some(p => p.sourceKey === 'charmander'));
+  const snapshot = packGame(g), p = snapshot.projectiles.find(p => p.sourceKey === 'charmander');
+  assert.equal(p.sourceProfile, 'c4-1:cards-c1-733'); assert.equal(p.sourceCard, undefined);
+  assert.equal(unpackGame(snapshot).projectiles.find(x => x.sourceKey === 'charmander').sourceProfile, p.sourceProfile);
 });
 test('natural single hit defeats Diglett and does not apply charge damage', () => {
   const events = [], g = game(events);
