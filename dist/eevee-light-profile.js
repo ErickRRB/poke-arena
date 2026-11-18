@@ -11,7 +11,8 @@ export function getEeveeLightProfile() {
     cost: 2, hp: 420, damage: 100, interval: 1.2, range: 18,
     speed: 43.2, moveSpeed: 43.2, pullSpeed: 43.2,
     role: 'Ciclo · presión', description: 'Se acerca rápido y ataca a un objetivo.',
-    style: 'slam', attackAnim: 'Attack', nativeReference: 'ArenaLightEevee',
+    style: 'slam', attackAnim: 'Attack', attackDuration: 0.55, windup: 0.25,
+    nativeReference: 'ArenaLightEevee',
     charge: false, chargeDistance: 0, chargeSpeed: 0, chargeDamage: 0,
     riverJump: false, knockbackImmune: false
   });
