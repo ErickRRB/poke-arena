@@ -9,6 +9,11 @@ import {C4_SERVICE,serviceEnvelope} from '../dist/online-context.js?v=1';
 import {DEFAULT_DECK} from '../dist/engine.js?v=34';
 import {c4SelectionFromLibrary} from '../dist/profile-selection.js?v=1';
 import {updateLibrarySlot} from '../dist/deck-provenance.js?v=c4-editor-1';
+import {newOnlineSelectionFromLibrary} from '../dist/arena-profile-selection.js?v=1';
+import {LIGHT_EEVEE_RULESET,LIGHT_EEVEE_PRODUCER} from '../dist/arena-profile-producers.js?v=1';
+import {arenaServiceForContext} from '../dist/online-context.js?v=1';
+import {RealtimeMatch} from '../realtime/src/match.js';
+import {prepareC4Packet,prepareC4Transport} from '../dist/c4-packet.js?v=1';
 
 // Route focals execute the real Lobby methods and SQLite. Only the Workers
 // base/transport and Room RPC are controlled here; this is not workerd evidence.
@@ -23,6 +28,24 @@ test.after(()=>{if(originalPair===undefined)delete globalThis.WebSocketRequestRe
 const A='a'.repeat(64),B='b'.repeat(64),R='d521bab0-5618-404e-96dc-5b73fcb51b77';
 const selection=c4SelectionFromLibrary(updateLibrarySlot({version:1,updatedAt:1,slots:[['arcanine',...DEFAULT_DECK.slice(1)]]},0,0,'arcanine',{action:'accept',now:2}),0);
 const intent=(token=A,mode='search-intent',extra={})=>({type:'hello',...serviceEnvelope(C4_SERVICE),c4SearchVersion:1,mode,token,name:'A',deck:selection.deck,selection:selection.selection,...extra});
+const lightContext={ruleset:LIGHT_EEVEE_RULESET,arenaProfileProducer:LIGHT_EEVEE_PRODUCER};
+test('Eevee producer queues two compatible clients together, isolates C4-1 and restores the room',async t=>{
+ await prepareC4Transport();
+ const base={version:1,active:0,updatedAt:1,slots:[['arena:eevee-light-v1',...DEFAULT_DECK.slice(1)]]};
+ const light=newOnlineSelectionFromLibrary(base,0),normal=newOnlineSelectionFromLibrary({...base,slots:[DEFAULT_DECK.slice()]},0);assert.equal(light.ok,true);assert.equal(normal.ok,true);
+ const service=arenaServiceForContext(lightContext),make=(token,choice,mode='search-intent')=>({type:'hello',...serviceEnvelope(service),c4SearchVersion:1,mode,token,name:'A',deck:choice.deck,selection:choice.selection});
+ const closed=await setup(t),rejected=closed.connect();await closed.hello(rejected,make(A,light));assert.equal(closed.rows().length,0);assert.equal(rejected.packets.at(-1).searchState,'closed');
+ let room;const s=await setup(t,{bindings:{C4_EEVEE_NEW_SEARCHES:'1'},roomFactory:()=>({async create(input){room=new RealtimeMatch({...input,service:C4_SERVICE,seed:71,now:1000});return{state:'ready'};},async summary(){return{state:room?.game.state??null};},async abandon(){return true;}})});
+ const old=s.connect();await s.hello(old,intent('c'.repeat(64)));const crossed=s.connect();await s.hello(crossed,make('c'.repeat(64),light));assert.equal(crossed.packets.at(-1).code,'session');assert.equal(s.rows().length,1);
+ const a=s.connect();await s.hello(a,make(A,light));assert.ok(!a.packets.some(p=>p.type==='matched'));assert.equal(s.rows().length,2);
+ const original=s.rows().find(row=>row.id===a.state.playerId);s.lobby.env.C4_EEVEE_NEW_SEARCHES='0';const retry=s.connect();await s.hello(retry,make(A,light));assert.equal(s.rows().find(row=>row.id===original.id).joined,original.joined);assert.ok(retry.packets.some(p=>p.type==='searching'));s.lobby.env.C4_EEVEE_NEW_SEARCHES='1';
+ const b=s.connect();await s.hello(b,make(B,normal));const matched=retry.packets.find(p=>p.type==='matched');assert.ok(matched);assert.equal(b.packets.find(p=>p.type==='matched').roomId,matched.roomId);assert.ok(!old.packets.some(p=>p.type==='matched'));
+ assert.equal(room.game.ruleset,LIGHT_EEVEE_RULESET);assert.equal(room.game.cardFor('eevee').damage,100);assert.equal(room.selectionVersion,3);
+ const restored=new RealtimeMatch({stored:JSON.parse(JSON.stringify(room.serialize())),service:C4_SERVICE});assert.deepEqual(restored.expectedContext,lightContext);assert.equal(restored.game.cardFor('eevee').cost,2);
+ const resumed=s.connect();await s.hello(resumed,make(A,light,'resume'));assert.ok(resumed.packets.some(p=>p.type==='matched'&&p.roomId===matched.roomId));
+ const packet=restored.packet(0,0,'512f2058-46ab-4d54-bb2d-96798df66192',1200);assert.equal(prepareC4Packet(packet,{expectedContext:lightContext}).game.cardFor('eevee').cost,2);
+ const cancel=s.connect();await s.hello(cancel,make(A,light,'cancel-intent'));assert.equal(cancel.packets.at(-1).searchState,'cancelled');assert.equal(s.rows().find(row=>row.id===original.id).room_id,null);assert.equal(s.rows().find(row=>row.id===b.state.playerId).room_id,matched.roomId);
+});
 const deferred=()=>{let resolve,reject;const promise=new Promise((a,b)=>{resolve=a;reject=b;});return{promise,resolve,reject};};
 async function setup(t,{Class=ArenaLobby,c1=false,roomFactory,bindings={}}={}){
  const database=new DatabaseSync(':memory:'),sockets=[],background=[],rooms=new Map(),ledger=[];

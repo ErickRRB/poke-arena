@@ -1,5 +1,6 @@
 import {getC4BaseCatalog,getC4BaseCard} from './c4-catalog.js?v=1';
 import {HOG_ARCANINE,C1_RULESET,C4_RULESET} from './hog-profiles.js?v=1';
+import {LIGHT_EEVEE_RULESET,LIGHT_EEVEE_PRODUCER,arenaProducerCard} from './arena-profile-producers.js?v=1';
 import { EXTRA_CARDS } from './catalog.js?v=34';
 import { currentCardKey, currentDeck } from './card-key-migrations.js?v=34';
 export { currentCardKey, currentDeck } from './card-key-migrations.js?v=34';
@@ -134,9 +135,10 @@ const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 
 export class Game {
   constructor({ deck = DEFAULT_DECK, cpuDeck, difficulty = 'normal', seed = Date.now(), onEvent = () => {}, tutorial = false, animations = {}, catalogVersion=1, ruleset=C1_RULESET } = {}) {
-    if(!((catalogVersion===1&&ruleset===C1_RULESET)||(catalogVersion===4&&ruleset===C4_RULESET)))throw Error('Perfil de partida incompatible.');
+    if(!((catalogVersion===1&&ruleset===C1_RULESET)||(catalogVersion===4&&[C4_RULESET,LIGHT_EEVEE_RULESET].includes(ruleset))))throw Error('Perfil de partida incompatible.');
     if(catalogVersion===4)getC4BaseCatalog();
     this.catalogVersion=catalogVersion;this.ruleset=ruleset;
+    if(ruleset===LIGHT_EEVEE_RULESET)this.arenaProfileProducer=LIGHT_EEVEE_PRODUCER;
     deck=currentDeck(deck);cpuDeck=currentDeck(cpuDeck);
     if (!validDeck(deck)) throw new Error('El mazo necesita ocho cartas diferentes.');
     this.boardVersion=BOARD_VERSION;
@@ -204,8 +206,8 @@ export class Game {
     if (this.towers.some(t => t.team !== team && t.king && t.hp <= 0)) return 3;
     return this.towers.filter(t => t.team !== team && !t.king && t.hp <= 0).length;
   }
-  baseCardFor(key){return this.catalogVersion===4&&this.ruleset===C4_RULESET?getC4BaseCard(key):CARDS[key];}
-  cardFor(key){if(this.catalogVersion===4&&this.ruleset===C4_RULESET)return key==='arcanine'?HOG_ARCANINE:getC4BaseCard(key);return Object.hasOwn(this.legacyCardOverrides||{},key)?this.legacyCardOverrides[key]:Object.hasOwn(CARDS,key)?CARDS[key]:undefined;}
+  baseCardFor(key){return this.catalogVersion===4&&[C4_RULESET,LIGHT_EEVEE_RULESET].includes(this.ruleset)?getC4BaseCard(key):CARDS[key];}
+  cardFor(key){if(this.catalogVersion===4&&[C4_RULESET,LIGHT_EEVEE_RULESET].includes(this.ruleset))return arenaProducerCard(this.ruleset,key)??(key==='arcanine'?HOG_ARCANINE:getC4BaseCard(key));return Object.hasOwn(this.legacyCardOverrides||{},key)?this.legacyCardOverrides[key]:Object.hasOwn(CARDS,key)?CARDS[key]:undefined;}
   sourceProfile(card,key){return this.ruleset!==C1_RULESET&&card&&key&&!sameCardProfile(card,this.baseCardFor(key))?card:undefined;}
   projectileSource(p){return p.sourceCard??(p.sourceProfile==='c4-1:cards-c1-733'?this.baseCardFor(p.sourceKey):undefined);}
   canDeploy(team,key,x,y){
@@ -806,7 +808,7 @@ export class Game {
   landElectricShot(shot,target,point){
     const actor={id:shot.sourceId,key:shot.sourceKey,team:shot.team,card:shot.card,attackSeq:shot.attackSeq},valid=this.validTarget(actor,target),to=valid?aimPoint(target):{x:point.x,y:point.y+(shot.endLiftY??-15)};
     const sourceCard=this.sourceProfile(shot.card,shot.sourceKey);
-    if(valid)this.damage(target,shot.damage,shot.team,{...shot.card,sourceId:shot.sourceId,sourceKey:shot.sourceKey,sourceProfileCard:shot.card,...(sourceCard?{sourceCard}:this.ruleset===C4_RULESET?{sourceProfile:'c4-1:cards-c1-733'}:{})});
+    if(valid)this.damage(target,shot.damage,shot.team,{...shot.card,sourceId:shot.sourceId,sourceKey:shot.sourceKey,sourceProfileCard:shot.card,...(sourceCard?{sourceCard}:[C4_RULESET,LIGHT_EEVEE_RULESET].includes(this.ruleset)?{sourceProfile:'c4-1:cards-c1-733'}:{})});
     this.emit('beam',{from:{x:shot.startX+shot.liftX,y:shot.startY+shot.liftY},to,style:'lightning',key:shot.key,team:shot.team,sourceId:shot.sourceId,attackSeq:shot.attackSeq,attackId:shot.id,chainFromId:shot.chainFromId,targetId:shot.chainTargetId,hop:shot.hop,shot:0,missed:!valid,...(sourceCard?{sourceCard}:{})},shot.card);
     shot.life=0;
     if(shot.hop>=shot.card.chain)return;
@@ -841,7 +843,7 @@ export class Game {
     const poseDuration=Math.max(a.attackDuration||profile.attackDuration||.75,contactAt+1e-7);
     const from=this.muzzle({...a,attackDuration:poseDuration,attack:poseDuration-contactAt},shot),to=aimPoint(target),amount=charged?(card?.chargeDamage??card.damage*2):(card?.damage??a.damage);
     this.emit('attackRelease',{attacker:a,target,key:a.key||a.guard.id,style,from,to,shot,charged});
-    const retained=()=>{if(this.ruleset===C1_RULESET||!card||!a.key)return{};const sourceCard=this.sourceProfile(card,a.key);return sourceCard?{sourceCard:structuredClone(sourceCard)}:this.ruleset===C4_RULESET?{sourceProfile:'c4-1:cards-c1-733'}:{};};
+    const retained=()=>{if(this.ruleset===C1_RULESET||!card||!a.key)return{};const sourceCard=this.sourceProfile(card,a.key);return sourceCard?{sourceCard:structuredClone(sourceCard)}:[C4_RULESET,LIGHT_EEVEE_RULESET].includes(this.ruleset)?{sourceProfile:'c4-1:cards-c1-733'}:{};};
     if(card?.rollingShot){
       this.projectiles.push({id:a.id+':'+job.seq+':'+shot,key:a.key,sourceId:a.id,sourceKey:a.key,...retained(),target,team:a.team,x:a.x,y:a.y,startX:a.x,startY:a.y,dx:a.dx,dy:a.dy,totalDistance:card.projectileRange,travelled:0,speed:card.projectileSpeed,damage:amount,style:'rock',rolling:true,shotRadius:card.shotRadius,knockback:card.knockback,hitIds:[],life:card.projectileRange/card.projectileSpeed+1});
     }else if(card?.pierce){
