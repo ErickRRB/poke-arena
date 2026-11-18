@@ -4,14 +4,13 @@ import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=t
 import { Renderer } from './render.js?v=c4-cpu-1';
 import { SoundSystem } from './audio.js?v=c4-result-cue-1';
 import {readAudioLevels} from './audio-preferences.js?v=1';
-import {C1_SERVICE,C4_SERVICE} from './online-context.js?v=1';
+import {C4_SERVICE,arenaServiceForContext} from './online-context.js?v=1';
 import {onlineRouting} from './online-routing.js?v=c4-online-1';
 import {prepareC4Catalog,getC4BaseCard} from './c4-catalog.js?v=1';
 import {prepareC4Packet,prepareC4Transport} from './c4-packet.js?v=1';
-import {c4SelectionFromLibrary} from './profile-selection.js?v=1';
-import {resolveSavedSelectionKey} from './arena-profile-selection.js?v=1';
+import {resolveSavedSelectionKey,newOnlineSelectionFromLibrary} from './arena-profile-selection.js?v=1';
 import {arenaCollectionProfile,arenaSelectionProfile} from './arena-selection-profiles.js?v=1';
-import { OnlineClient, hasSavedOnlineSession, hasPendingC4Search } from './online.js?v=c4-online-1';
+import { OnlineClient, hasSavedOnlineSession, savedC4Service } from './online.js?v=c4-online-1';
 import { onlinePerf } from './perf.js?v=1';
 import { unpackGame, perspective } from './snapshot.js?v=target-c1-1';
 import { cardArtMarkup } from './card-art.js?v=target-c1-1';
@@ -62,6 +61,7 @@ let combatNumbers = store.get('combat-numbers', false) === true;
 let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true, resultCueGame = null;
 let toastTimer, deckNoticeTimer, deckSaveErrorTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
 let cpuStarting=false,cpuStartSerial=0,cpuWaitEnd=null;
+let c4RecoveryPending=false;
 const quickStats=bindQuickStats({hand:$('hand'),cards:CARDS,getCard:el=>matchCard(game?.hands[0][Number(el.dataset.card)]),isPlaying:()=>game?.state==='playing'&&!document.body.classList.contains('menu-mode'),getSelection:()=>selected});
 const sfx=new SoundSystem(sound,readAudioLevels(store.get));
 let inspectedCard=null;
@@ -144,7 +144,8 @@ function renderMenuDeck(){
 }
 function updateMenuAvailability(){
   $('start-btn').disabled=!ready||cpuStarting||!!c4BootError||!cpuDeckSelection().ok;
-  $('online-btn').disabled=!ready||cpuStarting||!!c4BootError||!(c4WireEndpoint?c4SelectionFromLibrary(deckLibrary,deckLibrary.active).ok:hasEligibleSelection(deck));
+  const onlinePlayable=c4RecoveryPending||(c4WireEndpoint?newOnlineSelectionFromLibrary(deckLibrary,deckLibrary.active).ok:hasEligibleSelection(deck));
+  $('online-btn').disabled=!ready||cpuStarting||!!c4BootError||!onlinePlayable;
 }
 function applyDeckChanges({persist=true}={}){
   if(persist){const changed={...deckLibrary,slots:deckLibrary.slots.slice()};changed.slots[changed.active]=editorDeck(deckDraft);return commitDeckLibrary(changed);}
@@ -698,10 +699,10 @@ $('apply-filters-btn').addEventListener('click',()=>{$('collection-filters').hid
 addEventListener('resize',()=>{if($('collection-filters').matches(':popover-open'))positionEditorPopover($('collection-filters'),$('collection-filters-btn'));closeCardActions();},{passive:true});
 $('online-btn').addEventListener('click',beginOnline);$('cancel-search').addEventListener('click',mainMenu);
 function showSearch(){if(!$('search-panel').hidden)return;$('menu-loading').hidden=true;$('search-panel').hidden=false;$('ready-overlay').inert=true;$('cancel-search').focus({preventScroll:true});}
-function createOnlineClient({legacy=false}={}){
+function createOnlineClient({legacy=false,service=C4_SERVICE}={}){
   const c4=c4RecoveryEndpoint&&!legacy;
   let resetC4Presentation=false,client;
-  return client=new OnlineClient({...(c4?{serverUrl:c4RecoveryEndpoint,service:C4_SERVICE,prepareSnapshot:packet=>prepareC4Packet(packet,{viewTeam:packet.team,animations:renderer.metadata}),onPresentation:packet=>{
+  return client=new OnlineClient({...(c4?{serverUrl:c4RecoveryEndpoint,service,prepareSnapshot:(packet,{expectedContext}={})=>prepareC4Packet(packet,{expectedContext,viewTeam:packet.team,animations:renderer.metadata}),onPresentation:packet=>{
     if(ready){document.body.classList.remove('menu-mode');$('main-menu').hidden=true;$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
     $('search-panel').hidden=true;
     if(resetC4Presentation)adoptGame(game);
@@ -714,9 +715,11 @@ function createOnlineClient({legacy=false}={}){
     if(!onlineMode)$('search-status').textContent=status||'Buscando rival…';
   },onIdle:message=>{
     if(c4&&online!==client)return;
+    if(c4&&client.c4Terminal)c4RecoveryPending=false;
     online=null;onlineMode=false;$('menu-loading').hidden=ready;$('ready-overlay').inert=false;$('search-panel').hidden=true;newGame();if(message)toast(message);if(c4&&ready)($('online-btn').disabled?$('menu-deck-btn'):$('online-btn')).focus({preventScroll:true});
   },onSnapshot:packet=>{
     if(c4){
+      c4RecoveryPending=false;
       const next=packet.preparedGame;resetC4Presentation=!onlineMode||game.ruleset!==next.ruleset||game.catalogVersion!==next.catalogVersion;
       game=next;game.onEvent=handleEvent;onlineMode=true;$('enemy-name').textContent=packet.opponent;return;
     }
@@ -732,12 +735,15 @@ function createOnlineClient({legacy=false}={}){
   }});
 }
 async function beginOnline(){
-  const candidate=c4WireEndpoint?c4SelectionFromLibrary(deckLibrary,deckLibrary.active):null;
-  if(c4BootError||!(candidate?candidate.ok:hasEligibleSelection(deck))||onlineMode&&game.state!=='ended')return;
+  const recovery=c4RecoveryPending&&c4RecoveryEndpoint,candidate=c4WireEndpoint?newOnlineSelectionFromLibrary(deckLibrary,deckLibrary.active):null;
+  if(c4BootError||(!recovery&&!(candidate?candidate.ok:hasEligibleSelection(deck)))||onlineMode&&game.state!=='ended')return;
+  let service;
+  try{service=recovery?savedC4Service(c4RecoveryEndpoint):candidate?.ok?arenaServiceForContext(candidate):C4_SERVICE;}catch{toast('No se pudo recuperar la partida. Reintentá.');return;}
+  if(recovery&&!service){c4RecoveryPending=false;updateMenuAvailability();return;}
   cancelCpuStart();
   await closingOnline;await online?.close();onlineMode=false;newGame();audioInit();showSearch();$('search-status').textContent='Buscando rival…';$('search-time').textContent='0:00';
-  online=createOnlineClient({legacy:!c4WireEndpoint});
-  try{await online.start($('trainer-name').value||'Entrenador',candidate?candidate.deck:eligibleDeckKeys(deck),candidate?.selection);}catch(error){$('search-status').textContent=error.message;}
+  online=createOnlineClient({legacy:!c4WireEndpoint&&!recovery,service});
+  try{if(recovery)await online.resume();else await online.start($('trainer-name').value||'Entrenador',candidate?candidate.deck:eligibleDeckKeys(deck),candidate?.selection);}catch(error){$('search-status').textContent=error.message;}
 }
 if(c4CpuPreview)try{await prepareC4Catalog();if(c4WireEndpoint)await prepareC4Transport();}catch(error){c4BootError=error;}
 updateSound();setReduced(reduced);setCombatNumbers(combatNumbers);newGame();syncPortrait();
@@ -768,9 +774,15 @@ requestAnimationFrame(frame);
 $('retry-load').addEventListener('click',()=>location.reload());
 try{
   if(c4BootError)throw c4BootError;
-  const savedC4=c4RecoveryEndpoint&&(hasPendingC4Search()||(()=>{try{return !!sessionStorage.getItem(C4_SERVICE.keys.token);}catch{return false;}})());
-  if(savedC4||hasSavedOnlineSession()){
-    $('ready-overlay').inert=true;online=createOnlineClient({legacy:!savedC4});if(savedC4)await online.resume();else online.resume().catch(()=>{});
+  let savedC4=null,recoveryError=null;
+  try{savedC4=c4RecoveryEndpoint?savedC4Service(c4RecoveryEndpoint):null;}catch(error){recoveryError=error;}
+  c4RecoveryPending=!!savedC4||!!recoveryError;
+  if(!recoveryError&&(savedC4||hasSavedOnlineSession())){
+    $('ready-overlay').inert=true;online=createOnlineClient({legacy:!savedC4,service:savedC4??C4_SERVICE});
+    if(savedC4){
+      const client=online,wait=document.createElement('span');wait.className='battle-loading';wait.setAttribute('role','status');wait.setAttribute('aria-label','Recuperando la partida');wait.innerHTML='<span class="pokeball-loader is-indeterminate" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span>';$('main-menu').append(wait);
+      client.resume().catch(error=>{if(online!==client)return;client.suspend();online=null;recoveryError=error;if(ready){$('menu-loading').hidden=true;$('ready-overlay').inert=false;updateMenuAvailability();toast('No se pudo recuperar la partida. Reintentá.');}}).finally(()=>wait.remove());
+    }else online.resume().catch(()=>{});
   }
   await loadUiResources(progress=>renderer.load((c4CpuPreview&&checkLocalCpuDeck(deckLibrary,deckLibrary.active).keys)||eligibleDeckKeys(deck)||DEFAULT_DECK,progress),(loaded,total)=>{const progress=loaded/total,indicator=$('menu-load-progress');indicator.setAttribute('aria-valuenow',String(Math.floor(progress*100)));$('menu-load-fill').setAttribute('y',String(64*(1-progress)));$('menu-load-fill').setAttribute('height',String(64*progress));});
   ready=true;$('loading').hidden=true;$('ready-overlay').setAttribute('aria-busy','false');$('practice-btn').disabled=false;updateMenuAvailability();
@@ -778,6 +790,7 @@ try{
   else if(online?.active&&(online.mode==='search'||online.mode==='cancelling'))showSearch();
   else if(online?.active){$('menu-load-progress').classList.add('is-indeterminate');$('menu-load-progress').setAttribute('aria-label','Reconectando a la partida');$('menu-load-progress').removeAttribute('aria-valuenow');}
   else{$('menu-loading').hidden=true;$('ready-overlay').inert=false;}
+  if(recoveryError)toast('No se pudo recuperar la partida. Reintentá.');
 }catch(error){
   console.error(error);$('menu-loading-badge').hidden=true;$('menu-load-error').hidden=false;$('menu-loading').classList.add('load-failed');$('ready-overlay').setAttribute('aria-busy','false');
 }

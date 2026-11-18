@@ -1,4 +1,4 @@
-import {C1_SERVICE,C4_SERVICE,serviceEnvelope,assertC4Envelope} from './online-context.js?v=1';
+import {C1_SERVICE,C4_SERVICE,C4_CONFIRMED_KEY,arenaServiceForContext,expectedContextForService,serviceEnvelope,assertC4Envelope} from './online-context.js?v=1';
 import {prepareC4Packet,prepareC4Transport} from './c4-packet.js?v=1';
 import {C4_SEARCH_VERSION,C4_PENDING_KEY,C4_SEARCH_TOKEN,c4SearchRequest,newC4SearchToken,c4SearchEndpoint} from './c4-search.js?v=1';
 import {allowedC4Server} from './online-routing.js?v=c4-online-1';
@@ -19,12 +19,44 @@ function checkedSave(key,value){
     if(storage.getItem(key)!==(value===null?null:String(value)))throw Error();
   }catch{throw Error('No se pudo guardar.');}
 }
+function storedService(context){
+  const service=arenaServiceForContext(context),envelope=serviceEnvelope(service);
+  assertC4Envelope(context,{expectedContext:expectedContextForService(service)});
+  if(Object.keys(context).length!==Object.keys(envelope).length||Object.keys(context).some(key=>!Object.hasOwn(envelope,key)))throw Error('Contexto guardado incompatible.');
+  return service;
+}
+function checkedRead(key){try{return globalThis.sessionStorage?.getItem(key)??null;}catch{throw Error('No se pudo guardar.');}}
+function readStoredC4Attempt(serverUrl){
+  const raw=checkedRead(C4_PENDING_KEY);if(raw===null)return null;
+  try{
+    const value=JSON.parse(raw),service=storedService(value.context);
+    if(value.version!==1||typeof value.token!=='string'||!C4_SEARCH_TOKEN.test(value.token)||!['intent','owned','cancelling'].includes(value.phase)||value.endpoint!==c4SearchEndpoint(serverUrl))throw Error();
+    return{...value,request:c4SearchRequest(value.request,{expectedContext:expectedContextForService(service)})};
+  }catch{throw Error('Búsqueda incompatible.');}
+}
+function readConfirmedC4(serverUrl){
+  const raw=checkedRead(C4_CONFIRMED_KEY);if(raw===null)return null;
+  try{
+    const value=JSON.parse(raw);storedService(value.context);
+    const fields=['version','endpoint','context','token','roomId','seq','epoch'],uuid=value=>typeof value==='string'&&/^[a-f0-9-]{36}$/.test(value);
+    if(value.version!==1||Object.keys(value).length!==fields.length||Object.keys(value).some(key=>!fields.includes(key))||value.endpoint!==c4SearchEndpoint(serverUrl)||typeof value.token!=='string'||value.token.length<48||value.token.length>160||!uuid(value.roomId)||!uuid(value.epoch)||!Number.isSafeInteger(value.seq)||value.seq<0)throw Error();
+    return value;
+  }catch{throw Error('Sesión incompatible.');}
+}
+// Pending ownership takes precedence. A present invalid record never falls
+// through to legacy credentials or a fresh search.
+export function savedC4Service(serverUrl){
+  const attempt=readStoredC4Attempt(serverUrl);if(attempt)return storedService(attempt.context);
+  const confirmed=readConfirmedC4(serverUrl);if(confirmed)return storedService(confirmed.context);
+  return read(C4_SERVICE.keys.token)?C4_SERVICE:null;
+}
 
 export class OnlineClient {
-  constructor({ onSnapshot, onSearch, onConnection, onIdle = () => {}, serverUrl = onlineServer(), createSocket = url => new WebSocket(url),service=C1_SERVICE,prepareSnapshot=packet=>prepareC4Packet(packet),onPresentation=()=>{} }) {
+  constructor({ onSnapshot, onSearch, onConnection, onIdle = () => {}, serverUrl = onlineServer(), createSocket = url => new WebSocket(url),service=C1_SERVICE,prepareSnapshot=(packet,options)=>prepareC4Packet(packet,options),onPresentation=()=>{} }) {
     Object.assign(this, { onSnapshot, onSearch, onConnection, onIdle, serverUrl, createSocket,service,prepareSnapshot,onPresentation });
     this.keys=service.keys;
     if(service.id==='c4'&&!allowedC4Server(serverUrl))throw Error('Servidor de partida incompatible.');
+    if(service.id==='c4'){this.service=arenaServiceForContext(service);this.keys=this.service.keys;}
     this.active = false;this.connected = false;this.version = -1;this.seq = 0;this.generation = 0;this.socketId = 0;this.pending = new Map();this.retry = 0;
   }
   async start(name, deck,selection) {
@@ -130,30 +162,31 @@ export class OnlineClient {
   }
   async startC4(name,deck,selection){
     if(this.readC4Attempt())return this.resumeC4();
-    const request=c4SearchRequest({name:String(name||'Entrenador'),deck,selection}),generation=this.generation;
+    readConfirmedC4(this.serverUrl);
+    const request=c4SearchRequest({name:String(name||'Entrenador'),deck,selection},{expectedContext:expectedContextForService(this.service)}),generation=this.generation;
     await prepareC4Transport();if(generation!==this.generation)return false;
     const attempt={version:1,token:newC4SearchToken(),endpoint:c4SearchEndpoint(this.serverUrl),context:serviceEnvelope(this.service),phase:'intent',request};
     if(hasPendingC4Search())throw Error('Hay una búsqueda pendiente.');
     checkedSave(C4_PENDING_KEY,JSON.stringify(attempt));this.activateC4Attempt(attempt);return true;
   }
   async resumeC4(){
-    const attempt=this.readC4Attempt(),token=read(this.keys.token);if(!attempt&&!token)return false;
+    const attempt=this.readC4Attempt(),confirmed=attempt?null:readConfirmedC4(this.serverUrl),service=attempt?storedService(attempt.context):confirmed?storedService(confirmed.context):C4_SERVICE;
+    const token=confirmed?.token??read(C4_SERVICE.keys.token);if(!attempt&&!token)return false;
+    this.service=service;this.keys=service.keys;
+    this.c4Terminal=false;
     const generation=this.generation;await prepareC4Transport();if(generation!==this.generation)return false;
     if(attempt){this.activateC4Attempt(attempt);return true;}
-    this.active=true;this.mode='resume';this.restoring=true;this.token=token;this.roomId=read(this.keys.room);this.routeRoom=this.roomId;this.seq=Math.max(0,Number(read(this.keys.seq))||0);this.lookupTried=false;this.pendingToken=undefined;this.connect(this.routeRoom?'room':'lobby');return true;
+    this.active=true;this.mode='resume';this.restoring=true;this.token=token;this.roomId=confirmed?.roomId??read(this.keys.room);this.routeRoom=this.roomId;this.seq=confirmed?.seq??Math.max(0,Number(read(this.keys.seq))||0);this.epoch=confirmed?.epoch??null;this.lookupTried=false;this.pendingToken=undefined;this.connect(this.routeRoom?'room':'lobby');return true;
   }
   readC4Attempt(){
-    let raw;try{raw=globalThis.sessionStorage?.getItem(C4_PENDING_KEY);}catch{throw Error('No se pudo guardar.');}if(raw==null)return null;
-    try{
-      const value=JSON.parse(raw);assertC4Envelope(value.context);
-      if(value.version!==1||typeof value.token!=='string'||!C4_SEARCH_TOKEN.test(value.token)||!['intent','owned','cancelling'].includes(value.phase)||value.endpoint!==c4SearchEndpoint(this.serverUrl))throw Error();
-      return{...value,request:c4SearchRequest(value.request)};
-    }catch{throw Error('Búsqueda incompatible.');}
+    return readStoredC4Attempt(this.serverUrl);
   }
   activateC4Attempt(attempt){
+    this.service=storedService(attempt.context);this.keys=this.service.keys;
+    this.c4Terminal=false;
     this.suspend();this.c4Attempt=attempt;this.c4Welcomed=false;this.c4Promoted=false;this.c4StorageError=null;this.cancelPromise=null;this.cancelResolve=null;
     this.active=true;this.mode=attempt.phase==='cancelling'?'cancelling':'search';this.started=Date.now();this.restoring=false;this.lookupTried=false;
-    this.token=read(this.keys.token);this.roomId=read(this.keys.room);this.seq=Math.max(0,Number(read(this.keys.seq))||0);this.version=-1;this.epoch=null;this.routeRoom=null;this.pendingToken=attempt.token;
+    this.token=this.service.arenaProfileProducer?null:read(this.keys.token);this.roomId=this.service.arenaProfileProducer?null:read(this.keys.room);this.seq=this.service.arenaProfileProducer?0:Math.max(0,Number(read(this.keys.seq))||0);this.version=-1;this.epoch=null;this.routeRoom=null;this.pendingToken=attempt.token;
     if(attempt.phase==='cancelling')this.onConnection('Cancelando…');this.connect('lobby');
   }
   c4Hello(kind){
@@ -186,7 +219,7 @@ export class OnlineClient {
     if(packet?.type==='snapshot'){
       if(this.c4Attempt?.phase==='cancelling')return;
       let staged;
-      try{assertC4Envelope(packet);staged=this.stageC4(packet);}
+      try{assertC4Envelope(packet,{expectedContext:expectedContextForService(this.service)});staged=this.stageC4(packet);}
       catch(error){this.rejectC4Packet(error);return;}
       if(!staged)return;
       // This callback only adopts prepared references/flags. Presentation is
@@ -197,7 +230,7 @@ export class OnlineClient {
       this.onPresentation(staged.snapshot);return;
     }
     try{
-      assertC4Envelope(packet);
+      assertC4Envelope(packet,{expectedContext:expectedContextForService(this.service)});
       if(this.c4Attempt&&this.kind==='lobby'&&packet.type!=='error'){
         if(packet.c4SearchVersion!==C4_SEARCH_VERSION)throw Error('Búsqueda incompatible.');
         if(packet.type==='welcome'||!this.c4Welcomed){if(packet.token!==this.c4Attempt.token)throw Error('Búsqueda incompatible.');}
@@ -229,9 +262,12 @@ export class OnlineClient {
           const closed=packet.searchState==='closed';
           if(closed&&(this.c4Attempt.phase!=='intent'||this.c4LobbyMode!=='search-intent'||packet.token!==this.c4Attempt.token||typeof packet.message!=='string'))throw Error('Búsqueda incompatible.');
           if(!['cancelled','ended','expired','closed'].includes(packet.searchState)||(packet.searchState==='expired')!==(packet.expired===true))throw Error('Cancelación pendiente.');
-          this.clearC4Attempt(this.c4Attempt.token);this.suspend();this.cancelResolve?.(true);this.onConnection('');this.onIdle(this.c4StorageError?'No se pudo guardar.':packet.message||'');return;
+          this.clearC4Attempt(this.c4Attempt.token);this.c4Terminal=true;this.suspend();this.cancelResolve?.(true);this.onConnection('');this.onIdle(this.c4StorageError?'No se pudo guardar.':packet.message||'');return;
         }
-        if(packet.expired){this.token=null;save(this.keys.token,null);}save(this.keys.room,null);save(this.keys.seq,null);this.roomId=null;this.routeRoom=null;this.pendingToken=undefined;this.suspend();this.onConnection('');this.onIdle(packet.message||'');return;
+        if(this.service.arenaProfileProducer){
+          const confirmed=readConfirmedC4(this.serverUrl);if(confirmed&&confirmed.token===this.token)checkedSave(C4_CONFIRMED_KEY,null);
+        }else{if(packet.expired)save(this.keys.token,null);save(this.keys.room,null);save(this.keys.seq,null);}
+        if(packet.expired)this.token=null;this.roomId=null;this.routeRoom=null;this.pendingToken=undefined;this.c4Terminal=true;this.suspend();this.onConnection('');this.onIdle(packet.message||'');return;
       }
       if(packet.type==='error'){
         if(packet.code==='session'&&this.kind==='room'&&!this.lookupTried){this.lookupTried=true;this.routeRoom=null;this.mode='resume';this.connect('lobby');return;}
@@ -246,7 +282,7 @@ export class OnlineClient {
   stageC4(packet){
     if(this.c4Attempt&&!this.c4Welcomed)throw Error('Falta confirmar la búsqueda.');
     const token=this.pendingToken??this.token;if(typeof token!=='string'||token.length<48||token.length>160)throw Error('Falta sesión validable.');
-    const prepared=this.prepareSnapshot(packet);if(!prepared||typeof prepared.then==='function'||!prepared.game||!Array.isArray(prepared.events))throw Error('Preparación de partida incompleta.');
+    const prepared=this.prepareSnapshot(packet,{expectedContext:expectedContextForService(this.service)});if(!prepared||typeof prepared.then==='function'||!prepared.game||!Array.isArray(prepared.events))throw Error('Preparación de partida incompleta.');
     const sameRoom=packet.roomId===this.roomId,sameEpoch=packet.epoch===this.epoch;
     if(sameRoom&&sameEpoch&&packet.version<this.version)return;
     if(this.routeRoom&&packet.roomId!==this.routeRoom)throw Error('Sala inesperada.');
@@ -260,9 +296,14 @@ export class OnlineClient {
     this.token=token;this.pendingToken=undefined;this.roomId=packet.roomId;this.routeRoom=packet.roomId;this.seq=packet.seq;this.version=packet.version;this.epoch=packet.epoch;this.team=packet.team;this.mode='battle';this.connected=true;this.restoring=false;this.retry=0;this.lastSnapshot=Date.now();this.gameState=packet.preparedGame.state;
     this.c4Promoted=true;
     try{
-      const confirmed=[[this.keys.token,this.token],[this.keys.room,this.roomId],[this.keys.seq,this.seq]];
-      for(const[key,value]of confirmed)checkedSave(key,value);
-      if(confirmed.some(([key,value])=>globalThis.sessionStorage.getItem(key)!==String(value)))throw Error('No se pudo guardar.');
+      if(this.service.arenaProfileProducer){
+        const record={version:1,endpoint:c4SearchEndpoint(this.serverUrl),context:serviceEnvelope(this.service),token:this.token,roomId:this.roomId,seq:this.seq,epoch:this.epoch};
+        checkedSave(C4_CONFIRMED_KEY,JSON.stringify(record));
+      }else{
+        const confirmed=[[this.keys.token,this.token],[this.keys.room,this.roomId],[this.keys.seq,this.seq]];
+        for(const[key,value]of confirmed)checkedSave(key,value);
+        if(confirmed.some(([key,value])=>globalThis.sessionStorage.getItem(key)!==String(value)))throw Error('No se pudo guardar.');
+      }
       if(this.c4Attempt)this.clearC4Attempt(token);else this.c4StorageError=null;
     }
     catch(error){this.c4StorageError=error;}
