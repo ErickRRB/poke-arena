@@ -15,8 +15,9 @@ export function prepareC4Packet(packet,options={}){
   validateC4WireGameShape(packet.game,{visibility:'public',team:packet.team,expectedContext});
   validateC4WireEventLog(packet.events,{maxSeq:packet.seq,expectedContext});
   for(const entry of packet.events)validateC4WireEventIdentity(entry.event,{expectedContext});
-  const eventValidator=event=>{validateC4WireEventIdentity(event,{expectedContext});if(validateEvent&&validateEvent!==validateC4WireEventIdentity)validateEvent(event);};
+  const eventValidator=event=>validateC4WireEventIdentity(event,{expectedContext});
   const raw=viewTeam?perspective(packet.game,viewTeam):packet.game,game=unpackGame(raw,()=>{},animations);
   const events=packet.events.map(entry=>({...entry,event:unpackEvent(viewTeam?perspective(entry.event,viewTeam):entry.event,{game,validateEvent:eventValidator,expectedContext})}));
+  if(validateEvent&&validateEvent!==validateC4WireEventIdentity)for(const entry of packet.events)validateEvent(structuredClone(viewTeam?perspective(entry.event,viewTeam):entry.event));
   return{game,events};
 }

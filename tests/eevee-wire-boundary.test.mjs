@@ -25,5 +25,7 @@ test('native Eevee actor, base projectile and event round trip only under the ex
   const wrong=structuredClone(packet);wrong.arenaProfileProducer='wrong';assert.throws(()=>prepareC4Packet(wrong,{expectedContext}));
   const invalid=structuredClone(packet);invalid.events[0].event.sourceCard={id:133};const untouched=JSON.stringify(invalid);
   assert.throws(()=>prepareC4Packet(invalid,{expectedContext,validateEvent(){called++;}}));assert.equal(called,0);assert.equal(JSON.stringify(invalid),untouched);
+  const batch=structuredClone(packet);batch.seq=2;batch.events.push({seq:2,event:{...structuredClone(batch.events[0].event),sourceKey:'charmander',sourceProfile:'bogus'}});delete batch.events[1].event.sourceCard;
+  const batchBefore=JSON.stringify(batch);assert.throws(()=>prepareC4Packet(batch,{expectedContext,validateEvent(){called++;}}),{code:'C4_EVENT_PROFILE_INVALID'});assert.equal(called,0);assert.equal(JSON.stringify(batch),batchBefore);
   assert.throws(()=>unpackEvent(packet.events[0].event,{game:g,validateEvent(){}}));
 });
