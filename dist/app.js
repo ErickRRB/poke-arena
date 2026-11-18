@@ -1,12 +1,12 @@
 import { screenToWorld } from './arena-geometry.js?v=34';
 import { resolvePlacementInput, inPlacementInputArea } from './placement-input.js?v=34';
 import { Game, CARDS, DEFAULT_DECK, RARITIES, W, H, TILE } from './engine.js?v=target-c1-1';
-import { Renderer } from './render.js?v=fb60-c4-1';
+import { Renderer } from './render.js?v=c4-cpu-1';
 import { SoundSystem } from './audio.js?v=c4-result-cue-1';
 import {readAudioLevels} from './audio-preferences.js?v=1';
 import {C1_SERVICE,C4_SERVICE} from './online-context.js?v=1';
 import {onlineRouting} from './online-routing.js?v=c4-online-1';
-import {prepareC4Catalog} from './c4-catalog.js?v=1';
+import {prepareC4Catalog,getC4BaseCard} from './c4-catalog.js?v=1';
 import {prepareC4Packet,prepareC4Transport} from './c4-packet.js?v=1';
 import {c4SelectionFromLibrary} from './profile-selection.js?v=1';
 import { OnlineClient, hasSavedOnlineSession, hasPendingC4Search } from './online.js?v=c4-online-1';
@@ -17,7 +17,7 @@ import { cardEquivalentLabel } from './card-equivalents.js?v=34';
 import { loadDeckLibrary, saveDeckLibrary } from './deck-storage.js?v=c4-editor-1';
 import {savedSlotProfile,updateLibrarySlot} from './deck-provenance.js?v=c4-editor-1';
 import {isLocalC4EditorPreview,cardForEditor,editorCardRole,conversionPresentation} from './deck-editor-profile.js?v=c4-editor-1';
-import {isLocalC4CpuPreview,checkLocalCpuDeck} from './local-cpu-profile.js?v=1';
+import {isLocalC4CpuPreview,checkLocalCpuDeck,checkCpuDeck} from './local-cpu-profile.js?v=2';
 import { checkSelectionCard, checkSelectionDeck, resolveSelectionKey } from './canonical-selection.js?v=1';
 import { bindQuickStats } from './quick-stats.js?v=34';
 import { BattlePhaseUi } from './battle-phase-ui.js?v=34';
@@ -59,6 +59,7 @@ let reduced = store.get('reduced', matchMedia('(prefers-reduced-motion: reduce)'
 let combatNumbers = store.get('combat-numbers', false) === true;
 let game, selected = -1, handSignature = '', ready = false, walkthrough = null, deckDraft = [], deckEditable = true, resultCueGame = null;
 let toastTimer, deckNoticeTimer, deckSaveErrorTimer, lastUi = 0, drag = null, ignoreClickUntil = 0, online=null, onlineMode=false, closingOnline=Promise.resolve(), deploying=false,deploymentSerial=0;
+let cpuStarting=false,cpuStartSerial=0,cpuWaitEnd=null;
 const quickStats=bindQuickStats({hand:$('hand'),cards:CARDS,getCard:el=>matchCard(game?.hands[0][Number(el.dataset.card)]),isPlaying:()=>game?.state==='playing'&&!document.body.classList.contains('menu-mode'),getSelection:()=>selected});
 const sfx=new SoundSystem(sound,readAudioLevels(store.get));
 let inspectedCard=null;
@@ -73,7 +74,8 @@ const cardForSavedKey=key=>{const resolved=resolveSelectionKey(key).key;return r
 const sameSelection=(a,b)=>{const left=checkSelectionCard(a),right=checkSelectionCard(b);return left.canonicalKey&&left.canonicalKey===right.canonicalKey;};
 const hasEligibleSelection=cards=>checkSelectionDeck(cards).ok;
 const eligibleDeckKeys=cards=>hasEligibleSelection(cards)?cards.map(key=>resolveSelectionKey(key).key):null;
-const savedDeckPlayable=(index=deckLibrary.active)=>c4WireEndpoint?c4SelectionFromLibrary(deckLibrary,index).ok:c4CpuPreview?checkLocalCpuDeck(deckLibrary,index).ok:hasEligibleSelection(editorDeck(deckLibrary.slots[index]));
+const cpuDeckSelection=()=>checkCpuDeck(deckLibrary,deckLibrary.active,{forceC4:c4CpuPreview});
+const savedDeckPlayable=(index=deckLibrary.active)=>c4WireEndpoint?c4SelectionFromLibrary(deckLibrary,index).ok:checkCpuDeck(deckLibrary,index,{forceC4:c4CpuPreview}).ok;
 const editorCard=(key,slotIndex=null)=>cardForEditor({key,cards:CARDS,library:deckLibrary,deckIndex:deckLibrary.active,slotIndex,preview:c4EditorPreview});
 const editorSelectable=key=>checkSelectionCard(key).ok||c4EditorPreview&&key==='arcanine';
 const editorSlotSelectable=(key,index)=>checkSelectionCard(key).ok||c4EditorPreview&&key==='arcanine'&&savedSlotProfile(deckLibrary,deckLibrary.active,index).kind==='hog';
@@ -139,8 +141,8 @@ function renderMenuDeck(){
   updateMenuAvailability();
 }
 function updateMenuAvailability(){
-  $('start-btn').disabled=!ready||!!c4BootError||!(c4CpuPreview?checkLocalCpuDeck(deckLibrary,deckLibrary.active).ok:hasEligibleSelection(deck));
-  $('online-btn').disabled=!ready||!!c4BootError||!(c4WireEndpoint?c4SelectionFromLibrary(deckLibrary,deckLibrary.active).ok:hasEligibleSelection(deck));
+  $('start-btn').disabled=!ready||cpuStarting||!!c4BootError||!cpuDeckSelection().ok;
+  $('online-btn').disabled=!ready||cpuStarting||!!c4BootError||!(c4WireEndpoint?c4SelectionFromLibrary(deckLibrary,deckLibrary.active).ok:hasEligibleSelection(deck));
 }
 function applyDeckChanges({persist=true}={}){
   if(persist){const changed={...deckLibrary,slots:deckLibrary.slots.slice()};changed.slots[changed.active]=editorDeck(deckDraft);return commitDeckLibrary(changed);}
@@ -260,9 +262,11 @@ function adoptGame(next){
   updateDetail();syncHand();
   if($('card-dialog').open&&inspectedCard&&matchCard(inspectedCard))renderCardInfo(inspectedCard,inspectedSlotIndex);
 }
-function newGame({ start = false, tutorial = false } = {}) {
-  const admitted=c4CpuPreview&&!c4BootError&&!tutorial?checkLocalCpuDeck(deckLibrary,deckLibrary.active):null;
-  if(start&&!tutorial&&!(c4CpuPreview?admitted?.ok:hasEligibleSelection(deck))){mainMenu();openDeck();return;}
+function newGame({ start = false, tutorial = false, preparedCpu = null } = {}) {
+  const admitted=preparedCpu?.catalogVersion===4?preparedCpu:c4CpuPreview&&!c4BootError&&!tutorial?checkLocalCpuDeck(deckLibrary,deckLibrary.active):null;
+  if(start&&!tutorial&&!(admitted?admitted.ok:hasEligibleSelection(deck))){mainMenu();openDeck();return;}
+  const localOptions=admitted?.ok?{deck:admitted.keys,catalogVersion:admitted.catalogVersion,ruleset:admitted.ruleset,cpuDeck:DEFAULT_DECK}:{deck:tutorial||!hasEligibleSelection(deck)?DEFAULT_DECK:eligibleDeckKeys(deck)};
+  const next=new Game({...localOptions,difficulty,tutorial,onEvent:handleEvent,animations:renderer.metadata});
   battlePhaseUi.reset();
   deploying=false;deploymentSerial++;
   cancelResultCue();
@@ -270,8 +274,7 @@ function newGame({ start = false, tutorial = false } = {}) {
   sfx.resetMusic();
   $('result-overlay').hidden = true; $('pause-overlay').hidden = true; $('guide').hidden = true;
   walkthrough = null;
-  const localOptions=admitted?.ok?{deck:admitted.keys,catalogVersion:admitted.catalogVersion,ruleset:admitted.ruleset,cpuDeck:DEFAULT_DECK}:{deck:tutorial||!hasEligibleSelection(deck)?DEFAULT_DECK:eligibleDeckKeys(deck)};
-  adoptGame(new Game({...localOptions,difficulty,tutorial,onEvent:handleEvent,animations:renderer.metadata}));
+  adoptGame(next);
   $('enemy-name').textContent = `${{easy:'Principiante',normal:'Entrenador',hard:'Líder de gimnasio'}[difficulty]} · CPU`;
   $('online-status').hidden=true;$('connection-loading').hidden=true;
   document.body.classList.toggle('menu-mode',!start);$('main-menu').hidden=start;
@@ -609,13 +612,47 @@ addEventListener('pageshow',event=>{if(game){sfx.recover();updateUi();}if(event.
 addEventListener('focus',()=>sfx.recover());
 for(const event of['pointerdown','keydown'])document.addEventListener(event,()=>{if(sfx.ctx)sfx.unlock(true);},{capture:true,passive:true});
 
-$('start-btn').addEventListener('click',()=>{online?.close();onlineMode=false;newGame({start:true});});
-$('practice-btn').addEventListener('click',()=>{online?.close();onlineMode=false;newGame({start:true,tutorial:true});});
+function cancelCpuStart(){
+  if(!cpuStarting)return;
+  cpuStartSerial++;cpuStarting=false;cpuWaitEnd?.();cpuWaitEnd=null;updateMenuAvailability();
+}
+async function startCpuGame({tutorial=false}={}){
+  if(cpuStarting||!ready||onlineMode&&game.state!=='ended')return;
+  const selectedIndex=deckLibrary.active,selected=tutorial?null:cpuDeckSelection();
+  if(!tutorial&&!selected.ok){openDeck();return;}
+  if(selected?.catalogVersion===4){
+    const serial=++cpuStartSerial,originGame=game,inMenu=document.body.classList.contains('menu-mode'),controls=inMenu?$('ready-overlay'):$('again-btn').parentElement,progress=$('menu-load-progress');
+    const currentEntry=()=>serial===cpuStartSerial&&game===originGame&&!onlineMode&&!(online?.active&&['search','resume','cancelling'].includes(online.mode));
+    let wait=inMenu?$('menu-loading'):$('cpu-start-loading');
+    if(!wait){wait=document.createElement('span');wait.id='cpu-start-loading';wait.className='battle-loading';wait.setAttribute('role','status');wait.setAttribute('aria-label','Preparando la batalla');wait.innerHTML='<span class="pokeball-loader is-indeterminate" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span>';$('result-overlay').append(wait);}
+    cpuStarting=true;controls.inert=true;controls.setAttribute('aria-busy','true');wait.hidden=false;
+    if(inMenu){progress.classList.add('is-indeterminate');progress.removeAttribute('aria-valuenow');progress.setAttribute('aria-label','Preparando la batalla');}
+    cpuWaitEnd=()=>{controls.inert=false;controls.setAttribute('aria-busy','false');wait.hidden=true;if(inMenu){progress.classList.remove('is-indeterminate');progress.setAttribute('aria-valuenow','100');progress.setAttribute('aria-label','Cargando el juego');}};
+    updateMenuAvailability();audioInit();
+    try{
+      await prepareC4Catalog();
+      if(!currentEntry())return;
+      await renderer.ensureSpecies(selected.keys.map(key=>getC4BaseCard(key)?.id).filter(Boolean));
+      if(!currentEntry())return;
+      const latest=loadDeckLibrary(),current=checkCpuDeck(latest,latest.active,{forceC4:c4CpuPreview}),liveChoice=cpuDeckSelection();
+      const sameChoice=choice=>choice.ok&&choice.catalogVersion===4&&choice.keys.length===selected.keys.length&&choice.keys.every((key,index)=>key===selected.keys[index]);
+      if(deckLibrary.active!==selectedIndex||latest.active!==selectedIndex||!sameChoice(current)||!sameChoice(liveChoice)){
+        deckLibrary=latest;deckDraft=editorDeck(latest.slots[latest.active]);applyDeckChanges({persist:false});toast('El mazo cambió. Revisalo antes de jugar.');return;
+      }
+      online?.close();onlineMode=false;newGame({start:true,preparedCpu:current});
+    }catch(error){if(serial===cpuStartSerial)toast('No se pudo preparar la batalla. Reintentá.');}
+    finally{if(serial===cpuStartSerial){cpuStarting=false;cpuWaitEnd?.();cpuWaitEnd=null;updateMenuAvailability();}}
+    return;
+  }
+  online?.close();onlineMode=false;newGame({start:true,tutorial});
+}
+$('start-btn').addEventListener('click',()=>startCpuGame());
+$('practice-btn').addEventListener('click',()=>startCpuGame({tutorial:true}));
 $('skip-guide').addEventListener('click',finishGuide);
-$('again-btn').addEventListener('click',()=>{if(onlineMode)beginOnline();else newGame({start:true});});
+$('again-btn').addEventListener('click',()=>{if(onlineMode)beginOnline();else startCpuGame();});
 $('result-menu-btn').addEventListener('click',mainMenu);
 $('menu-deck-btn').addEventListener('click',openDeck);
-function mainMenu(){if(online?.service.id==='c4'&&online.c4Attempt&&(!onlineMode||game.state==='ended')){closingOnline=online.close();return;}if(online?.active&&(online.mode==='resume'||onlineMode&&game.state!=='ended'))return;const searching=!$('search-panel').hidden;closingOnline=online?.close()||Promise.resolve();online=null;onlineMode=false;$('search-panel').hidden=true;$('ready-overlay').inert=false;for(const dialog of document.querySelectorAll('dialog[open]'))closeModal(dialog,false);newGame();canvas.blur();if(searching)$('online-btn').focus({preventScroll:true});}
+function mainMenu(){if(online?.service.id==='c4'&&online.c4Attempt&&(!onlineMode||game.state==='ended')){closingOnline=online.close();return;}if(online?.active&&(online.mode==='resume'||onlineMode&&game.state!=='ended'))return;cancelCpuStart();const searching=!$('search-panel').hidden;closingOnline=online?.close()||Promise.resolve();online=null;onlineMode=false;$('search-panel').hidden=true;$('ready-overlay').inert=false;for(const dialog of document.querySelectorAll('dialog[open]'))closeModal(dialog,false);newGame();canvas.blur();if(searching)$('online-btn').focus({preventScroll:true});}
 function requestHome(event){
   event?.preventDefault();
   if(online?.active&&(online.mode==='resume'&&!online.c4Attempt||onlineMode&&game.state!=='ended'))return;
@@ -634,7 +671,7 @@ $('settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
 $('battle-settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
 $('pause-settings-btn').addEventListener('click',()=>openModal('settings-dialog'));
 $('settings-credits-btn').addEventListener('click',()=>openModal('credits-dialog'));
-$('help-practice-btn').addEventListener('click',()=>{if(!document.body.classList.contains('menu-mode'))return;closeModal($('help-dialog'),false);newGame({start:true,tutorial:true});});
+$('help-practice-btn').addEventListener('click',()=>{if(!document.body.classList.contains('menu-mode'))return;closeModal($('help-dialog'),false);startCpuGame({tutorial:true});});
 $('sound-btn').addEventListener('click',()=>{sound=!sound;updateSound();audioInit();if(sound)tone(580,.13,'sine',.05);});
 $('sound-setting').addEventListener('change',e=>{sound=e.target.checked;updateSound();audioInit();});
 for(const group of ['music','voices','effects']){const slider=$(group+'-volume'),output=$(group+'-volume-value');const update=()=>{const value=Number(slider.value);output.value=value+'%';slider.setAttribute('aria-valuetext',value+'%');};slider.value=sfx.levels[group];update();slider.addEventListener('input',()=>{sfx.setLevel(group,Number(slider.value));store.set(group+'-volume',sfx.levels[group]);update();});}
@@ -694,6 +731,7 @@ function createOnlineClient({legacy=false}={}){
 async function beginOnline(){
   const candidate=c4WireEndpoint?c4SelectionFromLibrary(deckLibrary,deckLibrary.active):null;
   if(c4BootError||!(candidate?candidate.ok:hasEligibleSelection(deck))||onlineMode&&game.state!=='ended')return;
+  cancelCpuStart();
   await closingOnline;await online?.close();onlineMode=false;newGame();audioInit();showSearch();$('search-status').textContent='Buscando rival…';$('search-time').textContent='0:00';
   online=createOnlineClient({legacy:!c4WireEndpoint});
   try{await online.start($('trainer-name').value||'Entrenador',candidate?candidate.deck:eligibleDeckKeys(deck),candidate?.selection);}catch(error){$('search-status').textContent=error.message;}

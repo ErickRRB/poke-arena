@@ -167,7 +167,7 @@ export class Renderer {
     return Object.entries(this.metadata[id]||{}).filter(([name])=>names.has(name));
   }
   loadImage(file){
-    if(!this.imageLoads.has(file)){const image=new Image();image.crossOrigin='anonymous';image.src=publicAssetUrl(file);this.imageLoads.set(file,image.decode().then(()=>image));}
+    if(!this.imageLoads.has(file)){const image=new Image();image.crossOrigin='anonymous';image.src=publicAssetUrl(file);const pending=image.decode().then(()=>image);this.imageLoads.set(file,pending);pending.catch(()=>{if(this.imageLoads.get(file)===pending)this.imageLoads.delete(file);});}
     return this.imageLoads.get(file);
   }
   ensureSpecies(ids){if(!Object.keys(this.metadata).length)return Promise.resolve();return Promise.all([...new Set(ids.filter(Boolean))].map(id=>{
@@ -198,7 +198,7 @@ export class Renderer {
         }
         this.bodyHeights.set(Number(id),Math.max(this.bodyHeights.get(Number(id))||0,height));
       }
-    })]);this.speciesLoads.set(id,pending);pending.then(()=>this.pendingSpecies.delete(id),()=>this.pendingSpecies.delete(id));return pending;
+    })]);this.speciesLoads.set(id,pending);pending.then(()=>this.pendingSpecies.delete(id),()=>{if(this.speciesLoads.get(id)===pending){this.pendingSpecies.delete(id);this.speciesLoads.delete(id);}});return pending;
   }));
   }
   rng(seed) { let s = seed; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }

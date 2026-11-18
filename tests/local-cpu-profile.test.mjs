@@ -1,7 +1,7 @@
 import {prepareC4Catalog} from '../dist/c4-catalog.js?v=1';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {checkLocalCpuDeck,isLocalC4CpuPreview} from '../dist/local-cpu-profile.js';
+import {checkCpuDeck,checkLocalCpuDeck,isLocalC4CpuPreview} from '../dist/local-cpu-profile.js';
 import {updateLibrarySlot} from '../dist/deck-provenance.js';
 import {Game,CARDS,DEFAULT_DECK} from '../dist/engine.js?v=target-c1-1';
 import {HOG_ARCANINE} from '../dist/hog-profiles.js?v=1';
@@ -16,9 +16,36 @@ await prepareC4Catalog();
 const raw=()=>({version:1,active:0,updatedAt:100,slots:[['arcanine',...DEFAULT_DECK.slice(1)],['arcanine',...DEFAULT_DECK.slice(1)],DEFAULT_DECK.slice(),[]]});
 const accepted=()=>updateLibrarySlot(raw(),0,0,'arcanine',{action:'accept',now:200});
 
-test('CPU opt-in is explicit and restricted to loopback, independent of editor-only preview',()=>{
+test('the diagnostic C4 override stays restricted to loopback, independent of ordinary CPU admission',()=>{
   for(const host of ['localhost','127.0.0.1','[::1]'])assert.equal(isLocalC4CpuPreview(`http://${host}:3000/?preview=c4-cpu-1`),true);
   for(const url of ['http://localhost/','http://localhost/?preview=c4-editor-1','https://localhost.example/?preview=c4-cpu-1','https://poke-arena-web.eriickramiirez.workers.dev/?preview=c4-cpu-1','file:///tmp/?preview=c4-cpu-1'])assert.equal(isLocalC4CpuPreview(url),false);
+});
+
+test('CPU uses accepted Hog only in its exact slot while ordinary decks keep C1 and old Game profiles',()=>{
+  const library=accepted(),before=structuredClone(library),oldGame=new Game(),hog=checkCpuDeck(library,0),ordinary=checkCpuDeck(library,2);
+  assert.equal(hog.ok,true);assert.equal(hog.catalogVersion,4);assert.equal(hog.ruleset,'c4-1');
+  assert.equal(checkCpuDeck(library,1).ok,false);assert.equal(ordinary.ok,true);assert.equal(ordinary.catalogVersion,1);assert.deepEqual(ordinary.keys,DEFAULT_DECK);
+  assert.equal(checkCpuDeck(library,2,{forceC4:true}).catalogVersion,4);
+  const next=new Game({deck:hog.keys,catalogVersion:hog.catalogVersion,ruleset:hog.ruleset,cpuDeck:DEFAULT_DECK});
+  assert.equal(next.cardFor('arcanine'),HOG_ARCANINE);assert.equal(next.cardFor('arcanine').cost,4);assert.equal(next.cardFor('arcanine').damage,317);
+  assert.equal(oldGame.cardFor('arcanine'),CARDS.arcanine);assert.deepEqual(library,before);
+});
+
+test('CPU admission rejects missing/conflicting consent and malformed rows without rewriting the library',()=>{
+  const cases=[raw(),null,{version:2,slots:[DEFAULT_DECK]}];
+  for(const alter of [v=>{v.slots[0][1]=null;},v=>{delete v.slots[0][1];},v=>{v.slotProvenance.slots[0][0].ruleset='c1-733';},v=>{v.provenanceConflict={updatedAt:201};}]){const v=accepted();alter(v);cases.push(v);}
+  for(const library of cases){const before=structuredClone(library);assert.equal(checkCpuDeck(library,0).ok,false);assert.deepEqual(library,before);}
+  const alias=accepted();alias.slots[2][0]='registeel';const before=structuredClone(alias),choice=checkCpuDeck(alias,2);assert.equal(choice.ok,true);assert.equal(choice.catalogVersion,1);assert.equal(choice.keys[0],'rhydon');assert.deepEqual(alias,before);
+});
+
+test('failed sprite downloads can be retried through the shared species loader',async t=>{
+  const previousImage=Object.getOwnPropertyDescriptor(globalThis,'Image'),previousDocument=Object.getOwnPropertyDescriptor(globalThis,'document'),calls=new Map();
+  class TestImage{constructor(){this.width=1;this.height=1;}decode(){const count=(calls.get(this.src)||0)+1;calls.set(this.src,count);return this.src==='retry-sprite.png'&&count===1?Promise.reject(Error('declared temporary image failure')):Promise.resolve();}}
+  Object.defineProperty(globalThis,'Image',{configurable:true,value:TestImage});Object.defineProperty(globalThis,'document',{configurable:true,value:{createElement:()=>({getContext:()=>({drawImage(){},getImageData:()=>({data:new Uint8Array(4)})})})}});
+  t.after(()=>{for(const[key,descriptor]of[['Image',previousImage],['document',previousDocument]]){if(descriptor)Object.defineProperty(globalThis,key,descriptor);else delete globalThis[key];}});
+  const renderer=Object.assign(Object.create(Renderer.prototype),{metadata:{59:{}},imageLoads:new Map(),speciesLoads:new Map(),pendingSpecies:new Set(),sprites:new Map(),anchors:new Map(),bodyHeights:new Map(),animationEntries:()=>[['Attack',{file:'retry-sprite.png',shadow:'retry-shadow.png',width:1,height:1,durations:[1]}]]});
+  await assert.rejects(renderer.ensureSpecies([59]),/temporary image failure/);await renderer.ensureSpecies([59]);
+  assert.equal(calls.get('retry-sprite.png'),2);assert.equal(calls.get('retry-shadow.png'),1);assert.ok(renderer.sprites.has('59-Attack'));assert.equal(renderer.pendingSpecies.size,0);
 });
 test('admission requires the exact accepted position and never writes or adopts the other raw deck',()=>{
   const library=accepted(),before=structuredClone(library),admission=checkLocalCpuDeck(library,0);
