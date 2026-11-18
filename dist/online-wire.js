@@ -1,7 +1,7 @@
-import {isCompleteWireProfile,validateC4WireEventShape} from './c4-wire-preparation.js?v=eevee-1';
+import {isCompleteWireProfile,validateC4WireEventShape} from './c4-wire-preparation.js?v=formation-1';
 import {isC4Game} from './online-context.js?v=eevee-1';
 import {getArenaProducerByRuleset,arenaProducerCard} from './arena-profile-producers.js?v=eevee-1';
-import {resolveC4ExpectedContext} from './c4-wire-preparation.js?v=eevee-1';
+import {resolveC4ExpectedContext} from './c4-wire-preparation.js?v=formation-1';
 import {getC4BaseCard} from './c4-catalog.js?v=1';
 import {HOG_ARCANINE} from './hog-profiles.js?v=1';
 import { CARDS } from './engine.js?v=eevee-1';

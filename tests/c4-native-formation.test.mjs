@@ -2,13 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Game,DEFAULT_DECK} from '../dist/engine.js?v=eevee-1';
 import {getC4BaseCatalog} from '../dist/c4-catalog.js?v=1';
-import {prepareC4Packet,prepareC4Transport} from '../dist/c4-packet.js?v=eevee-1';
-import {validateC4WireGameShape,validateC4WireEventLog} from '../dist/c4-wire-preparation.js?v=eevee-1';
-import {publicSnapshot,publicEvent} from '../dist/online-wire.js?v=eevee-1';
+import {prepareC4Packet,prepareC4Transport} from '../dist/c4-packet.js?v=formation-1';
+import {validateC4WireGameShape,validateC4WireEventLog} from '../dist/c4-wire-preparation.js?v=formation-1';
+import {publicSnapshot,publicEvent} from '../dist/online-wire.js?v=formation-1';
 import {packGame,unpackGame} from '../dist/snapshot.js?v=eevee-1';
 import {C4_SERVICE,C4_CONFIRMED_KEY,arenaServiceForContext,serviceEnvelope} from '../dist/online-context.js?v=eevee-1';
 import {LIGHT_EEVEE_RULESET,LIGHT_EEVEE_PRODUCER} from '../dist/arena-profile-producers.js?v=eevee-1';
-import {OnlineClient} from '../dist/online.js?v=eevee-1';
+import {OnlineClient} from '../dist/online.js?v=formation-1';
 import {c4SearchEndpoint} from '../dist/c4-search.js?v=eevee-1';
 
 await prepareC4Transport();
@@ -47,7 +47,7 @@ for(const service of contexts)test(`${service.ruleset}: every native formation s
 
 test('malformed descriptors and tuple arrays are still rejected before adoption',()=>{
  const f=fixture('diglett',C4_SERVICE),base=f.game.cardFor('diglett');
- const values=[[],{}, {...base.nativeFormation,primaries:0},{...base.nativeFormation,primaries:1.5},{...base.nativeFormation,seconds:-1},{...base.nativeFormation,radius:null},{...base.nativeFormation,width:'wide'},{...base.nativeFormation,angleShift:null}];
+ const values=[[],{}, {...base.nativeFormation,primaries:0},{...base.nativeFormation,primaries:1.5},{...base.nativeFormation,seconds:-1},{...base.nativeFormation,radius:null},{...base.nativeFormation,width:'wide'},{...base.nativeFormation,angleShift:null},{...base.nativeFormation,angleShift:.5}];
  for(const value of values){const p=structuredClone(f.packets[0]);p.game.units[0].card={...base,nativeFormation:value};assert.throws(()=>prepareC4Packet(p),error=>error.code==='C4_SHAPE_INVALID'&&error.message.includes('nativeFormation'));}
  const p=structuredClone(f.packets[0]);p.game.units[0].card={...base,formation:{primaries:3}};
  assert.throws(()=>prepareC4Packet(p),error=>error.code==='C4_SHAPE_INVALID'&&error.message.includes('.formation'));

@@ -19,7 +19,7 @@ export async function prepareC4Transport(){
   if(arguments.length)throw new TypeError('La preparación C4 no recibe un catálogo C1.');
   await catalog.prepareC4Catalog();
   pending??=(async()=>{
-    const [module,shape,engine,profiles]=await Promise.all([import('./c4-restore.js?v=1'),import('./c4-shape.js?v=1'),import('./engine.js?v=eevee-1'),import('./hog-profiles.js?v=1')]);
+    const [module,shape,engine,profiles]=await Promise.all([import('./c4-restore.js?v=1'),import('./c4-shape.js?v=formation-1'),import('./engine.js?v=eevee-1'),import('./hog-profiles.js?v=1')]);
     if(typeof module.validateC4EventIdentity!=='function'||typeof catalog.isCompleteC4CardProfile!=='function')throw Error('Validación C4 de transporte no disponible.');
     identityRule=module.validateC4EventIdentity;completenessRule=catalog.isCompleteC4CardProfile;shapeModule=shape;gamePrototype=engine.Game.prototype;hogProfile=profiles.HOG_ARCANINE;
   })().catch(error=>{pending=undefined;throw error;});

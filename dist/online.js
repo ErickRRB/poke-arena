@@ -1,8 +1,8 @@
 import {C1_SERVICE,C4_SERVICE,C4_CONFIRMED_KEY,arenaServiceForContext,expectedContextForService,serviceEnvelope,assertC4Envelope} from './online-context.js?v=eevee-1';
-import {prepareC4Packet,prepareC4Transport} from './c4-packet.js?v=eevee-1';
+import {prepareC4Packet,prepareC4Transport} from './c4-packet.js?v=formation-1';
 import {C4_SEARCH_VERSION,C4_PENDING_KEY,C4_SEARCH_TOKEN,c4SearchRequest,newC4SearchToken,c4SearchEndpoint} from './c4-search.js?v=eevee-1';
 import {allowedC4Server} from './online-routing.js?v=eevee-1';
-import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=eevee-1';
+import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=formation-1';
 import { onlineServer } from './online-config.js?v=34';
 import { onlinePerf } from './perf.js?v=1';
 
