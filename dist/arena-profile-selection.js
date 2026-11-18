@@ -2,6 +2,7 @@ import {checkSelectionCard,resolveSelectionKey} from './canonical-selection.js?v
 import {savedSlotProfile} from './deck-provenance.js?v=arena-selection-1';
 import {c4SelectionFromLibrary,admitC4Selection} from './profile-selection.js?v=1';
 import {arenaSelectionProfile,arenaSelectionProducer,hasArenaSelection} from './arena-selection-profiles.js?v=1';
+import {LIGHT_EEVEE_PRODUCER} from './arena-profile-producers.js?v=1';
 
 export const ARENA_SELECTION_VERSION=3;
 const choiceFields=['key','choice','catalogVersion','ruleset','action','acceptedAt'];
@@ -39,12 +40,20 @@ export function checkArenaLibraryDeck(library,deckIndex,{producer=null}={}){
   }
   return{ok:true,keys,catalogVersion:4,ruleset:selected.ruleset,arenaProfileProducer:marker};
 }
-export function arenaSelectionFromLibrary(library,deckIndex){
-  if(!hasArenaSelection(library?.slots?.[deckIndex]))return c4SelectionFromLibrary(library,deckIndex);
-  const checked=checkArenaLibraryDeck(library,deckIndex);if(!checked.ok)return checked;
+export function arenaSelectionFromLibrary(library,deckIndex,{producer=null}={}){
+  if(producer===null&&!hasArenaSelection(library?.slots?.[deckIndex]))return c4SelectionFromLibrary(library,deckIndex);
+  const checked=checkArenaLibraryDeck(library,deckIndex,{producer});if(!checked.ok)return checked;
   const entries=library.slotProvenance?.slots?.[deckIndex]??[];
   return{...checked,deck:[...library.slots[deckIndex]],selection:{version:ARENA_SELECTION_VERSION,choiceVersion:2,arenaProfileProducer:checked.arenaProfileProducer,
     slots:Array.from({length:8},(_,i)=>entries[i]==null?null:Object.fromEntries(choiceFields.map(key=>[key,entries[i][key]]))),conflictClock:library.provenanceConflict?.updatedAt??0}};
+}
+// New compatible clients share one pool, whether their deck contains Eevee or
+// not. Raw historical overrides keep their old producer until explicitly chosen.
+export function newOnlineSelectionFromLibrary(library,deckIndex,{producer=LIGHT_EEVEE_PRODUCER}={}){
+  const descriptor=arenaSelectionProducer(producer),row=library?.slots?.[deckIndex];
+  if(!descriptor)return{ok:false,reason:'unknown-profile-producer'};
+  if(Array.isArray(row)&&!hasArenaSelection(row)&&row.some(reference=>descriptor.keys.includes(resolveSelectionKey(reference).key)))return c4SelectionFromLibrary(library,deckIndex);
+  return arenaSelectionFromLibrary(library,deckIndex,{producer});
 }
 export function admitArenaSelection(deck,selection){
   if(selection?.version===2)return admitC4Selection(deck,selection);
