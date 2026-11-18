@@ -27,7 +27,7 @@ const c4Config = {
       ARENAS: bindings.durableObject({ worker: 'poke-arena-realtime-c4', exportName: 'ArenaRoom' }),
       ALLOWED_ORIGINS: bindings.text('https://poke-arena-web.eriickramiirez.workers.dev'),
       ONLINE_SERVICE: bindings.text('c4'),
-      C4_NEW_SEARCHES: bindings.text('0'),
+      C4_NEW_SEARCHES: bindings.text('1'),
     },
   },
 };
