@@ -363,6 +363,7 @@ function restoreFocus(reference) {
 function openModal(id) {
   if($('portrait-dialog').open&&id!=='portrait-dialog')return;
   if(id==='deck-dialog'&&!document.body.classList.contains('menu-mode'))return;
+  cancelCpuStart();
   if(id==='help-dialog')$('help-practice-btn').hidden=!document.body.classList.contains('menu-mode');
   if(id==='settings-dialog'){$('difficulty-hint').hidden=document.body.classList.contains('menu-mode');drag=null;}
   closeEditorPopovers();
