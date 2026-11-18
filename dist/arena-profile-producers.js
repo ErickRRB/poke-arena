@@ -1,4 +1,4 @@
-import { getEeveeLightProfile, LIGHT_EEVEE_IDENTITY } from './eevee-light-profile.js?v=1';
+import { getEeveeLightProfile, LIGHT_EEVEE_IDENTITY } from './eevee-light-profile.js?v=eevee-1';
 import { C4_CATALOG_FINGERPRINT } from './c4-catalog.js?v=1';
 
 // Immutable producer identity. Future overrides require another producer identity.

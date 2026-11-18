@@ -4,7 +4,7 @@ import { getC4BaseCard } from './c4-catalog.js?v=1';
 let profile;
 export const LIGHT_EEVEE_IDENTITY = 'ArenaLightEevee';
 export const LIGHT_EEVEE_OVERRIDES = Object.freeze({
-  cost: 2, hp: 420, damage: 100, interval: 1.2, range: 18,
+  cost: 2, hp: 420, damage: 100, interval: 1.2, range: 6,
   speed: 43.2, moveSpeed: 43.2, pullSpeed: 43.2,
   role: 'Ciclo · presión', description: 'Se acerca rápido y ataca a un objetivo.',
   style: 'slam', attackAnim: 'Attack', attackDuration: 0.55, windup: 0.25,

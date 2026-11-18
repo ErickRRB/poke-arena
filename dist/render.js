@@ -1,14 +1,15 @@
 import {combatSourceProfile} from './combat-source-profile.js?v=1';
-import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTarget } from './engine.js?v=target-c1-1';
+import { CARDS, DEFAULT_DECK, directionRow, attackPoseProgress, spellOverlapsTarget } from './engine.js?v=eevee-1';
 import { W, H, TILE, ARENA, DEPLOY_GRID, LANES, RIVER, BRIDGE, arenaProjection, screenToWorld } from './arena-geometry.js?v=34';
 import { resolvePlacementInput } from './placement-input.js?v=34';
 import { BattleArt,STRUCTURE_ART } from './battle-art.js?v=36';
 import { paintArenaScenery,paintArenaBorder } from './arena-scenery.js?v=1';
 import {towerGuardianScale,guardianEmitterPoint} from './tower-guardian-art.js?v=1';
 import {electricLore,electricUnitState,electricArc,drawElectricAura,drawElectricCharge,drawElectricTrail,drawElectricImpact} from './electric-lore.js?v=3';
+import {isLightEevee,LIGHT_EEVEE_SCALE,LIGHT_EEVEE_CONTACT_SECONDS,lightEeveeContactPoint,drawLightEeveeContact,lightEeveeHealthPlacement,lightEeveeAdvance} from './eevee-light-visual.js?v=eevee-1';
 import { emissionPoint, animationFrame, attackAnimationFrame, movementAnchor, TOWER_MOUNTS, structureLift } from './sprite-motion.js?v=34';
 import {combatVisual,projectileVisual,movementVisual,isRangedAttack,isIceShardAttack,attackVisualProfile,arcanineHogGesture,dashPreparation,petalPreparation,directedBite,biteMotion,biteSurface,biteJaw} from './combat-visuals.js?v=36';
-import { spellPreviewTargets } from './spell-preview.js?v=target-c1-1';
+import { spellPreviewTargets } from './spell-preview.js?v=eevee-1';
 import {areaGuide,softDisc,cellGuide,travelGuide} from './targeting-art.js?v=36';
 import { FlightWings } from './wing-motion.js?v=34';
 import { RoseliaBouquets } from './bouquet-motion.js?v=34';
@@ -30,7 +31,7 @@ function line(c, color, x1, y1, x2, y2, width = 1) { c.strokeStyle = color; c.li
 function text(c, label, x, y, color = '#f8f1d6', size = 12, weight = 600) { c.font = `${weight} ${size}px "DM Sans", "Segoe UI", sans-serif`; c.fillStyle = color; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, x, y); }
 // A presentation-only size for this single battle unit. The actor/card scale
 // remains native so the engine's emission and collision stay unchanged.
-const visualScale = unit => !unit.mounted && (unit.key === 'alakazam' && unit.card?.id === 65 || unit.key === 'slowbro' && unit.card?.id === 80) ? 1.75 : unit.scale ?? unit.card?.scale ?? 1.5;
+const visualScale = unit => !unit.mounted&&isLightEevee(unit.card)?LIGHT_EEVEE_SCALE:!unit.mounted && (unit.key === 'alakazam' && unit.card?.id === 65 || unit.key === 'slowbro' && unit.card?.id === 80) ? 1.75 : unit.scale ?? unit.card?.scale ?? 1.5;
 // Union of the four original Bite frames' opaque bounds in each genuine view.
 // Compact the padding, not the bat: this mouth articulation uses the existing
 // preloaded native atlas and stays attached through preparation and recovery.
@@ -78,6 +79,7 @@ function spikeMaterial(doc,radius,vertical){
   const result={ground,node,origin};if(cache.size>=8)cache.delete(cache.keys().next().value);cache.set(key,result);return result;
 }
 function attackLunge(unit,reduced){
+  if(isLightEevee(unit.card))return 0; // The display actor moves with its shadow and health.
   if(directedBite(unit.card))return 0; // The complete bite pose is applied once to the displayed actor.
   if(!reduced&&!unit.mounted&&unit.dash?.phase!=='windup'&&unit.card?.id===6&&unit.card.attackAnim==='Shoot'&&unit.attack>0){
     const elapsed=(unit.attackDuration||unit.card.attackDuration)-unit.attack,windup=unit.attackWindup??unit.card.windup;
@@ -366,6 +368,15 @@ export class Renderer {
     // chasing an already displaced actor encountered earlier in Map order.
     for(const[id,actor]of updates)this.frameActors.set(id,actor);
   }
+  prepareLightEeveeActors(){
+    const updates=[];
+    for(const[id,actor]of this.frameActors){
+      if(!isLightEevee(actor.card)||actor.mounted||!(actor.attack>0))continue;
+      const offset=lightEeveeAdvance(actor,this.reduced);
+      updates.push([id,{...actor,x:actor.x+offset.x,y:actor.y+offset.y}]);
+    }
+    for(const[id,actor]of updates)this.frameActors.set(id,actor);
+  }
   drawBiteGesture(c,unit){
     if(unit.card?.id!==41||!unit.biteContact||unit.preview||this.silhouettePass)return false;
     const contact=this.attackContacts?.get(unit.id);
@@ -393,7 +404,8 @@ export class Renderer {
   visualEmission(actor,shot=0){
     if(!actor)return null;
     const flightClock=this.flightWings?.phases.get(actor.id)?.phase??this.t;
-    const point=guardianEmitterPoint(actor,emissionPoint({...actor,scale:!actor.mounted&&(actor.key==='alakazam'&&actor.card?.id===65||actor.key==='slowbro'&&actor.card?.id===80)?1.75:actor.scale,card:attackVisualProfile(actor.card)},shot,this.reduced?0:flightClock)),bob=actor.card?.flying&&!this.reduced?Math.sin(flightClock*2.6+actor.id)*1.5:0;
+    const scale=!actor.mounted&&isLightEevee(actor.card)?LIGHT_EEVEE_SCALE:!actor.mounted&&(actor.key==='alakazam'&&actor.card?.id===65||actor.key==='slowbro'&&actor.card?.id===80)?1.75:actor.scale;
+    const point=guardianEmitterPoint(actor,emissionPoint({...actor,scale,card:attackVisualProfile(actor.card)},shot,this.reduced?0:flightClock)),bob=actor.card?.flying&&!this.reduced?Math.sin(flightClock*2.6+actor.id)*1.5:0;
     const lunge=attackLunge(actor,this.reduced);
     return{x:point.x+(actor.dx||0)*lunge,y:actor.y+(point.y-actor.y-bob+(actor.dy||0)*lunge)/(this.verticalScale||1)};
   }
@@ -610,6 +622,10 @@ export class Renderer {
     width=healthMeterWidth(unit,width,height,pixel);
     if(summoningStructure(unit.card))y=unit.y+10/(this.verticalScale||1);
     if(compact)y-=2*pixel;
+    if(compact&&!unit.mounted&&isLightEevee(unit.card)){
+      const placement=lightEeveeHealthPlacement(unit,this.nativeSpritePose(unit),width,pixel,this.worldBounds);
+      if(placement){x=placement.x;y=placement.y;compact.ownerX=placement.ownerX;compact.ownerY=placement.ownerY;}
+    }
     if(this.unitHealthQueue)this.unitHealthQueue.push({unit,x,y,width,compact,bodyHeight:height});
     else this.healthBar(c,unit,x,y,width,compact);
   }
@@ -701,7 +717,11 @@ export class Renderer {
     if(type==='attackStart'&&['slam','eruption','horn'].includes(event.style))this.effects.push({kind:'windup',actor:event.attacker,seq:event.attacker.attackSeq,style:event.style,life:event.windup,max:event.windup});
     if(type==='beam'&&!event.missed){const life=event.hop===undefined?.42:.18;this.effects.push({...event,kind:'beam',life,max:life});}
     if(type==='flame'){const life=event.length/(event.speed||300)+.18;this.effects.push({...event,kind:'flame',life,max:life});}
-    if(type==='melee')this.effects.push({...event,kind:'melee',life:['slam','eruption'].includes(event.style)?.5:.27,max:['slam','eruption'].includes(event.style)?.5:.27});
+    if(type==='melee'){
+      const card=combatSourceProfile(event,game,this.frameActors?.get(event.sourceId))||CARDS[event.key];
+      const life=isLightEevee(card)?LIGHT_EEVEE_CONTACT_SECONDS:['slam','eruption'].includes(event.style)?.5:.27;
+      this.effects.push({...event,kind:'melee',life,max:life});
+    }
     if(type==='counter')this.effects.push({...event,kind:'counter',life:.3,max:.3});
     if(type==='attackRelease'&&event.style==='hydro')this.burst(event.from.x,event.from.y,'#b4ebef',8,45);
     if(type==='step'){
@@ -1208,6 +1228,19 @@ export class Renderer {
         }
       }else if(e.kind==='melee'){
         const source=this.frameActors.get(e.sourceId),bite=directedBite(source?.card)&&source.biteContact;
+        const produced=combatSourceProfile(e,null,source)||CARDS[e.key];
+        if(isLightEevee(produced)){
+          if(!e.lightContact){
+            const from=this.effectSource(e)||e.from,target=this.frameActors.get(e.targetId);
+            const surface=target&&from?this.biteTargetSurface(from,target):e.to;
+            if(surface&&from){
+              e.lightContact=lightEeveeContactPoint(surface,from);
+              const pose=source&&this.nativeSpritePose(source);
+              e.lightContactPose=pose?{sourceId:e.sourceId,seq:source.attackSeq,frame:pose.frame,direction:pose.direction,anchor:{...pose.anchor},scale:pose.scale,elapsed:(source.attackDuration||source.card.attackDuration)-source.attack,windup:source.attackWindup??source.card.windup,from:{...from}}:null;
+            }
+          }
+          if(e.lightContact){drawLightEeveeContact(c,this.battleArt.image('dust'),e.lightContact,progress,this.reduced,this.verticalScale||1);c.restore();continue;}
+        }
         if(bite&&this.biteJawActors?.has(e.sourceId)){c.restore();continue;}
         const to=bite||this.effectTarget(e),from=this.effectSource(e)||e.from;
         const name={punch:'impact',dash:'impact',slam:'dust',eruption:'explosion'}[e.style]||e.style;
@@ -1496,7 +1529,7 @@ export class Renderer {
     this.frameActors=new Map([...(game.visibleTowers??game.towers),...game.units].map(actor=>{
       const pose=this.visualActor(actor,dt);pose.logicalX=actor.x;pose.logicalY=actor.y;return[actor.id,pose];
     }));
-    this.biteContours?.beginFrame();this.prepareBiteActors();
+    this.biteContours?.beginFrame();this.prepareBiteActors();this.prepareLightEeveeActors();
     const fields=(game.fields||[]).map(field=>this.visualField(field,dt));
     for(const field of fields)this.field(c,field);
     for(const effect of this.effects||[])if(effect.kind==='fireballImpact'&&effect.life>0)this.fireballImpact(c,effect,1-effect.life/effect.max);

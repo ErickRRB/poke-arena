@@ -1,8 +1,8 @@
-import {assertC4Envelope,C4_SERVICE} from './online-context.js?v=1';
-import {unpackGame,perspective} from './snapshot.js?v=target-c1-1';
-import {unpackEvent} from './online-wire.js?v=target-c1-1';
-import {validateC4WireEventIdentity,validateC4WireGameShape,validateC4WireEventLog,resolveC4ExpectedContext} from './c4-wire-preparation.js?v=1';
-export {prepareC4Transport} from './c4-wire-preparation.js?v=1';
+import {assertC4Envelope,C4_SERVICE} from './online-context.js?v=eevee-1';
+import {unpackGame,perspective} from './snapshot.js?v=eevee-1';
+import {unpackEvent} from './online-wire.js?v=eevee-1';
+import {validateC4WireEventIdentity,validateC4WireGameShape,validateC4WireEventLog,resolveC4ExpectedContext} from './c4-wire-preparation.js?v=eevee-1';
+export {prepareC4Transport} from './c4-wire-preparation.js?v=eevee-1';
 const uuid=value=>typeof value==='string'&&/^[a-f0-9-]{36}$/.test(value);
 const integer=value=>Number.isSafeInteger(value)&&value>=0;
 export function prepareC4Packet(packet,options={}){

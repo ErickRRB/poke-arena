@@ -2,8 +2,8 @@ import {validateC4Restore} from './c4-restore.js?v=1';
 import {getC4BaseCatalog} from './c4-catalog.js?v=1';
 import {C1_RULESET,C3_RULESET,C4_RULESET,validateC4Profiles} from './hog-profiles.js?v=1';
 import {resolveC3Profiles} from './hog-c3-validation.js?v=1';
-import {LIGHT_EEVEE_RULESET,validateArenaProducerProfiles,validateHistoricalProducerBoundary} from './arena-profile-producers.js?v=1';
-import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=target-c1-1';
+import {LIGHT_EEVEE_RULESET,validateArenaProducerProfiles,validateHistoricalProducerBoundary} from './arena-profile-producers.js?v=eevee-1';
+import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=eevee-1';
 import { BOARD_VERSION, migrateLegacyX, migrateLegacyY } from './arena-geometry.js?v=34';
 import { currentDeck } from './card-key-migrations.js?v=34';
 

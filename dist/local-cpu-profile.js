@@ -1,9 +1,9 @@
-import {checkC4LibraryDeck} from './profile-selection.js?v=1';
+import {checkC4LibraryDeck} from './profile-selection.js?v=eevee-1';
 import {checkSelectionDeck} from './canonical-selection.js?v=1';
-import {savedSlotProfile} from './deck-provenance.js?v=c4-editor-1';
-import {hasArenaSelection} from './arena-selection-profiles.js?v=1';
-import {checkArenaLibraryDeck} from './arena-profile-selection.js?v=1';
-export {checkC4LibraryDeck as checkLocalCpuDeck} from './profile-selection.js?v=1';
+import {savedSlotProfile} from './deck-provenance.js?v=eevee-1';
+import {hasArenaSelection} from './arena-selection-profiles.js?v=eevee-1';
+import {checkArenaLibraryDeck} from './arena-profile-selection.js?v=eevee-1';
+export {checkC4LibraryDeck as checkLocalCpuDeck} from './profile-selection.js?v=eevee-1';
 export function checkCpuDeck(library,deckIndex,{forceC4=false}={}){
   if(library?.version!==1||!Number.isInteger(deckIndex)||deckIndex<0||deckIndex>=4)return{ok:false,reason:'invalid-library'};
   const row=library.slots?.[deckIndex];

@@ -1,5 +1,5 @@
 import {checkSelectionCard} from './canonical-selection.js?v=1';
-import {savedSlotProfile} from './deck-provenance.js?v=c4-editor-1';
+import {savedSlotProfile} from './deck-provenance.js?v=eevee-1';
 export const C4_SELECTION_VERSION=2;
 // The same pure positional guard is used by the editor, CPU and authority.
 export function checkC4LibraryDeck(library,deckIndex){

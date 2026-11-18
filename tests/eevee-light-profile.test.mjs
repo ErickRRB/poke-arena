@@ -21,7 +21,7 @@ function until(g, predicate, steps = 300) {
 test('complete candidate leaves both historical resolvers intact', () => {
   assert.ok(isCompleteC4CardProfile(profile, getC4BaseCard('eevee')));
   assert.ok(Object.isFrozen(profile));
-  assert.deepEqual([profile.cost, profile.hp, profile.damage, profile.interval, profile.range, profile.speed], [2, 420, 100, 1.2, 18, 43.2]);
+  assert.deepEqual([profile.cost, profile.hp, profile.damage, profile.interval, profile.range, profile.speed], [2, 420, 100, 1.2, 6, 43.2]);
   assert.equal(profile.charge, false); assert.equal(profile.riverJump, false);
   assert.equal(profile.splash, 0); assert.equal(profile.stun, 0);
   assert.equal(new Game().cardFor('eevee'), CARDS.eevee);

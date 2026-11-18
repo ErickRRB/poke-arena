@@ -1,8 +1,8 @@
 import {checkSelectionCard,resolveSelectionKey} from './canonical-selection.js?v=1';
-import {savedSlotProfile} from './deck-provenance.js?v=arena-selection-1';
-import {c4SelectionFromLibrary,admitC4Selection} from './profile-selection.js?v=1';
-import {arenaSelectionProfile,arenaSelectionProducer,hasArenaSelection} from './arena-selection-profiles.js?v=1';
-import {LIGHT_EEVEE_PRODUCER} from './arena-profile-producers.js?v=1';
+import {savedSlotProfile} from './deck-provenance.js?v=eevee-1';
+import {c4SelectionFromLibrary,admitC4Selection} from './profile-selection.js?v=eevee-1';
+import {arenaSelectionProfile,arenaSelectionProducer,hasArenaSelection} from './arena-selection-profiles.js?v=eevee-1';
+import {LIGHT_EEVEE_PRODUCER} from './arena-profile-producers.js?v=eevee-1';
 
 export const ARENA_SELECTION_VERSION=3;
 const choiceFields=['key','choice','catalogVersion','ruleset','action','acceptedAt'];

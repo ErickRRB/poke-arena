@@ -1,4 +1,4 @@
-import {localC4Endpoint} from './online-context.js?v=1';
+import {localC4Endpoint} from './online-context.js?v=eevee-1';
 
 export const C4_CANONICAL_ORIGIN='https://poke-arena-web.eriickramiirez.workers.dev';
 export const C4_PRODUCTION_ENDPOINT='wss://poke-arena-realtime-c4.eriickramiirez.workers.dev';

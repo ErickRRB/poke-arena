@@ -1,6 +1,6 @@
-import {admitC4Selection} from './profile-selection.js?v=1';
-import {admitArenaSelection} from './arena-profile-selection.js?v=1';
-import {arenaServiceForContext} from './online-context.js?v=1';
+import {admitC4Selection} from './profile-selection.js?v=eevee-1';
+import {admitArenaSelection} from './arena-profile-selection.js?v=eevee-1';
+import {arenaServiceForContext} from './online-context.js?v=eevee-1';
 
 export const C4_SEARCH_VERSION=1;
 export const C4_PENDING_KEY='poke-arena:ws-pending:c4';

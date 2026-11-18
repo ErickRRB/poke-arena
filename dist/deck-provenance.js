@@ -1,4 +1,4 @@
-import {arenaSelectionProfile,arenaCollectionProfile} from './arena-selection-profiles.js?v=1';
+import {arenaSelectionProfile,arenaCollectionProfile} from './arena-selection-profiles.js?v=eevee-1';
 // Storage provenance is a per-position choice, never a catalogue-wide opt-in.
 const clock=value=>Number.isSafeInteger(Number(value))&&Number(value)>=0?Number(value):0;
 const actions=new Set(['accept','replace','collection']);

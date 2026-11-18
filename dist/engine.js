@@ -1,6 +1,6 @@
 import {getC4BaseCatalog,getC4BaseCard} from './c4-catalog.js?v=1';
 import {HOG_ARCANINE,C1_RULESET,C4_RULESET} from './hog-profiles.js?v=1';
-import {LIGHT_EEVEE_RULESET,LIGHT_EEVEE_PRODUCER,arenaProducerCard} from './arena-profile-producers.js?v=1';
+import {LIGHT_EEVEE_RULESET,LIGHT_EEVEE_PRODUCER,arenaProducerCard} from './arena-profile-producers.js?v=eevee-1';
 import { EXTRA_CARDS } from './catalog.js?v=34';
 import { currentCardKey, currentDeck } from './card-key-migrations.js?v=34';
 export { currentCardKey, currentDeck } from './card-key-migrations.js?v=34';

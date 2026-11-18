@@ -1,4 +1,4 @@
-import {Game,CARDS,DEFAULT_DECK,RIVER} from './engine.js?v=target-c1-1';
+import {Game,CARDS,DEFAULT_DECK,RIVER} from './engine.js?v=eevee-1';
 import {checkSelectionCard} from './canonical-selection.js?v=1';
 
 // The sandbox uses the production combat rules. Only match lifecycle, card

@@ -1,5 +1,5 @@
 // Preview the current targets, using the same footprints and exclusions as combat.
-import {isCombatTargetReady,spellOverlapsTarget,rollingOverlapsTarget} from './engine.js?v=target-c1-1';
+import {isCombatTargetReady,spellOverlapsTarget,rollingOverlapsTarget} from './engine.js?v=eevee-1';
 export function spellPreviewTargets(game,card,point,team=0){
   if(!card?.spell||!point||!Number.isFinite(point.x)||!Number.isFinite(point.y))return[];
   let targets=[...game.units,...game.towers].filter(target=>{

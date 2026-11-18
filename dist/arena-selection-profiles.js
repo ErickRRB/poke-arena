@@ -1,4 +1,4 @@
-import {LIGHT_EEVEE_RULESET,LIGHT_EEVEE_PRODUCER,getArenaProducerByMarker} from './arena-profile-producers.js?v=1';
+import {LIGHT_EEVEE_RULESET,LIGHT_EEVEE_PRODUCER,getArenaProducerByMarker} from './arena-profile-producers.js?v=eevee-1';
 
 // Saved references identify an explicit selection, not client-supplied stats.
 // Older clients preserve these strings but cannot admit them as legacy Eevee.

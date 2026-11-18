@@ -1,7 +1,7 @@
-import {savedSlotProfile} from './deck-provenance.js?v=c4-editor-1';
+import {savedSlotProfile} from './deck-provenance.js?v=eevee-1';
 import {HOG_ARCANINE} from './editor-hog-profile.js?v=c4-editor-1';
-import {arenaCollectionProfile,arenaSelectionProfile} from './arena-selection-profiles.js?v=1';
-import {LIGHT_EEVEE_OVERRIDES} from './eevee-light-profile.js?v=1';
+import {arenaCollectionProfile,arenaSelectionProfile} from './arena-selection-profiles.js?v=eevee-1';
+import {LIGHT_EEVEE_OVERRIDES} from './eevee-light-profile.js?v=eevee-1';
 const lightPresentations=new WeakMap();
 function lightEeveePresentation(original){
   if(!lightPresentations.has(original))lightPresentations.set(original,Object.freeze(Object.assign(structuredClone(original),LIGHT_EEVEE_OVERRIDES)));
