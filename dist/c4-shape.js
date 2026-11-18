@@ -28,11 +28,12 @@ export function createC4ShapeValidator({gamePrototype,cardFor}){
   const reserved=new Set([...Object.keys(Object.getOwnPropertyDescriptors(gamePrototype)),'__proto__','onEvent','animations']);
   const key=(value,path)=>{string(value,path);if(!cardFor(value))fail(path);};
   const optionalKey=nullable(key),idOrZero=(value,path)=>{integer(value,path);if(value<0)fail(path);};
+  const nativeFormation=(value,path)=>fields(value,path,{primaries:identifier,seconds:idOrZero,radius:nonnegative,width:nonnegative,angleShift:integer});
   const card=(value,path)=>{
     record(value,path);
     fields(value,path,{}, {
       ...named('name type style color attackAnim structureArt projectileArt',nullable(string)),
-      ...named('squad',nullable(array(key))),...named('formation nativeFormation',nullable(array(tuple))),
+      ...named('squad',nullable(array(key))),formation:nullable(array(tuple)),nativeFormation:nullable(nativeFormation),
       ...named('memberDelays spawnSchedule',nullable(array(number))),
       ...named('summon spawnKey spawnWith deathSpawn',optionalKey),
     });
