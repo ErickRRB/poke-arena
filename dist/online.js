@@ -6,6 +6,7 @@ import { ONLINE_PROTOCOL, unpackEvent } from './online-wire.js?v=eevee-1';
 import { onlineServer } from './online-config.js?v=34';
 import { onlinePerf } from './perf.js?v=1';
 
+const OPEN_TIMEOUT_MS=8000;
 export const ONLINE_TOKEN_KEY = 'poke-arena:ws-token';
 const ROOM_KEY = 'poke-arena:ws-room', SEQ_KEY = 'poke-arena:ws-seq';
 const read = key => { try { return globalThis.sessionStorage?.getItem(key) || null; } catch { return null; } };
@@ -77,6 +78,7 @@ export class OnlineClient {
   }
   dropSocket() {
     onlinePerf.socketReset();
+    clearTimeout(this.openingTimer);this.openingTimer=null;
     const previous = this.socket;this.socket = null;this.socketId++;clearInterval(this.heartbeat);clearInterval(this.searchTimer);clearTimeout(this.ackTimer);this.ackTimer = null;
     if (previous) try { previous.close(); } catch {}
   }
@@ -88,8 +90,10 @@ export class OnlineClient {
     try { socket = this.createSocket(this.url(kind)); } catch { this.reconnect();return; }
     this.socket = socket;
     const current = () => this.active && generation === this.generation && socketId === this.socketId && socket === this.socket;
+    this.openingTimer=setTimeout(()=>{if(current())this.reconnect();},OPEN_TIMEOUT_MS);
     socket.onopen = () => {
       if (!current()) return;
+      clearTimeout(this.openingTimer);this.openingTimer=null;
       this.lastMessage = Date.now();this.lastSnapshot = Date.now();
       this.write(this.service.id==='c4'&&this.c4Attempt?this.c4Hello(kind):{ type: 'hello', protocol:this.service.protocol, token:this.service.id==='c4'?this.pendingToken??this.token:this.token, ...serviceEnvelope(this.service), ...(kind === 'room' ? { after:this.service.id==='c4'&&this.routeRoom!==this.roomId?0:this.seq, resume: this.restoring } : { mode: this.mode === 'resume' || this.restoring ? 'resume' : 'search', name: this.name, deck: this.deck,...(this.service.id==='c4'?{selection:this.selection}:{}) }) });
       this.heartbeat = setInterval(() => {
