@@ -63,6 +63,31 @@ test('new producer preserves the C4 base marker for a real canonical projectile'
   assert.equal(p.sourceProfile, 'c4-1:cards-c1-733'); assert.equal(p.sourceCard, undefined);
   assert.equal(unpackGame(snapshot).projectiles.find(x => x.sourceKey === 'charmander').sourceProfile, p.sourceProfile);
 });
+test('historical restore and pack reject new producer evidence without changing the input', () => {
+  const g = game([]), eevee = g.spawn('eevee', 0, 250, 570, 0); eevee.spawn = 0;
+  const snapshot = packGame(g);
+  for (const [catalogVersion, ruleset] of [[1, 'c1-733'], [3, 'c3-1'], [4, 'c4-1']]) {
+    for (const marker of [true, false]) {
+      const data = structuredClone(snapshot); data.catalogVersion = catalogVersion; data.ruleset = ruleset;
+      if (!marker) delete data.arenaProfileProducer;
+      const before = JSON.stringify(data); assert.throws(() => unpackGame(data), { code: 'ARENA_PROFILE_INVALID' }); assert.equal(JSON.stringify(data), before);
+    }
+  }
+  for (const field of ['snapshotProfiles', 'legacyCardOverrides']) {
+    const data = structuredClone(snapshot); data.catalogVersion = 1; data.ruleset = 'c1-733'; delete data.arenaProfileProducer;
+    data.units = []; data[field] = { eevee: structuredClone(profile) };
+    assert.throws(() => unpackGame(data), { code: 'ARENA_PROFILE_INVALID' });
+  }
+  for (const field of ['projectiles', 'spells', 'fields']) {
+    const data = structuredClone(snapshot); data.catalogVersion = 1; data.ruleset = 'c1-733'; delete data.arenaProfileProducer;
+    data.units = []; data[field] = [{ sourceKey: 'eevee', sourceCard: structuredClone(profile) }];
+    assert.throws(() => unpackGame(data), { code: 'ARENA_PROFILE_INVALID' });
+  }
+  const legacy = new Game(); legacy.legacyCardOverrides = { eevee: profile };
+  assert.throws(() => packGame(legacy), { code: 'ARENA_PROFILE_INVALID' });
+  const opaque = new Game(); opaque.unrelated = { nativeReference: profile.nativeReference };
+  assert.doesNotThrow(() => unpackGame(packGame(opaque)));
+});
 test('natural single hit defeats Diglett and does not apply charge damage', () => {
   const events = [], g = game(events);
   const target = g.spawn('diglett', 1, 250, 500, 0);

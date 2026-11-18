@@ -2,6 +2,7 @@ import { getC4BaseCard } from './c4-catalog.js?v=1';
 
 // Candidate for a future, explicitly identified producer. C4-1 stays unchanged.
 let profile;
+export const LIGHT_EEVEE_IDENTITY = 'ArenaLightEevee';
 export function getEeveeLightProfile() {
   if (profile) return profile;
   const base = getC4BaseCard('eevee');
@@ -12,7 +13,7 @@ export function getEeveeLightProfile() {
     speed: 43.2, moveSpeed: 43.2, pullSpeed: 43.2,
     role: 'Ciclo · presión', description: 'Se acerca rápido y ataca a un objetivo.',
     style: 'slam', attackAnim: 'Attack', attackDuration: 0.55, windup: 0.25,
-    nativeReference: 'ArenaLightEevee',
+    nativeReference: LIGHT_EEVEE_IDENTITY,
     charge: false, chargeDistance: 0, chargeSpeed: 0, chargeDamage: 0,
     riverJump: false, knockbackImmune: false
   });

@@ -2,7 +2,7 @@ import {validateC4Restore} from './c4-restore.js?v=1';
 import {getC4BaseCatalog} from './c4-catalog.js?v=1';
 import {C1_RULESET,C3_RULESET,C4_RULESET,validateC4Profiles} from './hog-profiles.js?v=1';
 import {resolveC3Profiles} from './hog-c3-validation.js?v=1';
-import {LIGHT_EEVEE_RULESET,validateArenaProducerProfiles} from './arena-profile-producers.js?v=1';
+import {LIGHT_EEVEE_RULESET,validateArenaProducerProfiles,validateHistoricalProducerBoundary} from './arena-profile-producers.js?v=1';
 import { Game, CARDS, W, H, PRINCESS_RANGE, KING_Y } from './engine.js?v=target-c1-1';
 import { BOARD_VERSION, migrateLegacyX, migrateLegacyY } from './arena-geometry.js?v=34';
 import { currentDeck } from './card-key-migrations.js?v=34';
@@ -35,6 +35,7 @@ export function migrateLegacyCardIdentity(value,options={}){
 // Entity references are IDs on the wire; full cards preserve summoned forms.
 const entityCopy=(e,c4=false)=>{const{target,...copy}=e;if(!c4)delete copy.abilityUsed;return{...copy,targetId:target?.id??null};};
 export function packGame(game){
+  if(game.ruleset!==LIGHT_EEVEE_RULESET)validateHistoricalProducerBoundary(game);
   const{onEvent,animations,units,towers,attacks,projectiles,...plain}=game;
   const c4=game.catalogVersion===4&&[C4_RULESET,LIGHT_EEVEE_RULESET].includes(game.ruleset);if(c4)delete plain.detachedEntities;const live=new Map([...units,...towers].map(e=>[e.id,e])),detached=new Map();
   const retain=entity=>{if(!c4||!entity)return;const existing=live.get(entity.id)||detached.get(entity.id);if(existing){if(existing!==entity)throw Error('Referencia C4 ambigua.');return;}if(!(entity.hp<=0))throw Error('Referencia C4 sin entidad.');detached.set(entity.id,entity);retain(entity.target);};
@@ -44,9 +45,9 @@ export function packGame(game){
 export function unpackGame(data,onEvent=()=>{},animations={}){
   const version=data.catalogVersion??1, ruleset=data.ruleset??(version<=2?C1_RULESET:version===3?C3_RULESET:null);
   if(!(((version===1||version===2)&&ruleset===C1_RULESET)||(version===3&&[C1_RULESET,C3_RULESET].includes(ruleset))||(version===4&&[C1_RULESET,C4_RULESET,LIGHT_EEVEE_RULESET].includes(ruleset))))throw Error('Perfil de partida incompatible.');
+  if(ruleset!==LIGHT_EEVEE_RULESET)validateHistoricalProducerBoundary(data);
   const c3=version===3&&ruleset===C3_RULESET?resolveC3Profiles(data):null;
   const c4=version===4&&[C4_RULESET,LIGHT_EEVEE_RULESET].includes(ruleset);
-  if(ruleset===C4_RULESET&&Object.hasOwn(data,'arenaProfileProducer'))throw Object.assign(Error('Productor incompatible con reglas.'),{code:'ARENA_PROFILE_INVALID'});
   if(c4)validateC4Restore(data,getC4BaseCatalog());
   if(ruleset===LIGHT_EEVEE_RULESET)validateArenaProducerProfiles(data,ruleset);
   const restored=c4?structuredClone(data):migrateLegacyCardIdentity(structuredClone(data));
