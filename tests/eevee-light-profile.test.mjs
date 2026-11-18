@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { Game, CARDS, DEFAULT_DECK } from '../dist/engine.js?v=target-c1-1';
 import { prepareC4Catalog, getC4BaseCard, isCompleteC4CardProfile } from '../dist/c4-catalog.js?v=1';
 import { getEeveeLightProfile } from '../dist/eevee-light-profile.js';
-import { LIGHT_EEVEE_RULESET } from '../dist/arena-profile-producers.js?v=1';
+import { LIGHT_EEVEE_RULESET, LIGHT_EEVEE_PRODUCER, getArenaProducerByRuleset, getArenaProducerByMarker } from '../dist/arena-profile-producers.js?v=1';
 import { packGame, unpackGame } from '../dist/snapshot.js';
 
 await prepareC4Catalog();
@@ -31,6 +31,16 @@ test('complete candidate leaves both historical resolvers intact', () => {
   assert.equal(CARDS.eevee.windup, 0.5); assert.equal(CARDS.eevee.attackDuration, 0.66);
   assert.equal(getC4BaseCard('eevee').windup, 0.5); assert.equal(getC4BaseCard('eevee').attackDuration, 0.66);
   assert.deepEqual(game([]).cardFor('eevee'), profile);
+});
+test('producer lookup preserves Eevee identity and rejects a crossed, unimplemented producer', () => {
+  const producer = getArenaProducerByRuleset(LIGHT_EEVEE_RULESET);
+  assert.equal(producer, getArenaProducerByMarker(LIGHT_EEVEE_PRODUCER));
+  assert.deepEqual(producer.keys, ['eevee']); assert.ok(Object.isFrozen(producer) && Object.isFrozen(producer.keys));
+  const combined = LIGHT_EEVEE_PRODUCER.replace('c4-eevee-1', 'c4-eevee-espeon-1').replace('eevee-light-v1', 'eevee-light-v1+espeon-single-v1');
+  assert.equal(getArenaProducerByMarker(combined), undefined);
+  assert.equal(getArenaProducerByRuleset('c4-eevee-espeon-1'), undefined);
+  const snapshot = packGame(game([])); snapshot.arenaProfileProducer = combined;
+  const before = JSON.stringify(snapshot); assert.throws(() => unpackGame(snapshot), { code: 'ARENA_PROFILE_INVALID' }); assert.equal(JSON.stringify(snapshot), before);
 });
 test('a new producer deploys Eevee from a real hand at its own cost', () => {
   const deck = ['eevee', ...DEFAULT_DECK.filter(key => key !== 'eevee').slice(0, 7)];

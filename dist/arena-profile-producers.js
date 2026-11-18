@@ -7,6 +7,15 @@ export const LIGHT_EEVEE_PRODUCER = `arena:c4-eevee-1:base-${C4_CATALOG_FINGERPR
 const producers = Object.freeze({
   [LIGHT_EEVEE_RULESET]: Object.freeze({ marker: LIGHT_EEVEE_PRODUCER, cards: Object.freeze({ eevee: getEeveeLightProfile }), profileIdentities: Object.freeze([LIGHT_EEVEE_IDENTITY]) })
 });
+const descriptors = Object.freeze(Object.fromEntries(Object.entries(producers).map(([ruleset, producer]) => [ruleset, Object.freeze({
+  ruleset, marker: producer.marker, keys: Object.freeze(Object.keys(producer.cards))
+})])));
+export function getArenaProducerByRuleset(ruleset) {
+  return typeof ruleset === 'string' && Object.hasOwn(descriptors, ruleset) ? descriptors[ruleset] : undefined;
+}
+export function getArenaProducerByMarker(marker) {
+  return typeof marker === 'string' ? Object.values(descriptors).find(producer => producer.marker === marker) : undefined;
+}
 // Read only typed profile slots; never reinterpret opaque metadata or raw keys.
 // Does not require preparation of the C4 catalog for historical snapshots.
 export function validateHistoricalProducerBoundary(data) {
