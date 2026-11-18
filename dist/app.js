@@ -363,7 +363,6 @@ function restoreFocus(reference) {
 function openModal(id) {
   if($('portrait-dialog').open&&id!=='portrait-dialog')return;
   if(id==='deck-dialog'&&!document.body.classList.contains('menu-mode'))return;
-  cancelCpuStart();
   if(id==='help-dialog')$('help-practice-btn').hidden=!document.body.classList.contains('menu-mode');
   if(id==='settings-dialog'){$('difficulty-hint').hidden=document.body.classList.contains('menu-mode');drag=null;}
   closeEditorPopovers();
@@ -618,12 +617,13 @@ function cancelCpuStart(){
   cpuStartSerial++;cpuStarting=false;cpuWaitEnd?.();cpuWaitEnd=null;updateMenuAvailability();
 }
 async function startCpuGame({tutorial=false}={}){
+  if(tutorial)cancelCpuStart();
   if(cpuStarting||!ready||onlineMode&&game.state!=='ended')return;
   const selectedIndex=deckLibrary.active,selected=tutorial?null:cpuDeckSelection();
   if(!tutorial&&!selected.ok){openDeck();return;}
   if(selected?.catalogVersion===4){
     const serial=++cpuStartSerial,originGame=game,inMenu=document.body.classList.contains('menu-mode'),controls=inMenu?$('ready-overlay'):$('again-btn').parentElement,progress=$('menu-load-progress');
-    const currentEntry=()=>serial===cpuStartSerial&&game===originGame&&!onlineMode&&!(online?.active&&['search','resume','cancelling'].includes(online.mode));
+    const currentEntry=()=>serial===cpuStartSerial&&game===originGame&&!onlineMode&&document.body.classList.contains('menu-mode')===inMenu&&!document.querySelector('dialog[open]')&&!(online?.active&&['search','resume','cancelling'].includes(online.mode));
     let wait=inMenu?$('menu-loading'):$('cpu-start-loading');
     if(!wait){wait=document.createElement('span');wait.id='cpu-start-loading';wait.className='battle-loading';wait.setAttribute('role','status');wait.setAttribute('aria-label','Preparando la batalla');wait.innerHTML='<span class="pokeball-loader is-indeterminate" aria-hidden="true"><svg viewBox="0 0 64 64" class="loading-ball"><use href="#i-loading-ball"/></svg></span>';$('result-overlay').append(wait);}
     cpuStarting=true;controls.inert=true;controls.setAttribute('aria-busy','true');wait.hidden=false;
